@@ -13,6 +13,7 @@ This article explains how large the context window is on paid Claude plans (Pro,
 | Claude Opus 4.8   | 500K tokens        |
 | Claude Opus 4.7   | 500K tokens        |
 | Claude Opus 4.6   | 500K tokens        |
+| Claude Sonnet 5.5 | 1M tokens          |
 | Claude Sonnet 5   | 1M tokens          |
 | Claude Sonnet 4.6 | 500K tokens        |
 
@@ -29,6 +30,7 @@ Outside of these models, Claude’s context window size is 200K, meaning it can 
 | Claude Opus 4.8   | 1M tokens                                                                                                                                                                                |
 | Claude Opus 4.7   | 1M tokens                                                                                                                                                                                |
 | Claude Opus 4.6   | 1M tokens<br>**Note:** 1M context window available by selecting `claude-opus-4-6[1m]` with `/model`; on Pro, usage credits must be enabled to access                                     |
+| Claude Sonnet 5.5 | 1M tokens                                                                                                                                                                                |
 | Claude Sonnet 5   | 1M tokens                                                                                                                                                                                |
 | Claude Sonnet 4.6 | 1M tokens<br>**Note:** 1M context window available by selecting `claude-sonnet-4-6[1m]` with `/model`; usage credits must be enabled to access (except for usage-based Enterprise plans) |
 
@@ -43,6 +45,7 @@ Outside of these models, Claude’s context window size is 200K, meaning it can 
 | Claude Opus 4.8   | 1M tokens                                                                              |
 | Claude Opus 4.7   | 1M tokens                                                                              |
 | Claude Opus 4.6   | 200K tokens                                                                            |
+| Claude Sonnet 5.5 | 1M tokens                                                                              |
 | Claude Sonnet 5   | 1M tokens<br>**Note:** Sonnet 5 automatically compacts the conversation at 500K tokens |
 | Claude Sonnet 4.6 | 200K tokens                                                                            |
 | Haiku 4.5         | 200K tokens                                                                            |

@@ -16,7 +16,7 @@ Most thinking configuration errors are a mismatch between the `thinking.type` va
 
 Extended thinking (`thinking.type: "enabled"` with `budget_tokens`) is deprecated on the Claude 4.6 models (requests using it still succeed). Claude 4.7 and later models do not support it and reject requests that use it, returning a 400 error. On Claude 4.5 and earlier models that support thinking, extended thinking is the only available thinking mode. Claude Mythos Preview supports both modes. Where both modes are available, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) instead.
 
-The table lists what each model supports, what it defaults to, and which `thinking.type` values it rejects with a 400 error; any value not listed as rejected is accepted.
+The table lists what each model supports, what it defaults to, and which `thinking.type` values it rejects with a 400 error; any value not listed as rejected is accepted. Only Claude Sonnet 5.5 accepts `"between_tools"`, and it takes that value in place of `"disabled"`.
 
 | Model                 | Thinking types                   | Default   | Rejected with 400          |
 | --------------------- | -------------------------------- | --------- | -------------------------- |
@@ -29,6 +29,7 @@ The table lists what each model supports, what it defaults to, and which `thinki
 | Claude Opus 5         | Adaptive only                    | On        | `"enabled"`, `"disabled"`2 |
 | Claude Opus 4.8       | Adaptive only                    | Off       | `"enabled"`                |
 | Claude Opus 4.7       | Adaptive only                    | Off       | `"enabled"`                |
+| Claude Sonnet 5.5     | Adaptive, `between_tools`3       | On        | `"enabled"`, `"disabled"`  |
 | Claude Sonnet 5       | Adaptive only                    | On        | `"enabled"`                |
 | Claude Opus 4.6       | Adaptive, extended (deprecated)1 | Off       | None                       |
 | Claude Sonnet 4.6     | Adaptive, extended (deprecated)1 | Off       | None                       |
@@ -37,9 +38,10 @@ The table lists what each model supports, what it defaults to, and which `thinki
 | Claude Sonnet 4.5     | Extended only                    | Off       | `"adaptive"`               |
 
 *1 `enabled` and `budget_tokens` still work on these models but are deprecated; use adaptive thinking instead.*\
-*2 Claude Opus 5 accepts `"disabled"` at [effort](https://platform.claude.com/docs/en/build-with-claude/effort) `high` or below; combining it with effort `xhigh` or `max` returns a 400 error. This restriction is enforced on each request.*
+*2 Claude Opus 5 accepts `"disabled"` at [effort](https://platform.claude.com/docs/en/build-with-claude/effort) `high` or below; combining it with effort `xhigh` or `max` returns a 400 error. This restriction is enforced on each request.*\
+*3 Claude Sonnet 5.5 accepts `"between_tools"` at effort `high` or below. Combining it with effort `xhigh` or `max` returns a 400 error, and so does a per-message effort that differs from the level in effect.*
 
-Models marked `Always on` cannot turn thinking off. Models marked `On` default to thinking but accept `thinking: {type: "disabled"}`.
+Models marked `Always on` cannot turn thinking off. Models marked `On` default to thinking. Claude Opus 5 and Claude Sonnet 5 accept `thinking: {type: "disabled"}`. On Claude Sonnet 5.5, send `thinking: {type: "between_tools"}` to turn off up-front thinking.
 
 Earlier Claude 4 models (Claude Opus 4.1, Claude Sonnet 4, and Claude Opus 4) support extended thinking only. See [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations) for their availability. Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, and Claude Mythos 5 are not available under [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements) unless expressly authorized by Anthropic.
 
@@ -75,6 +77,50 @@ Omit the `thinking` parameter; these models think without any configuration. If 
 
 A 400 error on `"disabled"` can also occur on Claude Opus 5, which accepts `thinking: {type: "disabled"}` only at [effort](https://platform.claude.com/docs/en/build-with-claude/effort) `high` or below: combining it with effort `xhigh` or `max` is rejected. Lower the effort level, or leave thinking on.
 
+On Claude Sonnet 5.5, `thinking: {type: "disabled"}` returns a 400 error at every effort level. The message reads:
+
+```text wrap
+"thinking.type.disabled" is not supported for this model. Use "thinking.type.between_tools" for the lowest thinking setting, or "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
+```
+
+To turn off up-front thinking on Claude Sonnet 5.5, send `thinking: {type: "between_tools"}` instead, at effort `high` or below.
+
+## A 400 error says `"thinking.type.between_tools"` is not supported
+
+The request fails with a 400 error whose message reads:
+
+```text wrap
+"thinking.type.between_tools" is not supported for this model.
+```
+
+This happens because only Claude Sonnet 5.5 accepts `thinking: {type: "between_tools"}` (see the [per-model configuration table](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#rejected-configurations)).
+
+Send `between_tools` only to Claude Sonnet 5.5. On other models, omit `thinking` or use a `thinking.type` value the table doesn't list as rejected.
+
+## A 400 error says an effort level is not supported when thinking is disabled
+
+On Claude Sonnet 5.5, a request with `thinking: {type: "between_tools"}` at effort `xhigh` or `max` fails with a 400 error whose message reads:
+
+```text wrap
+output_config.effort 'xhigh' is not supported when thinking is disabled on this model. Use effort 'high' or below, or enable thinking.
+```
+
+This happens because Claude Sonnet 5.5 accepts `between_tools` only at [effort](https://platform.claude.com/docs/en/build-with-claude/effort) `high` or below. The message says thinking is disabled because `between_tools` has no up-front thinking, even though the request didn't send `"disabled"`. The message names the level the request sent.
+
+Lower the effort to `high` or below. To run at `xhigh` or `max`, use adaptive thinking: omit the `thinking` field or send `thinking: {"type": "adaptive"}`. That's what the message means by "enable thinking". Claude Sonnet 5.5 rejects `"enabled"` with a 400 error.
+
+## A 400 error says effort cannot change when thinking is disabled
+
+On Claude Sonnet 5.5, a request with `thinking: {type: "between_tools"}` whose [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) changes the level fails with a 400 error whose message reads:
+
+```text wrap
+messages.N: output_config.effort 'low' differs from the 'high' in effect before it; effort cannot change when thinking is disabled on this model. Use effort 'high', or enable thinking.
+```
+
+The message says thinking is disabled because `between_tools` has no up-front thinking. With `between_tools`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. `messages.N` is the position of the message that set the new level.
+
+Remove that per-message effort, or set it to the level in effect. To vary effort per turn, use adaptive thinking, which is what the message means by "enable thinking".
+
 ## A 400 error says adaptive thinking is not supported
 
 The request fails with a 400 error whose message reads:
@@ -101,7 +147,7 @@ Echo the assistant turn back verbatim, thinking blocks included. See [Preserving
 
 ## A 400 error says a thinking block signature is invalid
 
-A request to Claude Fable 5.1 or Claude Opus 5.5 that replays earlier thinking blocks fails with a 400 `invalid_request_error` whose message reads:
+A request to Claude Fable 5.1, Claude Opus 5.5, or Claude Sonnet 5.5 that replays earlier thinking blocks fails with a 400 `invalid_request_error` whose message reads:
 
 ```text wrap
 messages.{i}.content.{j}: Invalid `signature` in `thinking` block. The block is bound to a different conversation. Remove the block, or set `thinking.block_binding.prefix_mismatch_behavior` to "drop_block".
@@ -113,9 +159,9 @@ The message usually ends with a sentence naming what changed: the `system` promp
 
 If the message stops after ``Invalid `signature` in `thinking` block``, the signature itself didn't verify: it was truncated, altered, or sent back empty, and `prefix_mismatch_behavior` doesn't apply. Edited thinking text returns a different error. See [A 400 error says thinking blocks cannot be modified](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-blocks-modified).
 
-On Claude Fable 5.1 and Claude Opus 5.5, the API accepts a replayed thinking block only while the `system` prompt, `tools`, and messages that preceded it are unchanged. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check). The error means something earlier in the conversation changed between requests: an edited, reordered, or removed turn, a per-turn reminder that was injected and later removed, a rebuilt `system` prompt or `tools` array, or client-side compaction that kept recent turns and their thinking verbatim. The check is enforced for new accounts created on or after August 31, 2026, and for any request that sets `thinking.block_binding.prefix_mismatch_behavior`. Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) never trigger it.
+On Claude Fable 5.1, Claude Opus 5.5, and Claude Sonnet 5.5, the API accepts a replayed thinking block only while the `system` prompt, `tools`, and messages that preceded it are unchanged. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check). The error means something earlier in the conversation changed between requests: an edited, reordered, or removed turn, a per-turn reminder that was injected and later removed, a rebuilt `system` prompt or `tools` array, or client-side compaction that kept recent turns and their thinking verbatim. The check is enforced for new accounts created on or after August 31, 2026, and for any request that sets `thinking.block_binding.prefix_mismatch_behavior`. Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) never trigger it.
 
-To fix it, keep the history append-only: pass earlier turns back exactly as sent and received, add instructions with a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) instead of editing `system` or `tools`, and let server-side [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) or [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) do any trimming. Retrying the same request body doesn't clear the error. To continue this request without the invalidated reasoning, send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"`. Alternatively, strip every `thinking` and `redacted_thinking` block from the history (at minimum the named block and every one after it, in that turn and all later turns), leave each turn's other blocks in place, and retry once.
+To fix it, keep the history append-only: pass earlier turns back exactly as sent and received, add instructions with a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) instead of editing `system` or `tools`, and let server-side [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) or [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) do any trimming. Retrying the same request body doesn't clear the error. To continue this request without the invalidated reasoning, send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"`. Alternatively, strip every `thinking` and `redacted_thinking` block from the history (at minimum the named block and every one after it, in that turn and all later turns), leave each turn's other blocks in place, and retry once. On Claude Sonnet 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools`, keep the history append-only, or strip the thinking blocks from the edited turn on.
 
 A block from a model the target model can't read never produces this error: the API drops it and, under the beta header, reports it in `input_transformations`.
 

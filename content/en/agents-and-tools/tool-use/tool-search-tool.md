@@ -47,6 +47,7 @@ Both tool search variants are available on the following models:
 | Claude Mythos 5 (claude-mythos-5)              | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Opus 5.5 (claude-opus-5-5)              | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Opus 5 (claude-opus-5)                  | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
+| Claude Sonnet 5.5 (claude-sonnet-5-5)          | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Opus 4.8 (claude-opus-4-8)              | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Opus 4.7 (claude-opus-4-7)              | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Opus 4.6 (claude-opus-4-6)              | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |

@@ -10,7 +10,7 @@ What our marking commitments mean for Claude:
 
 - **Marking works everywhere you use Claude.** Marks will apply to output from supported Claude models across Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag, and wherever Claude is offered, worldwide. Some platforms or features may not support certain marking types.
 
-- **Existing models are in progress.** The law includes a transition period for Anthropic models launched before August 2, 2026, and we’re working to add marking support for those models as well. See **Which Claude models support watermarking** below.
+- **Existing models are in progress.** The law includes a transition period for Anthropic models launched before August 2, 2026, and we’re working to add marking support for those models as well. See **[Which Claude models support watermarking](https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content#h_569d936489)** below.
 
 - **Watermark detection is in private preview.** Watermark detection is currently available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
@@ -32,7 +32,7 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 
 - **Regions.** Marking will apply to output from supported models wherever Claude is offered, worldwide.
 
-**Which Claude models support watermarking**
+### Which Claude models support watermarking
 
 | **Model**         | **Text watermarks in Claude output (first-party surfaces)** | **Text watermarks in cloud partner output (AWS, Google Cloud, Microsoft Foundry)** | **Content Credentials (C2PA) in files** |
 | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------- |
@@ -46,6 +46,7 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | Claude Opus 4.7   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.6   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.5   |                                                             |                                                                                    | ✅                                       |
+| Claude Sonnet 5.5 | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Sonnet 5   |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 4.6 |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 4.5 |                                                             |                                                                                    | ✅                                       |

@@ -354,6 +354,7 @@ The following models are available on Claude Platform on AWS:
 | Claude Opus 4.7   | `claude-opus-4-7`   |
 | Claude Opus 4.6   | `claude-opus-4-6`   |
 | Claude Opus 4.5   | `claude-opus-4-5`   |
+| Claude Sonnet 5.5 | `claude-sonnet-5-5` |
 | Claude Sonnet 5   | `claude-sonnet-5`   |
 | Claude Sonnet 4.6 | `claude-sonnet-4-6` |
 | Claude Sonnet 4.5 | `claude-sonnet-4-5` |

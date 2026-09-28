@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-f
 description: Access Claude models through Microsoft Foundry with Azure-native endpoints and authentication.
 ---
 
-This guide shows you how to set up and make API calls to Claude in Microsoft Foundry using one of Anthropic's client SDKs or direct HTTP requests. When you access Claude in Microsoft Foundry, you are billed for Claude usage in the Azure Marketplace. You can use Claude models including Claude Fable 5.1, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, and Claude Sonnet 5, and features such as the [1M-token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows), while managing costs through your Azure subscription.
+This guide shows you how to set up and make API calls to Claude in Microsoft Foundry using one of Anthropic's client SDKs or direct HTTP requests. When you access Claude in Microsoft Foundry, you are billed for Claude usage in the Azure Marketplace. You can use Claude models including Claude Fable 5.1, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Sonnet 5.5, and Claude Sonnet 5, and features such as the [1M-token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows), while managing costs through your Azure subscription.
 
 Claude is available in Global Standard and US Data Zone Standard deployment types in Foundry resources, billed in Claude Consumption Units through the Azure Marketplace. Visit [Claude in Microsoft Foundry pricing](https://platform.claude.com/docs/en/about-claude/pricing#claude-in-microsoft-foundry-pricing) for details.
 
@@ -18,6 +18,8 @@ Claude models in Microsoft Foundry are available in two hosting options. You cho
 | Model availability   | The latest models in the Opus, Sonnet, and Haiku families  | All Claude models available on Microsoft Foundry                                                                                                                                                 |
 | Deployment types     | Global Standard, US Data Zone Standard                     | Global Standard                                                                                                                                                                                  |
 | Recommended for      | Most workloads                                             | [Access to features or models not yet hosted on Azure](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure) |
+
+Claude Sonnet 5.5 supports only Global Standard deployments.
 
 <Note>
   Anthropic acts as an independent processor for Microsoft. Customers using Claude through Microsoft Foundry are subject to Anthropic's data use terms. For deployments hosted on Azure, prompts and completions remain within Azure. Only usage metadata and content flagged by Anthropic's safety systems egress to Anthropic. Anthropic continues to provide its safety and data commitments.
@@ -155,7 +157,7 @@ After creating your resource, deploy a Claude model to make it available for API
 5. Configure the deployment:
 
    * **Deployment name:** Defaults to the model ID, but you can customize it (for example, `my-claude-deployment`). The deployment name cannot be changed after creation.
-   * **Region scope:** Select Global, or for models hosted on Azure, Data Zone. Selecting Data Zone creates a US Data Zone Standard deployment, which keeps inference within the United States and is equivalent to setting [`inference_geo: "us"`](https://platform.claude.com/docs/en/manage-claude/data-residency#inference-geo) on the Claude API.
+   * **Region scope:** Select Global, or for models hosted on Azure, Data Zone. Selecting Data Zone creates a US Data Zone Standard deployment, which keeps inference within the United States and is equivalent to setting [`inference_geo: "us"`](https://platform.claude.com/docs/en/manage-claude/data-residency#inference-geo) on the Claude API. For Claude Sonnet 5.5, select Global.
    * **Model version:** Expand **Model version settings** and select a version from the **Model version** dropdown menu. Each [hosting option](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) is listed as a separate model version, labeled with its hosting option (for example, version 1 for Hosted on Anthropic, version 2 for Hosted on Azure).
 
 6. Select **Deploy** and wait for provisioning to complete.
@@ -638,7 +640,7 @@ Claude in Microsoft Foundry supports most Claude features. You can find all the 
 
 ### Context window
 
-Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5, and Claude Sonnet 4.6 have a [1M-token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) on Microsoft Foundry. Other Claude models, including Claude Sonnet 4.5, have a 200k-token context window.
+Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5.5, Claude Sonnet 5, and Claude Sonnet 4.6 have a [1M-token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) on Microsoft Foundry. Other Claude models, including Claude Sonnet 4.5, have a 200k-token context window.
 
 ### Claude features not supported for Claude in Microsoft Foundry
 
@@ -687,6 +689,7 @@ The following Claude models are available through Foundry:
 | Claude Opus 4.7                                                             | `claude-opus-4-7`       |                 |          ✓          |
 | Claude Opus 4.6                                                             | `claude-opus-4-6`       |                 |          ✓          |
 | Claude Opus 4.5                                                             | `claude-opus-4-5`       |                 |          ✓          |
+| Claude Sonnet 5.5                                                           | `claude-sonnet-5-5`     |        ✓        |          ✓          |
 | Claude Sonnet 5                                                             | `claude-sonnet-5`       |        ✓        |          ✓          |
 | Claude Sonnet 4.6                                                           | `claude-sonnet-4-6`     |                 |          ✓          |
 | Claude Sonnet 4.5                                                           | `claude-sonnet-4-5`     |                 |          ✓          |
