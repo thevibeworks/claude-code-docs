@@ -14,7 +14,8 @@ description: This guide is designed to give Claude the basics of using the Claud
 Recommended default for most work, including complex agentic coding: Claude Opus 5.5: claude-opus-5-5
 Step up for the hardest long-running agentic and research tasks, at 2.5x Claude Opus 5.5 pricing: Claude Fable 5.1: claude-fable-5-1
 Previous Opus model: Claude Opus 5: claude-opus-5
-Smart model: Claude Sonnet 5: claude-sonnet-5
+Smart model: Claude Sonnet 5.5: claude-sonnet-5-5
+Previous Sonnet model: Claude Sonnet 5: claude-sonnet-5
 For fast, cost-effective tasks: Claude Haiku 4.5: claude-haiku-4-5-20251001
 ```
 
@@ -244,6 +245,7 @@ Temperature must be set to 1 (or left unset) whenever thinking is enabled, on al
 Thinking is supported in the following models:
 
 * Claude Opus 5.5 (`claude-opus-5-5`, adaptive thinking only, always on)
+* Claude Sonnet 5.5 (`claude-sonnet-5-5`, adaptive thinking only, on by default)
 * Claude Opus 5 (claude-opus-5, adaptive thinking only, on by default)
 * Claude Sonnet 5 (`claude-sonnet-5`, adaptive thinking only, on by default)
 * Claude Opus 4.8 (claude-opus-4-8, adaptive thinking only)
@@ -625,7 +627,7 @@ When working with the `tool_choice` parameter, there are four possible options:
 * `tool` forces Claude to always use a particular tool.
 * `none` prevents Claude from using any tools.
 
-On Claude Opus 5.5, Claude Fable 5.1, and Claude Mythos 5.1, `any` and `tool` return a 400 error. Leave `tool_choice` at `auto` and set `"strict": true` on the tool definition to guarantee that any call Claude makes matches the tool's `input_schema`. See [Strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use).
+On Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and Claude Mythos 5.1, `any` and `tool` return a 400 error. Leave `tool_choice` at `auto` and set `"strict": true` on the tool definition to guarantee that any call Claude makes matches the tool's `input_schema`. See [Strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use).
 
 ### JSON output
 

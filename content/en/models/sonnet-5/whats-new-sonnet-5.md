@@ -4,6 +4,10 @@ url: https://platform.claude.com/docs/en/models/sonnet-5/whats-new-sonnet-5
 description: Overview of new features and behavior changes in Claude Sonnet 5.
 ---
 
+<Note>
+  Claude Sonnet 5.5 is the current Sonnet model. See [What's new in Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5).
+</Note>
+
 Claude Sonnet 5 is the next generation of Anthropic's Sonnet model family. It is a drop-in upgrade for Claude Sonnet 4.6 with three behavior changes: [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is on by default, manual extended thinking now returns a 400 error (it was deprecated on Claude Sonnet 4.6), and setting sampling parameters (`temperature`, `top_p`, `top_k`) to non-default values returns a 400 error. This page summarizes everything new at launch, including a new tokenizer.
 
 ## New model

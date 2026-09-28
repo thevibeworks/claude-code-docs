@@ -26,19 +26,21 @@ Use the **Enable for your team** toggle to enable or disable Claude in Chrome fo
 
 - **Enterprise plans:** The extension is disabled by default. Starting September 10, 2026, it turns on by default unless you've already disabled it.
 
-Claude in Chrome and Claude Cowork are managed separately. Enabling Claude in Chrome for your organization lets users use the extension. Whether Claude can use it within Cowork is a separate capability setting, and users' browsers still need the extension deployed or installed. Cowork also has a browser built into the Claude Desktop app (rolling out this week) that doesn't require the extension; it's off by default on Enterprise plans and managed from **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. You can enable Claude in Chrome, the built-in browser, both, or neither. For Cowork admin settings, see **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans)**.
+Claude in Chrome and Claude Cowork are managed separately. Enabling Claude in Chrome for your organization lets users use the extension. Whether Claude can use it within Cowork is a separate capability setting, and users' browsers still need the extension deployed or installed. Cowork also has a browser built into the Claude Desktop app that doesn't require the extension; it's off by default on Enterprise plans and managed from **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. You can enable Claude in Chrome, the built-in browser, both, or neither. For Cowork admin settings, see **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans)**.
 
 **Note:** When you enable the extension for an Enterprise organization, users are not automatically notified. You may want to communicate availability through your internal channels.
 
 ## Configure site access
 
-Use allowlists and blocklists to control which websites Claude can access when users are working with the extension.
+Use allowlists and blocklists to control which websites Claude can access when it's working in Claude in Chrome or the Cowork built-in browser. The same list governs both, so there's no separate list to maintain for the built-in browser.
 
-**Allowlist:** Specify which sites Claude is permitted to access by adding them to the allowlist. We recommend starting with a restrictive allowlist, especially during initial rollout.
+**Allowlist:** Specify which sites Claude is permitted to access by adding them to the allowlist.
 
 **Blocklist:** Specify sites Claude should never access, regardless of other settings, by adding them to the blocklist. This adds an extra layer of protection beyond **[Claude's default blocked categories](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely#h_34f8d5ca87)**.
 
 **Recommendation:** Start with a more restrictive allowlist for the security of your organization's data, then expand access over time as you become comfortable with the extension's behavior.
+
+**Note:** The allowlist and blocklist govern what URLs Claude can navigate to and act on. If a user manually types a blocked URL into the built-in browser, the page still loads with a "This site is blocked by your organization's policy" banner and Claude's tools are disabled on that page.
 
 ## Enable the Cowork side panel
 

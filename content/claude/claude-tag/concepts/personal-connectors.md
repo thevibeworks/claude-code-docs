@@ -71,8 +71,8 @@ Once you approve a held result, Claude posts it in the thread where you asked.
 
 Admins manage personal connectors for the whole organization in the **Personal connectors** section at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). The settings there apply to every workspace and channel.
 
-* **Require human review of every message.** On the Enterprise plan, an admin can turn this switch on so that Claude holds every result for the requester's review, not only the ones the sensitive-content check flags. With it on, the prompt no longer offers **Allow** and the **Home** tab no longer offers **Auto mode**. On the Team plan, results the check doesn't flag post without review.
-* **Sensitive information requiring review.** Lists what the check looks for. An Owner can add topics of your own under **Additional topics**, for example "Board meeting notes are confidential", and Claude holds results that touch them.
+* **Require human review of every message.** On the Enterprise plan, an admin can turn this switch on so that Claude holds every result for the requester's review, not only the ones the [sensitive-content check](#review-results-before-posting) flags. With it on, the prompt no longer offers **Allow** and the **Home** tab no longer offers **Auto mode**. With it off, and on the Team plan, which has no such switch, each member's own [choice](#approve-connector-use) decides which results Claude holds.
+* **Sensitive information requiring review.** Shows examples of what the check looks for. An Owner can add topics of their own under **Additional topics**, for example "Board meeting notes are confidential", and Claude holds results that touch them.
 
 There is no setting that turns personal connectors in channels off for an organization. To keep a service out of channels entirely, manage the connector itself in your organization's [connector settings](/docs/connectors/getting-started).
 

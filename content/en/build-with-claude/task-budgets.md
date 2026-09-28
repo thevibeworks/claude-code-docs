@@ -14,6 +14,7 @@ featureMetadata:
     - claude-opus-5
     - claude-opus-4-8
     - claude-opus-4-7
+    - claude-sonnet-5-5
 ---
 
 Task budgets let you tell Claude how many tokens it has for a full agentic loop, including thinking, tool calls, tool results, and output. The model sees a running countdown and uses it to prioritize work and finish gracefully as the budget is consumed.
@@ -650,6 +651,7 @@ The minimum accepted `task_budget.total` is **20,000 tokens** on every model tha
 | Claude Opus 5     | Beta (set `task-budgets-2026-03-13` header) |
 | Claude Fable 5    | Beta (set `task-budgets-2026-03-13` header) |
 | Claude Mythos 5   | Beta (set `task-budgets-2026-03-13` header) |
+| Claude Sonnet 5.5 | Beta (set `task-budgets-2026-03-13` header) |
 | Claude Sonnet 5   | Not supported                               |
 | Claude Opus 4.8   | Beta (set `task-budgets-2026-03-13` header) |
 | Claude Opus 4.7   | Beta (set `task-budgets-2026-03-13` header) |

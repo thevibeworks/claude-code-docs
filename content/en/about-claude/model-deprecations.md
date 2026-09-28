@@ -81,6 +81,7 @@ Current and recently retired models are listed in the following table with their
 | claude-opus-4-5-20251101   | Active        | N/A               | Not sooner than November 24, 2026  |
 | claude-opus-4-1-20250805   | Retired       | June 5, 2026      | August 5, 2026                     |
 | claude-opus-4-20250514     | Retired       | April 14, 2026    | June 15, 2026                      |
+| claude-sonnet-5-5          | Active        | N/A               | Not sooner than September 28, 2027 |
 | claude-sonnet-5            | Active        | N/A               | Not sooner than June 30, 2027      |
 | claude-sonnet-4-6          | Active        | N/A               | Not sooner than February 17, 2027  |
 | claude-sonnet-4-5-20250929 | Active        | N/A               | Not sooner than September 29, 2026 |

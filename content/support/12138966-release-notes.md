@@ -2,6 +2,12 @@
 
 ## September 2026
 
+### September 28, 2026
+
+**Claude Sonnet 5.5 launch**
+
+We just launched Claude Sonnet 5.5, the second model in our Claude 5.5 family. Sonnet 5.5 is a faster, lower-cost complement to Claude Opus 5.5. For more information, see our blog post: **[Claude Sonnet 5.5](https://www.anthropic.com/claude-sonnet-5-5)**.
+
 ### September 25, 2026
 
 **Build plugins for Claude**
