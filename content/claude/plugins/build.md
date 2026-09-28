@@ -19,8 +19,8 @@ export const PluginExplorer = ({children, variant}) => {
       kind: 'file',
       text: 'SKILL.md'
     }],
-    href: '/skills/how-to#create-a-skillmd-file',
-    linkText: 'Go to Create a SKILL.md file'
+    href: 'https://agentskills.io/specification',
+    linkText: 'Go to the Agent Skills specification'
   }, {
     id: 'references',
     name: 'Reference file',
@@ -34,8 +34,8 @@ export const PluginExplorer = ({children, variant}) => {
       kind: 'file',
       text: 'voice-and-tone.md'
     }],
-    href: '/skills/how-to#add-resources',
-    linkText: 'Go to Add resources'
+    href: 'https://agentskills.io/specification',
+    linkText: 'Go to the Agent Skills specification'
   }, {
     id: 'assets',
     name: 'Asset',
@@ -49,8 +49,8 @@ export const PluginExplorer = ({children, variant}) => {
       kind: 'file',
       text: 'slide-template.md'
     }],
-    href: '/skills/how-to#add-resources',
-    linkText: 'Go to Add resources'
+    href: 'https://agentskills.io/specification',
+    linkText: 'Go to the Agent Skills specification'
   }, {
     id: 'scripts',
     name: 'Script',
@@ -64,8 +64,8 @@ export const PluginExplorer = ({children, variant}) => {
       kind: 'file',
       text: 'check_contrast.py'
     }],
-    href: '/skills/how-to#add-scripts',
-    linkText: 'Go to Add scripts'
+    href: 'https://code.claude.com/docs/en/skills',
+    linkText: 'Go to Skills in Claude Code'
   }];
   const PLUGIN_PIECES = [{
     id: 'manifest',
@@ -387,7 +387,7 @@ Select a file to see what it's for and a minimal example; components that only s
 
 <PluginExplorer>
   <Piece id="manifest">
-    <p>The manifest identifies the plugin to every app and to Anthropic's directory, which doesn't accept a plugin without one. To publish the plugin in Anthropic's directory you also need [a README and a license](/docs/plugins/pre-submission-checklist#readme-and-license); select those files in the tree to see what each needs.</p>
+    <p>The manifest identifies the plugin to every app and to Anthropic's directory. Without any `plugin.json`, the directory accepts only a folder whose `skills/` directory holds at least one `<name>/SKILL.md`, and lists that plugin for Claude Code only, not for claude.ai or Cowork. To publish the plugin in Anthropic's directory you also need [a README and a license](/docs/plugins/pre-submission-checklist#readme-and-license); select those files in the tree to see what each needs.</p>
 
     <p>Its `name` is the plugin's permanent identity: people install and refer to the plugin by this value, so make it specific to your product and never change it after release. Change `displayName` when you want a different label.</p>
 

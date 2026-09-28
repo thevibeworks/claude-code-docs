@@ -1,6 +1,6 @@
 # How to update Claude for iOS
 
-If you aren’t seeing the latest features on Claude for iOS, you may need to [update your mobile app manually by following these instructions from Apple](https://support.apple.com/en-us/102629):
+If you aren’t seeing the latest features on Claude for iOS, you may need to update your mobile app manually by following these **[instructions from Apple](https://support.apple.com/en-us/102629)**:
 
 1. Open the App Store.
 
