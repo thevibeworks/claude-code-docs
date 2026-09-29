@@ -17,13 +17,13 @@ In Claude Desktop on third-party (3P), both are subject to your configuration: s
 
 Web Search is a **server-side tool** executed by your inference provider, not by the desktop app. Availability depends on which provider you've configured:
 
-| Provider                      | Web Search                                                                                                                                                                                       |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Google Cloud's Agent Platform | Available                                                                                                                                                                                        |
-| Microsoft Foundry             | Available on both [hosting options](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options)                                                           |
-| Amazon Bedrock                | Not available natively; use the [built-in web search](#built-in-web-search) below                                                                                                                |
-| Anthropic API                 | Available                                                                                                                                                                                        |
-| Gateway                       | Available if your gateway implements Anthropic's `web_search` server tool, passes it through to a provider that does, or runs the search itself; see [Gateway-side search](#gateway-side-search) |
+| Provider | Web Search |
+| - | - |
+| Google Cloud's Agent Platform | Available |
+| Microsoft Foundry | Available on both [hosting options](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) |
+| Amazon Bedrock | Not available natively; use the [built-in web search](#built-in-web-search) below |
+| Anthropic API | Available |
+| Gateway | Available if your gateway implements Anthropic's `web_search` server tool, passes it through to a provider that does, or runs the search itself; see [Gateway-side search](#gateway-side-search) |
 
 On Microsoft Foundry, Web Search works on both [hosting options](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) with no additional configuration. Deployments hosted on Azure support only the basic web search tool version (`web_search_20250305`), which is the version Claude Desktop uses; see [features not supported when hosted on Azure](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure) in the Claude in Microsoft Foundry documentation for what else differs when hosted on Azure. On any provider you can configure the [built-in web search](#built-in-web-search) to choose the search backend yourself. Once it is configured, the app stops offering provider-side search and routes the model's search calls to the built-in server. If you want no web search at all, add `"WebSearch"` to [`disabledBuiltinTools`](/docs/third-party/claude-desktop/configuration#disabledbuiltintools) instead. That entry also blocks the built-in web search tool, so do not combine the two.
 
@@ -39,12 +39,12 @@ Provider-side search runs on the provider's infrastructure, so queries and resul
 
 If your inference provider supports native search (Google Cloud's Agent Platform or Microsoft Foundry), that's the simplest path and no additional configuration is required. Use the built-in `websearch` server when your provider has no native search (Amazon Bedrock or a custom gateway), or with any provider when you want to choose the search backend.
 
-| Option                                     | Best for                                                                                       | Where you configure it        | Search backend                         |
-| ------------------------------------------ | ---------------------------------------------------------------------------------------------- | ----------------------------- | -------------------------------------- |
-| [Provider-native](#provider-native-search) | Google Cloud's Agent Platform, Microsoft Foundry                                               | Your cloud provider's console | The provider's                         |
-| [Built-in](#built-in-web-search)           | Amazon Bedrock or a custom gateway; or any provider when you want to choose the search backend | `managedMcpServers`           | Brave, Tavily, Exa, or your own server |
-| [Gateway-side](#gateway-side-search)       | A custom gateway you already run                                                               | Your gateway's configuration  | Whatever your gateway is wired to      |
-| [Remote search MCP](#remote-search-mcp)    | A search MCP you already run, or Amazon Bedrock AgentCore                                      | `managedMcpServers`           | Whatever that MCP exposes              |
+| Option | Best for | Where you configure it | Search backend |
+| - | - | - | - |
+| [Provider-native](#provider-native-search) | Google Cloud's Agent Platform, Microsoft Foundry | Your cloud provider's console | The provider's |
+| [Built-in](#built-in-web-search) | Amazon Bedrock or a custom gateway; or any provider when you want to choose the search backend | `managedMcpServers` | Brave, Tavily, Exa, or your own server |
+| [Gateway-side](#gateway-side-search) | A custom gateway you already run | Your gateway's configuration | Whatever your gateway is wired to |
+| [Remote search MCP](#remote-search-mcp) | A search MCP you already run, or Amazon Bedrock AgentCore | `managedMcpServers` | Whatever that MCP exposes |
 
 #### Provider-native search
 
@@ -101,11 +101,11 @@ Your own server:
 
 Set the per-entry `toolPolicy` to `"allow"` so users aren't prompted to approve each search. `headersHelper` is an executable that prints the auth header as a JSON object to stdout; it follows the same execution model as [`inferenceCredentialHelper`](/docs/third-party/claude-desktop/credential-helper) (exit 0, stdout read as JSON) but always runs with no arguments, and the output here is a flat header map, not the `{token, headers}` shape `inferenceCredentialHelper` uses.
 
-| Provider | Header your script should output    |
-| -------- | ----------------------------------- |
-| `brave`  | `{"X-Subscription-Token": "<key>"}` |
+| Provider | Header your script should output |
+| - | - |
+| `brave` | `{"X-Subscription-Token": "<key>"}` |
 | `tavily` | `{"Authorization": "Bearer <key>"}` |
-| `exa`    | `{"x-api-key": "<key>"}`            |
+| `exa` | `{"x-api-key": "<key>"}` |
 | `custom` | Whatever your search server expects |
 
 You can use a static `headers` object instead if you don't need a secrets manager.
@@ -140,11 +140,11 @@ Web Fetch runs in the Claude Desktop main process on the user's device. The mode
 
 By default, the sandbox can reach only your inference provider's endpoint, so Web Fetch will fail for any other host unless you've allowed it. To permit fetches:
 
-| Goal                                   | Set `coworkEgressAllowedHosts` to                   |
-| -------------------------------------- | --------------------------------------------------- |
-| Allow specific domains                 | `["docs.example.com", "*.example.corp"]`            |
-| Allow all hosts (no sandbox filtering) | `["*"]`                                             |
-| Block all fetches                      | `[]` and add `"WebFetch"` to `disabledBuiltinTools` |
+| Goal | Set `coworkEgressAllowedHosts` to |
+| - | - |
+| Allow specific domains | `["docs.example.com", "*.example.corp"]` |
+| Allow all hosts (no sandbox filtering) | `["*"]` |
+| Block all fetches | `[]` and add `"WebFetch"` to `disabledBuiltinTools` |
 
 Wildcards match one or more leading subdomain labels (`*.example.com` matches `a.example.com` and `a.b.example.com`, but not `example.com`).
 

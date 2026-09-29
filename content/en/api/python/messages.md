@@ -1065,13 +1065,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `str`
-
-  - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+  - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-sonnet-5-5"`
+
+      Efficient model for coding and agents
 
     - `"claude-fable-5-1"`
 
@@ -1087,7 +1089,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"claude-sonnet-5"`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `"claude-fable-5"`
 
@@ -1146,6 +1148,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       New class of intelligence, strongest in coding and cybersecurity
+
+  - `str`
 
 - `cache_control: Optional[CacheControlEphemeralParam]`
 
@@ -1267,9 +1271,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `stream: Optional[Literal[false]]`
 
-  Whether to incrementally stream the response using server-sent events.
+  Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
 
-  See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
+  In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks) for an example in each language.
 
 - `system: Optional[Union[str, Iterable[TextBlockParam]]]`
 
@@ -1326,6 +1330,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `class ThinkingConfigDisabled`
 
     - `type: Literal["disabled"]`
+
+  - `class ThinkingConfigBetweenTools`
+
+    - `type: Literal["between_tools"]`
 
   - `class ThinkingConfigAdaptive`
 
@@ -3878,13 +3886,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `str`
-
-    - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+    - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-fable-5-1"`
 
@@ -3900,7 +3910,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -3959,6 +3969,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         New class of intelligence, strongest in coding and cybersecurity
+
+    - `str`
 
   - `role: Literal["assistant"]`
 
@@ -5488,13 +5500,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `str`
-
-  - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+  - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-sonnet-5-5"`
+
+      Efficient model for coding and agents
 
     - `"claude-fable-5-1"`
 
@@ -5510,7 +5524,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `"claude-sonnet-5"`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `"claude-fable-5"`
 
@@ -5569,6 +5583,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       New class of intelligence, strongest in coding and cybersecurity
+
+  - `str`
 
 - `cache_control: Optional[CacheControlEphemeralParam]`
 
@@ -5659,6 +5675,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `class ThinkingConfigDisabled`
 
     - `type: Literal["disabled"]`
+
+  - `class ThinkingConfigBetweenTools`
+
+    - `type: Literal["between_tools"]`
 
   - `class ThinkingConfigAdaptive`
 
@@ -14818,13 +14838,15 @@ print(message_tokens_count.input_tokens)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `str`
-
-    - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+    - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-fable-5-1"`
 
@@ -14840,7 +14862,7 @@ print(message_tokens_count.input_tokens)
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -14899,6 +14921,8 @@ print(message_tokens_count.input_tokens)
         **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         New class of intelligence, strongest in coding and cybersecurity
+
+    - `str`
 
   - `role: Literal["assistant"]`
 
@@ -17798,19 +17822,21 @@ print(message_tokens_count.input_tokens)
 
 ### Model
 
-- `type Model = Union[str, Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]]`
+- `type Model = Union[Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more], str]`
 
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `str`
-
-  - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+  - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-sonnet-5-5"`
+
+      Efficient model for coding and agents
 
     - `"claude-fable-5-1"`
 
@@ -17826,7 +17852,7 @@ print(message_tokens_count.input_tokens)
 
     - `"claude-sonnet-5"`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `"claude-fable-5"`
 
@@ -17885,6 +17911,8 @@ print(message_tokens_count.input_tokens)
       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       New class of intelligence, strongest in coding and cybersecurity
+
+  - `str`
 
 ### Output Config
 
@@ -20038,13 +20066,15 @@ print(message_tokens_count.input_tokens)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+      - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-fable-5-1"`
 
@@ -20060,7 +20090,7 @@ print(message_tokens_count.input_tokens)
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -20119,6 +20149,8 @@ print(message_tokens_count.input_tokens)
           **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
           New class of intelligence, strongest in coding and cybersecurity
+
+      - `str`
 
     - `role: Literal["assistant"]`
 
@@ -21165,13 +21197,15 @@ print(message_tokens_count.input_tokens)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `str`
-
-        - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+        - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
 
           - `"claude-fable-5-1"`
 
@@ -21187,7 +21221,7 @@ print(message_tokens_count.input_tokens)
 
           - `"claude-sonnet-5"`
 
-            High-performance model for coding and agents
+            Efficient model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -21246,6 +21280,8 @@ print(message_tokens_count.input_tokens)
             **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             New class of intelligence, strongest in coding and cybersecurity
+
+        - `str`
 
       - `role: Literal["assistant"]`
 
@@ -23024,6 +23060,12 @@ print(message_tokens_count.input_tokens)
 
     - `"omitted"`
 
+### Thinking Config Between Tools
+
+- `class ThinkingConfigBetweenTools`
+
+  - `type: Literal["between_tools"]`
+
 ### Thinking Config Disabled
 
 - `class ThinkingConfigDisabled`
@@ -23089,6 +23131,10 @@ print(message_tokens_count.input_tokens)
   - `class ThinkingConfigDisabled`
 
     - `type: Literal["disabled"]`
+
+  - `class ThinkingConfigBetweenTools`
+
+    - `type: Literal["between_tools"]`
 
   - `class ThinkingConfigAdaptive`
 
@@ -29634,13 +29680,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+      - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-fable-5-1"`
 
@@ -29656,7 +29704,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -29715,6 +29763,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
           New class of intelligence, strongest in coding and cybersecurity
+
+      - `str`
 
     - `cache_control: Optional[CacheControlEphemeralParam]`
 
@@ -29836,9 +29886,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `stream: Optional[bool]`
 
-      Whether to incrementally stream the response using server-sent events.
+      Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
 
-      See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
+      In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks) for an example in each language.
 
     - `system: Optional[Union[str, Iterable[TextBlockParam]]]`
 
@@ -29895,6 +29945,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       - `class ThinkingConfigDisabled`
 
         - `type: Literal["disabled"]`
+
+      - `class ThinkingConfigBetweenTools`
+
+        - `type: Literal["between_tools"]`
 
       - `class ThinkingConfigAdaptive`
 
@@ -33259,13 +33313,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+          - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-fable-5-1"`
 
@@ -33281,7 +33337,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -33340,6 +33396,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
               New class of intelligence, strongest in coding and cybersecurity
+
+          - `str`
 
         - `role: Literal["assistant"]`
 

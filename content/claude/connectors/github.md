@@ -121,12 +121,12 @@ You can change which files and folders Claude reads from a repository you alread
 
 The table lists what the integration reads from a repository and what it leaves out.
 
-| Retrieved      | Not retrieved       |
-| -------------- | ------------------- |
-| File names     | Commit history      |
-| File contents  | Pull requests       |
-| Branch content | Issues              |
-|                | Repository metadata |
+| Retrieved | Not retrieved |
+| - | - |
+| File names | Commit history |
+| File contents | Pull requests |
+| Branch content | Issues |
+| | Repository metadata |
 
 ## Best practices
 

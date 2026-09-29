@@ -28,10 +28,10 @@ Linear's own guide for creating the credential is at [linear.app](https://linear
 
 In the bundle, click **Connect** next to **Linear**.
 
-| Field            | Value                   |
-| :--------------- | :---------------------- |
+| Field | Value |
+| :- | :- |
 | Claude's API key | The API key from Linear |
-| Allowed websites | `api.linear.app`        |
+| Allowed websites | `api.linear.app` |
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 

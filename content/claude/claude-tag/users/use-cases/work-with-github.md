@@ -24,9 +24,9 @@ Name the repository in the first message. A session starts with no repositories 
 
 Check that the channel has the connection below. Ask `@Claude what can you access from this channel?` and the reply also lists which repositories the channel can reach. An admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
 
-| Connection | Examples | Why it matters here                                                |
-| :--------- | :------- | :----------------------------------------------------------------- |
-| Code       | GitHub   | Required. Reads granted repositories and opens draft pull requests |
+| Connection | Examples | Why it matters here |
+| :- | :- | :- |
+| Code | GitHub | Required. Reads granted repositories and opens draft pull requests |
 
 The GitHub connection is what lets Claude clone a repository. For GitLab, an admin [connects it with an access token](/docs/claude-tag/admins/connections/gitlab), and Claude reads projects, manages issues, and comments on merge requests through the GitLab API.
 

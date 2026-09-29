@@ -42,14 +42,14 @@ The Salesforce plugin and Salesforce's hosted MCP server let Claude work with yo
   <Step title="Add the Salesforce MCP server">
     **In the Enterprise Admin Console.** Go to [claude.ai](https://claude.ai) → **Organization settings** and open the **Connectors** page under **Desktop 3P**. Under **Managed MCP servers**, click **Add → Blank**, fill in the entry as below, and click **Save changes**. [Set up sign-in for managed MCP servers](/docs/third-party/claude-desktop/mcp-sign-in) explains each **OAuth** field, and users' apps pick up console changes as described under [Configuration updates](/docs/third-party/claude-desktop/admin-console#configuration-updates).
 
-    | Field                    | Value                                                              |
-    | ------------------------ | ------------------------------------------------------------------ |
-    | **Name**                 | `salesforce-h360`                                                  |
-    | **Transport**            | **Streamable HTTP**                                                |
-    | **URL**                  | `https://api.salesforce.com/platform/mcp/v1/platform/headless-360` |
-    | **OAuth**                | **Bring your own client**                                          |
-    | **Client ID**            | The Consumer Key from step 1                                       |
-    | **Authorization server** | `["https://login.salesforce.com"]`                                 |
+    | Field | Value |
+    | - | - |
+    | **Name** | `salesforce-h360` |
+    | **Transport** | **Streamable HTTP** |
+    | **URL** | `https://api.salesforce.com/platform/mcp/v1/platform/headless-360` |
+    | **OAuth** | **Bring your own client** |
+    | **Client ID** | The Consumer Key from step 1 |
+    | **Authorization server** | `["https://login.salesforce.com"]` |
 
     **With MDM or a bootstrap server.** Add this entry to the [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) key of your managed configuration or bootstrap response:
 

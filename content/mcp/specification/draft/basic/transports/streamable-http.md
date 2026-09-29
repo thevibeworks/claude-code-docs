@@ -286,10 +286,10 @@ the header per [Server Validation](#server-validation).
 
 ### Standard Request Headers
 
-| Header Name  | Source Field                  | Required For                                           |
-| ------------ | ----------------------------- | ------------------------------------------------------ |
-| `Mcp-Method` | `method`                      | All requests                                           |
-| `Mcp-Name`   | `params.name` or `params.uri` | `tools/call`, `resources/read`, `prompts/get` requests |
+| Header Name | Source Field | Required For |
+| - | - | - |
+| `Mcp-Method` | `method` | All requests |
+| `Mcp-Name` | `params.name` or `params.uri` | `tools/call`, `resources/read`, `prompts/get` requests |
 
 These headers are **REQUIRED** for compliance.
 
@@ -511,13 +511,13 @@ and ends with `?=`).
 
 **Encoding examples:**
 
-| Original Value         | Reason                   | Encoded Header Value                                  |
-| ---------------------- | ------------------------ | ----------------------------------------------------- |
-| `"us-west1"`           | Plain ASCII              | `Mcp-Param-Region: us-west1`                          |
-| `"Hello, 世界"`          | Contains non-ASCII       | `Mcp-Param-Greeting: =?base64?SGVsbG8sIOS4lueVjA==?=` |
-| `" padded "`           | Leading/trailing spaces  | `Mcp-Param-Text: =?base64?IHBhZGRlZCA=?=`             |
-| `"line1\nline2"`       | Contains newline         | `Mcp-Param-Text: =?base64?bGluZTEKbGluZTI=?=`         |
-| `"=?base64?literal?="` | Matches sentinel pattern | `Mcp-Param-Val: =?base64?PT9iYXNlNjQ/bGl0ZXJhbD89?=`  |
+| Original Value | Reason | Encoded Header Value |
+| - | - | - |
+| `"us-west1"` | Plain ASCII | `Mcp-Param-Region: us-west1` |
+| `"Hello, 世界"` | Contains non-ASCII | `Mcp-Param-Greeting: =?base64?SGVsbG8sIOS4lueVjA==?=` |
+| `" padded "` | Leading/trailing spaces | `Mcp-Param-Text: =?base64?IHBhZGRlZCA=?=` |
+| `"line1\nline2"` | Contains newline | `Mcp-Param-Text: =?base64?bGluZTEKbGluZTI=?=` |
+| `"=?base64?literal?="` | Matches sentinel pattern | `Mcp-Param-Val: =?base64?PT9iYXNlNjQ/bGl0ZXJhbD89?=` |
 
 [rfc9110-values]: https://datatracker.ietf.org/doc/html/rfc9110#name-field-values
 
@@ -560,12 +560,12 @@ values in the request body. Servers **MUST** reject requests with a
 `400 Bad Request` HTTP status and JSON-RPC error code `-32020`
 (`HeaderMismatch`) if any validation fails.
 
-| Scenario                                 | Client Behavior                | Server Behavior                          |
-| ---------------------------------------- | ------------------------------ | ---------------------------------------- |
-| Parameter value provided                 | Client MUST include the header | Server MUST validate header matches body |
-| Parameter value is `null`                | Client MUST omit the header    | Server MUST NOT expect the header        |
-| Parameter not in arguments               | Client MUST omit the header    | Server MUST NOT expect the header        |
-| Client omits header but value is in body | Non-conforming client          | Server MUST reject the request           |
+| Scenario | Client Behavior | Server Behavior |
+| - | - | - |
+| Parameter value provided | Client MUST include the header | Server MUST validate header matches body |
+| Parameter value is `null` | Client MUST omit the header | Server MUST NOT expect the header |
+| Parameter not in arguments | Client MUST omit the header | Server MUST NOT expect the header |
+| Client omits header but value is in body | Non-conforming client | Server MUST reject the request |
 
 [http-semantics]: https://www.rfc-editor.org/rfc/rfc9110.html#name-field-names
 
@@ -598,8 +598,8 @@ When rejecting a request due to header validation failure, servers **MUST**
 return HTTP status `400 Bad Request` and **MUST** include a JSON-RPC error
 response using the following error code:
 
-| Code     | Name                                                                | Description                                                                                                            |
-| -------- | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Code | Name | Description |
+| - | - | - |
 | `-32020` | [`HeaderMismatch`](/specification/draft/schema#headermismatcherror) | The HTTP headers do not match the corresponding values in the request body, or required headers are missing/malformed. |
 
 This error code is allocated from the sub-range the MCP specification

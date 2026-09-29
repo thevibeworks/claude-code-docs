@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/sessions/events/list
 
 # List Events
 
-`$client->beta->sessions->events->list(string sessionID, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?int limit, ?Order order, ?string page, ?list<string> types, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsSessionEvent>`
+`$client->beta->sessions->events->list(string sessionID, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?int limit, ?Order order, ?string page, ?list<ManagedAgentsSessionEventType> types, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsSessionEvent>`
 
 **GET** `/v1/sessions/{session_id}/events`
 
@@ -41,7 +41,7 @@ List Events
 
   Opaque pagination cursor from a previous response's `next_page`.
 
-- `types?:optional list<string>`
+- `types?:optional list<ManagedAgentsSessionEventType>`
 
   Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
@@ -803,7 +803,7 @@ $page = $client->beta->sessions->events->list(
   limit: 0,
   order: 'asc',
   page: 'page',
-  types: ['string'],
+  types: [ManagedAgentsSessionEventType::USER_MESSAGE],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );

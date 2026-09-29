@@ -20,10 +20,10 @@ A directory connector declares the destinations that skip the modal in its direc
 
 Each entry must be an HTTPS origin or a custom URI scheme:
 
-| Entry shape       | Example                         | Matches                                                                                                                                                               |
-| ----------------- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| HTTPS origin      | `https://docs.example.com`      | Any `https://` URL whose hostname is exactly `docs.example.com`, case-insensitive. Subdomains don't match implicitly, so list each one you need. Port isn't compared. |
-| Custom URI scheme | `example-app` or `example-app:` | Any URL with the scheme `example-app:`, typically a deep link into your native mobile or desktop app.                                                                 |
+| Entry shape | Example | Matches |
+| - | - | - |
+| HTTPS origin | `https://docs.example.com` | Any `https://` URL whose hostname is exactly `docs.example.com`, case-insensitive. Subdomains don't match implicitly, so list each one you need. Port isn't compared. |
+| Custom URI scheme | `example-app` or `example-app:` | Any URL with the scheme `example-app:`, typically a deep link into your native mobile or desktop app. |
 
 Entries that don't fit one of these shapes are ignored. This includes bare hostnames such as `example.com`, `http://` origins, and malformed values.
 

@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2567                                                                            |
-| **Title**     | Sessionless MCP via Explicit State Handles                                      |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2026-03-11                                                                      |
-| **Author(s)** | Peter Alexander ([@pja-ant](https://github.com/pja-ant))                        |
-| **Sponsor**   | Peter Alexander ([@pja-ant](https://github.com/pja-ant))                        |
-| **PR**        | [#2567](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2567) |
+| Field | Value |
+| - | - |
+| **SEP** | 2567 |
+| **Title** | Sessionless MCP via Explicit State Handles |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2026-03-11 |
+| **Author(s)** | Peter Alexander ([@pja-ant](https://github.com/pja-ant)) |
+| **Sponsor** | Peter Alexander ([@pja-ant](https://github.com/pja-ant)) |
+| **PR** | [#2567](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2567) |
 
 ***
 
@@ -107,10 +107,10 @@ This is a problem when different pieces of state need different scopes. Consider
 
 No session boundary satisfies both:
 
-| Session model            | Cart (want: shared) | Browser (want: isolated) |
-| ------------------------ | :-----------------: | :----------------------: |
-| Subagents share parent's |       ✓ shared      |    ✗ shared (clobbers)   |
-| Subagents get their own  |      ✗ isolated     |        ✓ isolated        |
+| Session model | Cart (want: shared) | Browser (want: isolated) |
+| - | :-: | :-: |
+| Subagents share parent's | ✓ shared | ✗ shared (clobbers) |
+| Subagents get their own | ✗ isolated | ✓ isolated |
 
 With explicit IDs the orchestrator calls `create_basket()` once, passes the resulting `basket_id` to each subagent, and each subagent separately calls `create_browser()` for its own `browser_id`. The model decides what is shared and what is isolated per piece of state, rather than having one scope imposed on everything.
 
@@ -160,12 +160,12 @@ The model then threads that handle through subsequent calls as an ordinary argum
 
 Nothing here is a protocol extension: `basket_id` is an ordinary string field in `structuredContent` and an ordinary string argument to subsequent tools. This pattern is already the norm in widely-deployed remote MCP servers that manage durable resources:
 
-| Server (official, remote)                                   | Create tool → returned ID         | Operate tools taking that ID                                     |
-| ----------------------------------------------------------- | --------------------------------- | ---------------------------------------------------------------- |
-| [Linear](https://linear.app/docs/mcp)                       | `create_issue` → issue id         | `get_issue`, `update_issue`, `create_comment`                    |
-| [Notion](https://developers.notion.com/docs/mcp)            | `notion-create-pages` → page id   | `notion-update-page`, `notion-move-pages`                        |
+| Server (official, remote) | Create tool → returned ID | Operate tools taking that ID |
+| - | - | - |
+| [Linear](https://linear.app/docs/mcp) | `create_issue` → issue id | `get_issue`, `update_issue`, `create_comment` |
+| [Notion](https://developers.notion.com/docs/mcp) | `notion-create-pages` → page id | `notion-update-page`, `notion-move-pages` |
 | [GitHub](https://github.com/github/github-mcp-server#tools) | `create_pull_request` → PR number | `pull_request_read`, `update_pull_request`, `merge_pull_request` |
-| [Stripe](https://docs.stripe.com/mcp)                       | `create_customer` → customer id   | `create_invoice`, `list_subscriptions`                           |
+| [Stripe](https://docs.stripe.com/mcp) | `create_customer` → customer id | `create_invoice`, `list_subscriptions` |
 
 The approach can be adopted for less-persistent objects (a browser context, an in-progress cart) by giving the created object a limited lifetime, and/or limiting its discoverability to the principal that created it. The server owns the state, the client holds a name for it, and authorization is checked on every call.
 
@@ -250,14 +250,14 @@ Sessions are in the spec today; removing them breaks anyone relying on them.
 
 An automated survey of a 1000-repo random sample of open source MCP servers (classified by per-repo LLM analysis) found:
 
-| Category                                                      | Share | Migration                                            |
-| ------------------------------------------------------------- | ----: | ---------------------------------------------------- |
-| No application-level reference to MCP session ID              | 90.0% | None                                                 |
-| `Map<sessionId, Transport>` routing (TS SDK boilerplate)      |  3.5% | Removed by a sessionless SDK transport               |
-| Transport setup only (`sessionIdGenerator`, never read)       |  2.8% | Delete one constructor option                        |
-| **Session-keyed application state**                           |  2.5% | Migrate to explicit handles or auth principal        |
-| **Proxy / gateway sticky routing**                            |  0.7% | Needs designed replacement                           |
-| **Auth binding** (JWT claims, PKCE verifier keyed on session) |  0.5% | Replace with server-generated nonce or token subject |
+| Category | Share | Migration |
+| - | -: | - |
+| No application-level reference to MCP session ID | 90.0% | None |
+| `Map<sessionId, Transport>` routing (TS SDK boilerplate) | 3.5% | Removed by a sessionless SDK transport |
+| Transport setup only (`sessionIdGenerator`, never read) | 2.8% | Delete one constructor option |
+| **Session-keyed application state** | 2.5% | Migrate to explicit handles or auth principal |
+| **Proxy / gateway sticky routing** | 0.7% | Needs designed replacement |
+| **Auth binding** (JWT claims, PKCE verifier keyed on session) | 0.5% | Replace with server-generated nonce or token subject |
 
 The bolded rows are the repos that use the session ID for application semantics. The hardest-hit category — gateways that spawn one upstream per session — needs a designed replacement rather than a mechanical edit; see [Backward Compatibility](#backward-compatibility).
 

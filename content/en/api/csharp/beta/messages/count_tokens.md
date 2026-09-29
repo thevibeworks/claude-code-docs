@@ -2978,6 +2978,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                        - `ClaudeSonnet5_5("claude-sonnet-5-5")`
+
+                          Efficient model for coding and agents
+
                         - `ClaudeFable5_1("claude-fable-5-1")`
 
                           Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -2992,7 +2996,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `ClaudeSonnet5("claude-sonnet-5")`
 
-                          High-performance model for coding and agents
+                          Efficient model for coding and agents
 
                         - `ClaudeFable5("claude-fable-5")`
 

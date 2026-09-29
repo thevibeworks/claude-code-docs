@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 994                                                                             |
-| **Title**     | Shared Communication Practices/Guidelines                                       |
-| **Status**    | Final                                                                           |
-| **Type**      | Process                                                                         |
-| **Created**   | 2025-07-17                                                                      |
-| **Author(s)** | [@localden](https://github.com/localden)                                        |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1002](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1002) |
+| Field | Value |
+| - | - |
+| **SEP** | 994 |
+| **Title** | Shared Communication Practices/Guidelines |
+| **Status** | Final |
+| **Type** | Process |
+| **Created** | 2025-07-17 |
+| **Author(s)** | [@localden](https://github.com/localden) |
+| **Sponsor** | None |
+| **PR** | [#1002](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1002) |
 
 ***
 

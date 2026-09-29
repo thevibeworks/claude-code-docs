@@ -63,52 +63,52 @@ of the published extension.
 
 ## Leadership
 
-| Role | Name            | Organization                | GitHub                                   | Term    |
-| ---- | --------------- | --------------------------- | ---------------------------------------- | ------- |
-| Lead | Ola Hungerford  | Nordstrom / MCP Maintainer  | [@olaservo](https://github.com/olaservo) | Initial |
-| Lead | Peter Alexander | Anthropic / Core Maintainer | [@pja-ant](https://github.com/pja-ant)   | Initial |
-| Lead | Sambhav Kothari | Bloomberg / MCP Maintainer  | [@sambhav](https://github.com/sambhav)   | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | Ola Hungerford | Nordstrom / MCP Maintainer | [@olaservo](https://github.com/olaservo) | Initial |
+| Lead | Peter Alexander | Anthropic / Core Maintainer | [@pja-ant](https://github.com/pja-ant) | Initial |
+| Lead | Sambhav Kothari | Bloomberg / MCP Maintainer | [@sambhav](https://github.com/sambhav) | Initial |
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Membership
 
-| Name                     | Organization                    | GitHub                                                 | Discord | Level       |
-| ------------------------ | ------------------------------- | ------------------------------------------------------ | ------- | ----------- |
-| Ola Hungerford           | Nordstrom / MCP Maintainer      | [@olaservo](https://github.com/olaservo)               |         | Lead        |
-| Peter Alexander          | Anthropic / Core Maintainer     | [@pja-ant](https://github.com/pja-ant)                 |         | Lead        |
-| Sambhav Kothari          | Bloomberg / MCP Maintainer      | [@sambhav](https://github.com/sambhav)                 |         | Lead        |
-| Yu Yi                    | Google                          | [@erain](https://github.com/erain)                     |         | Participant |
-| Sunish Sheth             | Databricks                      | [@sunishsheth2009](https://github.com/sunishsheth2009) |         | Participant |
-| Keith A Groves           | Hyix                            | [@keithagroves](https://github.com/keithagroves)       |         | Participant |
-| Peder Holdgaard Pedersen | Saxo Bank / MCP Maintainer      | [@pederhp](https://github.com/pederhp)                 |         | Participant |
-| Sam Morrow               | GitHub                          | [@SamMorrowDrums](https://github.com/SamMorrowDrums)   |         | Participant |
-| Jacob MacDonald          | Google                          | [@jakemac53](https://github.com/jakemac53)             |         | Participant |
-| Jonathan Hefner          | Independent / MCP Maintainer    | [@jonathanhefner](https://github.com/jonathanhefner)   |         | Participant |
-| Luca Chang               | AWS / MCP Maintainer            | [@LucaButBoring](https://github.com/LucaButBoring)     |         | Participant |
-| Bob Dickinson            | TeamSpark.ai / MCP Maintainer   | [@BobDickinson](https://github.com/BobDickinson)       |         | Participant |
-| Radoslav Dimitrov        | Stacklok / MCP Maintainer       | [@rdimitrov](https://github.com/rdimitrov)             |         | Participant |
-| Juan Antonio Osorio      | Stacklok                        | [@JAORMX](https://github.com/JAORMX)                   |         | Participant |
-| Kaxil Naik               | Astronomer / Apache Airflow PMC | [@kaxil](https://github.com/kaxil)                     |         | Participant |
-| Cliff Hall               | Futurescale                     | [@cliffhall](https://github.com/cliffhall)             |         | Participant |
-| Haoyu Wang               | Google                          | [@helloeve](https://github.com/helloeve)               |         | Participant |
-| Nate Barbettini          | Arcade.dev                      | [@nbarbettini](https://github.com/nbarbettini)         |         | Participant |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Ola Hungerford | Nordstrom / MCP Maintainer | [@olaservo](https://github.com/olaservo) | | Lead |
+| Peter Alexander | Anthropic / Core Maintainer | [@pja-ant](https://github.com/pja-ant) | | Lead |
+| Sambhav Kothari | Bloomberg / MCP Maintainer | [@sambhav](https://github.com/sambhav) | | Lead |
+| Yu Yi | Google | [@erain](https://github.com/erain) | | Participant |
+| Sunish Sheth | Databricks | [@sunishsheth2009](https://github.com/sunishsheth2009) | | Participant |
+| Keith A Groves | Hyix | [@keithagroves](https://github.com/keithagroves) | | Participant |
+| Peder Holdgaard Pedersen | Saxo Bank / MCP Maintainer | [@pederhp](https://github.com/pederhp) | | Participant |
+| Sam Morrow | GitHub | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | | Participant |
+| Jacob MacDonald | Google | [@jakemac53](https://github.com/jakemac53) | | Participant |
+| Jonathan Hefner | Independent / MCP Maintainer | [@jonathanhefner](https://github.com/jonathanhefner) | | Participant |
+| Luca Chang | AWS / MCP Maintainer | [@LucaButBoring](https://github.com/LucaButBoring) | | Participant |
+| Bob Dickinson | TeamSpark.ai / MCP Maintainer | [@BobDickinson](https://github.com/BobDickinson) | | Participant |
+| Radoslav Dimitrov | Stacklok / MCP Maintainer | [@rdimitrov](https://github.com/rdimitrov) | | Participant |
+| Juan Antonio Osorio | Stacklok | [@JAORMX](https://github.com/JAORMX) | | Participant |
+| Kaxil Naik | Astronomer / Apache Airflow PMC | [@kaxil](https://github.com/kaxil) | | Participant |
+| Cliff Hall | Futurescale | [@cliffhall](https://github.com/cliffhall) | | Participant |
+| Haoyu Wang | Google | [@helloeve](https://github.com/helloeve) | | Participant |
+| Nate Barbettini | Arcade.dev | [@nbarbettini](https://github.com/nbarbettini) | | Participant |
 
 ## Operations
 
-| Meeting         | Frequency         | Duration   | Purpose                                                                             |
-| --------------- | ----------------- | ---------- | ----------------------------------------------------------------------------------- |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
 | Working Session | Weekly (Tuesdays) | 60 minutes | Technical discussion, pattern evaluation, proposal review; open to all participants |
 
 Default start time is 9:00 AM Pacific. Sessions may occasionally be scheduled earlier to better accommodate non-US time zones.
@@ -147,10 +147,10 @@ Owners, progress, and priorities are maintained there rather than in this charte
 
 ## Changelog
 
-| Date       | Change                                                                                                                                                                                                                                                                                                           |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-09-15 | Added @nbarbettini (Arcade.dev) as Participant                                                                                                                                                                                                                                                                   |
-| 2026-04-25 | Linked SEP-2640 in Active Work Items; added @helloeve (Google) as Participant                                                                                                                                                                                                                                    |
-| 2026-04-16 | Converted from Interest Group to Working Group                                                                                                                                                                                                                                                                   |
+| Date | Change |
+| - | - |
+| 2026-09-15 | Added @nbarbettini (Arcade.dev) as Participant |
+| 2026-04-25 | Linked SEP-2640 in Active Work Items; added @helloeve (Google) as Participant |
+| 2026-04-16 | Converted from Interest Group to Working Group |
 | 2026-04-14 | Initial charter (formalized from [experimental-ext-skills](https://github.com/modelcontextprotocol/experimental-ext-skills) repo README, which served as the de facto charter before the charter process was established via [SEP-2149](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2149)) |
-| 2026-02-01 | IG formed; experimental repo created                                                                                                                                                                                                                                                                             |
+| 2026-02-01 | IG formed; experimental repo created |

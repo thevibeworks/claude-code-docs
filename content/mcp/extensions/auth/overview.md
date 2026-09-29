@@ -40,14 +40,14 @@ The ext-auth extensions address these gaps.
 
 ## Choosing the right extension
 
-| Scenario                                             | Recommended extension                                                                 |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Background service or daemon accessing an MCP server | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials)                 |
-| CI/CD pipeline calling MCP tools                     | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials)                 |
-| Server-to-server API integration                     | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials)                 |
-| Enterprise employees accessing MCP servers at work   | [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization) |
-| Organization-wide MCP access policy enforcement      | [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization) |
-| Standard interactive user authorization              | Core MCP spec (no extension needed)                                                   |
+| Scenario | Recommended extension |
+| - | - |
+| Background service or daemon accessing an MCP server | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials) |
+| CI/CD pipeline calling MCP tools | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials) |
+| Server-to-server API integration | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials) |
+| Enterprise employees accessing MCP servers at work | [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization) |
+| Organization-wide MCP access policy enforcement | [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization) |
+| Standard interactive user authorization | Core MCP spec (no extension needed) |
 
 ## Client support
 

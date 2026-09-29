@@ -1074,7 +1074,7 @@ This tutorial will primarily focus on tools.
 
     When you start your client application, the auto-configuration will automatically create MCP clients from the claude\_desktop\_config.json.
 
-    For more information, see the [MCP Client Boot Starters](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-client-docs.html) reference documentation.
+    For more information, see the [MCP Client Boot Starters](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-client-boot-starter-docs.html) reference documentation.
 
     ## More Java MCP Server examples
 

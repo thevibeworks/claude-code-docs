@@ -28,11 +28,11 @@ Gong's own guide for creating the credential is at [help.gong.io](https://help.g
 
 In the bundle, click **Connect** next to **Gong**.
 
-| Field                      | Value                           |
-| :------------------------- | :------------------------------ |
-| Claude's access key        | The access key from Gong        |
+| Field | Value |
+| :- | :- |
+| Claude's access key | The access key from Gong |
 | Claude's access key secret | The access key secret from Gong |
-| Allowed websites           | `api.gong.io` (preset)          |
+| Allowed websites | `api.gong.io` (preset) |
 
 Gong assigns each company its own API base URL, like `us-46459.api.gong.io`. Copy yours from **Company Settings** → **Ecosystem** → **API** in Gong, then switch to the connection form's **Advanced** tab and enter it under **Allowed websites**.
 

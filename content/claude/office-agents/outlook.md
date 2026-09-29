@@ -239,12 +239,12 @@ your own Entra application with `graph_client_id` as described above
 (Anthropic's multi-tenant application exists only in the global cloud)
 and set `graph_cloud` to the matching value:
 
-| Tenant            | `graph_cloud`                      |
-| ----------------- | ---------------------------------- |
+| Tenant | `graph_cloud` |
+| - | - |
 | Commercial or GCC | `global` (default; may be omitted) |
-| GCC High          | `us-gov-high`                      |
-| DoD               | `us-gov-dod`                       |
-| 21Vianet (China)  | `china`                            |
+| GCC High | `us-gov-high` |
+| DoD | `us-gov-dod` |
+| 21Vianet (China) | `china` |
 
 For a DoD tenant the manifest URL ends with:
 

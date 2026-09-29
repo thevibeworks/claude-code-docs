@@ -27,20 +27,20 @@ Before you start, decide whether Claude acts as the federated identity itself, w
 
 In **Cloud roles**, click **Connect a Google Cloud identity** and copy the **Issuer** and **Subject prefix** rows from the **Set the workload identity provider to accept these values** card (the **JWKS URL** row isn't needed, because Google reads the keys from the issuer). Then click **Cancel**; you connect the identity after setting up Google Cloud.
 
-| Value          | What it is                                                                                                                                                                                                                                         |
-| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Issuer         | `https://identity.anthropic.com/agents`. The issuer URL of the provider you create in the pool.                                                                                                                                                    |
+| Value | What it is |
+| :- | :- |
+| Issuer | `https://identity.anthropic.com/agents`. The issuer URL of the provider you create in the pool. |
 | Subject prefix | `wimse://identity.anthropic.com/org/<your organization ID>/agent/`. Every token's subject starts with this prefix and ends with one agent's ID. The organization ID between `/org/` and `/agent/` is also the value of the token's `tenant` claim. |
 
 ## Create the pool and provider in Google Cloud
 
 Create a workload identity pool and an OpenID Connect (OIDC) provider in it with these settings. Replace `<your organization ID>` with the ID from your **Subject prefix**.
 
-| Setting             | Value                                                                                                                                                                                                                                                                                |
-| :------------------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Issuer URL          | `https://identity.anthropic.com/agents`                                                                                                                                                                                                                                              |
-| Allowed audiences   | Leave at Google's default, the provider's own resource name, which Google accepts with or without a leading `https:`. Claude sends the name exactly as you enter it in Claude's admin settings, so if you pin allowed audiences instead, pin that same spelling.                     |
-| Attribute mapping   | `google.subject` = `assertion.sub`. You can also map `attribute.org` = `assertion.tenant`, which lets you grant roles to all of your organization's agents as one principal set in [Grant access](#grant-access).                                                                    |
+| Setting | Value |
+| :- | :- |
+| Issuer URL | `https://identity.anthropic.com/agents` |
+| Allowed audiences | Leave at Google's default, the provider's own resource name, which Google accepts with or without a leading `https:`. Claude sends the name exactly as you enter it in Claude's admin settings, so if you pin allowed audiences instead, pin that same spelling. |
+| Attribute mapping | `google.subject` = `assertion.sub`. You can also map `attribute.org` = `assertion.tenant`, which lets you grant roles to all of your organization's agents as one principal set in [Grant access](#grant-access). |
 | Attribute condition | `assertion.sub == "<full subject>"` for one agent. To allow several agents, join one comparison per agent with CEL's or operator. To admit every agent in your organization instead, `assertion.sub.startsWith("wimse://identity.anthropic.com/org/<your organization ID>/agent/")`. |
 
 Google doesn't require an attribute condition, and nothing checks it for you. Without one, agents of every other Claude Tag organization can authenticate to your pool, because every organization's tokens come from the same issuer; see [Authorize on the subject](/docs/claude-tag/admins/federated-access/token-reference#authorize-on-the-subject). The condition on `assertion.sub` is the subject check every connection type needs. The exact form accepts only the agents you list, and the prefix form accepts every agent in your organization, because every subject carries your organization ID between `/org/` and `/agent/`.

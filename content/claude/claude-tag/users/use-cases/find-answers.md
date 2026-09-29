@@ -18,8 +18,8 @@ Each prompt below is a Slack message. You paste it in the channel where the ques
 
 Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
 
-| Connection         | Examples                         | Why it matters here                                                                                             |
-| :----------------- | :------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
+| Connection | Examples | Why it matters here |
+| :- | :- | :- |
 | Knowledge and docs | Google Drive, Notion, Confluence | Required to search those sources; channel-history-only answers need none. Searches the docs the answers live in |
 
 ## Prompts to paste

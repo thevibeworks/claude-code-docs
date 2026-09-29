@@ -197,12 +197,12 @@ MCP authorization servers **SHOULD** include the `iss` parameter in authorizatio
 
 On receiving the authorization response, MCP clients **MUST** apply the validation in [RFC9207 Section 2.4](https://datatracker.ietf.org/doc/html/rfc9207#section-2.4) before transmitting the authorization code to any token endpoint:
 
-| `authorization_response_iss_parameter_supported` | `iss` in response | Client action                                                                              |
-| ------------------------------------------------ | ----------------- | ------------------------------------------------------------------------------------------ |
-| `true`                                           | present           | Compare to the recorded issuer using simple string comparison ([RFC3986 Section 6.2.1][1]) |
-| `true`                                           | absent            | Reject the response                                                                        |
-| `false` or absent                                | present           | Compare to the recorded issuer using simple string comparison ([RFC3986 Section 6.2.1][1]) |
-| `false` or absent                                | absent            | Proceed                                                                                    |
+| `authorization_response_iss_parameter_supported` | `iss` in response | Client action |
+| - | - | - |
+| `true` | present | Compare to the recorded issuer using simple string comparison ([RFC3986 Section 6.2.1][1]) |
+| `true` | absent | Reject the response |
+| `false` or absent | present | Compare to the recorded issuer using simple string comparison ([RFC3986 Section 6.2.1][1]) |
+| `false` or absent | absent | Proceed |
 
 [1]: https://datatracker.ietf.org/doc/html/rfc3986#section-6.2.1
 
@@ -318,11 +318,11 @@ tokens are not a resource requirement.
 
 Servers **MUST** return appropriate HTTP status codes for authorization errors:
 
-| Status Code | Description  | Usage                                      |
-| ----------- | ------------ | ------------------------------------------ |
-| 401         | Unauthorized | Authorization required or token invalid    |
-| 403         | Forbidden    | Invalid scopes or insufficient permissions |
-| 400         | Bad Request  | Malformed authorization request            |
+| Status Code | Description | Usage |
+| - | - | - |
+| 401 | Unauthorized | Authorization required or token invalid |
+| 403 | Forbidden | Invalid scopes or insufficient permissions |
+| 400 | Bad Request | Malformed authorization request |
 
 ### Scope Challenge Handling
 

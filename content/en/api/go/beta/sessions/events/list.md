@@ -59,9 +59,77 @@ List Events
 
     Query param: Opaque pagination cursor from a previous response's `next_page`.
 
-  - `Types param.Field[[]string] Optional`
+  - `Types param.Field[[]BetaManagedAgentsSessionEventType] Optional`
 
     Query param: Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
+
+    - `const BetaManagedAgentsSessionEventTypeUserMessage BetaManagedAgentsSessionEventType = "user.message"`
+
+    - `const BetaManagedAgentsSessionEventTypeUserInterrupt BetaManagedAgentsSessionEventType = "user.interrupt"`
+
+    - `const BetaManagedAgentsSessionEventTypeUserToolConfirmation BetaManagedAgentsSessionEventType = "user.tool_confirmation"`
+
+    - `const BetaManagedAgentsSessionEventTypeUserCustomToolResult BetaManagedAgentsSessionEventType = "user.custom_tool_result"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentCustomToolUse BetaManagedAgentsSessionEventType = "agent.custom_tool_use"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentMessage BetaManagedAgentsSessionEventType = "agent.message"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentThinking BetaManagedAgentsSessionEventType = "agent.thinking"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentMCPToolUse BetaManagedAgentsSessionEventType = "agent.mcp_tool_use"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentMCPToolResult BetaManagedAgentsSessionEventType = "agent.mcp_tool_result"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentToolUse BetaManagedAgentsSessionEventType = "agent.tool_use"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentToolResult BetaManagedAgentsSessionEventType = "agent.tool_result"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentThreadMessageReceived BetaManagedAgentsSessionEventType = "agent.thread_message_received"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentThreadMessageSent BetaManagedAgentsSessionEventType = "agent.thread_message_sent"`
+
+    - `const BetaManagedAgentsSessionEventTypeAgentThreadContextCompacted BetaManagedAgentsSessionEventType = "agent.thread_context_compacted"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionError BetaManagedAgentsSessionEventType = "session.error"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionStatusRescheduled BetaManagedAgentsSessionEventType = "session.status_rescheduled"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionStatusRunning BetaManagedAgentsSessionEventType = "session.status_running"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionStatusIdle BetaManagedAgentsSessionEventType = "session.status_idle"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionStatusTerminated BetaManagedAgentsSessionEventType = "session.status_terminated"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionThreadCreated BetaManagedAgentsSessionEventType = "session.thread_created"`
+
+    - `const BetaManagedAgentsSessionEventTypeSpanOutcomeEvaluationStart BetaManagedAgentsSessionEventType = "span.outcome_evaluation_start"`
+
+    - `const BetaManagedAgentsSessionEventTypeSpanOutcomeEvaluationEnd BetaManagedAgentsSessionEventType = "span.outcome_evaluation_end"`
+
+    - `const BetaManagedAgentsSessionEventTypeSpanModelRequestStart BetaManagedAgentsSessionEventType = "span.model_request_start"`
+
+    - `const BetaManagedAgentsSessionEventTypeSpanModelRequestEnd BetaManagedAgentsSessionEventType = "span.model_request_end"`
+
+    - `const BetaManagedAgentsSessionEventTypeSpanOutcomeEvaluationOngoing BetaManagedAgentsSessionEventType = "span.outcome_evaluation_ongoing"`
+
+    - `const BetaManagedAgentsSessionEventTypeUserDefineOutcome BetaManagedAgentsSessionEventType = "user.define_outcome"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionThreadStatusRunning BetaManagedAgentsSessionEventType = "session.thread_status_running"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionThreadStatusIdle BetaManagedAgentsSessionEventType = "session.thread_status_idle"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionThreadStatusTerminated BetaManagedAgentsSessionEventType = "session.thread_status_terminated"`
+
+    - `const BetaManagedAgentsSessionEventTypeUserToolResult BetaManagedAgentsSessionEventType = "user.tool_result"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionThreadStatusRescheduled BetaManagedAgentsSessionEventType = "session.thread_status_rescheduled"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionUpdated BetaManagedAgentsSessionEventType = "session.updated"`
+
+    - `const BetaManagedAgentsSessionEventTypeSystemMessage BetaManagedAgentsSessionEventType = "system.message"`
+
+    - `const BetaManagedAgentsSessionEventTypeSessionUsage BetaManagedAgentsSessionEventType = "session.usage"`
 
   - `Betas param.Field[[]AnthropicBeta] Optional`
 
@@ -1695,13 +1763,15 @@ List Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `string`
-
           - `type BetaManagedAgentsModel string`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `const BetaManagedAgentsModelClaudeSonnet5_5 BetaManagedAgentsModel = "claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `const BetaManagedAgentsModelClaudeOpus5_5 BetaManagedAgentsModel = "claude-opus-5-5"`
 
@@ -1713,7 +1783,7 @@ List Events
 
             - `const BetaManagedAgentsModelClaudeSonnet5 BetaManagedAgentsModel = "claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `const BetaManagedAgentsModelClaudeFable5 BetaManagedAgentsModel = "claude-fable-5"`
 
@@ -1762,6 +1832,8 @@ List Events
             - `const BetaManagedAgentsModelClaudeSonnet4_5_20250929 BetaManagedAgentsModel = "claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+          - `string`
 
         - `Effort BetaManagedAgentsModelConfigEffortUnion Optional`
 

@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2085                                                                            |
-| **Title**     | Governance Succession and Amendment Procedures                                  |
-| **Status**    | Final                                                                           |
-| **Type**      | Process                                                                         |
-| **Created**   | 2025-12-05                                                                      |
-| **Author(s)** | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant))                      |
-| **Sponsor**   | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant))                      |
-| **PR**        | [#2085](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2085) |
+| Field | Value |
+| - | - |
+| **SEP** | 2085 |
+| **Title** | Governance Succession and Amendment Procedures |
+| **Status** | Final |
+| **Type** | Process |
+| **Created** | 2025-12-05 |
+| **Author(s)** | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant)) |
+| **Sponsor** | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant)) |
+| **PR** | [#2085](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2085) |
 
 ***
 

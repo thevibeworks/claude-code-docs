@@ -50,14 +50,14 @@ Six categories cover most of the work teams hand to Claude. Any service with an 
 
 Read-only connections are most useful in combination: an answer that joins the ticket, the deploy, and the error rate needs all three systems connected. Connecting many systems read-only is a different decision from granting write access anywhere.
 
-| Connect            | Examples                                                                                                                                                  | Recommended access | What it adds                                                                                                                                                                                                      |
-| :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Knowledge and docs | Google Drive, [Notion](/docs/claude-tag/admins/connections/notion), [Confluence](/docs/claude-tag/admins/connections/atlassian)                                     | Read               | Answers grounded in design docs, runbooks, and prior decisions                                                                                                                                                    |
-| Code               | GitHub, [GitLab](/docs/claude-tag/admins/connections/gitlab)                                                                                                   | Read and write     | On GitHub, branches, pull requests, review, and CI follow-up through the [Claude GitHub App](/docs/claude-tag/admins/configure-github). On GitLab, issues, merge request comments, and pipeline checks through its API |
-| Data warehouse     | BigQuery, [Snowflake](/docs/claude-tag/admins/connections/snowflake), Redshift                                                                                 | Read               | Data questions answered with charts in the thread; recurring reports                                                                                                                                              |
-| Monitoring         | [Sentry](/docs/claude-tag/admins/connections/sentry), [Datadog](/docs/claude-tag/admins/connections/datadog), [PagerDuty](/docs/claude-tag/admins/connections/pagerduty) | Read               | Logs, metrics, and errors for debugging and incident work                                                                                                                                                         |
-| Issue tracking     | [Linear](/docs/claude-tag/admins/connections/linear), [Asana](/docs/claude-tag/admins/connections/asana), [Jira](/docs/claude-tag/admins/connections/atlassian)          | Read and write     | File tickets and post status updates where work lives                                                                                                                                                             |
-| Go-to-market       | [HubSpot](/docs/claude-tag/admins/connections/hubspot), [Gong](/docs/claude-tag/admins/connections/gong), [Salesforce](/docs/claude-tag/admins/connections/salesforce)   | Read               | Pipeline and customer state for account questions                                                                                                                                                                 |
+| Connect | Examples | Recommended access | What it adds |
+| :- | :- | :- | :- |
+| Knowledge and docs | Google Drive, [Notion](/docs/claude-tag/admins/connections/notion), [Confluence](/docs/claude-tag/admins/connections/atlassian) | Read | Answers grounded in design docs, runbooks, and prior decisions |
+| Code | GitHub, [GitLab](/docs/claude-tag/admins/connections/gitlab) | Read and write | On GitHub, branches, pull requests, review, and CI follow-up through the [Claude GitHub App](/docs/claude-tag/admins/configure-github). On GitLab, issues, merge request comments, and pipeline checks through its API |
+| Data warehouse | BigQuery, [Snowflake](/docs/claude-tag/admins/connections/snowflake), Redshift | Read | Data questions answered with charts in the thread; recurring reports |
+| Monitoring | [Sentry](/docs/claude-tag/admins/connections/sentry), [Datadog](/docs/claude-tag/admins/connections/datadog), [PagerDuty](/docs/claude-tag/admins/connections/pagerduty) | Read | Logs, metrics, and errors for debugging and incident work |
+| Issue tracking | [Linear](/docs/claude-tag/admins/connections/linear), [Asana](/docs/claude-tag/admins/connections/asana), [Jira](/docs/claude-tag/admins/connections/atlassian) | Read and write | File tickets and post status updates where work lives |
+| Go-to-market | [HubSpot](/docs/claude-tag/admins/connections/hubspot), [Gong](/docs/claude-tag/admins/connections/gong), [Salesforce](/docs/claude-tag/admins/connections/salesforce) | Read | Pipeline and customer state for account questions |
 
 Per-service instructions, with the credential fields and allowed-websites values, are in the [connection guides](/docs/claude-tag/admins/connections/overview).
 
@@ -67,12 +67,12 @@ Per-service instructions, with the credential fields and allowed-websites values
 
 For each tool, create that identity specifically for the agent rather than reusing a shared bot key. The pattern depends on the service.
 
-| Service type                                                   | Recommended pattern                                                                                                                                                                                                                                                                                           |
-| :------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Google Workspace (Drive, Calendar, Docs)                       | Create a virtual user like `claude@yourcompany.example.com` and share the folders and calendars it needs. If using a GCP service-account key with domain-wide delegation, restrict the delegation to that single subject and the minimum OAuth scopes; DWD can otherwise impersonate any user in your domain. |
-| SaaS with native service accounts (Datadog, Snowflake, Sentry) | Create a service account in that tool's admin, scope it to the project or read-only role, and use its API key                                                                                                                                                                                                 |
-| SaaS without service accounts (Linear, Asana)                  | Create a dedicated user seat for the agent and use a personal access token from that seat                                                                                                                                                                                                                     |
-| Cloud APIs (AWS, GCP)                                          | Create a dedicated IAM principal with the narrowest policy that covers the work                                                                                                                                                                                                                               |
+| Service type | Recommended pattern |
+| :- | :- |
+| Google Workspace (Drive, Calendar, Docs) | Create a virtual user like `claude@yourcompany.example.com` and share the folders and calendars it needs. If using a GCP service-account key with domain-wide delegation, restrict the delegation to that single subject and the minimum OAuth scopes; DWD can otherwise impersonate any user in your domain. |
+| SaaS with native service accounts (Datadog, Snowflake, Sentry) | Create a service account in that tool's admin, scope it to the project or read-only role, and use its API key |
+| SaaS without service accounts (Linear, Asana) | Create a dedicated user seat for the agent and use a personal access token from that seat |
+| Cloud APIs (AWS, GCP) | Create a dedicated IAM principal with the narrowest policy that covers the work |
 
 A dedicated account keeps the agent's activity separately auditable in each tool's logs and lets you revoke its access without touching anyone else's. Grant read-only wherever the categories below say read; Claude can never exceed what the key allows.
 
@@ -169,17 +169,17 @@ On the bundle's **Credentials** tab, click **Connect** next to a listed service,
 
 For a custom connection, choose the credential type:
 
-| Credential type                             | Use for                                                                                                                                                                                                                                                        |
-| :------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bearer                                      | API keys and OAuth bearer tokens. Most SaaS REST APIs.                                                                                                                                                                                                         |
-| Basic                                       | HTTP Basic authentication.                                                                                                                                                                                                                                     |
-| Body parameter                              | A token the API expects in the request body or query string instead of a header.                                                                                                                                                                               |
-| AWS SigV4                                   | Signed requests to AWS service endpoints with an access key pair.                                                                                                                                                                                              |
-| GCP access token (with Service Account Key) | Google Cloud APIs via a service-account JSON key. Google Workspace services like Drive and Calendar also use this; see [the Google guide](/docs/claude-tag/admins/connections/google).                                                                              |
-| GCP IAP (with Service Account Key)          | Google Cloud services behind Identity-Aware Proxy.                                                                                                                                                                                                             |
-| OAuth 2.0 JWT bearer                        | Server-to-server OAuth.                                                                                                                                                                                                                                        |
-| OAuth 2.0 client credentials                | Server-to-server OAuth. Salesforce uses this.                                                                                                                                                                                                                  |
-| MCP Connector                               | Sign in once as an admin; the agent acts as that account. The picker offers a fixed set of providers plus the [remote MCP connectors](/docs/connectors/custom/add-unlisted) your organization has added on claude.ai. Other OAuth APIs can't be connected this way. |
+| Credential type | Use for |
+| :- | :- |
+| Bearer | API keys and OAuth bearer tokens. Most SaaS REST APIs. |
+| Basic | HTTP Basic authentication. |
+| Body parameter | A token the API expects in the request body or query string instead of a header. |
+| AWS SigV4 | Signed requests to AWS service endpoints with an access key pair. |
+| GCP access token (with Service Account Key) | Google Cloud APIs via a service-account JSON key. Google Workspace services like Drive and Calendar also use this; see [the Google guide](/docs/claude-tag/admins/connections/google). |
+| GCP IAP (with Service Account Key) | Google Cloud services behind Identity-Aware Proxy. |
+| OAuth 2.0 JWT bearer | Server-to-server OAuth. |
+| OAuth 2.0 client credentials | Server-to-server OAuth. Salesforce uses this. |
+| MCP Connector | Sign in once as an admin; the agent acts as that account. The picker offers a fixed set of providers plus the [remote MCP connectors](/docs/connectors/custom/add-unlisted) your organization has added on claude.ai. Other OAuth APIs can't be connected this way. |
 
 For GitHub repositories, use the GitHub connection at [Configure GitHub access](/docs/claude-tag/admins/configure-github) rather than a credential from this table.
 

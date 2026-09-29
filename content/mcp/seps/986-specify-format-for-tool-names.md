@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                         |
-| ------------- | ----------------------------------------------------------------------------- |
-| **SEP**       | 986                                                                           |
-| **Title**     | Specify Format for Tool Names                                                 |
-| **Status**    | Final                                                                         |
-| **Type**      | Standards Track                                                               |
-| **Created**   | 2025-07-16                                                                    |
-| **Author(s)** | kentcdodds                                                                    |
-| **Sponsor**   | None                                                                          |
-| **PR**        | [#986](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/986) |
+| Field | Value |
+| - | - |
+| **SEP** | 986 |
+| **Title** | Specify Format for Tool Names |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-07-16 |
+| **Author(s)** | kentcdodds |
+| **Sponsor** | None |
+| **PR** | [#986](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/986) |
 
 ***
 

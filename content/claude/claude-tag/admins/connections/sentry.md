@@ -28,10 +28,10 @@ Sentry's own guide for creating the credential is at [docs.sentry.io](https://do
 
 In the bundle, click **Connect** next to **Sentry**.
 
-| Field               | Value                   |
-| :------------------ | :---------------------- |
+| Field | Value |
+| :- | :- |
 | Claude's auth token | The api key from Sentry |
-| Allowed websites    | `sentry.io`             |
+| Allowed websites | `sentry.io` |
 
 Self-hosted Sentry uses your own hostname instead of `sentry.io`.
 

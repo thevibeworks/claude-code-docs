@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2207                                                                            |
-| **Title**     | OIDC-Flavored Refresh Token Guidance                                            |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2026-02-04                                                                      |
-| **Author(s)** | Wils Dawson ([@wdawson](https://github.com/wdawson))                            |
-| **Sponsor**   | Paul Carleton ([@pcarleton](https://github.com/pcarleton))                      |
-| **PR**        | [#2207](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2207) |
+| Field | Value |
+| - | - |
+| **SEP** | 2207 |
+| **Title** | OIDC-Flavored Refresh Token Guidance |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2026-02-04 |
+| **Author(s)** | Wils Dawson ([@wdawson](https://github.com/wdawson)) |
+| **Sponsor** | Paul Carleton ([@pcarleton](https://github.com/pcarleton)) |
+| **PR** | [#2207](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2207) |
 
 ***
 

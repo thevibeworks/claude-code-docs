@@ -28,7 +28,7 @@ If you don’t see the **Keep your personal account separate** checkbox, then th
 
 What else happens during an in-place upgrade:
 
-- Your individual Pro or Max subscription is cancelled automatically and a prorated refund is issued for the unused portion of your billing period. Refunds usually appear immediately, but they can take a few days after your Team payment clears.
+- Your individual Pro or Max subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement.
 
 - Any prepaid usage credits on your individual account are refunded.
 
@@ -42,7 +42,7 @@ Because Apple doesn't allow third-party cancellation of App Store subscriptions,
 
 ### Google Play Store subscribers
 
-Subscriptions purchased through the Google Play Store are eligible for in-place upgrade.
+Subscriptions purchased through the Google Play Store are eligible for in-place upgrade. Your refund doesn't have the 24-hour wait, but it can take a few days to appear.
 
 ### If you decline the in-place upgrade
 

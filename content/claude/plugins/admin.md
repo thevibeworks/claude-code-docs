@@ -137,12 +137,12 @@ The product shows the availability setting under other labels too: **Distributio
 
 Each availability value decides what members see and whether they can remove the plugin:
 
-| Setting                  | What members see                                                                               | Can members remove it                      |
-| :----------------------- | :--------------------------------------------------------------------------------------------- | :----------------------------------------- |
-| **Not available**        | Nothing; the plugin is hidden from **Customize > Plugins** and can't be installed              | Not applicable                             |
-| **Available to install** | The plugin appears under **Discover** and members install it if they want it                   | Yes                                        |
-| **Installed by default** | The plugin is already installed for every member                                               | Members can turn it off                    |
-| **Required**             | The plugin is installed and always on, marked **This plugin is required by your organization** | No; members can't turn it off or remove it |
+| Setting | What members see | Can members remove it |
+| :- | :- | :- |
+| **Not available** | Nothing; the plugin is hidden from **Customize > Plugins** and can't be installed | Not applicable |
+| **Available to install** | The plugin appears under **Discover** and members install it if they want it | Yes |
+| **Installed by default** | The plugin is already installed for every member | Members can turn it off |
+| **Required** | The plugin is installed and always on, marked **This plugin is required by your organization** | No; members can't turn it off or remove it |
 
 Availability doesn't add a plugin's bundled connectors. If a plugin you install by default or require includes a connector, an Owner also adds that connector in [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors), and members then connect it with their own account.
 
@@ -266,11 +266,11 @@ Members on Team and Enterprise plans can publish a plugin they made to your orga
 
 The **Publishing** setting decides whether members can publish to your organization and whether each request waits for review. Set it in [**Organization settings > Plugins & skills > Policy**](https://claude.ai/admin-settings/skills?tab=policy). Owners and Primary Owners can change it. The same setting covers skills and plugins, and it has these values:
 
-| Publishing          | What members can do                                                                                                                          |
-| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Requires review** | Submit a plugin for review. Nothing reaches other members until a reviewer approves the request.                                             |
-| **Open**            | Publish without review. Where your organization scans what members publish, the plugin goes live after the security scan passes.             |
-| **Off**             | Nothing. **Publish to org** doesn't appear for members, and requests that were already waiting are hidden until you turn publishing back on. |
+| Publishing | What members can do |
+| :- | :- |
+| **Requires review** | Submit a plugin for review. Nothing reaches other members until a reviewer approves the request. |
+| **Open** | Publish without review. Where your organization scans what members publish, the plugin goes live after the security scan passes. |
+| **Off** | Nothing. **Publish to org** doesn't appear for members, and requests that were already waiting are hidden until you turn publishing back on. |
 
 If nobody in your organization has chosen a **Publishing** value, your plan's default applies:
 

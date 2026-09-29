@@ -8,11 +8,11 @@
 
 The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is the reference developer tool for testing and debugging [MCP servers](/docs/draft/learn/server-concepts). It ships as a single package, `@modelcontextprotocol/inspector`, providing **three clients behind one binary**:
 
-| Client  | Invocation                                  | What it's for                                                                     |
-| ------- | ------------------------------------------- | --------------------------------------------------------------------------------- |
-| **Web** | `npx @modelcontextprotocol/inspector`       | A full graphical inspector in the browser. The default, and the richest surface.  |
+| Client | Invocation | What it's for |
+| - | - | - |
+| **Web** | `npx @modelcontextprotocol/inspector` | A full graphical inspector in the browser. The default, and the richest surface. |
 | **CLI** | `npx @modelcontextprotocol/inspector --cli` | A scriptable, machine-readable client for CI, shell pipelines, and coding agents. |
-| **TUI** | `npx @modelcontextprotocol/inspector --tui` | An interactive terminal UI, for when a browser isn't available or wanted.         |
+| **TUI** | `npx @modelcontextprotocol/inspector --tui` | An interactive terminal UI, for when a browser isn't available or wanted. |
 
 All three are built on the same shared core, so a connection behaves identically across them: the same transports, the same configuration files, the same OAuth state on disk, and the same [protocol-era](/docs/draft/tools/inspector/protocol-eras) negotiation (legacy vs. modern 2026-07-28).
 

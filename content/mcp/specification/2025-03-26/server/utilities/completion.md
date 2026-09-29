@@ -80,10 +80,10 @@ what is being completed through a reference type:
 
 The protocol supports two types of completion references:
 
-| Type           | Description                 | Example                                             |
-| -------------- | --------------------------- | --------------------------------------------------- |
-| `ref/prompt`   | References a prompt by name | `{"type": "ref/prompt", "name": "code_review"}`     |
-| `ref/resource` | References a resource URI   | `{"type": "ref/resource", "uri": "file:///{path}"}` |
+| Type | Description | Example |
+| - | - | - |
+| `ref/prompt` | References a prompt by name | `{"type": "ref/prompt", "name": "code_review"}` |
+| `ref/resource` | References a resource URI | `{"type": "ref/resource", "uri": "file:///{path}"}` |
 
 ### Completion Results
 

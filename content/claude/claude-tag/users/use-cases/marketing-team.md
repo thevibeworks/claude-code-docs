@@ -20,12 +20,12 @@ Each prompt below is a Slack message. You paste it in the channel where that wor
 
 Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing. Each recipe below names the connection it uses.
 
-| Connection         | Examples                         | Why it matters here                                                      |
-| :----------------- | :------------------------------- | :----------------------------------------------------------------------- |
-| None               | —                                | Recaps, drafts, and brand voice rules work on Slack content alone        |
+| Connection | Examples | Why it matters here |
+| :- | :- | :- |
+| None | — | Recaps, drafts, and brand voice rules work on Slack content alone |
 | Knowledge and docs | Google Drive, Notion, Confluence | Answers policy and process questions from the docs where they're written |
-| Go-to-market       | HubSpot, Salesforce              | Reads CRM records, like contacts, leads, and deals                       |
-| Data warehouse     | BigQuery, Snowflake              | Runs the queries behind the metrics digest                               |
+| Go-to-market | HubSpot, Salesforce | Reads CRM records, like contacts, leads, and deals |
+| Data warehouse | BigQuery, Snowflake | Runs the queries behind the metrics digest |
 
 ## Prompts to paste
 

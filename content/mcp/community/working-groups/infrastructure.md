@@ -46,25 +46,25 @@ The Infrastructure WG should build on existing repositories and tools. Shared wo
 
 ## Leadership
 
-| Role | Name                    | Organization | GitHub                                                                 | Term    |
-| ---- | ----------------------- | ------------ | ---------------------------------------------------------------------- | ------- |
-| Lead | David Soria Parra (DSP) | Anthropic    | [@dsp](https://github.com/dsp), [@dsp-ant](https://github.com/dsp-ant) | Initial |
-| Lead | Den Delimarsky          | Anthropic    | [@localden](https://github.com/localden)                               | Initial |
-| Lead | Sambhav Kothari         | Bloomberg    | [@sambhav](https://github.com/sambhav)                                 | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | David Soria Parra (DSP) | Anthropic | [@dsp](https://github.com/dsp), [@dsp-ant](https://github.com/dsp-ant) | Initial |
+| Lead | Den Delimarsky | Anthropic | [@localden](https://github.com/localden) | Initial |
+| Lead | Sambhav Kothari | Bloomberg | [@sambhav](https://github.com/sambhav) | Initial |
 
 ## Authority & Decision Rights
 
 This table covers decisions about the Infrastructure WG's own work.
 
-| Decision Type                                                 | Authority Level                                  |
-| ------------------------------------------------------------- | ------------------------------------------------ |
-| Meeting logistics and scheduling                              | Infrastructure WG Leads (autonomous)             |
-| Infrastructure WG priorities                                  | Infrastructure WG Leads (autonomous)             |
-| Infrastructure and automation design within scope             | Infrastructure WG consensus                      |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics and scheduling | Infrastructure WG Leads (autonomous) |
+| Infrastructure WG priorities | Infrastructure WG Leads (autonomous) |
+| Infrastructure and automation design within scope | Infrastructure WG consensus |
 | Routine maintenance of Infrastructure WG-owned infrastructure | Infrastructure maintainers, within agreed policy |
-| Changes to another team's infrastructure                      | Agreement with the responsible owners            |
-| Infrastructure WG scope expansion                             | Core Maintainer approval required                |
-| Infrastructure WG Member approval                             | Infrastructure WG Member sponsors                |
+| Changes to another team's infrastructure | Agreement with the responsible owners |
+| Infrastructure WG scope expansion | Core Maintainer approval required |
+| Infrastructure WG Member approval | Infrastructure WG Member sponsors |
 
 ## Membership
 
@@ -74,8 +74,8 @@ The initial Leads are listed above. The Infrastructure WG will record additional
 
 The Infrastructure WG tracks tasks in GitHub issues in the relevant repositories. A shared GitHub Project board will track priorities, owners, status, and target dates. The board will be linked here once created. Contributors can take on tasks based on their availability.
 
-| Meeting         | Frequency           | Duration     | Purpose                                      |
-| --------------- | ------------------- | ------------ | -------------------------------------------- |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
 | Working session | As needed initially | To be agreed | Review priorities, designs, and ongoing work |
 
 Coordination starts in the Infrastructure Working Group discussion on MCP's Discord. Links to the Infrastructure WG channel and meeting notes will be added once confirmed. Meetings will be published at [meet.modelcontextprotocol.io](https://meet.modelcontextprotocol.io).
@@ -110,6 +110,6 @@ The first priorities come from the founding discussion: access and account provi
 
 ## Changelog
 
-| Date       | Change                                                                              |
-| ---------- | ----------------------------------------------------------------------------------- |
+| Date | Change |
+| - | - |
 | 2026-09-22 | Initial draft with David Soria Parra, Sambhav Kothari, and Den Delimarsky as Leads. |

@@ -38,10 +38,10 @@ In an Anthropic-hosted environment, every request from a channel's sandbox to yo
 
 The IP allowlist on your service and the [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) on a connection are opposite sides of the same boundary:
 
-|                       | IP allowlist                         | Allowed websites                        |
-| :-------------------- | :----------------------------------- | :-------------------------------------- |
-| **Who configures it** | Your team, on your service           | You, on the connection in Claude        |
-| **What it decides**   | Which networks may reach the service | Which hosts a credential may be sent to |
+| | IP allowlist | Allowed websites |
+| :- | :- | :- |
+| **Who configures it** | Your team, on your service | You, on the connection in Claude |
+| **What it decides** | Which networks may reach the service | Which hosts a credential may be sent to |
 
 ## Events and webhooks
 

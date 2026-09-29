@@ -16,12 +16,12 @@ This page lists what the token contains so the engineer who configures the verif
 
 ## Issuer and signing keys
 
-| Item                                       | Value                                                                                             |
-| :----------------------------------------- | :------------------------------------------------------------------------------------------------ |
-| Issuer (`iss`)                             | `https://identity.anthropic.com/agents`. Match it exactly, including the `/agents` path.          |
-| OpenID Connect (OIDC) discovery document   | `https://identity.anthropic.com/agents/.well-known/openid-configuration`                          |
+| Item | Value |
+| :- | :- |
+| Issuer (`iss`) | `https://identity.anthropic.com/agents`. Match it exactly, including the `/agents` path. |
+| OpenID Connect (OIDC) discovery document | `https://identity.anthropic.com/agents/.well-known/openid-configuration` |
 | Signing keys, as a JSON Web Key Set (JWKS) | `https://identity.anthropic.com/agents/jwks.json`, the `jwks_uri` named in the discovery document |
-| Signing algorithm                          | ES256 only. Reject any other `alg`, including `none`.                                             |
+| Signing algorithm | ES256 only. Reject any other `alg`, including `none`. |
 
 Both documents are public and need no authentication to fetch. One issuer serves every Claude Tag organization, so the issuer and signature prove only that Anthropic issued the token. The [subject](#subject), or the `tenant` claim, is what ties a token to your organization.
 
@@ -31,12 +31,12 @@ Signing keys rotate. If you run the verifier yourself, select the key by the tok
 
 ## Lifetime
 
-| Claim | Value                                                                                     |
-| :---- | :---------------------------------------------------------------------------------------- |
-| `iat` | When the token was issued, in seconds since the Unix epoch                                |
+| Claim | Value |
+| :- | :- |
+| `iat` | When the token was issued, in seconds since the Unix epoch |
 | `nbf` | 15 seconds before `iat` (current behavior, may change). Libraries check it automatically. |
-| `exp` | 10 minutes (600 seconds) after `iat`                                                      |
-| `jti` | A unique ID for this token                                                                |
+| `exp` | 10 minutes (600 seconds) after `iat` |
+| `jti` | A unique ID for this token |
 
 Allow up to 60 seconds of clock skew when you check `exp`, and treat `exp` as the earliest moment a token may stop working rather than an exact cutoff; cloud providers apply their own grace.
 
@@ -70,11 +70,11 @@ A token with a valid signature, issuer, audience, and expiry can still belong to
 
 The `aud` claim is a JSON array with one element. Use your library's audience option rather than comparing the raw claim text; some libraries print a one-element array as a bare string.
 
-| Where the token goes    | `aud`                                                                                                                                                                                                                                                                                                           |
-| :---------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| A gateway you connected | The HTTPS address you registered, which the console accepts only as a bare host on the standard port and stores in lowercase, for example `https://gateway.example.com`                                                                                                                                         |
-| AWS                     | `sts.amazonaws.com`                                                                                                                                                                                                                                                                                             |
-| Google Cloud            | Your workload identity provider's full resource name, for example `//iam.googleapis.com/projects/123456789/locations/global/workloadIdentityPools/claude/providers/agents`                                                                                                                                      |
+| Where the token goes | `aud` |
+| :- | :- |
+| A gateway you connected | The HTTPS address you registered, which the console accepts only as a bare host on the standard port and stores in lowercase, for example `https://gateway.example.com` |
+| AWS | `sts.amazonaws.com` |
+| Google Cloud | Your workload identity provider's full resource name, for example `//iam.googleapis.com/projects/123456789/locations/global/workloadIdentityPools/claude/providers/agents` |
 | An authorization server | Your server's issuer identifier as you entered it when connecting the server (an HTTPS URL on the token endpoint's host), for example `https://auth.example.com`, or the token endpoint URL exactly as registered, for example `https://auth.example.com/oauth2/token`, if you left the issuer identifier empty |
 
 The audience identifies the destination, not your organization; every organization's AWS tokens share `sts.amazonaws.com`. Always check the [subject](#subject) too.
@@ -83,19 +83,19 @@ The audience identifies the destination, not your organization; every organizati
 
 These are the claims a token carries.
 
-| Claim                | Value                                                                                                                                                                                                                           |
-| :------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `iss`                | `https://identity.anthropic.com/agents`                                                                                                                                                                                         |
-| `sub`                | The agent's subject; see [Subject](#subject)                                                                                                                                                                                    |
-| `aud`                | One-element array; see [Audience](#audience)                                                                                                                                                                                    |
-| `iat`, `nbf`, `exp`  | Issued-at, not-before, and expiry times; see [Lifetime](#lifetime)                                                                                                                                                              |
-| `jti`                | Unique token ID                                                                                                                                                                                                                 |
-| `tenant`             | Your Claude organization ID, the same value as the subject's `org/` segment. Together with `iss`, this is the pair a relying party pins to trust tokens from one organization. Not your cloud or identity provider's tenant ID. |
-| `agent_id`           | The agent ID, the same value as the subject's `agent/` segment                                                                                                                                                                  |
-| `profile_id`         | The ID of the Access bundle the connection belongs to, starting with `capp_`. Informational.                                                                                                                                    |
-| `platform`           | `slack` when the request came from Slack. Present whenever `slack_workspace_id` is.                                                                                                                                             |
-| `slack_workspace_id` | The ID of the Slack workspace Claude is acting in. Present when the request came from a Slack workspace your organization owns.                                                                                                 |
-| `slack_channel_id`   | The ID of the Slack channel Claude is acting in. Present whenever `slack_workspace_id` is and Claude is acting in one channel rather than a whole workspace.                                                                    |
+| Claim | Value |
+| :- | :- |
+| `iss` | `https://identity.anthropic.com/agents` |
+| `sub` | The agent's subject; see [Subject](#subject) |
+| `aud` | One-element array; see [Audience](#audience) |
+| `iat`, `nbf`, `exp` | Issued-at, not-before, and expiry times; see [Lifetime](#lifetime) |
+| `jti` | Unique token ID |
+| `tenant` | Your Claude organization ID, the same value as the subject's `org/` segment. Together with `iss`, this is the pair a relying party pins to trust tokens from one organization. Not your cloud or identity provider's tenant ID. |
+| `agent_id` | The agent ID, the same value as the subject's `agent/` segment |
+| `profile_id` | The ID of the Access bundle the connection belongs to, starting with `capp_`. Informational. |
+| `platform` | `slack` when the request came from Slack. Present whenever `slack_workspace_id` is. |
+| `slack_workspace_id` | The ID of the Slack workspace Claude is acting in. Present when the request came from a Slack workspace your organization owns. |
+| `slack_channel_id` | The ID of the Slack channel Claude is acting in. Present whenever `slack_workspace_id` is and Claude is acting in one channel rather than a whole workspace. |
 
 Tokens may carry additional claims Anthropic uses internally for audit; ignore any claim not listed here and never base an authorization decision on it.
 

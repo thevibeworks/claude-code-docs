@@ -67,24 +67,24 @@ See [Approaches](https://github.com/modelcontextprotocol/experimental-ext-groupi
 
 ## Leadership
 
-| Role        | Name        | Organization             | GitHub                                               | Term    |
-| ----------- | ----------- | ------------------------ | ---------------------------------------------------- | ------- |
-| Facilitator | Tapan Chugh | University of Washington | [@chughtapan](https://github.com/chughtapan)         | Initial |
-| Facilitator | Sam Morrow  | GitHub                   | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Facilitator | Tapan Chugh | University of Washington | [@chughtapan](https://github.com/chughtapan) | Initial |
+| Facilitator | Sam Morrow | GitHub | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | Initial |
 
 ## Membership
 
-| Name        | Organization             | GitHub                                               | Discord | Level       |
-| ----------- | ------------------------ | ---------------------------------------------------- | ------- | ----------- |
-| Tapan Chugh | University of Washington | [@chughtapan](https://github.com/chughtapan)         |         | Facilitator |
-| Sam Morrow  | GitHub                   | [@SamMorrowDrums](https://github.com/SamMorrowDrums) |         | Facilitator |
-| Cliff Hall  | Futurescale              | [@cliffhall](https://github.com/cliffhall)           |         | Maintainer  |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Tapan Chugh | University of Washington | [@chughtapan](https://github.com/chughtapan) | | Facilitator |
+| Sam Morrow | GitHub | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | | Facilitator |
+| Cliff Hall | Futurescale | [@cliffhall](https://github.com/cliffhall) | | Maintainer |
 
 ## Operations
 
-| Meeting    | Frequency | Duration | Purpose                                                        |
-| ---------- | --------- | -------- | -------------------------------------------------------------- |
-| Discussion | TBD       | TBD      | Requirements alignment, approach review, experimental findings |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Discussion | TBD | TBD | Requirements alignment, approach review, experimental findings |
 
 Open to anyone. Join the [#primitive-grouping-ig](https://discord.com/channels/1358869848138059966/1425903819186770064) channel on the [MCP Contributors Discord](/community/communication#discord).
 
@@ -92,11 +92,11 @@ Open to anyone. Join the [#primitive-grouping-ig](https://discord.com/channels/1
 
 The following items form the IG's current work agenda. This list is not exhaustive and will evolve as the group identifies new areas of interest.
 
-| Item                               | Status      | Champion         | Notes                                                             |
-| ---------------------------------- | ----------- | ---------------- | ----------------------------------------------------------------- |
-| Requirements alignment             | In Progress | All facilitators | Review approaches, identify common requirements and gaps          |
-| Experimental findings repo section | Proposed    | TBD              | Dedicated repo section for implementations and evaluation results |
-| MCP Grouping Convention v0.1       | Proposed    | TBD              | Documented pattern (not spec) for grouping of primitives          |
+| Item | Status | Champion | Notes |
+| - | - | - | - |
+| Requirements alignment | In Progress | All facilitators | Review approaches, identify common requirements and gaps |
+| Experimental findings repo section | Proposed | TBD | Dedicated repo section for implementations and evaluation results |
+| MCP Grouping Convention v0.1 | Proposed | TBD | Documented pattern (not spec) for grouping of primitives |
 
 ## Lifecycle
 
@@ -128,6 +128,6 @@ This IG may propose becoming a Working Group if:
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-06-18 | Initial charter |

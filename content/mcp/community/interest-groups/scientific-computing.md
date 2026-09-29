@@ -61,15 +61,15 @@ formation of working groups.
 
 ## Leadership
 
-| Role        | Name        | Organization | GitHub                                       | Term    |
-| ----------- | ----------- | ------------ | -------------------------------------------- | ------- |
-| Facilitator | Cory Kinney | —            | [@corykinney](https://github.com/corykinney) | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Facilitator | Cory Kinney | — | [@corykinney](https://github.com/corykinney) | Initial |
 
 ## Operations
 
-| Meeting         | Frequency | Duration | Purpose                                |
-| --------------- | --------- | -------- | -------------------------------------- |
-| Working Session | TBD       | TBD      | Use-case sharing, technical discussion |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | TBD | TBD | Use-case sharing, technical discussion |
 
 Open to anyone. Join the [#scientific-computing-ig](https://discord.com/channels/1358869848138059966/1540132675174535228) channel on the
 [MCP Contributors Discord](/community/communication#discord).
@@ -79,14 +79,14 @@ Open to anyone. Join the [#scientific-computing-ig](https://discord.com/channels
 The following themes form the IG's initial agenda. This list is not exhaustive and will evolve as the
 group identifies new areas of interest.
 
-| Item | Name                                                                                     | Status | Champion |
-| ---- | ---------------------------------------------------------------------------------------- | ------ | -------- |
-| —    | Quantities extension: units, dimensions, and semantics in tool schemas                   | Open   | —        |
-| —    | Reproducibility: provenance and versioning metadata for computed results                 | Open   | —        |
-| —    | Standards interoperability: relating MCP to existing scientific formats and vocabularies | Open   | —        |
+| Item | Name | Status | Champion |
+| - | - | - | - |
+| — | Quantities extension: units, dimensions, and semantics in tool schemas | Open | — |
+| — | Reproducibility: provenance and versioning metadata for computed results | Open | — |
+| — | Standards interoperability: relating MCP to existing scientific formats and vocabularies | Open | — |
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-08-24 | Initial charter |

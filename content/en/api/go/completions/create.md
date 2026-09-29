@@ -243,13 +243,15 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `string`
-
     - `type Model string`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
 
@@ -265,7 +267,7 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
@@ -325,6 +327,8 @@ Future models and features will not be compatible with Text Completions. See our
 
         New class of intelligence, strongest in coding and cybersecurity
 
+    - `string`
+
   - `StopReason string`
 
     The reason that we stopped.
@@ -353,7 +357,7 @@ func main() {
 	)
 	completion, err := client.Completions.New(context.TODO(), anthropic.CompletionNewParams{
 		MaxTokensToSample: 256,
-		Model:             anthropic.ModelClaudeFable5_1,
+		Model:             anthropic.ModelClaudeSonnet5_5,
 		Prompt:            "\n\nHuman: Hello, world!\n\nAssistant:",
 	})
 	if err != nil {

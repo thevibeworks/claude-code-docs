@@ -12,12 +12,12 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Claude Tag's behavior is shaped by four layers, each set in a different place:
 
-| Layer                   | What it is                                                                                                                                           | Who sets it                                                                                                                                         | Where                                                                                                                                                           |
-| :---------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Connections**         | Credentials for the systems Claude can reach (GitHub, Drive, Datadog, your APIs)                                                                     | Owner; a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for their assigned channels               | [Access bundles](/docs/claude-tag/admins/add-connections), or the channel's Configure page for a channel manager                                                     |
-| **Plugins and skills**  | Instructions that teach Claude how to use a tool or follow a process. A plugin bundles one or more [skills](https://code.claude.com/docs/en/skills). | Owner; channel members can add plugins to their channel unless an admin restricts editing                                                           | [Bundle Plugins tab](/docs/claude-tag/admins/add-connections#attach-plugins), a [skills repository](/docs/claude-tag/admins/skills-repo), or the channel's Configure page |
-| **Custom instructions** | Standing guidance read in every session at a scope (team conventions, output formats). Outranks channel memory.                                      | Owner for any scope; channel members for the channel scope, from the [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel) | [Per-scope instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions)                                                                            |
-| **Channel memory**      | Facts Claude saves while working in a channel                                                                                                        | Anyone in the channel                                                                                                                               | By [telling Claude](/docs/claude-tag/users/memory)                                                                                                                   |
+| Layer | What it is | Who sets it | Where |
+| :- | :- | :- | :- |
+| **Connections** | Credentials for the systems Claude can reach (GitHub, Drive, Datadog, your APIs) | Owner; a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for their assigned channels | [Access bundles](/docs/claude-tag/admins/add-connections), or the channel's Configure page for a channel manager |
+| **Plugins and skills** | Instructions that teach Claude how to use a tool or follow a process. A plugin bundles one or more [skills](https://code.claude.com/docs/en/skills). | Owner; channel members can add plugins to their channel unless an admin restricts editing | [Bundle Plugins tab](/docs/claude-tag/admins/add-connections#attach-plugins), a [skills repository](/docs/claude-tag/admins/skills-repo), or the channel's Configure page |
+| **Custom instructions** | Standing guidance read in every session at a scope (team conventions, output formats). Outranks channel memory. | Owner for any scope; channel members for the channel scope, from the [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel) | [Per-scope instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) |
+| **Channel memory** | Facts Claude saves while working in a channel | Anyone in the channel | By [telling Claude](/docs/claude-tag/users/memory) |
 
 Connections and plugins decide what Claude *can do*; instructions and memory shape *how it does it*.
 
@@ -25,17 +25,17 @@ Connections and plugins decide what Claude *can do*; instructions and memory sha
 
 Access and organization-wide behavior are set at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), per scope (a scope is a channel, a workspace, or your whole organization), so the same agent can work differently in different channels. Most controls below are Owner-only.
 
-| Setting               | What it does                                                                                                                                                                                                                                                                                                                                                                                           | More                                                                                                                                                 |
-| :-------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Custom instructions   | Standing guidance read in every session on a scope, like team conventions. Outranks channel memory.                                                                                                                                                                                                                                                                                                    | [Add custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions)                                                                |
-| Respond automatically | Whether Claude replies to a channel's messages without an @-mention. **Respond automatically** exists only on channels, not on workspaces or your whole organization. Channel members can change it too, from Slack or the channel's Configure page, unless the scope's [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) setting is **Block**. | [Turn automatic replies on or off](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off)                                          |
-| Plugins               | Bundles of skills that teach Claude how to use a specific tool                                                                                                                                                                                                                                                                                                                                         | [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins)                                                                                  |
-| Connections           | Which systems it can reach from each channel                                                                                                                                                                                                                                                                                                                                                           | [Add connections](/docs/claude-tag/admins/add-connections)                                                                                                |
-| Default model         | Which Claude model handles sessions in a scope                                                                                                                                                                                                                                                                                                                                                         | [Choose the model for a scope](#choose-the-model-for-a-scope)                                                                                        |
-| Auto mode allow rules | Actions pre-approved in a scope's sessions that Claude's permission checker would otherwise flag or stop                                                                                                                                                                                                                                                                                               | [Auto mode allow rules](#auto-mode-allow-rules)                                                                                                      |
-| Environment           | Which cloud environment a scope's sessions run in                                                                                                                                                                                                                                                                                                                                                      | [Configure the environment for a scope](#configure-the-environment-for-a-scope)                                                                      |
-| Enable Claude Tag     | Turns Claude on or off in a scope                                                                                                                                                                                                                                                                                                                                                                      | [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
-| Claude Tag version    | Which generation answers in a scope (**New** or **Legacy**)                                                                                                                                                                                                                                                                                                                                            | [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
+| Setting | What it does | More |
+| :- | :- | :- |
+| Custom instructions | Standing guidance read in every session on a scope, like team conventions. Outranks channel memory. | [Add custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) |
+| Respond automatically | Whether Claude replies to a channel's messages without an @-mention. **Respond automatically** exists only on channels, not on workspaces or your whole organization. Channel members can change it too, from Slack or the channel's Configure page, unless the scope's [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) setting is **Block**. | [Turn automatic replies on or off](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) |
+| Plugins | Bundles of skills that teach Claude how to use a specific tool | [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins) |
+| Connections | Which systems it can reach from each channel | [Add connections](/docs/claude-tag/admins/add-connections) |
+| Default model | Which Claude model handles sessions in a scope | [Choose the model for a scope](#choose-the-model-for-a-scope) |
+| Auto mode allow rules | Actions pre-approved in a scope's sessions that Claude's permission checker would otherwise flag or stop | [Auto mode allow rules](#auto-mode-allow-rules) |
+| Environment | Which cloud environment a scope's sessions run in | [Configure the environment for a scope](#configure-the-environment-for-a-scope) |
+| Enable Claude Tag | Turns Claude on or off in a scope | [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
+| Claude Tag version | Which generation answers in a scope (**New** or **Legacy**) | [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
 
 ### Channel connections are separate from personal connectors
 
@@ -47,13 +47,13 @@ To give Claude access to a tool that is not in the built-in connection list, inc
 
 Everything in the table below is open to channel members, with no admin involved.
 
-| To change                      | Say something like                                         | More                                                                       |
-| :----------------------------- | :--------------------------------------------------------- | :------------------------------------------------------------------------- |
-| How Claude formats output      | "remember for this channel: post reports as a table"       | [Memory](/docs/claude-tag/users/memory)                                         |
-| How chatty Claude is           | "ask before posting anything longer than a screen"         | [Memory](/docs/claude-tag/users/memory)                                         |
-| When Claude follows a thread   | "stay quiet in this thread unless someone tags you"        | [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds) |
-| What Claude does on a schedule | "every morning at 9, post a digest of open threads"        | [Set up routines](/docs/claude-tag/users/proactivity)                           |
-| What Claude remembers          | "what do you remember about this channel?" then correct it | [Memory](/docs/claude-tag/users/memory)                                         |
+| To change | Say something like | More |
+| :- | :- | :- |
+| How Claude formats output | "remember for this channel: post reports as a table" | [Memory](/docs/claude-tag/users/memory) |
+| How chatty Claude is | "ask before posting anything longer than a screen" | [Memory](/docs/claude-tag/users/memory) |
+| When Claude follows a thread | "stay quiet in this thread unless someone tags you" | [Control when Claude Tag responds](/docs/claude-tag/users/when-claude-responds) |
+| What Claude does on a schedule | "every morning at 9, post a digest of open threads" | [Set up routines](/docs/claude-tag/users/proactivity) |
+| What Claude remembers | "what do you remember about this channel?" then correct it | [Memory](/docs/claude-tag/users/memory) |
 
 Changes in the table above are saved to channel memory; verify one stuck by asking what it remembers.
 
@@ -92,13 +92,13 @@ Claude runs every channel session in a sandbox that starts with a standard set o
 
 An environment carries a setup script, environment variables, and a network access level. Not everything a channel needs belongs there, so match each need to its place before you create one:
 
-| What the channel needs                                                          | Where to put it                                                                                                                                                     |
-| :------------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| A tool installed before Claude starts, such as a runtime or a database client   | The environment's setup script, a Bash script whose installs are on disk before Claude starts work                                                                  |
-| A value every session should see, such as a deployment target or a feature flag | The environment's environment variables, as `KEY=value` pairs, one per line                                                                                         |
-| Web access without a credential                                                 | The environment's network access level; see [broad web access through the environment](/docs/claude-tag/admins/add-connections#broad-web-access-through-the-environment) |
-| An API key, token, or other credential                                          | A [connection](/docs/claude-tag/admins/add-connections), never an environment variable                                                                                   |
-| Setup for one repository, such as installing its dependencies                   | That repository's `CLAUDE.md`; see [install project dependencies](/docs/claude-tag/admins/configure-github#install-project-dependencies)                                 |
+| What the channel needs | Where to put it |
+| :- | :- |
+| A tool installed before Claude starts, such as a runtime or a database client | The environment's setup script, a Bash script whose installs are on disk before Claude starts work |
+| A value every session should see, such as a deployment target or a feature flag | The environment's environment variables, as `KEY=value` pairs, one per line |
+| Web access without a credential | The environment's network access level; see [broad web access through the environment](/docs/claude-tag/admins/add-connections#broad-web-access-through-the-environment) |
+| An API key, token, or other credential | A [connection](/docs/claude-tag/admins/add-connections), never an environment variable |
+| Setup for one repository, such as installing its dependencies | That repository's `CLAUDE.md`; see [install project dependencies](/docs/claude-tag/admins/configure-github#install-project-dependencies) |
 
 Keep credentials out of environment variables because every session on the environment reads them and Claude can print them. There is no separate secrets store. A connection stores the credential outside the sandbox and attaches it to matching requests at the network layer, so Claude uses the service without holding the raw value. [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) describes how. A connection also travels with the access bundle, so you choose channel by channel which sessions can use it. Repository-specific setup goes in `CLAUDE.md` so the people who maintain the repository keep it current. Claude reads it when it starts work in that repository.
 
@@ -149,9 +149,9 @@ The rules list has three properties:
 
 <Warning>Once you add an allow rule, Claude runs the actions it names in every channel the scope covers without anyone approving them in the moment. Keep each rule narrow: name the tool, the action, and the environment it allows, and put rules that unlock sensitive systems on the narrowest scope that needs them.</Warning>
 
-## Settings no one can change
+## Name, handle, and avatar of the Claude app
 
-* The Claude app's name, @-handle, and avatar in Slack are the same in every workspace; there is no rename or rebrand setting.
+The Claude app's name, @-handle, and avatar in Slack are the same in every workspace; there is no rename or rebrand setting.
 
 ## Related resources
 

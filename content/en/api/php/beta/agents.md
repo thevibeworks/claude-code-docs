@@ -1845,6 +1845,10 @@ var_dump($betaManagedAgentsAgent);
 
 - `enum BetaManagedAgentsModel`
 
+  - `"claude-sonnet-5-5"`
+
+    Efficient model for coding and agents
+
   - `"claude-opus-5-5"`
 
     Powerful intelligence for coding, knowledge work, and long-running agents
@@ -1855,7 +1859,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `"claude-sonnet-5"`
 
-    High-performance model for coding and agents
+    Efficient model for coding and agents
 
   - `"claude-fable-5"`
 

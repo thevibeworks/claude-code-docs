@@ -14,14 +14,14 @@ Projects live on your computer. They aren't synced to the cloud or shared with o
 
 Each project bundles the following, and you can change any of it after creation.
 
-| Item               | Purpose                                                                               |
-| ------------------ | ------------------------------------------------------------------------------------- |
-| Description        | What the project is for; Dispatch reads it when choosing a project for a task         |
-| Folders            | One or more local folders Claude can read and write inside this project's sessions    |
-| Instructions       | Standing guidance applied to every session in the project                             |
-| Links              | Reference URLs (documents, dashboards, repositories) Claude can consult               |
+| Item | Purpose |
+| - | - |
+| Description | What the project is for; Dispatch reads it when choosing a project for a task |
+| Folders | One or more local folders Claude can read and write inside this project's sessions |
+| Instructions | Standing guidance applied to every session in the project |
+| Links | Reference URLs (documents, dashboards, repositories) Claude can consult |
 | Projects from Chat | Projects you made in Chat (claude.ai) whose knowledge this Cowork project can draw on |
-| Memory             | A project-scoped memory store that persists across sessions                           |
+| Memory | A project-scoped memory store that persists across sessions |
 
 ## Create a project
 
@@ -59,11 +59,11 @@ When you drag files or folders into a project, individual files are copied into 
 
 A Cowork project is not the same thing as a project on claude.ai. They're stored separately and have different capabilities.
 
-|                          | Cowork project        | claude.ai project           |
-| ------------------------ | --------------------- | --------------------------- |
-| Lives                    | On your computer only | In your Claude account      |
-| Holds local folders      | Yes                   | No                          |
-| Shareable with teammates | No                    | Yes, on Team and Enterprise |
+| | Cowork project | claude.ai project |
+| - | - | - |
+| Lives | On your computer only | In your Claude account |
+| Holds local folders | Yes | No |
+| Shareable with teammates | No | Yes, on Team and Enterprise |
 
 You can link a claude.ai project into a Cowork project so Cowork sessions can draw on its knowledge. Linking doesn't merge them; the claude.ai project stays where it is.
 

@@ -79,15 +79,15 @@ To move the Grid-wide pairing to a different Claude organization, an Owner in th
 
 Each scope has two controls, an **Enable Claude Tag** switch that turns Claude on or off there and a **Claude Tag version** setting that chooses which version answers while the scope is on. On the Team plan, a single [**Enable Claude Tag** switch](#turn-claude-tag-on-or-off-on-the-team-plan) replaces them. Both controls are on the scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope. Channels Claude was added to appear under **Slack** automatically, and the **Search channels** field finds a channel's scope by name or ID.
 
-The **Enable Claude Tag** switch sits at the top of the scope's panel. While the switch is off, Claude doesn't respond to @-mentions in the scope. Direct messages are unaffected. Turning the switch on routes the scope to **New**. To make a workspace or channel follow its parent again, click **Use inherited setting** under the switch.
+The **Enable Claude Tag** switch sits at the top of the scope's panel. While the switch is off, Claude doesn't respond to @-mentions in the scope. Direct messages from members who have connected a Claude account are unaffected. Turning the switch on routes the scope to **New**. To make a workspace or channel follow its parent again, click **Use inherited setting** under the switch.
 
 The **Claude Tag version** setting is under the scope's **Advanced** section and is unavailable while the scope's switch is off. Choosing **Inherit** clears the scope's own setting entirely, so the scope also follows its parent for on or off.
 
-| Label       | Effect                                                                                                                                                               |
-| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **New**     | Claude Tag. Access bundles, skills, and custom instructions apply                                                                                                    |
-| **Legacy**  | The earlier per-user Claude in Slack. Bundles and skills do not apply. Being deprecated; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier) |
-| **Inherit** | Use the parent scope's value. Not shown at **Default Slack access**                                                                                                  |
+| Label | Effect |
+| :- | :- |
+| **New** | Claude Tag. Access bundles, skills, and custom instructions apply |
+| **Legacy** | The earlier per-user Claude in Slack. Bundles and skills do not apply. Being deprecated; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier) |
+| **Inherit** | Use the parent scope's value. Not shown at **Default Slack access** |
 
 Both versions answer through the same @Claude app, so turning a scope's **Enable Claude Tag** switch off silences the Legacy version there too. To opt out of Claude Tag while keeping the earlier behavior, leave the switch on and set the scope's **Claude Tag version** to **Legacy**.
 
@@ -99,7 +99,7 @@ On the [Team plan](https://claude.com/pricing), you turn Claude on or off in eve
 
 ### Turn Claude off in channels
 
-Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch off. An @-mention in any channel gets "Claude is disabled in this channel" while the switch is off. Direct messages keep working. To stop those too, turn off the [**Allow direct messages**](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages) toggle.
+Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch off. An @-mention in any channel gets "Claude is disabled in this channel" while the switch is off. Direct messages from members who have connected a Claude account keep working. To stop those too, turn off the [**Allow direct messages**](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages) toggle. For members who haven't connected an account, see [Stop direct messages from members without a Claude account](/docs/claude-tag/admins/restrict-access#stop-direct-messages-from-members-without-a-claude-account).
 
 ### Turn Claude back on
 
@@ -117,15 +117,15 @@ The switch has no per-channel setting. Add [blocked channel patterns](/docs/clau
 
 When a workspace or channel entry shows a notice that its settings aren't applied, nothing you set there is lost.
 
-| Notice                                                                                                                                                                                                                   | What to do                                                                                                                                                                                             |
-| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "These settings aren't applied while Claude Tag is disabled. They're saved and will take effect once it's enabled."                                                                                                      | Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch on    |
+| Notice | What to do |
+| :- | :- |
+| "These settings aren't applied while Claude Tag is disabled. They're saved and will take effect once it's enabled." | Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch on |
 | "These settings aren't applied while Claude Tag is turned off for this workspace or channel; the org-wide Enable Claude Tag setting doesn't override that. They're saved and will take effect once it's turned back on." | The workspace, or the channel's workspace, was turned off on its own, and the switch doesn't override that. While you have the single switch, the admin page has no control for that workspace setting |
-| "These settings aren’t applied while Claude Tag setup is incomplete for this workspace or channel."                                                                                                                      | Select the **Resume** *workspace* **setup** button beside the notice and finish that workspace's setup. On a channel's entry, the button's label names the channel's workspace                         |
+| "These settings aren’t applied while Claude Tag setup is incomplete for this workspace or channel." | Select the **Resume** *workspace* **setup** button beside the notice and finish that workspace's setup. On a channel's entry, the button's label names the channel's workspace |
 
 ## Revoke a pairing
 
-In the **Connected workspaces** list, select **Disconnect** on the workspace's row, then confirm in the dialog. Claude stops responding in that workspace's channels immediately, and your organization is no longer billed for Claude usage there. Direct messages run on each member's own Claude account, so they keep working until the deletion below removes the member's account link. A member who reconnects their account afterward can use direct messages again while the app stays installed.
+In the **Connected workspaces** list, select **Disconnect** on the workspace's row, then confirm in the dialog. Claude stops responding in that workspace's channels immediately, and your organization is no longer billed for Claude usage there. Direct messages from members who have connected a Claude account run on the member's own account, so they keep working until the deletion below removes the member's account link. A member who reconnects their account afterward can use direct messages again while the app stays installed.
 
 <Warning>
   When you disconnect a workspace, Anthropic deletes its Claude data:

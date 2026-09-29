@@ -149,18 +149,18 @@ available during the session.
 
 Key capabilities include:
 
-| Category | Capability     | Description                                                                               |
-| -------- | -------------- | ----------------------------------------------------------------------------------------- |
-| Client   | `roots`        | Ability to provide filesystem [roots](/specification/2025-06-18/client/roots)             |
-| Client   | `sampling`     | Support for LLM [sampling](/specification/2025-06-18/client/sampling) requests            |
-| Client   | `elicitation`  | Support for server [elicitation](/specification/2025-06-18/client/elicitation) requests   |
-| Client   | `experimental` | Describes support for non-standard experimental features                                  |
-| Server   | `prompts`      | Offers [prompt templates](/specification/2025-06-18/server/prompts)                       |
-| Server   | `resources`    | Provides readable [resources](/specification/2025-06-18/server/resources)                 |
-| Server   | `tools`        | Exposes callable [tools](/specification/2025-06-18/server/tools)                          |
-| Server   | `logging`      | Emits structured [log messages](/specification/2025-06-18/server/utilities/logging)       |
-| Server   | `completions`  | Supports argument [autocompletion](/specification/2025-06-18/server/utilities/completion) |
-| Server   | `experimental` | Describes support for non-standard experimental features                                  |
+| Category | Capability | Description |
+| - | - | - |
+| Client | `roots` | Ability to provide filesystem [roots](/specification/2025-06-18/client/roots) |
+| Client | `sampling` | Support for LLM [sampling](/specification/2025-06-18/client/sampling) requests |
+| Client | `elicitation` | Support for server [elicitation](/specification/2025-06-18/client/elicitation) requests |
+| Client | `experimental` | Describes support for non-standard experimental features |
+| Server | `prompts` | Offers [prompt templates](/specification/2025-06-18/server/prompts) |
+| Server | `resources` | Provides readable [resources](/specification/2025-06-18/server/resources) |
+| Server | `tools` | Exposes callable [tools](/specification/2025-06-18/server/tools) |
+| Server | `logging` | Emits structured [log messages](/specification/2025-06-18/server/utilities/logging) |
+| Server | `completions` | Supports argument [autocompletion](/specification/2025-06-18/server/utilities/completion) |
+| Server | `experimental` | Describes support for non-standard experimental features |
 
 Capability objects can describe sub-capabilities like:
 

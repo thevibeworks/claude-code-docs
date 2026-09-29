@@ -18,15 +18,15 @@ This page is for developers deciding whether to list a server in the directory, 
 
 Directory and custom connectors differ only in what surrounds the runtime: who reviews the server, how users find it, and which Anthropic-side features it can use.
 
-|                                                                                | Directory connector                          | Custom connector                                           |
-| ------------------------------------------------------------------------------ | -------------------------------------------- | ---------------------------------------------------------- |
-| **Runtime**                                                                    | Same                                         | Same                                                       |
-| **Anthropic review**                                                           | Yes                                          | No                                                         |
-| **In-product discovery**                                                       | Browse, search, Suggested Connectors         | None                                                       |
-| **Distribution**                                                               | [Directory link](#share-an-install-link)     | [Install link](#share-an-install-link) or manual URL entry |
-| **Anthropic-held client credentials**                                          | Available                                    | Not available                                              |
-| **[External link](/docs/connectors/building/mcp-apps/external-links) confirmation** | Can allowlist destinations to skip the modal | Always shows the modal                                     |
-| **Appears as**                                                                 | Named card with logo                         | **Custom**                                                 |
+| | Directory connector | Custom connector |
+| - | - | - |
+| **Runtime** | Same | Same |
+| **Anthropic review** | Yes | No |
+| **In-product discovery** | Browse, search, Suggested Connectors | None |
+| **Distribution** | [Directory link](#share-an-install-link) | [Install link](#share-an-install-link) or manual URL entry |
+| **Anthropic-held client credentials** | Available | Not available |
+| **[External link](/docs/connectors/building/mcp-apps/external-links) confirmation** | Can allowlist destinations to skip the modal | Always shows the modal |
+| **Appears as** | Named card with logo | **Custom** |
 
 ## Share an install link
 
@@ -52,11 +52,11 @@ https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=
 
 The link takes these query parameters:
 
-| Parameter       | Description                                                                                                |
-| --------------- | ---------------------------------------------------------------------------------------------------------- |
-| `modal`         | Must be `add-custom-connector`                                                                             |
-| `connectorName` | Display name shown to the user                                                                             |
-| `connectorUrl`  | Your MCP server URL, [percent-encoded](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) |
+| Parameter | Description |
+| - | - |
+| `modal` | Must be `add-custom-connector` |
+| `connectorName` | Display name shown to the user |
+| `connectorUrl` | Your MCP server URL, [percent-encoded](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) |
 
 For example, an install link for a server at `https://mcp.example.com/` looks like this:
 

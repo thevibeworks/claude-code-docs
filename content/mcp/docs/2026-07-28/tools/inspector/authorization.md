@@ -60,11 +60,11 @@ Remote MCP servers usually require authorization. The Inspector implements the f
 
 The web app listens for the OAuth callback on its own URL, while the CLI and TUI deliberately share a second one:
 
-| Surface | Default callback                       | Why                                                                                |
-| ------- | -------------------------------------- | ---------------------------------------------------------------------------------- |
-| **Web** | `http://localhost:6274/oauth/callback` | The main app server already has an HTTP listener.                                  |
+| Surface | Default callback | Why |
+| - | - | - |
+| **Web** | `http://localhost:6274/oauth/callback` | The main app server already has an HTTP listener. |
 | **CLI** | `http://127.0.0.1:6276/oauth/callback` | A dedicated loopback listener, so it doesn't collide with a running web Inspector. |
-| **TUI** | `http://127.0.0.1:6276/oauth/callback` | The same listener as the CLI.                                                      |
+| **TUI** | `http://127.0.0.1:6276/oauth/callback` | The same listener as the CLI. |
 
 **Register `http://127.0.0.1:6276/oauth/callback`** on any IdP that requires pre-registered redirect URIs before using the CLI or TUI. A predictable default is the point: you register once and reuse it.
 
@@ -87,11 +87,11 @@ Override with `--callback-url` or `MCP_OAUTH_CALLBACK_URL`.
 
 ## Where credentials live
 
-| File                                                                                                                 | Contents                                                                                                                               |
-| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `~/.mcp-inspector/storage/oauth.json`                                                                                | Tokens and client information, keyed by canonicalized server URL. Written owner-only.                                                  |
-| `~/.mcp-inspector/storage/client.json`                                                                               | Install-level client settings (client metadata URL, enterprise IdP). The same file the web client's **Client Settings** dialog writes. |
-| The server's `oauth` block in the [catalog file](/docs/2026-07-28/tools/inspector/configuration#catalog-file-format) | Per-server client id/secret, scopes, the enterprise-managed flag, and the [step-up](#mid-session-re-authorization) policy.             |
+| File | Contents |
+| - | - |
+| `~/.mcp-inspector/storage/oauth.json` | Tokens and client information, keyed by canonicalized server URL. Written owner-only. |
+| `~/.mcp-inspector/storage/client.json` | Install-level client settings (client metadata URL, enterprise IdP). The same file the web client's **Client Settings** dialog writes. |
+| The server's `oauth` block in the [catalog file](/docs/2026-07-28/tools/inspector/configuration#catalog-file-format) | Per-server client id/secret, scopes, the enterprise-managed flag, and the [step-up](#mid-session-re-authorization) policy. |
 
 The path to `oauth.json` is resolved in order: `MCP_INSPECTOR_OAUTH_STATE_PATH`, then `<MCP_STORAGE_DIR>/oauth.json` (see [Environment variables](/docs/2026-07-28/tools/inspector/configuration#environment-variables)), then the default above. All three clients resolve it the same way. Command-line `--client-id` / `--client-secret` / `--client-metadata-url` override `client.json`.
 
@@ -126,13 +126,13 @@ mcp-inspector --cli "$URL" --transport http --stored-auth-only --method tools/li
 
 The common case: a human completed OAuth in the web Inspector on this machine, and now a script wants to use that token.
 
-| Flag                    | Behavior                                                                                                                                                                                                                                                          |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--use-stored-auth`     | Read the stored auth for `--server-url` and inject `Authorization: Bearer`. When a refresh token is stored, run the refresh grant first and inject the **fresh** token, persisting the rotation. Exits `3` (listing the stored server URLs) when nothing matches. |
-| `--wait-for-auth <sec>` | Poll the state file until a token for `--server-url` appears, then inject it. Times out at `<sec>` with exit `3`. Use after handing a login off to a human.                                                                                                       |
-| `--list-stored-auth`    | Print `{ oauthStatePath, storedServerUrls }` and exit without connecting.                                                                                                                                                                                         |
-| `--print-handoff`       | Print a JSON block (`deepLink`, `portForwardCmd`, `oauthStatePath`, `apiToken`) for `--server-url` and exit; this is everything a remote script needs to drive the browser side.                                                                                  |
-| `--relogin`             | Delete the stored OAuth for this server URL before connecting. HTTP/SSE only.                                                                                                                                                                                     |
+| Flag | Behavior |
+| - | - |
+| `--use-stored-auth` | Read the stored auth for `--server-url` and inject `Authorization: Bearer`. When a refresh token is stored, run the refresh grant first and inject the **fresh** token, persisting the rotation. Exits `3` (listing the stored server URLs) when nothing matches. |
+| `--wait-for-auth <sec>` | Poll the state file until a token for `--server-url` appears, then inject it. Times out at `<sec>` with exit `3`. Use after handing a login off to a human. |
+| `--list-stored-auth` | Print `{ oauthStatePath, storedServerUrls }` and exit without connecting. |
+| `--print-handoff` | Print a JSON block (`deepLink`, `portForwardCmd`, `oauthStatePath`, `apiToken`) for `--server-url` and exit; this is everything a remote script needs to drive the browser side. |
+| `--relogin` | Delete the stored OAuth for this server URL before connecting. HTTP/SSE only. |
 
 A typical remote-VM sequence:
 

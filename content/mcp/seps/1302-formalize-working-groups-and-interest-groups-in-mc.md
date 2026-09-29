@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 1302                                                                            |
-| **Title**     | Formalize Working Groups and Interest Groups in MCP Governance                  |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-08-05                                                                      |
-| **Author(s)** | tadasant                                                                        |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1302](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1302) |
+| Field | Value |
+| - | - |
+| **SEP** | 1302 |
+| **Title** | Formalize Working Groups and Interest Groups in MCP Governance |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-08-05 |
+| **Author(s)** | tadasant |
+| **Sponsor** | None |
+| **PR** | [#1302](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1302) |
 
 ***
 

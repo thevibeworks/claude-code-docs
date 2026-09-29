@@ -36,12 +36,12 @@ Connecting an example server means adding its entry to Claude Desktop's configur
   <Step title="Add an example server">
     Add one of these example servers to your `claude_desktop_config.json`:
 
-    | Example                                                                                                                   | Description                                                    |
-    | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+    | Example | Description |
+    | - | - |
     | [Customer Segmentation](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/customer-segmentation-server) | Data visualization with scatter charts and clustering analysis |
-    | [Map](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/map-server)                                     | Interactive 3D globe viewer using CesiumJS                     |
-    | [ShaderToy](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/shadertoy-server)                         | Real-time GLSL shader compilation and display                  |
-    | [Sheet Music](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/sheet-music-server)                     | ABC notation rendering with interactive audio playback         |
+    | [Map](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/map-server) | Interactive 3D globe viewer using CesiumJS |
+    | [ShaderToy](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/shadertoy-server) | Real-time GLSL shader compilation and display |
+    | [Sheet Music](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/sheet-music-server) | ABC notation rendering with interactive audio playback |
 
     The MCP Apps repository has [more examples](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples), each with a ready-to-use config snippet. The config entry for each example in the table runs its server with `npx`, which fetches the latest published version each time. Pin a version, such as `@modelcontextprotocol/server-map@2.0.1`, if you keep an entry beyond trying it out:
 

@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 1319                                                                            |
-| **Title**     | Decouple Request Payload from RPC Methods Definition                            |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-08-08                                                                      |
-| **Author(s)** | [@kurtisvg](https://github.com/kurtisvg)                                        |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1319](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1319) |
+| Field | Value |
+| - | - |
+| **SEP** | 1319 |
+| **Title** | Decouple Request Payload from RPC Methods Definition |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-08-08 |
+| **Author(s)** | [@kurtisvg](https://github.com/kurtisvg) |
+| **Sponsor** | None |
+| **PR** | [#1319](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1319) |
 
 ***
 

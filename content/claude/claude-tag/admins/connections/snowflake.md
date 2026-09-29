@@ -26,10 +26,10 @@ Snowflake's guide for programmatic access tokens is at [docs.snowflake.com](http
 
 In the bundle, click **Connect** next to **Snowflake**.
 
-| Field                              | Value                                                                         |
-| :--------------------------------- | :---------------------------------------------------------------------------- |
-| Claude's programmatic access token | The programmatic access token from Snowflake                                  |
-| Allowed websites                   | Your account's host, for example `yourorg-youraccount.snowflakecomputing.com` |
+| Field | Value |
+| :- | :- |
+| Claude's programmatic access token | The programmatic access token from Snowflake |
+| Allowed websites | Your account's host, for example `yourorg-youraccount.snowflakecomputing.com` |
 
 The preset prefills Allowed websites with an example host that cannot resolve. Replace it with your account's host before saving, or every request fails. To change the host later, open the **⋮** menu on this connection in the bundle's Credentials tab and choose **Edit**.
 

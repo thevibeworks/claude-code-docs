@@ -55,11 +55,11 @@ When a person first invites Claude to a channel, it posts a short intro on its o
 
 The footer under each reply names the model that handled it. You can [choose a different model](/docs/claude-tag/users/models) yourself, and admins [set the default model for each channel](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope). In a channel, the footer also has a **Configure** link; open it to [tailor how Claude works in this channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel). Replies in DMs and in org-shared channels have no Configure link.
 
-| If you see                                                                            | It means                                                                                                   | Do this                                                                                                                                                            |
-| :------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Typing `@Claude` doesn't show **Claude** with an **APP** badge in the suggestion list | The Claude app isn't installed in your workspace                                                           | Ask your Slack admin to install the Claude app, and send them [the installation guide](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace)                |
-| The mention sends but Claude doesn't reply                                            | Setup isn't finished for this channel                                                                      | Ask your Claude organization admin to enable Claude Tag for this channel, and send them [the setup guide](/docs/claude-tag/admins/setup-overview) with the channel name |
-| Claude replies "I couldn't find a Claude Code environment for your account"           | Claude couldn't resolve an environment for this DM; DMs run on your account rather than the organization's | Mention Claude again. If it keeps happening, see [I get an environment error in a DM](/docs/claude-tag/users/troubleshooting#i-get-an-environment-error-in-a-dm)        |
+| If you see | It means | Do this |
+| :- | :- | :- |
+| Typing `@Claude` doesn't show **Claude** with an **APP** badge in the suggestion list | The Claude app isn't installed in your workspace | Ask your Slack admin to install the Claude app, and send them [the installation guide](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) |
+| The mention sends but Claude doesn't reply | Setup isn't finished for this channel | Ask your Claude organization admin to enable Claude Tag for this channel, and send them [the setup guide](/docs/claude-tag/admins/setup-overview) with the channel name |
+| Claude replies "I couldn't find a Claude Code environment for your account" | Claude couldn't resolve an environment for this DM; DMs run on your account rather than the organization's | Mention Claude again. If it keeps happening, see [I get an environment error in a DM](/docs/claude-tag/users/troubleshooting#i-get-an-environment-error-in-a-dm) |
 
 ## Hand Claude a task
 
@@ -69,7 +69,7 @@ Every interaction has the same shape. You mention `@Claude` with a task, Claude 
 @Claude learn what you can about my role from this workspace, then tell me three tasks you could take off my plate this week.
 ```
 
-An "is thinking…" line appears at the bottom of the thread when Claude picks the task up, and it replies with results; a multi-step task also gets a checklist it updates as it works. A quiet thread after the "is thinking…" line means Claude is working, not stuck; long tasks can take a minute or more before the first reply.
+A working indicator appears at the bottom of the thread when Claude picks the task up, and it replies with results; a multi-step task also gets a checklist it updates as it works. A quiet thread under the indicator means Claude is working, not stuck; long tasks can take a minute or more before the first reply. To interrupt Claude in a channel thread, select **Stop** on the indicator; a DM shows an "is thinking…" line with no **Stop** button.
 
 Once Claude is in a thread, you don't need to @-mention it again; it reads every reply in that thread.
 
@@ -83,15 +83,15 @@ Replies in the thread reach Claude without re-mentioning. If the thread looks id
 
 After you've handed Claude a task, the first question is what it has to work with. The short version: it reads the thread you tagged it in, it can search your workspace's public channels, and anything beyond Slack depends on what your admin connected.
 
-| What you give Claude                                        | Can Claude read it?                                                                                                                                                                                                                                                                           |
-| :---------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Messages in this thread                                     | Yes. Mentioning it mid-thread also gives it the thread's earlier messages                                                                                                                                                                                                                     |
-| A file you attach (image, screenshot, PDF, or another type) | Yes, up to a size limit that depends on the file type. See [Files you attach](#files-you-attach)                                                                                                                                                                                              |
-| Other public channels in your workspace                     | By searching only, the same way a person searches Slack; Claude can find a message by keyword but can't read a channel's full history unless it's been added there                                                                                                                            |
-| Private channels and DMs                                    | Only from inside them. Adding Claude to a private channel lets it work there, but the channel stays unreadable from any other channel or DM.                                                                                                                                                  |
-| A link you paste, like a Google Doc or a webpage            | If your admin allowed that site for this channel, or, for a file behind your own login, if you've [allowed Claude to use your connectors](/docs/claude-tag/concepts/personal-connectors). If neither applies, Claude tells you it can't reach it.                                                  |
-| A Slack canvas                                              | No                                                                                                                                                                                                                                                                                            |
-| A message you edited after sending                          | Yes. Each edit sends Claude a note showing the text before and after the edit. An edit never starts a new task on its own, so to be sure a correction is picked up, say it in a new reply; see [Reply in the thread to steer](/docs/claude-tag/concepts/how-it-works#reply-in-the-thread-to-steer) |
+| What you give Claude | Can Claude read it? |
+| :- | :- |
+| Messages in this thread | Yes. Mentioning it mid-thread also gives it the thread's earlier messages |
+| A file you attach (image, screenshot, PDF, or another type) | Yes, up to a size limit that depends on the file type. See [Files you attach](#files-you-attach) |
+| Other public channels in your workspace | By searching only, the same way a person searches Slack; Claude can find a message by keyword but can't read a channel's full history unless it's been added there |
+| Private channels and DMs | Only from inside them. Adding Claude to a private channel lets it work there, but the channel stays unreadable from any other channel or DM. |
+| A link you paste, like a Google Doc or a webpage | If your admin allowed that site for this channel, or, for a file behind your own login, if you've [allowed Claude to use your connectors](/docs/claude-tag/concepts/personal-connectors). If neither applies, Claude tells you it can't reach it. |
+| A Slack canvas | No |
+| A message you edited after sending | Yes. Each edit sends Claude a note showing the text before and after the edit. An edit never starts a new task on its own, so to be sure a correction is picked up, say it in a new reply; see [Reply in the thread to steer](/docs/claude-tag/concepts/how-it-works#reply-in-the-thread-to-steer) |
 
 The fastest way to find out for your channel is to ask: `@Claude can you read the doc I just linked?` gets you a yes or a "that site isn't allowed here."
 

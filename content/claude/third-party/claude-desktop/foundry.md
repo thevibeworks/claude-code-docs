@@ -16,11 +16,11 @@ This page walks an IT administrator through a Microsoft Foundry deployment: crea
 
 ## Choose an authentication approach
 
-| Scenario                                                                          | Use                                                                                                                                      | Per-user identity                  | Notes                                                                                                                                                                                                                                                  |
-| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Proof of concept, single team                                                     | [API key](#api-key) (`inferenceFoundryApiKey`)                                                                                           | No (shared key)                    | A long-lived secret distributed in the managed profile. Simplest to start.                                                                                                                                                                             |
-| Broad rollout with per-user identity                                              | [In-app Entra ID sign-in](#in-app-entra-id-sign-in) (`inferenceFoundryTenantId`, `inferenceFoundryClientId`, `inferenceFoundryAuthFlow`) | Yes                                | Users sign in with their Entra ID account inside the app, through a device code, the system browser, or the OS identity broker. The device-code flow requires app version 1.9255.0 or later; the browser flow requires app version 1.19367.0 or later. |
-| Your organization already has tooling that obtains a Microsoft Foundry credential | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`)                   | Depends on what the helper obtains | An executable that prints the credential to stdout at runtime.                                                                                                                                                                                         |
+| Scenario | Use | Per-user identity | Notes |
+| - | - | - | - |
+| Proof of concept, single team | [API key](#api-key) (`inferenceFoundryApiKey`) | No (shared key) | A long-lived secret distributed in the managed profile. Simplest to start. |
+| Broad rollout with per-user identity | [In-app Entra ID sign-in](#in-app-entra-id-sign-in) (`inferenceFoundryTenantId`, `inferenceFoundryClientId`, `inferenceFoundryAuthFlow`) | Yes | Users sign in with their Entra ID account inside the app, through a device code, the system browser, or the OS identity broker. The device-code flow requires app version 1.9255.0 or later; the browser flow requires app version 1.19367.0 or later. |
+| Your organization already has tooling that obtains a Microsoft Foundry credential | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | Depends on what the helper obtains | An executable that prints the credential to stdout at runtime. |
 
 ## Set up Azure
 
@@ -100,14 +100,14 @@ This key works from an MDM profile, the local configuration file, and a [bootstr
 
 Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Foundry**, then fill in the **Foundry credentials** card with the values for whichever authentication approach you chose:
 
-| Field                          | API key                                                                               | In-app Entra ID sign-in                                                |
-| ------------------------------ | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Azure AI Foundry resource name | `your-foundry-resource`                                                               | `your-foundry-resource`                                                |
-| Azure AI Foundry API key       | your resource key                                                                     | *leave empty*                                                          |
-| Entra ID tenant ID             | *leave empty*                                                                         | `00000000-0000-0000-0000-000000000000`                                 |
-| Entra ID client ID             | *leave empty*                                                                         | `11111111-1111-1111-1111-111111111111`                                 |
-| Entra ID sign-in flow          | *leave empty*                                                                         | `browser` or `broker`, or leave empty for the default device-code flow |
-| Azure AI Foundry base URL      | *optional*, see [Route requests through a gateway](#route-requests-through-a-gateway) | *optional*                                                             |
+| Field | API key | In-app Entra ID sign-in |
+| - | - | - |
+| Azure AI Foundry resource name | `your-foundry-resource` | `your-foundry-resource` |
+| Azure AI Foundry API key | your resource key | *leave empty* |
+| Entra ID tenant ID | *leave empty* | `00000000-0000-0000-0000-000000000000` |
+| Entra ID client ID | *leave empty* | `11111111-1111-1111-1111-111111111111` |
+| Entra ID sign-in flow | *leave empty* | `browser` or `broker`, or leave empty for the default device-code flow |
+| Azure AI Foundry base URL | *optional*, see [Route requests through a gateway](#route-requests-through-a-gateway) | *optional* |
 
 Under **Models**, add at least one **Model list** entry using the Microsoft Foundry deployment name.
 
@@ -117,14 +117,14 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
 The full set of `inferenceFoundry*` keys is below. Set `inferenceProvider` to `foundry`, supply the resource name, and provide exactly one credential source.
 
-| Setting                                                                                              | Type     | Availability                            | Default | Description                                                                                                                                                                              |
-| ---------------------------------------------------------------------------------------------------- | -------- | --------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <span id="inferencefoundryresource" />Azure AI Foundry resource name<br />`inferenceFoundryResource` | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | Azure AI Foundry resource name used to construct the endpoint URL.                                                                                                                       |
-| <span id="inferencefoundrybaseurl" />Azure AI Foundry base URL<br />`inferenceFoundryBaseUrl`        | `string` | MDM + Bootstrap<br />Added in 2.110.0   | —       | Full base URL for a gateway or proxy in front of Foundry, path included (replaces [https://RESOURCE.services.ai.azure.com/anthropic](https://RESOURCE.services.ai.azure.com/anthropic)). |
-| <span id="inferencefoundryapikey" />Azure AI Foundry API key<br />`inferenceFoundryApiKey`           | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | API key for Azure AI Foundry inference.                                                                                                                                                  |
-| <span id="inferencefoundrytenantid" />Entra ID tenant ID<br />`inferenceFoundryTenantId`             | `string` | MDM + Bootstrap<br />Added in 1.9255.0  | —       | Directory (tenant) ID of the Entra ID app registration that has the Cognitive Services scope.                                                                                            |
-| <span id="inferencefoundryclientid" />Entra ID client ID<br />`inferenceFoundryClientId`             | `string` | MDM + Bootstrap<br />Added in 1.9255.0  | —       | Application (client) ID of the Entra ID app registration. Device-code sign-in requires the app to allow public client flows.                                                             |
-| <span id="inferencefoundryauthflow" />Entra ID sign-in flow<br />`inferenceFoundryAuthFlow`          | `enum`   | MDM + Bootstrap<br />Added in 1.19367.0 | —       | How Entra sign-in runs: device code (default), system browser, or the OS identity broker. One of: `device-code`, `browser`, `broker`.                                                    |
+| Setting | Type | Availability | Default | Description |
+| - | - | - | - | - |
+| <span id="inferencefoundryresource" />Azure AI Foundry resource name<br />`inferenceFoundryResource` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Azure AI Foundry resource name used to construct the endpoint URL. |
+| <span id="inferencefoundrybaseurl" />Azure AI Foundry base URL<br />`inferenceFoundryBaseUrl` | `string` | MDM + Bootstrap<br />Added in 2.110.0 | — | Full base URL for a gateway or proxy in front of Foundry, path included (replaces [https://RESOURCE.services.ai.azure.com/anthropic](https://RESOURCE.services.ai.azure.com/anthropic)). |
+| <span id="inferencefoundryapikey" />Azure AI Foundry API key<br />`inferenceFoundryApiKey` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | API key for Azure AI Foundry inference. |
+| <span id="inferencefoundrytenantid" />Entra ID tenant ID<br />`inferenceFoundryTenantId` | `string` | MDM + Bootstrap<br />Added in 1.9255.0 | — | Directory (tenant) ID of the Entra ID app registration that has the Cognitive Services scope. |
+| <span id="inferencefoundryclientid" />Entra ID client ID<br />`inferenceFoundryClientId` | `string` | MDM + Bootstrap<br />Added in 1.9255.0 | — | Application (client) ID of the Entra ID app registration. Device-code sign-in requires the app to allow public client flows. |
+| <span id="inferencefoundryauthflow" />Entra ID sign-in flow<br />`inferenceFoundryAuthFlow` | `enum` | MDM + Bootstrap<br />Added in 1.19367.0 | — | How Entra sign-in runs: device code (default), system browser, or the OS identity broker. One of: `device-code`, `browser`, `broker`. |
 
 <AccordionGroup>
   <Accordion title="inferenceFoundryBaseUrl details">
@@ -144,12 +144,12 @@ You must also set `inferenceModels` to a list of Microsoft Foundry deployment na
 
 ## What users experience
 
-| Approach                                  | First launch                                                                                                                                                                  | Re-authentication                                                                                       |
-| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| API key                                   | The app opens directly; no user action.                                                                                                                                       | Never, until you rotate the key in the managed profile.                                                 |
-| In-app Entra ID sign-in, device-code flow | The app shows a **Sign in with Microsoft** page; the user approves a device code in the browser, and the app returns to Cowork.                                               | When the stored refresh token expires or is revoked under your tenant's policy. The app prompts in-app. |
-| In-app Entra ID sign-in, browser flow     | The app shows a **Sign in with Microsoft** page; the user signs in through the system browser, with no code to enter, and the app returns to Cowork.                          | When the app can no longer renew the stored token. The app prompts in-app.                              |
-| In-app Entra ID sign-in, broker flow      | The app shows a **Sign in with Microsoft** page; the user picks or signs in to a work account in the operating system's native account picker, and the app returns to Cowork. | When the broker can no longer renew the token silently. The app prompts in-app.                         |
+| Approach | First launch | Re-authentication |
+| - | - | - |
+| API key | The app opens directly; no user action. | Never, until you rotate the key in the managed profile. |
+| In-app Entra ID sign-in, device-code flow | The app shows a **Sign in with Microsoft** page; the user approves a device code in the browser, and the app returns to Cowork. | When the stored refresh token expires or is revoked under your tenant's policy. The app prompts in-app. |
+| In-app Entra ID sign-in, browser flow | The app shows a **Sign in with Microsoft** page; the user signs in through the system browser, with no code to enter, and the app returns to Cowork. | When the app can no longer renew the stored token. The app prompts in-app. |
+| In-app Entra ID sign-in, broker flow | The app shows a **Sign in with Microsoft** page; the user picks or signs in to a work account in the operating system's native account picker, and the app returns to Cowork. | When the broker can no longer renew the token silently. The app prompts in-app. |
 
 ## Troubleshoot
 

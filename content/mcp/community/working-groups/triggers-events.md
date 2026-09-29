@@ -36,29 +36,29 @@ The Triggers and Events Working Group exists to define how MCP servers proactive
 
 ## Leadership
 
-| Role | Name            | Organization        | GitHub                                           | Term    |
-| ---- | --------------- | ------------------- | ------------------------------------------------ | ------- |
-| Lead | Clare Liguori   | Amazon Web Services | [@clareliguori](https://github.com/clareliguori) | Initial |
-| Lead | Peter Alexander | Anthropic           | [@pja-ant](https://github.com/pja-ant)           | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | Clare Liguori | Amazon Web Services | [@clareliguori](https://github.com/clareliguori) | Initial |
+| Lead | Peter Alexander | Anthropic | [@pja-ant](https://github.com/pja-ant) | Initial |
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Operations
 
-| Meeting         | Frequency | Duration | Purpose                               |
-| --------------- | --------- | -------- | ------------------------------------- |
-| Working Session | Weekly    | 30 min   | Technical discussion, proposal review |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Weekly | 30 min | Technical discussion, proposal review |
 
 ## Resources
 
@@ -68,10 +68,10 @@ The Triggers and Events Working Group exists to define how MCP servers proactive
 
 ### Active Work Items
 
-| Item                                    | Status   | Target Date | Champion |
-| --------------------------------------- | -------- | ----------- | -------- |
-| SEP: Events in MCP v1 RFC               | Ideating | End April   | TBD      |
-| Reference implementation in Tier-1 SDKs | —        | End April   | TBD      |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| SEP: Events in MCP v1 RFC | Ideating | End April | TBD |
+| Reference implementation in Tier-1 SDKs | — | End April | TBD |
 
 ### Success Criteria
 
@@ -81,6 +81,6 @@ The Triggers and Events Working Group exists to define how MCP servers proactive
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-03-24 | Initial charter |

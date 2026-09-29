@@ -55,7 +55,7 @@ List Events
 
   Query param: Opaque pagination cursor from a previous response's `next_page`.
 
-- `--type: optional array of string`
+- `--type: optional array of BetaManagedAgentsSessionEventType`
 
   Query param: Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
@@ -1635,11 +1635,15 @@ List Events
 
           Model identifier and configuration.
 
-          - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+          - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-opus-5-5"`
 
@@ -1651,7 +1655,7 @@ List Events
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -1779,7 +1783,7 @@ List Events
 
                 Model identifier and configuration.
 
-                - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+                - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
                   The model that will power your agent.
 

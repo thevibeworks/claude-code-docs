@@ -14,11 +14,11 @@ This page is for administrators who add servers on the **Connectors** page of th
 
 In the Enterprise Admin Console ([claude.ai](https://claude.ai) → **Organization settings**), open the **Connectors** page under **Desktop 3P**. Each remote entry under **Managed MCP servers** has an **OAuth** menu. Choose the setting that matches what the server's identity provider requires.
 
-| If the identity provider                                                                   | **OAuth** setting                               | What you register at the identity provider                                                                                   | Fields to fill in                                                                                               |
-| ------------------------------------------------------------------------------------------ | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Supports dynamic client registration                                                       | **Auto-register (dynamic client registration)** | Nothing. Claude Desktop registers itself as a client on each device when the user first clicks **Connect**                   | None                                                                                                            |
-| Requires an OAuth client that you register (no dynamic client registration)                | **Bring your own client**                       | A public OAuth client (native or desktop application type) with redirect URI `http://127.0.0.1:53280/callback` and no secret | **Client ID**                                                                                                   |
-| Requires a registered client and rejects token requests that don't carry the client secret | **Bring your own client**                       | An OAuth client with redirect URI `http://127.0.0.1:53280/callback`, plus its client secret                                  | **Client ID**, **Authorization server**, and the secret in **Client secret** or **Client secret helper script** |
+| If the identity provider | **OAuth** setting | What you register at the identity provider | Fields to fill in |
+| - | - | - | - |
+| Supports dynamic client registration | **Auto-register (dynamic client registration)** | Nothing. Claude Desktop registers itself as a client on each device when the user first clicks **Connect** | None |
+| Requires an OAuth client that you register (no dynamic client registration) | **Bring your own client** | A public OAuth client (native or desktop application type) with redirect URI `http://127.0.0.1:53280/callback` and no secret | **Client ID** |
+| Requires a registered client and rejects token requests that don't carry the client secret | **Bring your own client** | An OAuth client with redirect URI `http://127.0.0.1:53280/callback`, plus its client secret | **Client ID**, **Authorization server**, and the secret in **Client secret** or **Client secret helper script** |
 
 Leave the **OAuth** menu set to **None** for a server that needs no sign-in or that authenticates with request headers. The menu also lists **Anthropic-hosted client identity (requires Claude.ai sign-in)**, which this page doesn't cover.
 
@@ -38,38 +38,38 @@ For every other identity provider the secret stays on the device. Install a scri
 
 These fields appear when **OAuth** is set to **Bring your own client**. The [`managedMcpServers` reference](/docs/third-party/claude-desktop/configuration#managedmcpservers) lists every `oauth` key and its minimum Claude Desktop version.
 
-| Field                                   | When to set                                                                                                                                    | What to enter                                                                                                                                                                                    |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Client ID**                           | You registered a client at the identity provider                                                                                               | The client ID from that registration                                                                                                                                                             |
-| **Client secret**                       | The identity provider requires the secret and the client is a Google Desktop-app client                                                        | The secret, beginning `GOCSPX-`                                                                                                                                                                  |
-| **Client secret helper script**         | The identity provider requires the secret (any identity provider)                                                                              | The absolute path of the script on the device. Set this or **Client secret**, not both; in a configuration file that sets both, the script wins                                                  |
-| **Authorization server**                | Required with a secret or secret helper script. Optional otherwise, to pin sign-in to a known issuer                                           | A JSON array holding the authorization server's `issuer` value exactly as its metadata states it, for example `["https://accounts.google.com"]` (no trailing slash) or `["https://api.box.com"]` |
-| **Authorization URL** and **Token URL** | The identity provider publishes no discovery document                                                                                          | Both HTTPS endpoints, always as a pair. Hidden when **Tenant ID** or **Authorization server** is set                                                                                             |
-| **Tenant ID**                           | The client is a single-tenant Microsoft Entra app                                                                                              | Your Directory (tenant) ID. Requires **Scope**                                                                                                                                                   |
-| **Scope**                               | Required with **Tenant ID**. Optional otherwise                                                                                                | Space-separated scopes for the authorize request. Leave empty to request the scopes the server advertises                                                                                        |
-| **Sign-in flow**                        | Shown after you enter **Tenant ID**. Set it when your devices have the [OS identity broker](/docs/third-party/claude-desktop/entra-broker)          | **OS identity broker (WAM / Company Portal)**. The default is **System browser**                                                                                                                 |
-| **Callback host** and **Callback port** | The redirect URI you registered uses `localhost` or a port other than `53280`                                                                  | The host and port from that registration. Microsoft Entra ID accepts any loopback port, so leave both empty for Entra                                                                            |
-| **Additional redirect referrer hosts**  | The identity provider completes sign-in from a host other than the one in its authorization URL, and `main.log` names a rejected referrer host | That hostname. Separate several with spaces                                                                                                                                                      |
+| Field | When to set | What to enter |
+| - | - | - |
+| **Client ID** | You registered a client at the identity provider | The client ID from that registration |
+| **Client secret** | The identity provider requires the secret and the client is a Google Desktop-app client | The secret, beginning `GOCSPX-` |
+| **Client secret helper script** | The identity provider requires the secret (any identity provider) | The absolute path of the script on the device. Set this or **Client secret**, not both; in a configuration file that sets both, the script wins |
+| **Authorization server** | Required with a secret or secret helper script. Optional otherwise, to pin sign-in to a known issuer | A JSON array holding the authorization server's `issuer` value exactly as its metadata states it, for example `["https://accounts.google.com"]` (no trailing slash) or `["https://api.box.com"]` |
+| **Authorization URL** and **Token URL** | The identity provider publishes no discovery document | Both HTTPS endpoints, always as a pair. Hidden when **Tenant ID** or **Authorization server** is set |
+| **Tenant ID** | The client is a single-tenant Microsoft Entra app | Your Directory (tenant) ID. Requires **Scope** |
+| **Scope** | Required with **Tenant ID**. Optional otherwise | Space-separated scopes for the authorize request. Leave empty to request the scopes the server advertises |
+| **Sign-in flow** | Shown after you enter **Tenant ID**. Set it when your devices have the [OS identity broker](/docs/third-party/claude-desktop/entra-broker) | **OS identity broker (WAM / Company Portal)**. The default is **System browser** |
+| **Callback host** and **Callback port** | The redirect URI you registered uses `localhost` or a port other than `53280` | The host and port from that registration. Microsoft Entra ID accepts any loopback port, so leave both empty for Entra |
+| **Additional redirect referrer hosts** | The identity provider completes sign-in from a host other than the one in its authorization URL, and `main.log` names a rejected referrer host | That hostname. Separate several with spaces |
 
 ## Settings for common servers
 
 Add each server in this table with **Add → Blank**, the **Streamable HTTP** transport, and the values shown.
 
-| Server | URL                          | **OAuth** setting                               | What you register |
-| ------ | ---------------------------- | ----------------------------------------------- | ----------------- |
-| Linear | `https://mcp.linear.app/mcp` | **Auto-register (dynamic client registration)** | Nothing           |
-| Notion | `https://mcp.notion.com/mcp` | **Auto-register (dynamic client registration)** | Nothing           |
-| Sentry | `https://mcp.sentry.dev/mcp` | **Auto-register (dynamic client registration)** | Nothing           |
+| Server | URL | **OAuth** setting | What you register |
+| - | - | - | - |
+| Linear | `https://mcp.linear.app/mcp` | **Auto-register (dynamic client registration)** | Nothing |
+| Notion | `https://mcp.notion.com/mcp` | **Auto-register (dynamic client registration)** | Nothing |
+| Sentry | `https://mcp.sentry.dev/mcp` | **Auto-register (dynamic client registration)** | Nothing |
 
 ## Troubleshoot sign-in
 
 These messages appear in Claude Desktop, or in `main.log` in the [logs directory](/docs/third-party/claude-desktop/data-storage#where-data-lives) on the user's device.
 
-| What the user sees or `main.log` records                                                                                                                                                                                     | Cause                                                                                           | Fix                                                                                                                                                 |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "Couldn't connect to \{server} because it doesn't support automatic client registration" (Claude Desktop 2.110.0 or later), or `main.log` records that the authorization server does not support dynamic client registration | **OAuth** is **Auto-register** but the identity provider requires a client that you register    | Register a public client with redirect URI `http://127.0.0.1:53280/callback`, set **OAuth** to **Bring your own client**, and fill in **Client ID** |
-| The browser step succeeds, then the connection fails and `main.log` records the token endpoint's error, for example `client_secret is missing`                                                                               | The entry has a **Client ID** but the identity provider also requires the secret                | Add the secret and **Authorization server** as described under [Where the client secret goes](#where-the-client-secret-goes)                        |
-| `main.log` names a rejected referrer host during sign-in                                                                                                                                                                     | The identity provider completes sign-in from a host other than the one in its authorization URL | Add that hostname to **Additional redirect referrer hosts**                                                                                         |
+| What the user sees or `main.log` records | Cause | Fix |
+| - | - | - |
+| "Couldn't connect to \{server} because it doesn't support automatic client registration" (Claude Desktop 2.110.0 or later), or `main.log` records that the authorization server does not support dynamic client registration | **OAuth** is **Auto-register** but the identity provider requires a client that you register | Register a public client with redirect URI `http://127.0.0.1:53280/callback`, set **OAuth** to **Bring your own client**, and fill in **Client ID** |
+| The browser step succeeds, then the connection fails and `main.log` records the token endpoint's error, for example `client_secret is missing` | The entry has a **Client ID** but the identity provider also requires the secret | Add the secret and **Authorization server** as described under [Where the client secret goes](#where-the-client-secret-goes) |
+| `main.log` names a rejected referrer host during sign-in | The identity provider completes sign-in from a host other than the one in its authorization URL | Add that hostname to **Additional redirect referrer hosts** |
 
 ## Related connector guides
 

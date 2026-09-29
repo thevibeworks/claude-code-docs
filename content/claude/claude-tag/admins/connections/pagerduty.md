@@ -28,10 +28,10 @@ PagerDuty's own guide for creating the credential is at [support.pagerduty.com](
 
 In the bundle, click **Connect** next to **PagerDuty**.
 
-| Field            | Value                      |
-| :--------------- | :------------------------- |
+| Field | Value |
+| :- | :- |
 | Claude's API key | The api key from PagerDuty |
-| Allowed websites | `api.pagerduty.com`        |
+| Allowed websites | `api.pagerduty.com` |
 
 PagerDuty accounts on the EU service region use `api.eu.pagerduty.com` instead.
 

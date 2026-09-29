@@ -134,11 +134,11 @@ and [caching](/specification/draft/server/utilities/caching).
 
 Each entry contains:
 
-| Field         | Meaning                                                                     |
-| ------------- | --------------------------------------------------------------------------- |
-| `uri`         | The resource URI of the skill's `SKILL.md`.                                 |
+| Field | Meaning |
+| - | - |
+| `uri` | The resource URI of the skill's `SKILL.md`. |
 | `frontmatter` | All YAML frontmatter fields, unchanged, including `name` and `description`. |
-| `resources`   | The complete file manifest, or `"dynamic"` for generated content.           |
+| `resources` | The complete file manifest, or `"dynamic"` for generated content. |
 
 A manifest **MUST** include `SKILL.md` and every supporting file, with each file's
 URI, SHA-256 digest, and byte size. Each entry returned by `skills/list` is
@@ -421,10 +421,10 @@ for the full approval, origin, and cache rules.
 
 ## Error Handling
 
-| Condition                                       | Handling                                      |
-| ----------------------------------------------- | --------------------------------------------- |
-| Unknown skill/file, or invalid directory URI    | JSON-RPC `-32602` (Invalid params).           |
-| Internal server failure                         | JSON-RPC `-32603` (Internal error).           |
+| Condition | Handling |
+| - | - |
+| Unknown skill/file, or invalid directory URI | JSON-RPC `-32602` (Invalid params). |
+| Internal server failure | JSON-RPC `-32603` (Internal error). |
 | Digest, size, frontmatter, or manifest mismatch | Host rejects content and refreshes the entry. |
 
 Verification failures are host-side conditions rather than protocol errors.

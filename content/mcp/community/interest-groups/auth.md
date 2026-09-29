@@ -48,11 +48,11 @@ The Authorization Interest Group is the single chartered venue for MCP authoriza
 
 ## Leadership
 
-| Role        | Name          | Organization | GitHub                                     | Term    |
-| ----------- | ------------- | ------------ | ------------------------------------------ | ------- |
-| Facilitator | Aaron Parecki | Okta         | [@aaronpk](https://github.com/aaronpk)     | Initial |
-| Facilitator | Darin McAdams | Amazon       | [@D-McAdams](https://github.com/D-McAdams) | Initial |
-| Facilitator | Paul Carleton | Anthropic    | [@pcarleton](https://github.com/pcarleton) | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Facilitator | Aaron Parecki | Okta | [@aaronpk](https://github.com/aaronpk) | Initial |
+| Facilitator | Darin McAdams | Amazon | [@D-McAdams](https://github.com/D-McAdams) | Initial |
+| Facilitator | Paul Carleton | Anthropic | [@pcarleton](https://github.com/pcarleton) | Initial |
 
 ## Membership
 
@@ -62,9 +62,9 @@ Join the `#auth-ig` channel on the [MCP Contributors Discord](/community/communi
 
 ## Operations
 
-| Meeting      | Frequency     | Duration | Purpose                                                                           |
-| ------------ | ------------- | -------- | --------------------------------------------------------------------------------- |
-| Auth IG Call | Every 2 weeks | 45 min   | Agenda-driven: problem pitches, SEP and draft progress, demos, deployment reports |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Auth IG Call | Every 2 weeks | 45 min | Agenda-driven: problem pitches, SEP and draft progress, demos, deployment reports |
 
 Discord: [#auth-ig](https://discord.com/channels/1358869848138059966/1360835991749001368)
 
@@ -99,19 +99,19 @@ The IG's outputs are the drafts and demos that pass through it: authorization SE
 
 The following Discord channels previously hosted authorization sub-groups. They are archived (read-only) as of this re-charter and their topics continue as `#auth-ig` threads and agenda slots. The [Enterprise-Managed Authorization IG](/community/interest-groups/enterprise-managed-authorization) is folded into this group on the same basis: EMA implementers bring interoperability and deployment progress to the call as presentation slots rather than to a standing separate group.
 
-| Former channel                 | Topic                                                                                                                   | State at consolidation | Continues as                                              |
-| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------- |
-| `#auth-wg-client-registration` | Dynamic Client Registration, Client ID Metadata Documents, software statements, pre-registration                        | Completed              | `#auth-ig` threads as needed                              |
-| `#auth-wg-mixup-protection`    | Authorization-server mix-up and token-audience confusion mitigations                                                    | Completed              | `#auth-ig` threads as needed                              |
-| `#auth-wg-profiles`            | Client Credentials, Enterprise-Managed Authorization, DPoP, Workload Identity Federation extensions                     | Completed              | `#auth-ig` DPoP and Workload Identity Federation threads  |
-| `#auth-wg-tool-scopes`         | Per-tool scope advertisement, step-up authorization, client-side scope accumulation                                     | Active                 | `#auth-ig` thread                                         |
-| `#auth-wg-fine-grained-authz`  | Rich Authorization Requests ([RFC 9396](https://www.rfc-editor.org/rfc/rfc9396)), structured denials, remediation hints | Active                 | `#auth-ig` SEP-2643 / fine-grained authorization thread   |
-| `#auth-wg-improve-devx`        | Best-practices guidance and tutorials beyond the normative spec                                                         | Dormant                | `#auth-ig` threads as needed                              |
-| `#enterprise-managed-auth-ig`  | EMA extension interoperability (IdP, client, authorization server)                                                      | Active                 | `#auth-ig` EMA interop thread and deployment-report slots |
+| Former channel | Topic | State at consolidation | Continues as |
+| - | - | - | - |
+| `#auth-wg-client-registration` | Dynamic Client Registration, Client ID Metadata Documents, software statements, pre-registration | Completed | `#auth-ig` threads as needed |
+| `#auth-wg-mixup-protection` | Authorization-server mix-up and token-audience confusion mitigations | Completed | `#auth-ig` threads as needed |
+| `#auth-wg-profiles` | Client Credentials, Enterprise-Managed Authorization, DPoP, Workload Identity Federation extensions | Completed | `#auth-ig` DPoP and Workload Identity Federation threads |
+| `#auth-wg-tool-scopes` | Per-tool scope advertisement, step-up authorization, client-side scope accumulation | Active | `#auth-ig` thread |
+| `#auth-wg-fine-grained-authz` | Rich Authorization Requests ([RFC 9396](https://www.rfc-editor.org/rfc/rfc9396)), structured denials, remediation hints | Active | `#auth-ig` SEP-2643 / fine-grained authorization thread |
+| `#auth-wg-improve-devx` | Best-practices guidance and tutorials beyond the normative spec | Dormant | `#auth-ig` threads as needed |
+| `#enterprise-managed-auth-ig` | EMA extension interoperability (IdP, client, authorization server) | Active | `#auth-ig` EMA interop thread and deployment-report slots |
 
 ## Changelog
 
-| Date       | Change                                                                                                                                                                               |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Date | Change |
+| - | - |
 | 2026-08-17 | Re-charter: single venue and channel for authorization work; agenda-driven calls; SEP feedback in scope; `#auth-wg-*` channels and the Enterprise-Managed Authorization IG folded in |
-| 2026-06-02 | Initial charter                                                                                                                                                                      |
+| 2026-06-02 | Initial charter |

@@ -47,11 +47,11 @@ Hostnames under `tunnel.anthropic.com` accept connections only from Claude. You 
 
 ### Network requirements
 
-| Component       | Destination                                          | Port and protocol            | Used during                  |
-| --------------- | ---------------------------------------------------- | ---------------------------- | ---------------------------- |
-| Setup component | `api.anthropic.com`                                  | 443 TCP                      | Provisioning, token rotation |
-| cloudflared     | Tunnel edge (`198.41.192.0/19`, `2606:4700:a0::/44`) | 7844 TCP and UDP             | Runtime                      |
-| Proxy           | Your MCP servers                                     | As configured in your routes | Runtime                      |
+| Component | Destination | Port and protocol | Used during |
+| - | - | - | - |
+| Setup component | `api.anthropic.com` | 443 TCP | Provisioning, token rotation |
+| cloudflared | Tunnel edge (`198.41.192.0/19`, `2606:4700:a0::/44`) | 7844 TCP and UDP | Runtime |
+| Proxy | Your MCP servers | As configured in your routes | Runtime |
 
 No inbound rules are required. See [Cloudflare's tunnel firewall documentation](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/configure-tunnels/tunnel-with-firewall/) for the authoritative edge IP list.
 
@@ -59,11 +59,11 @@ No inbound rules are required. See [Cloudflare's tunnel firewall documentation](
 
 Three independent layers protect every request through a tunnel.
 
-| Layer                                                                             | Protects against                                                         |
-| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Outer mutual TLS between Anthropic and the transport provider, with IP validation | Unauthorized clients reaching the tunnel                                 |
-| Inner TLS from Anthropic's backend to your proxy                                  | Payload inspection by the transport provider or any network intermediary |
-| OAuth on each MCP server                                                          | Unauthorized use of MCP tools by traffic that has reached the server     |
+| Layer | Protects against |
+| - | - |
+| Outer mutual TLS between Anthropic and the transport provider, with IP validation | Unauthorized clients reaching the tunnel |
+| Inner TLS from Anthropic's backend to your proxy | Payload inspection by the transport provider or any network intermediary |
+| OAuth on each MCP server | Unauthorized use of MCP tools by traffic that has reached the server |
 
 The proxy terminates inner TLS with a certificate signed by a certificate authority (CA) that the setup component generates inside your environment and registers with Anthropic. Only your deployment holds the private keys, so Cloudflare carries ciphertext and cannot read MCP requests or responses. Anthropic does not connect to a tunnel until a CA certificate is registered for it. Cloudflare does receive connection metadata: the egress IP address and a host fingerprint of the machine running cloudflared, connection timing and byte volume, and the `tunnel.anthropic.com` subdomain assigned to your tunnel. Cloudflare acts as a subprocessor for this research preview.
 
@@ -71,14 +71,14 @@ The tunnel carries traffic to your MCP servers but does not authenticate to them
 
 ### Shared responsibility
 
-| Anthropic handles                                                     | Your organization handles                                                                                                                     |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Restricting tunnel access so that only Anthropic can connect          | All content and traffic that transits your tunnel, and compliance with applicable third-party acceptable-use policies, including Cloudflare's |
-| Validating your CA certificate before connecting to your proxy        | Securing the tunnel token, the Tunnels API key, and the TLS private keys                                                                      |
-| Sending Claude's requests only to tunnels that your organization owns | Renewing the server certificate before it expires                                                                                             |
-|                                                                       | Requiring OAuth on each MCP server and limiting each server to the tools it needs                                                             |
-|                                                                       | Restricting network access for the proxy hosts and MCP servers                                                                                |
-|                                                                       | Notifying Anthropic if you suspect a compromise                                                                                               |
+| Anthropic handles | Your organization handles |
+| - | - |
+| Restricting tunnel access so that only Anthropic can connect | All content and traffic that transits your tunnel, and compliance with applicable third-party acceptable-use policies, including Cloudflare's |
+| Validating your CA certificate before connecting to your proxy | Securing the tunnel token, the Tunnels API key, and the TLS private keys |
+| Sending Claude's requests only to tunnels that your organization owns | Renewing the server certificate before it expires |
+| | Requiring OAuth on each MCP server and limiting each server to the tools it needs |
+| | Restricting network access for the proxy hosts and MCP servers |
+| | Notifying Anthropic if you suspect a compromise |
 
 <Warning>
   An attacker who obtains your tunnel token and one of your TLS private keys could impersonate your proxy and read MCP request payloads, including OAuth tokens. Store both with your organization's secrets-management controls, restrict file permissions, and rotate them on a schedule and immediately after any suspected exposure. See [Rotate credentials](/docs/connectors/mcp-tunnels/setup#rotate-credentials).

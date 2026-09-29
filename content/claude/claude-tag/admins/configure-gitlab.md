@@ -38,9 +38,9 @@ The role you grant determines which API calls succeed. Grant the lowest role tha
 
 Create a [personal access token](https://docs.gitlab.com/user/profile/personal_access_tokens/) for the account. For a GitLab.com service account, create the token from the group's service account settings or through the API; for a regular bot user, sign in as it and create the token from its profile. The token starts with `glpat-`.
 
-| Scope      | When to grant it                                                                                        |
-| :--------- | :------------------------------------------------------------------------------------------------------ |
-| `api`      | Read and write. Required for Claude to create and update issues, post comments, and act on pipelines.   |
+| Scope | When to grant it |
+| :- | :- |
+| `api` | Read and write. Required for Claude to create and update issues, post comments, and act on pipelines. |
 | `read_api` | Read-only. Use this instead of `api` if you want Claude to browse and answer questions but never write. |
 
 Set an expiry that matches your rotation policy, and store the token somewhere you can retrieve it once; GitLab shows it only at creation.

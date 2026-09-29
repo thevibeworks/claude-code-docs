@@ -40,44 +40,44 @@ The Registry Working Group exists to build and maintain the official MCP Registr
 
 ## Leadership
 
-| Role | Name              | Organization | GitHub                                     | Term    |
-| ---- | ----------------- | ------------ | ------------------------------------------ | ------- |
-| Lead | Radoslav Dimitrov | Stacklok     | [@rdimitrov](https://github.com/rdimitrov) | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | Radoslav Dimitrov | Stacklok | [@rdimitrov](https://github.com/rdimitrov) | Initial |
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Membership
 
-| Name               | Organization | GitHub                                           | Discord    | Level     | Maintainer? |
-| ------------------ | ------------ | ------------------------------------------------ | ---------- | --------- | ----------- |
-| Radoslav Dimitrov  | Stacklok     | [@rdimitrov](https://github.com/rdimitrov)       | dimitrovr  | Lead      | Yes         |
-| Tadas Antanavicius | PulseMCP     | [@tadasant](https://github.com/tadasant)         | tadasant\_ | WG Member | Yes         |
-| Bob Dickinson      | TeamSpark    | [@BobDickinson](https://github.com/BobDickinson) | rddthree   | WG Member | Yes         |
-| Preeti Dewani      | Ravenmail    | [@pree-dew](https://github.com/pree-dew)         | pree\_dew  | WG Member | No          |
+| Name | Organization | GitHub | Discord | Level | Maintainer? |
+| - | - | - | - | - | - |
+| Radoslav Dimitrov | Stacklok | [@rdimitrov](https://github.com/rdimitrov) | dimitrovr | Lead | Yes |
+| Tadas Antanavicius | PulseMCP | [@tadasant](https://github.com/tadasant) | tadasant\_ | WG Member | Yes |
+| Bob Dickinson | TeamSpark | [@BobDickinson](https://github.com/BobDickinson) | rddthree | WG Member | Yes |
+| Preeti Dewani | Ravenmail | [@pree-dew](https://github.com/pree-dew) | pree\_dew | WG Member | No |
 
 ## Emeritus Membership
 
-| Name         | Organization | GitHub                                     | Discord   | Level     | Maintainer? |
-| ------------ | ------------ | ------------------------------------------ | --------- | --------- | ----------- |
-| Adam Jones   | Anthropic    | [@domdomegg](https://github.com/domdomegg) | domdomegg | WG Member | Yes         |
-| Toby Padilla | GitHub       | [@toby](https://github.com/toby)           |           | WG Member | Yes         |
+| Name | Organization | GitHub | Discord | Level | Maintainer? |
+| - | - | - | - | - | - |
+| Adam Jones | Anthropic | [@domdomegg](https://github.com/domdomegg) | domdomegg | WG Member | Yes |
+| Toby Padilla | GitHub | [@toby](https://github.com/toby) | | WG Member | Yes |
 
 ## Operations
 
-| Meeting         | Frequency | Duration | Purpose                                           |
-| --------------- | --------- | -------- | ------------------------------------------------- |
-| Working Session | Weekly    | 30 min   | Technical discussion, triage, and proposal review |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Weekly | 30 min | Technical discussion, triage, and proposal review |
 
 Discord: `#registry-dev`
 
@@ -89,15 +89,15 @@ Discord: `#registry-dev`
 
 ### Active Work Items
 
-| Item                                                                  | Status      | Target Date | Champion                                 |
-| --------------------------------------------------------------------- | ----------- | ----------- | ---------------------------------------- |
-| Server Card / `server.json` alignment                                 | In Progress | Q2 2026     | [@tadasant](https://github.com/tadasant) |
-| Uptime & monitoring automation                                        | Planned     | Q2 2026     | TBD                                      |
-| Issue triage automation & labeling system                             | Planned     | Q2 2026     | TBD                                      |
-| Adoption outreach to popular server maintainers                       | Ideating    | Q3 2026     | TBD                                      |
-| Cataloging specification support by clients and sub-registry products | Ideating    | Q3 2026     | TBD                                      |
-| Client SDK generation / publication                                   | Ideating    | Q3 2026     | TBD                                      |
-| Registry API v1 GA                                                    | Ideating    | TBD         | TBD                                      |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| Server Card / `server.json` alignment | In Progress | Q2 2026 | [@tadasant](https://github.com/tadasant) |
+| Uptime & monitoring automation | Planned | Q2 2026 | TBD |
+| Issue triage automation & labeling system | Planned | Q2 2026 | TBD |
+| Adoption outreach to popular server maintainers | Ideating | Q3 2026 | TBD |
+| Cataloging specification support by clients and sub-registry products | Ideating | Q3 2026 | TBD |
+| Client SDK generation / publication | Ideating | Q3 2026 | TBD |
+| Registry API v1 GA | Ideating | TBD | TBD |
 
 ### Success Criteria
 
@@ -110,7 +110,7 @@ Discord: `#registry-dev`
 
 ## Changelog
 
-| Date       | Change                                                                                      |
-| ---------- | ------------------------------------------------------------------------------------------- |
+| Date | Change |
+| - | - |
 | 2026-07-30 | @tadasant stepped down as Lead; @rdimitrov is now sole Lead (@tadasant remains a WG Member) |
-| 2026-04-08 | Initial charter                                                                             |
+| 2026-04-08 | Initial charter |

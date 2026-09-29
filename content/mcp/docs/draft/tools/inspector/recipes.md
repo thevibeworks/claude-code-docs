@@ -116,11 +116,11 @@ mcp-inspector --config ~/Library/Application\ Support/Claude/claude_desktop_conf
   <Step title="Wait on a deterministic signal instead of sleeping">
     The Apps screen exposes a stable automation contract. Poll these attributes instead of sleeping:
 
-    | Selector                            | Attribute         | Values                                                                                                  |
-    | ----------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------- |
-    | `[data-testid="apps-form"]`         | `data-app-status` | `ready` (on failure, `data-app-error` carries the reason)                                               |
-    | `[data-testid="connection-status"]` | `data-status`     | `connecting`, then `connected` or `error` (`data-error-message` has the detail)                         |
-    | `[data-testid="connection-status"]` | `data-deeplink`   | `parsed`, `rejected`, or `none` (`none` means no deep link was given, `rejected` means one was refused) |
+    | Selector | Attribute | Values |
+    | - | - | - |
+    | `[data-testid="apps-form"]` | `data-app-status` | `ready` (on failure, `data-app-error` carries the reason) |
+    | `[data-testid="connection-status"]` | `data-status` | `connecting`, then `connected` or `error` (`data-error-message` has the detail) |
+    | `[data-testid="connection-status"]` | `data-deeplink` | `parsed`, `rejected`, or `none` (`none` means no deep link was given, `rejected` means one was refused) |
   </Step>
 </Steps>
 
@@ -156,11 +156,11 @@ The Inspector binds `localhost` by default and its backend spawns processes, so 
 
 The Inspector refuses to bind the **wildcard** all-interfaces addresses (`0.0.0.0`, `::`, and every equivalent spelling) unless you set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Binding a **specific** address is allowed with no opt-in, because that's one deliberate exposure rather than every interface at once, which is the shape DNS-rebinding attacks target.
 
-| Goal                                         | What to do                                                                                                                                             |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Reach it from another machine on the LAN** | `HOST=192.168.1.50`. The default origin allow-list follows the bind host, so `http://192.168.1.50:6274` is accepted with no further config.            |
-| **Behind TLS or a reverse proxy**            | The browser's `Origin` becomes the public origin, which won't match the bind host. Set `ALLOWED_ORIGINS=https://inspector.example.com`.                |
-| **Wildcard bind (containers)**               | Set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Loopback access still works out of the box; reaching it at a non-loopback address needs `ALLOWED_ORIGINS`. |
+| Goal | What to do |
+| - | - |
+| **Reach it from another machine on the LAN** | `HOST=192.168.1.50`. The default origin allow-list follows the bind host, so `http://192.168.1.50:6274` is accepted with no further config. |
+| **Behind TLS or a reverse proxy** | The browser's `Origin` becomes the public origin, which won't match the bind host. Set `ALLOWED_ORIGINS=https://inspector.example.com`. |
+| **Wildcard bind (containers)** | Set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Loopback access still works out of the box; reaching it at a non-loopback address needs `ALLOWED_ORIGINS`. |
 
 <Warning>
   `ALLOWED_ORIGINS` **replaces** the default list rather than merging with it. List every origin you'll browse from, including the loopback forms you want to keep:

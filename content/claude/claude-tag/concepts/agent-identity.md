@@ -14,7 +14,7 @@ Claude Tag's identity depends on where you message it.
 
 In Slack channels, Claude acts with its own service accounts, rather than as a specific user. An organization Owner [provisions this identity during setup](/docs/claude-tag/admins/setup-overview), so it arrives with its own account in each system it works in: the Claude app in Slack, the Claude GitHub App on GitHub, and a service account in every other connected tool. Actions it takes are attributed to those accounts; for example, posts come from the Claude app and pull requests show the Claude GitHub App as the author. Claude can also use your own claude.ai connectors for a task you hand it in a channel, after you allow it. See [Personal connectors in a channel](#personal-connectors-in-a-channel).
 
-In direct messages (DMs) between a user and `@Claude`, the provisioned identity does not apply. DMs are one-to-one only; group DMs aren't supported. A DM has no channel to scope it to, so a DM session runs on [the individual's own claude.ai account](#direct-message-channels) instead, with their personal connectors. GitHub is the exception in attribution: a pull request opened from a DM is authored by the Claude GitHub App, the same as in channels, though the session can only work with repositories connected on that user's own account. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+In direct messages (DMs) between `@Claude` and a user who has connected a Claude account, the provisioned identity does not apply. DMs are one-to-one only; group DMs aren't supported. A DM has no channel to scope it to, so a DM session runs on [the individual's own claude.ai account](#direct-message-channels) instead, with their personal connectors. GitHub is the exception in attribution: a pull request opened from a DM is authored by the Claude GitHub App, the same as in channels, though the session can only work with repositories connected on that user's own account. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages). For DMs from users who haven't connected a Claude account, see [Direct messages from members without a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account).
 
 <Note>
   How Claude behaves in channels (its standing instructions, plugins, and channel memory) is configured separately from its identity; see [custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions), [plugins](/docs/claude-tag/admins/add-connections#attach-plugins), and [memory](/docs/claude-tag/users/memory) for more information.
@@ -60,12 +60,12 @@ The diagram below traces one request through this process.
 
 For each outbound request from the sandbox, Agent Proxy checks the destination against three allow layers. A request goes through if any one of them allows it; a host that none of them allows is blocked.
 
-| When the destination                                                                                                                                                             | Result                                                                                                                                               |
-| :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Matches a connection's rule, its [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites)                                                                     | The proxy attaches that connection's credential and forwards the request. The credential stays at the proxy; the model and sandbox are not given it. |
-| Is on the [bundle](/docs/claude-tag/concepts/glossary#access-bundle)'s [Domains list](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential) but matches no connection | The proxy forwards the request without a credential.                                                                                                 |
-| Is allowed by the network access setting of the [environment](/docs/claude-tag/concepts/glossary#environment) the [scope](/docs/claude-tag/concepts/glossary#scope)'s sessions run on      | The proxy forwards the request without a credential.                                                                                                 |
-| Matches none of these                                                                                                                                                            | The proxy blocks the request.                                                                                                                        |
+| When the destination | Result |
+| :- | :- |
+| Matches a connection's rule, its [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) | The proxy attaches that connection's credential and forwards the request. The credential stays at the proxy; the model and sandbox are not given it. |
+| Is on the [bundle](/docs/claude-tag/concepts/glossary#access-bundle)'s [Domains list](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential) but matches no connection | The proxy forwards the request without a credential. |
+| Is allowed by the network access setting of the [environment](/docs/claude-tag/concepts/glossary#environment) the [scope](/docs/claude-tag/concepts/glossary#scope)'s sessions run on | The proxy forwards the request without a credential. |
+| Matches none of these | The proxy blocks the request. |
 
 A new environment's network access level defaults to Trusted access, so a fresh setup can reach a documented set of package registries and developer hosts before an admin has configured anything. The [cloud environments documentation](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains) lists the covered hosts. To narrow that default, pin an environment with a stricter level, such as No access.
 
@@ -118,12 +118,12 @@ A DM with Claude works differently from a channel. There is no scope to attach a
 
 The table lines up the two paths on the four dimensions that differ.
 
-|             | In a channel                                   | In a DM                                                              |
-| :---------- | :--------------------------------------------- | :------------------------------------------------------------------- |
-| Acts as     | Its own service accounts                       | You                                                                  |
-| Access      | The channel's Access bundles                   | Your personal connectors                                             |
+| | In a channel | In a DM |
+| :- | :- | :- |
+| Acts as | Its own service accounts | You |
+| Access | The channel's Access bundles | Your personal connectors |
 | Attribution | The agent's accounts, in each tool's audit log | Your name, except pull requests, which the Claude GitHub App authors |
-| Billing     | The organization                               | Your seat                                                            |
+| Billing | The organization | Your seat |
 
 Three of those differences are worth spelling out.
 
@@ -139,12 +139,12 @@ Use channels for shared work and DMs for personal tasks, or for data you'd rathe
 
 A DM with Claude Tag runs under your own account, which is also how [Claude Code in Slack](https://code.claude.com/docs/en/slack) works, routing a coding @-mention to a Claude Code session on the web under the requester's own account. The two can look identical. The table shows how to tell them apart.
 
-|                | Claude Tag in a channel                                | Claude Code in Slack                                                            |
-| :------------- | :----------------------------------------------------- | :------------------------------------------------------------------------------ |
-| **Runs under** | The agent identity an admin provisioned                | Your own Claude account, linked in the Claude app                               |
-| **GitHub**     | The Claude GitHub App; pull requests belong to the app | Your GitHub connection on claude.ai/code; pull requests open under your account |
-| **Access**     | The Access bundles an admin attached to the channel    | Your personal connectors                                                        |
-| **Billing**    | The organization                                       | Your seat                                                                       |
+| | Claude Tag in a channel | Claude Code in Slack |
+| :- | :- | :- |
+| **Runs under** | The agent identity an admin provisioned | Your own Claude account, linked in the Claude app |
+| **GitHub** | The Claude GitHub App; pull requests belong to the app | Your GitHub connection on claude.ai/code; pull requests open under your account |
+| **Access** | The Access bundles an admin attached to the channel | Your personal connectors |
+| **Billing** | The organization | Your seat |
 
 If `@Claude` in your workspace opens pull requests as you, you're seeing Claude Code in Slack, not a Claude Tag session.
 

@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2164                                                                            |
-| **Title**     | Standardize Resource Not Found Error Code                                       |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2026-01-28                                                                      |
-| **Author(s)** | Peter Alexander ([@pja-ant](https://github.com/pja-ant))                        |
-| **Sponsor**   | None (seeking sponsor)                                                          |
-| **PR**        | [#2164](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2164) |
+| Field | Value |
+| - | - |
+| **SEP** | 2164 |
+| **Title** | Standardize Resource Not Found Error Code |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2026-01-28 |
+| **Author(s)** | Peter Alexander ([@pja-ant](https://github.com/pja-ant)) |
+| **Sponsor** | None (seeking sponsor) |
+| **PR** | [#2164](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2164) |
 
 ***
 
@@ -47,18 +47,18 @@ This SEP standardizes on `-32602` (Invalid Params), the correct JSON-RPC error c
 
 Current SDK implementations vary in their error handling for resource not found:
 
-| SDK        | Current Error Code                     | Source                                                                                                                                                                                    |
-| ---------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TypeScript | `-32602` (InvalidParams)               | [mcp.ts#L561](https://github.com/modelcontextprotocol/typescript-sdk/blob/main/packages/server/src/server/mcp.ts#L561)                                                                    |
-| Python     | `0` (generic)                          | [server.py#L790](https://github.com/modelcontextprotocol/python-sdk/blob/main/src/mcp/server/lowlevel/server.py#L790)                                                                     |
-| C#         | `-32002` (custom RESOURCE\_NOT\_FOUND) | [McpServerImpl.cs#L289](https://github.com/modelcontextprotocol/csharp-sdk/blob/main/src/ModelContextProtocol.Core/Server/McpServerImpl.cs#L289)                                          |
-| Rust       | `-32002` (custom RESOURCE\_NOT\_FOUND) | [model.rs#L450](https://github.com/modelcontextprotocol/rust-sdk/blob/main/crates/rmcp/src/model.rs#L450)                                                                                 |
-| Java       | `-32002` (custom RESOURCE\_NOT\_FOUND) | [McpAsyncServer.java#L732](https://github.com/modelcontextprotocol/java-sdk/blob/main/mcp-core/src/main/java/io/modelcontextprotocol/server/McpAsyncServer.java#L732)                     |
-| Go         | `-32002` (custom RESOURCE\_NOT\_FOUND) | [server.go#L786](https://github.com/modelcontextprotocol/go-sdk/blob/main/mcp/server.go#L786)                                                                                             |
-| Kotlin     | `-32603` (INTERNAL\_ERROR)             | [Server.kt#L618-L621](https://github.com/modelcontextprotocol/kotlin-sdk/blob/main/kotlin-sdk-server/src/commonMain/kotlin/io/modelcontextprotocol/kotlin/sdk/server/Server.kt#L618-L621) |
-| PHP        | `-32002` (custom RESOURCE\_NOT\_FOUND) | [Error.php#L37](https://github.com/modelcontextprotocol/php-sdk/blob/main/src/Schema/JsonRpc/Error.php#L37)                                                                               |
-| Ruby       | N/A (left to implementor)              | [server.rb#L375-L379](https://github.com/modelcontextprotocol/ruby-sdk/blob/main/lib/mcp/server.rb#L375-L379)                                                                             |
-| Swift      | N/A (no built-in handler)              | N/A                                                                                                                                                                                       |
+| SDK | Current Error Code | Source |
+| - | - | - |
+| TypeScript | `-32602` (InvalidParams) | [mcp.ts#L561](https://github.com/modelcontextprotocol/typescript-sdk/blob/main/packages/server/src/server/mcp.ts#L561) |
+| Python | `0` (generic) | [server.py#L790](https://github.com/modelcontextprotocol/python-sdk/blob/main/src/mcp/server/lowlevel/server.py#L790) |
+| C# | `-32002` (custom RESOURCE\_NOT\_FOUND) | [McpServerImpl.cs#L289](https://github.com/modelcontextprotocol/csharp-sdk/blob/main/src/ModelContextProtocol.Core/Server/McpServerImpl.cs#L289) |
+| Rust | `-32002` (custom RESOURCE\_NOT\_FOUND) | [model.rs#L450](https://github.com/modelcontextprotocol/rust-sdk/blob/main/crates/rmcp/src/model.rs#L450) |
+| Java | `-32002` (custom RESOURCE\_NOT\_FOUND) | [McpAsyncServer.java#L732](https://github.com/modelcontextprotocol/java-sdk/blob/main/mcp-core/src/main/java/io/modelcontextprotocol/server/McpAsyncServer.java#L732) |
+| Go | `-32002` (custom RESOURCE\_NOT\_FOUND) | [server.go#L786](https://github.com/modelcontextprotocol/go-sdk/blob/main/mcp/server.go#L786) |
+| Kotlin | `-32603` (INTERNAL\_ERROR) | [Server.kt#L618-L621](https://github.com/modelcontextprotocol/kotlin-sdk/blob/main/kotlin-sdk-server/src/commonMain/kotlin/io/modelcontextprotocol/kotlin/sdk/server/Server.kt#L618-L621) |
+| PHP | `-32002` (custom RESOURCE\_NOT\_FOUND) | [Error.php#L37](https://github.com/modelcontextprotocol/php-sdk/blob/main/src/Schema/JsonRpc/Error.php#L37) |
+| Ruby | N/A (left to implementor) | [server.rb#L375-L379](https://github.com/modelcontextprotocol/ruby-sdk/blob/main/lib/mcp/server.rb#L375-L379) |
+| Swift | N/A (no built-in handler) | N/A |
 
 This inconsistency means clients cannot reliably detect resource-not-found conditions across implementations. Of the 8 SDKs with built-in resource handling, four different error codes are used: `-32002` (C#, Rust, Java, Go, PHP), `-32602` (TypeScript), `-32603` (Kotlin), and `0` (Python). Ruby and Swift leave error handling to the server implementor. Clients that need to distinguish "resource not found" from other errors must handle all variants.
 

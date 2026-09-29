@@ -25,6 +25,10 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeSonnet5_5("claude-sonnet-5-5")`
+
+        Efficient model for coding and agents
+
       - `ClaudeOpus5_5("claude-opus-5-5")`
 
         Powerful intelligence for coding, knowledge work, and long-running agents
@@ -35,7 +39,7 @@ Create Agent
 
       - `ClaudeSonnet5("claude-sonnet-5")`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `ClaudeFable5("claude-fable-5")`
 
@@ -95,6 +99,10 @@ Create Agent
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `ClaudeSonnet5_5("claude-sonnet-5-5")`
+
+          Efficient model for coding and agents
+
         - `ClaudeOpus5_5("claude-opus-5-5")`
 
           Powerful intelligence for coding, knowledge work, and long-running agents
@@ -105,7 +113,7 @@ Create Agent
 
         - `ClaudeSonnet5("claude-sonnet-5")`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `ClaudeFable5("claude-fable-5")`
 
@@ -889,6 +897,10 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeSonnet5_5("claude-sonnet-5-5")`
+
+        Efficient model for coding and agents
+
       - `ClaudeOpus5_5("claude-opus-5-5")`
 
         Powerful intelligence for coding, knowledge work, and long-running agents
@@ -899,7 +911,7 @@ Create Agent
 
       - `ClaudeSonnet5("claude-sonnet-5")`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `ClaudeFable5("claude-fable-5")`
 

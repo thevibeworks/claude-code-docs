@@ -26,10 +26,10 @@ Notion's own guide for creating the credential is at [developers.notion.com](htt
 
 In the bundle, click **Connect** next to **Notion**.
 
-| Field                       | Value                                       |
-| :-------------------------- | :------------------------------------------ |
+| Field | Value |
+| :- | :- |
 | Claude's integration secret | The internal integration secret from Notion |
-| Allowed websites            | `api.notion.com`                            |
+| Allowed websites | `api.notion.com` |
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 

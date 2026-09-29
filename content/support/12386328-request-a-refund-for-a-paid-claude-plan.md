@@ -59,7 +59,7 @@ If you're requesting a refund for an inactive subscription, you'll need to **[co
 
 ### I upgraded from Pro or Max to Team—when do I get my refund?
 
-When you upgrade to a Team plan from a Pro or Max plan, your individual subscription is cancelled automatically and a prorated refund is issued for the unused portion of your billing period. You don't need to request the refund manually as it's handled as part of the upgrade. Refunds usually appear immediately, but they can take a few days after your Team payment clears. Any prepaid usage credits on your individual account are refunded.
+When you upgrade to a Team plan from a Pro or Max plan, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. You don't need to request it manually. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded.
 
 If you signed up for Pro or Max through the Apple App Store, you can't upgrade to Team in place. **[Cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** through your Apple ID settings first, then start the Team upgrade. App Store subscription refunds need to be requested through Apple directly, as described above.
 

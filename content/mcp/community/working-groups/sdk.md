@@ -40,23 +40,23 @@ The SDK Working Group exists to keep the official MCP SDKs consistent, conforman
 
 ## Leadership
 
-| Role | Name             | Organization | GitHub                                                 | Term    |
-| ---- | ---------------- | ------------ | ------------------------------------------------------ | ------- |
-| Lead | Felix Weinberger | Anthropic    | [@felixweinberger](https://github.com/felixweinberger) | Ongoing |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | Felix Weinberger | Anthropic | [@felixweinberger](https://github.com/felixweinberger) | Ongoing |
 
 ## Authority & Decision Rights
 
-| Decision Type                            | Authority Level                                |
-| ---------------------------------------- | ---------------------------------------------- |
-| Meeting logistics & scheduling           | WG Leads (autonomous)                          |
-| Proposal prioritization within WG        | WG Leads (autonomous)                          |
-| SDK tier advancement or relegation       | WG consensus                                   |
-| Cross-SDK design guidance                | WG consensus (advisory to per-SDK maintainers) |
-| Per-SDK releases, versioning, API design | That SDK's maintainers (autonomous)            |
-| Adding or retiring an official SDK       | WG consensus → Core Maintainer approval        |
-| Changes to the tiering criteria          | WG consensus → Core Maintainer approval        |
-| Scope expansion                          | Core Maintainer approval required              |
-| WG Member approval                       | WG Member sponsors                             |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SDK tier advancement or relegation | WG consensus |
+| Cross-SDK design guidance | WG consensus (advisory to per-SDK maintainers) |
+| Per-SDK releases, versioning, API design | That SDK's maintainers (autonomous) |
+| Adding or retiring an official SDK | WG consensus → Core Maintainer approval |
+| Changes to the tiering criteria | WG consensus → Core Maintainer approval |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Membership
 
@@ -64,9 +64,9 @@ WG Members are the maintainers of each official SDK as recorded in [MAINTAINERS.
 
 ## Operations
 
-| Meeting         | Frequency | Duration | Purpose                                              |
-| --------------- | --------- | -------- | ---------------------------------------------------- |
-| Working Session | Biweekly  | 45 min   | Release coordination, tier reviews, cross-SDK design |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Biweekly | 45 min | Release coordination, tier reviews, cross-SDK design |
 
 Communication happens in the `#general-sdk-dev` Discord channel and the SDK Working Group category in [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions).
 
@@ -74,11 +74,11 @@ Communication happens in the `#general-sdk-dev` Discord channel and the SDK Work
 
 ### Active Work Items
 
-| Item                                                | Status      | Target Date | Champion            |
-| --------------------------------------------------- | ----------- | ----------- | ------------------- |
-| 2026-06-30 spec support across Tier-1 SDKs          | Planning    | 2026 Q3     | Per-SDK maintainers |
-| Cross-SDK guidance for stateless transport adoption | In progress | 2026 Q2     | WG Leads            |
-| Quarterly tier review                               | Recurring   | Quarterly   | WG Leads            |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| 2026-06-30 spec support across Tier-1 SDKs | Planning | 2026 Q3 | Per-SDK maintainers |
+| Cross-SDK guidance for stateless transport adoption | In progress | 2026 Q2 | WG Leads |
+| Quarterly tier review | Recurring | Quarterly | WG Leads |
 
 ### Success Criteria
 
@@ -88,6 +88,6 @@ Communication happens in the `#general-sdk-dev` Discord channel and the SDK Work
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-04-28 | Initial charter |

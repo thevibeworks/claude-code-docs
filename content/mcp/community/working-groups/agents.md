@@ -71,36 +71,36 @@ primitives. The WG evaluates those questions through its design work.
 
 ## Leadership
 
-| Role | Name             | Organization        | GitHub                                             | Term    |
-| ---- | ---------------- | ------------------- | -------------------------------------------------- | ------- |
-| Lead | Luca Chang       | Amazon Web Services | [@LucaButBoring](https://github.com/LucaButBoring) | Initial |
-| Lead | Caitie McCaffrey | Microsoft           | [@CaitieM20](https://github.com/CaitieM20)         | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | Luca Chang | Amazon Web Services | [@LucaButBoring](https://github.com/LucaButBoring) | Initial |
+| Lead | Caitie McCaffrey | Microsoft | [@CaitieM20](https://github.com/CaitieM20) | Initial |
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Membership
 
-| Name             | Organization        | GitHub                                             | Discord | Level |
-| ---------------- | ------------------- | -------------------------------------------------- | ------- | ----- |
-| Luca Chang       | Amazon Web Services | [@LucaButBoring](https://github.com/LucaButBoring) |         | Lead  |
-| Caitie McCaffrey | Microsoft           | [@CaitieM20](https://github.com/CaitieM20)         |         | Lead  |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Luca Chang | Amazon Web Services | [@LucaButBoring](https://github.com/LucaButBoring) | | Lead |
+| Caitie McCaffrey | Microsoft | [@CaitieM20](https://github.com/CaitieM20) | | Lead |
 
 ## Operations
 
-| Meeting         | Frequency | Duration   | Purpose                                             |
-| --------------- | --------- | ---------- | --------------------------------------------------- |
-| Working Session | Weekly    | 30 minutes | Technical discussion, research, and proposal review |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Weekly | 30 minutes | Technical discussion, research, and proposal review |
 
 Meetings are published at
 [meet.modelcontextprotocol.io](https://meet.modelcontextprotocol.io).
@@ -120,11 +120,11 @@ Discord: `#agents-wg`
 
 ### Active Work Items
 
-| Item                                            | Status      | Target Date | Champion                                                                                       |
-| ----------------------------------------------- | ----------- | ----------- | ---------------------------------------------------------------------------------------------- |
-| Tasks stabilization and core protocol promotion | In Progress |             | [@LucaButBoring](https://github.com/LucaButBoring)                                             |
-| Agents Extension evaluation and recommendation  | In Progress |             | TBD                                                                                            |
-| Two-level agent definition proof of concept     | In Progress |             | [@LucaButBoring](https://github.com/LucaButBoring), [@madhaviai](https://github.com/madhaviai) |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| Tasks stabilization and core protocol promotion | In Progress | | [@LucaButBoring](https://github.com/LucaButBoring) |
+| Agents Extension evaluation and recommendation | In Progress | | TBD |
+| Two-level agent definition proof of concept | In Progress | | [@LucaButBoring](https://github.com/LucaButBoring), [@madhaviai](https://github.com/madhaviai) |
 
 ### Success Criteria
 
@@ -142,6 +142,6 @@ Discord: `#agents-wg`
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-08-04 | Initial charter |

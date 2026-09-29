@@ -29,11 +29,11 @@ Use this checklist to confirm what your devices, policies, network, and user acc
 
 If you enforce application control with AppLocker or App Control for Business (formerly Windows Defender Application Control), allow Claude Desktop by publisher or by package family name rather than by path, and let the rule match any version, so that it keeps matching as the app updates.
 
-| Identifier             | Value                  |
-| ---------------------- | ---------------------- |
-| Package name           | `Claude`               |
-| Package family name    | `Claude_pzs8sxrjxfjjc` |
-| Publisher display name | Anthropic, PBC         |
+| Identifier | Value |
+| - | - |
+| Package name | `Claude` |
+| Package family name | `Claude_pzs8sxrjxfjjc` |
+| Publisher display name | Anthropic, PBC |
 
 These values identify the `.msix` package from the download site and the offline installer, and they do not change between versions or architectures.
 
@@ -67,7 +67,7 @@ Claude Desktop's own traffic and the browser's traffic to the Claude for Governm
 * **App traffic.** Allow Claude Desktop on every device to reach the Claude for Government host, which carries the app's configuration and chat traffic.
 * **Browser sign-in traffic.** Allow the browser on every device to reach the Claude for Government host, the Claude for Government sign-in service (a separate host that your Anthropic representative provides), and your agency's identity provider. Sign-in happens in each user's default browser, not in the app.
 * **`downloads.claude.ai`.** The app downloads two components from this host: the agent helper described under [Application control rules](#application-control-rules), which Chat, Cowork, and Code all need, and the Cowork workspace, which Cowork tasks and Advanced file analysis in Chat need. The app downloads each one whenever the device does not already have the version that the app needs, typically after an install or an app update. The offline installer includes both, so devices installed with it need this host only for application updates while automatic updates are on.
-* **`www.claudeusercontent.com`.** This host serves the frame that displays artifact previews.
+* **Hosts for icons, previews, and widgets.** For connector icons, the artifact preview frame, and the interactive widgets that some connectors display, the app reaches the hosts listed under Non-essential services in [Required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths), including `www.claudeusercontent.com` and `www.google.com`. If traffic is blocked, the app will run without icons, previews, and widgets.
 * **Update hosts.** While [automatic updates](/docs/government/deploy-desktop/configure#automatic-updates) are on, also allow the hosts listed under Auto-updates in [Required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths). The telemetry rows there never apply, because Claude for Government does not send telemetry to Anthropic.
 * **Hosts your tools and connectors use.** Allow the hosts you add to [Allowed network hosts](/docs/government/config/settings#allowed-network-hosts) (such as package registries), the addresses of any connectors you configure on the Config page (including Microsoft 365 if you set up that connector), and your telemetry collector if you set one.
 * **Proxies.** The app and the Cowork workspace follow the operating system's proxy settings, including PAC files, as described under [Network proxy](/docs/third-party/claude-desktop/network-proxy). If your proxy inspects TLS, validate sign-in, a chat, and a Cowork task on a pilot device before rollout.

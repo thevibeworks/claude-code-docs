@@ -12,11 +12,11 @@ A built-in entry names the bundled server in a `server` field, in place of the `
 
 ## Available servers
 
-| Server        | `server` value | What Claude can reach                                                                                 | Setup guide                                                                                              |
-| ------------- | -------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| Microsoft 365 | `microsoft365` | Outlook mail and calendar, OneDrive, SharePoint, and Teams, through Microsoft Graph                   | [Connect to Microsoft 365, local connector](/docs/third-party/claude-desktop/connectors-m365#local-connector) |
-| Web search    | `websearch`    | Web search through Brave, Tavily, Exa, or a search endpoint you host                                  | [Built-in web search](/docs/third-party/claude-desktop/web-tools#built-in-web-search)                         |
-| GitHub (beta) | `github`       | Repositories, issues, pull requests, and other GitHub data, on github.com or GitHub Enterprise Server | [Connect to GitHub, local connector](/docs/third-party/claude-desktop/connectors-github#local-connector)      |
+| Server | `server` value | What Claude can reach | Setup guide |
+| - | - | - | - |
+| Microsoft 365 | `microsoft365` | Outlook mail and calendar, OneDrive, SharePoint, and Teams, through Microsoft Graph | [Connect to Microsoft 365, local connector](/docs/third-party/claude-desktop/connectors-m365#local-connector) |
+| Web search | `websearch` | Web search through Brave, Tavily, Exa, or a search endpoint you host | [Built-in web search](/docs/third-party/claude-desktop/web-tools#built-in-web-search) |
+| GitHub (beta) | `github` | Repositories, issues, pull requests, and other GitHub data, on github.com or GitHub Enterprise Server | [Connect to GitHub, local connector](/docs/third-party/claude-desktop/connectors-github#local-connector) |
 
 Each guide covers its server in full, including how the built-in server compares with the remote alternative where one exists. The GitHub built-in server is in beta, and the **Add server** menu marks it with a **Beta** pill.
 

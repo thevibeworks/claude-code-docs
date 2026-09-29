@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                         |
-| ------------- | ----------------------------------------------------------------------------- |
-| **SEP**       | 985                                                                           |
-| **Title**     | Align OAuth 2.0 Protected Resource Metadata with RFC 9728                     |
-| **Status**    | Final                                                                         |
-| **Type**      | Standards Track                                                               |
-| **Created**   | 2025-07-16                                                                    |
-| **Author(s)** | sunishsheth2009                                                               |
-| **Sponsor**   | None                                                                          |
-| **PR**        | [#985](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/985) |
+| Field | Value |
+| - | - |
+| **SEP** | 985 |
+| **Title** | Align OAuth 2.0 Protected Resource Metadata with RFC 9728 |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-07-16 |
+| **Author(s)** | sunishsheth2009 |
+| **Sponsor** | None |
+| **PR** | [#985](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/985) |
 
 ***
 

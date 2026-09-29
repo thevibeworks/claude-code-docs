@@ -8,11 +8,11 @@ All messages between MCP clients and servers **MUST** follow the
 [JSON-RPC 2.0](https://www.jsonrpc.org/specification) specification. The protocol defines
 three fundamental types of messages:
 
-| Type            | Description                            | Requirements                           |
-| --------------- | -------------------------------------- | -------------------------------------- |
-| `Requests`      | Messages sent to initiate an operation | Must include unique ID and method name |
-| `Responses`     | Messages sent in reply to requests     | Must include same ID as request        |
-| `Notifications` | One-way messages with no reply         | Must not include an ID                 |
+| Type | Description | Requirements |
+| - | - | - |
+| `Requests` | Messages sent to initiate an operation | Must include unique ID and method name |
+| `Responses` | Messages sent in reply to requests | Must include same ID as request |
+| `Notifications` | One-way messages with no reply | Must not include an ID |
 
 **Responses** are further sub-categorized as either **successful results** or **errors**.
 Results can follow any JSON object structure, while errors must include an error code and

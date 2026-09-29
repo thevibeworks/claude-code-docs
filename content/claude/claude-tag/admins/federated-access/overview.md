@@ -22,12 +22,12 @@ Your systems can accept the token in one of four ways. The table below says whic
 
 ## Choose a connection type
 
-| Connection type           | Who accepts the token                                                                                                                                      | Choose it when                                                                                                                                             |
-| :------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Gateway**               | A service you run. It verifies the token, maps the agent to permissions, and forwards the request to your internal systems with credentials you hold.      | You want one entry point in front of internal APIs. The [sample gateway](https://github.com/anthropics/claude-tag-wif-gateway-sample) is a starting point. |
-| **AWS role**              | AWS, through an IAM OIDC identity provider. AWS issues temporary credentials for a role whose trust policy names Anthropic's issuer and your organization. | Claude should call AWS APIs under a role you govern with IAM.                                                                                              |
-| **Google Cloud identity** | Google Cloud, through a workload identity pool. Google issues an access token for the federated identity, acting as a service account if you name one.     | Claude should call Google Cloud APIs under an identity you govern with IAM.                                                                                |
-| **Authorization server**  | Your OAuth 2.0 authorization server. It accepts the token as a JWT bearer grant (RFC 7523) and returns an access token for your APIs.                      | Your APIs are already protected by your own OAuth server and you'd rather issue its tokens than run a gateway.                                             |
+| Connection type | Who accepts the token | Choose it when |
+| :- | :- | :- |
+| **Gateway** | A service you run. It verifies the token, maps the agent to permissions, and forwards the request to your internal systems with credentials you hold. | You want one entry point in front of internal APIs. The [sample gateway](https://github.com/anthropics/claude-tag-wif-gateway-sample) is a starting point. |
+| **AWS role** | AWS, through an IAM OIDC identity provider. AWS issues temporary credentials for a role whose trust policy names Anthropic's issuer and your organization. | Claude should call AWS APIs under a role you govern with IAM. |
+| **Google Cloud identity** | Google Cloud, through a workload identity pool. Google issues an access token for the federated identity, acting as a service account if you name one. | Claude should call Google Cloud APIs under an identity you govern with IAM. |
+| **Authorization server** | Your OAuth 2.0 authorization server. It accepts the token as a JWT bearer grant (RFC 7523) and returns an access token for your APIs. | Your APIs are already protected by your own OAuth server and you'd rather issue its tokens than run a gateway. |
 
 In every case the system on your side decides what the agent may do in your systems. Each connection type has its own setup page: [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway), [Connect an AWS role](/docs/claude-tag/admins/federated-access/aws), [Connect a Google Cloud identity](/docs/claude-tag/admins/federated-access/gcp), and [Connect an authorization server](/docs/claude-tag/admins/federated-access/authorization-server).
 
@@ -50,13 +50,13 @@ Anthropic stores no long-lived credential for your systems, and each call carrie
 
 To cut off access, remove the connection in the console. These lifetimes then apply:
 
-| What                                           | How long it lasts                                                                                                    |
-| :--------------------------------------------- | :------------------------------------------------------------------------------------------------------------------- |
-| A removed connection                           | Claude stops using a removed gateway at once, and a removed cloud role or authorization server within about a minute |
-| An identity token already issued               | 10 minutes from when it was issued                                                                                   |
-| AWS credentials already exchanged              | 1 hour, the role session length                                                                                      |
-| A Google Cloud credential already exchanged    | As long as Google Cloud issued it for                                                                                |
-| An access token from your authorization server | The `expires_in` your server returned                                                                                |
+| What | How long it lasts |
+| :- | :- |
+| A removed connection | Claude stops using a removed gateway at once, and a removed cloud role or authorization server within about a minute |
+| An identity token already issued | 10 minutes from when it was issued |
+| AWS credentials already exchanged | 1 hour, the role session length |
+| A Google Cloud credential already exchanged | As long as Google Cloud issued it for |
+| An access token from your authorization server | The `expires_in` your server returned |
 
 Anthropic doesn't review your gateway, trust policy, or authorization server. When you connect a gateway, the console offers a connection check that confirms the gateway rejects a token whose subject isn't your organization. The other connection types have no check in the console, so you verify them yourself with the steps on each setup page.
 
@@ -67,7 +67,7 @@ Anthropic doesn't review your gateway, trust policy, or authorization server. Wh
 * Your cloud or gateway administrator configures the system on your side: the gateway operator, your AWS or Google Cloud IAM administrator, or your authorization server's operator. Each setup page lists the values they configure.
 * An [Access bundle](/docs/claude-tag/admins/add-connections) is attached to the [scope](/docs/claude-tag/concepts/glossary#scope) of the channels where Claude should use the connection. A connection can be in only one bundle, so to use a connection in several places, attach that bundle to each scope.
 
-Federated connections work in Slack channels, where Claude acts under your organization's agent identity. They don't work in direct messages, which run under [the individual's own account](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
+Federated connections work in Slack channels, where Claude acts under your organization's agent identity. They don't work in direct messages from members who have connected a Claude account, which run under [the individual's own account](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
 
 ## Related resources
 

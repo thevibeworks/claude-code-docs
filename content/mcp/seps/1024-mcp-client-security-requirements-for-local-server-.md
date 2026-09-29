@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 1024                                                                            |
-| **Title**     | MCP Client Security Requirements for Local Server Installation                  |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-07-22                                                                      |
-| **Author(s)** | Den Delimarsky                                                                  |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1024](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1024) |
+| Field | Value |
+| - | - |
+| **SEP** | 1024 |
+| **Title** | MCP Client Security Requirements for Local Server Installation |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-07-22 |
+| **Author(s)** | Den Delimarsky |
+| **Sponsor** | None |
+| **PR** | [#1024](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1024) |
 
 ***
 

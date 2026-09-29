@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2133                                                                            |
-| **Title**     | Extensions                                                                      |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-01-21                                                                      |
-| **Author(s)** | Peter Alexander ([@pja-ant](https://github.com/pja-ant))                        |
-| **Sponsor**   | None (seeking sponsor)                                                          |
-| **PR**        | [#2133](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2133) |
+| Field | Value |
+| - | - |
+| **SEP** | 2133 |
+| **Title** | Extensions |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-01-21 |
+| **Author(s)** | Peter Alexander ([@pja-ant](https://github.com/pja-ant)) |
+| **Sponsor** | None (seeking sponsor) |
+| **PR** | [#2133](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2133) |
 
 ***
 

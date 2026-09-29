@@ -35,17 +35,17 @@ Four habits reduce slowdowns.
 
 These limits come from Claude for M365 and from Office itself.
 
-| Limit                                       | Value                                                                                                                           | What it means for you                       |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| Wait for a step where Claude runs code      | 90 seconds                                                                                                                      | A heavy step can time out                   |
-| Wait for other steps, such as writing cells | 5 minutes on the desktop, 2 minutes on the web                                                                                  | A heavy step can time out                   |
-| Wait for a Word text edit                   | 30 seconds                                                                                                                      | A heavy edit can time out                   |
-| Cells returned by one Claude read in Excel  | 2,000 cells with data                                                                                                           | Claude reads a large sheet in several steps |
-| Cells Office reads from one range           | 5,000,000<sup id="cite-ref-3-b" className="scroll-mt-24"><a href="#cite-note-3">\[3]</a></sup>                                  | A larger read can fail                      |
-| One request in Excel on the web             | 5 MB<sup id="cite-ref-3-c" className="scroll-mt-24"><a href="#cite-note-3">\[3]</a></sup>                                       | Large reads and writes can fail on the web  |
-| Command batches waiting in Office           | 50<sup id="cite-ref-4-a" className="scroll-mt-24"><a href="#cite-note-4">\[4]</a></sup>                                         | More batches cause errors                   |
-| Workbook opened in a browser                | Up to 100 MB, depending on your subscription<sup id="cite-ref-5" className="scroll-mt-24"><a href="#cite-note-5">\[5]</a></sup> | Open larger files in Excel on the desktop   |
-| Memory for 32-bit Excel                     | Up to 4 GB on 64-bit Windows<sup id="cite-ref-6" className="scroll-mt-24"><a href="#cite-note-6">\[6]</a></sup>                 | Use 64-bit Office for large workbooks       |
+| Limit | Value | What it means for you |
+| - | - | - |
+| Wait for a step where Claude runs code | 90 seconds | A heavy step can time out |
+| Wait for other steps, such as writing cells | 5 minutes on the desktop, 2 minutes on the web | A heavy step can time out |
+| Wait for a Word text edit | 30 seconds | A heavy edit can time out |
+| Cells returned by one Claude read in Excel | 2,000 cells with data | Claude reads a large sheet in several steps |
+| Cells Office reads from one range | 5,000,000<sup id="cite-ref-3-b" className="scroll-mt-24"><a href="#cite-note-3">\[3]</a></sup> | A larger read can fail |
+| One request in Excel on the web | 5 MB<sup id="cite-ref-3-c" className="scroll-mt-24"><a href="#cite-note-3">\[3]</a></sup> | Large reads and writes can fail on the web |
+| Command batches waiting in Office | 50<sup id="cite-ref-4-a" className="scroll-mt-24"><a href="#cite-note-4">\[4]</a></sup> | More batches cause errors |
+| Workbook opened in a browser | Up to 100 MB, depending on your subscription<sup id="cite-ref-5" className="scroll-mt-24"><a href="#cite-note-5">\[5]</a></sup> | Open larger files in Excel on the desktop |
+| Memory for 32-bit Excel | Up to 4 GB on 64-bit Windows<sup id="cite-ref-6" className="scroll-mt-24"><a href="#cite-note-6">\[6]</a></sup> | Use 64-bit Office for large workbooks |
 
 ## File size and risk
 
@@ -58,10 +58,10 @@ based on what Claude for M365 usage shows.
 
 The risk rises steadily, without a sharp threshold. Treat the bands as guides.
 
-| File                                      | Works well      | Higher risk, so narrow your requests | Use at your own risk |
-| ----------------------------------------- | --------------- | ------------------------------------ | -------------------- |
-| Excel, total used cells across all sheets | Under 1 million | 1 to 5 million                       | Over 5 million       |
-| PowerPoint, slides                        | Under 100       | 100 to 199                           | 200 or more          |
+| File | Works well | Higher risk, so narrow your requests | Use at your own risk |
+| - | - | - | - |
+| Excel, total used cells across all sheets | Under 1 million | 1 to 5 million | Over 5 million |
+| PowerPoint, slides | Under 100 | 100 to 199 | 200 or more |
 
 To estimate the total for a workbook, go to each sheet and press Ctrl+End to
 move to its last cell.<sup id="cite-ref-7-a" className="scroll-mt-24"><a href="#cite-note-7">\[7]</a></sup> Multiply the number of the last row by the
@@ -103,11 +103,11 @@ each step.
 
 Excel has built-in tools that show what makes a workbook heavy.
 
-| Task                                       | Where in Excel                                                                                                              |
-| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| See counts of cells, formulas, and objects | Review, Workbook Statistics<sup id="cite-ref-9" className="scroll-mt-24"><a href="#cite-note-9">\[9]</a></sup>              |
-| Remove formatting from empty cells         | Review, Check Performance<sup id="cite-ref-10-a" className="scroll-mt-24"><a href="#cite-note-10">\[10]</a></sup>           |
-| Find hidden shapes and pictures            | Home, Find & Select, Selection Pane<sup id="cite-ref-11-a" className="scroll-mt-24"><a href="#cite-note-11">\[11]</a></sup> |
+| Task | Where in Excel |
+| - | - |
+| See counts of cells, formulas, and objects | Review, Workbook Statistics<sup id="cite-ref-9" className="scroll-mt-24"><a href="#cite-note-9">\[9]</a></sup> |
+| Remove formatting from empty cells | Review, Check Performance<sup id="cite-ref-10-a" className="scroll-mt-24"><a href="#cite-note-10">\[10]</a></sup> |
+| Find hidden shapes and pictures | Home, Find & Select, Selection Pane<sup id="cite-ref-11-a" className="scroll-mt-24"><a href="#cite-note-11">\[11]</a></sup> |
 
 Save a copy of the workbook before you run Check Performance. It removes
 formatting from cells that look empty, including cells used for pixel
@@ -169,10 +169,10 @@ changes, pause recalculation until Claude is done.
 Large pictures and media make a presentation larger.<sup id="cite-ref-16-a" className="scroll-mt-24"><a href="#cite-note-16">\[16]</a></sup> Compress them
 before you ask Claude for large changes.
 
-| Task                     | Where in PowerPoint                                                                                                                                                  |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Compress pictures        | Picture Format, Compress Pictures, with "Apply only to this picture" cleared<sup id="cite-ref-16-b" className="scroll-mt-24"><a href="#cite-note-16">\[16]</a></sup> |
-| Compress audio and video | File, Info, Compress Media, in PowerPoint on Windows<sup id="cite-ref-17" className="scroll-mt-24"><a href="#cite-note-17">\[17]</a></sup>                           |
+| Task | Where in PowerPoint |
+| - | - |
+| Compress pictures | Picture Format, Compress Pictures, with "Apply only to this picture" cleared<sup id="cite-ref-16-b" className="scroll-mt-24"><a href="#cite-note-16">\[16]</a></sup> |
+| Compress audio and video | File, Info, Compress Media, in PowerPoint on Windows<sup id="cite-ref-17" className="scroll-mt-24"><a href="#cite-note-17">\[17]</a></sup> |
 
 Save a copy of the presentation before you compress. Deleting cropped picture
 areas and discarding editing data cannot be undone.<sup id="cite-ref-16-c" className="scroll-mt-24"><a href="#cite-note-16">\[16]</a></sup>
@@ -183,12 +183,12 @@ Ask Claude to change a few slides at a time.
 
 Use this table when Office stops responding during a request.
 
-| Situation                | What to do                                                                                                                                                                                |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude waits on a step   | Wait. Do not click repeatedly.                                                                                                                                                            |
-| Claude reports a timeout | Wait until Office responds, save, then ask for a smaller step. The step can still be running in Office.                                                                                   |
-| Office closes            | Reopen the file and look for the Document Recovery pane.<sup id="cite-ref-18-a" className="scroll-mt-24"><a href="#cite-note-18">\[18]</a></sup> Start a new chat with a smaller request. |
-| It happens often         | Send your IT admin the transcript and the time of the problem.                                                                                                                            |
+| Situation | What to do |
+| - | - |
+| Claude waits on a step | Wait. Do not click repeatedly. |
+| Claude reports a timeout | Wait until Office responds, save, then ask for a smaller step. The step can still be running in Office. |
+| Office closes | Reopen the file and look for the Document Recovery pane.<sup id="cite-ref-18-a" className="scroll-mt-24"><a href="#cite-note-18">\[18]</a></sup> Start a new chat with a smaller request. |
+| It happens often | Send your IT admin the transcript and the time of the problem. |
 
 When something goes wrong, keep your work and the chat for your admin.
 

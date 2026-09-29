@@ -35,19 +35,19 @@ See the [MCPB repository](https://github.com/modelcontextprotocol/mcpb) for the 
 
 The table lists the needs that point to each option.
 
-| Choose MCPB when you need                                                                                 | Choose a remote connector when you need                        |
-| --------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Choose MCPB when you need | Choose a remote connector when you need |
+| - | - |
 | Access to systems behind your firewall, such as your issue tracker, internal wikis, and private databases | Cloud services and public APIs with centralized infrastructure |
-| Authentication via existing SSO and browser sessions, no token management                                 | OAuth flows with server-side token management                  |
-| Zero-trust compliance inside corporate network boundaries                                                 | Distribution across Claude on web, mobile, and desktop         |
-| Direct filesystem access for code editing and Git operations                                              | Centralized updates pushed to all users                        |
-| Integration with locally installed tools, such as Docker, IDEs, and databases                             | Public-facing integrations used by multiple organizations      |
-| Hardware integration and desktop application control                                                      |                                                                |
-| Privacy-sensitive operations that should not leave the user's machine                                     |                                                                |
-| One-click install with bundled Node.js runtime, no dependencies to manage                                 |                                                                |
-| No cloud infrastructure, VPN configuration, or firewall rules                                             |                                                                |
-| Organization-level admin controls, such as custom uploads and allowlists                                  |                                                                |
-| Full control over authentication, authorization, and audit logs                                           |                                                                |
+| Authentication via existing SSO and browser sessions, no token management | OAuth flows with server-side token management |
+| Zero-trust compliance inside corporate network boundaries | Distribution across Claude on web, mobile, and desktop |
+| Direct filesystem access for code editing and Git operations | Centralized updates pushed to all users |
+| Integration with locally installed tools, such as Docker, IDEs, and databases | Public-facing integrations used by multiple organizations |
+| Hardware integration and desktop application control | |
+| Privacy-sensitive operations that should not leave the user's machine | |
+| One-click install with bundled Node.js runtime, no dependencies to manage | |
+| No cloud infrastructure, VPN configuration, or firewall rules | |
+| Organization-level admin controls, such as custom uploads and allowlists | |
+| Full control over authentication, authorization, and audit logs | |
 
 ## Build the bundle
 
@@ -109,22 +109,22 @@ For detailed implementation guidance, see the [MCPB repository](https://github.c
 
 The `manifest.json` file is required metadata describing what your MCPB does, how to run it, which tools it provides, and what configuration it needs. These references document it:
 
-| Reference                                                                                | Contents                    |
-| ---------------------------------------------------------------------------------------- | --------------------------- |
+| Reference | Contents |
+| - | - |
 | [MCPB Manifest Spec](https://github.com/modelcontextprotocol/mcpb/blob/main/MANIFEST.md) | Full schema with all fields |
-| [Example manifests](https://github.com/modelcontextprotocol/mcpb/tree/main/examples)     | Real-world implementations  |
-| [CLI documentation](https://github.com/modelcontextprotocol/mcpb/blob/main/CLI.md)       | Command reference           |
+| [Example manifests](https://github.com/modelcontextprotocol/mcpb/tree/main/examples) | Real-world implementations |
+| [CLI documentation](https://github.com/modelcontextprotocol/mcpb/blob/main/CLI.md) | Command reference |
 
 ### Add an icon
 
 Icons are optional but recommended. Place `icon.png` in your bundle root and reference it in `manifest.json`. The icon must meet these requirements:
 
-| Requirement | Value                                    |
-| ----------- | ---------------------------------------- |
-| File name   | `icon.png`, or a custom path             |
-| Size        | 512×512px recommended, 256×256px minimum |
-| Format      | PNG with transparency                    |
-| Location    | Bundle root or specified path            |
+| Requirement | Value |
+| - | - |
+| File name | `icon.png`, or a custom path |
+| Size | 512×512px recommended, 256×256px minimum |
+| Format | PNG with transparency |
+| Location | Bundle root or specified path |
 
 You can also provide multiple icon variants for different sizes and for light and dark themes. See the [manifest spec icons section](https://github.com/modelcontextprotocol/mcpb/blob/main/MANIFEST.md#icons) for variant syntax and best practices.
 

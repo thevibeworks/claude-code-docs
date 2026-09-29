@@ -26,10 +26,10 @@ Stripe's own guide for creating the credential is at [docs.stripe.com](https://d
 
 In the bundle, click **Connect** next to **Stripe**.
 
-| Field               | Value                                                                         |
-| :------------------ | :---------------------------------------------------------------------------- |
-| Claude's secret key | The secret key from Stripe                                                    |
-| Allowed websites    | `api.stripe.com` (preset). To add a different host, use the **Advanced** tab. |
+| Field | Value |
+| :- | :- |
+| Claude's secret key | The secret key from Stripe |
+| Allowed websites | `api.stripe.com` (preset). To add a different host, use the **Advanced** tab. |
 
 The field labeled Claude's secret key accepts a restricted key; the label is the field name, not a key-type constraint.
 

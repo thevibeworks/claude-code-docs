@@ -47,46 +47,46 @@ than a charter constraint.
 * **MCP Apps WG** — embedded app UIs may surface their own file pickers; the descriptor format
   should be reusable in that context.
 * **Security WG** — host-side validation requirements for user-supplied file content (the SEP
-  references [OWASP ASVS V5](https://owasp.org/www-project-application-security-verification-standard/)
+  references [OWASP ASVS V5](https://owasp.org/projects/asvs)
   for general upload hygiene).
 * **Tool Annotations IG** — file input descriptors are a form of input-parameter metadata and should
   remain consistent with the broader annotation taxonomy.
 
 ## Leadership
 
-| Role | Name           | Organization | GitHub                                   | Term    |
-| ---- | -------------- | ------------ | ---------------------------------------- | ------- |
-| Lead | Den Delimarsky | Anthropic    | [@localden](https://github.com/localden) | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | Den Delimarsky | Anthropic | [@localden](https://github.com/localden) | Initial |
 
 Sponsored by Den Delimarsky ([@localden](https://github.com/localden)) and Nick Cooper
 ([@nickcoai](https://github.com/nickcoai)).
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Membership
 
-| Name           | Organization | GitHub                                   | Discord | Level     |
-| -------------- | ------------ | ---------------------------------------- | ------- | --------- |
-| Den Delimarsky | Anthropic    | [@localden](https://github.com/localden) |         | Lead      |
-| Nick Cooper    | OpenAI       | [@nickcoai](https://github.com/nickcoai) |         | WG Member |
-| Olivier Chafik | Anthropic    | [@ochafik](https://github.com/ochafik)   |         | WG Member |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Den Delimarsky | Anthropic | [@localden](https://github.com/localden) | | Lead |
+| Nick Cooper | OpenAI | [@nickcoai](https://github.com/nickcoai) | | WG Member |
+| Olivier Chafik | Anthropic | [@ochafik](https://github.com/ochafik) | | WG Member |
 
 ## Operations
 
-| Meeting         | Frequency | Duration | Purpose                               |
-| --------------- | --------- | -------- | ------------------------------------- |
-| Working Session | Biweekly  | 30 min   | Technical discussion, proposal review |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Biweekly | 30 min | Technical discussion, proposal review |
 
 Discord: `#file-uploads-wg`
 
@@ -94,11 +94,11 @@ Discord: `#file-uploads-wg`
 
 ### Active Work Items
 
-| Item                                                                                                        | Status | Target Date | Champion                               |
-| ----------------------------------------------------------------------------------------------------------- | ------ | ----------- | -------------------------------------- |
-| [SEP-2356: Declarative file inputs](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2356) | Draft  | End May     | [@ochafik](https://github.com/ochafik) |
-| TypeScript SDK reference implementation                                                                     | —      | End May     | [@ochafik](https://github.com/ochafik) |
-| Reference implementation in a second Tier-1 SDK                                                             | —      | End June    | TBD                                    |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| [SEP-2356: Declarative file inputs](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2356) | Draft | End May | [@ochafik](https://github.com/ochafik) |
+| TypeScript SDK reference implementation | — | End May | [@ochafik](https://github.com/ochafik) |
+| Reference implementation in a second Tier-1 SDK | — | End June | TBD |
 
 ### Success Criteria
 
@@ -109,6 +109,6 @@ Discord: `#file-uploads-wg`
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-04-23 | Initial charter |

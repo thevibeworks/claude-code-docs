@@ -58,11 +58,11 @@ Have the teammate mention `@Claude` themselves and report the exact text of any 
 
 **What you see**
 
-Claude added a reaction to your message, or an "is thinking…" line appeared under it, but no reply arrived.
+Claude added a reaction to your message, or a working indicator appeared under the thread (in a DM, an "is thinking…" line), but no reply arrived.
 
 **What it means**
 
-A reaction or an "is thinking…" line without a reply usually means Claude is still working, not that your message was dropped.
+A reaction or a working indicator without a reply usually means Claude is still working, not that your message was dropped.
 
 **How to resolve**
 

@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                                                                        |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **SEP**       | 2149                                                                                                                         |
-| **Title**     | MCP Group Governance and Charter Template                                                                                    |
-| **Status**    | Final                                                                                                                        |
-| **Type**      | Process                                                                                                                      |
-| **Created**   | 2025-01-15                                                                                                                   |
+| Field | Value |
+| - | - |
+| **SEP** | 2149 |
+| **Title** | MCP Group Governance and Charter Template |
+| **Status** | Final |
+| **Type** | Process |
+| **Created** | 2025-01-15 |
 | **Author(s)** | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant)), Sarah Novotny ([@sarahnovotny](https://github.com/sarahnovotny)) |
-| **Sponsor**   | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant))                                                                   |
-| **PR**        | [#2149](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2149)                                              |
+| **Sponsor** | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant)) |
+| **PR** | [#2149](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2149) |
 
 ***
 
@@ -119,12 +119,12 @@ Each group has one or more **Leads** (referred to as **Facilitators** for Intere
 
 All groups use the following participation tiers. Note that **WG Member** is a group-specific participation level distinct from the org-wide **Member** role defined in the [Contributor Ladder](./2148-contributor-ladder.md) — an individual may be a WG Member in a specific group without holding org-wide Member status, and vice versa.
 
-| Level                | Description                                       | Privileges                                                         |
-| -------------------- | ------------------------------------------------- | ------------------------------------------------------------------ |
-| **Observer**         | Anyone interested in following the group's work   | Read access, may attend meetings, limited discussion participation |
-| **Participant**      | Active contributor to group discussions           | Can propose agenda items, participate in async votes               |
-| **WG Member**        | Sustained contributor with demonstrated expertise | Counted for quorum (WGs only)                                      |
-| **Lead/Facilitator** | Operational leadership of the group               | Sets agenda, facilitates, escalates                                |
+| Level | Description | Privileges |
+| - | - | - |
+| **Observer** | Anyone interested in following the group's work | Read access, may attend meetings, limited discussion participation |
+| **Participant** | Active contributor to group discussions | Can propose agenda items, participate in async votes |
+| **WG Member** | Sustained contributor with demonstrated expertise | Counted for quorum (WGs only) |
+| **Lead/Facilitator** | Operational leadership of the group | Sets agenda, facilitates, escalates |
 
 Interest Groups primarily operate with Observers, Participants, and Facilitators. IGs may adopt the WG Member tier if their work warrants formal decision-making, but are not required to.
 
@@ -211,10 +211,10 @@ Leads should actively involve WG Members and Participants in operational duties 
 
 All groups use the following channels:
 
-| Channel                              | Purpose                        | Response Expectation |
-| ------------------------------------ | ------------------------------ | -------------------- |
-| Discord `#{name}-wg` or `#{name}-ig` | Quick questions, coordination  | Best effort          |
-| GitHub Discussions                   | Long-form technical discussion | Weekly triage        |
+| Channel | Purpose | Response Expectation |
+| - | - | - |
+| Discord `#{name}-wg` or `#{name}-ig` | Quick questions, coordination | Best effort |
+| GitHub Discussions | Long-form technical discussion | Weekly triage |
 
 In addition to Discord, groups can establish a discussion category in the [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/). Leads will be granted the appropriate roles to manage and moderate discussions.
 
@@ -324,16 +324,16 @@ Each WG must explicitly define its decision authority. The decision-making proce
 
 *Example:*
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 IGs do not make binding decisions and do not need this section.
 
@@ -348,18 +348,18 @@ Document the group's current meeting approach. Meeting requirements and communic
 
 *Example:*
 
-| Meeting         | Frequency       | Duration | Purpose                               |
-| --------------- | --------------- | -------- | ------------------------------------- |
-| Working Session | Weekly/Biweekly | 60 min   | Technical discussion, proposal review |
-| Office Hours    | Monthly         | 30 min   | Open Q\&A for newcomers and observers |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Weekly/Biweekly | 60 min | Technical discussion, proposal review |
+| Office Hours | Monthly | 30 min | Open Q\&A for newcomers and observers |
 
 #### 8. Deliverables & Success Metrics (WG only)
 
 **Active Work Items:**
 
-| Item          | Status                | Target Date | Champion |
-| ------------- | --------------------- | ----------- | -------- |
-| SEP-XXX: Name | Draft/Review/Approved | Date        | Name     |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| SEP-XXX: Name | Draft/Review/Approved | Date | Name |
 
 **Success Criteria:** Measurable outcomes for WG success.
 

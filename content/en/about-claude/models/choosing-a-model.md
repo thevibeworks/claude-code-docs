@@ -111,10 +111,6 @@ Multi-model strategies pair a lower-cost model with a frontier model so that mos
     The latest Sonnet model: breaking changes, new features, and behavior differences
   </Card>
 
-  <Card title="What's new in Claude Sonnet 5" icon="sparkle" href="https://platform.claude.com/docs/en/models/sonnet-5/whats-new-sonnet-5">
-    New features and behavior changes in Claude Sonnet 5
-  </Card>
-
   <Card title="Start building" icon="code" href="https://platform.claude.com/docs/en/get-started">
     Get started with your first API call
   </Card>

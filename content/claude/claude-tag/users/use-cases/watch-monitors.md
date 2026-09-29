@@ -20,8 +20,8 @@ Each prompt below is a Slack message. You paste it in the channel that receives 
 
 Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
 
-| Connection | Examples                   | Why it matters here                        |
-| :--------- | :------------------------- | :----------------------------------------- |
+| Connection | Examples | Why it matters here |
+| :- | :- | :- |
 | Monitoring | Datadog, Sentry, PagerDuty | Required. Reads dashboards and alert state |
 
 ## Prompts to paste

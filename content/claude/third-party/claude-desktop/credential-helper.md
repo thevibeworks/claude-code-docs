@@ -56,13 +56,13 @@ When one configuration serves both Windows devices and macOS or Linux devices, s
 
 Claude Desktop sets the `CLAUDE_HELPER_CONTEXT` environment variable on every invocation so the script can decide whether interactive authentication (opening a browser, prompting for a device code) is appropriate.
 
-| Value                 | Meaning                                                                                         |
-| --------------------- | ----------------------------------------------------------------------------------------------- |
-| `interactive`         | The user started a session and is present. Interactive sign-in is acceptable.                   |
+| Value | Meaning |
+| - | - |
+| `interactive` | The user started a session and is present. Interactive sign-in is acceptable. |
 | `mid-session-refresh` | A running session's credential expired. Prefer a silent refresh; the user is waiting on a turn. |
-| `scheduled-task`      | A scheduled task started with no user present.                                                  |
-| `setup-test`          | The in-app configuration window's connection test.                                              |
-| `background`          | A background probe or health check.                                                             |
+| `scheduled-task` | A scheduled task started with no user present. |
+| `setup-test` | The in-app configuration window's connection test. |
+| `background` | A background probe or health check. |
 
 A well-behaved helper should attempt its silent path (cached token, refresh-token grant) for any value other than `interactive`, and exit non-zero rather than block on user input when that path is exhausted. Claude Desktop treats a non-zero exit as a refresh failure and surfaces it to the user.
 

@@ -275,7 +275,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       - `"web_search"`
 
-    - `currency: "USD"`
+    - `currency: string`
 
       Currency code for the cost amount. Currently always `"USD"`.
 

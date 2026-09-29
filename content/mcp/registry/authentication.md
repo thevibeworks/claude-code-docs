@@ -14,10 +14,10 @@ If you choose GitHub-based authentication, your server's name in `server.json` *
 
 If you choose domain-based authentication, your server's name in `server.json` **MUST** be of the form `com.example.*/*`, where `com.example` is the reverse-DNS form of your domain name. For example, `io.modelcontextprotocol/everything`.
 
-| Authentication | Name Format                                     | Example Name                         |
-| -------------- | ----------------------------------------------- | ------------------------------------ |
-| GitHub-based   | `io.github.username/*` or `io.github.orgname/*` | `io.github.alice/weather-server`     |
-| domain-based   | `com.example.*/*`                               | `io.modelcontextprotocol/everything` |
+| Authentication | Name Format | Example Name |
+| - | - | - |
+| GitHub-based | `io.github.username/*` or `io.github.orgname/*` | `io.github.alice/weather-server` |
+| domain-based | `com.example.*/*` | `io.modelcontextprotocol/everything` |
 
 ## GitHub Authentication
 

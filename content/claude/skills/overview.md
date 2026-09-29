@@ -60,12 +60,12 @@ The skills available to you come from several sources:
 
 ## Compare skills with other features
 
-| Feature                                                                          | Purpose                                                                                                               |
-| -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| **Skills**                                                                       | Task-specific procedures that Claude loads when a request matches                                                     |
-| **[Plugins](/docs/plugins/overview)**                                                 | Packages that contain several skills together with connectors, commands, and agents, so that you add them as one unit |
-| **[Projects](https://support.claude.com/en/articles/9517075-what-are-projects)** | Background knowledge that's always loaded in that project's chats                                                     |
-| **[MCP connectors](/docs/connectors/getting-started)**                                | Connections that let Claude reach external services and data                                                          |
+| Feature | Purpose |
+| - | - |
+| **Skills** | Task-specific procedures that Claude loads when a request matches |
+| **[Plugins](/docs/plugins/overview)** | Packages that contain several skills together with connectors, commands, and agents, so that you add them as one unit |
+| **[Projects](https://support.claude.com/en/articles/9517075-what-are-projects)** | Background knowledge that's always loaded in that project's chats |
+| **[MCP connectors](/docs/connectors/getting-started)** | Connections that let Claude reach external services and data |
 
 ## Use skills beyond Claude
 

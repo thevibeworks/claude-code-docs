@@ -41,11 +41,11 @@ notification types the client has not explicitly requested.
 
 ### Notification Filter
 
-| Field                   | Type       | Description                                                       |
-| ----------------------- | ---------- | ----------------------------------------------------------------- |
-| `toolsListChanged`      | `boolean`  | Receive `notifications/tools/list_changed` when tools change      |
-| `promptsListChanged`    | `boolean`  | Receive `notifications/prompts/list_changed` when prompts change  |
-| `resourcesListChanged`  | `boolean`  | Receive `notifications/resources/list_changed` when list changes  |
+| Field | Type | Description |
+| - | - | - |
+| `toolsListChanged` | `boolean` | Receive `notifications/tools/list_changed` when tools change |
+| `promptsListChanged` | `boolean` | Receive `notifications/prompts/list_changed` when prompts change |
+| `resourcesListChanged` | `boolean` | Receive `notifications/resources/list_changed` when list changes |
 | `resourceSubscriptions` | `string[]` | Receive `notifications/resources/updated` for these resource URIs |
 
 All fields are optional. Omitting a field is equivalent to not subscribing to that

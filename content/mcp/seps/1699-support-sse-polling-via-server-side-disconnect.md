@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 1699                                                                            |
-| **Title**     | Support SSE polling via server-side disconnect                                  |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-10-22                                                                      |
-| **Author(s)** | Jonathan Hefner ([@jonathanhefner](https://github.com/jonathanhefner))          |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1699](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1699) |
+| Field | Value |
+| - | - |
+| **SEP** | 1699 |
+| **Title** | Support SSE polling via server-side disconnect |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-10-22 |
+| **Author(s)** | Jonathan Hefner ([@jonathanhefner](https://github.com/jonathanhefner)) |
+| **Sponsor** | None |
+| **PR** | [#1699](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1699) |
 
 ***
 

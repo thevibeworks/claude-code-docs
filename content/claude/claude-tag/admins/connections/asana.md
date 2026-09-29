@@ -26,10 +26,10 @@ Asana's own guide for creating the credential is at [developers.asana.com](https
 
 In the bundle, click **Connect** next to **Asana**.
 
-| Field                          | Value                                |
-| :----------------------------- | :----------------------------------- |
+| Field | Value |
+| :- | :- |
 | Claude's personal access token | The personal access token from Asana |
-| Allowed websites               | `app.asana.com`                      |
+| Allowed websites | `app.asana.com` |
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 

@@ -33,13 +33,15 @@ Future models and features will not be compatible with Text Completions. See our
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `String = String`
-
-  - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
+  - `Model = :"claude-sonnet-5-5" | :"claude-fable-5-1" | :"claude-opus-5-5" | 16 more`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `:"claude-sonnet-5-5"`
+
+      Efficient model for coding and agents
 
     - `:"claude-fable-5-1"`
 
@@ -55,7 +57,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `:"claude-sonnet-5"`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `:"claude-fable-5"`
 
@@ -114,6 +116,8 @@ Future models and features will not be compatible with Text Completions. See our
       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       New class of intelligence, strongest in coding and cybersecurity
+
+  - `String = String`
 
 - `prompt: String`
 
@@ -337,13 +341,15 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `String = String`
-
-    - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
+    - `Model = :"claude-sonnet-5-5" | :"claude-fable-5-1" | :"claude-opus-5-5" | 16 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `:"claude-fable-5-1"`
 
@@ -359,7 +365,7 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `:"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `:"claude-fable-5"`
 
@@ -419,6 +425,8 @@ Future models and features will not be compatible with Text Completions. See our
 
         New class of intelligence, strongest in coding and cybersecurity
 
+    - `String = String`
+
   - `stop_reason: String`
 
     The reason that we stopped.
@@ -437,7 +445,7 @@ anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
 completion = anthropic.completions.create(
   max_tokens_to_sample: 256,
-  model: Anthropic::Model::CLAUDE_FABLE_5_1,
+  model: Anthropic::Model::CLAUDE_SONNET_5_5,
   prompt: "\n\nHuman: Hello, world!\n\nAssistant:"
 )
 
@@ -484,13 +492,15 @@ puts(completion)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `String = String`
-
-    - `Model = :"claude-fable-5-1" | :"claude-opus-5-5" | :"claude-mythos-5-1" | 15 more`
+    - `Model = :"claude-sonnet-5-5" | :"claude-fable-5-1" | :"claude-opus-5-5" | 16 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `:"claude-fable-5-1"`
 
@@ -506,7 +516,7 @@ puts(completion)
 
       - `:"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `:"claude-fable-5"`
 
@@ -565,6 +575,8 @@ puts(completion)
         **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         New class of intelligence, strongest in coding and cybersecurity
+
+    - `String = String`
 
   - `stop_reason: String`
 

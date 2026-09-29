@@ -36,32 +36,32 @@ The Interceptors Working Group exists to standardize how context operations are 
 
 ## Leadership
 
-| Role | Name                     | Organization | GitHub                                       | Term    |
-| ---- | ------------------------ | ------------ | -------------------------------------------- | ------- |
-| Lead | Sambhav Kothari          | Bloomberg    | [@sambhav](https://github.com/sambhav)       | Initial |
-| Lead | Peder Holdgaard Pedersen | Saxo Bank    | [@PederHP](https://github.com/PederHP)       | Initial |
-| Lead | Kurt Degiorgio           | Bloomberg    | [@degiorgio](https://github.com/degiorgio)   | Initial |
-| Lead | Uk-Jae Jeong             | Bloomberg    | [@jeongukjae](https://github.com/jeongukjae) | Initial |
-| Lead | Ola Hungerford           | Nordstrom    | [@olaservo](https://github.com/olaservo)     | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | Sambhav Kothari | Bloomberg | [@sambhav](https://github.com/sambhav) | Initial |
+| Lead | Peder Holdgaard Pedersen | Saxo Bank | [@PederHP](https://github.com/PederHP) | Initial |
+| Lead | Kurt Degiorgio | Bloomberg | [@degiorgio](https://github.com/degiorgio) | Initial |
+| Lead | Uk-Jae Jeong | Bloomberg | [@jeongukjae](https://github.com/jeongukjae) | Initial |
+| Lead | Ola Hungerford | Nordstrom | [@olaservo](https://github.com/olaservo) | Initial |
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Operations
 
-| Meeting         | Frequency | Duration   | Purpose                               |
-| --------------- | --------- | ---------- | ------------------------------------- |
-| Working Session | Biweekly  | 60 minutes | Technical discussion, proposal review |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Biweekly | 60 minutes | Technical discussion, proposal review |
 
 ## Resources
 
@@ -72,14 +72,14 @@ The Interceptors Working Group exists to standardize how context operations are 
 
 ### Active Work Items
 
-| Item                                                                  | Status      | Target Date | Champion |
-| --------------------------------------------------------------------- | ----------- | ----------- | -------- |
-| SEP-1763: Interceptors                                                | Draft       |             | TBD      |
-| Sample interceptors (PII redaction, schema validation, audit logging) | In Progress |             | TBD      |
-| Common interceptor sidecar runtime                                    | Ideating    |             | TBD      |
-| CLI client for interceptor invocation and testing                     | Ideating    |             | TBD      |
-| Reference implementation in Go SDK                                    | In Progress |             | TBD      |
-| Reference implementation in C# SDK                                    | In Progress |             | TBD      |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| SEP-1763: Interceptors | Draft | | TBD |
+| Sample interceptors (PII redaction, schema validation, audit logging) | In Progress | | TBD |
+| Common interceptor sidecar runtime | Ideating | | TBD |
+| CLI client for interceptor invocation and testing | Ideating | | TBD |
+| Reference implementation in Go SDK | In Progress | | TBD |
+| Reference implementation in C# SDK | In Progress | | TBD |
 
 ### Success Criteria
 
@@ -91,6 +91,6 @@ The Interceptors Working Group exists to standardize how context operations are 
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-04-21 | Initial charter |

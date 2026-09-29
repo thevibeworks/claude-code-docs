@@ -18,11 +18,11 @@ Setting up **Managed by** takes an Owner or Admin in your Claude organization, t
 
 The table compares the places standing instructions for Claude can live and who writes each.
 
-| You want                                                                                                                      | Use                                                                                                                                | Who writes it                                                                                                                           |
-| :---------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| The same rules in every channel of a workspace or your whole organization                                                     | [Custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) on the workspace or organization scope           | An Owner, in admin settings                                                                                                             |
-| A central team to write the rules for a few channels it runs, such as a help desk or an on-call channel, without being admins | **Managed by**                                                                                                                     | Members of a managing channel, by asking Claude in Slack                                                                                |
-| The people who work in a channel to set its conventions themselves                                                            | The **Channel instructions** field on the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel) | Channel members, unless an admin has [restricted editing](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) |
+| You want | Use | Who writes it |
+| :- | :- | :- |
+| The same rules in every channel of a workspace or your whole organization | [Custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) on the workspace or organization scope | An Owner, in admin settings |
+| A central team to write the rules for a few channels it runs, such as a help desk or an on-call channel, without being admins | **Managed by** | Members of a managing channel, by asking Claude in Slack |
+| The people who work in a channel to set its conventions themselves | The **Channel instructions** field on the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel) | Channel members, unless an admin has [restricted editing](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) |
 
 You set up **Managed by** one channel at a time, and someone confirms each change to a channel's text in Slack. That suits a handful of channels. To give many channels the same text, use workspace or organization custom instructions.
 
@@ -99,10 +99,10 @@ These rules apply to every card.
 
 Managed instructions are either core instructions, which Claude always reads, or reference files, which Claude opens when the core instructions call for one.
 
-| Kind              | How many                                             | Size limit   | When Claude reads it                                          |
-| :---------------- | :--------------------------------------------------- | :----------- | :------------------------------------------------------------ |
-| Core instructions | One per managed channel                              | 16 KiB       | At the start of every new conversation in the managed channel |
-| Reference files   | Up to 20 per managed channel, each with a short name | 100 KiB each | When the core instructions point Claude to one by name        |
+| Kind | How many | Size limit | When Claude reads it |
+| :- | :- | :- | :- |
+| Core instructions | One per managed channel | 16 KiB | At the start of every new conversation in the managed channel |
+| Reference files | Up to 20 per managed channel, each with a short name | 100 KiB each | When the core instructions point Claude to one by name |
 
 Put what Claude must always follow in the core instructions. Put long material, such as a runbook or an escalation list, in a reference file, and name that file in the core instructions so Claude knows when to open it.
 
@@ -125,10 +125,10 @@ A confirmed change applies to conversations that start after it.
 
 A managing channel's members can read the managed channel's instructions through Claude, so a private channel's text can be managed only from other private channels.
 
-| Managed channel | Managing channels can be | Who can add managing channels                                 |
-| :-------------- | :----------------------- | :------------------------------------------------------------ |
-| Public          | Public or private        | An Owner or Admin                                             |
-| Private         | Private only             | An Owner or Admin who is also a member of the private channel |
+| Managed channel | Managing channels can be | Who can add managing channels |
+| :- | :- | :- |
+| Public | Public or private | An Owner or Admin |
+| Private | Private only | An Owner or Admin who is also a member of the private channel |
 
 Anyone in the workspace can join a public managing channel and confirm changes there, so prefer a private managing channel for anything sensitive.
 
@@ -146,22 +146,22 @@ If Claude can't read managed instructions when a conversation starts, the conver
 
 Claude words a refusal differently each time, so match a row on its meaning. The table covers the refusals Claude or the Configure page gives for a pairing or a change.
 
-| What you're told                                                                                    | Cause                                                                                                                                | Fix                                                                                                                                       |
-| :-------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------- |
-| This channel isn't set as a manager of the other channel                                            | No pairing exists, or it was removed                                                                                                 | Add this channel under **Managed by** on the other channel's Configure page                                                               |
-| A channel is shared with another organization                                                       | The managed or managing channel is a Slack Connect channel, has a pending invitation, or is shared across Enterprise Grid workspaces | Use channels that belong to one workspace only                                                                                            |
-| You aren't in the managing channel, or in the private managed channel                               | You tried to add a managing channel you haven't joined, or to add managing channels to a private channel you aren't in               | Join the channel in Slack, then try again                                                                                                 |
-| Claude isn't in one of the channels                                                                 | Claude was removed from the managed or managing channel, or never added                                                              | Run `/invite @Claude` in that channel                                                                                                     |
-| One of those channels is archived                                                                   | One of the managing channels is archived in Slack                                                                                    | Remove the archived channel, then try again                                                                                               |
-| A private channel can only be managed by private channels                                           | The managed channel is private and the managing channel is public, or was made public later                                          | Pick a private managing channel                                                                                                           |
-| The managed channel may have been made private or deleted                                           | The managed channel was made private or deleted, or Claude is no longer in it                                                        | Check the channel in Slack. If it was made private, an Owner or Admin who is a member of it adds private managing channels again          |
-| Claude isn't set up in the managed channel with its own channel configuration                       | The managed channel has no channel scope of its own on the **Slack** tab                                                             | [Add the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) in admin settings                                               |
-| The managed channel already has five managing channels                                              | Five is the most a managed channel can have                                                                                          | Remove one before adding another                                                                                                          |
-| The file would be too large                                                                         | The core instructions are over 16 KiB, or a reference file is over 100 KiB                                                           | Shorten the text, or move detail into a reference file                                                                                    |
-| The managed channel already has the most reference files                                            | Twenty reference files exist                                                                                                         | Ask Claude to delete one first                                                                                                            |
-| The change is too large to show                                                                     | The card can't display every changed line                                                                                            | Ask for a smaller part, confirm it, then ask for the next part                                                                            |
-| The text was refused by the content check                                                           | The text is blank or contains characters, links, or formatting the content check doesn't allow                                       | Remove that part or write it as plain text, then ask again                                                                                |
-| Managed instructions changes aren't available for organizations with restricted compliance settings | Your organization has restricted compliance settings                                                                                 | See [Restricted compliance settings block Claude Tag](/docs/claude-tag/admins/troubleshooting#restricted-compliance-settings-block-claude-tag) |
+| What you're told | Cause | Fix |
+| :- | :- | :- |
+| This channel isn't set as a manager of the other channel | No pairing exists, or it was removed | Add this channel under **Managed by** on the other channel's Configure page |
+| A channel is shared with another organization | The managed or managing channel is a Slack Connect channel, has a pending invitation, or is shared across Enterprise Grid workspaces | Use channels that belong to one workspace only |
+| You aren't in the managing channel, or in the private managed channel | You tried to add a managing channel you haven't joined, or to add managing channels to a private channel you aren't in | Join the channel in Slack, then try again |
+| Claude isn't in one of the channels | Claude was removed from the managed or managing channel, or never added | Run `/invite @Claude` in that channel |
+| One of those channels is archived | One of the managing channels is archived in Slack | Remove the archived channel, then try again |
+| A private channel can only be managed by private channels | The managed channel is private and the managing channel is public, or was made public later | Pick a private managing channel |
+| The managed channel may have been made private or deleted | The managed channel was made private or deleted, or Claude is no longer in it | Check the channel in Slack. If it was made private, an Owner or Admin who is a member of it adds private managing channels again |
+| Claude isn't set up in the managed channel with its own channel configuration | The managed channel has no channel scope of its own on the **Slack** tab | [Add the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) in admin settings |
+| The managed channel already has five managing channels | Five is the most a managed channel can have | Remove one before adding another |
+| The file would be too large | The core instructions are over 16 KiB, or a reference file is over 100 KiB | Shorten the text, or move detail into a reference file |
+| The managed channel already has the most reference files | Twenty reference files exist | Ask Claude to delete one first |
+| The change is too large to show | The card can't display every changed line | Ask for a smaller part, confirm it, then ask for the next part |
+| The text was refused by the content check | The text is blank or contains characters, links, or formatting the content check doesn't allow | Remove that part or write it as plain text, then ask again |
+| Managed instructions changes aren't available for organizations with restricted compliance settings | Your organization has restricted compliance settings | See [Restricted compliance settings block Claude Tag](/docs/claude-tag/admins/troubleshooting#restricted-compliance-settings-block-claude-tag) |
 
 ## Related resources
 

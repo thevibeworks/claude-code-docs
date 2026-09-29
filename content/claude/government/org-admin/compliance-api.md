@@ -39,15 +39,15 @@ x-api-key: <your-compliance-api-key>
 
 ### Query parameters
 
-| Parameter                   | Description                                                                                                                                            |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Parameter | Description |
+| - | - |
 | `since` or `created_at.gte` | The earliest event time to return, as an RFC 3339 timestamp or epoch seconds. A lower bound is required on every request that does not carry a cursor. |
-| `until` or `created_at.lte` | The latest event time to return, in the same format. Optional.                                                                                         |
-| `after_id`                  | An opaque cursor that continues from where a previous page left off. Pass the `last_id` value from the previous response.                              |
-| `before_id`                 | An opaque cursor that pages in the other direction. Pass the `first_id` value from the previous response. Cannot be combined with `after_id`.          |
-| `actor_ids[]`               | Return only events performed by the listed actors. Repeat the parameter to pass more than one.                                                         |
-| `activity_types[]`          | Return only events of the listed types. Repeat the parameter to pass more than one.                                                                    |
-| `limit`                     | Maximum events per page, from 1 to 5000. Defaults to 100.                                                                                              |
+| `until` or `created_at.lte` | The latest event time to return, in the same format. Optional. |
+| `after_id` | An opaque cursor that continues from where a previous page left off. Pass the `last_id` value from the previous response. |
+| `before_id` | An opaque cursor that pages in the other direction. Pass the `first_id` value from the previous response. Cannot be combined with `after_id`. |
+| `actor_ids[]` | Return only events performed by the listed actors. Repeat the parameter to pass more than one. |
+| `activity_types[]` | Return only events of the listed types. Repeat the parameter to pass more than one. |
+| `limit` | Maximum events per page, from 1 to 5000. Defaults to 100. |
 
 The exclusive bounds `created_at.gt` and `created_at.lt` are also accepted if your collector needs them.
 
@@ -93,10 +93,10 @@ When one of your own users performs an action, `actor.user_id` and `actor.email_
 
 On every `user.*` activity, two top-level fields identify the user the event is about, so your SIEM can map events back to people in your directory without a separate lookup.
 
-| Field        | Description                                                                      |
-| ------------ | -------------------------------------------------------------------------------- |
-| `user_id`    | The Claude for Government user ID, in the same `usr_` format as `actor.user_id`. |
-| `user_email` | The user's email address at the time of the event.                               |
+| Field | Description |
+| - | - |
+| `user_id` | The Claude for Government user ID, in the same `usr_` format as `actor.user_id`. |
+| `user_email` | The user's email address at the time of the event. |
 
 The user an event is about is not always the actor. When an owner changes someone's role, the `actor` block names the owner and these fields name the user whose role changed.
 

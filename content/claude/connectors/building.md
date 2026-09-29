@@ -70,10 +70,10 @@ If you plan to list the server in the directory, [Design tools that pass review]
 
 Keep tool results and tool call durations within these limits. They differ between the hosted surfaces and Claude Code.
 
-| Limit                    | claude.ai and Desktop     | Claude Code                                              |
-| ------------------------ | ------------------------- | -------------------------------------------------------- |
-| Maximum tool result size | \~150,000 characters      | 25,000 tokens, configurable with `MAX_MCP_OUTPUT_TOKENS` |
-| Tool call timeout        | 240 seconds per tool call | Configurable with `MCP_TOOL_TIMEOUT`                     |
+| Limit | claude.ai and Desktop | Claude Code |
+| - | - | - |
+| Maximum tool result size | \~150,000 characters | 25,000 tokens, configurable with `MAX_MCP_OUTPUT_TOKENS` |
+| Tool call timeout | 240 seconds per tool call | Configurable with `MCP_TOOL_TIMEOUT` |
 
 ### Decide whether to add interactive UI
 

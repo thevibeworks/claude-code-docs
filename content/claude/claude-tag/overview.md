@@ -10,7 +10,7 @@
   <div className="tm-hero-copy">
     <span className="tm-pill">Public Beta</span>
     <p className="tm-hero-title">Tag <span className="tm-hero-at">@Claude</span> in. Get results back in the thread.</p>
-    <p className="tm-hero-lede">Anyone in a channel can tag Claude into a problem and hand it work: reproduce a bug and open a pull request, turn a decision thread into a doc, assemble the state of a project. It posts a checklist in the thread as it goes, and the whole exchange stays visible to the channel.</p>
+    <p className="tm-hero-lede">Anyone in a Slack channel can tag Claude into a problem and hand it work: reproduce a bug and open a pull request, turn a decision thread into a doc, assemble the state of a project. It posts a checklist in the thread as it goes, and the whole exchange stays visible to the channel.</p>
 
     <div className="tm-hero-ctas">
       <a className="tm-btn tm-btn-dark" href="/docs/claude-tag/admins/setup-overview">I'm setting it up →</a>
@@ -75,7 +75,7 @@ If you're choosing between Claude products for Slack-shaped work, [how Claude Ta
 Slack users don't each need a Claude seat to work with Claude in channels.
 
 * **In channels**: by default, anyone in the paired Slack workspace can tag `@Claude` in a channel, and an Owner can [restrict who can use Claude](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude) to people in your Claude organization or, on Enterprise, to specific roles. Channel work bills by usage to your organization's usage balance, under a [spend limit](/docs/claude-tag/admins/set-spend-limit) an Owner sets.
-* **In DMs**: a DM with Claude runs on the sender's own Claude account and bills to that person's seat. The seat must include Claude Code, or, on the Enterprise plan, be a **Standard** or **Usage-Based Chat** seat held by someone who also has Cowork.
+* **In DMs**: a DM from a member who has connected a Claude account runs on that account and bills to that person's seat. The seat must include Claude Code, or, on the Enterprise plan, be a **Standard** or **Usage-Based Chat** seat held by someone who also has Cowork. A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account) can bill to your organization for a limited time.
 
 ## Where Claude Tag runs
 
@@ -173,7 +173,7 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
 
 Adding Claude to Slack doesn't add a per-seat charge. Channel and thread work is billed by usage instead: it draws from a **usage balance**, an amount in your organization's billing currency that an Owner funds. A [spend limit](/docs/claude-tag/admins/set-spend-limit) caps how much of that balance Claude Tag can use each billing period.
 
-Direct messages don't draw from this balance. A DM runs on the sender's own claude.ai account and follows that seat's usual usage limits, so the organization spend limit doesn't apply to it.
+Direct messages from members who have connected a Claude account don't draw from this balance. Such a DM runs on the sender's own claude.ai account and follows that seat's usual usage limits, so the organization spend limit doesn't apply to it. A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account) can draw from this balance.
 
 To learn what your team's usage costs, run a pilot with a spend limit set and watch the per-channel breakdown on the [usage page in your admin settings](https://claude.ai/admin-settings/usage/claude-tag). Your organization may already have a [launch usage credit](https://support.claude.com/en/articles/15575654-claude-tag-launch-promo-for-claude-team-and-enterprise) to run that pilot against before it funds the balance itself.
 

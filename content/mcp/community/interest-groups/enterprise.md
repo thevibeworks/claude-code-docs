@@ -55,34 +55,34 @@ All discussions and sessions are protocol-focused and vendor-neutral. The Enterp
 
 ## Leadership
 
-| Role        | Name          | Organization     | GitHub                                                     | Term     |
-| ----------- | ------------- | ---------------- | ---------------------------------------------------------- | -------- |
-| Facilitator | Raghu Chandra | Independent      | [@raghu-chandra-mcp](https://github.com/raghu-chandra-mcp) | 6 months |
-| Facilitator | Yannj\_Fr     | MCPApps Builders | [@yannj-fr](https://github.com/yannj-fr)                   | 6 months |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Facilitator | Raghu Chandra | Independent | [@raghu-chandra-mcp](https://github.com/raghu-chandra-mcp) | 6 months |
+| Facilitator | Yannj\_Fr | MCPApps Builders | [@yannj-fr](https://github.com/yannj-fr) | 6 months |
 
 ## Membership
 
-| Name           | Organization                                      | GitHub                                                     | Discord       | Level       |
-| -------------- | ------------------------------------------------- | ---------------------------------------------------------- | ------------- | ----------- |
-| Raghu Chandra  | Independent                                       | [@raghu-chandra-mcp](https://github.com/raghu-chandra-mcp) | raghu.chandra | Facilitator |
-| Yannj\_Fr      | MCPApps Builders                                  | [@yannj-fr](https://github.com/yannj-fr)                   | yannj\_fr     | Facilitator |
-| Peder H P      | Saxo Bank                                         | [@pederhp](https://github.com/pederhp)                     |               | Participant |
-| Derek Lewis    | Silex Data Solutions                              | [@derekelewis](https://github.com/derekelewis)             | dlewis.io     | Participant |
-| Aman s         | Independent Researcher; Blue Shield of California | [@aman210122](https://github.com/aman210122)               |               | Participant |
-| Ola            | Nordstrom / MCP Maintainer                        | [@olaservo](https://github.com/olaservo)                   |               | Participant |
-| Varun          | TraceForce                                        | [@vawadhwa88](https://github.com/vawadhwa88)               |               | Participant |
-| Markus Mueller | Boomi                                             | [@mquadrat](https://github.com/mquadrat)                   |               | Participant |
-| Aaron Parecki  | Okta                                              | [@aaronpk](https://github.com/aaronpk)                     |               | Participant |
-| cayerbe        | GNS-Foundation                                    | [@GNS-Foundation](https://github.com/GNS-Foundation)       | cayerbe       | Participant |
-| Anishma        | EmpowerID                                         | [@anishma](https://github.com/anishma)                     |               | Participant |
-| Lin Sun        | Solo.io                                           | [@linsun](https://github.com/linsun)                       |               | Participant |
-| Joey Orlando   | Archestra                                         | [@joeyorlando](https://github.com/joeyorlando)             |               | Participant |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Raghu Chandra | Independent | [@raghu-chandra-mcp](https://github.com/raghu-chandra-mcp) | raghu.chandra | Facilitator |
+| Yannj\_Fr | MCPApps Builders | [@yannj-fr](https://github.com/yannj-fr) | yannj\_fr | Facilitator |
+| Peder H P | Saxo Bank | [@pederhp](https://github.com/pederhp) | | Participant |
+| Derek Lewis | Silex Data Solutions | [@derekelewis](https://github.com/derekelewis) | dlewis.io | Participant |
+| Aman s | Independent Researcher; Blue Shield of California | [@aman210122](https://github.com/aman210122) | | Participant |
+| Ola | Nordstrom / MCP Maintainer | [@olaservo](https://github.com/olaservo) | | Participant |
+| Varun | TraceForce | [@vawadhwa88](https://github.com/vawadhwa88) | | Participant |
+| Markus Mueller | Boomi | [@mquadrat](https://github.com/mquadrat) | | Participant |
+| Aaron Parecki | Okta | [@aaronpk](https://github.com/aaronpk) | | Participant |
+| cayerbe | GNS-Foundation | [@GNS-Foundation](https://github.com/GNS-Foundation) | cayerbe | Participant |
+| Anishma | EmpowerID | [@anishma](https://github.com/anishma) | | Participant |
+| Lin Sun | Solo.io | [@linsun](https://github.com/linsun) | | Participant |
+| Joey Orlando | Archestra | [@joeyorlando](https://github.com/joeyorlando) | | Participant |
 
 ## Operations
 
-| Meeting         | Frequency | Duration | Purpose                                                              |
-| --------------- | --------- | -------- | -------------------------------------------------------------------- |
-| Working Session | Monthly   | 60 min   | Use case discussion, pain point cataloging, cross-group coordination |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Monthly | 60 min | Use case discussion, pain point cataloging, cross-group coordination |
 
 Discord: #enterprise-ig
 
@@ -98,15 +98,15 @@ The Enterprise IG produces non-binding use cases, problem statements, and functi
 
 As an Interest Group, the Enterprise IG does not produce binding deliverables. The following are planned discussion outputs:
 
-| Item                                            | Status  | Target Date | Champion      |
-| ----------------------------------------------- | ------- | ----------- | ------------- |
-| Enterprise Pain Points Catalog                  | Planned | Q2 2026     | Raghu Chandra |
-| Healthcare & Compliance Use Cases (PHI, BAA)    | Planned | Q3 2026     | Aman s        |
-| Enterprise Auth Requirements (input to Auth WG) | Planned | Q3 2026     | TBD           |
-| Gateway Deployment Patterns Document            | Planned | Q3 2026     | TBD           |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| Enterprise Pain Points Catalog | Planned | Q2 2026 | Raghu Chandra |
+| Healthcare & Compliance Use Cases (PHI, BAA) | Planned | Q3 2026 | Aman s |
+| Enterprise Auth Requirements (input to Auth WG) | Planned | Q3 2026 | TBD |
+| Gateway Deployment Patterns Document | Planned | Q3 2026 | TBD |
 
 ## Changelog
 
-| Date       | Change                |
-| ---------- | --------------------- |
+| Date | Change |
+| - | - |
 | 2026-04-13 | Initial charter filed |

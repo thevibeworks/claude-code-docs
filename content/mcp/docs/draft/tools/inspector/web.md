@@ -38,18 +38,18 @@ Production `--web` serves a built bundle. In the published package that bundle a
 
 ## The tab bar
 
-| Tab           | Shown when                                                            | What it does                                                                   |
-| ------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| **Servers**   | Always                                                                | The server list: add, edit, import, connect, and open per-server settings.     |
-| **Apps**      | The server exposes MCP App tools                                      | Renders a tool's UI in a sandboxed frame.                                      |
-| **Tools**     | `tools` capability                                                    | Browse schemas, fill arguments, call, inspect results.                         |
-| **Prompts**   | `prompts` capability                                                  | List prompts, supply arguments, preview generated messages.                    |
-| **Resources** | `resources` capability                                                | Browse, read, and subscribe to resources.                                      |
-| **Tasks**     | `capabilities.tasks` (legacy era) or the tasks extension (modern era) | Track long-running tool calls.                                                 |
-| **Logs**      | `logging` capability                                                  | Server `notifications/message` output, plus the era-appropriate level control. |
-| **Protocol**  | Always                                                                | The JSON-RPC transcript: requests, responses, notifications.                   |
-| **Network**   | HTTP / SSE servers                                                    | The raw HTTP view: status, headers, bodies.                                    |
-| **Console**   | stdio servers                                                         | The server process's `stderr`.                                                 |
+| Tab | Shown when | What it does |
+| - | - | - |
+| **Servers** | Always | The server list: add, edit, import, connect, and open per-server settings. |
+| **Apps** | The server exposes MCP App tools | Renders a tool's UI in a sandboxed frame. |
+| **Tools** | `tools` capability | Browse schemas, fill arguments, call, inspect results. |
+| **Prompts** | `prompts` capability | List prompts, supply arguments, preview generated messages. |
+| **Resources** | `resources` capability | Browse, read, and subscribe to resources. |
+| **Tasks** | `capabilities.tasks` (legacy era) or the tasks extension (modern era) | Track long-running tool calls. |
+| **Logs** | `logging` capability | Server `notifications/message` output, plus the era-appropriate level control. |
+| **Protocol** | Always | The JSON-RPC transcript: requests, responses, notifications. |
+| **Network** | HTTP / SSE servers | The raw HTTP view: status, headers, bodies. |
+| **Console** | stdio servers | The server process's `stderr`. |
 
 **Network** and **Console** never appear together. Legacy and modern eras are described in [Protocol eras](/docs/draft/tools/inspector/protocol-eras).
 
@@ -71,12 +71,12 @@ The Servers screen is the entry point. A server row carries its transport, its c
 
 Where that list comes from, and whether it's editable, depends on how you launched:
 
-| Launch                                       | Server list                                                             | Editable? |
-| -------------------------------------------- | ----------------------------------------------------------------------- | --------- |
-| `mcp-inspector --web`                        | The default catalog `~/.mcp-inspector/mcp.json`, seeded on first launch | Yes       |
-| `--catalog <path>`                           | That file, seeded with the sample servers if missing                    | Yes       |
-| `--config <path>`                            | That file, read-only (never written or seeded)                          | No        |
-| `--server-url <url>` or a positional command | One ad-hoc server, held in memory                                       | No        |
+| Launch | Server list | Editable? |
+| - | - | - |
+| `mcp-inspector --web` | The default catalog `~/.mcp-inspector/mcp.json`, seeded on first launch | Yes |
+| `--catalog <path>` | That file, seeded with the sample servers if missing | Yes |
+| `--config <path>` | That file, read-only (never written or seeded) | No |
+| `--server-url <url>` or a positional command | One ad-hoc server, held in memory | No |
 
 On a first launch the web client seeds the catalog with two sample servers: a filesystem server scoped to `/tmp` and the canonical "everything" reference server. See [Configuration and flags](/docs/draft/tools/inspector/configuration) for the full rules, including why the CLI and TUI seed an empty catalog instead.
 
@@ -155,10 +155,10 @@ A driver (a script, a CI harness, or the CLI's [`--print-handoff`](/docs/draft/t
 http://127.0.0.1:6274/?serverUrl=<url>&transport=http|sse&autoConnect=<token>
 ```
 
-| Parameter     | Meaning                                                                                                        |
-| ------------- | -------------------------------------------------------------------------------------------------------------- |
-| `serverUrl`   | The MCP server URL. Restricted to `http:` / `https:`; a crafted `javascript:` or `file:` value is rejected.    |
-| `transport`   | `http` (default) or `sse`.                                                                                     |
+| Parameter | Meaning |
+| - | - |
+| `serverUrl` | The MCP server URL. Restricted to `http:` / `https:`; a crafted `javascript:` or `file:` value is rejected. |
+| `transport` | `http` (default) or `sse`. |
 | `autoConnect` | **Required CSRF gate.** Must equal the per-launch session token, which only whatever started the server knows. |
 
 Three further parameters land you on a *rendered app*: `openApp=<toolName>` names the tool, `appArgs=<base64url(JSON)>` supplies its arguments (merged over the tool's schema defaults), and `autoOpen=<token>` fires the tool call automatically. Because `autoOpen` fires a call, it carries the same mandatory token gate as `autoConnect`.

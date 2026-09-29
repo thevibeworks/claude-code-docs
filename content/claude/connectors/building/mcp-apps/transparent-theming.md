@@ -66,11 +66,11 @@ registerAppResource(server, "My Widget", "ui://my-app/widget.html", {}, async ()
 
 Claude passes a [`hostContext`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiHostContext.html) object to your widget during the [`connect()`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#connect) handshake. The fields relevant to theming are:
 
-| Field              | Contents                                                                                                                                                   |
-| :----------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `theme`            | `"light"` or `"dark"`                                                                                                                                      |
+| Field | Contents |
+| :- | :- |
+| `theme` | `"light"` or `"dark"` |
 | `styles.variables` | CSS custom properties: `--color-background-*`, `--color-text-*`, `--color-border-*`, `--color-ring-*`, `--font-*`, `--border-radius-*`, `--border-width-*` |
-| `styles.css.fonts` | `@font-face` rules for Anthropic Sans, served from `https://assets.claude.ai`                                                                              |
+| `styles.css.fonts` | `@font-face` rules for Anthropic Sans, served from `https://assets.claude.ai` |
 
 The [Style variables](/docs/connectors/building/mcp-apps/design-guidelines#style-variables) section of the design guidelines lists every variable and its light- and dark-mode value.
 

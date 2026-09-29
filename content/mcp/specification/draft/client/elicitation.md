@@ -89,10 +89,10 @@ containing an `elicitation/create` request.
 
 All elicitation requests **MUST** include the following parameters:
 
-| Name      | Type   | Options       | Description                                                                            |
-| --------- | ------ | ------------- | -------------------------------------------------------------------------------------- |
-| `mode`    | string | `form`, `url` | The mode of the elicitation. Optional for form mode (defaults to `"form"` if omitted). |
-| `message` | string |               | A human-readable message explaining why the interaction is needed.                     |
+| Name | Type | Options | Description |
+| - | - | - | - |
+| `mode` | string | `form`, `url` | The mode of the elicitation. Optional for form mode (defaults to `"form"` if omitted). |
+| `message` | string | | A human-readable message explaining why the interaction is needed. |
 
 The `mode` parameter specifies the type of elicitation:
 
@@ -107,8 +107,8 @@ Form mode elicitation allows servers to collect structured data directly through
 
 Form mode elicitation requests **MUST** either specify `mode: "form"` or omit the `mode` field, and include these additional parameters:
 
-| Name              | Type   | Description                                                    |
-| ----------------- | ------ | -------------------------------------------------------------- |
+| Name | Type | Description |
+| - | - | - |
 | `requestedSchema` | object | A JSON Schema defining the structure of the expected response. |
 
 #### Requested Schema
@@ -329,8 +329,8 @@ URL mode elicitation enables servers to direct users to external URLs for out-of
 
 URL mode elicitation requests **MUST** specify `mode: "url"`, a `message`, and include these additional parameters:
 
-| Name  | Type   | Description                               |
-| ----- | ------ | ----------------------------------------- |
+| Name | Type | Description |
+| - | - | - |
 | `url` | string | The URL that the user should navigate to. |
 
 The `url` parameter **MUST** contain a valid URL.

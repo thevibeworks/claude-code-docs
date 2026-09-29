@@ -24,25 +24,27 @@ Datadog's own guide for creating the credential is at [docs.datadoghq.com](https
 
 ## Add the connection to a bundle
 
-In the bundle, click **Connect** next to Datadog. The picker has three Datadog entries, one per site. Pick the one that matches your Datadog account's site.
+In the bundle, click **Connect** next to Datadog. The picker has one Datadog entry per Datadog site. Datadog has a separate API host per site, and a key only works against its own, so pick the entry that matches your Datadog account's site.
 
-| Picker entry      | Site                                        |
-| :---------------- | :------------------------------------------ |
-| **Datadog**       | US1 (`api.datadoghq.com`), the default site |
-| **Datadog (US5)** | US5 (`api.us5.datadoghq.com`)               |
-| **Datadog (EU)**  | EU (`api.datadoghq.eu`)                     |
+| Picker entry | Site and API host |
+| :- | :- |
+| **Datadog** | US1, `api.datadoghq.com`, Datadog's default site |
+| **Datadog (US3)** | US3, `api.us3.datadoghq.com` |
+| **Datadog (US5)** | US5, `api.us5.datadoghq.com` |
+| **Datadog (EU)** | EU, `api.datadoghq.eu` |
+| **Datadog (AP1)** | AP1, `api.ap1.datadoghq.com` |
+| **Datadog (AP2)** | AP2, `api.ap2.datadoghq.com` |
+| **Datadog (US1-FED)** | US1-FED, `api.ddog-gov.com` |
 
-The form asks for the same fields in all three.
+The form asks for the same fields in every entry.
 
-| Field                    | Value                                                                                                               |
-| :----------------------- | :------------------------------------------------------------------------------------------------------------------ |
-| Claude's API key         | The API key from Datadog                                                                                            |
+| Field | Value |
+| :- | :- |
+| Claude's API key | The API key from Datadog |
 | Claude's application key | The Application key from Datadog. Optional in the form; add it so Claude can read metrics, monitors, and dashboards |
-| Allowed websites         | Prefilled by the preset; override for other sites (see below)                                                       |
+| Allowed websites | Prefilled with the entry's API host |
 
-Datadog has a separate API host per site, and a key only works against its own. If your account is on a site without a picker entry, pick any Datadog entry and override the **Allowed websites** field with your site's API host: `api.us3.datadoghq.com`, `api.ap1.datadoghq.com`, or `api.ddog-gov.com`. To change the host later, open the **⋮** menu on this connection in the bundle's Credentials tab and choose **Edit**.
-
-If you override the **Allowed websites** field, replace the prefilled host with your site's API host rather than adding yours alongside it, so that **Test connection** checks your host instead of the prefilled one. You can save the connection even if the test fails, and the credential is sent only to the hosts in **Allowed websites**.
+The connection is created with path prefixes that cover Datadog's read and query routes: metric, log, trace, and RUM queries, monitors, downtimes, dashboards, SLOs, notebooks, events, hosts, service definitions, and incident search. It doesn't cover Datadog's key, user, integration, or log-configuration management routes, so Claude can't call those through it. To narrow the connection further, for example to `GET` only, or to allow another route, select **Edit** on the connection's row; see [Restrict by path or method](/docs/claude-tag/admins/add-connections#restrict-by-path-or-method).
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 

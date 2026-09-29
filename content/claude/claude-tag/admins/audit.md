@@ -25,10 +25,10 @@ Claude Tag activity is auditable in four places:
 
 The Audit page, labeled **Activity** in the admin console's left nav and page heading, at [`claude.ai/admin-settings/claude-tag/audit`](https://claude.ai/admin-settings/claude-tag/audit) has these tabs:
 
-| Tab                | What it shows                                                                                                                                                                                                |
-| :----------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Scheduled work** | Every routine across your organization, with a **Scope** filter and a per-row **⋮** menu (View details, Pause/Resume, Delete)                                                                                |
-| **Memory**         | Each scope's memory files, where you can read what Claude has saved for that workspace or channel. Owners can also edit or delete entries there.                                                             |
+| Tab | What it shows |
+| :- | :- |
+| **Scheduled work** | Every routine across your organization, with a **Scope** filter and a per-row **⋮** menu (View details, Pause/Resume, Delete) |
+| **Memory** | Each scope's memory files, where you can read what Claude has saved for that workspace or channel. Owners can also edit or delete entries there. |
 | **Network events** | An hourly JSON export of the outbound requests Claude made through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy). Git and MCP traffic are not included. Select a date and hour to download. |
 
 Each routine on the **Scheduled work** tab shows **Created by** (the member who set it up) in its **View details** dialog. There is no per-action log of every task and who asked; for that, use the trails below.

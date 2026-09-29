@@ -274,10 +274,10 @@ You should see your server's metadata in the search results JSON:
 
 ## Troubleshooting
 
-| Error Message                                       | Action                                                                                                                                                  |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "Registry validation failed for package"            | Ensure your package includes the required validation information (e.g, `mcpName` property in `package.json`).                                           |
-| "Invalid or expired Registry JWT token"             | Re-authenticate by running `mcp-publisher login github`.                                                                                                |
+| Error Message | Action |
+| - | - |
+| "Registry validation failed for package" | Ensure your package includes the required validation information (e.g, `mcpName` property in `package.json`). |
+| "Invalid or expired Registry JWT token" | Re-authenticate by running `mcp-publisher login github`. |
 | "You do not have permission to publish this server" | Your authentication method doesn't match your server's namespace format. With GitHub auth, your server name must start with `io.github.your-username/`. |
 
 ## Next Steps

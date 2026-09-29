@@ -26,10 +26,10 @@ HubSpot's own guide for creating the credential is at [developers.hubspot.com](h
 
 In the bundle, click **Connect** next to **HubSpot**.
 
-| Field                      | Value                                                                         |
-| :------------------------- | :---------------------------------------------------------------------------- |
-| Claude's private app token | The private app token from HubSpot                                            |
-| Allowed websites           | `api.hubapi.com` (preset). To add a different host, use the **Advanced** tab. |
+| Field | Value |
+| :- | :- |
+| Claude's private app token | The private app token from HubSpot |
+| Allowed websites | `api.hubapi.com` (preset). To add a different host, use the **Advanced** tab. |
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 

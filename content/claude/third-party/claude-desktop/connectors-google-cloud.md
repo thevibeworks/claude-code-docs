@@ -28,15 +28,15 @@ Google's remote MCP servers don't support dynamic client registration, and Googl
   <Step title="Add the server in the Enterprise Admin Console">
     In the Enterprise Admin Console ([claude.ai](https://claude.ai) → **Organization settings**), open the **Connectors** page under **Desktop 3P**. Under **Managed MCP servers**, click **Add → Blank** and fill in the entry:
 
-    | Field                    | Value                                 |
-    | ------------------------ | ------------------------------------- |
-    | **Name**                 | `BigQuery`                            |
-    | **Transport**            | **Streamable HTTP**                   |
-    | **URL**                  | `https://bigquery.googleapis.com/mcp` |
-    | **OAuth**                | **Bring your own client**             |
-    | **Client ID**            | The client ID from step 2             |
-    | **Client secret**        | The client secret from step 2         |
-    | **Authorization server** | `["https://accounts.google.com"]`     |
+    | Field | Value |
+    | - | - |
+    | **Name** | `BigQuery` |
+    | **Transport** | **Streamable HTTP** |
+    | **URL** | `https://bigquery.googleapis.com/mcp` |
+    | **OAuth** | **Bring your own client** |
+    | **Client ID** | The client ID from step 2 |
+    | **Client secret** | The client secret from step 2 |
+    | **Authorization server** | `["https://accounts.google.com"]` |
 
     <Frame caption="A BigQuery entry on the Connectors page with OAuth set to Bring your own client.">
       <img src="https://mintcdn.com/claude-ai/l0HgWAJ4dDJ1-I-u/images/third-party/admin-console-managed-mcp-oauth.png?fit=max&auto=format&n=l0HgWAJ4dDJ1-I-u&q=85&s=efa91a216efb8f99c1e4aefc0ed5b16a" alt="Managed MCP server entry named BigQuery in the Enterprise Admin Console, with Transport set to Streamable HTTP, the BigQuery MCP URL, OAuth set to Bring your own client, and the Client ID, Client secret, and Authorization server fields filled in." width="1952" height="1705" data-path="images/third-party/admin-console-managed-mcp-oauth.png" />
@@ -73,7 +73,7 @@ Google's other remote MCP servers take the same **Client ID**, **Client secret**
 
 These messages appear in `main.log` in the [logs directory](/docs/third-party/claude-desktop/data-storage#where-data-lives) on the user's device.
 
-| Message                                                       | Cause                                                                                          | Fix                                                                                                                                                          |
-| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `client_secret is missing` after the browser sign-in succeeds | The entry has no **Client secret**                                                             | Enter the secret of the client named in **Client ID**, with **Authorization server** set to `["https://accounts.google.com"]`                                |
-| `invalid_client`                                              | The secret doesn't belong to the client named in **Client ID**, or was deleted in Google Cloud | In **APIs & Services → Credentials**, add a new secret to that client and update **Client secret** in the server's entry. Users then click **Connect** again |
+| Message | Cause | Fix |
+| - | - | - |
+| `client_secret is missing` after the browser sign-in succeeds | The entry has no **Client secret** | Enter the secret of the client named in **Client ID**, with **Authorization server** set to `["https://accounts.google.com"]` |
+| `invalid_client` | The secret doesn't belong to the client named in **Client ID**, or was deleted in Google Cloud | In **APIs & Services → Credentials**, add a new secret to that client and update **Client secret** in the server's entry. Users then click **Connect** again |

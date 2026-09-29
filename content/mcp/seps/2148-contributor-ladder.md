@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                                                                        |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| **SEP**       | 2148                                                                                                                         |
-| **Title**     | MCP Contributor Ladder                                                                                                       |
-| **Status**    | Final                                                                                                                        |
-| **Type**      | Process                                                                                                                      |
-| **Created**   | 2026-01-15                                                                                                                   |
+| Field | Value |
+| - | - |
+| **SEP** | 2148 |
+| **Title** | MCP Contributor Ladder |
+| **Status** | Final |
+| **Type** | Process |
+| **Created** | 2026-01-15 |
 | **Author(s)** | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant)), Sarah Novotny ([@sarahnovotny](https://github.com/sarahnovotny)) |
-| **Sponsor**   | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant))                                                                   |
-| **PR**        | [#2148](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2148)                                              |
+| **Sponsor** | David Soria Parra ([@dsp-ant](https://github.com/dsp-ant)) |
+| **PR** | [#2148](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2148) |
 
 ***
 
@@ -72,14 +72,14 @@ The contributor ladder operates under these principles:
 
 ### Role Definitions
 
-| Role                                             | Summary                                       | Key Privileges                                                            | Minimum Timeline                                      |
-| ------------------------------------------------ | --------------------------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------- |
-| [**Contributor**](#contributor)                  | Anyone who contributes to MCP                 | Submit issues, PRs, participate in discussions                            | Immediate                                             |
-| [**Member**](#member)                            | Established, active contributor               | GitHub org membership, triage rights, eligible for WG/IG leadership       | 2-3 months of meaningful contributions                |
-| [**Maintainer**](#maintainer)                    | Area steward with operational responsibility  | Merge rights, release participation                                       | 6+ months as Member                                   |
-| [**Core Maintainer**](#core-maintainer)          | Technical leadership and protocol stewardship | Final decision authority, governance participation                        | By invitation after sustained Maintainer contribution |
-| [**Lead Maintainer**](#lead-maintainer)          | Ultimate project authority (founders)         | All Core Maintainer privileges, veto authority, appoints Core Maintainers | Reserved for project founders — succession only       |
-| [**Community Moderator**](#community-moderators) | CoC enforcement and community health          | Moderation rights on community platforms, incident handling               | Parallel track — Member status + appointment          |
+| Role | Summary | Key Privileges | Minimum Timeline |
+| - | - | - | - |
+| [**Contributor**](#contributor) | Anyone who contributes to MCP | Submit issues, PRs, participate in discussions | Immediate |
+| [**Member**](#member) | Established, active contributor | GitHub org membership, triage rights, eligible for WG/IG leadership | 2-3 months of meaningful contributions |
+| [**Maintainer**](#maintainer) | Area steward with operational responsibility | Merge rights, release participation | 6+ months as Member |
+| [**Core Maintainer**](#core-maintainer) | Technical leadership and protocol stewardship | Final decision authority, governance participation | By invitation after sustained Maintainer contribution |
+| [**Lead Maintainer**](#lead-maintainer) | Ultimate project authority (founders) | All Core Maintainer privileges, veto authority, appoints Core Maintainers | Reserved for project founders — succession only |
+| [**Community Moderator**](#community-moderators) | CoC enforcement and community health | Moderation rights on community platforms, incident handling | Parallel track — Member status + appointment |
 
 *Timelines listed are minimum contribution periods, not guarantees of advancement. They exist to protect the project from rapid privilege escalation and to ensure a high bar of demonstrated commitment. Actual advancement is discretionary and may take longer in practice; the only guarantee is that advancement will not happen on a shorter timescale than documented. Exceptions require explicit Core Maintainer approval with documented rationale.*
 
@@ -265,12 +265,12 @@ Both paths are equally valid. Self-nomination is encouraged and preferred, as it
 3. **Decision**: Approving authority reviews and decides
 4. **Onboarding**: New role-holder receives appropriate access and onboarding
 
-| Advancement To      | Approved By                                                                     |
-| ------------------- | ------------------------------------------------------------------------------- |
-| Member              | 2 existing Members+ from different organizations, **or** 1 Core/Lead Maintainer |
-| Maintainer          | 1 Maintainer or Core Maintainer sponsor + Core Maintainer approval              |
-| Core Maintainer     | Lead Maintainers                                                                |
-| Community Moderator | 1 Core Maintainer or Lead Maintainer                                            |
+| Advancement To | Approved By |
+| - | - |
+| Member | 2 existing Members+ from different organizations, **or** 1 Core/Lead Maintainer |
+| Maintainer | 1 Maintainer or Core Maintainer sponsor + Core Maintainer approval |
+| Core Maintainer | Lead Maintainers |
+| Community Moderator | 1 Core Maintainer or Lead Maintainer |
 
 Self-nomination is encouraged, but nominees must still secure the required sponsorship. Sponsors confirm support in the nomination issue.
 
@@ -290,16 +290,16 @@ The detailed escalation procedure for Working Group and Interest Group disputes 
 
 #### Escalation Matrix
 
-| Issue Type                                 | First Escalation    | Second Escalation | Timeline         |
-| ------------------------------------------ | ------------------- | ----------------- | ---------------- |
-| Technical disagreement in PR               | Maintainer in scope | Core Maintainer   | 5 business days  |
-| Technical disagreement in WG               | WG Lead             | Core Maintainer   | 5 business days  |
-| Technical disagreement in IG               | IG Facilitator      | Core Maintainer   | 5 business days  |
-| Disagreement with WG Lead / IG Facilitator | Core Maintainer     | Lead Maintainer   | 7 business days  |
-| Disagreement with Maintainer decision      | Core Maintainer     | Lead Maintainer   | 7 business days  |
-| Core Maintainer disagreement               | Lead Maintainer     | N/A               | 10 business days |
-| Code of Conduct violation                  | Community Moderator | Core Maintainer   | Immediate        |
-| Security issue                             | Core Maintainer     | Lead Maintainer   | Immediate        |
+| Issue Type | First Escalation | Second Escalation | Timeline |
+| - | - | - | - |
+| Technical disagreement in PR | Maintainer in scope | Core Maintainer | 5 business days |
+| Technical disagreement in WG | WG Lead | Core Maintainer | 5 business days |
+| Technical disagreement in IG | IG Facilitator | Core Maintainer | 5 business days |
+| Disagreement with WG Lead / IG Facilitator | Core Maintainer | Lead Maintainer | 7 business days |
+| Disagreement with Maintainer decision | Core Maintainer | Lead Maintainer | 7 business days |
+| Core Maintainer disagreement | Lead Maintainer | N/A | 10 business days |
+| Code of Conduct violation | Community Moderator | Core Maintainer | Immediate |
+| Security issue | Core Maintainer | Lead Maintainer | Immediate |
 
 **Escalation process:**
 
