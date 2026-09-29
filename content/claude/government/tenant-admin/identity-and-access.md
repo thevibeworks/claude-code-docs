@@ -103,7 +103,7 @@ Once a token is active and your directory completes its first sync, the provisio
 
 ## Directory groups
 
-Once your identity provider has pushed groups over SCIM, they appear here with their member counts. Drag the groups into the order you want; this priority is used for group-level configuration on the [Config](/docs/government/config/overview#group-specific-settings) page.
+Once your identity provider has pushed groups over SCIM, they appear here with their member counts. To change the order, drag a group by the handle at the start of its row or use the **…** menu at the end. The order you set here is the priority used for group-level configuration on the [Config](/docs/government/config/overview#group-specific-settings) page.
 
 ## Routing rules
 
@@ -139,7 +139,7 @@ Each sign-in rule reads as a sentence, for example *"Anyone with email domain `e
 * An **email domain** rule matches the domain of the user's email address exactly. You choose from your tenant's verified domains; you cannot type an arbitrary domain. Subdomains are not matched automatically, so `sub.example.gov` needs its own rule if you want it routed.
 * An **identity provider (IdP) group** rule matches a value in the group membership list that your identity provider includes in the sign-in token. You type the exact value your provider sends, and matching is exact and case-sensitive.
 
-Rules are evaluated from top to bottom, and the first match wins. When you have more than one rule, drag the handle next to a rule (or focus the handle and press the up or down arrow key) to reorder the list. Only one rule can exist for any given condition. If you pick a domain or group that already has a rule, a message below the form shows which organization it currently routes to and asks you to remove that rule first.
+Rules are evaluated from top to bottom, and the first match wins. To change the order, drag a rule by the handle at the start of its row or use the **…** menu at the end. Only one rule can exist for any given condition. If you pick a domain or group that already has a rule, a message below the form shows which organization it currently routes to and asks you to remove that rule first.
 
 Each rule shows a status line with diagnostics:
 

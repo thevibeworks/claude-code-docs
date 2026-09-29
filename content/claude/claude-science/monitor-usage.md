@@ -4,9 +4,9 @@
 
 # Monitor Claude Science usage
 
-> Claude Science usage counts against each member's standard weekly quota and uses the same seat as the rest of claude.ai.
+> Claude Science uses the same seat as the rest of claude.ai. Track its adoption and usage in Analytics and through the Admin API.
 
-Claude Science usage counts against each member's standard weekly quota and uses the same seat as the rest of claude.ai. You can track adoption in Analytics and through the Admin API.
+Claude Science uses the same seat as the rest of claude.ai, and its usage counts the same way as Claude Code and Cowork usage (see [Plans and usage](/docs/claude-science/overview#plans-and-usage)). You can track adoption in Analytics and through the Admin API.
 
 ## Analytics
 

@@ -18,13 +18,13 @@ Optionally add notes about the host (partition, account code, module loads, whet
 Optionally override **User**, **Port**, or **Identity file** under **Advanced**.\
 Click **Add**.
 
-Adding a host runs a read-only probe that records CPUs, memory, GPUs, CUDA driver, presence of conda/modules/Apptainer, scratch directories, and whether `sbatch` exists. On SLURM clusters it reads partitions. Results are saved as editable notes on the host's detail page; re-run with **Probe**.
+Adding a host runs a probe that records CPUs, memory, GPUs, CUDA driver, presence of conda/modules/Apptainer, scratch directories, and whether `sbatch` exists. On Slurm clusters it reads partitions. Results are saved as editable notes on the host's detail page; re-run with **Probe**.
 
 ## Running jobs
 
-Workstations run jobs as detached processes. SLURM clusters receive jobs via `sbatch`. Jobs survive connection loss.
+On a host with Slurm's `sbatch` command, Claude Science submits jobs to Slurm by default. On a host without it, such as a workstation, jobs run as detached processes directly on the host you added. Claude Science doesn't submit jobs to other schedulers, such as PBS or LSF, so on a cluster that uses one, add a host where your site allows running jobs directly. Jobs survive connection loss.
 
-On the host's detail page, set **Scratch directory** (must be on a shared filesystem for SLURM) and **Concurrent job limit** (default 100).
+On the host's detail page, set **Scratch directory** (must be on a shared filesystem for Slurm) and **Concurrent job limit** (default 100).
 
 When Claude proposes a remote job, a **Run this job on `<host>`?** card shows the command and script. Approve with **Once**, **This conversation**, **This project**, or **Global** scope. On approval, the job script and inputs are copied to a job directory under the scratch directory.
 

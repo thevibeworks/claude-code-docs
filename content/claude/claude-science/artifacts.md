@@ -2,15 +2,19 @@
 > Fetch the complete documentation index at: https://claude.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Artifacts
+# Artifacts in Claude Science
 
-> An artifact is a file Claude saves into the project: a figure, processed dataset, report, notebook, or other output.
+> Artifacts in Claude Science are files Claude saves into a project, such as figures, datasets, and reports. Open, version, trace, and delete them.
 
-An artifact is a file Claude saves into the project: a figure, processed dataset, report, notebook, or other output. Artifacts are stored on your computer in the app's data folder and persist until you delete them. Other files Claude writes during a session are temporary and are cleared a few hours after the session ends; ask Claude to save a scratch file if you want to keep it.
+In Claude Science, an artifact is a file Claude saves into the project: a figure, processed dataset, report, notebook, or other output. Artifacts are stored on your computer in the app's data folder and persist until you delete them. Other files Claude writes during a session are temporary and are cleared a few hours after the session ends; ask Claude to save a scratch file if you want to keep it.
+
+<Note>
+  If you use artifacts in a claude.ai chat rather than the Claude Science app, see [What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them) in the help center instead.
+</Note>
 
 ## Working with artifacts
 
-Click a linked file or a figure in the conversation to open it in a tab beside the chat. Ctrl/Cmd-click opens it full screen. HTML artifacts have zoom controls, including fit to width; images zoom up to their native resolution. Open **Files** in the sidebar for a searchable grid of every artifact in the project. From an artifact's menu you can: Open, Open beside session, **View in context**, **Provenance**, Versions, **Copy link**, **Star**, **Rename**, **Download**, or **Delete**. Renaming doesn't break links. **Delete** removes all versions permanently.
+Click a linked file or a figure in the conversation to open it in a tab beside the chat. Ctrl/Cmd-click opens it full screen. HTML artifacts have zoom controls, including fit to width; images zoom up to their native resolution. Open **Files** in the sidebar for a searchable grid of the project's artifacts. From an artifact's menu in **Files**, you can choose **Pin**, **Hide**, **Open in Artifact Viewer**, **View in context**, **Provenance**, **Copy link**, **Rename**, **Download**, **Export Metadata**, **Export to Cloud**, or **Delete**. Renaming doesn't break links. **Delete** removes all versions permanently.
 
 Files you attach or drop into the composer, and images you paste into it, are listed under **Your uploads**.
 
