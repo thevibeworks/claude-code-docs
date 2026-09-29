@@ -10,12 +10,12 @@
 
 > **Find your section:**
 >
-> | If you are…                 | Start with                                                    |
-> | --------------------------- | ------------------------------------------------------------- |
-> | A tenant administrator      | [Tenant administration](/docs/government/tenant-admin/overview)    |
-> | An organization owner       | [Organization administration](/docs/government/org-admin/overview) |
-> | Any user                    | [Your account](/docs/government/account/overview)                  |
-> | Anyone using Claude Desktop | [Use Claude Desktop](/docs/government/desktop/plugins)             |
+> | If you are… | Start with |
+> | - | - |
+> | A tenant administrator | [Tenant administration](/docs/government/tenant-admin/overview) |
+> | An organization owner | [Organization administration](/docs/government/org-admin/overview) |
+> | Any user | [Your account](/docs/government/account/overview) |
+> | Anyone using Claude Desktop | [Use Claude Desktop](/docs/government/desktop/plugins) |
 
 This guide covers the portals used to manage Claude for Government: how access, seats, and usage are organized, and who is responsible for each part.
 
@@ -64,11 +64,11 @@ Every organization is linked to exactly one billing account, and usage by that o
 
 The portal has three views. Which ones you can reach depends on your role, and you switch between them using the link in the page footer.
 
-| View                                                     | Who has it                                    | What it's for                                                                                                                                                                                       |
-| -------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [**Tenant**](/docs/government/tenant-admin/overview)          | Tenant administrators                         | Creating organizations, configuring identity and access (single sign-on, provisioning, and routing rules), distributing seats, setting spend caps, and managing who else is a tenant administrator. |
-| [**Organization admin**](/docs/government/org-admin/overview) | Organization owners and tenant administrators | Managing users and seats, setting usage tiers, viewing analytics, and configuring organization-level settings.                                                                                      |
-| [**Account**](/docs/government/account/overview)              | Everyone                                      | Viewing your own profile, checking your usage limits, and managing where you're signed in.                                                                                                          |
+| View | Who has it | What it's for |
+| - | - | - |
+| [**Tenant**](/docs/government/tenant-admin/overview) | Tenant administrators | Creating organizations, configuring identity and access (single sign-on, provisioning, and routing rules), distributing seats, setting spend caps, and managing who else is a tenant administrator. |
+| [**Organization admin**](/docs/government/org-admin/overview) | Organization owners and tenant administrators | Managing users and seats, setting usage tiers, viewing analytics, and configuring organization-level settings. |
+| [**Account**](/docs/government/account/overview) | Everyone | Viewing your own profile, checking your usage limits, and managing where you're signed in. |
 
 When you sign in, you land on the most relevant view for you. Organization owners land on the organization admin view, and everyone else lands on their account view. This includes tenant administrators who are not also an organization owner; they start on their account view and can use the **Switch to admin view** link in the page footer, and from there switch to the tenant view.
 

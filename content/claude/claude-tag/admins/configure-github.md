@@ -68,9 +68,9 @@ The remaining steps are in the Claude Tag admin page, not GitHub's settings. Rep
 
 When Claude replies "That environment or repo isn't configured for Claude Code", or reports that GitHub returned a 403, check the two levels in order.
 
-| Check                                                                                                             | Where                                                                                                                                                                                                                                  |
-| :---------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The GitHub organization that owns the repository shows **Connected** under **Connected GitHub accounts**          | [`claude.ai/admin-settings/github`](https://claude.ai/admin-settings/github). An installation still waiting on a GitHub organization owner shows **Needs permissions**; **Review permissions** opens the approval on github.com.       |
+| Check | Where |
+| :- | :- |
+| The GitHub organization that owns the repository shows **Connected** under **Connected GitHub accounts** | [`claude.ai/admin-settings/github`](https://claude.ai/admin-settings/github). An installation still waiting on a GitHub organization owner shows **Needs permissions**; **Review permissions** opens the approval on github.com. |
 | The repository is listed on the bundle's **Repositories** tab, and that bundle is attached to the channel's scope | [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Access bundles** → the bundle → **Repositories**. A repository granted in one bundle isn't reachable from a channel under a different bundle. |
 
 Repository grants apply to new threads. After changing the **Repositories** tab, start a fresh thread in the channel and name the repository in the first message.

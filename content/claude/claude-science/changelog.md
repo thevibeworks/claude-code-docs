@@ -6,6 +6,16 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.54" description="September 28, 2026">
+  * Sessions on Claude Sonnet 5.5 now default to Extra high reasoning effort
+  * Windows: after an update, the app window reopens on the new version by itself
+  * Pinned artifacts (formerly starred) and pinned projects now show a pushpin instead of a star
+  * Editing a Markdown table cell now outlines the cell itself instead of opening a box over it
+  * The app starts much faster with a long list of allowed domains
+  * Security hardening of the analysis sandbox on Mac, Windows, and Linux
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.53" description="September 24, 2026">
   * Paste a list of domains in **Settings > Network** to allow them all at once
   * In Markdown files, editing table cells in place now works in files with up to 2,500 table cells, however long their text

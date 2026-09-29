@@ -20,12 +20,12 @@ Type into the search box to filter the list by name or email address. Use **Filt
 
 Each user appears as a card with their name, email address, and the following fields:
 
-| Field          | Description                                                                                                                                                                                                                                         |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Role**       | The user's role in this organization. You can change it directly from the dropdown.                                                                                                                                                                 |
-| **Seat tier**  | Which seat tier the user currently occupies. You can change it directly from the dropdown.                                                                                                                                                          |
-| **Usage**      | Two bars showing how much of the user's 5-hour and 7-day spend limits are currently used, with the exact percentage alongside each. Hover over the bars to see when each limit resets. Users who have no seat tier show a dash instead of the bars. |
-| **Last login** | The date and time the user last signed in.                                                                                                                                                                                                          |
+| Field | Description |
+| - | - |
+| **Role** | The user's role in this organization. You can change it directly from the dropdown. |
+| **Seat tier** | Which seat tier the user currently occupies. You can change it directly from the dropdown. |
+| **Usage** | Two bars showing how much of the user's 5-hour and 7-day spend limits are currently used, with the exact percentage alongside each. Hover over the bars to see when each limit resets. Users who have no seat tier show a dash instead of the bars. |
+| **Last login** | The date and time the user last signed in. |
 
 The **…** menu on each card has the **Reset usage limits** action, which clears the user's current rate-limit windows. The menu appears only when your organization has at least one [self-managed seat tier](/docs/government/org-admin/seat-tiers).
 

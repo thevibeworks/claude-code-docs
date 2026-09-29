@@ -20,9 +20,9 @@ Each prompt below is a Slack message. You paste it in the channel or thread wher
 
 Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
 
-| Connection | Examples | Why it matters here                                    |
-| :--------- | :------- | :----------------------------------------------------- |
-| Code       | GitHub   | Required. Reads the repo and opens draft pull requests |
+| Connection | Examples | Why it matters here |
+| :- | :- | :- |
+| Code | GitHub | Required. Reads the repo and opens draft pull requests |
 
 ## Prompts to paste
 

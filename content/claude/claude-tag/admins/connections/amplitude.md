@@ -22,10 +22,10 @@ For the API key route, pair the connection with a plugin that covers Amplitude s
 
 On a bundle's **Credentials** tab, clicking **Connect** next to **Amplitude** opens a form that offers two ways to connect: **Sign in with Amplitude**, selected by default, and **Use an API token** below it.
 
-| Route                                              | What Claude can do                                                                                                                                                                                                                     | Amplitude data center | What you need                                                    |
-| :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------- | :--------------------------------------------------------------- |
-| **API key and secret key** (**Use an API token**)  | Run analytics queries, such as event segmentation, funnels, and retention, through Amplitude's [Dashboard REST API](https://amplitude.com/docs/apis/analytics/dashboard-rest). The setup steps restrict the key pair to read requests. | US or EU              | A project API key and a secret key generated for this connection |
-| **Amplitude sign-in** (**Sign in with Amplitude**) | Work with charts, dashboards, cohorts, and experiments through Amplitude's MCP tools, which can create and edit content as well as read it. Claude acts in Amplitude with the signed-in user's roles and project access.               | US                    | A dedicated Amplitude user to sign in as                         |
+| Route | What Claude can do | Amplitude data center | What you need |
+| :- | :- | :- | :- |
+| **API key and secret key** (**Use an API token**) | Run analytics queries, such as event segmentation, funnels, and retention, through Amplitude's [Dashboard REST API](https://amplitude.com/docs/apis/analytics/dashboard-rest). The setup steps restrict the key pair to read requests. | US or EU | A project API key and a secret key generated for this connection |
+| **Amplitude sign-in** (**Sign in with Amplitude**) | Work with charts, dashboards, cohorts, and experiments through Amplitude's MCP tools, which can create and edit content as well as read it. Claude acts in Amplitude with the signed-in user's roles and project access. | US | A dedicated Amplitude user to sign in as |
 
 Use the API key route when Claude should be limited to read requests. Also use the API key route when Amplitude hosts your organization's data in its EU data center (you sign in to Amplitude at `app.eu.amplitude.com` rather than `app.amplitude.com`), because the **Sign in with Amplitude** option connects to the MCP server for Amplitude's US data center, `https://mcp.amplitude.com/mcp`. Choose Amplitude sign-in when Claude should also build or change content in Amplitude, such as creating a chart or updating a dashboard.
 
@@ -53,9 +53,9 @@ A saved connection is live with every HTTP method in any channel under the bundl
   <Step title="Enter the key pair">
     Select **Use an API token**, then fill in the two fields.
 
-    | Field               | Value                                            |
-    | :------------------ | :----------------------------------------------- |
-    | Claude's API key    | The project's API key from Amplitude             |
+    | Field | Value |
+    | :- | :- |
+    | Claude's API key | The project's API key from Amplitude |
     | Claude's secret key | The secret key you generated for this connection |
 
     The host is prefilled as `amplitude.com`. If Amplitude hosts your organization's data in its EU data center (you sign in to Amplitude at `app.eu.amplitude.com` rather than `app.amplitude.com`), replace the host with `analytics.eu.amplitude.com`.

@@ -236,7 +236,7 @@ Requires an API key with the `read:analytics` scope.
 
         - `"web_search"`
 
-      - `currency: "USD"`
+      - `currency: string`
 
         Currency code for the cost amount. Currently always `"USD"`.
 
@@ -636,7 +636,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       - `"web_search"`
 
-    - `currency: "USD"`
+    - `currency: string`
 
       Currency code for the cost amount. Currently always `"USD"`.
 
@@ -833,7 +833,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_cost_report \
 
         - `"web_search"`
 
-      - `currency: "USD"`
+      - `currency: string`
 
         Currency code for the cost amount. Currently always `"USD"`.
 
@@ -989,7 +989,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_cost_report \
 
       - `"web_search"`
 
-    - `currency: "USD"`
+    - `currency: string`
 
       Currency code for the cost amount. Currently always `"USD"`.
 

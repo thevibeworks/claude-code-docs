@@ -34,12 +34,12 @@ Facts Claude retains while working in a channel, including facts you told it to 
 
 Claude Tag is the second generation of the Claude app in Slack:
 
-|                | Legacy (the earlier Claude in Slack)        | New (Claude Tag)                                                     |
-| :------------- | :------------------------------------------ | :------------------------------------------------------------------- |
-| Identity       | Each user links their own claude.ai account | One agent identity with org-level service credentials                |
-| Sessions       | Spawned per request                         | One persistent session per thread, shared                            |
-| Memory         | None                                        | Per-channel memory, plus workspace notes shared from public channels |
-| Proactive work | None                                        | Routines and channel watching                                        |
+| | Legacy (the earlier Claude in Slack) | New (Claude Tag) |
+| :- | :- | :- |
+| Identity | Each user links their own claude.ai account | One agent identity with org-level service credentials |
+| Sessions | Spawned per request | One persistent session per thread, shared |
+| Memory | None | Per-channel memory, plus workspace notes shared from public channels |
+| Proactive work | None | Routines and channel watching |
 
 Your admin chooses which generation answers `@Claude` in a given channel, so two channels in the same workspace can work differently. See [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope).
 

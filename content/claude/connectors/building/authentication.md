@@ -34,14 +34,14 @@ Use this page to [pick an authentication type](#supported-authentication-types),
 
 Claude supports the following authentication types for remote MCP servers.
 
-| Type                    | Description                                                                                                                                             | Availability                                                                                                                                       |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `oauth_dcr`             | OAuth 2.0 with Dynamic Client Registration ([RFC 7591](https://www.rfc-editor.org/rfc/rfc7591))                                                         | Supported by default                                                                                                                               |
-| `oauth_cimd`            | OAuth 2.0 with [Client ID Metadata Document](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#client-id-metadata-documents) | Supported by default                                                                                                                               |
-| `oauth_anthropic_creds` | OAuth 2.0 with [Anthropic-held client credentials](#anthropic-held-client-credentials)                                                                  | Contact `mcp-review@anthropic.com`                                                                                                                 |
-| `custom_connection`     | Custom URL or OAuth client credentials [entered at connection time](#credentials-entered-at-connection-time)                                            | Contact `mcp-review@anthropic.com`                                                                                                                 |
-| `static_headers`        | Fixed credential (API key or bearer token) entered by an organization Owner as a request header when adding the connector                               | Beta, for a limited set of organizations                                                                                                           |
-| `none`                  | No authentication (authless server)                                                                                                                     | Supported by default. To leave some tools open and require sign-in for others, see [Lazy authentication](/docs/connectors/building/lazy-authentication) |
+| Type | Description | Availability |
+| - | - | - |
+| `oauth_dcr` | OAuth 2.0 with Dynamic Client Registration ([RFC 7591](https://www.rfc-editor.org/rfc/rfc7591)) | Supported by default |
+| `oauth_cimd` | OAuth 2.0 with [Client ID Metadata Document](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization#client-id-metadata-documents) | Supported by default |
+| `oauth_anthropic_creds` | OAuth 2.0 with [Anthropic-held client credentials](#anthropic-held-client-credentials) | Contact `mcp-review@anthropic.com` |
+| `custom_connection` | Custom URL or OAuth client credentials [entered at connection time](#credentials-entered-at-connection-time) | Contact `mcp-review@anthropic.com` |
+| `static_headers` | Fixed credential (API key or bearer token) entered by an organization Owner as a request header when adding the connector | Beta, for a limited set of organizations |
+| `none` | No authentication (authless server) | Supported by default. To leave some tools open and require sign-in for others, see [Lazy authentication](/docs/connectors/building/lazy-authentication) |
 
 If your server URL varies per customer, read [Servers with per-customer URLs](#servers-with-per-customer-urls) before you pick a type.
 
@@ -66,13 +66,13 @@ Listings with **Multiple URLs** or a **URL pattern** take longer to review.
 
 You choose the URL option and the authentication type separately, but the URL option limits which authentication types work. The table shows which combinations work. Request headers (`static_headers`) are set up by the organization Owner who adds the connector and aren't covered here.
 
-| Type                    | Universal URL | Multiple URLs | URL pattern |
-| ----------------------- | ------------- | ------------- | ----------- |
-| `oauth_dcr`             | Yes           | Yes           | Yes         |
-| `oauth_cimd`            | Yes           | Yes           | Yes         |
-| `oauth_anthropic_creds` | Yes           | Yes           | No          |
-| `custom_connection`     | Yes           | No            | Yes         |
-| `none`                  | Yes           | Yes           | Yes         |
+| Type | Universal URL | Multiple URLs | URL pattern |
+| - | - | - | - |
+| `oauth_dcr` | Yes | Yes | Yes |
+| `oauth_cimd` | Yes | Yes | Yes |
+| `oauth_anthropic_creds` | Yes | Yes | No |
+| `custom_connection` | Yes | No | Yes |
+| `none` | Yes | Yes | Yes |
 
 For a URL pattern, use these authentication types in order of preference:
 

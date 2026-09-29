@@ -42,27 +42,27 @@ The MCP Registry recommends [semantic versioning](https://semver.org/), but supp
 
 As an error prevention mechanism, the MCP Registry prohibits version strings that appear to refer to ranges of versions.
 
-| Example        | Type                | Guidance                       |
-| -------------- | ------------------- | ------------------------------ |
-| `1.0.0`        | semantic version    | **Recommended**                |
-| `2.1.3-alpha`  | semantic prerelease | **Recommended**                |
-| `1.0.0-beta.1` | semantic prerelease | **Recommended**                |
-| `3.0.0-rc.2`   | semantic prerelease | **Recommended**                |
-| `2025.11.25`   | semantic date       | Recommended                    |
-| `2025.6.18`    | semantic date       | Recommended **(⚠️Caution!⚠️)** |
-| `2025.06.18`   | non-semantic date   | Allowed **(⚠️Caution!⚠️)**     |
-| `2025-06-18`   | non-semantic date   | Allowed                        |
-| `v1.0`         | prefixed version    | Allowed                        |
-| `^1.2.3`       | version range       | Prohibited                     |
-| `~1.2.3`       | version range       | Prohibited                     |
-| `>=1.2.3`      | version range       | Prohibited                     |
-| `<=1.2.3`      | version range       | Prohibited                     |
-| `>1.2.3`       | version range       | Prohibited                     |
-| `<1.2.3`       | version range       | Prohibited                     |
-| `1.x`          | version range       | Prohibited                     |
-| `1.2.*`        | version range       | Prohibited                     |
-| `1 - 2`        | version range       | Prohibited                     |
-| `1.2 \|\| 1.3` | version range       | Prohibited                     |
+| Example | Type | Guidance |
+| - | - | - |
+| `1.0.0` | semantic version | **Recommended** |
+| `2.1.3-alpha` | semantic prerelease | **Recommended** |
+| `1.0.0-beta.1` | semantic prerelease | **Recommended** |
+| `3.0.0-rc.2` | semantic prerelease | **Recommended** |
+| `2025.11.25` | semantic date | Recommended |
+| `2025.6.18` | semantic date | Recommended **(⚠️Caution!⚠️)** |
+| `2025.06.18` | non-semantic date | Allowed **(⚠️Caution!⚠️)** |
+| `2025-06-18` | non-semantic date | Allowed |
+| `v1.0` | prefixed version | Allowed |
+| `^1.2.3` | version range | Prohibited |
+| `~1.2.3` | version range | Prohibited |
+| `>=1.2.3` | version range | Prohibited |
+| `<=1.2.3` | version range | Prohibited |
+| `>1.2.3` | version range | Prohibited |
+| `<1.2.3` | version range | Prohibited |
+| `1.x` | version range | Prohibited |
+| `1.2.*` | version range | Prohibited |
+| `1 - 2` | version range | Prohibited |
+| `1.2 \|\| 1.3` | version range | Prohibited |
 
 ## Best Practices
 

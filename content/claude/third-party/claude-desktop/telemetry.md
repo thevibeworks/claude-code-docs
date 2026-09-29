@@ -18,8 +18,8 @@ This page covers what each telemetry category contains, how to turn it off, and 
 
 Crash reports, error stack traces, and performance timings. Contains diagnostic metadata (app version, OS, error type, redacted stack frames) but **never prompt or response content**. Attributed to your organization via `deploymentOrganizationUuid` so Anthropic support can find issues you report.
 
-| Setting                     | Default | Effect when `true`                        |
-| --------------------------- | ------- | ----------------------------------------- |
+| Setting | Default | Effect when `true` |
+| - | - | - |
 | `disableEssentialTelemetry` | `false` | No crash or error data leaves the device. |
 
 On Claude Desktop 2.7032.0 and later, the [**Keep only your organization ID and restrictions on disk**](/docs/third-party/claude-desktop/admin-console#configuration-kept-on-devices) switch in the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) also stops the app's crash and performance reports, even while `disableEssentialTelemetry` is `false`.
@@ -32,8 +32,8 @@ On Claude Desktop 2.7032.0 and later, the [**Keep only your organization ID and 
 
 Product-usage analytics: feature adoption, session counts, UI interactions. Used to understand how Claude Desktop is used in aggregate. Contains no prompt or response content. Also gates the **Send** button in Help → Generate Diagnostic Report; with this disabled, diagnostic bundles can only be saved locally.
 
-| Setting                        | Default | Effect when `true`                     |
-| ------------------------------ | ------- | -------------------------------------- |
+| Setting | Default | Effect when `true` |
+| - | - | - |
 | `disableNonessentialTelemetry` | `false` | No product analytics leave the device. |
 
 Leaving this enabled also adds `api.anthropic.com` to the [agent egress allowlist](#required-egress-paths) automatically, so Claude Code can deliver its usage telemetry from inside the sandbox. Allow that host at the perimeter too; it appears in the non-essential telemetry table below.
@@ -42,16 +42,16 @@ Leaving this enabled also adds `api.anthropic.com` to the [agent egress allowlis
 
 Cosmetic third-party fetches: favicons for connectors shown in the UI, the sandboxed iframe that renders interactive artifact previews, and the sandboxed iframes that render [MCP Apps](/docs/connectors/building/mcp-apps/getting-started), the interactive widgets connectors can display. Disabling these degrades the UI (generic icons, static artifact previews, and connector tool results shown as text instead of widgets) but doesn't affect functionality.
 
-| Setting                       | Default | Effect when `true`                                                                                                                                    |
-| ----------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Setting | Default | Effect when `true` |
+| - | - | - |
 | `disableNonessentialServices` | `false` | Favicon, artifact-preview, and MCP App widget fetches are blocked. Connectors that return MCP Apps show the tool's text result instead of the widget. |
 
 ### Auto-updates
 
 Checks Anthropic's update feed and downloads new builds.
 
-| Setting              | Default | Effect when `true`                                                                        |
-| -------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| Setting | Default | Effect when `true` |
+| - | - | - |
 | `disableAutoUpdates` | `false` | The app never checks for or downloads updates. Your IT team must redistribute new builds. |
 
 ## Sending telemetry to your own collector
@@ -101,13 +101,13 @@ These substitutions change the protocol only, not the endpoint. A stream that ex
 
 To include content in the export, set `otlpContentCapture` to an array of categories:
 
-| Category             | Captures                                                        |
-| -------------------- | --------------------------------------------------------------- |
-| `userPrompts`        | User message text and conversation titles                       |
-| `assistantResponses` | Model response text                                             |
-| `toolDetails`        | Tool input arguments (for example, the web-search query string) |
-| `toolContent`        | Tool output content                                             |
-| `rawApiBodies`       | Full inference request and response bodies                      |
+| Category | Captures |
+| - | - |
+| `userPrompts` | User message text and conversation titles |
+| `assistantResponses` | Model response text |
+| `toolDetails` | Tool input arguments (for example, the web-search query string) |
+| `toolContent` | Tool output content |
+| `rawApiBodies` | Full inference request and response bodies |
 
 On Claude Desktop version 1.17377 or later, enabling `userPrompts` also captures model responses, even if `assistantResponses` is not listed. On those versions, no `otlpContentCapture` configuration captures user prompts without model responses.
 
@@ -147,9 +147,9 @@ All traffic is HTTPS on port 443. Allowlist by hostname (SNI); path-level rules 
 
 ### Always required
 
-| Host                  | Purpose                                                                       |
-| --------------------- | ----------------------------------------------------------------------------- |
-| `downloads.claude.ai` | VM workspace bundle and Claude CLI binary, fetched at session start           |
+| Host | Purpose |
+| - | - |
+| `downloads.claude.ai` | VM workspace bundle and Claude CLI binary, fetched at session start |
 | `downloads.claude.ai` | Claude Code model catalog (signed picker metadata), polled every 5–15 minutes |
 
 Without this host reachable, Chat conversations, Cowork tasks, and Code sessions cannot start on a device that has not yet downloaded these components. App updates often change one or both of these components, and the app then downloads the new versions from the same host. Devices installed with the [offline installer variant](/docs/third-party/claude-desktop/installation#offline-installation), which includes both components in the installer package, are not affected. The model catalog fetch is not needed to run the app: set [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) to `false` to turn it off, or [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) to fetch the catalog from a mirror inside your network. While the catalog is unreachable, sessions still start and the model picker keeps the names and effort options the app last fetched or shipped with.
@@ -160,21 +160,21 @@ The host(s) for your configured provider. These carry conversation content.
 
 <Tabs>
   <Tab title="Google Cloud's Agent Platform">
-    | Host                                 | Purpose                                                                                                                                                                                                                                                           |
-    | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | Host | Purpose |
+    | - | - |
     | `<region>-aiplatform.googleapis.com` | Model inference for single regions. The `global` region uses `aiplatform.googleapis.com`, and the `eu` / `us` multi-regions use `aiplatform.eu.rep.googleapis.com` / `aiplatform.us.rep.googleapis.com`. Replaced by the host of `inferenceVertexBaseUrl` if set. |
-    | `oauth2.googleapis.com`              | Google auth token exchange                                                                                                                                                                                                                                        |
-    | `sts.googleapis.com`                 | Google auth token exchange                                                                                                                                                                                                                                        |
-    | `accounts.google.com`                | Google auth token exchange                                                                                                                                                                                                                                        |
-    | `iamcredentials.googleapis.com`      | Google auth token exchange                                                                                                                                                                                                                                        |
+    | `oauth2.googleapis.com` | Google auth token exchange |
+    | `sts.googleapis.com` | Google auth token exchange |
+    | `accounts.google.com` | Google auth token exchange |
+    | `iamcredentials.googleapis.com` | Google auth token exchange |
   </Tab>
 
   <Tab title="Amazon Bedrock">
-    | Host                                                                       | Purpose                                                                                                                                                                                                                                                                                                      |
-    | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | `bedrock-runtime.<region>.amazonaws.com`                                   | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set.                                                                                                                                                                                                                                   |
-    | `bedrock.<region>.amazonaws.com`                                           | Control plane (model discovery)                                                                                                                                                                                                                                                                              |
-    | `sts.amazonaws.com`, `sts.<region>.amazonaws.com`                          | STS token exchange (profile auth only)                                                                                                                                                                                                                                                                       |
+    | Host | Purpose |
+    | - | - |
+    | `bedrock-runtime.<region>.amazonaws.com` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
+    | `bedrock.<region>.amazonaws.com` | Control plane (model discovery) |
+    | `sts.amazonaws.com`, `sts.<region>.amazonaws.com` | STS token exchange (profile auth only) |
     | `portal.sso.<sso-region>.amazonaws.com`, `oidc.<sso-region>.amazonaws.com` | IAM Identity Center sign-in and token refresh, for [in-app AWS sign-in](/docs/third-party/claude-desktop/bedrock#in-app-aws-sign-in) and for named profiles that use IAM Identity Center. `<sso-region>` is `inferenceBedrockSsoRegion` (or the profile's `sso_region`) and can differ from the inference region. |
 
     With `inferenceBedrockBearerToken` set, the runtime and control-plane hosts are required.
@@ -183,110 +183,110 @@ The host(s) for your configured provider. These carry conversation content.
   </Tab>
 
   <Tab title="Amazon Bedrock Mantle">
-    | Host                              | Purpose                                                                    |
-    | --------------------------------- | -------------------------------------------------------------------------- |
+    | Host | Purpose |
+    | - | - |
     | `bedrock-mantle.<region>.api.aws` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
   </Tab>
 
   <Tab title="Microsoft Foundry">
-    | Host                               | Purpose                                                                    |
-    | ---------------------------------- | -------------------------------------------------------------------------- |
+    | Host | Purpose |
+    | - | - |
     | `<resource>.services.ai.azure.com` | Model inference. Replaced by the host of `inferenceFoundryBaseUrl` if set. |
-    | `login.microsoftonline.com`        | Entra ID auth (interactive sign-in only)                                   |
+    | `login.microsoftonline.com` | Entra ID auth (interactive sign-in only) |
   </Tab>
 
   <Tab title="Gateway">
-    | Host                              | Purpose         |
-    | --------------------------------- | --------------- |
+    | Host | Purpose |
+    | - | - |
     | Host of `inferenceGatewayBaseUrl` | Model inference |
   </Tab>
 
   <Tab title="Claude API">
-    | Host                  | Purpose                                                                                                                                                      |
-    | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | `api.anthropic.com`   | Model inference; token exchange and API-key creation during browser sign-in                                                                                  |
+    | Host | Purpose |
+    | - | - |
+    | `api.anthropic.com` | Model inference; token exchange and API-key creation during browser sign-in |
     | `platform.claude.com` | Browser sign-in page. Dialed only when no static key or credential helper is configured; the in-app Egress list includes it for every Claude API deployment. |
   </Tab>
 </Tabs>
 
 ### Auto-updates (`disableAutoUpdates: false`)
 
-| Host                  | Purpose                                                            |
-| --------------------- | ------------------------------------------------------------------ |
-| `claude.ai`           | Update feed                                                        |
-| `api.anthropic.com`   | Update feed (releases.claude.com when updateViaUpdatesHost is set) |
-| `downloads.claude.ai` | Update binaries                                                    |
+| Host | Purpose |
+| - | - |
+| `claude.ai` | Update feed |
+| `api.anthropic.com` | Update feed (releases.claude.com when updateViaUpdatesHost is set) |
+| `downloads.claude.ai` | Update binaries |
 
 With [`updateViaUpdatesHost`](/docs/third-party/claude-desktop/configuration#updateviaupdateshost) set to `true`, the app reads the update feed from `releases.claude.com` instead of `claude.ai` and `api.anthropic.com`, so those two hosts are no longer needed for updates. Update binaries still come from `downloads.claude.ai`.
 
 ### Essential telemetry (`disableEssentialTelemetry: false`)
 
-| Host                               | Purpose                   |
-| ---------------------------------- | ------------------------- |
-| `*.sentry.io`                      | Crash and error reporting |
-| `*.ingest.us.sentry.io`            | Crash and error reporting |
-| `sentry.io`                        | Crash and error reporting |
-| `claude.ai`                        | Performance timing        |
-| `browser-intake-datadoghq.com`     | Performance timing        |
-| `browser-intake-us3-datadoghq.com` | Performance timing        |
-| `browser-intake-us5-datadoghq.com` | Performance timing        |
-| `browser-intake-ap1-datadoghq.com` | Performance timing        |
-| `browser-intake-ap2-datadoghq.com` | Performance timing        |
-| `browser-intake-datadoghq.eu`      | Performance timing        |
-| `browser-intake-ddog-gov.com`      | Performance timing        |
+| Host | Purpose |
+| - | - |
+| `*.sentry.io` | Crash and error reporting |
+| `*.ingest.us.sentry.io` | Crash and error reporting |
+| `sentry.io` | Crash and error reporting |
+| `claude.ai` | Performance timing |
+| `browser-intake-datadoghq.com` | Performance timing |
+| `browser-intake-us3-datadoghq.com` | Performance timing |
+| `browser-intake-us5-datadoghq.com` | Performance timing |
+| `browser-intake-ap1-datadoghq.com` | Performance timing |
+| `browser-intake-ap2-datadoghq.com` | Performance timing |
+| `browser-intake-datadoghq.eu` | Performance timing |
+| `browser-intake-ddog-gov.com` | Performance timing |
 
 The `sentry.io` apex is listed alongside the wildcards because some firewalls don't match it under `*.sentry.io`, and `*.ingest.us.sentry.io` is listed separately for firewalls that match wildcards one label deep.
 
 ### Non-essential telemetry (`disableNonessentialTelemetry: false`)
 
-| Host                  | Purpose                                                         |
-| --------------------- | --------------------------------------------------------------- |
-| `a-cdn.anthropic.com` | Analytics SDK                                                   |
-| `a-api.anthropic.com` | Analytics events                                                |
-| `claude.ai`           | Analytics events                                                |
-| `api.anthropic.com`   | Claude Code usage telemetry, sent from inside the agent sandbox |
+| Host | Purpose |
+| - | - |
+| `a-cdn.anthropic.com` | Analytics SDK |
+| `a-api.anthropic.com` | Analytics events |
+| `claude.ai` | Analytics events |
+| `api.anthropic.com` | Claude Code usage telemetry, sent from inside the agent sandbox |
 
 ### Non-essential services (`disableNonessentialServices: false`)
 
-| Host                        | Purpose                                |
-| --------------------------- | -------------------------------------- |
-| `www.google.com`            | Connector favicons                     |
-| `*.gstatic.com`             | Connector favicons                     |
-| `www.claudeusercontent.com` | Artifact preview iframe                |
-| `cdnjs.cloudflare.com`      | Artifact preview asset CDNs            |
-| `fonts.googleapis.com`      | Artifact preview asset CDNs            |
-| `cdn.jsdelivr.net`          | Artifact preview asset CDNs            |
-| `*.claudemcpcontent.com`    | MCP App widget iframe                  |
-| `assets.claude.ai`          | Fonts loaded by MCP App widget iframes |
+| Host | Purpose |
+| - | - |
+| `www.google.com` | Connector favicons |
+| `*.gstatic.com` | Connector favicons |
+| `www.claudeusercontent.com` | Artifact preview iframe |
+| `cdnjs.cloudflare.com` | Artifact preview asset CDNs |
+| `fonts.googleapis.com` | Artifact preview asset CDNs |
+| `cdn.jsdelivr.net` | Artifact preview asset CDNs |
+| `*.claudemcpcontent.com` | MCP App widget iframe |
+| `assets.claude.ai` | Fonts loaded by MCP App widget iframes |
 
 `*.claudemcpcontent.com` serves [MCP Apps](/docs/connectors/building/mcp-apps/getting-started), the interactive widgets connectors can render. Each widget loads in a sandboxed iframe on its own generated subdomain, so allowlist the wildcard.
 
 ### Optional features
 
-| Host                                                                                                                                            | Required when                                                                                                                                                                                                                                                                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Host of `otlpEndpoint`                                                                                                                          | OpenTelemetry export is configured                                                                                                                                                                                                                                                                                                                                              |
-| `github.com`, `objects.githubusercontent.com`, `pypi.org`, `files.pythonhosted.org`                                                             | Python-based desktop extensions are enabled                                                                                                                                                                                                                                                                                                                                     |
-| Hosts of each entry in `managedMcpServers` (server URL, plus `oauth.authorizationServer` and `login.microsoftonline.com` if configured)         | Managed MCP servers are configured                                                                                                                                                                                                                                                                                                                                              |
-| Search provider host of a built-in `websearch` server (`api.search.brave.com`, `api.tavily.com`, `api.exa.ai`, or the host of your `customUrl`) | [Built-in web search](/docs/third-party/claude-desktop/web-tools#built-in-web-search) is configured                                                                                                                                                                                                                                                                                  |
-| Hosts in `coworkEgressAllowedHosts`                                                                                                             | Sandbox web access is configured                                                                                                                                                                                                                                                                                                                                                |
-| `api.anthropic.com`                                                                                                                             | [Code](/docs/third-party/claude-desktop/code) sessions can use Web Fetch and [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) is not `true` (Claude Code's Web Fetch [domain check](/docs/third-party/claude-desktop/web-tools#web-fetch))                                                                                                      |
-| `claude.ai`, `api.anthropic.com`, `storage.googleapis.com`                                                                                      | [Import from claude.ai](/docs/third-party/claude-desktop/import) is enabled (`claudeAiImport` with `enabled` set to `true`). Used only while a user signs in to claude.ai and fetches an export in the import wizard; importing a downloaded export file needs none of them                                                                                                          |
-| `releases.claude.com`                                                                                                                           | The [built-in browser](/docs/third-party/claude-desktop/browser) is turned on (`builtinBrowserEnabled` set to `true`), for its [site safety check](/docs/third-party/claude-desktop/browser#site-safety-check)                                                                                                                                                                            |
-| `downloads.claude.ai`                                                                                                                           | [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) are enabled (`sshHostAllowlist` set). With the offline installer, needed only for connections to hosts other than Linux x64 and arm64, because that installer bundles the remote components for those hosts (see [Host requirements](/docs/third-party/claude-desktop/ssh-remote-sessions#host-requirements)) |
+| Host | Required when |
+| - | - |
+| Host of `otlpEndpoint` | OpenTelemetry export is configured |
+| `github.com`, `objects.githubusercontent.com`, `pypi.org`, `files.pythonhosted.org` | Python-based desktop extensions are enabled |
+| Hosts of each entry in `managedMcpServers` (server URL, plus `oauth.authorizationServer` and `login.microsoftonline.com` if configured) | Managed MCP servers are configured |
+| Search provider host of a built-in `websearch` server (`api.search.brave.com`, `api.tavily.com`, `api.exa.ai`, or the host of your `customUrl`) | [Built-in web search](/docs/third-party/claude-desktop/web-tools#built-in-web-search) is configured |
+| Hosts in `coworkEgressAllowedHosts` | Sandbox web access is configured |
+| `api.anthropic.com` | [Code](/docs/third-party/claude-desktop/code) sessions can use Web Fetch and [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) is not `true` (Claude Code's Web Fetch [domain check](/docs/third-party/claude-desktop/web-tools#web-fetch)) |
+| `claude.ai`, `api.anthropic.com`, `storage.googleapis.com` | [Import from claude.ai](/docs/third-party/claude-desktop/import) is enabled (`claudeAiImport` with `enabled` set to `true`). Used only while a user signs in to claude.ai and fetches an export in the import wizard; importing a downloaded export file needs none of them |
+| `releases.claude.com` | The [built-in browser](/docs/third-party/claude-desktop/browser) is turned on (`builtinBrowserEnabled` set to `true`), for its [site safety check](/docs/third-party/claude-desktop/browser#site-safety-check) |
+| `downloads.claude.ai` | [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) are enabled (`sshHostAllowlist` set). With the offline installer, needed only for connections to hosts other than Linux x64 and arm64, because that installer bundles the remote components for those hosts (see [Host requirements](/docs/third-party/claude-desktop/ssh-remote-sessions#host-requirements)) |
 
 ## Disabling all Anthropic-bound connections
 
 Each connection in the following table has a managed-configuration key that turns it off.
 
-| Connection                                                                  | What it carries                                                                                                                                                                                                                                | Key that turns it off                                                                                                                                                                                                        |
-| --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Crash, error, and performance reporting                                     | Diagnostic metadata, never prompt or response content. See [Essential telemetry](#essential-telemetry).                                                                                                                                        | [`disableEssentialTelemetry`](/docs/third-party/claude-desktop/configuration#disableessentialtelemetry) set to `true`                                                                                                             |
-| Product analytics and diagnostic-report uploads                             | Feature adoption, session counts, and UI interactions, plus Claude Code usage telemetry. No prompt or response content. See [Non-essential telemetry](#non-essential-telemetry).                                                               | [`disableNonessentialTelemetry`](/docs/third-party/claude-desktop/configuration#disablenonessentialtelemetry) set to `true`                                                                                                       |
-| Connector favicons, artifact previews, and MCP App widgets                  | Icon fetches, and the sandboxed iframe pages that render previews and widgets. See [Non-essential services](#non-essential-services).                                                                                                          | [`disableNonessentialServices`](/docs/third-party/claude-desktop/configuration#disablenonessentialservices) set to `true`                                                                                                         |
-| Auto-updates                                                                | Requests to Anthropic's update feed, and downloads of new builds. See [Auto-updates](#auto-updates).                                                                                                                                           | [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates) set to `true`                                                                                                                           |
-| Model catalog                                                               | The signed model catalog that labels the model picker, fetched from `downloads.claude.ai` at launch and then every 5 to 15 minutes, including on devices installed with the offline installer. A blocked catalog request affects nothing else. | [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) set to `false`, or [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) set to a mirror inside your network |
-| Web Fetch domain check in [Code](/docs/third-party/claude-desktop/code) sessions | The hostname of each page Claude Code fetches, sent to `api.anthropic.com` before the fetch. See [Web Fetch](/docs/third-party/claude-desktop/web-tools#web-fetch).                                                                                 | [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) set to `true`, or `WebFetch` added to [`disabledBuiltinTools`](/docs/third-party/claude-desktop/configuration#disabledbuiltintools)    |
+| Connection | What it carries | Key that turns it off |
+| - | - | - |
+| Crash, error, and performance reporting | Diagnostic metadata, never prompt or response content. See [Essential telemetry](#essential-telemetry). | [`disableEssentialTelemetry`](/docs/third-party/claude-desktop/configuration#disableessentialtelemetry) set to `true` |
+| Product analytics and diagnostic-report uploads | Feature adoption, session counts, and UI interactions, plus Claude Code usage telemetry. No prompt or response content. See [Non-essential telemetry](#non-essential-telemetry). | [`disableNonessentialTelemetry`](/docs/third-party/claude-desktop/configuration#disablenonessentialtelemetry) set to `true` |
+| Connector favicons, artifact previews, and MCP App widgets | Icon fetches, and the sandboxed iframe pages that render previews and widgets. See [Non-essential services](#non-essential-services). | [`disableNonessentialServices`](/docs/third-party/claude-desktop/configuration#disablenonessentialservices) set to `true` |
+| Auto-updates | Requests to Anthropic's update feed, and downloads of new builds. See [Auto-updates](#auto-updates). | [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates) set to `true` |
+| Model catalog | The signed model catalog that labels the model picker, fetched from `downloads.claude.ai` at launch and then every 5 to 15 minutes, including on devices installed with the offline installer. A blocked catalog request affects nothing else. | [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) set to `false`, or [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) set to a mirror inside your network |
+| Web Fetch domain check in [Code](/docs/third-party/claude-desktop/code) sessions | The hostname of each page Claude Code fetches, sent to `api.anthropic.com` before the fetch. See [Web Fetch](/docs/third-party/claude-desktop/web-tools#web-fetch). | [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) set to `true`, or `WebFetch` added to [`disabledBuiltinTools`](/docs/third-party/claude-desktop/configuration#disabledbuiltintools) |
 
 With all six connections turned off, the only remaining Anthropic-operated egress is `downloads.claude.ai`, for the VM workspace bundle and Claude CLI binary at session start. The only other required egress is your inference provider. With the [offline installer variant](/docs/third-party/claude-desktop/installation#offline-installation), `downloads.claude.ai` is not needed either, and your inference provider is the only required egress.
 

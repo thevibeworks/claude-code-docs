@@ -8,6 +8,10 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.9939.4" description="2026-09-27">
+  No configuration changes in this release.
+</Update>
+
 <Update label="v2.9939.2" description="2026-09-24">
   **Changed:**
 
@@ -17,12 +21,12 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v2.7032.0" description="2026-09-22">
   <div className="cfg-keys">
-    | MDM key                                                                                                                  | Type      | Description                           |
-    | ------------------------------------------------------------------------------------------------------------------------ | --------- | ------------------------------------- |
-    | [`inferenceIdpAuthFlow`](/docs/third-party/claude-desktop/configuration#inferenceidpauthflow)                                 | `enum`    | Identity provider sign-in flow        |
-    | [`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc)                                         | `object`  | Identity provider (OIDC)              |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`inferenceIdpAuthFlow`](/docs/third-party/claude-desktop/configuration#inferenceidpauthflow) | `enum` | Identity provider sign-in flow |
+    | [`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc) | `object` | Identity provider (OIDC) |
     | [`mcpScheduledTaskApprovalLifetimeDays`](/docs/third-party/claude-desktop/configuration#mcpscheduledtaskapprovallifetimedays) | `integer` | Scheduled-task tool approval lifetime |
-    | [`keepAwakeEnabled`](/docs/third-party/claude-desktop/configuration#keepawakeenabled)                                         | `boolean` | Allow keep awake                      |
+    | [`keepAwakeEnabled`](/docs/third-party/claude-desktop/configuration#keepawakeenabled) | `boolean` | Allow keep awake |
   </div>
 
   **Set in the Claude admin console only:**
@@ -81,14 +85,14 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v2.2553.0" description="2026-09-17">
   <div className="cfg-keys">
-    | MDM key                                                                                                            | Type       | Description                                 |
-    | ------------------------------------------------------------------------------------------------------------------ | ---------- | ------------------------------------------- |
-    | [`inferenceCredentialHelperWindows`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperwindows)   | `string`   | Helper script (Windows)                     |
-    | [`allowedPluginMcpServers`](/docs/third-party/claude-desktop/configuration#allowedpluginmcpservers)                     | `object[]` | Allowed plugin MCP servers                  |
-    | [`builtinBrowserEnabled`](/docs/third-party/claude-desktop/configuration#builtinbrowserenabled)                         | `boolean`  | Allow the built-in browser                  |
-    | [`builtinBrowserDefaultDomainPolicy`](/docs/third-party/claude-desktop/configuration#builtinbrowserdefaultdomainpolicy) | `enum`     | Default site policy in the built-in browser |
-    | [`builtinBrowserAllowedDomains`](/docs/third-party/claude-desktop/configuration#builtinbrowseralloweddomains)           | `string[]` | Allowed sites in the built-in browser       |
-    | [`builtinBrowserBlockedDomains`](/docs/third-party/claude-desktop/configuration#builtinbrowserblockeddomains)           | `string[]` | Blocked sites in the built-in browser       |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`inferenceCredentialHelperWindows`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperwindows) | `string` | Helper script (Windows) |
+    | [`allowedPluginMcpServers`](/docs/third-party/claude-desktop/configuration#allowedpluginmcpservers) | `object[]` | Allowed plugin MCP servers |
+    | [`builtinBrowserEnabled`](/docs/third-party/claude-desktop/configuration#builtinbrowserenabled) | `boolean` | Allow the built-in browser |
+    | [`builtinBrowserDefaultDomainPolicy`](/docs/third-party/claude-desktop/configuration#builtinbrowserdefaultdomainpolicy) | `enum` | Default site policy in the built-in browser |
+    | [`builtinBrowserAllowedDomains`](/docs/third-party/claude-desktop/configuration#builtinbrowseralloweddomains) | `string[]` | Allowed sites in the built-in browser |
+    | [`builtinBrowserBlockedDomains`](/docs/third-party/claude-desktop/configuration#builtinbrowserblockeddomains) | `string[]` | Blocked sites in the built-in browser |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -123,15 +127,15 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v2.110.0" description="2026-09-15">
   <div className="cfg-keys">
-    | MDM key                                                                                                    | Type       | Description                         |
-    | ---------------------------------------------------------------------------------------------------------- | ---------- | ----------------------------------- |
-    | [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) | `string[]` | Helper script arguments             |
-    | [`inferenceFoundryBaseUrl`](/docs/third-party/claude-desktop/configuration#inferencefoundrybaseurl)             | `string`   | Azure AI Foundry base URL           |
-    | [`defaultModelEffort`](/docs/third-party/claude-desktop/configuration#defaultmodeleffort)                       | `enum`     | Default model effort                |
-    | [`alwaysStartWithDefaultModel`](/docs/third-party/claude-desktop/configuration#alwaysstartwithdefaultmodel)     | `boolean`  | Always start with the default model |
-    | [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled)                     | `boolean`  | Model catalog metadata              |
-    | [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl)                             | `string`   | Model catalog URL                   |
-    | [`scheduledTasksEnabled`](/docs/third-party/claude-desktop/configuration#scheduledtasksenabled)                 | `boolean`  | Allow scheduled tasks               |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`inferenceCredentialHelperArgs`](/docs/third-party/claude-desktop/configuration#inferencecredentialhelperargs) | `string[]` | Helper script arguments |
+    | [`inferenceFoundryBaseUrl`](/docs/third-party/claude-desktop/configuration#inferencefoundrybaseurl) | `string` | Azure AI Foundry base URL |
+    | [`defaultModelEffort`](/docs/third-party/claude-desktop/configuration#defaultmodeleffort) | `enum` | Default model effort |
+    | [`alwaysStartWithDefaultModel`](/docs/third-party/claude-desktop/configuration#alwaysstartwithdefaultmodel) | `boolean` | Always start with the default model |
+    | [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) | `boolean` | Model catalog metadata |
+    | [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) | `string` | Model catalog URL |
+    | [`scheduledTasksEnabled`](/docs/third-party/claude-desktop/configuration#scheduledtasksenabled) | `boolean` | Allow scheduled tasks |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -173,14 +177,14 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.52386.0" description="2026-09-10">
   <div className="cfg-keys">
-    | MDM key                                                                                              | Type      | Description                     |
-    | ---------------------------------------------------------------------------------------------------- | --------- | ------------------------------- |
-    | [`sshTransport`](/docs/third-party/claude-desktop/configuration#sshtransport) · Beta                      | `enum`    | SSH connection engine           |
-    | [`chatSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#chatsessionretentiondays)     | `integer` | Chat retention period           |
-    | [`coworkSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#coworksessionretentiondays) | `integer` | Cowork retention period         |
-    | [`codeSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#codesessionretentiondays)     | `integer` | Code retention period           |
-    | [`sessionRetentionHold`](/docs/third-party/claude-desktop/configuration#sessionretentionhold)             | `boolean` | Suspend session deletion        |
-    | [`coworkVmIpv6Enabled`](/docs/third-party/claude-desktop/configuration#coworkvmipv6enabled)               | `boolean` | Enable IPv6 in the workspace VM |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`sshTransport`](/docs/third-party/claude-desktop/configuration#sshtransport) · Beta | `enum` | SSH connection engine |
+    | [`chatSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#chatsessionretentiondays) | `integer` | Chat retention period |
+    | [`coworkSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#coworksessionretentiondays) | `integer` | Cowork retention period |
+    | [`codeSessionRetentionDays`](/docs/third-party/claude-desktop/configuration#codesessionretentiondays) | `integer` | Code retention period |
+    | [`sessionRetentionHold`](/docs/third-party/claude-desktop/configuration#sessionretentionhold) | `boolean` | Suspend session deletion |
+    | [`coworkVmIpv6Enabled`](/docs/third-party/claude-desktop/configuration#coworkvmipv6enabled) | `boolean` | Enable IPv6 in the workspace VM |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -224,11 +228,11 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.46388.1" description="2026-09-04">
   <div className="cfg-keys">
-    | MDM key                                                                                                                | Type      | Description                             |
-    | ---------------------------------------------------------------------------------------------------------------------- | --------- | --------------------------------------- |
-    | [`sshClientPath`](/docs/third-party/claude-desktop/configuration#sshclientpath) · Beta                                      | `string`  | SSH client program                      |
-    | [`configRecheckIntervalMinutes`](/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes)               | `integer` | Configuration re-check interval         |
-    | [`disableBypassPermissionsMode`](/docs/third-party/claude-desktop/configuration#disablebypasspermissionsmode)               | `boolean` | Disable bypass permissions mode         |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`sshClientPath`](/docs/third-party/claude-desktop/configuration#sshclientpath) · Beta | `string` | SSH client program |
+    | [`configRecheckIntervalMinutes`](/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes) | `integer` | Configuration re-check interval |
+    | [`disableBypassPermissionsMode`](/docs/third-party/claude-desktop/configuration#disablebypasspermissionsmode) | `boolean` | Disable bypass permissions mode |
     | [`blockReadsOutsideWorkingDirectories`](/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories) | `boolean` | Block reads outside working directories |
   </div>
 
@@ -264,12 +268,12 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.44121.1" description="2026-09-02">
   <div className="cfg-keys">
-    | MDM key                                                                                                    | Type      | Description                                                                                                                                                                                                                                                                                                      |
-    | ---------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | [`inferenceStreamIdleTimeoutSec`](/docs/third-party/claude-desktop/configuration#inferencestreamidletimeoutsec) | `integer` | Stream idle timeout                                                                                                                                                                                                                                                                                              |
-    | [`egressProxyUrl`](/docs/third-party/claude-desktop/configuration#egressproxyurl)                               | `string`  | Proxy server URL                                                                                                                                                                                                                                                                                                 |
-    | [`egressProxyPacUrl`](/docs/third-party/claude-desktop/configuration#egressproxypacurl)                         | `string`  | Proxy auto-config (PAC) URL                                                                                                                                                                                                                                                                                      |
-    | [`claudeAiImport.automatic3pImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport)             | `boolean` | New subfield (beta): when `true` and `deploymentOrganizationUuid` is set, the app copies this computer's earlier third-party sessions stored before an organization ID was configured into that organization's session store, once per device and in the background; independent of `enabled` (default `false`). |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`inferenceStreamIdleTimeoutSec`](/docs/third-party/claude-desktop/configuration#inferencestreamidletimeoutsec) | `integer` | Stream idle timeout |
+    | [`egressProxyUrl`](/docs/third-party/claude-desktop/configuration#egressproxyurl) | `string` | Proxy server URL |
+    | [`egressProxyPacUrl`](/docs/third-party/claude-desktop/configuration#egressproxypacurl) | `string` | Proxy auto-config (PAC) URL |
+    | [`claudeAiImport.automatic3pImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield (beta): when `true` and `deploymentOrganizationUuid` is set, the app copies this computer's earlier third-party sessions stored before an organization ID was configured into that organization's session store, once per device and in the background; independent of `enabled` (default `false`). |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -302,10 +306,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.40609.0" description="2026-08-27">
   <div className="cfg-keys">
-    | MDM key                                                                                                          | Type       | Description                             |
-    | ---------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------- |
-    | [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) · Beta                          | `string[]` | SSH host allowlist                      |
-    | [`disableConfigDeprecationWarnings`](/docs/third-party/claude-desktop/configuration#disableconfigdeprecationwarnings) | `boolean`  | Hide configuration deprecation warnings |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) · Beta | `string[]` | SSH host allowlist |
+    | [`disableConfigDeprecationWarnings`](/docs/third-party/claude-desktop/configuration#disableconfigdeprecationwarnings) | `boolean` | Hide configuration deprecation warnings |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -364,16 +368,16 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.37937.0" description="2026-08-25">
   <div className="cfg-keys">
-    | MDM key                                                                                                        | Type       | Description                          |
-    | -------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------ |
-    | [`inferenceModelPricingEnabled`](/docs/third-party/claude-desktop/configuration#inferencemodelpricingenabled)       | `boolean`  | Show estimated cost                  |
-    | [`inferenceModelPricingMultiplier`](/docs/third-party/claude-desktop/configuration#inferencemodelpricingmultiplier) | `number`   | Price multiplier                     |
-    | [`inferenceModelPricing`](/docs/third-party/claude-desktop/configuration#inferencemodelpricing)                     | `object[]` | Model pricing                        |
-    | [`userPluginMarketplacesEnabled`](/docs/third-party/claude-desktop/configuration#userpluginmarketplacesenabled)     | `boolean`  | Allow user-added plugin marketplaces |
-    | [`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled)               | `boolean`  | Allow user-added plugins             |
-    | [`mcpToolTimeoutSec`](/docs/third-party/claude-desktop/configuration#mcptooltimeoutsec)                             | `integer`  | MCP tool call timeout                |
-    | [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight)                     | `boolean`  | Skip WebFetch domain check           |
-    | [`organizationInstructions`](/docs/third-party/claude-desktop/configuration#organizationinstructions)               | `string`   | Organization instructions            |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`inferenceModelPricingEnabled`](/docs/third-party/claude-desktop/configuration#inferencemodelpricingenabled) | `boolean` | Show estimated cost |
+    | [`inferenceModelPricingMultiplier`](/docs/third-party/claude-desktop/configuration#inferencemodelpricingmultiplier) | `number` | Price multiplier |
+    | [`inferenceModelPricing`](/docs/third-party/claude-desktop/configuration#inferencemodelpricing) | `object[]` | Model pricing |
+    | [`userPluginMarketplacesEnabled`](/docs/third-party/claude-desktop/configuration#userpluginmarketplacesenabled) | `boolean` | Allow user-added plugin marketplaces |
+    | [`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled) | `boolean` | Allow user-added plugins |
+    | [`mcpToolTimeoutSec`](/docs/third-party/claude-desktop/configuration#mcptooltimeoutsec) | `integer` | MCP tool call timeout |
+    | [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) | `boolean` | Skip WebFetch domain check |
+    | [`organizationInstructions`](/docs/third-party/claude-desktop/configuration#organizationinstructions) | `string` | Organization instructions |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -424,9 +428,9 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.32885.1" description="2026-08-18">
   <div className="cfg-keys">
-    | MDM key                                                                                      | Type     | Description                     |
-    | -------------------------------------------------------------------------------------------- | -------- | ------------------------------- |
-    | [`bootstrapHeaders`](/docs/third-party/claude-desktop/configuration#bootstrapheaders)             | `object` | Bootstrap request headers       |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`bootstrapHeaders`](/docs/third-party/claude-desktop/configuration#bootstrapheaders) | `object` | Bootstrap request headers |
     | [`bootstrapHeadersHelper`](/docs/third-party/claude-desktop/configuration#bootstrapheadershelper) | `string` | Bootstrap headers helper script |
   </div>
 
@@ -452,10 +456,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.32352.0" description="2026-08-17">
   <div className="cfg-keys">
-    | MDM key                                                                                                             | Type      | Description                                                                                                                                                                                                                        |
-    | ------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | [`claudeAiImport.exportEnabled`](/docs/third-party/claude-desktop/configuration#claudeaiimport)                          | `boolean` | New subfield: lets users export this computer's chats, Cowork tasks, and Code sessions from Settings > Import & export as a zip that another install can import; no effect unless `enabled` is `true` (default `false`).           |
-    | [`allowedPluginMarketplaces[].manifestSha256`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) | `string`  | New subfield (beta): SHA-256 of the exact hosted `marketplace.json` a `url` marketplace may serve; required when `installationPreference` is `auto_install` or `required`, and a served manifest with any other digest is refused. |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`claudeAiImport.exportEnabled`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield: lets users export this computer's chats, Cowork tasks, and Code sessions from Settings > Import & export as a zip that another install can import; no effect unless `enabled` is `true` (default `false`). |
+    | [`allowedPluginMarketplaces[].manifestSha256`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) | `string` | New subfield (beta): SHA-256 of the exact hosted `marketplace.json` a `url` marketplace may serve; required when `installationPreference` is `auto_install` or `required`, and a served manifest with any other digest is refused. |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -491,10 +495,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.30096.1" description="2026-08-13">
   <div className="cfg-keys">
-    | MDM key                                                                                           | Type     | Description                                                                                                                                                                            |
-    | ------------------------------------------------------------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | [`otlpAuthMode`](/docs/third-party/claude-desktop/configuration#otlpauthmode)                          | `enum`   | Collector authentication                                                                                                                                                               |
-    | [`otlpHeadersHelper`](/docs/third-party/claude-desktop/configuration#otlpheadershelper)                | `string` | OpenTelemetry headers helper script                                                                                                                                                    |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`otlpAuthMode`](/docs/third-party/claude-desktop/configuration#otlpauthmode) | `enum` | Collector authentication |
+    | [`otlpHeadersHelper`](/docs/third-party/claude-desktop/configuration#otlpheadershelper) | `string` | OpenTelemetry headers helper script |
     | [`inferenceGatewayOidc.resource`](/docs/third-party/claude-desktop/configuration#inferencegatewayoidc) | `string` | New subfield: RFC 8707 resource indicator sent on gateway sign-in and token refresh so the IdP audience-restricts the access token to the gateway; leave unset for Microsoft Entra ID. |
   </div>
 
@@ -523,11 +527,11 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.28929.0" description="2026-08-11">
   <div className="cfg-keys">
-    | MDM key                                                                                     | Type      | Description                                                                                                          |
-    | ------------------------------------------------------------------------------------------- | --------- | -------------------------------------------------------------------------------------------------------------------- |
-    | [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext)    | `boolean` | Default to 1M context                                                                                                |
-    | [`claudeAiImport.enabled`](/docs/third-party/claude-desktop/configuration#claudeaiimport)        | `boolean` | New subfield: turns history import on; the banner and import actions stay off until set to `true` (default `false`). |
-    | [`claudeAiImport.bannerBehavior`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `enum`    | New subfield: when the import banner appears: `off` (default), `detect`, or `show`.                                  |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) | `boolean` | Default to 1M context |
+    | [`claudeAiImport.enabled`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `boolean` | New subfield: turns history import on; the banner and import actions stay off until set to `true` (default `false`). |
+    | [`claudeAiImport.bannerBehavior`](/docs/third-party/claude-desktop/configuration#claudeaiimport) | `enum` | New subfield: when the import banner appears: `off` (default), `detect`, or `show`. |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -551,10 +555,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.26832.0" description="2026-08-06">
   <div className="cfg-keys">
-    | MDM key                                                                                               | Type      | Description                                                                             |
-    | ----------------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------- |
-    | [`updateViaUpdatesHost`](/docs/third-party/claude-desktop/configuration#updateviaupdateshost)              | `boolean` | Check for updates on releases.claude.com                                                |
-    | [`allowedWorkspaceFolders[].mode`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) | `enum`    | New subfield: `ro` makes the folder read-only in Cowork; Code enforces file tools only. |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`updateViaUpdatesHost`](/docs/third-party/claude-desktop/configuration#updateviaupdateshost) | `boolean` | Check for updates on releases.claude.com |
+    | [`allowedWorkspaceFolders[].mode`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) | `enum` | New subfield: `ro` makes the folder read-only in Cowork; Code enforces file tools only. |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -572,12 +576,12 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.25927.0" description="2026-08-04">
   <div className="cfg-keys">
-    | MDM key                                                                                                          | Type      | Description                              |
-    | ---------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------- |
-    | [`inferenceGatewayOidcAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencegatewayoidcauthflow)         | `enum`    | Gateway sign-in flow                     |
-    | [`inferenceVertexWorkforceAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencevertexworkforceauthflow) | `enum`    | Workforce Identity sign-in flow          |
-    | [`trustBootstrapLocalExec`](/docs/third-party/claude-desktop/configuration#trustbootstrapdelivery)                    | `boolean` | Trust bootstrap-delivered local commands |
-    | [`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled)                         | `boolean` | Allow user-created skills                |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`inferenceGatewayOidcAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencegatewayoidcauthflow) | `enum` | Gateway sign-in flow |
+    | [`inferenceVertexWorkforceAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencevertexworkforceauthflow) | `enum` | Workforce Identity sign-in flow |
+    | [`trustBootstrapLocalExec`](/docs/third-party/claude-desktop/configuration#trustbootstrapdelivery) | `boolean` | Trust bootstrap-delivered local commands |
+    | [`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled) | `boolean` | Allow user-created skills |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -613,8 +617,8 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.24012.9" description="2026-07-24">
   <div className="cfg-keys">
-    | MDM key                                                                                                        | Type      | Description                     |
-    | -------------------------------------------------------------------------------------------------------------- | --------- | ------------------------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | [`mcpPersistentAlwaysAllowEnabled`](/docs/third-party/claude-desktop/configuration#mcppersistentalwaysallowenabled) | `boolean` | Allow persistent tool approvals |
   </div>
 
@@ -631,10 +635,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.24012.0" description="2026-07-21">
   <div className="cfg-keys">
-    | MDM key                                                                                      | Type      | Description                    |
-    | -------------------------------------------------------------------------------------------- | --------- | ------------------------------ |
-    | [`enduserAttribution`](/docs/third-party/claude-desktop/configuration#enduserattribution)         | `boolean` | End-user attribution           |
-    | [`userContentRendererUrl`](/docs/third-party/claude-desktop/configuration#usercontentrendererurl) | `string`  | Artifact preview iframe origin |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`enduserAttribution`](/docs/third-party/claude-desktop/configuration#enduserattribution) | `boolean` | End-user attribution |
+    | [`userContentRendererUrl`](/docs/third-party/claude-desktop/configuration#usercontentrendererurl) | `string` | Artifact preview iframe origin |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -655,8 +659,8 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.22209.0" description="2026-07-16">
   <div className="cfg-keys">
-    | MDM key                                                                            | Type      | Description          |
-    | ---------------------------------------------------------------------------------- | --------- | -------------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | [`otlpTracesEnabled`](/docs/third-party/claude-desktop/configuration#otlptracesenabled) | `boolean` | Export traces (beta) |
   </div>
 
@@ -677,14 +681,14 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.21459.0" description="2026-07-14">
   <div className="cfg-keys">
-    | MDM key                                                                                                            | Type      | Description                                                                                                  |
-    | ------------------------------------------------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------ |
-    | [`disableFeatureDiscovery`](/docs/third-party/claude-desktop/configuration#disablefeaturediscovery)                     | `boolean` | Hide feature announcements                                                                                   |
-    | [`inferenceModels[].prefer1m`](/docs/third-party/claude-desktop/configuration#inferencemodels)                          | `boolean` | New subfield: make the 1M-context variant the default picker selection when this model is the default entry. |
-    | [`managedMcpServers[].envHelper`](/docs/third-party/claude-desktop/configuration#managedmcpservers)                     | `string`  | New subfield: helper executable that prints environment variables as JSON for a managed stdio server.        |
-    | [`managedMcpServers[].envHelperTtlSec`](/docs/third-party/claude-desktop/configuration#managedmcpservers)               | `integer` | New subfield: maximum age in seconds of a cached `envHelper` result (default 300).                           |
-    | [`managedMcpServers[].headersHelperRefreshBufferSec`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: how many seconds before credential expiry the `headersHelper` re-runs (default 60).            |
-    | [`toolSearchEnabled`](/docs/third-party/claude-desktop/configuration#toolsearchenabled)                                 | `boolean` | Enable tool search                                                                                           |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`disableFeatureDiscovery`](/docs/third-party/claude-desktop/configuration#disablefeaturediscovery) | `boolean` | Hide feature announcements |
+    | [`inferenceModels[].prefer1m`](/docs/third-party/claude-desktop/configuration#inferencemodels) | `boolean` | New subfield: make the 1M-context variant the default picker selection when this model is the default entry. |
+    | [`managedMcpServers[].envHelper`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `string` | New subfield: helper executable that prints environment variables as JSON for a managed stdio server. |
+    | [`managedMcpServers[].envHelperTtlSec`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: maximum age in seconds of a cached `envHelper` result (default 300). |
+    | [`managedMcpServers[].headersHelperRefreshBufferSec`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: how many seconds before credential expiry the `headersHelper` re-runs (default 60). |
+    | [`toolSearchEnabled`](/docs/third-party/claude-desktop/configuration#toolsearchenabled) | `boolean` | Enable tool search |
   </div>
 
   **JSON (e.g. for non-MDM users or Bootstrap):**
@@ -716,10 +720,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.19367.0" description="2026-07-07">
   <div className="cfg-keys">
-    | MDM key                                                                                                | Type      | Description                                                                       |
-    | ------------------------------------------------------------------------------------------------------ | --------- | --------------------------------------------------------------------------------- |
-    | [`inferenceFoundryAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencefoundryauthflow)       | `enum`    | Entra ID sign-in flow                                                             |
-    | [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker)                 | `enum`    | Microsoft 365 native sign-in broker                                               |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`inferenceFoundryAuthFlow`](/docs/third-party/claude-desktop/configuration#inferencefoundryauthflow) | `enum` | Entra ID sign-in flow |
+    | [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) | `enum` | Microsoft 365 native sign-in broker |
     | [`managedMcpServers[].startupTimeoutSec`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `integer` | New subfield: maximum wait in seconds for the server to start and list its tools. |
   </div>
 
@@ -760,10 +764,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.17377.1" description="2026-06-30">
   <div className="cfg-keys">
-    | MDM key                                                                                                                    | Type       | Description                                                                                                                              |
-    | -------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-    | [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces)                         | `object[]` | Admin-configured plugin marketplace git URLs appear under the Directory's Organization tab. (MDM-only; not settable via bootstrap JSON.) |
-    | [`inferenceVertexWorkforceOidc.omitOfflineAccess`](/docs/third-party/claude-desktop/configuration#inferencevertexworkforceoidc) | `boolean`  | New subfield: omit `offline_access` from the OIDC scope request.                                                                         |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) | `object[]` | Admin-configured plugin marketplace git URLs appear under the Directory's Organization tab. (MDM-only; not settable via bootstrap JSON.) |
+    | [`inferenceVertexWorkforceOidc.omitOfflineAccess`](/docs/third-party/claude-desktop/configuration#inferencevertexworkforceoidc) | `boolean` | New subfield: omit `offline_access` from the OIDC scope request. |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -791,11 +795,11 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.15962.0" description="2026-06-25">
   <div className="cfg-keys">
-    | MDM key                                                                                     | Type      | Description                                                              |
-    | ------------------------------------------------------------------------------------------- | --------- | ------------------------------------------------------------------------ |
-    | [`otlpContentCapture`](/docs/third-party/claude-desktop/configuration#otlpcontentcapture)        | `enum[]`  | Content capture categories                                               |
-    | [`disableBundledSkills`](/docs/third-party/claude-desktop/configuration#disablebundledskills)    | `boolean` | Disable bundled skills and workflows                                     |
-    | [`managedMcpServers[].server`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `enum`    | Gained `"websearch"` — managed web search (Brave, Tavily, Exa or custom) |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`otlpContentCapture`](/docs/third-party/claude-desktop/configuration#otlpcontentcapture) | `enum[]` | Content capture categories |
+    | [`disableBundledSkills`](/docs/third-party/claude-desktop/configuration#disablebundledskills) | `boolean` | Disable bundled skills and workflows |
+    | [`managedMcpServers[].server`](/docs/third-party/claude-desktop/configuration#managedmcpservers) | `enum` | Gained `"websearch"` — managed web search (Brave, Tavily, Exa or custom) |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -831,10 +835,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.14271.0" description="2026-06-18">
   <div className="cfg-keys">
-    | MDM key                           | Type      | Description              |
-    | --------------------------------- | --------- | ------------------------ |
-    | `chatAdvancedFileAnalysisEnabled` | `boolean` | Advanced file analysis   |
-    | `inferenceSessionLifetimeSec`     | `integer` | Sign-in session lifetime |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | `chatAdvancedFileAnalysisEnabled` | `boolean` | Advanced file analysis |
+    | `inferenceSessionLifetimeSec` | `integer` | Sign-in session lifetime |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -857,10 +861,10 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.13576.0" description="2026-06-16">
   <div className="cfg-keys">
-    | MDM key                      | Type      | Description    |
-    | ---------------------------- | --------- | -------------- |
-    | `chatTabEnabled`             | `boolean` | Allow Chat tab |
-    | `inferenceBedrockAwsCliPath` | `string`  | AWS CLI path   |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | `chatTabEnabled` | `boolean` | Allow Chat tab |
+    | `inferenceBedrockAwsCliPath` | `string` | AWS CLI path |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -881,8 +885,8 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.12603.0" description="2026-06-11">
   <div className="cfg-keys">
-    | MDM key                         | Type     | Description             |
-    | ------------------------------- | -------- | ----------------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `inferenceVertexOAuthLoginHint` | `string` | Vertex OAuth login hint |
   </div>
 
@@ -901,17 +905,17 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.10628.0" description="2026-06-02">
   <div className="cfg-keys">
-    | MDM key                                         | Type      | Description                        |
-    | ----------------------------------------------- | --------- | ---------------------------------- |
-    | `inferenceVertexWorkforceAudience`              | `string`  | Workforce Identity audience        |
-    | `inferenceVertexWorkforceUserProject`           | `string`  | Workforce Identity billing project |
-    | `inferenceVertexWorkforceOidc`                  | `object`  | Workforce Identity IdP (OIDC)      |
-    | `organizationPluginsUrl`                        | `string`  | Organization plugins endpoint      |
-    | `autoModeEnabled`                               | `boolean` | Allow Auto mode                    |
-    | `inferenceCredentialHelperSilentRefreshEnabled` | `boolean` | Re-run helper for silent refresh   |
-    | `bootstrapEnabled`                              | `boolean` | Use bootstrap config               |
-    | `bootstrapUrl`                                  | `string`  | Bootstrap config URL               |
-    | `bootstrapOidc`                                 | `object`  | Bootstrap OIDC parameters          |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | `inferenceVertexWorkforceAudience` | `string` | Workforce Identity audience |
+    | `inferenceVertexWorkforceUserProject` | `string` | Workforce Identity billing project |
+    | `inferenceVertexWorkforceOidc` | `object` | Workforce Identity IdP (OIDC) |
+    | `organizationPluginsUrl` | `string` | Organization plugins endpoint |
+    | `autoModeEnabled` | `boolean` | Allow Auto mode |
+    | `inferenceCredentialHelperSilentRefreshEnabled` | `boolean` | Re-run helper for silent refresh |
+    | `bootstrapEnabled` | `boolean` | Use bootstrap config |
+    | `bootstrapUrl` | `string` | Bootstrap config URL |
+    | `bootstrapOidc` | `object` | Bootstrap OIDC parameters |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -939,8 +943,8 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.9659.0" description="2026-05-27">
   <div className="cfg-keys">
-    | MDM key            | Type      | Description      |
-    | ------------------ | --------- | ---------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `coworkTabEnabled` | `boolean` | Allow Cowork tab |
   </div>
 
@@ -957,11 +961,11 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.9255.0" description="2026-05-26">
   <div className="cfg-keys">
-    | MDM key                    | Type     | Description                    |
-    | -------------------------- | -------- | ------------------------------ |
-    | `otlpDesktopLogLevel`      | `enum`   | Desktop telemetry export level |
-    | `inferenceFoundryTenantId` | `string` | Entra ID tenant ID             |
-    | `inferenceFoundryClientId` | `string` | Entra ID client ID             |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | `otlpDesktopLogLevel` | `enum` | Desktop telemetry export level |
+    | `inferenceFoundryTenantId` | `string` | Entra ID tenant ID |
+    | `inferenceFoundryClientId` | `string` | Entra ID client ID |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -983,8 +987,8 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.8555.0" description="2026-05-21">
   <div className="cfg-keys">
-    | MDM key                   | Type   | Description     |
-    | ------------------------- | ------ | --------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `inferenceCredentialKind` | `enum` | Credential kind |
   </div>
 
@@ -1003,14 +1007,14 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.8089.0" description="2026-05-19">
   <div className="cfg-keys">
-    | MDM key                               | Type      | Description                                                       |
-    | ------------------------------------- | --------- | ----------------------------------------------------------------- |
-    | `inferenceAnthropicApiKey`            | `string`  | Claude API key                                                    |
-    | `inferenceCustomHeaders`              | `object`  | Custom inference headers (renamed from `inferenceGatewayHeaders`) |
-    | `modelDiscoveryEnabled`               | `boolean` | Model discovery                                                   |
-    | `orgPluginSettings`                   | `object`  | Organization plugin settings                                      |
-    | `builtinToolPolicy`                   | `object`  | Built-in tool policy                                              |
-    | `inferenceCredentialHelperTimeoutSec` | `integer` | Credential helper timeout                                         |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | `inferenceAnthropicApiKey` | `string` | Claude API key |
+    | `inferenceCustomHeaders` | `object` | Custom inference headers (renamed from `inferenceGatewayHeaders`) |
+    | `modelDiscoveryEnabled` | `boolean` | Model discovery |
+    | `orgPluginSettings` | `object` | Organization plugin settings |
+    | `builtinToolPolicy` | `object` | Built-in tool policy |
+    | `inferenceCredentialHelperTimeoutSec` | `integer` | Credential helper timeout |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -1030,18 +1034,18 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.7196.0" description="2026-05-12">
   <div className="cfg-keys">
-    | MDM key  | Type     | Description         |
-    | -------- | -------- | ------------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `banner` | `object` | Organization banner |
   </div>
 </Update>
 
 <Update label="v1.6889.0" description="2026-05-08">
   <div className="cfg-keys">
-    | MDM key                       | Type      | Description                          |
-    | ----------------------------- | --------- | ------------------------------------ |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `disableDeepLinkRegistration` | `boolean` | Disable claude:// deep-link handling |
-    | `inferenceGatewayOidc`        | `object`  | Gateway SSO IdP (OIDC)               |
+    | `inferenceGatewayOidc` | `object` | Gateway SSO IdP (OIDC) |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -1068,12 +1072,12 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.6259.0" description="2026-05-05">
   <div className="cfg-keys">
-    | MDM key                        | Type     | Description        |
-    | ------------------------------ | -------- | ------------------ |
-    | `inferenceBedrockSsoStartUrl`  | `string` | AWS SSO start URL  |
-    | `inferenceBedrockSsoRegion`    | `string` | AWS SSO region     |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | `inferenceBedrockSsoStartUrl` | `string` | AWS SSO start URL |
+    | `inferenceBedrockSsoRegion` | `string` | AWS SSO region |
     | `inferenceBedrockSsoAccountId` | `string` | AWS SSO account ID |
-    | `inferenceBedrockSsoRoleName`  | `string` | AWS SSO role name  |
+    | `inferenceBedrockSsoRoleName` | `string` | AWS SSO role name |
   </div>
 
   **JSON (Non-MDM User, Bootstrap Remote):**
@@ -1094,8 +1098,8 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.5354.0" description="2026-04-29">
   <div className="cfg-keys">
-    | MDM key                  | Type     | Description                       |
-    | ------------------------ | -------- | --------------------------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `otlpResourceAttributes` | `object` | OpenTelemetry resource attributes |
   </div>
 
@@ -1112,8 +1116,8 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.5186.0" description="2026-04-28">
   <div className="cfg-keys">
-    | MDM key                       | Type   | Description          |
-    | ----------------------------- | ------ | -------------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `inferenceBedrockServiceTier` | `enum` | Bedrock service tier |
   </div>
 
@@ -1130,16 +1134,16 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="v1.3834.0" description="2026-04-21">
   <div className="cfg-keys">
-    | MDM key                        | Type      | Description               |
-    | ------------------------------ | --------- | ------------------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `disableDeploymentModeChooser` | `boolean` | Disable Claude.ai sign-in |
   </div>
 </Update>
 
 <Update label="v1.3036.0" description="2026-04-16">
   <div className="cfg-keys">
-    | MDM key                      | Type   | Description         |
-    | ---------------------------- | ------ | ------------------- |
+    | MDM key | Type | Description |
+    | - | - | - |
     | `inferenceGatewayAuthScheme` | `enum` | Gateway auth scheme |
   </div>
 
@@ -1158,47 +1162,47 @@ Configuration keys by Claude Desktop release. Each section lists keys added in t
 
 <Update label="Baseline">
   <div className="cfg-keys">
-    | MDM key                               | Type                                  | Description                                                       |
-    | ------------------------------------- | ------------------------------------- | ----------------------------------------------------------------- |
-    | `isDesktopExtensionEnabled`           | `boolean`                             | Allow desktop extensions (renamed from `isDxtEnabled`)            |
-    | `isDesktopExtensionSignatureRequired` | `boolean`                             | Require signed extensions (renamed from `isDxtSignatureRequired`) |
-    | `isLocalDevMcpEnabled`                | `boolean`                             | Allow user-added MCP servers                                      |
-    | `isClaudeCodeForDesktopEnabled`       | `boolean`                             | Allow Claude Code tab                                             |
-    | `coworkEgressAllowedHosts`            | `array<string>`                       | Allowed egress hosts                                              |
-    | `otlpEndpoint`                        | `string`                              | OpenTelemetry collector endpoint                                  |
-    | `otlpProtocol`                        | `enum`                                | OpenTelemetry exporter protocol                                   |
-    | `otlpHeaders`                         | `object`                              | OpenTelemetry exporter headers                                    |
-    | `autoUpdaterEnforcementHours`         | `integer`                             | Auto-update enforcement window                                    |
-    | `disableAutoUpdates`                  | `boolean`                             | Block auto-updates                                                |
-    | `inferenceProvider`                   | `enum`                                | Inference provider                                                |
-    | `inferenceGatewayBaseUrl`             | `string`                              | Gateway base URL                                                  |
-    | `inferenceGatewayApiKey`              | `string`                              | Gateway API key                                                   |
-    | `inferenceVertexProjectId`            | `string`                              | GCP project ID                                                    |
-    | `inferenceVertexRegion`               | `string`                              | GCP region                                                        |
-    | `inferenceVertexCredentialsFile`      | `string`                              | GCP credentials file path                                         |
-    | `inferenceVertexOAuthClientId`        | `string`                              | Vertex OAuth client ID                                            |
-    | `inferenceVertexOAuthClientSecret`    | `string`                              | Vertex OAuth client secret                                        |
-    | `inferenceVertexOAuthScopes`          | `string`                              | Vertex OAuth scopes                                               |
-    | `inferenceVertexBaseUrl`              | `string`                              | Vertex AI base URL                                                |
-    | `inferenceBedrockRegion`              | `string`                              | AWS region                                                        |
-    | `inferenceBedrockBearerToken`         | `string`                              | AWS bearer token                                                  |
-    | `inferenceBedrockBaseUrl`             | `string`                              | Bedrock base URL                                                  |
-    | `inferenceBedrockProfile`             | `string`                              | AWS profile name                                                  |
-    | `inferenceBedrockAwsDir`              | `string`                              | AWS config directory                                              |
-    | `inferenceFoundryResource`            | `string`                              | Azure AI Foundry resource name                                    |
-    | `inferenceFoundryApiKey`              | `string`                              | Azure AI Foundry API key                                          |
-    | `inferenceModels`                     | `array<string\|object>`               | Model list                                                        |
-    | `deploymentOrganizationUuid`          | `string`                              | Organization UUID                                                 |
-    | `disableEssentialTelemetry`           | `boolean`                             | Block essential telemetry                                         |
-    | `disableNonessentialTelemetry`        | `boolean`                             | Block nonessential telemetry                                      |
-    | `disableNonessentialServices`         | `boolean`                             | Block nonessential services                                       |
-    | `managedMcpServers`                   | `array<object\|object\|object\|null>` | Managed MCP servers                                               |
-    | `disabledBuiltinTools`                | `array<string>`                       | Disabled built-in tools                                           |
-    | `allowedWorkspaceFolders`             | `array<string\|object>`               | Allowed workspace folders                                         |
-    | `inferenceCredentialHelper`           | `string`                              | Helper script                                                     |
-    | `inferenceCredentialHelperTtlSec`     | `integer`                             | Helper script TTL                                                 |
-    | `inferenceMaxTokensPerWindow`         | `integer`                             | Max tokens per window                                             |
-    | `inferenceTokenWindowHours`           | `integer`                             | Token cap window                                                  |
+    | MDM key | Type | Description |
+    | - | - | - |
+    | `isDesktopExtensionEnabled` | `boolean` | Allow desktop extensions (renamed from `isDxtEnabled`) |
+    | `isDesktopExtensionSignatureRequired` | `boolean` | Require signed extensions (renamed from `isDxtSignatureRequired`) |
+    | `isLocalDevMcpEnabled` | `boolean` | Allow user-added MCP servers |
+    | `isClaudeCodeForDesktopEnabled` | `boolean` | Allow Claude Code tab |
+    | `coworkEgressAllowedHosts` | `array<string>` | Allowed egress hosts |
+    | `otlpEndpoint` | `string` | OpenTelemetry collector endpoint |
+    | `otlpProtocol` | `enum` | OpenTelemetry exporter protocol |
+    | `otlpHeaders` | `object` | OpenTelemetry exporter headers |
+    | `autoUpdaterEnforcementHours` | `integer` | Auto-update enforcement window |
+    | `disableAutoUpdates` | `boolean` | Block auto-updates |
+    | `inferenceProvider` | `enum` | Inference provider |
+    | `inferenceGatewayBaseUrl` | `string` | Gateway base URL |
+    | `inferenceGatewayApiKey` | `string` | Gateway API key |
+    | `inferenceVertexProjectId` | `string` | GCP project ID |
+    | `inferenceVertexRegion` | `string` | GCP region |
+    | `inferenceVertexCredentialsFile` | `string` | GCP credentials file path |
+    | `inferenceVertexOAuthClientId` | `string` | Vertex OAuth client ID |
+    | `inferenceVertexOAuthClientSecret` | `string` | Vertex OAuth client secret |
+    | `inferenceVertexOAuthScopes` | `string` | Vertex OAuth scopes |
+    | `inferenceVertexBaseUrl` | `string` | Vertex AI base URL |
+    | `inferenceBedrockRegion` | `string` | AWS region |
+    | `inferenceBedrockBearerToken` | `string` | AWS bearer token |
+    | `inferenceBedrockBaseUrl` | `string` | Bedrock base URL |
+    | `inferenceBedrockProfile` | `string` | AWS profile name |
+    | `inferenceBedrockAwsDir` | `string` | AWS config directory |
+    | `inferenceFoundryResource` | `string` | Azure AI Foundry resource name |
+    | `inferenceFoundryApiKey` | `string` | Azure AI Foundry API key |
+    | `inferenceModels` | `array<string\|object>` | Model list |
+    | `deploymentOrganizationUuid` | `string` | Organization UUID |
+    | `disableEssentialTelemetry` | `boolean` | Block essential telemetry |
+    | `disableNonessentialTelemetry` | `boolean` | Block nonessential telemetry |
+    | `disableNonessentialServices` | `boolean` | Block nonessential services |
+    | `managedMcpServers` | `array<object\|object\|object\|null>` | Managed MCP servers |
+    | `disabledBuiltinTools` | `array<string>` | Disabled built-in tools |
+    | `allowedWorkspaceFolders` | `array<string\|object>` | Allowed workspace folders |
+    | `inferenceCredentialHelper` | `string` | Helper script |
+    | `inferenceCredentialHelperTtlSec` | `integer` | Helper script TTL |
+    | `inferenceMaxTokensPerWindow` | `integer` | Max tokens per window |
+    | `inferenceTokenWindowHours` | `integer` | Token cap window |
   </div>
 
   **Deprecated:**

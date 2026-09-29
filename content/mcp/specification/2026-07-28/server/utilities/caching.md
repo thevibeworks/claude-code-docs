@@ -97,9 +97,9 @@ issues, server downtime).
 The `cacheScope` field controls who may cache a response, analogous to HTTP
 `Cache-Control: public` vs `Cache-Control: private`.
 
-| Value       | Meaning                                                                                                                                                                                                                                                                           |
-| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `"public"`  | The response does not contain user-specific data. Any client, shared gateway, or caching proxy **MAY** store and serve the cached response to any user.                                                                                                                           |
+| Value | Meaning |
+| - | - |
+| `"public"` | The response does not contain user-specific data. Any client, shared gateway, or caching proxy **MAY** store and serve the cached response to any user. |
 | `"private"` | The response contains private data that is not meant to be shared between callers. Cached responses **MAY** be reused for the same authorization context. Caches **MUST NOT** be shared across authorization contexts (e.g. a different access token requires a different cache). |
 
 #### Choosing a Cache Scope

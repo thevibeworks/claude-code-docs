@@ -42,13 +42,13 @@ You can upload skills one at a time in the console, but putting them in a git re
 
 Once the repository is set up, Claude can propose changes and they reach channels automatically after you merge:
 
-| Stage                     | What happens                                                                                                                         |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------------------------- |
-| Claude works in a channel | Using the skills currently attached to that scope                                                                                    |
+| Stage | What happens |
+| :- | :- |
+| Claude works in a channel | Using the skills currently attached to that scope |
 | Claude proposes an update | Opens a pull request against the skills repository, under the Claude GitHub App identity, linked back to the thread that prompted it |
-| You review and merge      | The PR is yours to approve, edit, or close, like any contributor's                                                                   |
-| The marketplace syncs     | On push to the default branch, the updated plugin syncs to your organization automatically                                           |
-| New threads pick it up    | The next thread in any covered channel uses the updated skill                                                                        |
+| You review and merge | The PR is yours to approve, edit, or close, like any contributor's |
+| The marketplace syncs | On push to the default branch, the updated plugin syncs to your organization automatically |
+| New threads pick it up | The next thread in any covered channel uses the updated skill |
 
 Every skill change reaches channels only after a human approves the merge; Claude opens the PR, you merge it.
 
@@ -86,11 +86,11 @@ A granted repository's `CLAUDE.md` and `.claude/rules/*.md` load when Claude clo
 
 ## What belongs in the repository
 
-| Put in the skills repo                                        | Put in channel memory instead          |
-| :------------------------------------------------------------ | :------------------------------------- |
-| How to call a specific API correctly                          | This channel's preferred output format |
-| A runbook that any team would reuse                           | A one-off decision this channel made   |
-| Tool-specific gotchas (auth headers, pagination, rate limits) | Who owns what in this team             |
+| Put in the skills repo | Put in channel memory instead |
+| :- | :- |
+| How to call a specific API correctly | This channel's preferred output format |
+| A runbook that any team would reuse | A one-off decision this channel made |
+| Tool-specific gotchas (auth headers, pagination, rate limits) | Who owns what in this team |
 
 Skills in the repository reach every channel under the scope.
 

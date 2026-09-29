@@ -71,10 +71,10 @@ An organization administrator sets the collector endpoint in the
 Claude admin console under Organization settings, Office agents. Two
 settings are available:
 
-| Setting         | Description                                                                       |
-| --------------- | --------------------------------------------------------------------------------- |
-| `otlp_endpoint` | Base URL of your OTLP collector. The add-in appends `/v1/traces`                  |
-| `otlp_headers`  | Optional authentication headers in OpenTelemetry `key1=value1,key2=value2` format |
+| Setting | Description |
+| - | - |
+| `otlp_endpoint` | Base URL of your OTLP collector. The add-in appends `/v1/traces` |
+| `otlp_headers` | Optional authentication headers in OpenTelemetry `key1=value1,key2=value2` format |
 
 ### Direct-provider deployments
 
@@ -83,10 +83,10 @@ gateway supply the same two keys through the customer-configuration
 channels described in
 [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms).
 
-| Key             | Format                    | Description                                       |
-| --------------- | ------------------------- | ------------------------------------------------- |
-| `otlp_endpoint` | HTTPS URL                 | Collector base URL. Trailing slashes are stripped |
-| `otlp_headers`  | `key1=value1,key2=value2` | Optional authentication headers                   |
+| Key | Format | Description |
+| - | - | - |
+| `otlp_endpoint` | HTTPS URL | Collector base URL. Trailing slashes are stripped |
+| `otlp_headers` | `key1=value1,key2=value2` | Optional authentication headers |
 
 The `claude-for-msft-365-install` setup plugin writes these for you. To
 set them by hand, use any of the three channels below. Later channels override
@@ -160,54 +160,54 @@ only* are populated only when users sign in with a Claude account.
 
 These are set on every span.
 
-| Attribute         | Description                                              |
-| ----------------- | -------------------------------------------------------- |
-| `service.name`    | Fixed value `office-agent`                               |
+| Attribute | Description |
+| - | - |
+| `service.name` | Fixed value `office-agent` |
 | `service.version` | Fixed value `1.0.0`. Use `git.sha` to identify the build |
-| `git.sha`         | Build commit                                             |
+| `git.sha` | Build commit |
 
 ### agent.query
 
 Root span, one per user turn. SpanKind `INTERNAL`.
 
-| Attribute                                       | Description                                                   |
-| ----------------------------------------------- | ------------------------------------------------------------- |
-| `agent.surface`                                 | `sheet`, `doc`, `slide`, or `mail`                            |
-| `agent.vendor`                                  | `m`                                                           |
-| `user.message` *content*                        | User prompt, truncated per the attribute cap                  |
-| `user.message_chars`                            | Pre-truncation length of the prompt                           |
-| `session.id`                                    | Opaque session identifier                                     |
-| `document.url` *content*                        | URL of the open Office document                               |
-| `agent.selected_model`                          | Model selected for the session                                |
-| `office.platform`                               | `PC`, `Mac`, `OfficeOnline`, `iOS`, `Android`, or `Universal` |
-| `office.version`                                | Office build number                                           |
-| `user.email` *Claude sign-in only*              | User email                                                    |
-| `user.account_uuid` *Claude sign-in only*       | Claude account UUID                                           |
-| `organization.id` *Claude sign-in only*         | Claude organization UUID                                      |
-| `org.rate_limit_tier` *Claude sign-in only*     | Subscription tier                                             |
-| `mcp.configured_count` *Claude sign-in only*    | Configured MCP servers                                        |
-| `mcp.connected_count` *Claude sign-in only*     | Connected MCP servers                                         |
-| `mcp.failed_count` *Claude sign-in only*        | Failed MCP connections                                        |
-| `file.upload.count` *Claude sign-in only*       | Files attached to the turn                                    |
-| `file.upload.total_bytes` *Claude sign-in only* | Total uploaded bytes                                          |
-| `error.name`                                    | Exception class name, on failure                              |
-| `agent.query_phase`                             | Phase at failure, on failure                                  |
+| Attribute | Description |
+| - | - |
+| `agent.surface` | `sheet`, `doc`, `slide`, or `mail` |
+| `agent.vendor` | `m` |
+| `user.message` *content* | User prompt, truncated per the attribute cap |
+| `user.message_chars` | Pre-truncation length of the prompt |
+| `session.id` | Opaque session identifier |
+| `document.url` *content* | URL of the open Office document |
+| `agent.selected_model` | Model selected for the session |
+| `office.platform` | `PC`, `Mac`, `OfficeOnline`, `iOS`, `Android`, or `Universal` |
+| `office.version` | Office build number |
+| `user.email` *Claude sign-in only* | User email |
+| `user.account_uuid` *Claude sign-in only* | Claude account UUID |
+| `organization.id` *Claude sign-in only* | Claude organization UUID |
+| `org.rate_limit_tier` *Claude sign-in only* | Subscription tier |
+| `mcp.configured_count` *Claude sign-in only* | Configured MCP servers |
+| `mcp.connected_count` *Claude sign-in only* | Connected MCP servers |
+| `mcp.failed_count` *Claude sign-in only* | Failed MCP connections |
+| `file.upload.count` *Claude sign-in only* | Files attached to the turn |
+| `file.upload.total_bytes` *Claude sign-in only* | Total uploaded bytes |
+| `error.name` | Exception class name, on failure |
+| `agent.query_phase` | Phase at failure, on failure |
 
 ### agent.stream
 
 One span per model API call, child of `agent.query`. SpanKind `CLIENT`.
 
-| Attribute               | Description                                       |
-| ----------------------- | ------------------------------------------------- |
-| `model`                 | Model ID used                                     |
-| `max_tokens`            | Maximum output tokens requested                   |
-| `agent.message_count`   | Messages in the conversation at stream start      |
-| `input_tokens`          | Input tokens billed                               |
-| `output_tokens`         | Output tokens billed                              |
-| `cache_read_tokens`     | Tokens served from prompt cache                   |
-| `cache_creation_tokens` | Tokens written to prompt cache                    |
-| `stop_reason`           | `end_turn`, `tool_use`, `max_tokens`, and similar |
-| `request_id`            | Provider request ID for support correlation       |
+| Attribute | Description |
+| - | - |
+| `model` | Model ID used |
+| `max_tokens` | Maximum output tokens requested |
+| `agent.message_count` | Messages in the conversation at stream start |
+| `input_tokens` | Input tokens billed |
+| `output_tokens` | Output tokens billed |
+| `cache_read_tokens` | Tokens served from prompt cache |
+| `cache_creation_tokens` | Tokens written to prompt cache |
+| `stop_reason` | `end_turn`, `tool_use`, `max_tokens`, and similar |
+| `request_id` | Provider request ID for support correlation |
 
 The add-in requests prompt caching on every call. Cache token attributes
 are set from the provider's response and omitted when the provider does
@@ -218,22 +218,22 @@ not return them.
 One span per tool call, child of `agent.stream`. SpanKind `INTERNAL`.
 This is the primary record of what the model did to the document.
 
-| Attribute               | Description                                                                                                           |
-| ----------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `tool_name`             | Tool identifier, for example `get_cell_ranges` or `execute_office_js`. MCP connector tools are recorded as `mcp_tool` |
-| `tool.id`               | Unique invocation ID                                                                                                  |
-| `tool.caller`           | `direct` for tools the add-in runs, or `server_tool` for tools the model provider runs                                |
-| `tool.owner`            | `first_party` for built-in tools, or `third_party` for MCP connector tools                                            |
-| `tool.read_write`       | `read` or `write`                                                                                                     |
-| `tool.accept_decision`  | `manual` (user approved this action), `auto_accept` (standing approval), or `deferred` (queued for review)            |
-| `tool.input` *content*  | Serialized tool input, truncated per the attribute cap                                                                |
-| `tool.success`          | Boolean                                                                                                               |
-| `tool.output` *content* | Serialized tool output, truncated per the attribute cap                                                               |
-| `tool.output_chars`     | Full output length in characters                                                                                      |
-| `tool.error_type`       | Error classification, on failure                                                                                      |
-| `sheet.cells_read`      | Cells read, sheet surface only                                                                                        |
-| `sheet.cells_written`   | Cells written, sheet surface only                                                                                     |
-| `sheet.cells_copied`    | Cells copied, sheet surface only                                                                                      |
+| Attribute | Description |
+| - | - |
+| `tool_name` | Tool identifier, for example `get_cell_ranges` or `execute_office_js`. MCP connector tools are recorded as `mcp_tool` |
+| `tool.id` | Unique invocation ID |
+| `tool.caller` | `direct` for tools the add-in runs, or `server_tool` for tools the model provider runs |
+| `tool.owner` | `first_party` for built-in tools, or `third_party` for MCP connector tools |
+| `tool.read_write` | `read` or `write` |
+| `tool.accept_decision` | `manual` (user approved this action), `auto_accept` (standing approval), or `deferred` (queued for review) |
+| `tool.input` *content* | Serialized tool input, truncated per the attribute cap |
+| `tool.success` | Boolean |
+| `tool.output` *content* | Serialized tool output, truncated per the attribute cap |
+| `tool.output_chars` | Full output length in characters |
+| `tool.error_type` | Error classification, on failure |
+| `sheet.cells_read` | Cells read, sheet surface only |
+| `sheet.cells_written` | Cells written, sheet surface only |
+| `sheet.cells_copied` | Cells copied, sheet surface only |
 
 ### agent.compaction
 
@@ -243,13 +243,13 @@ carries `agent.surface`, `agent.vendor`, `session.id`,
 `office.platform`, `office.version`, and `user.email` (Claude sign-in
 only).
 
-| Attribute                 | Description                      |
-| ------------------------- | -------------------------------- |
-| `compaction.pre_tokens`   | Token count before summarization |
-| `compaction.post_tokens`  | Token count after summarization  |
-| `compaction.tokens_saved` | Delta                            |
-| `compaction.success`      | Boolean                          |
-| `compaction.trigger`      | Currently always `reactive`      |
+| Attribute | Description |
+| - | - |
+| `compaction.pre_tokens` | Token count before summarization |
+| `compaction.post_tokens` | Token count after summarization |
+| `compaction.tokens_saved` | Delta |
+| `compaction.success` | Boolean |
+| `compaction.trigger` | Currently always `reactive` |
 
 ### file.upload
 
@@ -258,12 +258,12 @@ under `agent.query`. SpanKind `CLIENT`. Claude sign-in only. Also
 carries `session.id` and `user.email`. Correlate to the turn by
 `session.id` and timestamp.
 
-| Attribute                | Description                    |
-| ------------------------ | ------------------------------ |
-| `file.upload.size_bytes` | File size                      |
-| `file.upload.mime_type`  | MIME type                      |
-| `file.upload.file_id`    | Anthropic Files API identifier |
-| `file.upload.success`    | Boolean                        |
+| Attribute | Description |
+| - | - |
+| `file.upload.size_bytes` | File size |
+| `file.upload.mime_type` | MIME type |
+| `file.upload.file_id` | Anthropic Files API identifier |
+| `file.upload.success` | Boolean |
 
 ## Span events
 

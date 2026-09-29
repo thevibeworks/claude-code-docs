@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2468                                                                            |
-| **Title**     | Recommend Issuer (iss) Parameter in MCP Auth Responses                          |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2026-03-25                                                                      |
-| **Author(s)** | Emily Lauber ([@EmLauber](https://github.com/EmLauber))                         |
-| **Sponsor**   | [@pcarleton](https://github.com/pcarleton)                                      |
-| **PR**        | [#2468](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2468) |
+| Field | Value |
+| - | - |
+| **SEP** | 2468 |
+| **Title** | Recommend Issuer (iss) Parameter in MCP Auth Responses |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2026-03-25 |
+| **Author(s)** | Emily Lauber ([@EmLauber](https://github.com/EmLauber)) |
+| **Sponsor** | [@pcarleton](https://github.com/pcarleton) |
+| **PR** | [#2468](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2468) |
 
 ***
 

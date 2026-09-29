@@ -77,19 +77,19 @@ scopes validated problems into focused Working Groups or [SEPs](/community/sep-g
 
 ## Leadership
 
-| Role        | Name           | Organization | GitHub                                     | Term    |
-| ----------- | -------------- | ------------ | ------------------------------------------ | ------- |
-| Facilitator | Den Delimarsky | Anthropic    | [@localden](https://github.com/localden)   | Initial |
-| Facilitator | Paul Carleton  | Anthropic    | [@pcarleton](https://github.com/pcarleton) | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Facilitator | Den Delimarsky | Anthropic | [@localden](https://github.com/localden) | Initial |
+| Facilitator | Paul Carleton | Anthropic | [@pcarleton](https://github.com/pcarleton) | Initial |
 
 ## Membership
 
-| Name                     | Organization | GitHub                                               | Discord          | Level       |
-| ------------------------ | ------------ | ---------------------------------------------------- | ---------------- | ----------- |
-| Sam Morrow               | GitHub       | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | `sammorrowdrums` | Participant |
-| Ola Hungerford           | Nordstrom    | [@olaservo](https://github.com/olaservo)             | `olaservo`       | Participant |
-| Peder Holdgaard Pedersen | Saxo Bank    | [@PederHP](https://github.com/PederHP)               | `pederhp`        | Participant |
-| Stefano Ortolani         | Broadcom     | [@ostefano](https://github.com/ostefano)             | `ostefano.`      | Participant |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Sam Morrow | GitHub | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | `sammorrowdrums` | Participant |
+| Ola Hungerford | Nordstrom | [@olaservo](https://github.com/olaservo) | `olaservo` | Participant |
+| Peder Holdgaard Pedersen | Saxo Bank | [@PederHP](https://github.com/PederHP) | `pederhp` | Participant |
+| Stefano Ortolani | Broadcom | [@ostefano](https://github.com/ostefano) | `ostefano.` | Participant |
 
 Open to anyone. Join the `#security-ig` channel on the
 [MCP Contributors Discord](/community/communication#discord). Calls are open and active
@@ -98,9 +98,9 @@ proposals and help drive work forward rather than observe.
 
 ## Operations
 
-| Meeting      | Frequency     | Duration | Purpose                                                                 |
-| ------------ | ------------- | -------- | ----------------------------------------------------------------------- |
-| Office Hours | Every 2 weeks | 45 min   | Threat review, proposal triage, deployment reports, WG-proposal scoping |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Office Hours | Every 2 weeks | 45 min | Threat review, proposal triage, deployment reports, WG-proposal scoping |
 
 An agenda is shared in `#security-ig` ahead of each call.
 
@@ -115,17 +115,17 @@ category in GitHub Discussions.
 The following items form the IG's current discussion agenda. This list is not exhaustive and will
 evolve as the group identifies new areas of interest.
 
-| Item                                                                               | Name                                                                                                                        | Status      | Champion                                                 |
-| ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ----------- | -------------------------------------------------------- |
-| [SEP-2809](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2809) | Attested Tool-Server Admission (ATSA)                                                                                       | Draft       | [@metereconsulting](https://github.com/metereconsulting) |
-| —                                                                                  | SDK vulnerability disclosure                                                                                                | In progress | Facilitators                                             |
-| —                                                                                  | Runtime drift: `list_changed` semantics after approval                                                                      | Open        | —                                                        |
-| —                                                                                  | Supply-chain integrity: protocol, registry, or companion standard                                                           | Open        | —                                                        |
-| —                                                                                  | Tool identity across servers                                                                                                | Open        | —                                                        |
-| —                                                                                  | Capability declarations: hints or contracts (joint with [Tool Annotations IG](/community/interest-groups/tool-annotations)) | Open        | —                                                        |
+| Item | Name | Status | Champion |
+| - | - | - | - |
+| [SEP-2809](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2809) | Attested Tool-Server Admission (ATSA) | Draft | [@metereconsulting](https://github.com/metereconsulting) |
+| — | SDK vulnerability disclosure | In progress | Facilitators |
+| — | Runtime drift: `list_changed` semantics after approval | Open | — |
+| — | Supply-chain integrity: protocol, registry, or companion standard | Open | — |
+| — | Tool identity across servers | Open | — |
+| — | Capability declarations: hints or contracts (joint with [Tool Annotations IG](/community/interest-groups/tool-annotations)) | Open | — |
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-06-13 | Initial charter |

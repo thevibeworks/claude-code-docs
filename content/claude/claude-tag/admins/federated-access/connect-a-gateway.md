@@ -30,15 +30,15 @@ In **Gateways**, click **Connect a gateway** and copy the **Issuer**, **JWKS URL
 
 Claude authenticates with a JSON Web Token (JWT) in the `Authorization: Bearer` header of every request. It reuses one token for a session's requests for about five minutes, or until your gateway answers 401, and then requests a new one, so don't treat a repeated `jti` as a replay. Verify it with a standard JWT or OpenID Connect (OIDC) library configured with these values.
 
-| Value           | What to configure                                                                                                                                                                                                              |
-| :-------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Issuer          | `https://identity.anthropic.com/agents`, matched exactly. The OIDC discovery document is at `https://identity.anthropic.com/agents/.well-known/openid-configuration`.                                                          |
-| Signing keys    | The JSON Web Key Set (JWKS) named by `jwks_uri` in the discovery document, `https://identity.anthropic.com/agents/jwks.json`. Accept ES256 only. On an unknown key ID, refetch the key set before rejecting the token.         |
-| Audience        | Your gateway address as the console stores it (the console converts the host to lowercase), for example `https://gateway.example.com`. The `aud` claim is a JSON array with one element, so use the library's audience option. |
-| Subject prefix  | `wimse://identity.anthropic.com/org/<your organization ID>/agent/`, copied from the dialog. Every token's `sub` claim names one agent in one organization.                                                                     |
-| Tenant          | Your organization ID, the value between `/org/` and `/agent/` in the **Subject prefix**, carried in every token as the `tenant` claim.                                                                                         |
-| Control subject | A reserved test identity in your organization, copied from the dialog. Anthropic uses it only for the connection check.                                                                                                        |
-| Expiry          | Tokens expire 10 minutes after they're issued. Check `exp`, allowing up to 60 seconds of clock skew.                                                                                                                           |
+| Value | What to configure |
+| :- | :- |
+| Issuer | `https://identity.anthropic.com/agents`, matched exactly. The OIDC discovery document is at `https://identity.anthropic.com/agents/.well-known/openid-configuration`. |
+| Signing keys | The JSON Web Key Set (JWKS) named by `jwks_uri` in the discovery document, `https://identity.anthropic.com/agents/jwks.json`. Accept ES256 only. On an unknown key ID, refetch the key set before rejecting the token. |
+| Audience | Your gateway address as the console stores it (the console converts the host to lowercase), for example `https://gateway.example.com`. The `aud` claim is a JSON array with one element, so use the library's audience option. |
+| Subject prefix | `wimse://identity.anthropic.com/org/<your organization ID>/agent/`, copied from the dialog. Every token's `sub` claim names one agent in one organization. |
+| Tenant | Your organization ID, the value between `/org/` and `/agent/` in the **Subject prefix**, carried in every token as the `tenant` claim. |
+| Control subject | A reserved test identity in your organization, copied from the dialog. Anthropic uses it only for the connection check. |
+| Expiry | Tokens expire 10 minutes after they're issued. Check `exp`, allowing up to 60 seconds of clock skew. |
 
 The subject check is yours to implement, and it's required, because every organization's tokens come from the same issuer; see [Authorize on the subject](/docs/claude-tag/admins/federated-access/token-reference#authorize-on-the-subject). Implement the check in one of two forms, strongest first:
 

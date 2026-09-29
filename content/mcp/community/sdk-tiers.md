@@ -33,16 +33,16 @@ for any tier.
 
 ## Tier Requirements
 
-| Requirement                 | Tier 1: Fully Supported                                                                  | Tier 2: Commitment to Full Support                               | Tier 3: Experimental   |
-| --------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------- |
-| **Conformance Tests**       | 100% pass rate                                                                           | 80% pass rate                                                    | No minimum             |
-| **New Protocol Features**   | Before new spec version release, timeline agreed per release based on feature complexity | Within 6 months                                                  | No timeline commitment |
-| **Issue Triage**            | Within 2 business days                                                                   | Within a month                                                   | No requirement         |
-| **Critical Bug Resolution** | Within 7 days                                                                            | Within two weeks                                                 | No requirement         |
-| **Stable Release**          | Required with clear versioning                                                           | At least one stable release                                      | Not required           |
-| **Documentation**           | Comprehensive with examples for all features                                             | Basic documentation covering core features                       | No minimum             |
-| **Dependency Policy**       | Published update policy                                                                  | Published update policy                                          | Not required           |
-| **Roadmap**                 | Published roadmap                                                                        | Published plan toward Tier 1 or explanation for remaining Tier 2 | Not required           |
+| Requirement | Tier 1: Fully Supported | Tier 2: Commitment to Full Support | Tier 3: Experimental |
+| - | - | - | - |
+| **Conformance Tests** | 100% pass rate | 80% pass rate | No minimum |
+| **New Protocol Features** | Before new spec version release, timeline agreed per release based on feature complexity | Within 6 months | No timeline commitment |
+| **Issue Triage** | Within 2 business days | Within a month | No requirement |
+| **Critical Bug Resolution** | Within 7 days | Within two weeks | No requirement |
+| **Stable Release** | Required with clear versioning | At least one stable release | Not required |
+| **Documentation** | Comprehensive with examples for all features | Basic documentation covering core features | No minimum |
+| **Dependency Policy** | Published update policy | Published update policy | Not required |
+| **Roadmap** | Published roadmap | Published plan toward Tier 1 or explanation for remaining Tier 2 | Not required |
 
 **Issue Triage** means labeling and determining whether an issue is valid, not resolving the issue.
 
@@ -110,11 +110,11 @@ first label) and critical bug resolution times (time from P0 label to issue clos
 
 ### Type (pick one)
 
-| Label         | Description                   |
-| ------------- | ----------------------------- |
-| `bug`         | Something isn't working       |
-| `enhancement` | Request for new feature       |
-| `question`    | Further information requested |
+| Label | Description |
+| - | - |
+| `bug` | Something isn't working |
+| `enhancement` | Request for new feature |
+| `question` | Further information requested |
 
 Repositories using [GitHub's native issue types](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/managing-issue-types-in-an-organization)
 satisfy this requirement without needing type labels.
@@ -123,22 +123,22 @@ satisfy this requirement without needing type labels.
 
 Use these exact label names across all repositories to enable consistent reporting and analysis.
 
-| Label                | Description                                             |
-| -------------------- | ------------------------------------------------------- |
-| `needs confirmation` | Unclear if still relevant                               |
-| `needs repro`        | Insufficient information to reproduce                   |
-| `ready for work`     | Has enough information to start                         |
-| `good first issue`   | Good for newcomers                                      |
-| `help wanted`        | Contributions welcome from those familiar with codebase |
+| Label | Description |
+| - | - |
+| `needs confirmation` | Unclear if still relevant |
+| `needs repro` | Insufficient information to reproduce |
+| `ready for work` | Has enough information to start |
+| `good first issue` | Good for newcomers |
+| `help wanted` | Contributions welcome from those familiar with codebase |
 
 ### Priority (only if actionable)
 
-| Label | Description                                                     |
-| ----- | --------------------------------------------------------------- |
-| `P0`  | Critical: core functionality failures or high-severity security |
-| `P1`  | Significant bug affecting many users                            |
-| `P2`  | Moderate issues, valuable feature requests                      |
-| `P3`  | Nice to haves, rare edge cases                                  |
+| Label | Description |
+| - | - |
+| `P0` | Critical: core functionality failures or high-severity security |
+| `P1` | Significant bug affecting many users |
+| `P2` | Moderate issues, valuable feature requests |
+| `P3` | Nice to haves, rare edge cases |
 
 **P0 (Critical)** issues are:
 

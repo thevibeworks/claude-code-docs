@@ -20,10 +20,10 @@ Each prompt below is a Slack message. You paste it in the project channel, Claud
 
 Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
 
-| Connection     | Examples            | Why it matters here                                                                         |
-| :------------- | :------------------ | :------------------------------------------------------------------------------------------ |
+| Connection | Examples | Why it matters here |
+| :- | :- | :- |
 | Issue tracking | Linear, Jira, Asana | Optional. Adds tracker state to digests; without it, digests draw from channel history only |
-| Code           | GitHub              | Optional. Checks PR and review state                                                        |
+| Code | GitHub | Optional. Checks PR and review state |
 
 ## Prompts to paste
 

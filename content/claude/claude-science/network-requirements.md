@@ -16,16 +16,16 @@ The domains fall into three groups: the app's own connections every member needs
 
 Every Claude Science install makes these connections, which travel through the member's outbound proxy and TLS inspection, so they need the proxy and corporate-certificate settings from the corporate networks page. All are outbound HTTPS on TCP 443.
 
-| Domain                                  | Required when                                             | Purpose                                                                                                                                                                                            |
-| --------------------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `claude.ai`                             | Always                                                    | Browser-based sign-in, usage analytics, feature configuration, and the catalog of available connectors                                                                                             |
-| `platform.claude.com`                   | Always                                                    | Completing sign-in (the OAuth token exchange)                                                                                                                                                      |
-| `api.anthropic.com`                     | Always                                                    | The Claude API for every request Claude makes, plus account and usage information                                                                                                                  |
-| `o1158394.ingest.us.sentry.io`          | When telemetry is on (the default)                        | Crash and error reporting (the error type and where it happened in Claude Science's own code, never error messages, conversation content, or research data); blocking it degrades diagnostics only |
-| `*.mcp.claude.com`                      | When members use the Anthropic-hosted connectors          | PubMed, ClinicalTrials.gov, ChEMBL, and bioRxiv connectors                                                                                                                                         |
-| `storage.googleapis.com`                | When automatic updates are on                             | Update manifests and installers                                                                                                                                                                    |
-| `downloads.claude.ai`                   | On Windows, at first launch and when an update changes it | The app window engine, the component that displays the app window                                                                                                                                  |
-| `api.github.com`, `codeload.github.com` | When members import skills from a GitHub repository       | Fetching the skill repository's contents                                                                                                                                                           |
+| Domain | Required when | Purpose |
+| - | - | - |
+| `claude.ai` | Always | Browser-based sign-in, usage analytics, feature configuration, and the catalog of available connectors |
+| `platform.claude.com` | Always | Completing sign-in (the OAuth token exchange) |
+| `api.anthropic.com` | Always | The Claude API for every request Claude makes, plus account and usage information |
+| `o1158394.ingest.us.sentry.io` | When telemetry is on (the default) | Crash and error reporting (the error type and where it happened in Claude Science's own code, never error messages, conversation content, or research data); blocking it degrades diagnostics only |
+| `*.mcp.claude.com` | When members use the Anthropic-hosted connectors | PubMed, ClinicalTrials.gov, ChEMBL, and bioRxiv connectors |
+| `storage.googleapis.com` | When automatic updates are on | Update manifests and installers |
+| `downloads.claude.ai` | On Windows, at first launch and when an update changes it | The app window engine, the component that displays the app window |
+| `api.github.com`, `codeload.github.com` | When members import skills from a GitHub repository | Fetching the skill repository's contents |
 
 Custom connectors and remote compute that members add reach whatever hosts they are configured with, so allow those case by case. Installs with telemetry turned off (see [Telemetry](/docs/claude-science/manage-on-devices#telemetry)) send no error reports, and blocking `o1158394.ingest.us.sentry.io` affects only error reporting, not the rest of the app.
 
@@ -33,14 +33,14 @@ Custom connectors and remote compute that members add reach whatever hosts they 
 
 When Claude searches the scientific literature or retrieves full text, the app itself contacts these hosts over its own connections, which pass through your outbound proxy and TLS inspection like the app connections above, so the proxy must allow them even though several are also on the sandbox allowlist. Full-text downloads come from wherever the open-access copy of an article is hosted, so on a network that allows only listed hosts, expect retrieval of some full-text copies to fail; the domains below keep literature search and PubMed retrieval working.
 
-| Domain                                            | Required when                                              | Purpose                                        |
-| ------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------- |
-| `api.unpaywall.org`                               | When Claude retrieves full text                            | Locating open-access copies of articles        |
-| `doi.org`                                         | When Claude resolves a DOI                                 | DOI resolution                                 |
-| `eutils.ncbi.nlm.nih.gov`, `www.ncbi.nlm.nih.gov` | When Claude searches PubMed                                | PubMed/PMC article records and full-text files |
-| `api.semanticscholar.org`, `api.crossref.org`     | When Claude searches the literature                        | Scholarly search and citation metadata         |
-| `api.openalex.org`                                | When a member adds an OpenAlex API key                     | Validating the stored key                      |
-| `api.elsevier.com`, `api.springernature.com`      | Only when the member has stored those publishers' API keys | Publisher full-text APIs                       |
+| Domain | Required when | Purpose |
+| - | - | - |
+| `api.unpaywall.org` | When Claude retrieves full text | Locating open-access copies of articles |
+| `doi.org` | When Claude resolves a DOI | DOI resolution |
+| `eutils.ncbi.nlm.nih.gov`, `www.ncbi.nlm.nih.gov` | When Claude searches PubMed | PubMed/PMC article records and full-text files |
+| `api.semanticscholar.org`, `api.crossref.org` | When Claude searches the literature | Scholarly search and citation metadata |
+| `api.openalex.org` | When a member adds an OpenAlex API key | Validating the stored key |
+| `api.elsevier.com`, `api.springernature.com` | Only when the member has stored those publishers' API keys | Publisher full-text APIs |
 
 ## Analysis sandbox domains
 
@@ -52,13 +52,13 @@ An organization can instead manage the list for every member from **Organization
 
 These domains supply Python, R, and system packages when Claude builds an analysis environment. Members can't turn them off. An organization that manages the allowlist can turn the CRAN and Bioconductor, npm, and GitHub domains off, and the PyPI and conda domains off once an organization package mirror replaces them.
 
-| Domain                                                                                    | Purpose                                         |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| `pypi.org`, `*.pypi.org`, `files.pythonhosted.org`                                        | Python packages from PyPI                       |
-| `conda.anaconda.org`, `repo.anaconda.com`, `anaconda.org`, `*.anaconda.org`, `*.conda.io` | conda packages                                  |
-| `cran.r-project.org`, `cloud.r-project.org`, `bioconductor.org`, `www.bioconductor.org`   | R packages from CRAN and Bioconductor           |
-| `registry.npmjs.org`                                                                      | npm packages for connectors that need them      |
-| `github.com`, `*.github.com`, `*.githubusercontent.com`                                   | Tools and packages published as GitHub releases |
+| Domain | Purpose |
+| - | - |
+| `pypi.org`, `*.pypi.org`, `files.pythonhosted.org` | Python packages from PyPI |
+| `conda.anaconda.org`, `repo.anaconda.com`, `anaconda.org`, `*.anaconda.org`, `*.conda.io` | conda packages |
+| `cran.r-project.org`, `cloud.r-project.org`, `bioconductor.org`, `www.bioconductor.org` | R packages from CRAN and Bioconductor |
+| `registry.npmjs.org` | npm packages for connectors that need them |
+| `github.com`, `*.github.com`, `*.githubusercontent.com` | Tools and packages published as GitHub releases |
 
 Claude Science itself does not require GitHub; the package manager ships inside the app. The GitHub domains are used only when a package Claude installs is published as a GitHub release or a member imports a skill from a GitHub repository, and blocking them fails only those operations.
 
@@ -70,23 +70,23 @@ An organization package mirror set under **Organization settings** > **Claude Sc
 
 These groups are on by default. Members can turn them off during onboarding or anytime under **Settings** > **Network**. When the organization manages the allowlist, the organization's per-domain switches apply instead.
 
-| Group                    | Domains                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| NCBI and NIH             | `*.ncbi.nlm.nih.gov`, `*.nih.gov`, `cactus.nci.nih.gov`                                                                                                                                                                                                                                                                                                                                                                                              |
-| Genomics and biology     | `rest.ensembl.org`, `grch37.rest.ensembl.org`, `*.ensembl.org`, `reactome.org`, `*.reactome.org`, `rest.kegg.jp`, `*.kegg.jp`, `cellguide.cellxgene.cziscience.com`, `gnomad.broadinstitute.org`, `gtexportal.org`, `jaspar.elixir.no`, `www.encodeproject.org`, `mygene.info`, `rfam.org`, `www.cbioportal.org`, `sparql.rhea-db.org`, `bindingdb.org`, `www.bindingdb.org`, `r12.finngen.fi`, `pheweb.jp`, `api.genome.ucsc.edu`, `unibind.uio.no` |
-| Proteomics               | `rest.uniprot.org`, `*.uniprot.org`, `string-db.org`, `*.string-db.org`, `*.ebi.ac.uk`, `search.foldseek.com`, `rcsb.org`, `*.rcsb.org`, `*.proteinatlas.org`                                                                                                                                                                                                                                                                                        |
-| Literature and citations | `api.semanticscholar.org`, `api.biorxiv.org`, `www.biorxiv.org`, `api.crossref.org`, `doi.org`, `api.openalex.org`, `arxiv.org`, `*.arxiv.org`, `api.grants.gov`                                                                                                                                                                                                                                                                                     |
-| Clinical and pharma      | `api.fda.gov`, `clinicaltrials.gov`, `*.clinicaltrials.gov`, `api.clinpgx.org`, `api.platform.opentargets.org`, `cancer.sanger.ac.uk`, `actionability.clinicalgenome.org`, `search.clinicalgenome.org`, `erepo.genome.network`, `civicdb.org`, `www.antibodyregistry.org`, `cartblanche22.docking.org`, `files.docking.org`                                                                                                                          |
+| Group | Domains |
+| - | - |
+| NCBI and NIH | `*.ncbi.nlm.nih.gov`, `*.nih.gov`, `cactus.nci.nih.gov` |
+| Genomics and biology | `rest.ensembl.org`, `grch37.rest.ensembl.org`, `*.ensembl.org`, `reactome.org`, `*.reactome.org`, `rest.kegg.jp`, `*.kegg.jp`, `cellguide.cellxgene.cziscience.com`, `gnomad.broadinstitute.org`, `gtexportal.org`, `jaspar.elixir.no`, `www.encodeproject.org`, `mygene.info`, `rfam.org`, `www.cbioportal.org`, `sparql.rhea-db.org`, `bindingdb.org`, `www.bindingdb.org`, `r12.finngen.fi`, `pheweb.jp`, `api.genome.ucsc.edu`, `unibind.uio.no` |
+| Proteomics | `rest.uniprot.org`, `*.uniprot.org`, `string-db.org`, `*.string-db.org`, `*.ebi.ac.uk`, `search.foldseek.com`, `rcsb.org`, `*.rcsb.org`, `*.proteinatlas.org` |
+| Literature and citations | `api.semanticscholar.org`, `api.biorxiv.org`, `www.biorxiv.org`, `api.crossref.org`, `doi.org`, `api.openalex.org`, `arxiv.org`, `*.arxiv.org`, `api.grants.gov` |
+| Clinical and pharma | `api.fda.gov`, `clinicaltrials.gov`, `*.clinicaltrials.gov`, `api.clinpgx.org`, `api.platform.opentargets.org`, `cancer.sanger.ac.uk`, `actionability.clinicalgenome.org`, `search.clinicalgenome.org`, `erepo.genome.network`, `civicdb.org`, `www.antibodyregistry.org`, `cartblanche22.docking.org`, `files.docking.org` |
 
 ### Optional compute integrations
 
 These domains matter only when a member turns on the matching integration.
 
-| Domain                            | Required when                                           | Purpose                                                                                                                                   |
-| --------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `health.api.nvidia.com`           | When members enable NVIDIA-hosted BioNeMo inference     | NVIDIA's hosted inference endpoint; a member can enter a different endpoint host when connecting BioNeMo under **Settings** > **Compute** |
-| `nvcr.io`                         | When members run NVIDIA NIM containers locally          | Pulling NVIDIA container images                                                                                                           |
-| `api.modal.com`, `*.w.modal.host` | When members connect a Modal account for remote compute | Modal's API and its dynamic worker hosts, reached from the member's machine                                                               |
+| Domain | Required when | Purpose |
+| - | - | - |
+| `health.api.nvidia.com` | When members enable NVIDIA-hosted BioNeMo inference | NVIDIA's hosted inference endpoint; a member can enter a different endpoint host when connecting BioNeMo under **Settings** > **Compute** |
+| `nvcr.io` | When members run NVIDIA NIM containers locally | Pulling NVIDIA container images |
+| `api.modal.com`, `*.w.modal.host` | When members connect a Modal account for remote compute | Modal's API and its dynamic worker hosts, reached from the member's machine |
 
 ### Domains the sandbox always blocks
 
@@ -98,13 +98,13 @@ For the path-style object-storage entries (`s3.amazonaws.com`, `s3.<region>.amaz
 
 Sign-in pages and interactive previews load in the member's web browser, so they are governed by your web-filtering policy rather than the outbound proxy or the sandbox allowlist. If your policy blocks these domains, sign-in pages fail to load or interactive previews render blank or broken.
 
-| Domain                                                            | Purpose                                                                                                                                                                                                                                                        |
-| ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `claude.ai`                                                       | The sign-in authorization page                                                                                                                                                                                                                                 |
-| `console.anthropic.com`                                           | The sign-in fallback page, which shows a one-time code the member pastes into the app when the browser cannot return to the app's local callback address                                                                                                       |
-| `cdn.jsdelivr.net`, `esm.sh`, `unpkg.com`, `cdnjs.cloudflare.com` | JavaScript display libraries for interactive previews                                                                                                                                                                                                          |
-| `3dmol.org`, `3dmol.csb.pitt.edu`                                 | Molecular structure viewer                                                                                                                                                                                                                                     |
-| `*.claudemcpcontent.com`                                          | Isolated frames that display Claude's HTML previews and interactive connector output. A standard desktop install serves these frames from the app's own local address, so this entry matters mainly where members open Claude Science from a non-local address |
+| Domain | Purpose |
+| - | - |
+| `claude.ai` | The sign-in authorization page |
+| `console.anthropic.com` | The sign-in fallback page, which shows a one-time code the member pastes into the app when the browser cannot return to the app's local callback address |
+| `cdn.jsdelivr.net`, `esm.sh`, `unpkg.com`, `cdnjs.cloudflare.com` | JavaScript display libraries for interactive previews |
+| `3dmol.org`, `3dmol.csb.pitt.edu` | Molecular structure viewer |
+| `*.claudemcpcontent.com` | Isolated frames that display Claude's HTML previews and interactive connector output. A standard desktop install serves these frames from the app's own local address, so this entry matters mainly where members open Claude Science from a non-local address |
 
 ## Related resources
 

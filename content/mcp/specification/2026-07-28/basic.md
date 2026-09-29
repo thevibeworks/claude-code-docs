@@ -130,11 +130,11 @@ server errors. MCP partitions this range as follows:
 
 MCP defines the following error codes:
 
-| Code     | Name                                                                                                       |
-| -------- | ---------------------------------------------------------------------------------------------------------- |
-| `-32020` | [`HeaderMismatch`](/specification/2026-07-28/schema#headermismatcherror)                                   |
+| Code | Name |
+| - | - |
+| `-32020` | [`HeaderMismatch`](/specification/2026-07-28/schema#headermismatcherror) |
 | `-32021` | [`MissingRequiredClientCapability`](/specification/2026-07-28/schema#missingrequiredclientcapabilityerror) |
-| `-32022` | [`UnsupportedProtocolVersion`](/specification/2026-07-28/schema#unsupportedprotocolversionerror)           |
+| `-32022` | [`UnsupportedProtocolVersion`](/specification/2026-07-28/schema#unsupportedprotocolversionerror) |
 
 Codes defined by earlier protocol versions remain reserved and will not be
 reused. Implementations of this protocol version **MUST NOT** emit these codes:
@@ -349,15 +349,15 @@ implementations **MUST NOT** make assumptions about values at these keys.
 
 The following `_meta` keys are reserved by this specification:
 
-| Key                                          | Description                                                 | Defined in                                                              |
-| -------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `progressToken`                              | Opts the request into progress notifications                | [Progress](/specification/2026-07-28/basic/patterns/progress)           |
-| `io.modelcontextprotocol/protocolVersion`    | Protocol version for a request                              | Per-request protocol fields (below)                                     |
-| `io.modelcontextprotocol/clientInfo`         | Client name and version                                     | Per-request protocol fields (below)                                     |
-| `io.modelcontextprotocol/clientCapabilities` | Client capabilities relevant to a request                   | Per-request protocol fields (below)                                     |
-| `io.modelcontextprotocol/logLevel`           | Minimum log level the server should emit for a request      | [Logging](/specification/2026-07-28/server/utilities/logging)           |
-| `io.modelcontextprotocol/subscriptionId`     | Correlates a notification with its originating subscription | [Subscriptions](/specification/2026-07-28/basic/patterns/subscriptions) |
-| `traceparent`, `tracestate`, `baggage`       | OpenTelemetry trace context propagation                     | OpenTelemetry trace context (below)                                     |
+| Key | Description | Defined in |
+| - | - | - |
+| `progressToken` | Opts the request into progress notifications | [Progress](/specification/2026-07-28/basic/patterns/progress) |
+| `io.modelcontextprotocol/protocolVersion` | Protocol version for a request | Per-request protocol fields (below) |
+| `io.modelcontextprotocol/clientInfo` | Client name and version | Per-request protocol fields (below) |
+| `io.modelcontextprotocol/clientCapabilities` | Client capabilities relevant to a request | Per-request protocol fields (below) |
+| `io.modelcontextprotocol/logLevel` | Minimum log level the server should emit for a request | [Logging](/specification/2026-07-28/server/utilities/logging) |
+| `io.modelcontextprotocol/subscriptionId` | Correlates a notification with its originating subscription | [Subscriptions](/specification/2026-07-28/basic/patterns/subscriptions) |
+| `traceparent`, `tracestate`, `baggage` | OpenTelemetry trace context propagation | OpenTelemetry trace context (below) |
 
 Official [extensions](/specification/2026-07-28/basic/versioning#extension-negotiation)
 define additional `_meta` keys under the `io.modelcontextprotocol/` prefix, and
@@ -372,12 +372,12 @@ to identify the protocol version and capabilities in use without relying on any
 prior connection state. See
 [Versioning and Compatibility][lifecycle] for version negotiation rules.
 
-| Key                                          | Type                 | Required | Description                                               |
-| -------------------------------------------- | -------------------- | -------- | --------------------------------------------------------- |
-| `io.modelcontextprotocol/protocolVersion`    | `string`             | Yes      | Protocol version for this request (e.g., `"2026-07-28"`)  |
-| `io.modelcontextprotocol/clientInfo`         | `Implementation`     | No       | Client name and version                                   |
-| `io.modelcontextprotocol/clientCapabilities` | `ClientCapabilities` | Yes      | Client capabilities relevant to this request              |
-| `io.modelcontextprotocol/logLevel`           | `LoggingLevel`       | No       | Minimum log level the server should emit for this request |
+| Key | Type | Required | Description |
+| - | - | - | - |
+| `io.modelcontextprotocol/protocolVersion` | `string` | Yes | Protocol version for this request (e.g., `"2026-07-28"`) |
+| `io.modelcontextprotocol/clientInfo` | `Implementation` | No | Client name and version |
+| `io.modelcontextprotocol/clientCapabilities` | `ClientCapabilities` | Yes | Client capabilities relevant to this request |
+| `io.modelcontextprotocol/logLevel` | `LoggingLevel` | No | Minimum log level the server should emit for this request |
 
 A request missing any required field is malformed; the server **MUST** reject it with
 JSON-RPC error code `-32602` (Invalid params). On HTTP, the response status **MUST** be
@@ -399,9 +399,9 @@ Servers **SHOULD** include the following `io.modelcontextprotocol/*` field in
 every result's `_meta`, unless specifically configured not to do so, to
 identify themselves without relying on any prior connection state:
 
-| Key                                  | Type             | Required | Description             |
-| ------------------------------------ | ---------------- | -------- | ----------------------- |
-| `io.modelcontextprotocol/serverInfo` | `Implementation` | No       | Server name and version |
+| Key | Type | Required | Description |
+| - | - | - | - |
+| `io.modelcontextprotocol/serverInfo` | `Implementation` | No | Server name and version |
 
 <Note>
   `io.modelcontextprotocol/clientInfo` and `io.modelcontextprotocol/serverInfo`

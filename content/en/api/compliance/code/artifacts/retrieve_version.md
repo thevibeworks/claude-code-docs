@@ -13,8 +13,11 @@ response body.
 Returns 404 for Artifacts that don't exist or belong to another parent
 organization. A listed version id can start returning 404 if subsequent
 publishes rotated it out of retained history — re-list on 404. Returns
-503 while the version's content upload is
-still in flight or was abandoned — retry with backoff. Oversized
+503 while the version's content upload is still in flight or was
+abandoned — retry with backoff. Returns 422 for a version that has more
+than one file, because the Compliance API returns only single-file
+versions. Do not retry a 422. The 422's `error.details.error_code` is
+`multi_file_unavailable`. Oversized
 encoded content aborts mid-stream: headers and initial bytes arrive
 but the body terminates early — an aborted chunked transfer is the
 only truncation signal for encoded content. `Content-MD5` is emitted

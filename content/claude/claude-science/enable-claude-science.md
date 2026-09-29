@@ -12,12 +12,12 @@ Claude Science is a desktop app for scientific research. It's off by default for
 
 Claude Science is in beta.
 
-| Plan        | Claude Science app access                 |
-| ----------- | ----------------------------------------- |
-| Team        | Off; turn on in **Organization settings** |
-| Enterprise  | Off; turn on in **Organization settings** |
-| Pro and Max | On; no admin action needed                |
-| Free        | Not available                             |
+| Plan | Claude Science app access |
+| - | - |
+| Team | Off; turn on in **Organization settings** |
+| Enterprise | Off; turn on in **Organization settings** |
+| Pro and Max | On; no admin action needed |
+| Free | Not available |
 
 If your organization has HIPAA compliance enabled, Claude Science app access is also off by default. You can turn it on, but usage isn't covered under your Business Associate Agreement (BAA) and the app shouldn't be used with protected health information (PHI). These organizations also start with stricter organization settings (see [HIPAA organizations](#hipaa-organizations)).
 

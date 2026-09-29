@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 1730                                                                            |
-| **Title**     | SDKs Tiering System                                                             |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-10-29                                                                      |
-| **Author(s)** | Inna Harper, Felix Weinberger                                                   |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1730](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1730) |
+| Field | Value |
+| - | - |
+| **SEP** | 1730 |
+| **Title** | SDKs Tiering System |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-10-29 |
+| **Author(s)** | Inna Harper, Felix Weinberger |
+| **Sponsor** | None |
+| **PR** | [#1730](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1730) |
 
 ***
 
@@ -143,12 +143,12 @@ sequenceDiagram
 
 ### Requirements matrix
 
-| Feature                                           | SDK A   | SDK B    | SDK C  |
-| :------------------------------------------------ | :------ | :------- | :----- |
-| **Protocol Features support (Conformance tests)** | 85%     | 60%%     | 100%   |
-| **GitHub support stats**                          | 10 days | 100 days | 5 days |
-| **Documentation (self reported)**                 | Good    | Minimal  | Good   |
-| **Tier (computed from above)**                    | Tier 2  | Tier 3   | Tier 1 |
+| Feature | SDK A | SDK B | SDK C |
+| :- | :- | :- | :- |
+| **Protocol Features support (Conformance tests)** | 85% | 60%% | 100% |
+| **GitHub support stats** | 10 days | 100 days | 5 days |
+| **Documentation (self reported)** | Good | Minimal | Good |
+| **Tier (computed from above)** | Tier 2 | Tier 3 | Tier 1 |
 
 ## Rationale
 

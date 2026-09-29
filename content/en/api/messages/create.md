@@ -1073,13 +1073,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `string`
-
-  - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
+  - `"claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-sonnet-5-5"`
+
+      Efficient model for coding and agents
 
     - `"claude-fable-5-1"`
 
@@ -1095,7 +1097,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"claude-sonnet-5"`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `"claude-fable-5"`
 
@@ -1154,6 +1156,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       New class of intelligence, strongest in coding and cybersecurity
+
+  - `string`
 
 - `cache_control: optional CacheControlEphemeral or null`
 
@@ -1275,9 +1279,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `stream: optional boolean`
 
-  Whether to incrementally stream the response using server-sent events.
+  Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
 
-  See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
+  In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks) for an example in each language.
 
 - `system: optional string or array of TextBlockParam`
 
@@ -1334,6 +1338,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `ThinkingConfigDisabled object`
 
     - `type: "disabled"`
+
+  - `ThinkingConfigBetweenTools object`
+
+    - `type: "between_tools"`
 
   - `ThinkingConfigAdaptive object`
 
@@ -3912,13 +3920,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `string`
-
-    - `"claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
+    - `"claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-fable-5-1"`
 
@@ -3934,7 +3944,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -3993,6 +4003,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         New class of intelligence, strongest in coding and cybersecurity
+
+    - `string`
 
   - `role: "assistant"`
 

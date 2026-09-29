@@ -12,9 +12,9 @@ Amazon Bedrock Mantle is Amazon Bedrock's Anthropic-native API surface. Unlike t
 
 Mantle supports a bearer token only. There is no in-app AWS sign-in or named-profile support for this provider; if you need per-user IAM Identity Center authentication, use the standard [Amazon Bedrock provider](/docs/third-party/claude-desktop/bedrock) instead.
 
-| Scenario                            | Use                                                                                                                    | Notes                                                            |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| Any Mantle deployment               | [Bearer token](#bearer-token) (`inferenceBedrockBearerToken`)                                                          | A long-lived token distributed in the managed profile.           |
+| Scenario | Use | Notes |
+| - | - | - |
+| Any Mantle deployment | [Bearer token](#bearer-token) (`inferenceBedrockBearerToken`) | A long-lived token distributed in the managed profile. |
 | Token must not be stored statically | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | An executable that prints the bearer token to stdout at runtime. |
 
 ## Set up AWS
@@ -33,11 +33,11 @@ The app reaches `bedrock-mantle.<region>.api.aws` (or the host in `inferenceBedr
 
 Open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Bedrock Mantle**, then fill in the credentials card:
 
-| Field            | Value                    |
-| ---------------- | ------------------------ |
-| AWS region       | e.g. `us-east-1`         |
+| Field | Value |
+| - | - |
+| AWS region | e.g. `us-east-1` |
 | AWS bearer token | your Mantle bearer token |
-| Bedrock base URL | *optional*               |
+| Bedrock base URL | *optional* |
 
 If you set **Bedrock base URL**, provide the full SDK base URL including the `/anthropic` path (for example `https://bedrock-mantle.us-east-1.api.aws/anthropic`); it replaces the default `bedrock-mantle.<region>.api.aws/anthropic` endpoint.
 
@@ -49,19 +49,19 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
 Mantle reuses the `inferenceBedrock*` key names. Only `inferenceBedrockRegion`, `inferenceBedrockBearerToken`, and `inferenceBedrockBaseUrl` apply; the other keys below (`inferenceBedrockProfile`, `inferenceBedrockSso*`, `inferenceBedrockAwsDir`, `inferenceBedrockAwsCliPath`, `inferenceBedrockServiceTier`) are ignored for this provider.
 
-| Setting                                                                                          | Type     | Availability                            | Default | Description                                                                                                       |
-| ------------------------------------------------------------------------------------------------ | -------- | --------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------- |
-| <span id="inferencebedrockregion" />AWS region<br />`inferenceBedrockRegion`                     | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | AWS region for the Bedrock runtime endpoint.                                                                      |
-| <span id="inferencebedrockbaseurl" />Bedrock base URL<br />`inferenceBedrockBaseUrl`             | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | For VPC endpoints or gateway proxies. Host origin only.                                                           |
-| <span id="inferencebedrockservicetier" />Bedrock service tier<br />`inferenceBedrockServiceTier` | `enum`   | MDM + Bootstrap<br />Added in 1.5186.0  | —       | Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand. One of: `flex`, `priority`.            |
-| <span id="inferencebedrockbearertoken" />AWS bearer token<br />`inferenceBedrockBearerToken`     | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those. |
-| <span id="inferencebedrockssostarturl" />AWS SSO start URL<br />`inferenceBedrockSsoStartUrl`    | `string` | MDM + Bootstrap<br />Added in 1.6259.0  | —       | Enables in-app AWS sign-in (no AWS CLI needed). Set with the three SSO fields below.                              |
-| <span id="inferencebedrockssoregion" />AWS SSO region<br />`inferenceBedrockSsoRegion`           | `string` | MDM + Bootstrap<br />Added in 1.6259.0  | —       | IAM Identity Center home region.                                                                                  |
-| <span id="inferencebedrockssoaccountid" />AWS SSO account ID<br />`inferenceBedrockSsoAccountId` | `string` | MDM + Bootstrap<br />Added in 1.6259.0  | —       | 12-digit AWS account ID assigned to users in IAM Identity Center.                                                 |
-| <span id="inferencebedrockssorolename" />AWS SSO role name<br />`inferenceBedrockSsoRoleName`    | `string` | MDM + Bootstrap<br />Added in 1.6259.0  | —       | IAM Identity Center permission-set name granting bedrock:InvokeModel\* on the account above.                      |
-| <span id="inferencebedrockprofile" />AWS profile name<br />`inferenceBedrockProfile`             | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | AWS named profile to use for Bedrock inference credentials.                                                       |
-| <span id="inferencebedrockawsdir" />AWS config directory<br />`inferenceBedrockAwsDir`           | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set.                              |
-| <span id="inferencebedrockawsclipath" />AWS CLI path<br />`inferenceBedrockAwsCliPath`           | `string` | MDM + Bootstrap<br />Added in 1.13576.0 | —       | Absolute path to the aws executable. Leave unset to find it on PATH.                                              |
+| Setting | Type | Availability | Default | Description |
+| - | - | - | - | - |
+| <span id="inferencebedrockregion" />AWS region<br />`inferenceBedrockRegion` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | AWS region for the Bedrock runtime endpoint. |
+| <span id="inferencebedrockbaseurl" />Bedrock base URL<br />`inferenceBedrockBaseUrl` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | For VPC endpoints or gateway proxies. Host origin only. |
+| <span id="inferencebedrockservicetier" />Bedrock service tier<br />`inferenceBedrockServiceTier` | `enum` | MDM + Bootstrap<br />Added in 1.5186.0 | — | Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand. One of: `flex`, `priority`. |
+| <span id="inferencebedrockbearertoken" />AWS bearer token<br />`inferenceBedrockBearerToken` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those. |
+| <span id="inferencebedrockssostarturl" />AWS SSO start URL<br />`inferenceBedrockSsoStartUrl` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | Enables in-app AWS sign-in (no AWS CLI needed). Set with the three SSO fields below. |
+| <span id="inferencebedrockssoregion" />AWS SSO region<br />`inferenceBedrockSsoRegion` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | IAM Identity Center home region. |
+| <span id="inferencebedrockssoaccountid" />AWS SSO account ID<br />`inferenceBedrockSsoAccountId` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | 12-digit AWS account ID assigned to users in IAM Identity Center. |
+| <span id="inferencebedrockssorolename" />AWS SSO role name<br />`inferenceBedrockSsoRoleName` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | IAM Identity Center permission-set name granting bedrock:InvokeModel\* on the account above. |
+| <span id="inferencebedrockprofile" />AWS profile name<br />`inferenceBedrockProfile` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | AWS named profile to use for Bedrock inference credentials. |
+| <span id="inferencebedrockawsdir" />AWS config directory<br />`inferenceBedrockAwsDir` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set. |
+| <span id="inferencebedrockawsclipath" />AWS CLI path<br />`inferenceBedrockAwsCliPath` | `string` | MDM + Bootstrap<br />Added in 1.13576.0 | — | Absolute path to the aws executable. Leave unset to find it on PATH. |
 
 <AccordionGroup>
   <Accordion title="inferenceBedrockServiceTier details">

@@ -4192,13 +4192,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                      - `str`
-
-                      - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+                      - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
                         The model that will complete your prompt.
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                        - `"claude-sonnet-5-5"`
+
+                          Efficient model for coding and agents
 
                         - `"claude-fable-5-1"`
 
@@ -4214,7 +4216,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `"claude-sonnet-5"`
 
-                          High-performance model for coding and agents
+                          Efficient model for coding and agents
 
                         - `"claude-fable-5"`
 
@@ -4273,6 +4275,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                           **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                           New class of intelligence, strongest in coding and cybersecurity
+
+                      - `str`
 
                     - `name: Literal["advisor"]`
 
@@ -4950,6 +4954,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: Literal["disabled"]`
 
+      - `class BetaThinkingConfigBetweenTools`
+
+        - `type: Literal["between_tools"]`
+
       - `class BetaThinkingConfigAdaptive`
 
         - `type: Literal["adaptive"]`
@@ -5038,9 +5046,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `stream: Optional[Literal[false]]`
 
-  Whether to incrementally stream the response using server-sent events.
+  Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
 
-  See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
+  In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks) for an example in each language.
 
 - `system: Optional[Union[str, Iterable[BetaTextBlockParam]]]`
 
@@ -5075,6 +5083,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `class BetaThinkingConfigEnabled`
 
   - `class BetaThinkingConfigDisabled`
+
+  - `class BetaThinkingConfigBetweenTools`
 
   - `class BetaThinkingConfigAdaptive`
 
@@ -8120,13 +8130,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                    - `str`
-
-                    - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+                    - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `"claude-sonnet-5-5"`
+
+                        Efficient model for coding and agents
 
                       - `"claude-fable-5-1"`
 
@@ -8142,7 +8154,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       - `"claude-sonnet-5"`
 
-                        High-performance model for coding and agents
+                        Efficient model for coding and agents
 
                       - `"claude-fable-5"`
 
@@ -8201,6 +8213,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                         **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                         New class of intelligence, strongest in coding and cybersecurity
+
+                    - `str`
 
                   - `name: Literal["advisor"]`
 
@@ -9621,7 +9635,7 @@ print(beta_message.id)
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-fable-5-1",
+        "model": "claude-sonnet-5-5",
         "output_tokens": 0,
         "type": "message"
       }
@@ -12620,13 +12634,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                      - `str`
-
-                      - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+                      - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
                         The model that will complete your prompt.
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                        - `"claude-sonnet-5-5"`
+
+                          Efficient model for coding and agents
 
                         - `"claude-fable-5-1"`
 
@@ -12642,7 +12658,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                         - `"claude-sonnet-5"`
 
-                          High-performance model for coding and agents
+                          Efficient model for coding and agents
 
                         - `"claude-fable-5"`
 
@@ -12701,6 +12717,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                           **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                           New class of intelligence, strongest in coding and cybersecurity
+
+                      - `str`
 
                     - `name: Literal["advisor"]`
 
@@ -13314,6 +13332,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `class BetaThinkingConfigDisabled`
 
     - `type: Literal["disabled"]`
+
+  - `class BetaThinkingConfigBetweenTools`
+
+    - `type: Literal["between_tools"]`
 
   - `class BetaThinkingConfigAdaptive`
 
@@ -16699,13 +16721,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                          - `str`
-
-                          - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+                          - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
                             The model that will complete your prompt.
 
                             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                            - `"claude-sonnet-5-5"`
+
+                              Efficient model for coding and agents
 
                             - `"claude-fable-5-1"`
 
@@ -16721,7 +16745,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `"claude-sonnet-5"`
 
-                              High-performance model for coding and agents
+                              Efficient model for coding and agents
 
                             - `"claude-fable-5"`
 
@@ -16780,6 +16804,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                               **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                               New class of intelligence, strongest in coding and cybersecurity
+
+                          - `str`
 
                         - `name: Literal["advisor"]`
 
@@ -17457,6 +17483,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["disabled"]`
 
+          - `class BetaThinkingConfigBetweenTools`
+
+            - `type: Literal["between_tools"]`
+
           - `class BetaThinkingConfigAdaptive`
 
             - `type: Literal["adaptive"]`
@@ -17545,9 +17575,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `stream: Optional[bool]`
 
-      Whether to incrementally stream the response using server-sent events.
+      Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
 
-      See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
+      In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks) for an example in each language.
 
     - `system: Optional[Union[str, Iterable[BetaTextBlockParam]]]`
 
@@ -17582,6 +17612,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       - `class BetaThinkingConfigEnabled`
 
       - `class BetaThinkingConfigDisabled`
+
+      - `class BetaThinkingConfigBetweenTools`
 
       - `class BetaThinkingConfigAdaptive`
 
@@ -21959,13 +21991,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                          - `str`
-
-                          - `Literal["claude-fable-5-1", "claude-opus-5-5", "claude-mythos-5-1", 15 more]`
+                          - `Literal["claude-sonnet-5-5", "claude-fable-5-1", "claude-opus-5-5", 16 more]`
 
                             The model that will complete your prompt.
 
                             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                            - `"claude-sonnet-5-5"`
+
+                              Efficient model for coding and agents
 
                             - `"claude-fable-5-1"`
 
@@ -21981,7 +22015,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             - `"claude-sonnet-5"`
 
-                              High-performance model for coding and agents
+                              Efficient model for coding and agents
 
                             - `"claude-fable-5"`
 
@@ -22040,6 +22074,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                               **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                               New class of intelligence, strongest in coding and cybersecurity
+
+                          - `str`
 
                         - `name: Literal["advisor"]`
 
@@ -23205,15 +23241,17 @@ Create Agent
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
-  - `Union[str, Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]]`
+  - `Union[Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more], str]`
 
-    - `str`
-
-    - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+    - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-opus-5-5"`
 
@@ -23225,7 +23263,7 @@ Create Agent
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -23275,6 +23313,8 @@ Create Agent
 
         High-performance model for agents and coding
 
+    - `str`
+
   - `class BetaManagedAgentsModelConfigParams`
 
     An object that defines additional configuration control over model use
@@ -23285,13 +23325,13 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+      - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `str`
 
     - `effort: Optional[Effort]`
 
@@ -24075,13 +24115,15 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+      - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -24093,7 +24135,7 @@ Create Agent
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -24142,6 +24184,8 @@ Create Agent
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `str`
 
     - `effort: Optional[Effort]`
 
@@ -24900,13 +24944,15 @@ List Agents
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+      - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -24918,7 +24964,7 @@ List Agents
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -24967,6 +25013,8 @@ List Agents
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `str`
 
     - `effort: Optional[Effort]`
 
@@ -25712,13 +25760,15 @@ Get Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+      - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -25730,7 +25780,7 @@ Get Agent
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -25779,6 +25829,8 @@ Get Agent
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `str`
 
     - `effort: Optional[Effort]`
 
@@ -26392,15 +26444,17 @@ Update Agent
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
-  - `Union[str, Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]]`
+  - `Union[Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more], str]`
 
-    - `str`
-
-    - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+    - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-opus-5-5"`
 
@@ -26412,7 +26466,7 @@ Update Agent
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -26462,6 +26516,8 @@ Update Agent
 
         High-performance model for agents and coding
 
+    - `str`
+
   - `class BetaManagedAgentsModelConfigParams`
 
     An object that defines additional configuration control over model use
@@ -26472,13 +26528,13 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+      - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `str`
 
     - `effort: Optional[Effort]`
 
@@ -27240,13 +27296,15 @@ Update Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+      - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -27258,7 +27316,7 @@ Update Agent
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -27307,6 +27365,8 @@ Update Agent
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `str`
 
     - `effort: Optional[Effort]`
 
@@ -28043,13 +28103,15 @@ Archive Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+      - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -28061,7 +28123,7 @@ Archive Agent
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -28110,6 +28172,8 @@ Archive Agent
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `str`
 
     - `effort: Optional[Effort]`
 
@@ -28857,13 +28921,15 @@ List Agent Versions
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `str`
-
-      - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+      - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -28875,7 +28941,7 @@ List Agent Versions
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -28924,6 +28990,8 @@ List Agent Versions
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `str`
 
     - `effort: Optional[Effort]`
 
@@ -33497,15 +33565,17 @@ Create Session
 
       Replacement model. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object. Omit to use the agent's model.
 
-      - `Union[str, Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]]`
+      - `Union[Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more], str]`
 
-        - `str`
-
-        - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+        - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
 
           - `"claude-opus-5-5"`
 
@@ -33517,7 +33587,7 @@ Create Session
 
           - `"claude-sonnet-5"`
 
-            High-performance model for coding and agents
+            Efficient model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -33567,6 +33637,8 @@ Create Session
 
             High-performance model for agents and coding
 
+        - `str`
+
       - `class BetaManagedAgentsModelConfigParams`
 
         An object that defines additional configuration control over model use
@@ -33577,13 +33649,13 @@ Create Session
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+          - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -34619,13 +34691,15 @@ Create Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `str`
-
-        - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+        - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
 
           - `"claude-opus-5-5"`
 
@@ -34637,7 +34711,7 @@ Create Session
 
           - `"claude-sonnet-5"`
 
-            High-performance model for coding and agents
+            Efficient model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -34686,6 +34760,8 @@ Create Session
           - `"claude-sonnet-4-5-20250929"`
 
             High-performance model for agents and coding
+
+        - `str`
 
       - `effort: Optional[Effort]`
 
@@ -35931,13 +36007,15 @@ List Sessions
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `str`
-
-        - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+        - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
 
           - `"claude-opus-5-5"`
 
@@ -35949,7 +36027,7 @@ List Sessions
 
           - `"claude-sonnet-5"`
 
-            High-performance model for coding and agents
+            Efficient model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -35998,6 +36076,8 @@ List Sessions
           - `"claude-sonnet-4-5-20250929"`
 
             High-performance model for agents and coding
+
+        - `str`
 
       - `effort: Optional[Effort]`
 
@@ -37165,13 +37245,15 @@ Get Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `str`
-
-        - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+        - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
 
           - `"claude-opus-5-5"`
 
@@ -37183,7 +37265,7 @@ Get Session
 
           - `"claude-sonnet-5"`
 
-            High-performance model for coding and agents
+            Efficient model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -37232,6 +37314,8 @@ Get Session
           - `"claude-sonnet-4-5-20250929"`
 
             High-performance model for agents and coding
+
+        - `str`
 
       - `effort: Optional[Effort]`
 
@@ -38878,13 +38962,15 @@ Update Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `str`
-
-        - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+        - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
 
           - `"claude-opus-5-5"`
 
@@ -38896,7 +38982,7 @@ Update Session
 
           - `"claude-sonnet-5"`
 
-            High-performance model for coding and agents
+            Efficient model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -38945,6 +39031,8 @@ Update Session
           - `"claude-sonnet-4-5-20250929"`
 
             High-performance model for agents and coding
+
+        - `str`
 
       - `effort: Optional[Effort]`
 
@@ -40265,13 +40353,15 @@ Archive Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `str`
-
-        - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+        - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
 
           - `"claude-opus-5-5"`
 
@@ -40283,7 +40373,7 @@ Archive Session
 
           - `"claude-sonnet-5"`
 
-            High-performance model for coding and agents
+            Efficient model for coding and agents
 
           - `"claude-fable-5"`
 
@@ -40332,6 +40422,8 @@ Archive Session
           - `"claude-sonnet-4-5-20250929"`
 
             High-performance model for agents and coding
+
+        - `str`
 
       - `effort: Optional[Effort]`
 
@@ -41388,9 +41480,77 @@ List Events
 
   Opaque pagination cursor from a previous response's `next_page`.
 
-- `types: Optional[Sequence[str]]`
+- `types: Optional[List[BetaManagedAgentsSessionEventType]]`
 
   Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
+
+  - `"user.message"`
+
+  - `"user.interrupt"`
+
+  - `"user.tool_confirmation"`
+
+  - `"user.custom_tool_result"`
+
+  - `"agent.custom_tool_use"`
+
+  - `"agent.message"`
+
+  - `"agent.thinking"`
+
+  - `"agent.mcp_tool_use"`
+
+  - `"agent.mcp_tool_result"`
+
+  - `"agent.tool_use"`
+
+  - `"agent.tool_result"`
+
+  - `"agent.thread_message_received"`
+
+  - `"agent.thread_message_sent"`
+
+  - `"agent.thread_context_compacted"`
+
+  - `"session.error"`
+
+  - `"session.status_rescheduled"`
+
+  - `"session.status_running"`
+
+  - `"session.status_idle"`
+
+  - `"session.status_terminated"`
+
+  - `"session.thread_created"`
+
+  - `"span.outcome_evaluation_start"`
+
+  - `"span.outcome_evaluation_end"`
+
+  - `"span.model_request_start"`
+
+  - `"span.model_request_end"`
+
+  - `"span.outcome_evaluation_ongoing"`
+
+  - `"user.define_outcome"`
+
+  - `"session.thread_status_running"`
+
+  - `"session.thread_status_idle"`
+
+  - `"session.thread_status_terminated"`
+
+  - `"user.tool_result"`
+
+  - `"session.thread_status_rescheduled"`
+
+  - `"session.updated"`
+
+  - `"system.message"`
+
+  - `"session.usage"`
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -43024,13 +43184,15 @@ List Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+          - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-opus-5-5"`
 
@@ -43042,7 +43204,7 @@ List Events
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -43091,6 +43253,8 @@ List Events
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -46412,13 +46576,15 @@ Stream Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+          - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-opus-5-5"`
 
@@ -46430,7 +46596,7 @@ Stream Events
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -46479,6 +46645,8 @@ Stream Events
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -48563,13 +48731,15 @@ List Session Threads
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+          - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-opus-5-5"`
 
@@ -48581,7 +48751,7 @@ List Session Threads
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -48630,6 +48800,8 @@ List Session Threads
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -49485,13 +49657,15 @@ Get Session Thread
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+          - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-opus-5-5"`
 
@@ -49503,7 +49677,7 @@ Get Session Thread
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -49552,6 +49726,8 @@ Get Session Thread
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -50402,13 +50578,15 @@ Archive Session Thread
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+          - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-opus-5-5"`
 
@@ -50420,7 +50598,7 @@ Archive Session Thread
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -50469,6 +50647,8 @@ Archive Session Thread
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -52805,13 +52985,15 @@ List Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+          - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-opus-5-5"`
 
@@ -52823,7 +53005,7 @@ List Session Thread Events
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -52872,6 +53054,8 @@ List Session Thread Events
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -55207,13 +55391,15 @@ Stream Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `str`
-
-          - `Literal["claude-opus-5-5", "claude-fable-5-1", "claude-sonnet-5", 12 more]`
+          - `Literal["claude-sonnet-5-5", "claude-opus-5-5", "claude-fable-5-1", 13 more]`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-opus-5-5"`
 
@@ -55225,7 +55411,7 @@ Stream Session Thread Events
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -55274,6 +55460,8 @@ Stream Session Thread Events
             - `"claude-sonnet-4-5-20250929"`
 
               High-performance model for agents and coding
+
+          - `str`
 
         - `effort: Optional[Effort]`
 

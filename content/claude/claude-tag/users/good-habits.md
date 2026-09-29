@@ -66,12 +66,12 @@ Starting a thread costs one sentence. Closing it costs your attention, because y
 
 Without a stated end condition, Claude can't declare the thread finished and you can't stop checking it. The end condition you write determines who can close the thread, and the table matches each kind of condition to who closes it.
 
-| End condition                  | Who closes it      | Example                                               |
-| :----------------------------- | :----------------- | :---------------------------------------------------- |
-| An objective check passes      | Claude, on its own | "Done when CI is green"                               |
-| You approve a prepared result  | You, one click     | "Draft the status memo and post it here for approval" |
-| You choose between options     | You, one word      | "Research approaches A and B and recommend one"       |
-| No verifiable condition exists | No one             | Reframe it as a question instead of a task            |
+| End condition | Who closes it | Example |
+| :- | :- | :- |
+| An objective check passes | Claude, on its own | "Done when CI is green" |
+| You approve a prepared result | You, one click | "Draft the status memo and post it here for approval" |
+| You choose between options | You, one word | "Research approaches A and B and recommend one" |
+| No verifiable condition exists | No one | Reframe it as a question instead of a task |
 
 Two refinements make the table work in practice:
 
@@ -136,13 +136,13 @@ To start several independent tasks from inside an existing thread, [ask Claude t
 
 Channel access belongs to the channel, and DM access belongs to you. A channel can also be yours alone. Create one with just you and Claude in it, and it works the same way a team channel does. The table compares the three surfaces.
 
-|                   | A team channel                             | Your own channel                                                                    | A DM                                                                                                   |
-| :---------------- | :----------------------------------------- | :---------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| Access            | The channel's connections, set by an admin | The channel's connections, set by an admin                                          | Your own claude.ai connectors                                                                          |
-| Memory            | Channel memory the team builds             | Channel memory you build                                                            | Outside channel and workspace memory                                                                   |
-| Who sees the work | Everyone in the channel                    | You, plus anyone you invite                                                         | You                                                                                                    |
-| Billing           | The organization                           | The organization                                                                    | Your seat                                                                                              |
-| Best for          | Shared work the team should see and steer  | Your own questions, digests, and follow-ups, kept where a teammate can pick them up | Personal tasks on your own connections, or data that shouldn't run through a shared channel connection |
+| | A team channel | Your own channel | A DM |
+| :- | :- | :- | :- |
+| Access | The channel's connections, set by an admin | The channel's connections, set by an admin | Your own claude.ai connectors |
+| Memory | Channel memory the team builds | Channel memory you build | Outside channel and workspace memory |
+| Who sees the work | Everyone in the channel | You, plus anyone you invite | You |
+| Billing | The organization | The organization | Your seat |
+| Best for | Shared work the team should see and steer | Your own questions, digests, and follow-ups, kept where a teammate can pick them up | Personal tasks on your own connections, or data that shouldn't run through a shared channel connection |
 
 [Routines](/docs/claude-tag/users/proactivity) belong to a channel too. You set standing work up in the channel where it should post, and it runs with that channel's connections. [Work from your own channel](/docs/claude-tag/users/use-cases/your-own-channel) shows what a channel of your own is good for.
 
@@ -164,13 +164,13 @@ If Claude says it can't reach something in a channel, the channel likely wasn't 
 
 When Claude gets something wrong, or learns something worth keeping, where you put the fix decides who else benefits and whether you can do it yourself.
 
-| You want Claude to know                                                                   | Put it in                                                                                                                      | Who can write it                                                                                                                   | Reaches                                                                                             |
-| :---------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------- |
-| How this channel should behave: format, tone, when to respond                             | [**Channel memory**](/docs/claude-tag/users/memory) (say it and ask Claude to remember)                                             | Anyone in the channel                                                                                                              | This channel; the whole workspace only if Claude saves it as a workspace note from a public channel |
-| Conventions and setup for one repository: file layout, PR labels, dependencies to install | **`CLAUDE.md`** at the repo root ([loaded when the repo is](/docs/claude-tag/admins/configure-github#what-loads-from-a-repository)) | Anyone with repo write                                                                                                             | Any session that works in that repo, from any channel                                               |
-| Standing rules for this channel that outrank memory                                       | The [**Configure** page](#configure-claude-for-a-channel), in the **Channel instructions** field                               | Channel members, unless an admin has [restricted it](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) | This channel                                                                                        |
-| How to use a tool correctly, or follow a specific process, org-wide                       | [**A skill**](/docs/claude-tag/admins/skills-repo) in your org's plugin marketplace                                                 | An organization Owner adds it; anyone can ask Claude to open a PR proposing the change                                             | Every channel under the scope it's attached to                                                      |
-| Standing rules across many channels                                                       | [**Custom instructions**](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) on a workspace or organization scope     | An organization Owner, in the console                                                                                              | Every session in that scope                                                                         |
+| You want Claude to know | Put it in | Who can write it | Reaches |
+| :- | :- | :- | :- |
+| How this channel should behave: format, tone, when to respond | [**Channel memory**](/docs/claude-tag/users/memory) (say it and ask Claude to remember) | Anyone in the channel | This channel; the whole workspace only if Claude saves it as a workspace note from a public channel |
+| Conventions and setup for one repository: file layout, PR labels, dependencies to install | **`CLAUDE.md`** at the repo root ([loaded when the repo is](/docs/claude-tag/admins/configure-github#what-loads-from-a-repository)) | Anyone with repo write | Any session that works in that repo, from any channel |
+| Standing rules for this channel that outrank memory | The [**Configure** page](#configure-claude-for-a-channel), in the **Channel instructions** field | Channel members, unless an admin has [restricted it](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) | This channel |
+| How to use a tool correctly, or follow a specific process, org-wide | [**A skill**](/docs/claude-tag/admins/skills-repo) in your org's plugin marketplace | An organization Owner adds it; anyone can ask Claude to open a PR proposing the change | Every channel under the scope it's attached to |
+| Standing rules across many channels | [**Custom instructions**](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) on a workspace or organization scope | An organization Owner, in the console | Every session in that scope |
 
 The first three are yours to write. Skills and wider-scope custom instructions are attached by an Owner, but you can still ask Claude to draft a skill change as a pull request for an admin to review:
 

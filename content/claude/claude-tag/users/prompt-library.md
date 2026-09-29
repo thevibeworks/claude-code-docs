@@ -156,17 +156,17 @@ Post the draft to the thread, or commit and push what you have, then keep going.
 
 Each entry in the use case library gets one starter here; the linked page has the full setup and the reasoning behind its prompts.
 
-| To do this                                                                  | Paste this                                                                                                                                                                                                                                                   |
-| :-------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Triage requests](/docs/claude-tag/users/use-cases/triage-requests)              | "remember for this channel: when someone tags you on a request, check whether it duplicates something already reported, answer it directly if the answer exists, and otherwise route it to the right owner with a one-line summary. Track recurring themes." |
-| [Catch up](/docs/claude-tag/users/use-cases/catch-up)                            | "what got decided in this thread, and what's still open?"                                                                                                                                                                                                    |
-| [Create an artifact](/docs/claude-tag/users/use-cases/create-artifacts)          | "turn this thread into a one-page decision doc"                                                                                                                                                                                                              |
-| [Track a project](/docs/claude-tag/users/use-cases/track-projects)               | "where are we on the migration? What's blocked and on whom?"                                                                                                                                                                                                 |
-| [Answer a data question](/docs/claude-tag/users/use-cases/answer-data-questions) | "show signup growth by week, and explain the dips discussed above"                                                                                                                                                                                           |
-| [Find an answer in the docs](/docs/claude-tag/users/use-cases/find-answers)      | "what's our policy on data retention, and which doc says so?"                                                                                                                                                                                                |
-| [Pull deal state](/docs/claude-tag/users/use-cases/pull-deal-state)              | "what's the state of the Acme renewal?"                                                                                                                                                                                                                      |
-| [Watch monitors](/docs/claude-tag/users/use-cases/watch-monitors)                | "every morning at 7, check the dashboards and post one line per service"                                                                                                                                                                                     |
-| [Fix a bug](/docs/claude-tag/users/use-cases/fix-bugs)                           | "in acme/data-pipeline, reproduce the bug in this thread, fix it, and open a draft PR"                                                                                                                                                                       |
+| To do this | Paste this |
+| :- | :- |
+| [Triage requests](/docs/claude-tag/users/use-cases/triage-requests) | "remember for this channel: when someone tags you on a request, check whether it duplicates something already reported, answer it directly if the answer exists, and otherwise route it to the right owner with a one-line summary. Track recurring themes." |
+| [Catch up](/docs/claude-tag/users/use-cases/catch-up) | "what got decided in this thread, and what's still open?" |
+| [Create an artifact](/docs/claude-tag/users/use-cases/create-artifacts) | "turn this thread into a one-page decision doc" |
+| [Track a project](/docs/claude-tag/users/use-cases/track-projects) | "where are we on the migration? What's blocked and on whom?" |
+| [Answer a data question](/docs/claude-tag/users/use-cases/answer-data-questions) | "show signup growth by week, and explain the dips discussed above" |
+| [Find an answer in the docs](/docs/claude-tag/users/use-cases/find-answers) | "what's our policy on data retention, and which doc says so?" |
+| [Pull deal state](/docs/claude-tag/users/use-cases/pull-deal-state) | "what's the state of the Acme renewal?" |
+| [Watch monitors](/docs/claude-tag/users/use-cases/watch-monitors) | "every morning at 7, check the dashboards and post one line per service" |
+| [Fix a bug](/docs/claude-tag/users/use-cases/fix-bugs) | "in acme/data-pipeline, reproduce the bug in this thread, fix it, and open a draft PR" |
 
 ## Related resources
 

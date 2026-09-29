@@ -121,13 +121,13 @@ updates) where partial progress is meaningful. Status messages report progress.
 
 ## Task lifecycle
 
-| Status           | Meaning                                                                    |
-| ---------------- | -------------------------------------------------------------------------- |
-| `working`        | The operation is in progress.                                              |
-| `input_required` | The server needs client input before continuing. See `inputRequests`.      |
-| `completed`      | The operation finished. The `result` field contains the final output.      |
-| `failed`         | A JSON-RPC error occurred during execution. The `error` field has details. |
-| `cancelled`      | The operation was cancelled (not always honored).                          |
+| Status | Meaning |
+| - | - |
+| `working` | The operation is in progress. |
+| `input_required` | The server needs client input before continuing. See `inputRequests`. |
+| `completed` | The operation finished. The `result` field contains the final output. |
+| `failed` | A JSON-RPC error occurred during execution. The `error` field has details. |
+| `cancelled` | The operation was cancelled (not always honored). |
 
 `completed`, `failed`, and `cancelled` are terminal — once reached, the task's
 state does not change.

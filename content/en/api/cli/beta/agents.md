@@ -105,11 +105,15 @@ Create Agent
 
     Model identifier and configuration.
 
-    - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+    - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-opus-5-5"`
 
@@ -121,7 +125,7 @@ Create Agent
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -817,11 +821,15 @@ List Agents
 
       Model identifier and configuration.
 
-      - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+      - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -833,7 +841,7 @@ List Agents
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -1516,11 +1524,15 @@ Get Agent
 
     Model identifier and configuration.
 
-    - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+    - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-opus-5-5"`
 
@@ -1532,7 +1544,7 @@ Get Agent
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -2249,11 +2261,15 @@ Update Agent
 
     Model identifier and configuration.
 
-    - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+    - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-opus-5-5"`
 
@@ -2265,7 +2281,7 @@ Update Agent
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -2934,11 +2950,15 @@ Archive Agent
 
     Model identifier and configuration.
 
-    - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+    - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-opus-5-5"`
 
@@ -2950,7 +2970,7 @@ Archive Agent
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -3609,11 +3629,15 @@ ant beta:agents archive \
 
     Model identifier and configuration.
 
-    - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+    - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-opus-5-5"`
 
@@ -3625,7 +3649,7 @@ ant beta:agents archive \
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -6291,11 +6315,15 @@ ant beta:agents archive \
 
   Model identifier and configuration.
 
-  - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+  - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
     The model that will power your agent.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-sonnet-5-5"`
+
+      Efficient model for coding and agents
 
     - `"claude-opus-5-5"`
 
@@ -6307,7 +6335,7 @@ ant beta:agents archive \
 
     - `"claude-sonnet-5"`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `"claude-fable-5"`
 
@@ -6409,11 +6437,15 @@ ant beta:agents archive \
 
   An object that defines additional configuration control over model use
 
-  - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+  - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
     The model that will power your agent.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-sonnet-5-5"`
+
+      Efficient model for coding and agents
 
     - `"claude-opus-5-5"`
 
@@ -6425,7 +6457,7 @@ ant beta:agents archive \
 
     - `"claude-sonnet-5"`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `"claude-fable-5"`
 
@@ -6733,11 +6765,15 @@ ant beta:agents archive \
 
     Model identifier and configuration.
 
-    - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+    - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `"claude-opus-5-5"`
 
@@ -6749,7 +6785,7 @@ ant beta:agents archive \
 
       - `"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `"claude-fable-5"`
 
@@ -7713,11 +7749,15 @@ List Agent Versions
 
       Model identifier and configuration.
 
-      - `id: string or "claude-opus-5-5" or "claude-fable-5-1" or "claude-sonnet-5" or 12 more`
+      - `id: "claude-sonnet-5-5" or "claude-opus-5-5" or "claude-fable-5-1" or 13 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -7729,7 +7769,7 @@ List Agent Versions
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 

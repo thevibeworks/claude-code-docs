@@ -91,12 +91,12 @@ After you add a plugin, try it on a real task. If it doesn't help, turn it off w
 
 A plugin can contain skills, commands, MCP connectors, and agents. Chat, Cowork, and Claude Code each load the components they support and skip the others, so one plugin can do more in Cowork than in a chat conversation.
 
-| Component      | What it adds for you                                                                                                                                                  | Where it works            |
-| :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------ |
-| Skills         | Instructions Claude follows when a task matches, such as your team's process for a weekly report. They're listed in **Customize > Skills** alongside your own skills. | Chat, Cowork, Claude Code |
-| Commands       | Named actions. In Cowork and Claude Code you run one by typing `/plugin-name:command`. In chat a command loads as a skill.                                            | Chat, Cowork, Claude Code |
-| MCP connectors | Access to an external tool or data source. You add or connect each one from the plugin's **Connectors** tab.                                                          | Chat, Cowork, Claude Code |
-| Agents         | Specialists Claude can delegate part of a task to                                                                                                                     | Cowork, Claude Code       |
+| Component | What it adds for you | Where it works |
+| :- | :- | :- |
+| Skills | Instructions Claude follows when a task matches, such as your team's process for a weekly report. They're listed in **Customize > Skills** alongside your own skills. | Chat, Cowork, Claude Code |
+| Commands | Named actions. In Cowork and Claude Code you run one by typing `/plugin-name:command`. In chat a command loads as a skill. | Chat, Cowork, Claude Code |
+| MCP connectors | Access to an external tool or data source. You add or connect each one from the plugin's **Connectors** tab. | Chat, Cowork, Claude Code |
+| Agents | Specialists Claude can delegate part of a task to | Cowork, Claude Code |
 
 [Plugin feature support across platforms](/docs/plugins/platform-support) lists every component by app.
 

@@ -38,30 +38,30 @@ The Tool Annotations Interest Group explores the role of tool annotations in ena
 
 ## Leadership
 
-| Role        | Name           | Organization | GitHub                                               | Term    |
-| ----------- | -------------- | ------------ | ---------------------------------------------------- | ------- |
-| Facilitator | Sam Morrow     | GitHub       | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | Initial |
-| Facilitator | Robert Reichel | OpenAI       | [@rreichel3](https://github.com/rreichel3)           | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Facilitator | Sam Morrow | GitHub | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | Initial |
+| Facilitator | Robert Reichel | OpenAI | [@rreichel3](https://github.com/rreichel3) | Initial |
 
 ## Membership
 
-| Name                    | Organization | GitHub                                               | Discord  | Level       |
-| ----------------------- | ------------ | ---------------------------------------------------- | -------- | ----------- |
-| Sam Morrow              | GitHub       | [@SamMorrowDrums](https://github.com/SamMorrowDrums) |          | Facilitator |
-| Robert Reichel          | OpenAI       | [@rreichel3](https://github.com/rreichel3)           |          | Facilitator |
-| Matt Carey              | Cloudflare   | [@mattzcarey](https://github.com/mattzcarey)         |          | Participant |
-| Kapil Sharma            | Microsoft    | [@kapil8811](https://github.com/kapil8811)           |          | Participant |
-| Connor Peet             | Microsoft    | [@connor4312](https://github.com/connor4312)         |          | Participant |
-| Ola Hungerford          | Nordstrom    | [@olaservo](https://github.com/olaservo)             |          | Participant |
-| Gökhan Arkan            | GitHub       | [@gokhanarkan](https://github.com/gokhanarkan)       |          | Participant |
-| Joanna Krzek-Lubowiecka | GitHub       | [@joannakl](https://github.com/joannakl)             |          | Participant |
-| Maxi Boch               | Independent  | [@maxiboch](https://github.com/maxiboch)             | maxiboch | Participant |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Sam Morrow | GitHub | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | | Facilitator |
+| Robert Reichel | OpenAI | [@rreichel3](https://github.com/rreichel3) | | Facilitator |
+| Matt Carey | Cloudflare | [@mattzcarey](https://github.com/mattzcarey) | | Participant |
+| Kapil Sharma | Microsoft | [@kapil8811](https://github.com/kapil8811) | | Participant |
+| Connor Peet | Microsoft | [@connor4312](https://github.com/connor4312) | | Participant |
+| Ola Hungerford | Nordstrom | [@olaservo](https://github.com/olaservo) | | Participant |
+| Gökhan Arkan | GitHub | [@gokhanarkan](https://github.com/gokhanarkan) | | Participant |
+| Joanna Krzek-Lubowiecka | GitHub | [@joannakl](https://github.com/joannakl) | | Participant |
+| Maxi Boch | Independent | [@maxiboch](https://github.com/maxiboch) | maxiboch | Participant |
 
 ## Operations
 
-| Meeting    | Frequency | Duration | Purpose                                        |
-| ---------- | --------- | -------- | ---------------------------------------------- |
-| Discussion | TBD       | TBD      | Use-case sharing, annotation review, open Q\&A |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Discussion | TBD | TBD | Use-case sharing, annotation review, open Q\&A |
 
 Discord: [#tool-annotations-ig](https://discord.com/channels/1358869848138059966/1482836798517543073)
 
@@ -71,12 +71,12 @@ The following SEPs and themes form the IG's initial discussion agenda. This list
 
 ### Active SEPs Under Discussion
 
-| SEP                                                                                | Title                              | Status | Author                                                                                           |
-| ---------------------------------------------------------------------------------- | ---------------------------------- | ------ | ------------------------------------------------------------------------------------------------ |
-| [SEP-1862](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1862) | Tool Resolution (preflight checks) | Draft  | [@SamMorrowDrums](https://github.com/SamMorrowDrums)                                             |
-| [SEP-1913](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1913) | Trust and Sensitivity Annotations  | Draft  | [@SamMorrowDrums](https://github.com/SamMorrowDrums), [@rreichel3](https://github.com/rreichel3) |
-| [SEP-1984](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1984) | Comprehensive Tool Annotations     | Draft  | [@sambhav](https://github.com/sambhav)                                                           |
-| [SEP-2417](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2417) | Model Preferences for Tools        | Draft  | [@ProductOfAmerica](https://github.com/ProductOfAmerica)                                         |
+| SEP | Title | Status | Author |
+| - | - | - | - |
+| [SEP-1862](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1862) | Tool Resolution (preflight checks) | Draft | [@SamMorrowDrums](https://github.com/SamMorrowDrums) |
+| [SEP-1913](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1913) | Trust and Sensitivity Annotations | Draft | [@SamMorrowDrums](https://github.com/SamMorrowDrums), [@rreichel3](https://github.com/rreichel3) |
+| [SEP-1984](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1984) | Comprehensive Tool Annotations | Draft | [@sambhav](https://github.com/sambhav) |
+| [SEP-2417](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2417) | Model Preferences for Tools | Draft | [@ProductOfAmerica](https://github.com/ProductOfAmerica) |
 
 ### Open Questions
 
@@ -93,6 +93,6 @@ The following SEPs and themes form the IG's initial discussion agenda. This list
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-04-20 | Initial charter |

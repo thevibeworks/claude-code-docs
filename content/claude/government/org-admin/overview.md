@@ -43,27 +43,27 @@ The navigation groups the pages into three sections.
 
 **People**
 
-| Page                                                 | What it's for                                                                                                                  |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| [Users](/docs/government/org-admin/users)                 | Find users, change their role or seat tier, check their usage, and reset their rate limits.                                    |
-| [Seats](/docs/government/org-admin/seats)                 | See how many seats of each tier your organization has and how many are currently in use.                                       |
-| [Tiers](/docs/government/org-admin/seat-tiers)            | Review the Anthropic-managed seat tiers and create your own tiers with custom model access and spend limits.                   |
+| Page | What it's for |
+| - | - |
+| [Users](/docs/government/org-admin/users) | Find users, change their role or seat tier, check their usage, and reset their rate limits. |
+| [Seats](/docs/government/org-admin/seats) | See how many seats of each tier your organization has and how many are currently in use. |
+| [Tiers](/docs/government/org-admin/seat-tiers) | Review the Anthropic-managed seat tiers and create your own tiers with custom model access and spend limits. |
 | [Group mappings](/docs/government/org-admin/provisioning) | Map directory groups to seat tiers and roles so that users added through your directory land in the right place automatically. |
 
 **Usage**
 
-| Page                                                   | What it's for                                                                                                          |
-| ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| [Analytics](/docs/government/org-admin/analytics)           | Review requests, tokens, spend, top users, and credit balance over time across your organization.                      |
-| [Compliance API](/docs/government/org-admin/compliance-api) | Create and manage read-only API keys that stream your organization's audit events to a SIEM or log management system.  |
-| [Billing](/docs/government/org-admin/billing)               | See the billing account that funds your organization, its balance and any spend caps, and adjust your seat allocation. |
+| Page | What it's for |
+| - | - |
+| [Analytics](/docs/government/org-admin/analytics) | Review requests, tokens, spend, top users, and credit balance over time across your organization. |
+| [Compliance API](/docs/government/org-admin/compliance-api) | Create and manage read-only API keys that stream your organization's audit events to a SIEM or log management system. |
+| [Billing](/docs/government/org-admin/billing) | See the billing account that funds your organization, its balance and any spend caps, and adjust your seat allocation. |
 
 **Settings**
 
-| Page                                          | What it's for                                                                                                                     |
-| --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Page | What it's for |
+| - | - |
 | [Config](/docs/government/org-admin/configuration) | Adjust product settings such as telemetry, the Claude Desktop banner, and product availability for everyone in your organization. |
-| [Readiness](/docs/government/org-admin/readiness)  | See what is blocking users from using Claude and where each item is resolved.                                                     |
+| [Readiness](/docs/government/org-admin/readiness) | See what is blocking users from using Claude and where each item is resolved. |
 
 <Warning>
   The **Billing** tab only appears when the billing account is active and your own organization is active on it. If you don't see it, contact your tenant administrators about credits or spend caps.

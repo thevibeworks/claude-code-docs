@@ -27,11 +27,11 @@ A directory listing is either a plugin bundle or an MCP connector.
 
 A plugin bundle is the main thing you submit: one listing that packages whatever the plugin contains, whether that's skills, an MCP connector reference, commands, agents, or any combination. If you also run the remote MCP server that plugin points at, you submit the server as its own MCP connector too. When you start a submission, the developer portal asks which kind you're submitting:
 
-|                     | Plugin bundle                                                                   | MCP connector                                                       |
-| :------------------ | :------------------------------------------------------------------------------ | :------------------------------------------------------------------ |
-| What it is          | A plugin folder with skills, commands, agents, hooks, and MCP server references | One remote MCP server that people connect to reach your app or data |
-| Where it comes from | A GitHub repository, which must be public before the listing goes live          | The server's URL, with no repository needed                         |
-| How it's listed     | As a plugin with all of its components                                          | As a connector people connect to from the directory                 |
+| | Plugin bundle | MCP connector |
+| :- | :- | :- |
+| What it is | A plugin folder with skills, commands, agents, hooks, and MCP server references | One remote MCP server that people connect to reach your app or data |
+| Where it comes from | A GitHub repository, which must be public before the listing goes live | The server's URL, with no repository needed |
+| How it's listed | As a plugin with all of its components | As a connector people connect to from the directory |
 
 If you have a remote MCP server, always submit it as an MCP connector, even when a plugin you're submitting already references it. Submitting the server as a connector gives your organization the connector's listing, its dashboard, and the option to pair it with your plugin:
 

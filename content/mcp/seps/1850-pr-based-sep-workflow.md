@@ -24,17 +24,17 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                                                              |
-| ------------- | ------------------------------------------------------------------------------------------------------------------ |
-| **SEP**       | 1850                                                                                                               |
-| **Title**     | PR-Based SEP Workflow                                                                                              |
-| **Status**    | Final                                                                                                              |
-| **Type**      | Process                                                                                                            |
-| **Created**   | 2025-11-20                                                                                                         |
-| **Accepted**  | 2025-11-28, 8 Yes, 0 No, 0 Absent per vote in Discord.                                                             |
+| Field | Value |
+| - | - |
+| **SEP** | 1850 |
+| **Title** | PR-Based SEP Workflow |
+| **Status** | Final |
+| **Type** | Process |
+| **Created** | 2025-11-20 |
+| **Accepted** | 2025-11-28, 8 Yes, 0 No, 0 Absent per vote in Discord. |
 | **Author(s)** | Nick Cooper ([@nickcoai](https://github.com/nickcoai)), David Soria Parra ([@davidsp](https://github.com/davidsp)) |
-| **Sponsor**   | David Soria Parra ([@davidsp](https://github.com/davidsp))                                                         |
-| **PR**        | [#1850](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1850)                                    |
+| **Sponsor** | David Soria Parra ([@davidsp](https://github.com/davidsp)) |
+| **PR** | [#1850](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1850) |
 
 ***
 

@@ -25,11 +25,11 @@ Your endpoint tooling governs these folders the same way it governs any other lo
 
 To set configuration keys organization-wide, deploy the per-member config.toml (at the path given under [Where the app stores data](#where-the-app-stores-data)) through your MDM or endpoint tool. Claude Science doesn't read its settings from a system-level managed-preferences file or registry policy keys, so there's no native MDM configuration channel on any operating system. Deploying the per-member config.toml is the supported approach. The sandbox network allowlist and the package mirror can instead be set once for every member under **Organization settings** > **Claude Science** (see [Organization settings](/docs/claude-science/admin-controls#organization-settings)). The keys most relevant to admins are:
 
-| Key                                | Effect                                                                                                                                         |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| disable\_telemetry = true          | Stops the app from sending product-usage telemetry and error reports to Anthropic.                                                             |
-| data\_dir = "`<path>`"             | Moves conversations, artifacts, and workspaces to a managed location (for example, a volume your backup tooling covers).                       |
-| \[update] auto\_update = false     | Prevents the app from updating itself; pair with your own distribution channel.                                                                |
+| Key | Effect |
+| - | - |
+| disable\_telemetry = true | Stops the app from sending product-usage telemetry and error reports to Anthropic. |
+| data\_dir = "`<path>`" | Moves conversations, artifacts, and workspaces to a managed location (for example, a volume your backup tooling covers). |
+| \[update] auto\_update = false | Prevents the app from updating itself; pair with your own distribution channel. |
 | \[sandbox.network] enabled = false | Blocks network access from the app's local code-execution sandbox. The similarly named \[sandbox] network\_isolated key does not control this. |
 
 The [configuration file reference](/docs/claude-science/configuration-file-reference) documents the network-related keys and their defaults, and [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks) covers the proxy, TLS-inspection, and mirror settings.

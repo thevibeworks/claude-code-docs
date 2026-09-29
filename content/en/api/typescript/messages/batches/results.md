@@ -890,9 +890,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `(string & {})`
+          - `"claude-sonnet-5-5" | "claude-fable-5-1" | "claude-opus-5-5" | 16 more`
 
-          - `"claude-fable-5-1" | "claude-opus-5-5" | "claude-mythos-5-1" | 15 more`
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
 
             - `"claude-fable-5-1"`
 
@@ -908,7 +910,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"claude-sonnet-5"`
 
-              High-performance model for coding and agents
+              Efficient model for coding and agents
 
             - `"claude-fable-5"`
 
@@ -967,6 +969,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
               New class of intelligence, strongest in coding and cybersecurity
+
+          - `(string & {})`
 
         - `role: "assistant"`
 

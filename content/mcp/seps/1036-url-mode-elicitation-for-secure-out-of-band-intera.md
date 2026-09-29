@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                                                                     |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| **SEP**       | 1036                                                                                                                      |
-| **Title**     | URL Mode Elicitation for secure out-of-band interactions                                                                  |
-| **Status**    | Final                                                                                                                     |
-| **Type**      | Standards Track                                                                                                           |
-| **Created**   | 2025-07-22                                                                                                                |
+| Field | Value |
+| - | - |
+| **SEP** | 1036 |
+| **Title** | URL Mode Elicitation for secure out-of-band interactions |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-07-22 |
 | **Author(s)** | Nate Barbettini ([@nbarbettini](https://github.com/nbarbettini)) and Wils Dawson ([@wdawson](https://github.com/wdawson)) |
-| **Sponsor**   | None                                                                                                                      |
-| **PR**        | [#1036](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1036)                                           |
+| **Sponsor** | None |
+| **PR** | [#1036](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1036) |
 
 ***
 
@@ -118,11 +118,11 @@ The only change from the existing specification is the addition of a `mode` fiel
 
 URL elicitation requests **MUST** specify `mode: "url"` and include these parameters:
 
-| Name            | Type   | Description                                                        |
-| --------------- | ------ | ------------------------------------------------------------------ |
-| `url`           | string | The URL that the user should navigate to.                          |
-| `elicitationId` | string | A unique identifier for the elicitation.                           |
-| `message`       | string | A human-readable message explaining why the interaction is needed. |
+| Name | Type | Description |
+| - | - | - |
+| `url` | string | The URL that the user should navigate to. |
+| `elicitationId` | string | A unique identifier for the elicitation. |
+| `message` | string | A human-readable message explaining why the interaction is needed. |
 
 #### Example: OAuth Authorization Flow
 

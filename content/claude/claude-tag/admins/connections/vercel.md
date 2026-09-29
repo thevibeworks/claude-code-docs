@@ -26,10 +26,10 @@ Vercel's own guide for creating the credential is at [vercel.com](https://vercel
 
 In the bundle, click **Connect** next to **Vercel**.
 
-| Field                 | Value                        |
-| :-------------------- | :--------------------------- |
+| Field | Value |
+| :- | :- |
 | Claude's access token | The access token from Vercel |
-| Allowed websites      | `api.vercel.com`             |
+| Allowed websites | `api.vercel.com` |
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 

@@ -6,7 +6,7 @@ description: "Claude Sonnet 4.5 reference: lifecycle status, model IDs on every 
 
 **Legacy.** Released September 29, 2025.
 
-Although Claude Sonnet 4.5 is still available, you should consider migrating to Claude Sonnet 5.5 for improved performance. [See Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) · [Migrate to Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide)
+Although Claude Sonnet 4.5 is still available, you should consider migrating to Claude Sonnet 5.5 for improved performance. [See Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) · [Migrate to Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-sonnet-45)
 
 Model ID: `claude-sonnet-4-5-20250929`
 

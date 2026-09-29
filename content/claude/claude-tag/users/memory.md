@@ -26,10 +26,10 @@ A convention Claude saved as a workspace note while working in #data-eng is avai
 
 Reading and saving follow different rules depending on where Claude is working:
 
-| Where Claude is working | Reads from                                                 | Saves to                                                                                     |
-| :---------------------- | :--------------------------------------------------------- | :------------------------------------------------------------------------------------------- |
-| Public channel          | That channel's notes and the workspace notes               | That channel's notes, or the workspace notes for something that applies across the workspace |
-| Private channel         | That channel's notes, plus the workspace notes (read-only) | That channel's notes only                                                                    |
+| Where Claude is working | Reads from | Saves to |
+| :- | :- | :- |
+| Public channel | That channel's notes and the workspace notes | That channel's notes, or the workspace notes for something that applies across the workspace |
+| Private channel | That channel's notes, plus the workspace notes (read-only) | That channel's notes only |
 
 Other workspaces stay separate. Direct messages stay separate too. Claude keeps notes for each direct-message conversation, stored with the workspace rather than with your Claude account. Those notes are deleted when an Owner [disconnects the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing), not when you disconnect your own Claude account in Slack.
 

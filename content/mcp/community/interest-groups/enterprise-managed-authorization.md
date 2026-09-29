@@ -47,10 +47,10 @@ The Enterprise-Managed Authorization Interest Group provides a venue for identit
 
 ## Leadership
 
-| Role        | Name          | Organization | GitHub                                     | Term    |
-| ----------- | ------------- | ------------ | ------------------------------------------ | ------- |
-| Facilitator | Paul Carleton | Anthropic    | [@pcarleton](https://github.com/pcarleton) | Initial |
-| Facilitator | Aaron Parecki | Okta         | [@aaronpk](https://github.com/aaronpk)     | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Facilitator | Paul Carleton | Anthropic | [@pcarleton](https://github.com/pcarleton) | Initial |
+| Facilitator | Aaron Parecki | Okta | [@aaronpk](https://github.com/aaronpk) | Initial |
 
 Sponsored by Den Delimarsky ([@localden](https://github.com/localden), Lead Maintainer).
 
@@ -62,9 +62,9 @@ Join the `#enterprise-managed-auth-ig` channel on the [MCP Contributors Discord]
 
 ## Operations
 
-| Meeting      | Frequency     | Duration | Purpose                                                               |
-| ------------ | ------------- | -------- | --------------------------------------------------------------------- |
-| Interop Call | Every 2 weeks | 45 min   | Deployment reports, compatibility-matrix review, spec-feedback triage |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Interop Call | Every 2 weeks | 45 min | Deployment reports, compatibility-matrix review, spec-feedback triage |
 
 An agenda is shared in `#enterprise-managed-auth-ig` ahead of each call. Meeting notes are posted to the Authorization category in [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions).
 
@@ -72,7 +72,7 @@ Discord: [#enterprise-managed-auth-ig](https://discord.com/channels/135886984813
 
 ## Changelog
 
-| Date       | Change                                             |
-| ---------- | -------------------------------------------------- |
+| Date | Change |
+| - | - |
 | 2026-08-17 | Folded into the Authorization IG; channel archived |
-| 2026-06-16 | Initial charter                                    |
+| 2026-06-16 | Initial charter |

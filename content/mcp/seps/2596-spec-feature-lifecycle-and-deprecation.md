@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2596                                                                            |
-| **Title**     | Specification Feature Lifecycle and Deprecation Policy                          |
-| **Status**    | Final                                                                           |
-| **Type**      | Process                                                                         |
-| **Created**   | 2026-04-17                                                                      |
-| **Author(s)** | Den Delimarsky ([@localden](https://github.com/localden))                       |
-| **Sponsor**   | [@localden](https://github.com/localden)                                        |
-| **PR**        | [#2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596) |
+| Field | Value |
+| - | - |
+| **SEP** | 2596 |
+| **Title** | Specification Feature Lifecycle and Deprecation Policy |
+| **Status** | Final |
+| **Type** | Process |
+| **Created** | 2026-04-17 |
+| **Author(s)** | Den Delimarsky ([@localden](https://github.com/localden)) |
+| **Sponsor** | [@localden](https://github.com/localden) |
+| **PR** | [#2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596) |
 
 ***
 
@@ -94,11 +94,11 @@ document writes "the SEP reaches Final" or "Final revision" explicitly.
 
 A specification feature is in exactly one of three states:
 
-| State          | Meaning                                                                                                                                                       | Implementer expectation                                                                                                     |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| **Active**     | The feature is part of the Current specification revision with no planned removal.                                                                            | Implement per the feature's normative requirements.                                                                         |
-| **Deprecated** | The feature remains in the specification but is scheduled for removal. A migration path is documented (see below).                                            | New implementations SHOULD NOT adopt the feature. Existing implementations SHOULD migrate before the earliest removal date. |
-| **Removed**    | The feature has been deleted from `draft` and will be absent from the next Current revision. It remains documented in the Final revision it last appeared in. | Implementations targeting that next Current revision MUST NOT depend on the feature.                                        |
+| State | Meaning | Implementer expectation |
+| - | - | - |
+| **Active** | The feature is part of the Current specification revision with no planned removal. | Implement per the feature's normative requirements. |
+| **Deprecated** | The feature remains in the specification but is scheduled for removal. A migration path is documented (see below). | New implementations SHOULD NOT adopt the feature. Existing implementations SHOULD migrate before the earliest removal date. |
+| **Removed** | The feature has been deleted from `draft` and will be absent from the next Current revision. It remains documented in the Final revision it last appeared in. | Implementations targeting that next Current revision MUST NOT depend on the feature. |
 
 The term "soft-deprecated" is retired. Existing uses in the specification are reclassified as
 Deprecated under this policy (see [Transition](#transition)).
@@ -227,14 +227,14 @@ Deprecated and its earliest removal.
 
 ### Roles
 
-| Action                                         | Who                                                                           |
-| ---------------------------------------------- | ----------------------------------------------------------------------------- |
-| Propose deprecation, extension, or restoration | Any contributor, per the SEP process                                          |
-| Sponsor                                        | A Maintainer or Core Maintainer, per the SEP process                          |
-| Approve a deprecation SEP                      | Core Maintainers, per the [governance decision process][governance-decisions] |
-| Decide a removal during release preparation    | Core Maintainers, per the [governance decision process][governance-decisions] |
-| Approve an extension or restoration SEP        | Core Maintainers, per the [governance decision process][governance-decisions] |
-| Approve expedited removal                      | Core Maintainers, per the [governance decision process][governance-decisions] |
+| Action | Who |
+| - | - |
+| Propose deprecation, extension, or restoration | Any contributor, per the SEP process |
+| Sponsor | A Maintainer or Core Maintainer, per the SEP process |
+| Approve a deprecation SEP | Core Maintainers, per the [governance decision process][governance-decisions] |
+| Decide a removal during release preparation | Core Maintainers, per the [governance decision process][governance-decisions] |
+| Approve an extension or restoration SEP | Core Maintainers, per the [governance decision process][governance-decisions] |
+| Approve expedited removal | Core Maintainers, per the [governance decision process][governance-decisions] |
 
 As with all Core Maintainer decisions, Lead Maintainers retain veto authority over each of the
 approvals above, per the [governance roles][governance-roles] definition.
@@ -258,10 +258,10 @@ matching the floor the [Expedited removal](#expedited-removal) clause sets for t
 permissible window. Removal still follows [Removing a feature](#removing-a-feature): a Core
 Maintainer decision at release preparation, not an automatic event when the grace period ends.
 
-| Feature                                         | Migration target                     | Earliest removal                        |
-| ----------------------------------------------- | ------------------------------------ | --------------------------------------- |
-| HTTP+SSE transport                              | [Streamable HTTP][transports-compat] | Three months after this SEP is Final    |
-| `includeContext: "thisServer"` / `"allServers"` | Omit the field or use `"none"`       | Follows Sampling ([SEP-2577][sep-2577]) |
+| Feature | Migration target | Earliest removal |
+| - | - | - |
+| HTTP+SSE transport | [Streamable HTTP][transports-compat] | Three months after this SEP is Final |
+| `includeContext: "thisServer"` / `"allServers"` | Omit the field or use `"none"` | Follows Sampling ([SEP-2577][sep-2577]) |
 
 `includeContext` is a parameter of `sampling/createMessage`. [SEP-2577][sep-2577] deprecates the
 Sampling feature as a whole; the two affected `includeContext` values follow that feature's

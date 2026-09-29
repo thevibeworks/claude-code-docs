@@ -26,11 +26,11 @@ requirements. The revision lifecycle of the specification document itself
 
 A specification feature is in exactly one of three states:
 
-| State          | Meaning                                                                                                                                                       | Implementer expectation                                                                                                     |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| **Active**     | The feature is part of the Current specification revision.                                                                                                    | Implement per the feature's normative requirements.                                                                         |
-| **Deprecated** | The feature remains in the specification but is scheduled for removal. A migration path is documented (see below).                                            | New implementations should not adopt the feature. Existing implementations should migrate before the earliest removal date. |
-| **Removed**    | The feature has been deleted from `draft` and will be absent from the next Current revision. It remains documented in the Final revision it last appeared in. | Implementations targeting that next Current revision must not depend on the feature.                                        |
+| State | Meaning | Implementer expectation |
+| - | - | - |
+| **Active** | The feature is part of the Current specification revision. | Implement per the feature's normative requirements. |
+| **Deprecated** | The feature remains in the specification but is scheduled for removal. A migration path is documented (see below). | New implementations should not adopt the feature. Existing implementations should migrate before the earliest removal date. |
+| **Removed** | The feature has been deleted from `draft` and will be absent from the next Current revision. It remains documented in the Final revision it last appeared in. | Implementations targeting that next Current revision must not depend on the feature. |
 
 A Deprecated feature MAY be restored to Active by a SEP that supersedes the
 deprecation SEP and documents the changed circumstances. Restoration follows
@@ -144,14 +144,14 @@ Deprecated and its earliest removal.
 
 ## Roles
 
-| Action                                         | Who                                                                                             |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Propose deprecation, extension, or restoration | Any contributor, per the SEP process                                                            |
-| Sponsor                                        | A Maintainer or Core Maintainer, per the SEP process                                            |
-| Approve a deprecation SEP                      | Core Maintainers, per the [governance decision process](/community/governance#decision-process) |
-| Decide a removal during release preparation    | Core Maintainers, per the [governance decision process](/community/governance#decision-process) |
-| Approve an extension or restoration SEP        | Core Maintainers, per the [governance decision process](/community/governance#decision-process) |
-| Approve expedited removal                      | Core Maintainers, per the [governance decision process](/community/governance#decision-process) |
+| Action | Who |
+| - | - |
+| Propose deprecation, extension, or restoration | Any contributor, per the SEP process |
+| Sponsor | A Maintainer or Core Maintainer, per the SEP process |
+| Approve a deprecation SEP | Core Maintainers, per the [governance decision process](/community/governance#decision-process) |
+| Decide a removal during release preparation | Core Maintainers, per the [governance decision process](/community/governance#decision-process) |
+| Approve an extension or restoration SEP | Core Maintainers, per the [governance decision process](/community/governance#decision-process) |
+| Approve expedited removal | Core Maintainers, per the [governance decision process](/community/governance#decision-process) |
 
 Lead Maintainers retain veto authority over each of the approvals
 above, per the [governance roles](/community/governance#roles) definition.

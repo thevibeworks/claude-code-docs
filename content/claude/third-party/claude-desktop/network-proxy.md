@@ -36,9 +36,9 @@ A few limits apply to the agent regardless of how the proxy is chosen:
 
 If you want the app, the agent, and (on macOS and Windows) Cowork's sandboxed shell to use a specific proxy regardless of what the device's OS settings say, set one of two managed configuration keys:
 
-| Key                 | Value                                                                                           | Effect                                                                                                                                                                                                                                                                                                        |
-| ------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `egressProxyUrl`    | An `http://` or `https://` proxy URL, for example `http://proxy.example.com:8080`               | The app sends its traffic through this proxy, and the agent receives it as `HTTPS_PROXY` and `HTTP_PROXY` in every session on the device. On macOS and Windows, commands in Cowork's sandboxed shell receive the same variables. Loopback and `.local` hosts still connect directly.                          |
+| Key | Value | Effect |
+| - | - | - |
+| `egressProxyUrl` | An `http://` or `https://` proxy URL, for example `http://proxy.example.com:8080` | The app sends its traffic through this proxy, and the agent receives it as `HTTPS_PROXY` and `HTTP_PROXY` in every session on the device. On macOS and Windows, commands in Cowork's sandboxed shell receive the same variables. Loopback and `.local` hosts still connect directly. |
 | `egressProxyPacUrl` | An `http://` or `https://` URL to a PAC script, for example `http://wpad.example.com/proxy.pac` | The app evaluates the script per request. The agent receives the single proxy the script returns for your inference endpoint. On macOS and Windows, Cowork's sandboxed shell is handed a copy of the script when the sandbox starts and evaluates it per request itself. If both keys are set, this one wins. |
 
 Both keys are read once at launch; a change takes effect the next time the app starts. While either key is set, the OS proxy settings are ignored for the app, the agent, and (on macOS and Windows) Cowork's sandboxed shell; with neither key set, the sandboxed shell keeps following the OS settings as described under [Default behavior](#default-behavior). SOCKS URLs and URLs with embedded credentials (`user:password@`) are rejected.
@@ -67,23 +67,23 @@ Three behaviors to plan for:
 
 The table summarizes which proxy source each kind of traffic follows. "App proxy" means the pinned key if one is set, otherwise the OS settings, with PAC rules applied per request.
 
-| Traffic                                                                                    | Proxy it follows                                                                                                                  |
-| ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| App window, in-app sign-in, connection test, model list                                    | App proxy                                                                                                                         |
-| Inference requests from Chat, Cowork, and Code sessions                                    | The single proxy resolved for the inference endpoint (from the pinned key or the OS), or Claude Code managed settings if deployed |
-| Agent web fetch, remote MCP servers, and plugin installs in Code sessions                  | Same single proxy as inference                                                                                                    |
-| Web Fetch and managed MCP servers in Chat and Cowork sessions                              | App proxy (the app makes these connections)                                                                                       |
-| Plugin marketplace sync and `aws` CLI calls the app makes for Bedrock sign-in              | App proxy, resolved for the specific host                                                                                         |
-| Cowork sandbox download from `downloads.claude.ai`                                         | App proxy                                                                                                                         |
-| Telemetry and crash reports to Anthropic, if enabled                                       | App proxy                                                                                                                         |
-| OpenTelemetry export to your collector                                                     | App proxy for the app's own events; the same single proxy as inference for Claude Code metrics and logs                           |
-| Commands in Cowork's sandboxed shell on macOS and Windows                                  | The pinned key if one is set (a pinned PAC script is evaluated per request inside the sandbox), otherwise the OS proxy settings   |
-| Commands in Cowork's sandboxed shell on Linux                                              | None; commands connect directly                                                                                                   |
-| The agent in an [SSH remote Code session](/docs/third-party/claude-desktop/ssh-remote-sessions) | None from the device; the remote host's own network route applies                                                                 |
-| App update check and download                                                              | OS proxy settings only                                                                                                            |
-| Credential helper and header helper scripts you configure                                  | None injected; the script's own environment applies                                                                               |
-| Brokered Microsoft Entra sign-in (Company Portal on macOS, Web Account Manager on Windows) | The OS broker's own settings                                                                                                      |
-| Pages opened in the system browser                                                         | The browser's own settings                                                                                                        |
+| Traffic | Proxy it follows |
+| - | - |
+| App window, in-app sign-in, connection test, model list | App proxy |
+| Inference requests from Chat, Cowork, and Code sessions | The single proxy resolved for the inference endpoint (from the pinned key or the OS), or Claude Code managed settings if deployed |
+| Agent web fetch, remote MCP servers, and plugin installs in Code sessions | Same single proxy as inference |
+| Web Fetch and managed MCP servers in Chat and Cowork sessions | App proxy (the app makes these connections) |
+| Plugin marketplace sync and `aws` CLI calls the app makes for Bedrock sign-in | App proxy, resolved for the specific host |
+| Cowork sandbox download from `downloads.claude.ai` | App proxy |
+| Telemetry and crash reports to Anthropic, if enabled | App proxy |
+| OpenTelemetry export to your collector | App proxy for the app's own events; the same single proxy as inference for Claude Code metrics and logs |
+| Commands in Cowork's sandboxed shell on macOS and Windows | The pinned key if one is set (a pinned PAC script is evaluated per request inside the sandbox), otherwise the OS proxy settings |
+| Commands in Cowork's sandboxed shell on Linux | None; commands connect directly |
+| The agent in an [SSH remote Code session](/docs/third-party/claude-desktop/ssh-remote-sessions) | None from the device; the remote host's own network route applies |
+| App update check and download | OS proxy settings only |
+| Credential helper and header helper scripts you configure | None injected; the script's own environment applies |
+| Brokered Microsoft Entra sign-in (Company Portal on macOS, Web Account Manager on Windows) | The OS broker's own settings |
+| Pages opened in the system browser | The browser's own settings |
 
 ## Traffic that bypasses the app proxy
 

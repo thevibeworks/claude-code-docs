@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 1330                                                                            |
-| **Title**     | Elicitation Enum Schema Improvements and Standards Compliance                   |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-08-11                                                                      |
-| **Author(s)** | chughtapan                                                                      |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1330](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1330) |
+| Field | Value |
+| - | - |
+| **SEP** | 1330 |
+| **Title** | Elicitation Enum Schema Improvements and Standards Compliance |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-08-11 |
+| **Author(s)** | chughtapan |
+| **Sponsor** | None |
+| **PR** | [#1330](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1330) |
 
 ***
 

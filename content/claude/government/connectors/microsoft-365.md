@@ -90,11 +90,11 @@ GCC High and DoD tenants use the Azure Government cloud instead. Register the ap
 
 The connector calls Microsoft directly from each member's device, so devices need outbound HTTPS access to the Microsoft Entra and Microsoft Graph hosts for your cloud.
 
-| Azure cloud            | Sign-in host                | Microsoft Graph host     |
-| ---------------------- | --------------------------- | ------------------------ |
-| Commercial             | `login.microsoftonline.com` | `graph.microsoft.com`    |
-| US Government GCC-High | `login.microsoftonline.us`  | `graph.microsoft.us`     |
-| US Government DoD      | `login.microsoftonline.us`  | `dod-graph.microsoft.us` |
+| Azure cloud | Sign-in host | Microsoft Graph host |
+| - | - | - |
+| Commercial | `login.microsoftonline.com` | `graph.microsoft.com` |
+| US Government GCC-High | `login.microsoftonline.us` | `graph.microsoft.us` |
+| US Government DoD | `login.microsoftonline.us` | `dod-graph.microsoft.us` |
 
 No outbound access to any Anthropic host is needed for the connector's Microsoft 365 calls.
 
@@ -102,12 +102,12 @@ No outbound access to any Anthropic host is needed for the connector's Microsoft
 
 On the [Config](/docs/government/org-admin/configuration) page, expand the **Microsoft 365** card and fill in the form.
 
-| Field           | What to enter                                                                                                                                                                                                                                                                         |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Tenant ID**   | The **Directory (tenant) ID** from the application's Overview page.                                                                                                                                                                                                                   |
-| **Client ID**   | The **Application (client) ID** from the application's Overview page.                                                                                                                                                                                                                 |
-| **Azure cloud** | **Commercial** for most tenants, including Microsoft 365 GCC. Choose **US Government GCC-High** or **US Government DoD** only if your Microsoft tenant is in one of those clouds.                                                                                                     |
-| **Access**      | The Microsoft Graph permissions the connector requests when a member signs in. The standard read-only permissions are already selected; add or remove permissions as needed. See [Choose which Microsoft 365 permissions to allow](#choose-which-microsoft-365-permissions-to-allow). |
+| Field | What to enter |
+| - | - |
+| **Tenant ID** | The **Directory (tenant) ID** from the application's Overview page. |
+| **Client ID** | The **Application (client) ID** from the application's Overview page. |
+| **Azure cloud** | **Commercial** for most tenants, including Microsoft 365 GCC. Choose **US Government GCC-High** or **US Government DoD** only if your Microsoft tenant is in one of those clouds. |
+| **Access** | The Microsoft Graph permissions the connector requests when a member signs in. The standard read-only permissions are already selected; add or remove permissions as needed. See [Choose which Microsoft 365 permissions to allow](#choose-which-microsoft-365-permissions-to-allow). |
 
 Save the card. The connector reaches each member's Claude Desktop the next time it starts or the member signs in to Claude for Government. Members who already have Claude Desktop open are prompted to relaunch the next time the app checks for changes, which it does about every 10 minutes (about every 30 minutes on Claude Desktop versions earlier than 1.46388.1), and the connector appears after the relaunch.
 
@@ -119,42 +119,42 @@ Whatever you select here must also be added and approved on the Entra app regist
 
 ### Read access
 
-| Permission                        | What it lets Claude do                                                                                       |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `Mail.Read` (Default)             | Read the member's mail                                                                                       |
-| `Mail.Read.Shared` (Default)      | Read mail in mailboxes shared with the member                                                                |
-| `Calendars.Read` (Default)        | Read the member's calendar events                                                                            |
-| `Calendars.Read.Shared` (Default) | Read events on calendars shared with the member and find free meeting times                                  |
-| `Files.Read.All` (Default)        | Read files the member can open in OneDrive and SharePoint                                                    |
-| `Sites.Read.All` (Default)        | Read SharePoint site content the member can open                                                             |
-| `Chat.Read` (Default)             | Read the member's Teams chats                                                                                |
-| `OnlineMeetings.Read` (Default)   | Read the member's online meetings                                                                            |
-| `MailboxSettings.Read`            | Read the member's mailbox time zone so that dates in requests follow the member's local time rather than UTC |
+| Permission | What it lets Claude do |
+| - | - |
+| `Mail.Read` (Default) | Read the member's mail |
+| `Mail.Read.Shared` (Default) | Read mail in mailboxes shared with the member |
+| `Calendars.Read` (Default) | Read the member's calendar events |
+| `Calendars.Read.Shared` (Default) | Read events on calendars shared with the member and find free meeting times |
+| `Files.Read.All` (Default) | Read files the member can open in OneDrive and SharePoint |
+| `Sites.Read.All` (Default) | Read SharePoint site content the member can open |
+| `Chat.Read` (Default) | Read the member's Teams chats |
+| `OnlineMeetings.Read` (Default) | Read the member's online meetings |
+| `MailboxSettings.Read` | Read the member's mailbox time zone so that dates in requests follow the member's local time rather than UTC |
 
 ### Read access requiring administrator approval
 
 These two permissions always require the **Grant admin consent** step in Entra, regardless of your tenant's user-consent policy. Until that step is done, sign-in fails for every member when either permission is requested.
 
-| Permission                         | What it lets Claude do                                |
-| ---------------------------------- | ----------------------------------------------------- |
-| `ChannelMessage.Read.All`          | Include Teams channel messages in chat search results |
-| `OnlineMeetingTranscript.Read.All` | Read meeting transcripts                              |
+| Permission | What it lets Claude do |
+| - | - |
+| `ChannelMessage.Read.All` | Include Teams channel messages in chat search results |
+| `OnlineMeetingTranscript.Read.All` | Read meeting transcripts |
 
 ### Write access
 
 Write permissions let Claude take actions in Microsoft 365 on the member's behalf, such as sending mail, creating calendar events, and editing files. Members approve each write action in Claude Desktop before it runs. The connector is read-only unless you select at least one of these.
 
-| Permission                  | What it lets Claude do                                                                                                                                                                                            |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `Mail.Send`                 | Send mail, send drafts, and forward mail on the member's behalf. Forwarding and sending drafts also use a mail read permission (any of `Mail.Read`, `Mail.Read.Shared`, or `Mail.ReadWrite`) for pre-send checks. |
-| `Mail.ReadWrite`            | Create, edit, and delete drafts; trash, restore, and delete messages; apply and remove labels on messages                                                                                                         |
-| `Calendars.ReadWrite`       | Create, update, delete, and respond to calendar events                                                                                                                                                            |
-| `Files.ReadWrite.All`       | Create, edit, rename, move, copy, and delete files and folders the member can edit in OneDrive and SharePoint                                                                                                     |
-| `Sites.ReadWrite.All`       | Additional SharePoint write access beyond files. No Claude action requires this permission; `Files.ReadWrite.All` covers file actions in both OneDrive and SharePoint.                                            |
-| `ChatMessage.Send`          | Send messages in the member's existing Teams chats                                                                                                                                                                |
-| `ChannelMessage.Send`       | Post messages to Teams channels                                                                                                                                                                                   |
-| `Chat.Create`               | Start new Teams chats                                                                                                                                                                                             |
-| `MailboxSettings.ReadWrite` | Create and delete the member's mail rules, manage labels, and configure automatic replies                                                                                                                         |
+| Permission | What it lets Claude do |
+| - | - |
+| `Mail.Send` | Send mail, send drafts, and forward mail on the member's behalf. Forwarding and sending drafts also use a mail read permission (any of `Mail.Read`, `Mail.Read.Shared`, or `Mail.ReadWrite`) for pre-send checks. |
+| `Mail.ReadWrite` | Create, edit, and delete drafts; trash, restore, and delete messages; apply and remove labels on messages |
+| `Calendars.ReadWrite` | Create, update, delete, and respond to calendar events |
+| `Files.ReadWrite.All` | Create, edit, rename, move, copy, and delete files and folders the member can edit in OneDrive and SharePoint |
+| `Sites.ReadWrite.All` | Additional SharePoint write access beyond files. No Claude action requires this permission; `Files.ReadWrite.All` covers file actions in both OneDrive and SharePoint. |
+| `ChatMessage.Send` | Send messages in the member's existing Teams chats |
+| `ChannelMessage.Send` | Post messages to Teams channels |
+| `Chat.Create` | Start new Teams chats |
+| `MailboxSettings.ReadWrite` | Create and delete the member's mail rules, manage labels, and configure automatic replies |
 
 <Note>
   Removing a permission from the **Access** picker changes what Claude Desktop requests the next time a member signs in, but it does not revoke permissions that Microsoft Entra has already approved for the application. To revoke a permission entirely, remove it in the Entra admin center under **Enterprise applications** > your application > **Permissions**.
@@ -172,10 +172,10 @@ If your Conditional Access policies require a compliant or managed device, sign-
 
 Brokered sign-in requires the broker redirect URIs from step 2, **Allow public client flows** set to **Yes** (step 3), and the following on each device:
 
-| Platform | Broker availability requirements                                                                                                                                                                                                                                                                                                                                     |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Windows  | Windows 10 or Windows Server 2019 or later. The device is joined or registered to Entra ID (Entra joined, Entra hybrid joined, or Entra registered).                                                                                                                                                                                                                 |
-| macOS    | macOS 10.15 or later. The Mac is enrolled in device management and registered in Entra ID. **Intune Company Portal** is installed, and an **Extensible SSO** configuration profile of type **Redirect** pointed at the Microsoft Enterprise SSO plug-in is deployed through device management. The broker is unavailable without Company Portal and the SSO profile. |
+| Platform | Broker availability requirements |
+| - | - |
+| Windows | Windows 10 or Windows Server 2019 or later. The device is joined or registered to Entra ID (Entra joined, Entra hybrid joined, or Entra registered). |
+| macOS | macOS 10.15 or later. The Mac is enrolled in device management and registered in Entra ID. **Intune Company Portal** is installed, and an **Extensible SSO** configuration profile of type **Redirect** pointed at the Microsoft Enterprise SSO plug-in is deployed through device management. The broker is unavailable without Company Portal and the SSO profile. |
 
 When the broker is unavailable, Claude Desktop falls back to browser sign-in automatically and stays on browser sign-in until Claude Desktop restarts.
 
@@ -183,17 +183,17 @@ When the broker is available, it carries the device claim, and Conditional Acces
 
 ## Common problems
 
-| What the member sees                                                                           | What it means                                                                                                                                                                                                                                                    | How to fix it                                                                                                                                                                                                                                                                                                                                        |
-| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Entra error `AADSTS50011` at sign-in                                                           | One of the redirect URIs from step 2 is missing from the app registration, was entered with a different value, or was added under the **Web** platform instead of **Mobile and desktop applications**. The error message names the URI that Claude Desktop sent. | Compare it with step 2 and add or correct that URI under **Mobile and desktop applications**.                                                                                                                                                                                                                                                        |
-| Entra error `AADSTS900971` at sign-in on macOS                                                 | No redirect URI is registered for macOS brokered sign-in.                                                                                                                                                                                                        | Add `msauth.com.anthropic.claudefordesktop://auth` under **Mobile and desktop applications** (step 2).                                                                                                                                                                                                                                               |
-| Entra error `AADSTS65001` at sign-in                                                           | The Microsoft Graph permissions have not been approved for the tenant, or a permission the connector requests is not listed under the app registration's **API permissions** (so **Grant admin consent** never covered it).                                      | Confirm that every permission selected under **Access** on the Config page, plus `User.Read` and `offline_access`, is listed under the app registration's **API permissions**. Add any that are missing, then select **Grant admin consent** (step 4).                                                                                               |
-| A Microsoft consent prompt appears at sign-in even though you selected **Grant admin consent** | Same cause as `AADSTS65001` above, on a tenant that allows members to approve permissions themselves.                                                                                                                                                            | See the `AADSTS65001` row above.                                                                                                                                                                                                                                                                                                                     |
-| Entra error `AADSTS7000218` at sign-in                                                         | **Allow public client flows** is set to **No** on the app registration.                                                                                                                                                                                          | Set it to **Yes** (step 3).                                                                                                                                                                                                                                                                                                                          |
-| Entra error `AADSTS53000` or `AADSTS53003` when Claude calls Microsoft 365                     | A Conditional Access policy requires a compliant or managed device, and either sign-in fell back to the browser because brokered sign-in is not available, or the device does not satisfy the policy's grant control.                                            | Meet the [brokered sign-in requirements](#brokered-sign-in-requirements) for the member's platform, confirm the device satisfies whichever grant control your policy applies (marked compliant, or hybrid joined), and restart Claude Desktop. On macOS, the most common broker cause is a missing Company Portal install or Extensible SSO profile. |
-| Entra error `AADSTS700016` at sign-in                                                          | The **Client ID** or **Tenant ID** on the Config page does not match an application in the selected **Azure cloud**.                                                                                                                                             | Re-check the Client ID and Tenant ID against the application's Overview page, and confirm that **Azure cloud** matches the cloud where you registered the application.                                                                                                                                                                               |
-| Sign-in or Claude's Microsoft 365 calls fail with a network error and no `AADSTS` code         | The member's device cannot reach the Microsoft Entra or Microsoft Graph host for your Azure cloud.                                                                                                                                                               | Allow outbound HTTPS to the hosts listed under [Allow outbound network access](#allow-outbound-network-access).                                                                                                                                                                                                                                      |
-| A tool returns a permission error                                                              | The Microsoft Graph permission that tool needs is not approved on the app registration, or is not selected under **Access**.                                                                                                                                     | Add the permission in both places and select **Grant admin consent** again.                                                                                                                                                                                                                                                                          |
+| What the member sees | What it means | How to fix it |
+| - | - | - |
+| Entra error `AADSTS50011` at sign-in | One of the redirect URIs from step 2 is missing from the app registration, was entered with a different value, or was added under the **Web** platform instead of **Mobile and desktop applications**. The error message names the URI that Claude Desktop sent. | Compare it with step 2 and add or correct that URI under **Mobile and desktop applications**. |
+| Entra error `AADSTS900971` at sign-in on macOS | No redirect URI is registered for macOS brokered sign-in. | Add `msauth.com.anthropic.claudefordesktop://auth` under **Mobile and desktop applications** (step 2). |
+| Entra error `AADSTS65001` at sign-in | The Microsoft Graph permissions have not been approved for the tenant, or a permission the connector requests is not listed under the app registration's **API permissions** (so **Grant admin consent** never covered it). | Confirm that every permission selected under **Access** on the Config page, plus `User.Read` and `offline_access`, is listed under the app registration's **API permissions**. Add any that are missing, then select **Grant admin consent** (step 4). |
+| A Microsoft consent prompt appears at sign-in even though you selected **Grant admin consent** | Same cause as `AADSTS65001` above, on a tenant that allows members to approve permissions themselves. | See the `AADSTS65001` row above. |
+| Entra error `AADSTS7000218` at sign-in | **Allow public client flows** is set to **No** on the app registration. | Set it to **Yes** (step 3). |
+| Entra error `AADSTS53000` or `AADSTS53003` when Claude calls Microsoft 365 | A Conditional Access policy requires a compliant or managed device, and either sign-in fell back to the browser because brokered sign-in is not available, or the device does not satisfy the policy's grant control. | Meet the [brokered sign-in requirements](#brokered-sign-in-requirements) for the member's platform, confirm the device satisfies whichever grant control your policy applies (marked compliant, or hybrid joined), and restart Claude Desktop. On macOS, the most common broker cause is a missing Company Portal install or Extensible SSO profile. |
+| Entra error `AADSTS700016` at sign-in | The **Client ID** or **Tenant ID** on the Config page does not match an application in the selected **Azure cloud**. | Re-check the Client ID and Tenant ID against the application's Overview page, and confirm that **Azure cloud** matches the cloud where you registered the application. |
+| Sign-in or Claude's Microsoft 365 calls fail with a network error and no `AADSTS` code | The member's device cannot reach the Microsoft Entra or Microsoft Graph host for your Azure cloud. | Allow outbound HTTPS to the hosts listed under [Allow outbound network access](#allow-outbound-network-access). |
+| A tool returns a permission error | The Microsoft Graph permission that tool needs is not approved on the app registration, or is not selected under **Access**. | Add the permission in both places and select **Grant admin consent** again. |
 
 ## Things to know
 

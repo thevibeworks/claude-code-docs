@@ -42,38 +42,38 @@ The Inspector V2 Working Group is building Inspector V2, a new web-based MCP ins
 
 ## Leadership
 
-| Role    | Name           | Organization | GitHub                                           | Term    |
-| ------- | -------------- | ------------ | ------------------------------------------------ | ------- |
-| WG Lead | Cliff Hall     | Futurescale  | [@cliffhall](https://github.com/cliffhall)       | Ongoing |
-| WG Lead | Ola Hungerford | Nordstrom    | [@olaservo](https://github.com/olaservo)         | Ongoing |
-| WG Lead | Bob Dickinson  | TeamSpark.ai | [@BobDickinson](https://github.com/BobDickinson) | Ongoing |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| WG Lead | Cliff Hall | Futurescale | [@cliffhall](https://github.com/cliffhall) | Ongoing |
+| WG Lead | Ola Hungerford | Nordstrom | [@olaservo](https://github.com/olaservo) | Ongoing |
+| WG Lead | Bob Dickinson | TeamSpark.ai | [@BobDickinson](https://github.com/BobDickinson) | Ongoing |
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Membership
 
-| Name           | Organization | GitHub                                           | Discord     | Level      |
-| -------------- | ------------ | ------------------------------------------------ | ----------- | ---------- |
-| Cliff Hall     | Futurescale  | [@cliffhall](https://github.com/cliffhall)       | seaofarrows | Maintainer |
-| Ola Hungerford | Nordstrom    | [@olaservo](https://github.com/olaservo)         | olaservo    | Maintainer |
-| Bob Dickinson  | TeamSpark.ai | [@BobDickinson](https://github.com/BobDickinson) | rddthree    | Maintainer |
-| Tobin South    | Anthropic    | [@tobinsouth](https://github.com/tobinsouth)     | tobinsouth  | Member     |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Cliff Hall | Futurescale | [@cliffhall](https://github.com/cliffhall) | seaofarrows | Maintainer |
+| Ola Hungerford | Nordstrom | [@olaservo](https://github.com/olaservo) | olaservo | Maintainer |
+| Bob Dickinson | TeamSpark.ai | [@BobDickinson](https://github.com/BobDickinson) | rddthree | Maintainer |
+| Tobin South | Anthropic | [@tobinsouth](https://github.com/tobinsouth) | tobinsouth | Member |
 
 ## Operations
 
-| Meeting         | Frequency                                  | Duration   | Purpose                               |
-| --------------- | ------------------------------------------ | ---------- | ------------------------------------- |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
 | Working Session | Weekly, Wednesdays 11:00 America/New\_York | 60 minutes | Technical discussion, proposal review |
 
 Meetings are held at [meet.modelcontextprotocol.io/tag/inspector-v2-wg](https://meet.modelcontextprotocol.io/tag/inspector-v2-wg). Agendas are posted at least 7 days in advance per current MCP meeting policy. Meeting notes are published to the [Meeting Notes — Inspector V2 WG](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/categories/meeting-notes-inspector-v2-wg) discussion category in the `modelcontextprotocol/modelcontextprotocol` repository.
@@ -88,14 +88,14 @@ Meetings are held at [meet.modelcontextprotocol.io/tag/inspector-v2-wg](https://
 
 ### Active Work Items
 
-| Work Item                                                                               | Status                       | Owner(s)                   |
-| --------------------------------------------------------------------------------------- | ---------------------------- | -------------------------- |
-| Web Inspector UI (Mantine / TypeScript) — dumb components with real MCP/Core interfaces | In Progress                  | Cliff Hall, Ola Hungerford |
-| Inspector Core shared-code architecture                                                 | In Progress                  | Bob Dickinson              |
-| CLI Inspector and TUI Inspector                                                         | In Progress                  | Bob Dickinson              |
-| Migration of existing Inspector on `main` to `v1.x` maintenance branch                  | Planning                     | WG Leads                   |
-| Testing apparatus across Core, Web, CLI, and TUI                                        | Planning                     | WG Leads                   |
-| Inspector Core adoption of MCP TypeScript SDK V2                                        | Blocked (gated by TS SDK WG) | Bob Dickinson              |
+| Work Item | Status | Owner(s) |
+| - | - | - |
+| Web Inspector UI (Mantine / TypeScript) — dumb components with real MCP/Core interfaces | In Progress | Cliff Hall, Ola Hungerford |
+| Inspector Core shared-code architecture | In Progress | Bob Dickinson |
+| CLI Inspector and TUI Inspector | In Progress | Bob Dickinson |
+| Migration of existing Inspector on `main` to `v1.x` maintenance branch | Planning | WG Leads |
+| Testing apparatus across Core, Web, CLI, and TUI | Planning | WG Leads |
+| Inspector Core adoption of MCP TypeScript SDK V2 | Blocked (gated by TS SDK WG) | Bob Dickinson |
 
 ### Success Criteria
 
@@ -109,6 +109,6 @@ Meetings are held at [meet.modelcontextprotocol.io/tag/inspector-v2-wg](https://
 
 ## Changelog
 
-| Date       | Change                                           | Author               |
-| ---------- | ------------------------------------------------ | -------------------- |
+| Date | Change | Author |
+| - | - | - |
 | 2026-04-11 | Initial charter adopted for SEP-2149 compliance. | Cliff Hall (Co-Lead) |

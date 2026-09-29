@@ -20,11 +20,11 @@ The two prompts below are Slack messages you paste in the request channel, in or
 
 Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
 
-| Connection         | Examples             | Why it matters here                                                                                               |
-| :----------------- | :------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| None               | —                    | Works on Slack content alone                                                                                      |
+| Connection | Examples | Why it matters here |
+| :- | :- | :- |
+| None | — | Works on Slack content alone |
 | Knowledge and docs | Google Drive, Notion | Optional. Reads a [runbook](#give-claude-a-runbook-of-standing-answers) or past decisions the team keeps in a doc |
-| Issue tracking     | Linear, Jira         | Optional. Files routed items as tickets                                                                           |
+| Issue tracking | Linear, Jira | Optional. Files routed items as tickets |
 
 ## Prompts to paste
 

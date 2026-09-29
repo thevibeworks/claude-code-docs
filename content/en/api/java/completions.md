@@ -239,6 +239,10 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
+
+      Efficient model for coding and agents
+
     - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
       Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -253,7 +257,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `CLAUDE_FABLE_5("claude-fable-5")`
 
@@ -341,7 +345,7 @@ public final class Main {
 
         CompletionCreateParams params = CompletionCreateParams.builder()
             .maxTokensToSample(256L)
-            .model(Model.CLAUDE_FABLE_5_1)
+            .model(Model.CLAUDE_SONNET_5_5)
             .prompt("\n\nHuman: Hello, world!\n\nAssistant:")
             .build();
         Completion completion = client.completions().create(params);
@@ -389,6 +393,10 @@ public final class Main {
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
+
+      Efficient model for coding and agents
+
     - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
       Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -403,7 +411,7 @@ public final class Main {
 
     - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `CLAUDE_FABLE_5("claude-fable-5")`
 

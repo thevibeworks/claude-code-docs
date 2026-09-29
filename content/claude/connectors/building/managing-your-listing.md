@@ -40,13 +40,13 @@ Tool call totals, error rates, and latency are measured at Anthropic's HTTP conn
 
 The health badge summarizes your server's recent reliability as one of these statuses:
 
-| Status              | Meaning                                                              |
-| ------------------- | -------------------------------------------------------------------- |
-| **Healthy**         | Request errors are 2% or less of tool calls in the last 30 days      |
-| **Worth a look**    | Request errors are above 2%                                          |
-| **Degraded**        | Request errors are above 5%                                          |
-| **Not enough data** | Request errors haven't been measured yet; metrics update daily       |
-| **Not live**        | The server isn't published yet, and health appears after publication |
+| Status | Meaning |
+| - | - |
+| **Healthy** | Request errors are 2% or less of tool calls in the last 30 days |
+| **Worth a look** | Request errors are above 2% |
+| **Degraded** | Request errors are above 5% |
+| **Not enough data** | Request errors haven't been measured yet; metrics update daily |
+| **Not live** | The server isn't published yet, and health appears after publication |
 
 Request errors include tool calls rejected for authentication problems and exclude errors a tool returns in its own result.
 

@@ -42,15 +42,15 @@ Box's MCP server requires an OAuth client that a Box admin creates, and Box's to
   <Step title="Add the server in the Enterprise Admin Console">
     In the Enterprise Admin Console ([claude.ai](https://claude.ai) → **Organization settings**), open the **Connectors** page under **Desktop 3P**. Under **Managed MCP servers**, click **Add → Blank** and fill in the entry:
 
-    | Field                           | Value                                                                               |
-    | ------------------------------- | ----------------------------------------------------------------------------------- |
-    | **Name**                        | `Box`                                                                               |
-    | **Transport**                   | **Streamable HTTP**                                                                 |
-    | **URL**                         | `https://mcp.box.com`                                                               |
-    | **OAuth**                       | **Bring your own client**                                                           |
-    | **Client ID**                   | The client ID from step 1                                                           |
+    | Field | Value |
+    | - | - |
+    | **Name** | `Box` |
+    | **Transport** | **Streamable HTTP** |
+    | **URL** | `https://mcp.box.com` |
+    | **OAuth** | **Bring your own client** |
+    | **Client ID** | The client ID from step 1 |
     | **Client secret helper script** | The script's absolute path from step 2, for example `/usr/local/bin/box-mcp-secret` |
-    | **Authorization server**        | `["https://api.box.com"]`                                                           |
+    | **Authorization server** | `["https://api.box.com"]` |
 
     Click **Save changes**. Users' apps pick up the new entry as described under [Configuration updates](/docs/third-party/claude-desktop/admin-console#configuration-updates). Devices need outbound HTTPS access to `mcp.box.com`, `account.box.com`, and `api.box.com`.
 

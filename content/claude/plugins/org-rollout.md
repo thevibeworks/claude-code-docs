@@ -22,14 +22,14 @@ This page is for the person rolling out a plugin their organization built, on a 
 
 The table compares organization settings on claude.ai with Claude Code managed settings on who receives the plugin and what each route asks of you.
 
-|                           | Organization settings on claude.ai                                                                                 | Claude Code managed settings                                                                                                    |
-| :------------------------ | :----------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------ |
-| Who receives the plugin   | Members, on their claude.ai account: in chat, in Cowork, and in Claude Code sessions that sync from that account   | Claude Code on every machine that receives the settings                                                                         |
-| Where you set it up       | [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory)              | Server-managed settings, an MDM policy, or a `managed-settings.json` file                                                       |
-| What you set              | An availability for each plugin, such as **Installed by default** or **Required**                                  | `extraKnownMarketplaces` to register your marketplace and `enabledPlugins` to install plugins from it                           |
+| | Organization settings on claude.ai | Claude Code managed settings |
+| :- | :- | :- |
+| Who receives the plugin | Members, on their claude.ai account: in chat, in Cowork, and in Claude Code sessions that sync from that account | Claude Code on every machine that receives the settings |
+| Where you set it up | [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory) | Server-managed settings, an MDM policy, or a `managed-settings.json` file |
+| What you set | An availability for each plugin, such as **Installed by default** or **Required** | `extraKnownMarketplaces` to register your marketplace and `enabledPlugins` to install plugins from it |
 | Access to your repository | Members need none. Organization sync reads the repository through your organization's GitHub or GitLab connection. | Each machine fetches the marketplace itself. For a private Git repository, it uses the Git credentials already on that machine. |
-| Which components load     | Depends on the surface. See [Plugin feature support across platforms](/docs/plugins/platform-support).                  | Every component                                                                                                                 |
-| Full setup steps          | [Manage plugins for your organization](/docs/plugins/admin)                                                             | [Manage Claude Code plugins for your organization](https://code.claude.com/docs/en/plugins/org) in the Claude Code docs         |
+| Which components load | Depends on the surface. See [Plugin feature support across platforms](/docs/plugins/platform-support). | Every component |
+| Full setup steps | [Manage plugins for your organization](/docs/plugins/admin) | [Manage Claude Code plugins for your organization](https://code.claude.com/docs/en/plugins/org) in the Claude Code docs |
 
 A plugin on a member's account reaches Claude Code as a synced plugin in Cowork and in terminal sessions where the member signs in with their claude.ai account on Claude Code v2.1.273 or later. [Plugins synced from claude.ai](https://code.claude.com/docs/en/plugins/loading#synced-plugins) has the sign-in and timing rules. For developers whose terminal sessions don't sync from a claude.ai account, use managed settings.
 

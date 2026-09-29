@@ -17,11 +17,11 @@ A reference set of MCP development skills is available as the
 [`mcp-server-dev` plugin](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/mcp-server-dev).
 It provides three composing skills:
 
-| Skill              | Purpose                                                                                                                 |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| Skill | Purpose |
+| - | - |
 | `build-mcp-server` | Entry point. Interrogates the use case, picks a deployment model and tool-design pattern, routes to specialized skills. |
-| `build-mcp-app`    | Adds interactive UI widgets (forms, pickers, dashboards) rendered inline in chat.                                       |
-| `build-mcpb`       | Packages a local stdio server with its runtime so users can install it without Node or Python.                          |
+| `build-mcp-app` | Adds interactive UI widgets (forms, pickers, dashboards) rendered inline in chat. |
+| `build-mcpb` | Packages a local stdio server with its runtime so users can install it without Node or Python. |
 
 Each skill ships a `SKILL.md` file plus a `references/` folder of supporting
 material (auth flows, tool-design patterns, widget templates, manifest schemas)

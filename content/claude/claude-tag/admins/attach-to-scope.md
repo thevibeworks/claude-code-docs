@@ -22,17 +22,17 @@ Bundles stack downward. A channel gets whatever is attached at Default Slack acc
 
 <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/scope-inheritance-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=b53a534b076e6c22f0d86a81841b00a8" alt="Nested boxes. The outermost box is the Default Slack access scope: a bundle attached here is the baseline every channel gets. Inside it, two examples. Outside the workspace box, a channel called another-team in a different workspace gets only the default bundle. Inside the workspace box, which adds an optional bundle for channels inside it, two channel boxes: a public channel called general, with no channel bundle, gets the default plus the workspace bundle; a private channel, marked with a lock, with its own channel bundle, gets all three, the default, workspace, and channel bundles." width="1000" height="320" data-path="images/claude-tag/diagrams/scope-inheritance-dark.svg" />
 
-| Scope                | What it covers                            | Access                                                                  |
-| :------------------- | :---------------------------------------- | :---------------------------------------------------------------------- |
-| Default Slack access | Every Slack workspace and channel         | The baseline set every channel gets                                     |
-| Workspace            | All channels in one Slack workspace       | Inherits Default Slack access, plus workspace-level bundles             |
-| Channel              | A single Slack channel, public or private | Inherits Default Slack access and workspace, plus channel-level bundles |
+| Scope | What it covers | Access |
+| :- | :- | :- |
+| Default Slack access | Every Slack workspace and channel | The baseline set every channel gets |
+| Workspace | All channels in one Slack workspace | Inherits Default Slack access, plus workspace-level bundles |
+| Channel | A single Slack channel, public or private | Inherits Default Slack access and workspace, plus channel-level bundles |
 
 The same stacking applies in reverse. Detaching a bundle from a channel removes only that channel's additions, and bundles attached at the workspace or Default Slack access still apply there.
 
 Memory is also scoped, but differently: there is no organization-wide memory, each channel keeps its own notes, workspace notes saved from public channels are read across the workspace, and a private channel reads the workspace notes but writes only to its own store. See [What Claude Tag remembers](/docs/claude-tag/users/memory).
 
-DMs run under the user's own claude.ai account, so bundles attached here apply only in channels. See [how DMs work in this model](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
+DMs from members who have connected a Claude account run under the member's own claude.ai account, so bundles attached here don't apply to them. See [how DMs work in this model](/docs/claude-tag/concepts/agent-identity#direct-message-channels). A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access#access-in-a-direct-message-from-a-member-without-a-claude-account) does reach access bundles.
 
 ## Attach the bundle
 
@@ -88,10 +88,10 @@ To grant a single repository or connector without opening a bundle first, use th
 
 Each connector or repository row in these sections carries an origin line that says which scope or bundle gave the scope that item.
 
-| Origin line                | What it means                                                                                                       |
-| :------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| Origin line | What it means |
+| :- | :- |
 | **Inherited from** *scope* | The row comes from a wider scope. When an admin-made bundle carries it, the line adds **via** and the bundle's name |
-| **Attached from** *bundle* | The row was added on this scope through that admin-made bundle                                                      |
+| **Attached from** *bundle* | The row was added on this scope through that admin-made bundle |
 
 Select the scope name to open that scope, or the bundle name to open the bundle.
 
@@ -127,12 +127,12 @@ Per-scope custom instructions are **concatenated**, Default Slack access first, 
 
 The table lists the kinds of standing instruction that can apply in a channel and who writes each.
 
-| Layer                | Who writes it                                                                                                                                                                                                                                 | Where                                                                                                    |
-| :------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------- |
-| Custom instructions  | Owner for any scope; channel members and [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for the channel scope, unless members are [restricted](#restrict-who-can-set-channel-instructions) | The scope's panel in admin settings, or the **Configure** link in any reply footer for the channel scope |
-| Managed instructions | Full workspace members in one of the channel's [managing channels](/docs/claude-tag/admins/managed-by), which an Owner or Admin selects under **Managed by** on the channel's Configure page                                                       | By asking Claude in the managing channel and confirming the card it posts                                |
-| Channel memory       | Anyone in the channel                                                                                                                                                                                                                         | By telling Claude to remember                                                                            |
-| Task prompt          | The requester                                                                                                                                                                                                                                 | The message itself                                                                                       |
+| Layer | Who writes it | Where |
+| :- | :- | :- |
+| Custom instructions | Owner for any scope; channel members and [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for the channel scope, unless members are [restricted](#restrict-who-can-set-channel-instructions) | The scope's panel in admin settings, or the **Configure** link in any reply footer for the channel scope |
+| Managed instructions | Full workspace members in one of the channel's [managing channels](/docs/claude-tag/admins/managed-by), which an Owner or Admin selects under **Managed by** on the channel's Configure page | By asking Claude in the managing channel and confirming the card it posts |
+| Channel memory | Anyone in the channel | By telling Claude to remember |
+| Task prompt | The requester | The message itself |
 
 Channel members can shape how Claude responds in their channel through memory, but they can't change which credentials or repositories it has; that's bundle configuration. See [who controls what](/docs/claude-tag/admins/customize) for the full split.
 
@@ -156,11 +156,11 @@ To let a central team write a channel's instructions from its own Slack channel,
 
 By default, anyone in a channel who is also a member of your Claude organization can edit that channel's instructions from the **Configure** link in Claude's reply footer. The **Channel member edits** setting in a scope's **Advanced** settings controls this.
 
-| Option      | Effect                                                                                                                                                                                      |
-| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Inherit** | Follow the parent scope's setting                                                                                                                                                           |
-| **Allow**   | Members can edit channel instructions from the Configure link                                                                                                                               |
-| **Block**   | Members can't change channel instructions, the channel's default model, or its [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) setting |
+| Option | Effect |
+| :- | :- |
+| **Inherit** | Follow the parent scope's setting |
+| **Allow** | Members can edit channel instructions from the Configure link |
+| **Block** | Members can't change channel instructions, the channel's default model, or its [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) setting |
 
 A chain of scopes that all inherit resolves to **Allow**. Set **Block** at the workspace or Default Slack access scope to lock channel instructions across every channel beneath it. A [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can still edit instructions, change the default model, and switch the **Respond automatically** toggle from the Configure page in a channel assigned to them when **Block** is set.
 

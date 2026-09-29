@@ -20,8 +20,8 @@ Each prompt below is a Slack message. You paste it in the account or deal channe
 
 Check that the channel has the connections below. Ask `@Claude what can you access from this channel?` to check; an admin can [add a connection](/docs/claude-tag/admins/add-connections) the channel is missing.
 
-| Connection   | Examples                  | Why it matters here                      |
-| :----------- | :------------------------ | :--------------------------------------- |
+| Connection | Examples | Why it matters here |
+| :- | :- | :- |
 | Go-to-market | Salesforce, HubSpot, Gong | Required. Pulls account and deal records |
 
 ## Prompts to paste

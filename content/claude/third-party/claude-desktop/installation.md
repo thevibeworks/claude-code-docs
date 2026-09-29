@@ -12,11 +12,11 @@ Claude Desktop on third-party (3P) is the standard Claude Desktop application pl
 
 Cowork, the agent workspace at the center of Claude Desktop on 3P, has the following device requirements:
 
-| Requirement      | macOS                        | Windows                                                              |
-| ---------------- | ---------------------------- | -------------------------------------------------------------------- |
-| Operating system | macOS 14 (Sonoma) or later   | Windows 10 build 19041 (version 2004) or later, including Windows 11 |
-| CPU architecture | Apple silicon or Intel (x64) | x64 or Arm64                                                         |
-| Installer        | `.dmg`                       | `.msix`                                                              |
+| Requirement | macOS | Windows |
+| - | - | - |
+| Operating system | macOS 14 (Sonoma) or later | Windows 10 build 19041 (version 2004) or later, including Windows 11 |
+| CPU architecture | Apple silicon or Intel (x64) | x64 or Arm64 |
+| Installer | `.dmg` | `.msix` |
 
 On Windows, Cowork requires the `.msix` package: fleets provisioned with the legacy `.exe` installer get Claude Desktop without Cowork, and migrating them to `.msix` enables it. Cowork also requires working hardware virtualization and, on Windows, the Virtual Machine Platform optional feature. The [readiness check](#check-device-readiness) verifies both along with the requirements above.
 
@@ -24,11 +24,11 @@ On Windows, Cowork requires the `.msix` package: fleets provisioned with the leg
 
 Before installing Claude Desktop, you can confirm that a device supports Cowork by running the readiness check: a small standalone program that requires no installation or sign-in.
 
-| Platform      | Download                                                                                                                     |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| macOS         | [Cowork readiness check for macOS](https://claude.ai/api/desktop/darwin/universal/cowork-readiness-check/latest/redirect)    |
+| Platform | Download |
+| - | - |
+| macOS | [Cowork readiness check for macOS](https://claude.ai/api/desktop/darwin/universal/cowork-readiness-check/latest/redirect) |
 | Windows (Arm) | [Cowork readiness check for Windows arm64](https://claude.ai/api/desktop/win32/arm64/cowork-readiness-check/latest/redirect) |
-| Windows (x64) | [Cowork readiness check for Windows x64](https://claude.ai/api/desktop/win32/x64/cowork-readiness-check/latest/redirect)     |
+| Windows (x64) | [Cowork readiness check for Windows x64](https://claude.ai/api/desktop/win32/x64/cowork-readiness-check/latest/redirect) |
 
 Open the downloaded program to run the check. A ready device reports **This computer is ready for Cowork**.
 
@@ -38,10 +38,10 @@ For fleet deployments, run the check on one device of each hardware model in you
 
 Download the installer for your platform from [claude.com/download](https://claude.com/download).
 
-| Platform | Installer | Notes                                                       |
-| -------- | --------- | ----------------------------------------------------------- |
-| macOS    | `.dmg`    | Drag **Claude.app** to Applications                         |
-| Windows  | `.msix`   | Supports per-machine provisioning for enterprise deployment |
+| Platform | Installer | Notes |
+| - | - | - |
+| macOS | `.dmg` | Drag **Claude.app** to Applications |
+| Windows | `.msix` | Supports per-machine provisioning for enterprise deployment |
 
 For fleet rollouts, distribute the installer through your standard software-distribution mechanism. On the MDM and bootstrap paths, distribute it after the configuration reaches devices; [Choose a configuration delivery model](#choose-a-configuration-delivery-model) covers how the configuration gets there.
 
@@ -49,12 +49,12 @@ For fleet rollouts, distribute the installer through your standard software-dist
 
 Configuration reaches devices in one of three ways. With the Enterprise Admin Console, Anthropic hosts the configuration and users receive it by signing in to the app. With MDM or a bootstrap server, you typically push a profile to devices with your MDM tooling, and the two differ in what the profile contains.
 
-|                            | Enterprise Admin Console                                                                                                     | MDM profile                                                             | Bootstrap server                                                                                                     |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| What you deploy to devices | Only the app, which downloads each user's configuration when they sign in with their work account                            | The full configuration, exported as a `.mobileconfig` or `.reg` profile | A minimal profile containing only the bootstrap keys (`bootstrapUrl`, optionally `bootstrapOidc` or request headers) |
-| Where settings live        | In the Enterprise Admin Console, which Anthropic hosts and your administrators edit in a browser                             | In the profile, identical for every device the profile targets          | On an HTTPS endpoint you operate, which returns each user's configuration at sign-in                                 |
-| Per-user values            | Permission policies per group of users                                                                                       | Separate profiles per device group                                      | The server keys its response to the signed-in user                                                                   |
-| Changing settings          | Save the change in the console. Running apps pick it up at their next check and, for most settings, ask the user to relaunch | Export and push an updated profile                                      | Change your server's response; devices pick it up at the next fetch, with no profile push                            |
+| | Enterprise Admin Console | MDM profile | Bootstrap server |
+| - | - | - | - |
+| What you deploy to devices | Only the app, which downloads each user's configuration when they sign in with their work account | The full configuration, exported as a `.mobileconfig` or `.reg` profile | A minimal profile containing only the bootstrap keys (`bootstrapUrl`, optionally `bootstrapOidc` or request headers) |
+| Where settings live | In the Enterprise Admin Console, which Anthropic hosts and your administrators edit in a browser | In the profile, identical for every device the profile targets | On an HTTPS endpoint you operate, which returns each user's configuration at sign-in |
+| Per-user values | Permission policies per group of users | Separate profiles per device group | The server keys its response to the signed-in user |
+| Changing settings | Save the change in the console. Running apps pick it up at their next check and, for most settings, ask the user to relaunch | Export and push an updated profile | Change your server's response; devices pick it up at the next fetch, with no profile push |
 
 Choose the Enterprise Admin Console when you want to manage the configuration centrally without operating MDM profiles or a server, and your users can sign in to Claude Desktop with a Claude account tied to their work email. Anthropic stores your user list and the settings you save. Prompts still go only to your inference provider, and conversations stay on the device. Contact your Anthropic representative to have an organization provisioned.
 
@@ -154,12 +154,12 @@ Standard installs fetch two large runtime components from `downloads.claude.ai` 
 
 Each supported platform and architecture has a fixed download URL that serves the current offline installer:
 
-| Platform              | Format  | Download URL                                                         |
-| --------------------- | ------- | -------------------------------------------------------------------- |
-| Windows (x64)         | `.msix` | `https://claude.ai/api/desktop/win32/x64/offline/latest/redirect`    |
-| Windows (Arm)         | `.msix` | `https://claude.ai/api/desktop/win32/arm64/offline/latest/redirect`  |
-| macOS (Apple silicon) | `.dmg`  | `https://claude.ai/api/desktop/darwin/arm64/offline/latest/redirect` |
-| macOS (Intel)         | `.dmg`  | `https://claude.ai/api/desktop/darwin/x64/offline/latest/redirect`   |
+| Platform | Format | Download URL |
+| - | - | - |
+| Windows (x64) | `.msix` | `https://claude.ai/api/desktop/win32/x64/offline/latest/redirect` |
+| Windows (Arm) | `.msix` | `https://claude.ai/api/desktop/win32/arm64/offline/latest/redirect` |
+| macOS (Apple silicon) | `.dmg` | `https://claude.ai/api/desktop/darwin/arm64/offline/latest/redirect` |
+| macOS (Intel) | `.dmg` | `https://claude.ai/api/desktop/darwin/x64/offline/latest/redirect` |
 
 Each URL responds with an HTTP redirect to a versioned installer file, so any HTTP client that follows redirects downloads the installer directly. New versions of Claude Desktop roll out to connected devices gradually; these URLs serve the newest version whose rollout has completed. The redirect's `Location` header contains the version number, so tooling can detect a new version by requesting the URL without following the redirect.
 

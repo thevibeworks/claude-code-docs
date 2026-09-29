@@ -214,7 +214,7 @@ The workflow will run tests, build the package, publish the package to npm, and 
 
 ## Troubleshooting
 
-| Error Message               | Action                                                                                                                                                                     |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| "Authentication failed"     | Ensure `id-token: write` permission is set for OIDC, or check secrets.                                                                                                     |
+| Error Message | Action |
+| - | - |
+| "Authentication failed" | Ensure `id-token: write` permission is set for OIDC, or check secrets. |
 | "Package validation failed" | Verify your package successfully published to the package registry (e.g., npm, PyPI), and that your package has the [necessary verification information](./package-types). |

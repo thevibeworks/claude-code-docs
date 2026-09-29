@@ -50,19 +50,19 @@ MCP spans multiple repositories in the
 [`modelcontextprotocol`](https://github.com/modelcontextprotocol) organization on GitHub. Here are
 a few notable sub-projects worth checking out:
 
-| Repository                                                                                                  | Contents                  |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------- |
+| Repository | Contents |
+| - | - |
 | [`modelcontextprotocol/modelcontextprotocol`](https://github.com/modelcontextprotocol/modelcontextprotocol) | Specification, docs, SEPs |
-| [`modelcontextprotocol/typescript-sdk`](https://github.com/modelcontextprotocol/typescript-sdk)             | TypeScript/JavaScript SDK |
-| [`modelcontextprotocol/python-sdk`](https://github.com/modelcontextprotocol/python-sdk)                     | Python SDK                |
-| [`modelcontextprotocol/go-sdk`](https://github.com/modelcontextprotocol/go-sdk)                             | Go SDK                    |
-| [`modelcontextprotocol/java-sdk`](https://github.com/modelcontextprotocol/java-sdk)                         | Java SDK                  |
-| [`modelcontextprotocol/kotlin-sdk`](https://github.com/modelcontextprotocol/kotlin-sdk)                     | Kotlin SDK                |
-| [`modelcontextprotocol/csharp-sdk`](https://github.com/modelcontextprotocol/csharp-sdk)                     | C# SDK                    |
-| [`modelcontextprotocol/swift-sdk`](https://github.com/modelcontextprotocol/swift-sdk)                       | Swift SDK                 |
-| [`modelcontextprotocol/rust-sdk`](https://github.com/modelcontextprotocol/rust-sdk)                         | Rust SDK                  |
-| [`modelcontextprotocol/ruby-sdk`](https://github.com/modelcontextprotocol/ruby-sdk)                         | Ruby SDK                  |
-| [`modelcontextprotocol/php-sdk`](https://github.com/modelcontextprotocol/php-sdk)                           | PHP SDK                   |
+| [`modelcontextprotocol/typescript-sdk`](https://github.com/modelcontextprotocol/typescript-sdk) | TypeScript/JavaScript SDK |
+| [`modelcontextprotocol/python-sdk`](https://github.com/modelcontextprotocol/python-sdk) | Python SDK |
+| [`modelcontextprotocol/go-sdk`](https://github.com/modelcontextprotocol/go-sdk) | Go SDK |
+| [`modelcontextprotocol/java-sdk`](https://github.com/modelcontextprotocol/java-sdk) | Java SDK |
+| [`modelcontextprotocol/kotlin-sdk`](https://github.com/modelcontextprotocol/kotlin-sdk) | Kotlin SDK |
+| [`modelcontextprotocol/csharp-sdk`](https://github.com/modelcontextprotocol/csharp-sdk) | C# SDK |
+| [`modelcontextprotocol/swift-sdk`](https://github.com/modelcontextprotocol/swift-sdk) | Swift SDK |
+| [`modelcontextprotocol/rust-sdk`](https://github.com/modelcontextprotocol/rust-sdk) | Rust SDK |
+| [`modelcontextprotocol/ruby-sdk`](https://github.com/modelcontextprotocol/ruby-sdk) | Ruby SDK |
+| [`modelcontextprotocol/php-sdk`](https://github.com/modelcontextprotocol/php-sdk) | PHP SDK |
 
 Throughout this guide, **specification repository** refers to
 `modelcontextprotocol/modelcontextprotocol`, which contains the protocol spec, this documentation
@@ -217,13 +217,13 @@ When you're ready, push your branch and open a pull request.
 
 Help us review your contribution quickly by following these patterns:
 
-| Harder to Review                             | Thoughtful and Impactful                         |
-| -------------------------------------------- | ------------------------------------------------ |
-| Large PR with unrelated changes              | Focused PR addressing one issue                  |
-| Reformatting code without functional changes | Fixing a bug with a clear explanation            |
-| Vague commit messages ("fixed stuff")        | Descriptive commits linking to issues            |
-| Submitting with failing CI checks            | All CI tests pass before requesting review       |
-| Duplicating existing documentation           | Documenting an undocumented feature or edge case |
+| Harder to Review | Thoughtful and Impactful |
+| - | - |
+| Large PR with unrelated changes | Focused PR addressing one issue |
+| Reformatting code without functional changes | Fixing a bug with a clear explanation |
+| Vague commit messages ("fixed stuff") | Descriptive commits linking to issues |
+| Submitting with failing CI checks | All CI tests pass before requesting review |
+| Duplicating existing documentation | Documenting an undocumented feature or edge case |
 
 ## Types of Contributions
 

@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2484                                                                            |
-| **Title**     | Require Conformance Tests for Standards Track SEPs to Reach Final Status        |
-| **Status**    | Final                                                                           |
-| **Type**      | Process                                                                         |
-| **Created**   | 2026-03-27                                                                      |
-| **Author(s)** | Paul Carleton ([@pcarleton](https://github.com/pcarleton))                      |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#2484](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2484) |
+| Field | Value |
+| - | - |
+| **SEP** | 2484 |
+| **Title** | Require Conformance Tests for Standards Track SEPs to Reach Final Status |
+| **Status** | Final |
+| **Type** | Process |
+| **Created** | 2026-03-27 |
+| **Author(s)** | Paul Carleton ([@pcarleton](https://github.com/pcarleton)) |
+| **Sponsor** | None |
+| **PR** | [#2484](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2484) |
 
 ***
 

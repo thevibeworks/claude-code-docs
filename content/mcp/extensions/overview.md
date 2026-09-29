@@ -27,9 +27,9 @@ Official extensions live inside the [Model Context Protocol GitHub organization]
   specification.
 </Card>
 
-| Extension                                                                             | Description                                                                 |
-| ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| [OAuth Client Credentials](/extensions/auth/oauth-client-credentials)                 | OAuth 2.0 client credentials flow for machine-to-machine authentication.    |
+| Extension | Description |
+| - | - |
+| [OAuth Client Credentials](/extensions/auth/oauth-client-credentials) | OAuth 2.0 client credentials flow for machine-to-machine authentication. |
 | [Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization) | Framework for enterprise environments requiring centralized access control. |
 
 ### MCP Apps
@@ -38,16 +38,16 @@ Official extensions live inside the [Model Context Protocol GitHub organization]
   Extensions for interactive UI elements in conversational MCP clients.
 </Card>
 
-| Extension                             | Description                                                                                                      |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Extension | Description |
+| - | - |
 | [MCP Apps](/extensions/apps/overview) | Allows MCP Servers to display interactive UI elements (charts, forms, video players) inline within conversations |
 
 To get started building MCP Apps, see the [quickstart guide](/extensions/apps/build#getting-started) or read the full [MCP Apps documentation](https://apps.extensions.modelcontextprotocol.io/api/documents/Quickstart.html).
 
 ### MCP Tasks
 
-| Extension                               | Description                                                                                                   |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Extension | Description |
+| - | - |
 | [MCP Tasks](/extensions/tasks/overview) | Asynchronous task execution for long-running operations, with polling, mid-flight input, and durable handles. |
 
 ### Skills over MCP
@@ -56,8 +56,8 @@ To get started building MCP Apps, see the [quickstart guide](/extensions/apps/bu
   Discover and read Agent Skills from MCP servers.
 </Card>
 
-| Extension                                      | Description                                                                     |
-| ---------------------------------------------- | ------------------------------------------------------------------------------- |
+| Extension | Description |
+| - | - |
 | [Skills over MCP](/extensions/skills/overview) | Discover workflow instructions and read supporting files through MCP resources. |
 
 See the [Skills overview](/extensions/skills/overview) to get started and the

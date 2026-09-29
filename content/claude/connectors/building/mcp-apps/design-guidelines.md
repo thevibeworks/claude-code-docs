@@ -297,119 +297,119 @@ MCP Apps automatically receive style variables from the host client. Reference t
 
 Color tokens cover backgrounds, text, and borders, and semantic accent colors signal status. All tokens automatically adapt to light and dark mode.
 
-|                              | Light mode      | Dark mode       |
-| :--------------------------- | :-------------- | :-------------- |
-| **Background**               |                 |                 |
-| `color-background-primary`   | `#FFFFFF`       | `#30302E`       |
-| `color-background-secondary` | `#F5F4ED`       | `#262624`       |
-| `color-background-tertiary`  | `#FAF9F5`       | `#141413`       |
-| `color-background-inverse`   | `#141413`       | `#FAF9F5`       |
-| `color-background-ghost`     | `#FFFFFF (0%)`  | `#30302E (0%)`  |
-| `color-background-info`      | `#D6E4F6`       | `#253E5F`       |
-| `color-background-danger`    | `#F7ECEC`       | `#602A28`       |
-| `color-background-success`   | `#E9F1DC`       | `#1B4614`       |
-| `color-background-warning`   | `#F6EEDF`       | `#483A0F`       |
-| `color-background-disabled`  | `#FFFFFF (50%)` | `#30302E (50%)` |
-| **Text**                     |                 |                 |
-| `color-text-primary`         | `#141413`       | `#FAF9F5`       |
-| `color-text-secondary`       | `#3D3D3A`       | `#C2C0B6`       |
-| `color-text-tertiary`        | `#73726C`       | `#9C9A92`       |
-| `color-text-inverse`         | `#FFFFFF`       | `#141413`       |
-| `color-text-ghost`           | `#73726C (50%)` | `#9C9A92 (50%)` |
-| `color-text-info`            | `#3266AD`       | `#80AADD`       |
-| `color-text-danger`          | `#7F2C28`       | `#EE8884`       |
-| `color-text-success`         | `#265B19`       | `#7AB948`       |
-| `color-text-warning`         | `#5A4815`       | `#D1A041`       |
-| `color-text-disabled`        | `#141413 (50%)` | `#FAF9F5 (50%)` |
-| **Border**                   |                 |                 |
-| `color-border-primary`       | `#1F1E1D (40%)` | `#DEDCD1 (40%)` |
-| `color-border-secondary`     | `#1F1E1D (30%)` | `#DEDCD1 (30%)` |
-| `color-border-tertiary`      | `#1F1E1D (15%)` | `#DEDCD1 (15%)` |
-| `color-border-inverse`       | `#FFFFFF (30%)` | `#141413 (15%)` |
-| `color-border-ghost`         | `#1F1E1D (0%)`  | `#DEDCD1 (0%)`  |
-| `color-border-info`          | `#4682D5`       | `#4682D5`       |
-| `color-border-danger`        | `#A73D39`       | `#CD5C58`       |
-| `color-border-success`       | `#437426`       | `#599130`       |
-| `color-border-warning`       | `#805C1F`       | `#A87829`       |
-| `color-border-disabled`      | `#1F1E1D (10%)` | `#DEDCD1 (10%)` |
-| **Ring**                     |                 |                 |
-| `color-ring-primary`         | `#141413 (70%)` | `#FAF9F5 (70%)` |
-| `color-ring-secondary`       | `#3D3D3A (70%)` | `#C2C0B6 (70%)` |
-| `color-ring-inverse`         | `#FFFFFF (70%)` | `#141413 (70%)` |
-| `color-ring-info`            | `#3266AD (50%)` | `#80AADD (50%)` |
-| `color-ring-danger`          | `#A73D39 (50%)` | `#CD5C58 (50%)` |
-| `color-ring-success`         | `#437426 (50%)` | `#599130 (50%)` |
-| `color-ring-warning`         | `#805C1F (50%)` | `#A87829 (50%)` |
+| | Light mode | Dark mode |
+| :- | :- | :- |
+| **Background** | | |
+| `color-background-primary` | `#FFFFFF` | `#30302E` |
+| `color-background-secondary` | `#F5F4ED` | `#262624` |
+| `color-background-tertiary` | `#FAF9F5` | `#141413` |
+| `color-background-inverse` | `#141413` | `#FAF9F5` |
+| `color-background-ghost` | `#FFFFFF (0%)` | `#30302E (0%)` |
+| `color-background-info` | `#D6E4F6` | `#253E5F` |
+| `color-background-danger` | `#F7ECEC` | `#602A28` |
+| `color-background-success` | `#E9F1DC` | `#1B4614` |
+| `color-background-warning` | `#F6EEDF` | `#483A0F` |
+| `color-background-disabled` | `#FFFFFF (50%)` | `#30302E (50%)` |
+| **Text** | | |
+| `color-text-primary` | `#141413` | `#FAF9F5` |
+| `color-text-secondary` | `#3D3D3A` | `#C2C0B6` |
+| `color-text-tertiary` | `#73726C` | `#9C9A92` |
+| `color-text-inverse` | `#FFFFFF` | `#141413` |
+| `color-text-ghost` | `#73726C (50%)` | `#9C9A92 (50%)` |
+| `color-text-info` | `#3266AD` | `#80AADD` |
+| `color-text-danger` | `#7F2C28` | `#EE8884` |
+| `color-text-success` | `#265B19` | `#7AB948` |
+| `color-text-warning` | `#5A4815` | `#D1A041` |
+| `color-text-disabled` | `#141413 (50%)` | `#FAF9F5 (50%)` |
+| **Border** | | |
+| `color-border-primary` | `#1F1E1D (40%)` | `#DEDCD1 (40%)` |
+| `color-border-secondary` | `#1F1E1D (30%)` | `#DEDCD1 (30%)` |
+| `color-border-tertiary` | `#1F1E1D (15%)` | `#DEDCD1 (15%)` |
+| `color-border-inverse` | `#FFFFFF (30%)` | `#141413 (15%)` |
+| `color-border-ghost` | `#1F1E1D (0%)` | `#DEDCD1 (0%)` |
+| `color-border-info` | `#4682D5` | `#4682D5` |
+| `color-border-danger` | `#A73D39` | `#CD5C58` |
+| `color-border-success` | `#437426` | `#599130` |
+| `color-border-warning` | `#805C1F` | `#A87829` |
+| `color-border-disabled` | `#1F1E1D (10%)` | `#DEDCD1 (10%)` |
+| **Ring** | | |
+| `color-ring-primary` | `#141413 (70%)` | `#FAF9F5 (70%)` |
+| `color-ring-secondary` | `#3D3D3A (70%)` | `#C2C0B6 (70%)` |
+| `color-ring-inverse` | `#FFFFFF (70%)` | `#141413 (70%)` |
+| `color-ring-info` | `#3266AD (50%)` | `#80AADD (50%)` |
+| `color-ring-danger` | `#A73D39 (50%)` | `#CD5C58 (50%)` |
+| `color-ring-success` | `#437426 (50%)` | `#599130 (50%)` |
+| `color-ring-warning` | `#805C1F (50%)` | `#A87829 (50%)` |
 
 ### Typography tokens
 
 Typography tokens include the font family, sizes, weights, and line heights.
 
-| Family                         |                                |
-| :----------------------------- | :----------------------------- |
-| `font-sans`                    | `"Anthropic Sans, sans-serif"` |
-| `font-mono`                    | `"ui-monospace, monospace"`    |
-| **Weight**                     |                                |
-| `font-weight-normal`           | `400`                          |
-| `font-weight-medium`           | `500`                          |
-| `font-weight-semibold`         | `600`                          |
-| `font-weight-bold`             | `700`                          |
-| **Size**                       |                                |
-| `font-text-xs-size`            | `12px`                         |
-| `font-text-sm-size`            | `14px`                         |
-| `font-text-md-size`            | `16px`                         |
-| `font-text-lg-size`            | `20px`                         |
-| `font-heading-xs-size`         | `12px`                         |
-| `font-heading-sm-size`         | `14px`                         |
-| `font-heading-md-size`         | `16px`                         |
-| `font-heading-lg-size`         | `20px`                         |
-| `font-heading-xl-size`         | `24px`                         |
-| `font-heading-2xl-size`        | `28px`                         |
-| `font-heading-3xl-size`        | `36px`                         |
-| **Line-height**                |                                |
-| `font-text-xs-line-height`     | `1.4`                          |
-| `font-text-sm-line-height`     | `1.4`                          |
-| `font-text-md-line-height`     | `1.4`                          |
-| `font-text-lg-line-height`     | `1.25`                         |
-| `font-heading-xs-line-height`  | `1.4`                          |
-| `font-heading-sm-line-height`  | `1.4`                          |
-| `font-heading-md-line-height`  | `1.4`                          |
-| `font-heading-lg-line-height`  | `1.25`                         |
-| `font-heading-xl-line-height`  | `1.25`                         |
-| `font-heading-2xl-line-height` | `1.1`                          |
-| `font-heading-3xl-line-height` | `1`                            |
+| Family | |
+| :- | :- |
+| `font-sans` | `"Anthropic Sans, sans-serif"` |
+| `font-mono` | `"ui-monospace, monospace"` |
+| **Weight** | |
+| `font-weight-normal` | `400` |
+| `font-weight-medium` | `500` |
+| `font-weight-semibold` | `600` |
+| `font-weight-bold` | `700` |
+| **Size** | |
+| `font-text-xs-size` | `12px` |
+| `font-text-sm-size` | `14px` |
+| `font-text-md-size` | `16px` |
+| `font-text-lg-size` | `20px` |
+| `font-heading-xs-size` | `12px` |
+| `font-heading-sm-size` | `14px` |
+| `font-heading-md-size` | `16px` |
+| `font-heading-lg-size` | `20px` |
+| `font-heading-xl-size` | `24px` |
+| `font-heading-2xl-size` | `28px` |
+| `font-heading-3xl-size` | `36px` |
+| **Line-height** | |
+| `font-text-xs-line-height` | `1.4` |
+| `font-text-sm-line-height` | `1.4` |
+| `font-text-md-line-height` | `1.4` |
+| `font-text-lg-line-height` | `1.25` |
+| `font-heading-xs-line-height` | `1.4` |
+| `font-heading-sm-line-height` | `1.4` |
+| `font-heading-md-line-height` | `1.4` |
+| `font-heading-lg-line-height` | `1.25` |
+| `font-heading-xl-line-height` | `1.25` |
+| `font-heading-2xl-line-height` | `1.1` |
+| `font-heading-3xl-line-height` | `1` |
 
 ### Radius tokens
 
 Radius tokens provide border radius values.
 
-| Radius               |          |
-| :------------------- | :------- |
-| `border-radius-xs`   | `4px`    |
-| `border-radius-sm`   | `6px`    |
-| `border-radius-md`   | `8px`    |
-| `border-radius-lg`   | `10px`   |
-| `border-radius-xl`   | `12px`   |
+| Radius | |
+| :- | :- |
+| `border-radius-xs` | `4px` |
+| `border-radius-sm` | `6px` |
+| `border-radius-md` | `8px` |
+| `border-radius-lg` | `10px` |
+| `border-radius-xl` | `12px` |
 | `border-radius-full` | `9999px` |
 
 ### Border width tokens
 
 Border width tokens provide border width values.
 
-|                        |         |
-| :--------------------- | :------ |
+| | |
+| :- | :- |
 | `border-width-regular` | `0.5px` |
 
 ### Shadow tokens
 
 Shadow tokens provide drop-shadow values.
 
-|                   |                                                                          |
-| :---------------- | :----------------------------------------------------------------------- |
-| `shadow-hairline` | `0 1px 2px 0 rgba(0, 0, 0, 0.05)`                                        |
-| `shadow-sm`       | `0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)`      |
-| `shadow-md`       | `0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)`   |
-| `shadow-lg`       | `0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)` |
+| | |
+| :- | :- |
+| `shadow-hairline` | `0 1px 2px 0 rgba(0, 0, 0, 0.05)` |
+| `shadow-sm` | `0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)` |
+| `shadow-md` | `0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)` |
+| `shadow-lg` | `0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)` |
 
 ### Example usage
 

@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                                                                                                                                                                                                                                        |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **SEP**       | 2640                                                                                                                                                                                                                                                                                         |
-| **Title**     | Skills Extension                                                                                                                                                                                                                                                                             |
-| **Status**    | Final                                                                                                                                                                                                                                                                                        |
-| **Type**      | Extensions Track                                                                                                                                                                                                                                                                             |
-| **Created**   | 2026-04-23                                                                                                                                                                                                                                                                                   |
+| Field | Value |
+| - | - |
+| **SEP** | 2640 |
+| **Title** | Skills Extension |
+| **Status** | Final |
+| **Type** | Extensions Track |
+| **Created** | 2026-04-23 |
 | **Author(s)** | Peter Alexander ([@pja-ant](https://github.com/pja-ant)), Ola Hungerford ([@olaservo](https://github.com/olaservo)), Sambhav Kothari ([@sambhav](https://github.com/sambhav)), Aditya Kumar ([@aditya-scio](https://github.com/aditya-scio)), on behalf of the Skills Over MCP Working Group |
-| **Sponsor**   | [@pja-ant](https://github.com/pja-ant)                                                                                                                                                                                                                                                       |
-| **PR**        | [#2640](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2640)                                                                                                                                                                                                              |
+| **Sponsor** | [@pja-ant](https://github.com/pja-ant) |
+| **PR** | [#2640](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2640) |
 
 ***
 
@@ -98,13 +98,13 @@ Skill identity does not depend on the scheme. A host learns that a resource is a
 
 #### Examples
 
-| Skill path             | File                  | Resource URI                                     |
-| ---------------------- | --------------------- | ------------------------------------------------ |
-| `git-workflow`         | `SKILL.md`            | `skill://git-workflow/SKILL.md`                  |
-| `pdf-processing`       | `references/FORMS.md` | `skill://pdf-processing/references/FORMS.md`     |
-| `pdf-processing`       | `scripts/extract.py`  | `skill://pdf-processing/scripts/extract.py`      |
-| `acme/billing/refunds` | `SKILL.md`            | `skill://acme/billing/refunds/SKILL.md`          |
-| `acme/billing/refunds` | `examples/email.md`   | `skill://acme/billing/refunds/examples/email.md` |
+| Skill path | File | Resource URI |
+| - | - | - |
+| `git-workflow` | `SKILL.md` | `skill://git-workflow/SKILL.md` |
+| `pdf-processing` | `references/FORMS.md` | `skill://pdf-processing/references/FORMS.md` |
+| `pdf-processing` | `scripts/extract.py` | `skill://pdf-processing/scripts/extract.py` |
+| `acme/billing/refunds` | `SKILL.md` | `skill://acme/billing/refunds/SKILL.md` |
+| `acme/billing/refunds` | `examples/email.md` | `skill://acme/billing/refunds/examples/email.md` |
 
 #### Resource Metadata
 
@@ -235,15 +235,15 @@ The result carries the skill entries:
 
 Result fields:
 
-| Field                         | Required | Description                                                                                                                  |
-| ----------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `skills`                      | Yes      | Array of skill entries.                                                                                                      |
-| `skills[].frontmatter`        | Yes      | Verbatim copy of the skill's `SKILL.md` YAML frontmatter, rendered as JSON. See [Frontmatter](#frontmatter).                 |
-| `skills[].uri`                | Yes      | Resource URI of the skill's `SKILL.md`. See [Skill URIs](#skill-uris).                                                       |
-| `skills[].resources`          | Yes      | The skill's files: an array enumerating them with digests and sizes, or the string `"dynamic"`. See [Resources](#resources). |
-| `skills[].resources[].uri`    | Yes      | Resource URI of the file.                                                                                                    |
-| `skills[].resources[].digest` | Yes      | SHA-256 digest of the file. See [Integrity](#integrity-and-verification).                                                    |
-| `skills[].resources[].size`   | Yes      | Length in bytes of the file's raw content. See [Limits](#limits).                                                            |
+| Field | Required | Description |
+| - | - | - |
+| `skills` | Yes | Array of skill entries. |
+| `skills[].frontmatter` | Yes | Verbatim copy of the skill's `SKILL.md` YAML frontmatter, rendered as JSON. See [Frontmatter](#frontmatter). |
+| `skills[].uri` | Yes | Resource URI of the skill's `SKILL.md`. See [Skill URIs](#skill-uris). |
+| `skills[].resources` | Yes | The skill's files: an array enumerating them with digests and sizes, or the string `"dynamic"`. See [Resources](#resources). |
+| `skills[].resources[].uri` | Yes | Resource URI of the file. |
+| `skills[].resources[].digest` | Yes | SHA-256 digest of the file. See [Integrity](#integrity-and-verification). |
+| `skills[].resources[].size` | Yes | Length in bytes of the file's raw content. See [Limits](#limits). |
 
 A skill whose content is generated dynamically carries `"resources": "dynamic"` in place of the array. An entry with no `resources` at all is invalid.
 
@@ -295,10 +295,10 @@ After fetching a `SKILL.md` for which the host holds an entry, from either `skil
 
 This extension fixes two per-skill limits so that servers know what every conforming host will accept and hosts know what they must be prepared to handle:
 
-| Limit                     | Value                     | Counted over                                                |
-| ------------------------- | ------------------------- | ----------------------------------------------------------- |
-| Resources per skill       | 512 entries               | The entries of the skill's `resources`, `SKILL.md` included |
-| Total file size per skill | 16 MiB (16,777,216 bytes) | The sum of `size` over the skill's `resources`              |
+| Limit | Value | Counted over |
+| - | - | - |
+| Resources per skill | 512 entries | The entries of the skill's `resources`, `SKILL.md` included |
+| Total file size per skill | 16 MiB (16,777,216 bytes) | The sum of `size` over the skill's `resources` |
 
 Hosts MUST support skills up to and including these limits, and MAY support larger ones. Servers SHOULD NOT serve a skill that exceeds either limit; a skill that does is not guaranteed to be loadable by any conforming host. Because `resources` is complete, both limits are checkable from the entry alone, by counting entries and summing `size`, before the host retrieves a single file, and a host that declines a skill on this basis SHOULD tell the user why rather than fail silently on a later read.
 
@@ -405,8 +405,8 @@ Per [SEP-2133] extension negotiation, servers declare support for this extension
 
 One extension-specific setting is defined:
 
-| Setting         | Type    | Default | Meaning                                                                 |
-| --------------- | ------- | ------- | ----------------------------------------------------------------------- |
+| Setting | Type | Default | Meaning |
+| - | - | - | - |
 | `directoryRead` | boolean | `false` | The server implements [`resources/directory/read`](#directory-listing). |
 
 An empty object indicates support for the extension with no optional features. Declaring the extension itself commits the server to [`skills/list`](#enumeration-via-skillslist) and [`skills/get`](#retrieval-via-skillsget); clients MUST NOT call `resources/directory/read` against a server that has not declared `directoryRead: true`. A server declaring this extension MUST also declare the `resources` capability.

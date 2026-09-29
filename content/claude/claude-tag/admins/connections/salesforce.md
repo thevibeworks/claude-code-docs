@@ -30,13 +30,13 @@ Assign the integration user a Permission Set scoped to the objects and fields Cl
 
 In the bundle, click **Connect** next to **Salesforce**.
 
-| Field             | Value                                                                                    |
-| :---------------- | :--------------------------------------------------------------------------------------- |
-| Client ID         | The app's Consumer Key                                                                   |
-| Client secret     | The app's Consumer Secret                                                                |
-| Token URL         | Your org's token endpoint, `https://yourcompany.my.salesforce.com/services/oauth2/token` |
-| Scopes (optional) | Leave empty unless your app requires specific scopes                                     |
-| Allowed websites  | Your org's host, for example `yourcompany.my.salesforce.com`                             |
+| Field | Value |
+| :- | :- |
+| Client ID | The app's Consumer Key |
+| Client secret | The app's Consumer Secret |
+| Token URL | Your org's token endpoint, `https://yourcompany.my.salesforce.com/services/oauth2/token` |
+| Scopes (optional) | Leave empty unless your app requires specific scopes |
+| Allowed websites | Your org's host, for example `yourcompany.my.salesforce.com` |
 
 The preset prefills Allowed websites with an example host that cannot resolve. Replace it with your org's host before saving, or every request fails. To change the host later, open the **⋮** menu on this connection in the bundle's Credentials tab and choose **Edit**.
 

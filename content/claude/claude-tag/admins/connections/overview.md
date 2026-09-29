@@ -14,25 +14,25 @@ Each guide covers one service: how to create the credential as a dedicated ident
 
 <Warning>Always connect a dedicated account for Claude (for example, `claude@yourcompany.example.com`), not your personal login. Anyone in a channel under the bundle's [scope](/docs/claude-tag/admins/attach-to-scope) can use the connection through Claude, so whatever this account can reach is available to every member of those channels. See [Create a dedicated account per service](/docs/claude-tag/admins/add-connections#create-a-dedicated-account-per-service).</Warning>
 
-| Service                         | Category           | Guide                                                                   |
-| :------------------------------ | :----------------- | :---------------------------------------------------------------------- |
-| Datadog                         | Monitoring         | [Connect Datadog](/docs/claude-tag/admins/connections/datadog)               |
-| Sentry                          | Monitoring         | [Connect Sentry](/docs/claude-tag/admins/connections/sentry)                 |
-| PagerDuty                       | Monitoring         | [Connect PagerDuty](/docs/claude-tag/admins/connections/pagerduty)           |
-| Linear                          | Issue tracking     | [Connect Linear](/docs/claude-tag/admins/connections/linear)                 |
-| Asana                           | Issue tracking     | [Connect Asana](/docs/claude-tag/admins/connections/asana)                   |
-| Jira and Confluence             | Issue tracking     | [Connect Jira and Confluence](/docs/claude-tag/admins/connections/atlassian) |
-| Notion                          | Knowledge and docs | [Connect Notion](/docs/claude-tag/admins/connections/notion)                 |
-| Google (Drive, Calendar, Gmail) | Knowledge and docs | [Connect Google](/docs/claude-tag/admins/connections/google)                 |
-| HubSpot                         | Go-to-market       | [Connect HubSpot](/docs/claude-tag/admins/connections/hubspot)               |
-| Salesforce                      | Go-to-market       | [Connect Salesforce](/docs/claude-tag/admins/connections/salesforce)         |
-| Gong                            | Go-to-market       | [Connect Gong](/docs/claude-tag/admins/connections/gong)                     |
-| GitLab                          | Code               | [Connect GitLab](/docs/claude-tag/admins/connections/gitlab)                 |
-| BigQuery (custom)               | Data warehouse     | [Connect BigQuery](/docs/claude-tag/admins/connections/bigquery)             |
-| Snowflake                       | Data warehouse     | [Connect Snowflake](/docs/claude-tag/admins/connections/snowflake)           |
-| Amplitude                       | Product analytics  | [Connect Amplitude](/docs/claude-tag/admins/connections/amplitude)           |
-| Stripe                          | Billing            | [Connect Stripe](/docs/claude-tag/admins/connections/stripe)                 |
-| Vercel                          | Deployments        | [Connect Vercel](/docs/claude-tag/admins/connections/vercel)                 |
+| Service | Category | Guide |
+| :- | :- | :- |
+| Datadog | Monitoring | [Connect Datadog](/docs/claude-tag/admins/connections/datadog) |
+| Sentry | Monitoring | [Connect Sentry](/docs/claude-tag/admins/connections/sentry) |
+| PagerDuty | Monitoring | [Connect PagerDuty](/docs/claude-tag/admins/connections/pagerduty) |
+| Linear | Issue tracking | [Connect Linear](/docs/claude-tag/admins/connections/linear) |
+| Asana | Issue tracking | [Connect Asana](/docs/claude-tag/admins/connections/asana) |
+| Jira and Confluence | Issue tracking | [Connect Jira and Confluence](/docs/claude-tag/admins/connections/atlassian) |
+| Notion | Knowledge and docs | [Connect Notion](/docs/claude-tag/admins/connections/notion) |
+| Google (Drive, Calendar, Gmail) | Knowledge and docs | [Connect Google](/docs/claude-tag/admins/connections/google) |
+| HubSpot | Go-to-market | [Connect HubSpot](/docs/claude-tag/admins/connections/hubspot) |
+| Salesforce | Go-to-market | [Connect Salesforce](/docs/claude-tag/admins/connections/salesforce) |
+| Gong | Go-to-market | [Connect Gong](/docs/claude-tag/admins/connections/gong) |
+| GitLab | Code | [Connect GitLab](/docs/claude-tag/admins/connections/gitlab) |
+| BigQuery (custom) | Data warehouse | [Connect BigQuery](/docs/claude-tag/admins/connections/bigquery) |
+| Snowflake | Data warehouse | [Connect Snowflake](/docs/claude-tag/admins/connections/snowflake) |
+| Amplitude | Product analytics | [Connect Amplitude](/docs/claude-tag/admins/connections/amplitude) |
+| Stripe | Billing | [Connect Stripe](/docs/claude-tag/admins/connections/stripe) |
+| Vercel | Deployments | [Connect Vercel](/docs/claude-tag/admins/connections/vercel) |
 
 GitHub is managed through the Claude GitHub App rather than a connection in this list; see [Configure GitHub access](/docs/claude-tag/admins/configure-github).
 

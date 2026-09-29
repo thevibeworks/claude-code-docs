@@ -32,21 +32,21 @@ If your plugin marketplace includes a GitLab plugin, pair it with this connectio
 
 **You'll see:** GitLab listed in the bundle's connections, and `@Claude what can you access from this channel?` returns it in a new thread under the bundle's scope. New threads pick up the connection on their own; in an existing thread, ask Claude to use the service by name.
 
-| Field                          | Value                                                                                                            |
-| :----------------------------- | :--------------------------------------------------------------------------------------------------------------- |
-| Claude’s personal access token | The token from GitLab, starting with `glpat-`. Project and group access tokens work here too.                    |
-| Allowed websites               | `gitlab.com` (preset). For self-managed GitLab, open the **Advanced** tab and add your instance's hostname here. |
+| Field | Value |
+| :- | :- |
+| Claude’s personal access token | The token from GitLab, starting with `glpat-`. Project and group access tokens work here too. |
+| Allowed websites | `gitlab.com` (preset). For self-managed GitLab, open the **Advanced** tab and add your instance's hostname here. |
 
 GitLab's own guide for creating tokens is at [docs.gitlab.com](https://docs.gitlab.com/api/rest/authentication/).
 
 ## How GitLab differs from GitHub
 
-|                                   | GitLab                                                        | GitHub                                                                                                |
-| :-------------------------------- | :------------------------------------------------------------ | :---------------------------------------------------------------------------------------------------- |
-| Auth                              | A service account's personal access token                     | The Claude GitHub App, [installed separately](/docs/claude-tag/admins/configure-github)                    |
-| Referencing a project in a thread | Give Claude the full project URL; it reads it through the API | Typing `owner/repo` in the message auto-attaches it                                                   |
-| Self-managed                      | Your hostname under **Advanced → Allowed websites**           | [GitHub Enterprise setup](/docs/claude-tag/admins/configure-github#github-enterprise)                      |
-| Handing back changes              | Manages issues and comments on merge requests through the API | [Draft pull requests](/docs/claude-tag/users/use-cases/work-with-github) authored by the Claude GitHub App |
+| | GitLab | GitHub |
+| :- | :- | :- |
+| Auth | A service account's personal access token | The Claude GitHub App, [installed separately](/docs/claude-tag/admins/configure-github) |
+| Referencing a project in a thread | Give Claude the full project URL; it reads it through the API | Typing `owner/repo` in the message auto-attaches it |
+| Self-managed | Your hostname under **Advanced → Allowed websites** | [GitHub Enterprise setup](/docs/claude-tag/admins/configure-github#github-enterprise) |
+| Handing back changes | Manages issues and comments on merge requests through the API | [Draft pull requests](/docs/claude-tag/users/use-cases/work-with-github) authored by the Claude GitHub App |
 
 The connection is API-only. The token authenticates GitLab API requests, not git, so Claude gets a 401 error when it tries to clone a private project or push to any project over HTTPS, even with the connection in place. To clone a repository into the session workspace, connect it through [GitHub](/docs/claude-tag/admins/configure-github) instead.
 

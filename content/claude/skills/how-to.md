@@ -483,9 +483,9 @@ description: Apply Acme Corp brand guidelines to presentations and documents, in
 
 Both frontmatter fields are required:
 
-| Field         | Type   | Description                                                                                                                                                                                             |
-| :------------ | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `name`        | string | Lowercase letters, numbers, and hyphens only, up to 64 characters. Must match the skill's directory name                                                                                                |
+| Field | Type | Description |
+| :- | :- | :- |
+| `name` | string | Lowercase letters, numbers, and hyphens only, up to 64 characters. Must match the skill's directory name |
 | `description` | string | What the skill does and when to use it. Claude reads this to decide when to load the skill. Up to 1,024 characters, the limit in the [Agent Skills specification](https://agentskills.io/specification) |
 
 ### Write the instructions

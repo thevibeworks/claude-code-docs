@@ -24,14 +24,14 @@ Use **Apply Changes** to write the configuration to this device only and relaunc
 
 Use the **Export** menu to generate deployment artifacts for a fleet:
 
-| Export option               | Use with                                                                                                                            |
-| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `.mobileconfig` profile     | Jamf or any macOS MDM                                                                                                               |
-| `.reg` policy file          | Intune, Group Policy, or any Windows MDM                                                                                            |
-| ADMX template (`.zip`)      | Intune or Group Policy; a schema-only template, you enter values in the management console                                          |
-| Profile Manifest (`.plist`) | Jamf, ProfileCreator, or similar macOS tools; a schema-only template, you enter values in your tool                                 |
-| JSON config                 | The response body for a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or a configuration file for a device without MDM |
-| Egress allowlist            | Your firewall or network team                                                                                                       |
+| Export option | Use with |
+| - | - |
+| `.mobileconfig` profile | Jamf or any macOS MDM |
+| `.reg` policy file | Intune, Group Policy, or any Windows MDM |
+| ADMX template (`.zip`) | Intune or Group Policy; a schema-only template, you enter values in the management console |
+| Profile Manifest (`.plist`) | Jamf, ProfileCreator, or similar macOS tools; a schema-only template, you enter values in your tool |
+| JSON config | The response body for a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or a configuration file for a device without MDM |
+| Egress allowlist | Your firewall or network team |
 
 See [Deploy with MDM](/docs/third-party/claude-desktop/mdm) or [Deploy with a bootstrap server](/docs/third-party/claude-desktop/bootstrap) to distribute what you exported.
 

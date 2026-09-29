@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 2549                                                                            |
-| **Title**     | TTL for List Results                                                            |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2026-04-09                                                                      |
-| **Author(s)** | Caitie McCaffrey ([@CaitieM20](https://github.com/CaitieM20))                   |
-| **Sponsor**   | [@CaitieM20](https://github.com/CaitieM20)                                      |
-| **PR**        | [#2549](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2549) |
+| Field | Value |
+| - | - |
+| **SEP** | 2549 |
+| **Title** | TTL for List Results |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2026-04-09 |
+| **Author(s)** | Caitie McCaffrey ([@CaitieM20](https://github.com/CaitieM20)) |
+| **Sponsor** | [@CaitieM20](https://github.com/CaitieM20) |
+| **PR** | [#2549](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2549) |
 
 ***
 
@@ -45,13 +45,13 @@ This SEP proposes adding fields to support caching result objects returned by `t
 
 Today, MCP clients discover server features by invoking methods on the server. These calls return the current set of features. To learn about changes, clients rely on push notifications from the server. The below table maps the Server Method to Notification Type.
 
-| Server Methods             | Notification Type                      |
-| -------------------------- | -------------------------------------- |
-| `tools/list`               | `notifications/tools/list_changed`     |
-| `prompts/list`             | `notifications/prompts/list_changed`   |
-| `resources/list`           | `notifications/resources/list_changed` |
+| Server Methods | Notification Type |
+| - | - |
+| `tools/list` | `notifications/tools/list_changed` |
+| `prompts/list` | `notifications/prompts/list_changed` |
+| `resources/list` | `notifications/resources/list_changed` |
 | `resources/templates/list` | `notifications/resources/list_changed` |
-| `resources/read`           | `notifications/resources/updated`      |
+| `resources/read` | `notifications/resources/updated` |
 
 This approach has several limitations:
 
@@ -116,13 +116,13 @@ Servers MUST provide a `ttlMs` on `Results` returned by `tools/list`, `prompts/l
 
 `ttlMs` MUST be >= 0. If a server returns a negative value, clients SHOULD ignore it and treat it as 0 (immediately stale).
 
-| Condition                                          | Client behavior                                                                                               |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `ttlMs` = 0                                        | The response SHOULD be considered immediately stale, The Client MAY re-fetch every time the result is needed. |
-| `ttlMs` > 0                                        | Client SHOULD consider the response fresh for `ttlMs` milliseconds from receipt.                              |
-| Relevant notification received while TTL is active | The notification invalidates the cached response. Client SHOULD re-fetch regardless of remaining TTL.         |
-| `cacheScope` = `"public"`                          | Any client or shared intermediary (gateway, proxy) MAY cache and serve the response to any user.              |
-| `cacheScope` = `"private"`                         | Only the requesting user's client MAY cache. Shared caches MUST NOT serve a cached copy to a different user.  |
+| Condition | Client behavior |
+| - | - |
+| `ttlMs` = 0 | The response SHOULD be considered immediately stale, The Client MAY re-fetch every time the result is needed. |
+| `ttlMs` > 0 | Client SHOULD consider the response fresh for `ttlMs` milliseconds from receipt. |
+| Relevant notification received while TTL is active | The notification invalidates the cached response. Client SHOULD re-fetch regardless of remaining TTL. |
+| `cacheScope` = `"public"` | Any client or shared intermediary (gateway, proxy) MAY cache and serve the response to any user. |
+| `cacheScope` = `"private"` | Only the requesting user's client MAY cache. Shared caches MUST NOT serve a cached copy to a different user. |
 
 #### Freshness calculation
 
@@ -203,12 +203,12 @@ We chose integer milliseconds over seconds as we want one unit for ttl across th
 
 Many existing systems use integer seconds for TTLs, but some (e.g., gRPC retry pushback) use milliseconds. The key is to choose a single, consistent unit for all TTLs in MCP. Integer milliseconds provides the necessary precision while remaining simple to implement and understand.
 
-| System                        | Mechanism             | Notes                                                            |
-| ----------------------------- | --------------------- | ---------------------------------------------------------------- |
-| HTTP `Cache-Control: max-age` | Integer seconds       | The most widely deployed freshness hint in web infrastructure    |
-| DNS TTL                       | Integer seconds       | Controls how long resolvers cache DNS records                    |
-| GraphQL `@cacheControl`       | `maxAge` integer secs | Per-field cache hints in GraphQL responses                       |
-| gRPC `grpc-retry-pushback-ms` | Milliseconds          | Server-provided retry hint (different use case, similar pattern) |
+| System | Mechanism | Notes |
+| - | - | - |
+| HTTP `Cache-Control: max-age` | Integer seconds | The most widely deployed freshness hint in web infrastructure |
+| DNS TTL | Integer seconds | Controls how long resolvers cache DNS records |
+| GraphQL `@cacheControl` | `maxAge` integer secs | Per-field cache hints in GraphQL responses |
+| gRPC `grpc-retry-pushback-ms` | Milliseconds | Server-provided retry hint (different use case, similar pattern) |
 
 ### Why not use HTTP caching directly?
 

@@ -26,29 +26,29 @@ See [Create a dedicated account per service](/docs/claude-tag/admins/add-connect
 
 ### Fill out the Custom tool form
 
-| Field                        | What to enter                                                                                                                                                                                                                                                                                                  |
-| :--------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Name**                     | A label for this connection (for example "Internal billing API")                                                                                                                                                                                                                                               |
-| **Credential type**          | Pick the type that matches how the API authenticates; see [Credential types](#credential-types)                                                                                                                                                                                                                |
-| **Allowed websites**         | The API's host (for example `api.example.com`). A wildcard is allowed as the leftmost label. You can't enter `*` alone here; a credential is always limited to specific hosts (see [Allow all hosts](/docs/claude-tag/admins/add-connections#allow-all-hosts)). The credential is sent only to hosts you list here. |
-| **Path prefixes** (optional) | Restrict the credential to specific URL paths under the host. Shown only for the MCP Connector type, and only when the provider you pick doesn't fix its own hosts and paths.                                                                                                                                  |
-| **Custom headers**           | Any extra headers the API requires beyond the credential. Shown only for the Bearer credential type.                                                                                                                                                                                                           |
+| Field | What to enter |
+| :- | :- |
+| **Name** | A label for this connection (for example "Internal billing API") |
+| **Credential type** | Pick the type that matches how the API authenticates; see [Credential types](#credential-types) |
+| **Allowed websites** | The API's host (for example `api.example.com`). A wildcard is allowed as the leftmost label. You can't enter `*` alone here; a credential is always limited to specific hosts (see [Allow all hosts](/docs/claude-tag/admins/add-connections#allow-all-hosts)). The credential is sent only to hosts you list here. |
+| **Path prefixes** (optional) | Restrict the credential to specific URL paths under the host. Shown only for the MCP Connector type, and only when the provider you pick doesn't fix its own hosts and paths. |
+| **Custom headers** | Any extra headers the API requires beyond the credential. Shown only for the Bearer credential type. |
 
 After saving, where the credential has an allow rule, you can narrow it by HTTP method and path from its **Edit connection** dialog; see [Restrict by path or method](/docs/claude-tag/admins/add-connections#restrict-by-path-or-method).
 
 ### Credential types
 
-| Type                                            | Use for                                                                                                                                                                                                                                                               |
-| :---------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Bearer**                                      | An API key or token sent as `Authorization: Bearer <token>`. Most SaaS REST APIs.                                                                                                                                                                                     |
-| **Basic**                                       | HTTP Basic authentication (`Authorization: Basic <base64(user:password)>`)                                                                                                                                                                                            |
-| **Body parameter**                              | A token the API expects in the request body or query string instead of a header                                                                                                                                                                                       |
-| **AWS SigV4**                                   | AWS service APIs on `amazonaws.com` endpoints that require Signature Version 4 signing                                                                                                                                                                                |
-| **GCP access token (with Service Account Key)** | Google Cloud APIs; the proxy exchanges the SA key for an access token                                                                                                                                                                                                 |
-| **GCP IAP (with Service Account Key)**          | Google Cloud services behind Identity-Aware Proxy                                                                                                                                                                                                                     |
-| **OAuth 2.0 JWT bearer**                        | APIs that accept a JWT signed with your private key in exchange for an access token (DocuSign, for example)                                                                                                                                                           |
-| **OAuth 2.0 client credentials**                | Machine-to-machine OAuth with a client ID and secret                                                                                                                                                                                                                  |
-| **MCP Connector**                               | OAuth sign-in to one of the providers in the picker or to a [remote MCP connector](/docs/connectors/custom/add-unlisted) your organization has added on claude.ai. Sign in once as an admin; the agent acts as that account. Other OAuth APIs can't be connected this way. |
+| Type | Use for |
+| :- | :- |
+| **Bearer** | An API key or token sent as `Authorization: Bearer <token>`. Most SaaS REST APIs. |
+| **Basic** | HTTP Basic authentication (`Authorization: Basic <base64(user:password)>`) |
+| **Body parameter** | A token the API expects in the request body or query string instead of a header |
+| **AWS SigV4** | AWS service APIs on `amazonaws.com` endpoints that require Signature Version 4 signing |
+| **GCP access token (with Service Account Key)** | Google Cloud APIs; the proxy exchanges the SA key for an access token |
+| **GCP IAP (with Service Account Key)** | Google Cloud services behind Identity-Aware Proxy |
+| **OAuth 2.0 JWT bearer** | APIs that accept a JWT signed with your private key in exchange for an access token (DocuSign, for example) |
+| **OAuth 2.0 client credentials** | Machine-to-machine OAuth with a client ID and secret |
+| **MCP Connector** | OAuth sign-in to one of the providers in the picker or to a [remote MCP connector](/docs/connectors/custom/add-unlisted) your organization has added on claude.ai. Sign in once as an admin; the agent acts as that account. Other OAuth APIs can't be connected this way. |
 
 <Note>The **MCP Connector** type signs in to a connector from your organization's connector library. If you register a new connector from this form with **Add custom connector…**, that connector is added to the library on the **Connectors** page at [`claude.ai/admin-settings/connectors`](https://claude.ai/admin-settings/connectors), not only to the bundle. Removing the connection from the bundle later leaves the library entry in place.</Note>
 
@@ -69,25 +69,25 @@ Agent Proxy signs requests to hostnames in these forms:
 
 Requests to other hostnames fail before reaching AWS. Agent Proxy can't sign a request to a hostname with no region for any other service, such as `ec2.amazonaws.com`, or to a hostname with the region before the service name, such as an OpenSearch domain endpoint (`my-domain.us-east-1.es.amazonaws.com`). It also can't sign requests to an API Gateway custom domain or to a non-AWS API that uses Signature Version 4.
 
-| Field             | Value                                                                                                       |
-| :---------------- | :---------------------------------------------------------------------------------------------------------- |
-| Access key ID     | The IAM user or role access key, for example `AKIAIOSFODNN7EXAMPLE`                                         |
-| Secret access key | The matching secret access key                                                                              |
-| Session token     | Optional. Only needed for temporary credentials from AWS STS.                                               |
-| Allowed websites  | The AWS service endpoint host, for example `s3.us-east-1.amazonaws.com` or `lambda.us-east-1.amazonaws.com` |
+| Field | Value |
+| :- | :- |
+| Access key ID | The IAM user or role access key, for example `AKIAIOSFODNN7EXAMPLE` |
+| Secret access key | The matching secret access key |
+| Session token | Optional. Only needed for temporary credentials from AWS STS. |
+| Allowed websites | The AWS service endpoint host, for example `s3.us-east-1.amazonaws.com` or `lambda.us-east-1.amazonaws.com` |
 
 Use long-lived credentials from a dedicated IAM user where you can. Temporary STS credentials work but expire on their own schedule, and the connection stops working when they do; you re-enter all three values to rotate.
 
-Claude can call the endpoint with `curl`, an AWS SDK, or the AWS CLI. The sandbox holds no real AWS credentials, so a CLI or SDK signs the request with placeholder values; Agent Proxy strips that signature and re-signs with the stored credential before the request leaves for AWS. Agent Proxy can't sign an S3 upload sent in chunks with a checksum trailer, which the AWS CLI and the AWS SDKs send when they compute upload checksums by default. That upload fails with HTTP 502 and a reason that begins `injection failed ("<connection name>")`. Have Claude add `request_checksum_calculation = WHEN_REQUIRED` to the profile in `~/.aws/config` and retry. The federated-access troubleshooting entry [An AWS request fails after a successful sign-in](/docs/claude-tag/admins/federated-access/troubleshooting#an-aws-request-fails-after-a-successful-sign-in) gives the same fix, the environment-variable form, and how to apply the setting in every thread.
+Claude can call the endpoint with `curl`, an AWS SDK, or the AWS CLI. The sandbox holds no real AWS credentials, so a CLI or SDK signs the request with placeholder values; Agent Proxy strips that signature and re-signs with the stored credential before the request leaves for AWS. If a request comes back with HTTP 502 and a reason that begins `injection failed ("<connection name>")`, Agent Proxy couldn't sign it. The troubleshooting entry [An AWS request fails after a successful sign-in](/docs/claude-tag/admins/federated-access/troubleshooting#an-aws-request-fails-after-a-successful-sign-in) lists each cause the reason text names and its fix; the causes and fixes are the same for a connection that stores an access key.
 
 #### When AWS returns `SignatureDoesNotMatch`
 
 A `SignatureDoesNotMatch` response from AWS means the request AWS received doesn't match the one Agent Proxy signed.
 
-| Check                                                                   | What to do                                                                                                                                                                                    |
-| :---------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The access key ID and secret access key belong to the same IAM identity | Re-enter the access key ID, secret access key, and session token together. The form is write-only, so a partial update can leave them mismatched.                                             |
-| No proxy or gateway of your own sits between Anthropic and AWS          | A second proxy that adds, strips, or reorders headers, or that re-signs the request, invalidates the signature Agent Proxy attached. Point **Allowed websites** at the AWS endpoint directly. |
+| Check | What to do |
+| :- | :- |
+| The access key ID and secret access key belong to the same IAM identity | Re-enter the access key ID, secret access key, and session token together. The form is write-only, so a partial update can leave them mismatched. |
+| No proxy or gateway of your own sits between Anthropic and AWS | A second proxy that adds, strips, or reorders headers, or that re-signs the request, invalidates the signature Agent Proxy attached. Point **Allowed websites** at the AWS endpoint directly. |
 
 A dropped or expired session token is a different failure: AWS rejects it with a token error such as `InvalidClientTokenId`, not `SignatureDoesNotMatch`. Rotate all three fields.
 

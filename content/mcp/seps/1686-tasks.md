@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 1686                                                                            |
-| **Title**     | Tasks                                                                           |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-10-20                                                                      |
-| **Author(s)** | Surbhi Bansal, Luca Chang                                                       |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1686](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1686) |
+| Field | Value |
+| - | - |
+| **SEP** | 1686 |
+| **Title** | Tasks |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-10-20 |
+| **Author(s)** | Surbhi Bansal, Luca Chang |
+| **Sponsor** | None |
+| **PR** | [#1686](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1686) |
 
 ***
 

@@ -42,9 +42,9 @@ You converse with one Dispatch agent, but it can run many child tasks beneath th
 
 The Dispatch agent routes each child task to the surface that fits it.
 
-| Task type      | Runs in                                                                                | Examples                                   |
-| -------------- | -------------------------------------------------------------------------------------- | ------------------------------------------ |
-| Coding work    | Code, against a workspace you've already set up                                        | Fix a bug, open a pull request, run tests  |
+| Task type | Runs in | Examples |
+| - | - | - |
+| Coding work | Code, against a workspace you've already set up | Fix a bug, open a pull request, run tests |
 | Knowledge work | Cowork, in the [project](/docs/cowork/guide/projects) you specify (or your default project) | Research, write a document, organize files |
 
 When starting a task, you can tell the agent which Code workspace or Cowork project to use. If you don't, it lists what's available and chooses.
@@ -53,14 +53,14 @@ When starting a task, you can tell the agent which Code workspace or Cowork proj
 
 Each child task shows its current state in the sidebar. Select any task to open its full transcript, the steps Claude took, and any files it produced.
 
-| State           | Meaning                                                    |
-| --------------- | ---------------------------------------------------------- |
-| Running         | Claude is actively working on the task                     |
-| Awaiting input  | The task needs information from you before it can continue |
-| Awaiting answer | The task asked you a question and is waiting for a reply   |
-| Completed       | The task finished                                          |
-| Error           | The task stopped because something went wrong              |
-| Archived        | You marked the task as done and set it aside               |
+| State | Meaning |
+| - | - |
+| Running | Claude is actively working on the task |
+| Awaiting input | The task needs information from you before it can continue |
+| Awaiting answer | The task asked you a question and is waiting for a reply |
+| Completed | The task finished |
+| Error | The task stopped because something went wrong |
+| Archived | You marked the task as done and set it aside |
 
 ## Approve actions Dispatch needs
 

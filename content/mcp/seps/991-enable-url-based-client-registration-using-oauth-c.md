@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                                                             |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- |
-| **SEP**       | 991                                                                                                               |
-| **Title**     | Enable URL-based Client Registration using OAuth Client ID Metadata Documents                                     |
-| **Status**    | Final                                                                                                             |
-| **Type**      | Standards Track                                                                                                   |
-| **Created**   | 2025-07-07                                                                                                        |
+| Field | Value |
+| - | - |
+| **SEP** | 991 |
+| **Title** | Enable URL-based Client Registration using OAuth Client ID Metadata Documents |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-07-07 |
 | **Author(s)** | Paul Carleton ([@pcarleton](https://github.com/pcarleton)) Aaron Parecki ([@aaronpk](https://github.com/aaronpk)) |
-| **Sponsor**   | None                                                                                                              |
-| **PR**        | [#991](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/991)                                     |
+| **Sponsor** | None |
+| **PR** | [#991](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/991) |
 
 ***
 

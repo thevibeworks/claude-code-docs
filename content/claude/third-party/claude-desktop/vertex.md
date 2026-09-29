@@ -12,13 +12,13 @@ This page walks an IT administrator through a complete deployment on Google Clou
 
 Google Cloud's Agent Platform authenticates with Google Cloud Application Default Credentials, which can be supplied several ways. The right one depends on whether your users have Google identities and whether you need per-user attribution in Cloud Audit Logs.
 
-| Scenario                                                                                                              | Use                                                                                                                    | Per-device prerequisite              | Per-user Cloud Audit Logs identity | Notes                                                                                                                                    |
-| --------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Proof of concept, single team                                                                                         | [Service-account key](#credentials-file) (`inferenceVertexCredentialsFile`)                                            | The key file on each device          | No (shared service account)        | A long-lived secret distributed to every device. Simplest to start; not recommended for broad rollout.                                   |
-| Users have Google Workspace or Cloud Identity accounts                                                                | [In-app Google sign-in](#in-app-google-sign-in) (`inferenceVertexOAuth*`)                                              | None                                 | Yes                                | Users sign in with their Google account inside the app. See the session-control warning below.                                           |
-| Users authenticate with a third-party IdP (Entra ID, Okta, Ping, …) and you don't want to provision Google identities | [In-app Workforce Identity sign-in](#in-app-workforce-identity-sign-in) (`inferenceVertexWorkforce*`)                  | None                                 | Yes (workforce-pool principal)     | Users sign in with their corporate identity inside the app. The app runs PKCE against your IdP and exchanges the ID token at Google STS. |
-| Your organization already has tooling that obtains a bearer token accepted by Google Cloud's Agent Platform           | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | The helper executable on each device | Depends on what the helper obtains | The helper's stdout is sent as the bearer on each inference request.                                                                     |
-| You already operate an LLM proxy                                                                                      | [Gateway provider](/docs/third-party/claude-desktop/gateway) instead of Google Cloud's Agent Platform                       | None                                 | At your gateway                    | The proxy holds the Google Cloud credentials; the app authenticates only to the proxy.                                                   |
+| Scenario | Use | Per-device prerequisite | Per-user Cloud Audit Logs identity | Notes |
+| - | - | - | - | - |
+| Proof of concept, single team | [Service-account key](#credentials-file) (`inferenceVertexCredentialsFile`) | The key file on each device | No (shared service account) | A long-lived secret distributed to every device. Simplest to start; not recommended for broad rollout. |
+| Users have Google Workspace or Cloud Identity accounts | [In-app Google sign-in](#in-app-google-sign-in) (`inferenceVertexOAuth*`) | None | Yes | Users sign in with their Google account inside the app. See the session-control warning below. |
+| Users authenticate with a third-party IdP (Entra ID, Okta, Ping, …) and you don't want to provision Google identities | [In-app Workforce Identity sign-in](#in-app-workforce-identity-sign-in) (`inferenceVertexWorkforce*`) | None | Yes (workforce-pool principal) | Users sign in with their corporate identity inside the app. The app runs PKCE against your IdP and exchanges the ID token at Google STS. |
+| Your organization already has tooling that obtains a bearer token accepted by Google Cloud's Agent Platform | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | The helper executable on each device | Depends on what the helper obtains | The helper's stdout is sent as the bearer on each inference request. |
+| You already operate an LLM proxy | [Gateway provider](/docs/third-party/claude-desktop/gateway) instead of Google Cloud's Agent Platform | None | At your gateway | The proxy holds the Google Cloud credentials; the app authenticates only to the proxy. |
 
 <Warning>
   If your Google Workspace or Cloud Identity organization enforces a **Google Cloud session length** of a few hours or less (Admin console → Security → Google Cloud session control), the in-app Google sign-in stores a refresh token that is subject to that policy, and users will be prompted to sign in again each time it expires. For short session policies, either mark your OAuth client as a [trusted app exempt from reauthentication](https://support.google.com/a/answer/9368756), or use a service-account key, Workforce Identity sign-in, or the gateway provider instead.
@@ -113,16 +113,16 @@ sequenceDiagram
 
 ### Side by side
 
-|                                            | Workforce Identity sign-in                                         | Google sign-in (OAuth)                                                       |
-| ------------------------------------------ | ------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| OAuth peer the app talks to                | Your IdP's OIDC endpoints                                          | Google's OAuth 2.0 endpoints                                                 |
-| Where your corporate IdP appears           | Directly (the app opens it)                                        | Inside Google's sign-in page, via Cloud Identity SAML federation (optional)  |
-| Refresh token issued by                    | Your IdP (when the Refresh Token grant is enabled on the client)   | Google                                                                       |
-| Google STS (`sts.googleapis.com`) involved | Yes, on every access-token renewal                                 | No                                                                           |
-| ADC file written                           | No                                                                 | Yes (`authorized_user` JSON, pointed to by `GOOGLE_APPLICATION_CREDENTIALS`) |
-| Registered on the Google side              | Workforce pool and OIDC provider (IAM & Admin)                     | Desktop-app OAuth 2.0 client (APIs & Services → Credentials)                 |
-| Per-user prerequisite                      | An account at your IdP                                             | A Google Workspace or Cloud Identity account                                 |
-| Client registered at your IdP              | Public (native) OAuth client, PKCE required, loopback redirect URI | None (your IdP is federated to Cloud Identity, not to the app)               |
+| | Workforce Identity sign-in | Google sign-in (OAuth) |
+| - | - | - |
+| OAuth peer the app talks to | Your IdP's OIDC endpoints | Google's OAuth 2.0 endpoints |
+| Where your corporate IdP appears | Directly (the app opens it) | Inside Google's sign-in page, via Cloud Identity SAML federation (optional) |
+| Refresh token issued by | Your IdP (when the Refresh Token grant is enabled on the client) | Google |
+| Google STS (`sts.googleapis.com`) involved | Yes, on every access-token renewal | No |
+| ADC file written | No | Yes (`authorized_user` JSON, pointed to by `GOOGLE_APPLICATION_CREDENTIALS`) |
+| Registered on the Google side | Workforce pool and OIDC provider (IAM & Admin) | Desktop-app OAuth 2.0 client (APIs & Services → Credentials) |
+| Per-user prerequisite | An account at your IdP | A Google Workspace or Cloud Identity account |
+| Client registered at your IdP | Public (native) OAuth client, PKCE required, loopback redirect URI | None (your IdP is federated to Cloud Identity, not to the app) |
 
 ## Set up Google Cloud
 
@@ -241,15 +241,15 @@ When your IdP is Microsoft Entra ID, you can run this sign-in through the [OS id
 
 With Google Cloud set up and devices prepared, open the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**) on an evaluation device. In the **Connection** section, set **Inference provider** to **Vertex AI** and fill in the **Vertex AI credentials** card with the values for whichever authentication approach you chose:
 
-| Field                      | Service-account key    | In-app Google sign-in                          |
-| -------------------------- | ---------------------- | ---------------------------------------------- |
-| GCP project ID             | `your-gcp-project`     | `your-gcp-project`                             |
-| GCP region                 | e.g. `us-east5`        | e.g. `us-east5`                                |
-| GCP credentials file path  | `/path/to/sa-key.json` | *leave empty*                                  |
-| Vertex OAuth client ID     | *leave empty*          | `1234567890-abc123.apps.googleusercontent.com` |
-| Vertex OAuth client secret | *leave empty*          | `GOCSPX-xxxxxxxxxxxxxxxxxxxx`                  |
-| Vertex OAuth scopes        | *leave empty*          | *leave empty for the default*                  |
-| Vertex AI base URL         | *optional*             | *optional*                                     |
+| Field | Service-account key | In-app Google sign-in |
+| - | - | - |
+| GCP project ID | `your-gcp-project` | `your-gcp-project` |
+| GCP region | e.g. `us-east5` | e.g. `us-east5` |
+| GCP credentials file path | `/path/to/sa-key.json` | *leave empty* |
+| Vertex OAuth client ID | *leave empty* | `1234567890-abc123.apps.googleusercontent.com` |
+| Vertex OAuth client secret | *leave empty* | `GOCSPX-xxxxxxxxxxxxxxxxxxxx` |
+| Vertex OAuth scopes | *leave empty* | *leave empty for the default* |
+| Vertex AI base URL | *optional* | *optional* |
 
 Under **Models**, add at least one **Model list** entry using the publisher model ID, for example `claude-sonnet-5`.
 
@@ -261,20 +261,20 @@ The full set of `inferenceVertex*` keys is below. Set `inferenceProvider` to `ve
 
 The region can be a single region such as `us-east5`, the `eu` or `us` multi-region, or `global`. The app routes inference to a different endpoint host for multi-regions and `global`; if you allowlist egress by hostname, see the [inference provider egress hosts](/docs/third-party/claude-desktop/telemetry#inference-provider).
 
-| Setting                                                                                                                        | Type     | Availability                            | Default | Description                                                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------------ | -------- | --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <span id="inferencevertexprojectid" />GCP project ID<br />`inferenceVertexProjectId`                                           | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | Google Cloud project ID for Vertex AI inference.                                                                                                          |
-| <span id="inferencevertexregion" />GCP region<br />`inferenceVertexRegion`                                                     | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | GCP region where your Vertex AI Claude models are deployed.                                                                                               |
-| <span id="inferencevertexbaseurl" />Vertex AI base URL<br />`inferenceVertexBaseUrl`                                           | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | PSC endpoint, if using one.                                                                                                                               |
-| <span id="inferencevertexoauthclientid" />Vertex OAuth client ID<br />`inferenceVertexOAuthClientId`                           | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | Desktop-app OAuth client ID. Enables Sign in with Google instead of a credentials file.                                                                   |
-| <span id="inferencevertexoauthclientsecret" />Vertex OAuth client secret<br />`inferenceVertexOAuthClientSecret`               | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | Secret for the Desktop-app OAuth client above. Google classifies installed-app client secrets as non-confidential, so this may be set from hosted config. |
-| <span id="inferencevertexoauthscopes" />Vertex OAuth scopes<br />`inferenceVertexOAuthScopes`                                  | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | Override the Google OAuth scopes (space-separated). Leave blank for the default.                                                                          |
-| <span id="inferencevertexoauthloginhint" />Vertex OAuth login hint<br />`inferenceVertexOAuthLoginHint`                        | `string` | MDM + Bootstrap<br />Added in 1.12603.0 | —       | Pre-fill Google's account chooser and forward to your federated IdP. \{username} expands to the OS login name.                                            |
-| <span id="inferencevertexworkforceaudience" />Workforce Identity audience<br />`inferenceVertexWorkforceAudience`              | `string` | MDM + Bootstrap<br />Added in 1.10628.0 | —       | Workforce-pool provider audience. When set, sign-in uses your own IdP plus a GCP STS exchange instead of a Google identity.                               |
-| <span id="inferencevertexworkforceuserproject" />Workforce Identity billing project<br />`inferenceVertexWorkforceUserProject` | `string` | MDM + Bootstrap<br />Added in 1.10628.0 | —       | GCP project for STS billing and quota. Defaults to the Vertex project ID above.                                                                           |
-| <span id="inferencevertexworkforceauthflow" />Workforce Identity sign-in flow<br />`inferenceVertexWorkforceAuthFlow`          | `enum`   | MDM + Bootstrap<br />Added in 1.25927.0 | —       | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`.                                         |
-| <span id="inferencevertexworkforceoidc" />Workforce Identity IdP (OIDC)<br />`inferenceVertexWorkforceOidc`                    | `object` | MDM + Bootstrap<br />Added in 1.10628.0 | —       | Your organization’s OIDC IdP. The app runs an authorization-code-with-PKCE flow against this issuer and exchanges the returned ID token at GCP STS.       |
-| <span id="inferencevertexcredentialsfile" />GCP credentials file path<br />`inferenceVertexCredentialsFile`                    | `string` | MDM + Bootstrap<br />Added in 1.2581.0  | —       | Absolute path to service-account JSON. Leave blank to fall back to ADC.                                                                                   |
+| Setting | Type | Availability | Default | Description |
+| - | - | - | - | - |
+| <span id="inferencevertexprojectid" />GCP project ID<br />`inferenceVertexProjectId` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Google Cloud project ID for Vertex AI inference. |
+| <span id="inferencevertexregion" />GCP region<br />`inferenceVertexRegion` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | GCP region where your Vertex AI Claude models are deployed. |
+| <span id="inferencevertexbaseurl" />Vertex AI base URL<br />`inferenceVertexBaseUrl` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | PSC endpoint, if using one. |
+| <span id="inferencevertexoauthclientid" />Vertex OAuth client ID<br />`inferenceVertexOAuthClientId` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Desktop-app OAuth client ID. Enables Sign in with Google instead of a credentials file. |
+| <span id="inferencevertexoauthclientsecret" />Vertex OAuth client secret<br />`inferenceVertexOAuthClientSecret` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Secret for the Desktop-app OAuth client above. Google classifies installed-app client secrets as non-confidential, so this may be set from hosted config. |
+| <span id="inferencevertexoauthscopes" />Vertex OAuth scopes<br />`inferenceVertexOAuthScopes` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Override the Google OAuth scopes (space-separated). Leave blank for the default. |
+| <span id="inferencevertexoauthloginhint" />Vertex OAuth login hint<br />`inferenceVertexOAuthLoginHint` | `string` | MDM + Bootstrap<br />Added in 1.12603.0 | — | Pre-fill Google's account chooser and forward to your federated IdP. \{username} expands to the OS login name. |
+| <span id="inferencevertexworkforceaudience" />Workforce Identity audience<br />`inferenceVertexWorkforceAudience` | `string` | MDM + Bootstrap<br />Added in 1.10628.0 | — | Workforce-pool provider audience. When set, sign-in uses your own IdP plus a GCP STS exchange instead of a Google identity. |
+| <span id="inferencevertexworkforceuserproject" />Workforce Identity billing project<br />`inferenceVertexWorkforceUserProject` | `string` | MDM + Bootstrap<br />Added in 1.10628.0 | — | GCP project for STS billing and quota. Defaults to the Vertex project ID above. |
+| <span id="inferencevertexworkforceauthflow" />Workforce Identity sign-in flow<br />`inferenceVertexWorkforceAuthFlow` | `enum` | MDM + Bootstrap<br />Added in 1.25927.0 | — | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. |
+| <span id="inferencevertexworkforceoidc" />Workforce Identity IdP (OIDC)<br />`inferenceVertexWorkforceOidc` | `object` | MDM + Bootstrap<br />Added in 1.10628.0 | — | Your organization’s OIDC IdP. The app runs an authorization-code-with-PKCE flow against this issuer and exchanges the returned ID token at GCP STS. |
+| <span id="inferencevertexcredentialsfile" />GCP credentials file path<br />`inferenceVertexCredentialsFile` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Absolute path to service-account JSON. Leave blank to fall back to ADC. |
 
 <AccordionGroup>
   <Accordion title="inferenceVertexWorkforceAuthFlow details">
@@ -285,17 +285,17 @@ The region can be a single region such as `us-east5`, the `eu` or `us` multi-reg
   </Accordion>
 
   <Accordion title="inferenceVertexWorkforceOidc details">
-    | Field                             | Type      | Default | Description                                                                                                                                        |
-    | --------------------------------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | `clientId`                        | `string`  | —       | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE).                                                   |
-    | `issuer`                          | `string`  | —       | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead.                                                       |
-    | `authorizationUrl`                | `string`  | —       | HTTPS authorization endpoint. Used with the token URL when no issuer is set.                                                                       |
-    | `tokenUrl`                        | `string`  | —       | HTTPS token endpoint. Used with the authorization URL when no issuer is set.                                                                       |
-    | `scopes`                          | `string`  | —       | Space-separated scopes. Defaults to openid profile email offline\_access.                                                                          |
-    | `redirectPort`                    | `integer` | —       | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time.                                                            |
-    | `redirectHost`                    | `enum`    | —       | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`.                                           |
-    | `omitOfflineAccess`               | `boolean` | —       | Only enable if your IdP rejects the offline\_access scope on this client. Without it the app prompts for sign-in each time the token expires.      |
-    | `additionalRedirectReferrerHosts` | `string`  | —       | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
+    | Field | Type | Default | Description |
+    | - | - | - | - |
+    | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
+    | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
+    | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
+    | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
+    | `scopes` | `string` | — | Space-separated scopes. Defaults to openid profile email offline\_access. |
+    | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
+    | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
+    | `omitOfflineAccess` | `boolean` | — | Only enable if your IdP rejects the offline\_access scope on this client. Without it the app prompts for sign-in each time the token expires. |
+    | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
   </Accordion>
 </AccordionGroup>
 
@@ -307,10 +307,10 @@ You must also set `inferenceModels` to a list of publisher model IDs, for exampl
 
 The first-launch and re-authentication behavior depends on the authentication approach.
 
-| Approach                               | First launch                                                                                                                                             | Re-authentication                                                                                                                      |
-| -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| Credentials file (service-account key) | The app opens directly; no user action.                                                                                                                  | Never, until you rotate the key file.                                                                                                  |
-| In-app Google sign-in                  | The app shows a **Sign in with Google** page. Clicking it opens Google's consent flow in the default browser. After approval, the app returns to Cowork. | When the refresh token is revoked, when you deploy a new OAuth client ID, or when your Google Cloud session-control policy expires it. |
+| Approach | First launch | Re-authentication |
+| - | - | - |
+| Credentials file (service-account key) | The app opens directly; no user action. | Never, until you rotate the key file. |
+| In-app Google sign-in | The app shows a **Sign in with Google** page. Clicking it opens Google's consent flow in the default browser. After approval, the app returns to Cowork. | When the refresh token is revoked, when you deploy a new OAuth client ID, or when your Google Cloud session-control policy expires it. |
 
 For in-app Google sign-in, the browser flow runs on the host (outside the Cowork sandbox), so it can use the user's existing Google session and any security keys or passkeys configured on the device. Users can sign out by revoking the app from their Google Account's [third-party connections page](https://myaccount.google.com/connections); the app detects the revoked token and shows a **Sign in again** prompt.
 

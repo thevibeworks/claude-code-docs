@@ -29,29 +29,29 @@ With neither `--catalog` nor `--config`, and no [ad-hoc target](/docs/2026-07-28
 
 ## Tabs
 
-| Tab           | Key | What it shows                                                                               |
-| ------------- | --- | ------------------------------------------------------------------------------------------- |
-| **Info**      | `i` | Server info, capabilities, and negotiated protocol details.                                 |
-| **Auth**      | `a` | OAuth state for the selected server, plus a **Clear OAuth state** action.                   |
-| **Resources** | `r` | Browse and read resources.                                                                  |
-| **Prompts**   | `m` | List prompts and render them with arguments.                                                |
-| **Tools**     | `t` | View tools and execute them with form-like inputs.                                          |
-| **Protocol**  | `p` | JSON-RPC request/response/notification history.                                             |
-| **Network**   | `n` | HTTP traffic for SSE and [Streamable HTTP](/specification/latest/basic/transports) servers. |
-| **Console**   | `o` | `stderr` from a connected stdio server process.                                             |
+| Tab | Key | What it shows |
+| - | - | - |
+| **Info** | `i` | Server info, capabilities, and negotiated protocol details. |
+| **Auth** | `a` | OAuth state for the selected server, plus a **Clear OAuth state** action. |
+| **Resources** | `r` | Browse and read resources. |
+| **Prompts** | `m` | List prompts and render them with arguments. |
+| **Tools** | `t` | View tools and execute them with form-like inputs. |
+| **Protocol** | `p` | JSON-RPC request/response/notification history. |
+| **Network** | `n` | HTTP traffic for SSE and [Streamable HTTP](/specification/latest/basic/transports) servers. |
+| **Console** | `o` | `stderr` from a connected stdio server process. |
 
 The accelerators avoid collisions rather than always taking the first letter: **P**rotocol takes `p` so Pro**m**pts takes `m`, and **C**onsole takes `o` because `c` is the global Connect action.
 
 ## Navigation
 
-| Key                              | Action                                              |
-| -------------------------------- | --------------------------------------------------- |
-| `Left` / `Right` arrows or `Tab` | Switch tabs                                         |
-| `Up` / `Down` arrows             | Move through the current list                       |
-| `Enter`                          | Select an item, execute a tool, or fetch a resource |
-| `c`                              | Connect to the selected server                      |
-| `d`                              | Disconnect                                          |
-| `Esc` or `Ctrl+C`                | Exit                                                |
+| Key | Action |
+| - | - |
+| `Left` / `Right` arrows or `Tab` | Switch tabs |
+| `Up` / `Down` arrows | Move through the current list |
+| `Enter` | Select an item, execute a tool, or fetch a resource |
+| `c` | Connect to the selected server |
+| `d` | Disconnect |
+| `Esc` or `Ctrl+C` | Exit |
 
 ## Authorizing an HTTP server
 

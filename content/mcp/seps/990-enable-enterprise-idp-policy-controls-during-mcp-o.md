@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                         |
-| ------------- | ----------------------------------------------------------------------------- |
-| **SEP**       | 990                                                                           |
-| **Title**     | Enable enterprise IdP policy controls during MCP OAuth flows                  |
-| **Status**    | Final                                                                         |
-| **Type**      | Standards Track                                                               |
-| **Created**   | 2025-06-04                                                                    |
-| **Author(s)** | Aaron Parecki ([@aaronpk](https://github.com/aaronpk))                        |
-| **Sponsor**   | None                                                                          |
-| **PR**        | [#646](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/646) |
+| Field | Value |
+| - | - |
+| **SEP** | 990 |
+| **Title** | Enable enterprise IdP policy controls during MCP OAuth flows |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-06-04 |
+| **Author(s)** | Aaron Parecki ([@aaronpk](https://github.com/aaronpk)) |
+| **Sponsor** | None |
+| **PR** | [#646](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/646) |
 
 ***
 

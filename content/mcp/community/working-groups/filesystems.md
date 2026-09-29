@@ -58,36 +58,36 @@ optimistic concurrency control, and the interaction with change notification and
 
 ## Leadership
 
-| Role | Name            | Organization | GitHub                                               | Term    |
-| ---- | --------------- | ------------ | ---------------------------------------------------- | ------- |
-| Lead | Sambhav Kothari | Bloomberg    | [@sambhav](https://github.com/sambhav)               | Initial |
-| Lead | Ola Hungerford  | Nordstrom    | [@olaservo](https://github.com/olaservo)             | Initial |
-| Lead | Daniel Temesgen | Bloomberg    | [@DanielTemesgen](https://github.com/DanielTemesgen) | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | Sambhav Kothari | Bloomberg | [@sambhav](https://github.com/sambhav) | Initial |
+| Lead | Ola Hungerford | Nordstrom | [@olaservo](https://github.com/olaservo) | Initial |
+| Lead | Daniel Temesgen | Bloomberg | [@DanielTemesgen](https://github.com/DanielTemesgen) | Initial |
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Membership
 
-| Name          | Organization | GitHub                                           | Discord | Level     |
-| ------------- | ------------ | ------------------------------------------------ | ------- | --------- |
-| Michael Cheah | Bloomberg    | [@michaelcheah](https://github.com/michaelcheah) |         | WG Member |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Michael Cheah | Bloomberg | [@michaelcheah](https://github.com/michaelcheah) | | WG Member |
 
 ## Operations
 
-| Meeting         | Frequency | Duration   | Purpose                               |
-| --------------- | --------- | ---------- | ------------------------------------- |
-| Working Session | Biweekly  | 60 minutes | Technical discussion, proposal review |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Biweekly | 60 minutes | Technical discussion, proposal review |
 
 Discord: `#filesystems-wg`.
 
@@ -97,10 +97,10 @@ Discord: `#filesystems-wg`.
 
 ### Active Work Items
 
-| Item                                     | Status   | Target Date | Champion |
-| ---------------------------------------- | -------- | ----------- | -------- |
-| SEP: Filesystem Operations for Resources | Ideating |             | TBD      |
-| Take up SEP-2571 with its author         | Ideating |             | TBD      |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| SEP: Filesystem Operations for Resources | Ideating | | TBD |
+| Take up SEP-2571 with its author | Ideating | | TBD |
 
 The group's first act is to take up SEP-2571 with its author, since it already covers create and delete.
 
@@ -116,6 +116,6 @@ The group's first act is to take up SEP-2571 with its author, since it already c
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-08-24 | Initial charter |

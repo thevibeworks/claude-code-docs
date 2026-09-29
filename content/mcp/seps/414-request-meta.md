@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                         |
-| ------------- | ----------------------------------------------------------------------------- |
-| **SEP**       | 414                                                                           |
-| **Title**     | Document OpenTelemetry Trace Context Propagation Conventions                  |
-| **Status**    | Final                                                                         |
-| **Type**      | Standards Track                                                               |
-| **Created**   | 2025-04-25                                                                    |
-| **Author(s)** | Adrian Cole ([@codefromthecrypt](https://github.com/codefromthecrypt))        |
-| **Sponsor**   | Marcelo Trylesinski ([@Kludex](https://github.com/Kludex))                    |
-| **PR**        | [#414](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/414) |
+| Field | Value |
+| - | - |
+| **SEP** | 414 |
+| **Title** | Document OpenTelemetry Trace Context Propagation Conventions |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-04-25 |
+| **Author(s)** | Adrian Cole ([@codefromthecrypt](https://github.com/codefromthecrypt)) |
+| **Sponsor** | Marcelo Trylesinski ([@Kludex](https://github.com/Kludex)) |
+| **PR** | [#414](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/414) |
 
 ***
 

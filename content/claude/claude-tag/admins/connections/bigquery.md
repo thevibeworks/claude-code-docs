@@ -33,12 +33,12 @@ Together the two grants let Claude run read-only queries against those datasets.
 
 In the bundle, click **Connect** next to **Custom tool** and choose **GCP access token (with Service Account Key)**.
 
-| Field                          | Value                                                                                                                                                                                                                                                                              |
-| :----------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Credential type                | **GCP access token (with Service Account Key)**                                                                                                                                                                                                                                    |
-| GCP service account key (JSON) | The JSON key file from Google Cloud Console                                                                                                                                                                                                                                        |
-| Scopes (optional)              | `https://www.googleapis.com/auth/bigquery`. The field is labeled optional, but leave it empty and the token defaults to a broader scope. BigQuery's query endpoints don't accept a read-only scope; the dataset roles in the section above are what keep the connection read-only. |
-| Allowed websites               | `bigquery.googleapis.com`                                                                                                                                                                                                                                                          |
+| Field | Value |
+| :- | :- |
+| Credential type | **GCP access token (with Service Account Key)** |
+| GCP service account key (JSON) | The JSON key file from Google Cloud Console |
+| Scopes (optional) | `https://www.googleapis.com/auth/bigquery`. The field is labeled optional, but leave it empty and the token defaults to a broader scope. BigQuery's query endpoints don't accept a read-only scope; the dataset roles in the section above are what keep the connection read-only. |
+| Allowed websites | `bigquery.googleapis.com` |
 
 Agent Proxy exchanges the service-account key for an access token and injects it at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 

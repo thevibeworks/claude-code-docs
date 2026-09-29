@@ -40,15 +40,15 @@ On Team and Enterprise plans, Google Drive doesn't appear in your connector list
 
 With the connector turned on in a conversation, Claude can search your Drive, list your recent files, check a file's details and who it's shared with, and read a file's content. The table shows which file types Claude can read this way.
 
-| File type                                              | Claude can read it |
-| ------------------------------------------------------ | ------------------ |
-| Google Docs                                            | Yes                |
-| Google Sheets                                          | Yes                |
-| Google Slides                                          | Yes                |
-| PDF                                                    | Yes                |
-| Word, Excel, and PowerPoint files                      | Yes                |
-| OpenDocument text, spreadsheet, and presentation files | Yes                |
-| PNG and JPEG images                                    | Yes                |
+| File type | Claude can read it |
+| - | - |
+| Google Docs | Yes |
+| Google Sheets | Yes |
+| Google Slides | Yes |
+| PDF | Yes |
+| Word, Excel, and PowerPoint files | Yes |
+| OpenDocument text, spreadsheet, and presentation files | Yes |
+| PNG and JPEG images | Yes |
 
 Two limits apply to every type:
 

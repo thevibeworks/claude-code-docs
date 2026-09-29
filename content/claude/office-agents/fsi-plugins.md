@@ -20,13 +20,13 @@ that you can add as a marketplace in Cowork.
 The repository contains a core plugin and several add-on plugins that
 build on it.
 
-| Plugin                    | What it does                                                                                                                                                                |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plugin | What it does |
+| - | - |
 | Financial analysis (core) | Build comparable company analyses, DCF models, LBO models, and 3-statement financials. Includes all shared MCP connectors for financial data providers. Install this first. |
-| Investment banking        | Draft CIMs, teasers, and process letters. Build buyer lists, run merger models, and create strip profiles.                                                                  |
-| Equity research           | Write earnings updates and initiating coverage reports. Track catalysts and screen for new ideas.                                                                           |
-| Private equity            | Source and screen deals, run due diligence checklists, draft IC memos, and monitor portfolio company KPIs.                                                                  |
-| Wealth management         | Prep for client meetings, build financial plans, rebalance portfolios, and identify tax-loss harvesting opportunities.                                                      |
+| Investment banking | Draft CIMs, teasers, and process letters. Build buyer lists, run merger models, and create strip profiles. |
+| Equity research | Write earnings updates and initiating coverage reports. Track catalysts and screen for new ideas. |
+| Private equity | Source and screen deals, run due diligence checklists, draft IC memos, and monitor portfolio company KPIs. |
+| Wealth management | Prep for client meetings, build financial plans, rebalance portfolios, and identify tax-loss harvesting opportunities. |
 
 The repository also includes partner-built plugins from LSEG and S\&P
 Global, which bring their financial data and analytics directly into
@@ -85,15 +85,15 @@ After installation, you can invoke Skills like the following.
   qualified professional before being used in decision-making.
 </Warning>
 
-| Skill                           | What it does                            |
-| ------------------------------- | --------------------------------------- |
-| `/comps [company]`              | Run a comparable company analysis.      |
-| `/dcf [company]`                | Build a DCF valuation model.            |
+| Skill | What it does |
+| - | - |
+| `/comps [company]` | Run a comparable company analysis. |
+| `/dcf [company]` | Build a DCF valuation model. |
 | `/earnings [company] [quarter]` | Generate a post-earnings update report. |
-| `/one-pager [company]`          | Create a one-page company profile.      |
-| `/ic-memo [project name]`       | Draft an investment committee memo.     |
-| `/source [criteria]`            | Source deals based on criteria.         |
-| `/client-review [client]`       | Prep for a client meeting.              |
+| `/one-pager [company]` | Create a one-page company profile. |
+| `/ic-memo [project name]` | Draft an investment committee memo. |
+| `/source [criteria]` | Source deals based on criteria. |
+| `/client-review [client]` | Prep for a client meeting. |
 
 ## MCP connectors
 

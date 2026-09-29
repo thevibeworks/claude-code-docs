@@ -132,12 +132,12 @@ This works especially well for general-purpose agents, where the user's intent i
 
 When implementing progressive discovery:
 
-| Guideline                        | Rationale                                                                                                                                                                                          |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Offer multiple detail levels** | Let the model choose between name-only, name-and-description, or full-schema responses.                                                                                                            |
-| **Cache tool definitions**       | Once fetched from a server, memoize the definition host-side so re-injecting it later doesn't need another `tools/list` round trip. This is separate from what's currently in the model's context. |
-| **Refresh on `list_changed`**    | Re-index the search catalog when a server sends `notifications/tools/list_changed`.                                                                                                                |
-| **Group tools by server**        | Present tools organized by their source server so the model can reason about related capabilities.                                                                                                 |
+| Guideline | Rationale |
+| - | - |
+| **Offer multiple detail levels** | Let the model choose between name-only, name-and-description, or full-schema responses. |
+| **Cache tool definitions** | Once fetched from a server, memoize the definition host-side so re-injecting it later doesn't need another `tools/list` round trip. This is separate from what's currently in the model's context. |
+| **Refresh on `list_changed`** | Re-index the search catalog when a server sends `notifications/tools/list_changed`. |
+| **Group tools by server** | Present tools organized by their source server so the model can reason about related capabilities. |
 
 ### Interaction with Prompt Caching
 
@@ -238,12 +238,12 @@ console.log(
 
 The right sandbox depends on the language you want the model to write, your host application's language, and how much isolation you need. The table lists example runtimes rather than endorsements; evaluate maturity for your use case:
 
-| Sandboxed language | Runtime / Library                                             | Host language     | Approach                                                                                        |
-| ------------------ | ------------------------------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------- |
-| **JavaScript**     | [Deno](https://github.com/denoland/deno), `isolated-vm`       | Rust / Node / CLI | V8-based runtimes with fine-grained permissions. Can disable all permissions for full lockdown. |
-| **Python**         | [Monty](https://github.com/pydantic/monty) *(experimental)*   | Rust              | Minimal Python interpreter built for AI use cases. No I/O by default.                           |
-| **TypeScript**     | [pctx](https://github.com/portofcontext/pctx) *(early-stage)* | Python / Rust     | Incorporates code mode concepts as a library, with low-level Rust support.                      |
-| **Any (via Wasm)** | [Wasmtime](https://github.com/bytecodealliance/wasmtime)      | Rust / C / Go     | Compile any language to Wasm and run it with capability-based security.                         |
+| Sandboxed language | Runtime / Library | Host language | Approach |
+| - | - | - | - |
+| **JavaScript** | [Deno](https://github.com/denoland/deno), `isolated-vm` | Rust / Node / CLI | V8-based runtimes with fine-grained permissions. Can disable all permissions for full lockdown. |
+| **Python** | [Monty](https://github.com/pydantic/monty) *(experimental)* | Rust | Minimal Python interpreter built for AI use cases. No I/O by default. |
+| **TypeScript** | [pctx](https://github.com/portofcontext/pctx) *(early-stage)* | Python / Rust | Incorporates code mode concepts as a library, with low-level Rust support. |
+| **Any (via Wasm)** | [Wasmtime](https://github.com/bytecodealliance/wasmtime) | Rust / C / Go | Compile any language to Wasm and run it with capability-based security. |
 
 Regardless of sandbox, the integration pattern is the same: the host injects function stubs, intercepts calls over an in-process or stdio channel (so network permissions can stay fully denied), and dispatches them as `tools/call` requests to MCP servers.
 

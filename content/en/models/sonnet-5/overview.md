@@ -1,28 +1,20 @@
 ---
 title: Claude Sonnet 5
 url: https://platform.claude.com/docs/en/models/sonnet-5/overview
-description: "Claude Sonnet 5 reference: lifecycle status, model IDs on every platform, context window, output limits, pricing, and migration resources. Claude Sonnet 5.5 is the current Sonnet model."
+description: "Claude Sonnet 5 reference: lifecycle status, model IDs on every platform, context window, output limits, pricing, and migration resources. Claude Sonnet 5 is a legacy model; Claude Sonnet 5.5 is the current Sonnet model."
 ---
 
 **Legacy.** Released June 30, 2026.
 
-The best combination of speed and intelligence
-
-Although Claude Sonnet 5 is still available, you should consider migrating to Claude Sonnet 5.5 for improved performance. [See Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) · [Migrate to Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide)
+Although Claude Sonnet 5 is still available, you should consider migrating to Claude Sonnet 5.5 for improved performance. [See Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) · [Migrate to Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-claude-sonnet-5)
 
 Model ID: `claude-sonnet-5`
 
 Context window: 1M tokens · Max output: 128K tokens · Input pricing: $2 / MTok · Output pricing: $10 / MTok
 
-[Announcement](https://www.anthropic.com/news/claude-sonnet-5) · [What’s new](https://platform.claude.com/docs/en/models/sonnet-5/whats-new-sonnet-5)
+[Announcement](https://www.anthropic.com/news/claude-sonnet-5)
 
-## Overview
-
-Claude Sonnet 5 is the next generation of Anthropic's Sonnet model family. It is a drop-in upgrade for Claude Sonnet 4.6 with three behavior changes: [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is on by default, manual extended thinking now returns a 400 error (it was deprecated on Claude Sonnet 4.6), and setting sampling parameters (`temperature`, `top_p`, `top_k`) to non-default values returns a 400 error. This page summarizes everything new at launch, including a new tokenizer.
-
-[What's new in Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5/whats-new-sonnet-5)
-
-## How it compares
+## How it compares to the current lineup
 
 | Model                                                                               | Context | Max output | Price / MTok | Thinking             | Default effort | Knowledge cutoff |
 | :---------------------------------------------------------------------------------- | :------ | :--------- | :----------- | :------------------- | :------------- | :--------------- |
@@ -89,7 +81,7 @@ Claude Sonnet 5 is the next generation of Anthropic's Sonnet model family. It is
 ## Good to know
 
 * On the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing#extended-output-beta), Claude Sonnet 5 supports up to 300k output tokens with the `output-300k-2026-03-24` beta header.
-* Setting `temperature`, `top_p`, or `top_k` to non-default values returns a 400 error. See [What's new in Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5/whats-new-sonnet-5#sampling-parameters-not-accepted).
+* Setting `temperature`, `top_p`, or `top_k` to non-default values returns a 400 error.
 * Query limits and capabilities programmatically with the [Models API](https://platform.claude.com/docs/en/api/models/list).
 
 ## Resources
@@ -123,6 +115,10 @@ Claude Sonnet 5 is the next generation of Anthropic's Sonnet model family. It is
 ## Reference
 
 <CardGroup cols={3}>
+  <Card title="System prompt" icon="text" href="https://platform.claude.com/docs/en/release-notes/system-prompts/claude-sonnet-5">
+    The system prompt Claude Sonnet 5 uses on claude.ai and the Claude apps.
+  </Card>
+
   <Card title="System card" icon="file" href="https://www.anthropic.com/claude-sonnet-5-system-card">
     Safety evaluations and deployment decisions for Claude Sonnet 5.
   </Card>

@@ -27,12 +27,12 @@ An idle engine stays on the host, with the credential in its environment, until 
 
 Set [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) in your managed configuration. It appears in the **Code surface** section of the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) while Code is enabled.
 
-| Value                                               | Behavior                                                                                                                                                                                                     |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Unset                                               | Off, unless a Claude Code managed-settings `sshHostAllowlist` on the device allows hosts (see [Interaction with Claude Code managed settings](#interaction-with-claude-code-managed-settings-on-the-device)) |
-| `[]`                                                | Off. Delivered by an administrator, `[]` also overrides a Claude Code managed-settings allowlist on the device                                                                                               |
-| `["*"]`                                             | Users can connect to any host                                                                                                                                                                                |
-| `["build01.corp.example.com", "*.dev.example.com"]` | Users can connect only to hosts that match an entry                                                                                                                                                          |
+| Value | Behavior |
+| - | - |
+| Unset | Off, unless a Claude Code managed-settings `sshHostAllowlist` on the device allows hosts (see [Interaction with Claude Code managed settings](#interaction-with-claude-code-managed-settings-on-the-device)) |
+| `[]` | Off. Delivered by an administrator, `[]` also overrides a Claude Code managed-settings allowlist on the device |
+| `["*"]` | Users can connect to any host |
+| `["build01.corp.example.com", "*.dev.example.com"]` | Users can connect only to hosts that match an entry |
 
 While SSH remote sessions are off, the environment picker shows local sessions only, and any attempt to connect to a saved host is refused.
 
@@ -75,14 +75,14 @@ On devices where users applied the configuration locally, deploy `sshHostAllowli
 
 The remote engine uses only the credential Claude Desktop passes in its environment. It ignores credentials already on the host, such as an AWS profile or application default credentials, and Claude Desktop copies no credential files there. Credential kinds that live in a file on the device are refused at session start.
 
-| Provider                                                            | Works on a remote host                                         | Refused at session start                                                                                      |
-| ------------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| [LLM gateway](/docs/third-party/claude-desktop/gateway)                  | Static API key, single sign-on, credential helper              |                                                                                                               |
-| [Claude API](/docs/third-party/claude-desktop/claude-api)                | Static API key, Sign in with Claude Console, credential helper |                                                                                                               |
-| [Microsoft Foundry](/docs/third-party/claude-desktop/foundry)            | API key, in-app Entra ID sign-in, credential helper            |                                                                                                               |
-| [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock)               | Bearer token, identity provider sign-in, credential helper     | In-app AWS sign-in (IAM Identity Center), named profile                                                       |
-| [Amazon Bedrock Mantle](/docs/third-party/claude-desktop/mantle)         | Bearer token, credential helper                                |                                                                                                               |
-| [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex) | In-app Workforce Identity sign-in, credential helper           | In-app Google sign-in, service-account key or credentials file, application default credentials on the device |
+| Provider | Works on a remote host | Refused at session start |
+| - | - | - |
+| [LLM gateway](/docs/third-party/claude-desktop/gateway) | Static API key, single sign-on, credential helper | |
+| [Claude API](/docs/third-party/claude-desktop/claude-api) | Static API key, Sign in with Claude Console, credential helper | |
+| [Microsoft Foundry](/docs/third-party/claude-desktop/foundry) | API key, in-app Entra ID sign-in, credential helper | |
+| [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock) | Bearer token, identity provider sign-in, credential helper | In-app AWS sign-in (IAM Identity Center), named profile |
+| [Amazon Bedrock Mantle](/docs/third-party/claude-desktop/mantle) | Bearer token, credential helper | |
+| [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex) | In-app Workforce Identity sign-in, credential helper | In-app Google sign-in, service-account key or credentials file, application default credentials on the device |
 
 When the configured credential is a refused kind, the session fails before anything is deployed to the host, with the card [Remote sessions aren't available with this inference setup](#remote-sessions-aren%E2%80%99t-available-with-this-inference-setup).
 
@@ -121,14 +121,14 @@ On macOS and Linux, Claude Desktop makes the SSH connection by running the devic
 
 Claude Desktop writes the following into the SSH user's home directory on the host. Each user who connects gets their own copy.
 
-| Path on the host                     | Contents                                                                                                            |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
-| `~/.claude/remote/srv/<version>/`    | The remote server that Claude Desktop talks to                                                                      |
-| `~/.claude/remote/ccd-cli/<version>` | The Claude Code engine, one file per version (the three most recent versions are kept)                              |
-| `~/.claude/remote/run/<id>/`         | The server's socket, token, and log                                                                                 |
-| `~/.claude/remote/plugins/<hash>/`   | Plugins synced from the device                                                                                      |
-| `~/.claude/uploads/<session-id>/`    | Files the user attached to a message. Not removed when the session ends                                             |
-| `~/.claude/` and `~/.claude.json`    | Claude Code's own data, including session transcripts. See [Data storage](/docs/third-party/claude-desktop/data-storage) |
+| Path on the host | Contents |
+| - | - |
+| `~/.claude/remote/srv/<version>/` | The remote server that Claude Desktop talks to |
+| `~/.claude/remote/ccd-cli/<version>` | The Claude Code engine, one file per version (the three most recent versions are kept) |
+| `~/.claude/remote/run/<id>/` | The server's socket, token, and log |
+| `~/.claude/remote/plugins/<hash>/` | Plugins synced from the device |
+| `~/.claude/uploads/<session-id>/` | Files the user attached to a message. Not removed when the session ends |
+| `~/.claude/` and `~/.claude.json` | Claude Code's own data, including session transcripts. See [Data storage](/docs/third-party/claude-desktop/data-storage) |
 
 Each side of a remote session needs its own network access.
 

@@ -22,10 +22,10 @@ If you have a server URL, go to [Add a connector by URL](#add-a-connector-by-url
 
 A connector by URL suits internet-hosted services and public APIs. A desktop extension suits access to local files or tools, sensitive enterprise data, and work that needs offline capability.
 
-| You have                       | Use                                                                                           | Works in                                       |
-| ------------------------------ | --------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| The URL of a remote MCP server | [Add a connector by URL](#add-a-connector-by-url)                                             | Free, Pro, Max, Team, and Enterprise plans     |
-| A desktop extension            | [Install a local connector in the desktop app](#install-a-local-connector-in-the-desktop-app) | The Claude desktop app, signed in to claude.ai |
+| You have | Use | Works in |
+| - | - | - |
+| The URL of a remote MCP server | [Add a connector by URL](#add-a-connector-by-url) | Free, Pro, Max, Team, and Enterprise plans |
+| A desktop extension | [Install a local connector in the desktop app](#install-a-local-connector-in-the-desktop-app) | The Claude desktop app, signed in to claude.ai |
 
 ## Add a connector by URL
 
@@ -175,10 +175,10 @@ Anthropic reviews and approves each custom header name before Claude sends it to
 
 Claude sends the value exactly as you enter it. It doesn't add an authentication scheme or any other prefix. For an `Authorization` header, include the scheme in the value, as this table shows.
 
-| You enter           | Claude sends                       |
-| ------------------- | ---------------------------------- |
+| You enter | Claude sends |
+| - | - |
 | `Bearer your-token` | `Authorization: Bearer your-token` |
-| `your-token`        | `Authorization: your-token`        |
+| `your-token` | `Authorization: your-token` |
 
 Most servers that use bearer tokens reject a value without the `Bearer ` scheme. If your server's documentation shows `Authorization: Bearer YOUR_TOKEN`, enter `Bearer ` followed by your token, including the space. The same applies to Basic authentication, where you enter `Basic ` followed by the base64-encoded credentials.
 

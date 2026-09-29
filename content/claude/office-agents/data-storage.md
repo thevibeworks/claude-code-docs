@@ -45,16 +45,16 @@ Two consequences follow:
 The table below gives the result for each change users and administrators
 actually make.
 
-| Change                                                                         | Result                                                                                                                                                                      |
-| ------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Uninstall and reinstall the same add-in                                        | Data intact                                                                                                                                                                 |
-| Move to a different store listing, or to one published with a new ID           | Data intact. A new listing means a new add-in ID, not new storage                                                                                                           |
-| Move from a sideloaded manifest to a store listing, or the reverse             | Data intact                                                                                                                                                                 |
+| Change | Result |
+| - | - |
+| Uninstall and reinstall the same add-in | Data intact |
+| Move to a different store listing, or to one published with a new ID | Data intact. A new listing means a new add-in ID, not new storage |
+| Move from a sideloaded manifest to a store listing, or the reverse | Data intact |
 | Swap the standard manifest for the custom third-party manifest, or the reverse | Storage intact, but the history list changes, because the connection mode change is an identity change. See [what chat history is keyed to](#what-chat-history-is-keyed-to) |
-| Run a store install and a sideloaded manifest at the same time                 | Shared storage. Two entries in Office, one history. Remove one to avoid confusion                                                                                           |
-| Bump the manifest version, or issue a new ID to clear an Admin Center cache    | Data intact                                                                                                                                                                 |
-| Serve the add-in from a different host or port, or over `http`                 | A new empty store                                                                                                                                                           |
-| Rebuild, reimage, or wipe the profile on the device                            | Data destroyed. Export first                                                                                                                                                |
+| Run a store install and a sideloaded manifest at the same time | Shared storage. Two entries in Office, one history. Remove one to avoid confusion |
+| Bump the manifest version, or issue a new ID to clear an Admin Center cache | Data intact |
+| Serve the add-in from a different host or port, or over `http` | A new empty store |
+| Rebuild, reimage, or wipe the profile on the device | Data destroyed. Export first |
 
 ## What Claude for M365 stores
 
@@ -62,14 +62,14 @@ The add-in uses five IndexedDB databases and one local storage store, all inside
 the signed-in user's operating system profile. The table below lists each one
 and what it is scoped to.
 
-| Store                           | Contents                                                                          | Scoped to                                        |
-| ------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------ |
-| `claude-chat-history`           | Conversation transcripts, titles, timestamps, and the contents of attached files  | One user, one organization, one Office app       |
-| `claude-local-skills`           | Skills the user uploaded, including any templates bundled with them               | The device profile, not the individual user      |
-| `claude-mcp-gateways`           | Client registrations for connectors the user has authorized                       | The connector's address, not the individual user |
-| `claude-mail-style`             | Claude for Outlook only: learned writing style, draft preferences, and scratchpad | One user                                         |
-| `claude-office-snipped-results` | Working scratch for long conversations, cleared at the start of every session     | Nothing, transient                               |
-| Local storage                   | Settings, onboarding and terms flags, and the active sign-in profile              | The browser profile                              |
+| Store | Contents | Scoped to |
+| - | - | - |
+| `claude-chat-history` | Conversation transcripts, titles, timestamps, and the contents of attached files | One user, one organization, one Office app |
+| `claude-local-skills` | Skills the user uploaded, including any templates bundled with them | The device profile, not the individual user |
+| `claude-mcp-gateways` | Client registrations for connectors the user has authorized | The connector's address, not the individual user |
+| `claude-mail-style` | Claude for Outlook only: learned writing style, draft preferences, and scratchpad | One user |
+| `claude-office-snipped-results` | Working scratch for long conversations, cleared at the start of every session | Nothing, transient |
+| Local storage | Settings, onboarding and terms flags, and the active sign-in profile | The browser profile |
 
 Conversations and the Outlook writing style guide are scoped to the
 individual user. Uploaded skills and connector registrations are scoped to the
@@ -155,13 +155,13 @@ are tied to the installation rather than to the directory account.
 
 The table below gives the result for each case.
 
-| Situation                                                                                           | Result                                                                                                                                                                                   |
-| --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| A user signs out of Claude and signs back in                                                        | The same conversations. Signing out does not change the identity                                                                                                                         |
-| A different person signs in to Office on that device                                                | They see their own conversations, not the previous user's. On Office builds that fall back to a per-installation identifier, both people resolve to the same identity and share one list |
-| The same person opens the add-in on a second device                                                 | No conversations. Storage is per device and does not sync                                                                                                                                |
-| A user's organization changes, such as joining or leaving a team plan                               | Earlier conversations stop appearing. They remain on disk under the previous organization                                                                                                |
-| A deployment moves between a Claude account sign-in and a third-party platform, in either direction | Earlier conversations stop appearing. They remain on disk under the previous identity, and the add-in has no path to reach them                                                          |
+| Situation | Result |
+| - | - |
+| A user signs out of Claude and signs back in | The same conversations. Signing out does not change the identity |
+| A different person signs in to Office on that device | They see their own conversations, not the previous user's. On Office builds that fall back to a per-installation identifier, both people resolve to the same identity and share one list |
+| The same person opens the add-in on a second device | No conversations. Storage is per device and does not sync |
+| A user's organization changes, such as joining or leaving a team plan | Earlier conversations stop appearing. They remain on disk under the previous organization |
+| A deployment moves between a Claude account sign-in and a third-party platform, in either direction | Earlier conversations stop appearing. They remain on disk under the previous identity, and the add-in has no path to reach them |
 
 Changing connection mode is not a data loss event, because nothing is deleted,
 but it is an identity change and the history list follows the identity.
@@ -176,12 +176,12 @@ writing style is shared by everyone using that browser profile.
 Claude for M365 bounds local storage in two ways, and users can clear it
 themselves at any time.
 
-| Store                           | Retention                                                                                                                  |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `claude-chat-history`           | The 50 most recent conversations per user, per organization, per Office app. Older conversations are deleted automatically |
-| Any store                       | When the browser profile runs out of storage quota, the oldest conversations are deleted to make room                      |
-| `claude-office-snipped-results` | Cleared at the start of every session                                                                                      |
-| Everything else                 | Kept until the user deletes it or the browser profile is wiped                                                             |
+| Store | Retention |
+| - | - |
+| `claude-chat-history` | The 50 most recent conversations per user, per organization, per Office app. Older conversations are deleted automatically |
+| Any store | When the browser profile runs out of storage quota, the oldest conversations are deleted to make room |
+| `claude-office-snipped-results` | Cleared at the start of every session |
+| Everything else | Kept until the user deletes it or the browser profile is wiped |
 
 Users clear their own conversations from the add-in's settings. Under "Chat
 history", "Delete all" removes every saved conversation for that user in that
@@ -198,13 +198,13 @@ cleanup or reimaging, rather than a setting in the add-in.
 The table below covers each category and its destination, so you can scope a
 review to the paths that carry content off the endpoint.
 
-| Data                                                                                        | Where it goes                                                                                                                                                                                                             |
-| ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Conversation text, attachments, and the document content Claude is asked to work with       | The model endpoint your deployment is configured for. In third-party platform deployments that is your own Vertex AI, Bedrock, Azure, or gateway endpoint                                                                 |
-| Chat history, uploaded skills, connector registrations, and the Outlook writing style guide | Nowhere. Local only, no sync, no server-side backup                                                                                                                                                                       |
-| Sign-in credentials                                                                         | Only to the identity provider they belong to                                                                                                                                                                              |
-| Usage telemetry sent to Anthropic                                                           | Counts, durations, and error categories. Anthropic's collector is allowlist-filtered, so it excludes conversation text, document contents, file names, and the names of your connectors and their tools                   |
-| Telemetry sent to a custom OpenTelemetry collector you configure                            | The full audit trail, including prompt content and tool inputs and outputs. That path bypasses the allowlist filter by design. See [Audit and observability](/docs/office-agents/enterprise-readiness#audit-and-observability) |
+| Data | Where it goes |
+| - | - |
+| Conversation text, attachments, and the document content Claude is asked to work with | The model endpoint your deployment is configured for. In third-party platform deployments that is your own Vertex AI, Bedrock, Azure, or gateway endpoint |
+| Chat history, uploaded skills, connector registrations, and the Outlook writing style guide | Nowhere. Local only, no sync, no server-side backup |
+| Sign-in credentials | Only to the identity provider they belong to |
+| Usage telemetry sent to Anthropic | Counts, durations, and error categories. Anthropic's collector is allowlist-filtered, so it excludes conversation text, document contents, file names, and the names of your connectors and their tools |
+| Telemetry sent to a custom OpenTelemetry collector you configure | The full audit trail, including prompt content and tool inputs and outputs. That path bypasses the allowlist filter by design. See [Audit and observability](/docs/office-agents/enterprise-readiness#audit-and-observability) |
 
 ## Export a user's data before a device is rebuilt
 

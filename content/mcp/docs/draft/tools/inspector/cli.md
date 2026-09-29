@@ -46,18 +46,18 @@ See [Configuration and flags](/docs/draft/tools/inspector/configuration) for `--
 
 ## Methods
 
-| `--method`                     | Required companions                                   | Notes                                                                            |
-| ------------------------------ | ----------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `initialize`                   | None                                                  | Connect-only probe: `{serverInfo, protocolVersion, capabilities, instructions}`. |
-| `tools/list`                   | None                                                  |                                                                                  |
-| `tools/call`                   | `--tool-name`, plus `--tool-arg` / `--tool-args-json` |                                                                                  |
-| `resources/list`               | None                                                  |                                                                                  |
-| `resources/read`               | `--uri`                                               |                                                                                  |
-| `resources/templates/list`     | None                                                  |                                                                                  |
-| `prompts/list`                 | None                                                  |                                                                                  |
-| `prompts/get`                  | `--prompt-name`, `--prompt-args`                      |                                                                                  |
-| `logging/setLevel`             | `--log-level`                                         | Legacy era only; modern servers opt in per request instead.                      |
-| `servers/list`, `servers/show` | None                                                  | Read the catalog **without connecting** to anything.                             |
+| `--method` | Required companions | Notes |
+| - | - | - |
+| `initialize` | None | Connect-only probe: `{serverInfo, protocolVersion, capabilities, instructions}`. |
+| `tools/list` | None | |
+| `tools/call` | `--tool-name`, plus `--tool-arg` / `--tool-args-json` | |
+| `resources/list` | None | |
+| `resources/read` | `--uri` | |
+| `resources/templates/list` | None | |
+| `prompts/list` | None | |
+| `prompts/get` | `--prompt-name`, `--prompt-args` | |
+| `logging/setLevel` | `--log-level` | Legacy era only; modern servers opt in per request instead. |
+| `servers/list`, `servers/show` | None | Read the catalog **without connecting** to anything. |
 
 Stream- or session-only methods (`logging/tail`, for example) are rejected, since a process that exits can't hold a stream open.
 
@@ -110,14 +110,14 @@ Exit codes distinguish the outcomes: a tool with an app exits `0`, one with no a
 
 Every non-zero exit maps to a stable failure class, so a caller can branch on *why* without scraping prose:
 
-| Code | Meaning                                                                      |
-| ---- | ---------------------------------------------------------------------------- |
-| `0`  | Success.                                                                     |
-| `1`  | Usage or unexpected error (the catch-all).                                   |
-| `2`  | No MCP App found on the tool (`--app-info` probe).                           |
-| `3`  | Server requires authentication (401/403, `WWW-Authenticate`, OAuth).         |
-| `4`  | Server unreachable (DNS, connection refused, timeout, `fetch failed`).       |
-| `5`  | Tool error: `tools/call` returned `isError: true`, or the tool wasn't found. |
+| Code | Meaning |
+| - | - |
+| `0` | Success. |
+| `1` | Usage or unexpected error (the catch-all). |
+| `2` | No MCP App found on the tool (`--app-info` probe). |
+| `3` | Server requires authentication (401/403, `WWW-Authenticate`, OAuth). |
+| `4` | Server unreachable (DNS, connection refused, timeout, `fetch failed`). |
+| `5` | Tool error: `tools/call` returned `isError: true`, or the tool wasn't found. |
 
 On any non-zero exit the CLI also writes a **single JSON line to stderr**:
 

@@ -54,13 +54,13 @@ On Enterprise Grid, an earlier install can lose its connection and stop respondi
 
 The earlier app linked each user's own claude.ai account, so it answered as that person and used their connectors. Claude Tag has one identity for the team, provisioned by an admin who also sets what it can reach in each channel.
 
-|                | Legacy (the earlier Claude in Slack)        | New (Claude Tag)                                                     |
-| :------------- | :------------------------------------------ | :------------------------------------------------------------------- |
-| Identity       | Each user links their own claude.ai account | One agent identity with org-level service credentials                |
-| Sessions       | Spawned per request                         | One persistent session per thread, shared with the channel           |
-| Memory         | None                                        | Per-channel memory, plus workspace notes shared from public channels |
-| Standing work  | None                                        | Routines and channel watching                                        |
-| Who sets it up | Each user, individually                     | An Owner, once                                                       |
+| | Legacy (the earlier Claude in Slack) | New (Claude Tag) |
+| :- | :- | :- |
+| Identity | Each user links their own claude.ai account | One agent identity with org-level service credentials |
+| Sessions | Spawned per request | One persistent session per thread, shared with the channel |
+| Memory | None | Per-channel memory, plus workspace notes shared from public channels |
+| Standing work | None | Routines and channel watching |
+| Who sets it up | Each user, individually | An Owner, once |
 
 The **Claude Tag version** setting on each scope chooses whether the New or Legacy version answers there, and the scope's **Enable Claude Tag** switch turns both off. Access bundles only apply where the New version answers. See [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) for both controls and where to set them.
 

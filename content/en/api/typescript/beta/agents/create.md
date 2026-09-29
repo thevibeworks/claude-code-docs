@@ -19,15 +19,17 @@ Create Agent
 
     Body param: Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
-    - `type BetaManagedAgentsModel = (string & {}) | "claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more`
+    - `type BetaManagedAgentsModel = "claude-sonnet-5-5" | "claude-opus-5-5" | "claude-fable-5-1" | 13 more | (string & {})`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `(string & {})`
+      - `"claude-sonnet-5-5" | "claude-opus-5-5" | "claude-fable-5-1" | 13 more`
 
-      - `"claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more`
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -39,7 +41,7 @@ Create Agent
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -88,6 +90,8 @@ Create Agent
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `(string & {})`
 
     - `interface BetaManagedAgentsModelConfigParams`
 
@@ -879,9 +883,11 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `(string & {})`
+      - `"claude-sonnet-5-5" | "claude-opus-5-5" | "claude-fable-5-1" | 13 more`
 
-      - `"claude-opus-5-5" | "claude-fable-5-1" | "claude-sonnet-5" | 12 more`
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `"claude-opus-5-5"`
 
@@ -893,7 +899,7 @@ Create Agent
 
         - `"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `"claude-fable-5"`
 
@@ -942,6 +948,8 @@ Create Agent
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `(string & {})`
 
     - `effort?: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
 

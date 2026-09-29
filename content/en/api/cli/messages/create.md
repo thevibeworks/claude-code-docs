@@ -80,7 +80,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   There is a limit of 100,000 messages in a single request.
 
-- `--model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
+- `--model: "claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more or string`
 
   Body param: The model that will complete your prompt.
 
@@ -130,7 +130,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
-- `--thinking: optional ThinkingConfigEnabled or ThinkingConfigDisabled or ThinkingConfigAdaptive`
+- `--thinking: optional ThinkingConfigEnabled or ThinkingConfigDisabled or ThinkingConfigBetweenTools or ThinkingConfigAdaptive`
 
   Body param: Configuration for enabling Claude's extended thinking.
 
@@ -987,11 +987,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "unavailable"`
 
-  - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
+  - `model: "claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more or string`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-sonnet-5-5"`
+
+      Efficient model for coding and agents
 
     - `"claude-fable-5-1"`
 
@@ -1007,7 +1011,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"claude-sonnet-5"`
 
-      High-performance model for coding and agents
+      Efficient model for coding and agents
 
     - `"claude-fable-5"`
 
@@ -1312,7 +1316,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Request-level diagnostics. `null` when the request did not supply `diagnostics`, or when it did and no prompt-cache divergence was detected.
 
-      - `model: string or "claude-fable-5-1" or "claude-opus-5-5" or "claude-mythos-5-1" or 15 more`
+      - `model: "claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more or string`
 
         The model that will complete your prompt.
 

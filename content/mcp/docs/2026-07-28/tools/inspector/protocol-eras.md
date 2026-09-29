@@ -12,11 +12,11 @@ The 2026-07-28 revision of MCP made substantial changes to the protocol. The Ins
 
 Each server carries a `protocolEra` of `legacy`, `auto`, or `modern`. In the web client it lives in **Server Settings**; in a catalog or config file it is the `protocolEra` field; in the CLI and TUI it comes from that same file.
 
-| Era      | What the Inspector does at connect                                                      |
-| -------- | --------------------------------------------------------------------------------------- |
-| `legacy` | **The default.** Plain `initialize`, no probing at all.                                 |
-| `auto`   | Probe `server/discover` first, and fall back to `initialize` on any non-modern outcome. |
-| `modern` | Pin exactly `2026-07-28`. No fallback, so a non-modern server fails loudly.             |
+| Era | What the Inspector does at connect |
+| - | - |
+| `legacy` | **The default.** Plain `initialize`, no probing at all. |
+| `auto` | Probe `server/discover` first, and fall back to `initialize` on any non-modern outcome. |
+| `modern` | Pin exactly `2026-07-28`. No fallback, so a non-modern server fails loudly. |
 
 <Note>
   **Why `legacy` is the default, and not `auto`.** A debugging tool must not
@@ -145,14 +145,14 @@ The Inspector drives MRTR **manually**, so each round pauses at the **pending-re
 
 `test-servers/configs/mrtr-showcase-http.json` bundles every shape in one modern server:
 
-| Tool            | What it exercises                                                             |
-| --------------- | ----------------------------------------------------------------------------- |
-| `mrtr_confirm`  | A single elicitation round.                                                   |
-| `mrtr_two_step` | Two elicitation rounds, threaded through `requestState`.                      |
-| `mrtr_sample`   | An embedded sampling request, routed to the Sampling panel.                   |
-| `mrtr_roots`    | An embedded `roots/list`, answered silently from configured roots (no modal). |
-| `mrtr_edge`     | An `inputRequests`-only round, then a `requestState`-only round.              |
-| `mrtr_loop`     | Never completes, so the client stops at its `MRTR_MAX_ROUNDS` limit.          |
+| Tool | What it exercises |
+| - | - |
+| `mrtr_confirm` | A single elicitation round. |
+| `mrtr_two_step` | Two elicitation rounds, threaded through `requestState`. |
+| `mrtr_sample` | An embedded sampling request, routed to the Sampling panel. |
+| `mrtr_roots` | An embedded `roots/list`, answered silently from configured roots (no modal). |
+| `mrtr_edge` | An `inputRequests`-only round, then a `requestState`-only round. |
+| `mrtr_loop` | Never completes, so the client stops at its `MRTR_MAX_ROUNDS` limit. |
 
 <Note>
   The legacy `collect_elicitation` pattern (a server calling
@@ -212,12 +212,12 @@ The modern era standardizes a set of `Mcp-*` HTTP headers and introduces a riche
 
 `test-servers/configs/modern-network-http.json` serves four tools that produce a real HTTP status plus a JSON-RPC error body, one per class:
 
-| Tool                          | HTTP  | JSON-RPC code | Meaning                                                      |
-| ----------------------------- | ----- | ------------- | ------------------------------------------------------------ |
-| `trigger_header_mismatch`     | `400` | `-32020`      | A required mirrored header was missing or wrong.             |
-| `trigger_missing_capability`  | `400` | `-32021`      | The request omitted a client capability the server requires. |
-| `trigger_unsupported_version` | `400` | `-32022`      | Unsupported version; supported versions in `data.supported`. |
-| `trigger_method_not_found`    | `404` | `-32601`      | Method not found.                                            |
+| Tool | HTTP | JSON-RPC code | Meaning |
+| - | - | - | - |
+| `trigger_header_mismatch` | `400` | `-32020` | A required mirrored header was missing or wrong. |
+| `trigger_missing_capability` | `400` | `-32021` | The request omitted a client capability the server requires. |
+| `trigger_unsupported_version` | `400` | `-32022` | Unsupported version; supported versions in `data.supported`. |
+| `trigger_method_not_found` | `404` | `-32601` | Method not found. |
 
 <Frame caption="The Network tab shows the HTTP layer; here, the 400 Bad Request the strict server answered with.">
   <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/network-modern-headers.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=7df4c01f5ab68aa7632ac3b5a5866b42" width="3840" height="2160" data-path="images/inspector/network-modern-headers.png" />

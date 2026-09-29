@@ -17,19 +17,21 @@ Create Agent
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
-  - `type BetaManagedAgentsModel = String | :"claude-opus-5-5" | :"claude-fable-5-1" | :"claude-sonnet-5" | 12 more`
+  - `type BetaManagedAgentsModel = :"claude-sonnet-5-5" | :"claude-opus-5-5" | :"claude-fable-5-1" | 13 more | String`
 
     The model that will power your agent.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `String = String`
-
-    - `BetaManagedAgentsModel = :"claude-opus-5-5" | :"claude-fable-5-1" | :"claude-sonnet-5" | 12 more`
+    - `BetaManagedAgentsModel = :"claude-sonnet-5-5" | :"claude-opus-5-5" | :"claude-fable-5-1" | 13 more`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
 
       - `:"claude-opus-5-5"`
 
@@ -41,7 +43,7 @@ Create Agent
 
       - `:"claude-sonnet-5"`
 
-        High-performance model for coding and agents
+        Efficient model for coding and agents
 
       - `:"claude-fable-5"`
 
@@ -90,6 +92,8 @@ Create Agent
       - `:"claude-sonnet-4-5-20250929"`
 
         High-performance model for agents and coding
+
+    - `String = String`
 
   - `class BetaManagedAgentsModelConfigParams`
 
@@ -883,13 +887,15 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `String = String`
-
-      - `BetaManagedAgentsModel = :"claude-opus-5-5" | :"claude-fable-5-1" | :"claude-sonnet-5" | 12 more`
+      - `BetaManagedAgentsModel = :"claude-sonnet-5-5" | :"claude-opus-5-5" | :"claude-fable-5-1" | 13 more`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `:"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
 
         - `:"claude-opus-5-5"`
 
@@ -901,7 +907,7 @@ Create Agent
 
         - `:"claude-sonnet-5"`
 
-          High-performance model for coding and agents
+          Efficient model for coding and agents
 
         - `:"claude-fable-5"`
 
@@ -950,6 +956,8 @@ Create Agent
         - `:"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
+
+      - `String = String`
 
     - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
 

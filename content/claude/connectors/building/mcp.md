@@ -27,10 +27,10 @@ An MCP server runs either on the user's device or on the internet, and exposes t
 
 Where the server runs determines which integrations it suits.
 
-| Type       | Description               | Use case                          |
-| ---------- | ------------------------- | --------------------------------- |
-| Local MCP  | Runs on the user's device | Desktop integrations, local tools |
-| Remote MCP | Hosted on the internet    | Web services, cloud applications  |
+| Type | Description | Use case |
+| - | - | - |
+| Local MCP | Runs on the user's device | Desktop integrations, local tools |
+| Remote MCP | Hosted on the internet | Web services, cloud applications |
 
 ### Tools, resources, and prompts
 

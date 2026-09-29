@@ -12,11 +12,11 @@ Common examples include file system servers for document access, database server
 
 Servers provide functionality through three building blocks:
 
-| Feature       | Explanation                                                                                                                                                                             | Examples                                                           | Who controls it |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ | --------------- |
-| **Tools**     | Functions that your LLM can actively call, and decides when to use them based on user requests. Tools can write to databases, call external APIs, modify files, or trigger other logic. | Search flights<br />Send messages<br />Create calendar events      | Model           |
-| **Resources** | Passive data sources that provide read-only access to information for context, such as file contents, database schemas, or API documentation.                                           | Retrieve documents<br />Access knowledge bases<br />Read calendars | Application     |
-| **Prompts**   | Pre-built instruction templates that tell the model to work with specific tools and resources.                                                                                          | Plan a vacation<br />Summarize my meetings<br />Draft an email     | User            |
+| Feature | Explanation | Examples | Who controls it |
+| - | - | - | - |
+| **Tools** | Functions that your LLM can actively call, and decides when to use them based on user requests. Tools can write to databases, call external APIs, modify files, or trigger other logic. | Search flights<br />Send messages<br />Create calendar events | Model |
+| **Resources** | Passive data sources that provide read-only access to information for context, such as file contents, database schemas, or API documentation. | Retrieve documents<br />Access knowledge bases<br />Read calendars | Application |
+| **Prompts** | Pre-built instruction templates that tell the model to work with specific tools and resources. | Plan a vacation<br />Summarize my meetings<br />Draft an email | User |
 
 We will use a hypothetical scenario to demonstrate the role of each of these features, and show how they can work together.
 
@@ -30,10 +30,10 @@ Tools are schema-defined interfaces that LLMs can invoke. MCP uses JSON Schema f
 
 **Protocol operations:**
 
-| Method       | Purpose                  | Returns                                |
-| ------------ | ------------------------ | -------------------------------------- |
+| Method | Purpose | Returns |
+| - | - | - |
 | `tools/list` | Discover available tools | Array of tool definitions with schemas |
-| `tools/call` | Execute a specific tool  | Tool execution result                  |
+| `tools/call` | Execute a specific tool | Tool execution result |
 
 **Example tool definition:**
 
@@ -113,12 +113,12 @@ Resource Templates include metadata such as title, description, and expected MIM
 
 **Protocol operations:**
 
-| Method                     | Purpose                         | Returns                                |
-| -------------------------- | ------------------------------- | -------------------------------------- |
-| `resources/list`           | List available direct resources | Array of resource descriptors          |
-| `resources/templates/list` | Discover resource templates     | Array of resource template definitions |
-| `resources/read`           | Retrieve resource contents      | Resource data with metadata            |
-| `subscriptions/listen`     | Monitor resource changes        | Stream of update notifications         |
+| Method | Purpose | Returns |
+| - | - | - |
+| `resources/list` | List available direct resources | Array of resource descriptors |
+| `resources/templates/list` | Discover resource templates | Array of resource template definitions |
+| `resources/read` | Retrieve resource contents | Resource data with metadata |
+| `subscriptions/listen` | Monitor resource changes | Stream of update notifications |
 
 To watch specific resources for changes, a client sends a [`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions) request with the resource URIs listed in the `resourceSubscriptions` filter. The server delivers `notifications/resources/updated` on the resulting stream whenever a watched resource changes.
 
@@ -186,10 +186,10 @@ Prompts are structured templates that define expected inputs and interaction pat
 
 **Protocol operations:**
 
-| Method         | Purpose                    | Returns                               |
-| -------------- | -------------------------- | ------------------------------------- |
-| `prompts/list` | Discover available prompts | Array of prompt descriptors           |
-| `prompts/get`  | Retrieve prompt details    | Full prompt definition with arguments |
+| Method | Purpose | Returns |
+| - | - | - |
+| `prompts/list` | Discover available prompts | Array of prompt descriptors |
+| `prompts/get` | Retrieve prompt details | Full prompt definition with arguments |
 
 #### Example: Streamlined Workflows
 

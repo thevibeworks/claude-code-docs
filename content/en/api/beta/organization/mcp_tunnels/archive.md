@@ -169,8 +169,8 @@ tunnel returns the existing record unchanged.
 
   - `workspace_id: string or null`
 
-    ID of the Workspace this Tunnel belongs to, or `null` for the default
-    Workspace. Immutable after creation.
+    ID of the Workspace this Tunnel belongs to. May be `null` for a Tunnel in
+    the default Workspace. A Tunnel never moves to another Workspace.
 
 ## Example
 

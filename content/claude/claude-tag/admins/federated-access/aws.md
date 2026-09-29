@@ -24,10 +24,10 @@ With an AWS role connection, Claude signs in to an IAM role in your AWS account 
 
 In **Cloud roles**, click **Connect an AWS role** and copy the **Issuer**, **Audience**, and **Subject prefix** rows from the **Set the role's trust policy to accept these values** card. Then click **Cancel**; you connect the role after creating it in AWS.
 
-| Value          | What it is                                                                                                                                                                                          |
-| :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Issuer         | `https://identity.anthropic.com/agents`. The URL of the identity provider you create in AWS, including the `/agents` path.                                                                          |
-| Audience       | `sts.amazonaws.com`. The same for every organization, so it can't identify yours.                                                                                                                   |
+| Value | What it is |
+| :- | :- |
+| Issuer | `https://identity.anthropic.com/agents`. The URL of the identity provider you create in AWS, including the `/agents` path. |
+| Audience | `sts.amazonaws.com`. The same for every organization, so it can't identify yours. |
 | Subject prefix | `wimse://identity.anthropic.com/org/<your organization ID>/agent/`. Every token's subject starts with this prefix and ends with one agent's ID. The trust policy must require at least this prefix. |
 
 ## Create the identity provider and role in AWS

@@ -75,17 +75,17 @@ ecosystem.
 
 ## Leadership
 
-| Role        | Name                     | Organization | GitHub                                 | Term    |
-| ----------- | ------------------------ | ------------ | -------------------------------------- | ------- |
-| Facilitator | Sambhav Kothari          | Bloomberg    | [@sambhav](https://github.com/sambhav) | Initial |
-| Facilitator | Peder Holdgaard Pedersen | Saxo Bank    | [@PederHP](https://github.com/PederHP) | Initial |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Facilitator | Sambhav Kothari | Bloomberg | [@sambhav](https://github.com/sambhav) | Initial |
+| Facilitator | Peder Holdgaard Pedersen | Saxo Bank | [@PederHP](https://github.com/PederHP) | Initial |
 
 ## Membership
 
-| Name       | Organization | GitHub                               | Discord | Level       |
-| ---------- | ------------ | ------------------------------------ | ------- | ----------- |
-| Xin Fu     | Bloomberg    | [@imfing](https://github.com/imfing) | *TBD*   | Participant |
-| Kengo Arao | Bloomberg    | [@KengoA](https://github.com/KengoA) | *TBD*   | Participant |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| Xin Fu | Bloomberg | [@imfing](https://github.com/imfing) | *TBD* | Participant |
+| Kengo Arao | Bloomberg | [@KengoA](https://github.com/KengoA) | *TBD* | Participant |
 
 Open to anyone. Join the `#financial-services-ig` channel on the
 [MCP Contributors Discord](/community/communication#discord). Calls are open and no approval is
@@ -94,9 +94,9 @@ institutions who can bring real-world deployment constraints and help drive prop
 
 ## Operations
 
-| Meeting         | Frequency     | Duration | Purpose                                                   |
-| --------------- | ------------- | -------- | --------------------------------------------------------- |
-| Working Session | Every 2 weeks | 60 min   | Use-case review, extension and proposal work, SEP scoping |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Every 2 weeks | 60 min | Use-case review, extension and proposal work, SEP scoping |
 
 Meetings are held 16:00–17:00 London (BST/GMT). An agenda is shared in `#financial-services-ig`
 ahead of each call, and notes with decisions and action items are published afterwards.
@@ -108,15 +108,15 @@ Discord: [#financial-services-ig](https://discord.gg/6CSzBmMkjX)
 The following items form the IG's current agenda. This list is not exhaustive and will evolve as the
 group identifies new areas of interest.
 
-| Item | Name                                                                          | Status | Champion |
-| ---- | ----------------------------------------------------------------------------- | ------ | -------- |
-| —    | Regulatory audit & attestation: portable, verifiable event/claim models       | Open   | —        |
-| —    | Data lineage & citation: provenance, consent metadata, source attribution     | Open   | —        |
-| —    | Guardrails & security: verification frameworks and cryptographic attestations | Open   | —        |
-| —    | Policy enforcement: declarative policies for tool usage and data handling     | Open   | —        |
+| Item | Name | Status | Champion |
+| - | - | - | - |
+| — | Regulatory audit & attestation: portable, verifiable event/claim models | Open | — |
+| — | Data lineage & citation: provenance, consent metadata, source attribution | Open | — |
+| — | Guardrails & security: verification frameworks and cryptographic attestations | Open | — |
+| — | Policy enforcement: declarative policies for tool usage and data handling | Open | — |
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-06-25 | Initial charter |

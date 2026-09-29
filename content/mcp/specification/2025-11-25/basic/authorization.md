@@ -489,11 +489,11 @@ MCP servers **MUST NOT** accept or transit any other tokens.
 
 Servers **MUST** return appropriate HTTP status codes for authorization errors:
 
-| Status Code | Description  | Usage                                      |
-| ----------- | ------------ | ------------------------------------------ |
-| 401         | Unauthorized | Authorization required or token invalid    |
-| 403         | Forbidden    | Invalid scopes or insufficient permissions |
-| 400         | Bad Request  | Malformed authorization request            |
+| Status Code | Description | Usage |
+| - | - | - |
+| 401 | Unauthorized | Authorization required or token invalid |
+| 403 | Forbidden | Invalid scopes or insufficient permissions |
+| 400 | Bad Request | Malformed authorization request |
 
 ### Scope Challenge Handling
 

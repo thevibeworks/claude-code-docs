@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                           |
-| ------------- | ------------------------------------------------------------------------------- |
-| **SEP**       | 1046                                                                            |
-| **Title**     | Support OAuth client credentials flow in authorization                          |
-| **Status**    | Final                                                                           |
-| **Type**      | Standards Track                                                                 |
-| **Created**   | 2025-07-23                                                                      |
-| **Author(s)** | Darin McAdams ([@D-McAdams](https://github.com/D-McAdams) )                     |
-| **Sponsor**   | None                                                                            |
-| **PR**        | [#1046](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1046) |
+| Field | Value |
+| - | - |
+| **SEP** | 1046 |
+| **Title** | Support OAuth client credentials flow in authorization |
+| **Status** | Final |
+| **Type** | Standards Track |
+| **Created** | 2025-07-23 |
+| **Author(s)** | Darin McAdams ([@D-McAdams](https://github.com/D-McAdams) ) |
+| **Sponsor** | None |
+| **PR** | [#1046](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1046) |
 
 ***
 

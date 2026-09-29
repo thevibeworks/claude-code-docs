@@ -20,9 +20,9 @@ This is an HTTP API connection, not a personal claude.ai connector. A member's o
 
 The connection picker offers two routes:
 
-| Route                       | When to use                                                                                                                         |
-| :-------------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| **OAuth (Connect button)**  | Fastest path. An admin signs in with a Google account that has access to the content Claude needs.                                  |
+| Route | When to use |
+| :- | :- |
+| **OAuth (Connect button)** | Fastest path. An admin signs in with a Google account that has access to the content Claude needs. |
 | **GCP service-account key** | When you want a dedicated non-human identity in Google with auditable access, or need domain-wide delegation across your Workspace. |
 
 Both routes create a credential and an allowed-websites rule for the Google hosts the connection uses.
@@ -39,12 +39,12 @@ The connection's reach is whatever the signed-in Google account can see. Share t
 
 In the bundle, click **Connect** next to **Custom tool** and choose **GCP access token (with Service Account Key)**.
 
-| Field                          | Value                                                                                                                                                                                                    |
-| :----------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GCP service account key (JSON) | The JSON key file from Google Cloud Console                                                                                                                                                              |
-| Scopes (optional)              | The Google API scopes to request (for example `https://www.googleapis.com/auth/drive.readonly`). If you leave the field empty, the connection requests `https://www.googleapis.com/auth/cloud-platform`. |
-| Subject (optional)             | A user email to impersonate via domain-wide delegation. Set this for Workspace data (Drive, Calendar, Gmail, Docs).                                                                                      |
-| Allowed websites               | `*.googleapis.com`                                                                                                                                                                                       |
+| Field | Value |
+| :- | :- |
+| GCP service account key (JSON) | The JSON key file from Google Cloud Console |
+| Scopes (optional) | The Google API scopes to request (for example `https://www.googleapis.com/auth/drive.readonly`). If you leave the field empty, the connection requests `https://www.googleapis.com/auth/cloud-platform`. |
+| Subject (optional) | A user email to impersonate via domain-wide delegation. Set this for Workspace data (Drive, Calendar, Gmail, Docs). |
+| Allowed websites | `*.googleapis.com` |
 
 For Google Workspace data (Drive, Calendar, Gmail, Docs), the service account needs domain-wide delegation configured in your Google Admin console. In the service account's domain-wide delegation entry, list every scope you entered in **Scopes**, or `https://www.googleapis.com/auth/cloud-platform` if you left **Scopes** empty. Google's guide is at [developers.google.com/identity/protocols/oauth2/service-account](https://developers.google.com/identity/protocols/oauth2/service-account#delegatingauthority).
 

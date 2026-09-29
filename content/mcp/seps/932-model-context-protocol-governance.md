@@ -24,16 +24,16 @@
   requirements.
 </Note>
 
-| Field         | Value                                                                         |
-| ------------- | ----------------------------------------------------------------------------- |
-| **SEP**       | 932                                                                           |
-| **Title**     | Model Context Protocol Governance                                             |
-| **Status**    | Final                                                                         |
-| **Type**      | Process                                                                       |
-| **Created**   | 2025-07-08                                                                    |
-| **Author(s)** | David Soria Parra                                                             |
-| **Sponsor**   | None                                                                          |
-| **PR**        | [#931](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/931) |
+| Field | Value |
+| - | - |
+| **SEP** | 932 |
+| **Title** | Model Context Protocol Governance |
+| **Status** | Final |
+| **Type** | Process |
+| **Created** | 2025-07-08 |
+| **Author(s)** | David Soria Parra |
+| **Sponsor** | None |
+| **PR** | [#931](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/931) |
 
 ***
 

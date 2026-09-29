@@ -185,11 +185,11 @@ indicating that additional input is needed before the request can be completed.
 
 Servers **MAY** send `InputRequiredResult` responses on the following client requests:
 
-| Client Request                                                                   | Supports InputRequiredResult |
-| -------------------------------------------------------------------------------- | ---------------------------- |
-| [`prompts/get`](/specification/2026-07-28/server/prompts#getting-a-prompt)       | Yes                          |
-| [`resources/read`](/specification/2026-07-28/server/resources#reading-resources) | Yes                          |
-| [`tools/call`](/specification/2026-07-28/server/tools#calling-tools)             | Yes                          |
+| Client Request | Supports InputRequiredResult |
+| - | - |
+| [`prompts/get`](/specification/2026-07-28/server/prompts#getting-a-prompt) | Yes |
+| [`resources/read`](/specification/2026-07-28/server/resources#reading-resources) | Yes |
+| [`tools/call`](/specification/2026-07-28/server/tools#calling-tools) | Yes |
 
 Servers **MUST NOT** send `InputRequiredResult` responses on any other client requests.
 

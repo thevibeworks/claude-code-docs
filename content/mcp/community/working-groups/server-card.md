@@ -36,37 +36,37 @@ The Server Card Working Group exists to define mechanisms that facilitate discov
 
 ## Leadership
 
-| Role | Name              | Organization | GitHub                                               | Term                         |
-| ---- | ----------------- | ------------ | ---------------------------------------------------- | ---------------------------- |
-| Lead | David Soria Parra | Anthropic    | [@dsp-ant](https://github.com/dsp-ant)               | 6 months (ends Aug 14, 2026) |
-| Lead | Sam Morrow Drums  | GitHub       | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | 6 months (ends Aug 14, 2026) |
+| Role | Name | Organization | GitHub | Term |
+| - | - | - | - | - |
+| Lead | David Soria Parra | Anthropic | [@dsp-ant](https://github.com/dsp-ant) | 6 months (ends Aug 14, 2026) |
+| Lead | Sam Morrow Drums | GitHub | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | 6 months (ends Aug 14, 2026) |
 
 ## Authority & Decision Rights
 
-| Decision Type                       | Authority Level                                        |
-| ----------------------------------- | ------------------------------------------------------ |
-| Meeting logistics & scheduling      | WG Leads (autonomous)                                  |
-| Proposal prioritization within WG   | WG Leads (autonomous)                                  |
-| SEP triage & closure (in scope)     | WG Leads (autonomous, with documented rationale)       |
-| Technical design within scope       | WG consensus                                           |
-| Spec changes (additive)             | WG consensus → Core Maintainer approval                |
+| Decision Type | Authority Level |
+| - | - |
+| Meeting logistics & scheduling | WG Leads (autonomous) |
+| Proposal prioritization within WG | WG Leads (autonomous) |
+| SEP triage & closure (in scope) | WG Leads (autonomous, with documented rationale) |
+| Technical design within scope | WG consensus |
+| Spec changes (additive) | WG consensus → Core Maintainer approval |
 | Spec changes (breaking/fundamental) | WG consensus → Core Maintainer approval + wider review |
-| Scope expansion                     | Core Maintainer approval required                      |
-| WG Member approval                  | WG Member sponsors                                     |
+| Scope expansion | Core Maintainer approval required |
+| WG Member approval | WG Member sponsors |
 
 ## Membership
 
-| Name               | Organization | GitHub                                               | Discord | Level     |
-| ------------------ | ------------ | ---------------------------------------------------- | ------- | --------- |
-| David Soria Parra  | Anthropic    | [@dsp-ant](https://github.com/dsp-ant)               |         | Lead      |
-| Sam Morrow Drums   | GitHub       | [@SamMorrowDrums](https://github.com/SamMorrowDrums) |         | Lead      |
-| Tadas Antanavicius |              | [@tadasant](https://github.com/tadasant)             |         | WG Member |
+| Name | Organization | GitHub | Discord | Level |
+| - | - | - | - | - |
+| David Soria Parra | Anthropic | [@dsp-ant](https://github.com/dsp-ant) | | Lead |
+| Sam Morrow Drums | GitHub | [@SamMorrowDrums](https://github.com/SamMorrowDrums) | | Lead |
+| Tadas Antanavicius | | [@tadasant](https://github.com/tadasant) | | WG Member |
 
 ## Operations
 
-| Meeting         | Frequency | Duration | Purpose                               |
-| --------------- | --------- | -------- | ------------------------------------- |
-| Working Session | Weekly    | 60 min   | Technical discussion, proposal review |
+| Meeting | Frequency | Duration | Purpose |
+| - | - | - | - |
+| Working Session | Weekly | 60 min | Technical discussion, proposal review |
 
 Discord: [#server-card-wg](https://discord.com/channels/1358869848138059966/1399986204405141534)
 
@@ -78,18 +78,18 @@ Discord: [#server-card-wg](https://discord.com/channels/1358869848138059966/1399
 
 ### Active Work Items
 
-| Item                                                                                                | Status | Target Date | Champion                               |
-| --------------------------------------------------------------------------------------------------- | ------ | ----------- | -------------------------------------- |
-| [SEP-2127: MCP Server Card](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2127) | Draft  | Apr 3, 2026 | [@dsp-ant](https://github.com/dsp-ant) |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| [SEP-2127: MCP Server Card](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2127) | Draft | Apr 3, 2026 | [@dsp-ant](https://github.com/dsp-ant) |
 
 ### Success Criteria
 
 ### Active Work Items
 
-| Item                                    | Status | Target Date | Champion |
-| --------------------------------------- | ------ | ----------- | -------- |
-| SEP 2127: MCP Server Cards              | Draft  | End March   | @dsp-ant |
-| Reference implementation in Tier-1 SDKs | —      | End April   | TBD      |
+| Item | Status | Target Date | Champion |
+| - | - | - | - |
+| SEP 2127: MCP Server Cards | Draft | End March | @dsp-ant |
+| Reference implementation in Tier-1 SDKs | — | End April | TBD |
 
 ### Success Criteria
 
@@ -100,6 +100,6 @@ Discord: [#server-card-wg](https://discord.com/channels/1358869848138059966/1399
 
 ## Changelog
 
-| Date       | Change          |
-| ---------- | --------------- |
+| Date | Change |
+| - | - |
 | 2026-03-26 | Initial charter |

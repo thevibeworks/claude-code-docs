@@ -20,13 +20,13 @@ The broker also removes the need for a `localhost` or `127.0.0.1` loopback redir
 
 ## Where the broker is used
 
-| Feature                                                      | How to enable it                                         | Page                                                                                                  |
-| ------------------------------------------------------------ | -------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Microsoft Foundry inference provider                         | Set `inferenceFoundryAuthFlow` to `broker`               | [Microsoft Foundry](/docs/third-party/claude-desktop/foundry#in-app-entra-id-sign-in)                      |
-| LLM gateway single sign-on                                   | Set `inferenceGatewayOidcAuthFlow` to `broker`           | [LLM gateway](/docs/third-party/claude-desktop/gateway#single-sign-on-configuration-keys)                  |
-| Workforce Identity sign-in for Google Cloud's Agent Platform | Set `inferenceVertexWorkforceAuthFlow` to `broker`       | [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex#in-app-workforce-identity-sign-in) |
-| Amazon Bedrock identity provider sign-in (through a proxy)   | Set `inferenceIdpAuthFlow` to `broker`                   | [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock#sign-in-with-your-identity-provider)             |
-| Managed MCP server                                           | Set `authFlow` to `broker` in the entry's `oauth` object | [Managed MCP servers](/docs/third-party/claude-desktop/extensions#managed-mcp-servers-admin)               |
+| Feature | How to enable it | Page |
+| - | - | - |
+| Microsoft Foundry inference provider | Set `inferenceFoundryAuthFlow` to `broker` | [Microsoft Foundry](/docs/third-party/claude-desktop/foundry#in-app-entra-id-sign-in) |
+| LLM gateway single sign-on | Set `inferenceGatewayOidcAuthFlow` to `broker` | [LLM gateway](/docs/third-party/claude-desktop/gateway#single-sign-on-configuration-keys) |
+| Workforce Identity sign-in for Google Cloud's Agent Platform | Set `inferenceVertexWorkforceAuthFlow` to `broker` | [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex#in-app-workforce-identity-sign-in) |
+| Amazon Bedrock identity provider sign-in (through a proxy) | Set `inferenceIdpAuthFlow` to `broker` | [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock#sign-in-with-your-identity-provider) |
+| Managed MCP server | Set `authFlow` to `broker` in the entry's `oauth` object | [Managed MCP servers](/docs/third-party/claude-desktop/extensions#managed-mcp-servers-admin) |
 
 For the gateway, Amazon Bedrock, and Workforce Identity flows, the broker is available only when your identity provider is Microsoft Entra ID: the `issuer` in `inferenceGatewayOidc`, `inferenceIdpOidc`, or `inferenceVertexWorkforceOidc` must have the form `https://login.microsoftonline.com/TENANT_ID/v2.0`. For a managed MCP server, the `oauth` object must also set `tenantId`, `clientId`, and `scope`.
 
@@ -46,10 +46,10 @@ Under **Authentication**, set **Allow public client flows** to **Yes**. The cont
 
 Under **Authentication**, add the broker redirect URI for each platform you deploy to under the **Mobile and desktop applications** platform:
 
-| Platform | Redirect URI                                                     |
-| -------- | ---------------------------------------------------------------- |
-| Windows  | `ms-appx-web://Microsoft.AAD.BrokerPlugin/APPLICATION_CLIENT_ID` |
-| macOS    | `msauth.com.anthropic.claudefordesktop://auth`                   |
+| Platform | Redirect URI |
+| - | - |
+| Windows | `ms-appx-web://Microsoft.AAD.BrokerPlugin/APPLICATION_CLIENT_ID` |
+| macOS | `msauth.com.anthropic.claudefordesktop://auth` |
 
 Replace `APPLICATION_CLIENT_ID` in the Windows value with the registration's own Application (client) ID. The macOS value is a fixed string.
 

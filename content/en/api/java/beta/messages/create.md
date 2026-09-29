@@ -3100,6 +3100,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                        - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
+
+                          Efficient model for coding and agents
+
                         - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
                           Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -3114,7 +3118,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
-                          High-performance model for coding and agents
+                          Efficient model for coding and agents
 
                         - `CLAUDE_FABLE_5("claude-fable-5")`
 
@@ -6536,6 +6540,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                    - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
+
+                      Efficient model for coding and agents
+
                     - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
 
                       Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
@@ -6550,7 +6558,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
-                      High-performance model for coding and agents
+                      Efficient model for coding and agents
 
                     - `CLAUDE_FABLE_5("claude-fable-5")`
 
@@ -7987,7 +7995,7 @@ public final class Main {
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-fable-5-1",
+        "model": "claude-sonnet-5-5",
         "output_tokens": 0,
         "type": "message"
       }
