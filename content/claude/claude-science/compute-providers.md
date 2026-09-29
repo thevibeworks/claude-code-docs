@@ -14,7 +14,7 @@ In Settings > Compute > **Cloud providers**, click Connect on the Modal card. If
 
 ### Workspace restrictions set by your organization
 
-On Team and Enterprise plans, your organization's admin can limit Modal to specific workspaces. When Claude uses your Modal token, the app checks the workspace that Modal reports for that token, not the label in your `~/.modal.toml`. If that workspace isn't on your organization's list, the app tells you that this Modal workspace is not allowed by your admin, and Claude can't run jobs there until you connect a token from an allowed workspace. Your admin can also turn Modal off for the organization (see [Modal](/docs/claude-science/admin-controls#modal)).
+On Team and Enterprise plans, your organization's admin can limit Modal to specific workspaces. When Claude uses your Modal token, the app checks the workspace that Modal reports for that token, not the label in your `~/.modal.toml`. If that workspace isn't on your organization's list, the app tells you that this Modal workspace is not allowed by your admin, and Claude can't run jobs there until you connect a token from an allowed workspace. Your admin can also turn Modal on or off for the organization (see [Modal](/docs/claude-science/admin-controls#modal)).
 
 If your organization manages the network allowlist, set **Network restrictions** on the Modal page under **Settings** > **Compute** to **Allowlist** or **No network** before you run jobs. Jobs from a Modal setup with unrestricted network access are refused while your organization manages the list (see [Network allowlist](/docs/claude-science/admin-controls#network-allowlist)).
 

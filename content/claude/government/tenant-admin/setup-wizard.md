@@ -85,7 +85,7 @@ Each rule reads like a sentence: a condition on the left, an arrow, and the targ
 * In the **Then place in** field, pick the organization.
 * Click **Add rule**.
 
-Rules run from top to bottom and the first match wins, so drag more specific rules above broader ones. Rules that match directory groups pushed over SCIM are managed on the full [Identity and access](/docs/government/tenant-admin/identity-and-access#routing-rules) page, which also has a preview tool for testing where a specific email address would land.
+Rules run from top to bottom and the first match wins, so move more specific rules above broader ones. Rules that match directory groups pushed over SCIM are managed on the full [Identity and access](/docs/government/tenant-admin/identity-and-access#routing-rules) page, which also has a preview tool for testing where a specific email address would land.
 
 ## Steps 8 and 9: Seat tiers and Products (single-organization tenants only)
 

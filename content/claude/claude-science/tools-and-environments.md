@@ -27,11 +27,13 @@ Claude installs from these sources by default:
 * Python: pip from PyPI
 * R: CRAN and Bioconductor
 
+To have conda and pip download packages from an internal mirror instead, see [Point package installs at an internal mirror](/docs/claude-science/corporate-networks#point-package-installs-at-an-internal-mirror).
+
 A package installed into an environment is permanent and available in every session and project using that environment. A package installed inline in a code cell (`pip install` or `install.packages()`) lasts only until the kernel restarts. To keep a package, ask Claude to install it into the environment.
 
 For tools without a package, Claude downloads source, builds it in the sandbox with compilers from conda-forge, and saves the build as an artifact for reuse.
 
-The sandbox has no root access or system package manager. `apt` and `sudo` aren't available; Claude uses conda-forge or builds from source instead. Package sources can't be redirected to a different server.
+The sandbox has no root access or system package manager. `apt` and `sudo` aren't available; Claude uses conda-forge or builds from source instead.
 
 ## GPUs
 

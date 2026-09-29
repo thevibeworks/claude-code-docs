@@ -6,7 +6,9 @@
 
 > Claude retrieves open-access full text without credentials; add publisher keys or a library proxy to reach paywalled text you're entitled to.
 
-Claude retrieves open-access full text without credentials. To reach paywalled text you're entitled to, add publisher keys or your library's proxy in the Claude Science app: select the gear icon and choose **Settings**, then select **Credentials**, then choose **Literature access (journals, etc.)** in the **Services** list. No key bypasses a paywall.
+Claude retrieves open-access full text without credentials. To reach paywalled text you're entitled to, add publisher keys or your library's proxy in the Claude Science app. A key only gives Claude the access you already have.
+
+To add a key or proxy, open the account menu (the gear icon at the bottom of the sidebar inside a project, or the account icon at the top right of the home screen), choose **Settings**, and select **Credentials**. Then choose **Literature access (journals, etc.)** in the **Services** list.
 
 <Note>
   These panels live in the Claude Science app's own **Settings**, separate from your claude.ai account and organization settings. If you've added custom credentials, the **Services** list appears below your **Custom** credentials.

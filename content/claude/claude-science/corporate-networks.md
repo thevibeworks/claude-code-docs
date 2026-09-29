@@ -138,7 +138,7 @@ When the network publishes only a PAC or WPAD file, the Claude Science app windo
 
 How the variables reach the app depends on the operating system:
 
-* On macOS, the menu-bar app reads `~/.claude-science/env`, a file of `KEY=VALUE` lines (`export KEY=VALUE` also works), when it launches. Put the three variables there, then quit and reopen the app; an app started from the Dock or Finder does not see variables exported in a terminal. The file's `NO_PROXY` entries merge with the other sources rather than replacing them.
+* On macOS, the Claude Science app reads a file named `env` in its data folder (`~/.claude-science/env` unless you moved the data folder) when it launches. The file holds `KEY=VALUE` lines (`export KEY=VALUE` also works). Put the three variables there, then quit and reopen the app; an app started from the Dock or Finder does not see variables exported in a terminal. The file's `NO_PROXY` entries merge with the other sources rather than replacing them.
 * On Windows, the app reads the variables from the user's environment when it starts, so set them as user environment variables, then quit Claude Science from its notification-area icon and open it again; variables typed into an open Command Prompt or PowerShell window do not reach an app started from the Start menu. Because Claude Science already follows Windows proxy settings, most PCs need no variables, and `[network] proxy` in `config.toml` is the form to deploy.
 * On Linux, export the variables in the shell or service unit that starts `claude-science serve`. The `env` file is read only by the macOS app.
 

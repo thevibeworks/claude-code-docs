@@ -23,7 +23,7 @@ Every Claude Science install makes these connections, which travel through the m
 | `api.anthropic.com` | Always | The Claude API for every request Claude makes, plus account and usage information |
 | `o1158394.ingest.us.sentry.io` | When telemetry is on (the default) | Crash and error reporting (the error type and where it happened in Claude Science's own code, never error messages, conversation content, or research data); blocking it degrades diagnostics only |
 | `*.mcp.claude.com` | When members use the Anthropic-hosted connectors | PubMed, ClinicalTrials.gov, ChEMBL, and bioRxiv connectors |
-| `storage.googleapis.com` | When automatic updates are on | Update manifests and installers |
+| `storage.googleapis.com` | During installation on Linux, and for updates | Update manifests and installers |
 | `downloads.claude.ai` | On Windows, at first launch and when an update changes it | The app window engine, the component that displays the app window |
 | `api.github.com`, `codeload.github.com` | When members import skills from a GitHub repository | Fetching the skill repository's contents |
 

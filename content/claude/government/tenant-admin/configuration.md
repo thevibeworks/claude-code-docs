@@ -18,7 +18,7 @@ The Config page works the same way at the tenant and organization levels, with t
 
 **Two settings that only tenant administrators can change.** [Let organizations manage their own seat tiers](/docs/government/config/settings#let-organizations-manage-their-own-seat-tiers) and [Compliance API](/docs/government/config/settings#compliance-api) are always read-only for organization owners, regardless of whether they are locked.
 
-**Group priority order.** You set the priority order between directory groups on the [Identity and access](/docs/government/tenant-admin/identity-and-access) page by dragging the groups into the order you want. Organization owners see this order for reference but cannot change it. See [When someone belongs to more than one group](/docs/government/config/overview#when-someone-belongs-to-more-than-one-group).
+**Group priority order.** You set the priority order between directory groups on the [Identity and access](/docs/government/tenant-admin/identity-and-access#directory-groups) page. Organization owners see this order for reference but cannot change it. See [When someone belongs to more than one group](/docs/government/config/overview#when-someone-belongs-to-more-than-one-group).
 
 **Managing any organization's config.** As a tenant administrator you can open any organization's Config page and act on that organization's behalf, using the scope bar above the settings list. Organization owners see only their own organization.
 

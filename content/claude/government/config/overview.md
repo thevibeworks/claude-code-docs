@@ -96,7 +96,7 @@ Only one group's settings apply to any given person. When someone is a member of
 
 When a higher-priority group gains configuration for someone, it takes the place of the lower-priority group that applied to them before, and the lower-priority group's settings, including locked ones, stop applying to them. Removing a group's last setting, changing the priority order, or changing someone's group memberships in your identity provider can change which group applies to a person in the same way.
 
-The priority order is set by a tenant administrator on the [Identity and access](/docs/government/tenant-admin/identity-and-access) page by dragging the groups into the order they want. The same priority order is used wherever configuration is resolved for a person; seat-tier group mappings on the [Provisioning](/docs/government/org-admin/provisioning) page use a separate fixed order. At the organization level the priority order is shown for reference and cannot be reordered there.
+A tenant administrator sets the priority order on the [Identity and access](/docs/government/tenant-admin/identity-and-access#directory-groups) page. The same priority order is used wherever configuration is resolved for a person; seat-tier group mappings on the [Provisioning](/docs/government/org-admin/provisioning) page use a separate fixed order. At the organization level the priority order is shown for reference and cannot be reordered there.
 
 If no groups appear in the scope bar dropdown, none have been synced from the identity provider yet. Connect SCIM on the Identity and access page and push groups from your directory, and they will appear automatically.
 

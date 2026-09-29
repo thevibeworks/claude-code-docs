@@ -52,10 +52,12 @@ By continuing, you authorize your team to let Claude use the optional enabled re
 Turning on the **Enable for your organization** toggle controls whether Claude Science is accessible to your organization at all. Adding members or assigning seats doesn't turn it on. Once it's on, roles control which members can use it:
 
 Built-in roles include the Claude Science entitlement, so those members can download and sign in immediately.\
-Custom roles (Enterprise plans only) need the **Claude Science** capability added. Members on a custom role without the capability see the app as unavailable even after you enable it for the organization.\
-A custom role whose **Capability access** setting is **All capabilities** already includes Claude Science. The **All generally available** setting excludes beta capabilities such as Claude Science, so for those roles also select the **Claude Science** capability.
+Custom roles (Enterprise plans only) need the **Claude Science** capability turned on. Members on a custom role without the capability see the app as unavailable even after you enable it for the organization.\
+A custom role whose **Capability access** setting is **All capabilities** already includes Claude Science. The **All generally available** setting excludes beta capabilities such as Claude Science, so for those roles also turn on the **Claude Science** capability.
 
 This is the same pattern as other Claude apps you enable per organization.
+
+In a custom role, the **Claude Science** capability has seven capabilities under it, one for each feature you can limit by role, such as SSH hosts, Modal, and memory. Turning on the **Claude Science** capability turns these on too, and you can then turn off the ones that role shouldn't have (see [Capabilities in custom roles](/docs/claude-science/admin-controls#capabilities-in-custom-roles)). Any that goes with an organization setting you can't turn on stays off.
 
 ## What members see
 
