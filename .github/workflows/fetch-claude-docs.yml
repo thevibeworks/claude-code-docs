@@ -65,7 +65,10 @@ jobs:
       - name: Claude decides
         # Pinned: @main changed claude_args parsing in June 2026 and silently
         # broke 'Bash(gh pr:*)' -> 3 weeks of pushed branches with no PRs.
-        uses: anthropics/claude-code-action@v1.0.168
+        # The pin also fixes the Claude Code version, and so which models
+        # exist: v1.0.168 shipped 2.1.204, too old for Opus 5.5 (needs
+        # 2.1.280). Bump the pin with the model, never the model alone.
+        uses: anthropics/claude-code-action@v1.0.237
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         with:
@@ -74,7 +77,8 @@ jobs:
           allowed_bots: "claude-yolo[bot]"
           show_full_output: true
           claude_args: |
-            --model claude-sonnet-4-6
+            --model claude-opus-5-5
+            --effort high
             --dangerously-skip-permissions
           prompt: |
             You're an AI agent responsible for evaluating Anthropic documentation updates. Think like a news editor - you decide what's worth publishing.
