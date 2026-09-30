@@ -165,7 +165,7 @@ Be as specific as the workload allows. Loosen `subject_prefix` to `spiffe://prod
 
 ## Acquire and use the token
 
-The Anthropic SDKs can either read the JWT-SVID from the file that spiffe-helper maintains or call the SPIFFE Workload API directly through a token-provider callable. The file path is the simplest integration and works in every SDK language. The callable path removes the sidecar but requires a SPIFFE Workload API client in your application's language.
+The Claude SDK can either read the JWT-SVID from the file that spiffe-helper maintains or call the SPIFFE Workload API directly through a token-provider callable. The file path is the simplest integration and works in every SDK language. The callable path removes the sidecar but requires a SPIFFE Workload API client in your application's language.
 
 <Tabs>
   <Tab title="File-based with spiffe-helper">

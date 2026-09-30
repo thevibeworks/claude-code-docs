@@ -104,7 +104,7 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Datadog:** Datadog’s Claude Compliance ingests audit logs from the Claude Platform into Datadog, giving security teams visibility into admin activity, API key lifecycle events, and authentication events across their Claude organization for SIEM and compliance use cases. To set up this integration, see the **[Datadog setup guide](https://docs.datadoghq.com/integrations/anthropic-compliance-logs/).**
 
-- **Daylight:** Monitor Claude usage in an organization for security investigations and compliance purposes. To set up this integration, see the **[Daylight setup guide](https://daylight.ai/claude-enterprise-detection)**.
+- **Daylight Security:** Monitor Claude usage in an organization for security investigations and compliance purposes. To set up this integration, see the **[Daylight Security setup guide](https://daylight.ai/claude-enterprise-detection)**.
 
 - **Elastic:** Collect Claude audit and usage activity to detect security risks, support compliance requirements, and investigate AI-related incidents. To set up this integration, see the **[Elastic setup guide](https://www.elastic.co/docs/reference/integrations/anthropic)**.
 

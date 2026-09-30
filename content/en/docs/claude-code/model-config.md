@@ -96,7 +96,7 @@ Depending on your plan and seat tier, Fable usage can bill to [usage credits](ht
 
 In interactive sessions, Claude Code shows a consent prompt before a Fable request bills usage credits. Members of Enterprise plans with organization billing don't see the prompt. You can continue on Fable using usage credits or switch to your default model. You can also dismiss the prompt:
 
-* In the `/model` picker, you keep your current model.
+* When you select a Fable model with `/model`, you keep your current model.
 * Mid-session, Claude Code continues the turn on your default model.
 
 After you choose to continue on Fable using usage credits, Claude Code doesn't show the prompt again.
@@ -109,7 +109,9 @@ What you can do while the prompt is waiting depends on the session:
 * In a background session, answer before the deadline.
 * If you send a new message from the remote client before anyone has typed at the terminal, Claude Code ends the turn the same way, and your new message starts the next turn. After someone types at the terminal, Claude Code keeps waiting for the answer and queues your new message behind it.
 
-In [non-interactive mode](/docs/en/headless) with the `-p` flag and through the Agent SDK, Claude Code never shows the consent prompt. When a Fable request there would bill to usage credits, Claude Code bills it without asking.
+In a session another application hosts through the [Agent SDK](/docs/en/agent-sdk/overview), whether the prompt appears is up to that application. If it appears and nobody answers before the same [`dialogExpiry`](/docs/en/settings-reference#dialogexpiry) deadline, Claude Code ends the turn without sending the request.
+
+In [non-interactive mode](/docs/en/headless) with the `-p` flag, and in an Agent SDK application that doesn't show the prompt, Claude Code never asks for consent. When a Fable request there would bill to usage credits, Claude Code bills it without asking.
 
 ### Setting your model
 

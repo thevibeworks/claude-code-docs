@@ -862,9 +862,14 @@ The report covers the skills in your session other than bundled skills and enter
 
 Seeing a skill trigger tells you Claude found it, not that it did what you intended. To know a skill is working, measure separately whether Claude invokes it on the prompts it should, and whether the output matches what you expect when it does.
 
-The check for both is a baseline comparison. Collect a few realistic prompts, run each one in a fresh session with the skill available and again with it [disabled](#override-skill-visibility-from-settings), and compare the results. A fresh session matters because leftover context from authoring the skill will mask gaps in the written instructions.
+The check for both is a baseline comparison. Collect a few realistic prompts, run each one in a fresh session with the skill available and again with it turned off, and compare the results. A fresh session matters because leftover context from authoring the skill will mask gaps in the written instructions.
 
-Two tools automate that comparison. For a skill that ships in a [plugin](/docs/en/plugins/overview), [`claude plugin eval`](/docs/en/plugin-evals) runs each prompt in an isolated session with and without the plugin, scores it with graders you define or that it writes for you, and exits non-zero below a threshold so you can gate CI on it. For iterating on a single skill inside a Claude Code conversation, the skill-creator plugin below runs a similar loop with its own `evals/evals.json` format. The two formats aren't interchangeable.
+How you turn the skill off for the second run depends on where it comes from:
+
+* **Personal or project skill**: set it to `"off"` in [`skillOverrides`](#override-skill-visibility-from-settings).
+* **Skill that a plugin provides**: `skillOverrides` doesn't apply to plugin skills. Use [`claude plugin eval`](/docs/en/plugin-evals#the-no-plugin-baseline) instead, which repeats each run with no plugin loaded.
+
+Two tools automate the baseline comparison. For a skill that ships in a [plugin](/docs/en/plugins/overview), [`claude plugin eval`](/docs/en/plugin-evals) runs each prompt in an isolated session with and without the plugin, scores it with graders you define or that it writes for you, and exits non-zero below a threshold so you can gate CI on it. For iterating on a single skill inside a Claude Code conversation, the skill-creator plugin below runs a similar loop with its own `evals/evals.json` format. The two formats aren't interchangeable.
 
 ### Run evals with skill-creator
 

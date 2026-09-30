@@ -61,7 +61,7 @@ The **Sign in to discover** option does not appear when you choose **OAuth (pre-
 
 Choose which products receive this connector and which of its tools are available.
 
-Under **Apply to**, tick the products that should receive this connector: Claude Desktop and Microsoft 365. A connector with no products ticked is saved but delivered nowhere, which is a way to pause it. A connector that uses OAuth cannot be applied to Microsoft 365, because per-user sign-in is not available there. A connector with any tool switched off in the table below also cannot be applied to Microsoft 365, and the checkbox is disabled with a **needs every tool on** note until every tool is on.
+Under **Apply to**, tick the products that should receive this connector. A connector with no products ticked is saved but delivered nowhere, which is a way to pause it. A connector that uses OAuth cannot be applied to Microsoft 365, because per-user sign-in is not available there. A connector with any tool switched off in the table below also cannot be applied to Microsoft 365, and the checkbox is disabled with a **needs every tool on** note until every tool is on. A connector that uses **OAuth (pre-registered app)** with a **Tenant ID** is not delivered to the Claude Code command-line tool, and its checkbox shows a **not delivered to the Claude Code command-line tool** note.
 
 Under **Tool policy**, the table lists the tools found during discovery with an on/off switch for each. **Refresh tools** probes the server again and fills in any tools that are new since you last looked, keeping the switches you have already set. **Add tool** lets you type a tool name by hand when discovery could not reach the server.
 

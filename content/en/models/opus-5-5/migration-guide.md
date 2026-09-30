@@ -328,7 +328,7 @@ Work down the groups and stop after the one that names your current model: every
 
 * Remove any assistant-message prefills; Claude Opus 4.6 already rejects them.
 * Verify tool call JSON parsing uses a standard JSON parser.
-* Move from `client.beta.messages.create` to `client.messages.create`: adaptive thinking and effort need no beta namespace.
+* Move from `client.beta.messages.create()` (python, typescript, ruby; csharp: `client.Beta.Messages.Create()`; go: `client.Beta.Messages.New()`; java: `client.beta().messages().create()`; php: `$client->beta->messages->create()`; cli: `ant beta:messages create`) to `client.messages.create()` (python, typescript, ruby; csharp: `client.Messages.Create()`; go: `client.Messages.New()`; java: `client.messages().create()`; php: `$client->messages->create()`; cli: `ant messages create`): adaptive thinking and effort need no beta namespace.
 * Remove the `effort-2025-11-24` beta header (the effort parameter does not require it).
 * Remove the `fine-grained-tool-streaming-2025-05-14` beta header.
 * Remove the `interleaved-thinking-2025-05-14` beta header (adaptive thinking enables interleaved thinking automatically).
@@ -1546,13 +1546,13 @@ If you are migrating from Claude Opus 4.5, Claude Opus 4.1, or an earlier model 
 
 The first item is required on Claude Opus 5.5; the rest are recommended.
 
-1. **Migrate to adaptive thinking (required):** `thinking: {"type": "enabled", "budget_tokens": N}` returns a 400 error on Claude Opus 4.7 and later models. The before and after is item 1 of the [breaking changes for migrating from Claude Opus 4.6](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#opus-46-breaking-changes). The migration also moves from `client.beta.messages.create` to `client.messages.create`: adaptive thinking and effort do not require the beta SDK namespace or any beta headers.
+1. **Migrate to adaptive thinking (required):** `thinking: {"type": "enabled", "budget_tokens": N}` returns a 400 error on Claude Opus 4.7 and later models. The before and after is item 1 of the [breaking changes for migrating from Claude Opus 4.6](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#opus-46-breaking-changes). The migration also moves from `client.beta.messages.create()` (python, typescript, ruby; csharp: `client.Beta.Messages.Create()`; go: `client.Beta.Messages.New()`; java: `client.beta().messages().create()`; php: `$client->beta->messages->create()`; cli: `ant beta:messages create`) to `client.messages.create()` (python, typescript, ruby; csharp: `client.Messages.Create()`; go: `client.Messages.New()`; java: `client.messages().create()`; php: `$client->messages->create()`; cli: `ant messages create`): adaptive thinking and effort do not require the beta SDK namespace or any beta headers.
 
-2. **Remove effort beta header:** The effort parameter does not require a beta header. Remove `betas=["effort-2025-11-24"]` from your requests.
+2. **Remove effort beta header:** The effort parameter does not require a beta header. Remove the `effort-2025-11-24` beta from your requests.
 
-3. **Remove fine-grained tool streaming beta header:** Fine-grained tool streaming does not require a beta header. Remove `betas=["fine-grained-tool-streaming-2025-05-14"]` from your requests.
+3. **Remove fine-grained tool streaming beta header:** Fine-grained tool streaming does not require a beta header. Remove the `fine-grained-tool-streaming-2025-05-14` beta from your requests.
 
-4. **Remove interleaved thinking beta header:** With adaptive thinking, interleaved thinking is automatic on every model that supports adaptive thinking. Remove `betas=["interleaved-thinking-2025-05-14"]` from your requests.
+4. **Remove interleaved thinking beta header:** With adaptive thinking, interleaved thinking is automatic on every model that supports adaptive thinking. Remove the `interleaved-thinking-2025-05-14` beta from your requests.
 
 5. **Migrate to output\_config.format:** If using structured outputs, update `output_format={...}` to `output_config={"format": {...}}`. The `output_format` parameter is deprecated and will be removed in the future. To use it anyway, add the `structured-outputs-2025-11-13` beta header. Without it, the API returns a 400 error. The Python SDK (v1.0 and later) does not accept `output_format={...}` on `client.beta.messages.create()` or `count_tokens()`. The `output_format=Model` argument of the `parse()` and `stream()` helpers is unchanged.
 

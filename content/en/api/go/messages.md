@@ -3662,91 +3662,83 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `type Model string`
+    - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
-      The model that will complete your prompt.
+      Efficient model for coding and agents
 
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+    - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
 
-      - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-        Efficient model for coding and agents
+    - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
 
-      - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+      Powerful intelligence for coding, knowledge work, and long-running agents
 
-        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+    - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
 
-      - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-        Powerful intelligence for coding, knowledge work, and long-running agents
+    - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
-      - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+      Efficient model for coding and agents
 
-        Our most capable model for cybersecurity and biology research, available through trusted access programs
+    - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
-      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+      Next generation of intelligence for the hardest knowledge work and coding problems
 
-        Efficient model for coding and agents
+    - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
 
-      - `const ModelClaudeFable5 Model = "claude-fable-5"`
+      Most capable model for cybersecurity and biology research
 
-        Next generation of intelligence for the hardest knowledge work and coding problems
+    - `const ModelClaudeOpus5 Model = "claude-opus-5"`
 
-      - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
+      Powerful intelligence for long-running agents and coding
 
-        Most capable model for cybersecurity and biology research
+    - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-      - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+      Powerful intelligence for long-running agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-      - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
+      Powerful intelligence for long-running agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-      - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
+      Powerful intelligence for long-running agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
-      - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
+      Best combination of speed and intelligence
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
 
-      - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+      Fastest model with near-frontier intelligence
 
-        Best combination of speed and intelligence
+    - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
 
-      - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
+      Fastest model with near-frontier intelligence
 
-        Fastest model with near-frontier intelligence
+    - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-      - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
+      Powerful intelligence for long-running agents and coding
 
-        Fastest model with near-frontier intelligence
+    - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-      - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
+      Powerful intelligence for long-running agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
-      - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
+      High-performance model for agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
 
-      - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
+      High-performance model for agents and coding
 
-        High-performance model for agents and coding
+    - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
-      - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
+      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
-        High-performance model for agents and coding
-
-      - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
-
-        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-        New class of intelligence, strongest in coding and cybersecurity
-
-    - `string`
+      New class of intelligence, strongest in coding and cybersecurity
 
   - `Role Assistant`
 
@@ -14434,91 +14426,83 @@ func main() {
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `type Model string`
+    - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
-      The model that will complete your prompt.
+      Efficient model for coding and agents
 
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+    - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
 
-      - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-        Efficient model for coding and agents
+    - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
 
-      - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+      Powerful intelligence for coding, knowledge work, and long-running agents
 
-        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+    - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
 
-      - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-        Powerful intelligence for coding, knowledge work, and long-running agents
+    - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
-      - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+      Efficient model for coding and agents
 
-        Our most capable model for cybersecurity and biology research, available through trusted access programs
+    - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
-      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+      Next generation of intelligence for the hardest knowledge work and coding problems
 
-        Efficient model for coding and agents
+    - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
 
-      - `const ModelClaudeFable5 Model = "claude-fable-5"`
+      Most capable model for cybersecurity and biology research
 
-        Next generation of intelligence for the hardest knowledge work and coding problems
+    - `const ModelClaudeOpus5 Model = "claude-opus-5"`
 
-      - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
+      Powerful intelligence for long-running agents and coding
 
-        Most capable model for cybersecurity and biology research
+    - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-      - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+      Powerful intelligence for long-running agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-      - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
+      Powerful intelligence for long-running agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-      - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
+      Powerful intelligence for long-running agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
-      - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
+      Best combination of speed and intelligence
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
 
-      - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+      Fastest model with near-frontier intelligence
 
-        Best combination of speed and intelligence
+    - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
 
-      - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
+      Fastest model with near-frontier intelligence
 
-        Fastest model with near-frontier intelligence
+    - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-      - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
+      Powerful intelligence for long-running agents and coding
 
-        Fastest model with near-frontier intelligence
+    - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-      - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
+      Powerful intelligence for long-running agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
-      - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
+      High-performance model for agents and coding
 
-        Powerful intelligence for long-running agents and coding
+    - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
 
-      - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
+      High-performance model for agents and coding
 
-        High-performance model for agents and coding
+    - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
-      - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
+      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
-        High-performance model for agents and coding
-
-      - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
-
-        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-        New class of intelligence, strongest in coding and cybersecurity
-
-    - `string`
+      New class of intelligence, strongest in coding and cybersecurity
 
   - `Role Assistant`
 
@@ -17414,97 +17398,89 @@ func main() {
 
 ### Model
 
-- `type Model interface{…}`
+- `type Model string`
 
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `type Model string`
+  - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
-    The model that will complete your prompt.
+    Efficient model for coding and agents
 
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+  - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
 
-    - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-      Efficient model for coding and agents
+  - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
 
-    - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+    Powerful intelligence for coding, knowledge work, and long-running agents
 
-      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+  - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
 
-    - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
+    Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-      Powerful intelligence for coding, knowledge work, and long-running agents
+  - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
-    - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+    Efficient model for coding and agents
 
-      Our most capable model for cybersecurity and biology research, available through trusted access programs
+  - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
-    - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+    Next generation of intelligence for the hardest knowledge work and coding problems
 
-      Efficient model for coding and agents
+  - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
 
-    - `const ModelClaudeFable5 Model = "claude-fable-5"`
+    Most capable model for cybersecurity and biology research
 
-      Next generation of intelligence for the hardest knowledge work and coding problems
+  - `const ModelClaudeOpus5 Model = "claude-opus-5"`
 
-    - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
+    Powerful intelligence for long-running agents and coding
 
-      Most capable model for cybersecurity and biology research
+  - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-    - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+    Powerful intelligence for long-running agents and coding
 
-      Powerful intelligence for long-running agents and coding
+  - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-    - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
+    Powerful intelligence for long-running agents and coding
 
-      Powerful intelligence for long-running agents and coding
+  - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-    - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
+    Powerful intelligence for long-running agents and coding
 
-      Powerful intelligence for long-running agents and coding
+  - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
-    - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
+    Best combination of speed and intelligence
 
-      Powerful intelligence for long-running agents and coding
+  - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
 
-    - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+    Fastest model with near-frontier intelligence
 
-      Best combination of speed and intelligence
+  - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
 
-    - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
+    Fastest model with near-frontier intelligence
 
-      Fastest model with near-frontier intelligence
+  - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-    - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
+    Powerful intelligence for long-running agents and coding
 
-      Fastest model with near-frontier intelligence
+  - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-    - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
+    Powerful intelligence for long-running agents and coding
 
-      Powerful intelligence for long-running agents and coding
+  - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
-    - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
+    High-performance model for agents and coding
 
-      Powerful intelligence for long-running agents and coding
+  - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
 
-    - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
+    High-performance model for agents and coding
 
-      High-performance model for agents and coding
+  - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
-    - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
+    **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
-      High-performance model for agents and coding
-
-    - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
-
-      **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-      New class of intelligence, strongest in coding and cybersecurity
-
-  - `string`
+    New class of intelligence, strongest in coding and cybersecurity
 
 ### Output Config
 
@@ -19658,91 +19634,83 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `type Model string`
+      - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
-        The model that will complete your prompt.
+        Efficient model for coding and agents
 
-        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+      - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
 
-        - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-          Efficient model for coding and agents
+      - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
 
-        - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+        Powerful intelligence for coding, knowledge work, and long-running agents
 
-          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+      - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
 
-        - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-          Powerful intelligence for coding, knowledge work, and long-running agents
+      - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
-        - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+        Efficient model for coding and agents
 
-          Our most capable model for cybersecurity and biology research, available through trusted access programs
+      - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
-        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+        Next generation of intelligence for the hardest knowledge work and coding problems
 
-          Efficient model for coding and agents
+      - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
 
-        - `const ModelClaudeFable5 Model = "claude-fable-5"`
+        Most capable model for cybersecurity and biology research
 
-          Next generation of intelligence for the hardest knowledge work and coding problems
+      - `const ModelClaudeOpus5 Model = "claude-opus-5"`
 
-        - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
+        Powerful intelligence for long-running agents and coding
 
-          Most capable model for cybersecurity and biology research
+      - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-        - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+        Powerful intelligence for long-running agents and coding
 
-          Powerful intelligence for long-running agents and coding
+      - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-        - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
+        Powerful intelligence for long-running agents and coding
 
-          Powerful intelligence for long-running agents and coding
+      - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-        - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
+        Powerful intelligence for long-running agents and coding
 
-          Powerful intelligence for long-running agents and coding
+      - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
-        - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
+        Best combination of speed and intelligence
 
-          Powerful intelligence for long-running agents and coding
+      - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
 
-        - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+        Fastest model with near-frontier intelligence
 
-          Best combination of speed and intelligence
+      - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
 
-        - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
+        Fastest model with near-frontier intelligence
 
-          Fastest model with near-frontier intelligence
+      - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-        - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
+        Powerful intelligence for long-running agents and coding
 
-          Fastest model with near-frontier intelligence
+      - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-        - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
+        Powerful intelligence for long-running agents and coding
 
-          Powerful intelligence for long-running agents and coding
+      - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
-        - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
+        High-performance model for agents and coding
 
-          Powerful intelligence for long-running agents and coding
+      - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
 
-        - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
+        High-performance model for agents and coding
 
-          High-performance model for agents and coding
+      - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
-        - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
+        **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
-          High-performance model for agents and coding
-
-        - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
-
-          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-          New class of intelligence, strongest in coding and cybersecurity
-
-      - `string`
+        New class of intelligence, strongest in coding and cybersecurity
 
     - `Role Assistant`
 
@@ -20789,91 +20757,83 @@ func main() {
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `type Model string`
+        - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
-          The model that will complete your prompt.
+          Efficient model for coding and agents
 
-          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+        - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
 
-          - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-            Efficient model for coding and agents
+        - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
 
-          - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
-            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+        - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
 
-          - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-            Powerful intelligence for coding, knowledge work, and long-running agents
+        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
-          - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+          Efficient model for coding and agents
 
-            Our most capable model for cybersecurity and biology research, available through trusted access programs
+        - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
-          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+          Next generation of intelligence for the hardest knowledge work and coding problems
 
-            Efficient model for coding and agents
+        - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
 
-          - `const ModelClaudeFable5 Model = "claude-fable-5"`
+          Most capable model for cybersecurity and biology research
 
-            Next generation of intelligence for the hardest knowledge work and coding problems
+        - `const ModelClaudeOpus5 Model = "claude-opus-5"`
 
-          - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
+          Powerful intelligence for long-running agents and coding
 
-            Most capable model for cybersecurity and biology research
+        - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-          - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+          Powerful intelligence for long-running agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-          - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
+          Powerful intelligence for long-running agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-          - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
+          Powerful intelligence for long-running agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
-          - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
+          Best combination of speed and intelligence
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
 
-          - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+          Fastest model with near-frontier intelligence
 
-            Best combination of speed and intelligence
+        - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
 
-          - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
+          Fastest model with near-frontier intelligence
 
-            Fastest model with near-frontier intelligence
+        - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-          - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
+          Powerful intelligence for long-running agents and coding
 
-            Fastest model with near-frontier intelligence
+        - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-          - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
+          Powerful intelligence for long-running agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
-          - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
+          High-performance model for agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
 
-          - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
+          High-performance model for agents and coding
 
-            High-performance model for agents and coding
+        - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
-          - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
-            High-performance model for agents and coding
-
-          - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
-
-            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-            New class of intelligence, strongest in coding and cybersecurity
-
-        - `string`
+          New class of intelligence, strongest in coding and cybersecurity
 
       - `Role Assistant`
 
@@ -29268,91 +29228,83 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `type Model string`
+        - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
-          The model that will complete your prompt.
+          Efficient model for coding and agents
 
-          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+        - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
 
-          - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-            Efficient model for coding and agents
+        - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
 
-          - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+          Powerful intelligence for coding, knowledge work, and long-running agents
 
-            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+        - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
 
-          - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-            Powerful intelligence for coding, knowledge work, and long-running agents
+        - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
-          - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+          Efficient model for coding and agents
 
-            Our most capable model for cybersecurity and biology research, available through trusted access programs
+        - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
-          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+          Next generation of intelligence for the hardest knowledge work and coding problems
 
-            Efficient model for coding and agents
+        - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
 
-          - `const ModelClaudeFable5 Model = "claude-fable-5"`
+          Most capable model for cybersecurity and biology research
 
-            Next generation of intelligence for the hardest knowledge work and coding problems
+        - `const ModelClaudeOpus5 Model = "claude-opus-5"`
 
-          - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
+          Powerful intelligence for long-running agents and coding
 
-            Most capable model for cybersecurity and biology research
+        - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-          - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+          Powerful intelligence for long-running agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-          - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
+          Powerful intelligence for long-running agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-          - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
+          Powerful intelligence for long-running agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
-          - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
+          Best combination of speed and intelligence
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
 
-          - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+          Fastest model with near-frontier intelligence
 
-            Best combination of speed and intelligence
+        - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
 
-          - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
+          Fastest model with near-frontier intelligence
 
-            Fastest model with near-frontier intelligence
+        - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-          - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
+          Powerful intelligence for long-running agents and coding
 
-            Fastest model with near-frontier intelligence
+        - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-          - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
+          Powerful intelligence for long-running agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
-          - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
+          High-performance model for agents and coding
 
-            Powerful intelligence for long-running agents and coding
+        - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
 
-          - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
+          High-performance model for agents and coding
 
-            High-performance model for agents and coding
+        - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
-          - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
+          **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
-            High-performance model for agents and coding
-
-          - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
-
-            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-            New class of intelligence, strongest in coding and cybersecurity
-
-        - `string`
+          New class of intelligence, strongest in coding and cybersecurity
 
       - `CacheControl CacheControlEphemeral Optional`
 
@@ -33000,91 +32952,83 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `type Model string`
+          - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
-            The model that will complete your prompt.
+            Efficient model for coding and agents
 
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+          - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
 
-            - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
-              Efficient model for coding and agents
+          - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
 
-            - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+            Powerful intelligence for coding, knowledge work, and long-running agents
 
-              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+          - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
 
-            - `const ModelClaudeOpus5_5 Model = "claude-opus-5-5"`
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
-              Powerful intelligence for coding, knowledge work, and long-running agents
+          - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
-            - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+            Efficient model for coding and agents
 
-              Our most capable model for cybersecurity and biology research, available through trusted access programs
+          - `const ModelClaudeFable5 Model = "claude-fable-5"`
 
-            - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
+            Next generation of intelligence for the hardest knowledge work and coding problems
 
-              Efficient model for coding and agents
+          - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
 
-            - `const ModelClaudeFable5 Model = "claude-fable-5"`
+            Most capable model for cybersecurity and biology research
 
-              Next generation of intelligence for the hardest knowledge work and coding problems
+          - `const ModelClaudeOpus5 Model = "claude-opus-5"`
 
-            - `const ModelClaudeMythos5 Model = "claude-mythos-5"`
+            Powerful intelligence for long-running agents and coding
 
-              Most capable model for cybersecurity and biology research
+          - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-            - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+            Powerful intelligence for long-running agents and coding
 
-              Powerful intelligence for long-running agents and coding
+          - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-            - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
+            Powerful intelligence for long-running agents and coding
 
-              Powerful intelligence for long-running agents and coding
+          - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-            - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
+            Powerful intelligence for long-running agents and coding
 
-              Powerful intelligence for long-running agents and coding
+          - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
-            - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
+            Best combination of speed and intelligence
 
-              Powerful intelligence for long-running agents and coding
+          - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
 
-            - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
+            Fastest model with near-frontier intelligence
 
-              Best combination of speed and intelligence
+          - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
 
-            - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
+            Fastest model with near-frontier intelligence
 
-              Fastest model with near-frontier intelligence
+          - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-            - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
+            Powerful intelligence for long-running agents and coding
 
-              Fastest model with near-frontier intelligence
+          - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-            - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
+            Powerful intelligence for long-running agents and coding
 
-              Powerful intelligence for long-running agents and coding
+          - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
-            - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
+            High-performance model for agents and coding
 
-              Powerful intelligence for long-running agents and coding
+          - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
 
-            - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
+            High-performance model for agents and coding
 
-              High-performance model for agents and coding
+          - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
-            - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
+            **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
-              High-performance model for agents and coding
-
-            - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
-
-              **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-              New class of intelligence, strongest in coding and cybersecurity
-
-          - `string`
+            New class of intelligence, strongest in coding and cybersecurity
 
         - `Role Assistant`
 

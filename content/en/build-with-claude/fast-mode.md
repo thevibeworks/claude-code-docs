@@ -407,7 +407,7 @@ To track fast mode usage and costs across your organization, see the [Usage and 
 
 ### Automatic retries
 
-When fast mode rate limits are exceeded, the API returns a `429` error with a `retry-after` header. The Anthropic SDKs automatically retry these requests up to 2 times by default (configurable with `max_retries` (typescript, java, php: `maxRetries`; csharp: `MaxRetries`; go: `option.WithMaxRetries`)), waiting for the server-specified delay before each retry. Because fast mode uses continuous token replenishment, the `retry-after` delay is typically short and requests succeed once capacity is available.
+When fast mode rate limits are exceeded, the API returns a `429` error with a `retry-after` header. The SDK automatically retries these requests up to 2 times by default (configurable with `max_retries` (typescript, java, php: `maxRetries`; csharp: `MaxRetries`; go: `option.WithMaxRetries`)), waiting for the server-specified delay before each retry. Because fast mode uses continuous token replenishment, the `retry-after` delay is typically short and requests succeed once capacity is available.
 
 ### Falling back to standard speed
 

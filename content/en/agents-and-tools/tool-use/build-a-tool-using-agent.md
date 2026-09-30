@@ -4019,10 +4019,6 @@ Rings 2 through 4 wrote the same loop by hand: call the API, check `stop_reason`
 
 Each SDK provides a helper that turns an ordinary function into a runnable tool and derives the input schema from its signature; the tabs below show the idiomatic form for each language.
 
-<Note>
-  Tool Runner is available in all seven SDKs: Python, TypeScript, C#, Go, Java, PHP, and Ruby. See [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner) for the full reference. The cURL and CLI tabs show a note instead of code; keep the Ring 4 loop for curl- or CLI-based scripts.
-</Note>
-
 <CodeGroup>
   ```bash cURL
   #!/bin/bash

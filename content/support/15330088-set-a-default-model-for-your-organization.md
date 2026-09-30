@@ -50,7 +50,7 @@ The organization default applies to every member. To set it:
 
 4. Click “Save changes.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1790749800&amp;signature=509732c86a4f72cc21f93f4a701f941d25185b33a1dce9262f4e928219ac88a5&amp;req=diUmEs58n4BcUPMW1HO4zelOdjJHKUFPfdGVZ664dGGkfFHOdarUYoeG09sI%0AYCuSxp7BBFPLVpL4c0s%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1790787600&amp;signature=b854a944dde003d5e242999b434b362d637158997cac125273a91a579d0a0f17&amp;req=diUmEs58n4BcUPMW1HO4zelOdjJHJU9BfdGVZ664dGGzsxN1XVXnI5KBQ81z%0AiPdoxg0bPlSmo758ED4%3D%0A)
 
 ---
 

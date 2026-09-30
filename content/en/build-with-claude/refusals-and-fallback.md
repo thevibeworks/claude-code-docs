@@ -763,7 +763,7 @@ Sticky routing applies to both streaming and non-streaming requests. On a stream
 
 ## Client-side fallback with the SDK middleware
 
-Every Anthropic SDK includes a refusal-fallback middleware. You configure it once on the client with your list of fallback models. Calls through `client.beta.messages` (csharp, go: `client.Beta.Messages`; java: `client.beta().messages()`; php: `$client->beta->messages`) then retry refused requests automatically, on any platform. The middleware also sends the `fallback-credit-2026-07-01` beta header on every request it handles, so retries are repriced without per-request setup.
+The SDK includes a refusal-fallback middleware. You configure it once on the client with your list of fallback models. Calls through `client.beta.messages` (csharp, go: `client.Beta.Messages`; java: `client.beta().messages()`; php: `$client->beta->messages`) then retry refused requests automatically, on any platform. The middleware also sends the `fallback-credit-2026-07-01` beta header on every request it handles, so retries are repriced without per-request setup.
 
 ### Setting it up
 

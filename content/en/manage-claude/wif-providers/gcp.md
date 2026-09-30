@@ -126,7 +126,7 @@ The wizard creates these resources for you. Use the following values whether you
 
 ## Acquire and use the token
 
-Inside your Google Cloud workload, fetch the identity token from the metadata server, exchange it at `POST /v1/oauth/token`, and use the returned bearer token to call the Claude API. Each Anthropic SDK handles the exchange and refresh loop for you when you pass a callable that returns a fresh identity token from the metadata server to `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`), as shown in the following examples.
+Inside your Google Cloud workload, fetch the identity token from the metadata server, exchange it at `POST /v1/oauth/token`, and use the returned bearer token to call the Claude API. The Claude SDK handles the exchange and refresh loop for you when you pass a callable that returns a fresh identity token from the metadata server to `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`), as shown in the following examples.
 
 <CodeGroup>
   ```bash cURL
@@ -420,7 +420,7 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
   ```
 </CodeGroup>
 
-Google identity tokens expire after roughly one hour. The SDKs re-invoke the token provider and re-exchange automatically before expiry. For shell scripts that run longer than the access token's `expires_in`, refresh on a timer and repeat the exchange.
+Google identity tokens expire after roughly one hour. The SDK re-invokes the token provider and re-exchanges automatically before expiry. For shell scripts that run longer than the access token's `expires_in`, refresh on a timer and repeat the exchange.
 
 ## Verify the setup
 

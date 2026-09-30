@@ -50,7 +50,7 @@ If the response has any other `stop_reason`, no summary was produced, which coun
 
 The compaction request counts against your rate limits like any other request, and while it runs your application has two requests open at once. The conversation keeps growing on its full history until the swap, so start the compaction request while the context window still has room for the turns that arrive meanwhile.
 
-The following program is the loop from [Compact in a loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop) with the compaction request taken off the conversation's path. It has no PHP version, because the example depends on running two requests at once. The highlighted lines show where it differs from the loop, and the following list takes them in the order the program runs them.
+The following program is the loop from [Compact in a loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop) with the compaction request taken off the conversation's path. The highlighted lines show where it differs from the loop, and the following list takes them in the order the program runs them.
 
 <CodeGroup exclude="shell, php">
   ```python Python
@@ -467,6 +467,12 @@ The following program is the loop from [Compact in a loop](https://platform.clau
       client.close();
   }
   ```
+
+  <CodeGroupItem language="PHP">
+    <Note>
+      The PHP SDK sends requests synchronously, so it can't run the compaction request in the background while the conversation goes on.
+    </Note>
+  </CodeGroupItem>
 
   ```ruby Ruby
   client = Anthropic::Client.new
