@@ -10,19 +10,19 @@
 
 Use this page to see every place you are currently signed in to Claude for Government and to sign out of any of them remotely.
 
-A session is created each time you sign in, whether that is in a web browser or in the Claude desktop application. This page lists your active sessions so you can confirm that nothing unexpected has access to your account, and clean up after yourself on a computer you no longer have.
+A session is created each time you sign in, whether that is in a web browser or in one of the Claude applications. This page lists your active sessions so you can confirm that nothing unexpected has access to your account, and clean up after yourself on a computer you no longer have.
 
 ## What each row shows
 
 Each row is one active sign-in. The one you are using right now is labeled **this session** and always appears at the top of the list; the rest are ordered with the most recent first.
 
-* **Client** tells you which kind of application the sign-in is for. It shows **Browser** for a web sign-in, or **Desktop app** for the Claude application installed on a computer.
-* **via …** tells you how that session was established. **Single sign-on** means you authenticated through your agency's identity provider. **Device pairing** means a code shown in the desktop application was entered and approved in a browser, linking that application to your account. **Email link** means a one-time link was sent to your inbox and followed to sign in.
+* **Client** tells you which kind of application the sign-in is for.
+* **via …** tells you how that session was established. **Single sign-on** means you authenticated through your agency's identity provider. **Device pairing** means a user entered a code shown in a Claude application and approved it in a browser, linking that application to your account. **Email link** means a one-time link was sent to your inbox and followed to sign in.
 * **Signed in** tells you when the session started. The time is shown in your local time zone along with a relative hint such as "2 days ago".
 
 ## What is not shown
 
-To limit how much information about your devices is held in the system, the list deliberately does not include IP addresses, locations, device names, or browser details. You can tell a browser session from a desktop session and you can see when each one started, but you cannot tell two browser sessions apart by device. When in doubt, sign out anything you cannot positively account for; signing back in is quick.
+To limit how much information about your devices is held in the system, the list deliberately does not include IP addresses, locations, device names, or browser details. You can tell a browser session from an application session and you can see when each one started, but you cannot tell two browser sessions apart by device. When in doubt, sign out anything you cannot positively account for; signing back in is quick.
 
 ## How long sessions last
 

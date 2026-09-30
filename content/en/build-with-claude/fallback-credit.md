@@ -627,7 +627,7 @@ The following sections cover edge cases and the complete redemption rules. Most 
 </Accordion>
 
 <Accordion title="When fallback_has_prefill_claim is absent">
-  The field is `null` only when the token is also `null`, so a value you observe while holding a token is never `null`. It can still be absent (`None` in the typed SDKs) on Amazon Bedrock, Google Cloud, and Microsoft Foundry while their support for the field rolls out. In that case, treat the retry shape as unknown rather than as `false`. Try the appended-assistant-message shape first, and rely on the rejection handling in [When a retry is rejected](https://platform.claude.com/docs/en/build-with-claude/fallback-credit#when-a-retry-is-rejected), which falls back to the unchanged body.
+  The field has no value only when the token has none either, so while you hold a token the field has a value, except on Amazon Bedrock, Google Cloud, and Microsoft Foundry, where it can still be absent while their support for the field rolls out. In that case, treat the retry shape as unknown rather than as `false` (python: `False`). Try the appended-assistant-message shape first, and rely on the rejection handling in [When a retry is rejected](https://platform.claude.com/docs/en/build-with-claude/fallback-credit#when-a-retry-is-rejected), which falls back to the unchanged body.
 </Accordion>
 
 <Accordion title="Echoing the refused response's content">

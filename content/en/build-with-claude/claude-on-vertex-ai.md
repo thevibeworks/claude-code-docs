@@ -293,7 +293,7 @@ The following examples show how to generate text from Claude on Agent Platform:
   use Anthropic\Vertex;
 
   $client = Vertex\Client::fromEnvironment(
-      location: 'global',
+      region: 'global',
       projectId: 'MY_PROJECT_ID',
   );
 
@@ -415,7 +415,7 @@ Regional and multi-region endpoints include a 10% pricing premium over global en
 
 **Using global endpoints (recommended):**
 
-Set the `region` (php: `location`) parameter to `"global"` when initializing the client:
+Set the `region` parameter to `"global"` when initializing the client:
 
 <CodeGroup>
   ```bash cURL
@@ -568,7 +568,7 @@ Set the `region` (php: `location`) parameter to `"global"` when initializing the
   use Anthropic\Vertex;
 
   $client = Vertex\Client::fromEnvironment(
-      location: 'global',
+      region: 'global',
       projectId: 'MY_PROJECT_ID',
   );
 
@@ -604,7 +604,7 @@ Set the `region` (php: `location`) parameter to `"global"` when initializing the
 
 **Using multi-region endpoints:**
 
-Set the `region` (php: `location`) parameter to a multi-region identifier: `"us"` for the United States or `"eu"` for the European Union. The SDK routes requests to the corresponding multi-region endpoint (`https://aiplatform.us.rep.googleapis.com` or `https://aiplatform.eu.rep.googleapis.com`), which dynamically balances traffic across regions within that geography.
+Set the `region` parameter to a multi-region identifier: `"us"` for the United States or `"eu"` for the European Union. The SDK routes requests to the corresponding multi-region endpoint (`https://aiplatform.us.rep.googleapis.com` or `https://aiplatform.eu.rep.googleapis.com`), which dynamically balances traffic across regions within that geography.
 
 <CodeGroup>
   ```bash cURL
@@ -758,7 +758,7 @@ Set the `region` (php: `location`) parameter to a multi-region identifier: `"us"
   use Anthropic\Vertex;
 
   $client = Vertex\Client::fromEnvironment(
-      location: 'us', // Multi-region identifier: "us" or "eu"
+      region: 'us', // Multi-region identifier: "us" or "eu"
       projectId: 'MY_PROJECT_ID',
   );
 
@@ -953,7 +953,7 @@ Specify a specific region such as `"us-east5"` or `"europe-west1"`:
   use Anthropic\Vertex;
 
   $client = Vertex\Client::fromEnvironment(
-      location: 'us-east5',
+      region: 'us-east5',
       projectId: 'MY_PROJECT_ID',
   );
 

@@ -27,6 +27,7 @@ When triggered, the skill equips Claude with:
 * **Batch processing:** Offline batch processing at 50% cost
 * **Prompt caching:** Prefix-stability design, breakpoint placement, and silent-invalidator audit
 * **Model migration:** Step-by-step guidance for migrating to newer Claude models (including the breaking changes and behavior shifts on [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-5), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-claude-sonnet-5), and [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide))
+* **Preserved thinking migration:** Finding, measuring, and fixing the history edits that invalidate `thinking` blocks, available through the `/claude-api preserved-thinking-migration` subcommand
 * **Current model information:** Model IDs, context window sizes, and pricing
 * **Common pitfalls:** Detailed guidance on avoiding frequent mistakes when integrating with the API
 
@@ -120,7 +121,7 @@ The skill handles:
 * **Cloud platform detection**, preserving platform-specific model ID formats (for example, the `anthropic.` prefix on Amazon Bedrock) and skipping changes for features that are unavailable on partner-operated platforms
 * **Breaking parameter changes**, such as removing `temperature`, `top_p`, and `top_k` for Claude Opus 4.8 and Claude Opus 4.7, and converting `thinking: {type: "enabled", budget_tokens: N}` to `thinking: {type: "adaptive"}`
 * **Prefill replacement**, converting assistant-message prefill patterns to [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) where applicable
-* **Beta header cleanup**, removing beta headers that the target model doesn't require (for example, `effort-2025-11-24`, `fine-grained-tool-streaming-2025-05-14`, `interleaved-thinking-2025-05-14`) and switching back from `client.beta.messages.create` to `client.messages.create`
+* **Beta header cleanup**, removing beta headers that the target model doesn't require (for example, `effort-2025-11-24`, `fine-grained-tool-streaming-2025-05-14`, `interleaved-thinking-2025-05-14`) and switching back from `client.beta.messages.create()` (python, typescript, ruby; go: `client.Beta.Messages.New()`; java: `client.beta().messages().create()`; csharp: `client.Beta.Messages.Create()`; php: `$client->beta->messages->create()`) to `client.messages.create()` (python, typescript, ruby; go: `client.Messages.New()`; java: `client.messages().create()`; csharp: `client.Messages.Create()`; php: `$client->messages->create()`)
 * **Effort calibration**, recommending an `output_config.effort` starting point for the target model (for example, the default `high` on Claude Opus 5, and `xhigh` for coding and agentic use cases on Claude Opus 4.8 and Claude Opus 4.7)
 * **Prompt-behavior tuning**, flagging length-control, tool-triggering, subagent, and instruction-following prompts that may behave differently on the target model
 * **Silent default handling**, opting back into thinking summarization (`thinking.display: "summarized"`) when reasoning is surfaced to users on Claude Opus 4.8 and Claude Opus 4.7
@@ -129,6 +130,26 @@ The skill handles:
 As it edits, the skill explains each change and its motivation inline. On completion, it produces a checklist of items that require manual verification (typically integration tests, length-control prompt tuning, and cost/rate-limit re-baselining).
 
 For the full list of model-specific changes the skill applies, see [Migrating to Claude Opus 5.5 from Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-5), [Migrating to Claude Opus 5.5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-4-8), [Migrating to Claude Sonnet 5.5 from Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-claude-sonnet-5), and [Migrating to Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide).
+
+## Checking an integration for preserved thinking
+
+[Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking) keeps a `thinking` block valid only while the `system` prompt, `tools`, and messages before it stay unchanged. To find and fix the places where your code edits that history, open the repository that builds your requests and invoke the `preserved-thinking-migration` subcommand:
+
+```text wrap
+/claude-api preserved-thinking-migration
+```
+
+The skill works through five steps:
+
+1. **Scope:** Checks whether your integration is affected, then sends three test requests to confirm that the API reports a deliberate edit.
+2. **Find:** Captures a few of your own multi-turn sessions, diffs consecutive requests, and lists each place your code edits the prefix.
+3. **Measure:** Replays the sessions with `"drop_block"` and reports which conversations lose `thinking` blocks, at which turn, and why.
+4. **Fix:** Replaces one edit at a time with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits), and measures again after each change.
+5. **Report:** Summarizes each cause, the change made for it, and the counts before and after.
+
+If your project has an eval, the skill also compares scores and token usage with and without dropped `thinking` blocks.
+
+The test requests and replays are real Messages API requests, billed at the model's normal rates. Each replay requests only a few output tokens and sets `tool_choice` to `none`, so no tool runs. The skill states the cost and asks for your approval before it sends them.
 
 ## Setting up a Managed Agent
 

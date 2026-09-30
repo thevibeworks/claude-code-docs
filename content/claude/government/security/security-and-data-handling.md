@@ -8,11 +8,11 @@
 
 > **Who this is for:** Security, compliance, and IT reviewers who are assessing Claude for Government for their agency, and administrators who need to explain the product's runtime behavior.
 
-The answers on this page cover the Claude Desktop application in Claude for Government and address the security and data-handling questions that come up most often during agency security review. Claude Desktop offers three ways to work with Claude: **Chat** for simple conversations, **Cowork** for longer tasks with a local workspace folder, and **Code** for software development. Each answer states what is specific to Claude for Government (the FedRAMP High boundary, the defaults Anthropic applies for government tenants, and the relevant admin portal control), then links to the Claude Desktop documentation for the underlying mechanism. For assurance materials such as the security architecture overview, SOC 2 report, and penetration testing summary, request access through the [Anthropic Trust Center](https://trust.anthropic.com).
+The answers on this page address the security and data-handling questions that come up most often during agency security review, for the [Claude Desktop application](#claude-desktop) and for the standalone [Claude Code command-line tool](#claude-code-command-line-tool), each in its own section. Each answer states what is specific to Claude for Government (the FedRAMP High boundary, the defaults Anthropic applies for government tenants, and the relevant admin portal control), then links to the product documentation for the underlying mechanism. For assurance materials such as the security architecture overview, SOC 2 report, and penetration testing summary, request access through the [Anthropic Trust Center](https://trust.anthropic.com).
 
 ## Claude Desktop
 
-The sections below cover the Claude Desktop application. For the admin portal and the Compliance API, see the [Organization administration](/docs/government/org-admin/overview) and [Tenant administration](/docs/government/tenant-admin/overview) sections.
+The sections below cover the Claude Desktop application, which offers three ways to work with Claude: **Chat** for simple conversations, **Cowork** for longer tasks with a local workspace folder, and **Code** for software development. For the admin portal and the Compliance API, see the [Organization administration](/docs/government/org-admin/overview) and [Tenant administration](/docs/government/tenant-admin/overview) sections.
 
 ### Sandbox and isolation
 
@@ -100,7 +100,7 @@ The desktop application follows the operating system's proxy settings, and a sin
 
 ### Approvals and Auto mode
 
-By default, Claude for Government prompts the user for connector actions, for each web search, and, in Cowork, when Claude asks to add another folder to the session. In Chat and Cowork, Claude's file tools do not write outside the attached folders and the session's working folder, as described under [Sandbox and isolation](#sandbox-and-isolation). In Cowork, shell commands run without a prompt because they run inside the sandbox virtual machine. Web page fetches run without a prompt in both Chat and Cowork and are checked against the egress allowlist described above. Administrators can require a prompt on every shell command or fetch with the **Require approval for each command** and **Require approval for each fetch** sub-settings on the [Config](/docs/government/config/settings#tool-and-connector-cards) page. In Chat on Claude Desktop versions earlier than 2.110.0, every shell command prompts regardless. The reduced-approval option in Claude for Government is Auto mode, which is off by default and can be enabled through device managed configuration (it is not a setting on the Config page). Cowork does not offer a Bypass Permissions mode.
+By default, Claude for Government prompts the user for connector actions, for each web search, and, in Cowork, when Claude asks to add another folder to the session. In Chat and Cowork, Claude's file tools do not write outside the attached folders and the session's working folder, as described under [Sandbox and isolation](#sandbox-and-isolation). In Cowork, shell commands run without a prompt because they run inside the sandbox virtual machine. Web page fetches run without a prompt in both Chat and Cowork and are checked against the egress allowlist described above. Administrators can require a prompt on every shell command or fetch with the **Require approval for each command** and **Require approval for each fetch** sub-settings on the [Config](/docs/government/config/settings#tool-and-connector-cards) page. In Chat on Claude Desktop versions earlier than 2.110.0, every shell command prompts regardless. By default, members cannot switch to Auto mode. When an administrator sets the **Auto mode** setting to **Allowed** on the [Config](/docs/government/config/settings#bypass-permissions-mode-and-auto-mode) page, Claude Desktop offers it in Cowork and in Code sessions, and members can switch the Claude Code command-line tool to it. New Code sessions in Claude Desktop 2.9939.2 or later and new interactive sessions in the Claude Code command-line tool 2.1.283 or later then start in it on models that support Auto mode, unless another mode is chosen. Cowork does not offer a bypass-permissions mode.
 
 <AccordionGroup>
   <Accordion title="Can write and send actions be gated behind approval?">
@@ -110,7 +110,7 @@ By default, Claude for Government prompts the user for connector actions, for ea
   </Accordion>
 
   <Accordion title="Can Auto mode be disabled when a sensitive connector is attached?">
-    Auto mode can be disabled by policy, but not conditionally based on which connector is attached. The Auto mode policy, delivered through device managed configuration, controls whether users see Auto mode in the Cowork and Code permission selectors, and it defaults to off in Claude for Government. You can combine that policy with per-tool policies (setting a sensitive connector's tools to **ask** or **blocked**) to achieve a similar effect.
+    Not for one connector alone. Auto mode is available only while an administrator has the **Auto mode** setting at **Allowed** on the [Config](/docs/government/config/settings#bypass-permissions-mode-and-auto-mode) page, as described above, and setting it back to **Blocked** withdraws it again. To limit a sensitive connector while Auto mode is allowed, switch the connector's tools off under **Tool policy** on the [Config](/docs/government/config/settings#tool-and-connector-cards) page.
   </Accordion>
 
   <Accordion title="Can individual shell commands be allowlisted enterprise-wide?">
@@ -219,6 +219,20 @@ In Claude for Government, conversation content stays on the user's device. If yo
     In Cowork, Claude's file tools change files in an attached folder in place, so the changes appear there immediately. A user who wants results in a particular folder attaches that folder to the task and asks Claude to save the files there. Shell commands run inside the sandbox virtual machine, and on the device they can write only to the attached folders and the task's working folder. A file that a command writes anywhere else in the virtual machine, for example under `/tmp`, does not appear in any folder on the device.
 
     By design, Chat cannot save files to other folders on the device. Claude's file tools in Chat, and the analysis steps that run in the sandbox when **Advanced file analysis in Chat** is on (the default), write only to the conversation's own working folder. For work that should end up in a particular folder, the user can run it as a Cowork task with that folder attached. See [Chat in Claude Desktop](/docs/third-party/claude-desktop/chat) for what a Chat conversation can reach, and [User identity and local data](/docs/third-party/claude-desktop/data-storage) for the folder layout.
+  </Accordion>
+</AccordionGroup>
+
+## Claude Code command-line tool
+
+The answers below cover the standalone Claude Code command-line tool when it signs in through Claude for Government, as [Connect Claude Code to Claude for Government](/docs/government/deploy-claude-code/configure) describes. The Claude Desktop answers above cover Code sessions inside Claude Desktop.
+
+<AccordionGroup>
+  <Accordion title="Which domains does Claude Code need to reach?">
+    The Claude for Government gateway address that your Anthropic representative provides, over HTTPS on port 443, for sign-in, organization settings, and model inference. Sign-in finishes in the user's browser, which needs the Claude for Government host, its sign-in service, and your agency's identity provider, as for Claude Desktop. Claude Code also reaches, from the user's device, the address of each connector an administrator applies to **Claude Code** on the **Connectors** card, and that connector's sign-in service when it uses OAuth. The managed settings from [Connect Claude Code to Claude for Government](/docs/government/deploy-claude-code/configure#before-sign-in) turn off Claude Code's background connections before sign-in (release notes, update checks, and the official plugin marketplace).
+  </Accordion>
+
+  <Accordion title="Does Claude Code send telemetry to Anthropic?">
+    No. The managed settings in [Connect Claude Code to Claude for Government](/docs/government/deploy-claude-code/configure#the-managed-settings) turn off Claude Code's usage telemetry and error reporting to Anthropic from the first launch, and the organization's settings keep them off after sign-in.
   </Accordion>
 </AccordionGroup>
 

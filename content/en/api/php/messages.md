@@ -4085,6 +4085,8 @@ var_dump($messageTokensCount);
 
     New class of intelligence, strongest in coding and cybersecurity
 
+  - `string`
+
 ### Output Config
 
 - `class OutputConfig`

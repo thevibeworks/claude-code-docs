@@ -15,11 +15,11 @@ The import copies your conversations, their attached files, and the projects you
 * **You have an account on the web app.** It must use the same work email address as your account in Claude Desktop.
 * **You are signed in to the web app in your default browser.** The import opens a browser tab there and asks for a one-time code, which expires after a few minutes.
 
-> **For administrators:** Anthropic enables the import for each organization, so there is no [product setting](/docs/government/config/settings) for it. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](/docs/government/deploy-desktop/windows-checklist#installer-and-packaging) in the Windows fleet checklist.
+> **For administrators:** Anthropic enables the import for each organization. If a member's **Import & export** page says import is not enabled and their app is up to date, contact your Anthropic representative. The import needs Claude Desktop to download a component, so on a network that blocks `downloads.claude.ai`, deploy the offline installer described under [Installer and packaging](/docs/government/deploy-desktop/windows-checklist#installer-and-packaging) in the Windows fleet checklist. To remind members to run the import, turn on the [**Show the Claude for Government Web import banner**](/docs/government/config/settings#show-the-claude-for-government-web-import-banner) switch on the **Config** page.
 
 ## Run the import
 
-You start the import yourself from **Settings**, whenever you are ready. Claude Desktop does not prompt you to run it.
+You start the import yourself from **Settings**, whenever you are ready. If Claude Desktop's home screen shows a **Pick up where you left off in Claude for Government Web** banner, its **Start import** button takes you to the **Import & export** page in **Settings**. If you click **Skip for now** or close the banner, it can come back a few days later, until you run the import or have skipped it a few times. Claude Desktop versions earlier than 2.16120.0 hide the banner permanently after one skip.
 
 <Steps>
   <Step title="Open the import dialog">

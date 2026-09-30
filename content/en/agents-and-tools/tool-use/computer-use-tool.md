@@ -317,24 +317,24 @@ Your application runs each call in order in your own environment, returns one `t
 ## How computer use works
 
 <Steps>
-  <Step title="Provide Claude with the computer use tool and a user prompt" icon="tool">
+  <Step title="Provide Claude with the computer use tool and a user prompt">
     * Add the computer use toolset (and optionally other tools) to the `tools` array of your API request.
     * Include a user prompt that requires desktop interaction, for example, "Save a picture of a cat to my desktop."
   </Step>
 
-  <Step title="Claude responds with member tool calls" icon="wrench">
+  <Step title="Claude responds with member tool calls">
     * Claude assesses whether acting on the desktop can help with the user's query.
     * If so, Claude responds with one or more member `tool_use` blocks, such as `screenshot`, `left_click`, or `type`, each carrying `"toolset_name": "computer"`. A response with several of these blocks is a [batch action](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions).
     * The API response has a `stop_reason` of `tool_use`, signaling a tool use request.
   </Step>
 
-  <Step title="Run the calls in order and return results" icon="computer">
+  <Step title="Run the calls in order and return results">
     * Iterate over every `tool_use` block in the response, in order. For each one, dispatch on the member `name` together with `toolset_name`, and perform that action with the block's `input` on your container or virtual machine.
     * Continue the conversation with a new `user` message that contains one `tool_result` block per `tool_use` block, matched by `tool_use_id` and each echoing `"toolset_name": "computer"`. Return an image for `screenshot` and `zoom`; a short text such as `OK` is enough for the other actions.
     * If an action fails, return `is_error: true` for that block and answer the rest of the batch as described in [Batch actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions).
   </Step>
 
-  <Step title="Claude continues until the task is complete" icon="arrows-clockwise">
+  <Step title="Claude continues until the task is complete">
     * Claude analyzes the tool results to determine if more actions are needed or the task has been completed.
     * If Claude determines more actions are needed, it responds with another `tool_use` `stop_reason` and you should return to step 3.
     * Otherwise, it returns a text response to the user.
@@ -2118,7 +2118,7 @@ If clicks miss their targets, the cause is usually one of the following:
 
 Upgrading from `computer_20251124` to the toolset is optional: the models listed for `computer_20251124` under [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions) keep accepting it with its beta header, so an existing integration keeps working until you change it. Claude 5.5 and later models are the exception on the Claude API and Google Cloud: there they accept only the toolset. Upgrade an integration before you move it to one of them. On Amazon Bedrock, Claude Opus 5.5 and Claude Sonnet 5.5 keep accepting `computer_20251124`. To upgrade, make the following changes together:
 
-1. **Remove the beta header.** Drop `anthropic-beta: computer-use-2025-11-24` from your requests. In the SDKs, remove the `betas` parameter and call the Messages API through the standard client rather than the beta namespace.
+1. **Remove the beta header.** Drop `anthropic-beta: computer-use-2025-11-24` from your requests. With the SDK, remove `betas` (python, typescript, php, ruby; csharp, go: `Betas`; java: `.addBeta()`) and call the Messages API through the standard client rather than the beta namespace.
 2. **Change the `tools` entry.** Set `type` to `computer_toolset_20260801` and delete `name`, `display_width_px`, `display_height_px`, `display_number`, and `enable_zoom`. The toolset rejects each of these fields.
 3. **Choose whether to keep zoom enabled.** Zoom is enabled by default on the toolset, whereas `enable_zoom` defaults to `false`. If your environment doesn't implement zoom, add `"configs": {"zoom": {"enabled": false}}` to keep the previous behavior; otherwise implement it (see [Available actions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#available-actions)).
 4. **Handle every block in a turn.** Update your agent loop to iterate over every `tool_use` block in a response rather than reading only the first, and to dispatch on the block's `name` together with `toolset_name` instead of on `input.action`. Member inputs no longer contain an `action` field; the remaining fields are unchanged.
@@ -2174,7 +2174,7 @@ The following pair shows a `tool_use` block before and after the change. The act
 
 ## Earlier tool versions
 
-Two earlier versions of the computer use tool remain available in beta for existing integrations, for models that don't support the toolset, and on platforms where the toolset isn't currently available. Each requires its [beta header](https://platform.claude.com/docs/en/api/beta-headers) on every request, and their parameters are documented in the [beta Messages API reference](https://platform.claude.com/docs/en/api/beta/messages/create). In the SDKs, pass the header through the `betas` parameter and use the beta namespace; only the computer use tool needs the header, not the bash or text editor tools in the same request.
+Two earlier versions of the computer use tool remain available in beta for existing integrations, for models that don't support the toolset, and on platforms where the toolset isn't currently available. Each requires its [beta header](https://platform.claude.com/docs/en/api/beta-headers) on every request, and their parameters are documented in the [beta Messages API reference](https://platform.claude.com/docs/en/api/beta/messages/create). With the SDK, pass the header through `betas` (python, typescript, php, ruby; csharp, go: `Betas`; java: `.addBeta()`) and use the beta namespace; only the computer use tool needs the header, not the bash or text editor tools in the same request.
 
 | Tool version        | Beta header               | Use with                                                                                                                                                                                                                                                                                                                                                                                                                                    | Parameters                                                                    |
 | ------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |

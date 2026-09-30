@@ -54,7 +54,7 @@ Organization instructions guide how Claude responds, and they are not an enforce
 
 ### Telemetry endpoint
 
-The base address of the collector where Claude Desktop sends usage telemetry using the [OpenTelemetry](https://opentelemetry.io/) protocol (OTLP), for example `https://otel-collector.example.gov:4318`. Claude Desktop appends the OTLP request paths `/v1/logs` and `/v1/metrics` itself, so enter the address without those suffixes. Leaving the value empty disables telemetry.
+The base address of the collector where Claude applications send usage telemetry using the [OpenTelemetry](https://opentelemetry.io/) protocol (OTLP), for example `https://otel-collector.example.gov:4318`. Each application appends the OTLP request paths it uses, such as `/v1/logs` and `/v1/metrics`, so enter the address without those suffixes. Leaving the value empty disables telemetry.
 
 The value must begin with `https://` and may include a port and a path prefix. Its host must be a hostname or a private-network address, and a public IP address is refused.
 
@@ -74,13 +74,13 @@ Claude Desktop keeps working when the collector refuses requests or cannot be re
 
 ### Telemetry headers
 
-Headers sent with every telemetry request, typically the credential your collector requires. Leave the setting empty if your collector does not require one. Because the value may contain a secret, it is never displayed after you save it; you see only that it is set.
+Headers sent with every telemetry request, typically the credential your collector requires. Each member's app receives these headers and sends its telemetry directly, so use a credential that can only send data to your collector. Leave the setting empty if your collector does not require one. Because the value may contain a secret, it is never displayed after you save it; you see only that it is set.
 
 Click **Add header**, then enter the header's name and value, for example `Authorization` and `Bearer <token>`, and add a row for each additional header. A value can contain spaces and `=` characters, but not a comma. Because saved headers are hidden, the headers you enter later replace all of the saved ones when you save, so enter every header again when you add or change one.
 
 ### Telemetry content capture
 
-The content that Claude Desktop adds to the telemetry it sends to your collector, chosen from **Prompts**, **Claude's responses**, **Tool inputs**, **Tool results**, and **Full requests and responses**. Nothing is selected by default, so the export records activity such as models, token counts, durations, and tool names without any message or tool text.
+The content that Claude applications add to the telemetry they send to your collector, chosen from **Prompts**, **Claude's responses**, **Tool inputs**, **Tool results**, and **Full requests and responses**. Nothing is selected by default, so the export records activity such as models, token counts, durations, and tool names without any message or tool text.
 
 **Tool results** content is delivered only while **Telemetry traces** is on. Captured content goes only to your collector and is never sent to Anthropic. [Content capture](/docs/third-party/claude-desktop/telemetry#content-capture) in the Claude Desktop telemetry reference shows what each category adds.
 
@@ -126,13 +126,21 @@ A persistent banner shown at the top of Claude Desktop. You can set the text, co
 
 The system-use notification shown at sign-in is separate from this banner. It is fixed text and cannot be edited. Use the Claude Desktop banner setting if you need a configurable message inside the application.
 
+### Show the Claude for Government Web import banner
+
+Shows a banner on Claude Desktop's home screen inviting members to [import their conversations and projects from Claude for Government Web](/docs/government/desktop/import). Members see the banner only in organizations where Anthropic has enabled the import. The switch is off by default.
+
+<Note>
+  **Show the Claude for Government Web import banner** applies to Claude Desktop 2.9939.2 and later. Earlier versions ignore the setting.
+</Note>
+
 ### Product availability
 
 A group of separate switches that control which Claude products and features are available to members. Each switch appears as its own row: **Claude Desktop**, **Chat in Claude Desktop**, **Advanced file analysis in Chat**, **Cowork in Claude Desktop**, **Code in Claude Desktop**, **Claude Code**, and **Claude for Microsoft 365**. These switches are on by default, except for **Claude Code** and **Claude for Microsoft 365**.
 
-Turning off one of the three product switches (**Claude Desktop**, **Claude Code**, or **Claude for Microsoft 365**) makes Claude for Government stop serving that application your organization's configuration. From then on, Claude Desktop and the Claude for Microsoft 365 add-in are refused the organization's configuration when they request it, and Claude Code that is signed in to Claude for Government exits when it next starts (or right after sign-in) with a message that it couldn't load settings from the cloud gateway. Claude Code that is already running is not cut off and keeps working until it is next started. The product switches are not an access control on the Claude for Government service itself. What a member can reach is governed by their account, their [seat tier](/docs/government/org-admin/seat-tiers), and your agency's device and network management. To cut a member off at once, deactivate their account, after which they cannot sign in and requests from their existing sign-ins are refused (see [Deactivated users](/docs/government/org-admin/users#deactivated-users)). Turning off one of the other four switches removes that feature from Claude Desktop, as described below.
+Turning off **Claude Code** or **Claude for Microsoft 365** stops the members the setting applies to from using that application. Turning off **Claude Desktop** stops the app from receiving your organization's settings. These switches turn applications off, not accounts, and are not a security boundary: to cut one member off from everything at once, deactivate their account (see [Deactivated users](/docs/government/org-admin/users#deactivated-users)). Turning off one of the other four switches removes that feature from Claude Desktop, as described below.
 
-The **Chat in Claude Desktop**, **Cowork in Claude Desktop**, and **Code in Claude Desktop** switches each make one part of the app available to members. Chat is for simple conversations, Cowork is for longer tasks that Claude works through on its own in a local workspace folder, and Code is for software development. The **Claude Code** switch is separate and applies to the standalone Claude Code command-line tool.
+The **Chat in Claude Desktop**, **Cowork in Claude Desktop**, and **Code in Claude Desktop** switches each make one part of the app available to members. Chat is for simple conversations, Cowork is for longer tasks that Claude works through on its own in a local workspace folder, and Code is for software development. The **Claude Code** switch is separate and applies to the standalone Claude Code command-line tool. To set up Claude Code on agency devices, see [Connect Claude Code to Claude for Government](/docs/government/deploy-claude-code/configure).
 
 When Chat and Cowork are both available, Claude Desktop presents them together as **Home** in its sidebar, next to **Code**. From Home, a member chooses **Chat** or **Cowork** in the message box, and the sidebar lists their chats and tasks together.
 
@@ -148,6 +156,28 @@ The **Claude Desktop home** setting chooses what members see in Claude Desktop. 
   **Claude Desktop home** needs Claude Desktop 1.52386.0 or later. Earlier versions ignore it and follow the switches.
 </Note>
 
+### Claude Code
+
+The **Claude Code** section of the **Config** page holds your organization's settings for Claude Code, in the command-line tool and in Code in Claude Desktop 2.9939.2 or later. Claude for Government delivers them after a member signs in.
+
+* **Blocked shell commands**: command names, such as `curl` or `ssh`, that Claude Code never runs. None are blocked by default.
+* **Managed hooks**: hooks that run in every member's Claude Code sessions, such as a command that writes an audit record after each tool use. None are set by default.
+* **Member-added hooks**: whether hooks and custom status lines that members set up in their own or their projects' settings run as well. **Blocked** by default. Managed hooks still run, and in Claude Desktop so do hooks inside plugins.
+* **Plugin sources**: where members can install Claude Code plugins from, one of **None**, **Approved sources only** with an **Approved plugin sources** list, or **Any source** with a **Blocked plugin sources** list. **None** by default. The two switches under [Member-added plugins and marketplaces](#member-added-plugins-and-marketplaces) narrow **Any source**. While **Let members add plugin marketplaces** is off, members install only from the **Approved plugin sources** list. While **Let members add their own plugins** is off, they cannot add a source of their own from a file or folder on their machine.
+* **Sideloaded plugins**: whether members can load plugins, agents, or connector files with a command-line flag. **Blocked** by default.
+* **Minimum Claude Code version**: Claude Code below this version does not start and tells the member to update. No minimum by default.
+* **Maximum Claude Code version**: Claude Code above this version does not start. No maximum by default.
+* **Opening from the browser**: whether links in web pages and editors can open Claude Code with a prompt filled in. **Blocked** by default.
+* **Shell command sandbox**: whether members' shell commands run inside Claude Code's sandbox. The default, **Claude Code default**, leaves that to Claude Code's own settings. **Off** runs the commands without the sandbox, for workspaces where it cannot start, such as containers.
+
+Related controls sit outside this section. Under [Tool and connector cards](#tool-and-connector-cards), the **Shell commands**, **Web fetch**, and **Web search** cards turn a whole tool off for Claude Code or make it ask every time. The **Member-added connectors** setting on the **Connectors** card sets which other connectors members can use in Claude Code, beyond web search and the ones you add there: **None** (the default), **Only these**, or **Any connector**. In Claude Desktop 2.2553.0 or later it also governs connectors delivered inside plugins: a remote one connects under **Any connector** or when its address is listed under **Only these**, and a local MCP server does not start under **None** or **Only these**. [Bypass-permissions mode and Auto mode](#bypass-permissions-mode-and-auto-mode) apply to Claude Code as described there.
+
+Connectors you add on the **Connectors** card reach the Claude Code command-line tool when you tick **Claude Code** under **Apply to**, as [Connectors](/docs/government/connectors/overview) describes.
+
+### Bypass-permissions mode and Auto mode
+
+**Bypass-permissions mode** controls whether members can start Claude Code in bypass-permissions mode, which skips permission prompts. **Auto mode** controls whether members can switch the Claude Code command-line tool, and Cowork and Code in Claude Desktop, to Auto mode, in which Claude approves routine actions itself and still asks about risky ones; when it is **Allowed**, new Code sessions in Claude Desktop 2.9939.2 or later and new interactive sessions in the Claude Code command-line tool 2.1.283 or later start in it on models that support Auto mode, unless another mode is chosen. Both are **Blocked** by default.
+
 ### Member-added plugins and marketplaces
 
 Two switches that control whether members can add plugins of their own in Claude Desktop. **Let members add plugin marketplaces** lets members add plugin marketplaces and install plugins from them. **Let members add their own plugins** lets members upload plugin files or have Claude create a plugin for them. Both switches are off by default.
@@ -160,7 +190,7 @@ Controls whether members can add connectors of their own in Claude Desktop, as l
 
 ### Let members create skills
 
-Controls whether members can create or upload skills of their own in Claude Desktop. The **Let members create skills** switch is on by default.
+Controls whether members can create or upload skills of their own. The **Let members create skills** switch is on by default.
 
 While the switch is off, members cannot create new skills or upload skill files, and Claude does not offer to create or update skills in conversations. Skills that members already made, skills your organization provides, and built-in skills keep working.
 
@@ -185,6 +215,16 @@ Turn this on to stop Claude's file tools in Claude Desktop Code sessions from re
 <Note>
   **Block reads outside workspace folders** needs Claude Desktop 1.46388.1 or later. Earlier versions ignore it.
 </Note>
+
+### Microsoft 365 features
+
+The **Claude for Microsoft 365** switch under [Product availability](#product-availability) turns the add-in for Excel, Word, and PowerPoint on or off for members. The **Attach files to chat** switch on the **Microsoft 365 features** card, under **Sessions and access**, is on by default; turning it off stops members from attaching files to conversations in the add-in.
+
+### File access rules (Microsoft 365)
+
+Rules for the Claude for Microsoft 365 add-in, under **Sessions and access**, that block its features depending on a file's Microsoft Purview sensitivity label. There are no rules by default. Click **Add rule**, then choose what the rule does (**Block**, or **Allow only matching files**), the **Feature** it governs, which files it **Applies to**, and one or more label conditions.
+
+When a rule blocks Claude on the open file, members see a "Claude is unavailable for this document" screen, and a blocked attachment is refused with a message that names the file. A file whose label the add-in cannot read counts as blocked for any feature that has a rule for that file type.
 
 ## Tool and connector cards
 

@@ -10,7 +10,7 @@ What our marking commitments mean for Claude:
 
 - **Marking works everywhere you use Claude.** Marks will apply to output from supported Claude models across Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag, and wherever Claude is offered, worldwide. Some platforms or features may not support certain marking types.
 
-- **Existing models are in progress.** The law includes a transition period for Anthropic models launched before August 2, 2026, and we’re working to add marking support for those models as well. See **[Which Claude models support watermarking](#h_569d936489)** below.
+- **Existing models are in progress.** The law includes a transition period for AI systems launched before August 2, 2026, and we’re working to add marking support for earlier Claude models. See **[Which Claude models support watermarking](#h_569d936489)** below.
 
 - **Watermark detection is in private preview.** Watermark detection is currently available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
@@ -37,24 +37,24 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | **Model**         | **Text watermarks in Claude output (first-party surfaces)** | **Text watermarks in cloud partner output (AWS, Google Cloud, Microsoft Foundry)** | **Content Credentials (C2PA) in files** |
 | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------- |
 | Claude Fable 5.1  | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Fable 5    |                                                             |                                                                                    | ✅                                       |
+| Claude Fable 5    | ✅                                                           | ✅\*                                                                                | ✅                                       |
 | Claude Mythos 5.1 | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Mythos 5   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 5.5   | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Opus 5     | ✅                                                           | ✅\*                                                                                | ✅                                       |
-| Claude Opus 4.8   |                                                             |                                                                                    | ✅                                       |
+| Claude Opus 5     | ✅                                                           | ✅                                                                                  | ✅                                       |
+| Claude Opus 4.8   | ✅                                                           | ✅\*                                                                                | ✅                                       |
 | Claude Opus 4.7   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.6   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.5   |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 5.5 | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Sonnet 5   |                                                             |                                                                                    | ✅                                       |
+| Claude Sonnet 5   | ✅                                                           | ✅\*                                                                                | ✅                                       |
 | Claude Sonnet 4.6 |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 4.5 |                                                             |                                                                                    | ✅                                       |
 | Claude Haiku 4.5  |                                                             |                                                                                    | ✅                                       |
 
-**For Claude Opus 5, text watermarking will be gradually available on cloud partner surfaces starting September 14, 2026 and fully available within one week.*
+**Rollout on cloud partner platforms for this model may take a few additional days after September 30.*
 
-Consistent with our commitments under the Code, Anthropic is adding watermarks to outputs from models released before August 2, 2026, with all covered by December 2, 2026.
+Consistent with our commitments under the Code, Anthropic is adding watermarks to outputs from models released before August 2, 2026.
 
 ## How Claude marks content
 

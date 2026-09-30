@@ -138,7 +138,7 @@ The [Python SDK](https://github.com/anthropics/anthropic-sdk-python) and [TypeSc
 
 ## Get the final message without handling events
 
-If you don't need to process text as it arrives, the SDKs provide a way to use streaming internally while returning the complete `Message` object, identical to what `.create()` returns. This is especially useful for requests with large `max_tokens` values, where the SDKs require streaming to avoid HTTP timeouts.
+If you don't need to process text as it arrives, the SDK provides a way to use streaming internally while returning the complete `Message` object, identical to what `client.messages.create()` (python, typescript, ruby; go: `client.Messages.New()`; java: `client.messages().create()`; csharp: `client.Messages.Create()`; php: `$client->messages->create()`) returns. This is especially useful for requests with large `max_tokens` values, where the SDK requires streaming to avoid HTTP timeouts.
 
 <CodeGroup exclude="shell:cURL">
   ```bash CLI
@@ -195,13 +195,9 @@ If you don't need to process text as it arrives, the SDKs provide a way to use s
       Messages = [new() { Role = Role.User, Content = "Write a detailed analysis..." }]
   };
 
-  var fullText = "";
-  await foreach (var msg in client.Messages.CreateStreaming(parameters))
-  {
-      fullText += msg;
-  }
-
-  Console.WriteLine(fullText);
+  // To handle events as they arrive as well, pass a MessageContentAggregator to CollectAsync() instead.
+  var message = await client.Messages.CreateStreaming(parameters).Aggregate();
+  Console.WriteLine(message);
   ```
 
   ```go Go
@@ -254,6 +250,8 @@ If you don't need to process text as it arrives, the SDKs provide a way to use s
   ```
 
   ```php PHP
+  use Anthropic\Lib\Streaming\MessageAccumulator;
+
   $client = new Client();
 
   $stream = $client->messages->createStream(
@@ -264,14 +262,12 @@ If you don't need to process text as it arrives, the SDKs provide a way to use s
       model: 'claude-opus-5-5',
   );
 
-  $fullText = '';
+  $accumulator = MessageAccumulator::forMessages();
   foreach ($stream as $event) {
-      if ($event->type === 'content_block_delta' && $event->delta->type === 'text_delta') {
-          $fullText .= $event->delta->text;
-      }
+      $accumulator->accumulate($event);
   }
 
-  echo $fullText;
+  echo array_find($accumulator->message()->content, static fn ($block): bool => $block->type === 'text')->text;
   ```
 
   ```ruby Ruby
@@ -289,7 +285,7 @@ If you don't need to process text as it arrives, the SDKs provide a way to use s
   ```
 </CodeGroup>
 
-The `.stream()` call keeps the HTTP connection alive with server-sent events, then `.get_final_message()` (Python) or `.finalMessage()` (TypeScript) accumulates all events and returns the complete `Message` object. In Go, you call `message.Accumulate(event)` inside the stream loop to build the same complete `Message`. In Java, use `MessageAccumulator.create()` and call `accumulator.accumulate(event)` on each event. In C#, await the stream's `.Aggregate()` extension method to get the complete `Message`, or pass a `MessageContentAggregator` to `.CollectAsync()` to aggregate while handling events. In Ruby, call `.accumulated_message` on the stream. In the PHP SDK, you iterate over stream events manually to accumulate the response.
+The `.stream()` (java: `.createStreaming()`; csharp: `.CreateStreaming()`; go: `.NewStreaming()`; php: `->createStream()`) call keeps the HTTP connection alive with server-sent events, then the SDK's message-accumulation helper, `stream.get_final_message()` (typescript: `stream.finalMessage()`; ruby: `stream.accumulated_message`; csharp: `.Aggregate()`; go: `message.Accumulate(event)`; java, php: `MessageAccumulator`), collects all events into the complete `Message` object.
 
 ## Event types
 
@@ -340,7 +336,7 @@ data: {"type": "content_block_delta","index": 0,"delta": {"type": "text_delta", 
 
 The deltas for `tool_use` content blocks correspond to updates for the `input` field of the block. To support maximum granularity, the deltas are *partial JSON strings*, whereas the final `tool_use.input` is always an *object*.
 
-You can accumulate the string deltas and parse the JSON once you receive a `content_block_stop` event, by using a library like [Pydantic](https://docs.pydantic.dev/latest/concepts/json/#partial-json-parsing) to do partial JSON parsing, or by using the [SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview), which provide helpers to access parsed incremental values.
+You can accumulate the string deltas and parse the JSON once you receive a `content_block_stop` event, by using a library like [Pydantic](https://docs.pydantic.dev/latest/concepts/json/#partial-json-parsing) to do partial JSON parsing, or by using the SDK's [streaming helpers](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks). In the Python and TypeScript SDKs, these helpers also give you access to the parsed `input` incrementally, as it streams.
 
 A `tool_use` content block delta looks like:
 

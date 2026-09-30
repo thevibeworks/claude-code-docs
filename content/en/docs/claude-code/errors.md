@@ -157,6 +157,7 @@ Match the message you see to a section below.
 | `Claude Code ... is older than the minimum version required by your organization's policy` | [Request errors](#claude-code-does-not-support-this-model) |
 | `Model ... is restricted by your organization's settings` | [Request errors](#model-is-restricted-by-your-organizations-settings) |
 | `Model ... is not available. Your organization restricts model selection.` | [Request errors](#model-is-restricted-by-your-organizations-settings) |
+| `Can't switch to the default model` | [Request errors](#cant-switch-to-the-default-model) |
 | `Model switch ... blocked by a PreModelSwitch hook` | [Request errors](#model-switch-was-blocked-by-a-premodelswitch-hook) |
 | `couldn't save it as your default` / `couldn't confirm it was saved as your default` | [Request errors](#couldnt-save-it-as-your-default) |
 | `thinking.type.enabled is not supported for this model` | [Request errors](#thinking-type-enabled-is-not-supported-for-this-model) |
@@ -698,7 +699,7 @@ Before v2.1.268, the message ended with `run /usage-credits to turn them on, or 
 
 ### The prompt to confirm went unanswered
 
-If your account requires the [Fable usage-credits consent](/docs/en/model-config#fable-and-usage-credits), Claude Code asks you to confirm before a Fable request bills usage credits. When nobody answers that consent prompt in a session that may have no one at its terminal, Claude Code closes the prompt and ends the turn with one of these messages:
+If your account requires the [Fable usage-credits consent](/docs/en/model-config#fable-and-usage-credits), Claude Code asks you to confirm before a Fable request bills usage credits. When the consent prompt closes with nobody answering it, Claude Code ends the turn with one of these messages:
 
 ```text theme={null}
 Fable limit reached · continuing on Fable 5.1 uses usage credits, and the prompt to confirm went unanswered — nothing was sent · answer it where this session is running, or /model to change
@@ -707,13 +708,13 @@ Fable 5.1 now uses usage credits · the prompt to confirm went unanswered — no
 
 The messages name the session's Fable model, so on Fable 5 they read `continuing on Fable 5` and `Fable 5 now uses usage credits`. Before v2.1.257, the first message began `Fable 5 limit reached`.
 
-This happens in [Remote Control](/docs/en/remote-control) sessions, [background sessions](/docs/en/agent-view), and [agent team](/docs/en/agent-teams) teammate sessions. Claude Code shows the consent prompt only in the session's own interactive view: the terminal where it runs, or, for a background session, the [agents view](/docs/en/agent-view) once you attach. A Remote Control client can't display it. Claude Code closes the prompt at the [`dialogExpiry`](/docs/en/settings-reference#dialogexpiry) deadline, five minutes by default, or as soon as a new prompt arrives while nobody has typed at that terminal, such as a prompt sent from a Remote Control client. Typing at the terminal where the session runs cancels the deadline, and Claude Code waits for your answer. In a background session's attached view, typing doesn't cancel the deadline, and a new prompt still closes the consent prompt, so answer before either happens. Claude Code sends nothing and keeps your model, so when you send your next prompt, Claude Code shows the consent prompt again.
+This happens in [Remote Control](/docs/en/remote-control) sessions, [background sessions](/docs/en/agent-view), [agent team](/docs/en/agent-teams) teammate sessions, and sessions that another application hosts through the Agent SDK. For when Claude Code closes the prompt, see [Fable and usage credits](/docs/en/model-config#fable-and-usage-credits).
 
 **What to do:**
 
-* At the terminal where the session runs, send another prompt and answer the consent prompt when it reappears. For a background session, attach to it from the [agents view](/docs/en/agent-view) first. Resending from a Remote Control client shows this message again, because the client can't display the prompt.
+* Where the session runs, at the terminal or in the application hosting it, send another prompt and answer the consent prompt when it reappears. For a background session, attach to it from the [agents view](/docs/en/agent-view) first. Resending from a Remote Control client shows this message again, because the client can't display the prompt.
 * Run `/model` to switch to a model that doesn't bill usage credits
-* To give yourself more time to reach that terminal, set [`dialogExpiry`](/docs/en/settings-reference#dialogexpiry) to a longer value or `"never"`
+* To give yourself more time, set [`dialogExpiry`](/docs/en/settings-reference#dialogexpiry) to a longer value or `"never"`
 
 Before v2.1.236, this message didn't appear: while a Remote Control client was connected, Claude Code waited 60 seconds for an answer and then continued the turn on your default model.
 
@@ -2344,6 +2345,30 @@ Claude Code treats a model family alias, one of `opus`, `sonnet`, `haiku`, or `f
 * Run `/model` to pick from the models your organization allows. Restricted models are hidden from the picker.
 * If the restricted model was set in `--model`, `ANTHROPIC_MODEL`, the `model` field of a settings file, or the `model` frontmatter of a [subagent](/docs/en/sub-agents#choose-a-model), skill, or command, remove or update that value so the notice doesn't recur
 * If you need access to the restricted model, ask your organization admin to enable it. See [Organization model restrictions](/docs/en/model-config#organization-model-restrictions).
+
+<h3 id="cant-switch-to-the-default-model">
+  Can't switch to the default model
+</h3>
+
+You picked the Default model, for example by selecting the Default row in the `/model` picker or typing `/model default`. Claude Code refused the switch, so the session keeps its current model.
+
+```text theme={null}
+Can't switch to the default model: your organization's managed settings block it (claude-opus-4-6) in "deniedModels", and none of the models they allow can be used as the default instead. Ask your administrator to update "deniedModels" or "availableModels".
+```
+
+The wording after the colon names what blocked the switch:
+
+* **`your organization's managed settings block it ... in "deniedModels"`**: a managed deny list blocks the model the Default option resolves to
+* **`your organization allows only the models listed in "availableModels"`**: a managed [`availableModels`](/docs/en/model-config#restrict-model-selection) allowlist with [`availableModelsMatch`](/docs/en/settings-reference#availablemodelsmatch) set to `"exact"` leaves out the model the Default option resolves to
+* **`Claude Code couldn't read your organization's managed settings to check which models they allow`**: the [managed settings](/docs/en/managed-settings) couldn't be read, and Claude Code refuses the switch rather than apply it unchecked
+
+**What to do:**
+
+* For the [`deniedModels`](/docs/en/settings-reference#deniedmodels) and `availableModels` wordings, run `/model` and pick a model your organization allows by name
+* Ask your administrator to update the managed setting the message names
+* For the `couldn't read` wording, restart Claude Code; if it keeps happening, ask your administrator to check the managed settings
+
+If a session instead fails to start with a `Claude Code can't start` message under these managed settings, see [Managed settings block the default model](#managed-settings-block-the-default-model).
 
 ### Model switch was blocked by a PreModelSwitch hook
 

@@ -1188,7 +1188,7 @@ For detailed explanations of the OAuth flow, refer to the [Authorization section
 
 ## Client-side MCP helpers
 
-If you manage your own MCP client connection (for example, with local stdio servers, MCP prompts, or MCP resources), the SDKs provide helper functions that convert between MCP types and Claude API types. This eliminates manual conversion code when using an MCP SDK for your language (for example, the [TypeScript MCP SDK](https://github.com/modelcontextprotocol/typescript-sdk)) alongside the Anthropic SDK.
+If you manage your own MCP client connection (for example, with local stdio servers, MCP prompts, or MCP resources), the SDK provides helper functions that convert between MCP types and Claude API types. This eliminates manual conversion code when using an MCP SDK for your language (for example, the [TypeScript MCP SDK](https://github.com/modelcontextprotocol/typescript-sdk)) alongside the Anthropic SDK.
 
 <Note>
   Use the [`mcp_servers` API parameter](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#using-the-mcp-connector-in-the-messages-api) when you have remote servers accessible by URL and only need tool support. Use the client-side helpers when you need local servers, prompts, resources, or more control over the connection with the base SDK.
@@ -1326,14 +1326,12 @@ Import the helpers for your language:
   ```
 </CodeGroup>
 
-Helper names and exact signatures follow each language's conventions; this table shows the TypeScript forms:
-
-| Helper                           | Description                                                                             |
-| -------------------------------- | --------------------------------------------------------------------------------------- |
-| `mcpTools(tools, mcpClient)`     | Converts MCP tools to Claude API tools for use with `client.beta.messages.toolRunner()` |
-| `mcpMessages(messages)`          | Converts MCP prompt messages to Claude API message format                               |
-| `mcpResourceToContent(resource)` | Converts an MCP resource to a Claude API content block                                  |
-| `mcpResourceToFile(resource)`    | Converts an MCP resource to a file object for upload                                    |
+| Helper                                                                                                                                                                                                                                                                                                                             | Description                                                                                                                                                                                                                                                                                                                                    |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `async_mcp_tool(tool, mcp_client)` (python; typescript: `mcpTools(tools, mcpClient)`; csharp: `BetaMcp.ListToolsAsync(mcpClient)`; go: `mcp.NewBetaTools(tools, session)`; java: `BetaMcp.mcpTools(tools, mcpClient)`; php: `BetaMcp::tools($tools, $mcp)`; ruby: `Anthropic::Mcp.tools(tools, mcp_client)`)                       | Converts MCP tools to Claude API tools for use with `client.beta.messages.tool_runner()` (python, ruby; typescript: `client.beta.messages.toolRunner()`; java: `client.beta().messages().toolRunner()`; php: `$client->beta->messages->toolRunner()`; csharp: `client.Beta.Messages.ToolRunner()`; go: `client.Beta.Messages.NewToolRunner()`) |
+| `mcp_message(message)` (python; typescript: `mcpMessages(messages)`; csharp: `BetaMcp.Messages(messages)`; go: `mcp.ToMessage(message)`; java: `BetaMcp.mcpMessages(messages)`; php: `BetaMcp::message($message)`; ruby: `Anthropic::Mcp.message(message)`)                                                                        | Converts MCP prompt messages to Claude API message format                                                                                                                                                                                                                                                                                      |
+| `mcp_resource_to_content(resource)` (python; typescript: `mcpResourceToContent(resource)`; csharp: `BetaMcp.ResourceToContent(resource)`; go: `mcp.ResourceToBlock(resource)`; java: `BetaMcp.mcpResourceContents(resource)`; php: `BetaMcp::resourceToContent($resource)`; ruby: `Anthropic::Mcp.resource_to_contents(resource)`) | Converts an MCP resource to a Claude API content block                                                                                                                                                                                                                                                                                         |
+| `mcp_resource_to_file(resource)` (python; typescript: `mcpResourceToFile(resource)`; csharp: `BetaMcp.ResourceToFile(resource)`; go: `mcp.ResourceToFile(resource)`; java: `BetaMcp.mcpResourceFiles(resource)`; php: `BetaMcp::resourceToFile($resource)`; ruby: `Anthropic::Mcp.resource_to_files(resource)`)                    | Converts an MCP resource to a file object for upload                                                                                                                                                                                                                                                                                           |
 
 ### Use MCP tools
 
@@ -2045,9 +2043,9 @@ If you're using the deprecated `mcp-client-2025-04-04` beta header, follow this 
 
 ## Deprecated version: mcp-client-2025-04-04
 
-<Note type="warning">
+<Warning>
   This version is deprecated. Migrate to `mcp-client-2025-11-20` using the preceding [migration guide](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#migration-guide).
-</Note>
+</Warning>
 
 The previous version of the MCP connector included tool configuration directly in the MCP server definition:
 
