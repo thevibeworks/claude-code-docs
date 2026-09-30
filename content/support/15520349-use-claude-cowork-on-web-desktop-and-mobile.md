@@ -2,6 +2,8 @@
 
 **Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
 
+**Heads-up for Pro and Max plans:** On October 6, 2026, new Cowork tasks run in the cloud and the **Only on your computer** option in **[Settings > General](https://claude.ai/settings/general)** will be removed. Tasks you already started on your computer stay there. See **[What's changing for Pro and Max plans on October 6](#h_f951c27c48)** below.
+
 Claude Cowork is available on desktop, web, mobile, and in the Claude in Chrome side panel. Your sessions and files live with your Claude account and go where you go, on any device. This article explains how to start a Cowork session and what's available on each surface.
 
 Claude Cowork is in beta on web and mobile for Pro, Max, and Team plans, and on Enterprise plans where an admin has enabled it. Cowork is also available in the Claude in Chrome side panel on Max and Team plans, on Pro plans as it rolls out, and on Enterprise plans where an admin has enabled it. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)** for enablement steps.
@@ -39,6 +41,24 @@ When using Cowork in the cloud, Claude's work runs on Anthropic's servers instea
 - Sessions run in the cloud on every surface.
 
 For details on how cloud and local sessions are isolated and what each can access, see **[Claude Cowork architecture overview](https://support.claude.com/en/articles/14479288)**. For safety guidance, see **[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135)**.
+
+---
+
+## What's changing for Pro and Max plans on October 6
+
+On October 6, 2026, new Cowork tasks on Pro and Max plans run in the cloud. The **Only on your computer** option in **[Settings > General](https://claude.ai/settings/general)** will be removed, and there's nothing you need to set up.
+
+Tasks you already started on your computer stay there, and you can keep working on them until they're done. Each one shows a note at the top with a button to download its transcript, in case you want to continue that work in Claude Code.
+
+Your folders stay on your computer. Claude reaches only the folders you've connected, through the desktop app, and only while it's open. When a task needs a file in the cloud, Claude fetches a copy of just that file. When you delete a session, the copies Claude fetched are deleted too, per our **[data retention practices](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**. Whether your conversations are used to improve Claude follows the **Help improve our AI models** setting in **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**.
+
+Your scheduled tasks move to the cloud too, including ones that use files on your computer. Tasks that use files on your computer need the desktop app open. See **[Schedule recurring tasks in Claude Cowork](https://support.claude.com/en/articles/13854387)**.
+
+### If you want tasks to run on your computer
+
+Some work has to stay on one machine. Claude Code in the desktop app runs on your computer and keeps your folders and history there. **[Get Claude Code desktop](https://claude.com/download)**. To bring past work with you, download a task's transcript from the note at the top of the task, or download your full Cowork history from the notice in the app, and open it in Claude Code. Your projects and scheduled tasks don't carry over to Claude Code.
+
+If you use Claude at work and at home and want them separate, use a separate account for each. Shared logins aren't supported.
 
 ---
 

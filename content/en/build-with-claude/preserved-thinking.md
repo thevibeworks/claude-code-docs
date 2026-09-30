@@ -45,7 +45,9 @@ Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, C
 
 Keep sending the full history on every request, thinking blocks included, and let the API drop what the current model can't read. The API never edits your `messages` array, so the dropped blocks stay in your history. When the same history goes back to Claude Fable 5.1, its blocks are readable again, along with the earlier model's thinking. The reasoning is lost for good only if your client removes the blocks itself, for example a harness that strips thinking on a model switch or rebuilds the history from what each model used.
 
-![Animation: switching to Claude Opus skips Claude Fable 5.1's thinking for that turn; switching back, everything is read again](https://platform.claude.com/docs/images/preserved-thinking-model-switch.svg)
+<Frame>
+  ![Animation: switching to Claude Opus skips Claude Fable 5.1's thinking for that turn; switching back, everything is read again](https://platform.claude.com/docs/images/preserved-thinking-model-switch.svg)
+</Frame>
 
 With the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers), the response lists each dropped block in a top-level `input_transformations` array with `reason: "model_binding_mismatch"`:
 
@@ -1427,7 +1429,9 @@ You can still compact on the client. If you write the summary yourself, don't se
 
 When the conversation grows too long, summarize the whole session into one user message and send only that message plus the next instruction. Nothing earlier is replayed, so there's no thinking left to fail the check, and the model reasons afresh from the summary.
 
-![Simple compaction: request 4 sends the full history with thinking on each assistant turn; request 5 sends one user message holding a summary of turns 1 to 4 plus the next instruction, so no earlier thinking is sent and nothing is checked](https://platform.claude.com/docs/images/preserved-thinking-simple-compaction.svg)
+<Frame>
+  ![Simple compaction: request 4 sends the full history with thinking on each assistant turn; request 5 sends one user message holding a summary of turns 1 to 4 plus the next instruction, so no earlier thinking is sent and nothing is checked](https://platform.claude.com/docs/images/preserved-thinking-simple-compaction.svg)
+</Frame>
 
 ```json
 [
@@ -1448,7 +1452,9 @@ To keep that thinking, have the API write the summary with on-demand compaction.
 
 The rest of this section covers a summary you write yourself.
 
-![Keep-tail compaction: the history is replaced by a summary of turns 1 and 2 followed by turns 3 to 5 verbatim; the thinking on assistant turns 3 and 4 was produced after the original turns, not the summary, so it fails; the same request sent with prefix\_mismatch\_behavior drop\_block succeeds, the API drops those two blocks and lists them in input\_transformations](https://platform.claude.com/docs/images/preserved-thinking-keep-tail-compaction.svg)
+<Frame>
+  ![Keep-tail compaction: the history is replaced by a summary of turns 1 and 2 followed by turns 3 to 5 verbatim; the thinking on assistant turns 3 and 4 was produced after the original turns, not the summary, so it fails; the same request sent with prefix\_mismatch\_behavior drop\_block succeeds, the API drops those two blocks and lists them in input\_transformations](https://platform.claude.com/docs/images/preserved-thinking-keep-tail-compaction.svg)
+</Frame>
 
 Fix: keep the turns exactly as they are and send `prefix_mismatch_behavior: "drop_block"`. The API drops the stale thinking blocks, the model reads the kept turns' `text` and `tool_use` blocks, and the request succeeds.
 

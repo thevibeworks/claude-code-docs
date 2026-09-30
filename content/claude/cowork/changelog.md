@@ -6,6 +6,52 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.16120.0" description="2026-09-29">
+  Bundled Claude Code version: 2.1.284.
+
+  **General**
+
+  * Added creating a Google Doc, Sheet or Slides deck from the new chat's Output picker with a connected Google Drive, and fixed the Google pane showing "Owner unknown".
+  * Fixed a failed message reappearing over newer typing, dictated text dropped when a queued message sent, the first message after a voice conversation replying to an earlier response, and a new chat from the command palette sending into an open incognito chat or being lost.
+  * Fixed editing a sent message starting from text missing parts of what you sent, attached files disappearing when you typed a reply to Claude's question card, a removed text file still being kept among the chat's files, and large documents from a connected app blocking sending.
+  * Fixed problems while a chat was open in its own window: the conversation could jump during streaming when the main window was minimized, usage and credits buttons in the main window could stop working, and the browser, artifact, and file preview panes could go blank.
+  * Fixed Quick Entry: prompts sent while the app was still loading could be lost, files sent to an existing chat lost their names (leaving text, code, and Office documents unreadable to Claude), and using it right after an app update could crash the app.
+  * Fixed the whole chat being replaced by an error screen when one of Claude's cards (such as a weather or map card) failed to draw; the card's place now says "Couldn't load this." and the rest of the conversation stays open.
+  * Fixed `/docx`, `/pdf`, `/pptx` and `/xlsx` being rejected as unknown skills and missing from the Cowork slash menu, and removed Cowork-only skills from the Code tab slash menu, where they could not run.
+
+  **Code**
+
+  * Changed Max effort to apply to the current session only, as in the Claude Code CLI, so new sessions no longer start at Max, and fixed changing the effort level in an open session also changing which model new sessions start on.
+  * Changed worktree cleanup: a session's worktree is kept until the session is archived, however long it sits idle, and worktrees you or the CLI create under `.claude/worktrees` are never removed by the app.
+  * Fixed archiving a session deleting uncommitted work in a worktree created before the worktree location was changed, on macOS and Linux.
+  * Fixed Code sessions in a worktree being refused with "This workspace isn't trusted" and never showing the trust dialog, and forked sessions being stopped by a workspace-trust check on their own worktree after an app restart.
+  * Fixed SSH sessions reopening idle instead of continuing the interrupted task when Claude Code on the remote host had stopped while the app was closed, and SSH connections on Linux not using the ssh-agent from your shell startup files.
+  * Fixed the main window being replaced by an error screen when a popped-out session's chat hit an error; the chat now shows Try again instead.
+  * Changed worktree sessions on Claude Code 2.1.275 or later to read project settings, hooks and MCP servers from the project folder you opened instead of the worktree's checked-out branch, with that folder's `.claude` config and `.mcp.json` read-only where the session runs outside it; now also on Windows SSH hosts.
+  * Fixed a conversation staying on an out-of-date Claude Code after an app update; when the API refuses it, sending again now resumes the same conversation on the current version.
+  * Fixed SSH sessions being restarted, and their running turns killed, when the remote server was slow to answer the first contact after a reconnect.
+  * Fixed worktree sessions on Windows sometimes being refused in repositories with a folder named `claude` in their path.
+
+  **Cowork**
+
+  * Changed organization tool policies in tasks on your computer: a connector tool set to "Restrict to Ask" now asks for your approval, including in "Skip all approvals" mode (newly started tasks only), and an ask policy on a file tool shows an approval prompt instead of refusing the call.
+  * Fixed "Failed to start Claude's workspace" on Windows when Claude is installed on a drive other than the system drive.
+  * Fixed a message sent from another window or device being stopped or lost when you restarted from or edited an earlier message at the same time.
+  * Fixed Office file previews that kept failing until the app was restarted when Claude's workspace got stuck; the preview now says what failed (workspace not responding, no permission to the folder, file gone) and, on third-party deployments, can restart the workspace in place.
+  * Fixed skills that Claude proposes or writes in a conversation being saveable from the chat cards with no instructions, which saved an empty skill or emptied the one it updated; the cards now say why.
+  * Fixed the Cowork data export keeping hidden characters in file names.
+  * Added inline playback for video outputs in the file pane, with thumbnails in the chat.
+
+  **3P**
+
+  * Added `deniedPluginMcpServers`: URL patterns for remote servers that plugins may not connect in Cowork, Chat and Code sessions (in Code sessions, matching servers from Claude Code's configuration files too). A match stays blocked even when `allowedPluginMcpServers` admits it; unset or empty blocks none.
+  * Changed `userPluginMarketplacesEnabled`: when set to `false`, plugin marketplaces the organization did not provision are hidden, installs and updates from them are refused, and Code and Cowork sessions are told not to load their plugins; previously only adding marketplaces was blocked.
+  * Removed `a-cdn.anthropic.com` and `a-api.anthropic.com` from the network requirements list under nonessential telemetry; the app has not contacted them since 2.110.0, so firewall allowlists may drop them, and leaving them in place is harmless.
+  * Updated the Code tab's composer to the redesigned card, with the + menu first in the row under the box, ahead of permission mode and model.
+  * Fixed the diagnostic report's network reachability check and the Setup window's connectivity test reporting a server on a non-default port as unreachable, and the firewall allowlist omitting that port.
+  * Fixed two model picker descriptions showing in English when the app is set to another language.
+</Update>
+
 <Update label="v2.9939.4" description="2026-09-27">
   Bundled Claude Code version: 2.1.284.
 

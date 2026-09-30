@@ -52,6 +52,23 @@ Three bundled skills work together to launch your app and confirm changes agains
 
 Claude edits the recorded file only when it steered a run wrong, such as a command that failed or a missing step, so you can commit the file without per-session diffs. Before v2.1.205, the bundled skill told Claude to fold in anything a run learned, which caused frequent merge conflicts.
 
+### Work on Claude API projects
+
+The bundled `/claude-api` skill loads [Claude API](https://platform.claude.com/docs/en/api/overview) and [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) reference material for your project's language. Claude also activates it automatically when your code imports `anthropic` or `@anthropic-ai/sdk`.
+
+To start one of the skill's workflows, type a subcommand after the skill name at the Claude Code prompt, for example `/claude-api migrate`. The table lists what each subcommand does and the earliest Claude Code version that includes it. `migrate` and `managed-agents-onboard` predate v2.1.221, the oldest version the table tracks.
+
+| Subcommand | What it does | Minimum version |
+| :- | :- | :- |
+| `migrate` | Update your existing Claude API code to a newer model | Earlier than v2.1.221 |
+| `upgrade` | Move your project's Anthropic SDK dependency across a major version, currently the Python `anthropic` package from 0.x to 1.x | v2.1.236 or later |
+| `managed-agents-onboard` | Walk through creating a new Managed Agent | Earlier than v2.1.221 |
+| `prompt-audit` | Flag instructions written for older models in your prompts, skills, and tool descriptions and propose fixes as a diff | v2.1.221 or later |
+| `cost-optimize` | Profile where your project's Claude API spend goes and propose savings from options such as prompt caching, trimming unneeded input and output tokens, batch processing, effort, and model choice, one change at a time | v2.1.247 or later |
+| `build-eval` | Build an eval set for your Claude-powered app | v2.1.259 or later |
+| `hillclimb` | Iteratively improve your app against an existing eval | v2.1.259 or later |
+| `preserved-thinking-migration` | Find the edits your integration makes to earlier turns, its system prompt, or its tool list that invalidate [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking) blocks, measure how much reasoning each one drops, and propose fixes one at a time, re-measuring after each change | v2.1.282 or later |
+
 ## Getting started
 
 ### Create your first skill

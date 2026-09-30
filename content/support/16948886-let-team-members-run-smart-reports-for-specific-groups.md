@@ -2,7 +2,7 @@
 
 Smart reports show how your organization uses Claude. By default, only Primary Owners, Owners, Admins, and custom roles with analytics view access can create and view smart reports. With delegated access, you can let team leads or department heads run smart reports without making them admins. They can only report on the groups, departments, or cost centers you choose, and they see only the reports they ran or that others share with them.
 
-Smart reports are available in beta on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK), HIPAA configurations, or **[Access Transparency](https://platform.claude.com/docs/en/manage-claude/access-transparency)**. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
+Smart reports are available in beta on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK) or HIPAA configurations. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
 
 **Important:** Smart reports help you understand adoption and plan your investment in Claude. They aren't designed and should not be used for evaluating individual performance or making employment decisions.
 

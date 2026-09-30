@@ -348,10 +348,6 @@ Plugins can declare monitors that start automatically when the plugin is active,
 
 ### WebSocket source
 
-<Note>
-  The WebSocket source requires Claude Code v2.1.195 or later.
-</Note>
-
 When a server already pushes events over a WebSocket, Claude can connect to it directly instead of writing a polling script. Each kind of socket activity either becomes an event or ends the watch:
 
 * **Text messages**: each one becomes one event, even when the message spans multiple lines.
@@ -458,7 +454,7 @@ Reading an empty file returns a notice that the file exists but its contents are
 Read handles several file types beyond plain text:
 
 * **Images**: PNG, JPG, and other image formats are returned as visual content that Claude can see, not as raw bytes. Claude Code resizes and recompresses large images to fit the model's image size limits before sending them, so Claude may see a downscaled version of a large screenshot. As of v2.1.196, an image that is still larger than 500KB after that resize is re-encoded as a JPEG at reduced quality with its pixel dimensions unchanged. If Claude misses fine pixel-level detail in a large image, ask it to crop the region of interest first, for example with ImageMagick via Bash.
-* **PDFs**: Claude reads short `.pdf` files whole. For PDFs longer than 10 pages, it reads in ranges with a `pages` parameter, such as `"1-5"`, up to 20 pages at a time.
+* **PDFs**: Claude reads short `.pdf` files whole. For PDFs longer than 10 pages, it reads in ranges with a `pages` parameter, such as `"1-5"`, up to 20 pages at a time. Page-range reads render pages with `pdftoppm` from poppler-utils, so install it with `brew install poppler` on macOS or `apt-get install poppler-utils` on Debian and Ubuntu. On Windows and other platforms, install a poppler build that puts `pdftoppm` on your `PATH`. Without it, a page-range read fails with `pdftoppm is not installed`.
 * **Jupyter notebooks**: `.ipynb` files return all cells with their outputs, including code, markdown, and visualizations. Claude Code refuses to read a notebook file over 100 MB; the error tells Claude how to read a portion of the notebook instead, such as a slice of cells, with a shell command.
 
 Read only reads files, not directories. Claude lists directory contents with a shell command such as `ls`.

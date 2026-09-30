@@ -107,6 +107,13 @@ If you enable a plugin on claude.ai while a session is running, the plugin downl
 
 In your terminal, plugins sync only in sessions where you sign in with your claude.ai account.
 
+Claude Code neither downloads nor loads synced plugins in these terminal sessions, even after you sign in with `/login`:
+
+* A session where `ANTHROPIC_AUTH_TOKEN`, `CLAUDE_CODE_OAUTH_TOKEN`, or an `apiKeyHelper` script supplies the credential in place of that sign-in
+* A session that doesn't [fetch feature flags from Anthropic](/docs/en/env-vars#features-that-need-feature-flag-fetching), such as one where you set `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`
+* A session in [bare mode](/docs/en/headless#start-faster-with-bare-mode) or one you start with `--safe-mode`
+* A session you start with a [`--setting-sources`](/docs/en/cli-reference#cli-flags) list that leaves out `user`
+
 If you signed in on an earlier version of Claude Code, that sign-in doesn't cover plugins until Claude Code renews it in the background. To get access sooner, run `/login` again. Plugin sync then starts the next time you start Claude Code.
 
 #### Control which synced plugins load
@@ -166,6 +173,7 @@ Claude Code keeps plugin files and state records under one plugins root, which i
 | `.trash/` | Plugins that the claude.ai sync removed, such as after you turn one off on claude.ai or stop syncing |
 | `installed_plugins.json` and `known_marketplaces.json` | The records of what Claude Code has installed and which marketplaces it has fetched, described under [Check which stage a plugin reached](#check-which-stage-a-plugin-reached). A [marketplace hosted on claude.ai](/docs/en/plugins/install#add-from-claude-ai) is recorded in `known_marketplaces_claudeai.json` instead |
 | `flagged-plugins.json` | Plugins Claude Code uninstalled because their marketplace delisted them. They appear in the **Flagged** section of `/plugin`; see [Host a marketplace](/docs/en/plugins/host-marketplace) |
+| `installed_plugins.set-aside.<date>.<hash>.json` and `installed_plugins.unreadable.<date>.<hash>.kept` | Dated copies Claude Code keeps before it drops install records that no version of Claude Code can use or rebuilds an unreadable `installed_plugins.json`. See [the recovery notes](/docs/en/plugins/troubleshooting#installed-plugins-json-could-not-be-read-and-was-rebuilt). They age out on the [`cleanupPeriodDays`](/docs/en/settings-reference#cleanupperioddays) schedule |
 
 Because `${CLAUDE_PLUGIN_ROOT}` points at a version directory, a plugin's root path changes with every version. Keep a plugin's durable files in `${CLAUDE_PLUGIN_DATA}` instead.
 
