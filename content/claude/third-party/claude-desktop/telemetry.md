@@ -241,8 +241,6 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 
 | Host | Purpose |
 | - | - |
-| `a-cdn.anthropic.com` | Analytics SDK |
-| `a-api.anthropic.com` | Analytics events |
 | `claude.ai` | Analytics events |
 | `api.anthropic.com` | Claude Code usage telemetry, sent from inside the agent sandbox |
 

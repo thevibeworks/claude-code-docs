@@ -108,7 +108,7 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Elastic:** Collect Claude audit and usage activity to detect security risks, support compliance requirements, and investigate AI-related incidents. To set up this integration, see the **[Elastic setup guide](https://www.elastic.co/docs/reference/integrations/anthropic)**.
 
-- **Eon:** Eon provides AI governance for Claude through automated data classification and natural-language security queries, helping enterprises maintain visibility and control over sensitive data shared with AI tools. Learn more about **[Eon's integration with the Claude Compliance API](https://www.eon.io/blog/may-2026-eon-product-update)**.
+- **Eon:** Eon provides AI governance for Claude through automated data classification and natural-language security queries, helping enterprises maintain visibility and control over sensitive data shared with AI tools. Learn more about **[Eon's integration with the Claude Compliance API](https://www.eon.io/integrations/claude-compliance-api)**.
 
 - **eSentire:** eSentire Atlas integrates with the Compliance API to deliver 24/7 managed detection and response for Claude usage. eSentire ingests activity events and conversation content, correlates them with endpoint, identity, and cloud telemetry, and investigates and responds to threats and policy violations on customers' behalf. Learn more about **[eSentire's integration with the Claude Compliance API](https://www.esentire.com/what-we-do/mdr-and-platform-integrations)**.
 

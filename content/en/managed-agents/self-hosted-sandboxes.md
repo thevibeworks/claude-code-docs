@@ -257,7 +257,7 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
 
         If you need stronger isolation (a fresh filesystem, resource limits, or per-session network controls), run each session in its own sandbox. Build an image with `ant` installed and `ant beta:worker run` as the entrypoint. The base image must provide `/bin/bash`; `curl` is only used at build time. When a sandbox starts, it reads session details from environment variables, handles that session, and exits:
 
-        ```text
+        ```dockerfile
         FROM your-base-image
         ARG ANT_VERSION=1.36.0
         ARG TARGETARCH
@@ -416,7 +416,7 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
       </Step>
 
       <Step title="Export the webhook signing key">
-        In addition to the environment ID and key from [Before you begin](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#before-you-begin), export the webhook signing key on your handler host so the handler can verify incoming payloads. Signature verification in the Python handler needs the webhooks extra: `pip install "anthropic[webhooks]"`.
+        In addition to the environment ID and key from [Before you begin](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#before-you-begin), export the webhook signing key on your handler host so the handler can verify incoming payloads.
 
         ```bash
         export ANTHROPIC_WEBHOOK_SIGNING_KEY="whsec_..."
@@ -429,67 +429,71 @@ Choose **always-on** for the simplest setup: a long-running process polls the qu
         When you hand a claimed work item to `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) yourself, as this handler does, pass the work item's `secret` along as `work_secret` (typescript: `workSecret`; go: `WorkSecret`) so the session can mount any [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores) attached to it. A handler like this one runs every claimed item in one process on one host, so two sessions that attach the same memory store cannot run through it at the same time (see [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prepare-the-host)); if your sessions share stores, launch [one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session) instead.
 
         <CodeGroup exclude="shell">
-          ```python Python
-          import asyncio
-          import os
-          import anthropic
-          import standardwebhooks  # installed by the anthropic[webhooks] extra
+          <CodeGroupItem>
+            To verify webhook signatures, install the webhooks extra: `pip install "anthropic[webhooks]"`.
 
-          environment_key = os.environ["ANTHROPIC_ENVIRONMENT_KEY"]
-          environment_id = os.environ["ANTHROPIC_ENVIRONMENT_ID"]
-          client = anthropic.AsyncAnthropic(
-              auth_token=environment_key,
-          )
-          # Cancelled by shutdown() so an in-flight work item can upload changed memory files and
-          # remove its store directories before the process exits.
-          inflight: set[asyncio.Task[None]] = set()
+            ```python Python
+            import asyncio
+            import os
+            import anthropic
+            import standardwebhooks  # installed by the anthropic[webhooks] extra
 
-
-          # Await this from the host's shutdown hook, such as an ASGI lifespan shutdown (the code after
-          # `yield` in a FastAPI lifespan), which uvicorn runs on SIGTERM. uvicorn lets open requests
-          # finish before that hook runs, so set --timeout-graceful-shutdown to bound the wait.
-          async def shutdown() -> None:
-              for task in inflight:
-                  task.cancel()
-              await asyncio.gather(*inflight, return_exceptions=True)
+            environment_key = os.environ["ANTHROPIC_ENVIRONMENT_KEY"]
+            environment_id = os.environ["ANTHROPIC_ENVIRONMENT_ID"]
+            client = anthropic.AsyncAnthropic(
+                auth_token=environment_key,
+            )
+            # Cancelled by shutdown() so an in-flight work item can upload changed memory files and
+            # remove its store directories before the process exits.
+            inflight: set[asyncio.Task[None]] = set()
 
 
-          async def handle(raw: bytes, headers: dict[str, str]) -> tuple[dict[str, str], int]:
-              try:
-                  event = client.beta.webhooks.unwrap(raw.decode(), headers=headers)
-              except standardwebhooks.WebhookVerificationError:
-                  return {"error": "signature verification failed"}, 401
-              if event.data.type != "session.status_run_started":
-                  return {"status": "ignored"}, 200
-              task = asyncio.create_task(run_queued_work())
-              inflight.add(task)
-              task.add_done_callback(inflight.discard)
-              try:
-                  # Shielded: a dropped or timed-out delivery must not cancel the item; shutdown() does.
-                  await asyncio.shield(task)
-              except asyncio.CancelledError:
-                  return {"status": "shutting down"}, 503
-              return {"status": "ok"}, 200
+            # Await this from the host's shutdown hook, such as an ASGI lifespan shutdown (the code after
+            # `yield` in a FastAPI lifespan), which uvicorn runs on SIGTERM. uvicorn lets open requests
+            # finish before that hook runs, so set --timeout-graceful-shutdown to bound the wait.
+            async def shutdown() -> None:
+                for task in inflight:
+                    task.cancel()
+                await asyncio.gather(*inflight, return_exceptions=True)
 
 
-          async def run_queued_work() -> None:
-              async for work in client.beta.environments.work.poller(
-                  environment_id=environment_id,
-                  environment_key=environment_key,
-                  block_ms=None,
-                  reclaim_older_than_ms=2000,
-                  drain=True,
-                  auto_stop=False,
-              ):
-                  await client.beta.environments.work.worker(workdir="/workspace").handle_item(
-                      work_id=work.id,
-                      environment_id=environment_id,
-                      session_id=work.data.id,
-                      environment_key=environment_key,
-                      # The per-session secret is what lets the worker mount the session's memory stores.
-                      work_secret=work.secret,
-                  )
-          ```
+            async def handle(raw: bytes, headers: dict[str, str]) -> tuple[dict[str, str], int]:
+                try:
+                    event = client.beta.webhooks.unwrap(raw.decode(), headers=headers)
+                except standardwebhooks.WebhookVerificationError:
+                    return {"error": "signature verification failed"}, 401
+                if event.data.type != "session.status_run_started":
+                    return {"status": "ignored"}, 200
+                task = asyncio.create_task(run_queued_work())
+                inflight.add(task)
+                task.add_done_callback(inflight.discard)
+                try:
+                    # Shielded: a dropped or timed-out delivery must not cancel the item; shutdown() does.
+                    await asyncio.shield(task)
+                except asyncio.CancelledError:
+                    return {"status": "shutting down"}, 503
+                return {"status": "ok"}, 200
+
+
+            async def run_queued_work() -> None:
+                async for work in client.beta.environments.work.poller(
+                    environment_id=environment_id,
+                    environment_key=environment_key,
+                    block_ms=None,
+                    reclaim_older_than_ms=2000,
+                    drain=True,
+                    auto_stop=False,
+                ):
+                    await client.beta.environments.work.worker(workdir="/workspace").handle_item(
+                        work_id=work.id,
+                        environment_id=environment_id,
+                        session_id=work.data.id,
+                        environment_key=environment_key,
+                        # The per-session secret is what lets the worker mount the session's memory stores.
+                        work_secret=work.secret,
+                    )
+            ```
+          </CodeGroupItem>
 
           ```typescript TypeScript
           import Anthropic from "@anthropic-ai/sdk";
@@ -698,9 +702,9 @@ The SDK provides three helpers at different levels of control. `EnvironmentWorke
   * `drain` (go: `Drain`): whether to stop polling once the queue is empty rather than waiting for new work.
   * `block_ms` (python; typescript: `blockMs`; go: `BlockMs`): how long to wait for work to arrive before returning, in milliseconds. Must be between 1 and 999 (per-poll wait; the helper re-polls automatically). Pass `null` (typescript; python: `None`; go: `param.Null[int64]()`) for a non-blocking check; omitting the parameter uses the default 999 ms long-poll.
   * `reclaim_older_than_ms` (typescript: `reclaimOlderThanMs`; go: `ReclaimOlderThanMs`): re-claim work items that were claimed but never acknowledged within this many milliseconds.
-  * `auto_stop` (typescript: `autoStop`; go: `AutoStop`): whether to post a stop signal for each work item once your loop body finishes with it. Turn it off whenever whatever runs the work item posts the stop itself: `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) does, so set it to false when you hand claimed items to `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) as the webhook handlers on this page do, and so does a sandbox you launch that owns the stop call.
+  * `auto_stop` (typescript: `autoStop`; go: `AutoStop`): whether to post a stop signal for each work item once your loop body finishes with it. Turn it off whenever whatever runs the work item posts the stop itself: `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) does, so set it to `false` (python: `False`; go: `param.NewOpt(false)`) when you hand claimed items to `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`) as the webhook handlers on this page do, and so does a sandbox you launch that owns the stop call.
 
-* **`client.beta.sessions.events.tool_runner()`:** runs tool calls for a single session, given the session ID and a tool list. Use when you've already claimed the work and only need the execution layer.
+* **`client.beta.sessions.events.tool_runner()` (typescript: `client.beta.sessions.events.toolRunner()`; go: `client.Beta.Sessions.Events.NewToolRunner()`):** runs tool calls for a single session, given the session ID and a tool list. Use when you've already claimed the work and only need the execution layer.
 
 Use `work.poller()` (typescript: `new WorkPoller()`; go: `environments.NewWorkPoller()`) directly when you want to launch your own per-session process, for example spinning up a sandbox for each claimed session:
 
@@ -960,7 +964,7 @@ Whatever launches the sandbox must forward the claimed work item's `secret` into
   ```
 </CodeGroup>
 
-**With `work.poller()` (typescript; go: `environments.NewWorkPoller()`) and `tool_runner()`:** pass a tool list as `tools` to `client.beta.sessions.events.tool_runner()`. To build that list, set up `AgentToolContext` yourself and call `beta_agent_toolset_20260401(env)` (typescript: `betaAgentToolset20260401(ctx)`; go: `agenttoolset.BetaAgentToolset20260401(env)`):
+**With `work.poller()` (typescript; go: `environments.NewWorkPoller()`) and `client.beta.sessions.events.tool_runner()` (typescript: `client.beta.sessions.events.toolRunner()`; go: `client.Beta.Sessions.Events.NewToolRunner()`):** pass it a tool list as `tools` (go: `Tools`). To build that list, set up `AgentToolContext` yourself and call `beta_agent_toolset_20260401(env)` (typescript: `betaAgentToolset20260401(ctx)`; go: `agenttoolset.BetaAgentToolset20260401(env)`):
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -1142,8 +1146,8 @@ Memory stores cannot be attached to sessions on self-hosted environments on [Cla
 When the worker claims a work item whose session has memory stores attached, it:
 
 1. Downloads each attached store to its `mount_path` on the worker host, authenticating with the work item's per-session `secret`. The `mount_path` is the same directory under `/mnt/memory/` that cloud sessions use (for example, `/mnt/memory/user-preferences/` for a store named "User Preferences"), and the session's system prompt describes it to the agent.
-2. Adds those directories to the file tools' allowed roots, and the directories of stores attached with `access: "read_only"` to their read-only roots, so the agent works on memories with the same `read`, `write`, `edit`, `glob`, and `grep` tools it uses in the working directory.
-3. Reconciles local and remote changes after tool calls, at most once per sync interval (15 seconds by default): memories that changed in the store are written to disk, and files the agent changed are uploaded to the store.
+2. Adds those directories to `allowed_roots` (typescript: `allowedRoots`; go: `AllowedRoots`), and the directories of stores attached with `access: "read_only"` to `read_only_roots` (typescript: `readOnlyRoots`; go: `ReadOnlyRoots`), so the agent works on memories with the same `read`, `write`, `edit`, `glob`, and `grep` tools it uses in the working directory.
+3. Reconciles local and remote changes after tool calls, at most once per `memory_sync_interval` (typescript: `memorySyncIntervalMs`; go: `MemorySyncInterval`) (15 seconds by default): memories that changed in the store are written to disk, and files the agent changed are uploaded to the store.
 4. Runs a final sync when the session ends, flushes any uploads still pending for up to 30 seconds, and then removes the directories it created. A worker that is cancelled while a session runs skips the final sync but still uploads changed files and removes the directories before it exits.
 
 The memory store on Anthropic's side remains the source of truth. [Memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes), redaction, and viewing or editing memories in the Console work as they do for cloud sessions, and the agent's memory reads and writes appear in the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as ordinary tool events. Because each worker syncs on an interval, a change written in one session becomes visible to another running session only after both have synced, typically well under a minute at the default interval; sessions on cloud sandboxes see each other's changes almost immediately.
@@ -1163,7 +1167,7 @@ sudo mkdir -p /mnt/memory && sudo chown "$USER" /mnt/memory
 Do not create the per-store directories yourself. The worker creates each store's `mount_path` directory (for example, `/mnt/memory/user-preferences`) when a session starts, refuses to start the session's work if something already exists at that path, and removes the directory when the session ends. Two operating rules follow:
 
 * **Run one session per filesystem when sessions attach the same store.** Two sessions cannot mount the same store on one host at the same time, because both need the same path. Giving each session its own sandbox, as described in [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-one-sandbox-per-session), satisfies this rule.
-* **Stop workers gracefully.** When you stop a worker while a session runs, `EnvironmentWorker` uploads the session's changed memory files and removes its store directories only if it is cancelled rather than killed: a killed process runs no teardown, and the worker does not install signal handlers itself. Wire SIGTERM and SIGINT to cancellation in the process that runs it: abort the `signal` you pass to the worker in TypeScript, cancel the context in Go, and in Python cancel the task that runs `run()` or `handle_item()`. Do that from a signal handler when your worker is the process, as the standalone workers on this page do, or from your server's own shutdown hook when the worker runs inside a webhook handler, which must not take over the server's signals. Then stop workers with SIGTERM and give them at least 30 seconds to exit before any hard kill, because the final upload can take that long. If a worker is killed before its teardown runs, remove the leftover store directory under `/mnt/memory/` before the next session that attaches that store; any edits in it that had not synced are lost.
+* **Stop workers gracefully.** When you stop a worker while a session runs, `EnvironmentWorker` uploads the session's changed memory files and removes its store directories only if it is cancelled rather than killed: a killed process runs no teardown, and the worker does not install signal handlers itself. Wire SIGTERM and SIGINT to cancel the worker. Do that from a signal handler when your worker is the process, as the standalone workers on this page do, or from your server's own shutdown hook when the worker runs inside a webhook handler, which must not take over the server's signals. Then stop workers with SIGTERM and give them at least 30 seconds to exit before any hard kill, because the final upload can take that long. If a worker is killed before its teardown runs, remove the leftover store directory under `/mnt/memory/` before the next session that attaches that store; any edits in it that had not synced are lost.
 
 ### Run one sandbox per session
 
@@ -1296,10 +1300,10 @@ The sandbox image also needs a writable `/mnt/memory` (see [Prepare the host](ht
 
 Two `EnvironmentWorker` options control memory behavior:
 
-* **`memory_sync_interval` (typescript: `memorySyncIntervalMs`; go: `MemorySyncInterval`)** (in seconds in Python, in milliseconds in TypeScript, a duration in Go): how often attached stores reconcile with the server while the session runs. Defaults to 15 seconds; the minimum is 5 seconds. A shorter interval narrows the window in which another session sees stale memories, at the cost of more memory store requests. `None` in Python, `null` in TypeScript, or a negative duration in Go disables memory support entirely: the worker neither downloads nor syncs stores, and a session with memory stores attached runs without them even though its system prompt still describes them, so disable memory support only on workers whose sessions attach no memory stores. While memory support is enabled, a work item that arrives without a per-session `secret` for a session with attached stores fails rather than running without memory (see [Troubleshoot memory mounts](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#troubleshoot-memory-mounts)).
-* **`memory_sync_deletions` (typescript: `memorySyncDeletions`; go: `MemorySyncDeletions`)**: whether a file the agent deletes locally is also deleted from the store. The value is one of `"enabled"` (the default), `"log_only"`, or `"disabled"` in Python and TypeScript, and one of the constants `environments.MemorySyncDeletionsEnabled` (the zero value), `environments.MemorySyncDeletionsLogOnly`, or `environments.MemorySyncDeletionsDisabled` in Go. When enabled, the worker deletes the memory from the store once a later sync confirms the file is still gone; in log-only mode it runs the same checks but only logs what it would have deleted, which lets you watch what your workers would delete before you trust the enabled mode; when disabled, it never deletes from the store. Uploads and downloads are unaffected by this setting.
+* **`memory_sync_interval` (typescript: `memorySyncIntervalMs`; go: `MemorySyncInterval`)** (for example, `10` (python; typescript: `10_000`; go: `10 * time.Second`) for 10 seconds): how often attached stores reconcile with the server while the session runs. Defaults to 15 seconds; the minimum is 5 seconds. A shorter interval narrows the window in which another session sees stale memories, at the cost of more memory store requests. Setting it to `None` (python; typescript: `null`; go: `-1`) disables memory support entirely: the worker neither downloads nor syncs stores, and a session with memory stores attached runs without them even though its system prompt still describes them, so disable memory support only on workers whose sessions attach no memory stores. While memory support is enabled, a work item that arrives without a per-session `secret` for a session with attached stores fails rather than running without memory (see [Troubleshoot memory mounts](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#troubleshoot-memory-mounts)).
+* **`memory_sync_deletions` (typescript: `memorySyncDeletions`; go: `MemorySyncDeletions`)**: whether a file the agent deletes locally is also deleted from the store. The value is one of `"enabled"` (go: `environments.MemorySyncDeletionsEnabled`) (the default), `"log_only"` (go: `environments.MemorySyncDeletionsLogOnly`), or `"disabled"` (go: `environments.MemorySyncDeletionsDisabled`). When enabled, the worker deletes the memory from the store once a later sync confirms the file is still gone; in log-only mode it runs the same checks but only logs what it would have deleted, which lets you watch what your workers would delete before you trust the enabled mode; when disabled, it never deletes from the store. Uploads and downloads are unaffected by this setting.
 
-Set these options where you construct the worker, whether through the `EnvironmentWorker` constructor or, in Python and TypeScript, the `client.beta.environments.work.worker()` factory that the webhook handler uses.
+Set these options wherever you construct the worker, including in the webhook handler.
 
 For example, to sync every 10 seconds and only log the deletes the worker would have made:
 
@@ -1562,7 +1566,7 @@ The [MCP connector](https://platform.claude.com/docs/en/managed-agents/mcp-conne
 2. The worker, inside your sandbox, forwards the call over its open MCP session to the server on your network.
 3. The worker posts the server's response as the `user.custom_tool_result`.
 
-The SDKs' [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#client-side-mcp-helpers) convert the server's tools into the runnable tools the worker accepts; install an MCP SDK alongside the Anthropic SDK (`pip install "anthropic[mcp]" "mcp>=1.24"`, `npm install @modelcontextprotocol/sdk`, `go get github.com/modelcontextprotocol/go-sdk`). The examples connect without authentication; to send credentials, configure the HTTP client or request options you hand to the MCP transport (`http_client` (typescript: `requestInit`; go: `HTTPClient`)).
+The SDK's [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#client-side-mcp-helpers) convert the server's tools into the runnable tools the worker accepts. Install an MCP SDK alongside the Anthropic SDK: `pip install "anthropic[mcp]" "mcp>=1.24"` (python; typescript: `npm install @modelcontextprotocol/sdk`; go: `go get github.com/modelcontextprotocol/go-sdk`). The examples connect without authentication. To send credentials, configure the `http_client` (typescript: `requestInit`; go: `HTTPClient`) you hand to the MCP transport.
 
 <Steps>
   <Step title="Declare the server's tools on the agent">
@@ -1967,7 +1971,7 @@ These calls run from your monitoring or operations tooling, authenticated with y
 
 ### Read queue depth
 
-`work.stats` returns the queue state for an environment:
+`GET /v1/environments/{environment_id}/work/stats` (curl; python, typescript, ruby: `client.beta.environments.work.stats()`; go, csharp: `client.Beta.Environments.Work.Stats()`; java: `client.beta().environments().work().stats()`; php: `$client->beta->environments->work->stats()`; cli: `ant beta:environments:work stats`) returns the queue state for an environment:
 
 * `depth` is the number of items waiting to be claimed. Scale your worker fleet or alert on backlog based on this value.
 * `pending` is the number of items claimed by a worker but not yet acknowledged. The worker helpers acknowledge each item before processing it, so this value stays near zero in normal operation; a sustained non-zero value means a worker stalled between claiming and acknowledging.
@@ -2099,7 +2103,7 @@ These calls run from your monitoring or operations tooling, authenticated with y
 
 ### Stop a session gracefully
 
-Use `work.stop` to ask the worker handling a specific session to shut it down. By default the work item moves to `stopping`: the worker notices on its next lease heartbeat, cancels the session's in-flight tool call, and confirms the shutdown, at which point the work item becomes `stopped`. Pass `force: true` in the request body (with the CLI, pass `--force`) to mark the work item `stopped` immediately instead of waiting for the worker's confirmation.
+Use `POST /v1/environments/{environment_id}/work/{work_id}/stop` (curl; python, typescript, ruby: `client.beta.environments.work.stop()`; go, csharp: `client.Beta.Environments.Work.Stop()`; java: `client.beta().environments().work().stop()`; php: `$client->beta->environments->work->stop()`; cli: `ant beta:environments:work stop`) to ask the worker handling a specific session to shut it down. By default the work item moves to `stopping`: the worker notices on its next lease heartbeat, cancels the session's in-flight tool call, and confirms the shutdown, at which point the work item becomes `stopped`. Pass `force: true` (python: `force=True`; cli: `--force`) to mark the work item `stopped` immediately instead of waiting for the worker's confirmation.
 
 Because these calls run from your operations tooling rather than the worker host, `ANTHROPIC_WORK_ID` isn't set automatically. Set it to the target work item's ID before running the following examples. To find a work item's ID, list the environment's work items through the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
 

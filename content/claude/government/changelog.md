@@ -6,6 +6,13 @@
 
 > Release notes for Claude for Government
 
+<Update label="2026.09.29.1">
+  * Changed directory sync so that a member who leaves a group mapped to a self-managed seat tier with no seat limit keeps that seat tier until another group's mapping or an admin moves them.
+  * Added the ability for tenant administrators to grant and remove the Primary Owner role in an organization that doesn't manage its own billing account.
+  * Added a **Copy user email addresses** button to the tenant portal's Organizations page: it opens a page where tenant admins can copy the email addresses of everyone in the tenant who has not been deactivated, all together or one organization at a time.
+  * Added **Move up**, **Move down**, **Move to top**, and **Move to bottom** to each sign-in rule, provisioning rule, and directory group row in the tenant portal, so they can be reordered without dragging.
+</Update>
+
 <Update label="2026.09.24.2">
   * Fixed the keyboard focus outline on scrollable tables in the Admin Console being hard to see.
   * Improved Plugins, Connectors, and Analytics in the Admin Console so that a failed load shows one consistent notice with a Try again button.

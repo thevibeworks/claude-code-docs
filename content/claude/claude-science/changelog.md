@@ -6,6 +6,11 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.55" description="September 29, 2026">
+  * New sessions on an organization's default model with more life sciences restrictions now show a notice with a one-click switch to another model
+  * Fixed an error Claude ran into when outlining an existing multi-panel figure or drafting a paper's brief from its abstract and figure captions
+</Update>
+
 <Update label="0.1.54" description="September 28, 2026">
   * Sessions on Claude Sonnet 5.5 now default to Extra high reasoning effort
   * Windows: after an update, the app window reopens on the new version by itself
