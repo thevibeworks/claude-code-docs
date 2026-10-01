@@ -26,9 +26,9 @@ To limit how much information about your devices is held in the system, the list
 
 ## How long sessions last
 
-Sessions expire after a period of inactivity, and using a session extends it. Once you have been inactive for longer than the idle timeout, that browser tab or desktop application prompts you to sign in again the next time it tries to do anything. Your agency or organization sets the idle timeout, which is 24 hours unless they have changed it.
+Sessions expire after a period of inactivity, and using a session extends it. Once you have been inactive for longer than the idle timeout, that browser tab or application prompts you to sign in again the next time it tries to do anything. Your agency or organization sets the idle timeout, which is 24 hours unless they have changed it.
 
-Your agency or organization can set a maximum session length in addition to the idle timeout. When a session reaches that length, it expires even if you have been using it the whole time, and the browser tab or desktop application prompts you to sign in again. Sessions that expire either way drop off this list automatically.
+Your agency or organization can set a maximum session length in addition to the idle timeout. When a session reaches that length, it expires even if you have been using it the whole time, and the browser tab or application prompts you to sign in again. Sessions that expire either way drop off this list automatically.
 
 Sessions can also end early in these ways: you sign one out from this page, you use the **Sign out** button in the page footer to end the session you are currently using, or an administrator deactivates your account or your organization, which immediately invalidates every session you have.
 
@@ -47,7 +47,7 @@ Neither of these affects the session you are currently using, and there is no co
 
 ### What actually happens when you sign out another session
 
-The sign-out is recorded the moment you select the button. The other browser or desktop application is not sent a live message, but the very next thing it tries to do (load a page, send a message, or refresh) will be refused and it will be returned to the sign-in screen. In practice this means the other session is cut off within seconds of any activity. A request that was already in flight at the instant you revoked may finish, but nothing new can start.
+The sign-out is recorded the moment you select the button. The other browser or application is not sent a live message, but the very next thing it tries to do (load a page, send a message, or refresh) will be refused and it will be returned to the sign-in screen. In practice this means the other session is cut off within seconds of any activity. A request that was already in flight at the instant you revoked may finish, but nothing new can start.
 
 Signing out another session from this page does not touch your agency's single sign-on session, so if the person at that other computer tries to sign back in, the identity provider may still let them straight through without re-entering a password. If that is a concern (for example, you left a shared computer signed in), sign the session out here first, then contact your agency's identity team to end the single sign-on session, or change your directory password.
 

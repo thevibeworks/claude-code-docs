@@ -96,8 +96,8 @@ There are two ways to set up HIPAA-ready API access. Most organizations can enab
 #### Enable in the Console (standard BAA)
 
 <Steps>
-  <Step title="Open your organization's privacy settings">
-    In [Claude Console > Settings > Privacy](https://platform.claude.com/settings/privacy), organization admins with the HIPAA management permission see a **HIPAA compliance** card. If your organization is eligible but you don't see the option to enable, ask an organization admin to complete these steps.
+  <Step title="Open your organization's data retention settings">
+    In [Claude Console > Settings > Data retention](https://platform.claude.com/settings/privacy), organization admins with the HIPAA management permission see a **HIPAA compliance** card. If your organization is eligible but you don't see the option to enable, ask an organization admin to complete these steps.
   </Step>
 
   <Step title="Review and execute the BAA">
@@ -243,7 +243,7 @@ Even with ZDR or HIPAA arrangements in place, Anthropic may retain data where re
   </Accordion>
 
   <Accordion title="How do I request HIPAA-ready API access?">
-    Eligible organizations can enable HIPAA readiness directly in [Claude Console > Settings > Privacy](https://platform.claude.com/settings/privacy) by reviewing and executing Anthropic's standard BAA; see [Getting started with HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#getting-started-with-hipaa-readiness). If your organization requires a negotiated BAA, or self-serve enablement isn't available for your organization, contact the [Anthropic sales team](https://claude.com/contact-sales).
+    Eligible organizations can enable HIPAA readiness directly in [Claude Console > Settings > Data retention](https://platform.claude.com/settings/privacy) by reviewing and executing Anthropic's standard BAA; see [Getting started with HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#getting-started-with-hipaa-readiness). If your organization requires a negotiated BAA, or self-serve enablement isn't available for your organization, contact the [Anthropic sales team](https://claude.com/contact-sales).
   </Accordion>
 
   <Accordion title="Does this apply to Amazon Bedrock or Google Cloud?">
