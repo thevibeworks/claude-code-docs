@@ -94,7 +94,9 @@ Match the message you see to a section below.
 | `rejected the credential from its headersHelper` / `rejected the Authorization header in its config` | [Authentication](#mcp-server-needs-you-to-sign-in-again) |
 | `MCP server "<name>" needs additional permissions (scope: "<scope>") — run /mcp to re-authenticate` | [Authentication](#mcp-server-needs-you-to-sign-in-again) |
 | `MCP server "<name>" requires re-authorization (token expired)` | [Authentication](#mcp-server-needs-you-to-sign-in-again) |
+| `This server's URL is missing or not a valid URL, so sign-in can't start` | [Authentication](#mcp-server-url-is-missing-or-not-a-valid-url) |
 | `Issuer mismatch in authorization response (RFC 9207)` | [Authentication](#issuer-mismatch-in-authorization-response) |
+| `Refusing to send credentials to non-https token endpoint` / `<short-name> from the MCP SDK for <server-url>` | [Authentication](#refusing-to-send-credentials-to-non-https-token-endpoint) |
 | `Cloud gateway session expired — run /login to reconnect.` | [Authentication](#cloud-gateway-session-expired) |
 | `Cloud gateway <url> no longer accepts this session` | [Authentication](#cloud-gateway-session-expired) |
 | `Sign-in timed out while waiting for you to continue. Try again.` | [Authentication](#sign-in-timed-out-while-waiting-for-you-to-continue) |
@@ -201,6 +203,8 @@ Match the message you see to a section below.
 | `Cannot add MCP server to scope: managed` | [Command-line errors](#cannot-add-mcp-server-to-the-managed-scope) |
 | `is Anthropic-hosted and doesn't support local OAuth` | [Command-line errors](#anthropic-hosted-and-doesnt-support-local-oauth) |
 | `Can't read .mcp.json: it isn't a regular file or is larger than 2097152 bytes` | [Command-line errors](#cant-read-mcp-json) |
+| `MCP server "<name>" was not saved to` / `was not removed from` | [Command-line errors](#mcp-server-was-not-saved-or-removed) |
+| `MCP server "<name>" may not have been saved` / `may not have been removed` | [Command-line errors](#mcp-server-may-not-have-been-saved-or-removed) |
 | `Server rejected the Authorization header minted by the configured headersHelper` | [Command-line errors](#server-rejected-the-authorization-header-minted-by-the-configured-headershelper) |
 | `Error: MCP tool <name> (passed via --permission-prompt-tool) not found` | [Command-line errors](#mcp-permission-prompt-tool-not-found) |
 | `OAuth callback port <port> is already in use — another process may be holding it` | [Command-line errors](#oauth-callback-port-is-already-in-use) |
@@ -316,7 +320,7 @@ Match the message you see to a section below.
 | `Transcript writes are failing (...)` | [Session saving warnings](#transcript-writes-are-failing) |
 | `Transcript saving is off — CLAUDE_CODE_SKIP_PROMPT_HISTORY is set` | [Session saving warnings](#transcript-saving-is-off-skip-prompt-history) |
 | `Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker` | [Session saving warnings](#transcript-saving-is-off-child-session-marker) |
-| `Claude Code's fullscreen renderer didn't finish starting last time on this machine` / `Claude Code's fullscreen renderer has repeatedly failed to start on this machine` | [Configuration warnings](#fullscreen-failed-start-notice) |
+| `Claude Code's fullscreen renderer didn't finish starting last time on this machine` / `Claude Code's fullscreen renderer has repeatedly failed to start on this machine` | [Fullscreen rendering](/docs/en/fullscreen#fullscreen-renderer-didnt-finish-starting) |
 | `Claude Code exited after an unrecoverable interface error (...)` | [Configuration warnings](#exited-after-an-unrecoverable-interface-error) |
 | `Agent descriptions are over the 15.0k-token limit` | [Configuration warnings](#agent-descriptions-are-over-the-15000-token-limit) |
 | `Not loaded: rename <path>, then restart — its name uses "<name>", a name reserved for the skills synced from your claude.ai account` | [Configuration warnings](#a-skill-command-or-workflow-wasnt-loaded-because-its-name-is-reserved) |
@@ -325,9 +329,12 @@ Match the message you see to a section below.
 | `Remote managed settings failed to load (<cause>)` | [Configuration warnings](#remote-managed-settings-failed-to-load) |
 | `Managed settings were not approved; exiting without applying them.` | [Configuration warnings](#managed-settings-were-not-approved) |
 | `Claude Code can't start: your organization's managed settings block the default model` / `Claude Code can't start: your organization allows only the models listed in "availableModels"` | [Configuration warnings](#managed-settings-block-the-default-model) |
+| `Your organization's managed settings allow Claude Code to use: <providers>` | [Configuration warnings](#managed-settings-dont-allow-this-api-provider) |
+| `Your organization's managed settings allow Claude Code to use no API provider at all` | [Configuration warnings](#managed-settings-dont-allow-this-api-provider) |
 | `MCP server <name> is blocked by enterprise managed policy` | [Configuration warnings](#mcp-server-is-blocked-by-enterprise-managed-policy) |
 | `Managed settings document could not be parsed as a JSON object; none of its settings are in effect. Fix or remove it.` | [Configuration warnings](#managed-settings-document-could-not-be-parsed) |
 | `Managed settings drop-in directory could not be read` | [Configuration warnings](#managed-settings-document-could-not-be-parsed) |
+| `Unable to read managed policy settings` | [Configuration warnings](#unable-to-read-managed-policy-settings) |
 | `otelHeadersHelper failed; telemetry is not being exported. See /status: ...` | [Configuration warnings](#otelheadershelper-failed) |
 | `"crossSessionInbound" must be one of "accept", "hold", "refuse"` | [Configuration warnings](#crosssessioninbound-must-be-one-of-accept-hold-refuse) |
 | `headersHelper not run — this workspace has no persisted trust` | [Configuration warnings](#headershelper-not-run) |
@@ -1419,6 +1426,18 @@ When the server's configuration sets neither [`oauth.scopes`](/docs/en/mcp#restr
 
 Before v2.1.274, this case showed the `needs you to sign in again` message, and before v2.1.273 it showed `requires re-authorization (token expired)` like the other cases.
 
+### MCP server URL is missing or not a valid URL
+
+Claude Code refused to start an OAuth sign-in for a remote MCP server because the server's configured `url` doesn't parse as a URL. Unless Claude Code has a more specific configuration problem to report for the server, running [`claude mcp login <name>`](/docs/en/mcp#authenticate-from-the-command-line) in your shell prints the refusal as:
+
+```text theme={null}
+Couldn't complete authentication for "<name>": This server's URL is missing or not a valid URL, so sign-in can't start. Fix the URL in its MCP config (or set the environment variable it uses) and try again.
+```
+
+**What to do:**
+
+* Set the entry's `url` to the server's real endpoint where the server is configured, or set the environment variable that its [`${VAR}` reference](/docs/en/mcp#environment-variable-expansion-in-mcp-json) names, then run the sign-in again.
+
 ### Issuer mismatch in authorization response
 
 During an [MCP OAuth sign-in](/docs/en/mcp#authenticate-with-remote-mcp-servers), the authorization server redirected back to Claude Code with an `iss` parameter that doesn't name the issuer that Claude Code expected from the server's OAuth metadata. A wrong issuer at this step is how an authorization server mix-up attack looks, so Claude Code fails the sign-in instead of exchanging the authorization code. Claude Code shows the error in the `/mcp` server menu after the browser sign-in:
@@ -1436,6 +1455,23 @@ Issuer mismatch in authorization response (RFC 9207): expected "https://auth.exa
 * To connect while the server is being fixed, start Claude Code with [`MCP_SDK_GENERATION=v1`](/docs/en/env-vars), whose [runtime](/docs/en/mcp#mcp-client-runtimes) doesn't run this check. This removes a protection against mix-up attacks, so prefer the server-side fix
 
 Before v2.1.232, Claude Code used the v2 runtime only in a gradual rollout or when you set `MCP_SDK_GENERATION=v2`.
+
+### Refusing to send credentials to non-https token endpoint
+
+On the [v2 runtime](/docs/en/mcp#mcp-client-runtimes), Claude Code sends an [MCP OAuth](/docs/en/mcp#authenticate-with-remote-mcp-servers) token request only to a token endpoint served over HTTPS or at `localhost`, `127.0.0.1`, or `::1`. This message means the server's token endpoint is neither, so Claude Code stopped before sending the request. That happens after the browser sign-in, so the browser step succeeds first, and again whenever Claude Code refreshes the server's token.
+
+In its full form, the message comes from the MCP SDK and quotes the token endpoint it refused. In the debug log, it follows `Error during auth completion:` for a sign-in or `Token refresh failed:` for a refresh. In your shell, `claude mcp login <name>` prints it after `Couldn't complete authentication for "<name>":`, and in a session, `/mcp` shows it under the server's menu:
+
+```text theme={null}
+Refusing to send credentials to non-https token endpoint 'http://192.168.1.50:8123/oauth/token'. OAuth token requests MUST use TLS (localhost / 127.0.0.1 / ::1 are exempt).
+```
+
+Claude Code treats a server URL that has a query string or a long random-looking path segment as possibly secret. For such a server, it redacts the sign-in errors the MCP SDK raises before it shows or logs them. This error then reads as a short name that can change between releases, such as `io`, followed by `from the MCP SDK for` and the redacted server URL. Other errors from the MCP SDK take the same shape there. The redacted message can be this error only when the server's token endpoint is plain `http://` at an address other than `localhost`, `127.0.0.1`, or `::1`.
+
+**What to do:**
+
+* Serve that token endpoint over HTTPS, for example by putting the server behind a reverse proxy or tunnel that terminates TLS and configuring the server to advertise the `https://` address
+* To connect without changing the server, start Claude Code with [`MCP_SDK_GENERATION=v1`](/docs/en/env-vars), whose [runtime](/docs/en/mcp#mcp-client-runtimes) doesn't apply this rule and sends the token request over plain HTTP. That choice lasts until you exit and applies to every server. The v1 runtime also skips the [issuer check](#issuer-mismatch-in-authorization-response), so prefer serving the endpoint over HTTPS
 
 ### AWS credentials expired or invalid
 
@@ -1819,7 +1855,7 @@ These steps change one of your own environments. An [organization-shared environ
 
 * Open the routine for editing, or start a cloud session. Select the cloud icon showing your environment's name, such as **Default**, to open the selector. Hover over your environment and click the settings icon.
 * In the **Update cloud environment** dialog, change **Network access** from **Trusted** to **Custom**, then add the blocked domain to **Allowed domains**. Enter one domain per line. Check **Also include default list of common package managers** to keep the [default allowlist](/docs/en/cloud-environments#default-allowed-domains) alongside your custom domains. Select **Full** instead if you want unrestricted access.
-* Click **Save changes**. The next run uses the updated allowlist.
+* Click **Save changes**. The next run uses the updated allowlist. For a cloud session that's already open, see [when a network access change reaches existing sessions](/docs/en/cloud-environments#network-access).
 
 See [Network access](/docs/en/cloud-environments#network-access) for access levels and the default allowlist. Local CLI sessions are not affected by this policy.
 
@@ -2940,6 +2976,43 @@ Before v2.1.257, a FIFO at `.mcp.json` left the command waiting forever with no 
 
 * Check what sits at `.mcp.json` in your current directory. Replace it with an ordinary JSON file in the [project-scope format](/docs/en/mcp#project-scope), or delete it, then run the command again.
 
+<h3 id="mcp-server-was-not-saved-or-removed">
+  MCP server was not saved or removed
+</h3>
+
+You ran `claude mcp add`, `claude mcp add-json`, or `claude mcp remove` for a server in the `user` or `local` [scope](/docs/en/mcp#mcp-installation-scopes). Both scopes are stored in `~/.claude.json`, and the change isn't in that file when Claude Code reads it back after writing. The command exits with this error instead of its success line.
+
+```text theme={null}
+MCP server "example" was not saved to /home/user/.claude.json. If that file is read-only or protected by a sandbox, make it writable or run the command outside the sandbox, then add the server again.
+```
+
+After a remove, the message reads `was not removed from` and ends with `then remove the server again`. For a `local`-scope server, the path is followed by the project directory the entry belongs to, as `(local scope for /path/to/project)`.
+
+Before v2.1.283, `claude mcp add`, `claude mcp add-json`, and `claude mcp remove` reported success even when the change didn't reach the file.
+
+**What to do:**
+
+* Make the file the message names writable, or run the command outside the sandbox, then run the same add or remove command again.
+
+<h3 id="mcp-server-may-not-have-been-saved-or-removed">
+  MCP server may not have been saved or removed
+</h3>
+
+You ran `claude mcp add`, `claude mcp add-json`, or `claude mcp remove` for a server in the `user` or `local` [scope](/docs/en/mcp#mcp-installation-scopes), and Claude Code couldn't read `~/.claude.json` back to confirm the change. The change may or may not be on disk. The text in parentheses is the error from that read.
+
+```text theme={null}
+MCP server "example" may not have been saved: /home/user/.claude.json could not be read to confirm the change (EACCES: permission denied, open '/home/user/.claude.json'). Run `claude mcp get example` to check, then add the server again if it is missing.
+```
+
+After a remove, the message reads `may not have been removed` and ends with `then remove the server again if it is still listed`.
+
+Before v2.1.283, the commands reported success even when the change couldn't be confirmed.
+
+**What to do:**
+
+* Run `claude mcp get <name>` to check whether the change is on disk. For a `local`-scope server, run it from the project directory the server belongs to, since local scope is per project.
+* If the server is missing after an add, or still listed after a remove, run the same add or remove command again.
+
 <h3 id="anthropic-hosted-and-doesnt-support-local-oauth">
   Server is Anthropic-hosted and doesn't support local OAuth
 </h3>
@@ -2949,8 +3022,6 @@ You started a sign-in for an MCP server whose URL points at an Anthropic-hosted 
 ```text theme={null}
 "gmail" is Anthropic-hosted and doesn't support local OAuth. Connect it via Settings → Connectors on claude.ai (requires `claude login`), then it'll be available here automatically.
 ```
-
-Claude Code matches these hosts by URL, so the message appears when a server you added with `claude mcp add` or in `.mcp.json` points at one of them.
 
 **What to do:**
 
@@ -3377,18 +3448,20 @@ Each reason the message can show in parentheses:
   Couldn't open Claude Desktop
 </h3>
 
-You ran [`/desktop`](/docs/en/desktop#coming-from-the-cli), or its alias `/app`, and the system command Claude Code uses to open Claude Desktop failed. The session stays in the terminal.
+You ran [`/desktop`](/docs/en/desktop#coming-from-the-cli) or its alias `/app` in a session, or [`claude --desktop`](/docs/en/cli-reference#cli-flags) in your shell, and the system command Claude Code uses to open Claude Desktop failed. After `/desktop`, the session stays in the terminal; `claude --desktop` prints the message without the `Error:` prefix and exits with status 1.
+
+The text in parentheses names the command that failed, with its exit status and the first line of its error output when it produced them. On macOS that command is `open`, as in this example; on Windows it is `rundll32`:
 
 ```text theme={null}
-Error: Couldn't open Claude Desktop (`open` exited 1: LSOpenURLsWithRole() failed for the URL claude://resume?session=<session-id> with error -10814). Open Claude Desktop and run /desktop again.
+Error: Couldn't open Claude Desktop (`open` exited 1: LSOpenURLsWithRole() failed for the URL claude://resume?session=<session-id> with error -10814). Open Claude Desktop and try again.
 ```
 
 **What to do:**
 
-* Open Claude Desktop yourself, then run `/desktop` again
-* To read that command's full error output, turn on debug logging with `/debug`, run `/desktop` again, and check the debug log
+* Open Claude Desktop yourself, then run `/desktop` or `claude --desktop` again
+* To read the failed command's full error output, turn on debug logging with `/debug` and run `/desktop` again, or run `claude --desktop --debug-file <path>`, then check the debug log
 
-Before v2.1.275, the message was `Failed to open Claude Desktop. Please try opening it manually.` and didn't say what failed.
+Before v2.1.285, the message ended `Open Claude Desktop and run /desktop again.` Before v2.1.275, it was `Failed to open Claude Desktop. Please try opening it manually.` and didn't say what failed.
 
 <h3 id="terminal-setup-left-your-zed-keymap-unchanged">
   /terminal-setup left your Zed keymap unchanged
@@ -3629,7 +3702,7 @@ On macOS and Linux, Claude Code also rejects a component path that contains a ba
 commands path escapes plugin directory: ./commands\deploy.md — its path contains a backslash, which is not resolved reliably on this platform
 ```
 
-Before v2.1.251, Claude Code loaded a `commands` path declared in a marketplace entry even when it pointed outside the plugin directory. Claude Code already rejected paths declared in `plugin.json` and the other component paths in a marketplace entry.
+Before v2.1.251, Claude Code loaded a `commands` path declared in a marketplace entry even when it pointed outside the plugin directory.
 
 Before v2.1.257, the check looked only at the path's spelling, not at where a symlink leads.
 
@@ -3700,10 +3773,8 @@ Plugin source path refused: ./my-plugin does not stay inside its marketplace dir
 
 Claude Code keeps the plugin marketplaces you've added in a registry file at `~/.claude/plugins/known_marketplaces.json`. A plugin command that needs the registry, such as `claude plugin install`, fails with one of two messages when Claude Code can't use the file:
 
-* `Failed to load marketplace configuration`: the file isn't valid JSON, or can't be read. An empty file fails this way too.
+* `Failed to load marketplace configuration`: the file exists but isn't valid JSON or can't be read. An empty file fails this way too.
 * `Marketplace configuration file is corrupted`: the file is valid JSON but its contents don't match the registry schema.
-
-A missing file isn't a failure: Claude Code treats it as a registry with no marketplaces.
 
 With an empty file, `claude plugin install` reports:
 
@@ -4298,8 +4369,6 @@ On Linux and WSL, the background service checks each host process every few seco
 terminal host process died — press Enter to restart
 ```
 
-If you open the row before the check runs, the footer shows `This session's terminal host process died (the conversation is saved) — press Enter to restart it` and the row turns failed.
-
 From the shell, `claude attach <id>` restarts a session already marked failed for a dead host, and otherwise prints the cause and exits:
 
 ```text theme={null}
@@ -4669,25 +4738,6 @@ Inside tmux, Claude Code detects a marker that arrived through the tmux server's
 
 Claude Code writes most of these messages to stderr, not into the conversation, and writes most of them at startup. An entry says so when its message appears somewhere else, such as in the debug log or as a startup notice in the conversation view, or at another time, such as the [unrecognized-model diagnostic line](#unrecognized-model-id-on-a-request) at request time.
 
-<h3 id="fullscreen-failed-start-notice">
-  Fullscreen renderer didn't finish starting
-</h3>
-
-A previous [fullscreen](/docs/en/fullscreen) session on this machine exited before it finished starting, so Claude Code starts this session on the classic renderer and prints one of these notices:
-
-```text theme={null}
-Claude Code's fullscreen renderer didn't finish starting last time on this machine, so this launch is using the classic renderer. It will try fullscreen again next launch; /tui default keeps the classic renderer.
-
-Claude Code's fullscreen renderer has repeatedly failed to start on this machine, so it has been turned off here. Run /tui fullscreen to try it again (this also resets after an update).
-```
-
-**What to do:**
-
-* Follow [Fullscreen rendering](/docs/en/fullscreen#fullscreen-renderer-didnt-finish-starting). It says which notice you get, what Claude Code does in later sessions, and how to try fullscreen again or keep the classic renderer.
-* If the session that died printed an exit message, see [Claude Code exited after an unrecoverable interface error](#exited-after-an-unrecoverable-interface-error) for what it names.
-
-Before v2.1.236, Claude Code printed no notice and kept starting sessions in fullscreen rendering after a failed start.
-
 <h3 id="exited-after-an-unrecoverable-interface-error">
   Claude Code exited after an unrecoverable interface error
 </h3>
@@ -4835,6 +4885,29 @@ Claude Code can't start: your organization allows only the models listed in "ava
 * If you administer the settings, add a model your users can run to `availableModels`, or narrow the `deniedModels` entries that block every fallback. [Block specific models or versions](/docs/en/model-config#block-specific-models-or-versions) describes how the Default option steps down
 * If you don't administer them, send the message to your administrator. Your own settings files can't widen a managed `availableModels` or `deniedModels` list
 
+<h3 id="managed-settings-dont-allow-this-api-provider">
+  Managed settings don't allow this API provider
+</h3>
+
+Your organization's [managed settings](/docs/en/managed-settings) set an [`allowedProviders`](/docs/en/settings-reference#allowedproviders) list, and the session's API provider isn't on it or the session uses an endpoint that isn't pinned the way that entry requires. Claude Code refuses at startup, before a login, or when the session next contacts the API. The message begins with the permitted providers:
+
+```text theme={null}
+Your organization's managed settings allow Claude Code to use: Anthropic API, Amazon Bedrock.
+```
+
+When the list is empty, the message reads instead:
+
+```text theme={null}
+Your organization's managed settings allow Claude Code to use no API provider at all (allowedProviders is an empty list), so it cannot start on this machine.
+```
+
+When every entry is unrecognized, the parenthetical reads `(allowedProviders lists only unrecognized entries)` instead.
+
+**What to do:**
+
+* Follow the message's `To continue:` steps
+* If you administer the settings, the message's lines starting `Admins:` name the entry to add or the value to pin, and the [`allowedProviders`](/docs/en/settings-reference#allowedproviders) entry says which source's `env` block can pin it
+
 <h3 id="mcp-server-is-blocked-by-enterprise-managed-policy">
   MCP server is blocked by enterprise managed policy
 </h3>
@@ -4887,6 +4960,31 @@ When a `managed-settings.d/` directory exists but can't be listed, Claude Code r
 
 * If you administer the machine, fix the named document so it parses as a JSON object, or remove the file, profile, or registry value. An empty `managed-settings.json` counts as `{}` and doesn't block launch.
 * If you don't, ask your administrator to fix the deployed document. Nothing in your own settings files causes or clears this error.
+
+<h3 id="unable-to-read-managed-policy-settings">
+  Unable to read managed policy settings
+</h3>
+
+Your organization deploys [managed settings](/docs/en/managed-settings), and one of the deployed sources exists but couldn't be read, for a reason such as an I/O error rather than the operating system denying the read. With no other admin source supplying a policy, Claude Code exits at startup rather than run without the policy the source may carry:
+
+```text theme={null}
+Unable to read managed policy settings.
+This machine may require organization login enforcement, but the policy file failed to load.
+Contact your administrator.
+
+Detail: <source>: <reason>
+```
+
+In the same state, sign-in flows, API requests from a session that is already running, and the [`claude gateway`](/docs/en/claude-apps-gateway) server are refused with a variant of the first line that names [`allowedProviders`](/docs/en/settings-reference#allowedproviders).
+
+A read that the operating system denied, such as on a root-only file, doesn't produce this exit: [the session starts without that source's policies](/docs/en/managed-settings#find-entries-claude-code-dropped). For a source that can't be parsed, Claude Code exits with [a different message naming the source](#managed-settings-document-could-not-be-parsed).
+
+**What to do:**
+
+* If you administer the machine, fix the problem the `Detail:` line names so the deployed source can be read, or remove the source
+* If you don't, send the message to your administrator. Nothing in your own settings files causes or clears this error
+
+Before v2.1.285, only sessions signed in with claude.ai or Claude Console credentials exited with this message, and a read that the operating system denied produced it too.
 
 <h3 id="otelheadershelper-failed">
   otelHeadersHelper failed
@@ -4979,8 +5077,6 @@ Permission allow rule (.claude/settings.json): Bash(git -C * status *) has a wil
 * Move every `*` after the subcommand: `Bash(git status *)` in place of `Bash(git -C * status *)`. Write one rule per subcommand you want to allow.
 * Fix the rule at the source the warning names in parentheses: a settings file path, or the `--allowed-tools` flag itself. A `claude-settings-<hash>.json` path that doesn't exist on disk stands for an inline `--settings` value. Fix the JSON you pass to that flag.
 * If the source reads `managed policy settings`, forward the warning to whoever maintains your managed settings, since you can't clear it yourself.
-
-Claude Code doesn't warn about deny and ask rules with the same shape: it refuses or prompts for the extra commands they match rather than approving them. It also doesn't warn about rules whose subcommand comes before the first `*`, such as `Bash(git commit *)`, or rules in which no word other than an option follows the `*`, such as `Bash(git *)`, or about `:*` prefix rules such as `Bash(git:*)`.
 
 In a [background session](/docs/en/agent-view) or with `--output-format json` or `stream-json`, Claude Code writes the warning to the debug log instead of stderr, so machine-read output stays clean. Run with `--debug` to capture it at `~/.claude/debug/<session-id>.txt`. Before v2.1.246, Claude Code accepted these rules without a warning.
 
@@ -5090,10 +5186,10 @@ Before v2.1.257, `claude doctor` didn't flag these files; earlier versions leave
 
 ## Responses seem lower quality than usual
 
-If Claude's answers seem less capable than you expect but no error is shown, the cause is usually conversation state rather than the model itself. Claude Code doesn't silently change model versions. It can switch to a fallback model in three specific cases:
+If Claude's answers seem less capable than you expect but no error is shown, the cause is usually conversation state rather than the model itself. Claude Code doesn't silently change model versions. It can switch to a fallback model in these cases:
 
 * A configured [`--fallback-model`](/docs/en/cli-reference#cli-flags) takes over after an availability error, for that turn only, with a notice in the transcript
-* An Amazon Bedrock or Google Cloud's Agent Platform startup check finds your default model unavailable
+* An Amazon Bedrock or Google Cloud's Agent Platform startup check finds your default model unavailable, or your account [loses access to it mid-session](/docs/en/amazon-bedrock#when-a-model-is-disabled-mid-session)
 * [Automatic model fallback](/docs/en/model-config#automatic-model-fallback) on Fable 5.1, Fable 5, Opus 5.5, Sonnet 5.5, and Opus 5 moves the session to the flagged category's fallback model, when that category has one, and shows a notice in the transcript
 
 The Model selection check below catches the second and third cases; the first appears as a transcript notice rather than a `/model` change. [Model configuration](/docs/en/model-config) explains when each fallback applies.

@@ -83,7 +83,7 @@ Claude Tag works in Slack. You interact with it by writing in a Slack channel, t
 
 When Claude works on a task, it runs in an ephemeral sandbox, not on your computer. The sandbox is created when a conversation starts, holds any code or files Claude is working with, and is discarded when the conversation goes idle. See [how Claude Tag works](/docs/claude-tag/concepts/how-it-works) for the full lifecycle.
 
-You extend what Claude can reach, like your repositories, ticketing systems, data warehouses, and custom tools, through [connections](/docs/claude-tag/admins/add-connections), [plugins, and skills](/docs/claude-tag/admins/customize). An Owner configures these per scope (a channel, a workspace, or the whole organization). Members' own claude.ai connectors are separate from that configuration; Claude can use them in a channel for the member's own requests, as [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) describes.
+You extend what Claude can reach, like your repositories, ticketing systems, data warehouses, and custom tools, through [connections](/docs/claude-tag/admins/add-connections), [plugins, and skills](/docs/claude-tag/admins/customize). An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) configures these per scope (a channel, a workspace, or the whole organization). Members' own claude.ai connectors are separate from that configuration; Claude can use them in a channel for the member's own requests, as [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) describes.
 
 <div className="tm-route-grid">
   <div className="tm-card">

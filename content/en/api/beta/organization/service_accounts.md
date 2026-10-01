@@ -125,6 +125,8 @@ accounts.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ### Body parameters
 
 - `name: string`
@@ -374,6 +376,8 @@ archived service accounts.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ### Returns
 
 - `data: array of BetaServiceAccount`
@@ -584,6 +588,8 @@ Retrieve a service account by its ID (`svac_...`).
   - `"inline-tools-2026-09-15"`
 
   - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
 
 ### Returns
 
@@ -796,6 +802,8 @@ interactive credential (a user OAuth token or a Console session).
   - `"inline-tools-2026-09-15"`
 
   - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
 
 ### Body parameters
 
@@ -1026,6 +1034,8 @@ those rules first or change their target to another service account.
   - `"inline-tools-2026-09-15"`
 
   - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
 
 ### Returns
 
@@ -1347,6 +1357,8 @@ rejected.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 #### Body parameters
 
 - `workspace_id: string`
@@ -1573,6 +1585,8 @@ page to recover.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 #### Returns
 
 - `data: array of BetaServiceAccountWorkspaceMember`
@@ -1770,6 +1784,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
   - `"inline-tools-2026-09-15"`
 
   - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
 
 #### Returns
 

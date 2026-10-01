@@ -3724,6 +3724,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
+    - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.

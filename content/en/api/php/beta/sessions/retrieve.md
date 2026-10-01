@@ -65,8 +65,6 @@ Get Session
 
   - `Status status`
 
-    SessionStatus enum
-
   - `?string title`
 
   - `\Datetime updatedAt`

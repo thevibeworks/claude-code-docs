@@ -4177,6 +4177,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 - `user_profile_id: Optional[str]`
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -12429,6 +12431,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `"inline-tools-2026-09-15"`
 
   - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
 
 - `user_profile_id: Optional[str]`
 
@@ -74260,6 +74264,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 - `user_profile_id: Optional[str]`
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -74552,6 +74558,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -74838,6 +74846,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -75120,6 +75130,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -75396,6 +75408,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 - `workspace_id: Optional[str]`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -75563,6 +75577,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"inline-tools-2026-09-15"`
 
   - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
 
 - `workspace_id: Optional[str]`
 

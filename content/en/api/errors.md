@@ -490,7 +490,7 @@ On Claude Mythos Preview, the only one of these models that accepts extended thi
 On Claude Sonnet 5.5, thinking can't be set to `disabled`. Use `thinking: {"type": "between_tools"}` for the lowest thinking setting, which turns off up-front thinking. Sending `thinking: {"type": "disabled"}` returns a 400 `invalid_request_error` with this message:
 
 ```text wrap
-"thinking.type.disabled" is not supported for this model. Use "thinking.type.between_tools" for the lowest thinking setting, or "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
+To turn thinking off on this model, send "thinking": {"type": "between_tools"} instead of {"type": "disabled"}. The model does not think before responding. The short updates it writes between tool calls come back as thinking blocks.
 ```
 
 At `xhigh` or `max` [effort](https://platform.claude.com/docs/en/build-with-claude/effort), a request with `between_tools` also returns a 400 `invalid_request_error`. The message says thinking is disabled because `between_tools` has no up-front thinking:

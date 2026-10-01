@@ -437,8 +437,6 @@ In an `if` condition for a file tool, a single-segment directory pattern like `"
 | `Bash(git *)` | `npm test && git push` | yes | each subcommand is checked; `git push` matches |
 | `Bash(rm *)` | `echo $(rm -rf /)` | yes | commands inside `$()` and backticks are checked; `rm -rf /` matches |
 | `Bash(rm *)` | `echo $(date)` | no | no subcommand matches `rm *` |
-| `Bash(cat *)` | `echo before $(date) after` | no | a substitution can sit at any argument position, so the full command and `date` are both checked; neither matches `cat *` |
-| `Bash(git *)` | `$TOOL git push` | yes | Claude Code can't tell what the command name expands to, so it runs the hook |
 | `Bash(git push *)` | `echo $(date)` | yes | patterns that specify more than the command name run the hook anyway on `$()`, backticks, or `$VAR` |
 
 When Claude Code can't determine which commands the Bash input runs, it runs your hook regardless of the pattern. Because the `if` filter is best-effort, use the [permission system](/docs/en/permissions) rather than a hook to enforce a hard allow or deny.
@@ -1134,7 +1132,9 @@ In addition to the [common input fields](#common-input-fields), SessionStart hoo
 | `source` | How the session started: `"startup"` for new sessions, `"resume"` for resumed sessions, `"clear"` after `/clear`, `"compact"` after compaction, or `"fork"` for a new session forked from an existing one |
 | `model` | The active model identifier. It can be omitted, for example after `/clear` or when a session is restored through conversation recovery, so check for the field before reading it |
 | `agent_type` | The agent name, present when you start Claude Code with `claude --agent <name>` |
-| `session_title` | The current session title if one is already set, for example via `--name` or `/rename`. A hook that emits `sessionTitle` can check `session_title` first to avoid overwriting a title the user set explicitly |
+| `session_title` | The session's custom title, present when one is set, for example with `--name`, `/rename`, a hook's `sessionTitle` output, or the Agent SDK's `renameSession()`. A hook that emits `sessionTitle` can check this field first to avoid overwriting an existing custom title |
+
+A session you haven't named can still have a [generated title](/docs/en/sessions#name-your-sessions). That title isn't a custom title and doesn't appear in `session_title`.
 
 When `source` is `"resume"` or `"fork"` and the transcript contains at least one response from Claude, SessionStart hooks also receive the four fields below. Your hook can use them to report what resuming a stale conversation costs before the first request, for example in a [`systemMessage`](#json-output). These fields require Claude Code v2.1.251 or later.
 
@@ -1331,6 +1331,8 @@ An [Agent SDK callback hook](/docs/en/agent-sdk/hooks) on `UserPromptSubmit` tha
 #### UserPromptSubmit input
 
 In addition to the [common input fields](#common-input-fields), UserPromptSubmit hooks receive the `prompt` field containing the text the user submitted. Pasted content that collapsed to a `[Pasted text #N]` placeholder arrives expanded in place. In sessions where Claude Code [marks pasted text for Claude](/docs/en/terminal-config#how-claude-treats-pasted-text), that expanded content sits between a `<pasted_content id="…">` line and a `</pasted_content id="…">` line, so account for those lines if your hook parses the prompt.
+
+UserPromptSubmit hooks also receive `session_title` when the session has a custom title, with the same meaning as the [SessionStart `session_title` field](#sessionstart-input).
 
 ```json theme={null}
 {
@@ -1798,7 +1800,7 @@ In `PostToolUse`, `tool_response` is an object with `plan` and `filePath` fields
 | :- | :- |
 | `permissionDecision` | `"allow"` skips the permission prompt, except for the [actions no mode auto-approves](/docs/en/permission-modes#actions-no-mode-auto-approves) and for `AskUserQuestion` and `ExitPlanMode`, which need [`updatedInput` paired with it](#allow-with-updatedinput). `"deny"` prevents the tool call. `"ask"` prompts the user to confirm. `"defer"` exits gracefully so the tool can be resumed later. [Deny and ask rules](/docs/en/permissions#manage-permissions) are still evaluated regardless of what the hook returns |
 | `permissionDecisionReason` | For `"ask"`, shown to the user but not Claude. For `"deny"`, shown to Claude. For `"allow"` and `"defer"`, written to the [debug log](#debug-hooks) only |
-| `updatedInput` | Modifies the tool's input parameters before execution. Replaces the entire input object, so include unchanged fields alongside modified ones. Claude Code evaluates permission rules and a Bash command's [auto-background eligibility](/docs/en/tools-reference#background-commands) against the input your hook returns, not the input Claude sent. Combine with `"allow"` to auto-approve, or `"ask"` to show the modified input to the user. For `"defer"`, ignored |
+| `updatedInput` | Modifies the tool's input parameters before execution. Replaces the entire input object, so include unchanged fields alongside modified ones. Claude Code evaluates permission rules and a Bash command's [auto-background eligibility](/docs/en/tools-reference#foreground-commands-that-move-to-the-background) against the input your hook returns, not the input Claude sent. Combine with `"allow"` to auto-approve, or `"ask"` to show the modified input to the user. For `"defer"`, ignored |
 | `additionalContext` | String added to Claude's context alongside the tool result. Ignored when `permissionDecision` is `"defer"`. See [Add context for Claude](#add-context-for-claude) |
 
 When multiple PreToolUse hooks return different decisions, precedence is `deny` > `defer` > `ask` > `allow`.

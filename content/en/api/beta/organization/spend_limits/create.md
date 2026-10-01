@@ -61,7 +61,7 @@ Anthropic account team.
 
       Tagged ID of the workspace the spend limit applies to.
 
-- `period: optional "daily" or "monthly" or "weekly"`
+- `period: optional BetaSpendLimitPeriod`
 
   - `"daily"`
 
@@ -99,7 +99,7 @@ Anthropic account team.
 
     ISO 4217 code of the organization's billing currency; the unit for `amount`.
 
-  - `period: "daily" or "monthly" or "weekly"`
+  - `period: BetaSpendLimitPeriod`
 
     Length of the window the limit resets over. `amount` caps spend within each period.
 
@@ -202,7 +202,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits \
   "amount": "50000",
   "created_at": "2019-12-27T18:11:19.117Z",
   "currency": "USD",
-  "period": "monthly",
+  "period": "daily",
   "scope": {
     "type": "user",
     "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"

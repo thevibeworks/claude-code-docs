@@ -123,6 +123,8 @@ Create Skill Version
 
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
 
+    - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -344,6 +346,8 @@ List Skill Versions
 
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
 
+    - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -553,6 +557,8 @@ Download a skill version's content as a zip archive.
 
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
 
+    - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -707,6 +713,8 @@ Get Skill Version
     - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
 
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
+    - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
   - `Optional<String> workspaceId`
 
@@ -915,6 +923,8 @@ Delete Skill Version
     - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
 
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
+    - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
   - `Optional<String> workspaceId`
 

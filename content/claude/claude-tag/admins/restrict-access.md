@@ -4,7 +4,7 @@
 
 # Restrict where Claude Tag operates
 
-> Claude Tag responds only where it has been added and addressed. See who can invoke it, what changes in guest and Slack Connect channels, the per-scope version setting, how to limit it to chosen channels, how to delegate a channel's setup, and how to quiet or remove it.
+> Claude Tag responds only where it has been added and addressed. See who can invoke it, what changes in guest and Slack Connect channels, the per-scope version setting, how to limit it to chosen channels, how to delegate administration or a channel's setup, and how to quiet or remove it.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -12,7 +12,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 In channels, Claude Tag responds only where it's been added and addressed, and the controls on this page narrow that further. DMs are a separate surface. A DM from a member who has connected a Claude account runs on that member's own account; see [how DMs differ from channels](/docs/claude-tag/concepts/agent-identity#direct-message-channels). A [DM from a member who hasn't](#direct-messages-from-members-without-a-claude-account) can bill to your organization.
 
-<Note>Most controls on this page require the Owner role in your Claude organization; the [permissions table](#permissions-by-role) below lists which actions a channel manager or a channel member can take.</Note>
+<Note>Most controls on this page require the Owner role in your Claude organization; the [permissions table](#permissions-by-role) below lists which actions a channel manager or a channel member can take. On the Enterprise plan, an Owner can delegate many of these controls through the [**Claude Tag Admin** permission](#delegate-claude-tag-administration).</Note>
 
 ## Control who can invoke Claude Tag
 
@@ -136,7 +136,7 @@ To control who can use Claude in the allowed channels, turn on the [restriction 
 * **Blocked channel patterns**: Claude won't read or respond in a channel whose name matches, even if someone invites it there. When it's added to such a channel or @-mentioned in one, it posts a notice that an admin has blocked it there, and otherwise stays silent.
 * **Auto-join channels**: Claude joins a public channel whose name matches one of its patterns when the channel is created or renamed. Private channels still need an invite. To add Claude to an existing channel, invite it as usual.
 
-Each row of the **Auto-join channels** table is one pattern, added with **Add pattern**. A row can also carry [access bundles](/docs/claude-tag/admins/attach-to-scope#attach-a-bundle-to-channels-by-name), which attach in every matching channel Claude is in; a row with no bundles is marked **Auto-join only**, and Claude joins matching channels whether or not a row carries bundles. Editing the patterns needs an Admin or Owner of your Claude organization, and editing the bundles on a row needs an Owner.
+Each row of the **Auto-join channels** table is one pattern, added with **Add pattern**. A row can also carry [access bundles](/docs/claude-tag/admins/attach-to-scope#attach-a-bundle-to-channels-by-name), which attach in every matching channel Claude is in; a row with no bundles is marked **Auto-join only**, and Claude joins matching channels whether or not a row carries bundles. Editing the patterns needs an Admin or Owner of your Claude organization, and editing the bundles on a row needs an Owner or a [Claude Tag admin](#delegate-claude-tag-administration).
 
 Removing a pattern row also detaches the row's bundles. A row marked **Not auto-joined** shows a pattern that still has bundles attached but that the auto-join list no longer carries. Claude joins no new channels for it, but its bundles still attach in matching channels Claude is already in; remove the bundles from the row to end that.
 
@@ -314,11 +314,52 @@ Spend trends live at [`claude.ai/analytics/claude-tag`](https://claude.ai/analyt
 
 When the period you pick falls within the current month, the **Spend by channel** table shows a **Billed** column and a **List price** column. Usage covered by a promotional credit shows as \$0.00 under **Billed** and at its list price under **List price**.
 
+## Delegate Claude Tag administration
+
+On the Enterprise plan, the **Claude Tag Admin** permission lets a member of your Claude organization administer Claude Tag without the Owner role. It's a permission in [custom roles](https://claude.ai/admin-settings/roles), listed under **Product admin** in the role editor; an Owner sets it up. To delegate the setup of one channel instead, add a [channel manager](#delegate-channel-setup-to-channel-managers).
+
+A member whose custom role includes the permission is a Claude Tag admin. A Claude Tag admin can:
+
+* Create and edit [Access bundles](/docs/claude-tag/admins/add-connections), including their credentials, domain entries, and repository grants, and attach bundles to the organization, a workspace, or a channel
+* Edit workspace and channel settings at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), such as custom instructions and the default model
+* Add and remove [channel managers](#delegate-channel-setup-to-channel-managers)
+* Set a scope's [**How should Claude work in channels with guests**](#restrict-guest-channels) setting to **Restrict** or **Channel only**; choosing **Full access** or setting a scope back to **Inherit** stays with Owners
+
+Some actions stay outside the permission:
+
+* **Owner-only**: turning Claude Tag on or off, the [**Allow direct messages**](#allow-or-disable-direct-messages) toggle, the [**Member access**](#restrict-who-can-use-claude) restriction, and pairing or disconnecting workspaces
+* **The Claude GitHub App**: [installing the app](/docs/claude-tag/admins/configure-github) needs an owner of your GitHub organization
+* **Spend limits and usage analytics**: [usage analytics](#usage-analytics) is open to anyone with permission to view your organization's Analytics dashboard; [spend limits](/docs/claude-tag/admins/set-spend-limit) live on the usage page
+
+### Give a member the Claude Tag Admin permission
+
+<Steps>
+  <Step title="Create a role">
+    Go to [**Organization settings > Roles**](https://claude.ai/admin-settings/roles), select **Add role**, and give the role a name.
+  </Step>
+
+  <Step title="Grant the permission">
+    On the role's **Admin permissions** tab, set **Claude Tag Admin**, under **Product admin**, to **Can manage**. Changing the member's role type to **Custom** takes them off the built-in Admin role, so if the member is an Admin today, also set **User Management** to **Can manage** and **Analytics** to **Can view**, both under **Organization admin**. Leave the **Capabilities** and **Connectors** tabs as they are, then select **Save**.
+  </Step>
+
+  <Step title="Assign the role through a group">
+    A custom role applies to the members of the groups it's assigned to. Go to [**Organization settings > Groups**](https://claude.ai/admin-settings/groups) and select **Add group**. Name the group and pick the new role under **Roles**. Add the member under **Members**, then select **Add group**. To use a group the member is already in, open the role on the [**Roles** page](https://claude.ai/admin-settings/roles) instead and add that group on its **Details** tab.
+  </Step>
+
+  <Step title="Change the member's role to Custom">
+    On the [**Members** page](https://claude.ai/admin-settings/members), change the member's role to **Custom**. Custom roles apply only to members whose role type is **Custom**. If member roles are managed through your identity provider, make the change in the identity provider instead.
+  </Step>
+
+  <Step title="Confirm the member's access">
+    The member can now open **Claude Tag** under **Products** in **Organization settings**. If it isn't listed for them yet, have them refresh the page.
+  </Step>
+</Steps>
+
 ## Delegate channel setup to channel managers
 
-A channel manager is a member of your Claude organization who can set up Claude in specific channels without the Owner role. Channel managers are available on the Enterprise plan, and you must be an Owner to add or remove them.
+A channel manager is a member of your Claude organization who can set up Claude in specific channels without the Owner role. Channel managers are available on the Enterprise plan, and you must be an Owner or a [Claude Tag admin](#delegate-claude-tag-administration) to add or remove them.
 
-You name channel managers one channel at a time. For that channel, a channel manager sets the default model, adds repositories, manages credentials and plugins in the channel's bundle, and edits channel instructions. Every other setting at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) stays with Owners.
+You name channel managers one channel at a time. For that channel, a channel manager sets the default model, adds repositories, manages credentials and plugins in the channel's bundle, and edits channel instructions. Every other setting at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) stays with Owners; on the Enterprise plan, an Owner can delegate most of them through the [**Claude Tag Admin** permission](#delegate-claude-tag-administration).
 
 A channel manager is a person. To let the members of another Slack channel write a channel's instructions, see [Manage a channel's instructions from another channel](/docs/claude-tag/admins/managed-by).
 
@@ -330,9 +371,9 @@ A channel manager has to be a member of the channel in Slack. The channel's [Con
 | :- | :- |
 | **Default model** | Choose the model new threads in the channel start on, from the models your organization allows. **Inherit** keeps the workspace or organization default |
 | **Repositories** | Add repositories beyond the ones your bundles already grant the channel. They can add only repositories their own GitHub account is an admin of |
-| **Access bundles** | Add, rotate, test, and remove credentials, and turn [plugins](/docs/claude-tag/admins/add-connections#attach-plugins) on or off, in the bundle Claude created for the channel and in any bundle they created for it. If the channel has no bundle yet, they can create one. They can't edit a bundle you created or a bundle that other channels share |
+| **Access bundles** | Add, rotate, test, and remove credentials, and turn [plugins](/docs/claude-tag/admins/add-connections#attach-plugins) on or off, in the bundle Claude created for the channel and in any bundle they created for it. If the channel has no bundle yet, they can create one. They can't edit a bundle that an Owner or a [Claude Tag admin](#delegate-claude-tag-administration) created, or a bundle that other channels share |
 
-When a channel manager adds a credential, Claude also allows the host that credential uses. Channel managers can't change the bundle's domains or rules in any other way. Credentials that use Claude's own identity (mutual TLS, AWS or GCP service identity, and IAP) stay Owner-only: a channel manager can't add, change, or rotate one, but can delete one from the channel's bundle, including one an Owner added. If that happens, Claude loses access to that service until an Owner adds the credential back.
+When a channel manager adds a credential, Claude also allows the host that credential uses. Channel managers can't change the bundle's domains or rules in any other way. A channel manager can't add, change, or rotate credentials that use Claude's own identity (mutual TLS, AWS or GCP service identity, and IAP), but can delete one from the channel's bundle, including one an Owner added. If that happens, Claude loses access to that service until an Owner or a [Claude Tag admin](#delegate-claude-tag-administration) adds the credential back.
 
 If you detach the channel's own bundle from the channel, its channel managers can't save settings for the channel; they see an error saying the channel's configuration was suspended by an administrator. They don't get a new bundle. Attach the bundle again to restore their access.
 
@@ -384,7 +425,7 @@ The [Audit page](/docs/claude-tag/admins/audit), labeled **Activity** in the con
 
 ## Permissions by role
 
-Creating bundles, binding them to scopes, and pairing workspaces need an Owner. A [channel manager](#delegate-channel-setup-to-channel-managers) configures only the channels assigned to them. Everything else happens inside the channel and is open to its members. The table lists each action and who can take it.
+Creating bundles, binding them to scopes, and adding channel managers need an Owner or a [Claude Tag admin](#delegate-claude-tag-administration). Pairing workspaces needs an Owner. A [channel manager](#delegate-channel-setup-to-channel-managers) configures only the channels assigned to them. Everything else happens inside the channel and is open to its members. The table lists each action and who can take it, with no column for Claude Tag admins; the actions that permission covers are listed under [Delegate Claude Tag administration](#delegate-claude-tag-administration).
 
 | Action | Owner | Channel manager | Channel member |
 | :- | :- | :- | :- |
@@ -411,7 +452,7 @@ These are controls an admin might look for that Claude Tag doesn't have.
 * **Renaming or rebranding the app.** The Claude app's name, @-handle, and avatar in Slack are fixed; there is no per-workspace rename setting.
 * **Per-user spend caps on channel work.** Spend limits apply at the organization and channel level. There's no way to cap what one member can spend in channels; DM usage from a member who has connected a Claude account bills to that member's own seat and follows the seat's usual limits.
 * **Per-channel responder allowlist.** The restriction toggle governs who can invoke Claude across the workspace; you can't narrow it to a list of people for one channel only.
-* **An open-internet switch in Claude Tag settings.** A channel sandbox reaches only allowed hosts. To let Claude reach a public site or API, an Owner adds that hostname on a [bundle's Domains tab](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential); for broad web access, they pin an [environment](/docs/claude-tag/concepts/glossary#environment) whose network access level is Full access on the scope. [Allow-all egress](/docs/claude-tag/admins/add-connections#allow-all-hosts), a `*` entry on the Domains tab, is off by default and enabled per organization by Anthropic.
+* **An open-internet switch in Claude Tag settings.** A channel sandbox reaches only allowed hosts. To let Claude reach a public site or API, an Owner or a [Claude Tag admin](#delegate-claude-tag-administration) adds that hostname on a [bundle's Domains tab](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential); for broad web access, an Owner pins an [environment](/docs/claude-tag/concepts/glossary#environment) whose network access level is Full access on the scope. [Allow-all egress](/docs/claude-tag/admins/add-connections#allow-all-hosts), a `*` entry on the Domains tab, is off by default and enabled per organization by Anthropic.
 * **A web search toggle for channels.** No setting turns web search off for channel sessions; the web search capability setting in claude.ai admin settings governs claude.ai chat, not channels. Web search runs on Anthropic's servers rather than from the channel sandbox, so Domains entries and egress settings don't govern it, and a search opens no new path out of the sandbox; search requests travel to Anthropic the same way the session's model traffic already does. See [Web search vs. network requests](/docs/claude-tag/concepts/agent-identity#web-search-vs-network-requests).
 * **A switch to turn workspace search off.** Claude can search public channels by keyword the same way any Slack user can; it can't read a channel's full history unless it's been added there. No setting turns workspace search off. The [**Channels Claude can search**](#limit-which-channels-claude-can-search) setting narrows it to channels Claude is in. No setting enables search in [channels that include guests](#restrict-guest-channels), where it's unavailable.
 * **Session length enforcement.** Your organization's Slack session-length policy is not enforced on this surface.

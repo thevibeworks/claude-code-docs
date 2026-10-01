@@ -43,7 +43,7 @@ When the app runs into an error, it also sends an error report to the error-repo
 To turn telemetry and error reports off on managed devices, use either of:
 
 Set disable\_telemetry = true in config.toml (deployable through MDM).\
-Set the DO\_NOT\_TRACK environment variable (for example to 1) on the device.
+Set the DO\_NOT\_TRACK environment variable (for example to 1) where the app reads it at launch. See [How the environment variables reach the app](/docs/claude-science/corporate-networks#how-the-environment-variables-reach-the-app).
 
 Both are device-level settings. There's no per-member or per-organization telemetry toggle in Organization settings.
 

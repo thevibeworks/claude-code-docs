@@ -1,5 +1,7 @@
 # Classification banner in Claude for Government
 
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
+
 The classification banner displays a persistent marking at the top of every page for every user in your organization. Use it to communicate the classification level of data approved for your Claude for Government environment or any custom handling instruction your agency requires.
 
 ## When to use a classification banner

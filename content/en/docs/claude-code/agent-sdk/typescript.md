@@ -266,7 +266,7 @@ function listSessions(options?: ListSessionsOptions): Promise<SDKSessionInfo[]>;
 | `summary` | `string` | Display title: custom title, most recent prompt, auto-generated summary, or first prompt |
 | `lastModified` | `number` | Last modified time in milliseconds since epoch |
 | `fileSize` | `number \| undefined` | Session file size in bytes. Only populated for local JSONL storage |
-| `customTitle` | `string \| undefined` | User-set session title (via `/rename`) |
+| `customTitle` | `string \| undefined` | The session's custom title when one is set, for example with `--name`, `/rename`, a hook's `sessionTitle` output, or [`renameSession()`](#renamesession). Otherwise the AI-generated session title, if the session has one |
 | `firstPrompt` | `string \| undefined` | First meaningful user prompt in the session |
 | `gitBranch` | `string \| undefined` | Git branch at the end of the session |
 | `cwd` | `string \| undefined` | Working directory for the session |
@@ -499,7 +499,7 @@ Configuration object for the `query()` function.
 | `outputFormat` | `{ type: 'json_schema', schema: JSONSchema }` | `undefined` | Define output format for agent results. See [Structured outputs](/docs/en/agent-sdk/structured-outputs) for details |
 | `outputStyle` | `string` | `undefined` | Not an `Options` field. Set `outputStyle` in the inline [`settings`](/docs/en/settings) object or a settings file instead. See [Activate an output style](/docs/en/agent-sdk/modifying-system-prompts#activate-an-output-style) |
 | `pathToClaudeCodeExecutable` | `string` | Auto-resolved from bundled native binary | Path to Claude Code executable. Only needed if optional dependencies were skipped during install or your platform isn't in the supported set |
-| `permissionMode` | [`PermissionMode`](#permissionmode) | `'default'` | Permission mode for the session |
+| `permissionMode` | [`PermissionMode`](#permissionmode) | `undefined` | Permission mode for the session. If you omit it, the session can start in auto mode. See [Permission modes](/docs/en/agent-sdk/permissions#permission-modes) for how Claude Code picks the starting permission mode |
 | `permissionPromptToolName` | `string` | `undefined` | MCP tool name for permission prompts |
 | `permissionPrompts` | `'host' \| 'none'` | `'host'` | Who answers permission prompts: `'host'` routes them to your [`canUseTool`](#canusetool) callback or the `permissionPromptToolName` tool, and `'none'` [denies the calls that would have prompted](/docs/en/agent-sdk/permissions#how-permissions-are-evaluated). Requires Claude Code v2.1.259 or later |
 | `persistSession` | `boolean` | `true` | When `false`, disables session persistence to disk. Sessions cannot be resumed later |
@@ -634,7 +634,7 @@ interface Query extends AsyncGenerator<SDKMessage, void> {
 | `reloadOutputStyles()` | Re-reads [output styles](/docs/en/output-styles) from disk, so a style file you add or edit mid-session becomes available to the running session. Resolves with an [`SDKControlReloadOutputStylesResponse`](#sdkcontrolreloadoutputstylesresponse) listing the style names available after the reload. Requires Agent SDK v0.3.261 or later |
 | `accountInfo()` | Returns account information |
 | `reconnectMcpServer(serverName)` | Reconnect an MCP server by name. If the name also matches an entry in a settings file such as `.mcp.json` or `~/.claude.json`, Claude Code reconnects the server you configured through [`mcpServers`](#options) or `setMcpServers()`, not the settings-file entry. That resolution order requires Claude Code v2.1.257 or later |
-| `toggleMcpServer(serverName, enabled)` | Enable or disable an MCP server by name, with the same name resolution as `reconnectMcpServer()`. Disabling disconnects the server |
+| `toggleMcpServer(serverName, enabled)` | Enable or disable an MCP server by name, with the same name resolution as `reconnectMcpServer()`. Disabling a stdio, SSE, or HTTP server disconnects it and removes its tools; for a server you added mid-session with `setMcpServers()`, tool removal requires Claude Code v2.1.285 or later |
 | `setMcpServers(servers)` | Dynamically replace the set of MCP servers for this session. Resolves with an [`McpSetServersResult`](#mcpsetserversresult) naming which servers were added and removed, and any errors |
 | `readMcpResource(serverName, uri)` | *Alpha.* Reads one MCP Apps `ui://` resource from a connected MCP server so your application can render a tool's widget. Resolves with an [`SDKControlMcpReadResourceResponse`](#sdkcontrolmcpreadresourceresponse). Requires TypeScript Agent SDK v0.3.280 or later |
 | `streamInput(stream)` | Stream input messages to the query for multi-turn conversations |
@@ -1151,7 +1151,7 @@ type PermissionMode =
   | "bypassPermissions" // Bypass permission checks; explicit ask rules still prompt
   | "plan" // Planning mode - explore without editing
   | "dontAsk" // Don't prompt for permissions, deny if not pre-approved
-  | "auto"; // Model classifier approves or denies permission prompts
+  | "auto"; // A model classifier reviews actions such as shell commands and network requests
 ```
 
 ### `CanUseTool`
@@ -1655,6 +1655,7 @@ Set `CLAUDE_CODE_STARTUP_FAILURE_RESULTS` to `1` in [`env`](#options) to receive
 ```typescript theme={null}
 type SDKStartupFailureReason =
   | "org_pin_api_key_conflict"
+  | "provider_not_allowed"
   | "org_verify_failed"
   | "org_pin_mismatch"
   | "managed_settings_invalid"
@@ -1677,6 +1678,7 @@ Each value names one refusal:
 | Value | What stopped the session |
 | :- | :- |
 | `org_pin_api_key_conflict` | Managed settings [require a first-party or Cloud gateway sign-in](/docs/en/authentication#restrict-login-to-your-organization), and an Anthropic API key, auth token, or `apiKeyHelper` is configured instead |
+| `provider_not_allowed` | Managed settings [list the API providers this machine may use](/docs/en/settings-reference#allowedproviders), and the session is set up for a provider that isn't listed, or for an endpoint the settings don't pin. Requires Claude Code v2.1.285 or later |
 | `org_verify_failed` | The sign-in's organization couldn't be verified against the pin, for example because of a network failure or a revoked token |
 | `org_pin_mismatch` | The sign-in belongs to an organization the pin doesn't allow |
 | `managed_settings_invalid` | Managed policy settings couldn't be read, the pin names no organization, or [managed model restrictions](/docs/en/errors#managed-settings-block-the-default-model) leave no permitted model for the Default option |
@@ -2890,14 +2892,14 @@ Asks the user clarifying questions during execution. See [Handle approvals and u
 ```typescript theme={null}
 type BashInput = {
   command: string;
-  timeout?: number; // milliseconds, max 600000; higher values are clamped to the max
+  timeout?: number; // milliseconds. Foreground: capped at 600000 by default, higher values are clamped. With run_in_background (Claude Code v2.1.285 or later): the background time limit, 1800000 when omitted, capped at 7200000 unless raised
   description?: string;
   run_in_background?: boolean;
   dangerouslyDisableSandbox?: boolean;
 };
 ```
 
-Executes Bash commands with optional timeout and background execution. The working directory persists between commands, including commands run in later turns of a multi-turn session; shell state such as exported environment variables doesn't. For the limits on which directory changes carry over, see [What persists between commands](/docs/en/tools-reference#what-persists-between-commands).
+Executes Bash commands with optional timeout and background execution. The working directory persists between commands, including commands run in later turns of a multi-turn session; shell state such as exported environment variables doesn't. For the limits on which directory changes carry over, see [What persists between commands](/docs/en/tools-reference#what-persists-between-commands). For what sets the foreground ceiling, see [Timeout and output limits](/docs/en/tools-reference#timeout-and-output-limits). For the background time limit, see [Time limit for background commands](/docs/en/tools-reference#time-limit-for-background-commands).
 
 ### Monitor
 
@@ -3277,7 +3279,7 @@ type CronCreateInput = {
 };
 ```
 
-Schedules a prompt to run on a 5-field cron schedule in local time. Set `recurring` to `false` to fire once at the next match. Jobs are session-scoped by default: starting a fresh conversation clears them, and resuming with `--resume` or `--continue` restores jobs that haven't expired. See [Scheduled tasks](/docs/en/scheduled-tasks).
+Schedules a prompt to run on a 5-field cron schedule in local time. Set `recurring` to `false` to fire once at the next match. Jobs are session-scoped by default, and resuming with `--resume` or `--continue` restores jobs that haven't expired. See [Scheduled tasks](/docs/en/scheduled-tasks).
 
 Setting `durable` to `true` requests persistence to `.claude/scheduled_tasks.json` so the job survives restarts. Durable scheduling isn't available in every session: when it isn't, Claude Code accepts `durable: true` but creates the job session-only. Read the output's `durable` field to see whether the job persisted.
 
@@ -3717,7 +3719,7 @@ The `stdout`, `stderr`, and `backgroundTaskId` fields carry:
 
 `timedOutAfterMs` is the timeout in milliseconds, set when the command reached its timeout and moved to the background rather than starting there explicitly. `backgroundCwdHint` is set when the backgrounded command contained a directory-change builtin such as `cd`, `pushd`, `popd`, or `chdir`, and notes that the session working directory didn't change. Both fields require Claude Code v2.1.210 or later.
 
-When a subagent running in the foreground owns a backgrounded command, Claude Code terminates the command when that subagent gives its final response. Claude Code sets `backgroundEndsWithFinalResponse` to `true` on such commands, and omits the field when the command survives the turn, as commands started by the main conversation or by background subagents do. The field requires Claude Code v2.1.227 or later.
+When a subagent running in the foreground owns a backgrounded command, the command [ends when that subagent's run ends](/docs/en/tools-reference#when-a-background-command-stops). Claude Code sets `backgroundEndsWithFinalResponse` to `true` on such commands, and omits the field when the command survives the turn, as commands started by the main conversation or by background subagents do. The field requires Claude Code v2.1.227 or later.
 
 Claude Code sets `gitOperation.commit.branch` to the branch named in git's commit summary line, and omits it for a commit made on a detached HEAD. The field requires Agent SDK v0.3.227 or later. Claude Code reports a `gh pr reopen` command as the `reopened` PR action, which requires Agent SDK v0.3.234 or later.
 

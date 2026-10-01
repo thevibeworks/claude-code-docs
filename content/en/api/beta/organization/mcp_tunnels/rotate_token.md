@@ -127,6 +127,8 @@ restarted after rotation must use the new value. An optional
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Body parameters
 
 - `reason: optional string or null`

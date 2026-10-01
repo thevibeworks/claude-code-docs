@@ -109,6 +109,8 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ### Beta API Error
 
 - `class BetaAPIError`
@@ -5506,8 +5508,6 @@ Create Session
 
   - `Status status`
 
-    SessionStatus enum
-
   - `?string title`
 
   - `\Datetime updatedAt`
@@ -5871,8 +5871,6 @@ List Sessions
 
   - `Status status`
 
-    SessionStatus enum
-
   - `?string title`
 
   - `\Datetime updatedAt`
@@ -6182,8 +6180,6 @@ Get Session
     Timing statistics for the session.
 
   - `Status status`
-
-    SessionStatus enum
 
   - `?string title`
 
@@ -6496,8 +6492,6 @@ Update Session
     Timing statistics for the session.
 
   - `Status status`
-
-    SessionStatus enum
 
   - `?string title`
 
@@ -6879,8 +6873,6 @@ Archive Session
     Timing statistics for the session.
 
   - `Status status`
-
-    SessionStatus enum
 
   - `?string title`
 
@@ -7536,6 +7528,10 @@ List Events
 
       Timestamp of status change.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the session stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionStatusTerminatedEvent`
@@ -7761,6 +7757,10 @@ List Events
     - `string sessionThreadID`
 
       Public sthr_ ID of the thread that went idle.
+
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the thread stopped. `null` when there is nothing more to report.
 
     - `StopReason stopReason`
 
@@ -8428,6 +8428,10 @@ Stream Events
 
       Timestamp of status change.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the session stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionStatusTerminatedEvent`
@@ -8653,6 +8657,10 @@ Stream Events
     - `string sessionThreadID`
 
       Public sthr_ ID of the thread that went idle.
+
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the thread stopped. `null` when there is nothing more to report.
 
     - `StopReason stopReason`
 
@@ -10362,6 +10370,10 @@ List Session Thread Events
 
       Timestamp of status change.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the session stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionStatusTerminatedEvent`
@@ -10587,6 +10599,10 @@ List Session Thread Events
     - `string sessionThreadID`
 
       Public sthr_ ID of the thread that went idle.
+
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the thread stopped. `null` when there is nothing more to report.
 
     - `StopReason stopReason`
 
@@ -11162,6 +11178,10 @@ Stream Session Thread Events
 
       Timestamp of status change.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the session stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionStatusTerminatedEvent`
@@ -11387,6 +11407,10 @@ Stream Session Thread Events
     - `string sessionThreadID`
 
       Public sthr_ ID of the thread that went idle.
+
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the thread stopped. `null` when there is nothing more to report.
 
     - `StopReason stopReason`
 
@@ -26347,5 +26371,2421 @@ var_dump($betaComplianceSettings);
     "type": "enabled"
   },
   "type": "compliance_settings"
+}
+```
+
+## Beta › Organization › Plugins
+
+### Create Plugin
+
+`$client->beta->organization->plugins->create(list<string> files, ?string marketplaceID, ?string releaseNotes, ?list<AnthropicBeta> betas): Plugin`
+
+**POST** `/v1/organizations/plugins`
+
+Create an organization-owned Plugin and its first version by uploading the
+version's files.
+
+The upload is `multipart/form-data`: the version's files (`files`, each part sent
+as `files[]`), with an optional `marketplace_id` and `release_notes`. The manifest's `name` becomes the
+Plugin's `name`, and `display_name`, `description` and `manifest_version` come
+from the manifest too.
+
+`name` may contain lowercase letters (from any alphabet), digits, and hyphens, up
+to 64 characters. Uppercase letters, spaces, underscores, and other punctuation are
+rejected.
+
+The `name` must be unique within the marketplace: a name already taken
+returns a 409 with `error_code` `plugin_name_taken` and, when a Plugin holds it,
+that Plugin's ID in `details.plugin_id`. A Plugin going into the organization's
+library marketplace is also refused with a 409 when one of its skills has the name of
+an organization skill (a skill an administrator uploaded for the whole organization
+in claude.ai): `error_code` `skill_name_taken`, with that name in
+`details.skill_name`; rename the skill, or remove the organization skill in
+claude.ai. A 503 with `error_code`
+`registration_pending` means the Plugin and its version were stored (their IDs are
+in `details`) but are not yet usable in claude.ai: do not retry the create (the
+retry would return `plugin_name_taken`); create a version on the stored Plugin
+instead, which completes it.
+
+For a worked example, see [Create a plugin](/docs/en/manage-claude/plugins-api#create-a-plugin)
+in the Plugins API guide.
+
+**Accepted credentials:** an Admin API key with the `write:plugins` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `files: list<string>`
+
+  The version's files: one part per file, the part's filename being the file's path within the Plugin (for example `skills/review-pr/SKILL.md`), or a single `.zip` or `.plugin` archive holding them all. On the wire each part is named `files[]`, and a part named plain `files` is not read; with cURL, `-F 'files[]=@SKILL.md;filename=skills/review-pr/SKILL.md'`. The files must include the manifest, `.claude-plugin/plugin.json`.
+
+- `marketplaceID?:optional string`
+
+  ID of the organization-owned plugin marketplace to create the Plugin in (prefixed `marketplace_`). It must be a `manual` marketplace, one whose Plugins are uploaded rather than synchronized from a repository. When omitted, the Plugin is created in the organization's library marketplace, an organization-owned `manual` marketplace created on first use.
+
+- `releaseNotes?:optional string`
+
+  Release notes stored with the version and shown in its version history in claude.ai; up to 5,000 characters.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class Plugin`
+
+  - `"plugin" type`
+
+    Always `plugin`.
+
+  - `string id`
+
+    The Plugin's ID.
+
+  - `?list<PluginComponent> components`
+
+    What the served version contains; null when not enumerated.
+
+  - `?PluginContentScan contentScan`
+
+    The served version's content scan; null when it has not been scanned.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?CreatedBy createdBy`
+
+    Who created the Plugin; null when no creator is recorded.
+
+  - `?string description`
+
+    The served version's description.
+
+  - `?string displayName`
+
+    The served version's display name.
+
+  - `string latestVersionID`
+
+    The newest version.
+
+  - `?string manifestVersion`
+
+    The version string the served version's manifest declares.
+
+  - `string marketplaceID`
+
+    The ID of the plugin marketplace the Plugin lives in.
+
+  - `string name`
+
+    Lowercase identifier, unique within its plugin marketplace. Fixed for an organization-owned Plugin's lifetime; a member-owned Plugin's changes when its owner renames it in claude.ai, while its `id` stays the same.
+
+  - `?OrganizationInstallationPreference organizationInstallationPreference`
+
+    Organization-owned Plugin: the organization-wide installation setting every member gets unless an RBAC Group they belong to holds its own — the Plugin's own setting, or its plugin marketplace's default. Null for a member-owned Plugin, which has shares instead. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `?bool organizationInstallationPreferenceInherited`
+
+    Organization-owned Plugin: true while it has no organization-wide setting of its own and `organization_installation_preference` is its plugin marketplace's default. Null for a member-owned Plugin.
+
+  - `Owner owner`
+
+    Who owns the Plugin: the organization, or the member whose personal plugin marketplace it lives in.
+
+  - `?Reach reach`
+
+    How far the served version reaches: `remote` when it declares an MCP server or a CLI, `privileged` when it declares a hook, monitor, language server or settings but nothing remote, `contained` otherwise; null when not classifiable.
+
+  - `string servedVersionID`
+
+    The version claude.ai serves to members.
+
+  - `bool servedVersionPinned`
+
+    False while the served version follows each new version; true once it has been pinned to one.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339. Moves on a new version and on a served-version change; a change to the Plugin's installation settings or shares does not move it.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPlugin = $client->beta->organization->plugins->create(
+  files: [
+    FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
+  ],
+  marketplaceID: 'marketplace_id',
+  releaseNotes: 'release_notes',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPlugin);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+  "components": [
+    {
+      "description": "description",
+      "name": "review-pr",
+      "type": "skill"
+    }
+  ],
+  "content_scan": {
+    "assessment": "warn",
+    "reason": "credential-exposure",
+    "status": "completed"
+  },
+  "created_at": "2026-03-14T09:26:53.589793Z",
+  "created_by": {
+    "email_address": "user@example.com",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "description": "Reviews pull requests against your team's conventions.",
+  "display_name": "Code Review Helper",
+  "latest_version_id": "pluginver_01KaZmQpRsTuVwXyZ2b4c6d8",
+  "manifest_version": "1.2.0",
+  "marketplace_id": "marketplace_01HxQ3v9KpZ2mTn8RwLc4Ys7",
+  "name": "code-review-helper",
+  "organization_installation_preference": "available",
+  "organization_installation_preference_inherited": true,
+  "owner": {
+    "type": "organization"
+  },
+  "reach": "contained",
+  "served_version_id": "pluginver_01K9wPcHd4Rm2Tx8Vq6Ln3Sb",
+  "served_version_pinned": true,
+  "type": "plugin",
+  "updated_at": "2026-03-14T09:26:53.589793Z"
+}
+```
+
+### Get Plugin
+
+`$client->beta->organization->plugins->retrieve(string pluginID, ?string organizationID, ?list<AnthropicBeta> betas): Plugin`
+
+**GET** `/v1/organizations/plugins/{plugin_id}`
+
+Retrieve a Plugin by ID.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class Plugin`
+
+  - `"plugin" type`
+
+    Always `plugin`.
+
+  - `string id`
+
+    The Plugin's ID.
+
+  - `?list<PluginComponent> components`
+
+    What the served version contains; null when not enumerated.
+
+  - `?PluginContentScan contentScan`
+
+    The served version's content scan; null when it has not been scanned.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?CreatedBy createdBy`
+
+    Who created the Plugin; null when no creator is recorded.
+
+  - `?string description`
+
+    The served version's description.
+
+  - `?string displayName`
+
+    The served version's display name.
+
+  - `string latestVersionID`
+
+    The newest version.
+
+  - `?string manifestVersion`
+
+    The version string the served version's manifest declares.
+
+  - `string marketplaceID`
+
+    The ID of the plugin marketplace the Plugin lives in.
+
+  - `string name`
+
+    Lowercase identifier, unique within its plugin marketplace. Fixed for an organization-owned Plugin's lifetime; a member-owned Plugin's changes when its owner renames it in claude.ai, while its `id` stays the same.
+
+  - `?OrganizationInstallationPreference organizationInstallationPreference`
+
+    Organization-owned Plugin: the organization-wide installation setting every member gets unless an RBAC Group they belong to holds its own — the Plugin's own setting, or its plugin marketplace's default. Null for a member-owned Plugin, which has shares instead. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `?bool organizationInstallationPreferenceInherited`
+
+    Organization-owned Plugin: true while it has no organization-wide setting of its own and `organization_installation_preference` is its plugin marketplace's default. Null for a member-owned Plugin.
+
+  - `Owner owner`
+
+    Who owns the Plugin: the organization, or the member whose personal plugin marketplace it lives in.
+
+  - `?Reach reach`
+
+    How far the served version reaches: `remote` when it declares an MCP server or a CLI, `privileged` when it declares a hook, monitor, language server or settings but nothing remote, `contained` otherwise; null when not classifiable.
+
+  - `string servedVersionID`
+
+    The version claude.ai serves to members.
+
+  - `bool servedVersionPinned`
+
+    False while the served version follows each new version; true once it has been pinned to one.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339. Moves on a new version and on a served-version change; a change to the Plugin's installation settings or shares does not move it.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPlugin = $client->beta->organization->plugins->retrieve(
+  'plugin_id',
+  organizationID: 'organization_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPlugin);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+  "components": [
+    {
+      "description": "description",
+      "name": "review-pr",
+      "type": "skill"
+    }
+  ],
+  "content_scan": {
+    "assessment": "warn",
+    "reason": "credential-exposure",
+    "status": "completed"
+  },
+  "created_at": "2026-03-14T09:26:53.589793Z",
+  "created_by": {
+    "email_address": "user@example.com",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "description": "Reviews pull requests against your team's conventions.",
+  "display_name": "Code Review Helper",
+  "latest_version_id": "pluginver_01KaZmQpRsTuVwXyZ2b4c6d8",
+  "manifest_version": "1.2.0",
+  "marketplace_id": "marketplace_01HxQ3v9KpZ2mTn8RwLc4Ys7",
+  "name": "code-review-helper",
+  "organization_installation_preference": "available",
+  "organization_installation_preference_inherited": true,
+  "owner": {
+    "type": "organization"
+  },
+  "reach": "contained",
+  "served_version_id": "pluginver_01K9wPcHd4Rm2Tx8Vq6Ln3Sb",
+  "served_version_pinned": true,
+  "type": "plugin",
+  "updated_at": "2026-03-14T09:26:53.589793Z"
+}
+```
+
+### Update Plugin
+
+`$client->beta->organization->plugins->update(string pluginID, string servedVersionID, ?list<AnthropicBeta> betas): Plugin`
+
+**POST** `/v1/organizations/plugins/{plugin_id}`
+
+Change which stored version of an organization-owned Plugin is served to members,
+for example to roll back to an earlier one. This pins the served version: later
+uploads are stored but no longer change what is served, and pinning cannot currently
+be undone, here or in claude.ai.
+
+Pass the version as `served_version_id`: an earlier one to roll back, a later one to
+start serving a version that was stored without being served, or the one already
+served to pin it without changing what is served. No new version is created.
+
+When the organization has content scanning enabled, a version whose scan is still
+running is refused with a 409 (`error_code` `scan_pending`; retry once the scan
+finishes) and one whose scan failed, errored or reached no verdict with a 400
+(`scan_failed`; a `warn` is accepted). When the Plugin is in the organization's
+library marketplace, a version other than the one served is also refused with a 409
+when one of its skills has a name that an organization skill (one an administrator
+uploaded for the whole organization in claude.ai) has since taken: `error_code`
+`skill_name_taken`, with that name in `details.skill_name`. A member-owned Plugin
+cannot be updated here (403).
+
+This endpoint does not write installation settings; they are written at
+`/v1/organizations/plugins/{plugin_id}/installation_settings/{target}`.
+
+**Accepted credentials:** an Admin API key with the `write:plugins` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `servedVersionID: string`
+
+  Serve this version of the Plugin (prefixed `pluginver_`) and pin the served version to it; `latest` is not accepted.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class Plugin`
+
+  - `"plugin" type`
+
+    Always `plugin`.
+
+  - `string id`
+
+    The Plugin's ID.
+
+  - `?list<PluginComponent> components`
+
+    What the served version contains; null when not enumerated.
+
+  - `?PluginContentScan contentScan`
+
+    The served version's content scan; null when it has not been scanned.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?CreatedBy createdBy`
+
+    Who created the Plugin; null when no creator is recorded.
+
+  - `?string description`
+
+    The served version's description.
+
+  - `?string displayName`
+
+    The served version's display name.
+
+  - `string latestVersionID`
+
+    The newest version.
+
+  - `?string manifestVersion`
+
+    The version string the served version's manifest declares.
+
+  - `string marketplaceID`
+
+    The ID of the plugin marketplace the Plugin lives in.
+
+  - `string name`
+
+    Lowercase identifier, unique within its plugin marketplace. Fixed for an organization-owned Plugin's lifetime; a member-owned Plugin's changes when its owner renames it in claude.ai, while its `id` stays the same.
+
+  - `?OrganizationInstallationPreference organizationInstallationPreference`
+
+    Organization-owned Plugin: the organization-wide installation setting every member gets unless an RBAC Group they belong to holds its own — the Plugin's own setting, or its plugin marketplace's default. Null for a member-owned Plugin, which has shares instead. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `?bool organizationInstallationPreferenceInherited`
+
+    Organization-owned Plugin: true while it has no organization-wide setting of its own and `organization_installation_preference` is its plugin marketplace's default. Null for a member-owned Plugin.
+
+  - `Owner owner`
+
+    Who owns the Plugin: the organization, or the member whose personal plugin marketplace it lives in.
+
+  - `?Reach reach`
+
+    How far the served version reaches: `remote` when it declares an MCP server or a CLI, `privileged` when it declares a hook, monitor, language server or settings but nothing remote, `contained` otherwise; null when not classifiable.
+
+  - `string servedVersionID`
+
+    The version claude.ai serves to members.
+
+  - `bool servedVersionPinned`
+
+    False while the served version follows each new version; true once it has been pinned to one.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339. Moves on a new version and on a served-version change; a change to the Plugin's installation settings or shares does not move it.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPlugin = $client->beta->organization->plugins->update(
+  'plugin_id',
+  servedVersionID: 'pluginver_01KaZmQpRsTuVwXyZ2b4c6d8',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPlugin);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+  "components": [
+    {
+      "description": "description",
+      "name": "review-pr",
+      "type": "skill"
+    }
+  ],
+  "content_scan": {
+    "assessment": "warn",
+    "reason": "credential-exposure",
+    "status": "completed"
+  },
+  "created_at": "2026-03-14T09:26:53.589793Z",
+  "created_by": {
+    "email_address": "user@example.com",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "description": "Reviews pull requests against your team's conventions.",
+  "display_name": "Code Review Helper",
+  "latest_version_id": "pluginver_01KaZmQpRsTuVwXyZ2b4c6d8",
+  "manifest_version": "1.2.0",
+  "marketplace_id": "marketplace_01HxQ3v9KpZ2mTn8RwLc4Ys7",
+  "name": "code-review-helper",
+  "organization_installation_preference": "available",
+  "organization_installation_preference_inherited": true,
+  "owner": {
+    "type": "organization"
+  },
+  "reach": "contained",
+  "served_version_id": "pluginver_01K9wPcHd4Rm2Tx8Vq6Ln3Sb",
+  "served_version_pinned": true,
+  "type": "plugin",
+  "updated_at": "2026-03-14T09:26:53.589793Z"
+}
+```
+
+### List Plugins
+
+`$client->beta->organization->plugins->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?int limit, ?string marketplaceID, ?string organizationID, ?OwnerType ownerType, ?string ownerUserID, ?string page, ?list<AnthropicBeta> betas): PageCursor<Plugin>`
+
+**GET** `/v1/organizations/plugins`
+
+List the Plugins created under the organization, newest first: those in the
+organization's own plugin marketplaces and those in members' personal plugin
+marketplaces.
+
+Plugins in members' personal marketplaces are listed with the same detail as the
+organization's own, and their files can be downloaded through the version archive
+endpoint, which records each such download on the Compliance API activity feed.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `createdAtGt?:optional \Datetime`
+
+  RFC 3339 timestamp bound; combine [gte], [gt], [lte], [lt].
+
+- `createdAtGte?:optional \Datetime`
+
+  RFC 3339 timestamp bound; combine [gte], [gt], [lte], [lt].
+
+- `createdAtLt?:optional \Datetime`
+
+  RFC 3339 timestamp bound; combine [gte], [gt], [lte], [lt].
+
+- `createdAtLte?:optional \Datetime`
+
+  RFC 3339 timestamp bound; combine [gte], [gt], [lte], [lt].
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `100`.
+
+  default: 20
+
+- `marketplaceID?:optional string`
+
+  Only Plugins in this plugin marketplace (prefixed `marketplace_`).
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `ownerType?:optional OwnerType`
+
+  `organization` for Plugins in the organization's plugin marketplaces, `user` for Plugins in members' personal plugin marketplaces.
+
+- `ownerUserID?:optional string`
+
+  Only Plugins in this member's personal plugin marketplaces (prefixed `user_`); a removed member's ID is accepted.
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class Plugin`
+
+  - `"plugin" type`
+
+    Always `plugin`.
+
+  - `string id`
+
+    The Plugin's ID.
+
+  - `?list<PluginComponent> components`
+
+    What the served version contains; null when not enumerated.
+
+  - `?PluginContentScan contentScan`
+
+    The served version's content scan; null when it has not been scanned.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?CreatedBy createdBy`
+
+    Who created the Plugin; null when no creator is recorded.
+
+  - `?string description`
+
+    The served version's description.
+
+  - `?string displayName`
+
+    The served version's display name.
+
+  - `string latestVersionID`
+
+    The newest version.
+
+  - `?string manifestVersion`
+
+    The version string the served version's manifest declares.
+
+  - `string marketplaceID`
+
+    The ID of the plugin marketplace the Plugin lives in.
+
+  - `string name`
+
+    Lowercase identifier, unique within its plugin marketplace. Fixed for an organization-owned Plugin's lifetime; a member-owned Plugin's changes when its owner renames it in claude.ai, while its `id` stays the same.
+
+  - `?OrganizationInstallationPreference organizationInstallationPreference`
+
+    Organization-owned Plugin: the organization-wide installation setting every member gets unless an RBAC Group they belong to holds its own — the Plugin's own setting, or its plugin marketplace's default. Null for a member-owned Plugin, which has shares instead. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `?bool organizationInstallationPreferenceInherited`
+
+    Organization-owned Plugin: true while it has no organization-wide setting of its own and `organization_installation_preference` is its plugin marketplace's default. Null for a member-owned Plugin.
+
+  - `Owner owner`
+
+    Who owns the Plugin: the organization, or the member whose personal plugin marketplace it lives in.
+
+  - `?Reach reach`
+
+    How far the served version reaches: `remote` when it declares an MCP server or a CLI, `privileged` when it declares a hook, monitor, language server or settings but nothing remote, `contained` otherwise; null when not classifiable.
+
+  - `string servedVersionID`
+
+    The version claude.ai serves to members.
+
+  - `bool servedVersionPinned`
+
+    False while the served version follows each new version; true once it has been pinned to one.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339. Moves on a new version and on a served-version change; a change to the Plugin's installation settings or shares does not move it.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->plugins->list(
+  createdAtGt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  createdAtGte: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  createdAtLt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  createdAtLte: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  limit: 1,
+  marketplaceID: 'marketplace_id',
+  organizationID: 'organization_id',
+  ownerType: 'organization',
+  ownerUserID: 'owner_user_id',
+  page: 'page',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+      "components": [
+        {
+          "description": "description",
+          "name": "review-pr",
+          "type": "skill"
+        }
+      ],
+      "content_scan": {
+        "assessment": "warn",
+        "reason": "credential-exposure",
+        "status": "completed"
+      },
+      "created_at": "2026-03-14T09:26:53.589793Z",
+      "created_by": {
+        "email_address": "user@example.com",
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "description": "Reviews pull requests against your team's conventions.",
+      "display_name": "Code Review Helper",
+      "latest_version_id": "pluginver_01KaZmQpRsTuVwXyZ2b4c6d8",
+      "manifest_version": "1.2.0",
+      "marketplace_id": "marketplace_01HxQ3v9KpZ2mTn8RwLc4Ys7",
+      "name": "code-review-helper",
+      "organization_installation_preference": "available",
+      "organization_installation_preference_inherited": true,
+      "owner": {
+        "type": "organization"
+      },
+      "reach": "contained",
+      "served_version_id": "pluginver_01K9wPcHd4Rm2Tx8Vq6Ln3Sb",
+      "served_version_pinned": true,
+      "type": "plugin",
+      "updated_at": "2026-03-14T09:26:53.589793Z"
+    }
+  ],
+  "next_page": "page_MjAyNi0wOS0xNlQxNDowNTowOVo"
+}
+```
+
+### Delete Plugin
+
+`$client->beta->organization->plugins->delete(string pluginID, ?list<AnthropicBeta> betas): DeletedPlugin`
+
+**DELETE** `/v1/organizations/plugins/{plugin_id}`
+
+Permanently delete a Plugin and every version it holds, exactly as when an
+administrator deletes it in claude.ai. The Plugin may belong to the organization or
+to a member, including a member who has since left the organization.
+
+An organization-owned Plugin's installation settings go with it; a member-owned
+Plugin's shares are withdrawn and its owner no longer has it.
+
+To take an organization-owned Plugin out of use reversibly, set its
+organization-wide installation setting to `not_available` instead (and
+remove or change any group settings, which override it for their members). Only a
+Plugin in a `manual` marketplace can be deleted here; one synchronized from a
+repository is removed by removing it from the repository (400).
+
+**Accepted credentials:** an Admin API key with the `write:plugins` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class DeletedPlugin`
+
+  - `"plugin_deleted" type`
+
+    Always `plugin_deleted`.
+
+  - `string id`
+
+    The deleted Plugin's ID.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaDeletedPlugin = $client->beta->organization->plugins->delete(
+  'plugin_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+);
+
+var_dump($betaDeletedPlugin);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+  "type": "plugin_deleted"
+}
+```
+
+## Beta › Organization › Plugins › Versions
+
+### Create Plugin Version
+
+`$client->beta->organization->plugins->versions->create(string pluginID, list<string> files, ?string releaseNotes, ?list<AnthropicBeta> betas): BetaPluginVersion`
+
+**POST** `/v1/organizations/plugins/{plugin_id}/versions`
+
+Add a version to an organization-owned Plugin by uploading the new version's
+files; it becomes the version served to members unless the Plugin's served version
+has been pinned.
+
+The upload is the same `multipart/form-data` as creating a Plugin: the version's
+files (`files`, each part sent as `files[]`) and optional `release_notes`. The uploaded manifest's `name`
+must equal the Plugin's `name`. Returns the stored version; read the Plugin back to
+see which version it serves.
+
+Only a Plugin in a `manual` marketplace takes uploads; a Plugin synchronized from
+a repository gets its versions from the repository. When the Plugin is in the
+organization's library marketplace, a version that adds a skill with the name of an
+organization skill (a skill an administrator uploaded for the whole organization in
+claude.ai) is refused with a 409: `error_code` `skill_name_taken`, with that name in
+`details.skill_name`. A 503 with `error_code`
+`registration_pending` means the version was stored but is not yet usable; a later
+version create on the Plugin completes it.
+
+For a worked example, see [Create a version](/docs/en/manage-claude/plugins-api#create-a-version)
+in the Plugins API guide.
+
+**Accepted credentials:** an Admin API key with the `write:plugins` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `files: list<string>`
+
+  The version's files: one part per file, the part's filename being the file's path within the Plugin (for example `skills/review-pr/SKILL.md`), or a single `.zip` or `.plugin` archive holding them all. On the wire each part is named `files[]`, and a part named plain `files` is not read; with cURL, `-F 'files[]=@SKILL.md;filename=skills/review-pr/SKILL.md'`. The files must include the manifest, `.claude-plugin/plugin.json`.
+
+- `releaseNotes?:optional string`
+
+  Release notes stored with the version and shown in its version history in claude.ai; up to 5,000 characters.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class BetaPluginVersion`
+
+  - `"plugin_version" type`
+
+    Always `plugin_version`.
+
+  - `string id`
+
+    The version's ID.
+
+  - `?list<PluginComponent> components`
+
+    What the version contains; null when not enumerated.
+
+  - `?PluginContentScan contentScan`
+
+    This version's content scan; null when it has not been scanned.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?CreatedBy createdBy`
+
+    Who uploaded this version; null when not recorded.
+
+  - `?string description`
+
+    The manifest's description; null when it declares none.
+
+  - `?string displayName`
+
+    The manifest's display name; null when it declares none.
+
+  - `?string manifestVersion`
+
+    The version string the manifest declares; null when it declares none.
+
+  - `string pluginID`
+
+    The Plugin's ID.
+
+  - `?Reach reach`
+
+    How far the version reaches: `remote`, `privileged` or `contained`, as on the Plugin; null when not classifiable.
+
+  - `?string releaseNotes`
+
+    As supplied with the upload; null when none were supplied.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPluginVersion = $client->beta->organization->plugins->versions->create(
+  'plugin_id',
+  files: [
+    FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
+  ],
+  releaseNotes: 'release_notes',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPluginVersion);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "pluginver_01KaZmQpRsTuVwXyZ2b4c6d8",
+  "components": [
+    {
+      "description": "description",
+      "name": "review-pr",
+      "type": "skill"
+    }
+  ],
+  "content_scan": {
+    "assessment": "warn",
+    "reason": "credential-exposure",
+    "status": "completed"
+  },
+  "created_at": "2026-03-14T09:26:53.589793Z",
+  "created_by": {
+    "email_address": "user@example.com",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "description": "Reviews pull requests against your team's conventions.",
+  "display_name": "Code Review Helper",
+  "manifest_version": "1.2.0",
+  "plugin_id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+  "reach": "contained",
+  "release_notes": "Adds a review checklist for database migrations.",
+  "type": "plugin_version"
+}
+```
+
+### List Plugin Versions
+
+`$client->beta->organization->plugins->versions->list(string pluginID, ?int limit, ?string organizationID, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaPluginVersion>`
+
+**GET** `/v1/organizations/plugins/{plugin_id}/versions`
+
+List a Plugin's versions, newest first.
+
+The first item of the first page is the version the Plugin's `latest_version_id`
+refers to.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class BetaPluginVersion`
+
+  - `"plugin_version" type`
+
+    Always `plugin_version`.
+
+  - `string id`
+
+    The version's ID.
+
+  - `?list<PluginComponent> components`
+
+    What the version contains; null when not enumerated.
+
+  - `?PluginContentScan contentScan`
+
+    This version's content scan; null when it has not been scanned.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?CreatedBy createdBy`
+
+    Who uploaded this version; null when not recorded.
+
+  - `?string description`
+
+    The manifest's description; null when it declares none.
+
+  - `?string displayName`
+
+    The manifest's display name; null when it declares none.
+
+  - `?string manifestVersion`
+
+    The version string the manifest declares; null when it declares none.
+
+  - `string pluginID`
+
+    The Plugin's ID.
+
+  - `?Reach reach`
+
+    How far the version reaches: `remote`, `privileged` or `contained`, as on the Plugin; null when not classifiable.
+
+  - `?string releaseNotes`
+
+    As supplied with the upload; null when none were supplied.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->plugins->versions->list(
+  'plugin_id',
+  limit: 1,
+  organizationID: 'organization_id',
+  page: 'page',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "pluginver_01KaZmQpRsTuVwXyZ2b4c6d8",
+      "components": [
+        {
+          "description": "description",
+          "name": "review-pr",
+          "type": "skill"
+        }
+      ],
+      "content_scan": {
+        "assessment": "warn",
+        "reason": "credential-exposure",
+        "status": "completed"
+      },
+      "created_at": "2026-03-14T09:26:53.589793Z",
+      "created_by": {
+        "email_address": "user@example.com",
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "description": "Reviews pull requests against your team's conventions.",
+      "display_name": "Code Review Helper",
+      "manifest_version": "1.2.0",
+      "plugin_id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+      "reach": "contained",
+      "release_notes": "Adds a review checklist for database migrations.",
+      "type": "plugin_version"
+    }
+  ],
+  "next_page": "page_MjAyNi0wOS0xNlQxNDowNTowOVo"
+}
+```
+
+### Get Plugin Version
+
+`$client->beta->organization->plugins->versions->retrieve(string version, string pluginID, ?string organizationID, ?list<AnthropicBeta> betas): BetaPluginVersion`
+
+**GET** `/v1/organizations/plugins/{plugin_id}/versions/{version}`
+
+Retrieve one version of a Plugin by its ID, or the Plugin's newest version.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `version: string`
+
+  ID of the Plugin Version (prefixed `pluginver_`), or `latest` for the newest one.
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class BetaPluginVersion`
+
+  - `"plugin_version" type`
+
+    Always `plugin_version`.
+
+  - `string id`
+
+    The version's ID.
+
+  - `?list<PluginComponent> components`
+
+    What the version contains; null when not enumerated.
+
+  - `?PluginContentScan contentScan`
+
+    This version's content scan; null when it has not been scanned.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?CreatedBy createdBy`
+
+    Who uploaded this version; null when not recorded.
+
+  - `?string description`
+
+    The manifest's description; null when it declares none.
+
+  - `?string displayName`
+
+    The manifest's display name; null when it declares none.
+
+  - `?string manifestVersion`
+
+    The version string the manifest declares; null when it declares none.
+
+  - `string pluginID`
+
+    The Plugin's ID.
+
+  - `?Reach reach`
+
+    How far the version reaches: `remote`, `privileged` or `contained`, as on the Plugin; null when not classifiable.
+
+  - `?string releaseNotes`
+
+    As supplied with the upload; null when none were supplied.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPluginVersion = $client->beta->organization->plugins->versions->retrieve(
+  'version',
+  pluginID: 'plugin_id',
+  organizationID: 'organization_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPluginVersion);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "pluginver_01KaZmQpRsTuVwXyZ2b4c6d8",
+  "components": [
+    {
+      "description": "description",
+      "name": "review-pr",
+      "type": "skill"
+    }
+  ],
+  "content_scan": {
+    "assessment": "warn",
+    "reason": "credential-exposure",
+    "status": "completed"
+  },
+  "created_at": "2026-03-14T09:26:53.589793Z",
+  "created_by": {
+    "email_address": "user@example.com",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "description": "Reviews pull requests against your team's conventions.",
+  "display_name": "Code Review Helper",
+  "manifest_version": "1.2.0",
+  "plugin_id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+  "reach": "contained",
+  "release_notes": "Adds a review checklist for database migrations.",
+  "type": "plugin_version"
+}
+```
+
+### Download Plugin Version Archive
+
+`$client->beta->organization->plugins->versions->download(string version, string pluginID, ?string organizationID, ?list<AnthropicBeta> betas): download`
+
+**GET** `/v1/organizations/plugins/{plugin_id}/versions/{version}/content`
+
+Download one version's `.zip` archive, exactly as stored. Each download of a
+Plugin from a member's personal plugin marketplace is recorded on the Compliance API
+activity feed.
+
+The response body is the archive (`Content-Type: application/zip`), sent as an
+attachment whose filename is derived from the Plugin's name; name saved files from
+the IDs in the request path, since that filename is not unique.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every read scope above (`read:plugins`, `read:org_audit`, and
+`read:compliance_org_data`) can download the files of plugins in members' personal
+marketplaces, including files that claude.ai's admin settings do not show, and a
+`read:org_audit` or `read:compliance_org_data` key created for all of your parent
+organization's linked organizations can do this in any organization under it that has
+access to this API, by passing `organization_id`. Each such download records a
+`claude_plugin_archive_accessed` event on the Compliance API activity feed,
+identifying the key, the plugin, the version, and the member. Downloads of
+organization-owned plugins are not recorded.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `version: string`
+
+  ID of the Plugin Version (prefixed `pluginver_`). `latest` is not accepted here.
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `mixed`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$response = $client->beta->organization->plugins->versions->download(
+  'version',
+  pluginID: 'plugin_id',
+  organizationID: 'organization_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($response);
+```
+
+## Beta › Organization › Plugins › Installation Settings
+
+### List Plugin Installation Settings
+
+`$client->beta->organization->plugins->installationSettings->list(string pluginID, ?int limit, ?string organizationID, ?string page, ?TargetType targetType, ?list<AnthropicBeta> betas): PageCursor<BetaPluginInstallationSetting>`
+
+**GET** `/v1/organizations/plugins/{plugin_id}/installation_settings`
+
+List an organization-owned Plugin's installation settings, which say which
+members it is for, most recently created first.
+
+The list holds the Plugin's own organization-wide setting (absent while the Plugin
+inherits its marketplace's default) and each RBAC Group's own setting. A
+member-owned Plugin has shares instead, so this path returns 404 for one.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `100`.
+
+  default: 20
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+- `targetType?:optional TargetType`
+
+  Only settings for this kind of target: `organization` (the organization-wide setting) or `rbac_group` (an RBAC Group's).
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class BetaPluginInstallationSetting`
+
+  - `"plugin_installation_setting" type`
+
+    Always `plugin_installation_setting`.
+
+  - `\Datetime createdAt`
+
+    When the target was first given a setting for this Plugin.
+
+  - `InstallationPreference installationPreference`
+
+    The setting the target holds for this Plugin. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `string pluginID`
+
+    The Plugin's ID.
+
+  - `Target target`
+
+    Whose setting this is: `organization` (the Plugin's own organization-wide setting) or `rbac_group` (one RBAC Group's own setting); `organization_member` does not occur here.
+
+  - `\Datetime updatedAt`
+
+    When its setting last changed.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->plugins->installationSettings->list(
+  'plugin_id',
+  limit: 1,
+  organizationID: 'organization_id',
+  page: 'page',
+  targetType: 'organization',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_at": "2026-03-14T09:26:53.589793Z",
+      "installation_preference": "required",
+      "plugin_id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+      "target": {
+        "type": "organization"
+      },
+      "type": "plugin_installation_setting",
+      "updated_at": "2026-03-14T09:26:53.589793Z"
+    }
+  ],
+  "next_page": "page_MjAyNi0wOS0xNlQxNDowNTowOVo"
+}
+```
+
+### Set Plugin Installation Setting
+
+`$client->beta->organization->plugins->installationSettings->set(string target, string pluginID, InstallationPreference installationPreference, ?list<AnthropicBeta> betas): BetaPluginInstallationSetting`
+
+**POST** `/v1/organizations/plugins/{plugin_id}/installation_settings/{target}`
+
+Set or change an organization-owned Plugin's installation setting for the whole
+organization or for one RBAC Group.
+
+Writing the value a target already holds of its own changes nothing.
+
+A member-owned Plugin has shares instead of installation settings, so this path
+returns 404 for one.
+
+Send a Plugin's installation-setting writes one at a time. If several writes for the
+same Plugin arrive at the same time, the server handles them one after another and
+can answer some of them with `503` instead of applying them. That `503` carries
+`x-should-retry: true`, and the write is safe to repeat: wait a second or two, then
+send it again.
+
+**Accepted credentials:** an Admin API key with the `write:plugins` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `target: string`
+
+  The target whose setting is written: the literal `organization` for the Plugin's organization-wide setting, or an RBAC Group's ID (prefixed `rbac_group_`) for that group's own setting. Writing the `organization` target stops the Plugin from inheriting its marketplace's default, even when the value written equals that default.
+
+- `installationPreference: InstallationPreference`
+
+  The installation setting the target is to hold for this Plugin: one of `required`, `auto_install`, `available`, `not_available`.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class BetaPluginInstallationSetting`
+
+  - `"plugin_installation_setting" type`
+
+    Always `plugin_installation_setting`.
+
+  - `\Datetime createdAt`
+
+    When the target was first given a setting for this Plugin.
+
+  - `InstallationPreference installationPreference`
+
+    The setting the target holds for this Plugin. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `string pluginID`
+
+    The Plugin's ID.
+
+  - `Target target`
+
+    Whose setting this is: `organization` (the Plugin's own organization-wide setting) or `rbac_group` (one RBAC Group's own setting); `organization_member` does not occur here.
+
+  - `\Datetime updatedAt`
+
+    When its setting last changed.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPluginInstallationSetting = $client
+  ->beta
+  ->organization
+  ->plugins
+  ->installationSettings
+  ->set(
+  'target',
+  pluginID: 'plugin_id',
+  installationPreference: 'required',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPluginInstallationSetting);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_at": "2026-03-14T09:26:53.589793Z",
+  "installation_preference": "required",
+  "plugin_id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+  "target": {
+    "type": "organization"
+  },
+  "type": "plugin_installation_setting",
+  "updated_at": "2026-03-14T09:26:53.589793Z"
+}
+```
+
+### Remove Plugin Installation Setting
+
+`$client->beta->organization->plugins->installationSettings->remove(string target, string pluginID, ?list<AnthropicBeta> betas): BetaDeletedPluginInstallationSetting`
+
+**DELETE** `/v1/organizations/plugins/{plugin_id}/installation_settings/{target}`
+
+Remove an organization-owned Plugin's own installation setting for the whole
+organization or for one RBAC Group.
+
+Removing the `organization` target returns the Plugin to its marketplace's default
+installation setting and leaves the groups' settings in place. Removing a group's
+setting makes the group's members fall back to the Plugin's organization-wide setting
+or to the settings of their other groups.
+
+A target that holds no setting of its own returns 404 (a Plugin that already inherits
+its marketplace's default holds no `organization` setting), and so does a member-owned
+Plugin.
+
+A removal counts as one of the Plugin's installation-setting writes: send all of those
+writes one at a time. If several arrive for the same Plugin at the same time, the server
+handles them one after another and can answer some of them with `503` and
+`x-should-retry: true` instead of applying them; wait a second or two and send the
+removal again. A `404` on the repeat means the setting is already gone.
+
+**Accepted credentials:** an Admin API key with the `write:plugins` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `target: string`
+
+  The target whose own setting is removed: the literal `organization` for the Plugin's organization-wide setting, or an RBAC Group's ID (prefixed `rbac_group_`) for that group's own setting. Removing the `organization` setting returns the Plugin to its marketplace's default.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class BetaDeletedPluginInstallationSetting`
+
+  - `"plugin_installation_setting_deleted" type`
+
+    Always `plugin_installation_setting_deleted`.
+
+  - `string pluginID`
+
+    The Plugin's ID.
+
+  - `Target target`
+
+    Whose setting was removed.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaDeletedPluginInstallationSetting = $client
+  ->beta
+  ->organization
+  ->plugins
+  ->installationSettings
+  ->remove(
+  'target',
+  pluginID: 'plugin_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaDeletedPluginInstallationSetting);
+```
+
+##### Response (200)
+
+```json
+{
+  "plugin_id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+  "target": {
+    "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+    "type": "rbac_group"
+  },
+  "type": "plugin_installation_setting_deleted"
+}
+```
+
+## Beta › Organization › Plugins › Shares
+
+### List Plugin Shares
+
+`$client->beta->organization->plugins->shares->list(string pluginID, ?int limit, ?string organizationID, ?string page, ?TargetType targetType, ?list<AnthropicBeta> betas): PageCursor<BetaPluginShare>`
+
+**GET** `/v1/organizations/plugins/{plugin_id}/shares`
+
+List the shares the owner of a member-owned Plugin has given — to every member of
+the organization, to an RBAC Group, or to one member — most recently granted first.
+
+Shares are read-only in this API: members give and withdraw them in claude.ai, and
+who gave a share is recorded on the Compliance API activity feed rather than on the
+share. An organization-owned Plugin has installation settings instead, so this path
+returns 404 for one.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `pluginID: string`
+
+  ID of the Plugin (prefixed `plugin_`).
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `100`.
+
+  default: 20
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+- `targetType?:optional TargetType`
+
+  Only shares with this kind of target: `organization` (every member), `rbac_group` (one RBAC Group), or `organization_member` (one member).
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class BetaPluginShare`
+
+  - `"plugin_share" type`
+
+    Always `plugin_share`.
+
+  - `\Datetime grantedAt`
+
+    When the share was given; a share whose role is later changed in claude.ai is re-granted and carries the time of that change.
+
+  - `string pluginID`
+
+    The Plugin's ID.
+
+  - `Target target`
+
+    Who the Plugin is shared with: `organization` (every member), `rbac_group` (one RBAC Group), or `organization_member` (one member).
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->plugins->shares->list(
+  'plugin_id',
+  limit: 1,
+  organizationID: 'organization_id',
+  page: 'page',
+  targetType: 'organization',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "granted_at": "2026-03-14T09:26:53.589793Z",
+      "plugin_id": "plugin_01JyHfbRkZvD1gW7oTqXc3Ne",
+      "target": {
+        "type": "organization"
+      },
+      "type": "plugin_share"
+    }
+  ],
+  "next_page": "page_MjAyNi0wOS0xNlQxNDowNTowOVo"
+}
+```
+
+## Beta › Organization › Plugin Marketplaces
+
+### List Plugin Marketplaces
+
+`$client->beta->organization->pluginMarketplaces->list(?int limit, ?string organizationID, ?OwnerType ownerType, ?string page, ?Source source, ?list<AnthropicBeta> betas): PageCursor<PluginMarketplace>`
+
+**GET** `/v1/organizations/plugin_marketplaces`
+
+List the plugin marketplaces Plugins live in, newest first: the organization's own
+and its members' personal ones.
+
+Plugin marketplaces are created, connected to a repository and deleted in
+claude.ai, not through this API. The organization's library marketplace, the
+organization-owned `manual` marketplace that uploads go to when no marketplace is
+named, is created the first time something is put in it and is listed from then on.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `ownerType?:optional OwnerType`
+
+  `organization` for the organization's plugin marketplaces, `user` for members' personal plugin marketplaces.
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+- `source?:optional Source`
+
+  Only plugin marketplaces with this `source`: `manual` for those whose Plugins are uploaded; `github`, `gitlab` or `public_git` for those synchronized from a Git repository. `directory` (Anthropic's catalog) is never listed here.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class PluginMarketplace`
+
+  - `"plugin_marketplace" type`
+
+    Always `plugin_marketplace`.
+
+  - `string id`
+
+    The plugin marketplace's ID, prefixed `marketplace_`.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?DefaultInstallationPreference defaultInstallationPreference`
+
+    Organization plugin marketplace: the organization-wide setting every Plugin in it with no setting of its own gets. Null for a member's personal plugin marketplace. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `?\Datetime lastSyncEndedAt`
+
+    RFC 3339. When the most recent synchronization attempt to finish did so, whatever its outcome; for a repository plugin marketplace no synchronization has run on yet, when it was created. Null for a plugin marketplace that is not synchronized from a repository.
+
+  - `?string lastSyncReadSha`
+
+    The commit the last synchronization attempt that reached the repository read, whether or not its content was then accepted (see `sync_status`); an attempt that ends `failed_auth` or `failed_transient` leaves it unchanged. Null until an attempt has first read the repository, and for a plugin marketplace that is not synchronized from a repository.
+
+  - `string name`
+
+    Fixed for the plugin marketplace's lifetime.
+
+  - `Owner owner`
+
+    The organization, or the member whose personal plugin marketplace it is.
+
+  - `Source source`
+
+    Where the plugin marketplace's Plugins come from: `manual` when they are uploaded; `github`, `gitlab` or `public_git` when they are synchronized from the Git repository the owner connected, into which nothing can be uploaded; `directory` is Anthropic's own catalog, which this API does not list. A value this API does not yet name is returned as stored.
+
+  - `?SyncStatus syncStatus`
+
+    Outcome of the plugin marketplace's most recent synchronization: one of `success`, `in_progress`, `failed_content`, `failed_transient`, `failed_auth`, `failed_limits`; a value this API does not yet name is returned as stored. Null until a synchronization is first attempted — so always for a `manual` plugin marketplace.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->pluginMarketplaces->list(
+  limit: 1,
+  organizationID: 'organization_id',
+  ownerType: 'organization',
+  page: 'page',
+  source: 'directory',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "marketplace_01HxQ3v9KpZ2mTn8RwLc4Ys7",
+      "created_at": "2026-03-14T09:26:53.589793Z",
+      "default_installation_preference": "available",
+      "last_sync_ended_at": "2026-03-14T09:26:53.589793Z",
+      "last_sync_read_sha": "9fceb02d0ae598e95dc970b74767f19372d61af8",
+      "name": "engineering-tools",
+      "owner": {
+        "type": "organization"
+      },
+      "source": "github",
+      "sync_status": "success",
+      "type": "plugin_marketplace"
+    }
+  ],
+  "next_page": "page_MjAyNi0wOS0xNlQxNDowNTowOVo"
+}
+```
+
+### Get Plugin Marketplace
+
+`$client->beta->organization->pluginMarketplaces->retrieve(string marketplaceID, ?string organizationID, ?list<AnthropicBeta> betas): PluginMarketplace`
+
+**GET** `/v1/organizations/plugin_marketplaces/{marketplace_id}`
+
+Retrieve a plugin marketplace by ID.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `marketplaceID: string`
+
+  ID of the plugin marketplace (prefixed `marketplace_`).
+
+- `organizationID?:optional string`
+
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class PluginMarketplace`
+
+  - `"plugin_marketplace" type`
+
+    Always `plugin_marketplace`.
+
+  - `string id`
+
+    The plugin marketplace's ID, prefixed `marketplace_`.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?DefaultInstallationPreference defaultInstallationPreference`
+
+    Organization plugin marketplace: the organization-wide setting every Plugin in it with no setting of its own gets. Null for a member's personal plugin marketplace. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `?\Datetime lastSyncEndedAt`
+
+    RFC 3339. When the most recent synchronization attempt to finish did so, whatever its outcome; for a repository plugin marketplace no synchronization has run on yet, when it was created. Null for a plugin marketplace that is not synchronized from a repository.
+
+  - `?string lastSyncReadSha`
+
+    The commit the last synchronization attempt that reached the repository read, whether or not its content was then accepted (see `sync_status`); an attempt that ends `failed_auth` or `failed_transient` leaves it unchanged. Null until an attempt has first read the repository, and for a plugin marketplace that is not synchronized from a repository.
+
+  - `string name`
+
+    Fixed for the plugin marketplace's lifetime.
+
+  - `Owner owner`
+
+    The organization, or the member whose personal plugin marketplace it is.
+
+  - `Source source`
+
+    Where the plugin marketplace's Plugins come from: `manual` when they are uploaded; `github`, `gitlab` or `public_git` when they are synchronized from the Git repository the owner connected, into which nothing can be uploaded; `directory` is Anthropic's own catalog, which this API does not list. A value this API does not yet name is returned as stored.
+
+  - `?SyncStatus syncStatus`
+
+    Outcome of the plugin marketplace's most recent synchronization: one of `success`, `in_progress`, `failed_content`, `failed_transient`, `failed_auth`, `failed_limits`; a value this API does not yet name is returned as stored. Null until a synchronization is first attempted — so always for a `manual` plugin marketplace.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPluginMarketplace = $client
+  ->beta
+  ->organization
+  ->pluginMarketplaces
+  ->retrieve(
+  'marketplace_id',
+  organizationID: 'organization_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPluginMarketplace);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "marketplace_01HxQ3v9KpZ2mTn8RwLc4Ys7",
+  "created_at": "2026-03-14T09:26:53.589793Z",
+  "default_installation_preference": "available",
+  "last_sync_ended_at": "2026-03-14T09:26:53.589793Z",
+  "last_sync_read_sha": "9fceb02d0ae598e95dc970b74767f19372d61af8",
+  "name": "engineering-tools",
+  "owner": {
+    "type": "organization"
+  },
+  "source": "github",
+  "sync_status": "success",
+  "type": "plugin_marketplace"
+}
+```
+
+### Update Plugin Marketplace
+
+`$client->beta->organization->pluginMarketplaces->update(string marketplaceID, DefaultInstallationPreference defaultInstallationPreference, ?list<AnthropicBeta> betas): PluginMarketplace`
+
+**POST** `/v1/organizations/plugin_marketplaces/{marketplace_id}`
+
+Set the default installation setting of one of the organization's own plugin
+marketplaces. Every Plugin in it without a setting of its own gets this default as
+its organization-wide setting, including Plugins added later.
+
+Pass it as `default_installation_preference`. A member's personal marketplace
+cannot be updated here (403).
+
+**Accepted credentials:** an Admin API key with the `write:plugins` scope.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `marketplaceID: string`
+
+  ID of the plugin marketplace (prefixed `marketplace_`).
+
+- `defaultInstallationPreference: DefaultInstallationPreference`
+
+  The organization-wide installation setting every Plugin in the marketplace without one of its own gets: one of `required`, `auto_install`, `available`, `not_available`. Once set it can be changed but not removed.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class PluginMarketplace`
+
+  - `"plugin_marketplace" type`
+
+    Always `plugin_marketplace`.
+
+  - `string id`
+
+    The plugin marketplace's ID, prefixed `marketplace_`.
+
+  - `\Datetime createdAt`
+
+    RFC 3339.
+
+  - `?DefaultInstallationPreference defaultInstallationPreference`
+
+    Organization plugin marketplace: the organization-wide setting every Plugin in it with no setting of its own gets. Null for a member's personal plugin marketplace. One of `required`, `auto_install`, `available`, `not_available`; a value this API does not yet name is returned as stored.
+
+  - `?\Datetime lastSyncEndedAt`
+
+    RFC 3339. When the most recent synchronization attempt to finish did so, whatever its outcome; for a repository plugin marketplace no synchronization has run on yet, when it was created. Null for a plugin marketplace that is not synchronized from a repository.
+
+  - `?string lastSyncReadSha`
+
+    The commit the last synchronization attempt that reached the repository read, whether or not its content was then accepted (see `sync_status`); an attempt that ends `failed_auth` or `failed_transient` leaves it unchanged. Null until an attempt has first read the repository, and for a plugin marketplace that is not synchronized from a repository.
+
+  - `string name`
+
+    Fixed for the plugin marketplace's lifetime.
+
+  - `Owner owner`
+
+    The organization, or the member whose personal plugin marketplace it is.
+
+  - `Source source`
+
+    Where the plugin marketplace's Plugins come from: `manual` when they are uploaded; `github`, `gitlab` or `public_git` when they are synchronized from the Git repository the owner connected, into which nothing can be uploaded; `directory` is Anthropic's own catalog, which this API does not list. A value this API does not yet name is returned as stored.
+
+  - `?SyncStatus syncStatus`
+
+    Outcome of the plugin marketplace's most recent synchronization: one of `success`, `in_progress`, `failed_content`, `failed_transient`, `failed_auth`, `failed_limits`; a value this API does not yet name is returned as stored. Null until a synchronization is first attempted — so always for a `manual` plugin marketplace.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPluginMarketplace = $client
+  ->beta
+  ->organization
+  ->pluginMarketplaces
+  ->update(
+  'marketplace_id',
+  defaultInstallationPreference: 'available',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPluginMarketplace);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "marketplace_01HxQ3v9KpZ2mTn8RwLc4Ys7",
+  "created_at": "2026-03-14T09:26:53.589793Z",
+  "default_installation_preference": "available",
+  "last_sync_ended_at": "2026-03-14T09:26:53.589793Z",
+  "last_sync_read_sha": "9fceb02d0ae598e95dc970b74767f19372d61af8",
+  "name": "engineering-tools",
+  "owner": {
+    "type": "organization"
+  },
+  "source": "github",
+  "sync_status": "success",
+  "type": "plugin_marketplace"
+}
+```
+
+### Validate Plugin Marketplace Repository
+
+`$client->beta->organization->pluginMarketplaces->validateRepository(string repositoryURL, ?string ref, ?list<AnthropicBeta> betas): PluginMarketplaceValidationReport`
+
+**POST** `/v1/organizations/plugin_marketplaces/validate_repository`
+
+Check whether a plugin marketplace held in a public GitHub repository would
+synchronize into claude.ai, without connecting or storing it.
+
+To check a `.zip` of the marketplace directory instead, use Validate Plugin Marketplace Archive.
+
+The report says whether `marketplace.json` is well-formed, which plugins a
+synchronization would skip and why, and which plugins would synchronize only in
+part, with some files left out. A repository that is missing, private, or has no such branch or commit is reported, not refused: the response is a report with `valid: false`. Plugin sources outside the marketplace
+are fetched anonymously from GitHub, so a private one is reported as not found; a
+source on any other host is not fetched here, and the report notes that it will be
+checked when the marketplace actually synchronizes.
+
+Nothing is recorded on the Compliance API activity feed.
+
+For a worked example, see [Validate marketplace content](/docs/en/manage-claude/plugins-api#validate-marketplace-content)
+in the Plugins API guide.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `write:plugins` scope; `read:org_audit` and `read:compliance_org_data` do not grant it.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `repositoryURL: string`
+
+  The `https://` URL of a public repository on github.com that holds the marketplace. Any other host, a URL with credentials in it, or one that does not name a repository is a 400.
+
+- `ref?:optional string`
+
+  The branch to validate the tip of, or the full 40-character SHA of the commit to validate. When omitted, the branch a synchronization would read (usually the repository's default branch); if that is not the default branch, the report's `ref` says which branch was read. An empty string, or a value that is neither a branch name nor a 40-character SHA, is a 400.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class PluginMarketplaceValidationReport`
+
+  - `"plugin_marketplace_validation_report" type`
+
+    Always `plugin_marketplace_validation_report`.
+
+  - `?string commitSha`
+
+    The full SHA of the commit that was validated: for a repository, the commit that was read; for an uploaded archive, the commit recorded in the archive's comment (as a Git host's download writes it; not verified), else null.
+
+  - `?string manifestError`
+
+    Set when nothing could be validated: the repository or archive could not be read, or marketplace.json is missing, malformed or over a limit. Null otherwise.
+
+  - `?string manifestErrorCode`
+
+    A stable identifier for `manifest_error`; null when that is.
+
+  - `list<PluginMarketplaceValidationPluginError> pluginErrors`
+
+    One entry per plugin a synchronization would skip entirely, keyed by the plugin's name in marketplace.json.
+
+  - `list<PluginMarketplaceValidationPluginWarnings> pluginWarnings`
+
+    One entry per plugin that would synchronize with some of its contents left out, keyed by the plugin's name in marketplace.json.
+
+  - `?string ref`
+
+    For a repository, the branch that was read by name: the one requested, or else the branch a synchronization of this repository is set to read. Null when no branch is named or set and the repository's default branch was read, for a request by commit SHA, and for an uploaded archive.
+
+  - `int totalPluginCount`
+
+    How many plugins marketplace.json declares; 0 when it could not be read.
+
+  - `bool valid`
+
+    True when marketplace.json is well-formed and no plugin would be skipped; warnings never make it false.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPluginMarketplaceValidationReport = $client
+  ->beta
+  ->organization
+  ->pluginMarketplaces
+  ->validateRepository(
+  repositoryURL: 'https://github.com/example-org/example-marketplace',
+  ref: 'main',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPluginMarketplaceValidationReport);
+```
+
+##### Response (200)
+
+```json
+{
+  "commit_sha": "9fceb02d0ae598e95dc970b74767f19372d61af8",
+  "manifest_error": "manifest_error",
+  "manifest_error_code": "marketplace_sync_manifest_not_found",
+  "plugin_errors": [
+    {
+      "error": "error",
+      "error_code": "marketplace_sync_plugin_missing_manifest",
+      "name": "name"
+    }
+  ],
+  "plugin_warnings": [
+    {
+      "name": "name",
+      "warnings": [
+        {
+          "error_code": "marketplace_sync_zipball_symlink_dangling",
+          "message": "message"
+        }
+      ]
+    }
+  ],
+  "ref": "main",
+  "total_plugin_count": 0,
+  "type": "plugin_marketplace_validation_report",
+  "valid": false
+}
+```
+
+### Validate Plugin Marketplace Archive
+
+`$client->beta->organization->pluginMarketplaces->validateArchive(string archive, ?list<AnthropicBeta> betas): PluginMarketplaceValidationReport`
+
+**POST** `/v1/organizations/plugin_marketplaces/validate_archive`
+
+Check whether a plugin marketplace, uploaded as a `.zip` of the marketplace
+directory, would synchronize into claude.ai, without connecting or storing it.
+
+To check a public GitHub repository instead, use Validate Plugin Marketplace Repository.
+
+The report says whether `marketplace.json` is well-formed, which plugins a
+synchronization would skip and why, and which plugins would synchronize only in
+part, with some files left out. An archive that cannot be read as a marketplace is reported, not refused: the response is a report with `valid: false`. Plugin sources outside the marketplace
+are fetched anonymously from GitHub, so a private one is reported as not found; a
+source on any other host is not fetched here, and the report notes that it will be
+checked when the marketplace actually synchronizes.
+
+Nothing is recorded on the Compliance API activity feed.
+
+For a worked example, see [Validate marketplace content](/docs/en/manage-claude/plugins-api#validate-marketplace-content)
+in the Plugins API guide.
+
+**Accepted credentials:** an Admin API key with the `read:plugins` or `write:plugins` scope; `read:org_audit` and `read:compliance_org_data` do not grant it.
+
+Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
+
+#### Parameters
+
+- `archive: string`
+
+  A .zip of the marketplace directory (its contents at the root, or wrapped in one folder as a Git host's download produces), sent as a file part with a filename; DEFLATE- or STORE-compressed, at most 32 MB. A part sent without a filename, a second archive part, or any other form field is a 400; a larger archive is a 413.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
+
+#### Returns
+
+- `class PluginMarketplaceValidationReport`
+
+  - `"plugin_marketplace_validation_report" type`
+
+    Always `plugin_marketplace_validation_report`.
+
+  - `?string commitSha`
+
+    The full SHA of the commit that was validated: for a repository, the commit that was read; for an uploaded archive, the commit recorded in the archive's comment (as a Git host's download writes it; not verified), else null.
+
+  - `?string manifestError`
+
+    Set when nothing could be validated: the repository or archive could not be read, or marketplace.json is missing, malformed or over a limit. Null otherwise.
+
+  - `?string manifestErrorCode`
+
+    A stable identifier for `manifest_error`; null when that is.
+
+  - `list<PluginMarketplaceValidationPluginError> pluginErrors`
+
+    One entry per plugin a synchronization would skip entirely, keyed by the plugin's name in marketplace.json.
+
+  - `list<PluginMarketplaceValidationPluginWarnings> pluginWarnings`
+
+    One entry per plugin that would synchronize with some of its contents left out, keyed by the plugin's name in marketplace.json.
+
+  - `?string ref`
+
+    For a repository, the branch that was read by name: the one requested, or else the branch a synchronization of this repository is set to read. Null when no branch is named or set and the repository's default branch was read, for a request by commit SHA, and for an uploaded archive.
+
+  - `int totalPluginCount`
+
+    How many plugins marketplace.json declares; 0 when it could not be read.
+
+  - `bool valid`
+
+    True when marketplace.json is well-formed and no plugin would be skipped; warnings never make it false.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaPluginMarketplaceValidationReport = $client
+  ->beta
+  ->organization
+  ->pluginMarketplaces
+  ->validateArchive(
+  archive: FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaPluginMarketplaceValidationReport);
+```
+
+##### Response (200)
+
+```json
+{
+  "commit_sha": "9fceb02d0ae598e95dc970b74767f19372d61af8",
+  "manifest_error": "manifest_error",
+  "manifest_error_code": "marketplace_sync_manifest_not_found",
+  "plugin_errors": [
+    {
+      "error": "error",
+      "error_code": "marketplace_sync_plugin_missing_manifest",
+      "name": "name"
+    }
+  ],
+  "plugin_warnings": [
+    {
+      "name": "name",
+      "warnings": [
+        {
+          "error_code": "marketplace_sync_zipball_symlink_dangling",
+          "message": "message"
+        }
+      ]
+    }
+  ],
+  "ref": "main",
+  "total_plugin_count": 0,
+  "type": "plugin_marketplace_validation_report",
+  "valid": false
 }
 ```

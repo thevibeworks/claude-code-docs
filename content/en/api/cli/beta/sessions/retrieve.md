@@ -837,8 +837,6 @@ Get Session
 
   - `status: "rescheduling" or "running" or "idle" or "terminated"`
 
-    SessionStatus enum
-
     - `"rescheduling"`
 
       Transient error occurred, retrying automatically.
