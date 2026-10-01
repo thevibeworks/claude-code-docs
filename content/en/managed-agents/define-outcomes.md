@@ -199,6 +199,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   import com.anthropic.models.beta.agents.BetaManagedAgentsAgentToolset20260401Params;
   import com.anthropic.models.beta.agents.BetaManagedAgentsModel;
   import com.anthropic.models.beta.environments.BetaCloudConfigParams;
+  import com.anthropic.models.beta.environments.BetaLimitedNetworkParams;
   import com.anthropic.models.beta.environments.EnvironmentCreateParams;
   import com.anthropic.models.beta.files.FileListParams;
   import com.anthropic.models.beta.sessions.SessionCreateParams;

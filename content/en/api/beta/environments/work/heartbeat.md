@@ -131,6 +131,8 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Returns
 
 - `BetaSelfHostedWorkHeartbeatResponse object`

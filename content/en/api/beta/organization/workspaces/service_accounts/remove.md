@@ -131,6 +131,8 @@ membership. Archived workspaces return 400.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Returns
 
 - `type: "service_account_workspace_member_deleted"`

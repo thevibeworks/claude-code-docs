@@ -126,6 +126,8 @@ issuer cannot be changed), or recreate them against another issuer.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Returns
 
 - `BetaFederationIssuer object`

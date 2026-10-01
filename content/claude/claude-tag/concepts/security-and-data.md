@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-In channels, Claude acts under its own service accounts that an Owner provisions. By default it can read and post in Slack channels it's been added to and search public channels by keyword; it has no access to your external systems until an Owner adds connections. Each connection is scoped to specific channels and workspaces, and the actions Claude takes in connected tools are attributable to its own service accounts.
+In channels, Claude acts under its own service accounts that an Owner provisions. By default it can read and post in Slack channels it's been added to and search public channels by keyword; it has no access to your external systems until an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) adds connections. Each connection is scoped to specific channels and workspaces, and the actions Claude takes in connected tools are attributable to its own service accounts.
 
 Every channel request, whether a person typed it or a schedule triggered it, follows the same path: it runs in an isolated sandbox that holds no credentials. In an Anthropic-hosted environment, requests leave that sandbox only through Agent Proxy and reach your systems under the agent's own accounts. Sessions in a [self-hosted environment](https://code.claude.com/docs/en/self-hosted-environments) run on runners inside your network, and Claude can't use Access bundles in those sessions yet.
 

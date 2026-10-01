@@ -57,7 +57,7 @@ This happens because the model you requested has removed extended thinking (see 
 
 Switch the request to `thinking: {type: "adaptive"}` and steer thinking depth with `effort` instead of `budget_tokens`. [Migrating to adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#migrating-to-adaptive-thinking) walks through the conversion.
 
-## A 400 error says `"thinking.type.disabled"` is not supported
+## A 400 error after sending `thinking: {type: "disabled"}`
 
 The request fails with a 400 error. On Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Opus 5.5, and Claude Mythos 5, the message reads:
 
@@ -80,7 +80,7 @@ A 400 error on `"disabled"` can also occur on Claude Opus 5, which accepts `thin
 On Claude Sonnet 5.5, `thinking: {type: "disabled"}` returns a 400 error at every effort level. The message reads:
 
 ```text wrap
-"thinking.type.disabled" is not supported for this model. Use "thinking.type.between_tools" for the lowest thinking setting, or "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
+To turn thinking off on this model, send "thinking": {"type": "between_tools"} instead of {"type": "disabled"}. The model does not think before responding. The short updates it writes between tool calls come back as thinking blocks.
 ```
 
 To turn off up-front thinking on Claude Sonnet 5.5, send `thinking: {type: "between_tools"}` instead, at effort `high` or below.

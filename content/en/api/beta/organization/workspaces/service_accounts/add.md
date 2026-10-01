@@ -130,6 +130,8 @@ accounts cannot be added and are rejected.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Body parameters
 
 - `service_account_id: string`

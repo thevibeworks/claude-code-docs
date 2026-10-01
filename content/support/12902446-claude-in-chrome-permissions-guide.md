@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1790787600&amp;signature=18559d21142e1f49b2843140d16489d31fc96583cc07cbd442f0ec0621c970f4&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMJK9IWxgN0ADj5oqFDj75UrFcmB1%2BIkTdVB%0A%2Fblsc5nQjVaFd89D570%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1790838900&amp;signature=4d3070ff6cce3bbe6b2380905b153fd1b814a49441dd672d8c0a8f778303a5e4&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMJF%2F4q%2BgN0ADj5oqFDGV6jVfTatUzPMAWOA%0AIG7XNjvNHvV6EL7MspE%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1790787600&amp;signature=a1c82be13c296b329e89a848076ea9c5fbc15d379d73ecf4b668368dca7bfcd1&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2Z3gCvq7A4lHPBihAUIyhytc67gAxjvLJKt%0A%2BPj7e%2BBTXWGn2HsY3cQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1790838900&amp;signature=95dfc0b624bd6d58d81102cad16bc13938f04810d48a462e36bb1ddb0e3c028a&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2Z4iyTl7A4lHPBihAX41pWJ%2BbfH9C5DMogq%0Arj2P57XV0s4c%2FPymSMM%3D%0A)
 
 ### Permission options
 

@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-When Claude calls a system you connected through Federated cloud access, it proves who it is with a signed identity token instead of a stored credential. The token is a JSON Web Token (JWT) that names your organization and the agent making the request. A gateway you run receives it in the `Authorization: Bearer` header and verifies it directly. AWS, Google Cloud, or your authorization server receives it in a token exchange and returns one of its own credentials.
+When Claude calls a system you connected through Federated agent access, it proves who it is with a signed identity token instead of a stored credential. The token is a JSON Web Token (JWT) that names your organization and the agent making the request. A gateway you run receives it in the `Authorization: Bearer` header and verifies it directly. AWS, Google Cloud, or your authorization server receives it in a token exchange and returns one of its own credentials.
 
 This page lists what the token contains so the engineer who configures the verifying side can pin the right values. For setup steps, see [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway), [Connect an AWS role](/docs/claude-tag/admins/federated-access/aws), [Connect a Google Cloud identity](/docs/claude-tag/admins/federated-access/gcp), or [Connect an authorization server](/docs/claude-tag/admins/federated-access/authorization-server).
 
@@ -101,7 +101,7 @@ Tokens may carry additional claims Anthropic uses internally for audit; ignore a
 
 Three claim names are reserved and absent from every token: `platform_user_id`, `actor_sub`, and `account_id`. Don't write a rule that depends on them. An absent claim is omitted from the token, never sent empty.
 
-Anthropic sends the token only to the destinations you connect in **Federated cloud access**. When the request comes from Slack, the `slack_workspace_id` and `slack_channel_id` claims carry your Slack workspace and channel IDs to that destination along with your organization and agent IDs.
+Anthropic sends the token only to the destinations you connect in **Federated agent access**. When the request comes from Slack, the `slack_workspace_id` and `slack_channel_id` claims carry your Slack workspace and channel IDs to that destination along with your organization and agent IDs.
 
 Authorize on `sub`, as described under [Authorize on the subject](#authorize-on-the-subject). A gateway or authorization server, which can read every claim, can use `tenant` and `agent_id` instead, because they repeat the subject's two parts. An AWS trust policy matches on `sub` and `aud` only; a Google Cloud attribute condition can read `sub` or `tenant`. The token carries no claim that names the person behind the request, and no `groups`, `roles`, or `scope` claims. A rule that needs `slack_workspace_id` or `slack_channel_id` should refuse a token that lacks them.
 

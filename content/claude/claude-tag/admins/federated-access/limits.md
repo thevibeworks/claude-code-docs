@@ -2,15 +2,15 @@
 > Fetch the complete documentation index at: https://claude.com/docs/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Limits for federated cloud access
+# Limits for federated agent access
 
-> Counts, lengths, lifetimes, and unsupported configurations for Claude Tag's federated cloud access: gateways, AWS roles, Google Cloud identities, and authorization servers.
+> Counts, lengths, lifetimes, and unsupported configurations for Claude Tag's federated agent access: gateways, AWS roles, Google Cloud identities, and authorization servers.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
 <BetaNote />
 
-This page collects the fixed limits of Federated cloud access in one place.
+This page collects the fixed limits of Federated agent access in one place.
 
 ## Where federated connections work
 
@@ -31,7 +31,6 @@ Federated connections are available to Claude in Slack channels, where it acts u
 | Registered addresses per organization | 5, counting gateways and authorization-server token endpoints together. |
 | Token reuse | Claude reuses one token for a session's requests to the same gateway for about five minutes, half the token's lifetime, or until the gateway answers 401, and then requests a new one (current behavior, may change). A gateway sees the same `jti` on many requests. |
 | Gateway address | An HTTPS host name only, with no path, port, query, or trailing slash. The host name needs a domain, like `gateway.example.com`, uses only letters, numbers, hyphens, and dots, and has at most 253 characters (current behavior, may change). The console rejects an IP address, a private-network name, an Anthropic-owned host, or a host cloud providers use for token exchange, and names the reason. The connection check also refuses a host name that resolves to a private address. |
-| One connection per gateway | A gateway connected in one Access bundle can't be connected again in another. Attach that bundle to each scope that needs the gateway. |
 | [Allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) on the gateway's connection | Exactly the gateway's host, the only host Claude sends the token to. It can't be widened or given a wildcard. |
 | Connection check | Runs only against an HTTPS host with no path. The console sends two `POST` requests to the address, each with an empty body and a test token, doesn't follow redirects, and can take up to a minute. [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway) lists the expected responses. The console refuses a check that runs many times in quick succession and says how long to wait. |
 | Same address twice in one organization | Entering an address that is already registered runs the connection check again (unless you skip it) without changing the stored result, then moves to the bundle step. The run counts toward the check limit. |

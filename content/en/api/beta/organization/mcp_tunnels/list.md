@@ -146,6 +146,8 @@ archived tunnels are excluded unless `include_archived` is set.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Returns
 
 - `data: array of BetaOrganizationTunnel`

@@ -304,7 +304,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
         import com.anthropic.models.beta.agents.BetaManagedAgentsAgentToolset20260401Params;
         import com.anthropic.models.beta.agents.BetaManagedAgentsModel;
         import com.anthropic.models.beta.environments.BetaCloudConfigParams;
-        import com.anthropic.models.beta.environments.BetaUnrestrictedNetwork;
+        import com.anthropic.models.beta.environments.BetaLimitedNetworkParams;
         import com.anthropic.models.beta.environments.EnvironmentCreateParams;
         import com.anthropic.models.beta.sessions.SessionCreateParams;
         import com.anthropic.models.beta.sessions.events.BetaManagedAgentsStreamSessionEvents;
@@ -374,7 +374,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
   </Step>
 
   <Step title="Create an environment">
-    An environment defines the sandbox where your agent runs.
+    An environment defines the sandbox where your agent runs. This one uses `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) with package managers allowed, so code running in the sandbox can reach public [package registries and code hosts](https://platform.claude.com/docs/en/managed-agents/environments#package-manager-hosts) and no other sites. Web search and web fetch run outside the sandbox and are not affected.
 
     <CodeGroup defaultLanguage="CLI">
       <CodeGroupItem>
@@ -390,7 +390,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
           "name": "quickstart-env",
           "config": {
             "type": "cloud",
-            "networking": {"type": "unrestricted"}
+            "networking": {"type": "limited", "allow_package_managers": true}
           }
         }
         EOF
@@ -416,7 +416,8 @@ export ANTHROPIC_API_KEY="your-api-key-here"
           config:
             type: cloud
             networking:
-              type: unrestricted
+              type: limited
+              allow_package_managers: true
           ```
         </File>
 
@@ -429,7 +430,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
             name="quickstart-env",
             config={
                 "type": "cloud",
-                "networking": {"type": "unrestricted"},
+                "networking": {"type": "limited", "allow_package_managers": True},
             },
         )
 
@@ -445,7 +446,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
           name: "quickstart-env",
           config: {
             type: "cloud",
-            networking: { type: "unrestricted" },
+            networking: { type: "limited", allow_package_managers: true },
           },
         });
 
@@ -460,7 +461,10 @@ export ANTHROPIC_API_KEY="your-api-key-here"
         var environment = await client.Beta.Environments.Create(new()
         {
             Name = "quickstart-env",
-            Config = new BetaCloudConfigParams { Networking = new BetaUnrestrictedNetwork() },
+            Config = new BetaCloudConfigParams
+            {
+                Networking = new BetaLimitedNetworkParams { AllowPackageManagers = true },
+            },
         });
 
         Console.WriteLine($"Environment ID: {environment.ID}");
@@ -476,7 +480,9 @@ export ANTHROPIC_API_KEY="your-api-key-here"
         	Config: anthropic.BetaEnvironmentNewParamsConfigUnion{
         		OfCloud: &anthropic.BetaCloudConfigParams{
         			Networking: anthropic.BetaCloudConfigParamsNetworkingUnion{
-        				OfUnrestricted: &anthropic.BetaUnrestrictedNetworkParam{},
+        				OfLimited: &anthropic.BetaLimitedNetworkParams{
+        					AllowPackageManagers: anthropic.Bool(true),
+        				},
         			},
         		},
         	},
@@ -496,7 +502,9 @@ export ANTHROPIC_API_KEY="your-api-key-here"
         var environment = client.beta().environments().create(EnvironmentCreateParams.builder()
             .name("quickstart-env")
             .config(BetaCloudConfigParams.builder()
-                .networking(BetaUnrestrictedNetwork.builder().build())
+                .networking(BetaLimitedNetworkParams.builder()
+                    .allowPackageManagers(true)
+                    .build())
                 .build())
             .build());
 
@@ -510,7 +518,10 @@ export ANTHROPIC_API_KEY="your-api-key-here"
         ```php PHP
         $environment = $client->beta->environments->create(
             name: 'quickstart-env',
-            config: ['type' => 'cloud', 'networking' => ['type' => 'unrestricted']],
+            config: [
+                'type' => 'cloud',
+                'networking' => ['type' => 'limited', 'allow_package_managers' => true],
+            ],
         );
 
         echo "Environment ID: {$environment->id}\n";
@@ -523,7 +534,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
         ```ruby Ruby
         environment = client.beta.environments.create(
           name: "quickstart-env",
-          config: {type: "cloud", networking: {type: "unrestricted"}}
+          config: {type: "cloud", networking: {type: "limited", allow_package_managers: true}}
         )
 
         puts "Environment ID: #{environment.id}"

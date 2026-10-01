@@ -128,6 +128,8 @@ holds at most two non-archived certificates.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Body parameters
 
 - `ca_certificate_pem: string`

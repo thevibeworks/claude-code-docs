@@ -129,6 +129,8 @@ The Models API response can be used to determine information about a specific mo
 
     - `const AnthropicBetaMCPClient2026_09_15 AnthropicBeta = "mcp-client-2026-09-15"`
 
+    - `const AnthropicBetaCEPlugins2026_09_01 AnthropicBeta = "ce-plugins-2026-09-01"`
+
 ## Returns
 
 - `type ModelInfo`

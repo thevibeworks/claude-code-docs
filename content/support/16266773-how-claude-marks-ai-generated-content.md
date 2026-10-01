@@ -52,7 +52,7 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | Claude Sonnet 4.5 |                                                             |                                                                                    | ✅                                       |
 | Claude Haiku 4.5  |                                                             |                                                                                    | ✅                                       |
 
-**Rollout on cloud partner platforms for this model may take a few additional days after September 30.*
+**Rollout on Amazon Bedrock will complete by October 12.*
 
 Consistent with our commitments under the Code, Anthropic is adding watermarks to outputs from models released before August 2, 2026.
 

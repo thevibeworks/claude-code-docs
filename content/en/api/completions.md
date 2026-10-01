@@ -127,6 +127,8 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ### Body parameters
 
 - `max_tokens_to_sample: number`

@@ -26,7 +26,7 @@ Requests whose requester is no longer a member are excluded.
 
   Opaque cursor from a previous response's `next_page`.
 
-- `status: optional array of "approved" or "denied" or "pending"`
+- `status: optional array of BetaSpendLimitIncreaseRequestStatus`
 
   Filter by status. Omit to return all.
 
@@ -46,41 +46,53 @@ Requests whose requester is no longer a member are excluded.
 
   - `id: string`
 
-  - `actor: object`
+  - `actor: UserActor or ScopedAPIKeyActor`
 
-    A user within the organization. `name` and `email_address` are
-    null when the underlying account is unavailable or has been deleted;
-    `deleted` is true only for deleted accounts.
+    - `UserActor object`
 
-    - `type: "user_actor"`
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
 
-      Actor type. Always `user_actor`.
+      - `type: "user_actor"`
 
-      default: user_actor
+        Actor type. Always `user_actor`.
 
-    - `deleted: boolean`
+        default: user_actor
 
-      True only when the underlying account has been deleted.
+      - `deleted: boolean`
 
-      default: false
+        True only when the underlying account has been deleted.
 
-    - `email_address: string or null`
+        default: false
 
-      The user's email address. Null when the account is unavailable or has been deleted.
+      - `email_address: string or null`
 
-    - `name: string or null`
+        The user's email address. Null when the account is unavailable or has been deleted.
 
-      The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
+      - `name: string or null`
 
-    - `user_id: string`
+        The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
 
-      Tagged ID of the user.
+      - `user_id: string`
+
+        Tagged ID of the user.
+
+    - `ScopedAPIKeyActor object`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+      - `type: "scoped_api_key_actor"`
+
+        default: scoped_api_key_actor
+
+      - `scoped_api_key_id: string`
 
   - `created_at: string`
 
     format: date-time
 
-  - `period: "daily" or "monthly" or "weekly"`
+  - `period: BetaSpendLimitPeriod`
 
     - `"daily"`
 
@@ -188,15 +200,9 @@ Requests whose requester is no longer a member are excluded.
 
       ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
 
-    - `period: "daily" or "monthly" or "weekly"`
+    - `period: BetaSpendLimitPeriod`
 
       Period this row's effective limit and spend are reported for.
-
-      - `"daily"`
-
-      - `"monthly"`
-
-      - `"weekly"`
 
     - `period_to_date_spend: string`
 
@@ -324,7 +330,7 @@ Requests whose requester is no longer a member are excluded.
 
     - `spend_limit_id: string`
 
-  - `status: "approved" or "denied" or "pending"`
+  - `status: BetaSpendLimitIncreaseRequestStatus`
 
     - `"approved"`
 
@@ -357,7 +363,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limit_increase_requests \
         "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
       },
       "created_at": "2019-12-27T18:11:19.117Z",
-      "period": "monthly",
+      "period": "daily",
       "resolved_at": "2019-12-27T18:11:19.117Z",
       "resolved_by": {
         "deleted": true,
@@ -376,7 +382,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limit_increase_requests \
         },
         "amount": "50000",
         "currency": "USD",
-        "period": "monthly",
+        "period": "daily",
         "period_to_date_spend": "12050.5",
         "scope": {
           "type": "user",

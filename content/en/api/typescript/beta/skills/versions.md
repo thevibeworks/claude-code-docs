@@ -131,6 +131,8 @@ Create Skill Version
 
     - `"mcp-client-2026-09-15"`
 
+    - `"ce-plugins-2026-09-01"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -340,6 +342,8 @@ List Skill Versions
 
     - `"mcp-client-2026-09-15"`
 
+    - `"ce-plugins-2026-09-01"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -547,6 +551,8 @@ Download a skill version's content as a zip archive.
 
     - `"mcp-client-2026-09-15"`
 
+    - `"ce-plugins-2026-09-01"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -701,6 +707,8 @@ Get Skill Version
     - `"inline-tools-2026-09-15"`
 
     - `"mcp-client-2026-09-15"`
+
+    - `"ce-plugins-2026-09-01"`
 
   - `workspace_id?: string`
 
@@ -904,6 +912,8 @@ Delete Skill Version
     - `"inline-tools-2026-09-15"`
 
     - `"mcp-client-2026-09-15"`
+
+    - `"ce-plugins-2026-09-01"`
 
   - `workspace_id?: string`
 

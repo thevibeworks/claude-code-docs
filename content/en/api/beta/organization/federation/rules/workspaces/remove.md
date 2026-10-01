@@ -130,6 +130,8 @@ Console session.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Returns
 
 - `type: "federation_rule_workspace_deleted"`

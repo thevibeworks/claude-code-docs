@@ -427,6 +427,10 @@ List Events
 
       Timestamp of status change.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the session stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionStatusTerminatedEvent`
@@ -652,6 +656,10 @@ List Events
     - `string sessionThreadID`
 
       Public sthr_ ID of the thread that went idle.
+
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the thread stopped. `null` when there is nothing more to report.
 
     - `StopReason stopReason`
 
@@ -1319,6 +1327,10 @@ Stream Events
 
       Timestamp of status change.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the session stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionStatusTerminatedEvent`
@@ -1544,6 +1556,10 @@ Stream Events
     - `string sessionThreadID`
 
       Public sthr_ ID of the thread that went idle.
+
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the thread stopped. `null` when there is nothing more to report.
 
     - `StopReason stopReason`
 
@@ -2412,6 +2428,96 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `Type type`
 
+### Beta Managed Agents Repository Authentication Error
+
+- `class ManagedAgentsRepositoryAuthenticationError`
+
+  - `"repository_authentication_error" type`
+
+  - `string message`
+
+    Human-readable error description.
+
+  - `?string repositoryURL`
+
+    URL of the repository that could not be cloned. Null when it could not be identified.
+
+  - `RetryStatus retryStatus`
+
+    What the client should do next. Always `retrying`: the session keeps running without the repository.
+
+### Beta Managed Agents Repository Checkout Error
+
+- `class ManagedAgentsRepositoryCheckoutError`
+
+  - `"repository_checkout_error" type`
+
+  - `string message`
+
+    Human-readable error description.
+
+  - `?string repositoryURL`
+
+    URL of the repository that could not be cloned. Null when it could not be identified.
+
+  - `RetryStatus retryStatus`
+
+    What the client should do next. Always `retrying`: the session keeps running without the repository.
+
+### Beta Managed Agents Repository Clone Error
+
+- `class ManagedAgentsRepositoryCloneError`
+
+  - `"repository_clone_error" type`
+
+  - `string message`
+
+    Human-readable error description.
+
+  - `?string repositoryURL`
+
+    URL of the repository that could not be cloned. Null when it could not be identified.
+
+  - `RetryStatus retryStatus`
+
+    What the client should do next. Always `retrying`: the session keeps running without the repository.
+
+### Beta Managed Agents Repository Forbidden Error
+
+- `class ManagedAgentsRepositoryForbiddenError`
+
+  - `"repository_forbidden_error" type`
+
+  - `string message`
+
+    Human-readable error description.
+
+  - `?string repositoryURL`
+
+    URL of the repository that could not be cloned. Null when it could not be identified.
+
+  - `RetryStatus retryStatus`
+
+    What the client should do next. Always `retrying`: the session keeps running without the repository.
+
+### Beta Managed Agents Repository Not Found Error
+
+- `class ManagedAgentsRepositoryNotFoundError`
+
+  - `"repository_not_found_error" type`
+
+  - `string message`
+
+    Human-readable error description.
+
+  - `?string repositoryURL`
+
+    URL of the repository that could not be cloned. Null when it could not be identified.
+
+  - `RetryStatus retryStatus`
+
+    What the client should do next. Always `retrying`: the session keeps running without the repository.
+
 ### Beta Managed Agents Retry Status Exhausted
 
 - `class ManagedAgentsRetryStatusExhausted`
@@ -2890,6 +2996,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Timestamp of status change.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the session stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionStatusTerminatedEvent`
@@ -3116,6 +3226,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Public sthr_ ID of the thread that went idle.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the thread stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionThreadStatusTerminatedEvent`
@@ -3322,6 +3436,26 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `"session.usage"`
 
+### Beta Managed Agents Session Refusal
+
+- `class ManagedAgentsSessionRefusal`
+
+  - `"refusal" type`
+
+### Beta Managed Agents Session Refusal Stop Details
+
+- `class ManagedAgentsSessionRefusalStopDetails`
+
+  - `"refusal" type`
+
+  - `?Category category`
+
+    The policy category that triggered the refusal, or `null` when there is no named category. New values can be added over time.
+
+  - `?string explanation`
+
+    Human-readable explanation of the refusal, or `null` when none is available. The wording can change, so do not parse it.
+
 ### Beta Managed Agents Session Requires Action
 
 - `class ManagedAgentsSessionRequiresAction`
@@ -3351,6 +3485,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `\Datetime processedAt`
 
     Timestamp of status change.
+
+  - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+    Structured information about why the session stopped. `null` when there is nothing more to report.
 
   - `StopReason stopReason`
 
@@ -3439,6 +3577,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `string sessionThreadID`
 
     Public sthr_ ID of the thread that went idle.
+
+  - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+    Structured information about why the thread stopped. `null` when there is nothing more to report.
 
   - `StopReason stopReason`
 
@@ -4056,6 +4198,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Timestamp of status change.
 
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the session stopped. `null` when there is nothing more to report.
+
     - `StopReason stopReason`
 
   - `class ManagedAgentsSessionStatusTerminatedEvent`
@@ -4281,6 +4427,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
     - `string sessionThreadID`
 
       Public sthr_ ID of the thread that went idle.
+
+    - `?ManagedAgentsSessionRefusalStopDetails stopDetails`
+
+      Structured information about why the thread stopped. `null` when there is nothing more to report.
 
     - `StopReason stopReason`
 

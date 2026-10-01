@@ -79,7 +79,7 @@ To set a default mode for new local sessions, add `permissions.defaultMode` to y
 | **Manual** | `default` | Claude asks before editing files or running commands. You see a diff and can accept or reject each change. |
 | **Accept edits** | `acceptEdits` | Claude auto-accepts file edits and common filesystem commands like `mkdir`, `touch`, and `mv`, but still asks before running other terminal commands. Use this when you trust file changes and want faster iteration. |
 | **Plan** | `plan` | Claude reads files and runs commands to explore, then proposes a plan without editing your source code. Good for complex tasks where you want to review the approach first. |
-| **Auto** | `auto` | Claude executes all actions with background safety checks that verify alignment with your request. Reduces permission prompts while maintaining oversight. Appears when [auto mode is available](#auto-mode-availability); there is no separate Settings toggle for it. |
+| **Auto** | `auto` | Claude runs without routine prompts; before actions such as shell commands and network requests run, a background classifier checks that they align with your request. Appears when [auto mode is available](#auto-mode-availability); there is no separate Settings toggle for it. |
 | **Bypass permissions** | `bypassPermissions` | Claude runs without permission prompts, except for the [actions no mode auto-approves](/docs/en/permission-modes#actions-no-mode-auto-approves), safety classifiers when Claude [acts on external sites](#browse-external-sites), or desktop actions where Claude always asks first, such as [archiving a session](#work-across-sessions). Equivalent to `--dangerously-skip-permissions` in the CLI. On Pro and Max plans, enable it in your Settings → Claude Code under "Allow bypass permissions mode"; on Team and Enterprise plans there is no Settings toggle, and organization policy controls it instead. Only use this in sandboxed containers or VMs. |
 
 Earlier versions of the Code tab labeled these modes Ask permissions, Auto accept edits, and Plan mode.
@@ -426,7 +426,7 @@ You can send a command while Claude is working, the same as any other message, a
 
 Local sessions load your personal skills from `~/.claude/skills/`. An [SSH](#ssh-sessions) session reads `~/.claude/skills/` from the remote host's home directory, not from your machine.
 
-Local and cloud sessions also load the skills enabled for your claude.ai account. Cloud sessions load them instead of `~/.claude/skills/`, as [Skills in Cowork and cloud sessions](/docs/en/skills#skills-in-cowork-and-cloud-sessions) describes.
+Local and cloud sessions also load the skills enabled for your claude.ai account, except local sessions when your organization sets [`disableSideloadFlags`](/docs/en/settings-reference#disablesideloadflags). Cloud sessions load them instead of `~/.claude/skills/`, as [Skills in Cowork and cloud sessions](/docs/en/skills#skills-in-cowork-and-cloud-sessions) describes.
 
 ### Install plugins
 
@@ -434,7 +434,7 @@ Local and cloud sessions also load the skills enabled for your claude.ai account
 
 For local and [SSH](#ssh-sessions) sessions, click the **+** button next to the prompt box and select **Plugins** to see your installed plugins and their skills. To add a plugin, select **Add plugin** from the submenu to open the plugin browser, which shows available plugins from your configured [marketplaces](/docs/en/plugins/overview) including the official Anthropic marketplace. Select **Manage plugins** to enable, disable, or uninstall plugins.
 
-You can scope plugins to your user account, a specific project, or local-only. If your organization manages plugins centrally, those plugins are available in desktop sessions the same way they are in the CLI.
+You can scope plugins to your user account, a specific project, or local-only. If your organization manages plugins centrally, those plugins are available in desktop sessions the same way they are in the CLI, except the ones the desktop app [withholds under `disableSideloadFlags`](/docs/en/settings-reference#disablesideloadflags).
 
 The plugin browser is not available in cloud sessions, and plugins you install from the desktop app aren't available for cloud sessions. A cloud session also doesn't install plugins that the repository's `.claude/settings.json` declares, as [What carries over from your setup](/docs/en/cloud-environments#what-carries-over-from-your-setup) explains. Plugins aren't available in WSL sessions. For the full plugin reference including creating your own plugins, see [plugins](/docs/en/plugins/overview).
 
@@ -848,6 +848,14 @@ For the full enterprise configuration reference, see the [enterprise configurati
 If you already use the Claude Code CLI, Desktop runs the same underlying engine with a graphical interface. You can run both simultaneously on the same machine, even on the same project. Each keeps its own session list, and you can bring a CLI session into Desktop. They share configuration and project memory via CLAUDE.md files.
 
 To move a CLI session into Desktop, run `/desktop` in the terminal. Claude saves your session and opens it in the desktop app, then exits the CLI. This command is available on macOS and x64 Windows when you are signed in with a Claude subscription. It is not available with API key authentication or on Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry.
+
+From your shell, [`claude --desktop`](/docs/en/cli-reference#cli-flags) opens Desktop directly without starting a terminal session. It requires Claude Code v2.1.285 or later and has the same platform and sign-in requirements as `/desktop`. With no other arguments, it opens Desktop on the current directory. To open an existing CLI session in Desktop, add `--continue` for the most recent conversation in this directory, or `--resume` with the session ID that `/status` shows:
+
+```bash theme={null}
+claude --desktop --resume <session-id>
+```
+
+Claude Code prints `Opening session <session-id> in Claude Desktop`, the session opens in the app, and the command exits. A session name doesn't work in place of the ID. Claude Code doesn't move a session that is open in another terminal or still running in the background. If Claude Desktop isn't installed, the command prints a download link and exits.
 
 You can also pick up a CLI session from inside Desktop with `/resume`. The command is available in local sessions, not in SSH, WSL, or cloud sessions.
 

@@ -8,9 +8,9 @@
 
 Agent view, opened with `claude agents`, is one screen for all your background sessions: what's running, what needs your input, and what's done. Dispatch new sessions, watch their state at a glance instead of scrolling through transcripts, and step in only when one needs you. Each background session is a full Claude Code conversation that keeps running without a terminal attached, so you can open it, reply, and leave whenever you want.
 
-<img src="https://mintcdn.com/claude-code/1B48Qz2Z9hac4SLG/images/agent-view-light.png?fit=max&auto=format&n=1B48Qz2Z9hac4SLG&q=85&s=7a186c96ed47d6700d084d77e786be65" className="dark:hidden" alt="Agent view in a terminal: the header shows Claude Code v2.1.140, the model, the working directory, and a summary count. Sessions are grouped under Needs input, Working, and Completed, with a dispatch input at the bottom and a footer of keyboard hints." width="1772" height="780" data-path="images/agent-view-light.png" />
+<img src="https://mintcdn.com/claude-code/HDAmBwgbrZVk0pOt/images/agent-view-light.png?fit=max&auto=format&n=HDAmBwgbrZVk0pOt&q=85&s=d6905012bee31f3e6b3920b09c05dd02" className="dark:hidden" alt="Agent view in a terminal. A line at the top counts the sessions awaiting input, working, and completed. Four sessions are grouped under Needs input, Working, and Completed. Each row shows the session's name, its latest status or question, and a time. At the bottom are an input for describing a new task and a row of keyboard hints." width="1872" height="680" data-path="images/agent-view-light.png" />
 
-<img src="https://mintcdn.com/claude-code/1B48Qz2Z9hac4SLG/images/agent-view-dark.png?fit=max&auto=format&n=1B48Qz2Z9hac4SLG&q=85&s=a5bed7434bae368faea3a8f023b52aa2" className="hidden dark:block" alt="Agent view in a terminal: the header shows Claude Code v2.1.140, the model, the working directory, and a summary count. Sessions are grouped under Needs input, Working, and Completed, with a dispatch input at the bottom and a footer of keyboard hints." width="1772" height="780" data-path="images/agent-view-dark.png" />
+<img src="https://mintcdn.com/claude-code/HDAmBwgbrZVk0pOt/images/agent-view-dark.png?fit=max&auto=format&n=HDAmBwgbrZVk0pOt&q=85&s=fc3c195bfc57e313ced1f1beb36cee93" className="hidden dark:block" alt="Agent view in a terminal. A line at the top counts the sessions awaiting input, working, and completed. Four sessions are grouped under Needs input, Working, and Completed. Each row shows the session's name, its latest status or question, and a time. At the bottom are an input for describing a new task and a row of keyboard hints." width="1872" height="680" data-path="images/agent-view-dark.png" />
 
 Use agent view when you have several independent tasks Claude can work on without you watching every step. Dispatch a bug fix, a pull request review, and a flaky-test investigation as three rows, keep working in another window, and check back when a row shows it needs you or has a result.
 
@@ -873,20 +873,6 @@ The original conversation is intact; resume it with `claude --resume` or keep wo
 The [supervisor](#the-supervisor-process) runs each background session's terminal in its own host process. When that process dies or stops responding, Claude Code shows the reason and offers a restart; in both cases the conversation is saved and the restart resumes it. The [error reference](/docs/en/errors#terminal-host-process-died) quotes the full messages.
 
 Claude Code never restarts a row running a [shell command](#run-a-shell-command), from `Enter` or from `claude attach`, because that would run the command again; the row's message and `claude attach` both say the command isn't run again.
-
-#### Terminal host died
-
-On Linux and WSL, the supervisor checks each host process every few seconds, whether or not you open the session, and marks the session failed when the process has exited but its connection to the supervisor never closed.
-
-* In agent view, the row shows `terminal host process died — press Enter to restart`. Press `Enter` on it and Claude Code restarts the session on a fresh host process.
-* From the shell, `claude attach <id>` restarts a session already marked failed. Otherwise it reports the cause and exits, telling you to run `claude attach <id>` again.
-
-#### Session isn't responding
-
-When the supervisor accepts an open but no output arrives for about ten seconds, Claude Code ends the attempt and offers a restart. A session that merely stalled, for example across machine sleep, doesn't reach this offer: the supervisor [restarts it on open](#read-session-state) itself.
-
-* In agent view, the footer shows `Press enter again to restart this session — it isn't responding (its conversation is saved and resumes).` Press `Enter` on the same row again and Claude Code stops the unresponsive process and restarts the session; it stops nothing without that second press.
-* From the shell, `claude attach <id>` reports the cause and exits, telling you to run `claude stop <id>`, then `claude attach <id>`.
 
 ### A session fails before starting with a `possibly low memory` note
 

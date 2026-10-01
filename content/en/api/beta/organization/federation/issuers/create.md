@@ -125,6 +125,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ## Body parameters
 
 - `issuer_url: string`

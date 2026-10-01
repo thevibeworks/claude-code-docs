@@ -129,6 +129,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `:"mcp-client-2026-09-15"`
 
+  - `:"ce-plugins-2026-09-01"`
+
 - `workspace_id: String`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -320,6 +322,8 @@ Fetches a tunnel certificate by ID.
   - `:"inline-tools-2026-09-15"`
 
   - `:"mcp-client-2026-09-15"`
+
+  - `:"ce-plugins-2026-09-01"`
 
 - `workspace_id: String`
 
@@ -523,6 +527,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `:"mcp-client-2026-09-15"`
 
+  - `:"ce-plugins-2026-09-01"`
+
 - `workspace_id: String`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -719,6 +725,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `:"inline-tools-2026-09-15"`
 
   - `:"mcp-client-2026-09-15"`
+
+  - `:"ce-plugins-2026-09-01"`
 
 - `workspace_id: String`
 

@@ -44,7 +44,7 @@ A package is marked **Runs code** when it declares components that can run code 
 
 The upload preview marks any plugin that declares components that can run code on the member's machine, for example hooks or an [MCP server](/docs/connectors/getting-started), and you confirm that you trust such a package before it is added. For a marketplace archive, one confirmation covers every marked plugin in the batch. After you add it, the plugin's row on the **Plugins** card keeps a **Runs code** marker, so you can see at a glance which of the plugins you have added contain these components.
 
-The marker reflects what a plugin declares. In Claude for Government, a marked plugin's hooks run on the member's machine at defined points during a session. Claude Desktop can also run a local MCP server that the plugin declares on the member's machine, or connect to a remote one.
+The marker reflects what a plugin declares. In Claude for Government, a marked plugin's hooks run on the member's machine at defined points during a session. Claude Desktop can also run a local MCP server that the plugin declares on the member's machine, or connect to a remote one. If a plugin's remote MCP server does not connect, check the **Member-added connectors** setting on the **Connectors** card, described under **Claude Code** in [Available settings](/docs/government/config/settings).
 
 Treat the marker as a prompt to review the package yourself. You are responsible for the plugins you distribute to members, so read each plugin's contents before you upload it.
 

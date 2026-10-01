@@ -14,7 +14,7 @@ Claude Tag's settings live on claude.ai, split across a few pages that each own 
 
 | Surface | Who changes it | What it controls |
 | :- | :- | :- |
-| [Claude Tag admin page](https://claude.ai/admin-settings/claude-tag) | An Owner in your Claude organization | Access, behavior, and restrictions for channels, mostly per [scope](/docs/claude-tag/concepts/glossary#scope) |
+| [Claude Tag admin page](https://claude.ai/admin-settings/claude-tag) | An Owner in your Claude organization, or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) on the Enterprise plan | Access, behavior, and restrictions for channels, mostly per [scope](/docs/claude-tag/concepts/glossary#scope) |
 | [Usage page](https://claude.ai/admin-settings/usage/claude-tag) | An admin | Spend limits and each channel's spend against them |
 | [Analytics page](https://claude.ai/analytics/claude-tag) | Anyone who can view the Analytics dashboard | Spend trends, projections, and per-channel reports; read-only |
 | The **Configure** link in the footer of any Claude reply in a channel | Channel members (unless an admin restricts editing) and [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for their assigned channels | One channel's instructions and whether Claude replies there without an @-mention. Channel managers also set the channel's default model, repositories, connections, and plugins |
@@ -24,7 +24,7 @@ Channel memory and routines aren't in the table because you change them by talki
 
 ## The Claude Tag admin page
 
-Everything an Owner configures for channels lives at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). Most settings there apply per scope (a channel, a workspace, or the whole organization). A scope without its own setting inherits from its parent, and a channel's setting overrides its workspace's, so two channels can run with different connections, models, and instructions. Most controls are Owner-only; the [permissions table](/docs/claude-tag/admins/restrict-access#permissions-by-role) lists each action and who can take it.
+Everything an Owner configures for channels lives at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). Most settings there apply per scope (a channel, a workspace, or the whole organization). A scope without its own setting inherits from its parent, and a channel's setting overrides its workspace's, so two channels can run with different connections, models, and instructions. Most controls need the Owner role or, on the Enterprise plan, the [**Claude Tag Admin** permission](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration); the [permissions table](/docs/claude-tag/admins/restrict-access#permissions-by-role) lists each action and who can take it.
 
 * **Access bundles**: the connections, domain entries, repository grants, and plugins Claude uses in the channels a bundle covers. See [Give Claude access](/docs/claude-tag/admins/add-connections).
 * **Custom instructions**: standing guidance Claude reads in every session on a scope. See [Add custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions).
@@ -52,7 +52,7 @@ The page's **Tools and access** tab shows the channel's resolved connections and
 
 The Configure page and the **Custom instructions** field on the scope's panel in admin settings write the same instructions, so a change from either place is visible in the other. See [Configure Claude for a channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel).
 
-On the Enterprise plan, an Owner can name [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for a channel. For them, the same page adds editable cards: the channel's default model on the **General** tab, and its repositories and access bundles on the **Tools and access** tab.
+On the Enterprise plan, an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) can name [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for a channel. For them, the same page adds editable cards: the channel's default model on the **General** tab, and its repositories and access bundles on the **Tools and access** tab.
 
 ## Personal connectors on claude.ai
 

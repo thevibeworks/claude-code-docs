@@ -97,7 +97,7 @@ Paginates by member, so a member's periods never split across pages.
 
     ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
 
-  - `period: "daily" or "monthly" or "weekly"`
+  - `period: BetaSpendLimitPeriod`
 
     Period this row's effective limit and spend are reported for.
 
@@ -258,7 +258,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits/effective \
       },
       "amount": "50000",
       "currency": "USD",
-      "period": "monthly",
+      "period": "daily",
       "period_to_date_spend": "12050.5",
       "scope": {
         "type": "user",

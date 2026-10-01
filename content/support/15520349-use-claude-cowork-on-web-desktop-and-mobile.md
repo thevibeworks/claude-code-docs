@@ -26,6 +26,8 @@ The Chrome side panel works differently. Opening the side panel starts a Cowork 
 
 - **Chrome:** Click the Claude icon in your Chrome toolbar to open the side panel. The side panel starts a Cowork session, so there's no need to select "Cowork" first.
 
+**Note:** To run a task without using or adding to your memory, turn off "Memory" in the "+" menu before you start the task.
+
 ---
 
 ## How Cowork in the cloud works

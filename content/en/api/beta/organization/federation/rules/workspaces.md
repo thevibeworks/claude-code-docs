@@ -132,6 +132,8 @@ other scopes require a Console session.
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ### Body parameters
 
 - `workspace_id: string`
@@ -329,6 +331,8 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `"mcp-client-2026-09-15"`
 
+  - `"ce-plugins-2026-09-01"`
+
 ### Returns
 
 - `data: array of BetaFederationRuleWorkspace`
@@ -515,6 +519,8 @@ Console session.
   - `"inline-tools-2026-09-15"`
 
   - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
 
 ### Returns
 

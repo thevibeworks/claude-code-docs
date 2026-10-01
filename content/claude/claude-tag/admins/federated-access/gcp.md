@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Note>Google Cloud identities are connected at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag): open **Federated cloud access** in the left navigation and use the **Cloud roles** section. Connecting an identity needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+<Note>Google Cloud identities are connected at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag): open **Federated agent access** in the left navigation and use the **Cloud roles** section. Connecting an identity needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
 
 With a Google Cloud identity connection, Claude exchanges a short-lived identity token at a workload identity pool you create and calls Google Cloud APIs with the result. No service account key is stored in Claude. The token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel), and your pool's attribute condition decides which tokens to accept. If someone else manages your Google Cloud project, give them the values from Claude's admin settings and the settings below; the console steps need a Claude Tag admin.
 
@@ -25,7 +25,7 @@ Before you start, decide whether Claude acts as the federated identity itself, w
 
 ## Copy the values from the console
 
-In **Cloud roles**, click **Connect a Google Cloud identity** and copy the **Issuer** and **Subject prefix** rows from the **Set the workload identity provider to accept these values** card (the **JWKS URL** row isn't needed, because Google reads the keys from the issuer). Then click **Cancel**; you connect the identity after setting up Google Cloud.
+In **Cloud roles**, click **Connect a Google Cloud identity** and copy the **Issuer** and **Subject prefix** rows from the **Set the workload identity provider to accept these values** card (the **JWKS URL** row isn't needed, because Google reads the keys from the issuer). The card also has a **Tenant ID for tokens** row with your organization ID, and an **Attribute condition** row holding the prefix form of the condition in [Create the pool and provider in Google Cloud](#create-the-pool-and-provider-in-google-cloud). Then click **Cancel**; you connect the identity after setting up Google Cloud.
 
 | Value | What it is |
 | :- | :- |
@@ -146,7 +146,7 @@ If Claude reports that the request was refused, the two most common causes are t
 * A token refused by your provider usually means the attribute condition didn't accept it. Check the organization ID in the condition, then the issuer URL and the allowed audience.
 * A permission error on the API call means the role grant is missing or too narrow.
 
-See [Troubleshoot federated cloud access](/docs/claude-tag/admins/federated-access/troubleshooting) for the errors Claude shows and the other causes.
+See [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting) for the errors Claude shows and the other causes.
 
 To disconnect an identity, click **Remove** in the identity's row of the **Cloud roles** table, then **Remove role** in the confirmation. Claude stops using the identity within about a minute, in existing threads as well as new ones, and the connection is removed from its bundle. A Google credential from an earlier exchange stays valid with Google until it expires, held only by Agent Proxy, never by Claude's sandbox. To end the trust on the Google side as well, delete the provider or remove the IAM bindings.
 
@@ -157,7 +157,7 @@ Two messages come up while connecting:
 * **A message that a connection "already covers" a host "in this bundle"**: another Google Cloud connection in the bundle you chose already has that host under **Allowed hosts**, so Claude would never use the new connection for it. Remove the shared host or choose another bundle.
 * **A rejected Workload identity provider or Service account to act as value**: the value doesn't match the form the field describes, usually because the resource name carries the project ID instead of the project number, or the service account is a default one.
 
-For other dialog messages, see [Troubleshoot federated cloud access](/docs/claude-tag/admins/federated-access/troubleshooting).
+For other dialog messages, see [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting).
 
 If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel under the [scope](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) of the Access bundle that holds the connection.
 
@@ -167,5 +167,5 @@ If Claude reports HTTP 403 with a reason that starts with [`request blocked: fed
 * [Attach a bundle to a scope](/docs/claude-tag/admins/attach-to-scope): where an identity connection applies
 * [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference): every claim in the token, lifetimes, and key rotation
 * [Limits](/docs/claude-tag/admins/federated-access/limits): what the credential-minting block refuses, and the other limits for Google Cloud identities
-* [Troubleshoot federated cloud access](/docs/claude-tag/admins/federated-access/troubleshooting): console and runtime errors for every connection type
+* [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting): console and runtime errors for every connection type
 * [BigQuery](/docs/claude-tag/admins/connections/bigquery): the stored-key alternative for one Google service

@@ -1,6 +1,6 @@
 # Get started with Claude for Government
 
-**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation for getting started.
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 ## What is Claude for Government?
 

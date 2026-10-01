@@ -46,7 +46,7 @@ You link GitHub once for your Claude organization, then grant repositories per A
 
 ## Grant repository access
 
-The remaining steps are in the Claude Tag admin page, not GitHub's settings. Repository grants live on the Access bundle; editing a bundle's Repositories tab requires the **Owner** role in your Claude organization. A [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can also add repositories to their own channel, limited to repositories their GitHub account is an admin of.
+The remaining steps are in the Claude Tag admin page, not GitHub's settings. Repository grants live on the Access bundle; editing a bundle's Repositories tab requires the **Owner** role or the [**Claude Tag Admin** permission](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) in your Claude organization. A [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can also add repositories to their own channel, limited to repositories their GitHub account is an admin of.
 
 <Steps>
   <Step title="Open the bundle's Repositories tab">
@@ -101,7 +101,7 @@ Every session runs in an isolated sandbox with a standard set of preinstalled to
 
 Claude follows `CLAUDE.md` as guidance when it starts work that needs it, not as an unconditional setup step. Write each install as a precondition of the work it supports, for example "install the SDK before building or running tests", so Claude runs it when a task touches that code. The sandbox is fresh for every session, so the installs repeat each time Claude works in the repository.
 
-Prefer the standard package manager and its default registry over a vendor install script or a third-party package source. Package managers such as `apt`, `pip`, `npm`, and `dotnet` reach their default registries from the sandbox; downloads from other hosts can be blocked at the sandbox's [egress boundary](/docs/claude-tag/concepts/security-and-data#network-egress). An Owner can allow an additional host on the bundle's Domains tab; see [Allow a host without a credential](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential).
+Prefer the standard package manager and its default registry over a vendor install script or a third-party package source. Package managers such as `apt`, `pip`, `npm`, and `dotnet` reach their default registries from the sandbox; downloads from other hosts can be blocked at the sandbox's [egress boundary](/docs/claude-tag/concepts/security-and-data#network-egress). An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) can allow an additional host on the bundle's Domains tab; see [Allow a host without a credential](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential).
 
 ## What Claude can do with GitHub Actions
 
