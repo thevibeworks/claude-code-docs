@@ -18,7 +18,7 @@ In Claude for Government, plugins reach you in three ways:
 * If your administrators let you add your own plugins, you can upload a plugin file or ask Claude to create a plugin with you.
 * If your administrators let you add plugin marketplaces, you can add a marketplace and install plugins from it.
 
-Claude for Government does not include a public plugin marketplace; your administrators add your organization's plugins. Your deployment's network controls determine whether a marketplace you add can be downloaded.
+Claude for Government does not include a public plugin marketplace; your administrators add your organization's plugins. Whether a marketplace you add can be downloaded depends on your agency's network and on the settings your administrators choose.
 
 ## Find and install plugins
 
