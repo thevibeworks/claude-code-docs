@@ -28,6 +28,14 @@ A few limits apply to the agent regardless of how the proxy is chosen:
 * There is no interactive proxy sign-in. If your proxy requires a username and password, neither the app nor the agent can prompt for them and requests fail. Run a local forwarding proxy that authenticates upstream on the device (for example, Cntlm or Px) and point the OS or the pinned key at it.
 * If your proxy intercepts TLS, see [TLS-intercepting proxies](#tls-intercepting-proxies) below.
 
+### PAC script for the sandboxed shell
+
+On macOS and Windows, Cowork's sandboxed shell works from its own copy of the PAC script, which the app downloads from the address in the OS proxy settings when the sandbox starts. Without a copy, the shell's commands connect directly, or through a proxy server that the OS proxy settings also name.
+
+* **PAC script address on macOS.** macOS refuses the download of the sandboxed shell's copy from a plain `http://` address such as `http://pac.example.com/proxy.pac`. The app and the agent are then still proxied as the script directs, and the sandboxed shell gets no copy. macOS accepts plain `http://` only when the host is a name with no dot in it, a `.local` name, a loopback address, or a private-network IPv4 address such as `10.0.0.5`. Serve the script over `https://`.
+* **Failed downloads.** The download can fail when the sandbox starts, for example right after a VPN change. For the address in the OS proxy settings, the app retries for about a minute and then again when new commands start in the sandbox. When a retry succeeds, commands that start afterward use the script without an app restart. A failed download leaves in place a script the shell already has from the same address. A response that isn't a PAC script, such as a sign-in page, counts as a failed download.
+* **Host names with no dot.** Inside the sandbox, a host name with no dot in it is looked up under the device's DNS search domains when the name alone doesn't resolve. One example is a proxy that the PAC script names as `proxy-server`. A name with a dot in it is looked up as written.
+
 ## Pin a proxy from managed configuration
 
 <Note>
@@ -60,7 +68,7 @@ In a macOS configuration profile the same key is a `<key>egressProxyUrl</key><st
 Three behaviors to plan for:
 
 * If the pinned proxy is unreachable, requests fail. The app does not fall back to a direct connection.
-* If a pinned PAC script cannot be downloaded, the app connects directly and the agent gets no proxy. Cowork's sandboxed shell gets its own copy of the script through a separate download when the sandbox starts; if that download fails, the shell connects directly too. Combine the key with network-layer egress rules if a silent fallback to direct is not acceptable (see the warning below).
+* If a pinned PAC script cannot be downloaded, the app connects directly and the agent gets no proxy. Cowork's sandboxed shell gets its own copy of the script through a separate download when the sandbox starts. If that download fails, the shell connects directly too, and the download isn't tried again until the sandbox next starts. Combine the key with network-layer egress rules if a silent fallback to direct is not acceptable (see the warning below).
 * Inside Cowork's sandboxed shell, a pinned PAC script's `myIpAddress()` returns the sandbox's internal address rather than the device's, so a script that chooses a proxy by client subnet gives the shell its off-network answer.
 
 ## What is and is not routed
@@ -168,6 +176,8 @@ launchctl setenv NODE_EXTRA_CA_CERTS "$HOME/corp-ca.pem"
 **Confirm which proxy is in effect.** Open `main.log` in the app's [logs directory](/docs/third-party/claude-desktop/data-storage). When a key is pinned, startup logs `[egress-proxy] pinned to fixed proxy at proxy.example.com:8080; OS proxy settings ignored` (or `pinned to PAC script at …`). When a session starts, the log records the proxy handed to the agent, for example `Resolved system proxy for Code sessions: http://proxy.example.com:8080`, and a `Skipping SOCKS proxy entry` line if the OS answer was SOCKS. If Claude Code managed settings supplied any proxy variable, a line names the variables it set or replaced and the settings file they came from. For Cowork's sandboxed shell, `cowork_vm_node.log` in the same directory records `[VM:start] guest egress pinned to fixed proxy at …` (or `PAC script at …`) when the sandbox starts with a key pinned, and `[VM:start] PAC fetch from … failed (…); guest connects directly` if the sandbox's copy of the script could not be downloaded.
 
 **Agent connects directly while the app is proxied.** The OS or PAC answer for the inference endpoint was `DIRECT` or SOCKS-only. Adjust the PAC rule for the inference host, or pin `egressProxyUrl`.
+
+**Cowork's sandboxed shell has no proxy on macOS while the app is proxied.** Check the PAC address in the OS proxy settings. The sandboxed shell uses its own copy of the PAC script. macOS refuses the download of that copy from a plain `http://` address unless the host is a name with no dot in it, a `.local` name, a loopback address, or a private-network IPv4 address such as `10.0.0.5`. The app's logs then record `PAC fetch from … refused: macOS requires https for this address (App Transport Security)`, which you can search for in the [logs directory](/docs/third-party/claude-desktop/data-storage). Serve the script over `https://`. See [PAC script for the sandboxed shell](#pac-script-for-the-sandboxed-shell).
 
 **Web fetches or MCP connections fail in Code sessions but inference works.** Either the proxy resolved for the inference endpoint does not carry that traffic, or the answer for the inference endpoint was `DIRECT` and the agent has no proxy. See [The agent uses one proxy](#the-agent-uses-one-proxy).
 

@@ -10,9 +10,17 @@ Import brings a copy of your claude.ai conversations and projects into Claude De
 
 Each import is a one-time copy. New activity on claude.ai after you import does not appear in Claude Desktop unless you import again, and re-running the import does not create duplicates.
 
-## Before you start
+## Automatic import of earlier third-party sessions
 
-* Your administrator has turned import on by setting [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) with `enabled` set to `true` in the managed configuration. Import is off by default; until then, **Settings → Import & export** reports that import isn't enabled for this deployment.
+Claude Desktop can automatically copy into your history the Cowork, Chat, and Code sessions it stored on this computer under an earlier third-party configuration. In an organization managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), this automatic copy is on unless it's turned off in your organization's settings. In any other deployment it runs only if your administrator turns it on.
+
+The copy runs once on each computer, in the background shortly after the app starts, and the sessions then appear in the sidebar. Your original sessions stay where they were, and sessions you already imported are skipped. The copy is listed under **Import history** in **Settings → Import & export**, where the **Remove** button deletes the copied sessions from your history. The app doesn't copy them again later.
+
+Use the [import wizard](#open-the-import-wizard) for your claude.ai conversations and projects, and for any local sessions the automatic copy left out.
+
+## Before you open the import wizard
+
+* Your administrator has turned import on by setting [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) with `enabled` set to `true` in the managed configuration. The import wizard is off by default; until then, **Settings → Import & export** has no **Import…** button and reports that import isn't enabled for this deployment. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) doesn't depend on this setting.
 * Claude Desktop is installed and running in third-party mode. See [Installation and setup](/docs/third-party/claude-desktop/installation).
 * To bring history over from a claude.ai Team or Enterprise workspace, an owner of that workspace has enabled member data export (next section). Personal claude.ai accounts can always export.
 
@@ -119,9 +127,12 @@ The **Projects** page offers the same two choices, in a row under the duplicate 
 
 ## Continue an imported conversation
 
-Open any imported conversation from the sidebar and keep chatting. The first time you send a message in an imported session, Claude Desktop shows a **Resume imported session?** prompt. Click **Trust and resume** to continue; the reply comes from your configured inference provider, not from claude.ai.
+Open any imported conversation from the sidebar and keep chatting. The first time you send a message in an imported session, Claude Desktop asks you to confirm before it continues. The reply then comes from your configured inference provider, not from claude.ai.
 
-<Frame caption="The trust prompt shown the first time you resume an imported session.">
+* A session from this app's earlier third-party configuration on this computer shows a **Continue this conversation?** prompt. Click **Continue** to send your message.
+* Any other imported conversation or session shows a **Resume imported session?** prompt. Click **Trust and resume** to continue.
+
+<Frame caption="The trust prompt shown the first time you resume a conversation imported from claude.ai.">
   <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-trust-resume.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=806d0d2018d7fc0f10afb71035b1f807" alt="An imported conversation open in Cowork with a yellow Resume imported session card offering Go back and Trust and resume buttons." width="1800" height="688" data-path="images/third-party/import/import-trust-resume.png" />
 </Frame>
 

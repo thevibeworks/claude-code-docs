@@ -28,7 +28,7 @@ Access and organization-wide behavior are set at [`claude.ai/admin-settings/clau
 | Setting | What it does | More |
 | :- | :- | :- |
 | Custom instructions | Standing guidance read in every session on a scope, like team conventions. Outranks channel memory. | [Add custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions) |
-| Managed by | Which other Slack channels' members can write a channel's standing instructions by asking Claude, including from a private channel. An Owner or Admin in your Claude organization sets it on the **Admin** tab of the channel's Configure page. | [Manage a channel's instructions from another channel](/docs/claude-tag/admins/managed-by) |
+| Managed by | Which other Slack channels' members can write a channel's standing instructions by asking Claude, including from a private channel. An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) sets it on the **Admin** tab of the channel's Configure page. | [Manage a channel's instructions from another channel](/docs/claude-tag/admins/managed-by) |
 | Respond automatically | Whether Claude replies to a channel's messages without an @-mention. **Respond automatically** exists only on channels, not on workspaces or your whole organization. Channel members can change it too, from Slack or the channel's Configure page, unless the scope's [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) setting is **Block**. | [Turn automatic replies on or off](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) |
 | Plugins | Bundles of skills that teach Claude how to use a specific tool | [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins) |
 | Connections | Which systems it can reach from each channel | [Add connections](/docs/claude-tag/admins/add-connections) |
@@ -62,7 +62,7 @@ Members can also tailor how Claude works in the channel from its Configure page 
 
 The Configure page also shows the channel's resolved access. Its **Tools and access** tab lists the channel's resolved connections and any allowed domains. Members can see those lists but not change them there. The same tab's **Plugins** card lists the plugins available to Claude in the channel; members can add plugins there unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions). The card groups plugins **Added by your admin**, which members can't remove, separately from plugins **Added by members**, which members can remove. The Configure page's **Routines** tab lists the channel's [routines](/docs/claude-tag/users/proactivity) with each one's schedule, status, and last run.
 
-On the Enterprise plan, an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) can name [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for a channel. They set the channel's default model, repositories, connections, and plugins from the same page.
+On the Enterprise plan, an Owner can name [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for a channel, and so can a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) whose role also sets **Identity & Access** to **Can manage**. Channel managers set the channel's default model, repositories, connections, and plugins from the same page.
 
 ## Choose the model for a scope
 
@@ -84,6 +84,20 @@ On the Team plan, Claude Tag doesn't apply the [`availableModels` allowlist](htt
 In either case, Claude Tag offers only the models it supports, so a model your allowlist includes can be absent in Slack.
 
 On the Enterprise plan, turning a model off for the whole organization on your **Models** page removes it from the lists in Slack, and Claude declines requests to switch to it. If you turn off the model a scope's **Default model** is set to, Claude still starts sessions there on a fallback model that's still on, and declines only when every fallback is off too. The footer of the first reply names the model that served it.
+
+### Allow fast mode
+
+[Fast mode](/docs/claude-tag/users/models#run-a-thread-in-fast-mode) gives a thread faster output at a higher cost per token. Claude in Slack and Claude Code share one fast mode setting, so turning it on allows fast mode in both. The setting is off by default on the Team and Enterprise plans.
+
+To allow fast mode, an Owner goes to [**Admin settings > Claude Code**](https://claude.ai/admin-settings/claude-code) and turns on the **Fast mode** toggle under **Capabilities**. Fast mode draws from usage credits, so also turn those on at [**Admin settings > Usage**](https://claude.ai/admin-settings/usage). For an organization billed through AWS Marketplace, the toggle is locked.
+
+Turning the toggle on has these effects in Slack:
+
+* **Speed**: every session starts at standard speed until someone turns fast mode on for it, and no per-channel setting starts sessions in fast mode
+* **Who turns it on**: any member who can message Claude in a channel can turn fast mode on for a thread there by sending [`@Claude !fast`](/docs/claude-tag/users/commands#turn-fast-mode-on-or-off)
+* **Model**: when a thread is on a model other than Opus, such as Sonnet, `!fast` moves it to the newest Opus model among the [models your organization allows](#models-your-organization-allows), and the thread stays on that model after `!fast off`
+* **Where**: sessions stay at standard speed in a channel that runs with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works) because a guest is present, and in a channel shared with another company
+* **Cost**: a channel thread in fast mode bills to your organization like other [channel work](/docs/claude-tag/admins/set-spend-limit#how-claude-tag-usage-is-billed), at the [fast mode rates](https://code.claude.com/docs/en/fast-mode#understand-the-cost-tradeoff)
 
 ## Configure the environment for a scope
 

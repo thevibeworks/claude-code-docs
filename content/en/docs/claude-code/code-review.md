@@ -350,7 +350,7 @@ After the effort level and flags, Claude Code reads the rest of the line in one 
 The review runs in the background by default; before v2.1.218, it ran inside your conversation. It runs in the foreground instead in cases like these:
 
 * You run `/code-review` again while an earlier review is still in progress
-* You run it in non-interactive mode, with the `-p` flag or the Agent SDK; Claude Code waits for the review and includes the findings in the response, except for `ultra`, which [launches the cloud review without waiting](#escalate-to-ultrareview)
+* You run it in non-interactive mode, with the `-p` flag or the Agent SDK; Claude Code waits for the review and includes the findings in the response, except for `ultra`, which [doesn't wait for the cloud review](/docs/en/ultrareview#run-ultrareview-non-interactively)
 * You set [`CLAUDE_CODE_DISABLE_BACKGROUND_TASKS`](/docs/en/env-vars) to `1`, which also turns off every other background task feature
 
 ### Let Claude start the review
@@ -383,9 +383,7 @@ When the target is a `github.com` pull request, you can have Claude [post the fi
   Ultrareview requires authentication with a claude.ai account and is not available on Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry, or to organizations with Zero Data Retention enabled. When ultrareview is not available, `/code-review ultra` runs a local review in your session instead.
 </Note>
 
-To start a cloud review from a script or CI, run `claude -p '/code-review ultra'`. Claude Code launches the review and prints a link for tracking it. Requires Claude Code v2.1.218 or later.
-
-When the review would bill [usage credits](https://support.claude.com/en/articles/12429409-extra-usage-for-paid-claude-plans), Claude Code stops before launching, because the billing confirmation needs an interactive session. Run the [`claude ultrareview` subcommand](/docs/en/ultrareview#run-ultrareview-non-interactively) instead; by running it, you consent to the charge.
+To run a cloud review from a script or CI job, use the [`claude ultrareview` subcommand](/docs/en/ultrareview#run-ultrareview-non-interactively), which waits for the findings and prints them to stdout.
 
 The command was named `/simplify` before v2.1.147, when it applied fixes by default. `/simplify` runs a separate cleanup-only review that applies fixes without hunting for bugs. If you scripted `/simplify` for bug-finding, switch to `/code-review --fix`.
 

@@ -207,6 +207,8 @@ Click any conversation to resume it with the full message history. If the conver
 * **Session titles**: new sessions receive AI-generated titles based on your first message.
 * **Rename and archive**: hover over a session to reveal these actions. Rename to give it a descriptive title, or archive to move it to the **Archived sessions** group at the bottom of the list.
 
+If the conversation is open in another Claude Code process, such as `claude` in a terminal or another VS Code window, a notice appears in place of the prompt box: `This conversation is still open somewhere else. Using it in two places at once can mix up its messages.` To continue here, close the conversation in the other place and then click **Open here anyway**. If you click without closing it, the conversation is open in both places. With [`claudeProcessWrapper`](#extension-settings) set, the extension skips this check and opens the conversation directly.
+
 By default, a session with no activity for 14 days moves to **Archived sessions** automatically, unless it is open, unread, or in a [group](#organize-sessions-into-groups). Automatic archiving requires Claude Code v2.1.265 or later. To change the period or turn it off, open the [Archive Inactive Sessions setting](vscode://settings/claudeCode.archiveInactiveSessions) and select a number of days or **Never**.
 
 To restore an archived session, expand **Archived sessions** and click **Unarchive session**. To restore every archived session at once, hover over the **Archived sessions** header in the sessions list in the Activity Bar and click its unarchive icon, which requires Claude Code v2.1.277 or later. Before v2.1.257, the action was **Delete session**, which hid a session with no way to restore it. Sessions you deleted then appear under **Archived sessions** after you upgrade.
@@ -277,14 +279,18 @@ To stop the extension from locking groups, turn off the [Lock Editor Groups sett
   Use the sidebar for your main Claude session and open additional tabs for side tasks. Claude remembers your preferred location. The Activity Bar sessions list icon is separate from the Claude panel: the sessions list is always visible in the Activity Bar, while the Claude panel icon only appears there when the panel is docked to the left sidebar.
 </Tip>
 
+### Continue conversations after a reload
+
 After you run **Developer: Reload Window** or restart VS Code, whether a chat comes back with its conversation depends on where it was open:
 
 * **Editor tab**: the conversation comes back with its tab.
 * **Sidebar**: the conversation comes back if you sent a message or Claude responded in it within the last 10 minutes. If it doesn't come back, resume the conversation from [Session history](#resume-past-conversations).
 
+If another Claude Code process still has the conversation open, you're asked before it opens here, with the same **Open here anyway** notice as when you [resume it from session history](#resume-past-conversations).
+
 If the reload interrupted Claude mid-step, Claude continues that step when the conversation comes back, and a notice in the chat marks the continuation. Requires Claude Code v2.1.274 or later. If the step was interrupted more than an hour ago or the session is open elsewhere, the conversation comes back idle instead.
 
-To turn continuation off, open the [Continue After Reload setting](vscode://settings/claudeCode.continueAfterReload) and uncheck it.
+To turn continuation off, open the [Continue After Reload setting](vscode://settings/claudeCode.continueAfterReload) and uncheck it. Setting [`CLAUDE_CODE_RESUME_INTERRUPTED_TURN`](/docs/en/env-vars#variables) or any other `CLAUDE_CODE_RESUME_` variable in VS Code's environment or in the [`environmentVariables` setting](#extension-settings) has no effect in the panel, because the extension removes those variables before it starts the panel's sessions.
 
 ### Run multiple conversations
 
@@ -330,6 +336,7 @@ In the Plugins tab:
 
 * **Installed plugins** appear at the top with toggle switches to enable or disable them.
   * If you turn off a plugin that your project's shared `.claude/settings.json` turns on, the extension asks first: **Disable for me** turns it off only for you, while **Disable for everyone** changes the shared file.
+  * A plugin that failed to load shows a short reason on its row. Click the reason for what you can do about it, including copying the full error message to look up in [Troubleshoot plugins](/docs/en/plugins/troubleshooting).
 * **Available plugins** from your configured marketplaces appear below
 * Search to filter plugins by name or description
 * Click **Install** on any available plugin
@@ -368,14 +375,21 @@ The URL takes two query parameters:
 | Parameter | Description |
 | - | - |
 | `plugin` | The plugin's name as its marketplace lists it. Required. |
-| `marketplace` | Where the plugin comes from: a GitHub `owner/repo`, an `https://` URL, or a git SSH URL such as `git@github.com:owner/repo.git`. Defaults to `anthropics/claude-plugins-official` when omitted. |
+| `marketplace` | The marketplace's [source](/docs/en/plugins/install#add-a-marketplace): a GitHub `owner/repo`, an `https://` URL, or a git SSH address such as `git@github.com:owner/repo.git`. Defaults to `anthropics/claude-plugins-official` when omitted. |
 
-Some values that the [Marketplaces tab](#manage-marketplaces) accepts don't work in a link, such as a local path or an `http://` address. For those, VS Code shows an error message and the dialog doesn't open.
+The extension checks both values before it opens anything:
 
-Two cases end at a message in the dialog instead of the scope choice:
+* **Plugin name**: at most 100 characters, starting with an ASCII letter or digit and otherwise using only ASCII letters, digits, `.`, `_`, and `-`.
+* **Marketplace source**: only the forms the `marketplace` parameter lists, so not a local path, an `http://` address, or the marketplace's name, such as `claude-plugins-official`. An `https://` URL can't contain a user name, password, or query string.
+* **Git ref**: to pin the marketplace to a branch or tag, append the ref to the source after `%23`, the encoded form of `#`, as in `marketplace=owner/repo%23v1.0`. A link with an unencoded `#` fails. Marketplaces in the `anthropics` GitHub organization can't be pinned in a link.
+
+Someone who opens a link that breaks these rules sees an error that starts with `Invalid plugin installation URL`. The Claude Code panel and the dialog don't open, and nothing installs. If your plugin's name or marketplace can't go in a link, tell people to add the marketplace in the **Marketplaces** tab and then install the plugin from the **Plugins** tab.
+
+These cases end at a message in the dialog instead of the scope choice:
 
 * **The marketplace doesn't list a plugin by that name**: the dialog reports that the plugin wasn't found. Check the `plugin` value against the marketplace's listing.
 * **The plugin is already installed**: the dialog says so, and nothing changes.
+* **A different marketplace with the same name is already added**: the dialog says the link's marketplace wasn't added, and nothing installs.
 
 GitHub READMEs, issues, and some other Markdown hosts strip links whose scheme isn't `http` or `https`, so a `vscode://` link there renders as plain text. Put the URL in a code block on those hosts, as [The link renders as plain text instead of being clickable](/docs/en/deep-links#the-link-renders-as-plain-text-instead-of-being-clickable) describes for `claude-cli://` links.
 
@@ -522,7 +536,7 @@ VS Code reads `initialPermissionMode` from your user settings and ignores worksp
 | `enableNewConversationShortcut` | `false` | Enable Cmd/Ctrl+N to start a new conversation |
 | `enableReopenClosedSessionShortcut` | `true` | Use Cmd/Ctrl+Shift+T to reopen the most recently closed Claude session tab. When the last closed tab wasn't a Claude session, the shortcut runs VS Code's normal reopen-closed-editor command instead. |
 | `archiveInactiveSessions` | `14` | [Archive a session automatically](#resume-past-conversations) after this many days without activity: `1`, `2`, `7`, or `14`. Set `0` to turn it off. Requires Claude Code v2.1.265 or later |
-| `continueAfterReload` | `true` | After a window reload, Claude [continues the step that was interrupted](#choose-where-claude-lives) in the restored session. Requires Claude Code v2.1.274 or later |
+| `continueAfterReload` | `true` | After a window reload, Claude [continues the step that was interrupted](#continue-conversations-after-a-reload) in the restored session. Requires Claude Code v2.1.274 or later |
 | `hideOnboarding` | `false` | Hide the onboarding checklist (graduation cap icon) |
 | `focusView` | `false` | Hide tool calls, tool results, and thinking behind expandable rows, leaving your prompts and Claude's responses. Claude's latest to-do list stays visible; this requires Claude Code v2.1.225 or later. You can also toggle Focus view from the command menu. Requires Claude Code v2.1.221 or later |
 | `respectGitIgnore` | `true` | Exclude .gitignore patterns from file searches and from [selection context](#reference-files-and-folders) |
@@ -602,9 +616,17 @@ The extension and CLI share the same conversation history. To continue an extens
 
 Reference terminal output in your prompts using `@terminal:name` where `name` is the terminal's title. This lets Claude see command output, error messages, or logs without copy-pasting.
 
+### Move a running command or subagent to the background
+
+When Claude is waiting on a command or a [subagent](/docs/en/sub-agents) that is taking longer than you want, click **Run in background** below its tool call in the conversation. The action appears once a command has been running for about two seconds, or as soon as a subagent starts. Claude stops waiting and continues the turn, while the command or subagent keeps running as a [background task](/docs/en/tools-reference#background-commands) that notifies Claude when it finishes. Requires Claude Code v2.1.287 or later.
+
+To check on the task or stop it in the meantime, type `/tasks` in the prompt box to open the [agent map](#use-the-prompt-box). A subagent keeps its place in the tree of agents there, and a command is listed below the agents with its [latest output on its card](#monitor-background-processes). A command you move to the background this way is subject to the [time limit for background commands](/docs/en/tools-reference#time-limit-for-background-commands).
+
 ### Monitor background processes
 
-Type `/tasks` in the prompt box to open the [agent map](#use-the-prompt-box), which lists the session's background tasks, such as a dev server Claude left running as a background shell command. Click a task to open its card and stop it there. Requires Claude Code v2.1.277 or later.
+Type `/tasks` in the prompt box to open the [agent map](#use-the-prompt-box), which lists the session's background tasks, such as a dev server Claude left running as a background shell command. Click a task to open its card, where you can stop it. Requires Claude Code v2.1.277 or later.
+
+For a background shell command, or a [monitor](/docs/en/tools-reference#monitor-tool) that runs a command, the card also shows the command's latest output and refreshes it while the command runs.
 
 ### Connect to external tools with MCP
 

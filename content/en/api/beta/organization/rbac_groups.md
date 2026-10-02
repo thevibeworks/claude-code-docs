@@ -5,6 +5,103 @@ url: https://platform.claude.com/docs/en/api/beta/organization/rbac_groups
 
 # RBAC Groups
 
+## Create RBAC Group
+
+**POST** `/v1/organizations/rbac_groups`
+
+Create an RBAC Group in the Claude Enterprise tenant. Groups created via the API have source type `"direct"`.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+### Body parameters
+
+- `name: string`
+
+  Name of the RBAC Group. Not uniqueness-enforced.
+
+  minLength: 1, maxLength: 255
+
+### Returns
+
+- `BetaRBACGroup object`
+
+  - `type: "rbac_group"`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+    default: rbac_group
+
+  - `id: string`
+
+    ID of the RBAC Group.
+
+  - `created_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+    format: date-time
+
+  - `name: string`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `role_ids: array of string or null`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `source_type: "direct" or "scim"`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+    - `"direct"`
+
+    - `"scim"`
+
+  - `updated_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+    format: date-time
+
+  - `roles: array of string or null`
+
+    **Deprecated**: Use `role_ids` instead; `roles` always has the same value.
+
+    Deprecated: use `role_ids` instead. IDs of the RBAC Roles attached to this RBAC Group; always the same value as `role_ids`, `null` included.
+
+### Example
+
+```bash
+curl https://api.anthropic.com/v1/organizations/rbac_groups \
+    -H 'Content-Type: application/json' \
+    -H 'anthropic-version: 2023-06-01' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    -d '{
+          "name": "Engineering"
+        }'
+```
+
+#### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Engineering",
+  "role_ids": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "roles": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "source_type": "direct",
+  "type": "rbac_group",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
 ## List RBAC Groups
 
 **GET** `/v1/organizations/rbac_groups`
@@ -209,103 +306,6 @@ curl https://api.anthropic.com/v1/organizations/rbac_groups/$RBAC_GROUP_ID \
 }
 ```
 
-## Create RBAC Group
-
-**POST** `/v1/organizations/rbac_groups`
-
-Create an RBAC Group in the Claude Enterprise tenant. Groups created via the API have source type `"direct"`.
-
-The RBAC Groups API is available to Claude Enterprise organizations only.
-
-### Body parameters
-
-- `name: string`
-
-  Name of the RBAC Group. Not uniqueness-enforced.
-
-  minLength: 1, maxLength: 255
-
-### Returns
-
-- `BetaRBACGroup object`
-
-  - `type: "rbac_group"`
-
-    Object type.
-
-    For RBAC Groups, this is always `"rbac_group"`.
-
-    default: rbac_group
-
-  - `id: string`
-
-    ID of the RBAC Group.
-
-  - `created_at: string`
-
-    RFC 3339 timestamp of when the RBAC Group was created.
-
-    format: date-time
-
-  - `name: string`
-
-    Name of the RBAC Group. Not uniqueness-enforced.
-
-  - `role_ids: array of string or null`
-
-    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
-
-  - `source_type: "direct" or "scim"`
-
-    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
-
-    - `"direct"`
-
-    - `"scim"`
-
-  - `updated_at: string`
-
-    RFC 3339 timestamp of when the RBAC Group was last updated.
-
-    format: date-time
-
-  - `roles: array of string or null`
-
-    **Deprecated**: Use `role_ids` instead; `roles` always has the same value.
-
-    Deprecated: use `role_ids` instead. IDs of the RBAC Roles attached to this RBAC Group; always the same value as `role_ids`, `null` included.
-
-### Example
-
-```bash
-curl https://api.anthropic.com/v1/organizations/rbac_groups \
-    -H 'Content-Type: application/json' \
-    -H 'anthropic-version: 2023-06-01' \
-    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
-    -d '{
-          "name": "Engineering"
-        }'
-```
-
-#### Response (200)
-
-```json
-{
-  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
-  "created_at": "2024-10-30T23:58:27.427722Z",
-  "name": "Engineering",
-  "role_ids": [
-    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
-  ],
-  "roles": [
-    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
-  ],
-  "source_type": "direct",
-  "type": "rbac_group",
-  "updated_at": "2024-10-30T23:58:27.427722Z"
-}
-```
-
 ## Update RBAC Group
 
 **POST** `/v1/organizations/rbac_groups/{rbac_group_id}`
@@ -425,19 +425,17 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ### Returns
 
-- `BetaRBACGroupDeleted object`
+- `type: "rbac_group_deleted"`
 
-  - `type: "rbac_group_deleted"`
+  Deleted object type.
 
-    Deleted object type.
+  For RBAC Groups, this is always `"rbac_group_deleted"`.
 
-    For RBAC Groups, this is always `"rbac_group_deleted"`.
+  default: rbac_group_deleted
 
-    default: rbac_group_deleted
+- `id: string`
 
-  - `id: string`
-
-    ID of the RBAC Group.
+  ID of the RBAC Group.
 
 ### Example
 
@@ -509,9 +507,9 @@ curl https://api.anthropic.com/v1/organizations/rbac_groups/$RBAC_GROUP_ID \
 
     Deprecated: use `role_ids` instead. IDs of the RBAC Roles attached to this RBAC Group; always the same value as `role_ids`, `null` included.
 
-### Beta RBAC Group Deleted
+### RBAC Group Delete Response
 
-- `BetaRBACGroupDeleted object`
+- `RBACGroupDeleteResponse object`
 
   - `type: "rbac_group_deleted"`
 
@@ -727,27 +725,25 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 #### Returns
 
-- `BetaRBACGroupMemberDeleted object`
+- `type: "rbac_group_member_deleted"`
 
-  - `type: "rbac_group_member_deleted"`
+  Deleted object type. For RBAC Group Members, this is always `"rbac_group_member_deleted"`.
 
-    Deleted object type. For RBAC Group Members, this is always `"rbac_group_member_deleted"`.
+  default: rbac_group_member_deleted
 
-    default: rbac_group_member_deleted
+- `rbac_group_id: string`
 
-  - `rbac_group_id: string`
+  ID of the RBAC Group.
 
-    ID of the RBAC Group.
+- `user_id: string`
 
-  - `user_id: string`
+  ID of the User.
 
-    ID of the User.
+- `group_id: string`
 
-  - `group_id: string`
+  **Deprecated**: Use `rbac_group_id` instead; `group_id` always has the same value.
 
-    **Deprecated**: Use `rbac_group_id` instead; `group_id` always has the same value.
-
-    Deprecated: use `rbac_group_id` instead. ID of the RBAC Group; always the same value as `rbac_group_id`.
+  Deprecated: use `rbac_group_id` instead. ID of the RBAC Group; always the same value as `rbac_group_id`.
 
 #### Example
 

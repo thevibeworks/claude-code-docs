@@ -131,6 +131,8 @@ List work items in an environment.
 
     - `const AnthropicBetaCEPlugins2026_09_01 AnthropicBeta = "ce-plugins-2026-09-01"`
 
+    - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
+
 ## Returns
 
 - `type BetaSelfHostedWork`

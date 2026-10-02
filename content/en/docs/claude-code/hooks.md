@@ -12,6 +12,8 @@
 
 Hooks are user-defined shell commands, HTTP endpoints, MCP tool calls, LLM prompts, or subagents that execute automatically at specific points in Claude Code's lifecycle. Claude Code fires the same hook events wherever it runs: sessions in the terminal, IDE extensions, the [Desktop app](/docs/en/desktop-quickstart), and [cloud sessions](/docs/en/claude-code-on-the-web). Use this reference to look up event schemas, configuration options, JSON input/output formats, and advanced features like async hooks, HTTP hooks, and MCP tool hooks.
 
+A plugin can also register hooks as JavaScript functions that Claude Code calls in its own process, which can draw in the interface as well as act on events. A plugin that does is a [mod](/docs/en/plugins/mods/overview), and those function hooks are covered in [React to events](/docs/en/plugins/mods/events) rather than here. The hooks on this page keep working alongside mods.
+
 ## Hook lifecycle
 
 Claude Code runs hooks at specific points during a session. When an event fires and a matcher matches, Claude Code passes JSON context about the event to your hook handler. For command hooks, input arrives on stdin. For HTTP hooks, it arrives as the POST request body. Your handler can then inspect the input, take action, and optionally return a decision.
@@ -691,21 +693,15 @@ Frontmatter hooks in a project subagent run only after you accept the [workspace
 
 ### The `/hooks` menu
 
-Type `/hooks` in Claude Code to open a read-only browser for your configured hooks. The menu shows every hook event with a count of configured hooks, lets you drill into matchers, and shows the full details of each hook handler. Use it to verify configuration, check which settings file a hook came from, or inspect a hook's command, prompt, or URL.
+Type `/hooks` in Claude Code to open a read-only browser for your configured hooks. The list labels each hook with where it comes from, such as user settings, project settings, local settings, a plugin, or the current session.
 
-The menu displays all five hook types: `command`, `prompt`, `agent`, `http`, and `mcp_tool`. Each hook is labeled with a `[type]` prefix and a source indicating where it was defined:
+Select a hook to see the full text of what it runs and where it's defined, such as the path of its settings file or the name of its plugin.
 
-* `User Settings`: from `~/.claude/settings.json`
-* `Project Settings`: from `.claude/settings.json`
-* `Local Settings`: from `.claude/settings.local.json`
-* `Plugin Hooks`: from a plugin's `hooks/hooks.json`
-* `Session Hooks`: registered in memory for the current session
-
-Selecting a hook opens a detail view showing its event, matcher, type, source file, and the full command, prompt, or URL. The menu is read-only: to add, modify, or remove hooks, edit the settings JSON directly or ask Claude to make the change.
+To browse all hook events, including ones with no hooks configured, select `All events` at the end of the list.
 
 ### Disable or remove hooks
 
-To remove a hook, delete its entry from the settings JSON file.
+To remove a hook defined in a settings file, delete its entry from that file.
 
 To temporarily disable all hooks without removing them, set `"disableAllHooks": true` in your settings file. Claude Code reads the value left after [settings precedence](/docs/en/settings#settings-precedence) applies, so a `"disableAllHooks": false` in a project's `.claude/settings.json` overrides a `true` in your user settings. To turn hooks off for one run whatever the project's settings say, pass `--settings '{"disableAllHooks": true}'`, which takes precedence over project and local settings. There is no way to disable an individual hook while keeping it in the configuration.
 

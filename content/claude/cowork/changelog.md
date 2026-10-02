@@ -6,6 +6,42 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.19675.0" description="2026-10-01">
+  Bundled Claude Code version: 2.1.286.
+
+  **General**
+
+  * Fixed a crash when opening a tool step whose details list a word such as "constructor".
+  * Fixed a message that failed to send sometimes looking sent, with Claude still working, or disappearing if you had already started typing the next one; a message that cannot be sent now offers Retry.
+  * Fixed conversations failing with a request error on every later message after a connector, tool or hook returned an unusually shaped result.
+  * Fixed Quick Entry on macOS discarding your message when an attached file had been moved, deleted, or could not be read before you sent it; the message is now sent without that file and a notice says so.
+  * Fixed the Windows app failing to start when the Google or Chrome folder under `LocalAppData` is a junction.
+  * Removed computer use on macOS 13 and earlier, where its screenshots could never be taken; it requires macOS 14 or later. The Computer use section in Settings now stays visible and explains why when computer use is unavailable.
+
+  **Code**
+
+  * Added comments on lines of an open file in the Files pane: click the + beside a line, or select text and choose Add comment, and the comment is sent with your next message.
+  * Fixed a finished session showing as working again after a model switch, a built-in slash command such as `/plan`, or a `!` command Claude did not answer, which could hide the usage-limit notice, make Try again send an extra message, or count a resumed turn's time from the wrong point.
+  * Fixed a session preset's permission mode not being applied when the preset also changed the model.
+  * Fixed Claude not being able to run commands in the Terminal panel on Windows.
+  * Fixed new sessions in organizations with Claude Code zero data retention keeping their first few words as their name; they now get a generated title a few seconds after they start.
+  * Fixed Claude Code failing to start on some Macs right after a desktop update.
+
+  **Cowork**
+
+  * Fixed a reply still showing as waiting on you after its sign-in request had expired.
+  * Fixed a tool request that was restored without its details being approvable before the details arrived; its card now waits for them and offers only Deny.
+  * Fixed Claude clicking the wrong item, missing an open menu, or bringing the app to the front in apps such as Slack while working in the background.
+  * Fixed network requests failing on corporate networks where the proxy is set by a one-word host name, and the sandbox being left without a proxy until the app restarted when the proxy auto-config (PAC) file failed to download, such as right after a VPN switch.
+  * Changed scheduled tasks that Claude creates for you to use "Automatically approve" by default where your organization allows it, so their runs use tools without asking first and pause only when something looks unsafe.
+
+  **3P**
+
+  * Added Excel, Word and PowerPoint previews in the Code tab when Claude's workspace isn't running yet: Excel opens in the document viewer, and opening a Word or PowerPoint file starts the workspace.
+  * Added the Linux spellcheck dictionary download to the Egress Requirements list; on Linux, `disableNonessentialServices` now also skips that download and turns spellcheck off.
+  * Changed the default context window for Opus 4.7 and later, Sonnet 5 and later, and Fable 5 and later to 1M tokens behind a gateway or custom base URL; previously 200K unless the "1M context" option was picked.
+</Update>
+
 <Update label="v2.16120.0" description="2026-09-29">
   Bundled Claude Code version: 2.1.284.
 

@@ -16,8 +16,6 @@ Claude Tag gives Claude its own GitHub identity, the Claude GitHub App, so pull 
 
 You link GitHub once for your Claude organization, then grant repositories per Access bundle.
 
-<Tip>If you link your GitHub organization before running [setup](/docs/claude-tag/admins/setup-overview), setup includes a step for granting repository access inline, so you don't need to return to the Repositories tab afterward.</Tip>
-
 ## Link your GitHub organization
 
 <Note>

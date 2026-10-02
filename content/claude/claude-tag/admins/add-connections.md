@@ -10,13 +10,13 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Tip>Claude starts delivering work before you connect anything. On Slack content alone, it can [catch a team up on a channel or thread](/docs/claude-tag/users/use-cases/catch-up), [triage a request channel](/docs/claude-tag/users/use-cases/triage-requests), [turn a discussion into a doc](/docs/claude-tag/users/use-cases/create-artifacts), and [track a project from channel history](/docs/claude-tag/users/use-cases/track-projects). Connections multiply what it can do from there; each one adds a system Claude can act in beyond Slack.</Tip>
+<Tip>Claude starts delivering work before you connect anything. On Slack content alone, it can [catch a team up on a channel or thread](/docs/claude-tag/users/use-cases/catch-up), [triage a request channel](/docs/claude-tag/users/use-cases/triage-requests), [turn a discussion into a doc](/docs/claude-tag/users/use-cases/create-artifacts), and [track a project from channel history](/docs/claude-tag/users/use-cases/track-projects).</Tip>
 
 ## Your first Access bundle
 
 An [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle) is a named set of credentials, domain entries, repository grants, plugins, and instructions that Claude uses in the channels the bundle covers. A connection is one service credential inside a bundle, like a Datadog API key or a warehouse service account, that Claude uses to act in that service from any channel under the bundle's [scope](/docs/claude-tag/concepts/glossary#scope).
 
-If you're in [setup](/docs/claude-tag/admins/setup-overview), you add these connections there; skip to [Decide what to connect](#decide-what-to-connect). The steps below are for creating a bundle outside setup, on the admin page directly.
+You create your first bundle on the admin page, after you finish [setup](/docs/claude-tag/admins/setup-overview) and launch.
 
 <Steps>
   <Step title="Open the admin page">
@@ -48,7 +48,7 @@ A bundle also has Domains, Plugins, and Instructions tabs alongside Credentials 
 
 Six categories cover most of the work teams hand to Claude. Any service with an HTTP API can be added; start with the categories that match what your teams already do.
 
-Read-only connections are most useful in combination: an answer that joins the ticket, the deploy, and the error rate needs all three systems connected. Connecting many systems read-only is a different decision from granting write access anywhere.
+Read-only connections are most useful in combination: an answer that joins the ticket, the deploy, and the error rate needs all three systems connected.
 
 | Connect | Examples | Recommended access | What it adds |
 | :- | :- | :- | :- |
@@ -217,9 +217,9 @@ The connection gallery lists credential types the agent can hold, not the connec
 
 ## Attach plugins
 
-A connection grants access; a plugin teaches Claude how to use it well. A plugin is a packaged set of skills: reusable instructions for working with a specific tool or following a specific process. Attach a plugin to the same Access bundle or scope that carries the connection, so the credential arrives with directions for using it.
+A plugin is a packaged set of skills: reusable instructions for working with a specific tool or following a specific process. Attach a plugin to the same Access bundle or scope that carries the connection, so the credential arrives with directions for using it.
 
-A Datadog API key, for example, makes the API reachable, and a Datadog plugin tells Claude which endpoints answer which questions. Once you turn a plugin on for a bundle or add it to a scope, sessions in the channels that bundle or scope covers pick up the plugin automatically. Nobody in those channels has to turn that plugin on. A channel member can also add a plugin available to your organization, by asking Claude in the channel or from the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions).
+A Datadog API key, for example, makes the API reachable, and a Datadog plugin tells Claude which endpoints answer which questions. Once you turn a plugin on for a bundle or add it to a scope, sessions in the channels that bundle or scope covers pick up the plugin automatically. A channel member can also add a plugin available to your organization, by asking Claude in the channel or from the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions).
 
 Anthropic provides plugins for common tools and processes, and you can add your own from a [skills repository](/docs/claude-tag/admins/skills-repo). To give Claude organization-wide skills, package them as a plugin.
 

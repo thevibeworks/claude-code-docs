@@ -6,7 +6,7 @@ Web connectors are available for all users on Claude, Cowork, Claude Desktop, an
 
 ## What are connectors?
 
-Connectors let Claude access your apps and services, retrieve your data, and take actions within connected services. Claude inherits each person's permissions from the connected service. If someone can't access a specific file, channel, or record in the source system, the connector can't reach it from Claude either.
+Connectors let Claude access your apps and services, retrieve your data, and take actions within connected services. Claude inherits each person's permissions from the connected service. If someone can't access a specific file, channel, or record in the source system, the connector can't reach it from Claude either. Custom connectors that use a shared credential reach whatever that credential can access.
 
 For example, you can connect Claude to Linear to create issues, to Slack to send messages, or to Google Drive to search your files. Connectors work across Claude, Claude Desktop, Claude Code, and the API (via the **[MCP Connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector)**). Setup details for individual pre-built connectors are in **[Claude Docs: Connectors](https://claude.com/docs/connectors/overview)**.
 
@@ -154,15 +154,23 @@ In addition to directory connectors, you can add custom connectors:
 
 1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
-2. Click the “+” button next to **Connectors**.
+2. Click “Add.”
 
-3. Select “Add custom connector.”
+3. Hover over “Custom,” then select “Web.”
 
-4. Enter the connector's name and URL.
+4. Enter a name for the connector. This is the name users see in the connectors list.
 
-5. Enter advanced settings (OAuth Client ID and secret) if desired.
+5. Add your connector's remote MCP server URL. Click “Continue.”
 
-6. Click “Add,” then follow the same connection process as directory connectors.
+6. Review the authentication settings Claude detected, and change them if your server needs something different. Click “Continue.”
+
+7. Under **Authentication**, choose how people connect to the server: “Sign in now,” “Sign in when needed,” or “No sign in.”
+
+8. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign" in under **Authentication**.
+
+9. Under **Request headers**, add fixed credentials such as API keys that Claude sends on every request if your MCP server authenticates with an API key, bearer token, or other fixed credential instead of OAuth. Learn how to **[authenticate with request headers](https://claude.com/docs/connectors/custom/add-unlisted#authenticate-with-request-headers).**
+
+10. Click “Add,” then follow the same connection process as directory connectors.
 
 Custom connectors connect to your MCP server from Anthropic's cloud, not from your local device. Your server must be reachable over the public internet. If it's behind a firewall or on a private network, see **[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166)** for network requirements and private network options.
 
@@ -180,7 +188,7 @@ When connecting to services from the directory, review what access the service i
 
 **For Team and Enterprise plans:**
 
-- Access permissions are enforced at the user level. Users need to authenticate with the third-party service when first using the connector, even after an Owner or Primary Owner enables it.
+- Access permissions are enforced at the user level. Users need to authenticate with the third-party service when first using the connector, even after an Owner or Primary Owner enables it, unless the connector uses a shared credential.
 
 - Connectors are only available in private projects.
 

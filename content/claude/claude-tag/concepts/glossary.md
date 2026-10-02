@@ -24,7 +24,7 @@ The network layer that injects credentials into Claude's outbound requests. The 
 
 ## Channel manager
 
-A member of your Claude organization whom an Owner or a [Claude Tag admin](#claude-tag-admin) has named to set up specific channels. For each channel assigned to them, a channel manager sets the default model, adds repositories their own GitHub account is an admin of, and manages credentials and plugins in the channel's own bundle, without holding the Owner role. See [Delegate channel setup to channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers).
+A member of your Claude organization named to set up specific channels. For each channel assigned to them, a channel manager sets the default model, adds repositories their own GitHub account is an admin of, and manages credentials and plugins in the channel's own bundle, without holding the Owner role. See [Delegate channel setup to channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers).
 
 ## Channel memory
 
@@ -32,7 +32,7 @@ Facts Claude retains while working in a channel, including facts you told it to 
 
 ## Claude Tag admin
 
-A member of your Claude organization whose custom role includes the **Claude Tag Admin** permission, available on the Enterprise plan. A Claude Tag admin manages Access bundles and attaches them to scopes, edits workspace and channel settings, and adds and removes channel managers, without holding the Owner role. See [Delegate Claude Tag administration](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration).
+A member of your Claude organization whose custom role includes the **Claude Tag Admin** permission, available on the Enterprise plan. A Claude Tag admin manages Access bundles, attaches them to scopes, and edits workspace and channel settings, without holding the Owner role. A Claude Tag admin whose role also sets **Identity & Access** to **Can manage** can add and remove [channel managers](#channel-manager). See [Delegate Claude Tag administration](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration).
 
 ## The earlier Claude in Slack
 

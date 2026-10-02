@@ -26,8 +26,6 @@ The range is shared across Anthropic services, and dedicated per-organization eg
 
 <Note>If your Google Cloud project uses VPC Service Controls, an IP-based access level doesn't admit Claude's queries through the [BigQuery connection](/docs/claude-tag/admins/connections/bigquery). See [Allow the connection through a VPC Service Controls perimeter](/docs/claude-tag/admins/connections/bigquery#allow-the-connection-through-a-vpc-service-controls-perimeter) on the BigQuery page.</Note>
 
-Allowlist changes on enterprise systems can take days to take effect, which is why the [prerequisites for setup](/docs/claude-tag/admins/setup-overview) send you here before you start setup.
-
 ## Internet reachability
 
 <Warning>A connected service must accept traffic from the internet (restricted by IP allowlist if you like). A service reachable only inside your private network can't be connected; private networking such as PrivateLink or VPC peering is not supported.</Warning>

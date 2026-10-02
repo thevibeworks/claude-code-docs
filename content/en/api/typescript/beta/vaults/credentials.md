@@ -297,6 +297,8 @@ Create Credential
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -635,6 +637,8 @@ List Credentials
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -961,6 +965,8 @@ Get Credential
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -1414,6 +1420,8 @@ Update Credential
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1736,6 +1744,8 @@ Delete Credential
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1903,6 +1913,8 @@ Archive Credential
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -2225,6 +2237,8 @@ Validate Credential
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 

@@ -44,7 +44,7 @@ Even though Cowork and Claude Desktop run on your computer, remote connectors ar
 
 ## Add a custom connector
 
-**Note:**  While anyone can build and host connectors using remote MCP, only Owners can add them to Team and Enterprise plans. Once a connector has been added to a Team or Enterprise organization, users individually connect to and enable that connector. This ensures that Claude can only access tools and data that the individual user has access to.
+**Note:**  While anyone can build and host connectors using remote MCP, only Owners and Primary Owners can add them to Team plans, and only Owners, Primary Owners, and people with a custom role that includes Manage access to Libraries can add them to Enterprise plans. Once a connector has been added to a Team or Enterprise organization, users individually connect to and enable that connector. This ensures that Claude can only access tools and data that the individual user has access to, unless the connector uses a shared credential such as an API key, which gives everyone who uses it that credential's access.
 
 ### For Team and Enterprise plans
 
@@ -54,15 +54,23 @@ Before members of Team and Enterprise plans can configure custom connectors, an 
 
 1. Navigate to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**.
 
-2. Click the "Add" button.
+2. Click “Add.”
 
 3. Hover over “Custom,” then select “Web.”
 
-4. Add your connector's remote MCP server URL.
+4. Enter a name for the connector. This is the name users see in the connectors list.
 
-5. Optionally, click “Advanced settings” to specify an OAuth Client ID and OAuth Client Secret for your server.
+5. Add your connector's remote MCP server URL. Click “Continue.”
 
-6. Finish configuring your connector by clicking "Add."
+6. Review the authentication settings Claude detected, and change them if your server needs something different. Click “Continue.”
+
+7. Under **Authentication**, choose how people connect to the server: “Sign in now,” “Sign in when needed,” or “No sign in.”
+
+8. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign in" under **Authentication**.
+
+9. Under **Request headers**, add fixed credentials such as API keys that Claude sends on every request if your MCP server authenticates with an API key, bearer token, or other fixed credential instead of OAuth. Learn how to **[authenticate with request headers](https://claude.com/docs/connectors/custom/add-unlisted#authenticate-with-request-headers).**
+
+10. Finish configuring your connector by clicking "Add."
 
 **Steps for members after connector is configured:**
 
@@ -80,13 +88,21 @@ If you are using an individual Pro or Max plan, follow these steps to add a cust
 
 1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
-2. Click "+" then “Add custom connector.”
+2. Click "+ Add" then “Add custom connector.”
 
-3. Add your connector's remote MCP server URL.
+3. Enter a name for the connector. This is the name users see in the connectors list.
 
-4. Optionally, click “Advanced settings” to specify an OAuth Client ID and OAuth Client Secret for your server.
+4. Add your connector's remote MCP server URL. Click “Continue.”
 
-5. Finish configuring your connector by clicking "Add."
+5. Review the authentication settings Claude detected, and change them if your server needs something different. Click “Continue.”
+
+6. Under **Authentication**, choose how people connect to the server: “Sign in now,” “Sign in when needed,” or “No sign in.”
+
+7. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign in" under **Authentication**.
+
+8. Under **Request headers**, add fixed credentials such as API keys that Claude sends on every request if your MCP server authenticates with an API key, bearer token, or other fixed credential instead of OAuth. Learn how to **[authenticate with request headers](https://claude.com/docs/connectors/custom/add-unlisted#authenticate-with-request-headers)**.
+
+9. Finish configuring your connector by clicking "Add."
 
 ### Enabling connectors after configuration
 
@@ -124,7 +140,11 @@ Custom connectors allow you to connect Claude to arbitrary services that have no
 
 ### Security and permissions
 
-When you add a custom connector to Claude, you'll typically go through an OAuth authentication process to securely sign in to the application and grant specific permissions. This allows Claude to interact with the application on your behalf, without Claude ever seeing your actual password. You can revoke these permissions at any time by disconnecting the connector in Claude's settings or the third-party service's security settings.
+When you add a custom connector to Claude, you'll typically go through an OAuth authentication process to securely sign in to the application and grant specific permissions. This allows Claude to interact with the application on your behalf, without Claude ever seeing your actual password.
+
+Some connectors use an API key or other fixed credential instead of or in addition to an OAuth authentication process. The values are stored encrypted, like other connector credentials. On Team and Enterprise plans, everyone who uses the connector reaches the service with that same credential, so use one limited to what members should access.
+
+You can revoke these permissions at any time by disconnecting the connector in Claude's settings or the third-party service's security settings.
 
 Remote MCP servers act as intermediaries between Claude and external applications. You should:
 

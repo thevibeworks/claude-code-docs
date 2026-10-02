@@ -131,6 +131,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
+
 ## Returns
 
 - `class BetaSelfHostedWorkHeartbeatResponse`

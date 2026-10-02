@@ -67,17 +67,13 @@ To create a hook, add a `hooks` block to a [settings file](#configure-hook-locat
   </Step>
 
   <Step title="Verify the configuration">
-    Type `/hooks` to open the hooks browser. You'll see a list of all available hook events, with a count next to each event that has hooks configured. Select `Notification` to confirm your new hook appears in the list. Selecting the hook shows its details: the event, matcher, type, source file, and command.
+    Type `/hooks` at the Claude Code prompt to open the hooks browser. Your new hook appears in the list under `Notification`.
   </Step>
 
   <Step title="Test the hook">
     Press `Esc` to return to the CLI. Press `Shift+Tab` until the status bar shows `⏸ manual mode on`, ask Claude to do something that requires permission, then switch away from the terminal. You should receive a desktop notification.
   </Step>
 </Steps>
-
-<Tip>
-  The `/hooks` menu is read-only. To add, modify, or remove hooks, edit your settings JSON directly or ask Claude to make the change.
-</Tip>
 
 ## What you can automate
 
@@ -91,7 +87,9 @@ For a production example of hooks that run a separate model review and feed find
 
 Get a desktop notification whenever Claude finishes working and needs your input, so you can switch to other tasks without checking the terminal.
 
-This hook uses the `Notification` event, which Claude Code fires when Claude is waiting for input or permission. See [when each notification type fires](/docs/en/hooks#notification) for the exact timing. Each tab below uses the platform's native notification command. Add this to `~/.claude/settings.json`:
+This hook uses the `Notification` event, which Claude Code fires when Claude is waiting for input or permission. See [when each notification type fires](/docs/en/hooks#notification) for the exact timing.
+
+Each tab below uses the platform's native notification command. Add this to `~/.claude/settings.json`:
 
 <Tabs>
   <Tab title="macOS">
@@ -114,7 +112,9 @@ This hook uses the `Notification` event, which Claude Code fires when Claude is 
     ```
 
     <Accordion title="If no notification appears">
-      `osascript` routes notifications through the built-in Script Editor app. If Script Editor doesn't have notification permission, the command fails silently, and macOS won't prompt you to grant it. Run this in Terminal once to make Script Editor appear in your notification settings:
+      `osascript` routes notifications through the built-in Script Editor app. If Script Editor doesn't have notification permission, the command fails silently, and macOS won't prompt you to grant it.
+
+      Run this in Terminal once to make Script Editor appear in your notification settings:
 
       ```bash theme={null}
       osascript -e 'display notification "test"'
@@ -174,7 +174,9 @@ This hook uses the `Notification` event, which Claude Code fires when Claude is 
     ```
 
     <Accordion title="If no dialog appears">
-      This command opens a dialog box rather than a notification in the corner of your screen, so the dialog can open behind your terminal window. Test the command directly in PowerShell first. If you run Claude Code inside WSL, `powershell.exe` must be available on your `PATH` through Windows interop.
+      This command opens a dialog box rather than a notification in the corner of your screen, so the dialog can open behind your terminal window. Test the command directly in PowerShell first.
+
+      If you run Claude Code inside WSL, `powershell.exe` must be available on your `PATH` through Windows interop.
     </Accordion>
   </Tab>
 </Tabs>
@@ -206,7 +208,7 @@ In terminal sessions, `permission_prompt` for a sandboxed command's network requ
 
 `agent_needs_input` for a teammate's terminal setup question requires Claude Code v2.1.248 or later.
 
-Type `/hooks` and select `Notification` to confirm the hook is registered. For the full event schema, see the [Notification reference](/docs/en/hooks#notification).
+Type `/hooks` at the Claude Code prompt and confirm the hook appears under `Notification`.
 
 ### Auto-format code after edits
 
@@ -966,7 +968,9 @@ Keep these constraints in mind when designing hooks:
 
 `PreToolUse` hooks fire before any permission-mode check, in every [permission mode](/docs/en/permission-modes), including `dontAsk`. A hook that returns `permissionDecision: "deny"` blocks the tool even in `bypassPermissions` mode or with `--dangerously-skip-permissions`. This lets you enforce policy that users can't bypass by changing their permission mode.
 
-The reverse is not true: a hook returning `"allow"` doesn't bypass deny rules from settings, and it can't suppress the prompt for MCP tools marked [`requiresUserInteraction`](/docs/en/mcp#require-approval-for-a-specific-tool) or for connector tools [your organization set to `ask`](/docs/en/mcp#organization-controls-on-connector-tools) in sessions where that setting reaches Claude Code. Hooks can tighten restrictions but not loosen them past what permission rules allow.
+The reverse is not true: a hook returning `"allow"` doesn't bypass deny rules from settings, and it can't suppress the prompt for MCP tools marked [`requiresUserInteraction`](/docs/en/mcp#require-approval-for-a-specific-tool) or for connector tools [your organization set to `ask`](/docs/en/mcp#organization-controls-on-connector-tools) in sessions where that setting reaches Claude Code. Hooks in settings files and in a plugin's `hooks/hooks.json` can tighten restrictions but not loosen them past what permission rules allow.
+
+A [mod](/docs/en/plugins/mods/overview) you install that handles `tool.check` can approve a call that your `PreToolUse` hook blocked, unless the hook is in managed settings. [Extend permissions with hooks](/docs/en/permissions#extend-permissions-with-hooks) lists which rules hold over a mod.
 
 ### Hook not firing
 
@@ -999,6 +1003,7 @@ You edited a settings file but the hooks don't appear in the menu.
 * File edits are normally picked up automatically. If they haven't appeared after a few seconds, the file watcher may have missed the change: restart your session to force a reload.
 * Verify your JSON is valid: trailing commas and comments aren't allowed
 * Confirm the settings file is in the correct location: `.claude/settings.json` for project hooks, `~/.claude/settings.json` for global hooks
+* If the menu shows `Only hooks from managed settings run here`, your organization has set [`allowManagedHooksOnly`](/docs/en/settings-reference#allowmanagedhooksonly). Hooks in your user, project, and local settings files don't run and aren't listed
 
 ### Stop hook hits the block cap
 

@@ -64,14 +64,14 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
     `all_connectors` grants carry a tool-access action, the scope action, or
     an authentication-method action (`interactive` or `managed`).
 
-  - `resource: Organization or ConnectorTool or ConnectorScope or 2 more`
+  - `resource: BetaRBACOrganizationPermissionResource or BetaRBACConnectorToolPermissionResource or BetaRBACConnectorScopePermissionResource or 2 more`
 
     What the permission applies to.
 
     A tagged union: `type` names the kind of resource and determines which
     identifier fields are present.
 
-    - `Organization object`
+    - `BetaRBACOrganizationPermissionResource object`
 
       - `type: "organization"`
 
@@ -83,7 +83,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
         UUID of the organization the permission applies to.
 
-    - `ConnectorTool object`
+    - `BetaRBACConnectorToolPermissionResource object`
 
       - `type: "connector_tool"`
 
@@ -104,7 +104,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
         `{prefix}_{32-hex}` form — a shortened readable prefix of the name plus
         a hash — from which the published name is not recoverable.
 
-    - `ConnectorScope object`
+    - `BetaRBACConnectorScopePermissionResource object`
 
       - `type: "connector_scope"`
 
@@ -126,7 +126,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
         appears server-encoded in a stable `{prefix}_{32-hex}` form. OAuth
         scopes routinely contain `:` and `/`, so most appear encoded.
 
-    - `Connector object`
+    - `BetaRBACConnectorPermissionResource object`
 
       - `type: "connector"`
 
@@ -138,7 +138,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
         ID of the connector the permission applies to.
 
-    - `AllConnectors object`
+    - `BetaRBACAllConnectorsPermissionResource object`
 
       - `type: "all_connectors"`
 
@@ -184,6 +184,91 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID/permiss
 
 ## Domain types
 
+### Beta RBAC All Connectors Permission Resource
+
+- `BetaRBACAllConnectorsPermissionResource object`
+
+  - `type: "all_connectors"`
+
+    Kind of resource the permission applies to.
+
+    default: all_connectors
+
+### Beta RBAC Connector Permission Resource
+
+- `BetaRBACConnectorPermissionResource object`
+
+  - `type: "connector"`
+
+    Kind of resource the permission applies to.
+
+    default: connector
+
+  - `connector_id: string`
+
+    ID of the connector the permission applies to.
+
+### Beta RBAC Connector Scope Permission Resource
+
+- `BetaRBACConnectorScopePermissionResource object`
+
+  - `type: "connector_scope"`
+
+    Kind of resource the permission applies to.
+
+    default: connector_scope
+
+  - `connector_id: string`
+
+    ID of the connector the permission applies to.
+
+  - `scope: string`
+
+    OAuth scope the permission names — the role may receive this scope when
+    tokens are minted for the connector.
+
+    Subject to the same encoding rule as `tool_name`: a scope containing
+    characters outside `[a-zA-Z0-9_-]` (or colliding with a reserved form)
+    appears server-encoded in a stable `{prefix}_{32-hex}` form. OAuth
+    scopes routinely contain `:` and `/`, so most appear encoded.
+
+### Beta RBAC Connector Tool Permission Resource
+
+- `BetaRBACConnectorToolPermissionResource object`
+
+  - `type: "connector_tool"`
+
+    Kind of resource the permission applies to.
+
+    default: connector_tool
+
+  - `connector_id: string`
+
+    ID of the connector the permission applies to.
+
+  - `tool_name: string`
+
+    Published name of the connector tool the permission applies to.
+
+    When the published name contains characters outside `[a-zA-Z0-9_-]` (or
+    collides with a reserved form), it is server-encoded into a stable
+    `{prefix}_{32-hex}` form — a shortened readable prefix of the name plus
+    a hash — from which the published name is not recoverable.
+
+### Beta RBAC Organization Permission Resource
+
+- `BetaRBACOrganizationPermissionResource object`
+
+  - `type: "organization"`
+
+    Kind of resource the permission applies to.
+
+    default: organization
+
+  - `organization_id: string`
+
+    UUID of the organization the permission applies to.
+
 ### Beta RBAC Role Permission
 
 - `BetaRBACRolePermission object`
@@ -215,14 +300,14 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID/permiss
     `all_connectors` grants carry a tool-access action, the scope action, or
     an authentication-method action (`interactive` or `managed`).
 
-  - `resource: Organization or ConnectorTool or ConnectorScope or 2 more`
+  - `resource: BetaRBACOrganizationPermissionResource or BetaRBACConnectorToolPermissionResource or BetaRBACConnectorScopePermissionResource or 2 more`
 
     What the permission applies to.
 
     A tagged union: `type` names the kind of resource and determines which
     identifier fields are present.
 
-    - `Organization object`
+    - `BetaRBACOrganizationPermissionResource object`
 
       - `type: "organization"`
 
@@ -234,7 +319,7 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID/permiss
 
         UUID of the organization the permission applies to.
 
-    - `ConnectorTool object`
+    - `BetaRBACConnectorToolPermissionResource object`
 
       - `type: "connector_tool"`
 
@@ -255,7 +340,7 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID/permiss
         `{prefix}_{32-hex}` form — a shortened readable prefix of the name plus
         a hash — from which the published name is not recoverable.
 
-    - `ConnectorScope object`
+    - `BetaRBACConnectorScopePermissionResource object`
 
       - `type: "connector_scope"`
 
@@ -277,7 +362,7 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID/permiss
         appears server-encoded in a stable `{prefix}_{32-hex}` form. OAuth
         scopes routinely contain `:` and `/`, so most appear encoded.
 
-    - `Connector object`
+    - `BetaRBACConnectorPermissionResource object`
 
       - `type: "connector"`
 
@@ -289,7 +374,7 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID/permiss
 
         ID of the connector the permission applies to.
 
-    - `AllConnectors object`
+    - `BetaRBACAllConnectorsPermissionResource object`
 
       - `type: "all_connectors"`
 

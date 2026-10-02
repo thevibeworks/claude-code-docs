@@ -157,7 +157,7 @@ The reference below is generated from the configuration schema and grouped to ma
   </Accordion>
 
   <Accordion title="inferenceProvider details">
-    The app activates 3P mode only when this is set and the required credential keys for the selected provider are present and valid; otherwise it launches in standard mode. Keys for providers other than the selected one are ignored. Each provider's required keys are documented on its dedicated page under Inference providers.
+    Setting this key asks for 3P mode. The app opens in 3P mode unless the user chose to sign in to Claude.ai at the login screen, a choice `disableDeploymentModeChooser` removes. In 3P mode, if the selected provider's required credential keys are missing or invalid, the app shows a configuration error. A value the app cannot read (a misspelt, wrongly cased or unknown provider, or a value of the wrong type) still counts as set when machine-wide device management sent it: a macOS configuration profile, Windows policy under `HKLM`, or the root-owned policy file on Linux. The app then asks for 3P mode and, in 3P mode, shows a configuration error whose details name this key. An unreadable `bootstrapUrl` from the same sources counts the same way unless `bootstrapEnabled` is `false`. An unreadable value does not count where the user can write it: the local configuration file, or Windows policy under `HKCU`. Neither does an empty value (a value of only spaces is unreadable, not empty), or a Windows value of type `REG_BINARY`, `REG_MULTI_SZ` or `REG_QWORD`. Each of those reads as not set. When this key is not set, the app launches in standard mode unless another setting asks for 3P mode, such as a `bootstrapUrl` that `bootstrapEnabled` has not turned off. Keys for providers other than the selected one are ignored. Each provider's required keys are documented on its dedicated page under Inference providers.
   </Accordion>
 </AccordionGroup>
 
@@ -857,15 +857,15 @@ The reference below is generated from the configuration schema and grouped to ma
 | <span id="deploymentorganizationuuid" />Organization UUID<br />`deploymentOrganizationUuid` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | A UUID you generate. Tags telemetry so Anthropic support can locate your fleet’s events, and namespaces each user’s local data. Not used for auth. |
 | <span id="disableessentialtelemetry" />Block essential telemetry<br />`disableEssentialTelemetry` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Crash and performance reports to Anthropic. Defaults to `false`. |
 | <span id="disablenonessentialtelemetry" />Block nonessential telemetry<br />`disableNonessentialTelemetry` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Product-usage analytics and diagnostic-report uploads. No message content. Defaults to `false`. |
-| <span id="disablenonessentialservices" />Block nonessential services<br />`disableNonessentialServices` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Connector favicons and the artifact-preview and MCP Apps widget iframe origins. Artifacts will not render. Defaults to `false`. |
+| <span id="disablenonessentialservices" />Block nonessential services<br />`disableNonessentialServices` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Connector favicons, artifact-preview and MCP Apps iframes, and the Linux spellcheck dictionary. Connector widgets fall back to text; spellcheck is off on Linux. Defaults to `false`. |
 
 <AccordionGroup>
   <Accordion title="deploymentOrganizationUuid details">
-    If unset, a shared placeholder UUID is used: telemetry can’t be distinguished from other unconfigured deployments, and local data is stored under the placeholder. **Changing this value orphans data** stored under the previous value (sessions, skills, plugins).
+    If unset, the app uses the organization of your Anthropic sign-in, where the connection has one. Otherwise, telemetry is tagged with a value the app derives from your connection settings. Where it cannot derive one, telemetry is tagged with a placeholder UUID shared with other unconfigured deployments. In the last two cases, local data is stored under the placeholder. **Changing this value orphans data** stored under the previous value (sessions, skills, plugins).
   </Accordion>
 
   <Accordion title="disableEssentialTelemetry details">
-    "Essential" means the signals Anthropic needs to keep your deployment working: **crash stacks**, **startup failure reasons**, and **version/OS metadata**. No prompts, completions, file contents, or identifiers beyond a random install ID.
+    "Essential" means the signals Anthropic needs to keep your deployment working: **crash stacks**, **startup failure reasons**, **version/OS metadata**, and **crash dumps** (each an unfiltered copy of part of the app's memory). Reports carry a random install ID and an organization ID. The organization ID is the one you set, one the app takes from your Anthropic sign-in or derives from your connection settings, or a placeholder shared with other unconfigured deployments. Reports can also include a summary of your settings, the host names of addresses you configured, text you set for display (such as the display name, subtitle, and banner text and link), and a one-way digest of a session ID.
 
     **What you lose when this is on:** when a Claude Desktop build hits a bug that only reproduces on your OS version or locale, Anthropic can't see it unless a user manually reports. Fixes ship slower.
 
@@ -879,9 +879,9 @@ The reference below is generated from the configuration schema and grouped to ma
   </Accordion>
 
   <Accordion title="disableNonessentialServices details">
-    "Nonessential services" covers three outbound fetches the app runs without: **connector favicons** (the icon proxy), the **artifact-preview** iframe origin, and the **MCP Apps widget** iframe origin (`*.claudemcpcontent.com`). Turning this on blocks all three.
+    "Nonessential services" covers these outbound fetches the app runs without: **connector favicons** (the icon proxy), the **artifact-preview** iframe origin, the **MCP Apps widget** iframe origin (`*.claudemcpcontent.com`), and the **spellcheck dictionary** the built-in spellchecker downloads on Linux. Turning this on blocks all of them. (macOS and Windows use the system spellchecker. Windows still downloads a dictionary for a language it cannot check natively; this key does not stop that download.)
 
-    **What you lose when this is on:** connectors show without icons, artifacts do not render in conversations, and connectors that return MCP Apps show the text tool result instead of the widget.
+    **What you lose when this is on:** connectors show without icons, the hosted artifact preview frame does not load (artifacts still render locally, without the CDN chart libraries they can otherwise load), connectors that return MCP Apps show the text tool result instead of the widget, Excel files in the Code tab preview only through Claude’s workspace (the local VM) instead of that frame, and spellcheck underlines are off on Linux.
 
     Destinations are listed under Egress Requirements → Nonessential services.
   </Accordion>

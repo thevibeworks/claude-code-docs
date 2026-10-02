@@ -133,6 +133,8 @@ Long poll for work items in the queue.
 
   - `:"ce-plugins-2026-09-01"`
 
+  - `:"spend-limit-reads-2026-09-26"`
+
 - `anthropic_worker_id: String`
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

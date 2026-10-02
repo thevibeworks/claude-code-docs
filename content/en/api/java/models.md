@@ -145,6 +145,8 @@ The Models API response can be used to determine which models are available for 
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
+
 ### Returns
 
 - `class ModelInfo`
@@ -506,6 +508,8 @@ The Models API response can be used to determine information about a specific mo
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
 ### Returns
 

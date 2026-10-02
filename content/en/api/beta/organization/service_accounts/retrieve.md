@@ -123,6 +123,8 @@ Retrieve a service account by its ID (`svac_...`).
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Returns
 
 - `BetaServiceAccount object`

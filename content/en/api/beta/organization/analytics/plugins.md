@@ -85,67 +85,63 @@ range-rollup mode like `/skills`.
 
 ### Returns
 
-- `BetaPluginUsage object`
+- `data: array of BetaAnalyticsPluginActivity`
 
-  Response for GET /v1/organizations/analytics/plugins.
+  - `claude_code_metrics: BetaAnalyticsPluginClaudeCodeMetrics`
 
-  - `data: array of object`
+    Claude Code activity metrics for a single plugin on a given day.
 
-    - `claude_code_metrics: object`
+    - `distinct_session_plugin_used_count: number or null`
 
-      Claude Code activity metrics for a single plugin on a given day.
+      Number of distinct Claude Code sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_session_plugin_used_count: number or null`
+  - `cowork_metrics: BetaAnalyticsPluginCoworkMetrics`
 
-        Number of distinct Claude Code sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
+    Cowork activity metrics for a single plugin on a given day.
 
-    - `cowork_metrics: object`
+    - `distinct_session_plugin_used_count: number or null`
 
-      Cowork activity metrics for a single plugin on a given day.
+      Number of distinct Cowork sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
 
-      - `distinct_session_plugin_used_count: number or null`
+  - `distinct_user_count: number`
 
-        Number of distinct Cowork sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
+    Number of distinct users with recorded install or invocation activity for the plugin on the requested day (install-only users count), or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
 
-    - `distinct_user_count: number`
+  - `install_count: number or null`
 
-      Number of distinct users with recorded install or invocation activity for the plugin on the requested day (install-only users count), or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+    Number of distinct users who installed the plugin on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
 
-    - `install_count: number or null`
+  - `invocation_count: number`
 
-      Number of distinct users who installed the plugin on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+    Number of plugin invocations on the requested day
 
-    - `invocation_count: number`
+  - `plugin_name: string`
 
-      Number of plugin invocations on the requested day
+    Name of the plugin
 
-    - `plugin_name: string`
+  - `plugin_id: optional string or null`
 
-      Name of the plugin
+    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
 
-    - `plugin_id: optional string or null`
+  - `product: optional string or null`
 
-      Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
 
-    - `product: optional string or null`
+  - `rbac_group_id: optional string or null`
 
-      Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
 
-    - `rbac_group_id: optional string or null`
+  - `rbac_group_name: optional string or null`
 
-      Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
 
-    - `rbac_group_name: optional string or null`
+  - `user_id: optional string or null`
 
-      Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
 
-    - `user_id: optional string or null`
+- `next_page: string or null`
 
-      Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
-
-  - `next_page: string or null`
-
-    Opaque cursor for the next page, or null if no more results
+  Opaque cursor for the next page, or null if no more results
 
 ### Example
 
@@ -181,69 +177,3 @@ curl https://api.anthropic.com/v1/organizations/analytics/plugins \
   "next_page": "next_page"
 }
 ```
-
-## Domain types
-
-### Beta Plugin Usage
-
-- `BetaPluginUsage object`
-
-  Response for GET /v1/organizations/analytics/plugins.
-
-  - `data: array of object`
-
-    - `claude_code_metrics: object`
-
-      Claude Code activity metrics for a single plugin on a given day.
-
-      - `distinct_session_plugin_used_count: number or null`
-
-        Number of distinct Claude Code sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
-
-    - `cowork_metrics: object`
-
-      Cowork activity metrics for a single plugin on a given day.
-
-      - `distinct_session_plugin_used_count: number or null`
-
-        Number of distinct Cowork sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
-
-    - `distinct_user_count: number`
-
-      Number of distinct users with recorded install or invocation activity for the plugin on the requested day (install-only users count), or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
-
-    - `install_count: number or null`
-
-      Number of distinct users who installed the plugin on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
-
-    - `invocation_count: number`
-
-      Number of plugin invocations on the requested day
-
-    - `plugin_name: string`
-
-      Name of the plugin
-
-    - `plugin_id: optional string or null`
-
-      Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
-
-    - `product: optional string or null`
-
-      Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
-
-    - `rbac_group_id: optional string or null`
-
-      Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
-
-    - `rbac_group_name: optional string or null`
-
-      Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
-
-    - `user_id: optional string or null`
-
-      Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
-
-  - `next_page: string or null`
-
-    Opaque cursor for the next page, or null if no more results

@@ -9,7 +9,7 @@ url: https://platform.claude.com/docs/en/api/typescript/beta
 
 ### Anthropic Beta
 
-- `type AnthropicBeta = (string & {}) | "message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 46 more`
+- `type AnthropicBeta = (string & {}) | "message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 47 more`
 
   - `(string & {})`
 
@@ -110,6 +110,8 @@ url: https://platform.claude.com/docs/en/api/typescript/beta
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Beta API Error
 
@@ -569,6 +571,8 @@ The Models API response can be used to determine which models are available for 
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -951,6 +955,8 @@ The Models API response can be used to determine information about a specific mo
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -4258,19 +4264,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                           Powerful intelligence for long-running agents and coding
 
-                        - `"claude-sonnet-4-5"`
-
-                          High-performance model for agents and coding
-
-                        - `"claude-sonnet-4-5-20250929"`
-
-                          High-performance model for agents and coding
-
                         - `"claude-mythos-preview"`
 
                           **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                           New class of intelligence, strongest in coding and cybersecurity
+
+                        - `"claude-sonnet-4-5"`
+
+                          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          High-performance model for agents and coding
+
+                        - `"claude-sonnet-4-5-20250929"`
+
+                          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          High-performance model for agents and coding
 
                         - `(string & {})`
 
@@ -5382,6 +5392,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `user_profile_id?: string`
 
@@ -8234,19 +8246,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       Powerful intelligence for long-running agents and coding
 
-                    - `"claude-sonnet-4-5"`
-
-                      High-performance model for agents and coding
-
-                    - `"claude-sonnet-4-5-20250929"`
-
-                      High-performance model for agents and coding
-
                     - `"claude-mythos-preview"`
 
                       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                       New class of intelligence, strongest in coding and cybersecurity
+
+                    - `"claude-sonnet-4-5"`
+
+                      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                      High-performance model for agents and coding
+
+                    - `"claude-sonnet-4-5-20250929"`
+
+                      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                      High-performance model for agents and coding
 
                     - `(string & {})`
 
@@ -12728,19 +12744,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                           Powerful intelligence for long-running agents and coding
 
-                        - `"claude-sonnet-4-5"`
-
-                          High-performance model for agents and coding
-
-                        - `"claude-sonnet-4-5-20250929"`
-
-                          High-performance model for agents and coding
-
                         - `"claude-mythos-preview"`
 
                           **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                           New class of intelligence, strongest in coding and cybersecurity
+
+                        - `"claude-sonnet-4-5"`
+
+                          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          High-performance model for agents and coding
+
+                        - `"claude-sonnet-4-5-20250929"`
+
+                          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          High-performance model for agents and coding
 
                         - `(string & {})`
 
@@ -13677,6 +13697,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `user_profile_id?: string`
 
@@ -16813,19 +16835,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               Powerful intelligence for long-running agents and coding
 
-                            - `"claude-sonnet-4-5"`
-
-                              High-performance model for agents and coding
-
-                            - `"claude-sonnet-4-5-20250929"`
-
-                              High-performance model for agents and coding
-
                             - `"claude-mythos-preview"`
 
                               **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                               New class of intelligence, strongest in coding and cybersecurity
+
+                            - `"claude-sonnet-4-5"`
+
+                              **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                              High-performance model for agents and coding
+
+                            - `"claude-sonnet-4-5-20250929"`
+
+                              **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                              High-performance model for agents and coding
 
                             - `(string & {})`
 
@@ -17982,6 +18008,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `user_profile_id?: string`
 
     Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -18272,6 +18300,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -18559,6 +18589,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -18844,6 +18876,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -19121,6 +19155,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -19289,6 +19325,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -22115,19 +22153,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             Powerful intelligence for long-running agents and coding
 
-                          - `"claude-sonnet-4-5"`
-
-                            High-performance model for agents and coding
-
-                          - `"claude-sonnet-4-5-20250929"`
-
-                            High-performance model for agents and coding
-
                           - `"claude-mythos-preview"`
 
                             **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                             New class of intelligence, strongest in coding and cybersecurity
+
+                          - `"claude-sonnet-4-5"`
+
+                            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                            High-performance model for agents and coding
+
+                          - `"claude-sonnet-4-5-20250929"`
+
+                            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                            High-performance model for agents and coding
 
                           - `(string & {})`
 
@@ -23360,9 +23402,13 @@ Create Agent
 
       - `"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -24106,6 +24152,8 @@ Create Agent
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -24214,9 +24262,13 @@ Create Agent
 
       - `"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -24930,6 +24982,8 @@ List Agents
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -25038,9 +25092,13 @@ List Agents
 
       - `"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -25741,6 +25799,8 @@ Get Agent
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -25849,9 +25909,13 @@ Get Agent
 
       - `"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -26534,9 +26598,13 @@ Update Agent
 
       - `"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -27258,6 +27326,8 @@ Update Agent
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -27366,9 +27436,13 @@ Update Agent
 
       - `"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -28060,6 +28134,8 @@ Archive Agent
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -28168,9 +28244,13 @@ Archive Agent
 
       - `"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -28873,6 +28953,8 @@ List Agent Versions
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -28981,9 +29063,13 @@ List Agent Versions
 
       - `"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -29794,6 +29880,8 @@ Create a new environment with the specified configuration.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -30129,6 +30217,8 @@ List environments with pagination support.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -30455,6 +30545,8 @@ Retrieve a specific environment by ID.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -30895,6 +30987,8 @@ Update an existing environment's configuration.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -31216,6 +31310,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -31380,6 +31476,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -31710,6 +31808,8 @@ Retrieve detailed information about a specific work item.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -31971,6 +32071,8 @@ Long poll for work items in the queue.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `"Anthropic-Worker-ID"?: string`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
@@ -32215,6 +32317,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -32471,6 +32575,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaSelfHostedWorkHeartbeatResponse`
@@ -32665,6 +32771,8 @@ Stop a work item, initiating graceful or forced shutdown.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -32925,6 +33033,8 @@ List work items in an environment.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaSelfHostedWork`
@@ -33182,6 +33292,8 @@ Update work item metadata with merge semantics.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -33430,6 +33542,8 @@ Get statistics about the work queue for an environment.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -33632,9 +33746,13 @@ Create Session
 
           - `"claude-sonnet-4-5"`
 
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             High-performance model for agents and coding
 
           - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             High-performance model for agents and coding
 
@@ -34636,6 +34754,8 @@ Create Session
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -34738,9 +34858,13 @@ Create Session
 
         - `"claude-sonnet-4-5"`
 
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
           High-performance model for agents and coding
 
         - `"claude-sonnet-4-5-20250929"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
           High-performance model for agents and coding
 
@@ -35945,6 +36069,8 @@ List Sessions
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -36047,9 +36173,13 @@ List Sessions
 
         - `"claude-sonnet-4-5"`
 
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
           High-performance model for agents and coding
 
         - `"claude-sonnet-4-5-20250929"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
           High-performance model for agents and coding
 
@@ -37176,6 +37306,8 @@ Get Session
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -37278,9 +37410,13 @@ Get Session
 
         - `"claude-sonnet-4-5"`
 
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
           High-performance model for agents and coding
 
         - `"claude-sonnet-4-5-20250929"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
           High-performance model for agents and coding
 
@@ -38886,6 +39022,8 @@ Update Session
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -38988,9 +39126,13 @@ Update Session
 
         - `"claude-sonnet-4-5"`
 
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
           High-performance model for agents and coding
 
         - `"claude-sonnet-4-5-20250929"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
           High-performance model for agents and coding
 
@@ -40112,6 +40254,8 @@ Delete Session
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -40271,6 +40415,8 @@ Archive Session
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -40373,9 +40519,13 @@ Archive Session
 
         - `"claude-sonnet-4-5"`
 
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
           High-performance model for agents and coding
 
         - `"claude-sonnet-4-5-20250929"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
           High-performance model for agents and coding
 
@@ -41612,6 +41762,8 @@ List Events
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -43387,9 +43539,13 @@ List Events
 
           - `"claude-sonnet-4-5"`
 
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             High-performance model for agents and coding
 
           - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             High-performance model for agents and coding
 
@@ -44564,6 +44720,8 @@ Send Events
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -45182,6 +45340,8 @@ Stream Events
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -46957,9 +47117,13 @@ Stream Events
 
           - `"claude-sonnet-4-5"`
 
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             High-performance model for agents and coding
 
           - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             High-performance model for agents and coding
 
@@ -47823,6 +47987,8 @@ Add Session Resource
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -48010,6 +48176,8 @@ List Session Resources
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -48292,6 +48460,8 @@ Get Session Resource
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -48568,6 +48738,8 @@ Update Session Resource
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -48838,6 +49010,8 @@ Delete Session Resource
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -49010,6 +49184,8 @@ List Session Threads
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -49118,9 +49294,13 @@ List Session Threads
 
           - `"claude-sonnet-4-5"`
 
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             High-performance model for agents and coding
 
           - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             High-performance model for agents and coding
 
@@ -49933,6 +50113,8 @@ Get Session Thread
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -50041,9 +50223,13 @@ Get Session Thread
 
           - `"claude-sonnet-4-5"`
 
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             High-performance model for agents and coding
 
           - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             High-performance model for agents and coding
 
@@ -50851,6 +51037,8 @@ Archive Session Thread
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -50959,9 +51147,13 @@ Archive Session Thread
 
           - `"claude-sonnet-4-5"`
 
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             High-performance model for agents and coding
 
           - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             High-performance model for agents and coding
 
@@ -51780,6 +51972,8 @@ List Session Thread Events
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -53555,9 +53749,13 @@ List Session Thread Events
 
           - `"claude-sonnet-4-5"`
 
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             High-performance model for agents and coding
 
           - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             High-performance model for agents and coding
 
@@ -54371,6 +54569,8 @@ Stream Session Thread Events
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -56146,9 +56346,13 @@ Stream Session Thread Events
 
           - `"claude-sonnet-4-5"`
 
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             High-performance model for agents and coding
 
           - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             High-performance model for agents and coding
 
@@ -57395,6 +57599,8 @@ Create Deployment
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -58167,6 +58373,8 @@ List Deployments
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -58899,6 +59107,8 @@ Get Deployment
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -60029,6 +60239,8 @@ Update Deployment
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -60757,6 +60969,8 @@ Archive Deployment
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -61487,6 +61701,8 @@ Run Deployment Now
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -61877,6 +62093,8 @@ Pause Deployment
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -62606,6 +62824,8 @@ Unpause Deployment
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -63388,6 +63608,8 @@ List Deployment Runs
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -63782,6 +64004,8 @@ Get Deployment Run
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -64182,6 +64406,8 @@ Create Vault
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -64388,6 +64614,8 @@ List Vaults
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -64587,6 +64815,8 @@ Get Vault
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -64794,6 +65024,8 @@ Update Vault
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -64988,6 +65220,8 @@ Delete Vault
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -65150,6 +65384,8 @@ Archive Vault
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -65521,6 +65757,8 @@ Create Credential
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -65859,6 +66097,8 @@ List Credentials
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -66185,6 +66425,8 @@ Get Credential
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -66638,6 +66880,8 @@ Update Credential
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -66960,6 +67204,8 @@ Delete Credential
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -67127,6 +67373,8 @@ Archive Credential
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -67450,6 +67698,8 @@ Validate Credential
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -67738,6 +67988,8 @@ Create a memory store
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -67756,11 +68008,25 @@ Create a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `archived_at: string | null`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `created_at: string`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `description: string`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `metadata: Record<string, string>`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `name: string`
 
@@ -67771,20 +68037,6 @@ Create a memory store
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `archived_at?: string | null`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `description?: string`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `metadata?: Record<string, string>`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -67805,15 +68057,15 @@ console.log(betaManagedAgentsMemoryStore.id);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -67959,6 +68211,8 @@ List memory stores
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -67977,11 +68231,25 @@ List memory stores
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `archived_at: string | null`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `created_at: string`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `description: string`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `metadata: Record<string, string>`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `name: string`
 
@@ -67992,20 +68260,6 @@ List memory stores
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `archived_at?: string | null`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `description?: string`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `metadata?: Record<string, string>`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -68029,15 +68283,15 @@ for await (const betaManagedAgentsMemoryStore of client.beta.memoryStores.list()
   "data": [
     {
       "id": "id",
-      "created_at": "2019-12-27T18:11:19.117Z",
-      "name": "name",
-      "type": "memory_store",
-      "updated_at": "2019-12-27T18:11:19.117Z",
       "archived_at": "2019-12-27T18:11:19.117Z",
+      "created_at": "2019-12-27T18:11:19.117Z",
       "description": "description",
       "metadata": {
         "foo": "string"
-      }
+      },
+      "name": "name",
+      "type": "memory_store",
+      "updated_at": "2019-12-27T18:11:19.117Z"
     }
   ],
   "next_page": "next_page"
@@ -68164,6 +68418,8 @@ Retrieve a memory store
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -68182,11 +68438,25 @@ Retrieve a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `archived_at: string | null`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `created_at: string`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `description: string`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `metadata: Record<string, string>`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `name: string`
 
@@ -68197,20 +68467,6 @@ Retrieve a memory store
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `archived_at?: string | null`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `description?: string`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `metadata?: Record<string, string>`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -68233,15 +68489,15 @@ console.log(betaManagedAgentsMemoryStore.id);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -68381,6 +68637,8 @@ Update a memory store
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -68399,11 +68657,25 @@ Update a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `archived_at: string | null`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `created_at: string`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `description: string`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `metadata: Record<string, string>`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `name: string`
 
@@ -68414,20 +68686,6 @@ Update a memory store
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `archived_at?: string | null`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `description?: string`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `metadata?: Record<string, string>`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -68448,15 +68706,15 @@ console.log(betaManagedAgentsMemoryStore.id);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -68579,6 +68837,8 @@ Delete a memory store
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -68743,6 +69003,8 @@ Archive a memory store
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -68761,11 +69023,25 @@ Archive a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `archived_at: string | null`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `created_at: string`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `description: string`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `metadata: Record<string, string>`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `name: string`
 
@@ -68776,20 +69052,6 @@ Archive a memory store
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `archived_at?: string | null`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `description?: string`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `metadata?: Record<string, string>`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -68810,15 +69072,15 @@ console.log(betaManagedAgentsMemoryStore.id);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -68965,6 +69227,8 @@ Create a memory
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -69207,6 +69471,8 @@ List memories
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -69453,6 +69719,8 @@ Retrieve a memory
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -69698,6 +69966,8 @@ Update a memory
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -69916,6 +70186,8 @@ Delete a memory
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -70150,6 +70422,8 @@ List memory versions
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -70463,6 +70737,8 @@ Retrieve a memory version
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -70757,6 +71033,8 @@ Redact a memory version
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -71059,6 +71337,8 @@ Upload File
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -71301,6 +71581,8 @@ List Files
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -71530,6 +71812,8 @@ Download File
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -71676,6 +71960,8 @@ Get File Metadata
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -71900,6 +72186,8 @@ Delete File
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -72074,6 +72362,8 @@ Create Skill
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -72322,6 +72612,8 @@ List Skills
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -72556,6 +72848,8 @@ Get Skill
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -72784,6 +73078,8 @@ Delete Skill
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -72960,6 +73256,8 @@ Create Skill Version
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -73172,6 +73470,8 @@ List Skill Versions
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -73381,6 +73681,8 @@ Download a skill version's content as a zip archive.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -73537,6 +73839,8 @@ Get Skill Version
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -73742,6 +74046,8 @@ Delete Skill Version
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -74002,6 +74308,8 @@ Create User Profile
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -74331,6 +74639,8 @@ List User Profiles
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -74632,6 +74942,8 @@ Get User Profile
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -75025,6 +75337,8 @@ Update User Profile
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -75323,6 +75637,8 @@ Create Enrollment URL
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -75598,6 +75914,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -76072,6 +76390,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -76490,6 +76810,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -76902,6 +77224,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -77313,6 +77637,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -77728,6 +78054,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -77914,6 +78242,8 @@ Fetches a tunnel by ID.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -78112,6 +78442,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -78305,6 +78637,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -78492,6 +78826,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -78665,6 +79001,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -78841,6 +79179,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -79041,6 +79381,8 @@ Fetches a tunnel certificate by ID.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -79253,6 +79595,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
   - `workspace_id?: string`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -79456,6 +79800,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
   - `workspace_id?: string`
 
@@ -81282,6 +81628,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaFederationIssuer`
@@ -81602,6 +81950,8 @@ Archived issuers are excluded unless `include_archived=true`.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaFederationIssuer`
@@ -81912,6 +82262,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -82303,6 +82655,8 @@ session.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaFederationIssuer`
@@ -82614,6 +82968,8 @@ issuer cannot be changed), or recreate them against another issuer.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -83014,6 +83370,8 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaFederationRule`
@@ -83348,6 +83706,8 @@ unless `include_archived=true`.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaFederationRule`
@@ -83664,6 +84024,8 @@ Retrieve a federation rule by its ID (`fdrl_...`).
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -84070,6 +84432,8 @@ Console session.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaFederationRule`
@@ -84390,6 +84754,8 @@ other scopes require a Console session.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -84719,6 +85085,8 @@ other scopes require a Console session.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaFederationRuleWorkspace`
@@ -84917,6 +85285,8 @@ rules with `applies_to_all_workspaces` or a legacy single
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaFederationRuleWorkspace`
@@ -85112,6 +85482,8 @@ Console session.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -85800,6 +86172,8 @@ accounts.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaServiceAccount`
@@ -86033,6 +86407,8 @@ archived service accounts.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaServiceAccount`
@@ -86255,6 +86631,8 @@ Retrieve a service account by its ID (`svac_...`).
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -86494,6 +86872,8 @@ interactive credential (a user OAuth token or a Console session).
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaServiceAccount`
@@ -86717,6 +87097,8 @@ those rules first or change their target to another service account.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -86962,6 +87344,8 @@ rejected.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaServiceAccountWorkspaceMember`
@@ -87177,6 +87561,8 @@ page to recover.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaServiceAccountWorkspaceMember`
@@ -87383,6 +87769,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -88164,6 +88552,8 @@ Create Workspace
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -89644,6 +90034,8 @@ omitted from the results.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaServiceAccountWorkspaceMember`
@@ -89864,6 +90256,8 @@ accounts cannot be added and are rejected.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaServiceAccountWorkspaceMember`
@@ -90065,6 +90459,8 @@ account returns 404.
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -90279,6 +90675,8 @@ rejected.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaServiceAccountWorkspaceMember`
@@ -90480,6 +90878,8 @@ membership. Archived workspaces return 400.
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface ServiceAccountRemoveResponse`
@@ -90534,8 +90934,8 @@ console.log(serviceAccount.service_account_id);
 List Messages API rate limits for your organization.
 
 Each entry corresponds to one rate-limit group (either a model family
-or an API-surface category such as the Files API or Message Batches)
-and contains the set of limiter values that apply to it.
+or an API-surface category such as the Message Batches API or the web
+search tool) and contains the set of limiter values that apply to it.
 
 When `limit` is omitted, every matching entry is returned in a single
 page; when `limit` truncates the result, follow `next_page` to fetch
@@ -90901,6 +91301,6622 @@ console.log(betaComplianceSettings.state);
 }
 ```
 
+## Beta › Organization › Analytics › Summaries
+
+### Get Activity Summaries
+
+`client.beta.organization.analytics.summaries.list(query, options?): PageCursor<BetaAnalyticsSingleDayActivitySummary>`
+
+**GET** `/v1/organizations/analytics/summaries`
+
+Get organization-wide activity summaries for a date range.
+
+Returns one entry per day from `starting_date` (inclusive) to `ending_date`
+(exclusive) in `data`, the same `data` / `next_page` envelope as the other
+analytics list endpoints; the series is currently returned in full, so
+`next_page` is always null (`summaries` is a deprecated alias of `data`).
+Data is typically available with a 1-day lag and may be revised by a few
+percent over the following days: when `ending_date` is omitted it
+defaults to the most recent available day + 1, so the last entry covers
+the most recent available day. The series can be scoped to an RBAC group
+via `filter[]=rbac_group_id:{id}`. Available to organizations on a Claude
+Enterprise plan. Requires an API key with the `read:analytics` scope.
+
+#### Parameters
+
+- `query: SummaryListParams`
+
+  - `starting_date: string`
+
+    UTC date in YYYY-MM-DD format. Start of the date range (inclusive). Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+  - `ending_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. End of the date range (exclusive). Data is typically available with a 1-day lag, so this can be at most today — which is also the default when omitted, making the last entry cover the most recent available day. Data may be revised by a few percent over the following days. The range may span at most 366 days.
+
+    format: date
+
+  - `filter?: Array<string> | null`
+
+    Filters as `dimension:value`. Only `rbac_group_id` is supported (e.g. `filter[]=rbac_group_id:{id}`); repeat the param to OR across groups. Scopes the whole day series to members of the matching group(s), re-aggregated from member-level activity — org-wide seat/invite fields and the adoption rates derived from them are null on scoped rows. `rbac_group_id` accepts the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each UTC day (time-of-usage attribution). At most 100 entries.
+
+    maxItems: 100
+
+  - `limit?: number | null`
+
+    Number of results per page (1-1000, default 100). The day series (at most 366 entries) is currently returned in full in a single page, so `limit` does not yet shorten it.
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field. `next_page` is currently always null, so there is never a cursor to send.
+
+#### Returns
+
+- `interface BetaAnalyticsSingleDayActivitySummary`
+
+  Per-day entry in the /summaries response.
+
+  - `assigned_seat_count: number | null`
+
+    Number of seats currently assigned to members. Null when the response is scoped to an RBAC group — seat assignment is org-wide and has no per-group analogue.
+
+  - `cowork_daily_active_user_count: number`
+
+    Number of users with Cowork activity on the requested day
+
+  - `cowork_monthly_active_user_count: number`
+
+    Number of users with Cowork activity in the 30-day rolling window
+
+  - `cowork_weekly_active_user_count: number`
+
+    Number of users with Cowork activity in the 7-day rolling window
+
+  - `daily_active_user_count: number`
+
+    Number of users with token consumption on the requested day
+
+  - `daily_adoption_rate: number | null`
+
+    Percentage of assigned seats with activity on the requested day (`DAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+
+  - `ending_at: string`
+
+    End of the aggregation period (exclusive), UTC midnight in RFC 3339 format (e.g. `2026-01-16T00:00:00Z`).
+
+    format: date-time
+
+  - `monthly_active_user_count: number`
+
+    Number of users with token consumption in the 30-day rolling window
+
+  - `monthly_adoption_rate: number | null`
+
+    Percentage of assigned seats with activity in the 30-day rolling window (`MAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+
+  - `pending_invite_count: number | null`
+
+    Number of pending invitations to join the organization. Null when the response is scoped to an RBAC group.
+
+  - `starting_at: string`
+
+    Start of the aggregation period (inclusive), UTC midnight in RFC 3339 format (e.g. `2026-01-15T00:00:00Z`).
+
+    format: date-time
+
+  - `weekly_active_user_count: number`
+
+    Number of users with token consumption in the 7-day rolling window
+
+  - `weekly_adoption_rate: number | null`
+
+    Percentage of assigned seats with activity in the 7-day rolling window (`WAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+
+  - `chat_daily_active_user_count?: number | null`
+
+    Number of users with claude.ai (chat) activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `chat_monthly_active_user_count?: number | null`
+
+    Number of users with claude.ai (chat) activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `chat_weekly_active_user_count?: number | null`
+
+    Number of users with claude.ai (chat) activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `claude_code_daily_active_user_count?: number | null`
+
+    Number of users with Claude Code activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `claude_code_monthly_active_user_count?: number | null`
+
+    Number of users with Claude Code activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `claude_code_weekly_active_user_count?: number | null`
+
+    Number of users with Claude Code activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `claude_design_daily_active_user_count?: number | null`
+
+    Number of users with Claude Design activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `claude_design_monthly_active_user_count?: number | null`
+
+    Number of users with Claude Design activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `claude_design_weekly_active_user_count?: number | null`
+
+    Number of users with Claude Design activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `office_agent_daily_active_user_count?: number | null`
+
+    Number of users with Claude in Office activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `office_agent_monthly_active_user_count?: number | null`
+
+    Number of users with Claude in Office activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `office_agent_weekly_active_user_count?: number | null`
+
+    Number of users with Claude in Office activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `science_daily_active_user_count?: number | null`
+
+    Number of users with Claude Science activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `science_entitled_user_count?: number | null`
+
+    Number of users with a Claude Science seat entitlement (per-seat RBAC) at the time of the daily snapshot. The funnel top; independent of the org-level Claude Science toggle. Null when the response is scoped to an RBAC group — entitlement is org-wide and has no per-group analogue. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `science_monthly_active_user_count?: number | null`
+
+    Number of users with Claude Science activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `science_weekly_active_user_count?: number | null`
+
+    Number of users with Claude Science activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsSingleDayActivitySummary of client.beta.organization.analytics.summaries.list(
+  { starting_date: "2019-12-27" }
+)) {
+  console.log(betaAnalyticsSingleDayActivitySummary.assigned_seat_count);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "assigned_seat_count": 0,
+      "cowork_daily_active_user_count": 0,
+      "cowork_monthly_active_user_count": 0,
+      "cowork_weekly_active_user_count": 0,
+      "daily_active_user_count": 0,
+      "daily_adoption_rate": 0,
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "monthly_active_user_count": 0,
+      "monthly_adoption_rate": 0,
+      "pending_invite_count": 0,
+      "starting_at": "2019-12-27T18:11:19.117Z",
+      "weekly_active_user_count": 0,
+      "weekly_adoption_rate": 0,
+      "chat_daily_active_user_count": 0,
+      "chat_monthly_active_user_count": 0,
+      "chat_weekly_active_user_count": 0,
+      "claude_code_daily_active_user_count": 0,
+      "claude_code_monthly_active_user_count": 0,
+      "claude_code_weekly_active_user_count": 0,
+      "claude_design_daily_active_user_count": 0,
+      "claude_design_monthly_active_user_count": 0,
+      "claude_design_weekly_active_user_count": 0,
+      "office_agent_daily_active_user_count": 0,
+      "office_agent_monthly_active_user_count": 0,
+      "office_agent_weekly_active_user_count": 0,
+      "science_daily_active_user_count": 0,
+      "science_entitled_user_count": 0,
+      "science_monthly_active_user_count": 0,
+      "science_weekly_active_user_count": 0
+    }
+  ],
+  "next_page": "next_page",
+  "summaries": [
+    {
+      "assigned_seat_count": 0,
+      "cowork_daily_active_user_count": 0,
+      "cowork_monthly_active_user_count": 0,
+      "cowork_weekly_active_user_count": 0,
+      "daily_active_user_count": 0,
+      "daily_adoption_rate": 0,
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "monthly_active_user_count": 0,
+      "monthly_adoption_rate": 0,
+      "pending_invite_count": 0,
+      "starting_at": "2019-12-27T18:11:19.117Z",
+      "weekly_active_user_count": 0,
+      "weekly_adoption_rate": 0,
+      "chat_daily_active_user_count": 0,
+      "chat_monthly_active_user_count": 0,
+      "chat_weekly_active_user_count": 0,
+      "claude_code_daily_active_user_count": 0,
+      "claude_code_monthly_active_user_count": 0,
+      "claude_code_weekly_active_user_count": 0,
+      "claude_design_daily_active_user_count": 0,
+      "claude_design_monthly_active_user_count": 0,
+      "claude_design_weekly_active_user_count": 0,
+      "office_agent_daily_active_user_count": 0,
+      "office_agent_monthly_active_user_count": 0,
+      "office_agent_weekly_active_user_count": 0,
+      "science_daily_active_user_count": 0,
+      "science_entitled_user_count": 0,
+      "science_monthly_active_user_count": 0,
+      "science_weekly_active_user_count": 0
+    }
+  ]
+}
+```
+
+## Beta › Organization › Analytics › Users
+
+### List User Activity
+
+`client.beta.organization.analytics.users.list(query?, options?): PageCursor<BetaAnalyticsUserActivity>`
+
+**GET** `/v1/organizations/analytics/users`
+
+Get per-user activity for a given day, with cursor-based pagination.
+
+Returns activity metrics for each user in the organization, sorted by email
+address. Use `group_by[]` for per-RBAC-group aggregates, or `filter[]` to
+scope results to specific members, groups, or a chat project. Available
+to organizations on a Claude Enterprise plan. Requires an API key with
+the `read:analytics` scope.
+
+#### Parameters
+
+- `query: UserListParams`
+
+  - `date?: string | null`
+
+    UTC date in YYYY-MM-DD format. The day to get user activity for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+  - `ending_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+    format: date
+
+  - `filter?: Array<string> | null`
+
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `project_id`, `rbac_group_id`, `user_id`. Value forms: `project_id` takes a tagged project id (`claude_proj_...`) and scopes each member's row to their claude.ai chat activity within that project (it cannot be combined with `group_by[]` or an `rbac_group_id` filter); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+    maxItems: 100
+
+  - `group_by?: Array<"rbac_group_id"> | null`
+
+    Dimensions to break results out by (e.g. `group_by[]=rbac_group_id`). Supported on this endpoint: `rbac_group_id`. Rows are already per-member, so the one supported grouping aggregates them per RBAC group instead. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+    maxItems: 100
+
+  - `limit?: number | null`
+
+    Number of results per page (1-1000, default 100).
+
+    minimum: 1, maximum: 1000
+
+  - `order?: "asc" | "desc" | null`
+
+    Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+    - `"asc"`
+
+    - `"desc"`
+
+  - `order_by?: string | null`
+
+    Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `starting_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+#### Returns
+
+- `interface BetaAnalyticsUserActivity`
+
+  Per-user activity data for a given day.
+
+  - `chat_metrics: BetaAnalyticsChatMetrics`
+
+    Claude.ai activity metrics for a single user on a given day.
+
+    - `connectors_used_count: number`
+
+      Number of MCP connector invocations.
+
+    - `distinct_artifacts_created_count: number`
+
+      Number of distinct artifacts created. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
+
+    - `distinct_connectors_used_count: number | null`
+
+      Distinct claude.ai connectors this user used. Excludes calls whose connector could not be identified and all calls from organizations with zero data retention. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `distinct_conversation_count: number | null`
+
+      Number of distinct conversations the user participated in. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `distinct_files_uploaded_count: number | null`
+
+      Number of distinct files uploaded. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `distinct_projects_created_count: number`
+
+      Number of distinct projects created. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
+
+    - `distinct_projects_used_count: number | null`
+
+      Number of distinct projects used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `distinct_shared_artifacts_viewed_count: number | null`
+
+      Number of distinct shared artifacts the user viewed. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `distinct_skills_used_count: number | null`
+
+      Number of distinct skills used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `message_count: number`
+
+      Number of messages sent
+
+    - `shared_conversations_viewed_count: number`
+
+      Number of times the user opened a shared conversation in a project
+
+    - `thinking_message_count: number`
+
+      Number of messages that used extended thinking
+
+  - `claude_code_metrics: BetaAnalyticsClaudeCodeMetrics`
+
+    Claude Code activity metrics for a single user on a given day.
+
+    - `core_metrics: BetaAnalyticsCoreCodeMetrics`
+
+      Core Claude Code activity metrics for a single user on a given day.
+
+      - `artifacts_created_count: number`
+
+        Number of artifacts created in Claude Code sessions: an artifact counts once, on the day a session first saves it. Counted from 2026-08-17; 0 on earlier days. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
+
+      - `commit_count: number`
+
+        Number of commits made via Claude Code
+
+      - `distinct_session_count: number | null`
+
+        Number of distinct Claude Code sessions. On aggregated rows and in date-range mode: summed per-day distinct counts. A session essentially never spans a UTC day, so the sum is in practice the true distinct count.
+
+      - `lines_of_code: BetaAnalyticsLinesOfCode`
+
+        Lines of code added and removed via Claude Code.
+
+        - `added_count: number`
+
+          Lines of code added
+
+        - `removed_count: number`
+
+          Lines of code removed
+
+      - `pull_request_count: number`
+
+        Number of pull requests created via Claude Code
+
+    - `tool_actions: BetaAnalyticsToolActions`
+
+      Per-tool accepted/rejected counts for Claude Code file modification tools.
+
+      - `edit_tool: BetaAnalyticsToolActionCounts`
+
+        Accepted/rejected counts for a single Claude Code tool type.
+
+        - `accepted_count: number`
+
+          Number of tool proposals accepted
+
+        - `rejected_count: number`
+
+          Number of tool proposals rejected
+
+      - `multi_edit_tool: BetaAnalyticsToolActionCounts`
+
+        Accepted/rejected counts for a single Claude Code tool type.
+
+      - `notebook_edit_tool: BetaAnalyticsToolActionCounts`
+
+        Accepted/rejected counts for a single Claude Code tool type.
+
+      - `write_tool: BetaAnalyticsToolActionCounts`
+
+        Accepted/rejected counts for a single Claude Code tool type.
+
+  - `cowork_metrics: BetaAnalyticsCoworkMetrics`
+
+    Cowork activity metrics for a single user on a given day.
+
+    - `action_count: number`
+
+      Number of tool actions completed in Cowork sessions
+
+    - `artifacts_created_count: number`
+
+      Number of artifacts created in Cowork sessions: an artifact counts once, on the day a session first saves it. Counted from 2026-08-17; 0 on earlier days. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
+
+    - `connectors_used_count: number`
+
+      Total number of connector invocations in Cowork sessions
+
+    - `dispatch_turn_count: number`
+
+      Number of Dispatch (background agent) turns completed
+
+    - `distinct_connectors_used_count: number | null`
+
+      Number of distinct connectors used in Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `distinct_session_count: number | null`
+
+      Number of distinct Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `distinct_skills_used_count: number | null`
+
+      Number of distinct skills used in Cowork sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `message_count: number`
+
+      Number of messages sent in Cowork sessions
+
+    - `skills_used_count: number`
+
+      Total number of skill invocations in Cowork sessions
+
+    - `distinct_plugins_used_count?: number | null`
+
+      Number of distinct plugins used in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `edit_tool_count?: number | null`
+
+      Number of successful Edit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
+
+    - `file_edit_count?: number | null`
+
+      Number of successful file-edit tool calls (Edit, MultiEdit, Write, NotebookEdit) in Cowork sessions. Null, never 0, while the file-edit metrics are not enabled for this organization.
+
+    - `multi_edit_tool_count?: number | null`
+
+      Number of successful MultiEdit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
+
+    - `notebook_edit_tool_count?: number | null`
+
+      Number of successful NotebookEdit tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
+
+    - `plugins_used_count?: number | null`
+
+      Total number of plugin invocations in Cowork sessions. Null while Cowork plugin-use metrics are not enabled for this organization.
+
+    - `sessions_with_file_edits_count?: number | null`
+
+      Number of distinct Cowork sessions with at least one successful file-edit tool call. Null while the file-edit metrics are not enabled for this organization. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `write_tool_count?: number | null`
+
+      Number of successful Write tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
+
+  - `design_metrics: BetaAnalyticsDesignMetrics`
+
+    Claude Design activity metrics for a single user on a given day.
+
+    - `distinct_projects_created_count: number`
+
+      Number of distinct Claude Design projects created. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
+
+    - `distinct_projects_used_count: number | null`
+
+      Number of distinct Claude Design projects the user worked in. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `distinct_session_count: number | null`
+
+      Number of distinct Claude Design sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `message_count: number`
+
+      Number of messages sent in Claude Design sessions
+
+  - `office_metrics: BetaAnalyticsOfficeMetrics`
+
+    Office Agent activity metrics for a single user on a given day, broken out by Office product.
+
+    - `excel: BetaAnalyticsOfficeProductMetrics`
+
+      Office Agent activity metrics for a single user on a given day within one Office product.
+
+      - `connectors_used_count: number`
+
+        Number of MCP connector invocations
+
+      - `distinct_connectors_used_count: number | null`
+
+        Number of distinct MCP connectors used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+      - `distinct_session_count: number | null`
+
+        Number of distinct Office Agent sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+      - `distinct_skills_used_count: number | null`
+
+        Number of distinct skills used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+      - `message_count: number`
+
+        Number of messages sent
+
+      - `skills_used_count: number`
+
+        Number of skill invocations
+
+    - `outlook: BetaAnalyticsOfficeProductMetrics`
+
+      Office Agent activity metrics for a single user on a given day within one Office product.
+
+    - `powerpoint: BetaAnalyticsOfficeProductMetrics`
+
+      Office Agent activity metrics for a single user on a given day within one Office product.
+
+    - `word: BetaAnalyticsOfficeProductMetrics`
+
+      Office Agent activity metrics for a single user on a given day within one Office product.
+
+  - `science_metrics: BetaAnalyticsScienceMetrics`
+
+    Claude Science activity metrics for a single user on a given day.
+
+    - `delegation_count: number`
+
+      Number of delegations (handoffs to a specialized agent) in Claude Science sessions
+
+    - `distinct_session_count: number | null`
+
+      Number of distinct Claude Science sessions. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `message_count: number`
+
+      Number of messages sent in Claude Science sessions
+
+    - `remote_compute_job_count: number`
+
+      Number of remote compute jobs launched from Claude Science sessions
+
+    - `skills_used_count: number`
+
+      Total number of skill invocations in Claude Science sessions
+
+  - `web_search_count: number`
+
+    Number of web searches performed
+
+  - `distinct_user_count?: number | null`
+
+    Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
+
+  - `last_activity_date?: string | null`
+
+    Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member of that group, consistent with the row's other metrics. On grouped (`group_by[]`) rows it is the latest day any member of the group was active (the requested `date` in single-day mode). Omitted from the response while last-activity reporting is not enabled for this organization.
+
+    format: date
+
+  - `rbac_group_id?: string | null`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `rbac_group_name?: string | null`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `user?: BetaAnalyticsUser | null`
+
+    The user this row describes. Null on rows aggregated across users.
+
+    - `type: "user"`
+
+      Object type. Always `user`.
+
+      default: user
+
+    - `id: string`
+
+      Tagged user identifier (e.g. `user_...`)
+
+    - `email_address: string`
+
+      Email address of the user
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsUserActivity of client.beta.organization.analytics.users.list()) {
+  console.log(betaAnalyticsUserActivity.rbac_group_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "chat_metrics": {
+        "connectors_used_count": 0,
+        "distinct_artifacts_created_count": 0,
+        "distinct_connectors_used_count": 0,
+        "distinct_conversation_count": 0,
+        "distinct_files_uploaded_count": 0,
+        "distinct_projects_created_count": 0,
+        "distinct_projects_used_count": 0,
+        "distinct_shared_artifacts_viewed_count": 0,
+        "distinct_skills_used_count": 0,
+        "message_count": 0,
+        "shared_conversations_viewed_count": 0,
+        "thinking_message_count": 0
+      },
+      "claude_code_metrics": {
+        "core_metrics": {
+          "artifacts_created_count": 0,
+          "commit_count": 0,
+          "distinct_session_count": 0,
+          "lines_of_code": {
+            "added_count": 0,
+            "removed_count": 0
+          },
+          "pull_request_count": 0
+        },
+        "tool_actions": {
+          "edit_tool": {
+            "accepted_count": 0,
+            "rejected_count": 0
+          },
+          "multi_edit_tool": {
+            "accepted_count": 0,
+            "rejected_count": 0
+          },
+          "notebook_edit_tool": {
+            "accepted_count": 0,
+            "rejected_count": 0
+          },
+          "write_tool": {
+            "accepted_count": 0,
+            "rejected_count": 0
+          }
+        }
+      },
+      "cowork_metrics": {
+        "action_count": 0,
+        "artifacts_created_count": 0,
+        "connectors_used_count": 0,
+        "dispatch_turn_count": 0,
+        "distinct_connectors_used_count": 0,
+        "distinct_session_count": 0,
+        "distinct_skills_used_count": 0,
+        "message_count": 0,
+        "skills_used_count": 0,
+        "distinct_plugins_used_count": 0,
+        "edit_tool_count": 0,
+        "file_edit_count": 0,
+        "multi_edit_tool_count": 0,
+        "notebook_edit_tool_count": 0,
+        "plugins_used_count": 0,
+        "sessions_with_file_edits_count": 0,
+        "write_tool_count": 0
+      },
+      "design_metrics": {
+        "distinct_projects_created_count": 0,
+        "distinct_projects_used_count": 0,
+        "distinct_session_count": 0,
+        "message_count": 0
+      },
+      "office_metrics": {
+        "excel": {
+          "connectors_used_count": 0,
+          "distinct_connectors_used_count": 0,
+          "distinct_session_count": 0,
+          "distinct_skills_used_count": 0,
+          "message_count": 0,
+          "skills_used_count": 0
+        },
+        "outlook": {
+          "connectors_used_count": 0,
+          "distinct_connectors_used_count": 0,
+          "distinct_session_count": 0,
+          "distinct_skills_used_count": 0,
+          "message_count": 0,
+          "skills_used_count": 0
+        },
+        "powerpoint": {
+          "connectors_used_count": 0,
+          "distinct_connectors_used_count": 0,
+          "distinct_session_count": 0,
+          "distinct_skills_used_count": 0,
+          "message_count": 0,
+          "skills_used_count": 0
+        },
+        "word": {
+          "connectors_used_count": 0,
+          "distinct_connectors_used_count": 0,
+          "distinct_session_count": 0,
+          "distinct_skills_used_count": 0,
+          "message_count": 0,
+          "skills_used_count": 0
+        }
+      },
+      "science_metrics": {
+        "delegation_count": 0,
+        "distinct_session_count": 0,
+        "message_count": 0,
+        "remote_compute_job_count": 0,
+        "skills_used_count": 0
+      },
+      "web_search_count": 0,
+      "distinct_user_count": 0,
+      "last_activity_date": "2019-12-27",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "user": {
+        "id": "id",
+        "email_address": "email_address",
+        "type": "user"
+      }
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Apps › Chat › Projects
+
+### Get Chat Project Usage
+
+`client.beta.organization.analytics.apps.chat.projects.list(query?, options?): PageCursor<BetaAnalyticsProjectActivity>`
+
+**GET** `/v1/organizations/analytics/apps/chat/projects`
+
+Get per-project activity for a given day, with cursor-based pagination.
+
+Returns activity metrics for each project in the organization, sorted by
+project ID. Use `group_by[]` to break projects out per member or per RBAC
+group, and `filter[]` to scope results; the parameter descriptions list the
+supported dimensions. Available to organizations on a Claude Enterprise
+plan. Requires an API key with the `read:analytics` scope.
+
+#### Parameters
+
+- `query: ProjectListParams`
+
+  - `date?: string | null`
+
+    UTC date in YYYY-MM-DD format. The day to get project activity for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+  - `ending_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+    format: date
+
+  - `filter?: Array<string> | null`
+
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `project_id`, `rbac_group_id`, `user_id`. Value forms: `project_id` takes a tagged project id (`claude_proj_...`); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+    maxItems: 100
+
+  - `group_by?: Array<"rbac_group_id" | "user_id"> | null`
+
+    Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+    maxItems: 100
+
+    - `"rbac_group_id"`
+
+    - `"user_id"`
+
+  - `limit?: number | null`
+
+    Number of results per page (1-1000, default 100).
+
+    minimum: 1, maximum: 1000
+
+  - `order?: "asc" | "desc" | null`
+
+    Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+    - `"asc"`
+
+    - `"desc"`
+
+  - `order_by?: string | null`
+
+    Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `starting_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+#### Returns
+
+- `interface BetaAnalyticsProjectActivity`
+
+  Per-project activity data for a given day.
+
+  - `distinct_user_count: number`
+
+    Number of distinct users who used the project on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `message_count: number`
+
+    Number of messages sent in the project on the requested day
+
+  - `project_id: string`
+
+    Tagged project identifier (e.g. `claude_proj_...`)
+
+  - `project_name: string`
+
+    Name of the project
+
+  - `created_at?: string | null`
+
+    Project creation timestamp in RFC 3339 format. Null if the project was deleted before attribution was recorded.
+
+    format: date-time
+
+  - `created_by?: BetaAnalyticsUser | null`
+
+    User who created the project. Null if the project was deleted before attribution was recorded, or if the creator's account no longer exists.
+
+    - `type: "user"`
+
+      Object type. Always `user`.
+
+      default: user
+
+    - `id: string`
+
+      Tagged user identifier (e.g. `user_...`)
+
+    - `email_address: string`
+
+      Email address of the user
+
+  - `distinct_conversation_count?: number | null`
+
+    Number of distinct conversations in the project. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `product?: string | null`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `rbac_group_id?: string | null`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `rbac_group_name?: string | null`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `user_id?: string | null`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsProjectActivity of client.beta.organization.analytics.apps.chat.projects.list()) {
+  console.log(betaAnalyticsProjectActivity.project_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "distinct_user_count": 0,
+      "message_count": 0,
+      "project_id": "project_id",
+      "project_name": "project_name",
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "created_by": {
+        "id": "id",
+        "email_address": "email_address",
+        "type": "user"
+      },
+      "distinct_conversation_count": 0,
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "user_id": "user_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Connectors
+
+### Get Connector Usage
+
+`client.beta.organization.analytics.connectors.list(query?, options?): PageCursor<BetaAnalyticsConnectorActivity>`
+
+**GET** `/v1/organizations/analytics/connectors`
+
+Get per-connector usage for a given day, with cursor-based pagination.
+
+Returns connector usage metrics for the organization, sorted by connector
+name. Connector names are normalized from their various sources — for
+example, "Atlassian MCP server" and "mcp-atlassian" both appear as
+"atlassian". Use `group_by[]` to break usage out per member, per RBAC
+group, or per product surface, and `filter[]` to scope results; the
+parameter descriptions list the supported dimensions. Available to
+organizations on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `query: ConnectorListParams`
+
+  - `date?: string | null`
+
+    UTC date in YYYY-MM-DD format. The day to get connector usage for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+  - `ending_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+    format: date
+
+  - `filter?: Array<string> | null`
+
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `connector_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `connector_name` matches case-insensitively, a display name such as 'GitHub MCP' also matches its normalized stored form ('github'), and for rows whose `connector_name` is an opaque connector id the connector's display name (`connector_display_name`) also matches; `product` is one of `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+    maxItems: 100
+
+  - `group_by?: Array<"product" | "rbac_group_id" | "user_id"> | null`
+
+    Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+    maxItems: 100
+
+    - `"product"`
+
+    - `"rbac_group_id"`
+
+    - `"user_id"`
+
+  - `limit?: number | null`
+
+    Number of results per page (1-1000, default 100).
+
+    minimum: 1, maximum: 1000
+
+  - `order?: "asc" | "desc" | null`
+
+    Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+    - `"asc"`
+
+    - `"desc"`
+
+  - `order_by?: string | null`
+
+    Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `starting_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+#### Returns
+
+- `interface BetaAnalyticsConnectorActivity`
+
+  Per-connector activity data for a given day.
+
+  - `chat_metrics: BetaAnalyticsConnectorChatMetrics`
+
+    Claude.ai activity metrics for a single connector on a given day.
+
+    - `distinct_conversation_connector_used_count: number | null`
+
+      Number of distinct conversations in which the connector was used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `claude_code_metrics: BetaAnalyticsConnectorClaudeCodeMetrics`
+
+    Claude Code activity metrics for a single connector on a given day.
+
+    - `distinct_session_connector_used_count: number | null`
+
+      Number of distinct Claude Code sessions in which the connector was used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `connector_name: string`
+
+    Name of the connector. Some rows carry an opaque connector id here instead of a readable name; `connector_display_name` holds the resolved name for those rows.
+
+  - `cowork_metrics: BetaAnalyticsConnectorCoworkMetrics`
+
+    Cowork activity metrics for a single connector on a given day.
+
+    - `distinct_session_connector_used_count: number | null`
+
+      Number of distinct Cowork sessions in which the connector was used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `distinct_user_count: number`
+
+    Number of distinct users who used the connector on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `office_metrics: BetaAnalyticsConnectorOfficeMetrics`
+
+    Office Agent activity metrics for a single connector on a given day, broken out by Office product.
+
+    - `excel: BetaAnalyticsConnectorOfficeProductMetrics`
+
+      Office Agent activity metrics for a single connector on a given day within one Office product.
+
+      - `distinct_session_connector_used_count: number | null`
+
+        Number of distinct Office Agent sessions in which the connector was used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `outlook: BetaAnalyticsConnectorOfficeProductMetrics`
+
+      Office Agent activity metrics for a single connector on a given day within one Office product.
+
+    - `powerpoint: BetaAnalyticsConnectorOfficeProductMetrics`
+
+      Office Agent activity metrics for a single connector on a given day within one Office product.
+
+    - `word: BetaAnalyticsConnectorOfficeProductMetrics`
+
+      Office Agent activity metrics for a single connector on a given day within one Office product.
+
+  - `connector_display_name?: string | null`
+
+    Human-readable display name for rows whose `connector_name` is an opaque connector id rather than a readable name, resolved at request time from the organization's connectors (including connectors that have since been removed). `connector_name` remains the row's stable key for sorting and pagination, and `filter[]=connector_name:{value}` also matches these rows by display name. Display names are not unique, and the same connector's claude.ai usage can appear under a separate row with a readable `connector_name`. Null when `connector_name` is already a readable name, when the id cannot be resolved to one of the organization's connectors, or when display-name resolution is not enabled for this organization.
+
+  - `individual_auth_distinct_user_count?: number | null`
+
+    Number of distinct users whose use of this connector on the requested day ran on their own individual credential, connected through their own consent flow. Companion bucket to `managed_auth_distinct_user_count`, which carries the measurement, attribution, and null rules. Users whose requests used no stored credential count in neither bucket.
+
+  - `managed_auth_distinct_user_count?: number | null`
+
+    Number of distinct users whose use of this connector on the requested day ran on Enterprise Managed Auth (an organization-managed credential provisioned through the organization's identity provider), read from the token record each request used. Null, never 0, when managed-auth reporting is not enabled for the organization, the value cannot be attributed to the row, no credentialed requests and no managed-token mint events (a managed credential being provisioned for a user's use of the connector) were observed that day, or the day predates 2026-07-01, the first day the backing data exists (forward-only data, no backfill). When credentialed requests or mint events were observed and attributed, both managed-auth fields populate, reporting 0 for a bucket with no users; the two counts are independent, not a partition — a user whose requests that day used both kinds of credential counts in both. Mint events carry user but not surface attribution, so they count as observed auth activity on `user_id` and `rbac_group_id` cuts — attributed to the user the credential was provisioned for — but never on a cut that references `product` (group or filter). Date-range rollup mode (`starting_date`/`ending_date`) computes both fields exactly over the window — distinct users with at least one qualifying day — when the whole window starts on or after 2026-07-01, with the null-versus-0 and mint-event rules applying with the window in place of the day; a range starting earlier reports every managed-auth field as null, never a partial-window value.
+
+  - `product?: string | null`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `rbac_group_id?: string | null`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `rbac_group_name?: string | null`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `read_call_count?: number | null`
+
+    Number of connector tool calls on the requested day whose trusted read-only annotation marked them read-only. Call count, not distinct users. Every call recorded on a classified surface lands in exactly one of `read_call_count`, `write_call_count`, or `unclassified_call_count`, so the three sum to the day's classified calls. Classification is forward-only per surface: claude.ai from 2026-06-01, Claude Code from 2026-05-30, Claude in Office from 2026-05-29, Cowork from 2026-06-02 (Cowork clients predating annotation forwarding land in `unclassified_call_count`). Null, never 0, when the value cannot be stated: the read/write split is not enabled for this organization, or the day predates 2026-05-29. For a date-range total, sum the per-day values, but treat a window that extends before 2026-05-29 as null rather than summing only its covered days — date-range rollup mode (`starting_date`/`ending_date`) applies both rules server-side.
+
+  - `unclassified_call_count?: number | null`
+
+    Number of connector tool calls on the requested day with no trusted read-only annotation — the annotation is optional in the MCP spec and is discarded when connector access controls are active, so unclassified calls are common. This field shows how much of the day's classified activity the read/write split actually covers. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
+
+  - `user_id?: string | null`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+  - `write_call_count?: number | null`
+
+    Number of connector tool calls on the requested day whose trusted read-only annotation marked them not read-only. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsConnectorActivity of client.beta.organization.analytics.connectors.list()) {
+  console.log(betaAnalyticsConnectorActivity.individual_auth_distinct_user_count);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "chat_metrics": {
+        "distinct_conversation_connector_used_count": 0
+      },
+      "claude_code_metrics": {
+        "distinct_session_connector_used_count": 0
+      },
+      "connector_name": "connector_name",
+      "cowork_metrics": {
+        "distinct_session_connector_used_count": 0
+      },
+      "distinct_user_count": 0,
+      "office_metrics": {
+        "excel": {
+          "distinct_session_connector_used_count": 0
+        },
+        "outlook": {
+          "distinct_session_connector_used_count": 0
+        },
+        "powerpoint": {
+          "distinct_session_connector_used_count": 0
+        },
+        "word": {
+          "distinct_session_connector_used_count": 0
+        }
+      },
+      "connector_display_name": "connector_display_name",
+      "individual_auth_distinct_user_count": 0,
+      "managed_auth_distinct_user_count": 0,
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "read_call_count": 0,
+      "unclassified_call_count": 0,
+      "user_id": "user_id",
+      "write_call_count": 0
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Plugins
+
+### Get Plugin Usage
+
+`client.beta.organization.analytics.plugins.list(query?, options?): PageCursor<BetaAnalyticsPluginActivity>`
+
+**GET** `/v1/organizations/analytics/plugins`
+
+Get per-plugin install + invocation usage for a given day, with pagination.
+
+Returns plugin usage metrics for the organization across Cowork and Claude
+Code, sorted by plugin name. The `plugin_name` value `third-party` is
+an aggregate bucket, not a plugin: it collects plugin activity, from
+either surface, for which the reporting client did not provide a plugin
+name — so an organization's own plugins can contribute both to their own
+named rows and to this bucket. Use `group_by[]` to break usage out per
+member, per RBAC group, or per product surface (Cowork / Claude Code),
+and `filter[]` to scope results; the parameter descriptions list the
+supported dimensions. Requires an API key with the
+`read:analytics` scope. `starting_date` / `ending_date` select
+range-rollup mode like `/skills`.
+
+#### Parameters
+
+- `query: PluginListParams`
+
+  - `date?: string | null`
+
+    UTC date in YYYY-MM-DD format. The day to get plugin usage for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+  - `ending_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+    format: date
+
+  - `filter?: Array<string> | null`
+
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `plugin_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `plugin_name` matches case-insensitively; `product` is `claude_code` or `cowork` (the only surfaces with plugin attribution); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+    maxItems: 100
+
+  - `group_by?: Array<"product" | "rbac_group_id" | "user_id"> | null`
+
+    Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint `product` takes the values `claude_code` or `cowork` only (the surfaces with plugin attribution). Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+    maxItems: 100
+
+    - `"product"`
+
+    - `"rbac_group_id"`
+
+    - `"user_id"`
+
+  - `limit?: number | null`
+
+    Number of results per page (1-1000, default 100).
+
+    minimum: 1, maximum: 1000
+
+  - `order?: "asc" | "desc" | null`
+
+    Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+    - `"asc"`
+
+    - `"desc"`
+
+  - `order_by?: string | null`
+
+    Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `starting_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+#### Returns
+
+- `interface BetaAnalyticsPluginActivity`
+
+  Per-plugin install + invocation activity for a given day.
+
+  With `group_by[]=user_id` / `rbac_group_id` / `product` (`cowork` /
+  `claude_code` only on this endpoint) each row is one (plugin, user),
+  (plugin, group), or (plugin, product) cut: the flat `user_id` /
+  `rbac_group_id` / `product` keys carry the cut and the counts are
+  scoped to it.
+
+  - `claude_code_metrics: BetaAnalyticsPluginClaudeCodeMetrics`
+
+    Claude Code activity metrics for a single plugin on a given day.
+
+    - `distinct_session_plugin_used_count: number | null`
+
+      Number of distinct Claude Code sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `cowork_metrics: BetaAnalyticsPluginCoworkMetrics`
+
+    Cowork activity metrics for a single plugin on a given day.
+
+    - `distinct_session_plugin_used_count: number | null`
+
+      Number of distinct Cowork sessions in which the plugin was invoked. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `distinct_user_count: number`
+
+    Number of distinct users with recorded install or invocation activity for the plugin on the requested day (install-only users count), or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `install_count: number | null`
+
+    Number of distinct users who installed the plugin on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `invocation_count: number`
+
+    Number of plugin invocations on the requested day
+
+  - `plugin_name: string`
+
+    Name of the plugin
+
+  - `plugin_id?: string | null`
+
+    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
+
+  - `product?: string | null`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `rbac_group_id?: string | null`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `rbac_group_name?: string | null`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `user_id?: string | null`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsPluginActivity of client.beta.organization.analytics.plugins.list()) {
+  console.log(betaAnalyticsPluginActivity.plugin_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "claude_code_metrics": {
+        "distinct_session_plugin_used_count": 0
+      },
+      "cowork_metrics": {
+        "distinct_session_plugin_used_count": 0
+      },
+      "distinct_user_count": 0,
+      "install_count": 0,
+      "invocation_count": 0,
+      "plugin_name": "plugin_name",
+      "plugin_id": "plugin_id",
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "user_id": "user_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Skills
+
+### Get Skill Usage
+
+`client.beta.organization.analytics.skills.list(query?, options?): PageCursor<BetaAnalyticsSkillActivity>`
+
+**GET** `/v1/organizations/analytics/skills`
+
+Get per-skill usage for a given day, with cursor-based pagination.
+
+Returns skill usage metrics for the organization, sorted by skill name.
+Use `group_by[]` to break usage out per member, per RBAC group, or per
+product surface, and `filter[]` to scope results; the parameter
+descriptions list the supported dimensions. Available to organizations
+on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `query: SkillListParams`
+
+  - `date?: string | null`
+
+    UTC date in YYYY-MM-DD format. The day to get skill usage for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+  - `ending_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+    format: date
+
+  - `filter?: Array<string> | null`
+
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `product`, `rbac_group_id`, `share_status`, `skill_name`, `user_id`. Value forms: `product` is one of `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `share_status` is one of `organization`, `private`, or `public`; `skill_name` matches case-insensitively; `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+    maxItems: 100
+
+  - `group_by?: Array<"product" | "rbac_group_id" | "user_id"> | null`
+
+    Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+    maxItems: 100
+
+    - `"product"`
+
+    - `"rbac_group_id"`
+
+    - `"user_id"`
+
+  - `limit?: number | null`
+
+    Number of results per page (1-1000, default 100).
+
+    minimum: 1, maximum: 1000
+
+  - `order?: "asc" | "desc" | null`
+
+    Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+    - `"asc"`
+
+    - `"desc"`
+
+  - `order_by?: string | null`
+
+    Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `starting_date?: string | null`
+
+    UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+#### Returns
+
+- `interface BetaAnalyticsSkillActivity`
+
+  Per-skill activity data for a given day.
+
+  - `chat_metrics: BetaAnalyticsSkillChatMetrics`
+
+    Claude.ai activity metrics for a single skill on a given day.
+
+    - `distinct_conversation_skill_used_count: number | null`
+
+      Number of distinct conversations in which the skill was used. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `claude_code_metrics: BetaAnalyticsSkillClaudeCodeMetrics`
+
+    Claude Code activity metrics for a single skill on a given day.
+
+    - `distinct_session_skill_used_count: number | null`
+
+      Number of distinct Claude Code sessions in which the skill was used. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `cowork_metrics: BetaAnalyticsSkillCoworkMetrics`
+
+    Cowork activity metrics for a single skill on a given day.
+
+    - `distinct_session_skill_used_count: number | null`
+
+      Number of distinct Cowork sessions in which the skill was used. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `distinct_user_count: number`
+
+    Number of distinct users who used the skill on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted.
+
+  - `office_metrics: BetaAnalyticsSkillOfficeMetrics`
+
+    Office Agent activity metrics for a single skill on a given day, broken out by Office product.
+
+    - `excel: BetaAnalyticsSkillOfficeProductMetrics`
+
+      Office Agent activity metrics for a single skill on a given day within one Office product.
+
+      - `distinct_session_skill_used_count: number | null`
+
+        Number of distinct Office Agent sessions in which the skill was used. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
+
+    - `outlook: BetaAnalyticsSkillOfficeProductMetrics`
+
+      Office Agent activity metrics for a single skill on a given day within one Office product.
+
+    - `powerpoint: BetaAnalyticsSkillOfficeProductMetrics`
+
+      Office Agent activity metrics for a single skill on a given day within one Office product.
+
+    - `word: BetaAnalyticsSkillOfficeProductMetrics`
+
+      Office Agent activity metrics for a single skill on a given day within one Office product.
+
+  - `skill_name: string`
+
+    Name of the skill
+
+  - `attributed_list_price?: string | null`
+
+    List-price (rate-card) value of the member requests attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD), from Claude Code, Cowork, and Office Agent request-level attribution — the value of requests that involved the skill, not the skill's incremental cost. Unlike `estimated_overage_spend` this reflects usage value regardless of how it was funded — seat-covered usage counts — but it is undiscounted and does not tie to billed spend or the organization's spend reporting. claude.ai chat usage carries no request-level attribution and contributes nothing: the field is null on `chat` product rows and on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start), and on ungrouped rows it covers the Claude Code + Cowork + Office Agent share only (null when no attributable usage exists). Also null under the same conditions as `estimated_overage_spend` (spend reporting not enabled for this organization, `office_agent` product cuts before the 2026-06-18 data-start). "0" means attributable usage existed but none was attributed to this skill. Addable across days: date-range rollup mode returns the window's sum. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
+
+  - `currency?: string | null`
+
+    Currency for this row's monetary fields (`estimated_overage_spend` and `attributed_list_price`), as an uppercase ISO-4217 code. Always "USD" when either amount is populated; null whenever both amounts are null.
+
+  - `enable_count?: number | null`
+
+    Distinct accounts that enabled this skill on the requested day (claude.ai only — the skill analog of plugin `install_count`). The count is org-wide: null when enable reporting is not enabled for this organization, or when the request scopes to `user_id` / `rbac_group_id` / `product` via `group_by[]` or `filter[]` (an org-wide count would be misleading on per-cut rows). A distinct count, not an event count: summing across days double-counts members who enable the skill on more than one day, so it is also null in date-range rollup mode (`starting_date`/`ending_date`).
+
+  - `estimated_overage_spend?: string | null`
+
+    Estimated overage spend attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD; "1250" is $12.50, fractional cents possible) — an allocation of each member's daily post-discount, pre-credit metered overage spend (the same cost basis as the organization's spend reporting and the Cost & Usage API, so per-skill figures are directly comparable; spend with no skill attribution — including any member-day without skill invocations — is not represented, so skill rows sum to at most those totals) across the skills the member used. Overage only: usage covered by included seat allowances bills nothing and allocates $0 here — see `attributed_list_price` for the funding-independent usage-value companion. Claude Code, Cowork, and Office Agent spend use request-level skill attribution; claude.ai chat spend is approximated proportionally to skill-invoking messages. An estimate, not a billing number — and the cost of the requests/messages that involved the skill, not the skill's incremental cost (the same request would still have cost something without the skill active). "0" means no overage spend was attributed; null when spend reporting is not enabled for this organization, on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start). Addable across days: date-range rollup mode (`starting_date`/`ending_date`) returns the window's sum. With `group_by[]=user_id` each row carries the user's own attributed spend. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
+
+  - `invocation_count?: number | null`
+
+    Total number of times this skill was invoked on the requested day (the skill analog of plugin `invocation_count`). Unlike `distinct_user_count` — which answers '\# of users' — this is the true '# of uses'. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Null when invocation reporting is not enabled for this organization. Sum across a date range for total uses in the window — date-range rollup mode (`starting_date`/`ending_date`) returns this sum directly.
+
+  - `product?: string | null`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `rbac_group_id?: string | null`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `rbac_group_name?: string | null`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `share_status?: "organization" | "private" | "public" | null`
+
+    Skill share status (claude.ai only): one of `private`, `organization`, or `public`. Null for skills used only in Claude Code or Office (no per-skill share-status concept) and when share-status reporting is not yet available for the organization. Filterable via `filter[]=share_status:{value}`.
+
+    - `"organization"`
+
+    - `"private"`
+
+    - `"public"`
+
+  - `skill_display_name?: string | null`
+
+    Human-readable display name for rows whose `skill_name` is an opaque skill id (user/organization skill types and plugin-delivered skills, whose user-defined names usage reports generally withhold). Organization-shared skills and skills delivered by the organization's own plugins (its plugin marketplaces and its library) resolve; plugin skill names are shown without their 'plugin:' prefix. The literal 'unknown' bucket row gets a fixed 'Unknown skill' label. For a member's own skill (private or personal-plugin) it is null, except when the skill's owner used it from Claude Code or Cowork in the requested period: then it shows the name that client reported at the time. Apart from that, the names of members' own skills are not disclosed to analytics-key holders. Also null for Anthropic-provided plugin skills (not resolved), for an organization skill or plugin whose name can no longer be found (for example, one since deleted), when `skill_name` is already a display name, or when display-name resolution is not enabled for this organization.
+
+  - `user_id?: string | null`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsSkillActivity of client.beta.organization.analytics.skills.list()) {
+  console.log(betaAnalyticsSkillActivity.rbac_group_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "chat_metrics": {
+        "distinct_conversation_skill_used_count": 0
+      },
+      "claude_code_metrics": {
+        "distinct_session_skill_used_count": 0
+      },
+      "cowork_metrics": {
+        "distinct_session_skill_used_count": 0
+      },
+      "distinct_user_count": 0,
+      "office_metrics": {
+        "excel": {
+          "distinct_session_skill_used_count": 0
+        },
+        "outlook": {
+          "distinct_session_skill_used_count": 0
+        },
+        "powerpoint": {
+          "distinct_session_skill_used_count": 0
+        },
+        "word": {
+          "distinct_session_skill_used_count": 0
+        }
+      },
+      "skill_name": "skill_name",
+      "attributed_list_price": "attributed_list_price",
+      "currency": "currency",
+      "enable_count": 0,
+      "estimated_overage_spend": "estimated_overage_spend",
+      "invocation_count": 0,
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "share_status": "organization",
+      "skill_display_name": "skill_display_name",
+      "user_id": "user_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Artifacts
+
+### Get Artifact Activity
+
+`client.beta.organization.analytics.artifacts.list(query, options?): PageCursor<BetaAnalyticsArtifactActivity>`
+
+**GET** `/v1/organizations/analytics/artifacts`
+
+Get artifact-creation activity for a given day, broken out by MIME type.
+
+Returns the full (`artifact_type`, `is_shared`) cube for the organization;
+`next_page` is null except for grouped queries, which paginate. The cube
+can be broken out per product, per member, or per RBAC group via
+`group_by[]`, and scoped via `filter[]`. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `query: ArtifactListParams`
+
+  - `date: string`
+
+    UTC date in YYYY-MM-DD format. The day to get artifact activity for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+    format: date
+
+  - `filter?: Array<string> | null`
+
+    Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `artifact_type`, `is_shared`, `product`, `rbac_group_id`, `user_id`. Value forms: `artifact_type` is a canonical artifact MIME type (e.g. `text/markdown`) or `other`; `is_shared` is `true` or `false`; `product` is `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+    maxItems: 100
+
+  - `group_by?: Array<"product" | "rbac_group_id" | "user_id"> | null`
+
+    Dimensions to break results out by: `product`, `user_id` and/or `rbac_group_id`. The ungrouped artifact-type cube is finite and returned in full; grouped queries multiply the cube and paginate via `next_page`. `product` takes the values `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts). `rbac_group_id` attributes a user to every group they held at any point during the requested UTC day, so grouped rows are not an exclusive partition. At most 100 entries.
+
+    maxItems: 100
+
+    - `"product"`
+
+    - `"rbac_group_id"`
+
+    - `"user_id"`
+
+  - `limit?: number | null`
+
+    Maximum rows to return (1-1000, default 100). The ungrouped artifact-type cube is finite and returned in full; `limit` is the page size only when `group_by[]` multiplies the cube.
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field. Only valid with `group_by[]` — the ungrouped cube is never paginated.
+
+#### Returns
+
+- `interface BetaAnalyticsArtifactActivity`
+
+  Artifact-creation activity for one (`artifact_type`, `is_shared`) bucket
+  on a given day.
+
+  Artifacts form a small finite cube — the canonical MIME type (8 values incl.
+  `other`) crossed with shared-vs-private — so the response is the full set of
+  non-empty buckets, not a ranked/paginated list. Claude Code and Cowork
+  artifacts report under `text/html` and are counted from 2026-08-17
+  onward; earlier days contain claude.ai chat artifacts only. With
+  `group_by[]=product` / `user_id` / `rbac_group_id` each row is further
+  split by the flat group keys and counts are scoped to that cut.
+
+  - `artifact_type: string`
+
+    Canonical artifact MIME type (e.g. `text/markdown`, `application/vnd.ant.react`, `image/svg+xml`), or `other`. Claude Code and Cowork artifacts report as `text/html`.
+
+  - `artifacts_created_count: number`
+
+    Number of artifacts created in this bucket on the requested day
+
+  - `distinct_user_count: number`
+
+    Number of distinct users who created artifacts in this bucket on the requested day
+
+  - `is_shared: boolean`
+
+    Whether the artifacts in this bucket have ever been shared (a Claude Code / Cowork artifact is shared once anyone beyond its creator may open it: named members, the whole organization, or anyone with the link).
+
+  - `published_artifacts_created_count: number`
+
+    Number of those artifacts that have been published (for Claude Code / Cowork artifacts: open to anyone with the link); never exceeds `artifacts_created_count`
+
+  - `product?: string | null`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `rbac_group_id?: string | null`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `rbac_group_name?: string | null`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `user_id?: string | null`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsArtifactActivity of client.beta.organization.analytics.artifacts.list(
+  { date: "2019-12-27" }
+)) {
+  console.log(betaAnalyticsArtifactActivity.rbac_group_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "artifact_type": "artifact_type",
+      "artifacts_created_count": 0,
+      "distinct_user_count": 0,
+      "is_shared": true,
+      "published_artifacts_created_count": 0,
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "user_id": "user_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Usage Report
+
+### Get Token Usage Over Time
+
+`client.beta.organization.analytics.usageReport.list(query, options?): PageCursor<BetaAnalyticsUsageReportTimeBucket>`
+
+**GET** `/v1/organizations/analytics/usage_report`
+
+Get token usage over time across a date range.
+
+Returns token usage bucketed by minute, hour, or day, optionally broken
+down by product, model, context window, inference region, or speed.
+Available to organizations on a Claude Enterprise plan. Requires an API
+key with the `read:analytics` scope.
+
+#### Parameters
+
+- `query: UsageReportListParams`
+
+  - `starting_at: string`
+
+    Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+    format: date-time
+
+  - `bucket_width?: "1d" | "1h" | "1m"`
+
+    Time bucket granularity.
+
+    - `"1d"`
+
+    - `"1h"`
+
+    - `"1m"`
+
+  - `claude_tag_categories?: Array<BetaAnalyticsClaudeTagCategory> | null`
+
+    Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+    maxItems: 100
+
+    - `"dm"`
+
+    - `"engaged"`
+
+    - `"monitoring"`
+
+    - `"proactive"`
+
+    - `"scheduled"`
+
+  - `claude_tag_user_ids?: Array<string> | null`
+
+    Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+    maxItems: 100
+
+  - `context_windows?: Array<BetaAnalyticsContextWindow> | null`
+
+    Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+    maxItems: 100
+
+    - `"0-200k"`
+
+    - `"200k-1M"`
+
+  - `ending_at?: string | null`
+
+    End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+    format: date-time
+
+  - `group_by?: Array<"claude_tag_category" | "claude_tag_user_id" | "context_window" | 6 more> | null`
+
+    Dimensions to break each time bucket out by. Defaults to no grouping (one total per bucket). Each bucket reports at most its top 100 groups; a group beyond that cap has no row in that bucket (there is no remainder row), so grouped buckets are not exhaustive when a dimension has more than 100 distinct values.
+
+    maxItems: 100
+
+    - `"claude_tag_category"`
+
+    - `"claude_tag_user_id"`
+
+    - `"context_window"`
+
+    - `"inference_geo"`
+
+    - `"model"`
+
+    - `"product"`
+
+    - `"rbac_group_id"`
+
+    - `"slack_channel_id"`
+
+    - `"speed"`
+
+  - `inference_geos?: Array<BetaAnalyticsInferenceGeoFilter> | null`
+
+    Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+    maxItems: 100
+
+    - `"global"`
+
+    - `"not_available"`
+
+    - `"us"`
+
+  - `limit?: number | null`
+
+    Maximum number of time buckets per page. Defaults and caps vary by `bucket_width` (`1d`: default 7, max 31; `1h`: default 24, max 168; `1m`: default 60, max 256).
+
+    minimum: 1
+
+  - `models?: Array<string> | null`
+
+    Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+    maxItems: 100
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `products?: Array<BetaAnalyticsProductFilter> | null`
+
+    Product surfaces to include. Defaults to all products. Use `group_by[]=product` to break out per-product values.
+
+    maxItems: 100
+
+    - `"chat"`
+
+    - `"claude-tag"`
+
+    - `"claude_code"`
+
+    - `"claude_design"`
+
+    - `"claude_in_chrome"`
+
+    - `"cowork"`
+
+    - `"office_agent"`
+
+  - `rbac_group_ids?: Array<string> | null`
+
+    Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+    maxItems: 100
+
+  - `slack_channel_ids?: Array<string> | null`
+
+    Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+    maxItems: 100
+
+  - `speeds?: Array<"fast" | "standard"> | null`
+
+    Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+    maxItems: 100
+
+    - `"fast"`
+
+    - `"standard"`
+
+  - `user_ids?: Array<string> | null`
+
+    Filter to specific users by tagged user ID.
+
+    maxItems: 100
+
+#### Returns
+
+- `interface BetaAnalyticsUsageReportTimeBucket`
+
+  - `ending_at: string`
+
+    End of the time bucket (exclusive) in RFC 3339 format.
+
+    format: date-time
+
+  - `results: Array<BetaAnalyticsUsageBucketedResult>`
+
+    Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
+
+    - `cache_creation: BetaCacheCreation`
+
+      The number of input tokens for cache creation.
+
+      - `ephemeral_1h_input_tokens: number`
+
+        The number of input tokens used to create the 1 hour cache entry.
+
+        default: 0, minimum: 0
+
+      - `ephemeral_5m_input_tokens: number`
+
+        The number of input tokens used to create the 5 minute cache entry.
+
+        default: 0, minimum: 0
+
+    - `cache_read_input_tokens: number`
+
+      The number of input tokens read from the cache.
+
+    - `claude_tag_category: BetaAnalyticsClaudeTagCategory | null`
+
+      Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. Direct-message usage is billed to the individual user and is reported under that user's product, not under `claude-tag`. New categories may be added over time.
+
+      - `"dm"`
+
+      - `"engaged"`
+
+      - `"monitoring"`
+
+      - `"proactive"`
+
+      - `"scheduled"`
+
+    - `claude_tag_user_id: string | null`
+
+      Slack user ID (for example `U0123ABCDEF`) of the member the Claude Tag (Claude in Slack) usage is attributed to, not a claude.ai user ID. Populated only when `claude_tag_user_id` is in `group_by[]`; null for usage that is not Claude Tag and for Claude Tag usage that is not attributed to a single user (for example `monitoring`, and `proactive` usage Claude initiated), so per-user rows can sum to less than the Claude Tag total. Cannot be combined with `group_by[]=rbac_group_id` or the `rbac_group_ids[]` filter.
+
+    - `context_window: BetaAnalyticsContextWindow | null`
+
+      Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
+
+      - `"0-200k"`
+
+      - `"200k-1M"`
+
+    - `inference_geo: "global" | "us" | null`
+
+      Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
+
+      - `"global"`
+
+      - `"us"`
+
+    - `model: string | null`
+
+      Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+
+    - `output_tokens: number`
+
+      The number of output tokens generated.
+
+    - `product: string | null`
+
+      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
+
+    - `rbac_group_id: string | null`
+
+      RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`.
+
+    - `requests: number | null`
+
+      Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+
+    - `server_tool_use: BetaAnalyticsServerToolUse`
+
+      Server-side tool usage metrics.
+
+      - `web_search_requests: number`
+
+        The number of web search requests made.
+
+    - `slack_channel_id: string | null`
+
+      Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
+    - `speed: "fast" | "standard" | null`
+
+      Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
+
+      - `"fast"`
+
+      - `"standard"`
+
+    - `uncached_input_tokens: number`
+
+      The number of uncached input tokens processed.
+
+  - `starting_at: string`
+
+    Start of the time bucket (inclusive) in RFC 3339 format.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsUsageReportTimeBucket of client.beta.organization.analytics.usageReport.list(
+  { starting_at: "2019-12-27T18:11:19.117Z" }
+)) {
+  console.log(betaAnalyticsUsageReportTimeBucket.ending_at);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "results": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_read_input_tokens": 0,
+          "claude_tag_category": "dm",
+          "claude_tag_user_id": "U0123ABCDEF",
+          "context_window": "0-200k",
+          "inference_geo": "global",
+          "model": "claude-opus-5",
+          "output_tokens": 0,
+          "product": "chat",
+          "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+          "requests": 0,
+          "server_tool_use": {
+            "web_search_requests": 10
+          },
+          "slack_channel_id": "C0123ABCDEF",
+          "speed": "fast",
+          "uncached_input_tokens": 0
+        }
+      ],
+      "starting_at": "2019-12-27T18:11:19.117Z"
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page",
+  "organization_id": "org_013FP9SaFPBg7Kw7fetjn6cF"
+}
+```
+
+## Beta › Organization › Analytics › User Usage Report
+
+### Get Per-User Token Usage
+
+`client.beta.organization.analytics.userUsageReport.list(query, options?): PageCursor<BetaAnalyticsUsageUsersItem>`
+
+**GET** `/v1/organizations/analytics/user_usage_report`
+
+Get per-user token usage across a date range.
+
+Returns one row per user, ranked by the chosen token metric. Use this to
+see which users consume the most tokens. Only usage attributable to a
+seat user is included; for organization-wide totals including direct
+API-key and automation traffic, use the bucketed
+`/v1/organizations/analytics/usage_report` endpoint. Available to
+organizations on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `query: UserUsageReportListParams`
+
+  - `starting_at: string`
+
+    Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+    format: date-time
+
+  - `bucket_width?: "1d" | "1h" | "1m" | null`
+
+    Time-bucket granularity. When set, each row's `starting_at` and `ending_at` are populated and one actor may span several rows (one per time bucket with usage). The time bucket counts toward `limit`, so one page can return multiple rows for the same actor. `ending_at` is required when `bucket_width` is set, and with `bucket_width="1m"` the range may span at most 24 hours. When omitted, each row aggregates the full `[starting_at, ending_at)` range.
+
+    - `"1d"`
+
+    - `"1h"`
+
+    - `"1m"`
+
+  - `claude_tag_categories?: Array<BetaAnalyticsClaudeTagCategory> | null`
+
+    Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+    maxItems: 100
+
+    - `"dm"`
+
+    - `"engaged"`
+
+    - `"monitoring"`
+
+    - `"proactive"`
+
+    - `"scheduled"`
+
+  - `claude_tag_user_ids?: Array<string> | null`
+
+    Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+    maxItems: 100
+
+  - `context_windows?: Array<BetaAnalyticsContextWindow> | null`
+
+    Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+    maxItems: 100
+
+    - `"0-200k"`
+
+    - `"200k-1M"`
+
+  - `ending_at?: string | null`
+
+    End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+    format: date-time
+
+  - `exclude_deleted_users?: boolean`
+
+    If true, omit rows for users who are deleted (`deleted: true`). A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual.
+
+  - `group_by?: Array<"claude_tag_category" | "claude_tag_user_id" | "context_window" | 6 more> | null`
+
+    Break each actor's row out by the given dimensions. Accepts the same values as the bucketed `/usage_report` endpoint. `limit` bounds (actor × time bucket × dimension) rows — with dimensions or `bucket_width` present, one actor may span several rows.
+
+    maxItems: 100
+
+    - `"claude_tag_category"`
+
+    - `"claude_tag_user_id"`
+
+    - `"context_window"`
+
+    - `"inference_geo"`
+
+    - `"model"`
+
+    - `"product"`
+
+    - `"rbac_group_id"`
+
+    - `"slack_channel_id"`
+
+    - `"speed"`
+
+  - `inference_geos?: Array<BetaAnalyticsInferenceGeoFilter> | null`
+
+    Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+    maxItems: 100
+
+    - `"global"`
+
+    - `"not_available"`
+
+    - `"us"`
+
+  - `limit?: number`
+
+    Number of rows per page (1-1000, default 20). One row per actor unless `group_by[]` or `bucket_width` splits an actor across rows; `cost_type`/`token_type` fan-out rows (cost endpoint only) are the exception — they do not count toward this limit, so `data` can exceed it.
+
+    minimum: 1, maximum: 1000
+
+  - `models?: Array<string> | null`
+
+    Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+    maxItems: 100
+
+  - `order?: "asc" | "desc"`
+
+    Sort direction. Defaults to `desc`.
+
+    - `"asc"`
+
+    - `"desc"`
+
+  - `order_by?: "output_tokens" | "requests" | "total_tokens" | "uncached_input_tokens"`
+
+    Metric to rank actors by. Defaults to `total_tokens`.
+
+    - `"output_tokens"`
+
+    - `"requests"`
+
+    - `"total_tokens"`
+
+    - `"uncached_input_tokens"`
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `products?: Array<BetaAnalyticsProductFilter> | null`
+
+    Product surfaces to include. Defaults to all products.
+
+    maxItems: 100
+
+    - `"chat"`
+
+    - `"claude-tag"`
+
+    - `"claude_code"`
+
+    - `"claude_design"`
+
+    - `"claude_in_chrome"`
+
+    - `"cowork"`
+
+    - `"office_agent"`
+
+  - `rbac_group_ids?: Array<string> | null`
+
+    Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+    maxItems: 100
+
+  - `slack_channel_ids?: Array<string> | null`
+
+    Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+    maxItems: 100
+
+  - `speeds?: Array<"fast" | "standard"> | null`
+
+    Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+    maxItems: 100
+
+    - `"fast"`
+
+    - `"standard"`
+
+  - `user_ids?: Array<string> | null`
+
+    Filter to specific users by tagged user ID.
+
+    maxItems: 100
+
+#### Returns
+
+- `interface BetaAnalyticsUsageUsersItem`
+
+  - `actor: BetaAnalyticsUserActor`
+
+    The user this row's usage or cost is attributed to. Always a `user_actor`.
+
+    - `type: "user_actor"`
+
+      Actor type. Always `"user_actor"`.
+
+    - `deleted: boolean`
+
+      True when the account has been deleted, or when the user is no longer a member of the organization or its associated organizations (for example, their membership was removed or they were deprovisioned via your identity provider). `email_address` stays populated for removed users and is null when the account has been deleted. `name` follows the rules described on that field. The `user_id` is still populated for reconciliation.
+
+    - `email_address: string | null`
+
+      The user's email address, including for users who are no longer members of the organization or its associated organizations. Null when the account has been deleted (check `deleted`) and for system-minted service accounts, which have no person's mailbox behind them (check `name`).
+
+    - `name: string | null`
+
+      The user's full name. Null when the user has not set a name. Returns `"Deleted User"` when the account itself has been deleted, or when the user is no longer a member of the organization or its associated organizations and the organization has chosen to hide the names of removed users. Otherwise, the name stays populated for removed users. Rows for system-minted service accounts render the service name (for example, `"Claude Security"` for usage by Anthropic's security-patching service) or null.
+
+    - `user_id: string`
+
+      Tagged user ID.
+
+  - `cache_creation: BetaCacheCreation`
+
+    The number of input tokens for cache creation.
+
+    - `ephemeral_1h_input_tokens: number`
+
+      The number of input tokens used to create the 1 hour cache entry.
+
+      default: 0, minimum: 0
+
+    - `ephemeral_5m_input_tokens: number`
+
+      The number of input tokens used to create the 5 minute cache entry.
+
+      default: 0, minimum: 0
+
+  - `cache_read_input_tokens: number`
+
+    The number of input tokens read from the cache.
+
+  - `claude_tag_category: BetaAnalyticsClaudeTagCategory | null`
+
+    Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. Direct-message usage is billed to the individual user and is reported under that user's product, not under `claude-tag`. New categories may be added over time.
+
+    - `"dm"`
+
+    - `"engaged"`
+
+    - `"monitoring"`
+
+    - `"proactive"`
+
+    - `"scheduled"`
+
+  - `claude_tag_user_id: string | null`
+
+    Slack user ID (for example `U0123ABCDEF`) of the member the Claude Tag (Claude in Slack) usage is attributed to, not a claude.ai user ID. Populated only when `claude_tag_user_id` is in `group_by[]`; null for usage that is not Claude Tag and for Claude Tag usage that is not attributed to a single user (for example `monitoring`, and `proactive` usage Claude initiated), so per-user rows can sum to less than the Claude Tag total. Cannot be combined with `group_by[]=rbac_group_id` or the `rbac_group_ids[]` filter.
+
+  - `context_window: BetaAnalyticsContextWindow | null`
+
+    Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
+
+    - `"0-200k"`
+
+    - `"200k-1M"`
+
+  - `ending_at: string | null`
+
+    End of the row's UTC time bucket (exclusive), as an RFC 3339 timestamp; equal to `starting_at` plus one `bucket_width`. Null unless `bucket_width` is set.
+
+    format: date-time
+
+  - `inference_geo: "global" | "us" | null`
+
+    Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
+
+    - `"global"`
+
+    - `"us"`
+
+  - `model: string | null`
+
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+
+  - `output_tokens: number`
+
+    The number of output tokens generated.
+
+  - `product: string | null`
+
+    Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
+
+  - `rbac_group_id: string | null`
+
+    RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`.
+
+  - `requests: number | null`
+
+    Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+
+  - `server_tool_use: BetaAnalyticsServerToolUse`
+
+    Server-side tool usage metrics.
+
+    - `web_search_requests: number`
+
+      The number of web search requests made.
+
+  - `slack_channel_id: string | null`
+
+    Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
+  - `speed: "fast" | "standard" | null`
+
+    Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
+
+    - `"fast"`
+
+    - `"standard"`
+
+  - `starting_at: string | null`
+
+    Start of the row's UTC time bucket (inclusive), as an RFC 3339 timestamp. Null unless `bucket_width` is set; without `bucket_width`, each row aggregates the full requested range.
+
+    format: date-time
+
+  - `total_tokens: number`
+
+    Total token count across all token types. This is the value the default `order_by` (`total_tokens`) sorts on.
+
+  - `uncached_input_tokens: number`
+
+    The number of uncached input tokens processed.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsUsageUsersItem of client.beta.organization.analytics.userUsageReport.list(
+  { starting_at: "2019-12-27T18:11:19.117Z" }
+)) {
+  console.log(betaAnalyticsUsageUsersItem.claude_tag_user_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "actor": {
+        "deleted": true,
+        "email": "jane@example.com",
+        "email_address": "jane@example.com",
+        "name": "Jane Smith",
+        "type": "user_actor",
+        "user_id": "user_01AbCdEfGhIjKlMnOpQrSt"
+      },
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_read_input_tokens": 3200000,
+      "claude_tag_category": "dm",
+      "claude_tag_user_id": "U0123ABCDEF",
+      "context_window": "0-200k",
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "inference_geo": "global",
+      "model": "claude-opus-5",
+      "output_tokens": 891000,
+      "product": "chat",
+      "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "requests": 128,
+      "server_tool_use": {
+        "web_search_requests": 10
+      },
+      "slack_channel_id": "C0123ABCDEF",
+      "speed": "fast",
+      "starting_at": "2019-12-27T18:11:19.117Z",
+      "total_tokens": 5377000,
+      "uncached_input_tokens": 1284500
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page",
+  "organization_id": "org_013FP9SaFPBg7Kw7fetjn6cF"
+}
+```
+
+## Beta › Organization › Analytics › Cost Report
+
+### Get Cost Over Time
+
+`client.beta.organization.analytics.costReport.list(query, options?): PageCursor<BetaAnalyticsCostReportTimeBucket>`
+
+**GET** `/v1/organizations/analytics/cost_report`
+
+Get cost in USD over time across a date range.
+
+Returns cost bucketed by minute, hour, or day, optionally broken down by
+product, model, context window, inference region, speed, cost type, or
+token type. Available to organizations on a Claude Enterprise plan.
+Requires an API key with the `read:analytics` scope.
+
+#### Parameters
+
+- `query: CostReportListParams`
+
+  - `starting_at: string`
+
+    Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+    format: date-time
+
+  - `bucket_width?: "1d" | "1h" | "1m"`
+
+    Time bucket granularity.
+
+    - `"1d"`
+
+    - `"1h"`
+
+    - `"1m"`
+
+  - `claude_tag_categories?: Array<BetaAnalyticsClaudeTagCategory> | null`
+
+    Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+    maxItems: 100
+
+    - `"dm"`
+
+    - `"engaged"`
+
+    - `"monitoring"`
+
+    - `"proactive"`
+
+    - `"scheduled"`
+
+  - `claude_tag_user_ids?: Array<string> | null`
+
+    Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+    maxItems: 100
+
+  - `context_windows?: Array<BetaAnalyticsContextWindow> | null`
+
+    Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+    maxItems: 100
+
+    - `"0-200k"`
+
+    - `"200k-1M"`
+
+  - `ending_at?: string | null`
+
+    End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+    format: date-time
+
+  - `group_by?: Array<"claude_tag_category" | "claude_tag_user_id" | "context_window" | 8 more> | null`
+
+    Dimensions to break each time bucket out by. Defaults to no grouping (one total per bucket). Each bucket reports at most its top 100 groups; a group beyond that cap has no row in that bucket (there is no remainder row), so grouped buckets are not exhaustive when a dimension has more than 100 distinct values.
+
+    maxItems: 100
+
+    - `"claude_tag_category"`
+
+    - `"claude_tag_user_id"`
+
+    - `"context_window"`
+
+    - `"cost_type"`
+
+    - `"inference_geo"`
+
+    - `"model"`
+
+    - `"product"`
+
+    - `"rbac_group_id"`
+
+    - `"slack_channel_id"`
+
+    - `"speed"`
+
+    - `"token_type"`
+
+  - `inference_geos?: Array<BetaAnalyticsInferenceGeoFilter> | null`
+
+    Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+    maxItems: 100
+
+    - `"global"`
+
+    - `"not_available"`
+
+    - `"us"`
+
+  - `limit?: number | null`
+
+    Maximum number of time buckets per page. Defaults and caps vary by `bucket_width` (`1d`: default 7, max 31; `1h`: default 24, max 168; `1m`: default 60, max 256).
+
+    minimum: 1
+
+  - `models?: Array<string> | null`
+
+    Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+    maxItems: 100
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `products?: Array<BetaAnalyticsProductFilter> | null`
+
+    Product surfaces to include. Defaults to all products. Use `group_by[]=product` to break out per-product values.
+
+    maxItems: 100
+
+    - `"chat"`
+
+    - `"claude-tag"`
+
+    - `"claude_code"`
+
+    - `"claude_design"`
+
+    - `"claude_in_chrome"`
+
+    - `"cowork"`
+
+    - `"office_agent"`
+
+  - `rbac_group_ids?: Array<string> | null`
+
+    Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+    maxItems: 100
+
+  - `slack_channel_ids?: Array<string> | null`
+
+    Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+    maxItems: 100
+
+  - `speeds?: Array<"fast" | "standard"> | null`
+
+    Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+    maxItems: 100
+
+    - `"fast"`
+
+    - `"standard"`
+
+  - `user_ids?: Array<string> | null`
+
+    Filter to specific users by tagged user ID.
+
+    maxItems: 100
+
+#### Returns
+
+- `interface BetaAnalyticsCostReportTimeBucket`
+
+  - `ending_at: string`
+
+    End of the time bucket (exclusive) in RFC 3339 format.
+
+    format: date-time
+
+  - `results: Array<BetaAnalyticsCostBucketedResult>`
+
+    Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
+
+    - `amount: string`
+
+      Amount (post-discount, pre-credit) in fractional cents.
+
+    - `claude_tag_category: BetaAnalyticsClaudeTagCategory | null`
+
+      Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. Direct-message usage is billed to the individual user and is reported under that user's product, not under `claude-tag`. New categories may be added over time.
+
+      - `"dm"`
+
+      - `"engaged"`
+
+      - `"monitoring"`
+
+      - `"proactive"`
+
+      - `"scheduled"`
+
+    - `claude_tag_user_id: string | null`
+
+      Slack user ID (for example `U0123ABCDEF`) of the member the Claude Tag (Claude in Slack) usage is attributed to, not a claude.ai user ID. Populated only when `claude_tag_user_id` is in `group_by[]`; null for usage that is not Claude Tag and for Claude Tag usage that is not attributed to a single user (for example `monitoring`, and `proactive` usage Claude initiated), so per-user rows can sum to less than the Claude Tag total. Cannot be combined with `group_by[]=rbac_group_id` or the `rbac_group_ids[]` filter.
+
+    - `context_window: BetaAnalyticsContextWindow | null`
+
+      Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
+
+      - `"0-200k"`
+
+      - `"200k-1M"`
+
+    - `cost_type: BetaAnalyticsCostType | null`
+
+      Cost component when `group_by[]=cost_type`; null otherwise (amount is the combined total).
+
+      - `"code_execution"`
+
+      - `"tokens"`
+
+      - `"web_search"`
+
+    - `currency: string`
+
+      Currency code for the cost amount. Currently always `"USD"`.
+
+      default: USD
+
+    - `inference_geo: "global" | "us" | null`
+
+      Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
+
+      - `"global"`
+
+      - `"us"`
+
+    - `list_amount: string`
+
+      List-price amount (pre-discount) in fractional cents.
+
+    - `model: string | null`
+
+      Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+
+    - `product: string | null`
+
+      Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
+
+    - `rbac_group_id: string | null`
+
+      RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`.
+
+    - `requests: number | null`
+
+      Number of API requests in this row's scope. Null when `group_by` includes `cost_type` or `token_type` (the count has no per-component attribution; read it from the ungrouped response). For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+
+    - `slack_channel_id: string | null`
+
+      Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
+    - `speed: "fast" | "standard" | null`
+
+      Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
+
+      - `"fast"`
+
+      - `"standard"`
+
+    - `token_type: BetaAnalyticsTokenType | null`
+
+      Token type when `group_by[]=token_type` and `cost_type=tokens`; null otherwise.
+
+      - `"cache_creation.ephemeral_1h_input_tokens"`
+
+      - `"cache_creation.ephemeral_5m_input_tokens"`
+
+      - `"cache_read_input_tokens"`
+
+      - `"output_tokens"`
+
+      - `"uncached_input_tokens"`
+
+  - `starting_at: string`
+
+    Start of the time bucket (inclusive) in RFC 3339 format.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsCostReportTimeBucket of client.beta.organization.analytics.costReport.list(
+  { starting_at: "2019-12-27T18:11:19.117Z" }
+)) {
+  console.log(betaAnalyticsCostReportTimeBucket.ending_at);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "results": [
+        {
+          "amount": "amount",
+          "claude_tag_category": "dm",
+          "claude_tag_user_id": "U0123ABCDEF",
+          "context_window": "0-200k",
+          "cost_type": "code_execution",
+          "currency": "USD",
+          "inference_geo": "global",
+          "list_amount": "list_amount",
+          "model": "claude-opus-5",
+          "product": "chat",
+          "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+          "requests": 0,
+          "slack_channel_id": "C0123ABCDEF",
+          "speed": "fast",
+          "token_type": "cache_creation.ephemeral_1h_input_tokens"
+        }
+      ],
+      "starting_at": "2019-12-27T18:11:19.117Z"
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page",
+  "organization_id": "org_013FP9SaFPBg7Kw7fetjn6cF"
+}
+```
+
+## Beta › Organization › Analytics › User Cost Report
+
+### Get Per-User Cost
+
+`client.beta.organization.analytics.userCostReport.list(query, options?): PageCursor<BetaAnalyticsCostUsersItem>`
+
+**GET** `/v1/organizations/analytics/user_cost_report`
+
+Get per-user cost in USD across a date range.
+
+Returns one row per user, ranked by spend. Use this to see which users
+account for the most cost. Only cost attributable to a seat user is
+included; for organization-wide totals including direct API-key and
+automation traffic, use the bucketed
+`/v1/organizations/analytics/cost_report` endpoint. Available to
+organizations on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `query: UserCostReportListParams`
+
+  - `starting_at: string`
+
+    Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+    format: date-time
+
+  - `bucket_width?: "1d" | "1h" | "1m" | null`
+
+    Time-bucket granularity. When set, each row's `starting_at` and `ending_at` are populated and one actor may span several rows (one per time bucket with usage). The time bucket counts toward `limit`, so one page can return multiple rows for the same actor. `ending_at` is required when `bucket_width` is set, and with `bucket_width="1m"` the range may span at most 24 hours. When omitted, each row aggregates the full `[starting_at, ending_at)` range.
+
+    - `"1d"`
+
+    - `"1h"`
+
+    - `"1m"`
+
+  - `claude_tag_categories?: Array<BetaAnalyticsClaudeTagCategory> | null`
+
+    Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+    maxItems: 100
+
+    - `"dm"`
+
+    - `"engaged"`
+
+    - `"monitoring"`
+
+    - `"proactive"`
+
+    - `"scheduled"`
+
+  - `claude_tag_user_ids?: Array<string> | null`
+
+    Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+    maxItems: 100
+
+  - `context_windows?: Array<BetaAnalyticsContextWindow> | null`
+
+    Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+    maxItems: 100
+
+    - `"0-200k"`
+
+    - `"200k-1M"`
+
+  - `ending_at?: string | null`
+
+    End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+    format: date-time
+
+  - `exclude_deleted_users?: boolean`
+
+    If true, omit rows for users who are deleted (`deleted: true`). A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual.
+
+  - `group_by?: Array<"claude_tag_category" | "claude_tag_user_id" | "context_window" | 8 more> | null`
+
+    Break each actor's row out by the given dimensions. Accepts the same values as the bucketed `/cost_report` endpoint. The `product`, `model`, `context_window`, `inference_geo`, and `speed` dimensions — and the time bucket, when `bucket_width` is set — count toward `limit`. `cost_type` and `token_type` do not: `cost_type` returns one row per cost component (tokens, web search, code execution); `token_type` returns one row per token type, each with `cost_type: "tokens"`; combining both returns the per-token-type rows plus the web-search and code-execution rows. A page can therefore contain more rows than `limit` when `cost_type` or `token_type` is requested.
+
+    maxItems: 100
+
+    - `"claude_tag_category"`
+
+    - `"claude_tag_user_id"`
+
+    - `"context_window"`
+
+    - `"cost_type"`
+
+    - `"inference_geo"`
+
+    - `"model"`
+
+    - `"product"`
+
+    - `"rbac_group_id"`
+
+    - `"slack_channel_id"`
+
+    - `"speed"`
+
+    - `"token_type"`
+
+  - `inference_geos?: Array<BetaAnalyticsInferenceGeoFilter> | null`
+
+    Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+    maxItems: 100
+
+    - `"global"`
+
+    - `"not_available"`
+
+    - `"us"`
+
+  - `limit?: number`
+
+    Number of rows per page (1-1000, default 20). One row per actor unless `group_by[]` or `bucket_width` splits an actor across rows; `cost_type`/`token_type` fan-out rows (cost endpoint only) are the exception — they do not count toward this limit, so `data` can exceed it.
+
+    minimum: 1, maximum: 1000
+
+  - `models?: Array<string> | null`
+
+    Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+    maxItems: 100
+
+  - `order?: "asc" | "desc"`
+
+    Sort direction. Defaults to `desc`.
+
+    - `"asc"`
+
+    - `"desc"`
+
+  - `order_by?: "amount" | "list_amount"`
+
+    Metric to rank actors by. Defaults to `amount`.
+
+    - `"amount"`
+
+    - `"list_amount"`
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `products?: Array<BetaAnalyticsProductFilter> | null`
+
+    Product surfaces to include. Defaults to all products.
+
+    maxItems: 100
+
+    - `"chat"`
+
+    - `"claude-tag"`
+
+    - `"claude_code"`
+
+    - `"claude_design"`
+
+    - `"claude_in_chrome"`
+
+    - `"cowork"`
+
+    - `"office_agent"`
+
+  - `rbac_group_ids?: Array<string> | null`
+
+    Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+    maxItems: 100
+
+  - `slack_channel_ids?: Array<string> | null`
+
+    Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+    maxItems: 100
+
+  - `speeds?: Array<"fast" | "standard"> | null`
+
+    Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+    maxItems: 100
+
+    - `"fast"`
+
+    - `"standard"`
+
+  - `user_ids?: Array<string> | null`
+
+    Filter to specific users by tagged user ID.
+
+    maxItems: 100
+
+#### Returns
+
+- `interface BetaAnalyticsCostUsersItem`
+
+  - `actor: BetaAnalyticsUserActor`
+
+    The user this row's usage or cost is attributed to. Always a `user_actor`.
+
+    - `type: "user_actor"`
+
+      Actor type. Always `"user_actor"`.
+
+    - `deleted: boolean`
+
+      True when the account has been deleted, or when the user is no longer a member of the organization or its associated organizations (for example, their membership was removed or they were deprovisioned via your identity provider). `email_address` stays populated for removed users and is null when the account has been deleted. `name` follows the rules described on that field. The `user_id` is still populated for reconciliation.
+
+    - `email_address: string | null`
+
+      The user's email address, including for users who are no longer members of the organization or its associated organizations. Null when the account has been deleted (check `deleted`) and for system-minted service accounts, which have no person's mailbox behind them (check `name`).
+
+    - `name: string | null`
+
+      The user's full name. Null when the user has not set a name. Returns `"Deleted User"` when the account itself has been deleted, or when the user is no longer a member of the organization or its associated organizations and the organization has chosen to hide the names of removed users. Otherwise, the name stays populated for removed users. Rows for system-minted service accounts render the service name (for example, `"Claude Security"` for usage by Anthropic's security-patching service) or null.
+
+    - `user_id: string`
+
+      Tagged user ID.
+
+  - `amount: string`
+
+    Amount (post-discount, pre-credit) in fractional cents (minor units).
+
+  - `claude_tag_category: BetaAnalyticsClaudeTagCategory | null`
+
+    Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. Direct-message usage is billed to the individual user and is reported under that user's product, not under `claude-tag`. New categories may be added over time.
+
+    - `"dm"`
+
+    - `"engaged"`
+
+    - `"monitoring"`
+
+    - `"proactive"`
+
+    - `"scheduled"`
+
+  - `claude_tag_user_id: string | null`
+
+    Slack user ID (for example `U0123ABCDEF`) of the member the Claude Tag (Claude in Slack) usage is attributed to, not a claude.ai user ID. Populated only when `claude_tag_user_id` is in `group_by[]`; null for usage that is not Claude Tag and for Claude Tag usage that is not attributed to a single user (for example `monitoring`, and `proactive` usage Claude initiated), so per-user rows can sum to less than the Claude Tag total. Cannot be combined with `group_by[]=rbac_group_id` or the `rbac_group_ids[]` filter.
+
+  - `context_window: BetaAnalyticsContextWindow | null`
+
+    Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
+
+    - `"0-200k"`
+
+    - `"200k-1M"`
+
+  - `cost_type: BetaAnalyticsCostType | null`
+
+    Cost component breakdown; null when returning the combined total.
+
+    - `"code_execution"`
+
+    - `"tokens"`
+
+    - `"web_search"`
+
+  - `currency: string`
+
+    Currency code for the cost amount. Currently always `"USD"`.
+
+    default: USD
+
+  - `ending_at: string | null`
+
+    End of the row's UTC time bucket (exclusive), as an RFC 3339 timestamp; equal to `starting_at` plus one `bucket_width`. Null unless `bucket_width` is set.
+
+    format: date-time
+
+  - `inference_geo: "global" | "us" | null`
+
+    Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
+
+    - `"global"`
+
+    - `"us"`
+
+  - `list_amount: string`
+
+    List-price amount (pre-discount) in fractional cents.
+
+  - `model: string | null`
+
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+
+  - `product: string | null`
+
+    Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
+
+  - `rbac_group_id: string | null`
+
+    RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`.
+
+  - `requests: number | null`
+
+    Number of API requests in this row's scope. Null when `group_by` includes `cost_type` or `token_type` (the count has no per-component attribution; read it from the ungrouped response). For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+
+  - `slack_channel_id: string | null`
+
+    Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
+  - `speed: "fast" | "standard" | null`
+
+    Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
+
+    - `"fast"`
+
+    - `"standard"`
+
+  - `starting_at: string | null`
+
+    Start of the row's UTC time bucket (inclusive), as an RFC 3339 timestamp. Null unless `bucket_width` is set; without `bucket_width`, each row aggregates the full requested range.
+
+    format: date-time
+
+  - `token_type: BetaAnalyticsTokenType | null`
+
+    Token type when `cost_type` is `tokens`; null otherwise.
+
+    - `"cache_creation.ephemeral_1h_input_tokens"`
+
+    - `"cache_creation.ephemeral_5m_input_tokens"`
+
+    - `"cache_read_input_tokens"`
+
+    - `"output_tokens"`
+
+    - `"uncached_input_tokens"`
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaAnalyticsCostUsersItem of client.beta.organization.analytics.userCostReport.list(
+  { starting_at: "2019-12-27T18:11:19.117Z" }
+)) {
+  console.log(betaAnalyticsCostUsersItem.claude_tag_user_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "actor": {
+        "deleted": true,
+        "email": "jane@example.com",
+        "email_address": "jane@example.com",
+        "name": "Jane Smith",
+        "type": "user_actor",
+        "user_id": "user_01AbCdEfGhIjKlMnOpQrSt"
+      },
+      "amount": "41280.000000",
+      "claude_tag_category": "dm",
+      "claude_tag_user_id": "U0123ABCDEF",
+      "context_window": "0-200k",
+      "cost_type": "code_execution",
+      "currency": "USD",
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "inference_geo": "global",
+      "list_amount": "51600.000000",
+      "model": "claude-opus-5",
+      "product": "chat",
+      "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "requests": 128,
+      "slack_channel_id": "C0123ABCDEF",
+      "speed": "fast",
+      "starting_at": "2019-12-27T18:11:19.117Z",
+      "token_type": "cache_creation.ephemeral_1h_input_tokens"
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page",
+  "organization_id": "org_013FP9SaFPBg7Kw7fetjn6cF"
+}
+```
+
+## Beta › Organization › Spend Limits
+
+### Set Spend Limit
+
+`client.beta.organization.spendLimits.set(body, options?): BetaSpendLimit`
+
+**POST** `/v1/organizations/spend_limits`
+
+Set a spend limit.
+
+Upsert keyed on (scope, period): setting a limit that already exists
+overwrites it in place. A Claude Enterprise organization sets `user`
+limits. Its seat-tier, group, and organization-level defaults are configured
+in claude.ai. A Claude Console organization sets `organization` and
+`workspace` limits, which are monthly and always carry an amount. Setting those
+limits is in an early access preview. To request access, contact your
+Anthropic account team.
+
+#### Parameters
+
+- `body: SpendLimitSetParams`
+
+  - `amount: string | null`
+
+    Limit amount as a non-negative integer decimal string in the minor unit of the organization's billing currency (cents for USD): "50000" is $500.00. `null` sets an explicit no-limit override for this scope and `period` only — each period resolves independently, so caps for other periods still apply.
+
+  - `scope: BetaSpendLimitUserScope | BetaSpendLimitOrganizationScope | BetaSpendLimitWorkspaceScope`
+
+    What the limit applies to. Claude Enterprise organizations set `user` limits. Claude Console organizations set `organization` and `workspace` limits. Any other combination returns 400. Setting `organization` and `workspace` limits through the API is in an early access preview. To request access, contact your Anthropic account team.
+
+    - `interface BetaSpendLimitUserScope`
+
+      Scope selecting a single member of the organization.
+
+      - `type: "user"`
+
+        Scope type. Always `user` for this scope.
+
+        default: user
+
+      - `user_id: string`
+
+        Tagged ID of the member the spend limit applies to.
+
+    - `interface BetaSpendLimitOrganizationScope`
+
+      - `type: "organization"`
+
+        default: organization
+
+    - `interface BetaSpendLimitWorkspaceScope`
+
+      Scope selecting one workspace of a Claude Console organization.
+
+      - `type: "workspace"`
+
+        Scope type. Always `workspace` for this scope.
+
+        default: workspace
+
+      - `workspace_id: string`
+
+        Tagged ID of the workspace the spend limit applies to.
+
+  - `period?: BetaSpendLimitPeriod`
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+#### Returns
+
+- `interface BetaSpendLimit`
+
+  A configured spend limit: a cap on metered spend for one scope and period.
+
+  - `type: "spend_limit"`
+
+    Object type. Always `spend_limit`.
+
+    default: spend_limit
+
+  - `id: string`
+
+    Unique tagged ID of the spend limit (`spl_...`).
+
+  - `amount: string | null`
+
+    Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
+
+  - `created_at: string`
+
+    RFC 3339 datetime at which the spend limit was created.
+
+    format: date-time
+
+  - `currency: string`
+
+    ISO 4217 code of the organization's billing currency; the unit for `amount`.
+
+  - `is_enabled: boolean`
+
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+
+  - `period: BetaSpendLimitPeriod`
+
+    Length of the window the limit resets over. `amount` caps spend within each period.
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+    What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+
+    - `interface BetaSpendLimitUserScope`
+
+      Scope selecting a single member of the organization.
+
+      - `type: "user"`
+
+        Scope type. Always `user` for this scope.
+
+        default: user
+
+      - `user_id: string`
+
+        Tagged ID of the member the spend limit applies to.
+
+    - `interface BetaSpendLimitSeatTierScope`
+
+      - `type: "seat_tier"`
+
+        default: seat_tier
+
+      - `seat_tier: string`
+
+    - `interface BetaSpendLimitRBACGroupScope`
+
+      - `type: "rbac_group"`
+
+        default: rbac_group
+
+      - `rbac_group_id: string`
+
+    - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `type: "organization_service"`
+
+        default: organization_service
+
+      - `service: string`
+
+    - `interface BetaSpendLimitOrganizationScope`
+
+      - `type: "organization"`
+
+        default: organization
+
+    - `interface BetaSpendLimitWorkspaceScope`
+
+      Scope selecting one workspace of a Claude Console organization.
+
+      - `type: "workspace"`
+
+        Scope type. Always `workspace` for this scope.
+
+        default: workspace
+
+      - `workspace_id: string`
+
+        Tagged ID of the workspace the spend limit applies to.
+
+  - `updated_at: string`
+
+    RFC 3339 datetime at which the spend limit was last modified.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaSpendLimit = await client.beta.organization.spendLimits.set({
+  amount: "50000",
+  scope: { type: "user", user_id: "user_01WCz1FkmYMm4gnmykNKUu3Q" }
+});
+
+console.log(betaSpendLimit.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "amount": "50000",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "currency": "USD",
+  "is_enabled": true,
+  "period": "daily",
+  "scope": {
+    "type": "user",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "type": "spend_limit",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+### Get Spend Limit
+
+`client.beta.organization.spendLimits.retrieve(spendLimitID, options?): BetaSpendLimit`
+
+**GET** `/v1/organizations/spend_limits/{spend_limit_id}`
+
+Retrieve a spend limit by ID.
+
+#### Parameters
+
+- `spendLimitID: string`
+
+  ID of the Spend Limit.
+
+#### Returns
+
+- `interface BetaSpendLimit`
+
+  A configured spend limit: a cap on metered spend for one scope and period.
+
+  - `type: "spend_limit"`
+
+    Object type. Always `spend_limit`.
+
+    default: spend_limit
+
+  - `id: string`
+
+    Unique tagged ID of the spend limit (`spl_...`).
+
+  - `amount: string | null`
+
+    Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
+
+  - `created_at: string`
+
+    RFC 3339 datetime at which the spend limit was created.
+
+    format: date-time
+
+  - `currency: string`
+
+    ISO 4217 code of the organization's billing currency; the unit for `amount`.
+
+  - `is_enabled: boolean`
+
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+
+  - `period: BetaSpendLimitPeriod`
+
+    Length of the window the limit resets over. `amount` caps spend within each period.
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+    What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+
+    - `interface BetaSpendLimitUserScope`
+
+      Scope selecting a single member of the organization.
+
+      - `type: "user"`
+
+        Scope type. Always `user` for this scope.
+
+        default: user
+
+      - `user_id: string`
+
+        Tagged ID of the member the spend limit applies to.
+
+    - `interface BetaSpendLimitSeatTierScope`
+
+      - `type: "seat_tier"`
+
+        default: seat_tier
+
+      - `seat_tier: string`
+
+    - `interface BetaSpendLimitRBACGroupScope`
+
+      - `type: "rbac_group"`
+
+        default: rbac_group
+
+      - `rbac_group_id: string`
+
+    - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `type: "organization_service"`
+
+        default: organization_service
+
+      - `service: string`
+
+    - `interface BetaSpendLimitOrganizationScope`
+
+      - `type: "organization"`
+
+        default: organization
+
+    - `interface BetaSpendLimitWorkspaceScope`
+
+      Scope selecting one workspace of a Claude Console organization.
+
+      - `type: "workspace"`
+
+        Scope type. Always `workspace` for this scope.
+
+        default: workspace
+
+      - `workspace_id: string`
+
+        Tagged ID of the workspace the spend limit applies to.
+
+  - `updated_at: string`
+
+    RFC 3339 datetime at which the spend limit was last modified.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaSpendLimit = await client.beta.organization.spendLimits.retrieve("spend_limit_id");
+
+console.log(betaSpendLimit.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "amount": "50000",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "currency": "USD",
+  "is_enabled": true,
+  "period": "daily",
+  "scope": {
+    "type": "user",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "type": "spend_limit",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+### Delete Spend Limit
+
+`client.beta.organization.spendLimits.delete(spendLimitID, options?): SpendLimitDeleteResponse`
+
+**DELETE** `/v1/organizations/spend_limits/{spend_limit_id}`
+
+Delete a spend limit.
+
+For a Claude Enterprise organization, this deletes a per-user override, and
+the member falls back to any inherited spend limit at that period. Its
+seat-tier, group, and organization-level rows cannot be deleted via this
+endpoint. A Claude Console organization deletes its organization and
+workspace limits. Deleting them through the API is in an early access preview.
+
+#### Parameters
+
+- `spendLimitID: string`
+
+  ID of the Spend Limit.
+
+#### Returns
+
+- `interface SpendLimitDeleteResponse`
+
+  - `type: "spend_limit_deleted"`
+
+    default: spend_limit_deleted
+
+  - `id: string`
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const spendLimit = await client.beta.organization.spendLimits.delete("spend_limit_id");
+
+console.log(spendLimit.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "type": "spend_limit_deleted"
+}
+```
+
+### List Spend Limits
+
+`client.beta.organization.spendLimits.list(params?, options?): PageCursor<BetaSpendLimit>`
+
+**GET** `/v1/organizations/spend_limits`
+
+List the organization's spend limits.
+
+A Claude Console organization's limits come in an order that is stable across
+pages. A Claude Enterprise organization's are grouped by scope type,
+in the order `organization`, `seat_tier`, `rbac_group`,
+`organization_service`, `user`; within a type they come in a fixed order that
+is not creation order.
+
+#### Parameters
+
+- `params: SpendLimitListParams`
+
+  - `limit?: number`
+
+    Query param: Maximum number of limits per page. Defaults to `20`.
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Query param: Opaque cursor from a previous response's `next_page` field.
+
+  - `scope_type?: Array<"organization" | "organization_service" | "rbac_group" | 3 more> | null`
+
+    Query param: Return only limits with these scope types. A Claude Console organization has `organization` and `workspace` limits; a Claude Enterprise organization has `organization`, `seat_tier`, `rbac_group`, `organization_service` and `user` limits. Omit for all.
+
+    maxItems: 6
+
+    - `"organization"`
+
+    - `"organization_service"`
+
+    - `"rbac_group"`
+
+    - `"seat_tier"`
+
+    - `"user"`
+
+    - `"workspace"`
+
+  - `betas?: Array<AnthropicBeta>`
+
+    Header param: This endpoint is in beta: requests must send `spend-limit-reads-2026-09-26` in this header.
+
+    - `(string & {})`
+
+    - `"message-batches-2024-09-24"`
+
+    - `"prompt-caching-2024-07-31"`
+
+    - `"computer-use-2024-10-22"`
+
+    - `"computer-use-2025-01-24"`
+
+    - `"pdfs-2024-09-25"`
+
+    - `"token-counting-2024-11-01"`
+
+    - `"token-efficient-tools-2025-02-19"`
+
+    - `"output-128k-2025-02-19"`
+
+    - `"files-api-2025-04-14"`
+
+    - `"mcp-client-2025-04-04"`
+
+    - `"mcp-client-2025-11-20"`
+
+    - `"dev-full-thinking-2025-05-14"`
+
+    - `"interleaved-thinking-2025-05-14"`
+
+    - `"code-execution-2025-05-22"`
+
+    - `"extended-cache-ttl-2025-04-11"`
+
+    - `"context-1m-2025-08-07"`
+
+    - `"context-management-2025-06-27"`
+
+    - `"model-context-window-exceeded-2025-08-26"`
+
+    - `"skills-2025-10-02"`
+
+    - `"fast-mode-2026-02-01"`
+
+    - `"output-300k-2026-03-24"`
+
+    - `"user-profiles-2026-03-24"`
+
+    - `"user-profiles-2026-08-18"`
+
+    - `"user-profiles-2026-09-04"`
+
+    - `"advisor-tool-2026-03-01"`
+
+    - `"managed-agents-2026-04-01"`
+
+    - `"cache-diagnosis-2026-04-07"`
+
+    - `"dreaming-2026-04-21"`
+
+    - `"thinking-token-count-2026-05-13"`
+
+    - `"server-side-fallback-2026-06-01"`
+
+    - `"server-side-fallback-2026-07-01"`
+
+    - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
+
+    - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+    - `"compact-2026-01-12"`
+
+    - `"computer-use-2025-11-24"`
+
+    - `"mcp-tunnels-2026-06-22"`
+
+    - `"structured-outputs-2025-11-13"`
+
+    - `"task-budgets-2026-03-13"`
+
+    - `"thinking-display-updates-2026-08-18"`
+
+    - `"ce-user-management-2026-07-13"`
+
+    - `"mid-conversation-output-config-2026-07-01"`
+
+    - `"thinking-binding-controls-2026-08-01"`
+
+    - `"mid-conversation-system-clear-at-2026-08-21"`
+
+    - `"compact-2026-09-04"`
+
+    - `"inline-tools-2026-09-15"`
+
+    - `"mcp-client-2026-09-15"`
+
+    - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
+
+#### Returns
+
+- `interface BetaSpendLimit`
+
+  A configured spend limit: a cap on metered spend for one scope and period.
+
+  - `type: "spend_limit"`
+
+    Object type. Always `spend_limit`.
+
+    default: spend_limit
+
+  - `id: string`
+
+    Unique tagged ID of the spend limit (`spl_...`).
+
+  - `amount: string | null`
+
+    Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
+
+  - `created_at: string`
+
+    RFC 3339 datetime at which the spend limit was created.
+
+    format: date-time
+
+  - `currency: string`
+
+    ISO 4217 code of the organization's billing currency; the unit for `amount`.
+
+  - `is_enabled: boolean`
+
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+
+  - `period: BetaSpendLimitPeriod`
+
+    Length of the window the limit resets over. `amount` caps spend within each period.
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+    What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+
+    - `interface BetaSpendLimitUserScope`
+
+      Scope selecting a single member of the organization.
+
+      - `type: "user"`
+
+        Scope type. Always `user` for this scope.
+
+        default: user
+
+      - `user_id: string`
+
+        Tagged ID of the member the spend limit applies to.
+
+    - `interface BetaSpendLimitSeatTierScope`
+
+      - `type: "seat_tier"`
+
+        default: seat_tier
+
+      - `seat_tier: string`
+
+    - `interface BetaSpendLimitRBACGroupScope`
+
+      - `type: "rbac_group"`
+
+        default: rbac_group
+
+      - `rbac_group_id: string`
+
+    - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `type: "organization_service"`
+
+        default: organization_service
+
+      - `service: string`
+
+    - `interface BetaSpendLimitOrganizationScope`
+
+      - `type: "organization"`
+
+        default: organization
+
+    - `interface BetaSpendLimitWorkspaceScope`
+
+      Scope selecting one workspace of a Claude Console organization.
+
+      - `type: "workspace"`
+
+        Scope type. Always `workspace` for this scope.
+
+        default: workspace
+
+      - `workspace_id: string`
+
+        Tagged ID of the workspace the spend limit applies to.
+
+  - `updated_at: string`
+
+    RFC 3339 datetime at which the spend limit was last modified.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaSpendLimit of client.beta.organization.spendLimits.list()) {
+  console.log(betaSpendLimit.id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "id",
+      "amount": "50000",
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "currency": "USD",
+      "is_enabled": true,
+      "period": "daily",
+      "scope": {
+        "type": "user",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "type": "spend_limit",
+      "updated_at": "2019-12-27T18:11:19.117Z"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Spend Limits › Effective
+
+### List Effective Spend Limits
+
+`client.beta.organization.spendLimits.effective.list(query?, options?): PageCursor<BetaSpendSummary>`
+
+**GET** `/v1/organizations/spend_limits/effective`
+
+List each member's effective spend limit and period-to-date spend.
+
+Returns one row per (member, period) the member resolves a spend limit
+for, with the `source` scope the spend limit was inherited from.
+Paginates by member, so a member's periods never split across pages.
+
+#### Parameters
+
+- `query: EffectiveListParams`
+
+  - `limit?: number`
+
+    Maximum number of members per page. A member's period rows never split across pages, so a page may carry more rows than this. Defaults to `20`.
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page` field.
+
+  - `period?: Array<"daily" | "monthly" | "weekly"> | null`
+
+    Restrict the report to these limit periods. Omit to return one row per period each member resolves a spend limit for.
+
+    maxItems: 3
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `user_ids?: Array<string> | null`
+
+    Restrict the report to these members, by tagged user ID (`user_...`). At most 100 entries.
+
+    maxItems: 100
+
+#### Returns
+
+- `interface BetaSpendSummary`
+
+  Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+  - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+      - `type: "user_actor"`
+
+        Actor type. Always `user_actor`.
+
+        default: user_actor
+
+      - `deleted: boolean`
+
+        True only when the underlying account has been deleted.
+
+        default: false
+
+      - `email_address: string | null`
+
+        The user's email address. Null when the account is unavailable or has been deleted.
+
+      - `name: string | null`
+
+        The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
+
+      - `user_id: string`
+
+        Tagged ID of the user.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+      - `type: "scoped_api_key_actor"`
+
+        default: scoped_api_key_actor
+
+      - `scoped_api_key_id: string`
+
+  - `amount: string | null`
+
+    Effective limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD). `null` means no limit applies for this row's `period` — each period resolves independently, so another period may still cap this member.
+
+  - `currency: string`
+
+    ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
+
+  - `period: BetaSpendLimitPeriod`
+
+    Period this row's effective limit and spend are reported for.
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `period_to_date_spend: string`
+
+    The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
+
+  - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+    - `interface BetaSpendLimitUserScope`
+
+      Scope selecting a single member of the organization.
+
+      - `type: "user"`
+
+        Scope type. Always `user` for this scope.
+
+        default: user
+
+      - `user_id: string`
+
+        Tagged ID of the member the spend limit applies to.
+
+    - `interface BetaSpendLimitSeatTierScope`
+
+      - `type: "seat_tier"`
+
+        default: seat_tier
+
+      - `seat_tier: string`
+
+    - `interface BetaSpendLimitRBACGroupScope`
+
+      - `type: "rbac_group"`
+
+        default: rbac_group
+
+      - `rbac_group_id: string`
+
+    - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `type: "organization_service"`
+
+        default: organization_service
+
+      - `service: string`
+
+    - `interface BetaSpendLimitOrganizationScope`
+
+      - `type: "organization"`
+
+        default: organization
+
+    - `interface BetaSpendLimitWorkspaceScope`
+
+      Scope selecting one workspace of a Claude Console organization.
+
+      - `type: "workspace"`
+
+        Scope type. Always `workspace` for this scope.
+
+        default: workspace
+
+      - `workspace_id: string`
+
+        Tagged ID of the workspace the spend limit applies to.
+
+  - `source: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+    - `interface BetaSpendLimitUserScope`
+
+      Scope selecting a single member of the organization.
+
+    - `interface BetaSpendLimitSeatTierScope`
+
+    - `interface BetaSpendLimitRBACGroupScope`
+
+    - `interface BetaSpendLimitOrganizationServiceScope`
+
+    - `interface BetaSpendLimitOrganizationScope`
+
+    - `interface BetaSpendLimitWorkspaceScope`
+
+      Scope selecting one workspace of a Claude Console organization.
+
+  - `spend_limit_id: string`
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaSpendSummary of client.beta.organization.spendLimits.effective.list()) {
+  console.log(betaSpendSummary.spend_limit_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "actor": {
+        "deleted": true,
+        "email_address": "email_address",
+        "name": "name",
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "amount": "50000",
+      "currency": "USD",
+      "period": "daily",
+      "period_to_date_spend": "12050.5",
+      "scope": {
+        "type": "user",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "source": {
+        "type": "user",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "spend_limit_id": "spend_limit_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Spend Limits › Increase Requests
+
+### List Spend Limit Increase Requests
+
+`client.beta.organization.spendLimits.increaseRequests.list(query?, options?): PageCursor<BetaSpendLimitIncreaseRequest>`
+
+**GET** `/v1/organizations/spend_limit_increase_requests`
+
+List spend limit increase requests, most recent first.
+
+Pending requests include a live `spend_summary` for the requester.
+Requests whose requester is no longer a member are excluded.
+
+#### Parameters
+
+- `query: IncreaseRequestListParams`
+
+  - `actor_ids?: Array<string> | null`
+
+    Filter by requester, as `user_...` tagged IDs.
+
+  - `limit?: number`
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Opaque cursor from a previous response's `next_page`.
+
+  - `status?: Array<BetaSpendLimitIncreaseRequestStatus> | null`
+
+    Filter by status. Omit to return all.
+
+    - `"approved"`
+
+    - `"denied"`
+
+    - `"pending"`
+
+#### Returns
+
+- `interface BetaSpendLimitIncreaseRequest`
+
+  - `type: "spend_limit_increase_request"`
+
+    default: spend_limit_increase_request
+
+  - `id: string`
+
+  - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+      - `type: "user_actor"`
+
+        Actor type. Always `user_actor`.
+
+        default: user_actor
+
+      - `deleted: boolean`
+
+        True only when the underlying account has been deleted.
+
+        default: false
+
+      - `email_address: string | null`
+
+        The user's email address. Null when the account is unavailable or has been deleted.
+
+      - `name: string | null`
+
+        The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
+
+      - `user_id: string`
+
+        Tagged ID of the user.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+      - `type: "scoped_api_key_actor"`
+
+        default: scoped_api_key_actor
+
+      - `scoped_api_key_id: string`
+
+  - `created_at: string`
+
+    format: date-time
+
+  - `period: BetaSpendLimitPeriod`
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `resolved_at: string | null`
+
+    format: date-time
+
+  - `resolved_by: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor | null`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+  - `spend_summary: BetaSpendSummary | null`
+
+    Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+    - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+      - `interface BetaSpendLimitUserActor`
+
+        A user within the organization. `name` and `email_address` are
+        null when the underlying account is unavailable or has been deleted;
+        `deleted` is true only for deleted accounts.
+
+      - `interface BetaSpendLimitScopedAPIKeyActor`
+
+        A scoped Admin API key acting on behalf of the organization.
+
+    - `amount: string | null`
+
+      Effective limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD). `null` means no limit applies for this row's `period` — each period resolves independently, so another period may still cap this member.
+
+    - `currency: string`
+
+      ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
+
+    - `period: BetaSpendLimitPeriod`
+
+      Period this row's effective limit and spend are reported for.
+
+    - `period_to_date_spend: string`
+
+      The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
+
+    - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+        - `type: "user"`
+
+          Scope type. Always `user` for this scope.
+
+          default: user
+
+        - `user_id: string`
+
+          Tagged ID of the member the spend limit applies to.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+        - `type: "seat_tier"`
+
+          default: seat_tier
+
+        - `seat_tier: string`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+        - `type: "rbac_group"`
+
+          default: rbac_group
+
+        - `rbac_group_id: string`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+        - `type: "organization_service"`
+
+          default: organization_service
+
+        - `service: string`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+        - `type: "organization"`
+
+          default: organization
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+        - `type: "workspace"`
+
+          Scope type. Always `workspace` for this scope.
+
+          default: workspace
+
+        - `workspace_id: string`
+
+          Tagged ID of the workspace the spend limit applies to.
+
+    - `source: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+    - `spend_limit_id: string`
+
+  - `status: BetaSpendLimitIncreaseRequestStatus`
+
+    - `"approved"`
+
+    - `"denied"`
+
+    - `"pending"`
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaSpendLimitIncreaseRequest of client.beta.organization.spendLimits.increaseRequests.list()) {
+  console.log(betaSpendLimitIncreaseRequest.id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "id",
+      "actor": {
+        "deleted": true,
+        "email_address": "email_address",
+        "name": "name",
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "period": "daily",
+      "resolved_at": "2019-12-27T18:11:19.117Z",
+      "resolved_by": {
+        "deleted": true,
+        "email_address": "email_address",
+        "name": "name",
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "spend_summary": {
+        "actor": {
+          "deleted": true,
+          "email_address": "email_address",
+          "name": "name",
+          "type": "user_actor",
+          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        },
+        "amount": "50000",
+        "currency": "USD",
+        "period": "daily",
+        "period_to_date_spend": "12050.5",
+        "scope": {
+          "type": "user",
+          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        },
+        "source": {
+          "type": "user",
+          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        },
+        "spend_limit_id": "spend_limit_id"
+      },
+      "status": "approved",
+      "type": "spend_limit_increase_request"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Get Spend Limit Increase Request
+
+`client.beta.organization.spendLimits.increaseRequests.retrieve(spendLimitIncreaseRequestID, options?): BetaSpendLimitIncreaseRequest`
+
+**GET** `/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}`
+
+Retrieve a spend limit increase request.
+
+While `pending`, the response includes a live `spend_summary` for the
+requester at the request's period.
+
+#### Parameters
+
+- `spendLimitIncreaseRequestID: string`
+
+  ID of the spend limit increase request.
+
+#### Returns
+
+- `interface BetaSpendLimitIncreaseRequest`
+
+  - `type: "spend_limit_increase_request"`
+
+    default: spend_limit_increase_request
+
+  - `id: string`
+
+  - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+      - `type: "user_actor"`
+
+        Actor type. Always `user_actor`.
+
+        default: user_actor
+
+      - `deleted: boolean`
+
+        True only when the underlying account has been deleted.
+
+        default: false
+
+      - `email_address: string | null`
+
+        The user's email address. Null when the account is unavailable or has been deleted.
+
+      - `name: string | null`
+
+        The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
+
+      - `user_id: string`
+
+        Tagged ID of the user.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+      - `type: "scoped_api_key_actor"`
+
+        default: scoped_api_key_actor
+
+      - `scoped_api_key_id: string`
+
+  - `created_at: string`
+
+    format: date-time
+
+  - `period: BetaSpendLimitPeriod`
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `resolved_at: string | null`
+
+    format: date-time
+
+  - `resolved_by: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor | null`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+  - `spend_summary: BetaSpendSummary | null`
+
+    Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+    - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+      - `interface BetaSpendLimitUserActor`
+
+        A user within the organization. `name` and `email_address` are
+        null when the underlying account is unavailable or has been deleted;
+        `deleted` is true only for deleted accounts.
+
+      - `interface BetaSpendLimitScopedAPIKeyActor`
+
+        A scoped Admin API key acting on behalf of the organization.
+
+    - `amount: string | null`
+
+      Effective limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD). `null` means no limit applies for this row's `period` — each period resolves independently, so another period may still cap this member.
+
+    - `currency: string`
+
+      ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
+
+    - `period: BetaSpendLimitPeriod`
+
+      Period this row's effective limit and spend are reported for.
+
+    - `period_to_date_spend: string`
+
+      The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
+
+    - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+        - `type: "user"`
+
+          Scope type. Always `user` for this scope.
+
+          default: user
+
+        - `user_id: string`
+
+          Tagged ID of the member the spend limit applies to.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+        - `type: "seat_tier"`
+
+          default: seat_tier
+
+        - `seat_tier: string`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+        - `type: "rbac_group"`
+
+          default: rbac_group
+
+        - `rbac_group_id: string`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+        - `type: "organization_service"`
+
+          default: organization_service
+
+        - `service: string`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+        - `type: "organization"`
+
+          default: organization
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+        - `type: "workspace"`
+
+          Scope type. Always `workspace` for this scope.
+
+          default: workspace
+
+        - `workspace_id: string`
+
+          Tagged ID of the workspace the spend limit applies to.
+
+    - `source: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+    - `spend_limit_id: string`
+
+  - `status: BetaSpendLimitIncreaseRequestStatus`
+
+    - `"approved"`
+
+    - `"denied"`
+
+    - `"pending"`
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaSpendLimitIncreaseRequest =
+  await client.beta.organization.spendLimits.increaseRequests.retrieve(
+    "spend_limit_increase_request_id"
+  );
+
+console.log(betaSpendLimitIncreaseRequest.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "actor": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "period": "daily",
+  "resolved_at": "2019-12-27T18:11:19.117Z",
+  "resolved_by": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "spend_summary": {
+    "actor": {
+      "deleted": true,
+      "email_address": "email_address",
+      "name": "name",
+      "type": "user_actor",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "amount": "50000",
+    "currency": "USD",
+    "period": "daily",
+    "period_to_date_spend": "12050.5",
+    "scope": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "source": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "spend_limit_id": "spend_limit_id"
+  },
+  "status": "approved",
+  "type": "spend_limit_increase_request"
+}
+```
+
+### Approve Spend Limit Increase Request
+
+`client.beta.organization.spendLimits.increaseRequests.approve(spendLimitIncreaseRequestID, body, options?): IncreaseRequestApproveResponse`
+
+**POST** `/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}/approve`
+
+Approve a pending spend limit increase request.
+
+Writes a per-user spend limit at `amount` for the requester and
+transitions the request to `approved`. `period` defaults to the period
+the member was blocked on. Anthropic emails the requester unless
+`suppress_notification` is set.
+
+#### Parameters
+
+- `spendLimitIncreaseRequestID: string`
+
+  ID of the spend limit increase request.
+
+- `body: IncreaseRequestApproveParams`
+
+  - `amount: string`
+
+    New per-user spend limit as a non-negative integer decimal string (minor units).
+
+  - `period?: BetaSpendLimitPeriod | null`
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `suppress_notification?: boolean`
+
+#### Returns
+
+- `interface IncreaseRequestApproveResponse`
+
+  - `type: "spend_limit_increase_request"`
+
+    default: spend_limit_increase_request
+
+  - `id: string`
+
+  - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+      - `type: "user_actor"`
+
+        Actor type. Always `user_actor`.
+
+        default: user_actor
+
+      - `deleted: boolean`
+
+        True only when the underlying account has been deleted.
+
+        default: false
+
+      - `email_address: string | null`
+
+        The user's email address. Null when the account is unavailable or has been deleted.
+
+      - `name: string | null`
+
+        The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
+
+      - `user_id: string`
+
+        Tagged ID of the user.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+      - `type: "scoped_api_key_actor"`
+
+        default: scoped_api_key_actor
+
+      - `scoped_api_key_id: string`
+
+  - `created_at: string`
+
+    format: date-time
+
+  - `period: BetaSpendLimitPeriod`
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `resolved_at: string | null`
+
+    format: date-time
+
+  - `resolved_by: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor | null`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+  - `spend_limit: BetaSpendLimit`
+
+    A configured spend limit: a cap on metered spend for one scope and period.
+
+    - `type: "spend_limit"`
+
+      Object type. Always `spend_limit`.
+
+      default: spend_limit
+
+    - `id: string`
+
+      Unique tagged ID of the spend limit (`spl_...`).
+
+    - `amount: string | null`
+
+      Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
+
+    - `created_at: string`
+
+      RFC 3339 datetime at which the spend limit was created.
+
+      format: date-time
+
+    - `currency: string`
+
+      ISO 4217 code of the organization's billing currency; the unit for `amount`.
+
+    - `is_enabled: boolean`
+
+      Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+
+    - `period: BetaSpendLimitPeriod`
+
+      Length of the window the limit resets over. `amount` caps spend within each period.
+
+    - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+        - `type: "user"`
+
+          Scope type. Always `user` for this scope.
+
+          default: user
+
+        - `user_id: string`
+
+          Tagged ID of the member the spend limit applies to.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+        - `type: "seat_tier"`
+
+          default: seat_tier
+
+        - `seat_tier: string`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+        - `type: "rbac_group"`
+
+          default: rbac_group
+
+        - `rbac_group_id: string`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+        - `type: "organization_service"`
+
+          default: organization_service
+
+        - `service: string`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+        - `type: "organization"`
+
+          default: organization
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+        - `type: "workspace"`
+
+          Scope type. Always `workspace` for this scope.
+
+          default: workspace
+
+        - `workspace_id: string`
+
+          Tagged ID of the workspace the spend limit applies to.
+
+    - `updated_at: string`
+
+      RFC 3339 datetime at which the spend limit was last modified.
+
+      format: date-time
+
+  - `spend_summary: BetaSpendSummary | null`
+
+    Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+    - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+      - `interface BetaSpendLimitUserActor`
+
+        A user within the organization. `name` and `email_address` are
+        null when the underlying account is unavailable or has been deleted;
+        `deleted` is true only for deleted accounts.
+
+      - `interface BetaSpendLimitScopedAPIKeyActor`
+
+        A scoped Admin API key acting on behalf of the organization.
+
+    - `amount: string | null`
+
+      Effective limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD). `null` means no limit applies for this row's `period` — each period resolves independently, so another period may still cap this member.
+
+    - `currency: string`
+
+      ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
+
+    - `period: BetaSpendLimitPeriod`
+
+      Period this row's effective limit and spend are reported for.
+
+    - `period_to_date_spend: string`
+
+      The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
+
+    - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+    - `source: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+    - `spend_limit_id: string`
+
+  - `status: BetaSpendLimitIncreaseRequestStatus`
+
+    - `"approved"`
+
+    - `"denied"`
+
+    - `"pending"`
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const response = await client.beta.organization.spendLimits.increaseRequests.approve(
+  "spend_limit_increase_request_id",
+  { amount: "50000" }
+);
+
+console.log(response.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "actor": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "period": "daily",
+  "resolved_at": "2019-12-27T18:11:19.117Z",
+  "resolved_by": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "spend_limit": {
+    "id": "id",
+    "amount": "50000",
+    "created_at": "2019-12-27T18:11:19.117Z",
+    "currency": "USD",
+    "is_enabled": true,
+    "period": "daily",
+    "scope": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "type": "spend_limit",
+    "updated_at": "2019-12-27T18:11:19.117Z"
+  },
+  "spend_summary": {
+    "actor": {
+      "deleted": true,
+      "email_address": "email_address",
+      "name": "name",
+      "type": "user_actor",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "amount": "50000",
+    "currency": "USD",
+    "period": "daily",
+    "period_to_date_spend": "12050.5",
+    "scope": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "source": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "spend_limit_id": "spend_limit_id"
+  },
+  "status": "approved",
+  "type": "spend_limit_increase_request"
+}
+```
+
+### Deny Spend Limit Increase Request
+
+`client.beta.organization.spendLimits.increaseRequests.deny(spendLimitIncreaseRequestID, body, options?): BetaSpendLimitIncreaseRequest`
+
+**POST** `/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}/deny`
+
+Deny a pending spend limit increase request.
+
+Idempotent on `denied`; denying an already-`approved` request returns
+400. Anthropic emails the requester unless `suppress_notification` is set.
+
+#### Parameters
+
+- `spendLimitIncreaseRequestID: string`
+
+  ID of the spend limit increase request.
+
+- `body: IncreaseRequestDenyParams`
+
+  - `suppress_notification?: boolean`
+
+#### Returns
+
+- `interface BetaSpendLimitIncreaseRequest`
+
+  - `type: "spend_limit_increase_request"`
+
+    default: spend_limit_increase_request
+
+  - `id: string`
+
+  - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+      - `type: "user_actor"`
+
+        Actor type. Always `user_actor`.
+
+        default: user_actor
+
+      - `deleted: boolean`
+
+        True only when the underlying account has been deleted.
+
+        default: false
+
+      - `email_address: string | null`
+
+        The user's email address. Null when the account is unavailable or has been deleted.
+
+      - `name: string | null`
+
+        The user's current display name. Null when the account is unavailable, has been deleted, or has no name set.
+
+      - `user_id: string`
+
+        Tagged ID of the user.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+      - `type: "scoped_api_key_actor"`
+
+        default: scoped_api_key_actor
+
+      - `scoped_api_key_id: string`
+
+  - `created_at: string`
+
+    format: date-time
+
+  - `period: BetaSpendLimitPeriod`
+
+    - `"daily"`
+
+    - `"monthly"`
+
+    - `"weekly"`
+
+  - `resolved_at: string | null`
+
+    format: date-time
+
+  - `resolved_by: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor | null`
+
+    - `interface BetaSpendLimitUserActor`
+
+      A user within the organization. `name` and `email_address` are
+      null when the underlying account is unavailable or has been deleted;
+      `deleted` is true only for deleted accounts.
+
+    - `interface BetaSpendLimitScopedAPIKeyActor`
+
+      A scoped Admin API key acting on behalf of the organization.
+
+  - `spend_summary: BetaSpendSummary | null`
+
+    Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+    - `actor: BetaSpendLimitUserActor | BetaSpendLimitScopedAPIKeyActor`
+
+      - `interface BetaSpendLimitUserActor`
+
+        A user within the organization. `name` and `email_address` are
+        null when the underlying account is unavailable or has been deleted;
+        `deleted` is true only for deleted accounts.
+
+      - `interface BetaSpendLimitScopedAPIKeyActor`
+
+        A scoped Admin API key acting on behalf of the organization.
+
+    - `amount: string | null`
+
+      Effective limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD). `null` means no limit applies for this row's `period` — each period resolves independently, so another period may still cap this member.
+
+    - `currency: string`
+
+      ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
+
+    - `period: BetaSpendLimitPeriod`
+
+      Period this row's effective limit and spend are reported for.
+
+    - `period_to_date_spend: string`
+
+      The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
+
+    - `scope: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+        - `type: "user"`
+
+          Scope type. Always `user` for this scope.
+
+          default: user
+
+        - `user_id: string`
+
+          Tagged ID of the member the spend limit applies to.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+        - `type: "seat_tier"`
+
+          default: seat_tier
+
+        - `seat_tier: string`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+        - `type: "rbac_group"`
+
+          default: rbac_group
+
+        - `rbac_group_id: string`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+        - `type: "organization_service"`
+
+          default: organization_service
+
+        - `service: string`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+        - `type: "organization"`
+
+          default: organization
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+        - `type: "workspace"`
+
+          Scope type. Always `workspace` for this scope.
+
+          default: workspace
+
+        - `workspace_id: string`
+
+          Tagged ID of the workspace the spend limit applies to.
+
+    - `source: BetaSpendLimitUserScope | BetaSpendLimitSeatTierScope | BetaSpendLimitRBACGroupScope | 3 more`
+
+      - `interface BetaSpendLimitUserScope`
+
+        Scope selecting a single member of the organization.
+
+      - `interface BetaSpendLimitSeatTierScope`
+
+      - `interface BetaSpendLimitRBACGroupScope`
+
+      - `interface BetaSpendLimitOrganizationServiceScope`
+
+      - `interface BetaSpendLimitOrganizationScope`
+
+      - `interface BetaSpendLimitWorkspaceScope`
+
+        Scope selecting one workspace of a Claude Console organization.
+
+    - `spend_limit_id: string`
+
+  - `status: BetaSpendLimitIncreaseRequestStatus`
+
+    - `"approved"`
+
+    - `"denied"`
+
+    - `"pending"`
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaSpendLimitIncreaseRequest =
+  await client.beta.organization.spendLimits.increaseRequests.deny(
+    "spend_limit_increase_request_id"
+  );
+
+console.log(betaSpendLimitIncreaseRequest.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "actor": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "period": "daily",
+  "resolved_at": "2019-12-27T18:11:19.117Z",
+  "resolved_by": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "spend_summary": {
+    "actor": {
+      "deleted": true,
+      "email_address": "email_address",
+      "name": "name",
+      "type": "user_actor",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "amount": "50000",
+    "currency": "USD",
+    "period": "daily",
+    "period_to_date_spend": "12050.5",
+    "scope": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "source": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "spend_limit_id": "spend_limit_id"
+  },
+  "status": "approved",
+  "type": "spend_limit_increase_request"
+}
+```
+
+## Beta › Organization › RBAC Groups
+
+### Create RBAC Group
+
+`client.beta.organization.rbacGroups.create(body, options?): BetaRBACGroup`
+
+**POST** `/v1/organizations/rbac_groups`
+
+Create an RBAC Group in the Claude Enterprise tenant. Groups created via the API have source type `"direct"`.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `body: RBACGroupCreateParams`
+
+  - `name: string`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+    minLength: 1, maxLength: 255
+
+#### Returns
+
+- `interface BetaRBACGroup`
+
+  - `type: "rbac_group"`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+    default: rbac_group
+
+  - `id: string`
+
+    ID of the RBAC Group.
+
+  - `created_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+    format: date-time
+
+  - `name: string`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `role_ids: Array<string> | null`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `source_type: "direct" | "scim"`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+    - `"direct"`
+
+    - `"scim"`
+
+  - `updated_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaRBACGroup = await client.beta.organization.rbacGroups.create({
+  name: "Engineering"
+});
+
+console.log(betaRBACGroup.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Engineering",
+  "role_ids": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "roles": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "source_type": "direct",
+  "type": "rbac_group",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### List RBAC Groups
+
+`client.beta.organization.rbacGroups.list(query?, options?): PageCursor<BetaRBACGroup>`
+
+**GET** `/v1/organizations/rbac_groups`
+
+List RBAC Groups in the Claude Enterprise tenant.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `query: RBACGroupListParams`
+
+  - `limit?: number`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Optionally set to the `next_page` token from the previous response.
+
+#### Returns
+
+- `interface BetaRBACGroup`
+
+  - `type: "rbac_group"`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+    default: rbac_group
+
+  - `id: string`
+
+    ID of the RBAC Group.
+
+  - `created_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+    format: date-time
+
+  - `name: string`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `role_ids: Array<string> | null`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `source_type: "direct" | "scim"`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+    - `"direct"`
+
+    - `"scim"`
+
+  - `updated_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaRBACGroup of client.beta.organization.rbacGroups.list()) {
+  console.log(betaRBACGroup.id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "name": "Engineering",
+      "role_ids": [
+        "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+      ],
+      "roles": [
+        "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+      ],
+      "source_type": "direct",
+      "type": "rbac_group",
+      "updated_at": "2024-10-30T23:58:27.427722Z"
+    }
+  ],
+  "has_more": false,
+  "next_page": "eyJjdXJzb3IiOiAicmJhY19ncm91cF8wMSJ9"
+}
+```
+
+### Get RBAC Group
+
+`client.beta.organization.rbacGroups.retrieve(rbacGroupID, options?): BetaRBACGroup`
+
+**GET** `/v1/organizations/rbac_groups/{rbac_group_id}`
+
+Retrieve an RBAC Group by ID.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+#### Returns
+
+- `interface BetaRBACGroup`
+
+  - `type: "rbac_group"`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+    default: rbac_group
+
+  - `id: string`
+
+    ID of the RBAC Group.
+
+  - `created_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+    format: date-time
+
+  - `name: string`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `role_ids: Array<string> | null`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `source_type: "direct" | "scim"`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+    - `"direct"`
+
+    - `"scim"`
+
+  - `updated_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaRBACGroup = await client.beta.organization.rbacGroups.retrieve("rbac_group_id");
+
+console.log(betaRBACGroup.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Engineering",
+  "role_ids": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "roles": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "source_type": "direct",
+  "type": "rbac_group",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### Update RBAC Group
+
+`client.beta.organization.rbacGroups.update(rbacGroupID, body, options?): BetaRBACGroup`
+
+**POST** `/v1/organizations/rbac_groups/{rbac_group_id}`
+
+Update an RBAC Group's name. Groups provisioned by an identity provider (source type `"scim"`) cannot be modified via the API while an organization in the tenant uses SCIM provisioning.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+- `body: RBACGroupUpdateParams`
+
+  - `name?: string | null`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+    minLength: 1, maxLength: 255
+
+#### Returns
+
+- `interface BetaRBACGroup`
+
+  - `type: "rbac_group"`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+    default: rbac_group
+
+  - `id: string`
+
+    ID of the RBAC Group.
+
+  - `created_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+    format: date-time
+
+  - `name: string`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `role_ids: Array<string> | null`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `source_type: "direct" | "scim"`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+    - `"direct"`
+
+    - `"scim"`
+
+  - `updated_at: string`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaRBACGroup = await client.beta.organization.rbacGroups.update("rbac_group_id");
+
+console.log(betaRBACGroup.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Engineering",
+  "role_ids": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "roles": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "source_type": "direct",
+  "type": "rbac_group",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### Delete RBAC Group
+
+`client.beta.organization.rbacGroups.delete(rbacGroupID, options?): RBACGroupDeleteResponse`
+
+**DELETE** `/v1/organizations/rbac_groups/{rbac_group_id}`
+
+Delete an RBAC Group. Groups provisioned by an identity provider (source type `"scim"`) cannot be deleted via the API while an organization in the tenant uses SCIM provisioning.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+#### Returns
+
+- `interface RBACGroupDeleteResponse`
+
+  - `type: "rbac_group_deleted"`
+
+    Deleted object type.
+
+    For RBAC Groups, this is always `"rbac_group_deleted"`.
+
+    default: rbac_group_deleted
+
+  - `id: string`
+
+    ID of the RBAC Group.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const rbacGroup = await client.beta.organization.rbacGroups.delete("rbac_group_id");
+
+console.log(rbacGroup.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "type": "rbac_group_deleted"
+}
+```
+
+## Beta › Organization › RBAC Groups › Members
+
+### List RBAC Group Members
+
+`client.beta.organization.rbacGroups.members.list(rbacGroupID, query?, options?): PageCursor<BetaRBACGroupMember>`
+
+**GET** `/v1/organizations/rbac_groups/{rbac_group_id}/members`
+
+List members of an RBAC Group.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+- `query: MemberListParams`
+
+  - `limit?: number`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Optionally set to the `next_page` token from the previous response.
+
+#### Returns
+
+- `interface BetaRBACGroupMember`
+
+  - `type: "rbac_group_member"`
+
+    Object type.
+
+    For RBAC Group Members, this is always `"rbac_group_member"`.
+
+    default: rbac_group_member
+
+  - `created_at: string`
+
+    RFC 3339 timestamp of when the User was added to the RBAC Group.
+
+    format: date-time
+
+  - `email: string`
+
+    Email of the User.
+
+  - `rbac_group_id: string`
+
+    ID of the RBAC Group.
+
+  - `user_id: string`
+
+    ID of the User.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaRBACGroupMember of client.beta.organization.rbacGroups.members.list(
+  "rbac_group_id"
+)) {
+  console.log(betaRBACGroupMember.rbac_group_id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "email": "user@emaildomain.com",
+      "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "type": "rbac_group_member",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    }
+  ],
+  "has_more": false,
+  "next_page": "eyJjdXJzb3IiOiAicmJhY19ncm91cF8wMSJ9"
+}
+```
+
+### Add RBAC Group Member
+
+`client.beta.organization.rbacGroups.members.add(rbacGroupID, body, options?): BetaRBACGroupMember`
+
+**POST** `/v1/organizations/rbac_groups/{rbac_group_id}/members`
+
+Add a User to an RBAC Group. Membership of groups provisioned by an identity provider (source type `"scim"`) cannot be modified via the API while an organization in the tenant uses SCIM provisioning.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+- `body: MemberAddParams`
+
+  - `user_id: string`
+
+    ID of the User.
+
+#### Returns
+
+- `interface BetaRBACGroupMember`
+
+  - `type: "rbac_group_member"`
+
+    Object type.
+
+    For RBAC Group Members, this is always `"rbac_group_member"`.
+
+    default: rbac_group_member
+
+  - `created_at: string`
+
+    RFC 3339 timestamp of when the User was added to the RBAC Group.
+
+    format: date-time
+
+  - `email: string`
+
+    Email of the User.
+
+  - `rbac_group_id: string`
+
+    ID of the RBAC Group.
+
+  - `user_id: string`
+
+    ID of the User.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaRBACGroupMember = await client.beta.organization.rbacGroups.members.add(
+  "rbac_group_id",
+  { user_id: "user_01WCz1FkmYMm4gnmykNKUu3Q" }
+);
+
+console.log(betaRBACGroupMember.rbac_group_id);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "email": "user@emaildomain.com",
+  "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "type": "rbac_group_member",
+  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+}
+```
+
+### Remove RBAC Group Member
+
+`client.beta.organization.rbacGroups.members.remove(userID, params, options?): MemberRemoveResponse`
+
+**DELETE** `/v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}`
+
+Remove a User from an RBAC Group. Membership of groups provisioned by an identity provider (source type `"scim"`) cannot be modified via the API while an organization in the tenant uses SCIM provisioning.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `userID: string`
+
+  ID of the User.
+
+- `params: MemberRemoveParams`
+
+  - `rbac_group_id: string`
+
+    ID of the RBAC Group.
+
+#### Returns
+
+- `interface MemberRemoveResponse`
+
+  - `type: "rbac_group_member_deleted"`
+
+    Deleted object type. For RBAC Group Members, this is always `"rbac_group_member_deleted"`.
+
+    default: rbac_group_member_deleted
+
+  - `rbac_group_id: string`
+
+    ID of the RBAC Group.
+
+  - `user_id: string`
+
+    ID of the User.
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const member = await client.beta.organization.rbacGroups.members.remove("user_id", {
+  rbac_group_id: "rbac_group_id"
+});
+
+console.log(member.rbac_group_id);
+```
+
+##### Response (200)
+
+```json
+{
+  "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "type": "rbac_group_member_deleted",
+  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+}
+```
+
+## Beta › Organization › RBAC Roles
+
+### List RBAC Roles
+
+`client.beta.organization.rbacRoles.list(query?, options?): PageCursor<BetaRBACRole>`
+
+**GET** `/v1/organizations/rbac_roles`
+
+List RBAC Roles in the organization.
+
+The RBAC Roles API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `query: RBACRoleListParams`
+
+  - `limit?: number`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Optionally set to the `next_page` token from the previous response.
+
+#### Returns
+
+- `interface BetaRBACRole`
+
+  - `type: "rbac_role"`
+
+    Object type.
+
+    For RBAC Roles, this is always `"rbac_role"`.
+
+    default: rbac_role
+
+  - `id: string`
+
+    ID of the RBAC Role.
+
+  - `created_at: string`
+
+    RFC 3339 datetime string indicating when the RBAC Role was created.
+
+    format: date-time
+
+  - `name: string`
+
+    Name of the RBAC Role.
+
+  - `updated_at: string`
+
+    RFC 3339 datetime string indicating when the RBAC Role was last updated.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaRBACRole of client.beta.organization.rbacRoles.list()) {
+  console.log(betaRBACRole.id);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "name": "Project Editor",
+      "type": "rbac_role",
+      "updated_at": "2024-10-30T23:58:27.427722Z"
+    }
+  ],
+  "has_more": true,
+  "next_page": "eyJjdXJzb3IiOiAicmJhY19yb2xlXzAxIn0"
+}
+```
+
+### Get RBAC Role
+
+`client.beta.organization.rbacRoles.retrieve(rbacRoleID, options?): BetaRBACRole`
+
+**GET** `/v1/organizations/rbac_roles/{rbac_role_id}`
+
+Retrieve an RBAC Role by ID.
+
+The RBAC Roles API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacRoleID: string`
+
+  ID of the RBAC Role.
+
+#### Returns
+
+- `interface BetaRBACRole`
+
+  - `type: "rbac_role"`
+
+    Object type.
+
+    For RBAC Roles, this is always `"rbac_role"`.
+
+    default: rbac_role
+
+  - `id: string`
+
+    ID of the RBAC Role.
+
+  - `created_at: string`
+
+    RFC 3339 datetime string indicating when the RBAC Role was created.
+
+    format: date-time
+
+  - `name: string`
+
+    Name of the RBAC Role.
+
+  - `updated_at: string`
+
+    RFC 3339 datetime string indicating when the RBAC Role was last updated.
+
+    format: date-time
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaRBACRole = await client.beta.organization.rbacRoles.retrieve("rbac_role_id");
+
+console.log(betaRBACRole.id);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Project Editor",
+  "type": "rbac_role",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+## Beta › Organization › RBAC Roles › Permissions
+
+### List RBAC Role Permissions
+
+`client.beta.organization.rbacRoles.permissions.list(rbacRoleID, query?, options?): PageCursor<BetaRBACRolePermission>`
+
+**GET** `/v1/organizations/rbac_roles/{rbac_role_id}/permissions`
+
+List the permissions an RBAC Role grants.
+
+The RBAC Roles API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacRoleID: string`
+
+  ID of the RBAC Role.
+
+- `query: PermissionListParams`
+
+  - `limit?: number`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    minimum: 1, maximum: 1000
+
+  - `page?: string | null`
+
+    Optionally set to the `next_page` token from the previous response.
+
+#### Returns
+
+- `interface BetaRBACRolePermission`
+
+  - `type: "rbac_role_permission"`
+
+    Object type.
+
+    For RBAC Role Permissions, this is always `"rbac_role_permission"`.
+
+    default: rbac_role_permission
+
+  - `action: string`
+
+    Action the permission grants on the resource.
+
+    The vocabulary follows the resource: an `organization` grant carries a
+    product-feature entitlement (for example `chat`), an admin-panel
+    permission entitlement (`permission_*`), or a blanket capability-access
+    mode — `capability_access_all` grants every product-feature entitlement,
+    and `capability_access_all_ga` grants the generally-available subset as
+    it stands at permission-check time; neither mode grants model-access
+    entitlements. A consumer enumerating a role's per-feature grants should
+    treat a blanket row as granting every product-feature entitlement it
+    covers, or it will under-report the role's effective access. A `connector_tool` grant carries
+    a tool-access action (`use` or `always_allow`); a `connector_scope` grant
+    carries the scope action `grant` (the role may receive the named OAuth
+    scope when tokens are minted for the connector); `connector` and
+    `all_connectors` grants carry a tool-access action, the scope action, or
+    an authentication-method action (`interactive` or `managed`).
+
+  - `resource: BetaRBACOrganizationPermissionResource | BetaRBACConnectorToolPermissionResource | BetaRBACConnectorScopePermissionResource | 2 more`
+
+    What the permission applies to.
+
+    A tagged union: `type` names the kind of resource and determines which
+    identifier fields are present.
+
+    - `interface BetaRBACOrganizationPermissionResource`
+
+      - `type: "organization"`
+
+        Kind of resource the permission applies to.
+
+        default: organization
+
+      - `organization_id: string`
+
+        UUID of the organization the permission applies to.
+
+    - `interface BetaRBACConnectorToolPermissionResource`
+
+      - `type: "connector_tool"`
+
+        Kind of resource the permission applies to.
+
+        default: connector_tool
+
+      - `connector_id: string`
+
+        ID of the connector the permission applies to.
+
+      - `tool_name: string`
+
+        Published name of the connector tool the permission applies to.
+
+        When the published name contains characters outside `[a-zA-Z0-9_-]` (or
+        collides with a reserved form), it is server-encoded into a stable
+        `{prefix}_{32-hex}` form — a shortened readable prefix of the name plus
+        a hash — from which the published name is not recoverable.
+
+    - `interface BetaRBACConnectorScopePermissionResource`
+
+      - `type: "connector_scope"`
+
+        Kind of resource the permission applies to.
+
+        default: connector_scope
+
+      - `connector_id: string`
+
+        ID of the connector the permission applies to.
+
+      - `scope: string`
+
+        OAuth scope the permission names — the role may receive this scope when
+        tokens are minted for the connector.
+
+        Subject to the same encoding rule as `tool_name`: a scope containing
+        characters outside `[a-zA-Z0-9_-]` (or colliding with a reserved form)
+        appears server-encoded in a stable `{prefix}_{32-hex}` form. OAuth
+        scopes routinely contain `:` and `/`, so most appear encoded.
+
+    - `interface BetaRBACConnectorPermissionResource`
+
+      - `type: "connector"`
+
+        Kind of resource the permission applies to.
+
+        default: connector
+
+      - `connector_id: string`
+
+        ID of the connector the permission applies to.
+
+    - `interface BetaRBACAllConnectorsPermissionResource`
+
+      - `type: "all_connectors"`
+
+        Kind of resource the permission applies to.
+
+        default: all_connectors
+
+#### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaRBACRolePermission of client.beta.organization.rbacRoles.permissions.list(
+  "rbac_role_id"
+)) {
+  console.log(betaRBACRolePermission.action);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "action": "use",
+      "resource": {
+        "organization_id": "3c4f5e6d-7a8b-49c0-9d1e-2f3a4b5c6d7e",
+        "type": "organization"
+      },
+      "type": "rbac_role_permission"
+    }
+  ],
+  "has_more": true,
+  "next_page": "eyJjdXJzb3IiOiAicmJhY19yb2xlXzAxIn0"
+}
+```
+
 ## Beta › Organization › Plugins
 
 ### Create Plugin
@@ -91062,6 +98078,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -91446,6 +98464,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -91848,6 +98868,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -92289,6 +99311,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaPlugin`
@@ -92684,6 +99708,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaDeletedPlugin`
@@ -92875,6 +99901,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -93210,6 +100238,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaPluginVersion`
@@ -93536,6 +100566,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -93874,6 +100906,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `type unnamed_schema_3 = Response`
@@ -94053,6 +101087,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -94321,6 +101357,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaPluginInstallationSetting`
@@ -94576,6 +101614,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaDeletedPluginInstallationSetting`
@@ -94818,6 +101858,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -95081,6 +102123,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -95348,6 +102392,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -95624,6 +102670,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 
@@ -95908,6 +102956,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     - `"ce-plugins-2026-09-01"`
 
+    - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `interface BetaPluginMarketplaceValidationReport`
@@ -96170,6 +103220,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
     - `"mcp-client-2026-09-15"`
 
     - `"ce-plugins-2026-09-01"`
+
+    - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 

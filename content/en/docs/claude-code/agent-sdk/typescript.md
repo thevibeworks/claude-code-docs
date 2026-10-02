@@ -1444,7 +1444,7 @@ Set `shouldQuery` or `client_composed` to change how Claude Code handles a messa
 
 On a message that carries a `tool_result` block, `tool_use_result` is the tool's structured output object rather than the text sent to the model. Its shape depends on the tool named by the matching `tool_use` block, so the field is typed `unknown`; the built-in shapes are listed under [Tool Output Types](#tool-output-types).
 
-For the `Agent` tool, `tool_use_result` is [`AgentOutput`](#agent-2). On a `completed` result, `content` holds the subagent's report without the agent ID and usage trailer that Claude Code appends to the `tool_result` text, so render from `tool_use_result` instead of parsing that text.
+For the `Agent` tool, `tool_use_result` is [`AgentOutput`](#agent-2). Render from it rather than parsing the `tool_result` text. A `completed` result's `content` holds the subagent's report, or, for a subagent whose report goes through a `SubagentHandback` tool call, a short note about that hand-back in place of the report. In [auto mode](/docs/en/permission-modes#eliminate-prompts-with-auto-mode) on Claude Code v2.1.271 or later, every subagent that produces a `completed` result reports that way unless it is a [fork](/docs/en/sub-agents#fork-the-current-conversation), and Claude receives the report as a separate message from the subagent.
 
 For an MCP tool whose result contains `resource_link` blocks, `tool_use_result` is an object with a `resourceLinks` array of [`SDKMcpResourceLink`](#sdkmcpresourcelink) entries. Claude receives each link as a line of text in the `tool_result` block, so read `resourceLinks` to render the files the server returned instead of parsing that text. Claude Code omits `resourceLinks` when the result has no links and on results from subagents, keeps at most 50 links per result, and stops adding links once the array reaches 64 KiB of serialized JSON. `resourceLinks` requires Agent SDK v0.3.257 or later.
 
@@ -1606,7 +1606,7 @@ Which of your messages a turn answers depends on how the turn started:
 Claude Code echoes the answered message's `uuid` on three kinds of frame:
 
 * **The result**: every result of a turn that answered a message you sent. Every such result carries it on Agent SDK v0.3.265 or later. Before v0.3.265, the success result of a turn that a regular message started lacked it when the turn sent no API request or ended with a deferred tool call. Before v0.3.246, error results lacked it too, and before v0.3.216 every result did.
-* **The turn's first reply**: the first [assistant message](#sdkassistantmessage), or with `includePartialMessages` the first [stream event](#sdkpartialassistantmessage) whose `event.type` isn't `ping`, so you can bind the reply before the result arrives. When a turn streams nothing, Claude Code sets it on the first assistant message instead. The first-reply echo requires Agent SDK v0.3.246 or later. When the message the turn is answering changes mid-turn, the first reply after the change carries the field too, on Agent SDK v0.3.265 or later; earlier versions set it on one reply frame per turn.
+* **The turn's first reply**: the first [assistant message](#sdkassistantmessage), and with `includePartialMessages` also the first [stream event](#sdkpartialassistantmessage) whose `event.type` isn't `ping`, so you can bind the reply before the result arrives. The first-reply echo requires Agent SDK v0.3.246 or later. Before v0.3.269, with `includePartialMessages`, Claude Code set it on that first stream event only, or on the first assistant message when the turn streamed nothing. When the message the turn is answering changes mid-turn, the first reply after the change carries the field too, on Agent SDK v0.3.265 or later; earlier versions set it on one reply frame per turn.
 * **Every [`thinking_tokens`](#sdkthinkingtokensmessage) frame of the turn**: so you can attribute thinking progress to the message you sent without waiting for the turn's first reply. Requires Agent SDK v0.3.260 or later.
 
 Claude Code omits the field in these cases:
@@ -4634,7 +4634,7 @@ type SdkBeta = "context-1m-2025-08-07";
 ```
 
 <Warning>
-  The `context-1m-2025-08-07` beta is retired as of April 30, 2026. Passing this value with Claude Sonnet 4.5 or Sonnet 4 has no effect, and requests that exceed the standard 200k-token context window return an error. To use a 1M-token context window, migrate to [Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Opus 4.6, Claude Opus 4.7, or Claude Opus 4.8](https://platform.claude.com/docs/en/about-claude/models/overview), which include 1M context at standard pricing with no beta header required.
+  On the Claude API, the `context-1m-2025-08-07` beta is retired for Claude Sonnet 4.5 and Claude Sonnet 4. If you still pass it with either model, requests that exceed the standard 200K-token context window return an error, so remove it from `betas`. To run a session with a 1M-token context window, set `model` to a model that [runs with the 1M window by default](/docs/en/model-config#extended-context), such as `claude-sonnet-5-5` or `claude-opus-5-5`. For a model that reaches 1M only through its `[1m]` variant, append the suffix to the model ID, as in `claude-opus-4-6[1m]`.
 </Warning>
 
 ### `SlashCommand`
@@ -4674,7 +4674,7 @@ type ModelInfo = {
 | Field | Type | Description |
 | :- | :- | :- |
 | `value` | `string` | Model identifier to pass in API calls |
-| `resolvedModel` | `string \| undefined` | Canonical wire model ID that this entry's `value` resolves to. An alias entry such as `sonnet` resolves to an explicit model ID such as `claude-sonnet-5`, so a host can match a stored explicit model ID against the alias entry that covers it. Requires Claude Code v2.1.197 or later. |
+| `resolvedModel` | `string \| undefined` | The model ID that this entry's `value` resolves to, such as `claude-sonnet-5-5` for the `sonnet` alias entry. Requires Claude Code v2.1.197 or later. |
 | `displayName` | `string` | Human-readable display name |
 | `description` | `string` | Description of the model's capabilities |
 | `supportsEffort` | `boolean \| undefined` | Whether this model supports effort levels |

@@ -129,6 +129,8 @@ restarted after rotation must use the new value. An optional
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Body parameters
 
 - `reason: optional string or null`

@@ -45,6 +45,10 @@ Retrieve a spend limit by ID.
 
     ISO 4217 code of the organization's billing currency; the unit for `amount`.
 
+  - `is_enabled: boolean`
+
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+
   - `period: BetaSpendLimitPeriod`
 
     Length of the window the limit resets over. `amount` caps spend within each period.
@@ -55,11 +59,11 @@ Retrieve a spend limit by ID.
 
     - `"weekly"`
 
-  - `scope: User or SeatTier or RBACGroup or 3 more`
+  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
-    - `User object`
+    - `BetaSpendLimitUserScope object`
 
       Scope selecting a single member of the organization.
 
@@ -73,7 +77,7 @@ Retrieve a spend limit by ID.
 
         Tagged ID of the member the spend limit applies to.
 
-    - `SeatTier object`
+    - `BetaSpendLimitSeatTierScope object`
 
       - `type: "seat_tier"`
 
@@ -81,7 +85,7 @@ Retrieve a spend limit by ID.
 
       - `seat_tier: string`
 
-    - `RBACGroup object`
+    - `BetaSpendLimitRBACGroupScope object`
 
       - `type: "rbac_group"`
 
@@ -89,7 +93,7 @@ Retrieve a spend limit by ID.
 
       - `rbac_group_id: string`
 
-    - `OrganizationService object`
+    - `BetaSpendLimitOrganizationServiceScope object`
 
       - `type: "organization_service"`
 
@@ -97,13 +101,13 @@ Retrieve a spend limit by ID.
 
       - `service: string`
 
-    - `Organization object`
+    - `BetaSpendLimitOrganizationScope object`
 
       - `type: "organization"`
 
         default: organization
 
-    - `Workspace object`
+    - `BetaSpendLimitWorkspaceScope object`
 
       Scope selecting one workspace of a Claude Console organization.
 
@@ -139,6 +143,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits/$SPEND_LIMIT_ID \
   "amount": "50000",
   "created_at": "2019-12-27T18:11:19.117Z",
   "currency": "USD",
+  "is_enabled": true,
   "period": "daily",
   "scope": {
     "type": "user",

@@ -41,6 +41,7 @@ The table shows what takes the place of each setting from your machine. Where a 
 | Claude Code setting on your machine | In Claude Tag |
 | :- | :- |
 | `/model` | An admin sets the [default model per channel](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope), and you can [switch models in a thread](/docs/claude-tag/users/models) |
+| `/fast` | Once an Owner [allows fast mode](/docs/claude-tag/admins/customize#allow-fast-mode), you [turn it on for one thread](/docs/claude-tag/users/models#run-a-thread-in-fast-mode) with `@Claude !fast` |
 | Effort level | Not configurable. Sessions run at the model's default effort. |
 | MCP servers in `.mcp.json` | Not loaded, even when `.mcp.json` is checked into the repository. A session reaches external services only through the [connections an admin set for the channel](/docs/claude-tag/admins/add-connections), and each connection holds that service's credentials. |
 | Secrets and API keys in your environment | An admin provisions them as channel connections. The raw key never enters the sandbox. It is [added to requests at the network layer](/docs/claude-tag/concepts/agent-identity#agent-proxy). |

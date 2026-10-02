@@ -73,7 +73,7 @@ The table lists every key Claude Code reads from `marketplace.json`. `name`, `ow
 
 Each object in the top-level `plugins` array of `marketplace.json` names a plugin and says where to fetch it. `name` and `source` are required.
 
-An entry also accepts every [`plugin.json` field](/docs/en/plugins/manifest-reference), such as `description`, `version`, `author`, `commands`, and `hooks`. For when those fields apply, see [How an entry combines with plugin.json](#entry-and-plugin-json).
+Apart from the [directory listing fields](/docs/en/plugins/manifest-reference#directory-listing-fields), an entry also accepts every [`plugin.json` field](/docs/en/plugins/manifest-reference), such as `description`, `version`, `author`, `commands`, and `hooks`. For when those fields apply, see [How an entry combines with plugin.json](#entry-and-plugin-json).
 
 The table lists the entry's own fields and the manifest fields whose meaning changes in an entry.
 
@@ -100,7 +100,7 @@ The table lists the entry's own fields and the manifest fields whose meaning cha
 
 The entry's fields apply differently to a fetched plugin that has its own `.claude-plugin/plugin.json` and to one that doesn't:
 
-* **No `plugin.json`**: the entry is the manifest regardless of `strict`. Every manifest field in the entry applies, including [`mcpServers`, `lspServers`, `userConfig`, and `channels`](/docs/en/plugins/manifest-reference).
+* **No `plugin.json`**: the entry is the manifest regardless of `strict`. Every manifest field that the entry accepts applies, including [`mcpServers`, `lspServers`, `userConfig`, and `channels`](/docs/en/plugins/manifest-reference).
 * **`plugin.json` present**: `plugin.json` is the manifest. [Strict mode](#strict-mode) decides whether the entry's six component fields, `commands`, `agents`, `skills`, `hooks`, `outputStyles`, and `themes`, are combined with it or rejected as a conflict. Entry `mcpServers`, `lspServers`, `userConfig`, and `channels` don't apply. Declare them in `plugin.json`.
 
 #### Hooks in an entry
@@ -138,8 +138,8 @@ The table lists each plugin source type and its fields.
 | Relative path | the string itself | A directory inside the marketplace, resolved from the marketplace root. Must start with `./`, unless you write a [bare name under `metadata.pluginRoot`](#relative-path-plugin-source). `"."` on its own means the root itself |
 | `github` | `repo`, `ref`, `sha` | GitHub repository in `owner/repo` form |
 | `url` | `url`, `ref`, `sha` | Any git repository by URL |
-| `git-subdir` | `url`, `path`, `ref`, `sha` | One subdirectory of a git repository, fetched with a sparse partial clone |
-| `npm` | `package`, `version`, `registry` | npm package, fetched with your npm client and unpacked without running install scripts |
+| `git-subdir` | `url`, `path`, `ref`, `sha` | One subdirectory of a git repository, fetched with a sparse checkout |
+| `npm` | `package`, `version`, `registry` | npm registry package or tarball link, fetched with your npm client and unpacked without running install scripts |
 | `archive` | `url`, `sha256` | Zip archive over HTTPS. Requires Claude Code v2.1.224 or later |
 | `command` | `command`, `timeout`, `mode` | Directory printed by a command Claude Code runs on the user's machine. Requires Claude Code v2.1.229 or later |
 
@@ -213,7 +213,7 @@ A bare name is a single directory name with no `/`, such as `"formatter"`. To wr
 
 ### git-subdir plugin source
 
-`url` accepts a full git URL or GitHub `owner/repo` shorthand. `path` is the subdirectory that holds the plugin, and Claude Code downloads only that subdirectory.
+`url` accepts a full git URL or GitHub `owner/repo` shorthand. `path` is the subdirectory that holds the plugin, and Claude Code checks out only that subdirectory. Over an `https` or SSH URL, Claude Code asks the server for a partial clone, so from a host that supports partial clones, a plugin in a large monorepo installs without downloading the rest of the repository.
 
 ```json theme={null}
 {
@@ -230,11 +230,19 @@ A bare name is a single directory name with no `/`, such as `"formatter"`. To wr
 
 An `npm` source takes these fields:
 
-* `package`: a package name, or a scoped name such as `@your-org/formatter`
-* `version`: a version or range
+* `package`: a registry package name such as `@your-org/formatter`, a name with a version appended such as `@your-org/formatter@2.0.0`, or an `https` link to the package's tarball file
+* `version`: a version, a semver range, or a dist-tag, used when `package` is a package name with no version appended. Omit it to fetch `latest`
 * `registry`: a registry URL for a package that isn't on the default registry
 
 Claude Code fetches the package with your npm client. The package's install scripts, such as `preinstall` or `postinstall`, never run, and its dependencies aren't installed during the fetch. If the package has a supported lockfile beside its `package.json`, Claude Code installs those [Node.js package dependencies](/docs/en/plugins/loading#node-js-package-dependencies) in a separate step, also with scripts disabled.
+
+Claude Code checks the `package` value before fetching anything. A refused value fails the install with a message that names the value and the reason. The refused values include:
+
+* **A git address, a folder or `file:` path, or an `npm:` alias**: use a [`github`, `url`, or `git-subdir` source](#plugin-sources) for a git repository, a relative path for a folder in the marketplace, and the package's own name for an alias
+* **A tarball link on github.com, gist.github.com, gitlab.com, bitbucket.org, or git.sr.ht**: refused even when the link is a GitHub release download, unless it's a GitLab npm registry link under `gitlab.com/api/v4/`
+* **A tarball link over `http`**: refused unless it points at the installing user's own default npm registry
+
+The `registry` URL must use `https` unless it is the installing user's own default npm registry. With any other `http` registry, the install fails before npm contacts it.
 
 ```json theme={null}
 {
@@ -436,6 +444,8 @@ The table maps marketplace-level messages to the field each is about.
 | `Author name cannot be empty` | Error | `owner.name` |
 | `Plugin name cannot contain spaces. Use kebab-case (e.g., "my-plugin")` | Error | `plugins[i].name` |
 | `Plugin name cannot contain control or bidirectional-formatting characters` | Error | `plugins[i].name` |
+| `Plugin name "x" is reserved: it passes as one of Anthropic's own` | Error | `plugins[i].name`. See the manifest's [`name`](/docs/en/plugins/manifest-reference#name) for the reserved names |
+| `Plugin name "x" reads as one of Anthropic's own` | Warning | `plugins[i].name` |
 | `Claude Code cannot install plugins from marketplace "x". Each part of a plugin id (plugin@marketplace) may use only the letters a-z and A-Z, digits, ".", "_" and "-", and must start with a letter or digit. Change the marketplace's "name".` | Error | `name` |
 | `Claude Code cannot install plugin "x". Each part of a plugin id (plugin@marketplace) may use only the letters a-z and A-Z, digits, ".", "_" and "-", and must start with a letter or digit. Change this entry's "name".` | Error | `plugins[i].name` |
 | `Duplicate plugin name "x" found in marketplace` | Error | Two entries share a `name` |

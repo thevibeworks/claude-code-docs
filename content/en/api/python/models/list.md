@@ -143,6 +143,8 @@ The Models API response can be used to determine which models are available for 
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Returns
 
 - `class ModelInfo`

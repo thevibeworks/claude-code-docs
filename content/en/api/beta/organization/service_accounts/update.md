@@ -128,6 +128,8 @@ interactive credential (a user OAuth token or a Console session).
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Body parameters
 
 - `description: optional string or null`

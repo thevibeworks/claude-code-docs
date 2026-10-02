@@ -16,9 +16,9 @@ A workspace pairing links one Slack workspace (or Enterprise Grid) to your Claud
 
 ## Pair another workspace
 
-You can connect multiple Slack workspaces to one Claude organization. After the first pairing, the page no longer opens on setup, and the Slack row appears under **Where Claude Tag works**.
+You can connect multiple Slack workspaces to one Claude organization.
 
-The reverse doesn't hold. A Slack workspace or Enterprise Grid pairs with one Claude organization at a time.
+A Slack workspace or Enterprise Grid pairs with one Claude organization at a time.
 
 To move a pairing to a different Claude organization, an Owner in the organization that currently holds it must [disconnect it](#revoke-a-pairing) first. Until then, the console refuses the new pairing as [already connected to a different organization](/docs/claude-tag/admins/troubleshooting#already-connected-to-a-different-organization). Once the pairing moves, changes the previous organization's admins make in their settings no longer reach that workspace.
 

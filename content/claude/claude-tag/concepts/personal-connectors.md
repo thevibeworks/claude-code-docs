@@ -32,6 +32,24 @@ Claude uses your connectors only while working on a request you made yourself.
 
 To add or remove connectors on your account, open the **Customize > Connectors** page on claude.ai; see [connectors on claude.ai](/docs/connectors/getting-started) for setup.
 
+### Example calendar request in a channel
+
+This example shows what you see when a request you post in a channel needs your calendar. Google Calendar is connected on your claude.ai account.
+
+1. You post `@Claude find a free 30-minute slot on my calendar Thursday afternoon` in a channel.
+2. Claude replies in the thread with a prompt only you can see, asking whether it may use your connectors for this request.
+3. You choose [**Allow with review**](#approve-connector-use).
+4. Claude reads your calendar with your account's access and shows you the slot it found.
+5. You approve the slot, and Claude posts it to the thread.
+
+If a teammate posts the same request, Claude can offer to use the calendar connected on their own claude.ai account. Claude never uses your connector for their request.
+
+### What channel connections can reach
+
+Connections an admin attached to the channel give everyone in the channel the same access. They use the account the admin set up for Claude in each service, so Claude reaches whatever that account can reach, whoever asks.
+
+If a channel connection can open a document your own account can't, Claude can still read and summarize it in that channel when you ask. See [agent access](/docs/claude-tag/concepts/agent-identity#agent-access) for how admins limit what a channel can reach.
+
 ## Control connector use
 
 ### Approve connector use
