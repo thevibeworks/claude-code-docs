@@ -68,4 +68,5 @@ The connector is read-only:
 
 * [Gmail](/docs/connectors/google/gmail): search and analyze your emails
 * [Google Drive](/docs/connectors/google/drive): search and read your Drive files
+* [Add a connector from the directory](/docs/connectors/getting-started#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
 * [Connectors directory](/docs/connectors/directory): browse verified and community integrations

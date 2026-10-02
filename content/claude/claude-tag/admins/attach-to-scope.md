@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-This page covers adding access to more workspaces and channels, and how access stacks when several bundles apply to the same place. It assumes you have already [paired a workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) and [created an Access bundle](/docs/claude-tag/admins/add-connections). You must be an Owner in your Claude organization, or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration), to attach bundles.
+This page covers adding access to more workspaces and channels, and how access stacks when several bundles apply to the same place. It assumes you have already [paired a workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) and [created an Access bundle](/docs/claude-tag/admins/add-connections). You must be an Owner in your Claude organization, or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration), to attach a bundle to the organization, a workspace, or a channel. [Attaching a bundle by channel name](#attach-a-bundle-to-channels-by-name) needs an Owner.
 
 A scope is where a bundle applies: **Default Slack access** (the organization-wide root), a workspace, or a single channel. Bundles inherit downward through those scopes, and when credentials overlap, the narrowest scope wins.
 

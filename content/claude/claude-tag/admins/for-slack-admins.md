@@ -25,7 +25,7 @@ A member can add Claude to a channel in any of these ways:
 
 Claude picks the channels to suggest from public channel names, topics, and purposes, and from public-channel search. Claude doesn't join a channel to evaluate it.
 
-A Claude organization admin can also set [auto-join channel patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), so Claude joins a public channel whose name matches when the channel is created or renamed.
+A Claude organization Owner can also set [auto-join channel patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), so Claude joins a public channel whose name matches when the channel is created or renamed.
 
 When a member selects **Add to channel** or **Approve and post**, picks a channel in a suggestion message, or an auto-join pattern matches, Claude adds itself to that channel using its `channels:join` scope. Slack's audit log records the join as the Claude app, with no inviter shown; neither the member's selection nor the matched pattern is visible in Slack's log. If you see a join in the audit log that no one can explain, a member selected one of these buttons or an auto-join pattern matched. Outside these paths, Claude does not join channels on its own.
 

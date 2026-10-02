@@ -27,7 +27,7 @@ The Audit page, labeled **Activity** in the admin console's left nav and page he
 
 | Tab | What it shows |
 | :- | :- |
-| **Scheduled work** | Every routine across your organization, with a **Scope** filter and a per-row **⋮** menu (View details, Pause/Resume, Delete) |
+| **Scheduled work** | The routines set up in channels across your organization, with a **Scope** filter and a per-row **⋮** menu (View details, Pause/Resume, Delete) |
 | **Memory** | Each scope's memory files, where you can read what Claude has saved for that workspace or channel. Owners can also edit or delete entries there. |
 | **Network events** | An hourly JSON export of the outbound requests Claude made through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy). Git and MCP traffic are not included. Select a date and hour to download. |
 
@@ -35,7 +35,7 @@ Each routine on the **Scheduled work** tab shows **Created by** (the member who 
 
 ## Trace an action to its source
 
-In channels, Claude acts as itself, so each action there carries the service-account identity:
+In channels, Claude acts as itself unless a task uses a member's [personal connectors](/docs/claude-tag/concepts/personal-connectors), which run with that member's permissions and are recorded under their name. Each action Claude takes as itself carries the service-account identity:
 
 * **In Slack**, it posts as the Claude app, and its work happens in threads anyone in the channel can read.
 * **On code**, commits and pull requests show the Claude GitHub App as the author, and each one links back to the Slack thread it came from.
