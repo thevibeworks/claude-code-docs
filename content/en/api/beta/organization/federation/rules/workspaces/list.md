@@ -141,6 +141,8 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Returns
 
 - `data: array of BetaFederationRuleWorkspace`

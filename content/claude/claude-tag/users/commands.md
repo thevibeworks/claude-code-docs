@@ -4,13 +4,15 @@
 
 # Commands Claude Tag understands
 
-> A few exact, bang-prefixed words after an @-mention run a fixed action instead of starting a normal turn: see the command list, get the link to a channel's settings page, restart a stuck or wrong-context session, check whether Claude is still working in a thread or channel, mute or unmute a thread, send feedback, list a channel's routines, and fork a thread's conversation into a new thread, here or in another channel.
+> A few exact, bang-prefixed words after an @-mention run a fixed action instead of starting a normal turn: see the command list, get the link to a channel's settings page, restart a stuck or wrong-context session, check whether Claude is still working in a thread or channel, mute or unmute a thread, turn fast mode on or off, send feedback, list a channel's routines, and fork a thread's conversation into a new thread, here or in another channel.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
 <BetaNote />
 
-A command is `@Claude` followed immediately by one of a few exact words starting with `!`. Claude matches the message against that word and runs a fixed action instead of starting a normal turn. `!help`, `!configure`, `!restart`, `!status`, `!mute`, and `!unmute` must stand alone: adding extra words, as in `!restart` with words tacked on, makes the message an ordinary prompt instead. `!feedback`, `!routines`, and `!fork` accept text after the command, covered below.
+A command is `@Claude` followed immediately by one of a few exact words starting with `!`. Claude matches the message against that word and runs a fixed action instead of starting a normal turn.
+
+`!help`, `!configure`, `!restart`, `!status`, `!mute`, and `!unmute` must stand alone: adding extra words, as in `!restart` with words tacked on, makes the message an ordinary prompt instead. `!fast` runs alone or with `on` or `off`. `!feedback`, `!routines`, and `!fork` accept text after the command, covered below.
 
 ## See the commands available to you
 
@@ -89,17 +91,58 @@ A muted thread also unmutes when you @-mention Claude there with a request, so y
 
 You need the same access to mute or unmute a thread that you'd need to message Claude there.
 
-### Thumbs-down reactions and muting
+### Thumbs-down button and muting
 
-When someone reacts 👎 to one of Claude's replies in a thread, Claude mutes that thread and stops posting there. If Claude's [working session](/docs/claude-tag/concepts/how-it-works) in that thread is partway through writing another reply, Claude abandons that unfinished reply. Claude then posts this notice in the thread:
+Some of Claude's replies carry a thumbs-up and a thumbs-down button for rating the reply. When someone selects the thumbs-down button, Claude mutes that thread and stops posting there. Claude then posts a notice in the thread that begins `:mute: Claude is muted in this thread`.
 
-```text wrap theme={null}
-:mute: Claude is muted in this thread and won't post here again. `@Claude !unmute` (or any @-mention) brings it back; `@Claude !mute` mutes it again anytime.
-```
+A 👎 emoji reaction on one of Claude's replies doesn't mute the thread.
 
 To bring Claude back, send `@Claude !unmute` in the thread, or @-mention Claude there with your next request.
 
-A 👎 reaction doesn't tell Claude what was wrong with the answer. To get a corrected answer, @-mention Claude in the thread and say what was wrong. The mention also unmutes the thread.
+To get a corrected answer, @-mention Claude in the thread and say what was wrong. The mention also unmutes the thread.
+
+## Turn fast mode on or off
+
+```text wrap theme={null}
+@Claude !fast
+@Claude !fast off
+```
+
+`!fast` turns on [fast mode](/docs/claude-tag/users/models#run-a-thread-in-fast-mode), which gives faster output at a higher cost per token. `!fast on` does the same, and `!fast off` returns to standard speed. Any other text after `!fast` makes the message an ordinary prompt.
+
+Fast mode runs on Opus models, so `!fast` can change the session's model as well as its speed. The footer of each Claude reply names the model the session is on.
+
+* **If the session is on an Opus model**, it stays on that model
+* **If the session is on another model, such as Sonnet**, Claude switches it to the newest Opus model [you can use](/docs/claude-tag/users/models#which-models-you-can-use). The session stays on that model after `!fast off`. To go back, [ask Claude to switch models](/docs/claude-tag/users/models#switch-the-model-in-a-thread).
+
+In both cases, replies speed up only if that Opus version [supports fast mode](https://code.claude.com/docs/en/fast-mode).
+
+The command changes a different [session](/docs/claude-tag/concepts/glossary#session) depending on where you send it:
+
+* **In a thread**, it changes that thread's session. In a channel thread Claude isn't part of yet, `!fast` starts the thread's session in fast mode and switches its model the same way, so your next request there runs fast from the start.
+* **At a channel's top level**, it changes the channel's own session, the one Claude works from outside any thread. Thread sessions keep their speed. Claude's confirmation appears as a reply under your command. To turn fast mode off again, send `!fast off` at the top level, not in that reply thread.
+* **In a direct message**, it works only inside a thread where Claude is already working
+
+Claude confirms with a reply that everyone in the conversation can see. At a channel's top level, the reply says "channel" in place of "thread". When Claude switches the model, the reply also names the new model, as in this example.
+
+```text wrap theme={null}
+Fast mode is on for this thread. Switched to claude-opus-5-5, since the previous model has no fast mode.
+```
+
+If the session was on another model, such as Sonnet, and the reply says only `Fast mode is on for this thread.`, Claude couldn't switch the model. The session keeps its model, and replies on that model stay at standard speed. One cause is that no Opus model is among the models you can use.
+
+When Claude doesn't apply the command, its reply says why:
+
+| Claude replies | What to do |
+| :- | :- |
+| `Fast mode isn't turned on for this organization. An organization owner can turn it on.` | Ask an Owner to [allow fast mode](/docs/claude-tag/admins/customize#allow-fast-mode) |
+| `Fast mode isn't available in a channel with guests.` | Work in a channel without guests. This channel runs with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works) while a guest is present, and sessions there stay at standard speed. |
+| `Only a workspace member who can use Claude here can change fast mode.` | Ask a full member of the workspace who can message Claude in this channel to run the command |
+| `No session is running in this channel.` | Run `!fast` in a thread. You ran it at the top level of a channel that has no session of its own. |
+| `No session is running here, so there is nothing to switch.` | You ran `!fast off` in a thread where Claude has no session. If you turned fast mode on at the channel's top level, send `@Claude !fast off` at the top level too, not as a reply under Claude's confirmation. Otherwise do nothing, because a new session in the thread starts at standard speed. |
+| `Sorry, I couldn't change fast mode. Please try again.` | Run the command again |
+
+In a [channel shared with another company](/docs/claude-tag/users/troubleshooting#claude-never-responds-in-a-channel-shared-with-another-company), Claude doesn't answer `!fast`. Use a channel that only your organization is in.
 
 ## Send feedback
 

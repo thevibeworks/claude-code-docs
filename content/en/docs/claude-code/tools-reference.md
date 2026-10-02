@@ -205,7 +205,7 @@ Two [environment variables](/docs/en/env-vars) raise these limits, for Bash and 
 
 When a foreground command reaches its timeout without finishing, Claude Code moves it to the background instead of stopping it, unless the command starts with `sleep`. A moved command's [time limit](#time-limit-for-background-commands) counts from the move, and a foreground subagent's moved command still stops when that subagent's run ends.
 
-Setting [`CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1`](/docs/en/env-vars#variables) disables auto-backgrounding along with the rest of the background task functionality.
+Setting [`CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1`](/docs/en/env-vars#variables) or running in [bare mode](/docs/en/headless#start-faster-with-bare-mode) disables auto-backgrounding along with the rest of the background task functionality, so a command that reaches its timeout stops instead.
 
 The result of a command moved to the background states what happened:
 
@@ -587,9 +587,19 @@ To allow a domain in advance without a prompt, add an allow rule like `WebFetch(
 
 An explicit `WebFetch(domain:...)` rule in `deny`, `ask`, or `allow` takes precedence over the preapproved set, so you can block a preapproved domain or require a prompt for it.
 
+When the URL is a claude.ai [artifact](/docs/en/artifacts) link, Claude Code can also ask for approval to read the artifact itself. For the cases where it asks, see [Read an artifact shared with you](/docs/en/artifacts#read-an-artifact-shared-with-you).
+
 WebFetch sets a `User-Agent` header beginning with `Claude-User`, and an `Accept` header that prefers Markdown over HTML so servers that support content negotiation can return Markdown directly.
 
 Sandboxed commands don't inherit WebFetch's built-in set of preapproved documentation domains. To let a sandboxed command reach a domain without a prompt, add the domain to [`allowedDomains`](/docs/en/settings-reference#sandbox-network-alloweddomains) or allow it with a `WebFetch(domain:...)` rule, which the [sandbox also honors](/docs/en/sandboxing#network-isolation). WebFetch never reads the sandbox allowlist in return, so adding a domain to a sandbox or organization network allowlist doesn't stop WebFetch from prompting for it.
+
+### WebFetch availability
+
+On Claude Code v2.1.285 or later, set [`CLAUDE_CODE_DISABLE_WEB_FETCH`](/docs/en/env-vars#variables) to `1` to turn WebFetch off.
+
+If you sign in with a Team or Enterprise claude.ai account and don't connect through an [LLM gateway](/docs/en/llm-gateway), WebFetch also depends on your organization's policy, which Claude Code requests from `api.anthropic.com` when a session starts. The same goes for a session whose plan Claude Code can't determine, such as one running under a claude.ai token that another app supplied.
+
+If WebFetch is missing from a session, run `/status` in the session. If its `Organization policy` line reports that the policy didn't load and names web fetch among the features that wait for it, Claude Code is withholding WebFetch until it can confirm that your organization allows it. Outside a session, `claude doctor` makes its own request and prints the same line. Once a policy that allows WebFetch loads, the tool returns without a restart.
 
 ## WebSearch tool behavior
 

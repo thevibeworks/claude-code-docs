@@ -54,7 +54,7 @@ Even the most advanced language models, like Claude, can sometimes generate text
 
 ## Advanced techniques
 
-* **Chain-of-thought verification**: Ask Claude to explain its reasoning step-by-step before giving a final answer. This can reveal faulty logic or assumptions.
+* **Chain-of-thought verification**: Use [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) with `display: "summarized"`, and review the summarized reasoning in the `thinking` blocks when an answer looks wrong. This can reveal faulty logic or assumptions.
 
 * **Best-of-N verification**: Run Claude through the same prompt multiple times and compare the outputs. Inconsistencies across outputs could indicate hallucinations.
 

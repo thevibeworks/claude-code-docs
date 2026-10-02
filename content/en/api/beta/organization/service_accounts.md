@@ -127,6 +127,8 @@ accounts.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ### Body parameters
 
 - `name: string`
@@ -378,6 +380,8 @@ archived service accounts.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ### Returns
 
 - `data: array of BetaServiceAccount`
@@ -590,6 +594,8 @@ Retrieve a service account by its ID (`svac_...`).
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Returns
 
@@ -804,6 +810,8 @@ interactive credential (a user OAuth token or a Console session).
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Body parameters
 
@@ -1036,6 +1044,8 @@ those rules first or change their target to another service account.
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Returns
 
@@ -1359,6 +1369,8 @@ rejected.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 #### Body parameters
 
 - `workspace_id: string`
@@ -1587,6 +1599,8 @@ page to recover.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `data: array of BetaServiceAccountWorkspaceMember`
@@ -1786,6 +1800,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 

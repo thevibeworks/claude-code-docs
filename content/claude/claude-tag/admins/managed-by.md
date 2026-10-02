@@ -12,7 +12,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 **Managed by** is a channel setting that names other Slack channels whose members can write that channel's standing instructions for Claude. The channel that carries the setting is the managed channel, and each channel it names is a managing channel. People in a managing channel ask Claude to set or update the managed channel's instructions and confirm the change on a card, and Claude follows that text in every new conversation in the managed channel. This page is for admins who set up the pairing and for the people in a managing channel who write the instructions.
 
-Setting up **Managed by** takes an Owner or Admin in your Claude organization, the roles that see the **Admin** tab on a channel's Configure page. A managing channel isn't a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers). A channel manager is a person with a role that lets them configure one channel. A managing channel is a Slack channel, and the full workspace members in it can propose and confirm changes.
+Setting up **Managed by** takes an Owner of your Claude organization or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration), the roles that see the **Admin** tab on a channel's Configure page. A managing channel isn't a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers). A channel manager is a person with a role that lets them configure one channel. A managing channel is a Slack channel, and the full workspace members in it can propose and confirm changes.
 
 ## When to use Managed by
 
@@ -61,7 +61,7 @@ To stop a channel managing another, clear it from the same list. Removing a chan
 
 ## Write or update managed instructions
 
-A managing channel is a Slack channel that an admin selected under **Managed by** on another channel's Configure page. Any full member of the workspace who is in a managing channel can ask Claude there to change the managed channel's instructions. Guests and people from other organizations can't.
+A managing channel is a Slack channel that an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) selected under **Managed by** on another channel's Configure page. Any full member of the workspace who is in a managing channel can ask Claude there to change the managed channel's instructions. Guests and people from other organizations can't.
 
 <Steps>
   <Step title="Ask Claude in the managing channel">
@@ -99,13 +99,13 @@ These rules apply to every card.
 
 ### Correct Claude privately from a managing channel
 
-A managing channel is a Slack channel that an Owner or Admin selected under **Managed by** on another channel's Configure page, and that other channel is the managed channel. When Claude gets something wrong in the managed channel, you can give the correction in a private managing channel, where only the private channel's members see the conversation.
+A managing channel is a Slack channel that an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) selected under **Managed by** on another channel's Configure page, and that other channel is the managed channel. When Claude gets something wrong in the managed channel, you can give the correction in a private managing channel, where only the private channel's members see the conversation.
 
 Claude proposes the correction as a change to the managed channel's instructions. After you confirm, Claude follows the new text in [conversations that start afterward](#how-managed-instructions-load) in the managed channel. While a guest is present in a managed channel that runs with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works), Claude doesn't load managed instructions.
 
 <Steps>
   <Step title="Set up a private managing channel">
-    Skip this step if the managed channel already has a private managing channel that you're in. Otherwise, create a private channel in Slack and run `/invite @Claude` in it. Then an Owner or Admin who is a member of the private channel selects it, following [Choose the managing channels](#choose-the-managing-channels). If you're that Owner or Admin, you and Claude can be the private channel's only members.
+    Skip this step if the managed channel already has a private managing channel that you're in. Otherwise, create a private channel in Slack and run `/invite @Claude` in it. Then an Owner or a Claude Tag admin who is a member of the private channel selects it, following [Choose the managing channels](#choose-the-managing-channels). If you're that person, you and Claude can be the private channel's only members.
 
     To open the Configure page without posting in the managed channel, select the **Configure** link in the footer of a Claude reply there.
   </Step>
@@ -174,12 +174,12 @@ A managing channel's members can read the managed channel's instructions through
 
 | Managed channel | Managing channels can be | Who can add managing channels |
 | :- | :- | :- |
-| Public | Public or private | An Owner or Admin |
-| Private | Private only | An Owner or Admin who is also a member of the private channel |
+| Public | Public or private | An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) |
+| Private | Private only | An Owner or a Claude Tag admin who is also a member of the private channel |
 
 Anyone in the workspace can join a public managing channel and confirm changes there, so prefer a private managing channel for anything sensitive.
 
-When a public managed channel is made private, its managing channels are removed. An Owner or Admin who is a member of the now-private channel can add private managing channels again.
+When a public managed channel is made private, its managing channels are removed. An Owner or a Claude Tag admin who is a member of the now-private channel can add private managing channels again.
 
 ## Limits of Managed by as a control
 
@@ -203,7 +203,7 @@ Claude words a refusal differently each time, so match a row on its meaning. The
 | Claude isn't in one of the channels | Claude was removed from the managed or managing channel, or never added | Run `/invite @Claude` in that channel |
 | One of those channels is archived | One of the managing channels is archived in Slack | Remove the archived channel, then try again |
 | A private channel can only be managed by private channels | The managed channel is private and the managing channel is public, or was made public later | Pick a private managing channel |
-| The managed channel may have been made private or deleted | The managed channel was made private or deleted, or Claude is no longer in it | Check the channel in Slack. If it was made private, an Owner or Admin who is a member of it adds private managing channels again |
+| The managed channel may have been made private or deleted | The managed channel was made private or deleted, or Claude is no longer in it | Check the channel in Slack. If it was made private, an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) who is a member of it adds private managing channels again |
 | Claude isn't set up in the managed channel with its own channel configuration | The managed channel has no channel scope of its own on the **Slack** tab | [Add the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) in admin settings |
 | The managed channel already has five managing channels | Five is the most a managed channel can have | Remove one before adding another |
 | The file would be too large | The core instructions are over 16 KiB, or a reference file is over 100 KiB | Shorten the text, or move detail into a reference file |

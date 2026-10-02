@@ -58,9 +58,9 @@ For Team and Enterprise plans, an Owner or Primary Owner must enable these conne
 
 **Note:** When Claude reads a Google Drive file, it extracts text content only. Images embedded in documents are not processed.
 
-### Google Docs, Sheets, and Slides (beta)
+### Google Docs, Sheets, and Slides
 
-- **Edit files live in a pane beside the chat.** You and Claude can work in the same file at the same time.
+- **Edit files live in a pane beside the chat (beta).** You and Claude can work in the same file at the same time.
 
 - **Create new Google Docs, Sheets, and Slides files.**
 

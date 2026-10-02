@@ -612,6 +612,23 @@ A rate limit looks similar but is a different problem, and raising the spend lim
 
 Once the limit is raised or the period resets, mention Claude in the same thread to retry.
 
+### Can't access this organization when I connect my Claude account
+
+**What you see**
+
+You select **Connect Claude account** in Slack, and the claude.ai page that opens is titled **Can't access this organization**, with this message:
+
+> You don't have access to this organization or it doesn't meet the requirements for Claude for Slack. Contact your organization admin to request access.
+
+**What it means**
+
+Your Slack workspace is connected to a Claude organization, and the connect link opens claude.ai already pointed at that organization. The most common cause of this page is that the claude.ai account signed in on the browser where it opened isn't a member of that organization.
+
+**How to resolve**
+
+1. Check the address after **Signed in as**. If it isn't your work claude.ai account, select **Sign in with a different account** on that page, sign in with your work account, then select **Connect Claude account** in Slack again.
+2. If the address is already your work account, ask your Claude admin to check that you're a member of the organization, then select **Connect Claude account** again.
+
 ## DMs aren't working
 
 DMs run on your own Claude account rather than the organization's agent. They need a qualifying seat (a seat that includes Claude Code, or on the Enterprise plan a **Standard** or **Usage-Based Chat** seat when the member also has Cowork), and they use your personal connectors rather than the channel connections. If channels work but DMs don't, first check that your Claude account is connected; DM `@Claude` and it prompts you to connect if it isn't.

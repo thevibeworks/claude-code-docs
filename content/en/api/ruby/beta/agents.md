@@ -83,9 +83,13 @@ Create Agent
 
     - `:"claude-sonnet-4-5"`
 
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
       High-performance model for agents and coding
 
     - `:"claude-sonnet-4-5-20250929"`
+
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       High-performance model for agents and coding
 
@@ -833,6 +837,8 @@ Create Agent
 
   - `:"ce-plugins-2026-09-01"`
 
+  - `:"spend-limit-reads-2026-09-26"`
+
 - `workspace_id: String`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -941,9 +947,13 @@ Create Agent
 
       - `:"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `:"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -1653,6 +1663,8 @@ List Agents
 
   - `:"ce-plugins-2026-09-01"`
 
+  - `:"spend-limit-reads-2026-09-26"`
+
 - `workspace_id: String`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1761,9 +1773,13 @@ List Agents
 
       - `:"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `:"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -2459,6 +2475,8 @@ Get Agent
 
   - `:"ce-plugins-2026-09-01"`
 
+  - `:"spend-limit-reads-2026-09-26"`
+
 - `workspace_id: String`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2567,9 +2585,13 @@ Get Agent
 
       - `:"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `:"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -3246,9 +3268,13 @@ Update Agent
 
     - `:"claude-sonnet-4-5"`
 
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
       High-performance model for agents and coding
 
     - `:"claude-sonnet-4-5-20250929"`
+
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       High-performance model for agents and coding
 
@@ -3974,6 +4000,8 @@ Update Agent
 
   - `:"ce-plugins-2026-09-01"`
 
+  - `:"spend-limit-reads-2026-09-26"`
+
 - `workspace_id: String`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4082,9 +4110,13 @@ Update Agent
 
       - `:"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `:"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -4769,6 +4801,8 @@ Archive Agent
 
   - `:"ce-plugins-2026-09-01"`
 
+  - `:"spend-limit-reads-2026-09-26"`
+
 - `workspace_id: String`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4877,9 +4911,13 @@ Archive Agent
 
       - `:"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `:"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -5562,9 +5600,13 @@ puts(beta_managed_agents_agent)
 
       - `:"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `:"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -8246,9 +8288,13 @@ puts(beta_managed_agents_agent)
 
   - `:"claude-sonnet-4-5"`
 
+    **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
     High-performance model for agents and coding
 
   - `:"claude-sonnet-4-5-20250929"`
+
+    **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
     High-performance model for agents and coding
 
@@ -8324,9 +8370,13 @@ puts(beta_managed_agents_agent)
 
     - `:"claude-sonnet-4-5"`
 
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
       High-performance model for agents and coding
 
     - `:"claude-sonnet-4-5-20250929"`
+
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       High-performance model for agents and coding
 
@@ -8448,9 +8498,13 @@ puts(beta_managed_agents_agent)
 
     - `:"claude-sonnet-4-5"`
 
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
       High-performance model for agents and coding
 
     - `:"claude-sonnet-4-5-20250929"`
+
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       High-performance model for agents and coding
 
@@ -8778,9 +8832,13 @@ puts(beta_managed_agents_agent)
 
       - `:"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `:"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 
@@ -9752,6 +9810,8 @@ List Agent Versions
 
   - `:"ce-plugins-2026-09-01"`
 
+  - `:"spend-limit-reads-2026-09-26"`
+
 - `workspace_id: String`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -9860,9 +9920,13 @@ List Agent Versions
 
       - `:"claude-sonnet-4-5"`
 
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
         High-performance model for agents and coding
 
       - `:"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         High-performance model for agents and coding
 

@@ -52,7 +52,7 @@ The page's **Tools and access** tab shows the channel's resolved connections and
 
 The Configure page and the **Custom instructions** field on the scope's panel in admin settings write the same instructions, so a change from either place is visible in the other. See [Configure Claude for a channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel).
 
-On the Enterprise plan, an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) can name [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for a channel. For them, the same page adds editable cards: the channel's default model on the **General** tab, and its repositories and access bundles on the **Tools and access** tab.
+On the Enterprise plan, an Owner can name [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for a channel, and so can a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) whose role also sets **Identity & Access** to **Can manage**. For channel managers, the same page adds editable cards: the channel's default model on the **General** tab, and its repositories and access bundles on the **Tools and access** tab.
 
 ## Personal connectors on claude.ai
 
@@ -70,4 +70,4 @@ The two products don't share settings. Nothing on the Claude Tag admin page conf
 
 * [Customize Claude Tag](/docs/claude-tag/admins/customize): the layers that shape Claude's behavior in a channel and who sets each one
 * [How agent identity works](/docs/claude-tag/concepts/agent-identity): why channels and DMs use different access
-* [Set up Claude Tag](/docs/claude-tag/admins/setup-overview): where each setting is first created during setup
+* [Set up Claude Tag](/docs/claude-tag/admins/setup-overview): pair a workspace, launch, and give Claude access

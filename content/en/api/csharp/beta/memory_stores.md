@@ -135,6 +135,8 @@ Create a memory store
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -153,11 +155,25 @@ Create a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `required DateTimeOffset? ArchivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `required string Description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `required IReadOnlyDictionary<string, string> Metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `required string Name`
 
@@ -168,20 +184,6 @@ Create a memory store
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `DateTimeOffset? ArchivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `string Description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `IReadOnlyDictionary<string, string> Metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 ### Example
 
@@ -198,15 +200,15 @@ Console.WriteLine(betaManagedAgentsMemoryStore);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -350,6 +352,8 @@ List memory stores
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -368,11 +372,25 @@ List memory stores
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `required DateTimeOffset? ArchivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `required string Description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `required IReadOnlyDictionary<string, string> Metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `required string Name`
 
@@ -383,20 +401,6 @@ List memory stores
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `DateTimeOffset? ArchivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `string Description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `IReadOnlyDictionary<string, string> Metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 ### Example
 
@@ -417,15 +421,15 @@ await foreach (var item in page.Paginate())
   "data": [
     {
       "id": "id",
-      "created_at": "2019-12-27T18:11:19.117Z",
-      "name": "name",
-      "type": "memory_store",
-      "updated_at": "2019-12-27T18:11:19.117Z",
       "archived_at": "2019-12-27T18:11:19.117Z",
+      "created_at": "2019-12-27T18:11:19.117Z",
       "description": "description",
       "metadata": {
         "foo": "string"
-      }
+      },
+      "name": "name",
+      "type": "memory_store",
+      "updated_at": "2019-12-27T18:11:19.117Z"
     }
   ],
   "next_page": "next_page"
@@ -550,6 +554,8 @@ Retrieve a memory store
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -568,11 +574,25 @@ Retrieve a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `required DateTimeOffset? ArchivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `required string Description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `required IReadOnlyDictionary<string, string> Metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `required string Name`
 
@@ -583,20 +603,6 @@ Retrieve a memory store
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `DateTimeOffset? ArchivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `string Description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `IReadOnlyDictionary<string, string> Metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 ### Example
 
@@ -616,15 +622,15 @@ Console.WriteLine(betaManagedAgentsMemoryStore);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -762,6 +768,8 @@ Update a memory store
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -780,11 +788,25 @@ Update a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `required DateTimeOffset? ArchivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `required string Description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `required IReadOnlyDictionary<string, string> Metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `required string Name`
 
@@ -795,20 +817,6 @@ Update a memory store
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `DateTimeOffset? ArchivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `string Description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `IReadOnlyDictionary<string, string> Metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 ### Example
 
@@ -828,15 +836,15 @@ Console.WriteLine(betaManagedAgentsMemoryStore);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -957,6 +965,8 @@ Delete a memory store
     - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `string workspaceID`
 
@@ -1116,6 +1126,8 @@ Archive a memory store
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1134,11 +1146,25 @@ Archive a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `required DateTimeOffset? ArchivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `required string Description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `required IReadOnlyDictionary<string, string> Metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `required string Name`
 
@@ -1149,20 +1175,6 @@ Archive a memory store
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `DateTimeOffset? ArchivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `string Description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `IReadOnlyDictionary<string, string> Metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 ### Example
 
@@ -1182,15 +1194,15 @@ Console.WriteLine(betaManagedAgentsMemoryStore);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -1220,11 +1232,25 @@ Console.WriteLine(betaManagedAgentsMemoryStore);
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `required DateTimeOffset? ArchivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     Timestamp when the store was created.
 
     format: date-time
+
+  - `required string Description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `required IReadOnlyDictionary<string, string> Metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `required string Name`
 
@@ -1235,20 +1261,6 @@ Console.WriteLine(betaManagedAgentsMemoryStore);
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
 
     format: date-time
-
-  - `DateTimeOffset? ArchivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-    format: date-time
-
-  - `string Description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `IReadOnlyDictionary<string, string> Metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 ## Memory Stores › Memories
 
@@ -1383,6 +1395,8 @@ Create a memory
     - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `string workspaceID`
 
@@ -1614,6 +1628,8 @@ List memories
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1844,6 +1860,8 @@ Retrieve a memory
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2071,6 +2089,8 @@ Update a memory
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2286,6 +2306,8 @@ Delete a memory
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -2494,6 +2516,8 @@ List memory versions
     - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `string workspaceID`
 
@@ -2795,6 +2819,8 @@ Retrieve a memory version
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3084,6 +3110,8 @@ Redact a memory version
     - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `string workspaceID`
 

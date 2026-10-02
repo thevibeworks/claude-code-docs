@@ -177,6 +177,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `Optional<Double> temperature`
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
@@ -303,19 +305,23 @@ Future models and features will not be compatible with Text Completions. See our
 
       Powerful intelligence for long-running agents and coding
 
-    - `CLAUDE_SONNET_4_5("claude-sonnet-4-5")`
-
-      High-performance model for agents and coding
-
-    - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
-
-      High-performance model for agents and coding
-
     - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
 
       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       New class of intelligence, strongest in coding and cybersecurity
+
+    - `CLAUDE_SONNET_4_5("claude-sonnet-4-5")`
+
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      High-performance model for agents and coding
+
+    - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
+
+      **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      High-performance model for agents and coding
 
   - `Optional<String> stopReason`
 

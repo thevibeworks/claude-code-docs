@@ -154,6 +154,8 @@ Get Cost Report
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Returns
 
 - `BetaCostReport object`
@@ -176,7 +178,7 @@ Get Cost Report
 
         Cost amount in lowest currency units (e.g. cents) as a decimal string. For example, `"123.45"` in `"USD"` represents `$1.23`.
 
-      - `context_window: "0-200k" or "200k-1M" or null`
+      - `context_window: BetaAnalyticsContextWindow or null`
 
         Input context window used. `null` if not grouping by description or for non-token costs.
 
@@ -204,7 +206,7 @@ Get Cost Report
 
         Description of the cost item. `null` if not grouping by description.
 
-      - `inference_geo: "global" or "not_available" or "us" or null`
+      - `inference_geo: BetaAnalyticsInferenceGeoFilter or null`
 
         Inference geo used matching requests' `inference_geo` parameter if set, otherwise the workspace's `default_inference_geo`.
         For models that do not support specifying `inference_geo` the value is `"not_available"`. Always `null` if not grouping by inference geo.
@@ -227,7 +229,7 @@ Get Cost Report
 
         - `"standard"`
 
-      - `token_type: "cache_creation.ephemeral_1h_input_tokens" or "cache_creation.ephemeral_5m_input_tokens" or "cache_read_input_tokens" or 2 more or null`
+      - `token_type: BetaAnalyticsTokenType or null`
 
         Type of token. `null` if not grouping by description or for non-token costs.
 
@@ -284,7 +286,7 @@ curl https://api.anthropic.com/v1/organizations/cost_report \
           "inference_geo": "global",
           "model": "claude-opus-5",
           "service_tier": "standard",
-          "token_type": "uncached_input_tokens",
+          "token_type": "cache_creation.ephemeral_1h_input_tokens",
           "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
         }
       ],

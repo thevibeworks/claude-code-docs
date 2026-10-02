@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-This page covers errors you might hit setting up and administering Claude Tag: Slack app permissions, guest and shared channels, console errors, channels and threads where nothing responds, access and connections, and session starts. Each entry has the same three parts: what you see, what it means, and how to resolve it.
+This page covers errors you might hit setting up and administering Claude Tag: Slack app permissions, guest and shared channels, console errors, channels and threads where nothing responds, access and connections, and session starts.
 
 <Note>For problems people can resolve on their own in a channel, like a missing reply or a thread that lost its work, see [Troubleshoot Claude Tag in channels and DMs](/docs/claude-tag/users/troubleshooting).</Note>
 
@@ -33,8 +33,9 @@ What you expected to see while running [setup](/docs/claude-tag/admins/setup-ove
 | The console to accept your pairing code | "Already connected to a different organization" | The workspace is paired to another Claude organization, often a trial org. See [Already connected to a different organization](#already-connected-to-a-different-organization). |
 | Your Claude account to connect after you select **Connect Claude account** | The browser page refuses the connection, and Claude DMs you "This workspace is connected to a different Claude organization" | The Claude account belongs to a different organization than the one the workspace is paired with. Connect an account from that organization; if the browser is signed in to another Claude account, sign out at claude.ai first. See [This workspace is connected to a different Claude organization](#this-workspace-is-connected-to-a-different-claude-organization). |
 | The spend limit picker on the **Launch Claude Tag** step | A **Buy usage credits** step | Your organization pays by card in US dollars and has no credits loaded. Load credits, or select **Skip** to continue without; nothing runs in channels until the balance is funded. Invoiced organizations and those billing in other currencies see the spend limit picker regardless of balance. |
+| **Launch Claude Tag** to finish | "Couldn't turn on personal connectors in channels. Try again." | Launch didn't finish. Click **Launch Claude Tag** again. |
+| Claude to join the channels you selected on the **Launch Claude Tag** step | "Couldn't add Claude to some channels. Add Claude from Slack instead." | Claude Tag is on, but Claude didn't join every channel you selected. Run `/invite @Claude` in each channel it's missing from. |
 | A reply from Claude while you're still in setup | "Claude is disabled in this channel. Your admin can re-enable it here." | Claude Tag isn't turned on until you finish [Launch Claude Tag](/docs/claude-tag/admins/setup-overview#launch-claude-tag). Finish setup, then mention `@Claude` again. If the message persists after launch, see [Claude is disabled in this channel](#claude-is-disabled-in-this-channel). |
-| The **Connect GitHub** step to list your organization's repositories | "The Claude app is installed on \[username], a personal account. Claude Tag connects to a GitHub organization. Install it on your organization instead." | The Claude GitHub App is on a personal GitHub account. Have a GitHub organization owner [install it on the organization](/docs/claude-tag/admins/configure-github#link-your-github-organization) that owns your repositories. You can skip the step and [grant repositories](/docs/claude-tag/admins/configure-github#grant-repository-access) after setup. |
 | A connected tool to work in your test | “I can't reach…” | Claude isn't told about a connection added after the thread started. Ask it to use the service by name, or start a fresh thread. |
 | The **Where Claude Tag works** section with a **+ Connect** button | Only the legacy Claude in Slack toggles | Your organization isn't enabled for Claude Tag. Contact your account team. |
 | Claude to respond in Slack | "Claude Tag has been turned off for your Claude organization…" | The **Enable Claude Tag for your organization** toggle is off. An Owner turns it on at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). See [the troubleshooting entry](#claude-tag-is-turned-off-for-your-organization). |
@@ -55,11 +56,6 @@ Most errors in this section appear when Claude needs a Slack permission that was
 Claude replies to `@Claude connect`:
 
 > This workspace's Claude app installation is out of date — it hasn't granted the \[permission name] permission(s). I can't create a link code until a Slack admin reinstalls the Claude app or approves its updated permissions. Once that's done, ask me to link again.
-
-Two phrases in the message are links:
-
-* **reinstalls the Claude app** opens the reinstall flow. The fix below starts from this link.
-* **approves its updated permissions** opens Slack's Manage apps page for the workspace.
 
 On Enterprise Grid the message names "this Slack organization's Claude app installation" and asks a Slack organization admin to reinstall the org-wide app. The org-wide reinstall works from inside one of the Grid's workspaces with **Install to entire organization**, following the steps in [Claude is silent everywhere on Enterprise Grid](#claude-is-silent-everywhere-on-enterprise-grid).
 
@@ -113,7 +109,7 @@ Claude replies to `@Claude connect`:
 
 **What it means**
 
-Slack reports that the person who ran `@Claude connect` doesn't hold the workspace admin role, so no pairing code was issued. This reply is itself the signal, and there's nothing else to check. The Claude Owner role doesn't satisfy the check; it's the Slack-side role that matters.
+Slack reports that the person who ran `@Claude connect` doesn't hold the workspace admin role, so no pairing code was issued. The Claude Owner role doesn't satisfy the check; it's the Slack-side role that matters.
 
 **How to resolve**
 
@@ -186,7 +182,7 @@ Either fix works:
 
 Either value applies to every guest channel that scope covers. To limit the change to one channel, set the value on the channel's own scope.
 
-Either value restores replies, not workspace search. Claude can't search the workspace from a channel that includes guests, even under **Full access**. Removing the guests restores search as well.
+Claude can't search the workspace from a channel that includes guests, even under **Full access**. Removing the guests restores search as well.
 
 If the fix worked, a mention in the channel gets a reply.
 
@@ -321,7 +317,7 @@ A banner at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-sett
 
 **What it means**
 
-The request that loads your scope list from Claude's backend failed; it isn't a Slack permissions problem, and your configuration is intact. The page shows the error instead of an empty list so that a failed load doesn't look like an unconfigured workspace.
+The request that loads your scope list from Claude's backend failed; it isn't a Slack permissions problem, and your configuration is intact.
 
 **How to resolve**
 
@@ -422,10 +418,10 @@ In one thread, a working indicator appeared under a request and no reply followe
 
 First check the thread for either of two notices from Claude:
 
-* A notice that begins `:mute: Claude is muted in this thread` means the thread is muted and the session isn't stuck. A 👎 reaction on one of Claude's replies mutes the thread and posts that notice. If Claude's session for the thread was partway through a reply, the reaction also stops that reply.
+* A notice that begins `:mute: Claude is muted in this thread` means the thread is muted and the session isn't stuck. Selecting the thumbs-down button under one of Claude's replies mutes the thread and posts that notice.
 * A notice that ends `stopped Claude's response in this thread. Mention @Claude to pick up again.` means someone selected **Stop** on the working indicator. The session is intact, and a mention continues it.
 
-To bring Claude back to a muted thread, send `@Claude !unmute` in the thread or @-mention Claude there, as [Thumbs-down reactions and muting](/docs/claude-tag/users/commands#thumbs-down-reactions-and-muting) describes.
+To bring Claude back to a muted thread, send `@Claude !unmute` in the thread or @-mention Claude there, as [Thumbs-down button and muting](/docs/claude-tag/users/commands#thumbs-down-button-and-muting) describes.
 
 Without either notice, the session behind that thread is stuck: it hasn't replied and hasn't posted an error. Because Claude responds everywhere else, the problem is confined to that one session, and none of the workspace-level fixes in the entries below apply.
 
@@ -519,7 +515,7 @@ The earlier per-user Claude in Slack app answered the message instead of the new
 
 **How to resolve**
 
-The fix is in claude.ai admin settings, not in Slack. An Owner turns Claude Tag on at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and [pairs the workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace). If the workspace is already paired, check the **Claude Tag version** on the channel's scope, then on its workspace's, and set it to **New** or **Inherit**; see [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/migrate-from-earlier). Once Claude Tag is on and the workspace is paired, the notice stops appearing.
+An Owner turns Claude Tag on at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and [pairs the workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace). If the workspace is already paired, check the **Claude Tag version** on the channel's scope, then on its workspace's, and set it to **New** or **Inherit**; see [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/migrate-from-earlier). Once Claude Tag is on and the workspace is paired, the notice stops appearing.
 
 ### Claude Tag is turned off for your organization
 

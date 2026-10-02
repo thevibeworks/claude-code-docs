@@ -146,6 +146,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ### Body parameters (form-data)
 
 - `files: array of string`
@@ -487,6 +489,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ### Returns
 
 - `data: array of BetaPluginVersion`
@@ -809,6 +813,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Returns
 
@@ -1139,6 +1145,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Example
 

@@ -137,6 +137,8 @@ The Models API response can be used to determine which models are available for 
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 - `"anthropic-workspace-id": optional string`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -522,6 +524,8 @@ The Models API response can be used to determine information about a specific mo
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 - `"anthropic-workspace-id": optional string`
 

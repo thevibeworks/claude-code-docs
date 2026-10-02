@@ -1048,8 +1048,8 @@ Every persisted event includes a `processed_at` timestamp set when the event fin
       var events = client.beta().sessions().events().list(
           session.id(),
           EventListParams.builder()
-              .addType("agent.tool_use")
-              .addType("agent.tool_result")
+              .addType(BetaManagedAgentsSessionEventType.AGENT_TOOL_USE)
+              .addType(BetaManagedAgentsSessionEventType.AGENT_TOOL_RESULT)
               .build());
       for (var event : events.data()) {
           event.agentToolUse().ifPresent(toolUse ->
@@ -2853,5 +2853,5 @@ With `ant beta:sessions connect`, you can open the same viewer from the `ant` CL
 * **Check session events:** Session errors are conveyed through the `session.error` event
 * **Review tool results:** Tool execution failures often explain unexpected agent behavior
 * **Track token usage:** Monitor token consumption to optimize prompts and reduce costs
-* **Use system prompts:** Add logging instructions to the system prompt to make the agent explain its reasoning
+* **Use system prompts:** Add logging instructions to the system prompt so the agent summarizes what it did and what it found
 * **Troubleshoot previews:** If a stream that opts in to event deltas doesn't behave as you expect, see [Troubleshoot previews](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#troubleshoot-previews)

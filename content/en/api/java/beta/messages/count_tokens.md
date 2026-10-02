@@ -121,6 +121,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `Optional<String> userProfileId`
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -3154,19 +3156,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                           Powerful intelligence for long-running agents and coding
 
-                        - `CLAUDE_SONNET_4_5("claude-sonnet-4-5")`
-
-                          High-performance model for agents and coding
-
-                        - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
-
-                          High-performance model for agents and coding
-
                         - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
 
                           **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
                           New class of intelligence, strongest in coding and cybersecurity
+
+                        - `CLAUDE_SONNET_4_5("claude-sonnet-4-5")`
+
+                          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          High-performance model for agents and coding
+
+                        - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
+
+                          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+                          High-performance model for agents and coding
 
                       - `JsonValue name = "advisor"`
 

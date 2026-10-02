@@ -52,7 +52,9 @@ Create, edit, and archive environments from the environment selector, which you 
   </Step>
 
   <Step title="Add or edit an environment">
-    Select **Add cloud environment**, or hover over an existing environment and select the settings icon that appears on the right. The dialog includes the name, network access level, environment variables, and setup script. When you edit an existing cloud environment on a Pro or Max plan, the dialog also includes [API credentials](#add-api-credentials).
+    Select **Cloud** to list your environments. Then select **Add cloud environment**, or hover over an existing environment and select the settings icon that appears on the right.
+
+    The dialog includes the name, network access level, environment variables, and setup script. When you edit an existing cloud environment on a Pro or Max plan, the dialog also includes [API credentials](#add-api-credentials).
 
     <Frame>
       <img src="https://mintcdn.com/claude-code/ZFId6l95856c5LSw/images/cloud-environment-dialog.png?fit=max&auto=format&n=ZFId6l95856c5LSw&q=85&s=30d4478b31d1f879f7ee287ddab32505" alt="The New cloud environment dialog. A Name field with the placeholder Default, a Network access selector set to Trusted with links to the network policy and access levels, an Environment variables box showing .env-format placeholder text with a note that values are visible to anyone using the environment, a Setup script box described as a Bash script that runs when a new session starts before Claude Code launches, and Cancel and Create environment buttons." width="874" height="1372" data-path="images/cloud-environment-dialog.png" />
@@ -98,7 +100,6 @@ Two of these decide whether you can add a credential, and two decide whether the
 * **Role**: an organization admin role in your claude.ai organization
   * On Team and Enterprise, Owners hold it and Admins don't
   * On Pro and Max, you hold it in your own organization
-  * Without it, you see a note instead of the credential list, on your own environments too. Ask an Owner to add the credential to a shared environment and run your sessions there
 * **Environment type**: an Anthropic-hosted cloud environment that already exists. A [self-hosted environment](/docs/en/self-hosted-environments) doesn't have API credentials
 * **API reachability**: the API accepts connections from the internet, because requests leave from Anthropic's network
 * **Encryption keys**: if your organization uses customer-managed encryption keys, you can't save credentials
@@ -109,7 +110,7 @@ You add credentials one at a time from the editor of an environment that already
 
 <Steps>
   <Step title="Open the environment's API credentials">
-    [Open the environment for editing](#configure-your-environment) at [claude.ai/code](https://claude.ai/code). In the **Update cloud environment** dialog, find **API credentials** below **Environment variables**. You see the credentials already on the environment, each with the hosts it applies to.
+    [Open the environment for editing](#configure-your-environment) at [claude.ai/code](https://claude.ai/code). In the **Edit cloud environment** dialog, find **API credentials** below **Environment variables**. You see the credentials already on the environment, each with the hosts it applies to.
   </Step>
 
   <Step title="Add the credential">
@@ -238,7 +239,7 @@ In Anthropic-hosted environments, all GitHub operations go through a dedicated p
 
 * **Git credentials**: the git client inside the VM uses a scoped credential, which the proxy verifies and swaps for your actual GitHub token.
 * **API requests**: requests from the built-in GitHub tools, and from `gh` under the [`proxy-injected` placeholder](#work-with-github-issues-and-pull-requests), go out with your real credentials substituted.
-* **Push protection**: `git push` works only against the session's current working branch; cloning, fetching, and PR operations work normally.
+* **Push restrictions**: the proxy rejects branch deletions and pushes of anything other than a branch, such as a tag. It doesn't limit which branches a push can update. To do that, use branch protection rules or rulesets on GitHub.
 * **Repository scope**: GitHub API and release-asset requests reach only repositories attached to the session, so a setup script that downloads release assets from an unattached repository gets a 403.
 * **GraphQL restrictions**: the proxy serves only a pinned set of GraphQL operations for pull-request workflows. The proxy rejects everything else on the GraphQL endpoint with a 403 that says `This GraphQL query is not enabled for this session` and names the REST fallback, `gh api repos/{owner}/{repo}/...`. The restriction applies to every request through the proxy regardless of the credentials you supply, so a `GH_TOKEN` you set gets the same 403. Claude can't reach GitHub APIs that exist only in GraphQL, such as Projects v2, through the proxy.
 

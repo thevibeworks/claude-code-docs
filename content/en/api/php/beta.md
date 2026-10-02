@@ -111,6 +111,8 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ### Beta API Error
 
 - `class BetaAPIError`
@@ -14728,9 +14730,21 @@ Create a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `?\Datetime archivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
   - `\Datetime createdAt`
 
     Timestamp when the store was created.
+
+  - `string description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `array<string,string> metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `string name`
 
@@ -14739,18 +14753,6 @@ Create a memory store
   - `\Datetime updatedAt`
 
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
-
-  - `?\Datetime archivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-  - `?string description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `?array<string,string> metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -14777,15 +14779,15 @@ var_dump($betaManagedAgentsMemoryStore);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -14839,9 +14841,21 @@ List memory stores
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `?\Datetime archivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
   - `\Datetime createdAt`
 
     Timestamp when the store was created.
+
+  - `string description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `array<string,string> metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `string name`
 
@@ -14850,18 +14864,6 @@ List memory stores
   - `\Datetime updatedAt`
 
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
-
-  - `?\Datetime archivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-  - `?string description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `?array<string,string> metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -14892,15 +14894,15 @@ var_dump($page);
   "data": [
     {
       "id": "id",
-      "created_at": "2019-12-27T18:11:19.117Z",
-      "name": "name",
-      "type": "memory_store",
-      "updated_at": "2019-12-27T18:11:19.117Z",
       "archived_at": "2019-12-27T18:11:19.117Z",
+      "created_at": "2019-12-27T18:11:19.117Z",
       "description": "description",
       "metadata": {
         "foo": "string"
-      }
+      },
+      "name": "name",
+      "type": "memory_store",
+      "updated_at": "2019-12-27T18:11:19.117Z"
     }
   ],
   "next_page": "next_page"
@@ -14941,9 +14943,21 @@ Retrieve a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `?\Datetime archivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
   - `\Datetime createdAt`
 
     Timestamp when the store was created.
+
+  - `string description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `array<string,string> metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `string name`
 
@@ -14952,18 +14966,6 @@ Retrieve a memory store
   - `\Datetime updatedAt`
 
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
-
-  - `?\Datetime archivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-  - `?string description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `?array<string,string> metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -14988,15 +14990,15 @@ var_dump($betaManagedAgentsMemoryStore);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -15046,9 +15048,21 @@ Update a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `?\Datetime archivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
   - `\Datetime createdAt`
 
     Timestamp when the store was created.
+
+  - `string description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `array<string,string> metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `string name`
 
@@ -15057,18 +15071,6 @@ Update a memory store
   - `\Datetime updatedAt`
 
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
-
-  - `?\Datetime archivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-  - `?string description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `?array<string,string> metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -15096,15 +15098,15 @@ var_dump($betaManagedAgentsMemoryStore);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -15203,9 +15205,21 @@ Archive a memory store
 
     Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
+  - `?\Datetime archivedAt`
+
+    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
+
   - `\Datetime createdAt`
 
     Timestamp when the store was created.
+
+  - `string description`
+
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
+
+  - `array<string,string> metadata`
+
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
   - `string name`
 
@@ -15214,18 +15228,6 @@ Archive a memory store
   - `\Datetime updatedAt`
 
     Timestamp when the store's `name`, `description`, or `metadata` was last modified. Memory writes inside the store do not advance this.
-
-  - `?\Datetime archivedAt`
-
-    Timestamp when the store was archived, or `null` if active. Set once and never cleared; archiving is one-way. Archived stores are read-only and cannot be attached to new sessions.
-
-  - `?string description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `?array<string,string> metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 #### Example
 
@@ -15250,15 +15252,15 @@ var_dump($betaManagedAgentsMemoryStore);
 ```json
 {
   "id": "id",
-  "created_at": "2019-12-27T18:11:19.117Z",
-  "name": "name",
-  "type": "memory_store",
-  "updated_at": "2019-12-27T18:11:19.117Z",
   "archived_at": "2019-12-27T18:11:19.117Z",
+  "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "metadata": {
     "foo": "string"
-  }
+  },
+  "name": "name",
+  "type": "memory_store",
+  "updated_at": "2019-12-27T18:11:19.117Z"
 }
 ```
 
@@ -26152,8 +26154,8 @@ var_dump($serviceAccount);
 List Messages API rate limits for your organization.
 
 Each entry corresponds to one rate-limit group (either a model family
-or an API-surface category such as the Files API or Message Batches)
-and contains the set of limiter values that apply to it.
+or an API-surface category such as the Message Batches API or the web
+search tool) and contains the set of limiter values that apply to it.
 
 When `limit` is omitted, every matching entry is returned in a single
 page; when `limit` truncates the result, follow `next_page` to fetch
@@ -26371,6 +26373,4066 @@ var_dump($betaComplianceSettings);
     "type": "enabled"
   },
   "type": "compliance_settings"
+}
+```
+
+## Beta › Organization › Analytics › Summaries
+
+### Get Activity Summaries
+
+`$client->beta->organization->analytics->summaries->list(\Datetime startingDate, ?\Datetime endingDate, ?list<string> filter, ?int limit, ?string page): PageCursor<AnalyticsSingleDayActivitySummary>`
+
+**GET** `/v1/organizations/analytics/summaries`
+
+Get organization-wide activity summaries for a date range.
+
+Returns one entry per day from `starting_date` (inclusive) to `ending_date`
+(exclusive) in `data`, the same `data` / `next_page` envelope as the other
+analytics list endpoints; the series is currently returned in full, so
+`next_page` is always null (`summaries` is a deprecated alias of `data`).
+Data is typically available with a 1-day lag and may be revised by a few
+percent over the following days: when `ending_date` is omitted it
+defaults to the most recent available day + 1, so the last entry covers
+the most recent available day. The series can be scoped to an RBAC group
+via `filter[]=rbac_group_id:{id}`. Available to organizations on a Claude
+Enterprise plan. Requires an API key with the `read:analytics` scope.
+
+#### Parameters
+
+- `startingDate: \Datetime`
+
+  UTC date in YYYY-MM-DD format. Start of the date range (inclusive). Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+- `endingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. End of the date range (exclusive). Data is typically available with a 1-day lag, so this can be at most today — which is also the default when omitted, making the last entry cover the most recent available day. Data may be revised by a few percent over the following days. The range may span at most 366 days.
+
+- `filter?:optional list<string>`
+
+  Filters as `dimension:value`. Only `rbac_group_id` is supported (e.g. `filter[]=rbac_group_id:{id}`); repeat the param to OR across groups. Scopes the whole day series to members of the matching group(s), re-aggregated from member-level activity — org-wide seat/invite fields and the adoption rates derived from them are null on scoped rows. `rbac_group_id` accepts the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each UTC day (time-of-usage attribution). At most 100 entries.
+
+- `limit?:optional int`
+
+  Number of results per page (1-1000, default 100). The day series (at most 366 entries) is currently returned in full in a single page, so `limit` does not yet shorten it.
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field. `next_page` is currently always null, so there is never a cursor to send.
+
+#### Returns
+
+- `class AnalyticsSingleDayActivitySummary`
+
+  - `?int assignedSeatCount`
+
+    Number of seats currently assigned to members. Null when the response is scoped to an RBAC group — seat assignment is org-wide and has no per-group analogue.
+
+  - `int coworkDailyActiveUserCount`
+
+    Number of users with Cowork activity on the requested day
+
+  - `int coworkMonthlyActiveUserCount`
+
+    Number of users with Cowork activity in the 30-day rolling window
+
+  - `int coworkWeeklyActiveUserCount`
+
+    Number of users with Cowork activity in the 7-day rolling window
+
+  - `int dailyActiveUserCount`
+
+    Number of users with token consumption on the requested day
+
+  - `?float dailyAdoptionRate`
+
+    Percentage of assigned seats with activity on the requested day (`DAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+
+  - `\Datetime endingAt`
+
+    End of the aggregation period (exclusive), UTC midnight in RFC 3339 format (e.g. `2026-01-16T00:00:00Z`).
+
+  - `int monthlyActiveUserCount`
+
+    Number of users with token consumption in the 30-day rolling window
+
+  - `?float monthlyAdoptionRate`
+
+    Percentage of assigned seats with activity in the 30-day rolling window (`MAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+
+  - `?int pendingInviteCount`
+
+    Number of pending invitations to join the organization. Null when the response is scoped to an RBAC group.
+
+  - `\Datetime startingAt`
+
+    Start of the aggregation period (inclusive), UTC midnight in RFC 3339 format (e.g. `2026-01-15T00:00:00Z`).
+
+  - `int weeklyActiveUserCount`
+
+    Number of users with token consumption in the 7-day rolling window
+
+  - `?float weeklyAdoptionRate`
+
+    Percentage of assigned seats with activity in the 7-day rolling window (`WAU / assigned_seat_count * 100`). Null when the response is scoped to an RBAC group.
+
+  - `?int chatDailyActiveUserCount`
+
+    Number of users with claude.ai (chat) activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int chatMonthlyActiveUserCount`
+
+    Number of users with claude.ai (chat) activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int chatWeeklyActiveUserCount`
+
+    Number of users with claude.ai (chat) activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int claudeCodeDailyActiveUserCount`
+
+    Number of users with Claude Code activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int claudeCodeMonthlyActiveUserCount`
+
+    Number of users with Claude Code activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int claudeCodeWeeklyActiveUserCount`
+
+    Number of users with Claude Code activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int claudeDesignDailyActiveUserCount`
+
+    Number of users with Claude Design activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int claudeDesignMonthlyActiveUserCount`
+
+    Number of users with Claude Design activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int claudeDesignWeeklyActiveUserCount`
+
+    Number of users with Claude Design activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int officeAgentDailyActiveUserCount`
+
+    Number of users with Claude in Office activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int officeAgentMonthlyActiveUserCount`
+
+    Number of users with Claude in Office activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int officeAgentWeeklyActiveUserCount`
+
+    Number of users with Claude in Office activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int scienceDailyActiveUserCount`
+
+    Number of users with Claude Science activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int scienceEntitledUserCount`
+
+    Number of users with a Claude Science seat entitlement (per-seat RBAC) at the time of the daily snapshot. The funnel top; independent of the org-level Claude Science toggle. Null when the response is scoped to an RBAC group — entitlement is org-wide and has no per-group analogue. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int scienceMonthlyActiveUserCount`
+
+    Number of users with Claude Science activity in the 30-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+  - `?int scienceWeeklyActiveUserCount`
+
+    Number of users with Claude Science activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->summaries->list(
+  startingDate: '2019-12-27',
+  endingDate: '2019-12-27',
+  filter: ['string'],
+  limit: 1,
+  page: 'page',
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "assigned_seat_count": 0,
+      "cowork_daily_active_user_count": 0,
+      "cowork_monthly_active_user_count": 0,
+      "cowork_weekly_active_user_count": 0,
+      "daily_active_user_count": 0,
+      "daily_adoption_rate": 0,
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "monthly_active_user_count": 0,
+      "monthly_adoption_rate": 0,
+      "pending_invite_count": 0,
+      "starting_at": "2019-12-27T18:11:19.117Z",
+      "weekly_active_user_count": 0,
+      "weekly_adoption_rate": 0,
+      "chat_daily_active_user_count": 0,
+      "chat_monthly_active_user_count": 0,
+      "chat_weekly_active_user_count": 0,
+      "claude_code_daily_active_user_count": 0,
+      "claude_code_monthly_active_user_count": 0,
+      "claude_code_weekly_active_user_count": 0,
+      "claude_design_daily_active_user_count": 0,
+      "claude_design_monthly_active_user_count": 0,
+      "claude_design_weekly_active_user_count": 0,
+      "office_agent_daily_active_user_count": 0,
+      "office_agent_monthly_active_user_count": 0,
+      "office_agent_weekly_active_user_count": 0,
+      "science_daily_active_user_count": 0,
+      "science_entitled_user_count": 0,
+      "science_monthly_active_user_count": 0,
+      "science_weekly_active_user_count": 0
+    }
+  ],
+  "next_page": "next_page",
+  "summaries": [
+    {
+      "assigned_seat_count": 0,
+      "cowork_daily_active_user_count": 0,
+      "cowork_monthly_active_user_count": 0,
+      "cowork_weekly_active_user_count": 0,
+      "daily_active_user_count": 0,
+      "daily_adoption_rate": 0,
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "monthly_active_user_count": 0,
+      "monthly_adoption_rate": 0,
+      "pending_invite_count": 0,
+      "starting_at": "2019-12-27T18:11:19.117Z",
+      "weekly_active_user_count": 0,
+      "weekly_adoption_rate": 0,
+      "chat_daily_active_user_count": 0,
+      "chat_monthly_active_user_count": 0,
+      "chat_weekly_active_user_count": 0,
+      "claude_code_daily_active_user_count": 0,
+      "claude_code_monthly_active_user_count": 0,
+      "claude_code_weekly_active_user_count": 0,
+      "claude_design_daily_active_user_count": 0,
+      "claude_design_monthly_active_user_count": 0,
+      "claude_design_weekly_active_user_count": 0,
+      "office_agent_daily_active_user_count": 0,
+      "office_agent_monthly_active_user_count": 0,
+      "office_agent_weekly_active_user_count": 0,
+      "science_daily_active_user_count": 0,
+      "science_entitled_user_count": 0,
+      "science_monthly_active_user_count": 0,
+      "science_weekly_active_user_count": 0
+    }
+  ]
+}
+```
+
+## Beta › Organization › Analytics › Users
+
+### List User Activity
+
+`$client->beta->organization->analytics->users->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsUserActivity>`
+
+**GET** `/v1/organizations/analytics/users`
+
+Get per-user activity for a given day, with cursor-based pagination.
+
+Returns activity metrics for each user in the organization, sorted by email
+address. Use `group_by[]` for per-RBAC-group aggregates, or `filter[]` to
+scope results to specific members, groups, or a chat project. Available
+to organizations on a Claude Enterprise plan. Requires an API key with
+the `read:analytics` scope.
+
+#### Parameters
+
+- `date?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. The day to get user activity for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+- `endingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+- `filter?:optional list<string>`
+
+  Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `project_id`, `rbac_group_id`, `user_id`. Value forms: `project_id` takes a tagged project id (`claude_proj_...`) and scopes each member's row to their claude.ai chat activity within that project (it cannot be combined with `group_by[]` or an `rbac_group_id` filter); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+- `groupBy?:optional list<GroupBy>`
+
+  Dimensions to break results out by (e.g. `group_by[]=rbac_group_id`). Supported on this endpoint: `rbac_group_id`. Rows are already per-member, so the one supported grouping aggregates them per RBAC group instead. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+- `limit?:optional int`
+
+  Number of results per page (1-1000, default 100).
+
+- `order?:optional Order`
+
+  Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+- `orderBy?:optional string`
+
+  Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `startingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+#### Returns
+
+- `class AnalyticsUserActivity`
+
+  - `AnalyticsChatMetrics chatMetrics`
+
+    Claude.ai activity metrics for a single user on a given day.
+
+  - `AnalyticsClaudeCodeMetrics claudeCodeMetrics`
+
+    Claude Code activity metrics for a single user on a given day.
+
+  - `AnalyticsCoworkMetrics coworkMetrics`
+
+    Cowork activity metrics for a single user on a given day.
+
+  - `AnalyticsDesignMetrics designMetrics`
+
+    Claude Design activity metrics for a single user on a given day.
+
+  - `AnalyticsOfficeMetrics officeMetrics`
+
+    Office Agent activity metrics for a single user on a given day, broken out by Office product.
+
+  - `AnalyticsScienceMetrics scienceMetrics`
+
+    Claude Science activity metrics for a single user on a given day.
+
+  - `int webSearchCount`
+
+    Number of web searches performed
+
+  - `?int distinctUserCount`
+
+    Number of distinct active users represented by this row. Only set for grouped rollups (`group_by[]`); null for per-user rows. In date-range mode, recomputed as an exact distinct count of the group's active members over the requested window, never a sum of per-day values.
+
+  - `?\Datetime lastActivityDate`
+
+    Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member of that group, consistent with the row's other metrics. On grouped (`group_by[]`) rows it is the latest day any member of the group was active (the requested `date` in single-day mode). Omitted from the response while last-activity reporting is not enabled for this organization.
+
+  - `?string rbacGroupID`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `?string rbacGroupName`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `?AnalyticsUser user`
+
+    The user this row describes. Null on rows aggregated across users.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->users->list(
+  date: '2019-12-27',
+  endingDate: '2019-12-27',
+  filter: ['string'],
+  groupBy: ['rbac_group_id'],
+  limit: 1,
+  order: 'asc',
+  orderBy: 'order_by',
+  page: 'page',
+  startingDate: '2019-12-27',
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "chat_metrics": {
+        "connectors_used_count": 0,
+        "distinct_artifacts_created_count": 0,
+        "distinct_connectors_used_count": 0,
+        "distinct_conversation_count": 0,
+        "distinct_files_uploaded_count": 0,
+        "distinct_projects_created_count": 0,
+        "distinct_projects_used_count": 0,
+        "distinct_shared_artifacts_viewed_count": 0,
+        "distinct_skills_used_count": 0,
+        "message_count": 0,
+        "shared_conversations_viewed_count": 0,
+        "thinking_message_count": 0
+      },
+      "claude_code_metrics": {
+        "core_metrics": {
+          "artifacts_created_count": 0,
+          "commit_count": 0,
+          "distinct_session_count": 0,
+          "lines_of_code": {
+            "added_count": 0,
+            "removed_count": 0
+          },
+          "pull_request_count": 0
+        },
+        "tool_actions": {
+          "edit_tool": {
+            "accepted_count": 0,
+            "rejected_count": 0
+          },
+          "multi_edit_tool": {
+            "accepted_count": 0,
+            "rejected_count": 0
+          },
+          "notebook_edit_tool": {
+            "accepted_count": 0,
+            "rejected_count": 0
+          },
+          "write_tool": {
+            "accepted_count": 0,
+            "rejected_count": 0
+          }
+        }
+      },
+      "cowork_metrics": {
+        "action_count": 0,
+        "artifacts_created_count": 0,
+        "connectors_used_count": 0,
+        "dispatch_turn_count": 0,
+        "distinct_connectors_used_count": 0,
+        "distinct_session_count": 0,
+        "distinct_skills_used_count": 0,
+        "message_count": 0,
+        "skills_used_count": 0,
+        "distinct_plugins_used_count": 0,
+        "edit_tool_count": 0,
+        "file_edit_count": 0,
+        "multi_edit_tool_count": 0,
+        "notebook_edit_tool_count": 0,
+        "plugins_used_count": 0,
+        "sessions_with_file_edits_count": 0,
+        "write_tool_count": 0
+      },
+      "design_metrics": {
+        "distinct_projects_created_count": 0,
+        "distinct_projects_used_count": 0,
+        "distinct_session_count": 0,
+        "message_count": 0
+      },
+      "office_metrics": {
+        "excel": {
+          "connectors_used_count": 0,
+          "distinct_connectors_used_count": 0,
+          "distinct_session_count": 0,
+          "distinct_skills_used_count": 0,
+          "message_count": 0,
+          "skills_used_count": 0
+        },
+        "outlook": {
+          "connectors_used_count": 0,
+          "distinct_connectors_used_count": 0,
+          "distinct_session_count": 0,
+          "distinct_skills_used_count": 0,
+          "message_count": 0,
+          "skills_used_count": 0
+        },
+        "powerpoint": {
+          "connectors_used_count": 0,
+          "distinct_connectors_used_count": 0,
+          "distinct_session_count": 0,
+          "distinct_skills_used_count": 0,
+          "message_count": 0,
+          "skills_used_count": 0
+        },
+        "word": {
+          "connectors_used_count": 0,
+          "distinct_connectors_used_count": 0,
+          "distinct_session_count": 0,
+          "distinct_skills_used_count": 0,
+          "message_count": 0,
+          "skills_used_count": 0
+        }
+      },
+      "science_metrics": {
+        "delegation_count": 0,
+        "distinct_session_count": 0,
+        "message_count": 0,
+        "remote_compute_job_count": 0,
+        "skills_used_count": 0
+      },
+      "web_search_count": 0,
+      "distinct_user_count": 0,
+      "last_activity_date": "2019-12-27",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "user": {
+        "id": "id",
+        "email_address": "email_address",
+        "type": "user"
+      }
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Apps › Chat › Projects
+
+### Get Chat Project Usage
+
+`$client->beta->organization->analytics->apps->chat->projects->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsProjectActivity>`
+
+**GET** `/v1/organizations/analytics/apps/chat/projects`
+
+Get per-project activity for a given day, with cursor-based pagination.
+
+Returns activity metrics for each project in the organization, sorted by
+project ID. Use `group_by[]` to break projects out per member or per RBAC
+group, and `filter[]` to scope results; the parameter descriptions list the
+supported dimensions. Available to organizations on a Claude Enterprise
+plan. Requires an API key with the `read:analytics` scope.
+
+#### Parameters
+
+- `date?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. The day to get project activity for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+- `endingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+- `filter?:optional list<string>`
+
+  Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `project_id`, `rbac_group_id`, `user_id`. Value forms: `project_id` takes a tagged project id (`claude_proj_...`); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+- `groupBy?:optional list<GroupBy>`
+
+  Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+- `limit?:optional int`
+
+  Number of results per page (1-1000, default 100).
+
+- `order?:optional Order`
+
+  Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+- `orderBy?:optional string`
+
+  Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `startingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+#### Returns
+
+- `class AnalyticsProjectActivity`
+
+  - `int distinctUserCount`
+
+    Number of distinct users who used the project on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `int messageCount`
+
+    Number of messages sent in the project on the requested day
+
+  - `string projectID`
+
+    Tagged project identifier (e.g. `claude_proj_...`)
+
+  - `string projectName`
+
+    Name of the project
+
+  - `?\Datetime createdAt`
+
+    Project creation timestamp in RFC 3339 format. Null if the project was deleted before attribution was recorded.
+
+  - `?AnalyticsUser createdBy`
+
+    User who created the project. Null if the project was deleted before attribution was recorded, or if the creator's account no longer exists.
+
+  - `?int distinctConversationCount`
+
+    Number of distinct conversations in the project. Null on aggregated rows where a distinct count cannot be computed.
+
+  - `?string product`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `?string rbacGroupID`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `?string rbacGroupName`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `?string userID`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->apps->chat->projects->list(
+  date: '2019-12-27',
+  endingDate: '2019-12-27',
+  filter: ['string'],
+  groupBy: ['rbac_group_id'],
+  limit: 1,
+  order: 'asc',
+  orderBy: 'order_by',
+  page: 'page',
+  startingDate: '2019-12-27',
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "distinct_user_count": 0,
+      "message_count": 0,
+      "project_id": "project_id",
+      "project_name": "project_name",
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "created_by": {
+        "id": "id",
+        "email_address": "email_address",
+        "type": "user"
+      },
+      "distinct_conversation_count": 0,
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "user_id": "user_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Connectors
+
+### Get Connector Usage
+
+`$client->beta->organization->analytics->connectors->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsConnectorActivity>`
+
+**GET** `/v1/organizations/analytics/connectors`
+
+Get per-connector usage for a given day, with cursor-based pagination.
+
+Returns connector usage metrics for the organization, sorted by connector
+name. Connector names are normalized from their various sources — for
+example, "Atlassian MCP server" and "mcp-atlassian" both appear as
+"atlassian". Use `group_by[]` to break usage out per member, per RBAC
+group, or per product surface, and `filter[]` to scope results; the
+parameter descriptions list the supported dimensions. Available to
+organizations on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `date?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. The day to get connector usage for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+- `endingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+- `filter?:optional list<string>`
+
+  Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `connector_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `connector_name` matches case-insensitively, a display name such as 'GitHub MCP' also matches its normalized stored form ('github'), and for rows whose `connector_name` is an opaque connector id the connector's display name (`connector_display_name`) also matches; `product` is one of `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+- `groupBy?:optional list<GroupBy>`
+
+  Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+- `limit?:optional int`
+
+  Number of results per page (1-1000, default 100).
+
+- `order?:optional Order`
+
+  Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+- `orderBy?:optional string`
+
+  Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `startingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+#### Returns
+
+- `class AnalyticsConnectorActivity`
+
+  - `AnalyticsConnectorChatMetrics chatMetrics`
+
+    Claude.ai activity metrics for a single connector on a given day.
+
+  - `AnalyticsConnectorClaudeCodeMetrics claudeCodeMetrics`
+
+    Claude Code activity metrics for a single connector on a given day.
+
+  - `string connectorName`
+
+    Name of the connector. Some rows carry an opaque connector id here instead of a readable name; `connector_display_name` holds the resolved name for those rows.
+
+  - `AnalyticsConnectorCoworkMetrics coworkMetrics`
+
+    Cowork activity metrics for a single connector on a given day.
+
+  - `int distinctUserCount`
+
+    Number of distinct users who used the connector on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `AnalyticsConnectorOfficeMetrics officeMetrics`
+
+    Office Agent activity metrics for a single connector on a given day, broken out by Office product.
+
+  - `?string connectorDisplayName`
+
+    Human-readable display name for rows whose `connector_name` is an opaque connector id rather than a readable name, resolved at request time from the organization's connectors (including connectors that have since been removed). `connector_name` remains the row's stable key for sorting and pagination, and `filter[]=connector_name:{value}` also matches these rows by display name. Display names are not unique, and the same connector's claude.ai usage can appear under a separate row with a readable `connector_name`. Null when `connector_name` is already a readable name, when the id cannot be resolved to one of the organization's connectors, or when display-name resolution is not enabled for this organization.
+
+  - `?int individualAuthDistinctUserCount`
+
+    Number of distinct users whose use of this connector on the requested day ran on their own individual credential, connected through their own consent flow. Companion bucket to `managed_auth_distinct_user_count`, which carries the measurement, attribution, and null rules. Users whose requests used no stored credential count in neither bucket.
+
+  - `?int managedAuthDistinctUserCount`
+
+    Number of distinct users whose use of this connector on the requested day ran on Enterprise Managed Auth (an organization-managed credential provisioned through the organization's identity provider), read from the token record each request used. Null, never 0, when managed-auth reporting is not enabled for the organization, the value cannot be attributed to the row, no credentialed requests and no managed-token mint events (a managed credential being provisioned for a user's use of the connector) were observed that day, or the day predates 2026-07-01, the first day the backing data exists (forward-only data, no backfill). When credentialed requests or mint events were observed and attributed, both managed-auth fields populate, reporting 0 for a bucket with no users; the two counts are independent, not a partition — a user whose requests that day used both kinds of credential counts in both. Mint events carry user but not surface attribution, so they count as observed auth activity on `user_id` and `rbac_group_id` cuts — attributed to the user the credential was provisioned for — but never on a cut that references `product` (group or filter). Date-range rollup mode (`starting_date`/`ending_date`) computes both fields exactly over the window — distinct users with at least one qualifying day — when the whole window starts on or after 2026-07-01, with the null-versus-0 and mint-event rules applying with the window in place of the day; a range starting earlier reports every managed-auth field as null, never a partial-window value.
+
+  - `?string product`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `?string rbacGroupID`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `?string rbacGroupName`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `?int readCallCount`
+
+    Number of connector tool calls on the requested day whose trusted read-only annotation marked them read-only. Call count, not distinct users. Every call recorded on a classified surface lands in exactly one of `read_call_count`, `write_call_count`, or `unclassified_call_count`, so the three sum to the day's classified calls. Classification is forward-only per surface: claude.ai from 2026-06-01, Claude Code from 2026-05-30, Claude in Office from 2026-05-29, Cowork from 2026-06-02 (Cowork clients predating annotation forwarding land in `unclassified_call_count`). Null, never 0, when the value cannot be stated: the read/write split is not enabled for this organization, or the day predates 2026-05-29. For a date-range total, sum the per-day values, but treat a window that extends before 2026-05-29 as null rather than summing only its covered days — date-range rollup mode (`starting_date`/`ending_date`) applies both rules server-side.
+
+  - `?int unclassifiedCallCount`
+
+    Number of connector tool calls on the requested day with no trusted read-only annotation — the annotation is optional in the MCP spec and is discarded when connector access controls are active, so unclassified calls are common. This field shows how much of the day's classified activity the read/write split actually covers. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
+
+  - `?string userID`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+  - `?int writeCallCount`
+
+    Number of connector tool calls on the requested day whose trusted read-only annotation marked them not read-only. Call count, not distinct users. One of the three call-classification buckets; see `read_call_count` for the per-surface data-start dates, null conditions, and date-range guidance.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->connectors->list(
+  date: '2019-12-27',
+  endingDate: '2019-12-27',
+  filter: ['string'],
+  groupBy: ['product'],
+  limit: 1,
+  order: 'asc',
+  orderBy: 'order_by',
+  page: 'page',
+  startingDate: '2019-12-27',
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "chat_metrics": {
+        "distinct_conversation_connector_used_count": 0
+      },
+      "claude_code_metrics": {
+        "distinct_session_connector_used_count": 0
+      },
+      "connector_name": "connector_name",
+      "cowork_metrics": {
+        "distinct_session_connector_used_count": 0
+      },
+      "distinct_user_count": 0,
+      "office_metrics": {
+        "excel": {
+          "distinct_session_connector_used_count": 0
+        },
+        "outlook": {
+          "distinct_session_connector_used_count": 0
+        },
+        "powerpoint": {
+          "distinct_session_connector_used_count": 0
+        },
+        "word": {
+          "distinct_session_connector_used_count": 0
+        }
+      },
+      "connector_display_name": "connector_display_name",
+      "individual_auth_distinct_user_count": 0,
+      "managed_auth_distinct_user_count": 0,
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "read_call_count": 0,
+      "unclassified_call_count": 0,
+      "user_id": "user_id",
+      "write_call_count": 0
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Plugins
+
+### Get Plugin Usage
+
+`$client->beta->organization->analytics->plugins->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsPluginActivity>`
+
+**GET** `/v1/organizations/analytics/plugins`
+
+Get per-plugin install + invocation usage for a given day, with pagination.
+
+Returns plugin usage metrics for the organization across Cowork and Claude
+Code, sorted by plugin name. The `plugin_name` value `third-party` is
+an aggregate bucket, not a plugin: it collects plugin activity, from
+either surface, for which the reporting client did not provide a plugin
+name — so an organization's own plugins can contribute both to their own
+named rows and to this bucket. Use `group_by[]` to break usage out per
+member, per RBAC group, or per product surface (Cowork / Claude Code),
+and `filter[]` to scope results; the parameter descriptions list the
+supported dimensions. Requires an API key with the
+`read:analytics` scope. `starting_date` / `ending_date` select
+range-rollup mode like `/skills`.
+
+#### Parameters
+
+- `date?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. The day to get plugin usage for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+- `endingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+- `filter?:optional list<string>`
+
+  Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `plugin_name`, `product`, `rbac_group_id`, `user_id`. Value forms: `plugin_name` matches case-insensitively; `product` is `claude_code` or `cowork` (the only surfaces with plugin attribution); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+- `groupBy?:optional list<GroupBy>`
+
+  Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. On this endpoint `product` takes the values `claude_code` or `cowork` only (the surfaces with plugin attribution). Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+- `limit?:optional int`
+
+  Number of results per page (1-1000, default 100).
+
+- `order?:optional Order`
+
+  Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+- `orderBy?:optional string`
+
+  Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `startingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+#### Returns
+
+- `class AnalyticsPluginActivity`
+
+  - `AnalyticsPluginClaudeCodeMetrics claudeCodeMetrics`
+
+    Claude Code activity metrics for a single plugin on a given day.
+
+  - `AnalyticsPluginCoworkMetrics coworkMetrics`
+
+    Cowork activity metrics for a single plugin on a given day.
+
+  - `int distinctUserCount`
+
+    Number of distinct users with recorded install or invocation activity for the plugin on the requested day (install-only users count), or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `?int installCount`
+
+    Number of distinct users who installed the plugin on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
+
+  - `int invocationCount`
+
+    Number of plugin invocations on the requested day
+
+  - `string pluginName`
+
+    Name of the plugin
+
+  - `?string pluginID`
+
+    Stable plugin identifier when available (e.g. `serena@claude-plugins-official`). Null for third-party Claude Code plugins (redacted at the source) and Cowork slash commands that carry only a hashed id.
+
+  - `?string product`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `?string rbacGroupID`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `?string rbacGroupName`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `?string userID`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->plugins->list(
+  date: '2019-12-27',
+  endingDate: '2019-12-27',
+  filter: ['string'],
+  groupBy: ['product'],
+  limit: 1,
+  order: 'asc',
+  orderBy: 'order_by',
+  page: 'page',
+  startingDate: '2019-12-27',
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "claude_code_metrics": {
+        "distinct_session_plugin_used_count": 0
+      },
+      "cowork_metrics": {
+        "distinct_session_plugin_used_count": 0
+      },
+      "distinct_user_count": 0,
+      "install_count": 0,
+      "invocation_count": 0,
+      "plugin_name": "plugin_name",
+      "plugin_id": "plugin_id",
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "user_id": "user_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Skills
+
+### Get Skill Usage
+
+`$client->beta->organization->analytics->skills->list(?\Datetime date, ?\Datetime endingDate, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?Order order, ?string orderBy, ?string page, ?\Datetime startingDate): PageCursor<AnalyticsSkillActivity>`
+
+**GET** `/v1/organizations/analytics/skills`
+
+Get per-skill usage for a given day, with cursor-based pagination.
+
+Returns skill usage metrics for the organization, sorted by skill name.
+Use `group_by[]` to break usage out per member, per RBAC group, or per
+product surface, and `filter[]` to scope results; the parameter
+descriptions list the supported dimensions. Available to organizations
+on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `date?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. The day to get skill usage for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+- `endingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
+
+- `filter?:optional list<string>`
+
+  Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `product`, `rbac_group_id`, `share_status`, `skill_name`, `user_id`. Value forms: `product` is one of `chat`, `claude_code`, `cowork`, or `office_agent`; `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `share_status` is one of `organization`, `private`, or `public`; `skill_name` matches case-insensitively; `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+- `groupBy?:optional list<GroupBy>`
+
+  Dimensions to break results out by (e.g. `group_by[]=user_id`). Supported on this endpoint: `product`, `rbac_group_id`, `user_id`. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+- `limit?:optional int`
+
+  Number of results per page (1-1000, default 100).
+
+- `order?:optional Order`
+
+  Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
+
+- `orderBy?:optional string`
+
+  Sort field. Restricted to the endpoint's sort column plus its rankable metrics (metrics default to descending; a few metrics rank in date-range mode only, per the endpoint's documented orderable set).
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `startingDate?:optional \Datetime`
+
+  UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+#### Returns
+
+- `class AnalyticsSkillActivity`
+
+  - `AnalyticsSkillChatMetrics chatMetrics`
+
+    Claude.ai activity metrics for a single skill on a given day.
+
+  - `AnalyticsSkillClaudeCodeMetrics claudeCodeMetrics`
+
+    Claude Code activity metrics for a single skill on a given day.
+
+  - `AnalyticsSkillCoworkMetrics coworkMetrics`
+
+    Cowork activity metrics for a single skill on a given day.
+
+  - `int distinctUserCount`
+
+    Number of distinct users who used the skill on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted.
+
+  - `AnalyticsSkillOfficeMetrics officeMetrics`
+
+    Office Agent activity metrics for a single skill on a given day, broken out by Office product.
+
+  - `string skillName`
+
+    Name of the skill
+
+  - `?string attributedListPrice`
+
+    List-price (rate-card) value of the member requests attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD), from Claude Code, Cowork, and Office Agent request-level attribution — the value of requests that involved the skill, not the skill's incremental cost. Unlike `estimated_overage_spend` this reflects usage value regardless of how it was funded — seat-covered usage counts — but it is undiscounted and does not tie to billed spend or the organization's spend reporting. claude.ai chat usage carries no request-level attribution and contributes nothing: the field is null on `chat` product rows and on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start), and on ungrouped rows it covers the Claude Code + Cowork + Office Agent share only (null when no attributable usage exists). Also null under the same conditions as `estimated_overage_spend` (spend reporting not enabled for this organization, `office_agent` product cuts before the 2026-06-18 data-start). "0" means attributable usage existed but none was attributed to this skill. Addable across days: date-range rollup mode returns the window's sum. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
+
+  - `?string currency`
+
+    Currency for this row's monetary fields (`estimated_overage_spend` and `attributed_list_price`), as an uppercase ISO-4217 code. Always "USD" when either amount is populated; null whenever both amounts are null.
+
+  - `?int enableCount`
+
+    Distinct accounts that enabled this skill on the requested day (claude.ai only — the skill analog of plugin `install_count`). The count is org-wide: null when enable reporting is not enabled for this organization, or when the request scopes to `user_id` / `rbac_group_id` / `product` via `group_by[]` or `filter[]` (an org-wide count would be misleading on per-cut rows). A distinct count, not an event count: summing across days double-counts members who enable the skill on more than one day, so it is also null in date-range rollup mode (`starting_date`/`ending_date`).
+
+  - `?string estimatedOverageSpend`
+
+    Estimated overage spend attributed to this skill, as a decimal string in the minor unit of `currency` (cents for USD; "1250" is $12.50, fractional cents possible) — an allocation of each member's daily post-discount, pre-credit metered overage spend (the same cost basis as the organization's spend reporting and the Cost & Usage API, so per-skill figures are directly comparable; spend with no skill attribution — including any member-day without skill invocations — is not represented, so skill rows sum to at most those totals) across the skills the member used. Overage only: usage covered by included seat allowances bills nothing and allocates $0 here — see `attributed_list_price` for the funding-independent usage-value companion. Claude Code, Cowork, and Office Agent spend use request-level skill attribution; claude.ai chat spend is approximated proportionally to skill-invoking messages. An estimate, not a billing number — and the cost of the requests/messages that involved the skill, not the skill's incremental cost (the same request would still have cost something without the skill active). "0" means no overage spend was attributed; null when spend reporting is not enabled for this organization, on `office_agent` product cuts dated before 2026-06-18 (the Office Agent attribution data-start). Addable across days: date-range rollup mode (`starting_date`/`ending_date`) returns the window's sum. With `group_by[]=user_id` each row carries the user's own attributed spend. On `group_by[]` and `filter[]` shapes both amounts can total below the ungrouped value for the same skill over the same date or range: spend attributed to a member–skill pair with no counted usage on that day is excluded from those cuts.
+
+  - `?int invocationCount`
+
+    Total number of times this skill was invoked on the requested day (the skill analog of plugin `invocation_count`). Unlike `distinct_user_count` — which answers '\# of users' — this is the true '# of uses'. A skill counts as used only when it is explicitly activated — the model (or the user, via the skill's slash command) invokes it, reading its instructions into context as part of that activation. Skills that are merely installed or listed as available, or whose content reaches the context without an activation (preloaded, hook-injected, or read as a plain file), are not counted. Null when invocation reporting is not enabled for this organization. Sum across a date range for total uses in the window — date-range rollup mode (`starting_date`/`ending_date`) returns this sum directly.
+
+  - `?string product`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `?string rbacGroupID`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `?string rbacGroupName`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `?ShareStatus shareStatus`
+
+    Skill share status (claude.ai only): one of `private`, `organization`, or `public`. Null for skills used only in Claude Code or Office (no per-skill share-status concept) and when share-status reporting is not yet available for the organization. Filterable via `filter[]=share_status:{value}`.
+
+  - `?string skillDisplayName`
+
+    Human-readable display name for rows whose `skill_name` is an opaque skill id (user/organization skill types and plugin-delivered skills, whose user-defined names usage reports generally withhold). Organization-shared skills and skills delivered by the organization's own plugins (its plugin marketplaces and its library) resolve; plugin skill names are shown without their 'plugin:' prefix. The literal 'unknown' bucket row gets a fixed 'Unknown skill' label. For a member's own skill (private or personal-plugin) it is null, except when the skill's owner used it from Claude Code or Cowork in the requested period: then it shows the name that client reported at the time. Apart from that, the names of members' own skills are not disclosed to analytics-key holders. Also null for Anthropic-provided plugin skills (not resolved), for an organization skill or plugin whose name can no longer be found (for example, one since deleted), when `skill_name` is already a display name, or when display-name resolution is not enabled for this organization.
+
+  - `?string userID`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->skills->list(
+  date: '2019-12-27',
+  endingDate: '2019-12-27',
+  filter: ['string'],
+  groupBy: ['product'],
+  limit: 1,
+  order: 'asc',
+  orderBy: 'order_by',
+  page: 'page',
+  startingDate: '2019-12-27',
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "chat_metrics": {
+        "distinct_conversation_skill_used_count": 0
+      },
+      "claude_code_metrics": {
+        "distinct_session_skill_used_count": 0
+      },
+      "cowork_metrics": {
+        "distinct_session_skill_used_count": 0
+      },
+      "distinct_user_count": 0,
+      "office_metrics": {
+        "excel": {
+          "distinct_session_skill_used_count": 0
+        },
+        "outlook": {
+          "distinct_session_skill_used_count": 0
+        },
+        "powerpoint": {
+          "distinct_session_skill_used_count": 0
+        },
+        "word": {
+          "distinct_session_skill_used_count": 0
+        }
+      },
+      "skill_name": "skill_name",
+      "attributed_list_price": "attributed_list_price",
+      "currency": "currency",
+      "enable_count": 0,
+      "estimated_overage_spend": "estimated_overage_spend",
+      "invocation_count": 0,
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "share_status": "organization",
+      "skill_display_name": "skill_display_name",
+      "user_id": "user_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Artifacts
+
+### Get Artifact Activity
+
+`$client->beta->organization->analytics->artifacts->list(\Datetime date, ?list<string> filter, ?list<GroupBy> groupBy, ?int limit, ?string page): PageCursor<AnalyticsArtifactActivity>`
+
+**GET** `/v1/organizations/analytics/artifacts`
+
+Get artifact-creation activity for a given day, broken out by MIME type.
+
+Returns the full (`artifact_type`, `is_shared`) cube for the organization;
+`next_page` is null except for grouped queries, which paginate. The cube
+can be broken out per product, per member, or per RBAC group via
+`group_by[]`, and scoped via `filter[]`. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `date: \Datetime`
+
+  UTC date in YYYY-MM-DD format. The day to get artifact activity for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+
+- `filter?:optional list<string>`
+
+  Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `artifact_type`, `is_shared`, `product`, `rbac_group_id`, `user_id`. Value forms: `artifact_type` is a canonical artifact MIME type (e.g. `text/markdown`) or `other`; `is_shared` is `true` or `false`; `product` is `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+
+- `groupBy?:optional list<GroupBy>`
+
+  Dimensions to break results out by: `product`, `user_id` and/or `rbac_group_id`. The ungrouped artifact-type cube is finite and returned in full; grouped queries multiply the cube and paginate via `next_page`. `product` takes the values `chat`, `claude_code`, or `cowork` (the surfaces that create artifacts). `rbac_group_id` attributes a user to every group they held at any point during the requested UTC day, so grouped rows are not an exclusive partition. At most 100 entries.
+
+- `limit?:optional int`
+
+  Maximum rows to return (1-1000, default 100). The ungrouped artifact-type cube is finite and returned in full; `limit` is the page size only when `group_by[]` multiplies the cube.
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field. Only valid with `group_by[]` — the ungrouped cube is never paginated.
+
+#### Returns
+
+- `class AnalyticsArtifactActivity`
+
+  - `string artifactType`
+
+    Canonical artifact MIME type (e.g. `text/markdown`, `application/vnd.ant.react`, `image/svg+xml`), or `other`. Claude Code and Cowork artifacts report as `text/html`.
+
+  - `int artifactsCreatedCount`
+
+    Number of artifacts created in this bucket on the requested day
+
+  - `int distinctUserCount`
+
+    Number of distinct users who created artifacts in this bucket on the requested day
+
+  - `bool isShared`
+
+    Whether the artifacts in this bucket have ever been shared (a Claude Code / Cowork artifact is shared once anyone beyond its creator may open it: named members, the whole organization, or anyone with the link).
+
+  - `int publishedArtifactsCreatedCount`
+
+    Number of those artifacts that have been published (for Claude Code / Cowork artifacts: open to anyone with the link); never exceeds `artifacts_created_count`
+
+  - `?string product`
+
+    Product that produced this row's activity: one of `chat`, `claude_code`, `cowork`, or `office_agent` (the canonical Cost & Usage product naming; an `office_agent` row's per-surface breakdown is in its `office_metrics`). On `/plugins` only `cowork` and `claude_code` occur (the only surfaces with plugin attribution); on `/artifacts` only `chat`, `claude_code`, and `cowork` occur (the surfaces that create artifacts); `/apps/chat/projects` does not support the product dimension (a `product` entry in `group_by[]` or `filter[]` there is rejected). Present only when the request grouped by `product`.
+
+  - `?string rbacGroupID`
+
+    Tagged RBAC group identifier (`rbac_group_...`), matching the spend-limits API spelling. Present only when the request grouped by `rbac_group_id`.
+
+  - `?string rbacGroupName`
+
+    Resolved RBAC group display name, alongside `rbac_group_id` when name resolution is available. Null if the group has been deleted or its name could not be resolved; `rbac_group_id` remains the stable key.
+
+  - `?string userID`
+
+    Tagged user identifier (e.g. `user_...`). Present only when the request grouped by `user_id`.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->artifacts->list(
+  date: '2019-12-27',
+  filter: ['string'],
+  groupBy: ['product'],
+  limit: 1,
+  page: 'page',
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "artifact_type": "artifact_type",
+      "artifacts_created_count": 0,
+      "distinct_user_count": 0,
+      "is_shared": true,
+      "published_artifacts_created_count": 0,
+      "product": "product",
+      "rbac_group_id": "rbac_group_id",
+      "rbac_group_name": "rbac_group_name",
+      "user_id": "user_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Analytics › Usage Report
+
+### Get Token Usage Over Time
+
+`$client->beta->organization->analytics->usageReport->list(\Datetime startingAt, ?BucketWidth bucketWidth, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?\Datetime endingAt, ?list<GroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?string page, ?list<AnalyticsProductFilter> products, ?list<string> rbacGroupIDs, ?list<string> slackChannelIDs, ?list<Speed> speeds, ?list<string> userIDs): PageCursor<AnalyticsUsageReportTimeBucket>`
+
+**GET** `/v1/organizations/analytics/usage_report`
+
+Get token usage over time across a date range.
+
+Returns token usage bucketed by minute, hour, or day, optionally broken
+down by product, model, context window, inference region, or speed.
+Available to organizations on a Claude Enterprise plan. Requires an API
+key with the `read:analytics` scope.
+
+#### Parameters
+
+- `startingAt: \Datetime`
+
+  Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+- `bucketWidth?:optional BucketWidth`
+
+  Time bucket granularity.
+
+  default: 1d
+
+- `claudeTagCategories?:optional list<AnalyticsClaudeTagCategory>`
+
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+- `claudeTagUserIDs?:optional list<string>`
+
+  Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+- `contextWindows?:optional list<AnalyticsContextWindow>`
+
+  Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+- `endingAt?:optional \Datetime`
+
+  End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+- `groupBy?:optional list<GroupBy>`
+
+  Dimensions to break each time bucket out by. Defaults to no grouping (one total per bucket). Each bucket reports at most its top 100 groups; a group beyond that cap has no row in that bucket (there is no remainder row), so grouped buckets are not exhaustive when a dimension has more than 100 distinct values.
+
+- `inferenceGeos?:optional list<AnalyticsInferenceGeoFilter>`
+
+  Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+- `limit?:optional int`
+
+  Maximum number of time buckets per page. Defaults and caps vary by `bucket_width` (`1d`: default 7, max 31; `1h`: default 24, max 168; `1m`: default 60, max 256).
+
+- `models?:optional list<string>`
+
+  Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `products?:optional list<AnalyticsProductFilter>`
+
+  Product surfaces to include. Defaults to all products. Use `group_by[]=product` to break out per-product values.
+
+- `rbacGroupIDs?:optional list<string>`
+
+  Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+- `slackChannelIDs?:optional list<string>`
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+- `speeds?:optional list<Speed>`
+
+  Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+- `userIDs?:optional list<string>`
+
+  Filter to specific users by tagged user ID.
+
+#### Returns
+
+- `class AnalyticsUsageReportTimeBucket`
+
+  - `\Datetime endingAt`
+
+    End of the time bucket (exclusive) in RFC 3339 format.
+
+  - `list<AnalyticsUsageBucketedResult> results`
+
+    Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
+
+  - `\Datetime startingAt`
+
+    Start of the time bucket (inclusive) in RFC 3339 format.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->usageReport->list(
+  startingAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  bucketWidth: '1d',
+  claudeTagCategories: [AnalyticsClaudeTagCategory::ENGAGED],
+  claudeTagUserIDs: ['U0123ABCDEF'],
+  contextWindows: [AnalyticsContextWindow::FROM_0_TO_200K],
+  endingAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  groupBy: ['claude_tag_category'],
+  inferenceGeos: [AnalyticsInferenceGeoFilter::GLOBAL],
+  limit: 1,
+  models: ['string'],
+  page: 'page',
+  products: [AnalyticsProductFilter::CHAT],
+  rbacGroupIDs: ['rbac_group_012rppKaSVsmTo6NqRDXQXNF'],
+  slackChannelIDs: ['C0123ABCDEF'],
+  speeds: ['fast'],
+  userIDs: ['string'],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "results": [
+        {
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "cache_read_input_tokens": 0,
+          "claude_tag_category": "dm",
+          "claude_tag_user_id": "U0123ABCDEF",
+          "context_window": "0-200k",
+          "inference_geo": "global",
+          "model": "claude-opus-5",
+          "output_tokens": 0,
+          "product": "chat",
+          "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+          "requests": 0,
+          "server_tool_use": {
+            "web_search_requests": 10
+          },
+          "slack_channel_id": "C0123ABCDEF",
+          "speed": "fast",
+          "uncached_input_tokens": 0
+        }
+      ],
+      "starting_at": "2019-12-27T18:11:19.117Z"
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page",
+  "organization_id": "org_013FP9SaFPBg7Kw7fetjn6cF"
+}
+```
+
+## Beta › Organization › Analytics › User Usage Report
+
+### Get Per-User Token Usage
+
+`$client->beta->organization->analytics->userUsageReport->list(\Datetime startingAt, ?BucketWidth bucketWidth, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?\Datetime endingAt, ?bool excludeDeletedUsers, ?list<GroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?Order order, ?OrderBy orderBy, ?string page, ?list<AnalyticsProductFilter> products, ?list<string> rbacGroupIDs, ?list<string> slackChannelIDs, ?list<Speed> speeds, ?list<string> userIDs): PageCursor<AnalyticsUsageUsersItem>`
+
+**GET** `/v1/organizations/analytics/user_usage_report`
+
+Get per-user token usage across a date range.
+
+Returns one row per user, ranked by the chosen token metric. Use this to
+see which users consume the most tokens. Only usage attributable to a
+seat user is included; for organization-wide totals including direct
+API-key and automation traffic, use the bucketed
+`/v1/organizations/analytics/usage_report` endpoint. Available to
+organizations on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `startingAt: \Datetime`
+
+  Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+- `bucketWidth?:optional BucketWidth`
+
+  Time-bucket granularity. When set, each row's `starting_at` and `ending_at` are populated and one actor may span several rows (one per time bucket with usage). The time bucket counts toward `limit`, so one page can return multiple rows for the same actor. `ending_at` is required when `bucket_width` is set, and with `bucket_width="1m"` the range may span at most 24 hours. When omitted, each row aggregates the full `[starting_at, ending_at)` range.
+
+- `claudeTagCategories?:optional list<AnalyticsClaudeTagCategory>`
+
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+- `claudeTagUserIDs?:optional list<string>`
+
+  Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+- `contextWindows?:optional list<AnalyticsContextWindow>`
+
+  Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+- `endingAt?:optional \Datetime`
+
+  End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+- `excludeDeletedUsers?:optional bool`
+
+  If true, omit rows for users who are deleted (`deleted: true`). A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual.
+
+  default: false
+
+- `groupBy?:optional list<GroupBy>`
+
+  Break each actor's row out by the given dimensions. Accepts the same values as the bucketed `/usage_report` endpoint. `limit` bounds (actor × time bucket × dimension) rows — with dimensions or `bucket_width` present, one actor may span several rows.
+
+- `inferenceGeos?:optional list<AnalyticsInferenceGeoFilter>`
+
+  Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+- `limit?:optional int`
+
+  Number of rows per page (1-1000, default 20). One row per actor unless `group_by[]` or `bucket_width` splits an actor across rows; `cost_type`/`token_type` fan-out rows (cost endpoint only) are the exception — they do not count toward this limit, so `data` can exceed it.
+
+  default: 20
+
+- `models?:optional list<string>`
+
+  Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+- `order?:optional Order`
+
+  Sort direction. Defaults to `desc`.
+
+  default: desc
+
+- `orderBy?:optional OrderBy`
+
+  Metric to rank actors by. Defaults to `total_tokens`.
+
+  default: total_tokens
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `products?:optional list<AnalyticsProductFilter>`
+
+  Product surfaces to include. Defaults to all products.
+
+- `rbacGroupIDs?:optional list<string>`
+
+  Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+- `slackChannelIDs?:optional list<string>`
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+- `speeds?:optional list<Speed>`
+
+  Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+- `userIDs?:optional list<string>`
+
+  Filter to specific users by tagged user ID.
+
+#### Returns
+
+- `class AnalyticsUsageUsersItem`
+
+  - `AnalyticsUserActor actor`
+
+    The user this row's usage or cost is attributed to. Always a `user_actor`.
+
+  - `BetaCacheCreation cacheCreation`
+
+    The number of input tokens for cache creation.
+
+  - `int cacheReadInputTokens`
+
+    The number of input tokens read from the cache.
+
+  - `?AnalyticsClaudeTagCategory claudeTagCategory`
+
+    Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. Direct-message usage is billed to the individual user and is reported under that user's product, not under `claude-tag`. New categories may be added over time.
+
+  - `?string claudeTagUserID`
+
+    Slack user ID (for example `U0123ABCDEF`) of the member the Claude Tag (Claude in Slack) usage is attributed to, not a claude.ai user ID. Populated only when `claude_tag_user_id` is in `group_by[]`; null for usage that is not Claude Tag and for Claude Tag usage that is not attributed to a single user (for example `monitoring`, and `proactive` usage Claude initiated), so per-user rows can sum to less than the Claude Tag total. Cannot be combined with `group_by[]=rbac_group_id` or the `rbac_group_ids[]` filter.
+
+  - `?AnalyticsContextWindow contextWindow`
+
+    Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
+
+  - `?\Datetime endingAt`
+
+    End of the row's UTC time bucket (exclusive), as an RFC 3339 timestamp; equal to `starting_at` plus one `bucket_width`. Null unless `bucket_width` is set.
+
+  - `?InferenceGeo inferenceGeo`
+
+    Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
+
+  - `?string model`
+
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+
+  - `int outputTokens`
+
+    The number of output tokens generated.
+
+  - `?string product`
+
+    Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
+
+  - `?string rbacGroupID`
+
+    RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`.
+
+  - `?int requests`
+
+    Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+
+  - `AnalyticsServerToolUse serverToolUse`
+
+    Server-side tool usage metrics.
+
+  - `?string slackChannelID`
+
+    Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
+  - `?Speed speed`
+
+    Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
+
+  - `?\Datetime startingAt`
+
+    Start of the row's UTC time bucket (inclusive), as an RFC 3339 timestamp. Null unless `bucket_width` is set; without `bucket_width`, each row aggregates the full requested range.
+
+  - `int totalTokens`
+
+    Total token count across all token types. This is the value the default `order_by` (`total_tokens`) sorts on.
+
+  - `int uncachedInputTokens`
+
+    The number of uncached input tokens processed.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->userUsageReport->list(
+  startingAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  bucketWidth: '1d',
+  claudeTagCategories: [AnalyticsClaudeTagCategory::ENGAGED],
+  claudeTagUserIDs: ['U0123ABCDEF'],
+  contextWindows: [AnalyticsContextWindow::FROM_0_TO_200K],
+  endingAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  excludeDeletedUsers: true,
+  groupBy: ['claude_tag_category'],
+  inferenceGeos: [AnalyticsInferenceGeoFilter::GLOBAL],
+  limit: 1,
+  models: ['string'],
+  order: 'asc',
+  orderBy: 'output_tokens',
+  page: 'page',
+  products: [AnalyticsProductFilter::CHAT],
+  rbacGroupIDs: ['rbac_group_012rppKaSVsmTo6NqRDXQXNF'],
+  slackChannelIDs: ['C0123ABCDEF'],
+  speeds: ['fast'],
+  userIDs: ['user_01AbCdEfGhIjKlMnOpQrSt'],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "actor": {
+        "deleted": true,
+        "email": "jane@example.com",
+        "email_address": "jane@example.com",
+        "name": "Jane Smith",
+        "type": "user_actor",
+        "user_id": "user_01AbCdEfGhIjKlMnOpQrSt"
+      },
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "cache_read_input_tokens": 3200000,
+      "claude_tag_category": "dm",
+      "claude_tag_user_id": "U0123ABCDEF",
+      "context_window": "0-200k",
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "inference_geo": "global",
+      "model": "claude-opus-5",
+      "output_tokens": 891000,
+      "product": "chat",
+      "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "requests": 128,
+      "server_tool_use": {
+        "web_search_requests": 10
+      },
+      "slack_channel_id": "C0123ABCDEF",
+      "speed": "fast",
+      "starting_at": "2019-12-27T18:11:19.117Z",
+      "total_tokens": 5377000,
+      "uncached_input_tokens": 1284500
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page",
+  "organization_id": "org_013FP9SaFPBg7Kw7fetjn6cF"
+}
+```
+
+## Beta › Organization › Analytics › Cost Report
+
+### Get Cost Over Time
+
+`$client->beta->organization->analytics->costReport->list(\Datetime startingAt, ?BucketWidth bucketWidth, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?\Datetime endingAt, ?list<GroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?string page, ?list<AnalyticsProductFilter> products, ?list<string> rbacGroupIDs, ?list<string> slackChannelIDs, ?list<Speed> speeds, ?list<string> userIDs): PageCursor<AnalyticsCostReportTimeBucket>`
+
+**GET** `/v1/organizations/analytics/cost_report`
+
+Get cost in USD over time across a date range.
+
+Returns cost bucketed by minute, hour, or day, optionally broken down by
+product, model, context window, inference region, speed, cost type, or
+token type. Available to organizations on a Claude Enterprise plan.
+Requires an API key with the `read:analytics` scope.
+
+#### Parameters
+
+- `startingAt: \Datetime`
+
+  Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+- `bucketWidth?:optional BucketWidth`
+
+  Time bucket granularity.
+
+  default: 1d
+
+- `claudeTagCategories?:optional list<AnalyticsClaudeTagCategory>`
+
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+- `claudeTagUserIDs?:optional list<string>`
+
+  Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+- `contextWindows?:optional list<AnalyticsContextWindow>`
+
+  Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+- `endingAt?:optional \Datetime`
+
+  End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+- `groupBy?:optional list<GroupBy>`
+
+  Dimensions to break each time bucket out by. Defaults to no grouping (one total per bucket). Each bucket reports at most its top 100 groups; a group beyond that cap has no row in that bucket (there is no remainder row), so grouped buckets are not exhaustive when a dimension has more than 100 distinct values.
+
+- `inferenceGeos?:optional list<AnalyticsInferenceGeoFilter>`
+
+  Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+- `limit?:optional int`
+
+  Maximum number of time buckets per page. Defaults and caps vary by `bucket_width` (`1d`: default 7, max 31; `1h`: default 24, max 168; `1m`: default 60, max 256).
+
+- `models?:optional list<string>`
+
+  Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `products?:optional list<AnalyticsProductFilter>`
+
+  Product surfaces to include. Defaults to all products. Use `group_by[]=product` to break out per-product values.
+
+- `rbacGroupIDs?:optional list<string>`
+
+  Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+- `slackChannelIDs?:optional list<string>`
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+- `speeds?:optional list<Speed>`
+
+  Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+- `userIDs?:optional list<string>`
+
+  Filter to specific users by tagged user ID.
+
+#### Returns
+
+- `class AnalyticsCostReportTimeBucket`
+
+  - `\Datetime endingAt`
+
+    End of the time bucket (exclusive) in RFC 3339 format.
+
+  - `list<AnalyticsCostBucketedResult> results`
+
+    Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
+
+  - `\Datetime startingAt`
+
+    Start of the time bucket (inclusive) in RFC 3339 format.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->costReport->list(
+  startingAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  bucketWidth: '1d',
+  claudeTagCategories: [AnalyticsClaudeTagCategory::ENGAGED],
+  claudeTagUserIDs: ['U0123ABCDEF'],
+  contextWindows: [AnalyticsContextWindow::FROM_0_TO_200K],
+  endingAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  groupBy: ['claude_tag_category'],
+  inferenceGeos: [AnalyticsInferenceGeoFilter::GLOBAL],
+  limit: 1,
+  models: ['string'],
+  page: 'page',
+  products: [AnalyticsProductFilter::CHAT],
+  rbacGroupIDs: ['rbac_group_012rppKaSVsmTo6NqRDXQXNF'],
+  slackChannelIDs: ['C0123ABCDEF'],
+  speeds: ['fast'],
+  userIDs: ['string'],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "results": [
+        {
+          "amount": "amount",
+          "claude_tag_category": "dm",
+          "claude_tag_user_id": "U0123ABCDEF",
+          "context_window": "0-200k",
+          "cost_type": "code_execution",
+          "currency": "USD",
+          "inference_geo": "global",
+          "list_amount": "list_amount",
+          "model": "claude-opus-5",
+          "product": "chat",
+          "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+          "requests": 0,
+          "slack_channel_id": "C0123ABCDEF",
+          "speed": "fast",
+          "token_type": "cache_creation.ephemeral_1h_input_tokens"
+        }
+      ],
+      "starting_at": "2019-12-27T18:11:19.117Z"
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page",
+  "organization_id": "org_013FP9SaFPBg7Kw7fetjn6cF"
+}
+```
+
+## Beta › Organization › Analytics › User Cost Report
+
+### Get Per-User Cost
+
+`$client->beta->organization->analytics->userCostReport->list(\Datetime startingAt, ?BucketWidth bucketWidth, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?\Datetime endingAt, ?bool excludeDeletedUsers, ?list<GroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?Order order, ?OrderBy orderBy, ?string page, ?list<AnalyticsProductFilter> products, ?list<string> rbacGroupIDs, ?list<string> slackChannelIDs, ?list<Speed> speeds, ?list<string> userIDs): PageCursor<AnalyticsCostUsersItem>`
+
+**GET** `/v1/organizations/analytics/user_cost_report`
+
+Get per-user cost in USD across a date range.
+
+Returns one row per user, ranked by spend. Use this to see which users
+account for the most cost. Only cost attributable to a seat user is
+included; for organization-wide totals including direct API-key and
+automation traffic, use the bucketed
+`/v1/organizations/analytics/cost_report` endpoint. Available to
+organizations on a Claude Enterprise plan. Requires an API key with the
+`read:analytics` scope.
+
+#### Parameters
+
+- `startingAt: \Datetime`
+
+  Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+- `bucketWidth?:optional BucketWidth`
+
+  Time-bucket granularity. When set, each row's `starting_at` and `ending_at` are populated and one actor may span several rows (one per time bucket with usage). The time bucket counts toward `limit`, so one page can return multiple rows for the same actor. `ending_at` is required when `bucket_width` is set, and with `bucket_width="1m"` the range may span at most 24 hours. When omitted, each row aggregates the full `[starting_at, ending_at)` range.
+
+- `claudeTagCategories?:optional list<AnalyticsClaudeTagCategory>`
+
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+
+- `claudeTagUserIDs?:optional list<string>`
+
+  Filter to Claude Tag (Claude in Slack) usage attributed to specific Slack users, by Slack user ID (for example `U0123ABCDEF`), not claude.ai user ID. Usage that is not Claude Tag, and Claude Tag usage not attributed to a single user, never matches. Use `group_by[]=claude_tag_user_id` to break out per-user values.
+
+- `contextWindows?:optional list<AnalyticsContextWindow>`
+
+  Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
+
+- `endingAt?:optional \Datetime`
+
+  End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
+
+- `excludeDeletedUsers?:optional bool`
+
+  If true, omit rows for users who are deleted (`deleted: true`). A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual.
+
+  default: false
+
+- `groupBy?:optional list<GroupBy>`
+
+  Break each actor's row out by the given dimensions. Accepts the same values as the bucketed `/cost_report` endpoint. The `product`, `model`, `context_window`, `inference_geo`, and `speed` dimensions — and the time bucket, when `bucket_width` is set — count toward `limit`. `cost_type` and `token_type` do not: `cost_type` returns one row per cost component (tokens, web search, code execution); `token_type` returns one row per token type, each with `cost_type: "tokens"`; combining both returns the per-token-type rows plus the web-search and code-execution rows. A page can therefore contain more rows than `limit` when `cost_type` or `token_type` is requested.
+
+- `inferenceGeos?:optional list<AnalyticsInferenceGeoFilter>`
+
+  Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
+
+- `limit?:optional int`
+
+  Number of rows per page (1-1000, default 20). One row per actor unless `group_by[]` or `bucket_width` splits an actor across rows; `cost_type`/`token_type` fan-out rows (cost endpoint only) are the exception — they do not count toward this limit, so `data` can exceed it.
+
+  default: 20
+
+- `models?:optional list<string>`
+
+  Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+- `order?:optional Order`
+
+  Sort direction. Defaults to `desc`.
+
+  default: desc
+
+- `orderBy?:optional OrderBy`
+
+  Metric to rank actors by. Defaults to `amount`.
+
+  default: amount
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `products?:optional list<AnalyticsProductFilter>`
+
+  Product surfaces to include. Defaults to all products.
+
+- `rbacGroupIDs?:optional list<string>`
+
+  Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+- `slackChannelIDs?:optional list<string>`
+
+  Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
+
+- `speeds?:optional list<Speed>`
+
+  Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+- `userIDs?:optional list<string>`
+
+  Filter to specific users by tagged user ID.
+
+#### Returns
+
+- `class AnalyticsCostUsersItem`
+
+  - `AnalyticsUserActor actor`
+
+    The user this row's usage or cost is attributed to. Always a `user_actor`.
+
+  - `string amount`
+
+    Amount (post-discount, pre-credit) in fractional cents (minor units).
+
+  - `?AnalyticsClaudeTagCategory claudeTagCategory`
+
+    Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. Direct-message usage is billed to the individual user and is reported under that user's product, not under `claude-tag`. New categories may be added over time.
+
+  - `?string claudeTagUserID`
+
+    Slack user ID (for example `U0123ABCDEF`) of the member the Claude Tag (Claude in Slack) usage is attributed to, not a claude.ai user ID. Populated only when `claude_tag_user_id` is in `group_by[]`; null for usage that is not Claude Tag and for Claude Tag usage that is not attributed to a single user (for example `monitoring`, and `proactive` usage Claude initiated), so per-user rows can sum to less than the Claude Tag total. Cannot be combined with `group_by[]=rbac_group_id` or the `rbac_group_ids[]` filter.
+
+  - `?AnalyticsContextWindow contextWindow`
+
+    Context-window pricing tier of the usage or cost. Null unless `context_window` is in `group_by[]`; it can also be null on grouped rows with no context-window tier, such as code execution.
+
+  - `?AnalyticsCostType costType`
+
+    Cost component breakdown; null when returning the combined total.
+
+  - `string currency`
+
+    Currency code for the cost amount. Currently always `"USD"`.
+
+  - `?\Datetime endingAt`
+
+    End of the row's UTC time bucket (exclusive), as an RFC 3339 timestamp; equal to `starting_at` plus one `bucket_width`. Null unless `bucket_width` is set.
+
+  - `?InferenceGeo inferenceGeo`
+
+    Inference region of the usage or cost. Null unless `inference_geo` is in `group_by[]`; it can also be null on grouped rows where the region is not set (the rows that `inference_geos[]=not_available` matches).
+
+  - `string listAmount`
+
+    List-price amount (pre-discount) in fractional cents.
+
+  - `?string model`
+
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+
+  - `?string product`
+
+    Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, and `claude-tag`. `claude-tag` is Claude Tag, the Claude product in Slack. Some unattributed usage is reported as "other".
+
+  - `?string rbacGroupID`
+
+    RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`.
+
+  - `?int requests`
+
+    Number of API requests in this row's scope. Null when `group_by` includes `cost_type` or `token_type` (the count has no per-component attribution; read it from the ungrouped response). For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
+
+  - `?string slackChannelID`
+
+    Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+
+  - `?Speed speed`
+
+    Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`.
+
+  - `?\Datetime startingAt`
+
+    Start of the row's UTC time bucket (inclusive), as an RFC 3339 timestamp. Null unless `bucket_width` is set; without `bucket_width`, each row aggregates the full requested range.
+
+  - `?AnalyticsTokenType tokenType`
+
+    Token type when `cost_type` is `tokens`; null otherwise.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->analytics->userCostReport->list(
+  startingAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  bucketWidth: '1d',
+  claudeTagCategories: [AnalyticsClaudeTagCategory::ENGAGED],
+  claudeTagUserIDs: ['U0123ABCDEF'],
+  contextWindows: [AnalyticsContextWindow::FROM_0_TO_200K],
+  endingAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
+  excludeDeletedUsers: true,
+  groupBy: ['claude_tag_category'],
+  inferenceGeos: [AnalyticsInferenceGeoFilter::GLOBAL],
+  limit: 1,
+  models: ['string'],
+  order: 'asc',
+  orderBy: 'amount',
+  page: 'page',
+  products: [AnalyticsProductFilter::CHAT],
+  rbacGroupIDs: ['rbac_group_012rppKaSVsmTo6NqRDXQXNF'],
+  slackChannelIDs: ['C0123ABCDEF'],
+  speeds: ['fast'],
+  userIDs: ['user_01AbCdEfGhIjKlMnOpQrSt'],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "actor": {
+        "deleted": true,
+        "email": "jane@example.com",
+        "email_address": "jane@example.com",
+        "name": "Jane Smith",
+        "type": "user_actor",
+        "user_id": "user_01AbCdEfGhIjKlMnOpQrSt"
+      },
+      "amount": "41280.000000",
+      "claude_tag_category": "dm",
+      "claude_tag_user_id": "U0123ABCDEF",
+      "context_window": "0-200k",
+      "cost_type": "code_execution",
+      "currency": "USD",
+      "ending_at": "2019-12-27T18:11:19.117Z",
+      "inference_geo": "global",
+      "list_amount": "51600.000000",
+      "model": "claude-opus-5",
+      "product": "chat",
+      "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "requests": 128,
+      "slack_channel_id": "C0123ABCDEF",
+      "speed": "fast",
+      "starting_at": "2019-12-27T18:11:19.117Z",
+      "token_type": "cache_creation.ephemeral_1h_input_tokens"
+    }
+  ],
+  "data_refreshed_at": "2019-12-27T18:11:19.117Z",
+  "has_more": true,
+  "next_page": "next_page",
+  "organization_id": "org_013FP9SaFPBg7Kw7fetjn6cF"
+}
+```
+
+## Beta › Organization › Spend Limits
+
+### Set Spend Limit
+
+`$client->beta->organization->spendLimits->set(?string amount, Scope scope, ?SpendLimitPeriod period): SpendLimit`
+
+**POST** `/v1/organizations/spend_limits`
+
+Set a spend limit.
+
+Upsert keyed on (scope, period): setting a limit that already exists
+overwrites it in place. A Claude Enterprise organization sets `user`
+limits. Its seat-tier, group, and organization-level defaults are configured
+in claude.ai. A Claude Console organization sets `organization` and
+`workspace` limits, which are monthly and always carry an amount. Setting those
+limits is in an early access preview. To request access, contact your
+Anthropic account team.
+
+#### Parameters
+
+- `amount: string`
+
+  Limit amount as a non-negative integer decimal string in the minor unit of the organization's billing currency (cents for USD): "50000" is $500.00. `null` sets an explicit no-limit override for this scope and `period` only — each period resolves independently, so caps for other periods still apply.
+
+- `scope: Scope`
+
+  What the limit applies to. Claude Enterprise organizations set `user` limits. Claude Console organizations set `organization` and `workspace` limits. Any other combination returns 400. Setting `organization` and `workspace` limits through the API is in an early access preview. To request access, contact your Anthropic account team.
+
+- `period?:optional SpendLimitPeriod`
+
+#### Returns
+
+- `class SpendLimit`
+
+  - `"spend_limit" type`
+
+    Object type. Always `spend_limit`.
+
+  - `string id`
+
+    Unique tagged ID of the spend limit (`spl_...`).
+
+  - `?string amount`
+
+    Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 datetime at which the spend limit was created.
+
+  - `string currency`
+
+    ISO 4217 code of the organization's billing currency; the unit for `amount`.
+
+  - `bool isEnabled`
+
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+
+  - `SpendLimitPeriod period`
+
+    Length of the window the limit resets over. `amount` caps spend within each period.
+
+  - `Scope scope`
+
+    What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 datetime at which the spend limit was last modified.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaSpendLimit = $client->beta->organization->spendLimits->set(
+  amount: '50000',
+  scope: ['type' => 'user', 'userID' => 'user_01WCz1FkmYMm4gnmykNKUu3Q'],
+  period: SpendLimitPeriod::MONTHLY,
+);
+
+var_dump($betaSpendLimit);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "amount": "50000",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "currency": "USD",
+  "is_enabled": true,
+  "period": "daily",
+  "scope": {
+    "type": "user",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "type": "spend_limit",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+### Get Spend Limit
+
+`$client->beta->organization->spendLimits->retrieve(string spendLimitID): SpendLimit`
+
+**GET** `/v1/organizations/spend_limits/{spend_limit_id}`
+
+Retrieve a spend limit by ID.
+
+#### Parameters
+
+- `spendLimitID: string`
+
+  ID of the Spend Limit.
+
+#### Returns
+
+- `class SpendLimit`
+
+  - `"spend_limit" type`
+
+    Object type. Always `spend_limit`.
+
+  - `string id`
+
+    Unique tagged ID of the spend limit (`spl_...`).
+
+  - `?string amount`
+
+    Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 datetime at which the spend limit was created.
+
+  - `string currency`
+
+    ISO 4217 code of the organization's billing currency; the unit for `amount`.
+
+  - `bool isEnabled`
+
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+
+  - `SpendLimitPeriod period`
+
+    Length of the window the limit resets over. `amount` caps spend within each period.
+
+  - `Scope scope`
+
+    What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 datetime at which the spend limit was last modified.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaSpendLimit = $client->beta->organization->spendLimits->retrieve(
+  'spend_limit_id'
+);
+
+var_dump($betaSpendLimit);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "amount": "50000",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "currency": "USD",
+  "is_enabled": true,
+  "period": "daily",
+  "scope": {
+    "type": "user",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "type": "spend_limit",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+### Delete Spend Limit
+
+`$client->beta->organization->spendLimits->delete(string spendLimitID): SpendLimitDeleteResponse`
+
+**DELETE** `/v1/organizations/spend_limits/{spend_limit_id}`
+
+Delete a spend limit.
+
+For a Claude Enterprise organization, this deletes a per-user override, and
+the member falls back to any inherited spend limit at that period. Its
+seat-tier, group, and organization-level rows cannot be deleted via this
+endpoint. A Claude Console organization deletes its organization and
+workspace limits. Deleting them through the API is in an early access preview.
+
+#### Parameters
+
+- `spendLimitID: string`
+
+  ID of the Spend Limit.
+
+#### Returns
+
+- `class SpendLimitDeleteResponse`
+
+  - `"spend_limit_deleted" type`
+
+  - `string id`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$spendLimit = $client->beta->organization->spendLimits->delete(
+  'spend_limit_id'
+);
+
+var_dump($spendLimit);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "type": "spend_limit_deleted"
+}
+```
+
+### List Spend Limits
+
+`$client->beta->organization->spendLimits->list(?int limit, ?string page, ?list<ScopeType> scopeType, ?list<AnthropicBeta> betas): PageCursor<SpendLimit>`
+
+**GET** `/v1/organizations/spend_limits`
+
+List the organization's spend limits.
+
+A Claude Console organization's limits come in an order that is stable across
+pages. A Claude Enterprise organization's are grouped by scope type,
+in the order `organization`, `seat_tier`, `rbac_group`,
+`organization_service`, `user`; within a type they come in a fixed order that
+is not creation order.
+
+#### Parameters
+
+- `limit?:optional int`
+
+  Maximum number of limits per page. Defaults to `20`.
+
+  default: 20
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `scopeType?:optional list<ScopeType>`
+
+  Return only limits with these scope types. A Claude Console organization has `organization` and `workspace` limits; a Claude Enterprise organization has `organization`, `seat_tier`, `rbac_group`, `organization_service` and `user` limits. Omit for all.
+
+- `betas?:optional list<AnthropicBeta>`
+
+  This endpoint is in beta: requests must send `spend-limit-reads-2026-09-26` in this header.
+
+#### Returns
+
+- `class SpendLimit`
+
+  - `"spend_limit" type`
+
+    Object type. Always `spend_limit`.
+
+  - `string id`
+
+    Unique tagged ID of the spend limit (`spl_...`).
+
+  - `?string amount`
+
+    Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 datetime at which the spend limit was created.
+
+  - `string currency`
+
+    ISO 4217 code of the organization's billing currency; the unit for `amount`.
+
+  - `bool isEnabled`
+
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+
+  - `SpendLimitPeriod period`
+
+    Length of the window the limit resets over. `amount` caps spend within each period.
+
+  - `Scope scope`
+
+    What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 datetime at which the spend limit was last modified.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->spendLimits->list(
+  limit: 1,
+  page: 'page',
+  scopeType: ['organization'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "id",
+      "amount": "50000",
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "currency": "USD",
+      "is_enabled": true,
+      "period": "daily",
+      "scope": {
+        "type": "user",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "type": "spend_limit",
+      "updated_at": "2019-12-27T18:11:19.117Z"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Spend Limits › Effective
+
+### List Effective Spend Limits
+
+`$client->beta->organization->spendLimits->effective->list(?int limit, ?string page, ?list<Period> period, ?list<string> userIDs): PageCursor<SpendSummary>`
+
+**GET** `/v1/organizations/spend_limits/effective`
+
+List each member's effective spend limit and period-to-date spend.
+
+Returns one row per (member, period) the member resolves a spend limit
+for, with the `source` scope the spend limit was inherited from.
+Paginates by member, so a member's periods never split across pages.
+
+#### Parameters
+
+- `limit?:optional int`
+
+  Maximum number of members per page. A member's period rows never split across pages, so a page may carry more rows than this. Defaults to `20`.
+
+  default: 20
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page` field.
+
+- `period?:optional list<Period>`
+
+  Restrict the report to these limit periods. Omit to return one row per period each member resolves a spend limit for.
+
+- `userIDs?:optional list<string>`
+
+  Restrict the report to these members, by tagged user ID (`user_...`). At most 100 entries.
+
+#### Returns
+
+- `class SpendSummary`
+
+  - `Actor actor`
+
+  - `?string amount`
+
+    Effective limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD). `null` means no limit applies for this row's `period` — each period resolves independently, so another period may still cap this member.
+
+  - `string currency`
+
+    ISO 4217 code of the organization's billing currency; the unit for `amount` and `period_to_date_spend`.
+
+  - `SpendLimitPeriod period`
+
+    Period this row's effective limit and spend are reported for.
+
+  - `string periodToDateSpend`
+
+    The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
+
+  - `Scope scope`
+
+  - `Source source`
+
+  - `string spendLimitID`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->spendLimits->effective->list(
+  limit: 1, page: 'page', period: ['daily'], userIDs: ['string']
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "actor": {
+        "deleted": true,
+        "email_address": "email_address",
+        "name": "name",
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "amount": "50000",
+      "currency": "USD",
+      "period": "daily",
+      "period_to_date_spend": "12050.5",
+      "scope": {
+        "type": "user",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "source": {
+        "type": "user",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "spend_limit_id": "spend_limit_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Spend Limits › Increase Requests
+
+### List Spend Limit Increase Requests
+
+`$client->beta->organization->spendLimits->increaseRequests->list(?list<string> actorIDs, ?int limit, ?string page, ?list<BetaSpendLimitIncreaseRequestStatus> status): PageCursor<BetaSpendLimitIncreaseRequest>`
+
+**GET** `/v1/organizations/spend_limit_increase_requests`
+
+List spend limit increase requests, most recent first.
+
+Pending requests include a live `spend_summary` for the requester.
+Requests whose requester is no longer a member are excluded.
+
+#### Parameters
+
+- `actorIDs?:optional list<string>`
+
+  Filter by requester, as `user_...` tagged IDs.
+
+- `limit?:optional int`
+
+  default: 20
+
+- `page?:optional string`
+
+  Opaque cursor from a previous response's `next_page`.
+
+- `status?:optional list<BetaSpendLimitIncreaseRequestStatus>`
+
+  Filter by status. Omit to return all.
+
+#### Returns
+
+- `class BetaSpendLimitIncreaseRequest`
+
+  - `"spend_limit_increase_request" type`
+
+  - `string id`
+
+  - `Actor actor`
+
+  - `\Datetime createdAt`
+
+  - `SpendLimitPeriod period`
+
+  - `?\Datetime resolvedAt`
+
+  - `?ResolvedBy resolvedBy`
+
+  - `?SpendSummary spendSummary`
+
+    Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+  - `BetaSpendLimitIncreaseRequestStatus status`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->spendLimits->increaseRequests->list(
+  actorIDs: ['string'],
+  limit: 1,
+  page: 'page',
+  status: [BetaSpendLimitIncreaseRequestStatus::APPROVED],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "id",
+      "actor": {
+        "deleted": true,
+        "email_address": "email_address",
+        "name": "name",
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "period": "daily",
+      "resolved_at": "2019-12-27T18:11:19.117Z",
+      "resolved_by": {
+        "deleted": true,
+        "email_address": "email_address",
+        "name": "name",
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "spend_summary": {
+        "actor": {
+          "deleted": true,
+          "email_address": "email_address",
+          "name": "name",
+          "type": "user_actor",
+          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        },
+        "amount": "50000",
+        "currency": "USD",
+        "period": "daily",
+        "period_to_date_spend": "12050.5",
+        "scope": {
+          "type": "user",
+          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        },
+        "source": {
+          "type": "user",
+          "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+        },
+        "spend_limit_id": "spend_limit_id"
+      },
+      "status": "approved",
+      "type": "spend_limit_increase_request"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Get Spend Limit Increase Request
+
+`$client->beta->organization->spendLimits->increaseRequests->retrieve(string spendLimitIncreaseRequestID): BetaSpendLimitIncreaseRequest`
+
+**GET** `/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}`
+
+Retrieve a spend limit increase request.
+
+While `pending`, the response includes a live `spend_summary` for the
+requester at the request's period.
+
+#### Parameters
+
+- `spendLimitIncreaseRequestID: string`
+
+  ID of the spend limit increase request.
+
+#### Returns
+
+- `class BetaSpendLimitIncreaseRequest`
+
+  - `"spend_limit_increase_request" type`
+
+  - `string id`
+
+  - `Actor actor`
+
+  - `\Datetime createdAt`
+
+  - `SpendLimitPeriod period`
+
+  - `?\Datetime resolvedAt`
+
+  - `?ResolvedBy resolvedBy`
+
+  - `?SpendSummary spendSummary`
+
+    Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+  - `BetaSpendLimitIncreaseRequestStatus status`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaSpendLimitIncreaseRequest = $client
+  ->beta
+  ->organization
+  ->spendLimits
+  ->increaseRequests
+  ->retrieve('spend_limit_increase_request_id');
+
+var_dump($betaSpendLimitIncreaseRequest);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "actor": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "period": "daily",
+  "resolved_at": "2019-12-27T18:11:19.117Z",
+  "resolved_by": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "spend_summary": {
+    "actor": {
+      "deleted": true,
+      "email_address": "email_address",
+      "name": "name",
+      "type": "user_actor",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "amount": "50000",
+    "currency": "USD",
+    "period": "daily",
+    "period_to_date_spend": "12050.5",
+    "scope": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "source": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "spend_limit_id": "spend_limit_id"
+  },
+  "status": "approved",
+  "type": "spend_limit_increase_request"
+}
+```
+
+### Approve Spend Limit Increase Request
+
+`$client->beta->organization->spendLimits->increaseRequests->approve(string spendLimitIncreaseRequestID, string amount, ?SpendLimitPeriod period, ?bool suppressNotification): IncreaseRequestApproveResponse`
+
+**POST** `/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}/approve`
+
+Approve a pending spend limit increase request.
+
+Writes a per-user spend limit at `amount` for the requester and
+transitions the request to `approved`. `period` defaults to the period
+the member was blocked on. Anthropic emails the requester unless
+`suppress_notification` is set.
+
+#### Parameters
+
+- `spendLimitIncreaseRequestID: string`
+
+  ID of the spend limit increase request.
+
+- `amount: string`
+
+  New per-user spend limit as a non-negative integer decimal string (minor units).
+
+- `period?:optional SpendLimitPeriod`
+
+- `suppressNotification?:optional bool`
+
+#### Returns
+
+- `class IncreaseRequestApproveResponse`
+
+  - `"spend_limit_increase_request" type`
+
+  - `string id`
+
+  - `Actor actor`
+
+  - `\Datetime createdAt`
+
+  - `SpendLimitPeriod period`
+
+  - `?\Datetime resolvedAt`
+
+  - `?ResolvedBy resolvedBy`
+
+  - `SpendLimit spendLimit`
+
+    A configured spend limit: a cap on metered spend for one scope and period.
+
+  - `?SpendSummary spendSummary`
+
+    Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+  - `BetaSpendLimitIncreaseRequestStatus status`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$response = $client->beta->organization->spendLimits->increaseRequests->approve(
+  'spend_limit_increase_request_id',
+  amount: '50000',
+  period: SpendLimitPeriod::MONTHLY,
+  suppressNotification: true,
+);
+
+var_dump($response);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "actor": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "period": "daily",
+  "resolved_at": "2019-12-27T18:11:19.117Z",
+  "resolved_by": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "spend_limit": {
+    "id": "id",
+    "amount": "50000",
+    "created_at": "2019-12-27T18:11:19.117Z",
+    "currency": "USD",
+    "is_enabled": true,
+    "period": "daily",
+    "scope": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "type": "spend_limit",
+    "updated_at": "2019-12-27T18:11:19.117Z"
+  },
+  "spend_summary": {
+    "actor": {
+      "deleted": true,
+      "email_address": "email_address",
+      "name": "name",
+      "type": "user_actor",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "amount": "50000",
+    "currency": "USD",
+    "period": "daily",
+    "period_to_date_spend": "12050.5",
+    "scope": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "source": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "spend_limit_id": "spend_limit_id"
+  },
+  "status": "approved",
+  "type": "spend_limit_increase_request"
+}
+```
+
+### Deny Spend Limit Increase Request
+
+`$client->beta->organization->spendLimits->increaseRequests->deny(string spendLimitIncreaseRequestID, ?bool suppressNotification): BetaSpendLimitIncreaseRequest`
+
+**POST** `/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}/deny`
+
+Deny a pending spend limit increase request.
+
+Idempotent on `denied`; denying an already-`approved` request returns
+400. Anthropic emails the requester unless `suppress_notification` is set.
+
+#### Parameters
+
+- `spendLimitIncreaseRequestID: string`
+
+  ID of the spend limit increase request.
+
+- `suppressNotification?:optional bool`
+
+#### Returns
+
+- `class BetaSpendLimitIncreaseRequest`
+
+  - `"spend_limit_increase_request" type`
+
+  - `string id`
+
+  - `Actor actor`
+
+  - `\Datetime createdAt`
+
+  - `SpendLimitPeriod period`
+
+  - `?\Datetime resolvedAt`
+
+  - `?ResolvedBy resolvedBy`
+
+  - `?SpendSummary spendSummary`
+
+    Per-member effective-limit report row (`GET /spend_limits/effective`).
+
+  - `BetaSpendLimitIncreaseRequestStatus status`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaSpendLimitIncreaseRequest = $client
+  ->beta
+  ->organization
+  ->spendLimits
+  ->increaseRequests
+  ->deny('spend_limit_increase_request_id', suppressNotification: true);
+
+var_dump($betaSpendLimitIncreaseRequest);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "actor": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "period": "daily",
+  "resolved_at": "2019-12-27T18:11:19.117Z",
+  "resolved_by": {
+    "deleted": true,
+    "email_address": "email_address",
+    "name": "name",
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "spend_summary": {
+    "actor": {
+      "deleted": true,
+      "email_address": "email_address",
+      "name": "name",
+      "type": "user_actor",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "amount": "50000",
+    "currency": "USD",
+    "period": "daily",
+    "period_to_date_spend": "12050.5",
+    "scope": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "source": {
+      "type": "user",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    },
+    "spend_limit_id": "spend_limit_id"
+  },
+  "status": "approved",
+  "type": "spend_limit_increase_request"
+}
+```
+
+## Beta › Organization › RBAC Groups
+
+### Create RBAC Group
+
+`$client->beta->organization->rbacGroups->create(string name): RBACGroup`
+
+**POST** `/v1/organizations/rbac_groups`
+
+Create an RBAC Group in the Claude Enterprise tenant. Groups created via the API have source type `"direct"`.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `name: string`
+
+  Name of the RBAC Group. Not uniqueness-enforced.
+
+#### Returns
+
+- `class RBACGroup`
+
+  - `"rbac_group" type`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+  - `string id`
+
+    ID of the RBAC Group.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+  - `string name`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `?list<string> roleIDs`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `SourceType sourceType`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaRBACGroup = $client->beta->organization->rbacGroups->create(
+  name: 'Engineering'
+);
+
+var_dump($betaRBACGroup);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Engineering",
+  "role_ids": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "roles": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "source_type": "direct",
+  "type": "rbac_group",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### List RBAC Groups
+
+`$client->beta->organization->rbacGroups->list(?int limit, ?string page): PageCursor<RBACGroup>`
+
+**GET** `/v1/organizations/rbac_groups`
+
+List RBAC Groups in the Claude Enterprise tenant.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+#### Returns
+
+- `class RBACGroup`
+
+  - `"rbac_group" type`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+  - `string id`
+
+    ID of the RBAC Group.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+  - `string name`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `?list<string> roleIDs`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `SourceType sourceType`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->rbacGroups->list(
+  limit: 1, page: 'eyJjdXJzb3IiOiAicmJhY19ncm91cF8wMSJ9'
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "name": "Engineering",
+      "role_ids": [
+        "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+      ],
+      "roles": [
+        "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+      ],
+      "source_type": "direct",
+      "type": "rbac_group",
+      "updated_at": "2024-10-30T23:58:27.427722Z"
+    }
+  ],
+  "has_more": false,
+  "next_page": "eyJjdXJzb3IiOiAicmJhY19ncm91cF8wMSJ9"
+}
+```
+
+### Get RBAC Group
+
+`$client->beta->organization->rbacGroups->retrieve(string rbacGroupID): RBACGroup`
+
+**GET** `/v1/organizations/rbac_groups/{rbac_group_id}`
+
+Retrieve an RBAC Group by ID.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+#### Returns
+
+- `class RBACGroup`
+
+  - `"rbac_group" type`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+  - `string id`
+
+    ID of the RBAC Group.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+  - `string name`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `?list<string> roleIDs`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `SourceType sourceType`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaRBACGroup = $client->beta->organization->rbacGroups->retrieve(
+  'rbac_group_id'
+);
+
+var_dump($betaRBACGroup);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Engineering",
+  "role_ids": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "roles": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "source_type": "direct",
+  "type": "rbac_group",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### Update RBAC Group
+
+`$client->beta->organization->rbacGroups->update(string rbacGroupID, ?string name): RBACGroup`
+
+**POST** `/v1/organizations/rbac_groups/{rbac_group_id}`
+
+Update an RBAC Group's name. Groups provisioned by an identity provider (source type `"scim"`) cannot be modified via the API while an organization in the tenant uses SCIM provisioning.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+- `name?:optional string`
+
+  Name of the RBAC Group. Not uniqueness-enforced.
+
+#### Returns
+
+- `class RBACGroup`
+
+  - `"rbac_group" type`
+
+    Object type.
+
+    For RBAC Groups, this is always `"rbac_group"`.
+
+  - `string id`
+
+    ID of the RBAC Group.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 timestamp of when the RBAC Group was created.
+
+  - `string name`
+
+    Name of the RBAC Group. Not uniqueness-enforced.
+
+  - `?list<string> roleIDs`
+
+    RBAC Role IDs attached to this RBAC Group. Role attachment is managed in the admin settings and is read-only on this API. `null` means role data was temporarily unavailable — retry to distinguish from an empty list.
+
+  - `SourceType sourceType`
+
+    How the RBAC Group was created: `"direct"` for groups created directly (for example, in the organization's admin settings), `"scim"` for groups provisioned by the identity provider.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 timestamp of when the RBAC Group was last updated.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaRBACGroup = $client->beta->organization->rbacGroups->update(
+  'rbac_group_id', name: 'Engineering'
+);
+
+var_dump($betaRBACGroup);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Engineering",
+  "role_ids": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "roles": [
+    "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s"
+  ],
+  "source_type": "direct",
+  "type": "rbac_group",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### Delete RBAC Group
+
+`$client->beta->organization->rbacGroups->delete(string rbacGroupID): RBACGroupDeleteResponse`
+
+**DELETE** `/v1/organizations/rbac_groups/{rbac_group_id}`
+
+Delete an RBAC Group. Groups provisioned by an identity provider (source type `"scim"`) cannot be deleted via the API while an organization in the tenant uses SCIM provisioning.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+#### Returns
+
+- `class RBACGroupDeleteResponse`
+
+  - `"rbac_group_deleted" type`
+
+    Deleted object type.
+
+    For RBAC Groups, this is always `"rbac_group_deleted"`.
+
+  - `string id`
+
+    ID of the RBAC Group.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$rbacGroup = $client->beta->organization->rbacGroups->delete('rbac_group_id');
+
+var_dump($rbacGroup);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "type": "rbac_group_deleted"
+}
+```
+
+## Beta › Organization › RBAC Groups › Members
+
+### List RBAC Group Members
+
+`$client->beta->organization->rbacGroups->members->list(string rbacGroupID, ?int limit, ?string page): PageCursor<BetaRBACGroupMember>`
+
+**GET** `/v1/organizations/rbac_groups/{rbac_group_id}/members`
+
+List members of an RBAC Group.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+#### Returns
+
+- `class BetaRBACGroupMember`
+
+  - `"rbac_group_member" type`
+
+    Object type.
+
+    For RBAC Group Members, this is always `"rbac_group_member"`.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 timestamp of when the User was added to the RBAC Group.
+
+  - `string email`
+
+    Email of the User.
+
+  - `string rbacGroupID`
+
+    ID of the RBAC Group.
+
+  - `string userID`
+
+    ID of the User.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->rbacGroups->members->list(
+  'rbac_group_id', limit: 1, page: 'eyJjdXJzb3IiOiAicmJhY19ncm91cF8wMSJ9'
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "email": "user@emaildomain.com",
+      "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "type": "rbac_group_member",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+    }
+  ],
+  "has_more": false,
+  "next_page": "eyJjdXJzb3IiOiAicmJhY19ncm91cF8wMSJ9"
+}
+```
+
+### Add RBAC Group Member
+
+`$client->beta->organization->rbacGroups->members->add(string rbacGroupID, string userID): BetaRBACGroupMember`
+
+**POST** `/v1/organizations/rbac_groups/{rbac_group_id}/members`
+
+Add a User to an RBAC Group. Membership of groups provisioned by an identity provider (source type `"scim"`) cannot be modified via the API while an organization in the tenant uses SCIM provisioning.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+- `userID: string`
+
+  ID of the User.
+
+#### Returns
+
+- `class BetaRBACGroupMember`
+
+  - `"rbac_group_member" type`
+
+    Object type.
+
+    For RBAC Group Members, this is always `"rbac_group_member"`.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 timestamp of when the User was added to the RBAC Group.
+
+  - `string email`
+
+    Email of the User.
+
+  - `string rbacGroupID`
+
+    ID of the RBAC Group.
+
+  - `string userID`
+
+    ID of the User.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaRBACGroupMember = $client->beta->organization->rbacGroups->members->add(
+  'rbac_group_id', userID: 'user_01WCz1FkmYMm4gnmykNKUu3Q'
+);
+
+var_dump($betaRBACGroupMember);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "email": "user@emaildomain.com",
+  "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "type": "rbac_group_member",
+  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+}
+```
+
+### Remove RBAC Group Member
+
+`$client->beta->organization->rbacGroups->members->remove(string userID, string rbacGroupID): MemberRemoveResponse`
+
+**DELETE** `/v1/organizations/rbac_groups/{rbac_group_id}/members/{user_id}`
+
+Remove a User from an RBAC Group. Membership of groups provisioned by an identity provider (source type `"scim"`) cannot be modified via the API while an organization in the tenant uses SCIM provisioning.
+
+The RBAC Groups API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacGroupID: string`
+
+  ID of the RBAC Group.
+
+- `userID: string`
+
+  ID of the User.
+
+#### Returns
+
+- `class MemberRemoveResponse`
+
+  - `"rbac_group_member_deleted" type`
+
+    Deleted object type. For RBAC Group Members, this is always `"rbac_group_member_deleted"`.
+
+  - `string rbacGroupID`
+
+    ID of the RBAC Group.
+
+  - `string userID`
+
+    ID of the User.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$member = $client->beta->organization->rbacGroups->members->remove(
+  'user_id', rbacGroupID: 'rbac_group_id'
+);
+
+var_dump($member);
+```
+
+##### Response (200)
+
+```json
+{
+  "group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "type": "rbac_group_member_deleted",
+  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+}
+```
+
+## Beta › Organization › RBAC Roles
+
+### List RBAC Roles
+
+`$client->beta->organization->rbacRoles->list(?int limit, ?string page): PageCursor<RBACRole>`
+
+**GET** `/v1/organizations/rbac_roles`
+
+List RBAC Roles in the organization.
+
+The RBAC Roles API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+#### Returns
+
+- `class RBACRole`
+
+  - `"rbac_role" type`
+
+    Object type.
+
+    For RBAC Roles, this is always `"rbac_role"`.
+
+  - `string id`
+
+    ID of the RBAC Role.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 datetime string indicating when the RBAC Role was created.
+
+  - `string name`
+
+    Name of the RBAC Role.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 datetime string indicating when the RBAC Role was last updated.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->rbacRoles->list(
+  limit: 1, page: 'eyJjdXJzb3IiOiAicmJhY19yb2xlXzAxIn0'
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "name": "Project Editor",
+      "type": "rbac_role",
+      "updated_at": "2024-10-30T23:58:27.427722Z"
+    }
+  ],
+  "has_more": true,
+  "next_page": "eyJjdXJzb3IiOiAicmJhY19yb2xlXzAxIn0"
+}
+```
+
+### Get RBAC Role
+
+`$client->beta->organization->rbacRoles->retrieve(string rbacRoleID): RBACRole`
+
+**GET** `/v1/organizations/rbac_roles/{rbac_role_id}`
+
+Retrieve an RBAC Role by ID.
+
+The RBAC Roles API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacRoleID: string`
+
+  ID of the RBAC Role.
+
+#### Returns
+
+- `class RBACRole`
+
+  - `"rbac_role" type`
+
+    Object type.
+
+    For RBAC Roles, this is always `"rbac_role"`.
+
+  - `string id`
+
+    ID of the RBAC Role.
+
+  - `\Datetime createdAt`
+
+    RFC 3339 datetime string indicating when the RBAC Role was created.
+
+  - `string name`
+
+    Name of the RBAC Role.
+
+  - `\Datetime updatedAt`
+
+    RFC 3339 datetime string indicating when the RBAC Role was last updated.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaRBACRole = $client->beta->organization->rbacRoles->retrieve(
+  'rbac_role_id'
+);
+
+var_dump($betaRBACRole);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Project Editor",
+  "type": "rbac_role",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+## Beta › Organization › RBAC Roles › Permissions
+
+### List RBAC Role Permissions
+
+`$client->beta->organization->rbacRoles->permissions->list(string rbacRoleID, ?int limit, ?string page): PageCursor<BetaRBACRolePermission>`
+
+**GET** `/v1/organizations/rbac_roles/{rbac_role_id}/permissions`
+
+List the permissions an RBAC Role grants.
+
+The RBAC Roles API is available to Claude Enterprise organizations only.
+
+#### Parameters
+
+- `rbacRoleID: string`
+
+  ID of the RBAC Role.
+
+- `limit?:optional int`
+
+  Number of items to return per page.
+
+  Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20
+
+- `page?:optional string`
+
+  Optionally set to the `next_page` token from the previous response.
+
+#### Returns
+
+- `class BetaRBACRolePermission`
+
+  - `"rbac_role_permission" type`
+
+    Object type.
+
+    For RBAC Role Permissions, this is always `"rbac_role_permission"`.
+
+  - `string action`
+
+    Action the permission grants on the resource.
+
+    The vocabulary follows the resource: an `organization` grant carries a
+    product-feature entitlement (for example `chat`), an admin-panel
+    permission entitlement (`permission_*`), or a blanket capability-access
+    mode — `capability_access_all` grants every product-feature entitlement,
+    and `capability_access_all_ga` grants the generally-available subset as
+    it stands at permission-check time; neither mode grants model-access
+    entitlements. A consumer enumerating a role's per-feature grants should
+    treat a blanket row as granting every product-feature entitlement it
+    covers, or it will under-report the role's effective access. A `connector_tool` grant carries
+    a tool-access action (`use` or `always_allow`); a `connector_scope` grant
+    carries the scope action `grant` (the role may receive the named OAuth
+    scope when tokens are minted for the connector); `connector` and
+    `all_connectors` grants carry a tool-access action, the scope action, or
+    an authentication-method action (`interactive` or `managed`).
+
+  - `Resource resource`
+
+    What the permission applies to.
+
+    A tagged union: `type` names the kind of resource and determines which
+    identifier fields are present.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->rbacRoles->permissions->list(
+  'rbac_role_id', limit: 1, page: 'eyJjdXJzb3IiOiAicmJhY19yb2xlXzAxIn0'
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "action": "use",
+      "resource": {
+        "organization_id": "3c4f5e6d-7a8b-49c0-9d1e-2f3a4b5c6d7e",
+        "type": "organization"
+      },
+      "type": "rbac_role_permission"
+    }
+  ],
+  "has_more": true,
+  "next_page": "eyJjdXJzb3IiOiAicmJhY19yb2xlXzAxIn0"
 }
 ```
 

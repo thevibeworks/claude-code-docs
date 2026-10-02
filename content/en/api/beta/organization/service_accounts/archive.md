@@ -128,6 +128,8 @@ those rules first or change their target to another service account.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Returns
 
 - `BetaServiceAccount object`

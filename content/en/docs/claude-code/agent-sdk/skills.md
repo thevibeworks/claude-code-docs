@@ -253,7 +253,7 @@ The `/compact` command reduces the size of your conversation history by summariz
 </CodeGroup>
 
 <Note>
-  A `compact_boundary` message only arrives when compaction ran. With nothing to summarize, `/compact` reports the reason instead of raising. The run still ends with a `success` result and no `compact_boundary` message, and the result text carries the reason, for example `Not enough messages to compact.` after a single short exchange. A fresh one-shot `query()` call starts with empty context, so use this pattern in a session with prior turns, for example in [streaming input mode](/docs/en/agent-sdk/streaming-vs-single-mode) or when resuming a session.
+  A `compact_boundary` message only arrives when compaction ran. When a continued session has messages but nothing `/compact` can summarize, the run still ends with a `success` result rather than an error, and no `compact_boundary` message arrives. The result text then carries the reason, for example `Not enough messages to compact.` when the session holds a prompt but no reply from Claude yet. A fresh one-shot `query()` call starts with empty context, so use this pattern in a session with prior turns, for example in [streaming input mode](/docs/en/agent-sdk/streaming-vs-single-mode) or when resuming a session.
 </Note>
 
 ### Reset context with `/clear`
@@ -350,7 +350,7 @@ The skill's name also appears in the init message's `slash_commands` array.
 ## Pre-approve tools for skills
 
 <Note>
-  For project and personal skills, Claude Code applies the [`allowed-tools`](/docs/en/skills#pre-approve-tools-for-a-skill) frontmatter field in SDK sessions. You can also pre-approve tools for these skills through the `allowedTools` option (`allowed_tools` in Python) in your query configuration. Skills [synced from claude.ai](/docs/en/skills#how-claude-code-handles-the-frontmatter-of-a-synced-skill) follow their own frontmatter rules.
+  In SDK sessions, you can pre-approve tools for a project or personal skill with the skill's [`allowed-tools`](/docs/en/skills#pre-approve-tools-for-a-skill) frontmatter or with the `allowedTools` option (`allowed_tools` in Python) in your query configuration. If your organization sets [`allowManagedPermissionRulesOnly`](/docs/en/settings-reference#allowmanagedpermissionrulesonly) in managed settings, Claude Code ignores both. Skills [synced from claude.ai](/docs/en/skills#how-claude-code-handles-the-frontmatter-of-a-synced-skill) follow their own frontmatter rules.
 </Note>
 
 Skills run with the session's tools. The example below pre-approves `Read`, `Grep`, and `Glob` with `allowedTools` (`allowed_tools` in Python), so Claude can inspect files while running the [security-check skill](#create-and-dispatch-your-first-skill) without stopping for approval:

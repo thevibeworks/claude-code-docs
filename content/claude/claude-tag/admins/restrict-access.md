@@ -136,7 +136,7 @@ To control who can use Claude in the allowed channels, turn on the [restriction 
 * **Blocked channel patterns**: Claude won't read or respond in a channel whose name matches, even if someone invites it there. When it's added to such a channel or @-mentioned in one, it posts a notice that an admin has blocked it there, and otherwise stays silent.
 * **Auto-join channels**: Claude joins a public channel whose name matches one of its patterns when the channel is created or renamed. Private channels still need an invite. To add Claude to an existing channel, invite it as usual.
 
-Each row of the **Auto-join channels** table is one pattern, added with **Add pattern**. A row can also carry [access bundles](/docs/claude-tag/admins/attach-to-scope#attach-a-bundle-to-channels-by-name), which attach in every matching channel Claude is in; a row with no bundles is marked **Auto-join only**, and Claude joins matching channels whether or not a row carries bundles. Editing the patterns needs an Admin or Owner of your Claude organization, and editing the bundles on a row needs an Owner or a [Claude Tag admin](#delegate-claude-tag-administration).
+Each row of the **Auto-join channels** table is one pattern, added with **Add pattern**. A row can also carry [access bundles](/docs/claude-tag/admins/attach-to-scope#attach-a-bundle-to-channels-by-name), which attach in every matching channel Claude is in; a row with no bundles is marked **Auto-join only**, and Claude joins matching channels whether or not a row carries bundles. Editing the patterns or the bundles on a row needs an Owner of your Claude organization.
 
 Removing a pattern row also detaches the row's bundles. A row marked **Not auto-joined** shows a pattern that still has bundles attached but that the auto-join list no longer carries. Claude joins no new channels for it, but its bundles still attach in matching channels Claude is already in; remove the bundles from the row to end that.
 
@@ -191,7 +191,7 @@ Treat a channel's instructions, and the instructions in any bundle attached dire
 
 ### Limit which channels Claude can search
 
-By default, workspace search covers public channels across the workspace, including ones Claude hasn't been added to. The **Channels Claude can search** setting narrows workspace search to channels Claude is in. You set it per scope at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → **Advanced**. Changing it needs an Admin or Owner of your Claude organization.
+By default, workspace search covers public channels across the workspace, including ones Claude hasn't been added to. The **Channels Claude can search** setting narrows workspace search to channels Claude is in. You set it per scope at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → **Advanced**. Changing it needs an Owner of your Claude organization.
 
 The setting has two values:
 
@@ -322,12 +322,12 @@ A member whose custom role includes the permission is a Claude Tag admin. A Clau
 
 * Create and edit [Access bundles](/docs/claude-tag/admins/add-connections), including their credentials, domain entries, and repository grants, and attach bundles to the organization, a workspace, or a channel
 * Edit workspace and channel settings at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), such as custom instructions and the default model
-* Add and remove [channel managers](#delegate-channel-setup-to-channel-managers)
+* Add and remove [channel managers](#delegate-channel-setup-to-channel-managers), if the role also sets **Identity & Access** to **Can manage**
 * Set a scope's [**How should Claude work in channels with guests**](#restrict-guest-channels) setting to **Restrict** or **Channel only**; choosing **Full access** or setting a scope back to **Inherit** stays with Owners
 
 Some actions stay outside the permission:
 
-* **Owner-only**: turning Claude Tag on or off, the [**Allow direct messages**](#allow-or-disable-direct-messages) toggle, the [**Member access**](#restrict-who-can-use-claude) restriction, and pairing or disconnecting workspaces
+* **Owner-only**: turning Claude Tag on or off, the [**Allow direct messages**](#allow-or-disable-direct-messages) toggle, the [**Member access**](#restrict-who-can-use-claude) restriction, pairing or disconnecting workspaces, [channel name patterns](#block-or-auto-join-channels-by-name) and the bundles on them, and the [**Channels Claude can search**](#limit-which-channels-claude-can-search) setting
 * **The Claude GitHub App**: [installing the app](/docs/claude-tag/admins/configure-github) needs an owner of your GitHub organization
 * **Spend limits and usage analytics**: [usage analytics](#usage-analytics) is open to anyone with permission to view your organization's Analytics dashboard; [spend limits](/docs/claude-tag/admins/set-spend-limit) live on the usage page
 
@@ -357,7 +357,7 @@ Some actions stay outside the permission:
 
 ## Delegate channel setup to channel managers
 
-A channel manager is a member of your Claude organization who can set up Claude in specific channels without the Owner role. Channel managers are available on the Enterprise plan, and you must be an Owner or a [Claude Tag admin](#delegate-claude-tag-administration) to add or remove them.
+A channel manager is a member of your Claude organization who can set up Claude in specific channels without the Owner role. Channel managers are available on the Enterprise plan. An Owner can add or remove them, and so can a [Claude Tag admin](#delegate-claude-tag-administration) whose role also sets **Identity & Access** to **Can manage**.
 
 You name channel managers one channel at a time. For that channel, a channel manager sets the default model, adds repositories, manages credentials and plugins in the channel's bundle, and edits channel instructions. Every other setting at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) stays with Owners; on the Enterprise plan, an Owner can delegate most of them through the [**Claude Tag Admin** permission](#delegate-claude-tag-administration).
 
@@ -365,7 +365,7 @@ A channel manager is a person. To let the members of another Slack channel write
 
 ### What a channel manager can do on the Configure page
 
-A channel manager has to be a member of the channel in Slack. The channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), which opens on claude.ai from the **Configure** link in any Claude reply, is split into tabs. In a channel you assigned to them, a channel manager sees the **Default model** card on the **General** tab and the repository and access bundle cards on the **Tools and access** tab. Members without the role don't see those cards. Owners and Admins also see an **Admin** tab, whose **Channel settings** card holds some of the channel scope's settings from admin settings.
+A channel manager has to be a member of the channel in Slack. The channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), which opens on claude.ai from the **Configure** link in any Claude reply, is split into tabs. In a channel you assigned to them, a channel manager sees the **Default model** card on the **General** tab and the repository and access bundle cards on the **Tools and access** tab. Members without the role don't see those cards. Owners and [Claude Tag admins](#delegate-claude-tag-administration) also see an **Admin** tab, whose **Channel settings** card holds some of the channel scope's settings from admin settings.
 
 | Setting | What a channel manager can do |
 | :- | :- |
@@ -397,11 +397,13 @@ Channel managers are built on [custom roles](https://claude.ai/admin-settings/ro
   <Step title="Check each manager's access level">
     When you add a member on the User or Claude Code user level, you move them to the **Custom roles** level in the same step; if they already hold other custom roles, you confirm the move first. For a member on any other level, you see **Not in effect** until you change their level on the Members page. Adding a group changes nobody's level; group members who aren't on the **Custom roles** level show **Not in effect** too.
 
+    If you're a Claude Tag admin, the move also needs **User Management** set to **Can manage** on your role. Without it, the member is still added but shows **Not in effect** until their access level is changed on the Members page.
+
     If your identity provider manages access levels, you can't change a level on the Members page, and the move doesn't happen. Put the channel managers in an identity provider group and map that group to the **Custom roles** level instead. If you turn on identity provider management after adding channel managers, the next sync sets every member's level from your group mappings, so managers you moved by hand show **Not in effect** until a mapped group covers them. The role and its group are kept; you don't need to add the managers again.
   </Step>
 </Steps>
 
-Owners and Admins can already configure every channel, so you see them as **Already has full access** and can't add them.
+Owners can already configure every channel, so you see them as **Already has full access** and can't add them.
 
 Leave the role as it was created: assigned to its channel, with **Claude Tag channel setup** as its only permission. If the role's permissions are changed on the Roles page, the channel's channel-managers popup stops recognizing the role and refuses to add or remove any, with a notice that points you to the Roles page. To recover, set the role's permissions back to exactly **Claude Tag channel setup**; the group and its members are kept. To give channel managers any other permission, create a separate role for it.
 
@@ -425,7 +427,7 @@ The [Audit page](/docs/claude-tag/admins/audit), labeled **Activity** in the con
 
 ## Permissions by role
 
-Creating bundles, binding them to scopes, and adding channel managers need an Owner or a [Claude Tag admin](#delegate-claude-tag-administration). Pairing workspaces needs an Owner. A [channel manager](#delegate-channel-setup-to-channel-managers) configures only the channels assigned to them. Everything else happens inside the channel and is open to its members. The table lists each action and who can take it, with no column for Claude Tag admins; the actions that permission covers are listed under [Delegate Claude Tag administration](#delegate-claude-tag-administration).
+Creating bundles and binding them to scopes need an Owner or a [Claude Tag admin](#delegate-claude-tag-administration). Pairing workspaces needs an Owner. A [channel manager](#delegate-channel-setup-to-channel-managers) configures only the channels assigned to them. Everything else happens inside the channel and is open to its members. The table lists each action and who can take it, with no column for Claude Tag admins; the actions that permission covers are listed under [Delegate Claude Tag administration](#delegate-claude-tag-administration).
 
 | Action | Owner | Channel manager | Channel member |
 | :- | :- | :- | :- |

@@ -19,7 +19,7 @@ This page is for the Claude organization Owner and the compliance lead deciding 
 Claude reads Slack with the same visibility a member of your workspace has. In a Slack workspace connected to your Claude organization, Claude can:
 
 * Read and post in the channels it has been added to
-* Search every public channel by keyword, including public channels it hasn't been added to. [No admin setting turns this search off](/docs/claude-tag/admins/restrict-access#controls-that-aren%E2%80%99t-available). An Admin or Owner can [limit it to channels Claude is in](/docs/claude-tag/admins/restrict-access#limit-which-channels-claude-can-search).
+* Search every public channel by keyword, including public channels it hasn't been added to. [No admin setting turns this search off](/docs/claude-tag/admins/restrict-access#controls-that-aren%E2%80%99t-available). An Owner can [limit it to channels Claude is in](/docs/claude-tag/admins/restrict-access#limit-which-channels-claude-can-search).
 * Read a private channel only after someone in that channel invites it
 
 Claude never searches private channels, and it doesn't reply in [Slack Connect channels](/docs/claude-tag/admins/restrict-access#slack-connect-channels), the channels your workspace shares with another company.

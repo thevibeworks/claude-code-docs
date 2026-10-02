@@ -73,7 +73,11 @@ Match the message you see to a section below.
 | `Remote Control stopped — the app running this session is now signed in to a different Claude account` | [Authentication](#remote-control-stopped-because-the-app-running-the-session-signed-out-or-switched-accounts) |
 | `Remote Control stopped — the app running this session is signed out of Claude` | [Authentication](#remote-control-stopped-because-the-app-running-the-session-signed-out-or-switched-accounts) |
 | `Couldn't verify your organization's policy for remote control` | [Troubleshoot Remote Control](/docs/en/remote-control#couldnt-verify-your-organizations-policy-for-remote-control) |
+| `Remote Control is disabled by your organization's policy` | [Troubleshoot Remote Control](/docs/en/remote-control#remote-control-is-disabled-by-your-organizations-policy) |
+| `Remote Control was turned off by your organization's policy` | [Troubleshoot Remote Control](/docs/en/remote-control#remote-control-was-turned-off-by-your-organizations-policy) |
 | `OAuth token revoked` / `OAuth token has expired` | [Authentication](#oauth-token-revoked-or-expired) |
+| `Failed to authenticate: OAuth token revoked` | [Authentication](#oauth-token-revoked-or-expired) |
+| `Your account does not have access to Claude. Please login again or contact your administrator.` | [Authentication](#oauth-token-revoked-or-expired) |
 | `API Error: 401 Invalid authentication credentials` | [Authentication](#api-error-401-invalid-authentication-credentials) |
 | `Login expired · Please run /login` | [Authentication](#login-expired) |
 | `Failed to start OAuth callback server` | [Authentication](#failed-to-start-oauth-callback-server) |
@@ -184,6 +188,7 @@ Match the message you see to a section below.
 | `The connection dropped while downloading the update` | [Installation errors](#the-connection-dropped-while-downloading-the-update) |
 | `Download timed out: exceeded the total deadline` | [Installation errors](#the-connection-dropped-while-downloading-the-update) |
 | `--bg and --print conflict` | [Command-line errors](#conflict-between-bg-and-print) |
+| `Error: Cannot use both --append-subagent-system-prompt and --append-subagent-system-prompt-file. Please use only one.` | [Command-line errors](#conflict-between-a-system-prompt-flag-and-its-file-form) |
 | `Cloud sessions cannot be created from a --restricted session` | [Command-line errors](#cloud-sessions-cannot-be-created-from-a-restricted-session) |
 | `Cloud sessions are disabled by your organization's policy` | [Command-line errors](#cloud-sessions-are-disabled-by-your-organizations-policy) |
 | `Couldn't verify your organization's policy for cloud sessions` | [Command-line errors](#cloud-sessions-are-disabled-by-your-organizations-policy) |
@@ -201,6 +206,7 @@ Match the message you see to a section below.
 | `Could not read Claude Code config` | [Command-line errors](#could-not-read-claude-code-config) |
 | `Could not import <server>: <reason>` | [Command-line errors](#could-not-import-a-server-from-claude-desktop) |
 | `Cannot add MCP server to scope: managed` | [Command-line errors](#cannot-add-mcp-server-to-the-managed-scope) |
+| `Cannot add MCP server: your organization's managed settings allow only MCP servers that plugins provide` | [Command-line errors](#cannot-add-mcp-server-when-managed-settings-allow-only-plugin-servers) |
 | `is Anthropic-hosted and doesn't support local OAuth` | [Command-line errors](#anthropic-hosted-and-doesnt-support-local-oauth) |
 | `Can't read .mcp.json: it isn't a regular file or is larger than 2097152 bytes` | [Command-line errors](#cant-read-mcp-json) |
 | `MCP server "<name>" was not saved to` / `was not removed from` | [Command-line errors](#mcp-server-was-not-saved-or-removed) |
@@ -244,10 +250,13 @@ Match the message you see to a section below.
 | `Marketplace name impersonates an official Anthropic/Claude marketplace` | [Plugin errors](#claude-code-refuses-the-marketplace-name) |
 | `Marketplace "<name>" is already added from a different source` | [Plugin errors](#marketplace-is-already-added-from-a-different-source) |
 | `"<name>" is another spelling of "<reserved>", a reserved marketplace name` | [Plugin errors](#marketplace-name-is-another-spelling-of-a-reserved-name) |
+| `Marketplace "<name>" is added but ignored` | [Plugin troubleshooting](/docs/en/plugins/troubleshooting#marketplace-is-added-but-ignored) |
+| `Marketplace "<name>" is registered but was refused (see the debug log)` | [Plugin troubleshooting](/docs/en/plugins/troubleshooting#marketplace-is-added-but-ignored) |
 | `references ${user_config.*} in a shell-form command` | [Plugin errors](#plugin-command-references-user-config) |
 | `Monitor "<name>" from plugin <plugin> references ${user_config.*} in its command` | [Plugin errors](#plugin-command-references-user-config) |
 | `headersHelper for MCP server '<name>' references ${user_config.*}` | [Plugin errors](#plugin-command-references-user-config) |
 | `Plugin archive integrity check failed` | [Plugin errors](#plugin-archive-integrity-check-failed) |
+| `An npm plugin source must name a registry package` | [Plugin troubleshooting](/docs/en/plugins/troubleshooting#an-npm-plugin-source-must-name-a-registry-package) |
 | `path escapes plugin directory` | [Plugin errors](#path-escapes-plugin-directory) |
 | `path could not be checked` | [Plugin errors](#path-could-not-be-checked) |
 | `its marketplace entry path does not stay inside the marketplace directory` | [Plugin errors](#marketplace-entry-path-does-not-stay-inside-the-marketplace-directory) |
@@ -288,6 +297,9 @@ Match the message you see to a section below.
 | `Reading a local file from outside this session's connected folders, or through a link, needs the approval card` | [Tool errors](#reading-a-local-file-from-outside-the-connected-folders) |
 | `cannot read file_path (...) — the file could not be examined, and no one can answer the approval card` | [Tool errors](#reading-a-local-file-from-outside-the-connected-folders) |
 | `WebFetch cannot fetch localhost or other hostnames without a dot` | [Tool errors](#webfetch-cannot-fetch-localhost) |
+| `The safety check for domain ... is rate-limited` | [Tool errors](#webfetch-domain-safety-check-failed) |
+| `The safety check for domain ... is temporarily rate-limited` | [Tool errors](#webfetch-domain-safety-check-failed) |
+| `Unable to verify if domain ... is safe to fetch` | [Tool errors](#webfetch-domain-safety-check-failed) |
 | `Can't open MCP settings while no terminal is attached to this background session` | [Background session errors](#commands-refused-in-a-background-session) |
 | `Can't open MCP settings in a background session` | [Background session errors](#commands-refused-in-a-background-session) |
 | `blocked because the path is spelled in a form that cannot be safely resolved` | [Background session errors](#write-or-command-blocked-because-the-path-cannot-be-safely-resolved) |
@@ -666,7 +678,7 @@ You've hit your Sonnet limit · resets 3:45pm
 
 Claude Code blocks further requests until the reset time shown in the message. The session and weekly limits are shared across all models, so switching models doesn't restore access. The Opus and Sonnet limits each apply only to requests to that model family, so switching to a model outside the family with `/model` keeps you working.
 
-In an interactive session signed in with a claude.ai subscription, Claude Code can also wait in the open session and continue the interrupted task shortly after the reset. While it waits, a line at the bottom of the session reads `Usage limit reached · continuing automatically at 3:45pm · esc to cancel`. Press `Esc` at an empty prompt to cancel the wait. See [Wait for a usage limit to reset](/docs/en/interactive-mode#wait-for-a-usage-limit-to-reset) for what you see, how to start or cancel a wait, and how to turn automatic continue off. Before v2.1.234, Claude Code didn't offer this wait.
+In an interactive session signed in with a claude.ai subscription, Claude Code can also wait in the open session and continue the interrupted task shortly after the reset. See [Wait for a usage limit to reset](/docs/en/interactive-mode#wait-for-a-usage-limit-to-reset) for what you see, how to start or cancel a wait, and how to turn automatic continue off. Before v2.1.234, Claude Code didn't offer this wait.
 
 Usage counts against the session and weekly allowances at the same time. A single burst of heavy activity, such as a large workflow fanout, can exhaust the weekly allowance before the session window resets.
 
@@ -851,6 +863,10 @@ Not logged in · Please run /login
 ```
 
 In a session the Claude Desktop app runs, such as the Code tab or Cowork, the message reads `Authentication required · Sign in again to continue`, and you sign in again from the app.
+
+If you sign in with your claude.ai account in another Claude Code window that uses the same [configuration directory](/docs/en/claude-directory), an interactive session showing this message starts using that login on its own. You don't need to restart it.
+
+Before v2.1.286 on macOS, the session could keep showing the message after you signed in from another window. On those versions, restart the session that shows the message.
 
 **What to do:**
 
@@ -1146,9 +1162,19 @@ OAuth token revoked · Please run /login
 Please run /login · API Error: 401 OAuth token has expired ...
 ```
 
+In [non-interactive mode](/docs/en/headless) (`-p`) and the [Agent SDK](/docs/en/agent-sdk/overview), the messages read as follows, and the structured error code is `authentication_failed`:
+
+```text theme={null}
+Failed to authenticate: OAuth token revoked. Please log in again or contact your administrator.
+Failed to authenticate. API Error: 401 OAuth token has expired ...
+```
+
+Before v2.1.287, in non-interactive mode and the Agent SDK, the revoked message read `Your account does not have access to Claude. Please login again or contact your administrator.`
+
 **What to do:**
 
-* Run `/login` to sign in again
+* Run `/login` at the Claude Code prompt to sign in again
+* If your `-p` command or Agent SDK program uses a saved login, run `claude` in the same environment, complete `/login`, then run the command or program again. For automation that can't sign in interactively, authenticate with [`ANTHROPIC_API_KEY`](/docs/en/env-vars) or [generate a long-lived token with `claude setup-token`](/docs/en/authentication#generate-a-long-lived-token).
 * If you authenticate with the `CLAUDE_CODE_OAUTH_TOKEN` environment variable, Claude Code keeps sending the value you set after a request fails with a 401, rather than switching to a stored login's token. [`/status`](/docs/en/commands) shows this credential as an `Auth token` row reading `CLAUDE_CODE_OAUTH_TOKEN`. Generate a fresh token with [`claude setup-token`](/docs/en/authentication#generate-a-long-lived-token) and restart with it, or unset the variable and run `/login`. Before v2.1.225, Claude Code could replace the variable's value mid-session with the short-lived access token from a stored login, and the session failed with 401 errors again once that token expired.
 * For repeated prompts to log in across launches, see the system clock checks and macOS credential-storage recovery steps in [Troubleshooting](/docs/en/troubleshoot-install#not-logged-in-or-token-expired)
 * For other failures including `403 Forbidden` and OAuth browser issues, see [Login and authentication](/docs/en/troubleshoot-install#login-and-authentication)
@@ -1193,6 +1219,7 @@ You can check for this state before a request fails: [`/status`](/docs/en/comman
 **What to do:**
 
 * Run `/login` to sign in again. Retrying without signing in shows the same message on every request.
+* If you sign in with your claude.ai account in another Claude Code window, see [Not logged in](#not-logged-in) for when this session starts using that login on its own.
 * In non-interactive mode, run `claude` in the same environment, complete `/login`, then rerun your command. For automation that can't sign in interactively, authenticate with `ANTHROPIC_API_KEY` or [generate a long-lived token with `claude setup-token`](/docs/en/authentication#generate-a-long-lived-token).
 * If signing in keeps failing, see [Login and authentication](/docs/en/troubleshoot-install#login-and-authentication)
 
@@ -1853,8 +1880,8 @@ This is not a client-side network problem. Cloud sessions and [routines](/docs/e
 
 These steps change one of your own environments. An [organization-shared environment](/docs/en/cloud-environments#organization-shared-environments) opens read-only in the selector, so ask an Owner to change its network access from the **Cloud environments** page in [admin settings](https://claude.ai/admin-settings).
 
-* Open the routine for editing, or start a cloud session. Select the cloud icon showing your environment's name, such as **Default**, to open the selector. Hover over your environment and click the settings icon.
-* In the **Update cloud environment** dialog, change **Network access** from **Trusted** to **Custom**, then add the blocked domain to **Allowed domains**. Enter one domain per line. Check **Also include default list of common package managers** to keep the [default allowlist](/docs/en/cloud-environments#default-allowed-domains) alongside your custom domains. Select **Full** instead if you want unrestricted access.
+* Open your environment for editing, either from the [routine's form](/docs/en/routines#environments-and-network-access) or from the [environment selector](/docs/en/cloud-environments#configure-your-environment) where you start cloud sessions.
+* In the **Edit cloud environment** dialog, change **Network access** from **Trusted** to **Custom**, then add the blocked domain to **Allowed domains**. Enter one domain per line. Check **Also include default list of common package managers** to keep the [default allowlist](/docs/en/cloud-environments#default-allowed-domains) alongside your custom domains. Select **Full** instead if you want unrestricted access.
 * Click **Save changes**. The next run uses the updated allowlist. For a cloud session that's already open, see [when a network access change reaches existing sessions](/docs/en/cloud-environments#network-access).
 
 See [Network access](/docs/en/cloud-environments#network-access) for access levels and the default allowlist. Local CLI sessions are not affected by this policy.
@@ -2172,7 +2199,7 @@ A proxy or LLM gateway between Claude Code and the API stripped the `anthropic-b
 API Error: 400 ... Extra inputs are not permitted ... context_management
 ```
 
-Claude Code sends beta-only fields such as `context_management` and `effort` alongside an `anthropic-beta` header that enables them. When a gateway forwards the body but drops the header, the API sees fields it doesn't recognize.
+Claude Code sends beta-only fields such as `context_management` alongside an `anthropic-beta` header that enables them. When a gateway forwards the body but drops the header, the API sees fields it doesn't recognize.
 
 **What to do:**
 
@@ -2692,6 +2719,22 @@ This message requires Claude Code v2.1.198 or later. You combined `--bg` with `-
 * Drop `-p` or `--print`. `--bg` takes the prompt as its positional argument, so `claude --bg "<task>"` is the complete command. See [Dispatch new agents from your shell](/docs/en/agent-view#from-your-shell).
 * To run the prompt non-interactively and print the result instead of creating a background session, drop `--bg` and run `claude -p "<task>"`
 
+<h3 id="conflict-between-a-system-prompt-flag-and-its-file-form">
+  Conflict between a system prompt flag and its file form
+</h3>
+
+You passed [`--append-subagent-system-prompt`](/docs/en/cli-reference#cli-flags) together with `--append-subagent-system-prompt-file` in one `claude` invocation, so `claude` exits with code 1 instead of starting the session:
+
+```text theme={null}
+Error: Cannot use both --append-subagent-system-prompt and --append-subagent-system-prompt-file. Please use only one.
+```
+
+Before v2.1.283, `claude` exited the same way when you passed `--system-prompt` with `--system-prompt-file`, or `--append-system-prompt` with `--append-system-prompt-file`, because those pairs conflicted instead of [combining](/docs/en/cli-reference#system-prompt-flags). On those versions the message names the pair you combined.
+
+**What to do:**
+
+* Keep one form of the flag and drop the other. To combine a fixed prompt file with per-run text, merge the text into the file before launching instead of passing both flags
+
 <h3 id="invalid-agents-configuration">
   Invalid `--agents` configuration
 </h3>
@@ -2959,6 +3002,25 @@ Cannot add MCP server to scope: managed
 
 * Add the server to a scope you can write: `local`, `user`, or `project`. Without `--scope`, the command uses `local`. See [MCP installation scopes](/docs/en/mcp#mcp-installation-scopes)
 * To provide the server to every user in your organization, add it to [`managedMcpServers`](/docs/en/settings-reference#managedmcpservers) in the managed settings you deploy
+
+<h3 id="cannot-add-mcp-server-when-managed-settings-allow-only-plugin-servers">
+  Cannot add MCP server when managed settings allow only plugin servers
+</h3>
+
+You ran `claude mcp add` or `claude mcp add-json` while your organization's managed settings set [`strictPluginOnlyCustomization`](/docs/en/settings-reference#strictpluginonlycustomization) to `true` or to a list that includes `mcp`. With that setting, Claude Code doesn't load MCP servers from `~/.claude.json` or `.mcp.json`, so the command exits with code 1 instead of saving a server that would never load:
+
+```text theme={null}
+Cannot add MCP server: your organization's managed settings allow only MCP servers that plugins provide. Install a plugin that provides this server, or ask your administrator to make it available.
+```
+
+`claude mcp add-from-claude-desktop` reports each server you select as not imported, with this message as the reason. [`/import`](/docs/en/commands#all-commands) reports this message for each MCP server it tries to add and still imports the other items it found.
+
+Before v2.1.284, these commands saved the server and reported success, and the server never loaded.
+
+**What to do:**
+
+* Install a [plugin](/docs/en/plugins/install) that provides the server
+* Ask your administrator to distribute the server in a [plugin](/docs/en/plugins/org), or to provide it through [`managedMcpServers`](/docs/en/settings-reference#managedmcpservers) if it's a remote HTTP or SSE server
 
 <h3 id="cant-read-mcp-json">
   Can't read .mcp.json
@@ -4205,6 +4267,24 @@ WebFetch cannot fetch localhost or other hostnames without a dot. To reach a loc
 
 Before v2.1.268, WebFetch reported these URLs with a generic `Invalid URL` error.
 
+<h3 id="webfetch-domain-safety-check-failed">
+  WebFetch domain safety check failed
+</h3>
+
+Before fetching a URL, WebFetch sends the URL's hostname to `api.anthropic.com` to check it against Anthropic's [domain safety blocklist](/docs/en/data-usage#webfetch-domain-safety-check). If the check can't complete, WebFetch can't confirm that the domain is safe, so it doesn't fetch the page and the tool result carries one of these messages instead:
+
+```text wrap theme={null}
+The safety check for domain example.com is rate-limited (too many domain checks from this network; the limit is shared and can stay exhausted for minutes). Do not retry WebFetch in a loop or sleep to wait it out; continue without this page and report that its safety check was rate-limited. A single later attempt is fine; if that is rate-limited too, stop.
+
+Unable to verify if domain example.com is safe to fetch. This may be due to network restrictions or enterprise security policies blocking claude.ai.
+```
+
+* `rate-limited`: the check endpoint answered with HTTP `429`. The message tells Claude to continue without the page and to try again at most once later. Claude Code doesn't cache a failed check, so a later fetch of that domain runs the check again. If sessions on your network hit this often, you can skip the check with [`skipWebFetchPreflight: true`](/docs/en/settings-reference#skipwebfetchpreflight) in settings.
+* `Unable to verify`: the check request failed, timed out, or got another error status. If your network blocks `api.anthropic.com`, allowlist that domain, or skip the check with [`skipWebFetchPreflight: true`](/docs/en/settings-reference#skipwebfetchpreflight) in settings.
+
+Before v2.1.286, the rate-limited message read `The safety check for domain example.com is temporarily rate-limited (too many domain checks from this network). Retry after about a minute; retrying sooner will fail the same way.`.
+Before v2.1.285, a rate-limited check was reported with the `Unable to verify` message instead.
+
 ## Background session errors
 
 [Background sessions](/docs/en/agent-view) run without an interactive terminal of their own, so commands that need one behave differently there. These messages appear in the transcript of a background session, in the terminal that attaches to one, in the session or shell you dispatch from, or, for the [worktree-guard entries](#write-or-command-blocked-because-the-path-cannot-be-safely-resolved) below, in any session isolated in a worktree or running a worktree-isolated subagent; where a message is specific to one surface, its entry says so.
@@ -4562,6 +4642,8 @@ Two variants name a different cause:
 
 * **`The home directory is trusted one session at a time`**: the session's directory is your home directory. Claude Code never saves trust for the home directory, so accepting the dialog there in an earlier session doesn't count.
 * **`<path> could not be resolved on disk`**: Claude Code couldn't find the session's directory on disk.
+
+Before v2.1.286, on Windows, this message could also appear in a directory you had already trusted, if its trust record was saved with the path in a different letter case. Update to v2.1.286 or later.
 
 **What to do:**
 

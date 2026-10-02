@@ -130,6 +130,8 @@ holds at most two non-archived certificates.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Body parameters
 
 - `ca_certificate_pem: string`

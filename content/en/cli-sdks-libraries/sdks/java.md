@@ -15,7 +15,7 @@ The Anthropic Java SDK provides convenient access to the Claude API from applica
 <Tabs>
   <Tab title="Gradle">
     ```kotlin
-    implementation("com.anthropic:anthropic-java:2.66.0")
+    implementation("com.anthropic:anthropic-java:2.67.0")
     ```
   </Tab>
 
@@ -24,7 +24,7 @@ The Anthropic Java SDK provides convenient access to the Claude API from applica
     <dependency>
         <groupId>com.anthropic</groupId>
         <artifactId>anthropic-java</artifactId>
-        <version>2.66.0</version>
+        <version>2.67.0</version>
     </dependency>
     ```
   </Tab>

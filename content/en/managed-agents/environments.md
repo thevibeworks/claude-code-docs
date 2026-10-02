@@ -28,7 +28,7 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
     "name": "python-dev",
     "config": {
       "type": "cloud",
-      "networking": {"type": "unrestricted"}
+      "networking": {"type": "limited", "allow_package_managers": true}
     }
   }
   EOF
@@ -46,7 +46,8 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
       config:
         type: cloud
         networking:
-          type: unrestricted
+          type: limited
+          allow_package_managers: true
       ```
     </File>
 
@@ -58,7 +59,7 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
       name="python-dev",
       config={
           "type": "cloud",
-          "networking": {"type": "unrestricted"},
+          "networking": {"type": "limited", "allow_package_managers": True},
       },
   )
 
@@ -70,7 +71,7 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
     name: "python-dev",
     config: {
       type: "cloud",
-      networking: { type: "unrestricted" },
+      networking: { type: "limited", allow_package_managers: true },
     },
   });
 
@@ -83,7 +84,10 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
       Name = "python-dev",
       Config = new BetaCloudConfigParams
       {
-          Networking = new BetaUnrestrictedNetwork(),
+          Networking = new BetaLimitedNetworkParams
+          {
+              AllowPackageManagers = true,
+          },
       },
   });
 
@@ -96,7 +100,9 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
   	Config: anthropic.BetaEnvironmentNewParamsConfigUnion{
   		OfCloud: &anthropic.BetaCloudConfigParams{
   			Networking: anthropic.BetaCloudConfigParamsNetworkingUnion{
-  				OfUnrestricted: &anthropic.BetaUnrestrictedNetworkParam{},
+  				OfLimited: &anthropic.BetaLimitedNetworkParams{
+  					AllowPackageManagers: anthropic.Bool(true),
+  				},
   			},
   		},
   	},
@@ -112,7 +118,9 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
   var environment = client.beta().environments().create(EnvironmentCreateParams.builder()
       .name("python-dev")
       .config(BetaCloudConfigParams.builder()
-          .networking(BetaUnrestrictedNetwork.builder().build())
+          .networking(BetaLimitedNetworkParams.builder()
+              .allowPackageManagers(true)
+              .build())
           .build())
       .build());
   IO.println("Environment ID: " + environment.id());
@@ -121,7 +129,10 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
   ```php PHP
   $environment = $client->beta->environments->create(
       name: 'python-dev',
-      config: ['type' => 'cloud', 'networking' => ['type' => 'unrestricted']],
+      config: [
+          'type' => 'cloud',
+          'networking' => ['type' => 'limited', 'allow_package_managers' => true],
+      ],
   );
   echo "Environment ID: {$environment->id}\n";
   ```
@@ -131,7 +142,7 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
     name: "python-dev",
     config: {
       type: "cloud",
-      networking: {type: "unrestricted"}
+      networking: {type: "limited", allow_package_managers: true}
     }
   )
 
@@ -139,7 +150,7 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
   ```
 </CodeGroup>
 
-Use a unique, descriptive `name` so you can tell environments apart.
+Use a unique, descriptive `name` so you can tell environments apart. This example uses `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) with package managers allowed, so the sandbox can reach the package registries and code hosts. To let it reach other hosts, add them to `allowed_hosts`.
 
 ## Use the environment in a session
 
@@ -242,7 +253,7 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
         "pip": ["pandas", "numpy", "scikit-learn"],
         "npm": ["express"]
       },
-      "networking": {"type": "unrestricted"}
+      "networking": {"type": "limited", "allow_package_managers": true}
     }
   }
   EOF
@@ -267,7 +278,8 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
           npm:
             - express
         networking:
-          type: unrestricted
+          type: limited
+          allow_package_managers: true
       ```
     </File>
   </CodeGroupItem>
@@ -281,7 +293,7 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
               "pip": ["pandas", "numpy", "scikit-learn"],
               "npm": ["express"],
           },
-          "networking": {"type": "unrestricted"},
+          "networking": {"type": "limited", "allow_package_managers": True},
       },
   )
   ```
@@ -295,7 +307,7 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
         pip: ["pandas", "numpy", "scikit-learn"],
         npm: ["express"]
       },
-      networking: { type: "unrestricted" }
+      networking: { type: "limited", allow_package_managers: true }
     }
   });
   ```
@@ -313,7 +325,10 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
               Pip = ["pandas", "numpy", "scikit-learn"],
               Npm = ["express"],
           },
-          Networking = new BetaUnrestrictedNetwork(),
+          Networking = new BetaLimitedNetworkParams
+          {
+              AllowPackageManagers = true,
+          },
       },
   });
   ```
@@ -328,7 +343,9 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
   				Npm: []string{"express"},
   			},
   			Networking: anthropic.BetaCloudConfigParamsNetworkingUnion{
-  				OfUnrestricted: &anthropic.BetaUnrestrictedNetworkParam{},
+  				OfLimited: &anthropic.BetaLimitedNetworkParams{
+  					AllowPackageManagers: anthropic.Bool(true),
+  				},
   			},
   		},
   	},
@@ -350,7 +367,9 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
               .pip(List.of("pandas", "numpy", "scikit-learn"))
               .npm(List.of("express"))
               .build())
-          .networking(BetaUnrestrictedNetwork.builder().build())
+          .networking(BetaLimitedNetworkParams.builder()
+              .allowPackageManagers(true)
+              .build())
           .build())
       .build());
   ```
@@ -364,7 +383,7 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
               'pip' => ['pandas', 'numpy', 'scikit-learn'],
               'npm' => ['express'],
           ],
-          'networking' => ['type' => 'unrestricted'],
+          'networking' => ['type' => 'limited', 'allow_package_managers' => true],
       ],
   );
   ```
@@ -378,7 +397,7 @@ The `packages` field pre-installs packages into the sandbox before the agent sta
         pip: %w[pandas numpy scikit-learn],
         npm: %w[express]
       },
-      networking: {type: "unrestricted"}
+      networking: {type: "limited", allow_package_managers: true}
     }
   )
   ```
@@ -399,10 +418,14 @@ Supported package managers:
 
 The `networking` field controls the sandbox's outbound network access. It does not affect the `web_search` or `web_fetch` tools, which run on Anthropic's servers; to restrict the sites those tools can reach, set `allowed_domains` or `blocked_domains` on the tool's entry in the agent toolset. See [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools#restrict-web-search-and-web-fetch-domains).
 
-| Mode           | Description                                                                                                                                                  |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `unrestricted` | Full outbound network access, except for a general safety blocklist. This is the default.                                                                    |
-| `limited`      | Restricts sandbox network access to the hosts in `allowed_hosts`. Set `allow_package_managers` and `allow_mcp_servers` to `true` to allow additional access. |
+| Mode           | Description                                                                                                                                                                                                                              |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limited`      | Restricts sandbox network access to the hosts in `allowed_hosts`. Set `allow_package_managers` and `allow_mcp_servers` to `true` to allow additional access. Use this mode unless the agent must reach sites you cannot list in advance. |
+| `unrestricted` | Full outbound network access, except for a general safety blocklist. Before you use it, read [Risks of unrestricted networking](https://platform.claude.com/docs/en/managed-agents/environments#risks-of-unrestricted-networking).       |
+
+<Note>
+  Set `networking` explicitly in API requests; a create request that omits it gets `unrestricted`. The Claude Console's form for creating an environment starts with **Limited** selected and nothing else allowed.
+</Note>
 
 The following example creates an environment with `limited` networking:
 
@@ -565,13 +588,15 @@ The following example creates an environment with `limited` networking:
 </CodeGroup>
 
 <Info>
-  For production deployments, use `limited` networking with an explicit `allowed_hosts` list. Follow the principle of least privilege by granting only the minimum network access your agent requires, and regularly audit your allowed domains.
+  Use `limited` networking with an explicit `allowed_hosts` list. Follow the principle of least privilege by granting only the minimum network access your agent requires, and regularly audit your allowed domains.
 </Info>
+
+With `limited` networking and no other fields set, no hosts are allowed. Files, memory stores, and GitHub repositories that you attach to the session stay available. When a request from the sandbox on port 80 or 443 is refused because its host is not allowed, the response is a 403 that names the blocked host.
 
 When using `limited` networking:
 
 * `allowed_hosts` specifies domains the sandbox can reach. Specify bare hostnames or wildcard patterns (such as `*.example.com`). Do not include a URL scheme, port, or path.
-* `allow_mcp_servers` allows outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
+* `allow_mcp_servers` allows outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`. While it is `false`, session creation fails with a 400 error if the agent declares an MCP server whose host is not in `allowed_hosts`. The same applies to [an agent it can delegate to](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration). To fix it, add the host to `allowed_hosts` or set `allow_mcp_servers` to `true`.
 * `allow_package_managers` allows outbound access to a set of public package registries and code hosts beyond those listed in the `allowed_hosts` array. See [Package manager hosts](https://platform.claude.com/docs/en/managed-agents/environments#package-manager-hosts) for the list. Defaults to `false`. Set it to `true` whenever the environment specifies `packages`; otherwise the request is rejected with a 400 error, even if the registry hosts are listed in `allowed_hosts`.
 
 #### Package manager hosts
@@ -594,6 +619,32 @@ When `allow_package_managers` is `true`, the sandbox can reach the following hos
 <Warning>
   Network access is granted per host, not per operation. The sandbox can send any request to an allowed host, including uploads such as `git push` and package publishing, with any credential the command supplies. If the agent processes untrusted input (repository files, fetched web content, or third-party tool output), a successful prompt injection could use an allowed host to copy files out of the sandbox. To reduce this risk, set the `bash` tool's [permission policy](https://platform.claude.com/docs/en/managed-agents/permission-policies) to `always_ask` or `auto`. If the environment does not specify `packages`, you can instead leave `allow_package_managers` set to `false` and list only the hosts your agent needs in `allowed_hosts`.
 </Warning>
+
+#### Risks of unrestricted networking
+
+With `unrestricted` networking, code in the sandbox can send requests to any host on the internet, except for hosts on a general safety blocklist. Before you choose this mode, consider what the agent can do with that access:
+
+* **The agent can change things on external sites, not only read them:** The `bash` tool can send any request. The agent can post data, submit forms, call APIs, and run scripts that change data on external sites. Even a request that only fetches a URL can change data on some sites.
+* **Nothing pauses these requests by default:** The agent toolset's default [permission policy](https://platform.claude.com/docs/en/managed-agents/permission-policies) is `always_allow`, so `bash` commands run without approval.
+* **Anything in the sandbox can leave it:** This includes files, tool outputs, and any credentials or secrets you put in the sandbox.
+* **Fetched content can steer the agent:** Web pages, API responses, and other content the agent reads can contain instructions (prompt injection) that change what it does next.
+* **The agent acts on your behalf:** Its actions can violate a site's terms of service, or create accounts and records there.
+* **Model behavior is not a security control:** The agent can act on external sites in ways you did not ask for, including retrying in a different way after a site blocks a request. Use network settings and permission policies to limit what it can do.
+* **The safety blocklist is not an allowlist:** It does not limit which other sites the agent reaches, or what the agent does on them.
+
+To reduce these risks, use `limited` networking with an explicit list of hosts. The following `networking` value allows `api.example.com`, plus the [package manager hosts](https://platform.claude.com/docs/en/managed-agents/environments#package-manager-hosts) for an agent that installs packages:
+
+```json
+{
+  "type": "limited",
+  "allowed_hosts": ["api.example.com"],
+  "allow_package_managers": true
+}
+```
+
+An agent that only uses the `web_search` and `web_fetch` tools does not need `unrestricted` networking if you can list the sites it needs. [Networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) says when `allowed_hosts` applies to those tools. Where it does, list those sites in `allowed_hosts`. Listing them in `web_search`'s `allowed_domains` too makes it search those sites. A host that you add to `allowed_hosts` is also open to the sandbox. To restrict the tools further, see [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools#restrict-web-search-and-web-fetch-domains).
+
+Use `unrestricted` only when the agent must reach sites you cannot list in advance. In that case, keep secrets and sensitive files out of the sandbox, and give the agent only the credentials the task needs. Consider setting the `bash` tool's permission policy to `always_ask` or `auto`, and [watch the session's events](https://platform.claude.com/docs/en/managed-agents/events-and-streaming).
 
 ## Environment lifecycle
 

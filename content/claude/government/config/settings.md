@@ -182,7 +182,11 @@ Connectors you add on the **Connectors** card reach the Claude Code command-line
 
 Two switches that control whether members can add plugins of their own in Claude Desktop. **Let members add plugin marketplaces** lets members add plugin marketplaces and install plugins from them. **Let members add their own plugins** lets members upload plugin files or have Claude create a plugin for them. Both switches are off by default.
 
-While a switch is off, Claude Desktop hides the corresponding controls from members. Marketplaces and plugins that members added earlier keep working, and members can still install plugins from those marketplaces.
+While a switch is off, Claude Desktop hides the corresponding controls from members. Plugins that members uploaded or created earlier keep working. Marketplaces that members added earlier are hidden while **Let members add plugin marketplaces** is off.
+
+<Note>
+  Hiding marketplaces that members added earlier needs Claude Desktop 2.16120.0 or later.
+</Note>
 
 ### Let members add their own connectors
 

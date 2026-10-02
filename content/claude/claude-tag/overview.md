@@ -100,7 +100,7 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
       <a className="tm-qrow" href="/docs/claude-tag/admins/setup-overview">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">Where do I start?</span>
-          <span className="tm-qrow-sub">Pair your Slack workspace, connect the services Claude will work in, launch, and test that it works</span>
+          <span className="tm-qrow-sub">Pair your Slack workspace, launch, and test that it works</span>
         </span>
       </a>
 
@@ -195,7 +195,7 @@ The one exception is a DM, where it runs on your own claude.ai account instead o
 
 ### Common uses
 
-The list below covers common ways teams use Claude Tag. Each link opens a guide with the prompts to paste and the connections the task needs.
+Each link opens a guide with the prompts to paste and the connections the task needs.
 
 * [Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors): scheduled dashboard checks, and alerts investigated as they arrive. Needs a monitoring connection like Datadog, Sentry, or PagerDuty.
 * [Triage requests](/docs/claude-tag/users/use-cases/triage-requests): an intake channel where Claude answers what it can, flags duplicates, and routes the rest. Works on Slack content alone.
@@ -215,13 +215,13 @@ The list below covers common ways teams use Claude Tag. Each link opens a guide 
 You set up Claude Tag once, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), and you must be an Owner in your Claude organization to do it. The setup page at that URL walks you through it:
 
 * **Pair your Slack workspace**: send `@Claude connect` in Slack to get a pairing code, then enter it on the setup page.
-* **Connect the services Claude will work in**: for each one, such as your issue tracker or data warehouse, create an account for Claude and enter its credential.
-* **Grant repositories**: choose which repositories the Claude GitHub App can reach.
-* **Set a monthly spend limit and launch**.
+* **Set a monthly spend limit, add Claude to channels, and launch**.
 
-Claude Tag starts with no access to your external systems. The services you connect during setup form an [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle), the set of tools Claude can reach, attached to the workspace or channels you paired. Once you launch, everyone in a channel Claude is in can use Claude Tag immediately, with no per-user setup.
+Once you launch, everyone in a channel Claude is in can use Claude Tag immediately, with no per-user setup.
 
-[Set up Claude Tag](/docs/claude-tag/admins/setup-overview) walks through those steps with what to have ready, what each choice means, and how to verify Claude Tag works once you launch.
+Claude Tag starts with no access of its own to your external systems. After you launch, you connect the services Claude will work in, such as your issue tracker or data warehouse, and grant repositories to the Claude GitHub App. The services you connect form an [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle), the set of tools Claude can reach. You attach the bundle to a workspace or to channels. Members can also let Claude use their own [personal connectors](/docs/claude-tag/concepts/personal-connectors) for their requests.
+
+[Set up Claude Tag](/docs/claude-tag/admins/setup-overview) walks through setup and connecting tools, with what to have ready, what each choice means, and how to verify Claude Tag works once you launch.
 
 <div className="tm-strip">
   <div className="tm-strip-head">
@@ -236,7 +236,7 @@ Claude Tag starts with no access to your external systems. The services you conn
 
 <CardGroup cols={2}>
   <Card title="Set up Claude Tag" icon="gear" href="/docs/claude-tag/admins/setup-overview" horizontal arrow>
-    Admins: pair your Slack workspace, connect the services Claude will work in, and launch
+    Admins: pair your Slack workspace and launch
   </Card>
 
   <Card title="Hand Claude Tag your first task" icon="paper-plane" href="/docs/claude-tag/users/getting-started" horizontal arrow>

@@ -205,27 +205,25 @@ The RBAC Groups API is available to Claude Enterprise organizations only.
 
 ### Returns
 
-- `BetaRBACGroupMemberDeleted object`
+- `type: "rbac_group_member_deleted"`
 
-  - `type: "rbac_group_member_deleted"`
+  Deleted object type. For RBAC Group Members, this is always `"rbac_group_member_deleted"`.
 
-    Deleted object type. For RBAC Group Members, this is always `"rbac_group_member_deleted"`.
+  default: rbac_group_member_deleted
 
-    default: rbac_group_member_deleted
+- `rbac_group_id: string`
 
-  - `rbac_group_id: string`
+  ID of the RBAC Group.
 
-    ID of the RBAC Group.
+- `user_id: string`
 
-  - `user_id: string`
+  ID of the User.
 
-    ID of the User.
+- `group_id: string`
 
-  - `group_id: string`
+  **Deprecated**: Use `rbac_group_id` instead; `group_id` always has the same value.
 
-    **Deprecated**: Use `rbac_group_id` instead; `group_id` always has the same value.
-
-    Deprecated: use `rbac_group_id` instead. ID of the RBAC Group; always the same value as `rbac_group_id`.
+  Deprecated: use `rbac_group_id` instead. ID of the RBAC Group; always the same value as `rbac_group_id`.
 
 ### Example
 
@@ -285,9 +283,9 @@ curl https://api.anthropic.com/v1/organizations/rbac_groups/$RBAC_GROUP_ID/membe
 
     Deprecated: use `rbac_group_id` instead. ID of the RBAC Group; always the same value as `rbac_group_id`.
 
-### Beta RBAC Group Member Deleted
+### Member Remove Response
 
-- `BetaRBACGroupMemberDeleted object`
+- `MemberRemoveResponse object`
 
   - `type: "rbac_group_member_deleted"`
 

@@ -139,6 +139,8 @@ Console session.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Body parameters
 
 - `applies_to_all_workspaces: optional boolean or null`

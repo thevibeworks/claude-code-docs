@@ -131,6 +131,8 @@ Create Skill
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -374,6 +376,8 @@ List Skills
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -601,6 +605,8 @@ Get Skill
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -820,6 +826,8 @@ Delete Skill
     - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `string workspaceID`
 
@@ -1099,6 +1107,8 @@ Create Skill Version
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1307,6 +1317,8 @@ List Skill Versions
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1509,6 +1521,8 @@ Download a skill version's content as a zip archive.
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string workspaceID`
 
     Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1654,6 +1668,8 @@ Get Skill Version
     - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `string workspaceID`
 
@@ -1853,6 +1869,8 @@ Delete Skill Version
     - `McpClient2026_09_15("mcp-client-2026-09-15")`
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `string workspaceID`
 

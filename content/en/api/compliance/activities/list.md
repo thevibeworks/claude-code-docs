@@ -70909,6 +70909,10 @@ compliance activities that can be filtered by various criteria.
 
       format: date-time
 
+    - `ip_range: optional string or null`
+
+      The IP range added to the allowlist, e.g. "192.0.2.0/24", which is not enforced while it is inactive or the IP allowlist is turned off; absent for activities recorded before this field was added.
+
     - `organization_id: optional string or null`
 
       Organization ID this activity is associated with
@@ -71140,6 +71144,10 @@ compliance activities that can be filtered by various criteria.
       When this activity occurred.
 
       format: date-time
+
+    - `ip_range: optional string or null`
+
+      The IP range removed from the allowlist, e.g. "192.0.2.0/24"; absent for activities recorded before this field was added.
 
     - `organization_id: optional string or null`
 
@@ -71375,7 +71383,15 @@ compliance activities that can be filtered by various criteria.
 
     - `ip_allowlist_enabled: optional boolean or null`
 
-      Whether the organization's IP allowlist is turned on (true) or off (false) after this change; absent or null when the change was to an individual IP range, and for activities recorded before this field was added.
+      Whether the organization's IP allowlist is turned on (true) or off (false) after this change; absent when the change did not turn the IP allowlist on or off, and for activities recorded before this field was added.
+
+    - `ip_range: optional string or null`
+
+      The IP range this change applied to, as it is after the change, e.g. "192.0.2.0/24"; absent when the change was not to an individual IP range, and for activities recorded before this field was added.
+
+    - `ip_range_active: optional boolean or null`
+
+      Whether the IP range is active on the allowlist (true) or saved but inactive (false) after this change; absent when the change did not turn the range on or off.
 
     - `organization_id: optional string or null`
 
@@ -71384,6 +71400,10 @@ compliance activities that can be filtered by various criteria.
     - `organization_uuid: optional string or null`
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `previous_ip_range: optional string or null`
+
+      The IP range before this change; absent unless the range itself was changed.
 
   - `OrgInviteLinkDisabled object`
 

@@ -62,14 +62,14 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
     `all_connectors` grants carry a tool-access action, the scope action, or
     an authentication-method action (`interactive` or `managed`).
 
-  - `resource: Organization or ConnectorTool or ConnectorScope or 2 more`
+  - `resource: BetaRBACOrganizationPermissionResource or BetaRBACConnectorToolPermissionResource or BetaRBACConnectorScopePermissionResource or 2 more`
 
     What the permission applies to.
 
     A tagged union: `type` names the kind of resource and determines which
     identifier fields are present.
 
-    - `Organization object`
+    - `BetaRBACOrganizationPermissionResource object`
 
       - `type: "organization"`
 
@@ -81,7 +81,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
         UUID of the organization the permission applies to.
 
-    - `ConnectorTool object`
+    - `BetaRBACConnectorToolPermissionResource object`
 
       - `type: "connector_tool"`
 
@@ -102,7 +102,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
         `{prefix}_{32-hex}` form — a shortened readable prefix of the name plus
         a hash — from which the published name is not recoverable.
 
-    - `ConnectorScope object`
+    - `BetaRBACConnectorScopePermissionResource object`
 
       - `type: "connector_scope"`
 
@@ -124,7 +124,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
         appears server-encoded in a stable `{prefix}_{32-hex}` form. OAuth
         scopes routinely contain `:` and `/`, so most appear encoded.
 
-    - `Connector object`
+    - `BetaRBACConnectorPermissionResource object`
 
       - `type: "connector"`
 
@@ -136,7 +136,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
         ID of the connector the permission applies to.
 
-    - `AllConnectors object`
+    - `BetaRBACAllConnectorsPermissionResource object`
 
       - `type: "all_connectors"`
 

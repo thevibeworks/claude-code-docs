@@ -1,7 +1,7 @@
 {
   "version": 1,
   "note": "URLs confirmed gone upstream. Kept so a page that died once does not report as a fresh failure on every later run, which would bury the failure that is actually new. An entry clears itself if the URL answers again -- but only while something still probes it. Entries whose local file was removed are no longer fetched, so they stay as a record of the restructure rather than a live check.",
-  "updated": "2026-10-01",
+  "updated": "2026-10-02",
   "urls": {
     "https://claude.com/docs/claude-science/annotations": {
       "since": "2026-09-01",
@@ -758,6 +758,58 @@
     "https://platform.claude.com/docs/en/api/admin/workspaces/update": {
       "since": "2026-09-10",
       "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/workspaces/update"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/chat_projects": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/apps/chat/projects"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/chat_projects/list": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/apps/chat/projects/list"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/cost": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/cost_report"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/cost/list": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/cost_report/list"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/cost/list_by_user": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/user_cost_report/list"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/retrieve_summaries": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/summaries/list"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/usage": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/usage_report"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/usage/list": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/usage_report/list"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/analytics/usage/list_by_user": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/analytics/user_usage_report/list"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/create": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/add"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/delete": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/remove"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/spend_limits/create": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/set"
+    },
+    "https://platform.claude.com/docs/en/api/beta/organization/spend_limits/list_effective": {
+      "since": "2026-10-02",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/beta/organization/spend_limits/effective/list"
     },
     "https://platform.claude.com/docs/en/api/beta/webhooks/unwrap": {
       "since": "2026-09-11",

@@ -135,6 +135,8 @@ Long poll for work items in the queue.
 
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `string anthropicWorkerID`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

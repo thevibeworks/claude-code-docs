@@ -133,6 +133,8 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ### Body parameters
 
 - `issuer_id: string`
@@ -548,6 +550,8 @@ unless `include_archived=true`.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ### Returns
 
 - `data: array of BetaFederationRule`
@@ -848,6 +852,8 @@ Retrieve a federation rule by its ID (`fdrl_...`).
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Returns
 
@@ -1167,6 +1173,8 @@ Console session.
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Body parameters
 
@@ -1558,6 +1566,8 @@ other scopes require a Console session.
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 ### Returns
 
@@ -2087,6 +2097,8 @@ other scopes require a Console session.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 #### Body parameters
 
 - `workspace_id: string`
@@ -2286,6 +2298,8 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 #### Returns
 
 - `data: array of BetaFederationRuleWorkspace`
@@ -2474,6 +2488,8 @@ Console session.
   - `"mcp-client-2026-09-15"`
 
   - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
 
 #### Returns
 

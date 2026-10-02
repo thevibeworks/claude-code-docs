@@ -125,6 +125,8 @@ Retrieve a single tunnel in the caller's organization by ID.
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Returns
 
 - `BetaOrganizationTunnel object`

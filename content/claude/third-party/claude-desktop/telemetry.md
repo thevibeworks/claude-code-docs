@@ -256,6 +256,8 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 | `cdn.jsdelivr.net` | Artifact preview asset CDNs |
 | `*.claudemcpcontent.com` | MCP App widget iframe |
 | `assets.claude.ai` | Fonts loaded by MCP App widget iframes |
+| `redirector.gvt1.com` | Spellcheck dictionary download (Linux) |
+| `*.gvt1.com` | Redirect targets of the spellcheck dictionary download (Linux) |
 
 `*.claudemcpcontent.com` serves [MCP Apps](/docs/connectors/building/mcp-apps/getting-started), the interactive widgets connectors can render. Each widget loads in a sandboxed iframe on its own generated subdomain, so allowlist the wildcard.
 

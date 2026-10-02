@@ -2715,6 +2715,8 @@ Claude maintains its safety and helpfulness properties even when using structure
 * You'll be billed for the tokens generated
 * The output may not match your schema because the refusal message takes precedence over schema constraints
 
+A property that asks for the model's thinking or step-by-step reasoning may lead to a `reasoning_extraction` refusal. Ask for a short explanation instead. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
+
 **Token limit reached** (`stop_reason: "max_tokens"`)
 
 If the response is cut off due to reaching the `max_tokens` limit:

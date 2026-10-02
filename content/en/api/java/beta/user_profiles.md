@@ -119,6 +119,8 @@ Create User Profile
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -490,6 +492,8 @@ List User Profiles
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -796,6 +800,8 @@ Get User Profile
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
 
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `Optional<String> workspaceId`
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1096,6 +1102,8 @@ Update User Profile
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `Optional<String> workspaceId`
 
@@ -1435,6 +1443,8 @@ Create Enrollment URL
     - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
 
     - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
   - `Optional<String> workspaceId`
 

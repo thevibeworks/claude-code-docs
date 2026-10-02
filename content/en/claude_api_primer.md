@@ -633,28 +633,6 @@ On Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.1, and Claude Mythos 5.1, 
 
 Tools do not necessarily need to be client functions. You can use tools anytime you want the model to return JSON output that follows a provided schema.
 
-### Chain of thought
-
-When using tools, Claude often shows its "chain of thought," that is, the step-by-step reasoning it uses to break down the problem and determine which tools to use.
-
-```json
-{
-  "role": "assistant",
-  "content": [
-    {
-      "type": "text",
-      "text": "<thinking>To answer this question, I will: 1. Use the get_weather tool to get the current weather in San Francisco. 2. Use the get_time tool to get the current time in the America/Los_Angeles timezone, which covers San Francisco, CA.</thinking>"
-    },
-    {
-      "type": "tool_use",
-      "id": "toolu_01A09q90qw90lq917835lq9",
-      "name": "get_weather",
-      "input": { "location": "San Francisco, CA" }
-    }
-  ]
-}
-```
-
 ### Parallel tool use
 
 By default, Claude may use multiple tools to answer a user query. You can disable this behavior by setting `disable_parallel_tool_use=true`.
@@ -668,6 +646,20 @@ The response has a `stop_reason` of `tool_use` and one or more `tool_use` conten
 * `id`: A unique identifier for this particular tool use block.
 * `name`: The name of the tool being used.
 * `input`: An object containing the input being passed to the tool.
+
+```json
+{
+  "role": "assistant",
+  "content": [
+    {
+      "type": "tool_use",
+      "id": "toolu_01A09q90qw90lq917835lq9",
+      "name": "get_weather",
+      "input": { "location": "San Francisco, CA" }
+    }
+  ]
+}
+```
 
 When you receive a tool use response, you should:
 

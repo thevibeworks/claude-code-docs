@@ -131,6 +131,8 @@ The Models API response can be used to determine information about a specific mo
 
   - `"ce-plugins-2026-09-01"`
 
+  - `"spend-limit-reads-2026-09-26"`
+
 ## Returns
 
 - `ModelInfo object`

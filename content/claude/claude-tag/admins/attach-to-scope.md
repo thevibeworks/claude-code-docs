@@ -66,7 +66,7 @@ In a channel shared across more than one workspace in your Enterprise Grid, bund
 
 ### Attach a bundle to channels by name
 
-A bundle attach rule binds a bundle to every channel whose name matches a pattern, instead of channel by channel. Rules live in the **Auto-join channels** table, the same table that holds the [auto-join patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), in the collapsed **Advanced** section of the **Default Slack access** panel and of each workspace scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). A rule on **Default Slack access** covers matching channels in every connected workspace; a rule on a workspace scope covers only that workspace's matching channels. Adding or removing a bundle on a pattern needs an Owner of your Claude organization or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration). Editing the patterns themselves needs an Admin or Owner.
+A bundle attach rule binds a bundle to every channel whose name matches a pattern, instead of channel by channel. Rules are listed in the **Auto-join channels** table, the same table that holds the [auto-join patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), in the collapsed **Advanced** section of the **Default Slack access** panel and of each workspace scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). A rule on **Default Slack access** covers matching channels in every connected workspace; a rule on a workspace scope covers only that workspace's matching channels. Adding or removing a bundle on a pattern, or editing the patterns themselves, needs an Owner of your Claude organization.
 
 Each table row is one channel-name pattern. To create a rule, select **Add bundle** on the pattern's row and pick the bundle; if the pattern isn't listed yet, add it with **Add pattern** first. A pattern added here is also an auto-join pattern, so Claude starts joining matching public channels when they're created or renamed.
 
@@ -130,7 +130,7 @@ The table lists the kinds of standing instruction that can apply in a channel an
 | Layer | Who writes it | Where |
 | :- | :- | :- |
 | Custom instructions | Owner for any scope; [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) for workspace and channel scopes; channel members and [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for the channel scope, unless members are [restricted](#restrict-who-can-set-channel-instructions) | The scope's panel in admin settings, or the **Configure** link in any reply footer for the channel scope |
-| Managed instructions | Full workspace members in one of the channel's [managing channels](/docs/claude-tag/admins/managed-by), which an Owner or Admin selects under **Managed by** on the channel's Configure page | By asking Claude in the managing channel and confirming the card it posts |
+| Managed instructions | Full workspace members in one of the channel's [managing channels](/docs/claude-tag/admins/managed-by), which an Owner or a Claude Tag admin selects under **Managed by** on the channel's Configure page | By asking Claude in the managing channel and confirming the card it posts |
 | Channel memory | Anyone in the channel | By telling Claude to remember |
 | Task prompt | The requester | The message itself |
 
