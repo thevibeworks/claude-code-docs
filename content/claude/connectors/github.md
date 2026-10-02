@@ -154,5 +154,5 @@ Claude couldn't reach the repository you picked or pasted. If the repository exi
 
 ## Next steps
 
-* [Get started with connectors](/docs/connectors/getting-started): set up another connector and use it in conversations
+* [Add a connector from the directory](/docs/connectors/getting-started#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
 * [Connectors directory](/docs/connectors/directory): browse verified and community integrations

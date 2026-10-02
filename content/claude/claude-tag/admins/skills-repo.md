@@ -50,7 +50,7 @@ Once the repository is set up, Claude can propose changes and they reach channel
 | The marketplace syncs | On push to the default branch, the updated plugin syncs to your organization automatically |
 | New threads pick it up | The next thread in any covered channel uses the updated skill |
 
-Every skill change reaches channels only after a human approves the merge; Claude opens the PR, you merge it.
+Claude opens the PR, and you merge it. To require a person's approval before a change reaches the default branch, see [Require a second approval on Claude's pull requests](/docs/claude-tag/admins/configure-github#require-a-second-approval-on-claude%E2%80%99s-pull-requests).
 
 ## Prompt Claude to propose updates
 

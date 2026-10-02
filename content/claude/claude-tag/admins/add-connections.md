@@ -117,9 +117,9 @@ A domain entry allowlists one hostname for every channel this bundle covers. Aft
 To get there, open the bundle from the scope that covers the channel, under **Claude Tag's access** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag); if the scope has no bundle yet, [create one](#your-first-access-bundle) first. On the bundle's **Domains** tab, fill in the form and click **Add domain**:
 
 * **Domain**: the hostname to allow; a wildcard is allowed as the leftmost label, like `*.example.com`, and covers subdomains at any depth but not `example.com` itself
-* **Ports**: needed only when the service listens on something other than 443
+* **Ports**: `443` unless the service listens on another port
 
-For example, to let Claude check a vendor's status page at `status.example.org`, enter `status.example.org` in the **Domain** field and leave the **Ports** field empty.
+For example, to let Claude check a vendor's status page at `status.example.org`, enter `status.example.org` in the **Domain** field and leave the other fields as they are.
 
 You don't have to predict the full list up front. When a request is blocked, Claude says so in the thread and names the host, with wording like "blocked by the network egress proxy" (that is, by Agent Proxy); add that host here and retry. If the host is listed and Claude still reports it blocked, check these in order:
 
@@ -145,15 +145,13 @@ To give a scope broader access, create an organization-shared environment with a
 
 ### Allow all hosts
 
-Allow-all egress is off by default; ask your Anthropic account team to enable it for your organization. Once enabled, you can enter `*` alone as the domain. A `*` entry needs ports assigned; it admits any host on those ports, with no credential attached.
+To allow every host, enter `*` alone as the domain. A `*` entry needs ports assigned. It admits any host on those ports, with no credential attached.
 
 With `*` active:
 
 * Requests to hosts that no connection covers go through with no credential attached.
 * A `*` entry never carries a credential, and a connection's credential still travels only to its [allowed websites](#set-allowed-websites).
 * Private and internal network addresses and cloud metadata endpoints remain blocked.
-
-Without allow-all egress enabled, saving `*` fails with a generic "Couldn't add domain." error that doesn't name the cause. If the capability is later disabled, you can disable an existing `*` entry or narrow it to specific hosts, but you can't keep it active.
 
 ### Web search vs. network requests
 

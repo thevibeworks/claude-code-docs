@@ -80,7 +80,7 @@ Install the Claude app in Slack, get a pairing code from Slack, and paste it on 
   </Step>
 </Steps>
 
-Pairing covers the whole workspace. Claude doesn't answer mentions in Slack until you finish [Launch Claude Tag](#launch-claude-tag). A mention before then gets "Claude is disabled in this channel."
+Pairing covers the whole workspace. Claude doesn't answer mentions in Slack until you finish [Launch Claude Tag](#launch-claude-tag). A mention before then gets a notice that starts "Claude isn't on in this channel yet."
 
 After launch, people can tag Claude in any channel it has joined. To keep Claude to certain channels, see [Limit Claude Tag to specific channels](/docs/claude-tag/admins/restrict-access#limit-claude-tag-to-specific-channels).
 
@@ -133,7 +133,9 @@ The spend limit caps how much of your organization's usage balance Claude Tag ca
   </Step>
 
   <Step title="Let members know they can now tag Claude">
-    The **Let members know they can now tag Claude** toggle is on by default. After launch, Claude DMs each member of the workspace to help them get started. Those DMs don't count toward your usage. Turn the toggle off to skip them.
+    If you paired a whole Enterprise Grid, skip this step. The launch step doesn't show the toggle, launching doesn't send the DMs, and the admin page has no row for them.
+
+    Otherwise, the **Let members know they can now tag Claude** toggle is on by default. After launch, Claude DMs each member of the workspace to help them get started. Those DMs don't count toward your usage. Turn the toggle off to skip them.
 
     The admin page has a matching row, **Let people know they can talk to Claude**. To send the DMs from the admin page, select **Notify members now** on that row and confirm. The row reads **Members notified** once the DMs have gone out.
   </Step>
@@ -210,7 +212,7 @@ If you didn't select this channel at launch, add Claude to it. Then mention Clau
 
 **Passed when:** Claude replies in a thread under your message. The reply ends with a footer naming the model and a **Configure** link.
 
-**If not:** "Claude is disabled in this channel" means you haven't finished [Launch Claude Tag](#launch-claude-tag). No reply at all means the channel isn't covered; check that the workspace appears under **Claude Tag's access** on the **Slack** tab in admin settings, then see [Nothing responds](/docs/claude-tag/admins/troubleshooting#nothing-responds).
+**If not:** a notice that starts "Claude isn't on in this channel yet" means you haven't finished [Launch Claude Tag](#launch-claude-tag). No reply at all means the channel isn't covered; check that the workspace appears under **Claude Tag's access** on the **Slack** tab in admin settings, then see [Nothing responds](/docs/claude-tag/admins/troubleshooting#nothing-responds).
 
 ### Check a tool you connected
 

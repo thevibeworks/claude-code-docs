@@ -127,5 +127,5 @@ Conversations with Claude in Slack are kept apart from your claude.ai history:
 ## Next steps
 
 * [Claude Tag](/docs/claude-tag/overview): the current product, which gives your team one Claude identity set up by an admin
-* [Get started with connectors](/docs/connectors/getting-started): set up another connector and use it in conversations
+* [Add a connector from the directory](/docs/connectors/getting-started#add-a-connector-from-the-directory): find a connector for another service in the directory and connect it
 * [Connectors directory](/docs/connectors/directory): browse verified and community integrations

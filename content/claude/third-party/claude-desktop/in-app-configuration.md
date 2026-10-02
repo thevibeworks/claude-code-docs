@@ -12,6 +12,8 @@ The in-app configuration window is the recommended way to configure Claude Deskt
 
 From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the sign-in screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…**.
 
+Developer mode stays on across restarts. To turn it off again, go to **Developer → Open Developer Config File**, change `"allowDevTools": true` to `false` in the file that opens (or delete the file), save it, then quit and reopen Claude Desktop. The **Developer** menu is gone on the next launch.
+
 <Frame caption="The in-app configuration window, showing the Connection section for a gateway provider.">
   <img src="https://mintcdn.com/claude-ai/kVj7_7KF4fI3bEAn/images/third-party/in-app-configuration-window.png?fit=max&auto=format&n=kVj7_7KF4fI3bEAn&q=85&s=c3f15a85dea85082bc6dbc9459e6a974" alt="Claude Desktop in-app configuration window with the sidebar of setting groups on the left and the Connection form on the right." width="1812" height="1462" data-path="images/third-party/in-app-configuration-window.png" />
 </Frame>

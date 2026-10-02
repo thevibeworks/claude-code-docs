@@ -60,7 +60,9 @@ An Owner turns Claude off everywhere by default, turns it on only in channels ap
   </Step>
 </Steps>
 
-Any member of the workspace can still invite `@Claude` to a channel that isn't approved. Claude stays silent there, and an @-mention gets a notice that Claude is disabled in that channel instead of a reply. Only an Owner of your Claude organization can change a **Claude Tag version** setting or the **Allow direct messages** toggle.
+Any member of the workspace can still invite `@Claude` to a channel that isn't approved. Claude stays silent there, and an @-mention gets a notice that Claude is disabled in that channel instead of a reply.
+
+Only an Owner of your Claude organization or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) can change an **Enable Claude Tag** switch, and only an Owner can change the **Allow direct messages** toggle. Give the **Claude Tag Admin** permission only to people you trust to approve a channel as PHI-free.
 
 ## Connect only PHI-free tools
 

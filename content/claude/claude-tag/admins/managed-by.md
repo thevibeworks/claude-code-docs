@@ -12,7 +12,9 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 **Managed by** is a channel setting that names other Slack channels whose members can write that channel's standing instructions for Claude. The channel that carries the setting is the managed channel, and each channel it names is a managing channel. People in a managing channel ask Claude to set or update the managed channel's instructions and confirm the change on a card, and Claude follows that text in every new conversation in the managed channel. This page is for admins who set up the pairing and for the people in a managing channel who write the instructions.
 
-Setting up **Managed by** takes an Owner of your Claude organization or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration), the roles that see the **Admin** tab on a channel's Configure page. A managing channel isn't a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers). A channel manager is a person with a role that lets them configure one channel. A managing channel is a Slack channel, and the full workspace members in it can propose and confirm changes.
+On the Enterprise plan, an Owner of your Claude organization or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) sets up **Managed by** on the **Admin** tab of a channel's Configure page. The Team plan doesn't have the **Admin** tab. [When to use Managed by](#when-to-use-managed-by) lists the other places to keep instructions for a channel.
+
+A managing channel isn't a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers). A channel manager is a person with a role that lets them configure one channel. A managing channel is a Slack channel, and the full workspace members in it can propose and confirm changes.
 
 ## When to use Managed by
 
