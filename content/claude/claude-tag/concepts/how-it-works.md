@@ -118,16 +118,17 @@ Editing or deleting an earlier message doesn't steer the session the way a reply
 
 ## Team channels and personal DMs
 
-Where you message Claude determines whose tools and accounts it uses. In a channel, it acts with the connections an organization admin set for that channel, and the work is attributed to its own accounts. In a DM, the same engine runs with your own claude.ai connectors, and the work is attributed to you, except pull requests, which the Claude GitHub App authors from DMs as well.
+Where you message Claude determines whose tools and accounts it uses. In a channel, it acts with the connections an organization admin set for that channel, and the work is attributed to its own accounts. In a one-to-one DM, the same engine runs with your own claude.ai connectors, and the work is attributed to you, except pull requests, which the Claude GitHub App authors from DMs as well.
 
 | Working in… | Access | Attribution | Best for |
 | :- | :- | :- | :- |
 | A channel | The channel's connections, set by an admin | The agent's own accounts | Shared work the team should see |
-| A DM | Your own claude.ai connectors | You | Personal tasks using your own data |
+| A group DM | The connections an admin set for the workspace and the organization | The agent's own accounts | Shared work among a few people, without a channel |
+| A one-to-one DM | Your own claude.ai connectors | You | Personal tasks using your own data |
 
-The Access column is about external systems. A channel session reaches what the channel was granted, and a DM session reaches what your own account is connected to.
+The Access column is about external systems. A channel session reaches what the channel was granted, and a one-to-one DM session reaches what your own account is connected to.
 
-Everything below describes channel sessions, where most of the model lives. For the DM side, see [direct message channels](/docs/claude-tag/concepts/agent-identity#direct-message-channels), and for choosing between the two, see [pick the right surface](/docs/claude-tag/users/good-habits#pick-the-right-surface).
+Everything below describes channel sessions, where most of the model lives. For one-to-one DMs, see [direct message channels](/docs/claude-tag/concepts/agent-identity#direct-message-channels). For group DMs, see [Use Claude Tag in a group DM](/docs/claude-tag/users/group-dms). For choosing where to ask, see [pick the right surface](/docs/claude-tag/users/good-habits#pick-the-right-surface).
 
 ## How Claude Tag differs from Cowork and Claude Code
 
@@ -140,7 +141,7 @@ Anthropic offers several ways to work with Claude on real tasks; they reach the 
 | Who sees the work | Everyone in the channel | Just you | Just you |
 | Best for | Shared work the team should see and steer | Personal research and drafting | Hands-on coding in your own checkout |
 
-The short version: **team work → Claude Tag; personal work → Cowork or Claude Code.** Claude Tag's connections authenticate the agent itself with service accounts, not any person. Personal connectors apply in a Claude Tag DM, which runs on your own claude.ai account, the same way Cowork does.
+The short version: **team work → Claude Tag; personal work → Cowork or Claude Code.** Claude Tag's connections authenticate the agent itself with service accounts, not any person. Personal connectors apply in a one-to-one Claude Tag DM, which runs on your own claude.ai account, the same way Cowork does.
 
 ## Key concepts
 
@@ -211,7 +212,7 @@ Because access is set per channel rather than per person, the way to find out wh
 
 * **Ask what Claude can reach.** In any channel, `@Claude what can you access from this channel?` lists its current reach.
 * **If Claude cannot reach something, the channel was not granted access.** Another channel may have the access, and an organization Owner can add it. [How agent identity works](/docs/claude-tag/concepts/agent-identity) covers the model.
-* **Personal connectors are separate from channel connections.** A connection an admin attaches to a channel is separate from a connector on your personal claude.ai account. Your own connectors work in your DMs. Claude can also [use them in a channel](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it.
+* **Personal connectors are separate from channel connections.** A connection an admin attaches to a channel is separate from a connector on your personal claude.ai account. Your own connectors work in your one-to-one DMs. Claude can also [use them in a channel](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it.
 
 ### What Claude can do in other channels
 
@@ -223,7 +224,8 @@ Where you ask decides what Claude can do in the other channel:
 | :- | :- | :- |
 | A public channel | Yes, unless the channel you ask in includes guests | Yes |
 | A private channel | Yes, unless the channel you ask in includes guests | No |
-| A DM with Claude | Yes | New top-level posts only, each after you select **Approve and post** |
+| A group DM | Yes, unless the group DM includes guests | No |
+| A one-to-one DM with Claude | Yes | New top-level posts only, each after you select **Approve and post** |
 
 * **Attribution line**: every message Claude posts outside the conversation you asked from carries a line under it that names where it came from. When you ask in a thread, the line links back to that thread and names whoever last addressed Claude there, as in "Sent by Claude in #team-eng on behalf of @jordan". When you ask in a DM, the line names the person who approved the post, as in "Sent by Claude, approved by @jordan".
 * **Replies**: replies under a message Claude posted in another channel don't reach the session you asked in. To follow up on the original task, reply in the thread where you asked.
@@ -283,13 +285,13 @@ A private channel reads the workspace notes but can't add to them. Everything Cl
 
 To see what it holds, ask `@Claude what do you remember about this channel?`. Anyone in the channel can correct or remove entries. [What Claude Tag remembers](/docs/claude-tag/users/memory) covers reading, correcting, and adding to memory.
 
-The whole model so far fits in one picture, with access set at the scope, memory kept per channel, work in progress per thread, and DMs outside all of it.
+The whole model so far fits in one picture, with access set at the scope, memory kept per channel, work in progress per thread, and one-to-one DMs outside all of it.
 
 <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/ZNX07pWnPReWiLwB/images/claude-tag/diagrams/three-levels.svg?fit=max&auto=format&n=ZNX07pWnPReWiLwB&q=85&s=78dfe70e5cf12007485d19baf47b803b" alt="Diagram showing three nested levels. A scope container holds two channels, #platform-eng and #gtm-west, and each channel holds its own threads, like 'fix checkout latency' or 'pull deal state'. The private channel is marked with a lock. Callouts mark what lives at each level (identity and access at the scope, memory at the channel plus workspace notes shared from public channels, and work in progress at the thread). A DM with Claude sits below, outside every scope, and runs on your own account." width="1000" height="648" data-path="images/claude-tag/diagrams/three-levels.svg" />
 
 <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/ZNX07pWnPReWiLwB/images/claude-tag/diagrams/three-levels-dark.svg?fit=max&auto=format&n=ZNX07pWnPReWiLwB&q=85&s=9b28d67feff32743e5cc2094e8fc3ec9" alt="Diagram showing three nested levels. A scope container holds two channels, #platform-eng and #gtm-west, and each channel holds its own threads, like 'fix checkout latency' or 'pull deal state'. The private channel is marked with a lock. Callouts mark what lives at each level (identity and access at the scope, memory at the channel plus workspace notes shared from public channels, and work in progress at the thread). A DM with Claude sits below, outside every scope, and runs on your own account." width="1000" height="648" data-path="images/claude-tag/diagrams/three-levels-dark.svg" />
 
-DMs are outside this picture; they run on your own account, as covered in [Team channels and personal DMs](#team-channels-and-personal-dms) above. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+One-to-one DMs are outside this picture; they run on your own account, as covered in [Team channels and personal DMs](#team-channels-and-personal-dms) above. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 
 ## What admins can see of your conversations with Claude
 

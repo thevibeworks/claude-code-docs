@@ -165,7 +165,7 @@ The component checks confirm that Claude Code can load each hook, skill, command
 
 | What to do | [Result if you don't](#read-a-validation-result) | Title in the report, if it has one |
 | - | - | - |
-| Make `hooks/hooks.json` valid JSON with a top-level `hooks` object, only the hook events and hook types in the [hooks reference](https://code.claude.com/docs/en/hooks), and an `https://` URL on each HTTP hook | Blocks | **hooks.json is invalid** for invalid JSON |
+| Make `hooks/hooks.json` valid JSON with a top-level `hooks` object, a `modules` array for a [mod](https://code.claude.com/docs/en/plugins/mods/overview), or both. In `hooks`, use only the hook events and hook types in the [hooks reference](https://code.claude.com/docs/en/hooks), and an `https://` URL on each HTTP hook | Blocks | **hooks.json is invalid** for invalid JSON |
 | Leave `hooks/hooks.json` out of the `hooks` field in `plugin.json`, because Claude Code loads that file automatically | Warning | |
 | Write valid YAML front matter in each skill, command, and agent file, with `description` as a single text value, not a list | Blocks for front matter that doesn't parse or a `description` that isn't text. Warning for no front matter or no `description`. | |
 | Name component folders and files with the exact spelling and capitalization Claude Code expects, such as `hooks/`, `skills/`, and `SKILL.md` | Blocks | |

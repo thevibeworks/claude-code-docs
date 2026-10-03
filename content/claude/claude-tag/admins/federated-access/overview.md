@@ -67,7 +67,7 @@ Anthropic doesn't review your gateway, trust policy, or authorization server. Wh
 * Your cloud or gateway administrator configures the system on your side: the gateway operator, your AWS or Google Cloud IAM administrator, or your authorization server's operator. Each setup page lists the values they configure.
 * An [Access bundle](/docs/claude-tag/admins/add-connections) is attached to the [scope](/docs/claude-tag/concepts/glossary#scope) of the channels where Claude should use the connection. To use a connection in several places, attach its bundle to each scope. A gateway can also be added to more than one bundle; an AWS role or authorization server is connected in one bundle only.
 
-Federated connections work in Slack channels, where Claude acts under your organization's agent identity. They don't work in direct messages from members who have connected a Claude account, which run under [the individual's own account](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
+Federated connections work in Slack channels, where Claude acts under your organization's agent identity. They don't work in one-to-one direct messages from members who have connected a Claude account, which run under [the individual's own account](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
 
 ## Related resources
 

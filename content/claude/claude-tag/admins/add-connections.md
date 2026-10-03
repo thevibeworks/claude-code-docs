@@ -34,7 +34,7 @@ You create your first bundle on the admin page, after you finish [setup](/docs/c
 
 You can also create an unattached bundle by clicking **Create** on the **Access bundles** page in the left navigation, then attach it to scopes afterward. A bundle created there is named **Untitled access bundle** until you rename it.
 
-Connections belong to the [agent identity](/docs/claude-tag/concepts/agent-identity), not to any person. Personal claude.ai connectors apply in DMs. Claude can also [use a member's own connectors in a channel](/docs/claude-tag/concepts/personal-connectors) for that member's own tasks, after the member allows it.
+Connections belong to the [agent identity](/docs/claude-tag/concepts/agent-identity), not to any person. Personal claude.ai connectors apply in one-to-one DMs. Claude can also [use a member's own connectors in a channel](/docs/claude-tag/concepts/personal-connectors) for that member's own tasks, after the member allows it.
 
 Name a bundle after what it grants, since the name is what you'll read when deciding which bundles to bind to a channel: `data-readonly`, `github-write`, `monitoring`, `gtm-tools`. A capability name stays meaningful when the same bundle serves several teams; a team name (`devprod-team`) works when one team's full access is the unit you'll reuse.
 

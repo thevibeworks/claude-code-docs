@@ -151,7 +151,7 @@ Registering a GHE host with your Claude organization isn't fully self-serve. Rai
 
 #### GitHub Enterprise Server in direct messages
 
-In a [direct message](/docs/claude-tag/concepts/agent-identity#direct-message-channels), Claude reaches repositories on a registered host through the sender's own GitHub Enterprise account instead of the bundle's grants. Claude adds a repository to a DM session only when both of these are true:
+In a [one-to-one direct message](/docs/claude-tag/concepts/agent-identity#direct-message-channels), Claude reaches repositories on a registered host through the sender's own GitHub Enterprise account instead of the bundle's grants. Claude adds a repository to a DM session only when both of these are true:
 
 * The sender's GitHub Enterprise account has push access to the repository
 * Your GitHub App's installation on the instance includes the repository

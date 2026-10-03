@@ -479,7 +479,7 @@ Channels in the paired workspace work normally, but some users' direct messages 
 
 **What it means**
 
-On Enterprise Grid, direct messages follow each user's home workspace, not the workspace you paired. A user homed in a Grid workspace the pairing doesn't cover gets the setup redirect in DMs.
+On Enterprise Grid, one-to-one direct messages follow each user's home workspace, not the workspace you paired. A user homed in a Grid workspace the pairing doesn't cover gets the setup redirect in DMs.
 
 **How to resolve**
 
@@ -694,7 +694,7 @@ Claude replies in the DM:
 
 **What it means**
 
-DMs run on the user's own claude.ai account and need a qualifying seat, which this user doesn't have. A seat that includes Claude Code always qualifies; on the Enterprise plan, a **Standard** or **Usage-Based Chat** seat also qualifies when the user has Cowork. Mentioning `@Claude` in a channel doesn't depend on the sender's seat.
+One-to-one DMs run on the user's own claude.ai account and need a qualifying seat, which this user doesn't have. A seat that includes Claude Code always qualifies; on the Enterprise plan, a **Standard** or **Usage-Based Chat** seat also qualifies when the user has Cowork. Mentioning `@Claude` in a channel doesn't depend on the sender's seat.
 
 **How to resolve**
 

@@ -75,7 +75,8 @@ If you're choosing between Claude products for Slack-shaped work, [how Claude Ta
 Slack users don't each need a Claude seat to work with Claude in channels.
 
 * **In channels**: by default, anyone in the paired Slack workspace can tag `@Claude` in a channel, and an Owner can [restrict who can use Claude](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude) to people in your Claude organization or, on Enterprise, to specific roles. Channel work bills by usage to your organization's usage balance, under a [spend limit](/docs/claude-tag/admins/set-spend-limit) an Owner sets.
-* **In DMs**: a DM from a member who has connected a Claude account runs on that account and bills to that person's seat. The seat must include Claude Code, or, on the Enterprise plan, be a **Standard** or **Usage-Based Chat** seat held by someone who also has Cowork. A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account) can bill to your organization for a limited time.
+* **In group DMs**: the same restriction on who can use Claude applies, and the work bills to your organization's usage balance. See [Group DMs](/docs/claude-tag/admins/restrict-access#group-dms).
+* **In one-to-one DMs**: a DM from a member who has connected a Claude account runs on that account and bills to that person's seat. The seat must include Claude Code, or, on the Enterprise plan, be a **Standard** or **Usage-Based Chat** seat held by someone who also has Cowork. A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account) can bill to your organization for a limited time.
 
 ## Where Claude Tag runs
 
@@ -171,15 +172,11 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
 
 ## Billing and spend limits
 
-Adding Claude to Slack doesn't add a per-seat charge. Channel and thread work is billed by usage instead: it draws from a **usage balance**, an amount in your organization's billing currency that an Owner funds. A [spend limit](/docs/claude-tag/admins/set-spend-limit) caps how much of that balance Claude Tag can use each billing period.
+Adding Claude to Slack doesn't add a per-seat charge. Channel, thread, and group DM work is billed by usage instead: it draws from a **usage balance**, an amount in your organization's billing currency that an Owner funds. A [spend limit](/docs/claude-tag/admins/set-spend-limit) caps how much of that balance Claude Tag can use each billing period.
 
-Direct messages from members who have connected a Claude account don't draw from this balance. Such a DM runs on the sender's own claude.ai account and follows that seat's usual usage limits, so the organization spend limit doesn't apply to it. A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account) can draw from this balance.
+One-to-one direct messages from members who have connected a Claude account don't draw from this balance. Such a DM runs on the sender's own claude.ai account and follows that seat's usual usage limits, so the organization spend limit doesn't apply to it. A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account) can draw from this balance.
 
-To learn what your team's usage costs, run a pilot with a spend limit set and watch the per-channel breakdown on the [usage page in your admin settings](https://claude.ai/admin-settings/usage/claude-tag). Your organization may already have a [launch usage credit](https://support.claude.com/en/articles/15575654-claude-tag-launch-promo-for-claude-team-and-enterprise) to run that pilot against before it funds the balance itself.
-
-The usage page doesn't count usage that a credit covers, so that usage shows as \$0.00 there. While the credit covers your pilot, watch the **List price** column of the **Spend by channel** table at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag) instead. That column shows each channel's list-price spend for the current month, including covered usage.
-
-[Set a spend limit](/docs/claude-tag/admins/set-spend-limit) covers how to fund the balance on each plan, set the limit, and what happens when usage reaches it.
+To learn what your team's usage costs, run a pilot with a spend limit set and watch the per-channel breakdown on the [usage page in your admin settings](https://claude.ai/admin-settings/usage/claude-tag). [Set a spend limit](/docs/claude-tag/admins/set-spend-limit) covers how to fund the balance on each plan, set the limit, and what happens when usage reaches it.
 
 <div className="tm-eyebrow"><span className="tm-swatch tm-swatch-users" />For end users</div>
 
@@ -191,7 +188,7 @@ What it can reach starts with the channel you're in. The fastest way to find out
 
 For your own requests, Claude can also [use the connectors on your claude.ai account](/docs/claude-tag/concepts/personal-connectors), after you allow it.
 
-The one exception is a DM, where it runs on your own claude.ai account instead of the channel's setup. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+In a one-to-one DM, Claude runs on your own claude.ai account instead of a channel's setup. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 
 ### Common uses
 

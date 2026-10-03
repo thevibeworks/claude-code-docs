@@ -64,12 +64,16 @@ The AlphaFold2, Boltz-2, Chai-1, and OpenFold3 skills can build sequence alignme
 
 Claude loads a skill automatically when the work calls for it. Type **/** in the composer to open the skill picker and insert one explicitly. On Team and Enterprise plans, your organization can turn individual Featured skills off; a skill it has off stays listed, grayed, and Claude doesn't load it.
 
-**Add skill** lets you create your own via **Chat with Claude**, **Write from scratch**, **Upload a skill**, or **Import from GitHub**. **Import from GitHub** works with private repositories too, once you add a GitHub token under **Settings > Credentials**. You can also ask Claude to distill a workflow from an existing session into a skill. On Team and Enterprise plans, adding skills of your own is available only if your organization allows custom skills; skills you added earlier keep working either way (see [Custom skills](/docs/claude-science/admin-controls#custom-skills)).
+**Add skill** lets you create your own via **Chat with Claude**, **Write from scratch**, **Upload a skill**, or **Import from GitHub**. You can also ask Claude to distill a workflow from an existing session into a skill. On Team and Enterprise plans, adding skills of your own is available only if your organization allows custom skills; skills you added earlier keep working either way (see [Custom skills](/docs/claude-science/admin-controls#custom-skills)).
+
+**Import from GitHub** works with private repositories too, once you add a GitHub token under **Settings > Credentials**. An import has two 100 MB limits, one on the repository's download from GitHub and one on the combined size of its skill folders.
 
 Your admin can also add skills for everyone in your organization from claude.ai. See [Organization skills](/docs/claude-science/admin-controls#organization-skills).
 
 ### Update skills imported from GitHub
 
 Skills you import from GitHub don't update automatically, and Claude Science doesn't check for changes on its own. To check, go to **Settings > Skills**, scroll to **Imported**, open the three-dot menu next to the repository's name, and select **Check for updates…**. Claude Science checks the latest commit on the repository's default branch, then lists the skills that may have changed since you imported them, along with any new skills. Changed and new skills are selected by default, so clear the checkbox next to any you don't want before you select the **Update** button.
+
+If the repository no longer offers a skill you imported, Claude Science says so, and your copy stays and keeps working.
 
 On Team and Enterprise plans, you can update imported skills only if your organization allows custom skills (see [Custom skills](/docs/claude-science/admin-controls#custom-skills)).

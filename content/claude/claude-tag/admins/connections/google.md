@@ -14,7 +14,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Connecting Google Drive, Calendar, and Gmail lets Claude read documents, spreadsheets, calendar events, and email from any channel under the bundle's scope. You add it as a connection inside an [Access bundle](/docs/claude-tag/admins/add-connections); the credential belongs to the agent, not to any person.
 
-This is an HTTP API connection, not a personal claude.ai connector. A member's own Google connector applies in DMs. Claude can also [use it in a channel](/docs/claude-tag/concepts/personal-connectors) for that member's own tasks, after the member allows it.
+This is an HTTP API connection, not a personal claude.ai connector. A member's own Google connector applies in one-to-one DMs. Claude can also [use it in a channel](/docs/claude-tag/concepts/personal-connectors) for that member's own tasks, after the member allows it.
 
 ## Choose OAuth or a service account
 
