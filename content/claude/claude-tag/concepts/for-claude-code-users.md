@@ -68,7 +68,7 @@ In a channel, Claude acts with credentials of its own, service accounts that [an
 
 ### In a direct message
 
-A [direct message](/docs/claude-tag/concepts/agent-identity#direct-message-channels) runs on your own claude.ai account, with the connectors you added to that account rather than the connections an admin set for the channel, so a DM is the closest match to a Claude Code session on your own credentials.
+A [one-to-one direct message](/docs/claude-tag/concepts/agent-identity#direct-message-channels) runs on your own claude.ai account, with the connectors you added to that account rather than the connections an admin set for the channel, so a DM is the closest match to a Claude Code session on your own credentials.
 
 ## Steer a session in the thread
 
@@ -98,6 +98,6 @@ Claude Tag is Anthropic's hosted Slack app. It takes care of the parts you would
 ## Related resources
 
 * [How Claude Tag works](/docs/claude-tag/concepts/how-it-works): the session model this page maps your setup onto
-* [How agent identity works](/docs/claude-tag/concepts/agent-identity): why a channel uses the agent's access and a DM uses yours
+* [How agent identity works](/docs/claude-tag/concepts/agent-identity): why a channel uses the agent's access and a one-to-one DM uses yours
 * [Claude Tag settings map](/docs/claude-tag/concepts/settings-map): where each setting your organization owns is set
 * [Configure GitHub access](/docs/claude-tag/admins/configure-github): what loads from a repository and how installs work in the sandbox

@@ -71,7 +71,7 @@ Paste the `enterprise_` code in one of these places:
 * **During setup:** paste the code into the **Paste the pairing code** field on the [setup page](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace)
 * **After setup:** go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) > **Where Claude Tag works** > the Slack row's **⋮** menu > **+ Add workspace**, and paste the code into the dialog
 
-Claude answers a direct message according to the pairing of the sender's home workspace, so only the Grid-wide pairing covers DMs from every workspace in the Grid.
+Claude answers a one-to-one direct message according to the pairing of the sender's home workspace, so only the Grid-wide pairing covers DMs from every workspace in the Grid.
 
 To move the Grid-wide pairing to a different Claude organization, an Owner in the Claude organization that holds it disconnects the Grid first. Disconnecting deletes the Claude-side data listed under [Revoke a pairing](#revoke-a-pairing) for every workspace the Grid-wide pairing covered. Messages Claude already posted stay in Slack.
 
@@ -79,7 +79,7 @@ To move the Grid-wide pairing to a different Claude organization, an Owner in th
 
 Each scope has two controls, an **Enable Claude Tag** switch that turns Claude on or off there and a **Claude Tag version** setting that chooses which version answers while the scope is on. On the Team plan, a single [**Enable Claude Tag** switch](#turn-claude-tag-on-or-off-on-the-team-plan) replaces them. Both controls are on the scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope. Channels Claude was added to appear under **Slack** automatically, and the **Search channels** field finds a channel's scope by name or ID.
 
-The **Enable Claude Tag** switch sits at the top of the scope's panel. While the switch is off, Claude doesn't respond to @-mentions in the scope. Direct messages from members who have connected a Claude account are unaffected. Turning the switch on routes the scope to **New**. To make a workspace or channel follow its parent again, click **Use inherited setting** under the switch.
+The **Enable Claude Tag** switch sits at the top of the scope's panel. While the switch is off, Claude doesn't respond to @-mentions in the scope. One-to-one direct messages from members who have connected a Claude account are unaffected. Turning the switch on routes the scope to **New**. To make a workspace or channel follow its parent again, click **Use inherited setting** under the switch.
 
 The **Claude Tag version** setting is under the scope's **Advanced** section and is unavailable while the scope's switch is off. Choosing **Inherit** clears the scope's own setting entirely, so the scope also follows its parent for on or off.
 
@@ -99,7 +99,7 @@ On the [Team plan](https://claude.com/pricing), you turn Claude on or off in eve
 
 ### Turn Claude off in channels
 
-Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch off. An @-mention in any channel gets "Claude is disabled in this channel" while the switch is off. Direct messages from members who have connected a Claude account keep working. To stop those too, turn off the [**Allow direct messages**](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages) toggle. For members who haven't connected an account, see [Stop direct messages from members without a Claude account](/docs/claude-tag/admins/restrict-access#stop-direct-messages-from-members-without-a-claude-account).
+Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch off. An @-mention in any channel gets "Claude is disabled in this channel" while the switch is off. One-to-one direct messages from members who have connected a Claude account keep working. To stop those too, turn off the [**Allow direct messages**](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages) toggle. For members who haven't connected an account, see [Stop direct messages from members without a Claude account](/docs/claude-tag/admins/restrict-access#stop-direct-messages-from-members-without-a-claude-account).
 
 ### Turn Claude back on
 
@@ -125,7 +125,7 @@ When a workspace or channel entry shows a notice that its settings aren't applie
 
 ## Revoke a pairing
 
-In the **Connected workspaces** list, select **Disconnect** on the workspace's row, then confirm in the dialog. Claude stops responding in that workspace's channels immediately, and your organization is no longer billed for Claude usage there. Direct messages from members who have connected a Claude account run on the member's own account, so they keep working until the deletion below removes the member's account link. A member who reconnects their account afterward can use direct messages again while the app stays installed.
+In the **Connected workspaces** list, select **Disconnect** on the workspace's row, then confirm in the dialog. Claude stops responding in that workspace's channels immediately, and your organization is no longer billed for Claude usage there. One-to-one direct messages from members who have connected a Claude account run on the member's own account, so they keep working until the deletion below removes the member's account link. A member who reconnects their account afterward can use direct messages again while the app stays installed.
 
 <Warning>
   When you disconnect a workspace, Anthropic deletes its Claude data:
@@ -136,7 +136,7 @@ In the **Connected workspaces** list, select **Disconnect** on the workspace's r
   * Its scopes, with their instructions and bundle bindings
   * The links between members' Slack and Claude accounts
 
-  Deletion starts as soon as you confirm and runs to completion in the background. This can't be undone. Routines a person set up in a direct message with Claude belong to that person's account and keep running.
+  Deletion starts as soon as you confirm and runs to completion in the background. This can't be undone. Routines a person set up in a one-to-one direct message with Claude belong to that person's account and keep running.
 </Warning>
 
 Access bundles belong to your organization, not to a workspace, so they stay available to attach to other scopes; only their bindings to the deleted scopes go.

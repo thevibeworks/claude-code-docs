@@ -51,11 +51,11 @@ Your admin chooses which generation answers `@Claude` in a given channel, so two
 
 A credential for one external service that Claude uses on the channel's behalf, like a Datadog API key or a GitHub App installation. Connections belong to the agent identity, not to any user, and are grouped into [Access bundles](#access-bundle) by an admin.
 
-A connection is not a connector. A connector belongs to your personal claude.ai account. A channel session uses the channel's connections. Claude can also [use your connectors there](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it. A DM uses your own account instead, as [how DMs work in this model](/docs/claude-tag/concepts/agent-identity#direct-message-channels) describes.
+A connection is not a connector. A connector belongs to your personal claude.ai account. A channel session uses the channel's connections. Claude can also [use your connectors there](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it. A one-to-one DM uses your own account instead, as [how DMs work in this model](/docs/claude-tag/concepts/agent-identity#direct-message-channels) describes.
 
 ## Connector
 
-A tool you add to your own claude.ai account, like Gmail, Google Drive, or a custom MCP server, listed under [Customize > Connectors](https://claude.ai/customize/connectors). Connectors are personal. In Slack they apply in DMs. Claude can also [use them in a channel](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it. For the agent-side equivalent that works in channels, see [Connection](#connection).
+A tool you add to your own claude.ai account, like Gmail, Google Drive, or a custom MCP server, listed under [Customize > Connectors](https://claude.ai/customize/connectors). Connectors are personal. In Slack they apply in one-to-one DMs. Claude can also [use them in a channel](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it. For the agent-side equivalent that works in channels, see [Connection](#connection).
 
 ## Environment
 

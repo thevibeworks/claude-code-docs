@@ -14,7 +14,7 @@ A channel with just you and Claude in it works the same way any other channel do
 
 ## Your own channel versus a DM
 
-A DM is the other place to work alone with Claude, and the two surfaces run on different accounts. A DM session runs with your own claude.ai connectors, the work is attributed to you (pull requests excepted; the Claude GitHub App authors those), and usage bills to your seat. What Claude does there sits outside channel and workspace memory.
+A one-to-one DM is the other place to work alone with Claude, and the two surfaces run on different accounts. A DM session runs with your own claude.ai connectors, the work is attributed to you (pull requests excepted; the Claude GitHub App authors those), and usage bills to your seat. What Claude does there sits outside channel and workspace memory.
 
 Your own channel runs with the connections an admin set for it, usage bills to the organization, and what Claude learns there accumulates as [channel memory](/docs/claude-tag/users/memory) that later threads build on. [Routines](/docs/claude-tag/users/proactivity) can post there on a schedule. When scratch work turns into a team task, the thread is ready to [hand to a teammate](#hand-a-thread-to-a-teammate).
 

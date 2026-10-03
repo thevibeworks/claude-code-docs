@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-Claude replies without an @-mention in DMs, in any thread it's already part of, and to channel messages it judges warrant a reply. In a channel, Claude reads the messages and replies to some of them on its own, so an @-mention is how you guarantee a reply, not a requirement for one. This page covers how Claude decides whether to reply to a message nobody tagged it in, how to turn those replies off for a thread or a whole channel, and which messages never get a reply. Work Claude does on a schedule rather than in reply to a message is a [routine](/docs/claude-tag/users/proactivity), which has its own controls.
+Claude replies without an @-mention in one-to-one DMs, in any thread it's already part of, and to channel and group DM messages it judges warrant a reply. In a channel, Claude reads the messages and replies to some of them on its own, so an @-mention is how you guarantee a reply, not a requirement for one. This page covers how Claude decides whether to reply to a message nobody tagged it in, how to turn those replies off for a thread or a whole channel, and which messages never get a reply. Work Claude does on a schedule rather than in reply to a message is a [routine](/docs/claude-tag/users/proactivity), which has its own controls.
 
 ## What triggers a response
 
@@ -18,9 +18,10 @@ Whether Claude replies to a message without an @-mention depends on where you se
 
 | Where you write | Replies without an @-mention? |
 | :- | :- |
-| A DM with Claude | Always. Every message is addressed to Claude already |
+| A one-to-one DM with Claude | Always. Every message is addressed to Claude already |
 | A thread Claude is already in | Yes, unless you've [quieted the thread](#quiet-one-conversation). Once Claude has joined, every reply there reaches it without another mention |
 | A channel, top-level | Sometimes. [What Claude does with a channel message](#what-claude-does-with-a-channel-message) describes how it decides. Include `@Claude` to guarantee a reply, or [turn unprompted replies off](#quiet-the-whole-channel) |
+| A group DM that includes Claude, top-level | Sometimes. See [When Claude replies in a group DM](/docs/claude-tag/users/group-dms#when-claude-replies-in-a-group-dm) |
 | A message another app or bot posted | No. Claude reads it as context. To get a reply, have the app include `@Claude` in its message. [Messages from other apps and bots](#messages-from-other-apps-and-bots) covers when that mention goes unanswered |
 
 When you @-mention Claude in a channel, it reacts to your message with an emoji within a few seconds to show that it picked the message up. The message goes to the channel's own [session](/docs/claude-tag/concepts/glossary#session), the session Claude works from at the channel's top level. It then answers in a thread under your message, or starts a [working session](/docs/claude-tag/concepts/how-it-works) in that thread when the request needs investigation, tools, or a longer exchange.

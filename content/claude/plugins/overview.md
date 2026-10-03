@@ -24,7 +24,15 @@ Every way of adding a plugin to your account starts from the **Plugins** page at
 
 ### Before you add a plugin
 
-A plugin's skills and commands are instructions Claude follows, and its connectors reach outside services with the account you connect. In Cowork and Claude Code a plugin can also run agents and hooks, which run commands on your computer when certain events happen, and a connector marked **Runs in each session** runs a program on your computer. Anthropic reviews plugins listed in the directory: every version gets automated validation and a security scan, and a person reviews a new listing before it goes live, as [Prepare for review](/docs/directory/publish#prepare-for-review) describes. That review doesn't cover a plugin you add from a marketplace URL or upload yourself, so add those only from sources you trust. On Team and Enterprise plans, an Owner controls which sources members see and whether they can add their own, as [Manage plugins for your organization](/docs/plugins/admin) covers.
+A plugin's skills and commands are instructions Claude follows, and its connectors reach outside services with the account you connect. In Cowork and Claude Code, some parts of a plugin also run on your computer:
+
+* **Agents and hooks**: run commands on your computer when certain events happen
+* **A connector marked Runs in each session**: runs a program on your computer
+* **A mod**, in Claude Code only: code that runs inside Claude Code and can change what it does and shows. See [Decide whether to trust a mod](https://code.claude.com/docs/en/plugins/mods/overview#decide-whether-to-trust-a-mod)
+
+Anthropic reviews plugins listed in the directory: every version gets automated validation and a security scan, and a person reviews a new listing before it goes live, as [Prepare for review](/docs/directory/publish#prepare-for-review) describes. That review doesn't cover a plugin you add from a marketplace URL or upload yourself, so add those only from sources you trust.
+
+On Team and Enterprise plans, an Owner controls which sources members see and whether they can add their own, as [Manage plugins for your organization](/docs/plugins/admin) covers.
 
 ### Find and add a plugin
 

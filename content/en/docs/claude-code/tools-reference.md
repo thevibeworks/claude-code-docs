@@ -132,9 +132,9 @@ When you answer by typing your own text, Claude Code relays the answer with neut
 
 Questions stay open until you answer them. If you want a question you leave unanswered to eventually close and let Claude continue without you, set the [`askUserQuestionTimeout`](/docs/en/settings-reference#askuserquestiontimeout) setting to `60s`, `5m`, or `10m`, either in your user `settings.json` or from the **Question auto-continue timeout** row in `/config`.
 
-After a question sits that long with no input, the dialog closes on its own: it submits any options you'd already selected and tells Claude you may be away from your keyboard, so Claude proceeds on its own judgment and can re-ask later. You see a countdown for the last 20 seconds. Press any key to restart the timer; on terminals that report focus, switching to the window restarts it too.
+After a question sits that long with no input, the dialog closes on its own: it submits any options you'd already selected and tells Claude you may be away from your keyboard, so Claude proceeds on its own judgment and can re-ask later. You see a countdown for the last 20 seconds. Press any key to restart the timer. While your terminal reports that its window is focused, the timer doesn't count down.
 
-The timeout applies only to `AskUserQuestion`'s multiple-choice questions; permission prompts, including plan approval, never auto-resolve on idle.
+The timer never starts for a question Claude asks in a [background session](/docs/en/agent-view), in [screen reader mode](/docs/en/accessibility), or while the session is connected to [Remote Control](/docs/en/remote-control). Those questions wait until you answer them. The timeout applies only to `AskUserQuestion`'s multiple-choice questions; permission prompts, including plan approval, never auto-resolve on idle.
 
 ## Bash tool behavior
 
@@ -160,7 +160,7 @@ Two [environment variables](/docs/en/env-vars) control what Claude gets for a co
 * `BASH_DEFAULT_TIMEOUT_MS` — the default when Claude passes no timeout; two minutes out of the box
 * `BASH_MAX_TIMEOUT_MS` — with the default, sets the ceiling that caps whatever Claude requests: the effective ceiling is the larger of the two, ten minutes out of the box
 
-For a command that Claude starts in the background, `timeout` instead sets how long the command may run there, with the separate default and maximum described under [Time limit for background commands](#time-limit-for-background-commands). The [PowerShell tool](#powershell-tool) follows the same timeout rules and reads the same two variables.
+In a session that has a [time limit for background commands](#time-limit-for-background-commands), `timeout` on a command that Claude starts in the background instead sets how long the command may run there, with that limit's separate default and maximum. The [PowerShell tool](#powershell-tool) follows the same timeout rules and reads the same two variables.
 
 #### Output limits
 
@@ -187,10 +187,14 @@ A command that a [foreground subagent](/docs/en/sub-agents#run-subagents-in-fore
 
 #### Time limit for background commands
 
-Background Bash and PowerShell commands have a time limit, counted from the moment the command enters the background:
+In a session that runs unattended, such as a run with the `-p` flag, an Agent SDK application, a CI job, or a cloud session, background Bash and PowerShell commands have a time limit. A local session you work in from a terminal, the desktop app, or the VS Code extension has no time limit on background commands.
+
+The time limit requires Claude Code v2.1.285 or later. Before v2.1.288, it applied in every session.
+
+The time limit counts from the moment the command enters the background:
 
 * A command that Claude starts in the background gets 30 minutes, or the `timeout` Claude passes with `run_in_background`, up to a maximum of 2 hours
-* A command that starts in the foreground and then moves to the background, for example with `Ctrl+B` or at its timeout, gets 30 minutes from the move
+* A command that starts in the foreground and then moves to the background, for example at its timeout, gets 30 minutes from the move
 
 When a background command reaches its time limit, Claude Code stops it and tells Claude why, and Claude can start the command again with a longer `timeout` if the work still needs it. The stop notice reads `Background command "<description>" was stopped after reaching its background time limit`.
 

@@ -30,7 +30,7 @@ products[]=claude-tag" \
   --header "x-api-key: $ANALYTICS_API_KEY"
 ```
 
-`products[]=claude-tag` limits the report to the work that bills to your organization's usage balance: Claude's work in Slack channels, and [DMs from members who haven't connected a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account). DMs from members who have connected a Claude account bill to the sender's own seat and aren't reported under `claude-tag`, so this filter leaves them out.
+`products[]=claude-tag` limits the report to the work that bills to your organization's usage balance: Claude's work in Slack channels, and [DMs from members who haven't connected a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account). One-to-one DMs from members who have connected a Claude account bill to the sender's own seat and aren't reported under `claude-tag`, so this filter leaves them out.
 
 Each row's `claude_tag_user_id` is a Slack user ID such as `U0123ABCDEF`, not a claude.ai user ID. A row with a null `claude_tag_user_id` is channel spend with no attributed user, and [How costs map to users](#how-costs-map-to-users) lists those cases. For the full parameters, response schema, and data freshness, see the [cost report reference](https://platform.claude.com/docs/en/api/admin/analytics/cost/list), which also covers grouping by `slack_channel_id` and `claude_tag_category`.
 

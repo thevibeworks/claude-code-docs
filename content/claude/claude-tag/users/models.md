@@ -26,7 +26,9 @@ Tell Claude which model you want, in your own words, in the thread.
 
 To confirm the switch, check the reply footers. The reply that acknowledges the switch still names the previous model, because Claude writes it before the switch takes effect; the new model appears in the footer of the reply after it. Asking in a thread changes the model for that thread only. To change what new threads in the channel start on, set a [default model for the channel](#set-a-default-model-for-the-channel) instead.
 
-The same request works in a direct message, where it applies to that conversation only.
+The same request works in a one-to-one direct message, where it applies to that conversation only. In a group DM, the switch applies to the thread you ask in.
+
+You can name a model family instead of a version, for example "use the latest Opus here". Claude switches to the newest model of that family your organization offers.
 
 ## Set a default model for the channel
 
@@ -36,13 +38,13 @@ To change what new threads in a channel start on, ask for the channel, not just 
 @Claude use Sonnet for this thread, and make it the default model for this channel.
 ```
 
-Claude sets the channel's default model. New threads in the channel start on it. A thread already underway switches to it at the next message anyone posts there, unless someone in that thread has already had Claude switch models. If an admin has set the scope's **Channel member edits** setting to **Block**, Claude declines to set the channel default; ask for the thread alone instead.
+Claude sets the channel's default model. New threads in the channel start on it. If you asked for a family rather than a version, the default keeps following that family: when your organization gets a newer model in it, new threads start on the newer model without anyone changing the setting. A thread already underway switches to it at the next message anyone posts there, unless someone in that thread has already had Claude switch models. If an admin has set the scope's **Channel member edits** setting to **Block**, Claude declines to set the channel default; ask for the thread alone instead.
 
 Admins set the same default from claude.ai, per workspace or channel; see [choose the model for a scope](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope).
 
 ## Choose the model for your direct messages
 
-Open the Claude app's **Home** tab in Slack. When model selection is enabled for your organization, the tab includes a model selector for direct messages. New direct message conversations you start with Claude use the model you pick there. The selector offers only the models your organization allows.
+Open the Claude app's **Home** tab in Slack. When model selection is enabled for your organization, the tab includes a model selector for one-to-one direct messages. New direct message conversations you start with Claude use the model you pick there. The selector offers only the models your organization allows, and lists each model family as an option such as **Opus (latest)** ahead of the specific versions; with a family option, each new direct message conversation starts on the newest model of that family.
 
 The selector doesn't change a conversation already underway. To change one of those, ask Claude to switch in that conversation.
 

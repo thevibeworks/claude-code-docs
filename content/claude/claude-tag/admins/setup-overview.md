@@ -30,7 +30,7 @@ When you've launched, [give Claude access to your tools](#give-claude-access-to-
   | **Routines** enabled for your Claude organization | Until it is, Claude answers every mention and DM with a reply that it's unavailable and does no work. | An admin turns on [**Admin settings > Capabilities > Remote sessions > Routines**](https://claude.ai/admin-settings/capabilities) |
   | **Owner** role in the Claude organization you're setting up | Pairing a workspace is an Owner-only write. Roles are per organization, so being an Owner elsewhere doesn't carry over. | Ask an Owner to run setup, or have one promote you at [`claude.ai/admin-settings/members`](https://claude.ai/admin-settings/members) |
   | A **Slack workspace admin** | Running `@Claude connect` requires a Slack workspace admin; installing the app usually does too. | If that's someone else, [send them the install request](#if-you-re-not-the-slack-workspace-admin) early (app approval can take time), and plan to be online together when you pair; pairing codes expire 15 minutes after they're issued |
-  | **Usage credits** (Team plans) | Channel work draws from your organization's usage balance; on a Team plan nothing runs until credits are loaded. | Check whether your organization has a [launch usage credit](https://support.claude.com/en/articles/15575654-claude-tag-launch-promo-for-claude-team-and-enterprise) before buying; otherwise, buy credits at [`claude.ai/admin-settings/usage`](https://claude.ai/admin-settings/usage) |
+  | **Usage credits** (Team plans) | Channel work draws from your organization's usage balance; on a Team plan nothing runs until credits are loaded. | Buy credits at [`claude.ai/admin-settings/usage`](https://claude.ai/admin-settings/usage) |
   | A **public channel** for Claude to join | The launch step asks you to select at least one public channel, and you can [verify your setup](#verify-your-setup) there. | Create a public Slack channel for the pilot, or pick any existing one |
 
   If any of your services restrict traffic by IP, file the [network requirements](/docs/claude-tag/admins/network-requirements) request with your network team early; in many organizations, IP allowlist changes take days to approve.
@@ -113,8 +113,7 @@ On the launch step, you add Claude to channels and turn Claude Tag on. You also 
 The spend limit caps how much of your organization's usage balance Claude Tag can use each month.
 
 * **Channel work**: draws from that balance, not from individual seats
-* **Direct messages (DMs)**: DMs from members who have connected a Claude account run on the member's own claude.ai account and aren't capped by this limit. For members who haven't connected one, see [Direct messages from members without a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account).
-* **Launch usage credit**: if your organization has a [launch usage credit](https://support.claude.com/en/articles/15575654-claude-tag-launch-promo-for-claude-team-and-enterprise), the launch step shows the amount, with the date it runs through once the credit is active. After launch, the admin page shows the credit under **Included usage** with how much is used. You're billed for usage beyond it, up to the spend limit.
+* **Direct messages (DMs)**: One-to-one DMs from members who have connected a Claude account run on the member's own claude.ai account and aren't capped by this limit. For members who haven't connected one, see [Direct messages from members without a Claude account](/docs/claude-tag/admins/restrict-access#direct-messages-from-members-without-a-claude-account).
 
 <Steps>
   <Step title="Set monthly spend limits">
@@ -269,6 +268,7 @@ Every entry in the list on the left has **Connectors**, **Repositories**, **Cust
 | Grant more repositories | **Repositories** on the entry. | [Configure GitHub access](/docs/claude-tag/admins/configure-github) |
 | Give one channel more than the default | Select the channel and add to it. | [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope) |
 | Limit where Claude works or who can use it | | [Restrict where Claude operates](/docs/claude-tag/admins/restrict-access) |
+| Require review of personal connector results | On the Enterprise plan, the **Personal connectors** section of the admin page. | [Admin controls for personal connectors](/docs/claude-tag/concepts/personal-connectors#admin-controls-for-personal-connectors) |
 | Pair another workspace, or disconnect one | The Slack row's **⋮** menu under **Where Claude Tag works**. Disconnecting permanently deletes the workspace's Claude data. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle). | [Manage workspaces](/docs/claude-tag/admins/workspaces) |
 | Change the spend limit | [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag). | [Set a spend limit](/docs/claude-tag/admins/set-spend-limit) |
 | Turn Claude Tag off | The **Enable Claude Tag for your organization** toggle at the top of the admin page. | |

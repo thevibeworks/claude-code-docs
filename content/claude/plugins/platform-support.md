@@ -39,7 +39,7 @@ A component marked "Ignored" is skipped on that surface, and a component marked 
 | Executables in a top-level `bin/` directory | Can't be installed | Can't be installed | Loads | |
 | LSP servers, output styles, themes, `settings` | Ignored | Ignored | Loads | [Plugin components](https://code.claude.com/docs/en/plugins/components) |
 
-When you submit a plugin to the directory, the portal derives the surfaces it supports from these same rules and shows them to you before you submit.
+When you submit a plugin to the directory, the portal derives the surfaces it supports from these same rules and shows them to you before you submit. The directory lists a [mod](https://code.claude.com/docs/en/plugins/mods/overview), which is code a plugin names under `modules` in `hooks/hooks.json`, for Claude Code.
 
 ## Compare installation, sync, and admin controls
 
@@ -53,7 +53,7 @@ Chat and Cowork read plugins from your claude.ai account, and Claude Code reads 
 | Hosts for a marketplace you add yourself | GitHub and GitHub Enterprise repositories, and public GitLab and Bitbucket repositories | Any Git repository, GitHub shorthand, URL, or local path | Repositories your organization syncs to distribute plugins follow [different rules](/docs/plugins/org-sync#plugin-sources-that-organization-sync-accepts) |
 | Marketplace and plugin limits | Up to 25 marketplaces that you add yourself, counted for your account in each organization. Each plugin can contain up to 5,000 files and 200 MB, and 200 MB is also the largest file that **Upload plugin** accepts. | No account limits apply; installs are per machine | |
 | Install from a file | **Add > Upload plugin** with a zip of the folder | `claude --plugin-dir <path>` for one session | [Plugin structure and testing](/docs/plugins/build#test-the-plugin-on-each-surface) |
-| Browse the directory | **Discover** in **Customize > Plugins**, on Pro, Max, Team, and Enterprise plans. On Team and Enterprise plans, an Owner can [remove the directory as a source](/docs/plugins/admin#manage-synced-marketplaces) for the organization. | Not in `/plugin`; a plugin added from the directory on claude.ai reaches Claude Code as a synced plugin | [Publish to the directory](/docs/directory/publish) |
+| Browse the directory | **Discover** in **Customize > Plugins**, on Pro, Max, Team, and Enterprise plans. On Team and Enterprise plans, an Owner can [remove the directory as a source](/docs/plugins/admin#manage-synced-marketplaces) for the organization. | `/plugin directory`, in Claude Code v2.1.287 and later. A plugin added from the directory on claude.ai also reaches Claude Code as a synced plugin. | [Publish to the directory](/docs/directory/publish) |
 | Organization controls | An Owner sets each plugin to **Not available**, **Available to install**, **Installed by default**, or **Required** | In managed settings, an admin allowlists or blocks marketplaces and force-installs plugins | [Manage plugins for your organization](/docs/plugins/admin), and the [Claude Code equivalent](https://code.claude.com/docs/en/plugins/org) |
 
 ## Related resources

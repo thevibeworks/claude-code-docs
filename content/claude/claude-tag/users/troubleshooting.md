@@ -535,7 +535,7 @@ A connector you use on claude.ai is missing when you work with Claude in Slack, 
 
 **What it means**
 
-Where you message Claude determines which connectors apply. A channel session uses the connections an admin attached to it. Claude can also [use your personal connectors there](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it. A DM runs on your own claude.ai account and uses that account's connectors.
+Where you message Claude determines which connectors apply. A channel session uses the connections an admin attached to it. Claude can also [use your personal connectors there](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it. A one-to-one DM runs on your own claude.ai account and uses that account's connectors.
 
 You set up and authenticate connectors on claude.ai under **Customize > Connectors**; Slack has no connector settings of its own. The [settings map](/docs/claude-tag/concepts/settings-map) covers every settings surface.
 
@@ -592,7 +592,7 @@ Before you hit the limit, Claude can post a heads-up that starts "Heads up — y
 
 **Your individual extra usage limit**
 
-In a DM, usage is billed to your seat. When your own extra usage limit is the cap, Claude posts:
+In a one-to-one DM, usage is billed to your seat. When your own extra usage limit is the cap, Claude posts:
 
 > You've reached your individual extra usage limit, so I couldn't finish this turn. A Claude.ai organization owner can raise your limit in Claude.ai admin settings (Usage), or it resets when your next usage period starts. Once either happens, mention me to retry.
 
@@ -634,7 +634,7 @@ Your Slack workspace is connected to a Claude organization, and the connect link
 
 ## DMs aren't working
 
-DMs run on your own Claude account rather than the organization's agent. They need a qualifying seat (a seat that includes Claude Code, or on the Enterprise plan a **Standard** or **Usage-Based Chat** seat when the member also has Cowork), and they use your personal connectors rather than the channel connections. If channels work but DMs don't, first check that your Claude account is connected; DM `@Claude` and it prompts you to connect if it isn't.
+One-to-one DMs run on your own Claude account rather than the organization's agent. They need a qualifying seat (a seat that includes Claude Code, or on the Enterprise plan a **Standard** or **Usage-Based Chat** seat when the member also has Cowork), and they use your personal connectors rather than the channel connections. If channels work but DMs don't, first check that your Claude account is connected; DM `@Claude` and it prompts you to connect if it isn't.
 
 ### I get an environment error in a DM
 
@@ -646,7 +646,7 @@ Claude replies in the DM:
 
 **What it means**
 
-DMs run on your own claude.ai account rather than the organization's setup, which is why this appears there and not in channels. It's usually a brief lookup failure rather than a missing environment.
+One-to-one DMs run on your own claude.ai account rather than the organization's setup, which is why this appears there and not in channels. It's usually a brief lookup failure rather than a missing environment.
 
 **How to resolve**
 
@@ -667,7 +667,7 @@ The Claude app's **Messages** tab and Slack's assistant panel both count as DMs 
 
 **What it means**
 
-Your seat doesn't qualify for DMs. A seat that includes Claude Code always qualifies; on the Enterprise plan, a **Standard** or **Usage-Based Chat** seat also qualifies when you have Cowork. Mentioning `@Claude` in a real channel doesn't depend on your seat type and keeps working.
+Your seat doesn't qualify for one-to-one DMs. A seat that includes Claude Code always qualifies; on the Enterprise plan, a **Standard** or **Usage-Based Chat** seat also qualifies when you have Cowork. Mentioning `@Claude` in a real channel doesn't depend on your seat type and keeps working.
 
 **How to resolve**
 
@@ -677,19 +677,19 @@ Channels keep working while you wait, so mention `@Claude` there if you need an 
 
 **What you see**
 
-Claude replies when you DM it:
+Claude replies when you DM it or mention it in a group DM:
 
 > Your Claude admin has disabled sending direct messages to Claude.
 
 **What it means**
 
-DMs are turned off organization-wide.
+DMs are turned off organization-wide, which covers group DMs too.
 
 **How to resolve**
 
 Use a channel instead, or ask your admin about enabling DMs.
 
-### Group DMs aren't supported
+### Group DMs aren't supported yet
 
 **What you see**
 
@@ -699,11 +699,33 @@ Claude replies in the group DM:
 
 **What it means**
 
-Claude works in channels and one-to-one DMs only.
+Claude can't answer in this group DM. These are the usual causes:
+
+* The group DM includes someone from another company, through Slack Connect.
+* Your company uses Slack Enterprise Grid, and the people in the group DM share no workspace.
 
 **How to resolve**
 
-Start a private channel with the same members instead.
+Ask Claude in a channel or a one-to-one DM instead. If you're an admin, [Group DMs](/docs/claude-tag/admins/restrict-access#group-dms) covers how who is in a group DM, and how Slack shares it, can change whether Claude answers.
+
+### Agents can only be added at the start of direct messages
+
+**What you see**
+
+You mention `@Claude` in a DM you already have with someone else. Slack shows this notice, and Claude doesn't reply:
+
+> Agents can only be added at the start of direct messages.
+
+**What it means**
+
+Slack adds an agent such as Claude to a DM only when the DM is created, so your mention never reaches Claude. The rule is Slack's rather than a Claude setting, so your Claude admin can't change it.
+
+**How to resolve**
+
+Choose where to continue with Claude:
+
+* **In a private channel with the same people**: Slack's notice offers to move this conversation to a private channel that includes Claude. Take that option, then mention `@Claude` in the new channel. If Claude doesn't answer there, or answers with a setup notice, see [Mentioning @Claude does nothing at all](#mentioning-@claude-does-nothing-at-all).
+* **In a one-to-one DM**: message Claude directly.
 
 ## Related resources
 

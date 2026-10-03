@@ -112,7 +112,7 @@ Create, audit, and stop the scheduled jobs Claude runs in this channel. For past
 @Claude what routines do you have set up in this channel?
 ```
 
-**Why it works**: schedules are channel state, and someone else may have set them up. Check what exists before you create a duplicate digest.
+**Why it works**: schedules are channel state, and someone else may have set them up. Check what exists before you create a duplicate digest. When you ask in plain language from inside a thread, Claude lists that thread's routines first and may leave out the rest of the channel's, so send `@Claude !routines` there instead.
 
 ```text wrap theme={null}
 @Claude disable the daily digest job.

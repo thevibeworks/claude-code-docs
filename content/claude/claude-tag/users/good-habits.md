@@ -134,9 +134,9 @@ To start several independent tasks from inside an existing thread, [ask Claude t
 
 ### Pick the right surface
 
-Channel access belongs to the channel, and DM access belongs to you. A channel can also be yours alone. Create one with just you and Claude in it, and it works the same way a team channel does. The table compares the three surfaces.
+Channel access belongs to the channel, and access in a one-to-one DM belongs to you. A channel can also be yours alone. Create one with just you and Claude in it, and it works the same way a team channel does. The table compares the three surfaces. For a group DM, see [Use Claude Tag in a group DM](/docs/claude-tag/users/group-dms).
 
-| | A team channel | Your own channel | A DM |
+| | A team channel | Your own channel | A one-to-one DM |
 | :- | :- | :- | :- |
 | Access | The channel's connections, set by an admin | The channel's connections, set by an admin | Your own claude.ai connectors |
 | Memory | Channel memory the team builds | Channel memory you build | Outside channel and workspace memory |

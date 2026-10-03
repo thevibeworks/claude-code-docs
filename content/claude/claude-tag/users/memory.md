@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-Claude keeps memory by channel. Each channel, public or private, has its own notes, and channel memory isn't organized by person. From a public channel Claude can also save workspace notes, which it reads in every channel in the workspace. In a direct message, Claude keeps separate notes for its conversation with you; see [Channel and workspace memory](#channel-and-workspace-memory).
+Claude keeps memory by channel. Each channel, public or private, has its own notes, and channel memory isn't organized by person. From a public channel Claude can also save workspace notes, which it reads in every channel in the workspace. In a one-to-one direct message, Claude keeps separate notes for its conversation with you; see [Channel and workspace memory](#channel-and-workspace-memory).
 
 Memory accumulates three ways:
 
@@ -30,8 +30,9 @@ Reading and saving follow different rules depending on where Claude is working:
 | :- | :- | :- |
 | Public channel | That channel's notes and the workspace notes | That channel's notes, or the workspace notes for something that applies across the workspace |
 | Private channel | That channel's notes, plus the workspace notes (read-only) | That channel's notes only |
+| Group DM | That group DM's notes only | That group DM's notes only |
 
-Other workspaces stay separate. Direct messages stay separate too. Claude keeps notes for each direct-message conversation, stored with the workspace rather than with your Claude account. Those notes are deleted when an Owner [disconnects the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing), not when you disconnect your own Claude account in Slack.
+Other workspaces stay separate. One-to-one direct messages stay separate too. Claude keeps notes for each one-to-one direct-message conversation, stored with the workspace rather than with your Claude account. Those notes are deleted when an Owner [disconnects the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing), not when you disconnect your own Claude account in Slack.
 
 If a channel switches between public and private, its channel notes stay with the channel, and Claude keeps reading and adding to them there. Workspace notes Claude saved from the channel while it was public stay in the workspace notes. If those shouldn't stay shared, ask an Owner to delete them from the workspace scope's memory files.
 

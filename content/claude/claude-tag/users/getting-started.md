@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-Claude Tag is Claude working in your Slack workspace. You hand it work by writing a message where Claude is, and Claude carries it out in that thread. An `@Claude` mention guarantees a response in a channel, but it isn't required everywhere. DMs and threads Claude is already in reach it without one. There's nothing for you to install or configure; if `@Claude` is in your channel, you can use it (unless your admin has [restricted who can invoke Claude](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude)).
+Claude Tag is Claude working in your Slack workspace. You hand it work by writing a message where Claude is, and Claude carries it out in that thread. An `@Claude` mention guarantees a response in a channel, but it isn't required everywhere. One-to-one DMs and threads Claude is already in reach it without one. There's nothing for you to install or configure; if `@Claude` is in your channel, you can use it (unless your admin has [restricted who can invoke Claude](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude)).
 
 ## When to tag Claude in a channel versus a DM
 
@@ -18,8 +18,10 @@ Where you tag Claude decides whose tools it uses and who sees the result.
 
 * **Channel** for shared team work. The work happens in the open, so anything Claude does in the thread, including its checklist and results, is visible to everyone in the channel, and anyone can reply to steer the work. An admin sets what Claude can reach in each channel, and everyone who asks there gets the same access. By default you don't need a Claude account to tag Claude in a channel; the work bills to the organization. An admin can [restrict who can invoke Claude](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude).
   * Example: `@Claude where are we on the launch checklist? Pull what's still open from this channel and #design-review.`
-* **DM** for personal tasks. A DM runs on your own claude.ai account with [your own connectors](/docs/connectors/getting-started). Every DM message reaches Claude without an @-mention. You can also DM Claude questions about getting started, like how to word a task or what to try first. DMs are one-to-one only; group DMs aren't supported.
+* **DM** for personal tasks. A one-to-one DM with Claude runs on your own claude.ai account with [your own connectors](/docs/connectors/getting-started). Every DM message reaches Claude without an @-mention. You can also DM Claude questions about getting started, like how to word a task or what to try first.
   * Example: `Pull my afternoon meetings from my calendar and draft a one-line prep note for each.`
+* **Group DM** for shared work among a few people, without creating a channel. Claude uses the access an admin set for the workspace and the organization, and the work bills to the organization. See [Use Claude Tag in a group DM](/docs/claude-tag/users/group-dms).
+  * Example: `@Claude draft a rollout checklist for the pricing page change.`
 
 See [team channels and personal DMs](/docs/claude-tag/concepts/how-it-works#team-channels-and-personal-dms) for the full comparison.
 
@@ -59,7 +61,7 @@ The footer under each reply names the model that handled it. You can [choose a d
 | :- | :- | :- |
 | Typing `@Claude` doesn't show **Claude** with an **APP** badge in the suggestion list | The Claude app isn't installed in your workspace | Ask your Slack admin to install the Claude app, and send them [the installation guide](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) |
 | The mention sends but Claude doesn't reply | Setup isn't finished for this channel | Ask your Claude organization admin to enable Claude Tag for this channel, and send them [the setup guide](/docs/claude-tag/admins/setup-overview) with the channel name |
-| Claude replies "I couldn't find a Claude Code environment for your account" | Claude couldn't resolve an environment for this DM; DMs run on your account rather than the organization's | Mention Claude again. If it keeps happening, see [I get an environment error in a DM](/docs/claude-tag/users/troubleshooting#i-get-an-environment-error-in-a-dm) |
+| Claude replies "I couldn't find a Claude Code environment for your account" | Claude couldn't resolve an environment for this DM; one-to-one DMs run on your account rather than the organization's | Mention Claude again. If it keeps happening, see [I get an environment error in a DM](/docs/claude-tag/users/troubleshooting#i-get-an-environment-error-in-a-dm) |
 
 ## Hand Claude a task
 

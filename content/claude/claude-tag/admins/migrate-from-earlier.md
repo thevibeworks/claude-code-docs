@@ -47,7 +47,7 @@ On Enterprise Grid, an earlier install can lose its connection and stop respondi
 ## What stays the same
 
 * The Slack app and the `@Claude` handle. Your existing Claude in Slack settings (allowed users, verified-domain restriction) carry over. If your earlier install predates a permission Claude now uses, `@Claude connect` says so when you pair; a Slack admin clicks the install link in that reply and approves the consent screen, which installs over the existing app. Otherwise no app-side action is needed.
-* Direct messages still run on the user's own claude.ai account, the same way they did before. The shift to a shared identity applies to channels.
+* One-to-one direct messages still run on the user's own claude.ai account, the same way they did before. The shift to a shared identity applies to channels.
 * Users who already linked their claude.ai account keep that connection. It is what powers their DMs.
 
 ## How Claude Tag differs from the earlier app
