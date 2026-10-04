@@ -1371,6 +1371,42 @@
       "since": "2026-08-25",
       "reason": "soft-404 (HTML shell)"
     },
+    "https://support.claude.com/en/articles/14503590-get-started-with-claude-for-government": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
+    "https://support.claude.com/en/articles/14503613-sso-login": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
+    "https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
+    "https://support.claude.com/en/articles/14503675-organization-instructions-in-claude-for-government": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
+    "https://support.claude.com/en/articles/14503689-mcp-connectors": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
+    "https://support.claude.com/en/articles/14503703-mcp-individual-connectors": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
+    "https://support.claude.com/en/articles/14503775-mcp-web-search": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
+    "https://support.claude.com/en/articles/14503794-model-availability-in-claude-for-government": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
+    "https://support.claude.com/en/articles/14503804-classification-banner-in-claude-for-government": {
+      "since": "2026-10-04",
+      "reason": "moved -> https://claude.com/docs/government/overview"
+    },
     "https://support.claude.com/en/articles/14729249-use-artifacts-in-claude-cowork": {
       "since": "2026-09-24",
       "reason": "moved -> https://support.claude.com/en/articles/14729249-use-live-artifacts-in-claude-cowork"
