@@ -687,7 +687,7 @@ DMs are turned off organization-wide, which covers group DMs too.
 
 **How to resolve**
 
-Use a channel instead, or ask your admin about enabling DMs.
+Use a channel instead, or ask an Owner of your Claude organization to [turn DMs back on](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 
 ### Group DMs aren't supported yet
 

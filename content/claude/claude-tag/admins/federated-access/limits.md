@@ -28,7 +28,7 @@ Federated connections are available to Claude in Slack channels, where it acts u
 
 | Limit | Value |
 | :- | :- |
-| Registered addresses per organization | 5, counting gateways and authorization-server token endpoints together. |
+| Registered addresses per organization | 5, counting gateways and authorization-server audience addresses together. |
 | Token reuse | Claude reuses one token for a session's requests to the same gateway for about five minutes, half the token's lifetime, or until the gateway answers 401, and then requests a new one (current behavior, may change). A gateway sees the same `jti` on many requests. |
 | Gateway address | An HTTPS host name only, with no path, port, query, or trailing slash. The host name needs a domain, like `gateway.example.com`, uses only letters, numbers, hyphens, and dots, and has at most 253 characters (current behavior, may change). The console rejects an IP address, a private-network name, an Anthropic-owned host, or a host cloud providers use for token exchange, and names the reason. The connection check also refuses a host name that resolves to a private address. |
 | [Allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) on the gateway's connection | Exactly the gateway's host, the only host Claude sends the token to. It can't be widened or given a wildcard. |
@@ -54,7 +54,7 @@ Federated connections are available to Claude in Slack channels, where it acts u
 | **Allowed Google hosts** | `googleapis.com`, a subdomain of it, or a subdomain of `clients6.google.com`. |
 | OAuth scope | `https://www.googleapis.com/auth/cloud-platform`, always, with no setting to change it. On Google Cloud APIs, IAM decides what the credential can do. An API that needs an OAuth scope of its own answers 403 whatever IAM allows; see [The cloud API answers 403 after a successful exchange](/docs/claude-tag/admins/federated-access/troubleshooting#the-cloud-api-answers-403-after-a-successful-exchange). |
 | **Block requests that mint new credentials** | On by default. When on, requests to Google's credential-minting and credential-delivering endpoints are refused, including over gRPC; see [What the credential-minting block refuses](#what-the-credential-minting-block-refuses). The block is best effort and doesn't replace least-privilege IAM. |
-| Google Cloud connections in one bundle | No two Google Cloud connections in the same Access bundle can cover the same host under **Allowed hosts**, whatever their providers or service accounts. A wildcard such as `*.googleapis.com` covers every subdomain but not `googleapis.com` itself. The same provider can be connected again with different hosts, or in another bundle. |
+| Google Cloud connections in one bundle | No two Google Cloud connections in the same bundle can cover the same host under **Allowed hosts**, whatever their providers or service accounts. A wildcard such as `*.googleapis.com` covers every subdomain but not `googleapis.com` itself. The same provider can be connected again with different hosts, or in another bundle. |
 
 ### What the credential-minting block refuses
 
@@ -80,11 +80,12 @@ On services not listed above, reads such as `getIamPolicy`, `testIamPermissions`
 | Token audience | Your authorization server's issuer identifier as you entered it (an HTTPS URL on the same host as the token endpoint, with the same address rules), or the token endpoint URL exactly when you left the issuer identifier empty. It can't be changed after the server is connected. |
 | **Resource** | Optional. An absolute URI with no fragment, at most 256 characters with no spaces (current behavior, may change). |
 | **Scope** | Optional. Space-separated scope words with no quotes or backslashes, at most 256 characters in total (current behavior, may change). |
-| **Allowed API hosts** | Must not include the token endpoint's host. |
+| **Allowed API hosts** | Can include the token endpoint's host only when the endpoint's address has a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`, and you list **Allowed API paths**. |
+| **Allowed API paths** | Needed only when an allowed host covers the token endpoint's host. 1 to 32 paths, each starting with `/`, not ending with `/`, at most 256 characters, and not overlapping the token endpoint's folder. A path can't contain spaces, non-English letters, `..`, `//`, a part ending with a dot, or any of `%`, `?`, `#`, `;`, `@`, `+`, or a backslash (current behavior, may change). |
 | Token exchange | A form-encoded `POST` that doesn't follow redirects and must complete within about 10 seconds (current behavior, may change). |
 | Access token reuse | Reused until about five minutes before it expires (for tokens shorter than 10 minutes, until half their lifetime has passed) when `expires_in` is between 5 minutes and 1 day. When `expires_in` is missing or shorter, the token is used for one request. When it is longer than a day, the token isn't cached either, so every request goes to the token endpoint. (Current behavior, may change.) |
 | Subject check | Your authorization server performs it; the console has no connection check for token endpoints. The server must accept only your own agents' full subjects, or at minimum check that each token's subject starts with your organization's **Subject prefix**. |
-| Endpoint reuse | A registered address can be connected as a gateway or as an authorization server, not both. A token endpoint stays listed in the **Gateways** table after you remove its authorization server, and frees its place among the 5 registered addresses only when you remove it there too. |
+| Endpoint reuse | A registered address can be connected as a gateway or as an authorization server, not both. An authorization server's audience address stays listed in the **Gateways** table after you remove the server, and frees its place among the 5 registered addresses only when you remove it there too. |
 
 ## Testing
 

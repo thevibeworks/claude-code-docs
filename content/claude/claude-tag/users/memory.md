@@ -34,7 +34,7 @@ Reading and saving follow different rules depending on where Claude is working:
 
 Other workspaces stay separate. One-to-one direct messages stay separate too. Claude keeps notes for each one-to-one direct-message conversation, stored with the workspace rather than with your Claude account. Those notes are deleted when an Owner [disconnects the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing), not when you disconnect your own Claude account in Slack.
 
-If a channel switches between public and private, its channel notes stay with the channel, and Claude keeps reading and adding to them there. Workspace notes Claude saved from the channel while it was public stay in the workspace notes. If those shouldn't stay shared, ask an Owner to delete them from the workspace scope's memory files.
+If a channel switches between public and private, its channel notes stay with the channel, and Claude keeps reading and adding to them there. Workspace notes Claude saved from the channel while it was public stay in the workspace notes. If those shouldn't stay shared, ask an Owner to delete them from the workspace's memory files in [Claude Tag admin settings](https://claude.ai/admin-settings/claude-tag).
 
 ## Manage what Claude Tag remembers
 
@@ -67,7 +67,7 @@ Two habits keep memory useful over time:
 * **After correcting an entry, have Claude record the fix.** "Update your memory for this channel so this doesn't happen again" turns a one-time fix into a standing one.
 * **Prune what your work has outgrown.** Entries written weeks ago can describe a repository, owner, or convention that no longer exists. Ask Claude in the channel to review its memory and drop the entries that no longer apply. For ongoing upkeep, set up a [routine](/docs/claude-tag/users/proactivity) that repeats the review on a schedule; weekly works well.
 
-An Owner in your Claude organization can view, edit, or delete a scope's memory files at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), under the scope's options menu.
+An Owner in your Claude organization can view, edit, or delete the [memory files](/docs/claude-tag/admins/audit) of a workspace and its channels.
 
 ## Related resources
 

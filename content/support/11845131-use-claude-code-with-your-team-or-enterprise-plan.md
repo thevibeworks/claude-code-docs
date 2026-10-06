@@ -26,7 +26,7 @@ Combine two powerful AI products in one unified subscription:
 
 If your organization is on a new or self-serve Enterprise plan, Claude Code is already included with every Enterprise seat—no additional purchase is needed. Proceed to Step 2.
 
-**Note:** If your organization has a HIPAA-ready Enterprise plan, Claude Code is included in your seat but is not covered under the HIPAA-ready offering. See **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans)** for details.
+**Note:** On a HIPAA-ready Enterprise plan, after the Primary Owner applies the HIPAA configuration to Claude Code (local mode) and Cowork (local mode), your Business Associate Agreement (BAA) covers Claude Code in the terminal and in the Code tab of Claude Desktop. Without that configuration or zero data retention (ZDR) for Claude Code, Claude Code is included in your seat, and it's available but not covered under your BAA. Don't use it with protected health information (PHI). See **[Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.
 
 If your organization is on an older Enterprise plan with Chat and Chat + Claude Code seats, or Standard and Premium seats, you'll need to ensure you have a seat type that includes Claude Code. Owners can purchase or reassign **Chat + Claude Code / Premium seats** in **[Organization settings > Organization](https://claude.ai/admin-settings/organization)**. See **[Purchase and manage seats on Enterprise plans](https://support.claude.com/en/articles/13393991-purchase-and-manage-seats-on-enterprise-plans)** for details.
 
@@ -69,6 +69,8 @@ If you're not seeing the option to authenticate with your preferred account, fol
 Your seat also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Team or Enterprise account you use in the terminal. IDE usage is limited and billed the same way as terminal usage on your plan.
 
 To install and set up the extension for your IDE, see **[Platforms and integrations](https://code.claude.com/docs/en/platforms)** in our Claude Code Docs.
+
+**Note:** On a HIPAA-ready Enterprise plan, the Claude Code extensions for VS Code and JetBrains are available but not covered under your BAA, including with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode). Don't use them to process protected health information (PHI).
 
 ---
 

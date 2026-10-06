@@ -91,7 +91,7 @@ In a thread that started with an `@Claude` mention, send [`@Claude !mute`](/docs
 
 These parts of working with Claude differ between a group DM and a channel:
 
-* **Settings.** A group DM has no [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), so you can't give it its own instructions, connections, or default model.
+* **Settings.** A group DM has no [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), so you can't give it its own instructions or connections.
 * **Memory.** Claude keeps notes for the group DM and reads only those notes there. It doesn't read or add to the [workspace notes](/docs/claude-tag/users/memory#channel-and-workspace-memory).
 * **Routines.** A [routine](/docs/claude-tag/users/proactivity) you set up in a group DM posts its output in that group DM only.
 * **Other channels.** Claude can't post, reply, or react outside the group DM. [What Claude can do in other channels](/docs/claude-tag/concepts/how-it-works#what-claude-can-do-in-other-channels) covers what it can read.

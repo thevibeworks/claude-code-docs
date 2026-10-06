@@ -417,7 +417,7 @@ MCP servers are agent-scoped (each agent definition declares its own servers and
 
 [Agent configuration overrides](https://platform.claude.com/docs/en/managed-agents/sessions#override-agent-configuration-for-a-session) at session creation can replace the coordinator's MCP servers and those of its `self` copies.
 
-A `limited` [environment](https://platform.claude.com/docs/en/managed-agents/environments#networking) blocks an agent's MCP servers unless its networking sets `allow_mcp_servers: true` or lists each server's host in `allowed_hosts`. With neither set, session creation fails with a 400 error. The check covers every agent the coordinator can delegate to.
+With a `limited` [environment](https://platform.claude.com/docs/en/managed-agents/environments#networking), session creation fails with a 400 error when the coordinator, or an agent it can delegate to, declares an MCP server whose host is not in `allowed_hosts`. Setting `allow_mcp_servers: true` in the environment's networking turns this check off.
 
 Create the researcher, which declares the GitHub MCP server, and the coordinator that delegates to the researcher:
 

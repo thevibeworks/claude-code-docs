@@ -33,7 +33,7 @@ Usage by model:
 
 These totals reset when `/clear` starts a new session, so the next session's total cost starts at \$0. Before v2.1.211, they kept accumulating across `/clear` for the lifetime of the Claude Code process.
 
-For a response from the Claude API billed at the 1.1× [data residency rate](https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing), Claude Code multiplies the list price of that response's tokens by 1.1 in the session cost figure. The same total appears in the [status line's cost field](/docs/en/statusline#cost-and-duration-tracking), and the multiplied figure also counts toward [`--max-budget-usd`](/docs/en/cli-reference#cli-flags). Before v2.1.239, Claude Code didn't apply the 1.1× to those responses, so the session cost figure was lower than the bill.
+For a response from the Claude API billed at the 1.1× [data residency rate](https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing), Claude Code multiplies the list price of that response's tokens by 1.1 in the session cost figure. The same total appears in the [status line's cost field](/docs/en/statusline#cost-and-duration-tracking), and the multiplied figure also counts toward [`--max-budget-usd`](/docs/en/cli-reference#cli-flags).
 
 #### Prompt cache statistics
 
@@ -226,7 +226,7 @@ The following strategies help you keep context small and reduce per-message cost
 
 Use `/usage` to check your current token usage, or [configure your status line](/docs/en/statusline#context-window-usage) to display it continuously.
 
-* **Clear between tasks**: Use `/clear` to start fresh when switching to unrelated work. Stale context wastes tokens on every subsequent message. Use `/rename` before clearing so you can easily find the session later, then `/resume` to return to it.
+* **Clear between tasks**: Use `/clear` to start fresh when switching to unrelated work. Stale context wastes tokens on every subsequent message. Use `/rename` before clearing so you can find the session later, then `/resume` to return to it.
 * **Add custom compaction instructions**: `/compact Focus on code samples and API usage` tells Claude what to preserve during summarization.
 
 You can also customize compaction behavior in your CLAUDE.md file at the root of your project:

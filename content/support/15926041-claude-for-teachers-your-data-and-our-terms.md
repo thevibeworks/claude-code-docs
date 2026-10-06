@@ -30,7 +30,7 @@ Claude for Teachers includes Pro-level features, with Claude Code and Claude Cow
 
 **Important:** Claude for Teachers is not for students. It's an educator-only offering. If you're a student over 18 or using Claude outside your work as an educator, Claude is governed by our Consumer Terms of Service instead.
 
-**Important:** If your district has set up a Claude for Teachers organization, the K-12 terms your district accepted govern your use of Claude within that organization.
+If your district has set up a Claude for Teachers organization, the K-12 terms your district accepted govern your use of Claude within that organization.
 
 ## K-12 privacy and terms
 

@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Note>Authorization servers are connected at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag): open **Federated agent access** in the left navigation and use the **Authorization servers** section. Connecting a server needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+<Note>Authorization servers are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Authorization servers** section. Connecting a server needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
 
 With an authorization server connection, Claude presents a short-lived identity token to an OAuth 2.0 authorization server you run, receives one of your access tokens in return, and calls your APIs with it. No long-lived credential for your systems is stored in Claude, and [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) holds each access token only until it expires. The identity token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel), and your server decides whether to issue a token for it.
 
@@ -26,9 +26,9 @@ Two terms recur on this page. The **subject check** is what your server does to 
   * may have a path, with no spaces or special characters in it
   * has no port number (the console drops `:443`), query, fragment, or sign-in details
   * isn't an IP address, a private-network name, an Anthropic-owned host, or a cloud token-exchange host
-* The token endpoint is on a different host from the APIs Claude will call with the returned token, for example `auth.example.com` and `api.example.com`.
+* The token endpoint is on a different host from the APIs Claude will call with the returned token, for example `auth.example.com` and `api.example.com`, or its address has a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`.
 * Your server can reach `https://identity.anthropic.com` to fetch Anthropic's signing keys.
-* An organization can register up to 5 [gateways](/docs/claude-tag/admins/federated-access/connect-a-gateway), and a token endpoint counts as one.
+* An organization can register up to 5 [gateways](/docs/claude-tag/admins/federated-access/connect-a-gateway), and an authorization server's audience address (its **Issuer URL** value, or its token endpoint when that field is empty) counts as one.
 
 ## Copy the values from the console
 
@@ -78,23 +78,23 @@ To refuse a grant, return a standard OAuth 2.0 error response, such as `400` wit
   </Step>
 
   <Step title="Confirm the subject check and register">
-    Select the checkbox labeled **This authorization server checks that each token's subject belongs to your organization**. The **Register server** button stays disabled until you do. The checkbox is your confirmation that the server makes the subject check described under [Configure the authorization server](#configure-the-authorization-server), and a server that doesn't must not be connected. Then click **Register server**. The dialog notes that the automatic connection check doesn't run for token endpoints. The endpoint is registered as a gateway with the check marked **Skipped**, and the dialog moves to the second step.
+    Select the checkbox labeled **This authorization server checks that each token's subject belongs to your organization**. The **Register server** button stays disabled until you do. The checkbox is your confirmation that the server makes the subject check described under [Configure the authorization server](#configure-the-authorization-server), and a server that doesn't must not be connected. Then click **Register server**. The dialog notes that the automatic connection check doesn't run for token endpoints. The token's audience, your **Issuer URL** value or the token endpoint if you left that field empty, is registered as a gateway with the check marked **Skipped**, and the dialog moves to the second step.
 
-    If you close the dialog at that point, the endpoint stays registered and counts toward the limit. To continue later, click **Connect an authorization server** again, enter the same address, and select the checkbox again, which returns you to the second step. Don't use **Add to bundle** on the endpoint's row in the **Gateways** table; that would connect the address as a gateway, after which the server can't be connected.
+    If you close the dialog at that point, the audience address stays registered and counts toward the limit. To continue later, click **Connect an authorization server** again, enter the same **Token endpoint** and **Issuer URL**, and select the checkbox again, which returns you to the second step. Don't use **Add to bundle** on that address's row in the **Gateways** table; that would connect the address as a gateway, after which the server can't be connected.
   </Step>
 
-  <Step title="Choose the APIs and the Access bundle">
-    Optionally enter a **Resource**, the API the returned token should be scoped to as an absolute URI (for example `https://api.example.com`), and a **Scope**, space-separated scopes to request. In **Allowed API hosts**, add the hosts Claude may call with the returned token, for example `api.example.com`. A wildcard as the leftmost label matches any subdomain; an entry or wildcard that covers the token endpoint's host is rejected. Then choose a bundle from the **Access bundle** list (or click **New bundle**, enter a **Bundle name**, and click **Create bundle**) and click **Connect server**.
+  <Step title="Choose the APIs and the bundle">
+    Optionally enter a **Resource**, the API the returned token should be scoped to as an absolute URI (for example `https://api.example.com`), and a **Scope**, space-separated scopes to request. In **Allowed API hosts**, add the hosts Claude may call with the returned token, for example `api.example.com`. A wildcard as the leftmost label matches any subdomain. An entry or wildcard can cover the token endpoint's host only when the endpoint's address has a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`. In that case, list the paths Claude may use, such as `/graphql`, under **Allowed API paths**. A listed path covers everything under it, and a path that overlaps the token endpoint's folder isn't allowed. Then choose a bundle from the **Access bundle** list (or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**) and click **Connect server**.
 
-    This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, labeled **Authorization server** on its **Credentials** tab, with the API hosts under **Allowed hosts**. Agent Proxy attaches the access token as an `Authorization: Bearer` header to every request Claude makes to those hosts. A token endpoint can be connected once in your organization, in one bundle; to use it in several scopes (workspaces or channels), attach that bundle to each.
+    This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, with the API hosts under **Allowed hosts**. Agent Proxy attaches the access token as an `Authorization: Bearer` header to every request Claude makes to those hosts. A token endpoint can be connected once in your organization, in one bundle, and the connection applies wherever that bundle applies.
   </Step>
 </Steps>
 
-The **Authorization servers** table lists each server by its **Token endpoint**, with its **Access bundle**, its **Allowed hosts**, when it was **Added**, and a **Remove** action. The endpoint also appears in the **Gateways** table with its check marked **Skipped** and a note that a connected authorization server uses it.
+The **Authorization servers** table lists each server by its **Token endpoint**, with its **Access bundle**, its **Allowed hosts**, when it was **Added**, and a **Remove** action. The audience address also appears in the **Gateways** table with its check marked **Skipped** and a note that a connected authorization server uses it.
 
 ## Let agents use the APIs
 
-Claude uses the connection in channels whose scope has the bundle attached. [Attach the bundle to a workspace or channel](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle) if it isn't attached already.
+Claude uses the connection in the channels where its bundle applies. A bundle you created in the connect dialog applies nowhere until you choose places; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 
 Claude also needs to know what the APIs are for. Add a line like this to the scope's [custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions):
 
@@ -110,7 +110,7 @@ New threads pick up the connection on their own. In a thread already running, as
 
 [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
 
-In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to make a small read:
+In a channel where the connection applies, start a new thread and ask Claude to make a small read:
 
 ```text wrap theme={null}
 @Claude call GET /openapi.json on https://api.example.com and tell me what the API offers.
@@ -120,25 +120,25 @@ Then check your authorization server's logs for a JWT bearer grant whose token h
 
 ## Remove the server
 
-In the **Authorization servers** table, click **Remove** in the server's row, then **Remove server** in the confirmation. Claude stops using the connection within about a minute, in existing threads as well as new ones, and the connection is removed from its bundle. An access token your server already issued stays valid with your server until it expires, and Agent Proxy discards it with the connection. The endpoint stays registered as a gateway, so to free its place in the limit, also click **Remove** in its row of the **Gateways** table. To change the address, do both removals, then connect the server again with the new address.
+In the **Authorization servers** table, click **Remove** in the server's row, then **Remove server** in the confirmation. Claude stops using the connection within about a minute, in existing threads as well as new ones, and the connection is removed from its bundle. An access token your server already issued stays valid with your server until it expires, and Agent Proxy discards it with the connection. The audience address stays registered as a gateway, so to free its place in the limit, also click **Remove** in that address's row of the **Gateways** table. To change the address, do both removals, then connect the server again with the new address.
 
 ## Common errors
 
 Five messages come up while connecting:
 
 * **"The issuer URL must be an https URL on the same host as the token endpoint. Leave it empty to use the token endpoint as the audience."**: the **Issuer URL** value is not an HTTPS URL on the token endpoint's host. Enter the issuer identifier your server uses there, or clear the field.
-* **"This token endpoint is already connected in the bundle"**: the server already has its one connection. [Attach that bundle to the scope](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle) instead.
+* **"This token endpoint is already connected in the bundle"**: the server already has its one connection. Apply that bundle where you need the server instead; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 * **"This organization has reached its limit of 5 registered gateways, which includes token endpoints"**: remove an unused row from the **Gateways** table first.
-* **"The allowed hosts can't include the token endpoint's host"**: an **Allowed API hosts** entry, or a wildcard in it, covers the token endpoint's host. Put the token endpoint on a different host from the APIs.
-* **"That address is already connected as a gateway. Enter your authorization server's own addresses, or remove the gateway first."**: the token endpoint, or the **Issuer URL** value, is the address of a gateway connected in one of your Access bundles. Enter the server's own addresses, or delete that gateway's connection from its bundle first.
+* **"The allowed hosts can't include the token endpoint's host"**: an **Allowed API hosts** entry, or a wildcard in it, covers the token endpoint's host, and the endpoint's address has no folder of its own. Put the token endpoint on a different host from the APIs, or use a token endpoint address with a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`.
+* **"That address is already connected as a gateway. Enter your authorization server's own addresses, or remove the gateway first."**: the token endpoint, or the **Issuer URL** value, is the address of a gateway connected in one of your bundles. Enter the server's own addresses, or delete that gateway's connection from its bundle first, as [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab) describes.
 
 For other dialog messages, see [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting).
 
-If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel under the [scope](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) of the Access bundle that holds the connection.
+If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel where the connection [applies](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit).
 
 ## Related resources
 
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the Access bundle and connection model
+* [Give Claude access](/docs/claude-tag/admins/add-connections): the bundle and connection model
 * [Attach a bundle to a scope](/docs/claude-tag/admins/attach-to-scope): where a connection applies
 * [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference): every claim in the token, lifetimes, and key rotation
 * [Connect a gateway](/docs/claude-tag/admins/federated-access/connect-a-gateway): the alternative where your own service verifies the token on every request

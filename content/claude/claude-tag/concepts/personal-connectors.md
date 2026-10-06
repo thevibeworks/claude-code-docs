@@ -12,7 +12,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Personal connectors are the tools you add to your own claude.ai account, like your calendar or your email. When a task you ask for in a Slack channel needs one of your own tools, Claude can offer to use your connector for it.
 
-Personal connectors in channels are on for every organization on the Team plan, with nothing for an admin to set up. On the Enterprise plan, the **Personal connectors** section at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) says when they turn on for your organization. A channel also keeps working with the connections an admin attached to it, as described in [how agent identity works](/docs/claude-tag/concepts/agent-identity).
+Personal connectors in channels are on for every organization on the Team plan, with nothing for an admin to set up. On the Enterprise plan, an admin manages them in the **Personal connectors** dialog, which opens with **Edit** on the **Personal connectors** row at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag); see [Admin controls for personal connectors](#admin-controls-for-personal-connectors). A channel also keeps working with the Claude Tag connectors an admin attached to it, as described in [how agent identity works](/docs/claude-tag/concepts/agent-identity).
 
 ## Where your connectors apply
 
@@ -25,9 +25,9 @@ Claude can use your personal connectors for the requests you make in a channel.
 
 Claude uses your connectors only while working on a request you made yourself.
 
-* **You ask in a channel.** When your task needs one of your own tools, Claude can use your connector for it. The channel also uses the connections an admin attached to it, and everyone who asks there gets the same access.
+* **You ask in a channel.** When your task needs one of your own tools, Claude can use your connector for it. The channel also uses the Claude Tag connectors an admin attached to it, and everyone who asks there gets the same access.
 * **Someone else asks in a channel.** Your connectors serve only you. Their request doesn't control or use your connectors, even in a shared channel.
-* **Claude starts work on its own.** [Routines](/docs/claude-tag/users/proactivity) and other work Claude starts on its own in a channel use the channel's connections, never your connectors.
+* **Claude starts work on its own.** [Routines](/docs/claude-tag/users/proactivity) and other work Claude starts on its own in a channel use the channel's own access, never your connectors.
 * **You ask in a [group DM](/docs/claude-tag/users/group-dms).** Claude uses your connectors after you allow it, and only your own requests use them.
 * **You ask in a one-to-one direct message (DM).** Your connectors apply on their own, because a DM runs on [your own claude.ai account](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
 
@@ -45,11 +45,11 @@ This example shows what you see when a request you post in a channel needs your 
 
 If a teammate posts the same request, Claude can offer to use the calendar connected on their own claude.ai account. Claude never uses your connector for their request.
 
-### What channel connections can reach
+### What Claude Tag connectors in a channel can reach
 
-Connections an admin attached to the channel give everyone in the channel the same access. They use the account the admin set up for Claude in each service, so Claude reaches whatever that account can reach, whoever asks.
+Claude Tag connectors an admin attached to the channel give everyone in the channel the same access. They use the account the admin set up for Claude in each service, so Claude reaches whatever that account can reach, whoever asks.
 
-If a channel connection can open a document your own account can't, Claude can still read and summarize it in that channel when you ask. See [agent access](/docs/claude-tag/concepts/agent-identity#agent-access) for how admins limit what a channel can reach.
+If a Claude Tag connector in the channel can open a document your own account can't, Claude can still read and summarize it in that channel when you ask. See [agent access](/docs/claude-tag/concepts/agent-identity#agent-access) for how admins limit what a channel can reach.
 
 ## Control connector use
 
@@ -88,7 +88,7 @@ Once you approve a held result, Claude posts it in the thread where you asked.
 
 ### Admin controls for personal connectors
 
-Admins manage personal connectors for the whole organization in the **Personal connectors** section at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). The settings there apply to every workspace and channel.
+To manage personal connectors for the whole organization, an admin goes to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and selects **Edit** on the **Personal connectors** row. The settings in the **Personal connectors** dialog apply to every workspace and channel.
 
 * **Require human review of every message.** On the Enterprise plan, an admin can turn this switch on so that Claude holds every result for the requester's review, not only the ones the [sensitive-content check](#review-results-before-posting) flags. With it on, the prompt no longer offers **Allow** and the **Home** tab no longer offers **Auto mode**. With it off, and on the Team plan, which has no such switch, each member's own [choice](#approve-connector-use) decides which results Claude holds.
 * **Sensitive information requiring review.** Shows examples of what the check looks for. An Owner can add topics of their own under **Additional topics**, for example "Board meeting notes are confidential", and Claude holds results that touch them.
@@ -101,7 +101,7 @@ To stop a task that's using your connectors, select **Stop** under the message i
 
 ## How Claude protects your connectors
 
-Other people can't use your connectors. Requests other people make to Claude in your task's thread run with the connections an admin attached to the channel, not with your connectors.
+Other people can't use your connectors. Requests other people make to Claude in your task's thread run with the access an admin applied to the channel, not with your connectors.
 
 While Claude works on your connector task, it is designed to take direction from you. Other people's messages in the thread reach Claude as information about the task, not as instructions. A message that tells Claude to change course or share what it found can't use your connectors, and Claude is designed not to let it redirect your task.
 

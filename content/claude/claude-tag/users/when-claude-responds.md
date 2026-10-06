@@ -43,9 +43,7 @@ To have Claude answer more kinds of untagged messages in a channel, tell it whic
 
 ## Turn automatic replies on or off
 
-The **Respond automatically** setting controls whether Claude replies to a channel's messages without an @-mention. When it's on, Claude may reply to a message it judges warrants one, as [What Claude does with a channel message](#what-claude-does-with-a-channel-message) describes. When it's off, Claude replies in that channel only when someone @-mentions it.
-
-The setting is on by default.
+The **Respond automatically** setting controls whether Claude replies to a channel's messages without an @-mention. When it's on, Claude may reply to a message it judges warrants one, as [What Claude does with a channel message](#what-claude-does-with-a-channel-message) describes. When it's off, Claude replies in that channel only when someone @-mentions it. The setting is on by default.
 
 Each channel has its own copy of the setting, and there is no workspace- or organization-wide version. To make Claude mention-only across many channels, turn it off in each one.
 
@@ -54,14 +52,18 @@ All three places below change the same setting, so a change you make in one appe
 | Where | How |
 | :- | :- |
 | In Slack | Ask Claude in the channel, for example "@Claude only respond in this channel when someone @-mentions you" or "@Claude respond to messages here even when nobody mentions you." Claude confirms the change. |
-| The channel's Configure page | Open the **Configure** link in the footer of any Claude reply in the channel and switch the **Respond automatically** toggle. See [Configure Claude for a channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel). |
-| The Claude Tag admin page (admins only) | At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), on the **Slack** tab under **Claude Tag's access**, open the channel's scope and switch **Respond automatically** in its **Advanced** settings. |
+| The channel's Configure page | Open the **Configure** link in the footer of any Claude reply in the channel, switch the **Respond automatically** toggle, and click **Save**. See [Configure Claude for a channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel). |
+| Claude Tag admin settings (Owners and Claude Tag admins) | Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag?access=channels), select the channel on the **Channels** tab, and switch **Respond automatically** on the channel's **General** tab. |
 
-When the scope's [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) setting is **Block**, Claude declines to change **Respond automatically** when anyone asks in Slack, and channel members can't switch the toggle on the channel's Configure page. An admin can still change the setting on the Claude Tag admin page, and a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can still switch the toggle on the Configure page of a channel assigned to them.
+An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) can set [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) to **Block** for a channel, a workspace, or all of Slack. When the setting is **Block**, Claude declines to change **Respond automatically** when anyone asks in Slack, and channel members can't switch the toggle on the channel's Configure page. An Owner or a Claude Tag admin can still change the setting in Claude Tag admin settings, and a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can still switch the toggle on the Configure page of a channel assigned to them.
 
 The setting covers the channel's messages, not DMs. To quiet a single thread instead of the whole channel, [ask Claude in that thread](#quiet-one-conversation).
 
-Until Claude has joined a channel, you see "@-mention Claude in this channel to activate" in place of the toggle on the Configure page and the admin page. You see the same line in a channel shared across workspaces that all belong to your Claude organization, because Claude runs there with your organization's default settings only. [Messages that never get a reply](#messages-that-never-get-a-reply) covers shared channels in more detail.
+Until Claude has joined a channel, you see "@-mention Claude in this channel to activate" in place of the toggle, both on the Configure page and on the channel's page in Claude Tag admin settings. You see the same line in a channel shared across workspaces that all belong to your Claude organization, because Claude runs there with your organization's default settings only. [Messages that never get a reply](#messages-that-never-get-a-reply) covers shared channels in more detail.
+
+<Note>
+  Separately from **Respond automatically**, an Owner or a Claude Tag admin can [turn Claude off in channels](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope).
+</Note>
 
 ## Messages from other apps and bots
 
@@ -105,7 +107,7 @@ Turn the channel's [**Respond automatically**](#turn-automatic-replies-on-or-off
 @Claude only respond in this channel when someone @-mentions you directly.
 ```
 
-Claude confirms the change, which is channel-wide, not just for you. You can make the same change with the toggle on the channel's Configure page, and an admin can make it from the Claude Tag admin page. If Claude declines because an admin has locked the channel's settings, ask an admin to make the change from the Claude Tag admin page, as [Turn automatic replies on or off](#turn-automatic-replies-on-or-off) describes.
+Claude confirms the change, which is channel-wide, not just for you. You can make the same change with the toggle on the channel's Configure page, and an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) can change it in [Claude Tag admin settings](https://claude.ai/admin-settings/claude-tag). If Claude declines because an Owner or a Claude Tag admin has locked the channel's settings, ask one of them to make the change in Claude Tag admin settings, as [Turn automatic replies on or off](#turn-automatic-replies-on-or-off) describes.
 
 Threads Claude already joined keep forwarding replies, so quiet those individually with the in-thread line above. The [`!mute` command](/docs/claude-tag/users/commands#mute-or-unmute-a-thread) quiets one thread at a time and does nothing at a channel's top level.
 
@@ -137,7 +139,7 @@ If unprompted replies don't come back after Claude answers a mention, the channe
 A few cases produce silence even when the message includes a mention:
 
 * **Editing a message to add the mention.** An edit doesn't trigger a response. Delete the message and send a new one with `@Claude` included.
-* **Channels with guest accounts.** By default, Claude is off in channels that include guests; your admin can turn it on per scope. Ask whoever runs your Claude plan, or send them [the guest access setting](/docs/claude-tag/admins/restrict-access#restrict-guest-channels).
+* **Channels with guest accounts.** By default, Claude is off in channels that include guests; an Owner or a Claude Tag admin can turn it on for a channel, a workspace, or all of Slack. Ask whoever runs your Claude plan, or send them [the guest access setting](/docs/claude-tag/admins/restrict-access#restrict-guest-channels).
 * **Channels shared across workspaces connected to different Claude organizations.** Every workspace where Claude runs is connected to a Claude organization, the account a company sets up for Claude. When a channel is shared across workspaces connected to different Claude organizations, Claude won't reply there and posts a refusal message instead. You can't tell from Slack how a workspace is connected; the refusal message itself is the signal. Use a channel that belongs to one workspace, or send Claude a DM.
 * **Slack Connect channels.** Claude doesn't answer in [channels shared with another company](/docs/claude-tag/admins/restrict-access#slack-connect-channels). A mention there gets a notice saying Claude isn't turned on for Slack Connect channels, and no admin setting changes that.
 

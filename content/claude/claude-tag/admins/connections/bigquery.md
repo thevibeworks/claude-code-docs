@@ -4,17 +4,15 @@
 
 # Connect BigQuery
 
-> Connect BigQuery to Claude Tag so it can run read-only queries on your datasets. BigQuery has no preset, so it is added as a custom credential with a GCP service-account key.
+> Connect BigQuery to Claude Tag so it can run read-only queries on your datasets, using a GCP service-account key.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
 <BetaNote />
 
-<Note>Connections are added inside an [Access bundle](/docs/claude-tag/admins/add-connections#your-first-access-bundle). At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open **Access bundles** in the left navigation, click into a bundle (or **Create** one), and go to its **Credentials** tab.</Note>
+Connecting BigQuery lets Claude run queries against your datasets in any channel where the connector is on. Claude connects with its own credential, not a person's.
 
-Connecting BigQuery lets Claude run queries against your datasets from any channel under the bundle's scope. Add it as a custom credential with **Custom tool**; BigQuery has no preset button in the picker.
-
-This is an HTTP API connection, not a personal claude.ai connector. Pair it with a plugin that covers BigQuery so Claude knows how to form and run queries; without one, Claude can reach the API but has to work out the request shape on its own. See [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins).
+This connector calls BigQuery's HTTP API, and it's separate from members' personal claude.ai connectors. Pair it with a plugin that covers BigQuery so Claude knows how to form and run queries; without one, Claude can reach the API but has to work out the request shape on its own. Add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab.
 
 ## Create the credential in Google Cloud
 
@@ -22,35 +20,30 @@ Create a dedicated service account for the agent in the Google Cloud project tha
 
 ## Grant access to specific datasets
 
-You scope what Claude can read on the Google Cloud side, through the service account's role grants. The connection itself has no dataset setting. Grant the service account two roles:
+You scope what Claude can read on the Google Cloud side, through the service account's role grants. The connector itself has no dataset setting. Grant the service account two roles:
 
 * **BigQuery Data Viewer** (`roles/bigquery.dataViewer`) on each dataset Claude should query. Grant it on the specific datasets, not on the project, so Claude can read only those datasets.
 * **BigQuery Job User** (`roles/bigquery.jobUser`) on the project, so the service account can run query jobs.
 
-Together the two grants let Claude run read-only queries against those datasets. To widen or narrow access later, edit the dataset grants in Google Cloud; the connection needs no change.
+Together the two grants let Claude run read-only queries against those datasets. To widen or narrow access later, edit the dataset grants in Google Cloud; the connector needs no change.
 
-## Add the connection to a bundle
+## Add the connector
 
-In the bundle, click **Connect** next to **Custom tool** and choose **GCP access token (with Service Account Key)**.
+Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **BigQuery**. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector. In the connect form, paste the whole JSON key file from Google Cloud Console into **Claude's service account key (JSON)**, then click **Connect** to save the connector.
 
-| Field | Value |
-| :- | :- |
-| Credential type | **GCP access token (with Service Account Key)** |
-| GCP service account key (JSON) | The JSON key file from Google Cloud Console |
-| Scopes (optional) | `https://www.googleapis.com/auth/bigquery`. The field is labeled optional, but leave it empty and the token defaults to a broader scope. BigQuery's query endpoints don't accept a read-only scope; the dataset roles in the section above are what keep the connection read-only. |
-| Allowed websites | `bigquery.googleapis.com` |
+The access tokens Claude gets from this key carry only Google's `cloud-platform.read-only` scope, so Google refuses BigQuery API calls that create or delete tables or run load jobs. Queries still run with whatever the service account's roles allow, so the [dataset roles](#grant-access-to-specific-datasets) decide what a query can reach.
 
 Agent Proxy exchanges the service-account key for an access token and injects it at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 
 ## Verify the connection
 
-In a channel under the bundle's scope, in a new thread:
+In a channel where the connector is on, in a new thread:
 
 ```text wrap theme={null}
 @Claude what can you access from this channel?
 ```
 
-BigQuery appears in the list once the connection is live. New threads pick up the connection on their own; in an existing thread, ask Claude to use the service by name.
+BigQuery appears in the list once the connector is live. New threads pick up the connector on their own; in an existing thread, ask Claude to use the service by name.
 
 Then confirm a query runs against a dataset you granted:
 

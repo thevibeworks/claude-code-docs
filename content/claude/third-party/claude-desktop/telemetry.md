@@ -40,11 +40,11 @@ Leaving this enabled also adds `api.anthropic.com` to the [agent egress allowlis
 
 ### Non-essential services
 
-Cosmetic third-party fetches: favicons for connectors shown in the UI, the sandboxed iframe that renders interactive artifact previews, and the sandboxed iframes that render [MCP Apps](/docs/connectors/building/mcp-apps/getting-started), the interactive widgets connectors can display. Disabling these degrades the UI (generic icons, static artifact previews, and connector tool results shown as text instead of widgets) but doesn't affect functionality.
+Cosmetic third-party fetches: favicons for connectors shown in the UI, the sandboxed iframe that renders interactive artifact previews, and the sandboxed iframes that render [MCP Apps](/docs/connectors/building/mcp-apps/getting-started), the interactive widgets connectors can display. Disabling these degrades the UI (generic icons, static artifact previews, and connector tool results shown as text instead of widgets) but doesn't affect functionality. On Linux, `disableNonessentialServices` also applies to the spellcheck dictionary, which the built-in spellchecker downloads from the hosts listed under [Required egress paths](#required-egress-paths). Without the dictionary, misspelled words aren't underlined.
 
 | Setting | Default | Effect when `true` |
 | - | - | - |
-| `disableNonessentialServices` | `false` | Favicon, artifact-preview, and MCP App widget fetches are blocked. Connectors that return MCP Apps show the tool's text result instead of the widget. |
+| `disableNonessentialServices` | `false` | Favicon, artifact-preview, and MCP App widget fetches are blocked. Connectors that return MCP Apps show the tool's text result instead of the widget. On Linux, the setting also applies to the spellcheck dictionary download. Without the dictionary, misspelled words aren't underlined. |
 
 ### Auto-updates
 

@@ -14,14 +14,14 @@ description: Claude Fable 5 and Claude Mythos 5 capabilities, API changes, and a
 
 Claude Fable 5 is built for demanding reasoning and long-horizon agentic work. Claude Mythos 5 shares the same capabilities and is available only in limited release through [Project Glasswing](https://anthropic.com/glasswing).
 
-The headline change for integrations: Claude Fable 5 includes safety classifiers that can decline requests. Claude Mythos 5 does not include these classifiers. If your integration calls Claude Fable 5, plan for three changes: new response handling for refusals, fallback options for retrying on another Claude model, and new billing rules. [Refusals, fallback, and billing on Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5#refusals-fallback-and-billing-on-claude-fable-5) summarizes all three.
+The headline change for integrations: Claude Fable 5 includes safety classifiers that can decline requests. If your integration calls Claude Fable 5, plan for three changes: new response handling for refusals, fallback options for retrying on another Claude model, and new billing rules. [Refusals, fallback, and billing on Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5#refusals-fallback-and-billing-on-claude-fable-5) summarizes all three.
 
 ## Models
 
-| Model           | API model ID      | Description                                                                                                                                   |
-| --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Fable 5  | `claude-fable-5`  | Built for demanding reasoning and long-horizon agentic work                                                                                   |
-| Claude Mythos 5 | `claude-mythos-5` | Shares Claude Fable 5's capabilities without the safety classifiers. Available through Project Glasswing. Successor to Claude Mythos Preview. |
+| Model           | API model ID      | Description                                                                                                    |
+| --------------- | ----------------- | -------------------------------------------------------------------------------------------------------------- |
+| Claude Fable 5  | `claude-fable-5`  | Built for demanding reasoning and long-horizon agentic work                                                    |
+| Claude Mythos 5 | `claude-mythos-5` | Shares Claude Fable 5's capabilities. Available through Project Glasswing. Successor to Claude Mythos Preview. |
 
 Claude Fable 5 and Claude Mythos 5 share the same specs and pricing:
 
@@ -32,7 +32,7 @@ For specs across all current models, see the [models overview](https://platform.
 
 ## Refusals, fallback, and billing on Claude Fable 5
 
-Claude Fable 5 includes safety classifiers that can decline certain requests. Claude Mythos 5 does not include these classifiers, so this section applies to Claude Fable 5 only. The following sections summarize what refusals mean for your integration. Each links to the full guide.
+Claude Fable 5 includes safety classifiers that can decline certain requests. The following sections summarize what refusals mean for your integration. Each links to the full guide.
 
 ### Refusals
 

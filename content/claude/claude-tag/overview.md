@@ -84,7 +84,7 @@ Claude Tag works in Slack. You interact with it by writing in a Slack channel, t
 
 When Claude works on a task, it runs in an ephemeral sandbox, not on your computer. The sandbox is created when a conversation starts, holds any code or files Claude is working with, and is discarded when the conversation goes idle. See [how Claude Tag works](/docs/claude-tag/concepts/how-it-works) for the full lifecycle.
 
-You extend what Claude can reach, like your repositories, ticketing systems, data warehouses, and custom tools, through [connections](/docs/claude-tag/admins/add-connections), [plugins, and skills](/docs/claude-tag/admins/customize). An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) configures these per scope (a channel, a workspace, or the whole organization). Members' own claude.ai connectors are separate from that configuration; Claude can use them in a channel for the member's own requests, as [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) describes.
+You extend what Claude can reach, like your repositories, ticketing systems, data warehouses, and custom tools, through [Claude Tag connectors](/docs/claude-tag/admins/add-connections), [plugins, and skills](/docs/claude-tag/admins/customize). An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) configures these for all of Slack, for one workspace, or for one channel. Members' own claude.ai connectors are separate from that configuration; Claude can use them in a channel for the member's own requests, as [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) describes.
 
 <div className="tm-route-grid">
   <div className="tm-card">
@@ -188,7 +188,7 @@ What it can reach starts with the channel you're in. The fastest way to find out
 
 For your own requests, Claude can also [use the connectors on your claude.ai account](/docs/claude-tag/concepts/personal-connectors), after you allow it.
 
-In a one-to-one DM, Claude runs on your own claude.ai account instead of a channel's setup. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+In a one-to-one DM, Claude runs on your own claude.ai account instead of a channel's setup. An Owner can turn off DMs for the whole organization; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 
 ### Common uses
 
@@ -216,7 +216,7 @@ You set up Claude Tag once, at [`claude.ai/admin-settings/claude-tag`](https://c
 
 Once you launch, everyone in a channel Claude is in can use Claude Tag immediately, with no per-user setup.
 
-Claude Tag starts with no access of its own to your external systems. After you launch, you connect the services Claude will work in, such as your issue tracker or data warehouse, and grant repositories to the Claude GitHub App. The services you connect form an [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle), the set of tools Claude can reach. You attach the bundle to a workspace or to channels. Members can also let Claude use their own [personal connectors](/docs/claude-tag/concepts/personal-connectors) for their requests.
+Claude Tag starts with no access of its own to your external systems. After you launch, you connect the services Claude will work in, such as your issue tracker or data warehouse, and grant repositories to the Claude GitHub App. Members can also let Claude use their own [personal connectors](/docs/claude-tag/concepts/personal-connectors) for their requests.
 
 [Set up Claude Tag](/docs/claude-tag/admins/setup-overview) walks through setup and connecting tools, with what to have ready, what each choice means, and how to verify Claude Tag works once you launch.
 

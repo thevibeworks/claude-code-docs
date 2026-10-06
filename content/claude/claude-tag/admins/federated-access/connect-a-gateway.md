@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Note>Gateways are connected at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag): open **Federated agent access** in the left navigation and use the **Gateways** section. Connecting a gateway needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+<Note>Gateways are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Gateways** section. Connecting a gateway needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
 
 A gateway is a service you run between Claude and your internal systems. Every request Claude sends it carries a signed identity token naming your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel). The gateway checks the token, decides what that agent may do, and forwards the request with your own credentials. No long-lived credential for your systems is stored in Claude.
 
@@ -22,7 +22,7 @@ Two terms recur on this page. The **subject check** is what your gateway does to
 * The gateway has a public HTTPS address with a domain name, such as `https://gateway.example.com`, on the standard HTTPS port. The console rejects a path, port, trailing slash, IP address, private-network name, Anthropic-owned host, or cloud token-exchange host.
 * The gateway can reach `https://identity.anthropic.com` to fetch Anthropic's signing keys.
 * If you start from Anthropic's [sample gateway](https://github.com/anthropics/claude-tag-wif-gateway-sample) (Python, Apache 2.0), terminate TLS in front of it, because it listens on plain HTTP, and set its `audience` to the public address you register.
-* An organization can register up to 5 addresses, counting gateways and authorization-server token endpoints together.
+* An organization can register up to 5 addresses, counting gateways and authorization-server audience addresses together.
 
 ## Copy the values and deploy the gateway
 
@@ -73,8 +73,8 @@ Never forward the Claude Tag token downstream; replace the `Authorization` heade
     Leave the **Run the check** option selected and click **Run check and connect**. The check can take up to a minute. If it fails, nothing is registered; see [Common errors](#common-errors). If the gateway can't be reached from the internet yet, select the **Skip the check** option, enter a **Reason for skipping**, and click **Connect without the check**. The reason is shown in the **Gateways** table, under the **Skipped** result's **Details**. Entering an address that is already registered runs the check again (unless you skip it) without changing the stored result, then moves to the bundle step.
   </Step>
 
-  <Step title="Add the gateway to an Access bundle">
-    Choose a bundle from the **Access bundle** list, or click **New bundle**, enter a **Bundle name**, and click **Create bundle**. Then click **Add to bundle**. This creates a connection in that bundle, labeled **Gateway** on its **Credentials** tab, with the gateway's host as its allowed website. A gateway can be in more than one bundle; the **Access bundle** list offers only the bundles it isn't in yet. Click **Not now** to finish without a bundle.
+  <Step title="Add the gateway to a bundle">
+    Choose a bundle from the **Access bundle** list, or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**. Then click **Add to bundle**. This creates a connection in that bundle, with the gateway's host as its allowed website. A gateway can be in more than one bundle, and it applies wherever those bundles apply. The **Access bundle** list offers only the bundles it isn't in yet. Click **Not now** to finish without a bundle.
   </Step>
 </Steps>
 
@@ -82,7 +82,7 @@ The **Gateways** table lists each gateway with its **Access bundles**, its **Con
 
 ## Let agents reach the gateway
 
-Claude uses the gateway in channels whose scope has the bundle attached. [Attach the bundle to a workspace or channel](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle) if it isn't attached already.
+Claude uses the gateway in the channels where its bundle applies. A bundle you created in the connect dialog applies nowhere until you choose places; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 
 Claude also needs to know the gateway exists. Add a line like this to the scope's [custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions):
 
@@ -98,7 +98,7 @@ New threads pick up the connection on their own. In a thread already running, as
 
 [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
 
-In a channel under the bundle's scope, start a new thread and ask Claude to make a small read through the gateway:
+In a channel where the gateway's connection applies, start a new thread and ask Claude to make a small read through the gateway:
 
 ```text wrap theme={null}
 @Claude call GET /list-services on https://gateway.example.com and tell me what it returns.
@@ -112,15 +112,15 @@ To disconnect a gateway, click **Remove** in the gateway's row of the **Gateways
 
 One message comes up while connecting. **"The check didn't pass"** means the gateway isn't reachable from the internet over HTTPS, its root route doesn't answer an empty `POST` directly, or the subject check is missing or rejects the **Control subject**. See [The check didn't pass](/docs/claude-tag/admins/federated-access/troubleshooting#the-check-didn%E2%80%99t-pass).
 
-A bundle-step note that the gateway is already in a bundle isn't an error; the **Access bundle** list then offers the bundles it isn't in yet. To use the gateway in more channels without adding it to another bundle, [attach a bundle it's in to each scope](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle).
+A bundle-step note that the gateway is already in a bundle isn't an error; the **Access bundle** list then offers the bundles it isn't in yet. To use the gateway in more channels without adding it to another bundle, apply a bundle it's in wherever you need the gateway; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 
 For other dialog messages, see [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting).
 
-If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel under the [scope](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) of the Access bundle that holds the connection.
+If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel where the connection [applies](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit).
 
 ## Related resources
 
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the Access bundle and connection model
+* [Give Claude access](/docs/claude-tag/admins/add-connections): the bundle and connection model
 * [Attach a bundle to a scope](/docs/claude-tag/admins/attach-to-scope): where a gateway connection applies
 * [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference): every claim in the token, lifetimes, and key rotation
 * [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting): console and runtime errors for every connection type

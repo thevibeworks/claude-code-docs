@@ -291,7 +291,7 @@ When an MCP tool output exceeds 100,000 characters (about 25,000 tokens), it is 
 
 When starting a session, pass `vault_ids` to provide credentials for your MCP servers. Vaults are collections of credentials that you register once and reference by ID. See [Authenticate with vaults](https://platform.claude.com/docs/en/managed-agents/vaults) for how to create vaults and manage credentials.
 
-A `limited` [environment](https://platform.claude.com/docs/en/managed-agents/environments#networking) blocks an agent's MCP servers unless its networking sets `allow_mcp_servers: true` or lists each server's host in `allowed_hosts`. With neither set, session creation fails with a 400 error.
+With a `limited` [environment](https://platform.claude.com/docs/en/managed-agents/environments#networking), session creation fails with a 400 error when the agent declares an MCP server whose host is not in `allowed_hosts`. Setting `allow_mcp_servers: true` in the environment's networking turns this check off.
 
 <CodeGroup>
   ```bash cURL
@@ -386,7 +386,7 @@ Credentials are matched by URL, so the vault must contain a credential whose `mc
 
 ### Handle connection and authentication failures
 
-Session creation does not validate MCP connectivity or credentials. If an MCP server is unreachable or rejects the supplied credential, the session still starts and interaction remains possible. A [`session.error`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) event is emitted with the `mcp_server_name` of the affected server and a `retry_status`:
+Session creation does not validate MCP connectivity or credentials. It does check each declared server's host against the environment's networking: with a `limited` environment, session creation fails with a 400 error when a host is not allowed, as described under [Provide authentication at session creation](https://platform.claude.com/docs/en/managed-agents/mcp-connector#provide-authentication-at-session-creation). If an MCP server is unreachable or rejects the supplied credential, the session still starts and interaction remains possible. A [`session.error`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) event is emitted with the `mcp_server_name` of the affected server and a `retry_status`:
 
 | Error type                        | Meaning                                                                                                                                                                                                      |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |

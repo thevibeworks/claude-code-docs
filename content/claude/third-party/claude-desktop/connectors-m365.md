@@ -35,6 +35,8 @@ Anthropic's connector service receives the desktop's delegated access token on e
 
 Setup takes about fifteen minutes and requires a Global Administrator or Cloud Application Administrator in your Entra tenant.
 
+The hosted M365 server has not been evaluated for HIPAA compliance. If your organization follows HIPAA compliance, please use the [local connector](#local-connector) instead.
+
 ### How the connection works
 
 Three applications participate in the sign-in chain. Understanding which one each ID refers to makes the setup steps below easier to follow.
@@ -203,7 +205,7 @@ Choose the local connector when your data-residency requirements do not allow Mi
     | `tenantId` | Yes | Your Directory (tenant) ID. |
     | `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for US Government clouds. |
     | `continuousAccessEvaluation` | No | `enabled` (default) or `disabled`. When enabled, the connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours and stop working within minutes after an administrator revokes the user's sessions or disables the account in Entra, and, where your tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is used from outside that network. `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts, and an already-issued token stays in use until it expires (select **Disconnect**, then **Connect**, to sign in again immediately). Requires Claude Desktop 1.49585.0 or later; earlier versions ignore the field and request standard one-hour tokens. |
-    | `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. A string array named `scopes` is also accepted until October 7, 2026. See [Configure scopes](#configure-scopes). |
+    | `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. A string array named `scopes` is also accepted only before 12:00 PM Pacific Time (19:00 UTC) on October 7, 2026. See [Configure scopes](#configure-scopes). |
     | `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers). |
 
     The server ships inside the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.

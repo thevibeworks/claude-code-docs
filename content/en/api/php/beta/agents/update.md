@@ -51,7 +51,7 @@ Update Agent
 
 - `tools?:optional list<Tool>`
 
-  Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 128 tools across all toolsets allowed.
+  Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
 - `version?:optional int`
 

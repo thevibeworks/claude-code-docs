@@ -413,7 +413,7 @@ Create Agent
 
 - `tools: optional array of BetaManagedAgentsAgentToolset20260401Params or BetaManagedAgentsMCPToolsetParams or BetaManagedAgentsCustomToolParams`
 
-  Tool configurations available to the agent. Maximum of 128 tools across all toolsets allowed.
+  Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
   - `BetaManagedAgentsAgentToolset20260401Params object`
 
@@ -3586,7 +3586,7 @@ Update Agent
 
 - `tools: optional array of BetaManagedAgentsAgentToolset20260401Params or BetaManagedAgentsMCPToolsetParams or BetaManagedAgentsCustomToolParams or null`
 
-  Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 128 tools across all toolsets allowed.
+  Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
   - `BetaManagedAgentsAgentToolset20260401Params object`
 

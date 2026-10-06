@@ -92,7 +92,7 @@ These are the claims a token carries.
 | `jti` | Unique token ID |
 | `tenant` | Your Claude organization ID, the same value as the subject's `org/` segment. Together with `iss`, this is the pair a relying party pins to trust tokens from one organization. Not your cloud or identity provider's tenant ID. |
 | `agent_id` | The agent ID, the same value as the subject's `agent/` segment |
-| `profile_id` | The ID of the Access bundle the connection belongs to, starting with `capp_`. Informational. |
+| `profile_id` | The ID of the bundle the connection belongs to, starting with `capp_`. Informational. |
 | `platform` | `slack` when the request came from Slack. Present whenever `slack_workspace_id` is. |
 | `slack_workspace_id` | The ID of the Slack workspace Claude is acting in. Present when the request came from a Slack workspace your organization owns. |
 | `slack_channel_id` | The ID of the Slack channel Claude is acting in. Present whenever `slack_workspace_id` is and Claude is acting in one channel rather than a whole workspace. |

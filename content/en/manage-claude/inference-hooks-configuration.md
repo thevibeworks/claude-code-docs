@@ -88,12 +88,14 @@ There are three enforcement states: **off** (**Enforce verdicts** is off: your A
     To evaluate verdicts against live traffic without blocking anyone at first, set **Mode** to **Shadow mode** (step 6) before turning on enforcement; see [Shadow mode](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration#shadow-mode).
 
     Turn on **Enforce verdicts** to gate Claude on your AI security server's verdict for every governed prompt, then confirm in the dialog, which restates your failure handling choice. Allow about a minute for the change to reach every Anthropic server; requests already in flight finish under the old setting. Turning it off stops prompts from being sent to your AI security server, again within about a minute; your configuration is kept.
+
+    Turn on **Validate tool calls**, below **Enforce verdicts**, and confirm in the dialog, to also send the tool calls in each of Claude's responses to your AI security server and wait for its verdict before they run; see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame). It is off by default. It has no effect while **Enforce verdicts** is off, and a change to it takes about a minute to reach every Anthropic server, as with **Enforce verdicts**. Confirm that your AI security server handles tool call frames before you turn it on.
   </Step>
 </Steps>
 
 ## Shadow mode
 
-Shadow mode runs your hook against live traffic without blocking anything. Your AI security server receives governed prompts and returns verdicts exactly as it would when enforcing, but nothing is blocked: every request proceeds to the model, even when your server denies it or can't be reached, and the end user sees nothing. Use it to tune your policy against your organization's real traffic before you start enforcing.
+Shadow mode runs your hook against live traffic without blocking anything. Your AI security server receives governed prompts and returns verdicts exactly as it would when enforcing, but nothing is blocked: every request proceeds to the model, even when your server denies it or can't be reached, and the end user sees nothing. Use it to tune your policy against your organization's real traffic before you start enforcing. With **Validate tool calls** on, your server also receives tool call frames in shadow mode, and no tool call is blocked.
 
 To use shadow mode, set **Mode** to **Shadow mode** under **Failure handling**, then turn on **Enforce verdicts** so prompts flow to your AI security server. While it is active, the settings page shows a **Shadow mode — not blocking** badge. To leave shadow mode, set **Mode** back to **Allow the request** or **Block the request**; verdicts are enforced again once enforcement is on.
 
@@ -101,7 +103,7 @@ To use shadow mode, set **Mode** to **Shadow mode** under **Failure handling**, 
 
 Under **Exclusions**, select roles whose members are not covered by Inference hooks: their prompts are never sent to your AI security server. Only custom roles your organization created can be excluded; the built-in roles aren't offered. Pick them in the role selector, whose placeholder reads **Select roles to exclude**, and manage who holds each role from the roles admin page (**Manage roles**); changing exclusions requires identity management permission. The list is empty by default, and with no roles excluded, every governed request is inspected.
 
-Exclusion applies to a user's interactive sessions; traffic authenticated by machine credentials is always inspected. Changes to the exclusion list are recorded in the audit trail.
+Exclusion applies to a user's interactive sessions. Changes to the exclusion list are recorded in your organization's [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) as role permission changes (`rbac_role_permission_added` and `rbac_role_permission_removed`).
 
 ## Custom blocked prompt message
 

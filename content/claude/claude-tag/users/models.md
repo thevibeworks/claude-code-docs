@@ -38,9 +38,9 @@ To change what new threads in a channel start on, ask for the channel, not just 
 @Claude use Sonnet for this thread, and make it the default model for this channel.
 ```
 
-Claude sets the channel's default model. New threads in the channel start on it. If you asked for a family rather than a version, the default keeps following that family: when your organization gets a newer model in it, new threads start on the newer model without anyone changing the setting. A thread already underway switches to it at the next message anyone posts there, unless someone in that thread has already had Claude switch models. If an admin has set the scope's **Channel member edits** setting to **Block**, Claude declines to set the channel default; ask for the thread alone instead.
+Claude sets the channel's default model. New threads in the channel start on it. If you asked for a family rather than a version, the default keeps following that family: when your organization gets a newer model in it, new threads start on the newer model without anyone changing the setting. A thread already underway switches to it at the next message anyone posts there, unless someone in that thread has already had Claude switch models. If an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) has set **Channel member edits** to **Block** for the channel, Claude declines to set the channel default; ask for the thread alone instead.
 
-Admins set the same default from claude.ai, per workspace or channel; see [choose the model for a scope](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope).
+An Owner sets the same default in Claude Tag admin settings for the whole organization or for one workspace or channel, and a Claude Tag admin can set it for a workspace or channel; see [choose the model for a scope](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope).
 
 ## Choose the model for your direct messages
 

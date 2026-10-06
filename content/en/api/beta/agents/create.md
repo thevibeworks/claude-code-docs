@@ -411,7 +411,7 @@ Create Agent
 
 - `tools: optional array of BetaManagedAgentsAgentToolset20260401Params or BetaManagedAgentsMCPToolsetParams or BetaManagedAgentsCustomToolParams`
 
-  Tool configurations available to the agent. Maximum of 128 tools across all toolsets allowed.
+  Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
   - `BetaManagedAgentsAgentToolset20260401Params object`
 

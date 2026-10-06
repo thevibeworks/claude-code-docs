@@ -10,9 +10,9 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Note>Google Cloud identities are connected at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag): open **Federated agent access** in the left navigation and use the **Cloud roles** section. Connecting an identity needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+<Note>Google Cloud identities are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Cloud roles** section. Connecting an identity needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
 
-With a Google Cloud identity connection, Claude exchanges a short-lived identity token at a workload identity pool you create and calls Google Cloud APIs with the result. No service account key is stored in Claude. The token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel), and your pool's attribute condition decides which tokens to accept. If someone else manages your Google Cloud project, give them the values from Claude's admin settings and the settings below; the console steps need a Claude Tag admin.
+With a Google Cloud identity connection, Claude exchanges a short-lived identity token at a workload identity pool you create and calls Google Cloud APIs with the result. No service account key is stored in Claude. The token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel), and your pool's attribute condition decides which tokens to accept. If someone else manages your Google Cloud project, give them the values from Claude's admin settings and the settings below; the console steps need an organization Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration).
 
 Before you start, decide whether Claude acts as the federated identity itself, with roles granted to it directly, or as a service account you create. Both forms are covered below.
 
@@ -97,15 +97,15 @@ Create a dedicated service account in any project and grant it the roles Claude 
   </Step>
 
   <Step title="Narrow the allowed Google hosts">
-    Replace the prefilled `*.googleapis.com` entry in the **Allowed Google hosts** field with the hosts Claude needs, for example `storage.googleapis.com`. A wildcard as the leftmost label, such as `*.storage.googleapis.com`, matches any subdomain but not the name itself. Every host must be `googleapis.com`, a subdomain of it, or a subdomain of `clients6.google.com`. You can change the list later from the connection's [**Edit connection** dialog](/docs/claude-tag/admins/add-connections#set-allowed-websites) on the bundle's **Credentials** tab.
+    Replace the prefilled `*.googleapis.com` entry in the **Allowed Google hosts** field with the hosts Claude needs, for example `storage.googleapis.com`. A wildcard as the leftmost label, such as `*.storage.googleapis.com`, matches any subdomain but not the name itself. Every host must be `googleapis.com`, a subdomain of it, or a subdomain of `clients6.google.com`. You can change the list later from the connection's [**Edit connection** dialog](/docs/claude-tag/admins/add-connections#set-allowed-websites), which you open from the connection's row on the **Connectors** tab; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
   </Step>
 
   <Step title="Confirm the attribute condition">
     Select the checkbox labeled **The provider's attribute condition requires the subject prefix shown above**. The **Connect identity** button stays disabled until you do. Select the checkbox only if the provider's attribute condition pins `assertion.sub` to one or more full subjects under your **Subject prefix**, or at minimum pins `assertion.sub` to your **Subject prefix** (or, if you mapped it, `attribute.org` to your organization ID), as described under [Create the pool and provider in Google Cloud](#create-the-pool-and-provider-in-google-cloud).
   </Step>
 
-  <Step title="Choose an Access bundle and connect">
-    Choose a bundle from the **Access bundle** list, or click **New bundle**, enter a **Bundle name**, and click **Create bundle**. Then click **Connect identity**. This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, labeled **Google Cloud identity** on its **Credentials** tab, with the hosts you entered under **Allowed hosts**. The same provider can be connected more than once, for example once with a service account and once without, as long as no two Google Cloud connections in one bundle share a host under **Allowed hosts**. To use a connection in several scopes (workspaces or channels), attach its bundle to each.
+  <Step title="Choose a bundle and connect">
+    Choose a bundle from the **Access bundle** list, or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**. Then click **Connect identity**. This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, with the hosts you entered under **Allowed hosts**. The same provider can be connected more than once, for example once with a service account and once without, as long as no two Google Cloud connections in one bundle share a host under **Allowed hosts**. Each connection applies wherever its bundle applies.
   </Step>
 </Steps>
 
@@ -113,7 +113,7 @@ The **Cloud roles** table has **Role**, **Access bundle**, **Allowed hosts**, **
 
 ## Let agents use the identity
 
-Claude uses the identity in channels whose scope has the bundle attached. [Attach the bundle to a workspace or channel](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle) if it isn't attached already.
+Claude uses the identity in the channels where its bundle applies. A bundle you created in the connect dialog applies nowhere until you choose places; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 
 Claude also needs to know what the identity is for. Add a line like this to the scope's [custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions):
 
@@ -129,7 +129,7 @@ New threads pick up the connection on their own. In a thread already running, as
 
 [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
 
-In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to run a connectivity check. The check reads a bucket's metadata, so the identity needs the `storage.buckets.get` permission on the bucket, and `storage.googleapis.com` must be under the connection's **Allowed hosts**. Send Claude this prompt, replacing `example-reports` with a bucket the identity can read:
+In a channel where the identity's connection applies, start a new thread and ask Claude to run a connectivity check. The check reads a bucket's metadata, so the identity needs the `storage.buckets.get` permission on the bucket, and `storage.googleapis.com` must be under the connection's **Allowed hosts**. Send Claude this prompt, replacing `example-reports` with a bucket the identity can read:
 
 ```text wrap theme={null}
 @Claude Connectivity check for this channel's Google Cloud connection. Please run exactly:
@@ -159,11 +159,11 @@ Two messages come up while connecting:
 
 For other dialog messages, see [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting).
 
-If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel under the [scope](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) of the Access bundle that holds the connection.
+If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel where the connection [applies](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit).
 
 ## Related resources
 
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the Access bundle and connection model
+* [Give Claude access](/docs/claude-tag/admins/add-connections): the bundle and connection model
 * [Attach a bundle to a scope](/docs/claude-tag/admins/attach-to-scope): where an identity connection applies
 * [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference): every claim in the token, lifetimes, and key rotation
 * [Limits](/docs/claude-tag/admins/federated-access/limits): what the credential-minting block refuses, and the other limits for Google Cloud identities

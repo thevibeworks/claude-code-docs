@@ -271,6 +271,20 @@ The Models API response can be used to determine which models are available for 
 
     A human-readable name for the model.
 
+  - `Optional<ModelLine> line`
+
+    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
+
+    - `HAIKU("haiku")`
+
+    - `SONNET("sonnet")`
+
+    - `OPUS("opus")`
+
+    - `FABLE("fable")`
+
+    - `MYTHOS("mythos")`
+
   - `Optional<Long> maxInputTokens`
 
     Maximum input context window size in tokens for this model.
@@ -370,6 +384,7 @@ public final class Main {
       },
       "created_at": "2026-07-24T00:00:00Z",
       "display_name": "Claude Opus 5",
+      "line": "haiku",
       "max_input_tokens": 0,
       "max_tokens": 0,
       "type": "model"
@@ -635,6 +650,20 @@ The Models API response can be used to determine information about a specific mo
 
     A human-readable name for the model.
 
+  - `Optional<ModelLine> line`
+
+    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
+
+    - `HAIKU("haiku")`
+
+    - `SONNET("sonnet")`
+
+    - `OPUS("opus")`
+
+    - `FABLE("fable")`
+
+    - `MYTHOS("mythos")`
+
   - `Optional<Long> maxInputTokens`
 
     Maximum input context window size in tokens for this model.
@@ -732,6 +761,7 @@ public final class Main {
   },
   "created_at": "2026-07-24T00:00:00Z",
   "display_name": "Claude Opus 5",
+  "line": "haiku",
   "max_input_tokens": 0,
   "max_tokens": 0,
   "type": "model"
@@ -1036,6 +1066,20 @@ public final class Main {
 
     A human-readable name for the model.
 
+  - `Optional<ModelLine> line`
+
+    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
+
+    - `HAIKU("haiku")`
+
+    - `SONNET("sonnet")`
+
+    - `OPUS("opus")`
+
+    - `FABLE("fable")`
+
+    - `MYTHOS("mythos")`
+
   - `Optional<Long> maxInputTokens`
 
     Maximum input context window size in tokens for this model.
@@ -1043,6 +1087,22 @@ public final class Main {
   - `Optional<Long> maxTokens`
 
     Maximum value for the `max_tokens` parameter when using this model.
+
+### Model Line
+
+- `enum ModelLine`
+
+  A Claude model line, such as `opus` or `sonnet`. More lines may be added as new values.
+
+  - `HAIKU("haiku")`
+
+  - `SONNET("sonnet")`
+
+  - `OPUS("opus")`
+
+  - `FABLE("fable")`
+
+  - `MYTHOS("mythos")`
 
 ### Thinking Capability
 

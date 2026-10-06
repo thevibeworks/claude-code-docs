@@ -249,7 +249,7 @@ If something looks wrong, **Help → Troubleshooting → Generate Diagnostic Rep
 
 A user's Claude account can belong to your deployment's organization and to other Claude organizations, and the user can move between them in Claude Desktop. When such a user signs in, the app opens in their other organization and asks whether to switch to yours, with **Switch and restart** and **Not now** buttons. A user who chooses **Not now** isn't asked again on that device and can switch later by choosing your organization from the account menu. Each move into or out of your organization restarts the app, because third-party mode runs as a separate app configuration. To go back, the user chooses **Sign out** and signs in to Claude again after the restart. From Claude Desktop 1.49585.0, they can instead pick their other organization from the account menu, which also restarts the app and asks them to sign in.
 
-To remove the choice, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. Members who also belong to another organization are then switched to yours the next time Claude Desktop starts or they sign in, and can't choose to stay. Browsers are not affected.
+To remove the choice, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. Members who also belong to another organization are then switched to yours the next time Claude Desktop starts or they sign in. Browsers are not affected.
 
 ### Configuration updates
 

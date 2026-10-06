@@ -112,18 +112,16 @@ ant beta:memory-stores list \
 {
   "data": [
     {
-      "id": "id",
-      "archived_at": "2019-12-27T18:11:19.117Z",
-      "created_at": "2019-12-27T18:11:19.117Z",
-      "description": "description",
-      "metadata": {
-        "foo": "string"
-      },
-      "name": "name",
+      "id": "memstore_01Wf3kQ8tZxB2mVr7HcJ4aNd",
+      "archived_at": null,
+      "created_at": "2026-03-15T10:00:00Z",
+      "description": "Per-user preferences and project context.",
+      "metadata": {},
+      "name": "User Preferences",
       "type": "memory_store",
-      "updated_at": "2019-12-27T18:11:19.117Z"
+      "updated_at": "2026-03-15T10:00:00Z"
     }
   ],
-  "next_page": "next_page"
+  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
 }
 ```

@@ -28,7 +28,7 @@ Claude replies with the commands it understands in your workspace. The list can 
 @Claude !configure
 ```
 
-Run `!configure` in a channel, and Claude replies in the thread with a link to that channel's Configure page on claude.ai. On that page you [tailor how Claude works in the channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), for example by editing its channel instructions, and it's the same page the **Configure** link in the footer of any Claude reply opens. In a DM with Claude there are no per-channel settings, so Claude replies there with a link to the [Claude Tag admin page](https://claude.ai/admin-settings/claude-tag) instead.
+Run `!configure` in a channel, and Claude replies in the thread with a link to that channel's Configure page on claude.ai. On that page you [tailor how Claude works in the channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), for example by editing its channel instructions, and it's the same page the **Configure** link in the footer of any Claude reply opens. In a DM with Claude there are no per-channel settings, so Claude replies there with a link to [Claude Tag admin settings](https://claude.ai/admin-settings/claude-tag) instead.
 
 ## Restart a stuck or wrong-context session
 

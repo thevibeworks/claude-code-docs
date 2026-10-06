@@ -10,42 +10,42 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Note>Connections are added inside an [Access bundle](/docs/claude-tag/admins/add-connections#your-first-access-bundle). At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open **Access bundles** in the left navigation, click into a bundle (or **Create** one), and go to its **Credentials** tab.</Note>
+Connecting Sentry lets Claude pull errors and stack traces into incident threads in any channel where the connector is on. Claude connects with its own credential, not a person's.
 
-Connecting Sentry lets Claude pull errors and stack traces into incident threads from any channel under the bundle's scope. You add it as a connection inside an [Access bundle](/docs/claude-tag/admins/add-connections); the credential belongs to the agent, not to any person.
-
-Pair this connection with the Sentry plugin from Anthropic's plugin marketplace so Claude knows how to call the API; see [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins). This is an HTTP API connection, not an MCP server or a personal claude.ai connector.
+Pair this connector with the Sentry plugin from Anthropic's plugin marketplace so Claude knows how to call the API. This connector calls Sentry's HTTP API. It isn't an MCP server or a member's personal claude.ai connector.
 
 ## Create the credential in Sentry
 
 Create an internal-integration token in Sentry (Settings → Developer Settings → Internal Integrations) rather than a user auth token; scope it to the projects Claude should read.
 
-The token starts with `sntrys_`. Prefer an internal-integration token over a user auth token so access is not tied to a person.
+Prefer an internal-integration token over a user auth token so access is not tied to a person.
 
 Sentry's own guide for creating the credential is at [docs.sentry.io](https://docs.sentry.io/integrations/integration-platform/internal-integration/).
 
-## Add the connection to a bundle
+## Add the connector
 
-In the bundle, click **Connect** next to **Sentry**.
+Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Sentry**. Fill in these fields in the connect form.
 
 | Field | Value |
 | :- | :- |
 | Claude's auth token | The api key from Sentry |
-| Allowed websites | `sentry.io` |
+| Allowed websites | `sentry.io` (preset) |
 
 Self-hosted Sentry uses your own hostname instead of `sentry.io`.
+
+If the connect form offers to include the Sentry plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 
 ## Verify the connection
 
-In a channel under the bundle's scope, in a new thread:
+In a channel where the connector is on, in a new thread:
 
 ```text wrap theme={null}
 @Claude what can you access from this channel?
 ```
 
-Sentry appears in the list once the connection is live. New threads pick up the connection on their own; in an existing thread, ask Claude to use the service by name.
+Sentry appears in the list once the connector is live. New threads pick up the connector on their own; in an existing thread, ask Claude to use the service by name.
 
 ## Related resources
 
