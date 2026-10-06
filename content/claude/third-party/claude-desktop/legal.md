@@ -34,7 +34,7 @@ See the [Overview](/docs/third-party/claude-desktop/overview) for the architectu
 
 For Anthropic's certifications and compliance reports, see the [Anthropic Trust Center](https://trust.anthropic.com).
 
-For HIPAA, see [HIPAA](/docs/third-party/claude-desktop/overview#hipaa) on the Overview page. For Google Cloud's Agent Platform and Amazon Bedrock, Anthropic does not interact with PHI; the BAA relationship is between you and your cloud service provider, and any remote MCP servers you connect need your own HIPAA review. For Microsoft Foundry, HIPAA readiness (Anthropic's arrangement of a signed BAA plus safeguards for processing PHI) is not available, as described under [What HIPAA readiness does not cover](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#what-hipaa-readiness-does-not-cover) in the Claude API documentation.
+For HIPAA, see [HIPAA](/docs/third-party/claude-desktop/overview#hipaa) on the Overview page. For Google Cloud's Agent Platform and Amazon Bedrock, Anthropic does not interact with PHI; the BAA relationship is between you and your cloud service provider, and any remote MCP servers you connect need your own HIPAA review. Anthropic's API accessed through Microsoft Foundry (Hosted on Anthropic or Hosted on Azure) is an Eligible Service, as long as you have the HIPAA configuration enabled. Either option requires a BAA with Anthropic. See our [Trust Center](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6\&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide) for more detail on implementation.
 
 ## Usage policy
 

@@ -5839,6 +5839,12 @@ List Workspaces
 
   default: false
 
+- `include_default: optional boolean`
+
+  Whether to include the organization's default Workspace in the response
+
+  default: false
+
 - `limit: optional number`
 
   Number of items to return per page.

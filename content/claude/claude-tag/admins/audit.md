@@ -4,7 +4,7 @@
 
 # Review what Claude Tag has done
 
-> Claude Tag actions appear under its own service accounts in each connected tool's audit log. See what the Audit page covers, how to trace an action to its source, and where each connected tool keeps logs.
+> Claude Tag actions appear under its own service accounts in each connected tool's audit log. See what the Activity page covers, how to trace an action to its source, and where each connected tool keeps logs.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -12,22 +12,22 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Use this page to review what Claude Tag is doing across your organization: which routines are scheduled, what memory it has saved, and where to find a record of each action it took.
 
-The Audit page opens for Owners in your Claude organization. The other trails on this page are visible to anyone with access to the underlying surface.
+The **Activity** page opens for Owners of your Claude organization. The other trails on this page are visible to anyone with access to the underlying surface.
 
 Claude Tag activity is auditable in four places:
 
-* **[The Audit page](#what-the-audit-view-lists)** in admin settings, with tabs for scheduled work, memory, and network events
-* **Memory files on each scope** (select the scope in the **Claude Tag's access** section, then choose **View memory files** from its **⋯** menu), where you can review what Claude has saved
+* **[The Activity page](#what-the-activity-page-lists)** in admin settings, with tabs for scheduled work, memory, and network events
+* **Memory files** for each workspace, and for each channel that has memory of its own (open the workspace's or channel's page from the **Channels** tab under **Claude's access**, then choose **View memory files** from its **⋯** menu, if the menu lists it), where you can review what Claude has saved
 * **[Attribution on each action](#trace-an-action-to-its-source)** Claude takes in a connected tool
 * **[The audit logs of each connected service](#trace-an-action-to-its-source)**, where its actions appear under the service account you provisioned
 
-## What the Audit view lists
+## What the Activity page lists
 
-The Audit page, labeled **Activity** in the admin console's left nav and page heading, at [`claude.ai/admin-settings/claude-tag/audit`](https://claude.ai/admin-settings/claude-tag/audit) has these tabs:
+To open the **Activity** page, go to [`claude.ai/admin-settings/claude-tag/audit`](https://claude.ai/admin-settings/claude-tag/audit), or select **Claude Tag** in the admin settings sidebar and then **Activity** under it. The page has these tabs:
 
 | Tab | What it shows |
 | :- | :- |
-| **Scheduled work** | The routines set up in channels across your organization, with a **Scope** filter and a per-row **⋮** menu (View details, Pause/Resume, Delete) |
+| **Scheduled work** | The routines set up in channels across your organization, with a **Scope** filter and a per-row **⋮** menu with actions such as **View details**, **Pause** or **Resume**, and **Delete** |
 | **Memory** | Each scope's memory files, where you can read what Claude has saved for that workspace or channel. Owners can also edit or delete entries there. |
 | **Network events** | An hourly JSON export of the outbound requests Claude made through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy). Git and MCP traffic are not included. Select a date and hour to download. |
 
@@ -39,7 +39,7 @@ In channels, Claude acts as itself unless a task uses a member's [personal conne
 
 * **In Slack**, it posts as the Claude app, and its work happens in threads anyone in the channel can read.
 * **On code**, commits and pull requests show the Claude GitHub App as the author, and each one links back to the Slack thread it came from.
-* **In every other connected service**, actions appear under the service account you created for the connection.
+* **In every other connected service**, actions appear under the service account you created for the connector.
 
 That last one is the general-purpose trail: because you provisioned the credential, the connected service's audit log shows everything Claude did there, under an account your security team already monitors.
 

@@ -73,7 +73,7 @@ Syncing a marketplace from GitLab needs a GitLab configuration for the host firs
 
 <Steps>
   <Step title="Add a GitLab configuration">
-    As an [Owner](https://code.claude.com/docs/en/server-managed-settings#access-control), add a GitLab configuration for that host at [**Organization settings > Claude Code**](https://claude.ai/admin-settings/claude-code). GitLab configurations are in public beta and apply only to plugin marketplace sync.
+    As an [Owner](https://code.claude.com/docs/en/server-managed-settings#access-control), add a GitLab configuration for that host at [**Organization settings > Git providers**](https://claude.ai/admin-settings/source-control#gitlab). GitLab configurations are in public beta and apply only to plugin marketplace sync.
   </Step>
 
   <Step title="Sync from GitLab">

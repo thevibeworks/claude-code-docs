@@ -17,7 +17,7 @@ compliance activities that can be filtered by various criteria.
 
 ### Query parameters
 
-- `activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 513 more`
+- `activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 514 more`
 
   Filter activities by type. See the response `data` schema for the additional fields each type returns. Cannot be combined with `exclude_activity_types[]`.
 
@@ -669,6 +669,10 @@ compliance activities that can be filtered by various criteria.
 
     User disabled a skill for their account.
 
+  - `"claude_skill_downloaded"`
+
+    A member explicitly downloaded a skill's files to their device: the Download action in Claude, a single file saved from the skill viewer, or an install they asked one of their Claude apps for. Background syncs to the Claude apps, viewing a skill in the app and services reading a skill on the member's behalf are not recorded.
+
   - `"claude_skill_enabled"`
 
     User enabled a skill for their account.
@@ -1235,7 +1239,7 @@ compliance activities that can be filtered by various criteria.
 
   - `"org_hipaa_self_serve_enabled"`
 
-    A primary owner click-accepted the BAA and enabled HIPAA protections for the organization via the self-serve flow.
+    A primary owner accepted the Business Associate Agreement and enabled the HIPAA configuration for the organization through the self-serve flow.
 
   - `"org_invite_link_disabled"`
 
@@ -1371,11 +1375,11 @@ compliance activities that can be filtered by various criteria.
 
   - `"org_taint_added"`
 
-    A taint was added to an organization.
+    A compliance marker (taint) was added to an organization, for example the marker that records its HIPAA configuration.
 
   - `"org_taint_removed"`
 
-    A taint was removed from an organization.
+    A compliance marker (taint) was removed from an organization.
 
   - `"org_user_deleted"`
 
@@ -2140,7 +2144,7 @@ compliance activities that can be filtered by various criteria.
 
     format: date-time
 
-- `exclude_activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 513 more`
+- `exclude_activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 514 more`
 
   Exclude activities of these types. Cannot be combined with `activity_types[]`.
 
@@ -2792,6 +2796,10 @@ compliance activities that can be filtered by various criteria.
 
     User disabled a skill for their account.
 
+  - `"claude_skill_downloaded"`
+
+    A member explicitly downloaded a skill's files to their device: the Download action in Claude, a single file saved from the skill viewer, or an install they asked one of their Claude apps for. Background syncs to the Claude apps, viewing a skill in the app and services reading a skill on the member's behalf are not recorded.
+
   - `"claude_skill_enabled"`
 
     User enabled a skill for their account.
@@ -3358,7 +3366,7 @@ compliance activities that can be filtered by various criteria.
 
   - `"org_hipaa_self_serve_enabled"`
 
-    A primary owner click-accepted the BAA and enabled HIPAA protections for the organization via the self-serve flow.
+    A primary owner accepted the Business Associate Agreement and enabled the HIPAA configuration for the organization through the self-serve flow.
 
   - `"org_invite_link_disabled"`
 
@@ -3494,11 +3502,11 @@ compliance activities that can be filtered by various criteria.
 
   - `"org_taint_added"`
 
-    A taint was added to an organization.
+    A compliance marker (taint) was added to an organization, for example the marker that records its HIPAA configuration.
 
   - `"org_taint_removed"`
 
-    A taint was removed from an organization.
+    A compliance marker (taint) was removed from an organization.
 
   - `"org_user_deleted"`
 
@@ -4255,7 +4263,7 @@ compliance activities that can be filtered by various criteria.
 
 ### Returns
 
-- `data: optional array of AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 513 more`
+- `data: optional array of AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 514 more`
 
   List of activity records. Each element's `type` field identifies which activity it is and which additional fields are present.
 
@@ -34672,6 +34680,284 @@ compliance activities that can be filtered by various criteria.
     - `resource_descriptor: optional string or null`
 
       A short provider-specific identifier for the external resource after the update, e.g. `owner/repo` for GitHub or a file ID for Google Drive.
+
+  - `ClaudeSkillDownloaded object`
+
+    A member explicitly downloaded a skill's files to their device: the Download action in Claude, a single file saved from the skill viewer, or an install they asked one of their Claude apps for. Background syncs to the Claude apps, viewing a skill in the app and services reading a skill on the member's behalf are not recorded.
+
+    - `type: optional "claude_skill_downloaded"`
+
+      default: claude_skill_downloaded
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `download_kind: "bundle" or "file" or "instructions" or "unspecified"`
+
+      Whether the whole bundle, one file, or only the instructions were downloaded.
+
+      - `"bundle"`
+
+      - `"file"`
+
+      - `"instructions"`
+
+      - `"unspecified"`
+
+    - `skill_id: string`
+
+      The skill that was downloaded.
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `marketplace_id: optional string or null`
+
+      The marketplace of the plugin that carries the skill; unset for a standalone skill.
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `owner_user_id: optional string or null`
+
+      The member who owns the skill; unset for an organization-owned skill.
+
+    - `plugin_id: optional string or null`
+
+      The plugin that carries the skill; unset for a standalone skill.
+
+    - `scope: optional "organization" or "personal" or "unspecified" or null`
+
+      Whether the skill is a member's own or the organization's.
+
+      - `"organization"`
+
+      - `"personal"`
+
+      - `"unspecified"`
+
+    - `skill_name: optional string or null`
+
+      The name of the skill that was downloaded.
+
+    - `skill_version: optional string or null`
+
+      The version that was downloaded; unset for an unversioned skill.
 
   - `ClaudeUserSeatTierUpdated object`
 
@@ -70445,7 +70731,7 @@ compliance activities that can be filtered by various criteria.
 
   - `OrgHipaaSelfServeEnabled object`
 
-    A primary owner click-accepted the BAA and enabled HIPAA protections for the organization via the self-serve flow.
+    A primary owner accepted the Business Associate Agreement and enabled the HIPAA configuration for the organization through the self-serve flow.
 
     - `type: optional "org_hipaa_self_serve_enabled"`
 
@@ -70667,7 +70953,7 @@ compliance activities that can be filtered by various criteria.
 
     - `setup_guide_content_hash: string`
 
-      SHA-256 digest (hex) of the HIPAA setup guide that was current when HIPAA protections were enabled.
+      SHA-256 digest (hex) of the HIPAA setup guide that was current when the HIPAA configuration was enabled.
 
     - `id: optional string`
 
@@ -78495,7 +78781,7 @@ compliance activities that can be filtered by various criteria.
 
   - `OrgTaintAdded object`
 
-    A taint was added to an organization.
+    A compliance marker (taint) was added to an organization, for example the marker that records its HIPAA configuration.
 
     - `type: optional "org_taint_added"`
 
@@ -78727,15 +79013,15 @@ compliance activities that can be filtered by various criteria.
 
     - `taint: optional string or null`
 
-      The taint that was added, for example the HIPAA taint.
+      The marker that was added, for example the HIPAA marker.
 
     - `workspace_id: optional string or null`
 
-      Tagged ID of the workspace the taint was applied to. Unset when applied at organization scope.
+      Tagged ID of the workspace the marker was applied to. Unset when applied at organization scope.
 
   - `OrgTaintRemoved object`
 
-    A taint was removed from an organization.
+    A compliance marker (taint) was removed from an organization.
 
     - `type: optional "org_taint_removed"`
 
@@ -78967,7 +79253,7 @@ compliance activities that can be filtered by various criteria.
 
     - `taint: optional string or null`
 
-      The taint that was removed, for example the HIPAA taint.
+      The marker that was removed, for example the HIPAA marker.
 
   - `OrgUserDeleted object`
 
@@ -132638,7 +132924,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
 ### Activity List Response
 
-- `ActivityListResponse = AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 513 more`
+- `ActivityListResponse = AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 514 more`
 
   - `AbuseDecisionReceived object`
 
@@ -163053,6 +163339,284 @@ curl https://api.anthropic.com/v1/compliance/activities \
     - `resource_descriptor: optional string or null`
 
       A short provider-specific identifier for the external resource after the update, e.g. `owner/repo` for GitHub or a file ID for Google Drive.
+
+  - `ClaudeSkillDownloaded object`
+
+    A member explicitly downloaded a skill's files to their device: the Download action in Claude, a single file saved from the skill viewer, or an install they asked one of their Claude apps for. Background syncs to the Claude apps, viewing a skill in the app and services reading a skill on the member's behalf are not recorded.
+
+    - `type: optional "claude_skill_downloaded"`
+
+      default: claude_skill_downloaded
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `download_kind: "bundle" or "file" or "instructions" or "unspecified"`
+
+      Whether the whole bundle, one file, or only the instructions were downloaded.
+
+      - `"bundle"`
+
+      - `"file"`
+
+      - `"instructions"`
+
+      - `"unspecified"`
+
+    - `skill_id: string`
+
+      The skill that was downloaded.
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `marketplace_id: optional string or null`
+
+      The marketplace of the plugin that carries the skill; unset for a standalone skill.
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `owner_user_id: optional string or null`
+
+      The member who owns the skill; unset for an organization-owned skill.
+
+    - `plugin_id: optional string or null`
+
+      The plugin that carries the skill; unset for a standalone skill.
+
+    - `scope: optional "organization" or "personal" or "unspecified" or null`
+
+      Whether the skill is a member's own or the organization's.
+
+      - `"organization"`
+
+      - `"personal"`
+
+      - `"unspecified"`
+
+    - `skill_name: optional string or null`
+
+      The name of the skill that was downloaded.
+
+    - `skill_version: optional string or null`
+
+      The version that was downloaded; unset for an unversioned skill.
 
   - `ClaudeUserSeatTierUpdated object`
 
@@ -198826,7 +199390,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
   - `OrgHipaaSelfServeEnabled object`
 
-    A primary owner click-accepted the BAA and enabled HIPAA protections for the organization via the self-serve flow.
+    A primary owner accepted the Business Associate Agreement and enabled the HIPAA configuration for the organization through the self-serve flow.
 
     - `type: optional "org_hipaa_self_serve_enabled"`
 
@@ -199048,7 +199612,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
     - `setup_guide_content_hash: string`
 
-      SHA-256 digest (hex) of the HIPAA setup guide that was current when HIPAA protections were enabled.
+      SHA-256 digest (hex) of the HIPAA setup guide that was current when the HIPAA configuration was enabled.
 
     - `id: optional string`
 
@@ -206876,7 +207440,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
   - `OrgTaintAdded object`
 
-    A taint was added to an organization.
+    A compliance marker (taint) was added to an organization, for example the marker that records its HIPAA configuration.
 
     - `type: optional "org_taint_added"`
 
@@ -207108,15 +207672,15 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
     - `taint: optional string or null`
 
-      The taint that was added, for example the HIPAA taint.
+      The marker that was added, for example the HIPAA marker.
 
     - `workspace_id: optional string or null`
 
-      Tagged ID of the workspace the taint was applied to. Unset when applied at organization scope.
+      Tagged ID of the workspace the marker was applied to. Unset when applied at organization scope.
 
   - `OrgTaintRemoved object`
 
-    A taint was removed from an organization.
+    A compliance marker (taint) was removed from an organization.
 
     - `type: optional "org_taint_removed"`
 
@@ -207348,7 +207912,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
     - `taint: optional string or null`
 
-      The taint that was removed, for example the HIPAA taint.
+      The marker that was removed, for example the HIPAA marker.
 
   - `OrgUserDeleted object`
 

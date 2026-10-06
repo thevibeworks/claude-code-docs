@@ -16,6 +16,16 @@ The **Users** page lists everyone in your organization and lets you manage their
 
 Type into the search box to filter the list by name or email address. Use **Filters** to include deactivated accounts.
 
+## Copy user email addresses
+
+To email everyone in your organization:
+
+1. Select the **Copy user email addresses** button at the top of the **Users** page. The page that opens lists every user's email address except deactivated users.
+2. Under **Separator**, choose **Comma** or **Semicolon (Outlook)**.
+3. Select **Copy** to copy the list as shown. A list of more than 450 addresses appears in parts of up to 450, each with its own **Copy** button.
+
+Paste the list into the Bcc field so that recipients do not see each other's addresses.
+
 ## What's shown for each user
 
 Each user appears as a card with their name, email address, and the following fields:

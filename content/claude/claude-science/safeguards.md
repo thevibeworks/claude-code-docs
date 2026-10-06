@@ -10,11 +10,13 @@ Claude models include safeguards that can flag a message and stop the response. 
 
 ## When safeguards flag a message
 
-When a model's safeguards flag a message, Claude Science pauses the session and shows a **Chat paused** card above the composer. If another model can continue, select **Retry with `<model>`** to retry on the model the card names. That model has its own safeguards. The session stays on it until you choose a different model in the composer.
+When a model's safeguards flag a message, Claude Science pauses the session and shows a **Chat paused** card above the composer, unless it [switches models automatically](#switch-models-automatically). If another model can continue, select **Retry with `<model>`** to retry on the model the card names. That model has its own safeguards. The session stays on it until you choose a different model in the composer.
 
 ## Switch models automatically
 
-To have Claude Science retry without stopping at the **Chat paused** card, turn on the **Automatically switch models when a message is flagged** switch under **Settings** > **General** > **Model**. You can also select it on the card before you retry. Claude Science then retries a flagged message on another model right away and shows a notice that names the model it switched to. If no other model can continue, or after several automatic switches in one session, you see the **Chat paused** card instead. Automatic switching is off by default and applies to every session on this computer.
+When safeguards flag a message for content related to life sciences research, Claude Science can retry it right away on another model instead of stopping at the [**Chat paused** card](#when-safeguards-flag-a-message). It does this only when a model is available for automatic switching, and at most once per message. A notice names the model it switched to, and the session stays on that model until you choose a different one in the composer.
+
+Automatic switching is on by default and applies to every session on this computer. To turn it off, go to **Settings > General > Model** and turn off the **Switch models when a message is flagged** toggle. The **Chat paused** card shows the same toggle when it offers **Retry with `<model>`**. Turning the toggle on from the card can also retry the paused message right away.
 
 ## Life Sciences Verification Program (beta)
 

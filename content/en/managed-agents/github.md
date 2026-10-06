@@ -241,7 +241,7 @@ First, create an agent that declares the GitHub MCP server. The agent definition
   ```
 </CodeGroup>
 
-Then create a session that mounts the GitHub repository. A `limited` [environment](https://platform.claude.com/docs/en/managed-agents/environments#networking) blocks an agent's MCP servers unless its networking sets `allow_mcp_servers: true` or lists each server's host in `allowed_hosts`. With neither set, session creation fails with a 400 error.
+Then create a session that mounts the GitHub repository. With a `limited` [environment](https://platform.claude.com/docs/en/managed-agents/environments#networking), session creation fails with a 400 error when the agent declares an MCP server whose host is not in `allowed_hosts`. Setting `allow_mcp_servers: true` in the environment's networking turns this check off.
 
 <CodeGroup>
   ```bash cURL

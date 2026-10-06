@@ -6,7 +6,7 @@ Claude in Chrome admin controls are available for Team and Enterprise plans.
 
 Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites on behalf of your users. As an owner, you control whether the extension is available for users to install and which sites they can access.
 
-**Note:** On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once you've enabled it for your organization—see **[Enable the Cowork side panel](#h_bdb63199e1)** below. Where the Cowork side panel isn't enabled, users have the classic side panel, and your existing organization settings apply to it unchanged.
+**Note:** On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once you've enabled it for your organization—see **[Enable the Cowork side panel](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)** below. Where the Cowork side panel isn't enabled, users have the classic side panel, and your existing organization settings apply to it unchanged.
 
 ## Access Claude in Chrome settings
 
@@ -24,7 +24,7 @@ Use the **Enable for your team** toggle to enable or disable Claude in Chrome fo
 
 - **Team plans:** The extension is enabled by default. Disable it if you prefer users not to have access.
 
-- **Enterprise plans:** The extension is disabled by default. Starting September 10, 2026, it turns on by default unless you've already disabled it.
+- **Enterprise plans:** The extension is on by default unless you've already disabled it. In organizations that have enabled HIPAA, the Claude in Chrome extension stays off until an Owner turns it on in **Organization settings > Claude in Chrome**.
 
 Claude in Chrome and Claude Cowork are managed separately. Enabling Claude in Chrome for your organization lets users use the extension. Whether Claude can use it within Cowork is a separate capability setting, and users' browsers still need the extension deployed or installed. Cowork also has a browser built into the Claude Desktop app that doesn't require the extension; it's off by default on Enterprise plans and managed from **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. You can enable Claude in Chrome, the built-in browser, both, or neither. For Cowork admin settings, see **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans)**.
 
@@ -45,6 +45,8 @@ Use allowlists and blocklists to control which websites Claude can access when i
 ## Enable the Cowork side panel
 
 On Enterprise plans, the Claude in Chrome side panel can run as a Claude Cowork session once it’s enabled for your organization. Side panel sessions are saved to users' history, move with them across surfaces, and support their skills, plugins, and connectors. Until you enable it, users see the classic side panel.
+
+With the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode), Cowork in the cloud isn't available, so users keep the classic side panel.
 
 **To turn on the Cowork side panel for your organization:**
 

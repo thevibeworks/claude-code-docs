@@ -202,17 +202,17 @@ A quiet thread usually means Claude is mid-task, not stuck. Open the thread. Che
 
 ### Channel access
 
-Connections extend a session's reach into your own systems. An organization admin attaches access to a scope (the organization, a workspace, or a single channel), so the same request can do more in one channel than in another, and everyone in a given channel works with the same capability.
+Claude Tag connectors extend a session's reach into your own systems. An organization admin applies access to all of Slack, to one workspace, or to a single channel, either directly or through a [bundle](/docs/claude-tag/concepts/glossary#bundle), so the same request can do more in one channel than in another, and everyone in a given channel works with the same capability.
 
-A thread locks in its skills, plugins, and custom instructions when it starts, and a running thread keeps that set. Connections and domain rules are enforced on each request, so one an admin adds mid-thread works in a running thread. Claude doesn't announce a new connection in an existing thread; ask it to use the service by name. A new thread picks up every kind of change, so after a configuration change, start a new top-level thread.
+A thread locks in its skills, plugins, and custom instructions when it starts, and a running thread keeps that set. Connectors and domain rules are enforced on each request, so one an admin adds mid-thread works in a running thread. Claude doesn't announce a new connector in an existing thread; ask it to use the service by name. A new thread picks up every kind of change, so after a configuration change, start a new top-level thread.
 
 #### How to identify access
 
 Because access is set per channel rather than per person, the way to find out what a session can reach is to ask it, not to guess from your own permissions.
 
 * **Ask what Claude can reach.** In any channel, `@Claude what can you access from this channel?` lists its current reach.
-* **If Claude cannot reach something, the channel was not granted access.** Another channel may have the access, and an organization Owner can add it. [How agent identity works](/docs/claude-tag/concepts/agent-identity) covers the model.
-* **Personal connectors are separate from channel connections.** A connection an admin attaches to a channel is separate from a connector on your personal claude.ai account. Your own connectors work in your one-to-one DMs. Claude can also [use them in a channel](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it.
+* **If Claude cannot reach something, the channel was not granted access.** Another channel may have the access, and an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) of your Claude organization can add it. [How agent identity works](/docs/claude-tag/concepts/agent-identity) covers the model.
+* **Personal connectors are separate from Claude Tag connectors.** A connector an admin applies to a channel is separate from a connector on your personal claude.ai account. Your own connectors work in your one-to-one DMs. Claude can also [use them in a channel](/docs/claude-tag/concepts/personal-connectors) for your own tasks, after you allow it.
 
 ### What Claude can do in other channels
 
@@ -291,14 +291,14 @@ The whole model so far fits in one picture, with access set at the scope, memory
 
 <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/ZNX07pWnPReWiLwB/images/claude-tag/diagrams/three-levels-dark.svg?fit=max&auto=format&n=ZNX07pWnPReWiLwB&q=85&s=9b28d67feff32743e5cc2094e8fc3ec9" alt="Diagram showing three nested levels. A scope container holds two channels, #platform-eng and #gtm-west, and each channel holds its own threads, like 'fix checkout latency' or 'pull deal state'. The private channel is marked with a lock. Callouts mark what lives at each level (identity and access at the scope, memory at the channel plus workspace notes shared from public channels, and work in progress at the thread). A DM with Claude sits below, outside every scope, and runs on your own account." width="1000" height="648" data-path="images/claude-tag/diagrams/three-levels-dark.svg" />
 
-One-to-one DMs are outside this picture; they run on your own account, as covered in [Team channels and personal DMs](#team-channels-and-personal-dms) above. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
+One-to-one DMs are outside this picture; they run on your own account, as covered in [Team channels and personal DMs](#team-channels-and-personal-dms). An Owner can turn off DMs for the whole organization; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 
 ## What admins can see of your conversations with Claude
 
 Admins have no page or export that shows the individual messages people send Claude.
 
 * **Analytics:** the [analytics page](https://claude.ai/analytics/claude-tag) reports spend by channel and by kind of work
-* **Audit page:** the [Audit page](/docs/claude-tag/admins/audit), available to Owners, lists scheduled work, memory files, and network events
+* **Activity page:** the [**Activity** page](/docs/claude-tag/admins/audit) in Claude Tag admin settings, available to Owners, lists scheduled work, memory files, and network events
 * **Slack threads:** everyone in a channel can read the threads where Claude works, admins included
 * **Session transcripts:** Anthropic keeps a [transcript of each session](/docs/claude-tag/concepts/data-lifecycle#what-anthropic-stores)
 

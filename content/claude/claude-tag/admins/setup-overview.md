@@ -15,8 +15,9 @@ Claude Tag is Claude working in your team's Slack channels. Setup connects Claud
 Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and click **Start setup** (**Resume setup** if you started earlier). The setup page walks you through these steps in order.
 
 1. [Pair your Slack workspace](#pair-your-slack-workspace): install the Slack app and redeem a pairing code
-2. [Buy usage credits](#buy-usage-credits): appears only when your organization pays by card in US dollars and has no credits
-3. [Launch Claude Tag](#launch-claude-tag): add Claude to channels and turn Claude Tag on
+2. [Connect GitHub](#connect-github): appears only when your organization hasn't installed the Claude GitHub App, and you can skip it
+3. [Buy usage credits](#buy-usage-credits): appears only when your organization pays by card in US dollars and has no credits
+4. [Launch Claude Tag](#launch-claude-tag): add Claude to channels and turn Claude Tag on
 
 If you leave after pairing a workspace, click **Resume setup** to continue from the next step. Your choices on the launch step aren't saved until you click **Launch Claude Tag**.
 
@@ -26,9 +27,9 @@ When you've launched, [give Claude access to your tools](#give-claude-access-to-
   | Prerequisite | Why you need it | If you don't have it |
   | :- | :- | :- |
   | A **Team or Enterprise plan** on claude.ai | Claude Tag is available on Team and Enterprise plans, on Anthropic's first-party service. It isn't available on individual plans (Free, Pro, or Max), or for third-party deployments. | Start a Team or Enterprise plan at [claude.com/pricing](https://claude.com/pricing) |
-  | A Claude organization **without Zero Data Retention (ZDR) or customer-managed encryption (CMEK)** | Claude Tag stores channel memory and session transcripts, which ZDR doesn't permit. A CMEK policy doesn't allow Claude Tag either. | Claude Tag isn't available to organizations with a ZDR or CMEK policy |
+  | A Claude organization **without Zero Data Retention (ZDR), customer-managed encryption (CMEK), or the HIPAA configuration for Claude Code (local mode) and Cowork (local mode)** | Claude Tag stores channel memory and session transcripts, which ZDR doesn't permit. A CMEK policy and the HIPAA configuration don't allow Claude Tag either. | Claude Tag isn't available to organizations with any of these. See [Healthcare organizations](/docs/claude-tag/admins/healthcare#plan-and-organization-requirements) |
   | **Routines** enabled for your Claude organization | Until it is, Claude answers every mention and DM with a reply that it's unavailable and does no work. | An admin turns on [**Admin settings > Capabilities > Remote sessions > Routines**](https://claude.ai/admin-settings/capabilities) |
-  | **Owner** role in the Claude organization you're setting up | Pairing a workspace is an Owner-only write. Roles are per organization, so being an Owner elsewhere doesn't carry over. | Ask an Owner to run setup, or have one promote you at [`claude.ai/admin-settings/members`](https://claude.ai/admin-settings/members) |
+  | **Owner** role in the Claude organization you're setting up | Setup pairs a workspace and turns Claude Tag on, and only an Owner can do either. Roles are per organization, so being an Owner elsewhere doesn't carry over. | Ask an Owner to run setup, or have one promote you at [`claude.ai/admin-settings/members`](https://claude.ai/admin-settings/members) |
   | A **Slack workspace admin** | Running `@Claude connect` requires a Slack workspace admin; installing the app usually does too. | If that's someone else, [send them the install request](#if-you-re-not-the-slack-workspace-admin) early (app approval can take time), and plan to be online together when you pair; pairing codes expire 15 minutes after they're issued |
   | **Usage credits** (Team plans) | Channel work draws from your organization's usage balance; on a Team plan nothing runs until credits are loaded. | Buy credits at [`claude.ai/admin-settings/usage`](https://claude.ai/admin-settings/usage) |
   | A **public channel** for Claude to join | The launch step asks you to select at least one public channel, and you can [verify your setup](#verify-your-setup) there. | Create a public Slack channel for the pilot, or pick any existing one |
@@ -76,7 +77,7 @@ Install the Claude app in Slack, get a pairing code from Slack, and paste it on 
   </Step>
 
   <Step title="Click Pair workspace">
-    The setup page opens [**Buy usage credits**](#buy-usage-credits) when that step applies to your organization, and [**Launch Claude Tag**](#launch-claude-tag) otherwise.
+    The setup page continues to the next step that applies to your organization.
   </Step>
 </Steps>
 
@@ -100,7 +101,7 @@ After launch, people can tag Claude in any channel it has joined. To keep Claude
 
 **Where:** the Claude Tag setup page at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag).
 
-Claude's work in channels draws from your organization's usage balance, and this step adds credits to that balance. The setup page shows the step only when your organization is on a Team or self-serve Enterprise plan, pays by card in US dollars, and has no usage credits. Every other organization goes from pairing to [Launch Claude Tag](#launch-claude-tag).
+Claude's work in channels draws from your organization's usage balance, and this step adds credits to that balance. The setup page shows the step only when your organization is on a Team or self-serve Enterprise plan, pays by card in US dollars, and has no usage credits.
 
 Enter an amount and click **Buy now** to charge your organization's saved payment method. To continue without buying, click **Skip**, then buy credits at [`claude.ai/admin-settings/usage`](https://claude.ai/admin-settings/usage) before your team starts tagging Claude.
 
@@ -148,12 +149,14 @@ To stop before launching, leave the setup page. Your pairing is saved, and your 
 
 ## Give Claude access to your tools
 
-Setup connects Claude to Slack and to nothing else. After launch, Claude reaches your other tools through personal connectors and through access you give Claude itself.
+After launch, Claude reaches your other tools through personal connectors and through access you give Claude itself.
 
 * **Personal connectors**: Claude can use a member's own claude.ai connectors for that member's requests in a channel. You don't connect anything for these. See [Personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) for how members approve that use.
-* **Access you give Claude**: you connect a tool on the Claude Tag admin page with credentials that belong to Claude rather than to a person. Claude then works in that tool for everyone in the channels you choose, and can use it for [work it starts on its own](/docs/claude-tag/users/proactivity).
+* **Access you give Claude**: you connect a tool on the Claude Tag admin page with credentials that belong to Claude rather than to a person. Claude then works in that tool and can use it for [work it starts on its own](/docs/claude-tag/users/proactivity).
 
 ### Connect GitHub
+
+When your organization hasn't installed the Claude GitHub App, the setup page offers a **Connect GitHub** step after you pair your workspace. To connect GitHub later, click **Skip** on that step.
 
 Connect GitHub if your team will give Claude code work. Claude reaches GitHub through the [Claude GitHub App](/docs/claude-tag/admins/configure-github). Only an owner of your GitHub organization can install it.
 
@@ -182,8 +185,8 @@ Work through one tool end to end before starting the next.
     Sign in to the tool as Claude and create the credential that tool's [connection guide](/docs/claude-tag/admins/connections/overview) names, usually an API key or personal access token from the tool's settings. Copy it. The credential belongs to Claude's account, so Claude's actions show up in the tool's audit log under Claude's name.
   </Step>
 
-  <Step title="Add the key as a connection">
-    On the Claude Tag admin page, [create an Access bundle](/docs/claude-tag/admins/add-connections#your-first-access-bundle), a named set of connections, repositories, plugins, and instructions, if you don't have one. Then [add a connection](/docs/claude-tag/admins/add-connections#add-a-connection) for the tool and paste the key you created. Claude can use the tool in the [workspace or channels you attach the bundle to](/docs/claude-tag/admins/attach-to-scope).
+  <Step title="Add the key as a connector">
+    Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and click **Add**. Then [add a connector](/docs/claude-tag/admins/add-connections#add-a-connection) for the tool and paste the key you created. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector.
 
     For the next tool, start again from **Add Claude to the tool as a member**. Claude keeps the one email address for every tool.
   </Step>
@@ -211,7 +214,7 @@ If you didn't select this channel at launch, add Claude to it. Then mention Clau
 
 **Passed when:** Claude replies in a thread under your message. The reply ends with a footer naming the model and a **Configure** link.
 
-**If not:** a notice that starts "Claude isn't on in this channel yet" means you haven't finished [Launch Claude Tag](#launch-claude-tag). No reply at all means the channel isn't covered; check that the workspace appears under **Claude Tag's access** on the **Slack** tab in admin settings, then see [Nothing responds](/docs/claude-tag/admins/troubleshooting#nothing-responds).
+**If not:** a notice that starts "Claude isn't on in this channel yet" means you haven't finished [Launch Claude Tag](#launch-claude-tag). No reply at all means the channel isn't covered. Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), check that the workspace appears on the **Channels** tab under **Claude's access**, then see [Nothing responds](/docs/claude-tag/admins/troubleshooting#nothing-responds).
 
 ### Check a tool you connected
 
@@ -231,7 +234,7 @@ For a data warehouse, ask for a row count from one table. For a support tool, as
 
 **Passed when:** the first reply lists the tools you connected, the second comes back with data, and the request appears in that tool's audit log under Claude's account.
 
-**If not:** a tool missing from the list means its connection didn't save; open the Access bundle in admin settings and [connect it again](/docs/claude-tag/admins/add-connections#add-a-connection). "I can't reach…" in a thread you started before connecting means Claude wasn't told about the new connection; start a fresh thread. Anything else, see [Access and connections](/docs/claude-tag/admins/troubleshooting#access-and-connections).
+**If not:** when a tool is missing from the list, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and open the **Connectors** tab under **Claude's access**. If the tool isn't there, [connect it again](/docs/claude-tag/admins/add-connections#add-a-connection). If it is, open its page and check that it applies to the channel you asked in. "I can't reach…" in a thread you started before connecting means Claude wasn't told about the new connector; start a fresh thread. Anything else, see [Access and connections](/docs/claude-tag/admins/troubleshooting#access-and-connections).
 
 ### Check GitHub
 
@@ -249,29 +252,28 @@ For more tasks to hand Claude once the checks pass, see the [use case library](/
 
 ## After setup
 
-After launch, you change anything about Claude Tag from the admin page:
+After launch, you change Claude Tag from [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). Organization-wide settings such as **Enable Claude Tag in Slack**, **Direct messages**, and **Model** sit at the top of the page. Below them, **Claude's access** holds what Claude can reach, in four tabs:
 
-1. Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag).
-2. Under **Claude Tag's access**, open the **Slack** tab.
-3. In the list on the left, select **Default Slack** to change how Claude works everywhere, or select a workspace or channel to change it in that one place.
+* **Bundles**: named sets of connectors, repositories, domains, plugins, and instructions that you add to more than one place. See [bundle](/docs/claude-tag/concepts/glossary#access-bundle) in the glossary.
+* **Connectors**: each service Claude connects to, its credentials, and where Claude may use each one
+* **Skills and plugins**: the skills and plugins Claude uses anywhere in Slack
+* **Channels**: **Slack**, whose page holds the settings for every workspace and channel, then each connected workspace with its channel rules and channels
 
-Anything you add on **Default Slack** applies in every workspace and channel. Anything you add on a workspace or channel applies there in addition.
-
-Every entry in the list on the left has **Connectors**, **Repositories**, **Custom instructions**, and **Access bundles** sections, and a collapsed **Advanced** section with settings such as the [**Default model**](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope) and the [**Environment**](/docs/claude-tag/concepts/glossary#environment). A **Plugins** section appears once your organization has plugins available to [attach](/docs/claude-tag/admins/add-connections#attach-plugins). An [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle) is a named set of connections, repositories, plugins, and instructions that you can attach to more than one place.
+On the **Channels** tab, select **Slack** to change how Claude works everywhere, or select a workspace or channel to change it in that one place. A workspace or channel inherits what's set above it. Its own instructions and access add to what it inherits, and its own model replaces the inherited one.
 
 | To do this | Go to | Learn more |
 | :- | :- | :- |
-| Change the model Claude replies with | The entry's **Advanced** section, **Default model**. Set it on **Default Slack** to change it everywhere, or on one channel. | [Choose the model for a scope](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope) |
-| Give Claude standing instructions | The **Custom instructions** field on **Default Slack** for every channel, or on one channel's entry for that channel only. | [Customize](/docs/claude-tag/admins/customize) |
-| Connect a tool | **Connectors** on the entry, or an Access bundle under **Access bundles**. | [Give Claude access](/docs/claude-tag/admins/add-connections) |
-| Let Claude reach a site or API that has no credential | The **Domains** list of the Access bundle, under **Access bundles**. | [Allow a host without a credential](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential) |
-| Grant more repositories | **Repositories** on the entry. | [Configure GitHub access](/docs/claude-tag/admins/configure-github) |
-| Give one channel more than the default | Select the channel and add to it. | [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope) |
+| Change the model Claude replies with | **Model** at the top of the Claude Tag page to change the default everywhere, or **Model** on a workspace's or channel's page. | [Choose the model for a scope](/docs/claude-tag/admins/customize#choose-the-model-for-a-scope) |
+| Give Claude standing instructions | **Slack instructions** on the **Slack** page for every channel, or **Channel instructions** on one channel's page for that channel only. | [Customize](/docs/claude-tag/admins/customize) |
+| Connect a tool | **Add** on the **Connectors** tab. | [Give Claude access](/docs/claude-tag/admins/add-connections) |
+| Let Claude reach a site or API that has no credential | **Add > Domain** under **What's in it** on a bundle's page. | [Allow a host without a credential](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential) |
+| Grant more repositories | The **GitHub** page, which you open from the **Connectors** tab. | [Configure GitHub access](/docs/claude-tag/admins/configure-github) |
+| Give one channel more than the default | The channel's page, from the **Channels** tab: **Add** under **Claude's access**, then pick what to add, such as **Connector**, **Domain**, or **Bundle**. | [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope) |
 | Limit where Claude works or who can use it | | [Restrict where Claude operates](/docs/claude-tag/admins/restrict-access) |
 | Require review of personal connector results | On the Enterprise plan, the **Personal connectors** section of the admin page. | [Admin controls for personal connectors](/docs/claude-tag/concepts/personal-connectors#admin-controls-for-personal-connectors) |
-| Pair another workspace, or disconnect one | The Slack row's **⋮** menu under **Where Claude Tag works**. Disconnecting permanently deletes the workspace's Claude data. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle). | [Manage workspaces](/docs/claude-tag/admins/workspaces) |
+| Pair another workspace, or disconnect one | **Connected workspaces** on the **Slack** page. Disconnecting permanently deletes the workspace's Claude data. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle). | [Manage workspaces](/docs/claude-tag/admins/workspaces) |
 | Change the spend limit | [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag). | [Set a spend limit](/docs/claude-tag/admins/set-spend-limit) |
-| Turn Claude Tag off | The **Enable Claude Tag for your organization** toggle at the top of the admin page. | |
+| Turn Claude Tag off | The **Enable Claude Tag in Slack** switch at the top of the Claude Tag page. It also turns off direct messages. | [Turn Claude Tag on or off](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
 | Bring in the first users | | [Getting started for users](/docs/claude-tag/users/getting-started) |
 
 ## Common setup issues
@@ -282,8 +284,8 @@ Every message setup can show instead of the next step, matched to its fix, is in
 
 * [How Claude Tag works](/docs/claude-tag/concepts/how-it-works): what happens between a mention and a reply
 * [How agent identity works](/docs/claude-tag/concepts/agent-identity): why Claude gets its own accounts, and what that means for audit logs and access
-* [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit): how Default Slack, workspaces, and channels inherit Access bundles
+* [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit): how Slack, workspaces, and channels inherit bundles
 * [Claude Tag settings map](/docs/claude-tag/concepts/settings-map): every setting, and whether admins, channel members, or users control it
-* [Glossary](/docs/claude-tag/concepts/glossary): Access bundle, scope, session, and the other terms on this page
+* [Glossary](/docs/claude-tag/concepts/glossary): bundle, scope, session, and the other terms on this page
 * [Network requirements](/docs/claude-tag/admins/network-requirements): what your services must allowlist so Claude can reach them
 * [Claude Tag in production at Anthropic](https://claude.com/blog/ai-ci-cd-on-call): how Anthropic runs Claude Tag as its first responder for CI/CD failures

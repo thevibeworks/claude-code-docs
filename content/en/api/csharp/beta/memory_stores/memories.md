@@ -459,19 +459,19 @@ await foreach (var item in page.Paginate())
 {
   "data": [
     {
-      "id": "id",
-      "content_sha256": "content_sha256",
-      "content_size_bytes": 0,
-      "created_at": "2019-12-27T18:11:19.117Z",
-      "memory_store_id": "memory_store_id",
-      "memory_version_id": "memory_version_id",
-      "path": "path",
+      "id": "mem_011CZkZ9X2dpNyB6YbtxvB6e",
+      "content_sha256": "ba7936d94c84d948a2232088f78228f175df6a8353b2d5bc9228eee5794a0024",
+      "content_size_bytes": 28,
+      "created_at": "2026-03-15T10:00:00Z",
+      "memory_store_id": "memstore_01Wf3kQ8tZxB2mVr7HcJ4aNd",
+      "memory_version_id": "memver_011CZkZBJq5dWxk9fVLNcPht",
+      "path": "/preferences/formatting.md",
       "type": "memory",
-      "updated_at": "2019-12-27T18:11:19.117Z",
-      "content": "content"
+      "updated_at": "2026-03-15T10:00:00Z",
+      "content": null
     }
   ],
-  "next_page": "next_page"
+  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
 }
 ```
 

@@ -20,6 +20,8 @@ Organizations share the tenant's sign-in and provisioning setup. You configure s
 
 Each organization appears with its name and ID. Clicking an organization's name opens its organization admin view. When you do this you are acting as an Owner of that organization and can manage its users, seats, and settings. You cannot grant or remove its [Primary Owner role](/docs/government/org-admin/users#understanding-roles), which stays with that organization's own Primary Owners.
 
+To email everyone in your tenant, or in one organization, click **Copy user email addresses** at the top of the page. The page that opens lists the email addresses of everyone except deactivated users, for the whole tenant and for each organization, each with its own **Copy** button. Any list of more than 450 addresses appears in parts of up to 450 that you can copy separately.
+
 <Tip>
   Which organization a user joins isn't controlled on this page. That's set by the routing rules on the [Identity and access](/docs/government/tenant-admin/identity-and-access) page.
 </Tip>

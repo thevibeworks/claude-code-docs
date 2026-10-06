@@ -303,7 +303,7 @@ Create Agent
 
 - `tools: Array[BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams]`
 
-  Tool configurations available to the agent. Maximum of 128 tools across all toolsets allowed.
+  Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
   - `class BetaManagedAgentsAgentToolset20260401Params`
 

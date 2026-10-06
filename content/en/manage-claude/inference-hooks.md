@@ -12,7 +12,7 @@ Inference hooks let a Claude Enterprise organization route every governed prompt
 
 Because the hook runs on Anthropic's servers, after the request leaves the client and before the model runs, it applies to every governed request uniformly, with nothing to install or deploy on user devices.
 
-Today the only hook event is `prompt`, which fires once per governed inference request, before inference begins. Response-side enforcement is planned as a later event.
+There are two hook events. `prompt` fires once per governed inference request, before inference begins. `tool_call` fires when Claude's response contains tool calls, before any of them runs, in organizations that have turned on **Validate tool calls**.
 
 ***
 
@@ -26,6 +26,8 @@ Today the only hook event is `prompt`, which fires once per governed inference r
 The following diagram traces one example (a Cowork request where Claude also calls an O365 tool) to illustrate which parts of the flow are hooked. The hooked points are the diagram's steps 1 and 6, where the prompt arrives and the tool result returns; each results in the validation exchange with your AI security server shown in steps 2–3 and 7–8.
 
 ![Flow diagram: the AI security server validates both the prompt and the tool result before inference proceeds](https://platform.claude.com/docs/images/inference-hooks-flow.png)
+
+With **Validate tool calls** on, Claude's tool calls are a third hooked point, which the diagram doesn't show: your AI security server returns one verdict for all the tool calls in a response before any of them runs.
 
 A verdict is a small JSON object: `{"action": "allow"}` lets the request proceed, and a deny carries the user-facing reason. For the full verdict schema, see [Return a verdict](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#return-a-verdict).
 
@@ -77,7 +79,15 @@ Inference hooks are available to Claude Enterprise organizations. Configuring th
 
 One hook governs conversations across claude.ai, Cowork, Claude Code, and Claude Tag sessions in your Claude Enterprise organization, whether they run on the web, in the desktop or mobile apps, in the CLI, or in Slack. Inference hooks are not available on Amazon Bedrock or Google Cloud.
 
-Governed requests are the inference requests behind the user's conversation. Ancillary requests, such as conversation title generation, aren't sent to your endpoint, and system prompts and tool definitions are never included in what is sent. Voice mode is not covered.
+Governed requests are the inference requests behind the user's conversation. Ancillary requests aren't sent to your endpoint. These include conversation title generation and a measurement that Anthropic runs on Claude's reply after Claude Tag has posted it in Slack. System prompts and tool definitions are never included in what is sent. Voice mode is not covered.
+
+With **Validate tool calls** on, `tool_call` events may leave out calls to some of claude.ai's own tools, such as tools that suggest connectors or skills, give Claude the user's local time, or read the user's own past chats and saved memory. These calls and their results stay in the conversation, so the next `prompt` event from that conversation, if there is one, includes them.
+
+Some features that Anthropic runs for your organization make model calls of their own. Your organization sees the results of those calls but not their transcripts. These calls aren't governed requests and aren't sent to your endpoint. They include the following:
+
+* **Claude Security scans (beta).** [Claude Security](https://claude.com/product/claude-security) runs hosted scans on your connected repositories. A session a user opens to fix a finding, and the Claude Security plugin in Claude Code, are governed.
+* **Code Review (research preview).** [Code Review](https://code.claude.com/docs/en/code-review) runs reviews on your GitHub pull requests. A review a user runs locally in Claude Code with `/code-review` is governed.
+* **Smart reports (beta).** Anthropic makes model calls to build your organization's [smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports).
 
 ***
 

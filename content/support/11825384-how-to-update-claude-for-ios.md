@@ -9,3 +9,5 @@ If you aren’t seeing the latest features on Claude for iOS, you may need to up
 3. Scroll down to see pending updates.
 
 4. Tap "Update" next to Claude for iOS to update it to the newest version.
+
+**Note:** If you use Claude for Intune, the managed version of Claude for iOS for Enterprise plans, your IT team controls when it updates if your organization installed it through Intune. See **[Set up Claude for Intune](https://support.claude.com/en/articles/17203415)** for details.

@@ -18,6 +18,10 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 
 **Pricing.** Claude Desktop on 3P is token-based consumption billed by your cloud provider, with no seat licensing.
 
+**Sharing between users.** In Claude Desktop on 3P, users can't share chats, projects, artifacts, skills, or plugins with each other from the app. Administrators can [distribute skills and plugins](/docs/third-party/claude-desktop/extensions) to users.
+
+**Remote sessions.** In Claude Desktop on 3P, users can't run sessions remotely, on Anthropic's or another cloud, except [Code sessions over SSH](/docs/third-party/claude-desktop/ssh-remote-sessions). All other sessions are local, and the device must be awake to run long processes and scheduled tasks. If a scheduled task is missed because the machine is asleep, it runs when the machine wakes up.
+
 **Features not available in 3P.** Features marked with — are absent from the UI. Users see a clean interface without error states for unavailable features.
 
 ## User features
@@ -29,6 +33,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 | Code | ✓ | ✓ |
 | Auto mode (Code) | ✓ | ✓ |
 | [SSH remote Code sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) | ✓ | ✓ |
+| Sessions in Anthropic's cloud | ✓ | — |
 | Automatically approve (Cowork) | — ¶ | ✓ Δ |
 | Skip all approvals (Cowork) | — ¶ | — |
 | Projects | ✓ | ✓ |
@@ -44,7 +49,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 | Memory | ✓ | ✓ † |
 | Scheduled tasks | ✓ | ✓ |
 | Global languages | ✓ | ✓ |
-| Project and plugin sharing | ✓ | — |
+| Sharing between users | ✓ | — |
 | Plugin marketplaces | ✓ | ✓ |
 | Mobile | ✓ | — |
 | claude.ai web-based access | ✓ | — |

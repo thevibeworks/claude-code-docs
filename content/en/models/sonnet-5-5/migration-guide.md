@@ -1213,7 +1213,7 @@ This model does not support assistant message prefill. The conversation must end
 
 Replace each prefill according to what it was for:
 
-* **Output format:** use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs), or tools with enum fields for classification.
+* **Output format:** use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs), or tools with enum fields for classification. On Amazon Bedrock, structured outputs aren't available for Claude Sonnet 5.5. There, describe the format in the prompt or use a tool without `strict`, and validate the output in your code.
 * **Preambles:** ask in the system prompt for a direct answer.
 * **Unwanted refusals:** clear instructions in the user message are usually enough.
 * **Continuations:** move them to the user message, for example "Your previous response was interrupted and ended with `[previous_response]`. Continue from where you left off."

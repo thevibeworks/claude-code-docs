@@ -273,6 +273,20 @@ The Models API response can be used to determine which models are available for 
 
     A human-readable name for the model.
 
+  - `line: ModelLine or null`
+
+    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
+
+    - `"haiku"`
+
+    - `"sonnet"`
+
+    - `"opus"`
+
+    - `"fable"`
+
+    - `"mythos"`
+
   - `max_input_tokens: number or null`
 
     Maximum input context window size in tokens for this model.
@@ -371,6 +385,7 @@ curl https://api.anthropic.com/v1/models \
       },
       "created_at": "2026-07-24T00:00:00Z",
       "display_name": "Claude Opus 5",
+      "line": "haiku",
       "max_input_tokens": 0,
       "max_tokens": 0,
       "type": "model"
@@ -638,6 +653,20 @@ The Models API response can be used to determine information about a specific mo
 
     A human-readable name for the model.
 
+  - `line: ModelLine or null`
+
+    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
+
+    - `"haiku"`
+
+    - `"sonnet"`
+
+    - `"opus"`
+
+    - `"fable"`
+
+    - `"mythos"`
+
   - `max_input_tokens: number or null`
 
     Maximum input context window size in tokens for this model.
@@ -722,6 +751,7 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
   },
   "created_at": "2026-07-24T00:00:00Z",
   "display_name": "Claude Opus 5",
+  "line": "haiku",
   "max_input_tokens": 0,
   "max_tokens": 0,
   "type": "model"
@@ -1028,6 +1058,20 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
 
     A human-readable name for the model.
 
+  - `line: ModelLine or null`
+
+    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
+
+    - `"haiku"`
+
+    - `"sonnet"`
+
+    - `"opus"`
+
+    - `"fable"`
+
+    - `"mythos"`
+
   - `max_input_tokens: number or null`
 
     Maximum input context window size in tokens for this model.
@@ -1035,6 +1079,22 @@ curl https://api.anthropic.com/v1/models/$MODEL_ID \
   - `max_tokens: number or null`
 
     Maximum value for the `max_tokens` parameter when using this model.
+
+### Model Line
+
+- `ModelLine = "haiku" or "sonnet" or "opus" or 2 more`
+
+  A Claude model line, such as `opus` or `sonnet`. More lines may be added as new values.
+
+  - `"haiku"`
+
+  - `"sonnet"`
+
+  - `"opus"`
+
+  - `"fable"`
+
+  - `"mythos"`
 
 ### Thinking Capability
 

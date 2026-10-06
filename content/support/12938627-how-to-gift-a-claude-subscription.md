@@ -2,6 +2,8 @@
 
 Give the gift of Claude to friends, family, or colleagues.
 
+**Important:** Gift subscriptions are currently unavailable to purchase. This applies to all accounts, so there’s nothing you need to fix on your end. We don’t have a date to share yet for when purchasing will be available again.
+
 ## What's included?
 
 Gift subscriptions include full access to all features of the selected plan. Refer to the below articles for full details for each plan:
@@ -12,9 +14,11 @@ Gift subscriptions include full access to all features of the selected plan. Ref
 
 ## Who can purchase gifts?
 
-Gift subscriptions are available for most Pro and Max plan users to purchase. Free users and members of Team and Enterprise organizations can't purchase gift subscriptions at this time.
+When gift purchasing is available, most Pro and Max plan users can purchase gift subscriptions. Free users and members of Team and Enterprise organizations can't purchase gift subscriptions at this time.
 
 ## How to purchase a gift
+
+These steps apply once purchasing is available again.
 
 1. Log in to your Claude account and click your initials in the lower left corner.
 

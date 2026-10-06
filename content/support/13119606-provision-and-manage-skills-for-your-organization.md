@@ -160,6 +160,16 @@ To let users add skills and plugins to the organization library, use the **Publi
 
 The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab. The **Share with groups** toggle is also off by default and can be enabled by an admin.
 
+When the Primary Owner applies the **[HIPAA configuration to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, these settings change:
+
+- **Skills** turns off. Skills stay off until an Owner turns on **Skills** in **Organization settings > Plugins & skills**, in the "Policy" tab.
+
+- **User-created skills** turns off. Members can't create skills until an Owner turns on **User-created skills** in the "Policy" tab.
+
+- Members can't share skills with a group, and no setting turns that on.
+
+With **Skills** on, the skills a member turns on in Claude are also available in their Cowork and Code tab sessions. Skills are available but not covered under your BAA.
+
 **Note:** Shared skills and plugins are view-only, and stay off until the recipient chooses to enable them. Recipients can enable and use a shared skill or plugin but can't edit its contents. When the owner saves a new version, everyone it's shared with gets the update automatically at next use. The owner can revoke someone's access at any time, and access is removed automatically if the recipient leaves the organization.
 
 ### Share skills with a group

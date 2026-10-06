@@ -64,6 +64,10 @@ Leading observability platforms offer ready-to-use integrations for monitoring y
     Advanced querying and visualization through OpenTelemetry
   </Card>
 
+  <Card title="Tempo" icon="chart" href="https://help.tempo.io/workforceintelligence/latest/connect-to-anthropic">
+    Usage and cost attribution to Jira work items
+  </Card>
+
   <Card title="Vantage" icon="chart" href="https://docs.vantage.sh/connecting_anthropic">
     FinOps platform for LLM cost & usage observability
   </Card>

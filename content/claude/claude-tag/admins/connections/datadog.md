@@ -10,11 +10,9 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Note>Connections are added inside an [Access bundle](/docs/claude-tag/admins/add-connections#your-first-access-bundle). At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open **Access bundles** in the left navigation, click into a bundle (or **Create** one), and go to its **Credentials** tab.</Note>
+Connecting Datadog lets Claude query metrics, logs, and monitors during debugging in any channel where the connector is on. Claude connects with its own credential, not a person's.
 
-Connecting Datadog lets Claude query metrics, logs, and monitors during debugging from any channel under the bundle's scope. You add it as a connection inside an [Access bundle](/docs/claude-tag/admins/add-connections); the credential belongs to the agent, not to any person.
-
-Pair this connection with the Datadog plugin from Anthropic's plugin marketplace so Claude knows how to call the API; see [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins). This is an HTTP API connection, not an MCP server or a personal claude.ai connector.
+Pair this connector with the Datadog plugin from Anthropic's plugin marketplace so Claude knows how to call the API. This connector calls Datadog's HTTP API. It isn't an MCP server or a member's personal claude.ai connector.
 
 ## Create the credential in Datadog
 
@@ -22,11 +20,11 @@ Create an API key under a service account in Datadog. Also create an Application
 
 Datadog's own guide for creating the credential is at [docs.datadoghq.com](https://docs.datadoghq.com/account_management/api-app-keys/).
 
-## Add the connection to a bundle
+## Add the connector
 
-In the bundle, click **Connect** next to Datadog. The picker has one Datadog entry per Datadog site. Datadog has a separate API host per site, and a key only works against its own, so pick the entry that matches your Datadog account's site.
+Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select the Datadog entry for your Datadog account's site. Datadog has a separate API host per site, and a key only works against its own.
 
-| Picker entry | Site and API host |
+| Entry | Site and API host |
 | :- | :- |
 | **Datadog** | US1, `api.datadoghq.com`, Datadog's default site |
 | **Datadog (US3)** | US3, `api.us3.datadoghq.com` |
@@ -36,27 +34,29 @@ In the bundle, click **Connect** next to Datadog. The picker has one Datadog ent
 | **Datadog (AP2)** | AP2, `api.ap2.datadoghq.com` |
 | **Datadog (US1-FED)** | US1-FED, `api.ddog-gov.com` |
 
-The form asks for the same fields in every entry.
+Every entry asks for the same fields in the connect form.
 
 | Field | Value |
 | :- | :- |
 | Claude's API key | The API key from Datadog |
 | Claude's application key | The Application key from Datadog. Optional in the form; add it so Claude can read metrics, monitors, and dashboards |
-| Allowed websites | Prefilled with the entry's API host |
+| Allowed websites | The entry's API host (preset) |
 
-The connection is created with path prefixes that cover Datadog's read and query routes: metric, log, trace, and RUM queries, monitors, downtimes, dashboards, SLOs, notebooks, events, hosts, service definitions, and incident search. It doesn't cover Datadog's key, user, integration, or log-configuration management routes, so Claude can't call those through it. To narrow the connection further, for example to `GET` only, or to allow another route, select **Edit** on the connection's row; see [Restrict by path or method](/docs/claude-tag/admins/add-connections#restrict-by-path-or-method).
+If the connect form offers to include the Datadog plugin, leave that box selected; otherwise add the plugin on the [**Skills and plugins**](https://claude.ai/admin-settings/claude-tag?access=plugins) tab. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+
+The connector is created with path prefixes that cover Datadog's read and query routes: metric, log, trace, and RUM queries, monitors, downtimes, dashboards, SLOs, notebooks, events, hosts, service definitions, and incident search. It doesn't cover Datadog's key, user, integration, or log-configuration management routes, so Claude can't call those through it. To narrow the connector further, for example to `GET` only, or to allow another route, go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click your Datadog connector, open the menu on the credential's row in the **Access from** table, and click **Edit**. See [Restrict by path or method](/docs/claude-tag/admins/add-connections#restrict-by-path-or-method).
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 
 ## Verify the connection
 
-In a channel under the bundle's scope, in a new thread:
+In a channel where the connector is on, in a new thread:
 
 ```text wrap theme={null}
 @Claude what can you access from this channel?
 ```
 
-Datadog appears in the list once the connection is live. New threads pick up the connection on their own; in an existing thread, ask Claude to use the service by name.
+Datadog appears in the list once the connector is live. New threads pick up the connector on their own; in an existing thread, ask Claude to use the service by name.
 
 ## Related resources
 

@@ -24,7 +24,7 @@ To see a page and decide what to do next, Claude takes screenshots of the tabs i
 
 ### Regulated data
 
-Claude in Chrome isn't available to organizations covered by HIPAA, and we recommend against using it on pages that contain regulated data.
+In organizations that have enabled HIPAA, Claude in Chrome is off by default. An Owner can turn it on in **Organization settings > Claude in Chrome**. Claude in Chrome then can't open any site until an Owner allows specific sites or changes the default site policy. Claude in Chrome is available but not covered under your Business Associate Agreement (BAA), including after an Owner turns it on. We recommend against using Claude in Chrome on pages with regulated data generally.
 
 ---
 
@@ -118,7 +118,7 @@ We strongly advise against using Claude in Chrome to manage or take actions on s
 
 - Interacting with sites containing personal information of others
 
-Claude in Chrome isn’t available for HIPAA orgs, and we recommend against using Claude in Chrome on pages with regulated data generally. As a best practice, don't open the extension while viewing sensitive info, and consider using a separate browser profile.
+We recommend against using Claude in Chrome on pages with regulated data. See **Regulated data** in this article. As a best practice, don't open the extension while viewing sensitive info, and consider using a separate browser profile.
 
 ---
 

@@ -10,9 +10,9 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Note>AWS roles are connected at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag): open **Federated agent access** in the left navigation and use the **Cloud roles** section. Connecting a role needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+<Note>AWS roles are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Cloud roles** section. Connecting a role needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
 
-With an AWS role connection, Claude signs in to an IAM role in your AWS account with a short-lived identity token and calls AWS with the role's permissions. No access key is stored in Claude. The token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel), and your role's trust policy decides which tokens to accept. If someone else manages your AWS account, give them the values from the console and the trust policy below; the console steps need a Claude Tag admin.
+With an AWS role connection, Claude signs in to an IAM role in your AWS account with a short-lived identity token and calls AWS with the role's permissions. No access key is stored in Claude. The token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel), and your role's trust policy decides which tokens to accept. If someone else manages your AWS account, give them the values from the console and the trust policy below; the console steps need an organization Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration).
 
 ## Before you begin
 
@@ -87,23 +87,23 @@ In **Cloud roles**, click **Connect an AWS role** and copy the **Issuer**, **Aud
   </Step>
 
   <Step title="Narrow the allowed AWS hosts">
-    The **Allowed AWS hosts** field starts with `*.amazonaws.com`, which lets Claude use the role with any AWS service. Keep that entry for the first verification, then narrow the list to the hosts Claude needs from the connection's [**Edit connection** dialog](/docs/claude-tag/admins/add-connections#set-allowed-websites) on the bundle's **Credentials** tab. A wildcard covers subdomains only: `*.s3.us-west-2.amazonaws.com` matches `example-reports.s3.us-west-2.amazonaws.com` but not `s3.us-west-2.amazonaws.com`. The AWS CLI and SDKs use both forms for S3, so list both the plain host and the wildcard for each region, and for `us-east-1` also `*.s3.amazonaws.com`, the older global S3 address some tools still use there. Every host must end in `.amazonaws.com`. The sign-in itself goes to the AWS Security Token Service (STS) from Anthropic's side and doesn't need an entry here.
+    The **Allowed AWS hosts** field starts with `*.amazonaws.com`, which lets Claude use the role with any AWS service. Keep that entry for the first verification, then narrow the list to the hosts Claude needs from the connection's [**Edit connection** dialog](/docs/claude-tag/admins/add-connections#set-allowed-websites), which you open from the connection's row on the **Connectors** tab; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab). A wildcard covers subdomains only: `*.s3.us-west-2.amazonaws.com` matches `example-reports.s3.us-west-2.amazonaws.com` but not `s3.us-west-2.amazonaws.com`. The AWS CLI and SDKs use both forms for S3, so list both the plain host and the wildcard for each region, and for `us-east-1` also `*.s3.amazonaws.com`, the older global S3 address some tools still use there. Every host must end in `.amazonaws.com`. The sign-in itself goes to the AWS Security Token Service (STS) from Anthropic's side and doesn't need an entry here.
   </Step>
 
   <Step title="Confirm the trust policy">
     Select the checkbox labeled **The role's trust policy requires the subject prefix shown above**. The **Connect role** button stays disabled until you do. Select it only if the trust policy pins `sub` to one or more full subjects under your **Subject prefix**, or to your prefix followed by `*` under `StringLike`, as described under [Create the identity provider and role in AWS](#create-the-identity-provider-and-role-in-aws).
   </Step>
 
-  <Step title="Choose an Access bundle and connect">
-    Choose a bundle from the **Access bundle** list, or click **New bundle**, enter a **Bundle name**, and click **Create bundle**. Then click **Connect role**. This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, labeled **AWS role** on its **Credentials** tab, with the hosts you entered under **Allowed hosts**. A role can be connected in one bundle only; to use it in several scopes (workspaces or channels), attach that bundle to each.
+  <Step title="Choose a bundle and connect">
+    Choose a bundle from the **Access bundle** list, or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**. Then click **Connect role**. This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, with the hosts you entered under **Allowed hosts**. A role can be connected in one bundle only, and it applies wherever that bundle applies.
   </Step>
 </Steps>
 
-The **Cloud roles** table has **Role**, **Access bundle**, **Allowed hosts**, **Added**, and **Actions** columns. Each connection's name appears under **Role** with the role's ARN and an **AWS role** chip beneath it, and **Remove** is under **Actions**.
+The **Cloud roles** table has **Role**, **Access bundle**, **Allowed hosts**, **Added**, and **Actions** columns. Each connection's name appears under **Role** with the role's ARN and an **AWS role** chip beneath it, and **Check trust policy** and **Remove** are under **Actions**.
 
 ## Let agents use the role
 
-Claude uses the role in channels whose scope has the bundle attached. [Attach the bundle to a workspace or channel](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle) if it isn't attached already.
+Claude uses the role in the channels where its bundle applies. A bundle you created in the connect dialog applies nowhere until you choose places; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 
 Claude also needs to know what the role is for. Add a line like this to the scope's [custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions):
 
@@ -119,7 +119,7 @@ New threads pick up the connection on their own. In a thread already running, as
 
 [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, such as a Slack channel. A test from a personal session, such as a direct message with `@Claude`, won't work.
 
-In a channel whose workspace or channel has the bundle attached, start a new thread and ask Claude to run a connectivity check. The check is Claude's own request to `sts.amazonaws.com`, so keep `*.amazonaws.com` under the connection's **Allowed hosts** for this check, or add `sts.amazonaws.com` if you already narrowed the list. The sign-in itself needs no entry there. After the check passes, remove `sts.amazonaws.com` again if you added it, or narrow the wildcard. While it is listed, Claude can send any STS request signed with the role's credentials. If the role is allowed to assume another role, the credentials AWS returns are readable in Claude's sandbox. The call needs no permissions policy on the role. Send Claude this prompt:
+In a channel where the role's connection applies, start a new thread and ask Claude to run a connectivity check. The check is Claude's own request to `sts.amazonaws.com`, so keep `*.amazonaws.com` under the connection's **Allowed hosts** for this check, or add `sts.amazonaws.com` if you already narrowed the list. The sign-in itself needs no entry there. After the check passes, remove `sts.amazonaws.com` again if you added it, or narrow the wildcard. While it is listed, Claude can send any STS request signed with the role's credentials. If the role is allowed to assume another role, the credentials AWS returns are readable in Claude's sandbox. The call needs no permissions policy on the role. Send Claude this prompt:
 
 ```text wrap theme={null}
 @Claude Connectivity check for this channel's AWS connection. Please run exactly:
@@ -146,16 +146,16 @@ To disconnect a role, click **Remove** in the role's row of the **Cloud roles** 
 
 Two messages come up while connecting:
 
-* **"This role is already connected in the bundle"**: the role already has its one connection. [Attach that bundle to the scope](/docs/claude-tag/admins/attach-to-scope#attach-the-bundle) instead.
+* **"This role is already connected in the bundle"**: the role already has its one connection. Apply that bundle where you need the role instead; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 * **"Enter a role ARN like `arn:aws:iam::123456789012:role/ClaudeTag`"**: the **Role ARN** field rejected the value, most often because the ARN is in the AWS GovCloud (US) or AWS China partition, which can't be connected.
 
 For other dialog messages, see [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting).
 
-If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel under the [scope](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) of the Access bundle that holds the connection.
+If Claude reports HTTP 403 with a reason that starts with [`request blocked: federated connections work only in agent sessions (such as a Slack channel), not in personal sessions (such as a direct message)`](/docs/claude-tag/admins/federated-access/troubleshooting#request-blocked-federated-connections-work-only-in-agent-sessions-such-as-a-slack-channel--not-in-personal-sessions-such-as-a-direct-message), the request came from a personal session, such as a direct message with `@Claude`. A personal session runs under a person's own account. [Federated connections](/docs/claude-tag/admins/federated-access/limits#where-federated-connections-work) work only in agent sessions, so test again from a new thread in a Slack channel where the connection [applies](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit).
 
 ## Related resources
 
-* [Give Claude access](/docs/claude-tag/admins/add-connections): the Access bundle and connection model
+* [Give Claude access](/docs/claude-tag/admins/add-connections): the bundle and connection model
 * [Attach a bundle to a scope](/docs/claude-tag/admins/attach-to-scope): where a role connection applies
 * [Identity token reference](/docs/claude-tag/admins/federated-access/token-reference): every claim in the token, lifetimes, and key rotation
 * [Troubleshoot federated agent access](/docs/claude-tag/admins/federated-access/troubleshooting): console and runtime errors for every connection type

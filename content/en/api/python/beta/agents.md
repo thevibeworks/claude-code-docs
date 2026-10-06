@@ -367,7 +367,7 @@ Create Agent
 
 - `tools: Optional[Iterable[Tool]]`
 
-  Tool configurations available to the agent. Maximum of 128 tools across all toolsets allowed.
+  Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
   - `class BetaManagedAgentsAgentToolset20260401Params`
 
@@ -3598,7 +3598,7 @@ Update Agent
 
 - `tools: Optional[Iterable[Tool]]`
 
-  Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 128 tools across all toolsets allowed.
+  Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
   - `class BetaManagedAgentsAgentToolset20260401Params`
 

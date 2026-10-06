@@ -10,9 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<Note>Connections are added inside an [Access bundle](/docs/claude-tag/admins/add-connections#your-first-access-bundle). At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open **Access bundles** in the left navigation, click into a bundle (or **Create** one), and go to its **Credentials** tab.</Note>
-
-Connecting Salesforce lets Claude read accounts, contacts, opportunities, and cases (and write, if you grant it) from any channel under the bundle's scope. You add it as a connection inside an [Access bundle](/docs/claude-tag/admins/add-connections); the credential belongs to the agent, not to any person. The connection uses the OAuth 2.0 client credentials flow.
+Connecting Salesforce lets Claude read accounts, contacts, opportunities, and cases (and write, if you grant it) in any channel where the connector is on. Claude connects with its own credential, not a person's. The connector uses the OAuth 2.0 client credentials flow.
 
 ## Create the credential in Salesforce
 
@@ -26,25 +24,27 @@ You'll need from Salesforce:
 
 Assign the integration user a Permission Set scoped to the objects and fields Claude should reach. Read-only is the recommended starting point.
 
-## Add the connection to a bundle
+## Add the connector
 
-In the bundle, click **Connect** next to **Salesforce**.
+Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Salesforce**. Fill in these fields in the connect form.
 
 | Field | Value |
 | :- | :- |
 | Client ID | The app's Consumer Key |
 | Client secret | The app's Consumer Secret |
 | Token URL | Your org's token endpoint, `https://yourcompany.my.salesforce.com/services/oauth2/token` |
-| Scopes (optional) | Leave empty unless your app requires specific scopes |
+| Scopes (optional) | On the **Advanced** tab. Leave empty unless your app requires specific scopes |
 | Allowed websites | Your org's host, for example `yourcompany.my.salesforce.com` |
 
-The preset prefills Allowed websites with an example host that cannot resolve. Replace it with your org's host before saving, or every request fails. To change the host later, open the **⋮** menu on this connection in the bundle's Credentials tab and choose **Edit**.
+The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you save the connector. The **Allowed websites** field shows an example host that can't resolve. Enter your org's host there, then click **Connect** to save the connector.
+
+To change the host later, go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Salesforce**, open the menu on the credential's row in the **Access from** table, and click **Edit**. In the **Edit connection** dialog, the **Allowed websites** setting is labeled **Allowed hosts**. Change the host there and click **Save**.
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 
 ## Verify the connection
 
-In a channel under the bundle's scope, in a new thread:
+In a channel where the connector is on, in a new thread:
 
 ```text wrap theme={null}
 @Claude list the five most recently modified Opportunities in Salesforce.

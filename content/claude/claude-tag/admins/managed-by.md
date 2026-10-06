@@ -39,7 +39,7 @@ The **Managed by** list on the managed channel's Configure page refuses a pairin
 * **Sharing:** no channel in the pairing is shared outside its workspace. That rules out Slack Connect channels, including ones with a pending invitation, and channels shared across the workspaces of an Enterprise Grid.
 * **You:** you are a member of every managing channel you add.
 * **Managing channel:** its [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) setting resolves to **Allow**. The list accepts a managing channel set to **Block**, but Claude refuses every read and change there.
-* **Managed channel:** the channel has its own channel scope on the **Slack** tab in admin settings. If it doesn't appear there, [add the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel).
+* **Managed channel:** the channel has its own page on the **Channels** tab under **Claude's access** in admin settings. If it isn't listed there, [set the channel up](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel).
 
 A managed channel can have up to five managing channels. A private managed channel has extra rules, listed under [Public and private channels](#public-and-private-channels).
 
@@ -200,13 +200,13 @@ Claude words a refusal differently each time, so match a row on its meaning. The
 | This channel isn't set as a manager of the other channel | No pairing exists, or it was removed | Add this channel under **Managed by** on the other channel's Configure page |
 | A channel is shared with another organization | The managed or managing channel is a Slack Connect channel, has a pending invitation, or is shared across Enterprise Grid workspaces | Use channels that belong to one workspace only |
 | You aren't in the managing channel, or in the private managed channel | You tried to add a managing channel you haven't joined, or to add managing channels to a private channel you aren't in | Join the channel in Slack, then try again |
-| This channel's settings are locked by an admin | The managing channel's [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) setting is **Block**, on the channel or inherited from its workspace or **Default Slack access** | Set **Channel member edits** to **Allow** on the managing channel's scope |
+| This channel's settings are locked by an admin | The managing channel's [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) setting is **Block**, on the channel or inherited from its workspace or the **Slack** page | Set **Channel member edits** to **Allow** on the managing channel's scope |
 | You need your Claude account connected in this organization | You selected **Confirm** or **Cancel** without a Claude account in the organization connected to your Slack account | Connect your account from the Claude app's **Home** tab in Slack, then select the button again |
 | Claude isn't in one of the channels | Claude was removed from the managed or managing channel, or never added | Run `/invite @Claude` in that channel |
 | One of those channels is archived | One of the managing channels is archived in Slack | Remove the archived channel, then try again |
 | A private channel can only be managed by private channels | The managed channel is private and the managing channel is public, or was made public later | Pick a private managing channel |
 | The managed channel may have been made private or deleted | The managed channel was made private or deleted, or Claude is no longer in it | Check the channel in Slack. If it was made private, an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) who is a member of it adds private managing channels again |
-| Claude isn't set up in the managed channel with its own channel configuration | The managed channel has no channel scope of its own on the **Slack** tab | [Add the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) in admin settings |
+| Claude isn't set up in the managed channel with its own channel configuration | The managed channel has no page of its own on the **Channels** tab | [Set the channel up](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) in admin settings |
 | The managed channel already has five managing channels | Five is the most a managed channel can have | Remove one before adding another |
 | The file would be too large | The core instructions are over 16 KiB, or a reference file is over 100 KiB | Shorten the text, or move detail into a reference file |
 | The managed channel already has the most reference files | Twenty reference files exist | Ask Claude to delete one first |

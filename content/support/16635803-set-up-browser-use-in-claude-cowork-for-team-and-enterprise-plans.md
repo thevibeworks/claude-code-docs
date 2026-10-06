@@ -20,7 +20,7 @@ You can enable one, both, or neither.
 
 - **Team plans:** On by default as it rolls out.
 
-- **Enterprise plans:** Off by default at launch. Starting September 10, 2026, it turns on by default unless you've turned it off.
+- **Enterprise plans:** It turns on by default unless you've turned it off. In organizations that have enabled HIPAA, the built-in browser stays off until an Owner turns it on in **Organization settings > Cowork**. With the **[HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, the built-in browser isn't available, and no setting turns it on.
 
 To turn the built-in browser on or off for your organization:
 
@@ -36,7 +36,7 @@ When the built-in browser is off, users can't open it and Claude can't use it. T
 
 ## Enable or disable Claude in Chrome
 
-Claude in Chrome is managed separately, in **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**. It's on by default on Team plans. On Enterprise plans, it's off by default; starting September 10, 2026, it turns on by default unless you've already disabled it. Site allowlists and blocklists you configure there apply to both the extension and the built-in browser. The same list governs both, so there's no separate list to maintain. For setup, deployment, and pilot guidance, see **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128)**.
+Claude in Chrome is managed separately, in **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**. It's on by default on Team plans. On Enterprise plans, it turns on by default unless you've already disabled it. In organizations that have enabled HIPAA, the Claude in Chrome extension stays off until an Owner turns it on in **Organization settings > Claude in Chrome**. Site allowlists and blocklists you configure there apply to both the extension and the built-in browser. The same list governs both, so there's no separate list to maintain. For setup, deployment, and pilot guidance, see **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128)**.
 
 ## When both are enabled
 

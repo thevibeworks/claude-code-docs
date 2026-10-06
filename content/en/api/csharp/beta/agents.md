@@ -329,7 +329,7 @@ Create Agent
 
   - `IReadOnlyList<Tool> tools`
 
-    Body param: Tool configurations available to the agent. Maximum of 128 tools across all toolsets allowed.
+    Body param: Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
     - `class BetaManagedAgentsAgentToolset20260401Params`
 
@@ -3502,7 +3502,7 @@ Update Agent
 
   - `IReadOnlyList<Tool>? tools`
 
-    Body param: Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 128 tools across all toolsets allowed.
+    Body param: Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
     - `class BetaManagedAgentsAgentToolset20260401Params`
 
