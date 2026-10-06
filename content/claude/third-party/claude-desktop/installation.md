@@ -20,6 +20,8 @@ Cowork, the agent workspace at the center of Claude Desktop on 3P, has the follo
 
 On Windows, Cowork requires the `.msix` package: fleets provisioned with the legacy `.exe` installer get Claude Desktop without Cowork, and migrating them to `.msix` enables it. Cowork also requires working hardware virtualization and, on Windows, the Virtual Machine Platform optional feature. The [readiness check](#check-device-readiness) verifies both along with the requirements above.
 
+On Windows, Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace) before rollout.
+
 ## Check device readiness
 
 Before installing Claude Desktop, you can confirm that a device supports Cowork by running the readiness check: a small standalone program that requires no installation or sign-in.
@@ -120,6 +122,26 @@ Restarting the app tries the download again, which is enough when an earlier att
 * On a network that cannot allow these downloads, deploy the [offline installer](#offline-installation), which includes both components.
 
 Once the device can download from `downloads.claude.ai`, have the user restart Claude Desktop and start a new conversation or task, so that the app downloads what is missing. If the messages persist, generate the diagnostic report described under [Troubleshooting](#troubleshooting) and send it to your Anthropic representative. It includes the errors the app logged for these downloads.
+
+### Windows security policy blocks the Cowork workspace
+
+On Windows, the app shows **A Windows security policy is blocking Claude's workspace** when a user-rights policy stops the virtual machine that Cowork runs in from starting. Cowork tasks don't start on that device, and [advanced file analysis](/docs/third-party/claude-desktop/chat#advanced-file-analysis) in Chat, which uses the same virtual machine, fails too. The banner's **Copy details** button copies a description of the error that includes the code `0x80070569`. Standard (non-3P) installs show this banner too.
+
+The virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group (SID `S-1-5-83-0`), and that group needs the **Log on as a service** user right. Microsoft's [Starting or live migrating Hyper-V VMs fails](https://learn.microsoft.com/en-us/troubleshoot/windows-server/virtualization/starting-or-live-migrating-hyper-v-vms-fails) describes the same error for Hyper-V virtual machines when the group is missing that right. A Group Policy that defines **Log on as a service** replaces the list of accounts on each device instead of adding to it. When the policy's list leaves this group out, or a policy lists the group under **Deny log on as a service**, the virtual machine can't start.
+
+Run these checks on an affected device, or before rollout on a device that your policy applies to:
+
+* **Readiness check**: run the [readiness check](#check-device-readiness) on a device that has Virtual Machine Platform enabled. When the group lacks the right or is denied it, the **VM service logon right** line reads "SeServiceLogonRight not granted to S-1-5-83-0" or "SeDenyServiceLogonRight is set for S-1-5-83-0".
+* **Policy that sets the right**: in an elevated Command Prompt, run `gpresult /scope computer /h gpresult.html`, then open `gpresult.html` from the current folder. Use the report to find which Group Policy Object sets **Log on as a service** for the device.
+* **Rights on the device**: in an elevated Command Prompt, run `secedit /export /cfg user-rights.inf /areas USER_RIGHTS`, then open `user-rights.inf` from the current folder. If a policy defines **Log on as a service**, the `SeServiceLogonRight` line must include `S-1-5-83-0`. If the file has a `SeDenyServiceLogonRight` line, that line must not include `S-1-5-83-0`.
+
+Group Policy overwrites a change made in a device's local security policy, so change the policy that sets the right:
+
+* **Group Policy**: add `NT VIRTUAL MACHINE\Virtual Machines` to **Log on as a service** in every Group Policy Object that defines that right for these devices, and remove it from **Deny log on as a service** if a policy lists it there. Following Microsoft's [Starting or live migrating Hyper-V VMs fails](https://learn.microsoft.com/en-us/troubleshoot/windows-server/virtualization/starting-or-live-migrating-hyper-v-vms-fails), make the edit in the Group Policy Management console on a Windows computer that has Hyper-V enabled. The devices that run Claude Desktop don't need Hyper-V. In **Add User or Group**, type the group's name in full instead of searching for it. A computer that doesn't have Windows virtualization features enabled can't resolve that name.
+* **Group Policy, Microsoft's other method**: the same Microsoft article describes moving the devices to an organizational unit where no policy manages user rights, so that the user rights in each device's local security policy take effect.
+* **Intune or another MDM**: add the group to the `UserRights/LogOnAsService` setting in Microsoft's [UserRights Policy CSP](https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-userrights). In that setting, write the group as `*S-1-5-83-0`, its SID with a leading asterisk. Microsoft lists the setting for Windows 11, version 22H2 with KB5053657 and later, and for Windows 11, version 24H2 and later.
+
+To apply a Group Policy change on a device, run `gpupdate /force` in a Command Prompt or restart the device. When the changed policy has reached the device, run the [readiness check](#check-device-readiness) again and confirm that the **VM service logon right** line reads "SeServiceLogonRight granted". Then have the user restart Claude Desktop and start a Cowork task. If the banner still appears, generate the diagnostic report described under [Troubleshooting](#troubleshooting) and send it to your Anthropic representative.
 
 ## Endpoint security software
 
