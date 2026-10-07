@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/build-with-claude/preserved-thinking
 description: Preserved thinking lets a model use a thinking block from an earlier turn only if that model or one of a fixed set of other models produced it and nothing before the block has changed.
 ---
 
-Preserved thinking is a property of newer Claude models that guards against distillation. It decides whether the model can use a thinking block that you send back from an earlier turn. Starting with Claude Fable 5.1, when a `thinking` or `redacted_thinking` block comes back in a request, the API checks the block's `signature` for two things:
+Preserved thinking is a property of newer Claude models that guards against distillation. It determines whether the model can use a thinking block that you send back from an earlier turn. Starting with Claude Fable 5.1, when a `thinking` or `redacted_thinking` block comes back in a request, the API checks the block's `signature` for two things:
 
 * **The model can read the block.** Each model reads its own thinking blocks and those of a fixed set of other models. Claude Fable 5.1 reads blocks from Claude Opus 5 and, on the Claude API, from Claude Opus 5.5; neither Claude Opus 5 nor Claude Opus 5.5 reads blocks from Claude Fable 5.1. If the current model can't read a block, the API drops it from that request without an error. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
 * **Nothing before the thinking block has changed.** The top-level `system` prompt, `tools`, and `messages` before the block are its prefix. If the prefix differs from what you sent when the block was produced, that block and every later thinking block are invalid, and the API rejects the request with a 400 error or drops the invalid blocks, whichever you choose. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check).
@@ -1247,11 +1247,13 @@ Each common prefix edit has a replacement that gives the model the same informat
 
 All of these assume you [send assistant turns back exactly as returned](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#append-assistant-turns-exactly-as-returned). Mid-conversation system messages, turn-scoped system messages, and tool changes aren't available on every model: [Mid-conversation system messages and tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) lists the models that accept them. If your code serves several models, keep editing the top-level `system` prompt for the models that don't accept them.
 
-To use several betas in one request, combine the values in one `anthropic-beta` header. Beta names are the same on Amazon Bedrock and Google Cloud wherever the beta is available there (see [Beta headers](https://platform.claude.com/docs/en/api/beta-headers)):
+To use several betas in one request on the Claude API, combine their names in one `anthropic-beta` header:
 
 ```text wrap
 anthropic-beta: thinking-binding-controls-2026-08-01,mid-conversation-system-clear-at-2026-08-21,inline-tools-2026-09-15
 ```
+
+Other platforms that offer these betas use the same names. To send them there, see [Beta features on other platforms](https://platform.claude.com/docs/en/api/beta-headers#beta-features-on-other-platforms).
 
 ### Send assistant turns back exactly as returned
 

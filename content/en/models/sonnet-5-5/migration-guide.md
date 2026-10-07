@@ -1,7 +1,7 @@
 ---
-title: Migrating to Claude Sonnet 5.5
+title: Claude Sonnet 5.5 migration guide
 url: https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide
-description: "Move code to Claude Sonnet 5.5 from Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5, Claude Sonnet 4, Claude 3.7 Sonnet, or Claude Haiku 4.5: settings that return errors, thinking changes, and a checklist for each starting model."
+description: Switch to Claude Sonnet 5.5 from earlier Sonnet models or Claude Haiku 4.5 with this migration guide. The guidance to enable Claude Sonnet 5.5 includes settings that return errors, thinking changes, and a checklist for each starting model.
 ---
 
 This guide lists the code changes for moving to Claude Sonnet 5.5 from Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5, Claude Sonnet 4, Claude 3.7 Sonnet, or Claude Haiku 4.5. Read the first two sections, then read down to the section for your current model. The [migration checklist](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migration-checklist) lists every change by starting model.

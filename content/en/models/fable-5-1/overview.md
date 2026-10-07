@@ -97,7 +97,7 @@ If you already call Claude Fable 5, three changes are breaking: [forced tool use
     Model-specific prompting guidance for long-horizon and agentic work.
   </Card>
 
-  <Card title="Migrating to Claude Fable 5.1" icon="arrow-right" href="https://platform.claude.com/docs/en/models/fable-5-1/migration-guide">
+  <Card title="Claude Fable 5.1 migration guide" icon="arrow-right" href="https://platform.claude.com/docs/en/models/fable-5-1/migration-guide">
     What changes when you move from Claude Fable 5, Claude Opus 5, or Claude Opus 4.8.
   </Card>
 

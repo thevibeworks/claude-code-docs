@@ -1,0 +1,123 @@
+# Cyber Verification Program
+
+**Updated October 2026.** The CVP previously covered Claude Opus and Sonnet with a single level of access. We are now offering three access tiers for Claude Opus 5.5, our most capable cyber model yet, Claude Sonnet 5.5, Claude Mythos 5.1, and new models moving forward.
+
+For more details, register for our upcoming **[webinar on the Cyber Verification Program](https://claude.com/resources/webinars/inside-the-cyber-verification-program)** on October 14th at 9am PT.
+
+## Overview
+
+The Cyber Verification Program (CVP) makes advanced cyber capabilities and reduced blocking classifiers available to qualifying security professionals. Each tier includes access to our most capable models, including Claude Opus 5.5, Claude Sonnet 5.5, Claude Mythos 5.1, and new models moving forward.
+
+Our generally available models can still be used by all users for secure code review, threat modeling, patching known issues, finding vulnerabilities in your own source code, and triaging security alerts. However, other cyber security work like malware analysis or exploit validation may be interrupted by our safety classifiers. If you are a cybersecurity professional, and your work is being blocked, apply for the Cyber Verification Program using the instructions below in the “How to Apply” section.
+
+## Access tiers
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1791460800&amp;signature=1002545dfdd036d650beb6b633e4436fa2c0b2988ddf8a65013e46a865e281fa&amp;req=dicmEM17moJWW%2FMW3nq%2BgVW5JBO7gX7EvJPg72lEz5yK%2FxawzjMykff%2BkOQW%0AEvTm80eFFQIeTgw0xffCEsuNQ%2Fg%3D%0A)
+
+## How to apply
+
+Apply through the **[Verification Portal](https://portal.anthropic.com/programs)**. We aim to send an email notification with our review decision or request for more information within seven business days. Fill out a single application, and we will place you at the highest tier based on the information we receive.
+
+Apply once per organization. Individual users within organizations should not apply separately as organization admins can designate seats for the program. Independent researchers, maintainers, and bug bounty hunters apply as individuals. Please note that only Tier C access is available for individual applicants at this time.
+
+What you'll need:
+
+- Details of your organization and the person applying, for verification. See **[identity verification on Claude](https://support.claude.com/en/articles/14328960-identity-verification-on-claude)**
+
+- A description of your security work
+
+- An attestation to the security controls applicable to your desired tier
+
+| **How you access Claude**                                                                                                                | **Availability**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Anthropic first-party**
+(Claude.ai, Claude Code, the Anthropic API)<br>                                                             | Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)** with your Anthropic account.<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Amazon Bedrock**<br>*Available only to customers with Enterprise Frontier Safeguards.*
+​<br>**OR**
+​<br>**Claude Platform on AWS** | Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)**. If you don't have an Anthropic account, create one. It's free and doesn’t require billing information.<br>Open **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, select "Link account" and choose "Amazon Web Services." Enter your 12-digit AWS account ID, create the verification role in that account using the portal's launch link or command, select "I've granted access," then "Verify." Link your Claude Platform on AWS account IDs before linking your Bedrock Account IDs.<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."<br>If you’ve created a new Anthropic account, you’ll need to link to your AWS account before applying for the program. |
+| **Claude on Google Cloud**                                                                                                               | Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)**. If you don't have an Anthropic account, create one. It's free and doesn’t require billing information.<br>Open **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, select "Link account" and choose "Google Cloud." Enter your project ID (not the project number), run the gcloud command shown, select "I've granted access," then "Verify."<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."<br>If you’ve created a new Anthropic account, you’ll need to link to your GCP account before applying for the program.                                                                                                                                            |
+| **Microsoft Foundry**                                                                                                                    | Before you start, deploy a Claude model in Foundry.<br>     Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)**. If you don't have an Anthropic account, create one. It's free and doesn’t require billing information.<br>Open **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, select "Link account" and choose "Azure." Enter your subscription ID and directory (tenant) ID, run the commands shown, select "I've granted access," then "Verify."<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."<br>If you’ve created a new Anthropic account, you’ll need to link to your Azure account before applying for the program.<br>                                                                                 |
+| **Third-party platform**
+(coding tools and other apps powered by Claude)                                                              | Ask your platform for an Anthropic enrollment link. This works only on platforms that support the Cyber Verification Program.<br>Open the link and sign in to the **[Verification Portal](https://portal.anthropic.com/programs)** with your Anthropic account. If you don't have one, create one. It's free and doesn’t require billing information. Then select "Link profile." Links expire quickly, and you can't link a platform from the Linked accounts page.<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."<br>Defense Access and Red Team Access only. Specialized Access is not available through third-party platforms.                                                                                                                                |
+
+## Once you're approved
+
+- The **[Usage Policy](https://www.anthropic.com/legal/aup)** still applies in full.
+
+- Building a client-facing product on these capabilities is governed separately by our Cyber Productization Policy. The Productization application will become available to users in CVP shortly.
+
+- We may review, narrow, or withdraw a grant.
+
+## Security controls and requirements
+
+Each access level has its own security requirements. The security requirements for each tier are outlined in detail in the **[CVP Security Requirements Help Center article](https://support.claude.com/en/articles/17202708)**. For existing CVP customers, your current access and corresponding security requirements are not impacted and stay under your current terms.
+
+**Defense Access will have until *December 15, 2026* to adopt phishing-resistant multi-factor authentication and to stop using API keys.** Until then, multi-factor authentication of some kind is required, and API keys will expire every seven days. We recommend migrating now to using **[Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation)**.
+
+## Provisioning access using your Grants
+
+After your application has been approved, the steps to provision access to your Grants vary depending on how you access Claude.
+
+| **How you access Claude**                                                              | **Action required by Organization Owner**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Console / API Organizations                                                     | **[Assign a program to workspaces](https://support.claude.com/en/articles/16764810-assign-a-program-to-workspaces-in-claude-console)**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Claude Enterprise                                                                      | **[Assign a program to a custom role](https://support.claude.com/en/articles/17118092)**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Claude Team / Max / Pro                                                                | No action required (the Program attaches at the Organization level)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| Amazon Bedrock<br>**Available only to customers with Enterprise Frontier Safeguards.** | If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your AWS account. Then open the **Cyber Verification Program** page and, under **Access** on linked accounts, turn on your approved access level for that account. Changes can take some time to reach the account.<br>If you have a committed contract with Anthropic, your account team will send a short form to link this AWS account to your contract. Complete the form, then accept the private offer in the AWS Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                               |
+| Claude Platform on AWS                                                                 | If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your AWS account. No further action: your approved access applies to every workspace.<br>If you have a committed contract with Anthropic, your account team will send a short form to link this AWS account to your contract. Complete the form, then accept the private offer in the AWS Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                                                                                                                                                             |
+| Claude Platform on Google Cloud                                                        | If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your Google Cloud project. No further action: your approved access applies to every workspace.<br>If your organization has a committed contract with Anthropic, your account team will send you a short form to link this Google Cloud billing account to your contract. Complete the form, then accept the private offer in Google Cloud Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                                                                                                             |
+| Google Cloud Agent Platform                                                            | If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your Google Cloud project. Then open the **Cyber Verification Program** page and, under **Access** on linked accounts, turn on your approved access level for that project. Data sharing must be enabled for your project.<br>If your organization has a committed contract with Anthropic, your account team will send you a short form to link this Google Cloud billing account to your contract. Complete the form, then accept the private offer in Google Cloud Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days. |
+| Microsoft Foundry                                                                      | For Microsoft Foundry, deploy a Claude model first.<br>If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your Azure subscription (you'll need the subscription ID and directory (tenant) ID). No further action: your approved access applies to every workspace.<br>If your organization has a committed contract with Anthropic, your account team will send you a short form to link this Azure account to your contract. Complete the form, then accept the private offer in Azure Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                  |
+| Third-party platform                                                                   | Open the **Cyber Verification Program page** and, under **Access** on **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, turn on your approved access level for that platform profile.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+
+## **Existing members**
+
+If your organization was previously enrolled in Project Glasswing or CVP, you don't need to apply again to join the updated CVP program. Your existing access to the models you use today via Project Glasswing or CVP will keep working under your existing terms, and you'll be transitioned to the relevant new program tier for Claude Opus 5.5, Claude Sonnet 5.5, and Claude Mythos 5.1.
+
+The Cyber Verification Program requires data retention, which enables us to monitor for harmful cyber misuse in the program and detect bad actors. Once Enterprise Frontier Safeguards (EFS) is available, eligible organizations will be able to store data in cloud infrastructure they control. To register interest in EFS, fill out **[this form](https://claude.com/form/enterprise-frontier-safeguards)**.
+
+In the meantime, organizations with a data retention exemption for Claude Fable or Claude Mythos models can also use CVP with zero data retention (ZDR) on all supported models. Until EFS is available, if your organization has access to Claude Fable or Claude Mythos with ZDR, you can also use CVP with ZDR.
+
+## If you’re not approved for a tier
+
+The Cyber Verification Program is designed to get advanced cyber capabilities to defenders as widely as we responsibly can. Access depends on a number of factors, including the work an organization does, our ability to verify who it is, and the security controls it has in place.
+
+### Why might an organization not have access?
+
+Eligibility reflects a range of factors, including one or more of the following:
+
+1. **The nature of the work.** The program is built for defense. Organizations whose main business falls outside that scope may not be eligible.
+
+2. **Verification.** We need to be able to confirm who an organization is and what it does.
+
+3. **The environment an organization operates in.** We consider the legal and regulatory environment, the risk that advanced capabilities could be diverted, and the risk that access could be compelled.
+
+4. **Who the work is ultimately for.** The risk that capabilities are passed on or repurposed is higher where an organization primarily serves military, intelligence, or law enforcement customers. We take a more cautious approach in those cases.
+
+5. **The tier applied for.** Requirements rise with the level of access. For Specialized Access, every organization is reviewed in depth in collaboration with the US government. Existing members of Project Glasswing will transition to this tier and don't require reapproval for current models. We continue to work with the US government to expand the number of eligible organizations, both in the US and internationally.
+
+## FAQ
+
+### Can I apply as an individual?
+
+Yes, for Defense Access, on a paid plan. Red Team Access and Specialized Access tiers are for organizations only.
+
+### My organization has a grant, but I'm still blocked
+
+Check that your admin has provisioned you access to the relevant CVP grant(s). If using a Claude Console account, ensure you're in the correct Workspace and that the activity falls inside your tier.
+
+### Why is CVP on Amazon Bedrock only available to customers with Enterprise Frontier Safeguards?
+
+Amazon Bedrock does not yet support human review of automated safety flags, which CVP requires by default. As a result, on Bedrock, CVP is only available to organizations that have a data retention exemption for Fable 5.1; those customers can also use CVP with ZDR and will be eligible to use CVP with Enterprise Frontier Safeguards once available. We're working to expand CVP to all customers on Bedrock.
+
+### I’m approved, why can’t I access Mythos on my preferred Cloud provider?
+
+Access to Mythos on third-party cloud providers will trail approval by approximately five business days.
+
+### How do usage limits for Mythos 5.1 work?
+
+On Pro and Max plans, Mythos 5.1 follows the same usage rules as Fable 5.1.
+
+- For Pro plans, Mythos 5.1 is available only with usage credits. It doesn’t draw on your plan’s included usage, so you’ll need usage credits turned on to use it.
+
+- For Max plans, Mythos 5.1 and Fable share a single allowance of up to 50% of your weekly usage limit, not a separate allowance for each model. This usage also counts toward your plan's regular usage limits. Once the shared allowance is used up, you can keep using Mythos 5.1 or Fable with usage credits (if you have them turned on), or switch to another model.

@@ -79,7 +79,7 @@ The **Connect workload** wizard creates all three resources (the issuer, the ser
   </Step>
 </Steps>
 
-To manage these resources programmatically, see [Manage WIF with the Admin API](https://platform.claude.com/docs/en/manage-claude/wif-admin-api) for the curl walkthrough, or see the [Service accounts API reference](https://platform.claude.com/docs/en/api/beta/organization/service_accounts), [Federation issuers API reference](https://platform.claude.com/docs/en/api/beta/organization/federation/issuers), and [Federation rules API reference](https://platform.claude.com/docs/en/api/beta/organization/federation/rules) for complete parameter details and response schemas.
+To manage these resources programmatically, see [Manage WIF with the Admin API](https://platform.claude.com/docs/en/manage-claude/wif-admin-api) for the curl walkthrough, or see the [Service accounts API reference](https://platform.claude.com/docs/en/api/organization/service_accounts), [Federation issuers API reference](https://platform.claude.com/docs/en/api/organization/federation/issuers), and [Federation rules API reference](https://platform.claude.com/docs/en/api/organization/federation/rules) for complete parameter details and response schemas.
 
 ## Authenticate from your workload
 

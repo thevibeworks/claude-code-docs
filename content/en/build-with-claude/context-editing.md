@@ -46,12 +46,12 @@ The `clear_thinking_20251015` strategy manages `thinking` blocks in conversation
 <Tip>
   **Default behavior:** The default varies by model class.
 
-  | Model class      | Keep all prior thinking     | Keep only the last turn's thinking  |
-  | ---------------- | --------------------------- | ----------------------------------- |
-  | Opus             | Claude Opus 4.5 and later   | Claude Opus 4.1 and earlier         |
-  | Sonnet           | Claude Sonnet 4.6 and later | Claude Sonnet 4.5 and earlier       |
-  | Haiku            | (none)                      | All models through Claude Haiku 4.5 |
-  | Fable and Mythos | All models                  | (none)                              |
+  | Model class      | Keep all prior thinking     | Keep only the last turn's thinking         |
+  | ---------------- | --------------------------- | ------------------------------------------ |
+  | Opus             | Claude Opus 4.5 and later   | Claude Opus 4.1 and earlier                |
+  | Sonnet           | Claude Sonnet 4.6 and later | Claude Sonnet 4.5 (deprecated) and earlier |
+  | Haiku            | (none)                      | All models through Claude Haiku 4.5        |
+  | Fable and Mythos | All models                  | (none)                                     |
 
   Use this strategy to override the default. If your code runs across multiple model tiers, set `keep` explicitly rather than relying on the per-model default.
 </Tip>

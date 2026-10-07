@@ -416,7 +416,9 @@ Supported package managers:
 
 ### Networking
 
-The `networking` field controls the sandbox's outbound network access. It does not affect the `web_search` or `web_fetch` tools, which run on Anthropic's servers; to restrict the sites those tools can reach, set `allowed_domains` or `blocked_domains` on the tool's entry in the agent toolset. See [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
+The `networking` field controls the sandbox's outbound network access.
+
+With `limited` networking, `allowed_hosts` also applies to the `web_search` and `web_fetch` tools, which run on Anthropic's servers. A `web_fetch` call for a URL on a host that `allowed_hosts` does not match returns an error result to the agent. `web_search` omits results from hosts that `allowed_hosts` does not match. `allow_package_managers` and `allow_mcp_servers` add no hosts for these tools. When `allowed_hosts` lists no hosts, no `web_fetch` or `web_search` call returns a page or a search result. A host that you add to `allowed_hosts` for these tools is also open to the sandbox. `unrestricted` networking and self-hosted environments do not limit these tools. To restrict them further, set `allowed_domains` or `blocked_domains` on the tool's entry in the agent toolset. See [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
 
 | Mode           | Description                                                                                                                                                                                                                              |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -642,7 +644,7 @@ To reduce these risks, use `limited` networking with an explicit list of hosts. 
 }
 ```
 
-An agent that only uses the `web_search` and `web_fetch` tools does not need `unrestricted` networking if you can list the sites it needs. [Networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) says when `allowed_hosts` applies to those tools. Where it does, list those sites in `allowed_hosts`. Listing them in `web_search`'s `allowed_domains` too makes it search those sites. A host that you add to `allowed_hosts` is also open to the sandbox. To restrict the tools further, see [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
+An agent that only uses the `web_search` and `web_fetch` tools does not need `unrestricted` networking if you can list the sites it needs. With `limited` networking, `allowed_hosts` also applies to those tools (see [Networking](https://platform.claude.com/docs/en/managed-agents/environments#networking)), so list those sites in `allowed_hosts`. Listing them in `web_search`'s `allowed_domains` too makes it search those sites. A host that you add to `allowed_hosts` is also open to the sandbox. To restrict the tools further, see [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
 
 Use `unrestricted` only when the agent must reach sites you cannot list in advance. In that case, keep secrets and sensitive files out of the sandbox, and give the agent only the credentials the task needs. Consider setting the `bash` tool's permission policy to `always_ask` or `auto`, and [watch the session's events](https://platform.claude.com/docs/en/managed-agents/events-and-streaming).
 

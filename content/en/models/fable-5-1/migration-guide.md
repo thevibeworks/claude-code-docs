@@ -1,7 +1,7 @@
 ---
-title: Migrating to Claude Fable 5.1 and Claude Mythos 5.1
+title: Claude Fable 5.1 and Claude Mythos 5.1 migration guide
 url: https://platform.claude.com/docs/en/models/fable-5-1/migration-guide
-description: "Migrate to Claude Fable 5.1 and Claude Mythos 5.1 from Claude Fable 5, Claude Mythos 5, Claude Opus 5, or Claude Opus 4.8: model IDs, breaking changes, and migration checklists."
+description: Switch to Claude Fable 5.1 and Claude Mythos 5.1 from Claude Fable 5, Claude Mythos 5, Claude Opus 5, or Claude Opus 4.8 with this migration guide. The guidance to enable Claude Fable 5.1 and Claude Mythos 5.1 includes model IDs, breaking changes, and migration checklists.
 ---
 
 <Note>
@@ -22,7 +22,7 @@ description: "Migrate to Claude Fable 5.1 and Claude Mythos 5.1 from Claude Fabl
 
 The baseline settings shared by `claude-fable-5-1` and `claude-mythos-5-1`:
 
-* **Thinking:** [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is always on, unchanged from Claude Fable 5. The model decides when and how much to think. No `thinking` configuration is required. Both `thinking: {type: "disabled"}` and manual extended thinking (`thinking: {type: "enabled", budget_tokens: N}`) return a 400 error.
+* **Thinking:** [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is always on, unchanged from Claude Fable 5. The model determines when and how much to think. No `thinking` configuration is required. Both `thinking: {type: "disabled"}` and manual extended thinking (`thinking: {type: "enabled", budget_tokens: N}`) return a 400 error.
 * **Prefill:** Prefilling the assistant message returns a 400 error, unchanged from Claude Fable 5. Use system prompt instructions instead.
 * **Tool choice:** `{type: "auto"}` (the default) and `{type: "none"}` are supported. Forcing a tool call with `{type: "any"}` or `{type: "tool", name: "..."}` returns a 400 error. See [Breaking changes](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-breaking-changes).
 * **Preserved thinking across models:** Claude Fable 5.1 reads thinking blocks from Claude Opus 5, Claude Fable 5, Claude Mythos 5, and earlier Claude models. None of those models can read Claude Fable 5.1's blocks. See [Breaking changes](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-breaking-changes).
@@ -1574,7 +1574,7 @@ model = "claude-mythos-5-1"  # After
 
 ## Migrating to Claude Fable 5.1 from Claude Opus 4.8 or earlier
 
-First apply [Migrating to Claude Mythos 5 and Claude Fable 5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/fable-5/migration-guide#migrating-from-claude-opus-48) for the API-level changes from Claude Opus 4.8. It covers adaptive thinking, thinking output, refusals, effort, the caching minimum, pricing, and data retention. Then apply the remaining delta in [Migrating to Claude Fable 5.1 from Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1). On Claude Opus 4.7 or earlier, start with the matching [Migrating to Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide) section.
+First apply [Migrating to Claude Mythos 5 and Claude Fable 5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/fable-5/migration-guide#migrating-from-claude-opus-48) for the API-level changes from Claude Opus 4.8. It covers adaptive thinking, thinking output, refusals, effort, the caching minimum, pricing, and data retention. Then apply the remaining delta in [Migrating to Claude Fable 5.1 from Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1). On Claude Opus 4.7 or earlier, start with the matching [Claude Opus 5.5 migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide) section.
 
 ### Update your model name
 

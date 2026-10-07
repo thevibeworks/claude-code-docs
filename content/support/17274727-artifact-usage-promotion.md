@@ -1,8 +1,10 @@
 # Artifact usage promotion
 
+**Update (October 7, 2026):** Free plans are now included in this promotion.
+
 For a limited time, when you create or edit an artifact in Claude or Claude Cowork, a portion of the work that follows uses 50% less of your five-hour session limit. After the discount period ends, messages count at the standard rate until Claude creates or edits an artifact again, which restarts the count. The promotion runs from October 1, 2026 through October 15, 2026 and applies automatically.
 
-This promotion is available on Pro, Max, and Team plans. It isn’t available on Free or Enterprise plans.
+This promotion is available on Pro, Max, and Team plans starting October 1, 2026, and on Free plans starting October 7, 2026. It ends October 15, 2026 for all plans. It isn’t available on Enterprise plans.
 
 ## How it works
 
@@ -60,9 +62,13 @@ For Cowork tasks, if you start a new task by choosing Document, Presentation, or
 
 No. Messages that use usage credits are billed at the standard rate.
 
-### I’m on a Free or Enterprise plan. Am I included?
+### I’m on a Free plan. Am I included?
 
-No. This promotion is available on Pro, Max, and Team plans only. Free plans and all Enterprise plans, including seat-based and usage-based Enterprise plans, aren’t included.
+Yes, starting October 7, 2026. The discount works the same way as it does on paid plans and ends October 15, 2026. Usage before October 7 isn’t discounted.
+
+### I’m on an Enterprise plan. Am I included?
+
+No. All Enterprise plans, including seat-based and usage-based Enterprise plans, aren’t included.
 
 ### Does this apply to Claude Code?
 
@@ -70,7 +76,7 @@ No. This promotion applies only to artifacts, including docs, slides, and design
 
 ## Terms and conditions
 
-This offer is valid from October 1, 2026 at 11:00 AM PT through October 15, 2026 at 11:59 PM PT. It applies to Pro, Max, and Team plans only, and excludes Free plans and all Enterprise plans, including seat-based and usage-based Enterprise plans.
+This offer is valid from October 1, 2026 at 11:00 AM PT through October 15, 2026 at 11:59 PM PT for Pro, Max, and Team plans, and from October 7, 2026 at 10:00 AM PT through October 15, 2026 at 11:59 PM PT for Free plans. It excludes all Enterprise plans, including seat-based and usage-based Enterprise plans.
 
 This promotion reduces the usage counted toward your five-hour session limit by 50% and doesn't change your weekly usage limit. In chats in Claude, the discount covers the next 10 messages after Claude creates or edits an artifact, and only the first 15 steps of each reply. In Cowork tasks in the cloud, including tasks moved into a Workspace, the discount covers about the first 45 minutes of a task you start by choosing Document, Presentation, or Design, or up to the next 80 steps after Claude creates or edits an artifact in any other task. Creating or editing another artifact restarts the discount.
 

@@ -75,7 +75,7 @@ To get the best performance out of Claude when using tools, follow these guideli
   * What the tool does
   * When it should be used (and when it shouldn't)
   * What each parameter means and how it affects the tool's behavior
-  * Any important caveats or limitations, such as what information the tool does not return if the tool name is unclear. The more context you can give Claude about your tools, the better it will be at deciding when and how to use them. Aim for at least 3–4 sentences for each tool description, more if the tool is complex.
+  * Any important caveats or limitations, such as what information the tool does not return if the tool name is unclear. The more context you can give Claude about your tools, the better it will be at determining when and how to use them. Aim for at least 3–4 sentences for each tool description, more if the tool is complex.
 
 * **Prioritize descriptions, but consider using `input_examples` for complex tools.** Clear descriptions are most important, but for tools with complex inputs, nested objects, or format-sensitive parameters, you can use the `input_examples` field to provide schema-validated examples. See [Providing tool use examples](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools#providing-tool-use-examples) for details.
 
@@ -844,7 +844,7 @@ On models that support it, the highlighted lines are the only difference from a 
 
 When working with the `tool_choice` parameter, there are four possible options:
 
-* `auto` allows Claude to decide whether to call any provided tools or not. This is the default value when `tools` are provided.
+* `auto` allows Claude to determine whether to call any provided tools or not. This is the default value when `tools` are provided.
 * `any` tells Claude that it must use one of the provided tools, but doesn't force a particular tool.
 * `tool` forces Claude to always use a particular tool.
 * `none` prevents Claude from using any tools. This is the default value when no `tools` are provided.
