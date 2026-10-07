@@ -17,19 +17,19 @@ List work items in an environment.
 
 - `WorkListParams params`
 
-  - `Optional<String> environmentId`
+  - `Optional<String> environmentId` (path parameter)
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     Maximum number of work items to return
 
     minimum: 1, maximum: 1000
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque cursor from previous response for pagination
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 

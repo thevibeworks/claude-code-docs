@@ -15,37 +15,37 @@ List Events
 
 ### Parameters
 
-- `session_id: str`
+- `session_id: str` (path parameter)
 
-- `created_at_gt: Optional[Union[str, datetime]]`
+- `created_at_gt: Optional[Union[str, datetime]]` (query parameter)
 
   Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `created_at_gte: Optional[Union[str, datetime]]`
+- `created_at_gte: Optional[Union[str, datetime]]` (query parameter)
 
   Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `created_at_lt: Optional[Union[str, datetime]]`
+- `created_at_lt: Optional[Union[str, datetime]]` (query parameter)
 
   Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `created_at_lte: Optional[Union[str, datetime]]`
+- `created_at_lte: Optional[Union[str, datetime]]` (query parameter)
 
   Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   format: int32
 
-- `order: Optional[Literal["asc", "desc"]]`
+- `order: Optional[Literal["asc", "desc"]]` (query parameter)
 
   Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
@@ -53,11 +53,11 @@ List Events
 
   - `"desc"`
 
-- `page: Optional[str]`
+- `page: Optional[str]` (query parameter)
 
   Opaque pagination cursor from a previous response's `next_page`.
 
-- `types: Optional[List[BetaManagedAgentsSessionEventType]]`
+- `types: Optional[List[BetaManagedAgentsSessionEventType]]` (query parameter)
 
   Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
@@ -129,7 +129,7 @@ List Events
 
   - `"session.usage"`
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -235,7 +235,7 @@ List Events
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2721,7 +2721,7 @@ Send Events
 
 ### Parameters
 
-- `session_id: str`
+- `session_id: str` (path parameter)
 
 - `events: Iterable[BetaManagedAgentsEventParams]`
 
@@ -3085,7 +3085,7 @@ Send Events
 
         minLength: 1
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -3191,7 +3191,7 @@ Send Events
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3701,9 +3701,9 @@ Stream Events
 
 ### Parameters
 
-- `session_id: str`
+- `session_id: str` (path parameter)
 
-- `event_deltas: Optional[List[BetaManagedAgentsDeltaType]]`
+- `event_deltas: Optional[List[BetaManagedAgentsDeltaType]]` (query parameter)
 
   When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
@@ -3711,7 +3711,7 @@ Stream Events
 
   - `"agent.thinking"`
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -3817,7 +3817,7 @@ Stream Events
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

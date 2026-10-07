@@ -13,17 +13,17 @@ Send Events
 
 ## Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
 - `events: list<ManagedAgentsEventParams>`
 
   Events to send to the `session`.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

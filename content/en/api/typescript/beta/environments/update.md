@@ -13,13 +13,13 @@ Update an existing environment's configuration.
 
 ## Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: EnvironmentUpdateParams`
 
   - `config?: BetaCloudConfigParams | BetaSelfHostedConfigParams | null`
 
-    Body param: Updated environment configuration
+    Updated environment configuration
 
     - `interface BetaCloudConfigParams`
 
@@ -111,31 +111,31 @@ Update an existing environment's configuration.
 
   - `description?: string | null`
 
-    Body param: Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+    Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
     maxLength: 1024
 
   - `metadata?: Record<string, string | null>`
 
-    Body param: User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
+    User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
   - `name?: string | null`
 
-    Body param: Updated name for the environment
+    Updated name for the environment
 
     minLength: 1, maxLength: 256
 
   - `scope?: "organization" | "account" | null`
 
-    Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
+    The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
     - `"organization"`
 
     - `"account"`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -239,9 +239,9 @@ Update an existing environment's configuration.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

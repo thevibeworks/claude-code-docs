@@ -17,55 +17,51 @@ List Events
 
 - `EventListParams parameters`
 
-  - `required string sessionID`
+  - `required string sessionID` (path parameter)
 
-    Path param
+  - `DateTimeOffset createdAtGt` (query parameter)
 
-  - `DateTimeOffset createdAtGt`
-
-    Query param: Return events created after this time (exclusive). Compared against the event's `processed_at` value.
+    Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `DateTimeOffset createdAtGte`
+  - `DateTimeOffset createdAtGte` (query parameter)
 
-    Query param: Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
-
-    format: date-time
-
-  - `DateTimeOffset createdAtLt`
-
-    Query param: Return events created before this time (exclusive). Compared against the event's `processed_at` value.
+    Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `DateTimeOffset createdAtLte`
+  - `DateTimeOffset createdAtLt` (query parameter)
 
-    Query param: Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
+    Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `int limit`
+  - `DateTimeOffset createdAtLte` (query parameter)
 
-    Query param
+    Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
+
+    format: date-time
+
+  - `int limit` (query parameter)
 
     format: int32
 
-  - `Order order`
+  - `Order order` (query parameter)
 
-    Query param: Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
+    Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
     - `Asc("asc")`
 
     - `Desc("desc")`
 
-  - `string page`
+  - `string page` (query parameter)
 
-    Query param: Opaque pagination cursor from a previous response's `next_page`.
+    Opaque pagination cursor from a previous response's `next_page`.
 
-  - `IReadOnlyList<BetaManagedAgentsSessionEventType> types`
+  - `IReadOnlyList<BetaManagedAgentsSessionEventType> types` (query parameter)
 
-    Query param: Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
+    Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
     - `UserMessage("user.message")`
 
@@ -135,9 +131,9 @@ List Events
 
     - `SessionUsage("session.usage")`
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -239,9 +235,9 @@ List Events
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2722,13 +2718,11 @@ Send Events
 
 - `EventSendParams parameters`
 
-  - `required string sessionID`
-
-    Path param
+  - `required string sessionID` (path parameter)
 
   - `required IReadOnlyList<BetaManagedAgentsEventParams> events`
 
-    Body param: Events to send to the `session`.
+    Events to send to the `session`.
 
     - `class BetaManagedAgentsUserMessageEventParams`
 
@@ -3088,9 +3082,9 @@ Send Events
 
           minLength: 1
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -3192,9 +3186,9 @@ Send Events
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -3704,21 +3698,19 @@ Stream Events
 
 - `EventStreamParams parameters`
 
-  - `required string sessionID`
+  - `required string sessionID` (path parameter)
 
-    Path param
+  - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas` (query parameter)
 
-  - `IReadOnlyList<BetaManagedAgentsDeltaType> eventDeltas`
-
-    Query param: When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
+    When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
     - `AgentMessage("agent.message")`
 
     - `AgentThinking("agent.thinking")`
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -3820,9 +3812,9 @@ Stream Events
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

@@ -15,21 +15,21 @@ Retrieve a memory version
 
 - `MemoryVersionRetrieveParams parameters`
 
-  - `required string memoryStoreID`
+  - `required string memoryStoreID` (path parameter)
 
-    Path param: The ID of the memory store that holds the version (`memstore_...`).
+    The ID of the memory store that holds the version (`memstore_...`).
 
-  - `required string memoryVersionID`
+  - `required string memoryVersionID` (path parameter)
 
-    Path param: The ID of the memory version to retrieve (`memver_...`).
+    The ID of the memory version to retrieve (`memver_...`).
 
-  - `BetaManagedAgentsMemoryView view`
+  - `BetaManagedAgentsMemoryView view` (query parameter)
 
-    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+    Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -131,9 +131,9 @@ Retrieve a memory version
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

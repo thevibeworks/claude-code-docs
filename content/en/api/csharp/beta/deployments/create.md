@@ -17,7 +17,7 @@ Create Deployment
 
   - `required Agent agent`
 
-    Body param: Agent to deploy. Accepts the `agent` ID string, which pins the latest version, or an `agent` object with both id and version specified. The agent must exist and not be archived.
+    Agent to deploy. Accepts the `agent` ID string, which pins the latest version, or an `agent` object with both id and version specified. The agent must exist and not be archived.
 
     - `string`
 
@@ -41,13 +41,13 @@ Create Deployment
 
   - `required string environmentID`
 
-    Body param: ID of the `environment` defining the container configuration for sessions created from this deployment.
+    ID of the `environment` defining the container configuration for sessions created from this deployment.
 
     minLength: 1, maxLength: 128
 
   - `required IReadOnlyList<BetaManagedAgentsDeploymentInitialEventParams> initialEvents`
 
-    Body param: Events to send to each session immediately after creation. At least 1, maximum 50.
+    Events to send to each session immediately after creation. At least 1, maximum 50.
 
     - `class BetaManagedAgentsUserMessageEventParams`
 
@@ -267,27 +267,27 @@ Create Deployment
 
   - `required string name`
 
-    Body param: Human-readable name for the deployment.
+    Human-readable name for the deployment.
 
     minLength: 1, maxLength: 256
 
   - `BetaManagedAgentsBudgetLimit? budget`
 
-    Body param: Enforced spend ceiling stamped onto each session created from this deployment, copied at session-creation time. Omit to leave sessions uncapped. The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
+    Enforced spend ceiling stamped onto each session created from this deployment, copied at session-creation time. Omit to leave sessions uncapped. The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
   - `string? description`
 
-    Body param: Description of what the deployment does.
+    Description of what the deployment does.
 
     maxLength: 2048
 
   - `IReadOnlyDictionary<string, string> metadata`
 
-    Body param: Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
   - `IReadOnlyList<Resource> resources`
 
-    Body param: Resources (e.g. repositories, files) to mount into each session's container. Maximum 500.
+    Resources (e.g. repositories, files) to mount into each session's container. Maximum 500.
 
     - `class BetaManagedAgentsGitHubRepositoryResourceParams`
 
@@ -381,15 +381,15 @@ Create Deployment
 
   - `BetaManagedAgentsScheduleParams? schedule`
 
-    Body param: Optional recurring cron schedule. When present, the deployment fires automatically. Both expression and timezone are required when schedule is set.
+    Optional recurring cron schedule. When present, the deployment fires automatically. Both expression and timezone are required when schedule is set.
 
   - `IReadOnlyList<string> vaultIds`
 
-    Body param: Vault IDs for stored credentials the agent can use during sessions created from this deployment. Maximum 50.
+    Vault IDs for stored credentials the agent can use during sessions created from this deployment. Maximum 50.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -491,9 +491,9 @@ Create Deployment
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

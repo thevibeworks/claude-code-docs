@@ -15,25 +15,25 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 ## Parameters
 
-- `tunnel_id: String`
+- `tunnel_id: String` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `include_archived: bool`
+- `include_archived: bool` (query parameter)
 
   Whether to include archived certificates in the results. Defaults to false.
 
-- `limit: Integer`
+- `limit: Integer` (query parameter)
 
   Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
   format: int32
 
-- `page: String`
+- `page: String` (query parameter)
 
   Opaque pagination cursor from a previous `list_tunnel_certificates` response.
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -139,7 +139,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `:"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

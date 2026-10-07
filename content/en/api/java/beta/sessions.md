@@ -17,7 +17,7 @@ Create Session
 
 - `SessionCreateParams params`
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -121,7 +121,7 @@ Create Session
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2266,59 +2266,59 @@ List Sessions
 
 - `SessionListParams params`
 
-  - `Optional<String> agentId`
+  - `Optional<String> agentId` (query parameter)
 
     Filter sessions created with this agent ID.
 
-  - `Optional<Long> agentVersion`
+  - `Optional<Long> agentVersion` (query parameter)
 
     Filter by agent version. Only applies when `agent_id` is also set.
 
     format: int32
 
-  - `Optional<LocalDateTime> createdAtGt`
+  - `Optional<LocalDateTime> createdAtGt` (query parameter)
 
     Return sessions created after this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtGte`
+  - `Optional<LocalDateTime> createdAtGte` (query parameter)
 
     Return sessions created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLt`
+  - `Optional<LocalDateTime> createdAtLt` (query parameter)
 
     Return sessions created before this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte`
+  - `Optional<LocalDateTime> createdAtLte` (query parameter)
 
     Return sessions created at or before this time (inclusive).
 
     format: date-time
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (query parameter)
 
     Filter sessions created by this deployment ID.
 
-  - `Optional<Boolean> includeArchived`
+  - `Optional<Boolean> includeArchived` (query parameter)
 
     When true, includes archived sessions. Default: false (exclude archived).
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     Maximum number of results to return.
 
     format: int32
 
-  - `Optional<String> memoryStoreId`
+  - `Optional<String> memoryStoreId` (query parameter)
 
     Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
-  - `Optional<Order> order`
+  - `Optional<Order> order` (query parameter)
 
     Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
@@ -2326,11 +2326,11 @@ List Sessions
 
     - `DESC("desc")`
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque pagination cursor from a previous response.
 
-  - `Optional<List<Status>> statuses`
+  - `Optional<List<Status>> statuses` (query parameter)
 
     Filter by session status. Repeat the parameter to match any of multiple statuses.
 
@@ -2350,7 +2350,7 @@ List Sessions
 
       Session has ended, either due to an error or completion.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -2454,7 +2454,7 @@ List Sessions
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3587,9 +3587,9 @@ Get Session
 
 - `SessionRetrieveParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -3693,7 +3693,7 @@ Get Session
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4820,9 +4820,9 @@ Update Session
 
 - `SessionUpdateParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -4926,7 +4926,7 @@ Update Session
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -6075,9 +6075,9 @@ Delete Session
 
 - `SessionDeleteParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -6181,7 +6181,7 @@ Delete Session
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -6239,9 +6239,9 @@ Archive Session
 
 - `SessionArchiveParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -6345,7 +6345,7 @@ Archive Session
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -12252,37 +12252,37 @@ List Events
 
 - `EventListParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<LocalDateTime> createdAtGt`
+  - `Optional<LocalDateTime> createdAtGt` (query parameter)
 
     Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtGte`
+  - `Optional<LocalDateTime> createdAtGte` (query parameter)
 
     Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLt`
+  - `Optional<LocalDateTime> createdAtLt` (query parameter)
 
     Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte`
+  - `Optional<LocalDateTime> createdAtLte` (query parameter)
 
     Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     format: int32
 
-  - `Optional<Order> order`
+  - `Optional<Order> order` (query parameter)
 
     Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
@@ -12290,11 +12290,11 @@ List Events
 
     - `DESC("desc")`
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque pagination cursor from a previous response's `next_page`.
 
-  - `Optional<List<BetaManagedAgentsSessionEventType>> types`
+  - `Optional<List<BetaManagedAgentsSessionEventType>> types` (query parameter)
 
     Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
@@ -12366,7 +12366,7 @@ List Events
 
     - `SESSION_USAGE("session.usage")`
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -12470,7 +12470,7 @@ List Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -14959,9 +14959,9 @@ Send Events
 
 - `EventSendParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -15065,7 +15065,7 @@ Send Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -15942,9 +15942,9 @@ Stream Events
 
 - `EventStreamParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<List<BetaManagedAgentsDeltaType>> eventDeltas`
+  - `Optional<List<BetaManagedAgentsDeltaType>> eventDeltas` (query parameter)
 
     When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
@@ -15952,7 +15952,7 @@ Stream Events
 
     - `AGENT_THINKING("agent.thinking")`
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -16056,7 +16056,7 @@ Stream Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -18582,9 +18582,9 @@ Add Session Resource
 
 - `ResourceAddParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -18688,7 +18688,7 @@ Add Session Resource
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -18776,19 +18776,19 @@ List Session Resources
 
 - `ResourceListParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
 
     format: int32
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque cursor from a previous response's `next_page` field.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -18892,7 +18892,7 @@ List Session Resources
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -19067,11 +19067,11 @@ Get Session Resource
 
 - `ResourceRetrieveParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> resourceId`
+  - `Optional<String> resourceId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -19175,7 +19175,7 @@ Get Session Resource
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -19343,11 +19343,11 @@ Update Session Resource
 
 - `ResourceUpdateParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> resourceId`
+  - `Optional<String> resourceId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -19451,7 +19451,7 @@ Update Session Resource
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -19626,11 +19626,11 @@ Delete Session Resource
 
 - `ResourceDeleteParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> resourceId`
+  - `Optional<String> resourceId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -19734,7 +19734,7 @@ Delete Session Resource
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -19798,19 +19798,19 @@ List Session Threads
 
 - `ThreadListParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     Maximum results per page. Defaults to 1000.
 
     format: int32
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -19914,7 +19914,7 @@ List Session Threads
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -20733,11 +20733,11 @@ Get Session Thread
 
 - `ThreadRetrieveParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> threadId`
+  - `Optional<String> threadId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -20841,7 +20841,7 @@ Get Session Thread
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -21659,11 +21659,11 @@ Archive Session Thread
 
 - `ThreadArchiveParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> threadId`
+  - `Optional<String> threadId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -21767,7 +21767,7 @@ Archive Session Thread
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -22587,17 +22587,17 @@ List Session Thread Events
 
 - `EventListParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> threadId`
+  - `Optional<String> threadId` (path parameter)
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     format: int32
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -22701,7 +22701,7 @@ List Session Thread Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -25194,11 +25194,11 @@ Stream Session Thread Events
 
 - `EventStreamParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> threadId`
+  - `Optional<String> threadId` (path parameter)
 
-  - `Optional<List<BetaManagedAgentsDeltaType>> eventDeltas`
+  - `Optional<List<BetaManagedAgentsDeltaType>> eventDeltas` (query parameter)
 
     When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
@@ -25206,7 +25206,7 @@ Stream Session Thread Events
 
     - `AGENT_THINKING("agent.thinking")`
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -25310,7 +25310,7 @@ Stream Session Thread Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -15,11 +15,11 @@ Create Enrollment URL
 
 - `UserProfileCreateEnrollmentUrlParams params`
 
-  - `Optional<String> userProfileId`
+  - `Optional<String> userProfileId` (path parameter)
 
     The ID of the user profile to create an enrollment URL for (`uprof_...`).
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -123,7 +123,7 @@ Create Enrollment URL
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

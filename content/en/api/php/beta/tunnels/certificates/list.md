@@ -15,27 +15,27 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 ## Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   Whether to include archived certificates in the results. Defaults to false.
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous `list_tunnel_certificates` response.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

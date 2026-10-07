@@ -19,13 +19,13 @@ Create a new environment with the specified configuration.
 
   - `name: string`
 
-    Body param: Human-readable name for the environment
+    Human-readable name for the environment
 
     minLength: 1, maxLength: 256
 
   - `config?: BetaCloudConfigParams | BetaSelfHostedConfigParams | null`
 
-    Body param: Environment configuration
+    Environment configuration
 
     - `interface BetaCloudConfigParams`
 
@@ -117,25 +117,25 @@ Create a new environment with the specified configuration.
 
   - `description?: string | null`
 
-    Body param: Optional description of the environment
+    Optional description of the environment
 
     maxLength: 1024
 
   - `metadata?: Record<string, string>`
 
-    Body param: User-provided metadata key-value pairs
+    User-provided metadata key-value pairs
 
   - `scope?: "organization" | "account" | null`
 
-    Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
+    The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
 
     - `"organization"`
 
     - `"account"`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -239,9 +239,9 @@ Create a new environment with the specified configuration.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -456,23 +456,23 @@ List environments with pagination support.
 
 - `params: EnvironmentListParams`
 
-  - `include_archived?: boolean`
+  - `include_archived?: boolean` (query parameter)
 
-    Query param: Include archived environments in the response
+    Include archived environments in the response
 
-  - `limit?: number`
+  - `limit?: number` (query parameter)
 
-    Query param: Maximum number of environments to return
+    Maximum number of environments to return
 
     minimum: 1, maximum: 1000
 
-  - `page?: string | null`
+  - `page?: string | null` (query parameter)
 
-    Query param: Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
+    Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -576,9 +576,9 @@ List environments with pagination support.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -795,11 +795,11 @@ Retrieve a specific environment by ID.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: EnvironmentRetrieveParams`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -905,7 +905,7 @@ Retrieve a specific environment by ID.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1120,13 +1120,13 @@ Update an existing environment's configuration.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: EnvironmentUpdateParams`
 
   - `config?: BetaCloudConfigParams | BetaSelfHostedConfigParams | null`
 
-    Body param: Updated environment configuration
+    Updated environment configuration
 
     - `interface BetaCloudConfigParams`
 
@@ -1218,31 +1218,31 @@ Update an existing environment's configuration.
 
   - `description?: string | null`
 
-    Body param: Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+    Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
     maxLength: 1024
 
   - `metadata?: Record<string, string | null>`
 
-    Body param: User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
+    User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
   - `name?: string | null`
 
-    Body param: Updated name for the environment
+    Updated name for the environment
 
     minLength: 1, maxLength: 256
 
   - `scope?: "organization" | "account" | null`
 
-    Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
+    The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
     - `"organization"`
 
     - `"account"`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -1346,9 +1346,9 @@ Update an existing environment's configuration.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1559,11 +1559,11 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: EnvironmentDeleteParams`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1669,7 +1669,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1726,11 +1726,11 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: EnvironmentArchiveParams`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1836,7 +1836,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2516,17 +2516,15 @@ Retrieve detailed information about a specific work item.
 
 #### Parameters
 
-- `workID: string`
+- `workID: string` (path parameter)
 
 - `params: WorkRetrieveParams`
 
-  - `environment_id: string`
+  - `environment_id: string` (path parameter)
 
-    Path param
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-  - `betas?: Array<AnthropicBeta>`
-
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -2630,9 +2628,9 @@ Retrieve detailed information about a specific work item.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2771,25 +2769,25 @@ Long poll for work items in the queue.
 
 #### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: WorkPollParams`
 
-  - `block_ms?: number | null`
+  - `block_ms?: number | null` (query parameter)
 
-    Query param: How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
-
-    minimum: 1
-
-  - `reclaim_older_than_ms?: number | null`
-
-    Query param: Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+    How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
     minimum: 1
 
-  - `betas?: Array<AnthropicBeta>`
+  - `reclaim_older_than_ms?: number | null` (query parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+    minimum: 1
+
+  - `betas?: Array<AnthropicBeta>` (header parameter)
+
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -2893,9 +2891,9 @@ Long poll for work items in the queue.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `"Anthropic-Worker-ID"?: string`
+  - `"Anthropic-Worker-ID"?: string` (header parameter)
 
-    Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
+    Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
 #### Returns
 
@@ -3026,17 +3024,15 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 #### Parameters
 
-- `workID: string`
+- `workID: string` (path parameter)
 
 - `params: WorkAckParams`
 
-  - `environment_id: string`
+  - `environment_id: string` (path parameter)
 
-    Path param
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-  - `betas?: Array<AnthropicBeta>`
-
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -3275,25 +3271,23 @@ Record a heartbeat for a work item to maintain the lease.
 
 #### Parameters
 
-- `workID: string`
+- `workID: string` (path parameter)
 
 - `params: WorkHeartbeatParams`
 
-  - `environment_id: string`
+  - `environment_id: string` (path parameter)
 
-    Path param
+  - `desired_ttl_seconds?: number | null` (query parameter)
 
-  - `desired_ttl_seconds?: number | null`
+    Desired TTL in seconds
 
-    Query param: Desired TTL in seconds
+  - `expected_last_heartbeat?: string | null` (query parameter)
 
-  - `expected_last_heartbeat?: string | null`
+    Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 
-    Query param: Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-  - `betas?: Array<AnthropicBeta>`
-
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -3476,21 +3470,19 @@ Stop a work item, initiating graceful or forced shutdown.
 
 #### Parameters
 
-- `workID: string`
+- `workID: string` (path parameter)
 
 - `params: WorkStopParams`
 
-  - `environment_id: string`
-
-    Path param
+  - `environment_id: string` (path parameter)
 
   - `force?: boolean`
 
-    Body param: If true, immediately stop work without graceful shutdown
+    If true, immediately stop work without graceful shutdown
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -3594,9 +3586,9 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -3735,23 +3727,23 @@ List work items in an environment.
 
 #### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: WorkListParams`
 
-  - `limit?: number`
+  - `limit?: number` (query parameter)
 
-    Query param: Maximum number of work items to return
+    Maximum number of work items to return
 
     minimum: 1, maximum: 1000
 
-  - `page?: string | null`
+  - `page?: string | null` (query parameter)
 
-    Query param: Opaque cursor from previous response for pagination
+    Opaque cursor from previous response for pagination
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -3996,21 +3988,19 @@ Update work item metadata with merge semantics.
 
 #### Parameters
 
-- `workID: string`
+- `workID: string` (path parameter)
 
 - `params: WorkUpdateParams`
 
-  - `environment_id: string`
-
-    Path param
+  - `environment_id: string` (path parameter)
 
   - `metadata: Record<string, string | null>`
 
-    Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve existing metadata.
+    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve existing metadata.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -4114,9 +4104,9 @@ Update work item metadata with merge semantics.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -4254,11 +4244,11 @@ Get statistics about the work queue for an environment.
 
 #### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: WorkStatsParams`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -4364,7 +4354,7 @@ Get statistics about the work queue for an environment.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

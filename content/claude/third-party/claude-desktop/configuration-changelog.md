@@ -8,8 +8,37 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.26454.0" description="2026-10-06">
+  <div className="cfg-keys">
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`microsoftAuthDefaultAccount`](/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) | `enum` | Microsoft 365 sign-in with the Windows account |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "authentication": {
+      "microsoftAuthDefaultAccount": "<enabled|disabled>"
+    }
+  }
+  ```
+
+  **Changed:**
+
+  * `claudeAiImport` accepts a new `allowedOrganizationUuids` value, a list of Claude.ai organization IDs: when set, users can import history only by signing in to Claude.ai, and only from an organization on the list; a sign-in to any other organization or to a personal account is refused, and importing from a file or from earlier sessions on this computer is turned off. The list turns nothing on by itself, and `automatic3pImport` is not affected. Earlier releases ignore the list and keep allowing every import they allowed before, so the list limits imports only on devices running this release or later.
+  * `disableAutoUpdates` now also decides when Cowork's workspace is downloaded: in the background, instead of at the first task, unless it is `true`.
+
+  **Deprecated** (no end date has been set; this release and later keep reading the original spelling):
+
+  * `inferenceGatewayAuthScheme: "sso"`: use `inferenceCredentialKind: "interactive"` instead. If `inferenceCredentialKind` is not set, this release and later keep reading the original spelling as `inferenceCredentialKind: "interactive"` after October 7, 2026. Earlier releases stop reading it on that date, as announced under v1.40609.0.
+</Update>
+
 <Update label="v2.19675.1" description="2026-10-05">
-  No configuration changes in this release.
+  **Changed:**
+
+  * `allowedWorkspaceFolders`, when set, now also limits which of a project's folders a chat can read: only those inside a listed folder.
 </Update>
 
 <Update label="v2.19675.0" description="2026-10-01">

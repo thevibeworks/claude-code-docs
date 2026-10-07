@@ -15,15 +15,15 @@ The Models API response can be used to determine information about a specific mo
 
 ## Parameters
 
-- `--model-id: string`
+- `--model-id: string` (path parameter)
 
   Model identifier or alias.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

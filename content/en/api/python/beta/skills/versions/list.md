@@ -13,13 +13,13 @@ List Skill Versions
 
 ## Parameters
 
-- `skill_id: str`
+- `skill_id: str` (path parameter)
 
   Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   Number of results to return per page.
 
@@ -27,11 +27,11 @@ List Skill Versions
 
   default: 20, minimum: 1, maximum: 1000
 
-- `page: Optional[str]`
+- `page: Optional[str]` (query parameter)
 
   Optionally set to the `next_page` token from the previous response.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -137,7 +137,7 @@ List Skill Versions
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

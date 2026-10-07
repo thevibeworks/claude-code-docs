@@ -23,7 +23,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `max_tokens: number`
 
-    Body param: The maximum number of tokens to generate before stopping.
+    The maximum number of tokens to generate before stopping.
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
@@ -35,7 +35,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `messages: Array<MessageParam>`
 
-    Body param: Input messages.
+    Input messages.
 
     Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
 
@@ -1063,7 +1063,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `model: Model`
 
-    Body param: The model that will complete your prompt.
+    The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
@@ -1153,11 +1153,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `cache_control?: CacheControlEphemeral | null`
 
-    Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+    Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
   - `container?: MessageCreateParamsContainer | null`
 
-    Body param: Container identifier for reuse across requests.
+    Container identifier for reuse across requests.
 
     - `interface ContainerParams`
 
@@ -1197,7 +1197,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `diagnostics?: DiagnosticsParam | null`
 
-    Body param: Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
+    Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
     - `previous_message_id?: string | null`
 
@@ -1207,11 +1207,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `inference_geo?: string | null`
 
-    Body param: Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
+    Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
   - `metadata?: Metadata`
 
-    Body param: An object describing metadata about the request.
+    An object describing metadata about the request.
 
     - `user_id?: string | null`
 
@@ -1223,7 +1223,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `output_config?: OutputConfig`
 
-    Body param: Configuration options for the model's output, such as the output format.
+    Configuration options for the model's output, such as the output format.
 
     - `effort?: "low" | "medium" | "high" | 2 more | null`
 
@@ -1253,7 +1253,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `service_tier?: "auto" | "standard_only"`
 
-    Body param: Determines whether to use priority capacity (if available) or standard capacity for this request.
+    Determines whether to use priority capacity (if available) or standard capacity for this request.
 
     Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
 
@@ -1263,7 +1263,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `stop_sequences?: Array<string>`
 
-    Body param: Custom text sequences that will cause the model to stop generating.
+    Custom text sequences that will cause the model to stop generating.
 
     Our models will normally stop when they have naturally completed their turn, which will result in a response `stop_reason` of `"end_turn"`.
 
@@ -1271,13 +1271,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `stream?: boolean`
 
-    Body param: Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
+    Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
 
     In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks) for an example in each language.
 
   - `system?: string | Array<TextBlockParam>`
 
-    Body param: System prompt.
+    System prompt.
 
     A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
@@ -1299,7 +1299,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `thinking?: ThinkingConfigParam`
 
-    Body param: Configuration for enabling Claude's extended thinking.
+    Configuration for enabling Claude's extended thinking.
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
@@ -1349,7 +1349,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `tool_choice?: ToolChoice`
 
-    Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+    How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
     - `interface ToolChoiceAuto`
 
@@ -1399,7 +1399,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `tools?: Array<ToolUnion>`
 
-    Body param: Definitions of tools that the model may use.
+    Definitions of tools that the model may use.
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
@@ -3037,13 +3037,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         When true, guarantees schema validation on tool names and inputs
 
-  - `user_profile_id?: string`
+  - `user_profile_id?: string` (header parameter)
 
-    Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -3051,7 +3051,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
-    Body param: Amount of randomness injected into the response.
+    Amount of randomness injected into the response.
 
     Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
 
@@ -3063,7 +3063,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
-    Body param: Only sample from the top K options for each subsequent token.
+    Only sample from the top K options for each subsequent token.
 
     Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
 
@@ -3075,7 +3075,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
-    Body param: Use nucleus sampling.
+    Use nucleus sampling.
 
     In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
@@ -4498,7 +4498,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `messages: Array<MessageParam>`
 
-    Body param: Input messages.
+    Input messages.
 
     Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
 
@@ -5526,7 +5526,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `model: Model`
 
-    Body param: The model that will complete your prompt.
+    The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
@@ -5616,11 +5616,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `cache_control?: CacheControlEphemeral | null`
 
-    Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+    Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
   - `output_config?: OutputConfig`
 
-    Body param: Configuration options for the model's output, such as the output format.
+    Configuration options for the model's output, such as the output format.
 
     - `effort?: "low" | "medium" | "high" | 2 more | null`
 
@@ -5650,7 +5650,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `system?: string | Array<TextBlockParam>`
 
-    Body param: System prompt.
+    System prompt.
 
     A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
@@ -5672,7 +5672,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `thinking?: ThinkingConfigParam`
 
-    Body param: Configuration for enabling Claude's extended thinking.
+    Configuration for enabling Claude's extended thinking.
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
@@ -5722,7 +5722,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `tool_choice?: ToolChoice`
 
-    Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+    How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
     - `interface ToolChoiceAuto`
 
@@ -5772,7 +5772,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `tools?: Array<MessageCountTokensTool>`
 
-    Body param: Definitions of tools that the model may use.
+    Definitions of tools that the model may use.
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
@@ -7410,13 +7410,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-  - `user_profile_id?: string`
+  - `user_profile_id?: string` (header parameter)
 
-    Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -28632,7 +28632,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `requests: Array<Request>`
 
-    Body param: List of requests for prompt completion. Each is an individual request to create a Message.
+    List of requests for prompt completion. Each is an individual request to create a Message.
 
     minItems: 1, maxItems: 100000
 
@@ -31702,13 +31702,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         minimum: 0, maximum: 1
 
-  - `user_profile_id?: string`
+  - `user_profile_id?: string` (header parameter)
 
-    Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
+    The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -31882,13 +31882,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Parameters
 
-- `messageBatchID: string`
+- `messageBatchID: string` (path parameter)
 
   ID of the Message Batch.
 
 - `params: BatchRetrieveParams`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -32055,25 +32055,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 - `params: BatchListParams`
 
-  - `after_id?: string`
+  - `after_id?: string` (query parameter)
 
-    Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
 
-  - `before_id?: string`
+  - `before_id?: string` (query parameter)
 
-    Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-  - `limit?: number`
+  - `limit?: number` (query parameter)
 
-    Query param: Number of items to return per page.
+    Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
     minimum: 1, maximum: 1000
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -32246,13 +32246,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Parameters
 
-- `messageBatchID: string`
+- `messageBatchID: string` (path parameter)
 
   ID of the Message Batch.
 
 - `params: BatchCancelParams`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -32419,13 +32419,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Parameters
 
-- `messageBatchID: string`
+- `messageBatchID: string` (path parameter)
 
   ID of the Message Batch.
 
 - `params: BatchDeleteParams`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -32484,13 +32484,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 #### Parameters
 
-- `messageBatchID: string`
+- `messageBatchID: string` (path parameter)
 
   ID of the Message Batch.
 
 - `params: BatchResultsParams`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

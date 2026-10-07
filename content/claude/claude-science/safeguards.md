@@ -16,7 +16,7 @@ When a model's safeguards flag a message, Claude Science pauses the session and 
 
 When safeguards flag a message for content related to life sciences research, Claude Science can retry it right away on another model instead of stopping at the [**Chat paused** card](#when-safeguards-flag-a-message). It does this only when a model is available for automatic switching, and at most once per message. A notice names the model it switched to, and the session stays on that model until you choose a different one in the composer.
 
-Automatic switching is on by default and applies to every session on this computer. To turn it off, go to **Settings > General > Model** and turn off the **Switch models when a message is flagged** toggle. The **Chat paused** card shows the same toggle when it offers **Retry with `<model>`**. Turning the toggle on from the card can also retry the paused message right away.
+Automatic switching is on by default. To turn it off, go to **Settings > General > Model** and turn off the **Switch models when a message is flagged** toggle. The **Chat paused** card shows the same toggle when it offers **Retry with `<model>`**. Turning the toggle on from the card can also retry the paused message right away.
 
 ## Life Sciences Verification Program (beta)
 

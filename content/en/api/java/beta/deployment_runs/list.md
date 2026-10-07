@@ -15,53 +15,53 @@ List Deployment Runs
 
 - `DeploymentRunListParams params`
 
-  - `Optional<LocalDateTime> createdAtGt`
+  - `Optional<LocalDateTime> createdAtGt` (query parameter)
 
     Return runs created strictly after this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtGte`
+  - `Optional<LocalDateTime> createdAtGte` (query parameter)
 
     Return runs created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLt`
+  - `Optional<LocalDateTime> createdAtLt` (query parameter)
 
     Return runs created strictly before this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte`
+  - `Optional<LocalDateTime> createdAtLte` (query parameter)
 
     Return runs created at or before this time (inclusive).
 
     format: date-time
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (query parameter)
 
     Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
 
-  - `Optional<Boolean> hasError`
+  - `Optional<Boolean> hasError` (query parameter)
 
     Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     Maximum results per page. Default 20, maximum 1000.
 
     format: int32
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
-  - `Optional<BetaManagedAgentsTriggerType> triggerType`
+  - `Optional<BetaManagedAgentsTriggerType> triggerType` (query parameter)
 
     Filter runs by what triggered them. Omit to return all runs.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -165,7 +165,7 @@ List Deployment Runs
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

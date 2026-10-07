@@ -13,23 +13,23 @@ List Vaults
 
 ## Parameters
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   Whether to include archived vaults in the results.
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of vaults to return per page. Defaults to 20, maximum 100.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination token from a previous `list_vaults` response.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

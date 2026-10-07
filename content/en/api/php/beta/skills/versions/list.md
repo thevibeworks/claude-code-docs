@@ -13,13 +13,13 @@ List Skill Versions
 
 ## Parameters
 
-- `skillID: string`
+- `skillID: string` (path parameter)
 
   Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Number of results to return per page.
 
@@ -27,15 +27,15 @@ List Skill Versions
 
   default: 20
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Optionally set to the `next_page` token from the previous response.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

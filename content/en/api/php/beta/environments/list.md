@@ -13,27 +13,27 @@ List environments with pagination support.
 
 ## Parameters
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   Include archived environments in the response
 
   default: false
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of environments to return
 
   default: 20
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

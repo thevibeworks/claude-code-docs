@@ -15,37 +15,37 @@ List Events
 
 - `EventListParams params`
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (path parameter)
 
-  - `Optional<LocalDateTime> createdAtGt`
+  - `Optional<LocalDateTime> createdAtGt` (query parameter)
 
     Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtGte`
+  - `Optional<LocalDateTime> createdAtGte` (query parameter)
 
     Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLt`
+  - `Optional<LocalDateTime> createdAtLt` (query parameter)
 
     Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte`
+  - `Optional<LocalDateTime> createdAtLte` (query parameter)
 
     Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
 
     format: date-time
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     format: int32
 
-  - `Optional<Order> order`
+  - `Optional<Order> order` (query parameter)
 
     Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
@@ -53,11 +53,11 @@ List Events
 
     - `DESC("desc")`
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque pagination cursor from a previous response's `next_page`.
 
-  - `Optional<List<BetaManagedAgentsSessionEventType>> types`
+  - `Optional<List<BetaManagedAgentsSessionEventType>> types` (query parameter)
 
     Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
@@ -129,7 +129,7 @@ List Events
 
     - `SESSION_USAGE("session.usage")`
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -233,7 +233,7 @@ List Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

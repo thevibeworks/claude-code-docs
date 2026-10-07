@@ -13,21 +13,21 @@ Delete Credential
 
 ## Parameters
 
-- `--vault-id: string`
+- `--vault-id: string` (path parameter)
 
-  Path param: Identifier of the vault containing the credential.
+  Identifier of the vault containing the credential.
 
-- `--credential-id: string`
+- `--credential-id: string` (path parameter)
 
-  Path param: Unique identifier of the credential to delete.
+  Unique identifier of the credential to delete.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

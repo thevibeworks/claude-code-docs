@@ -13,39 +13,39 @@ List Agents
 
 ## Parameters
 
-- `--created-at-gte: optional string`
+- `--created-at-gte: optional string` (query parameter)
 
-  Query param: Return agents created at or after this time (inclusive).
-
-  format: date-time
-
-- `--created-at-lte: optional string`
-
-  Query param: Return agents created at or before this time (inclusive).
+  Return agents created at or after this time (inclusive).
 
   format: date-time
 
-- `--include-archived: optional boolean`
+- `--created-at-lte: optional string` (query parameter)
 
-  Query param: Include archived agents in results. Defaults to false.
+  Return agents created at or before this time (inclusive).
 
-- `--limit: optional number`
+  format: date-time
 
-  Query param: Maximum results per page. Default 20, maximum 100.
+- `--include-archived: optional boolean` (query parameter)
+
+  Include archived agents in results. Defaults to false.
+
+- `--limit: optional number` (query parameter)
+
+  Maximum results per page. Default 20, maximum 100.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor from a previous response.
+  Opaque pagination cursor from a previous response.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

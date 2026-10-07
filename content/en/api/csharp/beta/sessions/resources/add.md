@@ -17,29 +17,25 @@ Add Session Resource
 
   - `required Type type`
 
-    Body param
-
     - `File("file")`
 
-  - `required string sessionID`
-
-    Path param
+  - `required string sessionID` (path parameter)
 
   - `required string fileID`
 
-    Body param: ID of a previously uploaded file.
+    ID of a previously uploaded file.
 
     minLength: 1, maxLength: 128
 
   - `string? mountPath`
 
-    Body param: Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+    Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
     minLength: 1, maxLength: 4096
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -141,9 +137,9 @@ Add Session Resource
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

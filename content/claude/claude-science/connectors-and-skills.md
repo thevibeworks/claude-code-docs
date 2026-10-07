@@ -39,7 +39,7 @@ By choosing to enable connectors, you authorize Claude to use the optional enabl
 
 ## Using connectors
 
-Name a source in your request, or describe what you need and Claude chooses from available connector tools. Connector queries appear in the conversation as expandable code steps. Featured connectors you've previously enabled run without a permission card. Connectors you add yourself prompt for approval per tool, with Once, This conversation, This project, or Global scope.
+Name a source in your request, or describe what you need and Claude chooses from available connector tools. Connector queries appear in the conversation as expandable code steps. Featured connectors you've previously enabled run without a permission card. Connectors you add yourself, and connectors that your organization's plugins add, prompt for approval per tool, with Once, This conversation, This project, or Global scope.
 
 The databases behind Featured connectors are on the network allowlist in groups under Settings > Network. Turning off a group disables the connectors that depend on it.
 

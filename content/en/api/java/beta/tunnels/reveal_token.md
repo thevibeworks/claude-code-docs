@@ -17,11 +17,11 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `TunnelRevealTokenParams params`
 
-  - `Optional<String> tunnelId`
+  - `Optional<String> tunnelId` (path parameter)
 
     ID of the tunnel (`tnl_...`).
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -125,7 +125,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

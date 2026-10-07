@@ -17,15 +17,15 @@ Fetches a tunnel certificate by ID.
 
 - `CertificateRetrieveParams params`
 
-  - `String tunnelId`
+  - `String tunnelId` (path parameter)
 
     ID of the tunnel (`tnl_...`).
 
-  - `Optional<String> certificateId`
+  - `Optional<String> certificateId` (path parameter)
 
     ID of the certificate (`tcrt_...`).
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -129,7 +129,7 @@ Fetches a tunnel certificate by ID.
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

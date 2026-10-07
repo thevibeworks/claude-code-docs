@@ -15,59 +15,59 @@ List memory versions
 
 - `MemoryVersionListParams params`
 
-  - `Optional<String> memoryStoreId`
+  - `Optional<String> memoryStoreId` (path parameter)
 
     The ID of the memory store whose version history to list (`memstore_...`).
 
-  - `Optional<String> apiKeyId`
+  - `Optional<String> apiKeyId` (query parameter)
 
     Return only versions written with the API key that has this ID.
 
-  - `Optional<LocalDateTime> createdAtGte`
+  - `Optional<LocalDateTime> createdAtGte` (query parameter)
 
     Return versions created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte`
+  - `Optional<LocalDateTime> createdAtLte` (query parameter)
 
     Return versions created at or before this time (inclusive).
 
     format: date-time
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     The maximum number of versions to return per page. Defaults to 20.
 
     format: int32
 
-  - `Optional<String> memoryId`
+  - `Optional<String> memoryId` (query parameter)
 
     Return only versions of the memory with this ID (`mem_...`).
 
     The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
-  - `Optional<BetaManagedAgentsMemoryVersionOperation> operation`
+  - `Optional<BetaManagedAgentsMemoryVersionOperation> operation` (query parameter)
 
     Return only versions that record this kind of change.
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-  - `Optional<String> serviceAccountId`
+  - `Optional<String> serviceAccountId` (query parameter)
 
     Return only versions written by the service account with this ID (`svac_...`).
 
-  - `Optional<String> sessionId`
+  - `Optional<String> sessionId` (query parameter)
 
     Return only versions written by the session with this ID.
 
-  - `Optional<BetaManagedAgentsMemoryView> view`
+  - `Optional<BetaManagedAgentsMemoryView> view` (query parameter)
 
     Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -171,7 +171,7 @@ List memory versions
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

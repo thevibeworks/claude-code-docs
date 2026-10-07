@@ -15,15 +15,15 @@ Update work item metadata with merge semantics.
 
 ## Parameters
 
-- `environment_id: String`
+- `environment_id: String` (path parameter)
 
-- `work_id: String`
+- `work_id: String` (path parameter)
 
 - `metadata: Hash[Symbol, String]`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve existing metadata.
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -129,7 +129,7 @@ Update work item metadata with merge semantics.
 
   - `:"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

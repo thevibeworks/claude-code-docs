@@ -105,6 +105,7 @@ Sign-in pages and interactive previews load in the member's web browser, so they
 | `cdn.jsdelivr.net`, `esm.sh`, `unpkg.com`, `cdnjs.cloudflare.com` | JavaScript display libraries for interactive previews |
 | `3dmol.org`, `3dmol.csb.pitt.edu` | Molecular structure viewer |
 | `*.claudemcpcontent.com` | Isolated frames that display Claude's HTML previews and interactive connector output. A standard desktop install serves these frames from the app's own local address, so this entry matters mainly where members open Claude Science from a non-local address |
+| `www.google.com`, `t0.gstatic.com` | Icons for connectors and services that the app loads from Google's favicon service. If these are blocked, a generic icon shows instead |
 
 ## Related resources
 

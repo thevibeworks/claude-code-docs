@@ -15,17 +15,17 @@ List Session Thread Events
 
 - `EventListParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> threadId`
+  - `Optional<String> threadId` (path parameter)
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     format: int32
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -129,7 +129,7 @@ List Session Thread Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

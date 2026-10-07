@@ -55,7 +55,7 @@ arn:aws:iam::915198916910:role/anthropic-cmek-client-us
     In the policy, replace `<AWS_ACCOUNT_ID>` with your AWS account ID and `<ORGANIZATION_UUID>` with your organization ID. The `StringEquals` condition on `kms:EncryptionContext:anthropic:org_uuid` binds the key to your Anthropic organization, and validation refuses a key without it. To share one key among several Anthropic organizations, list each organization ID in the condition value.
 
     <Note>
-      **Finding your organization ID:** Copy the **Organization ID** field under **Settings > Organization** in the Claude Console, or under **Organization settings > Organization** in claude.ai, or read the `id` field from the [Organization Info](https://platform.claude.com/docs/en/api/beta/organization/retrieve) endpoint. Use the bare UUID, not the `org_`-prefixed ID.
+      **Finding your organization ID:** Copy the **Organization ID** field under **Settings > Organization** in the Claude Console, or under **Organization settings > Organization** in claude.ai, or read the `id` field from the [Organization Info](https://platform.claude.com/docs/en/api/organization/retrieve) endpoint. Use the bare UUID, not the `org_`-prefixed ID.
     </Note>
 
     Save the policy as `key-policy.json`. To create the key in the AWS Console instead, paste the policy there, as described later in this step.
@@ -196,7 +196,7 @@ How you register the key depends on which product you use.
     </Note>
 
     <Note>
-      **Finding your compartment ID:** Each workspace has a compartment ID that scopes its CMEK data. To find it in the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/beta/organization/workspaces/retrieve) endpoint.
+      **Finding your compartment ID:** Each workspace has a compartment ID that scopes its CMEK data. To find it in the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve) endpoint.
     </Note>
 
     You can set up the key in the Claude Console or through the Admin API, with the same result.
@@ -242,7 +242,7 @@ How you register the key depends on which product you use.
               ```
 
               ```bash CLI
-              ant beta:organization:external-keys create <<'YAML'
+              ant organization:external-keys create <<'YAML'
               display_name: "<friendly-name>"
               geo: us
               provider_config:
@@ -254,7 +254,7 @@ How you register the key depends on which product you use.
               ```python Python
               client = anthropic.Anthropic()
 
-              external_key = client.beta.organization.external_keys.create(
+              external_key = client.organization.external_keys.create(
                   display_name="<friendly-name>",
                   geo="us",
                   provider_config={"type": "aws", "kms_arn": "<key-arn-from-create-key-step>"},
@@ -267,7 +267,7 @@ How you register the key depends on which product you use.
               ```typescript TypeScript
               const client = new Anthropic();
 
-              const externalKey = await client.beta.organization.externalKeys.create({
+              const externalKey = await client.organization.externalKeys.create({
                 display_name: "<friendly-name>",
                 geo: "us",
                 provider_config: {
@@ -281,15 +281,15 @@ How you register the key depends on which product you use.
               ```
 
               ```csharp C#
-              using Anthropic.Models.Beta.Organization.ExternalKeys;
+              using Anthropic.Models.Organization.ExternalKeys;
 
               AnthropicClient client = new();
 
-              var externalKey = await client.Beta.Organization.ExternalKeys.Create(new()
+              var externalKey = await client.Organization.ExternalKeys.Create(new()
               {
                   DisplayName = "<friendly-name>",
                   Geo = Geo.Us,
-                  ProviderConfig = new BetaAwsExternalKeyConfig
+                  ProviderConfig = new AwsExternalKeyConfig
                   {
                       KmsArn = "<key-arn-from-create-key-step>"
                   }
@@ -302,11 +302,11 @@ How you register the key depends on which product you use.
               ```go Go
               client := anthropic.NewClient()
 
-              externalKey, err := client.Beta.Organization.ExternalKeys.New(context.Background(), anthropic.BetaOrganizationExternalKeyNewParams{
+              externalKey, err := client.Organization.ExternalKeys.New(context.Background(), anthropic.OrganizationExternalKeyNewParams{
               	DisplayName: anthropic.String("<friendly-name>"),
-              	Geo:         anthropic.BetaOrganizationExternalKeyNewParamsGeoUs,
-              	ProviderConfig: anthropic.BetaOrganizationExternalKeyNewParamsProviderConfigUnion{
-              		OfAWS: &anthropic.BetaAWSExternalKeyConfigParam{
+              	Geo:         anthropic.OrganizationExternalKeyNewParamsGeoUs,
+              	ProviderConfig: anthropic.OrganizationExternalKeyNewParamsProviderConfigUnion{
+              		OfAWS: &anthropic.AWSExternalKeyConfigParam{
               			KMSARN: "<key-arn-from-create-key-step>",
               		},
               	},
@@ -320,8 +320,8 @@ How you register the key depends on which product you use.
               ```
 
               ```java Java
-              import com.anthropic.models.beta.organization.externalkeys.BetaAwsExternalKeyConfig;
-              import com.anthropic.models.beta.organization.externalkeys.ExternalKeyCreateParams;
+              import com.anthropic.models.organization.externalkeys.AwsExternalKeyConfig;
+              import com.anthropic.models.organization.externalkeys.ExternalKeyCreateParams;
 
               void main() {
                   AnthropicClient client = AnthropicOkHttpClient.fromEnv();
@@ -329,11 +329,11 @@ How you register the key depends on which product you use.
                   var params = ExternalKeyCreateParams.builder()
                       .displayName("<friendly-name>")
                       .geo(ExternalKeyCreateParams.Geo.US)
-                      .providerConfig(BetaAwsExternalKeyConfig.builder()
+                      .providerConfig(AwsExternalKeyConfig.builder()
                           .kmsArn("<key-arn-from-create-key-step>")
                           .build())
                       .build();
-                  var externalKey = client.beta().organization().externalKeys().create(params);
+                  var externalKey = client.organization().externalKeys().create(params);
 
                   IO.println("id: " + externalKey.id());
                   IO.println("display_name: " + externalKey.displayName().orElseThrow());
@@ -341,12 +341,12 @@ How you register the key depends on which product you use.
               ```
 
               ```php PHP
-              use Anthropic\Beta\Organization\ExternalKeys\ExternalKeyCreateParams\Geo;
+              use Anthropic\Organization\ExternalKeys\ExternalKeyCreateParams\Geo;
               // ...
 
               $client = new Client();
 
-              $externalKey = $client->beta->organization->externalKeys->create(
+              $externalKey = $client->organization->externalKeys->create(
                   displayName: '<friendly-name>',
                   geo: Geo::US,
                   providerConfig: [
@@ -362,7 +362,7 @@ How you register the key depends on which product you use.
               ```ruby Ruby
               client = Anthropic::Client.new
 
-              external_key = client.beta.organization.external_keys.create(
+              external_key = client.organization.external_keys.create(
                 display_name: "<friendly-name>",
                 geo: :us,
                 provider_config: {
@@ -398,13 +398,13 @@ How you register the key depends on which product you use.
               ```
 
               ```bash CLI
-              ant beta:organization:external-keys validate --external-key-id "ekey_<id>"
+              ant organization:external-keys validate --external-key-id "ekey_<id>"
               ```
 
               ```python Python
               client = anthropic.Anthropic()
 
-              validation = client.beta.organization.external_keys.validate("ekey_<id>")
+              validation = client.organization.external_keys.validate("ekey_<id>")
 
               print(f"status: {validation.status}")
               print(f"error: {validation.error}")
@@ -413,7 +413,7 @@ How you register the key depends on which product you use.
               ```typescript TypeScript
               const client = new Anthropic();
 
-              const validation = await client.beta.organization.externalKeys.validate("ekey_<id>");
+              const validation = await client.organization.externalKeys.validate("ekey_<id>");
 
               console.log(`status: ${validation.status}`);
               console.log(`error: ${validation.error}`);
@@ -422,7 +422,7 @@ How you register the key depends on which product you use.
               ```csharp C#
               AnthropicClient client = new();
 
-              var validation = await client.Beta.Organization.ExternalKeys.Validate("ekey_<id>");
+              var validation = await client.Organization.ExternalKeys.Validate("ekey_<id>");
 
               Console.WriteLine($"status: {validation.Status.Raw()}");
               Console.WriteLine($"error: {validation.Error}");
@@ -431,7 +431,7 @@ How you register the key depends on which product you use.
               ```go Go
               client := anthropic.NewClient()
 
-              validation, err := client.Beta.Organization.ExternalKeys.Validate(context.Background(), "ekey_<id>")
+              validation, err := client.Organization.ExternalKeys.Validate(context.Background(), "ekey_<id>")
               if err != nil {
               	log.Fatal(err)
               }
@@ -443,7 +443,7 @@ How you register the key depends on which product you use.
               ```java Java
               AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-              var validation = client.beta().organization().externalKeys().validate("ekey_<id>");
+              var validation = client.organization().externalKeys().validate("ekey_<id>");
 
               IO.println("status: " + validation.status().asString());
               IO.println("error: " + validation.error().orElse(""));
@@ -452,7 +452,7 @@ How you register the key depends on which product you use.
               ```php PHP
               $client = new Client();
 
-              $validation = $client->beta->organization->externalKeys->validate(
+              $validation = $client->organization->externalKeys->validate(
                   externalKeyID: 'ekey_<id>',
               );
 
@@ -464,7 +464,7 @@ How you register the key depends on which product you use.
               client = Anthropic::Client.new
 
               external_key_id = "ekey_<id>"
-              validation = client.beta.organization.external_keys.validate(external_key_id)
+              validation = client.organization.external_keys.validate(external_key_id)
 
               puts "status: #{validation.status}"
               puts "error: #{validation.error}"
@@ -500,7 +500,7 @@ How you register the key depends on which product you use.
               ```
 
               ```bash CLI
-              ant beta:organization:workspaces update \
+              ant organization:workspaces update \
                 --workspace-id "<workspace-id>" \
                 --external-key-id "ekey_<id>"
               ```
@@ -508,7 +508,7 @@ How you register the key depends on which product you use.
               ```python Python
               client = anthropic.Anthropic()
 
-              workspace = client.beta.organization.workspaces.update(
+              workspace = client.organization.workspaces.update(
                   "<workspace-id>", external_key_id="ekey_<id>"
               )
 
@@ -519,7 +519,7 @@ How you register the key depends on which product you use.
               ```typescript TypeScript
               const client = new Anthropic();
 
-              const workspace = await client.beta.organization.workspaces.update("<workspace-id>", {
+              const workspace = await client.organization.workspaces.update("<workspace-id>", {
                 external_key_id: "ekey_<id>"
               });
 
@@ -530,7 +530,7 @@ How you register the key depends on which product you use.
               ```csharp C#
               AnthropicClient client = new();
 
-              var workspace = await client.Beta.Organization.Workspaces.Update("<workspace-id>", new()
+              var workspace = await client.Organization.Workspaces.Update("<workspace-id>", new()
               {
                   ExternalKeyID = "ekey_<id>"
               });
@@ -542,10 +542,10 @@ How you register the key depends on which product you use.
               ```go Go
               client := anthropic.NewClient()
 
-              workspace, err := client.Beta.Organization.Workspaces.Update(
+              workspace, err := client.Organization.Workspaces.Update(
               	context.Background(),
               	"<workspace-id>",
-              	anthropic.BetaOrganizationWorkspaceUpdateParams{
+              	anthropic.OrganizationWorkspaceUpdateParams{
               		ExternalKeyID: anthropic.String("ekey_<id>"),
               	},
               )
@@ -558,7 +558,7 @@ How you register the key depends on which product you use.
               ```
 
               ```java Java
-              import com.anthropic.models.beta.organization.workspaces.WorkspaceUpdateParams;
+              import com.anthropic.models.organization.workspaces.WorkspaceUpdateParams;
 
               void main() {
                   AnthropicClient client = AnthropicOkHttpClient.fromEnv();
@@ -566,7 +566,7 @@ How you register the key depends on which product you use.
                   var params = WorkspaceUpdateParams.builder()
                       .externalKeyId("ekey_<id>")
                       .build();
-                  var workspace = client.beta().organization().workspaces().update("<workspace-id>", params);
+                  var workspace = client.organization().workspaces().update("<workspace-id>", params);
 
                   IO.println("id: " + workspace.id());
                   IO.println("external_key_id: " + workspace.externalKeyId().orElseThrow());
@@ -576,7 +576,7 @@ How you register the key depends on which product you use.
               ```php PHP
               $client = new Client();
 
-              $workspace = $client->beta->organization->workspaces->update(
+              $workspace = $client->organization->workspaces->update(
                   workspaceID: '<workspace-id>',
                   externalKeyID: 'ekey_<id>',
               );
@@ -589,7 +589,7 @@ How you register the key depends on which product you use.
               client = Anthropic::Client.new
 
               workspace_id = "<workspace-id>"
-              workspace = client.beta.organization.workspaces.update(
+              workspace = client.organization.workspaces.update(
                 workspace_id,
                 external_key_id: "ekey_<id>"
               )
@@ -638,7 +638,7 @@ On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claud
 
 The key policy has three statements: your account's root admin statement; a statement that lets the Claude Platform on AWS service principal encrypt, decrypt, and generate data keys; and a separate statement for `kms:DescribeKey`. The crypto statement carries an optional `EncryptionContext` condition that binds the key to the workspaces you list. `DescribeKey` is granted separately because it has no `EncryptionContext` parameter, so an `EncryptionContext` condition on that action would always deny.
 
-If you plan to use the optional `EncryptionContext` condition shown here, create the workspace first (without a key), copy its compartment ID, and substitute it for `<compartment-uuid>`. To find the ID in the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read it from the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/beta/organization/workspaces/retrieve) endpoint. If you don't plan to use the condition, delete the `Condition` block from that statement.
+If you plan to use the optional `EncryptionContext` condition shown here, create the workspace first (without a key), copy its compartment ID, and substitute it for `<compartment-uuid>`. To find the ID in the Claude Console, go to [Manage > Security](https://platform.claude.com/settings/workspaces/default/security-compliance) and select the workspace in the workspace picker at the top of the sidebar. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read it from the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve) endpoint. If you don't plan to use the condition, delete the `Condition` block from that statement.
 
 ```bash
 export YOUR_ACCOUNT=$(aws sts get-caller-identity --query Account --output text)

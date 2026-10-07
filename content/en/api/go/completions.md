@@ -23,7 +23,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `MaxTokensToSample param.Field[int64]`
 
-    Body param: The maximum number of tokens to generate before stopping.
+    The maximum number of tokens to generate before stopping.
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
@@ -31,13 +31,13 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `Model param.Field[Model]`
 
-    Body param: The model that will complete your prompt.
+    The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
   - `Prompt param.Field[string]`
 
-    Body param: The prompt that you want Claude to complete.
+    The prompt that you want Claude to complete.
 
     For proper response generation you will need to format your prompt using alternating `
 
@@ -59,19 +59,19 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `Metadata param.Field[Metadata] Optional`
 
-    Body param: An object describing metadata about the request.
+    An object describing metadata about the request.
 
   - `StopSequences param.Field[[]string] Optional`
 
-    Body param: Sequences that will cause the model to stop generating.
+    Sequences that will cause the model to stop generating.
 
     Our models stop on `"
 
     Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -79,7 +79,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
-    Body param: Amount of randomness injected into the response.
+    Amount of randomness injected into the response.
 
     Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
 
@@ -91,7 +91,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
-    Body param: Only sample from the top K options for each subsequent token.
+    Only sample from the top K options for each subsequent token.
 
     Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
 
@@ -103,7 +103,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
-    Body param: Use nucleus sampling.
+    Use nucleus sampling.
 
     In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
@@ -111,11 +111,11 @@ Future models and features will not be compatible with Text Completions. See our
 
     minimum: 0, maximum: 1
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
     **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 

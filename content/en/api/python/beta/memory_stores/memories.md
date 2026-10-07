@@ -15,7 +15,7 @@ Create a memory
 
 ### Parameters
 
-- `memory_store_id: str`
+- `memory_store_id: str` (path parameter)
 
   The ID of the memory store to create the memory in (`memstore_...`).
 
@@ -29,7 +29,7 @@ Create a memory
 
   minLength: 2, maxLength: 1024
 
-- `view: Optional[BetaManagedAgentsMemoryView]`
+- `view: Optional[BetaManagedAgentsMemoryView]` (query parameter)
 
   Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
@@ -41,7 +41,7 @@ Create a memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -147,7 +147,7 @@ Create a memory
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -249,31 +249,31 @@ List memories
 
 ### Parameters
 
-- `memory_store_id: str`
+- `memory_store_id: str` (path parameter)
 
   The ID of the memory store to list memories from (`memstore_...`).
 
-- `depth: Optional[int]`
+- `depth: Optional[int]` (query parameter)
 
   `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
 
   format: int32
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
 
   format: int32
 
-- `page: Optional[str]`
+- `page: Optional[str]` (query parameter)
 
   Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
 
-- `path_prefix: Optional[str]`
+- `path_prefix: Optional[str]` (query parameter)
 
   Optional path prefix filter. Must end with `/` (segment-aligned), e.g., `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
 
-- `view: Optional[BetaManagedAgentsMemoryView]`
+- `view: Optional[BetaManagedAgentsMemoryView]` (query parameter)
 
   Which projection of each `memory` to return. Defaults to `basic` (content omitted). `full` populates `content` on each item and caps `limit` at 20; use this as the bulk-read path for export and sync.
 
@@ -285,7 +285,7 @@ List memories
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -391,7 +391,7 @@ List memories
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -511,15 +511,15 @@ Retrieve a memory
 
 ### Parameters
 
-- `memory_store_id: str`
+- `memory_store_id: str` (path parameter)
 
   The ID of the memory store that holds the memory (`memstore_...`).
 
-- `memory_id: str`
+- `memory_id: str` (path parameter)
 
   The ID of the memory to retrieve (`mem_...`).
 
-- `view: Optional[BetaManagedAgentsMemoryView]`
+- `view: Optional[BetaManagedAgentsMemoryView]` (query parameter)
 
   Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
@@ -531,7 +531,7 @@ Retrieve a memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -637,7 +637,7 @@ Retrieve a memory
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -738,15 +738,15 @@ Update a memory
 
 ### Parameters
 
-- `memory_store_id: str`
+- `memory_store_id: str` (path parameter)
 
   The ID of the memory store that holds the memory (`memstore_...`).
 
-- `memory_id: str`
+- `memory_id: str` (path parameter)
 
   The ID of the memory to update (`mem_...`).
 
-- `view: Optional[BetaManagedAgentsMemoryView]`
+- `view: Optional[BetaManagedAgentsMemoryView]` (query parameter)
 
   Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
@@ -778,7 +778,7 @@ Update a memory
 
     Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -884,7 +884,7 @@ Update a memory
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -985,21 +985,21 @@ Delete a memory
 
 ### Parameters
 
-- `memory_store_id: str`
+- `memory_store_id: str` (path parameter)
 
   The ID of the memory store that holds the memory (`memstore_...`).
 
-- `memory_id: str`
+- `memory_id: str` (path parameter)
 
   The ID of the memory to delete (`mem_...`).
 
-- `expected_content_sha256: Optional[str]`
+- `expected_content_sha256: Optional[str]` (query parameter)
 
   Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
 
   If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -1105,7 +1105,7 @@ Delete a memory
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

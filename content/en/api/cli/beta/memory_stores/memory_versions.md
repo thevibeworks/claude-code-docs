@@ -15,65 +15,65 @@ List memory versions
 
 ### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store whose version history to list (`memstore_...`).
+  The ID of the memory store whose version history to list (`memstore_...`).
 
-- `--api-key-id: optional string`
+- `--api-key-id: optional string` (query parameter)
 
-  Query param: Return only versions written with the API key that has this ID.
+  Return only versions written with the API key that has this ID.
 
-- `--created-at-gte: optional string`
+- `--created-at-gte: optional string` (query parameter)
 
-  Query param: Return versions created at or after this time (inclusive).
-
-  format: date-time
-
-- `--created-at-lte: optional string`
-
-  Query param: Return versions created at or before this time (inclusive).
+  Return versions created at or after this time (inclusive).
 
   format: date-time
 
-- `--limit: optional number`
+- `--created-at-lte: optional string` (query parameter)
 
-  Query param: The maximum number of versions to return per page. Defaults to 20.
+  Return versions created at or before this time (inclusive).
+
+  format: date-time
+
+- `--limit: optional number` (query parameter)
+
+  The maximum number of versions to return per page. Defaults to 20.
 
   format: int32
 
-- `--memory-id: optional string`
+- `--memory-id: optional string` (query parameter)
 
-  Query param: Return only versions of the memory with this ID (`mem_...`).
+  Return only versions of the memory with this ID (`mem_...`).
 
   The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
-- `--operation: optional "created" or "modified" or "deleted"`
+- `--operation: optional "created" or "modified" or "deleted"` (query parameter)
 
-  Query param: Return only versions that record this kind of change.
+  Return only versions that record this kind of change.
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
+  The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `--service-account-id: optional string`
+- `--service-account-id: optional string` (query parameter)
 
-  Query param: Return only versions written by the service account with this ID (`svac_...`).
+  Return only versions written by the service account with this ID (`svac_...`).
 
-- `--session-id: optional string`
+- `--session-id: optional string` (query parameter)
 
-  Query param: Return only versions written by the session with this ID.
+  Return only versions written by the session with this ID.
 
-- `--view: optional "basic" or "full"`
+- `--view: optional "basic" or "full"` (query parameter)
 
-  Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -272,25 +272,25 @@ Retrieve a memory version
 
 ### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store that holds the version (`memstore_...`).
+  The ID of the memory store that holds the version (`memstore_...`).
 
-- `--memory-version-id: string`
+- `--memory-version-id: string` (path parameter)
 
-  Path param: The ID of the memory version to retrieve (`memver_...`).
+  The ID of the memory version to retrieve (`memver_...`).
 
-- `--view: optional "basic" or "full"`
+- `--view: optional "basic" or "full"` (query parameter)
 
-  Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -477,21 +477,21 @@ Redact a memory version
 
 ### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store that holds the version (`memstore_...`).
+  The ID of the memory store that holds the version (`memstore_...`).
 
-- `--memory-version-id: string`
+- `--memory-version-id: string` (path parameter)
 
-  Path param: The ID of the memory version to redact (`memver_...`).
+  The ID of the memory version to redact (`memver_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

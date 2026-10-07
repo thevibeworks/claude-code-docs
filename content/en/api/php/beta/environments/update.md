@@ -13,7 +13,7 @@ Update an existing environment's configuration.
 
 ## Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `config?:optional Config`
 
@@ -35,11 +35,11 @@ Update an existing environment's configuration.
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

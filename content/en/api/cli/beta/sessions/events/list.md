@@ -13,59 +13,55 @@ List Events
 
 ## Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--created-at-gt: optional string` (query parameter)
 
-- `--created-at-gt: optional string`
-
-  Query param: Return events created after this time (exclusive). Compared against the event's `processed_at` value.
+  Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `--created-at-gte: optional string`
+- `--created-at-gte: optional string` (query parameter)
 
-  Query param: Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
-
-  format: date-time
-
-- `--created-at-lt: optional string`
-
-  Query param: Return events created before this time (exclusive). Compared against the event's `processed_at` value.
+  Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `--created-at-lte: optional string`
+- `--created-at-lt: optional string` (query parameter)
 
-  Query param: Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
+  Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `--limit: optional number`
+- `--created-at-lte: optional string` (query parameter)
 
-  Query param
+  Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
+
+  format: date-time
+
+- `--limit: optional number` (query parameter)
 
   format: int32
 
-- `--order: optional "asc" or "desc"`
+- `--order: optional "asc" or "desc"` (query parameter)
 
-  Query param: Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
+  Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor from a previous response's `next_page`.
+  Opaque pagination cursor from a previous response's `next_page`.
 
-- `--type: optional array of BetaManagedAgentsSessionEventType`
+- `--type: optional array of BetaManagedAgentsSessionEventType` (query parameter)
 
-  Query param: Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
+  Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

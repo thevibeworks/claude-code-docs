@@ -15,25 +15,25 @@ Long poll for work items in the queue.
 
 ## Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: WorkPollParams`
 
-  - `block_ms?: number | null`
+  - `block_ms?: number | null` (query parameter)
 
-    Query param: How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
-
-    minimum: 1
-
-  - `reclaim_older_than_ms?: number | null`
-
-    Query param: Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+    How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
     minimum: 1
 
-  - `betas?: Array<AnthropicBeta>`
+  - `reclaim_older_than_ms?: number | null` (query parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+    minimum: 1
+
+  - `betas?: Array<AnthropicBeta>` (header parameter)
+
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -137,9 +137,9 @@ Long poll for work items in the queue.
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `"Anthropic-Worker-ID"?: string`
+  - `"Anthropic-Worker-ID"?: string` (header parameter)
 
-    Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
+    Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
 ## Returns
 

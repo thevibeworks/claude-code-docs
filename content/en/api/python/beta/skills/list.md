@@ -13,7 +13,7 @@ List Skills
 
 ## Parameters
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   Number of results to return per page.
 
@@ -21,13 +21,13 @@ List Skills
 
   default: 20, minimum: 1, maximum: 1000
 
-- `page: Optional[str]`
+- `page: Optional[str]` (query parameter)
 
   Pagination token for fetching a specific page of results.
 
   Pass the value from a previous response's `next_page` field to get the next page of results.
 
-- `source: Optional[str]`
+- `source: Optional[str]` (query parameter)
 
   Filter skills by source.
 
@@ -36,7 +36,7 @@ List Skills
   * `"custom"`: only return user-created skills
   * `"anthropic"`: only return Anthropic-created skills
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -142,7 +142,7 @@ List Skills
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

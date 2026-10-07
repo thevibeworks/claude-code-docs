@@ -17,17 +17,17 @@ List Session Thread Events
 
 - `EventListParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> threadId`
+  - `Optional<String> threadId` (path parameter)
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     format: int32
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -131,7 +131,7 @@ List Session Thread Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2624,11 +2624,11 @@ Stream Session Thread Events
 
 - `EventStreamParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> threadId`
+  - `Optional<String> threadId` (path parameter)
 
-  - `Optional<List<BetaManagedAgentsDeltaType>> eventDeltas`
+  - `Optional<List<BetaManagedAgentsDeltaType>> eventDeltas` (query parameter)
 
     When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
@@ -2636,7 +2636,7 @@ Stream Session Thread Events
 
     - `AGENT_THINKING("agent.thinking")`
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -2740,7 +2740,7 @@ Stream Session Thread Events
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

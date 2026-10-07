@@ -17,23 +17,23 @@ Create Skill
 
 - `--file: array of string`
 
-  Body param: Files to upload for the skill.
+  Files to upload for the skill.
 
   All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
 - `--display-name: optional string`
 
-  Body param: Human-readable, single-line label for the Skill. Maximum 255 characters.
+  Human-readable, single-line label for the Skill. Maximum 255 characters.
   Always set: derived from the SKILL.md frontmatter `name` when omitted at
   creation. Not unique.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -139,36 +139,36 @@ List Skills
 
 ### Parameters
 
-- `--limit: optional number`
+- `--limit: optional number` (query parameter)
 
-  Query param: Number of results to return per page.
+  Number of results to return per page.
 
   Ranges from `1` to `1000`. Defaults to `20`.
 
   minimum: 1, maximum: 1000
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Pagination token for fetching a specific page of results.
+  Pagination token for fetching a specific page of results.
 
   Pass the value from a previous response's `next_page` field to get the next page of results.
 
-- `--source: optional string`
+- `--source: optional string` (query parameter)
 
-  Query param: Filter skills by source.
+  Filter skills by source.
 
   If provided, only skills from the specified source will be returned:
 
   * `"custom"`: only return user-created skills
   * `"anthropic"`: only return Anthropic-created skills
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -288,17 +288,17 @@ Get Skill
 
 ### Parameters
 
-- `--skill-id: string`
+- `--skill-id: string` (path parameter)
 
   Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -406,17 +406,17 @@ Delete Skill
 
 ### Parameters
 
-- `--skill-id: string`
+- `--skill-id: string` (path parameter)
 
   Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -576,25 +576,25 @@ Create Skill Version
 
 #### Parameters
 
-- `--skill-id: string`
+- `--skill-id: string` (path parameter)
 
-  Path param: Unique identifier for the skill.
+  Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
 - `--file: array of string`
 
-  Body param: Files to upload for the skill.
+  Files to upload for the skill.
 
   All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -670,31 +670,31 @@ List Skill Versions
 
 #### Parameters
 
-- `--skill-id: string`
+- `--skill-id: string` (path parameter)
 
-  Path param: Unique identifier for the skill.
+  Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
-- `--limit: optional number`
+- `--limit: optional number` (query parameter)
 
-  Query param: Number of results to return per page.
+  Number of results to return per page.
 
   Ranges from `1` to `1000`. Defaults to `20`.
 
   minimum: 1, maximum: 1000
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Optionally set to the `next_page` token from the previous response.
+  Optionally set to the `next_page` token from the previous response.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -784,25 +784,25 @@ Download a skill version's content as a zip archive.
 
 #### Parameters
 
-- `--skill-id: string`
+- `--skill-id: string` (path parameter)
 
-  Path param: Unique identifier for the skill.
+  Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
-- `--version: string`
+- `--version: string` (path parameter)
 
-  Path param: Identifies the skill version by its version ID.
+  Identifies the skill version by its version ID.
 
   Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -829,25 +829,25 @@ Get Skill Version
 
 #### Parameters
 
-- `--skill-id: string`
+- `--skill-id: string` (path parameter)
 
-  Path param: Unique identifier for the skill.
+  Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
-- `--version: string`
+- `--version: string` (path parameter)
 
-  Path param: Identifies the skill version: a version ID, or the literal `latest` for the skill's most recent version.
+  Identifies the skill version: a version ID, or the literal `latest` for the skill's most recent version.
 
   Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -923,25 +923,25 @@ Delete Skill Version
 
 #### Parameters
 
-- `--skill-id: string`
+- `--skill-id: string` (path parameter)
 
-  Path param: Unique identifier for the skill.
+  Unique identifier for the skill.
 
   The format and length of IDs may change over time.
 
-- `--version: string`
+- `--version: string` (path parameter)
 
-  Path param: Identifies the skill version by its version ID.
+  Identifies the skill version by its version ID.
 
   Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

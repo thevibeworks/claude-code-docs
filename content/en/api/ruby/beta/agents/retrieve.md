@@ -13,17 +13,17 @@ Get Agent
 
 ## Parameters
 
-- `agent_id: String`
+- `agent_id: String` (path parameter)
 
   Unique identifier of the agent to retrieve.
 
-- `version: Integer`
+- `version: Integer` (query parameter)
 
   Agent version. Omit for the most recent version. Must be at least 1 if specified.
 
   format: int32
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -129,7 +129,7 @@ Get Agent
 
   - `:"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

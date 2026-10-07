@@ -6,6 +6,50 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.26454.0" description="2026-10-06">
+  Bundled Claude Code version: 2.1.289.
+
+  **General**
+
+  * Fixed a reply or tool step that fails to draw taking the whole chat down with it; the reply now shows as plain text, the step reads “Couldn’t load this.”, and the rest of the chat stays.
+  * Fixed editing a message spoken in voice mode, which could cut the conversation back to its first message; the edit now shows a notice and keeps your words instead.
+  * Fixed image and document attachments failing to load on Ubuntu 22.04, Debian 12 and other older Linux distributions.
+  * Fixed installed plugins disappearing after a plugin was uploaded at a moment when the app could not read its list of installed plugins.
+  * Fixed the app crashing shortly after launch for people with a very large number of Cowork tasks.
+  * Fixed the whole app closing when a built-in browser tab whose page had crashed was resized, reloaded, or switched to a device size.
+
+  **Code**
+
+  * Fixed a new session quietly switching to Local, and running the prompt on this computer, when the picked Remote Control computer or cloud environment went away while you were typing.
+  * Fixed Cmd+Q, the Quit menu item and the tray Quit skipping the “Claude is still working” prompt and stopping running sessions without asking.
+  * Fixed file edits being skipped in SSH sessions on Linux hosts that use a worktree while the app is closed or the computer is asleep.
+  * Fixed new sessions where Claude couldn’t take actions in the app, such as changing settings, opening files in your editor, or keeping your computer awake.
+  * Fixed SSH sessions stopping with no message, or sitting idle instead of picking up where they left off, after Claude Code restarted on the remote host; the session now shows an error with Try again and resumes when reopened.
+  * Fixed typed messages, pasted images and attached files being lost when a message failed to send, or when a new session failed to start or was stopped while starting.
+
+  **Cowork**
+
+  * Changed computer use on macOS to no longer edit or save hidden files and folders in your home folder, such as `~/.vimrc` or `~/.aws`.
+  * Fixed a scheduled task that was moved to the cloud showing up as a separate paused task on this computer when cloud tasks failed to load, where turning it on could run the task twice.
+  * Fixed Claude being unable to use document menu commands, such as New Slide or Undo in Keynote, or to click and drag on some canvases while the app stays in the background.
+  * Fixed Cowork tasks failing to start in a second copy of the app running on the same Windows account.
+  * Fixed the app freezing when a second message was sent to a new task before the task had finished starting.
+
+  **3P**
+
+  * Added `claudeAiImport.allowedOrganizationUuids`: the Claude.ai organizations users may import chat history from. When set, users can import only by signing in to Claude.ai, and only from an organization on the list; importing from a file is turned off.
+  * Added `microsoftAuthDefaultAccount`: when set to `enabled`, Connect on the Microsoft 365 connector on Windows signs in with the work account already signed in to Windows, with no account picker. Defaults to `disabled`.
+  * Added a “Use a different account” button and a line showing the signed-in account to the Microsoft 365 connector.
+  * Added an event sent to your OTLP collector when an SSH host isn’t running the sandbox your configuration asks for.
+  * Added the `desktop_claude_ai_import` event to the desktop OpenTelemetry export at log level `info`: it is logged for each Claude.ai history import made by sign-in or from a file, and for an import by the built-in Claude.ai sign-in it names the organization the history came from.
+  * Changed `inferenceGatewayAuthScheme: "sso"` to have no end date in this release and later: if `inferenceCredentialKind` is not set, they keep reading `sso` as `inferenceCredentialKind: "interactive"` after October 7, 2026. Earlier releases still stop accepting it on that date.
+  * Changed connectors on a computer login that several people share: each person now keeps their own built-in and OAuth connector sign-ins. A different person who signs in starts with their connectors disconnected, and the earlier person’s sign-ins are kept for when they sign in again.
+  * Changed Teams chat search in the Microsoft 365 connector to need the `ChannelMessage.Read.All` permission; without it, searches return a message with a consent link. Grant Entra admin consent, then set Access (`scope`) to the permissions the connector already uses plus this one, and have users reconnect.
+  * Fixed organization plugins a user installed disappearing after the admin’s plugin folder was redeployed.
+  * Fixed saving a skill with a very long description causing every skill kept on this computer to be removed. A description over 1,024 characters is now refused with the reason.
+  * Fixed the Microsoft 365 connector’s Access setting replacing the default permissions (mail, calendar, files) with a single permission when an administrator added one. Access now shows the defaults as selected, so adding one keeps the rest, and a custom list can be reset to the default.
+</Update>
+
 <Update label="v2.19675.1" description="2026-10-05">
   Bundled Claude Code version: 2.1.288.
 

@@ -17,25 +17,21 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `WorkHeartbeatParams parameters`
 
-  - `required string environmentID`
+  - `required string environmentID` (path parameter)
 
-    Path param
+  - `required string workID` (path parameter)
 
-  - `required string workID`
+  - `long? desiredTtlSeconds` (query parameter)
 
-    Path param
+    Desired TTL in seconds
 
-  - `long? desiredTtlSeconds`
+  - `string? expectedLastHeartbeat` (query parameter)
 
-    Query param: Desired TTL in seconds
+    Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 
-  - `string? expectedLastHeartbeat`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Query param: Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
-
-  - `IReadOnlyList<AnthropicBeta> betas`
-
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

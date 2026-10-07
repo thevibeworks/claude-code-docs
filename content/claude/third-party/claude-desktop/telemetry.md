@@ -149,7 +149,7 @@ All traffic is HTTPS on port 443. Allowlist by hostname (SNI); path-level rules 
 
 | Host | Purpose |
 | - | - |
-| `downloads.claude.ai` | VM workspace bundle and Claude CLI binary, fetched at session start |
+| `downloads.claude.ai` | VM workspace bundle and Claude CLI binary, fetched in the background or at session start |
 | `downloads.claude.ai` | Claude Code model catalog (signed picker metadata), polled every 5–15 minutes |
 
 Without this host reachable, Chat conversations, Cowork tasks, and Code sessions cannot start on a device that has not yet downloaded these components. App updates often change one or both of these components, and the app then downloads the new versions from the same host. Devices installed with the [offline installer variant](/docs/third-party/claude-desktop/installation#offline-installation), which includes both components in the installer package, are not affected. The model catalog fetch is not needed to run the app: set [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) to `false` to turn it off, or [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) to fetch the catalog from a mirror inside your network. While the catalog is unreachable, sessions still start and the model picker keeps the names and effort options the app last fetched or shipped with.

@@ -797,6 +797,8 @@ Within the loop, you can read each response message and modify the runner's stat
 
 ```mermaid
 sequenceDiagram
+  accTitle: The tool runner loop
+  accDescr: In each iteration, the tool runner sends a request with the current state to the Messages API. It receives the response message and yields it to your code. Your loop body runs, then the tool runner resumes. If the message history is unchanged and there are tool calls, it appends the assistant message and the tool results and continues. If there are none, it exits the loop. If the message history changed, it uses your state unchanged.
   participant U as Your code
   participant TR as ToolRunner
   participant API as Messages API

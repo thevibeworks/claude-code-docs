@@ -13,36 +13,36 @@ List Skills
 
 ## Parameters
 
-- `--limit: optional number`
+- `--limit: optional number` (query parameter)
 
-  Query param: Number of results to return per page.
+  Number of results to return per page.
 
   Ranges from `1` to `1000`. Defaults to `20`.
 
   minimum: 1, maximum: 1000
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Pagination token for fetching a specific page of results.
+  Pagination token for fetching a specific page of results.
 
   Pass the value from a previous response's `next_page` field to get the next page of results.
 
-- `--source: optional string`
+- `--source: optional string` (query parameter)
 
-  Query param: Filter skills by source.
+  Filter skills by source.
 
   If provided, only skills from the specified source will be returned:
 
   * `"custom"`: only return user-created skills
   * `"anthropic"`: only return Anthropic-created skills
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

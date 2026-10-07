@@ -13,15 +13,15 @@ Retrieve a memory
 
 ## Parameters
 
-- `memory_store_id: str`
+- `memory_store_id: str` (path parameter)
 
   The ID of the memory store that holds the memory (`memstore_...`).
 
-- `memory_id: str`
+- `memory_id: str` (path parameter)
 
   The ID of the memory to retrieve (`mem_...`).
 
-- `view: Optional[BetaManagedAgentsMemoryView]`
+- `view: Optional[BetaManagedAgentsMemoryView]` (query parameter)
 
   Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
@@ -33,7 +33,7 @@ Retrieve a memory
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -139,7 +139,7 @@ Retrieve a memory
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -15,59 +15,59 @@ List Sessions
 
 - `SessionListParams params`
 
-  - `Optional<String> agentId`
+  - `Optional<String> agentId` (query parameter)
 
     Filter sessions created with this agent ID.
 
-  - `Optional<Long> agentVersion`
+  - `Optional<Long> agentVersion` (query parameter)
 
     Filter by agent version. Only applies when `agent_id` is also set.
 
     format: int32
 
-  - `Optional<LocalDateTime> createdAtGt`
+  - `Optional<LocalDateTime> createdAtGt` (query parameter)
 
     Return sessions created after this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtGte`
+  - `Optional<LocalDateTime> createdAtGte` (query parameter)
 
     Return sessions created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLt`
+  - `Optional<LocalDateTime> createdAtLt` (query parameter)
 
     Return sessions created before this time (exclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte`
+  - `Optional<LocalDateTime> createdAtLte` (query parameter)
 
     Return sessions created at or before this time (inclusive).
 
     format: date-time
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (query parameter)
 
     Filter sessions created by this deployment ID.
 
-  - `Optional<Boolean> includeArchived`
+  - `Optional<Boolean> includeArchived` (query parameter)
 
     When true, includes archived sessions. Default: false (exclude archived).
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     Maximum number of results to return.
 
     format: int32
 
-  - `Optional<String> memoryStoreId`
+  - `Optional<String> memoryStoreId` (query parameter)
 
     Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
-  - `Optional<Order> order`
+  - `Optional<Order> order` (query parameter)
 
     Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
@@ -75,11 +75,11 @@ List Sessions
 
     - `DESC("desc")`
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque pagination cursor from a previous response.
 
-  - `Optional<List<Status>> statuses`
+  - `Optional<List<Status>> statuses` (query parameter)
 
     Filter by session status. Repeat the parameter to match any of multiple statuses.
 
@@ -99,7 +99,7 @@ List Sessions
 
       Session has ended, either due to an error or completion.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -203,7 +203,7 @@ List Sessions
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

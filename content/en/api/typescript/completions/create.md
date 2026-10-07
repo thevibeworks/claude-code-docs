@@ -21,7 +21,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `max_tokens_to_sample: number`
 
-    Body param: The maximum number of tokens to generate before stopping.
+    The maximum number of tokens to generate before stopping.
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
@@ -29,7 +29,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `model: Model`
 
-    Body param: The model that will complete your prompt.
+    The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
@@ -119,7 +119,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `prompt: string`
 
-    Body param: The prompt that you want Claude to complete.
+    The prompt that you want Claude to complete.
 
     For proper response generation you will need to format your prompt using alternating `
 
@@ -141,7 +141,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `metadata?: Metadata`
 
-    Body param: An object describing metadata about the request.
+    An object describing metadata about the request.
 
     - `user_id?: string | null`
 
@@ -153,7 +153,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `stop_sequences?: Array<string>`
 
-    Body param: Sequences that will cause the model to stop generating.
+    Sequences that will cause the model to stop generating.
 
     Our models stop on `"
 
@@ -161,13 +161,13 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `stream?: boolean`
 
-    Body param: Whether to incrementally stream the response using server-sent events.
+    Whether to incrementally stream the response using server-sent events.
 
     See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -175,7 +175,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
-    Body param: Amount of randomness injected into the response.
+    Amount of randomness injected into the response.
 
     Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
 
@@ -187,7 +187,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
-    Body param: Only sample from the top K options for each subsequent token.
+    Only sample from the top K options for each subsequent token.
 
     Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
 
@@ -199,7 +199,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
-    Body param: Use nucleus sampling.
+    Use nucleus sampling.
 
     In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
@@ -207,11 +207,11 @@ Future models and features will not be compatible with Text Completions. See our
 
     minimum: 0, maximum: 1
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 

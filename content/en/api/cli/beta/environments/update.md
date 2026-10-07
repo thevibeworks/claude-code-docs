@@ -13,41 +13,39 @@ Update an existing environment's configuration.
 
 ## Parameters
 
-- `--environment-id: string`
-
-  Path param
+- `--environment-id: string` (path parameter)
 
 - `--config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams`
 
-  Body param: Updated environment configuration
+  Updated environment configuration
 
 - `--description: optional string`
 
-  Body param: Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+  Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
   maxLength: 1024
 
 - `--metadata: optional map[string]`
 
-  Body param: User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
+  User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
 - `--name: optional string`
 
-  Body param: Updated name for the environment
+  Updated name for the environment
 
   minLength: 1, maxLength: 256
 
 - `--scope: optional "organization" or "account"`
 
-  Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
+  The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

@@ -13,33 +13,33 @@ List User Profiles
 
 ## Parameters
 
-- `--limit: optional number`
+- `--limit: optional number` (query parameter)
 
-  Query param: The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
+  The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
 
   format: int32
 
-- `--order: optional "asc" or "desc"`
+- `--order: optional "asc" or "desc"` (query parameter)
 
-  Query param: The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
+  The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
 
-- `--order-by: optional "created_at" or "name"`
+- `--order-by: optional "created_at" or "name"` (query parameter)
 
-  Query param: The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
+  The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: The cursor for the page to return, taken from `next_page` in a previous response.
+  The cursor for the page to return, taken from `next_page` in a previous response.
 
   Leave it out to get the first page.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

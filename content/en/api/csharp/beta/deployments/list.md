@@ -15,43 +15,43 @@ List Deployments
 
 - `DeploymentListParams parameters`
 
-  - `string agentID`
+  - `string agentID` (query parameter)
 
-    Query param: Filter by agent ID.
+    Filter by agent ID.
 
-  - `DateTimeOffset createdAtGte`
+  - `DateTimeOffset createdAtGte` (query parameter)
 
-    Query param: Return deployments created at or after this time (inclusive).
-
-    format: date-time
-
-  - `DateTimeOffset createdAtLte`
-
-    Query param: Return deployments created at or before this time (inclusive).
+    Return deployments created at or after this time (inclusive).
 
     format: date-time
 
-  - `bool includeArchived`
+  - `DateTimeOffset createdAtLte` (query parameter)
 
-    Query param: When true, includes archived deployments. Default: false (exclude archived).
+    Return deployments created at or before this time (inclusive).
 
-  - `int limit`
+    format: date-time
 
-    Query param: Maximum results per page. Default 20, maximum 100.
+  - `bool includeArchived` (query parameter)
+
+    When true, includes archived deployments. Default: false (exclude archived).
+
+  - `int limit` (query parameter)
+
+    Maximum results per page. Default 20, maximum 100.
 
     format: int32
 
-  - `string page`
+  - `string page` (query parameter)
 
-    Query param: Opaque pagination cursor.
+    Opaque pagination cursor.
 
-  - `BetaManagedAgentsDeploymentStatus status`
+  - `BetaManagedAgentsDeploymentStatus status` (query parameter)
 
-    Query param: Filter by status: `active` or `paused`. Omit for both. To include archived deployments, use `include_archived` instead; the two cannot be combined.
+    Filter by status: `active` or `paused`. Omit for both. To include archived deployments, use `include_archived` instead; the two cannot be combined.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -153,9 +153,9 @@ List Deployments
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

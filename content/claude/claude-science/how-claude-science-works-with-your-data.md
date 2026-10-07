@@ -64,7 +64,7 @@ Organizations that use [customer-managed encryption keys (CMEK)](https://platfor
 
 The app's conversation history, files, artifacts, and memory are stored on the member's computer and aren't hosted by Anthropic; of these, only what the app sends to Claude reaches Anthropic, where your key covers it as this section describes. Work members send to their own SSH hosts, Modal account, or scientific model endpoints goes directly there, not through Anthropic, and isn't under your key or any Anthropic-managed key, so review those providers' data handling. You can turn these connections off under **Organization settings** > **Claude Science**.
 
-In organizations with CMEK enabled, the app hides its response rating buttons and feedback form, as claude.ai does.
+In organizations with CMEK enabled, the app hides the **Send feedback** link on the [**Chat paused**](/docs/claude-science/safeguards#when-safeguards-flag-a-message) card.
 
 ## What isn't available for Claude Science
 

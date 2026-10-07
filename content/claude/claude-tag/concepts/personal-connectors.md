@@ -95,6 +95,8 @@ To manage personal connectors for the whole organization, an admin goes to [`cla
 
 There is no setting that turns personal connectors in channels off for an organization. To keep a service out of channels entirely, manage the connector itself in your organization's [connector settings](/docs/connectors/getting-started).
 
+On the Enterprise plan, keep Claude Opus 5 turned on under **Model access** on your organization's [**Models**](https://claude.ai/admin-settings/models) page, which an Owner or Admin can edit. With Claude Opus 5 turned off for the organization, Claude declines tasks that need a member's personal connectors, whichever model the thread runs on. Claude runs the checks on those tasks on Claude Opus 5, and other channel work continues. For the member's side of this, see [Claude says it needs Claude Opus 5 to use my personal connectors](/docs/claude-tag/users/troubleshooting#claude-says-it-needs-claude-opus-5-to-use-my-personal-connectors).
+
 ### Stop connector use
 
 To stop a task that's using your connectors, select **Stop** under the message in the task's thread where Claude says it's going to use your connectors. Only you can see the **Stop** button.

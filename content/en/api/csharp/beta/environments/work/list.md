@@ -17,23 +17,21 @@ List work items in an environment.
 
 - `WorkListParams parameters`
 
-  - `required string environmentID`
+  - `required string environmentID` (path parameter)
 
-    Path param
+  - `long limit` (query parameter)
 
-  - `long limit`
-
-    Query param: Maximum number of work items to return
+    Maximum number of work items to return
 
     minimum: 1, maximum: 1000
 
-  - `string? page`
+  - `string? page` (query parameter)
 
-    Query param: Opaque cursor from previous response for pagination
+    Opaque cursor from previous response for pagination
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

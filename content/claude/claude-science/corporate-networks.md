@@ -38,14 +38,14 @@ Claude Science makes three kinds of outbound connections, each passing through a
 | TLS inspection on pip package downloads | Supported, with the corporate root also installed in the operating system's trust store (see [Corporate root for package downloads](#corporate-root-for-package-downloads)) | Supported automatically through the Windows certificate store | Supported, with the corporate root also installed in the operating system's trust store (see [Corporate root for package downloads](#corporate-root-for-package-downloads)) |
 | Internal package mirror (Artifactory, Nexus) | Supported | Supported | Supported |
 | Internal package mirror reached only through the corporate proxy | Not supported | Not supported | Not supported |
-| Authenticated package mirror | Supported, with the credential saved in Settings | Supported, with the credential saved in Settings | Supported, with the credential saved in Settings |
+| Authenticated package mirror | Supported, with the credential saved in Settings or in a file you deploy | Supported, with the credential saved in Settings or, with version 0.1.56 or later, in a file you deploy | Supported, with the credential saved in Settings or in a file you deploy |
 | Local connectors (the bundled research tools) behind TLS inspection | Not supported | Not supported | Not supported |
 
 ## Point package installs at an internal mirror
 
 When your network blocks the public package hosts (`conda.anaconda.org`, `repo.anaconda.com`, `pypi.org`), point Claude Science at your internal artifact repository instead, and every environment build fetches packages through it. You can set the mirror in three places: once for the whole organization under **Organization settings** > **Claude Science** > **Organization package mirror**, for a fleet with the `[conda] channel_mirror` and `pip_index_url` keys in a [deployed `config.toml`](/docs/claude-science/manage-on-devices#deploy-configuration-with-device-management), or for a single machine under **Settings** > **Network** > **Package mirror**, where the same two settings are called the conda channel mirror and the pip index URL. The steps below use the Settings page, the quickest way to test a mirror URL before you deploy it.
 
-The organization setting takes a conda channel URL and a Python package index (PyPI) URL, which apply to every member whether or not the organization manages the network allowlist. They take precedence over a mirror set in a member's configuration file or Settings; the member's values are kept but not used, and their Settings show the package mirror as controlled by their admin. The same URL rules apply as below, and an address that breaks those rules is ignored for that registry rather than stopping the app. Members still sign in to the mirror themselves, once for each mirror host (see [Mirror credentials](#mirror-credentials)), and the mirror removes the public hosts it replaces for every member. See [Organization package mirror](/docs/claude-science/admin-controls#organization-package-mirror).
+The organization setting takes a conda channel URL and a Python package index (PyPI) URL, which apply to every member whether or not the organization manages the network allowlist. They take precedence over a mirror set in a member's configuration file or Settings; the member's values are kept but not used, and their Settings show the package mirror as controlled by their admin. The same URL rules apply as below, and an address that breaks those rules is ignored for that registry rather than stopping the app. Members still sign in to the mirror themselves, once for each mirror host (see [Mirror credentials](#mirror-credentials)), unless you [deploy the credential as a file](#deploy-the-mirror-credential-as-a-file). The mirror removes the public hosts it replaces for every member. See [Organization package mirror](/docs/claude-science/admin-controls#organization-package-mirror).
 
 Set both a conda channel mirror and a pip index: analysis environments are built from conda packages, so a pip index alone leaves the first build stuck trying to reach the public conda host.
 
@@ -59,7 +59,7 @@ Set both a conda channel mirror and a pip index: analysis environments are built
   </Step>
 
   <Step title="Save, then run the check">
-    Select **Save**, then **Check**: a green result confirms the mirror answered, and a `401` or `403` on an authenticated mirror is expected until a credential is saved (see [Mirror credentials](#mirror-credentials)). The mirror takes effect for the next package operation without a restart. On a machine with an outbound proxy, confirm with a test environment build rather than the check alone (see [Mirror traffic and your other network controls](#mirror-traffic-and-your-other-network-controls)).
+    Select **Save**, then **Check**: a green result confirms the mirror answered, and a `401` or `403` on an authenticated mirror is expected until a credential is saved or, on Windows, deployed as a file (see [Mirror credentials](#mirror-credentials)). The mirror takes effect for the next package operation without a restart. On a machine with an outbound proxy, confirm with a test environment build rather than the check alone (see [Mirror traffic and your other network controls](#mirror-traffic-and-your-other-network-controls)).
   </Step>
 </Steps>
 
@@ -87,11 +87,44 @@ Mirror URLs must use `https://`, name a host by DNS name rather than IP address,
 
 ### Mirror credentials
 
-For a mirror that requires authentication, enter one username and access token under **Settings** > **Network** > **Package mirror** > **Mirror credentials**, using an account scoped to reading the mirror, then run the check so it signs in with the credential. The one credential is presented to both the conda-mirror host and the pip-index host, so if those need different accounts, keep one of them anonymous; the credential is sent only to `https://` mirror hosts.
+For a mirror that requires authentication, enter one username and access token under **Settings > Network > Package mirror > Mirror credentials**, using an account scoped to reading the mirror. If you entered the mirror address in Settings, run the check so that it signs in with the credential. The one credential is presented to both the conda-mirror host and the pip-index host, so if those need different accounts, keep one of them anonymous; the credential is sent only to `https://` mirror hosts.
 
-Claude Science stores the credential encrypted in its local database, using a key kept in a file only the member's account can read (on macOS, a copy of that key is in the keychain for recovery), and also writes the credential, automatically, to a plaintext `.netrc` at `~/.claude-science/conda/.netrc` that the conda and pip download tools read during environment builds. Code that runs while an environment builds (a package's `setup.py`, for example) can read that file, Claude's analysis code cannot read either location, and a `.netrc` in the member's home directory is not used for these downloads. For a macOS or Linux fleet that manages credentials centrally, deploy that `.netrc` file yourself instead (on Windows, save the credential in Settings), one `machine <mirror hostname>` block per mirror host with `login` and `password` lines and no comments, and use either the file or Settings, not both: a credential saved in Settings rewrites the file from the saved value at the save and at every restart and environment build, while a file deployed with no credential saved in Settings is left alone.
+Claude Science stores the credential encrypted in its local database, using a key kept in a file only the member's account can read (on macOS, a copy of that key is in the keychain for recovery), and also writes the credential, automatically, to a plaintext `.netrc` at `~/.claude-science/conda/.netrc` that the conda and pip download tools read during environment builds. Code that runs while an environment builds (a package's `setup.py`, for example) can read that file, Claude's analysis code cannot read either location while the sandbox is on (the default), and a `.netrc` in the member's home directory is not used for these downloads. To manage credentials centrally instead, see [Deploy the mirror credential as a file](#deploy-the-mirror-credential-as-a-file).
 
 Environments a member registers from an existing project folder install their packages inside the analysis sandbox during a session, where the credential is hidden by design, so those environments need a mirror that allows anonymous reads.
+
+### Deploy the mirror credential as a file
+
+To manage mirror credentials centrally, deploy a `.netrc` file to each member's profile:
+
+* **macOS and Linux**: `~/.claude-science/conda/.netrc`
+* **Windows, version 0.1.56 or later**: `%USERPROFILE%\.claude-science\conda\.netrc`
+
+<Note>
+  On Windows, a deployment tool that runs as an administrator or as the system account needs the member's full path, such as `C:\Users\ada\.claude-science\conda\.netrc`.
+</Note>
+
+Write one block like this for each mirror host:
+
+```text theme={null}
+machine yourorg.jfrog.io
+login mirror-reader
+password EXAMPLE-TOKEN
+```
+
+Create the `.claude-science` and `conda` folders if they don't exist, and let the member read the file and write to both folders. On Windows, the sandbox relies on this to keep the file from Claude's code and connectors. On macOS and Linux, make the member the owner of the file and both folders, and set the file's permissions to `600`.
+
+Before you deploy, have members select **Remove** under **Settings > Network > Package mirror > Mirror credentials** when that button shows, and keep **Mirror credentials** empty, even when a **Finish setting up package access** notice shows. Claude Science can write a saved credential over the file. Deploy the file before members install or update Claude Science.
+
+Before rollout, test the file on one machine where Claude Science has never run:
+
+1. Deploy the file for a member with a standard account.
+2. Install Claude Science, sign in as that member, and let environment setup finish.
+3. Look in your mirror's request log for the file's login on both the Python index and the conda channel.
+
+If the test doesn't pass, see [Mirror sign-in fails with a deployed credential file](#mirror-sign-in-fails-with-a-deployed-credential-file).
+
+To rotate the token, deploy the file again, and on Linux have members quit and reopen Claude Science so that the sandbox hides the new file.
 
 ### Mirror traffic and your other network controls
 
@@ -138,7 +171,9 @@ When the network publishes only a PAC or WPAD file, the Claude Science app windo
 
 How the variables reach the app depends on the operating system:
 
-* On macOS, the Claude Science app reads a file named `env` in its data folder (`~/.claude-science/env` unless you moved the data folder) when it launches. The file holds `KEY=VALUE` lines (`export KEY=VALUE` also works). Put the three variables there, then quit and reopen the app; an app started from the Dock or Finder does not see variables exported in a terminal. The file's `NO_PROXY` entries merge with the other sources rather than replacing them.
+* On macOS, the Claude Science app reads a file named `env` in its data folder (`~/.claude-science/env` unless you moved the data folder) when it launches. The file holds `KEY=VALUE` lines (`export KEY=VALUE` also works). Put the three proxy variables there, then quit and reopen the app; an app started from the Dock or Finder does not see variables exported in a terminal. The file's `NO_PROXY` entries merge with the other sources rather than replacing them.
+
+  The app applies only a fixed list of variables from this file, which includes the proxy variables and `DO_NOT_TRACK`, and skips any other line with a warning in `~/.claude-science/logs/app.log`. A `GITHUB_TOKEN` line, for example, is skipped, so add the token under **Settings > Credentials** (see [Environment variables](/docs/claude-science/command-line-settings#environment-variables)). Before version 0.1.56, the file could set any variable.
 * On Windows, the app reads the variables from the user's environment when it starts, so set them as user environment variables, then quit Claude Science from its notification-area icon and open it again; variables typed into an open Command Prompt or PowerShell window do not reach an app started from the Start menu. Because Claude Science already follows Windows proxy settings, most PCs need no variables, and `[network] proxy` in `config.toml` is the form to deploy.
 * On Linux, export the variables in the shell or service unit that starts `claude-science serve`. The `env` file is read only by the macOS app.
 
@@ -211,7 +246,20 @@ The mirror requires authentication and the build is not presenting a credential 
 
 ### HTTP 401 on the mirror check
 
-With no saved credential, a `401` is expected because the check sends none; enter the credential under **Mirror credentials** and run the check again. When a credential is saved, the check signs in with it, so a `401` means the token is wrong or expired. On a proxy-configured machine the check and a build can also take different network paths (see [Mirror traffic and your other network controls](#mirror-traffic-and-your-other-network-controls)).
+When no credential is saved in Settings, the check sends a credential on Windows only, taken from a deployed `.netrc` file's entry for that mirror host. With none saved, the check sends no credential on macOS and Linux, or on Windows when no deployed file has an entry for that mirror host. A `401` or `403` is then expected, even when builds sign in with the file. The **Check** button shows beside a mirror address entered in Settings, not beside one that the organization or a deployed `config.toml` sets.
+
+* **Your fleet deploys the `.netrc` file**: leave **Mirror credentials** empty and confirm the file as described under [Deploy the mirror credential as a file](#deploy-the-mirror-credential-as-a-file).
+* **You save the credential in Settings**: enter it under **Settings > Network > Package mirror > Mirror credentials** and run the check again.
+
+When the check does sign in, a `401` means the token is wrong or expired. On a proxy-configured machine the check and a build can also take different network paths (see [Mirror traffic and your other network controls](#mirror-traffic-and-your-other-network-controls)).
+
+### Mirror sign-in fails with a deployed credential file
+
+When a `.netrc` file you deployed (see [Deploy the mirror credential as a file](#deploy-the-mirror-credential-as-a-file)) doesn't work, find the case that matches:
+
+* **An environment build fails with `401` or `403`**: check the file's name, contents, permissions, and token (see [HTTP 401 or 403 during an environment build](#http-401-or-403-during-an-environment-build)). On Windows, Claude Science doesn't use a file it can't open or whose keywords or characters it doesn't accept, and Python package installs then don't sign in with it. In a terminal, `claude-science logs` says why.
+* **Your mirror's request log shows nothing**: if your network also allows the public package hosts, setup can use them before the organization's mirror address arrives. In that case, set the mirror in `config.toml` (see [Configuration file reference](/docs/claude-science/configuration-file-reference)) on another machine where Claude Science has never run, before the install, and repeat the test.
+* **The file reached a machine while a credential was still saved**: have the member select **Remove** under **Settings > Network > Package mirror > Mirror credentials**, then deploy the file again, because removing can empty it. On Windows, have the member then quit Claude Science from its notification-area icon and open it again.
 
 ### Green check, then nothing provides the package
 

@@ -13,57 +13,57 @@ List memory versions
 
 ## Parameters
 
-- `memoryStoreID: string`
+- `memoryStoreID: string` (path parameter)
 
   The ID of the memory store whose version history to list (`memstore_...`).
 
-- `apiKeyID?:optional string`
+- `apiKeyID?:optional string` (query parameter)
 
   Return only versions written with the API key that has this ID.
 
-- `createdAtGte?:optional \Datetime`
+- `createdAtGte?:optional \Datetime` (query parameter)
 
   Return versions created at or after this time (inclusive).
 
-- `createdAtLte?:optional \Datetime`
+- `createdAtLte?:optional \Datetime` (query parameter)
 
   Return versions created at or before this time (inclusive).
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   The maximum number of versions to return per page. Defaults to 20.
 
-- `memoryID?:optional string`
+- `memoryID?:optional string` (query parameter)
 
   Return only versions of the memory with this ID (`mem_...`).
 
   The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
-- `operation?:optional ManagedAgentsMemoryVersionOperation`
+- `operation?:optional ManagedAgentsMemoryVersionOperation` (query parameter)
 
   Return only versions that record this kind of change.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `serviceAccountID?:optional string`
+- `serviceAccountID?:optional string` (query parameter)
 
   Return only versions written by the service account with this ID (`svac_...`).
 
-- `sessionID?:optional string`
+- `sessionID?:optional string` (query parameter)
 
   Return only versions written by the session with this ID.
 
-- `view?:optional ManagedAgentsMemoryView`
+- `view?:optional ManagedAgentsMemoryView` (query parameter)
 
   Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

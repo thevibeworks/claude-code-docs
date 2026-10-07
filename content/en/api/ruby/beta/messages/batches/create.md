@@ -4141,7 +4141,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       minimum: 0, maximum: 1
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -4247,11 +4247,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"spend-limit-reads-2026-09-26"`
 
-- `user_profile_id: String`
+- `user_profile_id: String` (header parameter)
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

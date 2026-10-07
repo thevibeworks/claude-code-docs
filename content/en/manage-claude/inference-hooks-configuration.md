@@ -57,9 +57,9 @@ There are three enforcement states: **off** (**Enforce verdicts** is off: your A
     | Result                  | What to check                                                                                                                                         |
     | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
     | URL rejected            | The URL failed a structural check. Use an `https://` URL on port 443.                                                                                 |
-    | Private or internal IP  | The host resolves to a private or internal address. Use a publicly routable host.                                                                     |
+    | Private or internal IP  | The URL's host is a private or internal IP address, an IPv6 address, or `localhost`. Use a publicly routable host.                                    |
     | Timeout                 | The AI security server did not return a verdict within the timeout.                                                                                   |
-    | Transport error         | DNS resolution, the TLS handshake, or the connection failed.                                                                                          |
+    | Transport error         | DNS resolution, the TLS handshake, or the connection failed, or the hostname resolves to a private address.                                           |
     | Non-200 status          | The AI security server responded with a status other than 200. Verdicts must come back as HTTP 200; redirects are not followed and count as failures. |
     | Unparseable response    | The AI security server responded, but the body is not a valid verdict.                                                                                |
     | Signing secret required | Your organization has no signing secret, so the test would be sent unsigned. Click **Generate secret** under **Request signing**, then test again.    |
@@ -89,7 +89,7 @@ There are three enforcement states: **off** (**Enforce verdicts** is off: your A
 
     Turn on **Enforce verdicts** to gate Claude on your AI security server's verdict for every governed prompt, then confirm in the dialog, which restates your failure handling choice. Allow about a minute for the change to reach every Anthropic server; requests already in flight finish under the old setting. Turning it off stops prompts from being sent to your AI security server, again within about a minute; your configuration is kept.
 
-    Turn on **Validate tool calls**, below **Enforce verdicts**, and confirm in the dialog, to also send the tool calls in each of Claude's responses to your AI security server and wait for its verdict before they run; see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame). It is off by default. It has no effect while **Enforce verdicts** is off, and a change to it takes about a minute to reach every Anthropic server, as with **Enforce verdicts**. Confirm that your AI security server handles tool call frames before you turn it on.
+    **Validate tool calls**, below **Enforce verdicts**, also sends the tool calls in each of Claude's responses to your AI security server and waits for its verdict before they run; see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame). It is on by default in a new configuration. It has no effect while **Enforce verdicts** is off, and a change to it takes about a minute to reach every Anthropic server, as with **Enforce verdicts**.
   </Step>
 </Steps>
 
@@ -117,7 +117,21 @@ The endpoint health area of the Inference hooks settings page shows:
 * **Failures per minute:** webhook failures over the last two minutes, averaged.
 * **Block rate:** denials as a share of your AI security server's verdicts, shown while the rollout percentage is below 100.
 * **Circuit breaker tripped:** when the breaker last tripped, if it has.
-* **Recent errors:** each entry is reduced to a timestamp, an error type, and a one-line reason. Entries never include request content or your endpoint URL.
+* **Recent errors:** each entry shows when the failure happened, an error type, and a category. The category is `webhook_error` for a problem with your endpoint or the connection to it, or `relay_error` for a failure inside Anthropic's systems. Entries never include request content or your endpoint URL. The list keeps the 10 most recent failures and clears an hour after the last one.
+
+The error types in **Recent errors** mean:
+
+| Error shown                                          | What it means                                                                                                                                                                                                                                                                    | Counts toward the circuit breaker |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `DlpWebhookTimeoutError` · `webhook_error`           | Your AI security server didn't return a verdict within the **Prompt verdict timeout (ms)** you set.                                                                                                                                                                              | Yes                               |
+| `DlpWebhookStatusError` · `webhook_error`            | Your AI security server answered with an HTTP status other than 200, such as a redirect.                                                                                                                                                                                         | Yes                               |
+| `DlpWebhookResponseError` · `webhook_error`          | Your AI security server answered 200, but the body isn't a valid verdict or is larger than 64 KiB.                                                                                                                                                                               | Yes                               |
+| `DlpWebhookTransportError` · `webhook_error`         | The connection failed or dropped before a complete answer arrived: for example, the hostname didn't resolve or resolved to a private address, the connection was refused or reset, or the TLS handshake failed. A network problem on Anthropic's side can also show up this way. | No                                |
+| `DlpWebhookDisallowedAddressError` · `webhook_error` | The endpoint URL's host is a private or internal IP address, an IPv6 address, or `localhost`. A hostname that resolves to such an address shows as a transport error instead.                                                                                                    | Yes                               |
+| `DlpWebhookBlockedError` · `webhook_error`           | The endpoint URL isn't an `https://` URL on port 443, or can't be parsed, so no request was sent.                                                                                                                                                                                | No                                |
+| `DlpWebhookRelayError` · `relay_error`               | The failure was inside Anthropic's systems, and your AI security server usually wasn't contacted.                                                                                                                                                                                | No                                |
+
+In shadow mode, no error counts toward the circuit breaker.
 
 The panel is best-effort: if Anthropic cannot read the counters it shows zero failures and no errors rather than an error of its own, so a healthy-looking panel is not by itself proof that your AI security server is healthy. **Failures per minute** counts every failure, including the network and DNS errors that never trip the circuit breaker, so it can be high while **Circuit breaker tripped** stays empty.
 
@@ -141,7 +155,7 @@ Requests signed with the previous secret can still arrive briefly after rotation
 
 ## Audit trail
 
-Inference hooks activity is recorded in your organization's [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed): configuration changes, denials, circuit breaker trips, and requests that proceeded without inspection under your failure handling setting. While the circuit breaker is tripped, no per-request Inference hooks activities are recorded; the trip activity is the feed's record of that window. Denial records carry identifiers that let you join each denial to the matching record in your own system.
+Inference hooks activity is recorded in your organization's [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed): configuration changes, denials, circuit breaker trips, and requests that proceeded without inspection because no verdict could be obtained. That last kind is recorded only while **Enforce verdicts** is on and **Mode** is **Allow the request**. Its reason is `endpoint_timeout`, `endpoint_error` for any other problem calling your AI security server, or `internal_error` for a failure on Anthropic's side. Under **Block the request** or **Shadow mode**, failed requests aren't recorded individually, and the circuit breaker's automatic recovery isn't recorded. While the circuit breaker is tripped, no per-request Inference hooks activities are recorded; the trip activity is the feed's record of that window. Denial records carry identifiers that let you join each denial to the matching record in your own system.
 
 ## Turn Inference hooks off
 

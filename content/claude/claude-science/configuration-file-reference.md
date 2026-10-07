@@ -4,7 +4,7 @@
 
 # Configuration file reference
 
-> Claude Science's config.toml file: where it lives, how its values interact with the Settings page, and the network-related keys for the outbound proxy, certificate bundles, package mirror, and sandbox network allowlist.
+> Claude Science's config.toml file: where it lives, how it interacts with Settings, and its network, web search, and upload keys.
 
 Claude Science reads optional settings from a TOML file named `config.toml` in its default data folder, which is `~/.claude-science/config.toml` on macOS and Linux and `%USERPROFILE%\.claude-science\config.toml` on Windows. Every key has a default, so the app starts with no file present; administrators deploy the file with device management to set fleet policy. The file is read once at startup, so changes take effect after a restart. The `claude-science` command accepts `--config <file>` to read a different file for one run.
 
@@ -46,6 +46,21 @@ The `[sandbox.network]` table adjusts the network allowlist the analysis sandbox
 | `enabled` | boolean | `true` | When `false`, code Claude runs has no network access: package installs and data fetches inside the analysis fail, while the app's own connections are unaffected. This is a no-network mode, not a way to skip the allowlist. |
 | `allowed_domains` | array of strings | `[]` | Domains added to the built-in allowlist, as exact hostnames or wildcards such as `*.example.org`. While the organization manages the [network allowlist](/docs/claude-science/admin-controls#network-allowlist) under **Organization settings** > **Claude Science**, these domains are set aside and the organization's list applies. |
 | `denied_domains` | array of strings | `[]` | Domains added to the built-in denylist. A denied domain is blocked even if it also appears on the allowlist, and the built-in denylist entries cannot be removed. |
+
+## Web search and upload keys
+
+Put `enable_web_search`, `chunked_upload_threshold_bytes`, or both at the top of `config.toml`, above the first line in square brackets such as `[network]`, as in this example:
+
+```toml theme={null}
+# Turn off Claude's web search tool.
+enable_web_search = false
+
+# Upload attached files larger than 4 MiB in 5 MiB chunks (an example value for a proxy that limits requests to 8 MiB).
+chunked_upload_threshold_bytes = 4194304
+```
+
+* **`enable_web_search`** (default `true`): `false` turns off Claude's web search tool. Literature search, connectors, and the sites that code in the sandbox can reach are unaffected.
+* **`chunked_upload_threshold_bytes`** (default `47185920`, 45 MiB): Claude Science uploads an attached file larger than this value in 5 MiB chunks instead of one request. When a reverse proxy in front of Claude Science limits request size, set it below that limit, and keep that limit above 5 MiB. A value above the default prevents Claude Science from starting.
 
 ## Related resources
 

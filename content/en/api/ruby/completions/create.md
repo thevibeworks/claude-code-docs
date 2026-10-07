@@ -163,7 +163,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -205,7 +205,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   minimum: 0, maximum: 1
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   **Deprecated**: Deprecated. This parameter has no effect on this method and will be removed in a future release.
 

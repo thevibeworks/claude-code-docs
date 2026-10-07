@@ -15,25 +15,23 @@ Record a heartbeat for a work item to maintain the lease.
 
 ## Parameters
 
-- `workID string`
+- `workID string` (path parameter)
 
 - `params BetaEnvironmentWorkHeartbeatParams`
 
-  - `EnvironmentID param.Field[string]`
+  - `EnvironmentID param.Field[string]` (path parameter)
 
-    Path param
+  - `DesiredTTLSeconds param.Field[int64] Optional` (query parameter)
 
-  - `DesiredTTLSeconds param.Field[int64] Optional`
+    Desired TTL in seconds
 
-    Query param: Desired TTL in seconds
+  - `ExpectedLastHeartbeat param.Field[string] Optional` (query parameter)
 
-  - `ExpectedLastHeartbeat param.Field[string] Optional`
+    Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 
-    Query param: Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
-
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 

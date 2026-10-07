@@ -13,13 +13,13 @@ Get Deployment Run
 
 ## Parameters
 
-- `deploymentRunID: string`
+- `deploymentRunID: string` (path parameter)
 
   Unique identifier of the deployment run.
 
 - `params: DeploymentRunRetrieveParams`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -125,7 +125,7 @@ Get Deployment Run
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

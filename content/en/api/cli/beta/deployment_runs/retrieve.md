@@ -13,15 +13,15 @@ Get Deployment Run
 
 ## Parameters
 
-- `--deployment-run-id: string`
+- `--deployment-run-id: string` (path parameter)
 
   Unique identifier of the deployment run.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
