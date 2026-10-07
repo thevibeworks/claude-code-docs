@@ -13,25 +13,25 @@ Delete a memory
 
 ## Parameters
 
-- `memoryID: string`
+- `memoryID: string` (path parameter)
 
   The ID of the memory to delete (`mem_...`).
 
 - `params: MemoryDeleteParams`
 
-  - `memory_store_id: string`
+  - `memory_store_id: string` (path parameter)
 
-    Path param: The ID of the memory store that holds the memory (`memstore_...`).
+    The ID of the memory store that holds the memory (`memstore_...`).
 
-  - `expected_content_sha256?: string`
+  - `expected_content_sha256?: string` (query parameter)
 
-    Query param: Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
+    Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
 
     If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -135,9 +135,9 @@ Delete a memory
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

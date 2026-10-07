@@ -13,43 +13,43 @@ List memory versions
 
 ## Parameters
 
-- `memoryStoreID: string`
+- `memoryStoreID: string` (path parameter)
 
   The ID of the memory store whose version history to list (`memstore_...`).
 
 - `params: MemoryVersionListParams`
 
-  - `api_key_id?: string`
+  - `api_key_id?: string` (query parameter)
 
-    Query param: Return only versions written with the API key that has this ID.
+    Return only versions written with the API key that has this ID.
 
-  - `"created_at[gte]"?: string`
+  - `"created_at[gte]"?: string` (query parameter)
 
-    Query param: Return versions created at or after this time (inclusive).
-
-    format: date-time
-
-  - `"created_at[lte]"?: string`
-
-    Query param: Return versions created at or before this time (inclusive).
+    Return versions created at or after this time (inclusive).
 
     format: date-time
 
-  - `limit?: number`
+  - `"created_at[lte]"?: string` (query parameter)
 
-    Query param: The maximum number of versions to return per page. Defaults to 20.
+    Return versions created at or before this time (inclusive).
+
+    format: date-time
+
+  - `limit?: number` (query parameter)
+
+    The maximum number of versions to return per page. Defaults to 20.
 
     format: int32
 
-  - `memory_id?: string`
+  - `memory_id?: string` (query parameter)
 
-    Query param: Return only versions of the memory with this ID (`mem_...`).
+    Return only versions of the memory with this ID (`mem_...`).
 
     The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
-  - `operation?: BetaManagedAgentsMemoryVersionOperation`
+  - `operation?: BetaManagedAgentsMemoryVersionOperation` (query parameter)
 
-    Query param: Return only versions that record this kind of change.
+    Return only versions that record this kind of change.
 
     - `"created"`
 
@@ -63,21 +63,21 @@ List memory versions
 
       The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-  - `page?: string`
+  - `page?: string` (query parameter)
 
-    Query param: The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
+    The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-  - `service_account_id?: string`
+  - `service_account_id?: string` (query parameter)
 
-    Query param: Return only versions written by the service account with this ID (`svac_...`).
+    Return only versions written by the service account with this ID (`svac_...`).
 
-  - `session_id?: string`
+  - `session_id?: string` (query parameter)
 
-    Query param: Return only versions written by the session with this ID.
+    Return only versions written by the session with this ID.
 
-  - `view?: BetaManagedAgentsMemoryView`
+  - `view?: BetaManagedAgentsMemoryView` (query parameter)
 
-    Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+    Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
     - `"basic"`
 
@@ -87,9 +87,9 @@ List memory versions
 
       Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -193,9 +193,9 @@ List memory versions
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

@@ -17,21 +17,21 @@ Long poll for work items in the queue.
 
 - `WorkPollParams params`
 
-  - `Optional<String> environmentId`
+  - `Optional<String> environmentId` (path parameter)
 
-  - `Optional<Long> blockMs`
+  - `Optional<Long> blockMs` (query parameter)
 
     How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
     minimum: 1
 
-  - `Optional<Long> reclaimOlderThanMs`
+  - `Optional<Long> reclaimOlderThanMs` (query parameter)
 
     Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
 
     minimum: 1
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -135,7 +135,7 @@ Long poll for work items in the queue.
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> anthropicWorkerId`
+  - `Optional<String> anthropicWorkerId` (header parameter)
 
     Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 

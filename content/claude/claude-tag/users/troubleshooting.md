@@ -550,6 +550,20 @@ For a DM, work through these in order:
 3. For a custom connector on a Team or Enterprise plan, an Owner adds it to the organization before you can connect it; see [add a connector by URL](/docs/connectors/custom/add-unlisted#add-a-connector-by-url).
 4. After connecting or reconnecting the connector on claude.ai, send Claude a new top-level direct message. A session loads its connectors when it starts, so your existing DM threads keep the set they started with and don't pick up the change.
 
+### Claude says it needs Claude Opus 5 to use my personal connectors
+
+**What you see**
+
+You ask Claude in a channel to do something that needs one of your [personal connectors](/docs/claude-tag/concepts/personal-connectors). Claude replies that it can't, because your Claude organization has turned off Claude Opus 5, which it needs to use your personal connectors in Slack.
+
+**What it means**
+
+Tasks that use your personal connectors need Claude Opus 5 turned on for your organization, whichever model your thread runs on. Claude uses Claude Opus 5 for the checks it runs on those tasks. On the Enterprise plan, admins can turn a model off for the whole organization. While Claude Opus 5 is off, Claude declines these tasks and keeps doing other work in the channel.
+
+**How to resolve**
+
+Ask your admin to turn Claude Opus 5 back on for your organization, and send them [the admin controls for personal connectors](/docs/claude-tag/concepts/personal-connectors#admin-controls-for-personal-connectors). Once it's on, ask Claude again in the thread. Your thread keeps running on the model it was already using.
+
 ### Claude says it has no internet access or can't open a link
 
 **What you see**

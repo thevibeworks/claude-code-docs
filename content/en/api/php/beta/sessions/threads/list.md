@@ -13,21 +13,21 @@ List Session Threads
 
 ## Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum results per page. Defaults to 1000.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

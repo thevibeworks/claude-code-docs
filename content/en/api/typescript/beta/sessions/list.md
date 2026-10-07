@@ -15,73 +15,73 @@ List Sessions
 
 - `params: SessionListParams`
 
-  - `agent_id?: string`
+  - `agent_id?: string` (query parameter)
 
-    Query param: Filter sessions created with this agent ID.
+    Filter sessions created with this agent ID.
 
-  - `agent_version?: number`
+  - `agent_version?: number` (query parameter)
 
-    Query param: Filter by agent version. Only applies when `agent_id` is also set.
-
-    format: int32
-
-  - `"created_at[gt]"?: string`
-
-    Query param: Return sessions created after this time (exclusive).
-
-    format: date-time
-
-  - `"created_at[gte]"?: string`
-
-    Query param: Return sessions created at or after this time (inclusive).
-
-    format: date-time
-
-  - `"created_at[lt]"?: string`
-
-    Query param: Return sessions created before this time (exclusive).
-
-    format: date-time
-
-  - `"created_at[lte]"?: string`
-
-    Query param: Return sessions created at or before this time (inclusive).
-
-    format: date-time
-
-  - `deployment_id?: string`
-
-    Query param: Filter sessions created by this deployment ID.
-
-  - `include_archived?: boolean`
-
-    Query param: When true, includes archived sessions. Default: false (exclude archived).
-
-  - `limit?: number`
-
-    Query param: Maximum number of results to return.
+    Filter by agent version. Only applies when `agent_id` is also set.
 
     format: int32
 
-  - `memory_store_id?: string`
+  - `"created_at[gt]"?: string` (query parameter)
 
-    Query param: Filter sessions whose resources contain a `memory_store` with this memory store ID.
+    Return sessions created after this time (exclusive).
 
-  - `order?: "asc" | "desc"`
+    format: date-time
 
-    Query param: Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
+  - `"created_at[gte]"?: string` (query parameter)
+
+    Return sessions created at or after this time (inclusive).
+
+    format: date-time
+
+  - `"created_at[lt]"?: string` (query parameter)
+
+    Return sessions created before this time (exclusive).
+
+    format: date-time
+
+  - `"created_at[lte]"?: string` (query parameter)
+
+    Return sessions created at or before this time (inclusive).
+
+    format: date-time
+
+  - `deployment_id?: string` (query parameter)
+
+    Filter sessions created by this deployment ID.
+
+  - `include_archived?: boolean` (query parameter)
+
+    When true, includes archived sessions. Default: false (exclude archived).
+
+  - `limit?: number` (query parameter)
+
+    Maximum number of results to return.
+
+    format: int32
+
+  - `memory_store_id?: string` (query parameter)
+
+    Filter sessions whose resources contain a `memory_store` with this memory store ID.
+
+  - `order?: "asc" | "desc"` (query parameter)
+
+    Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
     - `"asc"`
 
     - `"desc"`
 
-  - `page?: string`
+  - `page?: string` (query parameter)
 
-    Query param: Opaque pagination cursor from a previous response.
+    Opaque pagination cursor from a previous response.
 
-  - `statuses?: Array<"rescheduling" | "running" | "idle" | "terminated">`
+  - `statuses?: Array<"rescheduling" | "running" | "idle" | "terminated">` (query parameter)
 
-    Query param: Filter by session status. Repeat the parameter to match any of multiple statuses.
+    Filter by session status. Repeat the parameter to match any of multiple statuses.
 
     - `"rescheduling"`
 
@@ -99,9 +99,9 @@ List Sessions
 
       Session has ended, either due to an error or completion.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -205,9 +205,9 @@ List Sessions
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

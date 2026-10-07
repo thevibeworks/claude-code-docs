@@ -13,23 +13,23 @@ Get Agent
 
 ## Parameters
 
-- `--agent-id: string`
+- `--agent-id: string` (path parameter)
 
-  Path param: Unique identifier of the agent to retrieve.
+  Unique identifier of the agent to retrieve.
 
-- `--version: optional number`
+- `--version: optional number` (query parameter)
 
-  Query param: Agent version. Omit for the most recent version. Must be at least 1 if specified.
+  Agent version. Omit for the most recent version. Must be at least 1 if specified.
 
   format: int32
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

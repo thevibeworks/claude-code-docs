@@ -15,32 +15,32 @@ List Skills
 
 - `SkillListParams parameters`
 
-  - `long limit`
+  - `long limit` (query parameter)
 
-    Query param: Number of results to return per page.
+    Number of results to return per page.
 
     Ranges from `1` to `1000`. Defaults to `20`.
 
     minimum: 1, maximum: 1000
 
-  - `string? page`
+  - `string? page` (query parameter)
 
-    Query param: Pagination token for fetching a specific page of results.
+    Pagination token for fetching a specific page of results.
 
     Pass the value from a previous response's `next_page` field to get the next page of results.
 
-  - `string? source`
+  - `string? source` (query parameter)
 
-    Query param: Filter skills by source.
+    Filter skills by source.
 
     If provided, only skills from the specified source will be returned:
 
     * `"custom"`: only return user-created skills
     * `"anthropic"`: only return Anthropic-created skills
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -142,9 +142,9 @@ List Skills
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

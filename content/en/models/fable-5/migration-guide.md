@@ -18,7 +18,7 @@ description: "Migrate to Claude Mythos 5 and Claude Fable 5 from Claude Mythos P
   The skill applies the model ID swap and, as needed, breaking parameter changes, prefill replacement, and effort calibration for your target model across your code base, then produces a checklist of items to verify manually. It asks you to confirm the migration scope (entire working directory, a subdirectory, or a specific file list) before editing any files. The skill also detects Amazon Bedrock and Claude Platform on AWS clients and adjusts model ID formats and feature changes for those platforms.
 </Tip>
 
-[Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5) is built for demanding reasoning and long-horizon agentic work. [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide) builds on it. Claude Fable 5 is available on the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). [Claude Mythos 5](https://anthropic.com/glasswing) shares the same capabilities and is offered only to approved customers in Project Glasswing.
+[Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5) is built for demanding reasoning and long-horizon agentic work. [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide) builds on it. Claude Fable 5 is available on the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview) shares the same capabilities and is available only to organizations verified through Anthropic's verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842).
 
 The baseline settings shared by `claude-fable-5` and `claude-mythos-5`:
 
@@ -30,12 +30,12 @@ The baseline settings shared by `claude-fable-5` and `claude-mythos-5`:
 
 Where the two models diverge:
 
-* **Availability:** Claude Fable 5 does not require access approval. Claude Mythos 5 is available only to approved customers in [Project Glasswing](https://anthropic.com/glasswing).
+* **Availability:** Claude Fable 5 does not require access approval. Claude Mythos 5 is available only to organizations verified through Anthropic's verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842).
 * **Priority Tier:** [Priority Tier](https://platform.claude.com/docs/en/api/service-tiers#supported-models) is supported on Claude Fable 5 but not on Claude Mythos 5.
 
 ## Migrating to Claude Mythos 5 and Claude Fable 5 from Claude Mythos Preview
 
-[Claude Mythos 5](https://anthropic.com/glasswing) is the access-gated successor to [Claude Mythos Preview](https://anthropic.com/glasswing), the invitation-only research preview. [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5) offers the same capabilities and does not require access approval. The changes in this section apply equally to both targets.
+[Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview) is the access-gated successor to [Claude Mythos Preview](https://anthropic.com/glasswing), the invitation-only research preview. [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5) offers the same capabilities and does not require access approval. The changes in this section apply equally to both targets.
 
 Migration is mostly drop-in. Claude Mythos 5 and Claude Fable 5 use the same [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and the same [tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) patterns as Claude Mythos Preview, and token counts are roughly unchanged because all three models use the same tokenizer. The key changes to check are the features that are no longer available (listed in the next section) and thinking output. If you migrate to Claude Fable 5, also plan for safety classifier refusals; see [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).
 
@@ -335,7 +335,7 @@ Claude Fable 5 and Claude Mythos 5 use the same [Messages API](https://platform.
 model = "claude-opus-5"  # Before
 model = "claude-fable-5"  # After
 
-# Or, for the Project Glasswing model with the same capabilities:
+# Or, for Claude Mythos 5, which offers the same capabilities to verified organizations:
 model = "claude-mythos-5"  # After
 ```
 
@@ -373,7 +373,7 @@ Migration is mostly drop-in. Claude Fable 5 and Claude Mythos 5 use the same [Me
 model = "claude-opus-4-8"  # Before
 model = "claude-fable-5"  # After
 
-# Or, for the Project Glasswing model with the same capabilities:
+# Or, for Claude Mythos 5, which offers the same capabilities to verified organizations:
 model = "claude-mythos-5"  # After
 ```
 

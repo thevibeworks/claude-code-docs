@@ -15,57 +15,57 @@ Create Deployment
 
 - `--agent: string or BetaManagedAgentsAgentParams`
 
-  Body param: Agent to deploy. Accepts the `agent` ID string, which pins the latest version, or an `agent` object with both id and version specified. The agent must exist and not be archived.
+  Agent to deploy. Accepts the `agent` ID string, which pins the latest version, or an `agent` object with both id and version specified. The agent must exist and not be archived.
 
 - `--environment-id: string`
 
-  Body param: ID of the `environment` defining the container configuration for sessions created from this deployment.
+  ID of the `environment` defining the container configuration for sessions created from this deployment.
 
   minLength: 1, maxLength: 128
 
 - `--initial-event: array of BetaManagedAgentsDeploymentInitialEventParams`
 
-  Body param: Events to send to each session immediately after creation. At least 1, maximum 50.
+  Events to send to each session immediately after creation. At least 1, maximum 50.
 
 - `--name: string`
 
-  Body param: Human-readable name for the deployment.
+  Human-readable name for the deployment.
 
   minLength: 1, maxLength: 256
 
 - `--budget: optional object`
 
-  Body param: Enforced spend ceiling stamped onto each session created from this deployment, copied at session-creation time. Omit to leave sessions uncapped. The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
+  Enforced spend ceiling stamped onto each session created from this deployment, copied at session-creation time. Omit to leave sessions uncapped. The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
 - `--description: optional string`
 
-  Body param: Description of what the deployment does.
+  Description of what the deployment does.
 
   maxLength: 2048
 
 - `--metadata: optional map[string]`
 
-  Body param: Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+  Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
 - `--resource: optional array of BetaManagedAgentsGitHubRepositoryResourceParams or BetaManagedAgentsFileResourceParams or BetaManagedAgentsMemoryStoreResourceParam`
 
-  Body param: Resources (e.g. repositories, files) to mount into each session's container. Maximum 500.
+  Resources (e.g. repositories, files) to mount into each session's container. Maximum 500.
 
 - `--schedule: optional object`
 
-  Body param: Optional recurring cron schedule. When present, the deployment fires automatically. Both expression and timezone are required when schedule is set.
+  Optional recurring cron schedule. When present, the deployment fires automatically. Both expression and timezone are required when schedule is set.
 
 - `--vault-id: optional array of string`
 
-  Body param: Vault IDs for stored credentials the agent can use during sessions created from this deployment. Maximum 50.
+  Vault IDs for stored credentials the agent can use during sessions created from this deployment. Maximum 50.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

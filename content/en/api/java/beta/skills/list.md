@@ -15,7 +15,7 @@ List Skills
 
 - `SkillListParams params`
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     Number of results to return per page.
 
@@ -23,13 +23,13 @@ List Skills
 
     minimum: 1, maximum: 1000
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Pagination token for fetching a specific page of results.
 
     Pass the value from a previous response's `next_page` field to get the next page of results.
 
-  - `Optional<String> source`
+  - `Optional<String> source` (query parameter)
 
     Filter skills by source.
 
@@ -38,7 +38,7 @@ List Skills
     * `"custom"`: only return user-created skills
     * `"anthropic"`: only return Anthropic-created skills
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -142,7 +142,7 @@ List Skills
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -8,6 +8,8 @@ The Claude SDK provides a middleware (or interceptor) hook that lets you run cod
 
 ```mermaid
 sequenceDiagram
+    accTitle: How a request and its response pass through middleware
+    accDescr: Your code sends the request to Middleware A. Middleware A calls next(request) to pass it to Middleware B, and Middleware B calls next(request) to pass it to the SDK core. The SDK core sends the HTTP request to the Claude API and receives the HTTP response. The response returns through Middleware B, then Middleware A, to your code.
     autonumber
     participant App as Your code
     participant M1 as Middleware A

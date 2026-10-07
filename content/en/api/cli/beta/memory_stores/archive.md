@@ -13,15 +13,15 @@ Archive a memory store
 
 ## Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
   ID of the memory store to archive (a `memstore_...` identifier). Required. Archiving is one-way and idempotent; archived stores cannot be unarchived. Enumerate IDs via `GET /v1/memory_stores`.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -19,7 +19,7 @@ Create Agent
 
   - `model: BetaManagedAgentsModel | BetaManagedAgentsModelConfigParams`
 
-    Body param: Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
+    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
     - `type BetaManagedAgentsModel = "claude-sonnet-5-5" | "claude-opus-5-5" | "claude-fable-5-1" | 13 more | (string & {})`
 
@@ -175,19 +175,19 @@ Create Agent
 
   - `name: string`
 
-    Body param: Human-readable name for the agent.
+    Human-readable name for the agent.
 
     minLength: 1, maxLength: 256
 
   - `description?: string | null`
 
-    Body param: Description of what the agent does.
+    Description of what the agent does.
 
     maxLength: 2048
 
   - `mcp_servers?: Array<BetaManagedAgentsURLMCPServerParams>`
 
-    Body param: MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
+    MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `type: "url"`
 
@@ -205,11 +205,11 @@ Create Agent
 
   - `metadata?: Record<string, string>`
 
-    Body param: Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
   - `multiagent?: BetaManagedAgentsMultiagentParams | null`
 
-    Body param: Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
+    Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
 
     - `type: "coordinator"`
 
@@ -257,7 +257,7 @@ Create Agent
 
   - `skills?: Array<BetaManagedAgentsSkillParams>`
 
-    Body param: Skills available to the agent.
+    Skills available to the agent.
 
     - `interface BetaManagedAgentsAnthropicSkillParams`
 
@@ -297,13 +297,13 @@ Create Agent
 
   - `system?: string | null`
 
-    Body param: System prompt for the agent.
+    System prompt for the agent.
 
     maxLength: 100000
 
   - `tools?: Array<BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams>`
 
-    Body param: Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
+    Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
     - `interface BetaManagedAgentsAgentToolset20260401Params`
 
@@ -731,9 +731,9 @@ Create Agent
 
         minLength: 1, maxLength: 128
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -837,9 +837,9 @@ Create Agent
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1535,35 +1535,35 @@ List Agents
 
 - `params: AgentListParams`
 
-  - `"created_at[gte]"?: string`
+  - `"created_at[gte]"?: string` (query parameter)
 
-    Query param: Return agents created at or after this time (inclusive).
-
-    format: date-time
-
-  - `"created_at[lte]"?: string`
-
-    Query param: Return agents created at or before this time (inclusive).
+    Return agents created at or after this time (inclusive).
 
     format: date-time
 
-  - `include_archived?: boolean`
+  - `"created_at[lte]"?: string` (query parameter)
 
-    Query param: Include archived agents in results. Defaults to false.
+    Return agents created at or before this time (inclusive).
 
-  - `limit?: number`
+    format: date-time
 
-    Query param: Maximum results per page. Default 20, maximum 100.
+  - `include_archived?: boolean` (query parameter)
+
+    Include archived agents in results. Defaults to false.
+
+  - `limit?: number` (query parameter)
+
+    Maximum results per page. Default 20, maximum 100.
 
     format: int32
 
-  - `page?: string`
+  - `page?: string` (query parameter)
 
-    Query param: Opaque pagination cursor from a previous response.
+    Opaque pagination cursor from a previous response.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -1667,9 +1667,9 @@ List Agents
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2366,21 +2366,21 @@ Get Agent
 
 ### Parameters
 
-- `agentID: string`
+- `agentID: string` (path parameter)
 
   Unique identifier of the agent to retrieve.
 
 - `params: AgentRetrieveParams`
 
-  - `version?: number`
+  - `version?: number` (query parameter)
 
-    Query param: Agent version. Omit for the most recent version. Must be at least 1 if specified.
+    Agent version. Omit for the most recent version. Must be at least 1 if specified.
 
     format: int32
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -2484,9 +2484,9 @@ Get Agent
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -3179,7 +3179,7 @@ Update Agent
 
 ### Parameters
 
-- `agentID: string`
+- `agentID: string` (path parameter)
 
   Unique identifier of the agent to update.
 
@@ -3187,13 +3187,13 @@ Update Agent
 
   - `description?: string | null`
 
-    Body param: Description. Omit to preserve; send empty string or null to clear.
+    Description. Omit to preserve; send empty string or null to clear.
 
     maxLength: 2048
 
   - `mcp_servers?: Array<BetaManagedAgentsURLMCPServerParams> | null`
 
-    Body param: MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
+    MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `type: "url"`
 
@@ -3211,11 +3211,11 @@ Update Agent
 
   - `metadata?: Record<string, string | null> | null`
 
-    Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
+    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
   - `model?: BetaManagedAgentsModel | BetaManagedAgentsModelConfigParams`
 
-    Body param: Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
+    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
     - `type BetaManagedAgentsModel = "claude-sonnet-5-5" | "claude-opus-5-5" | "claude-fable-5-1" | 13 more | (string & {})`
 
@@ -3371,7 +3371,7 @@ Update Agent
 
   - `multiagent?: BetaManagedAgentsMultiagentParams | null`
 
-    Body param: Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
+    Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
 
     - `type: "coordinator"`
 
@@ -3419,13 +3419,13 @@ Update Agent
 
   - `name?: string`
 
-    Body param: Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
+    Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
     maxLength: 256
 
   - `skills?: Array<BetaManagedAgentsSkillParams> | null`
 
-    Body param: Skills. Full replacement. Omit to preserve; send empty array or null to clear.
+    Skills. Full replacement. Omit to preserve; send empty array or null to clear.
 
     - `interface BetaManagedAgentsAnthropicSkillParams`
 
@@ -3465,13 +3465,13 @@ Update Agent
 
   - `system?: string | null`
 
-    Body param: System prompt. Omit to preserve; send empty string or null to clear.
+    System prompt. Omit to preserve; send empty string or null to clear.
 
     maxLength: 100000
 
   - `tools?: Array<BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams> | null`
 
-    Body param: Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
+    Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
     - `interface BetaManagedAgentsAgentToolset20260401Params`
 
@@ -3901,13 +3901,13 @@ Update Agent
 
   - `version?: number`
 
-    Body param: The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
+    The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
 
     format: int32
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -4011,9 +4011,9 @@ Update Agent
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -4707,13 +4707,13 @@ Archive Agent
 
 ### Parameters
 
-- `agentID: string`
+- `agentID: string` (path parameter)
 
   Unique identifier of the agent to archive.
 
 - `params: AgentArchiveParams`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -4819,7 +4819,7 @@ Archive Agent
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -9708,25 +9708,25 @@ List Agent Versions
 
 #### Parameters
 
-- `agentID: string`
+- `agentID: string` (path parameter)
 
   Agent ID to list versions for.
 
 - `params: VersionListParams`
 
-  - `limit?: number`
+  - `limit?: number` (query parameter)
 
-    Query param: Maximum results per page. Default 20, maximum 100.
+    Maximum results per page. Default 20, maximum 100.
 
     format: int32
 
-  - `page?: string`
+  - `page?: string` (query parameter)
 
-    Query param: Opaque pagination cursor.
+    Opaque pagination cursor.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -9830,9 +9830,9 @@ List Agent Versions
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

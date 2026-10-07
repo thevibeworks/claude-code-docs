@@ -17,11 +17,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 - `WorkAckParams params`
 
-  - `String environmentId`
+  - `String environmentId` (path parameter)
 
-  - `Optional<String> workId`
+  - `Optional<String> workId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 

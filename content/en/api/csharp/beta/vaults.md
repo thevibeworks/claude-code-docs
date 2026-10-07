@@ -19,17 +19,17 @@ Create Vault
 
   - `required string displayName`
 
-    Body param: Human-readable name for the vault. 1-255 characters.
+    Human-readable name for the vault. 1-255 characters.
 
     minLength: 1, maxLength: 255
 
   - `IReadOnlyDictionary<string, string> metadata`
 
-    Body param: Arbitrary key-value metadata to attach to the vault. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Arbitrary key-value metadata to attach to the vault. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -131,9 +131,9 @@ Create Vault
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -213,23 +213,23 @@ List Vaults
 
 - `VaultListParams parameters`
 
-  - `bool includeArchived`
+  - `bool includeArchived` (query parameter)
 
-    Query param: Whether to include archived vaults in the results.
+    Whether to include archived vaults in the results.
 
-  - `int limit`
+  - `int limit` (query parameter)
 
-    Query param: Maximum number of vaults to return per page. Defaults to 20, maximum 100.
+    Maximum number of vaults to return per page. Defaults to 20, maximum 100.
 
     format: int32
 
-  - `string page`
+  - `string page` (query parameter)
 
-    Query param: Opaque pagination token from a previous `list_vaults` response.
+    Opaque pagination token from a previous `list_vaults` response.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -331,9 +331,9 @@ List Vaults
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -420,11 +420,11 @@ Get Vault
 
 - `VaultRetrieveParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
     Unique identifier of the vault to retrieve.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -528,7 +528,7 @@ Get Vault
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -613,23 +613,23 @@ Update Vault
 
 - `VaultUpdateParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
-    Path param: Unique identifier of the vault to update.
+    Unique identifier of the vault to update.
 
   - `string? displayName`
 
-    Body param: Updated human-readable name for the vault. 1-255 characters.
+    Updated human-readable name for the vault. 1-255 characters.
 
     minLength: 1, maxLength: 255
 
   - `IReadOnlyDictionary<string, string>? metadata`
 
-    Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
+    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -731,9 +731,9 @@ Update Vault
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -816,11 +816,11 @@ Delete Vault
 
 - `VaultDeleteParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
     Unique identifier of the vault to delete.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -924,7 +924,7 @@ Delete Vault
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -976,11 +976,11 @@ Archive Vault
 
 - `VaultArchiveParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
     Unique identifier of the vault to archive.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1084,7 +1084,7 @@ Archive Vault
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1223,13 +1223,13 @@ Create Credential
 
 - `CredentialCreateParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
-    Path param: Identifier of the vault to create the credential in.
+    Identifier of the vault to create the credential in.
 
   - `required Auth auth`
 
-    Body param: Authentication configuration for the credential.
+    Authentication configuration for the credential.
 
     - `class BetaManagedAgentsMcpOAuthCreateParams`
 
@@ -1391,17 +1391,17 @@ Create Credential
 
   - `string? displayName`
 
-    Body param: Human-readable name for the credential. Up to 255 characters.
+    Human-readable name for the credential. Up to 255 characters.
 
     maxLength: 255
 
   - `IReadOnlyDictionary<string, string> metadata`
 
-    Body param: Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1503,9 +1503,9 @@ Create Credential
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1715,27 +1715,27 @@ List Credentials
 
 - `CredentialListParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
-    Path param: Identifier of the vault to list credentials for.
+    Identifier of the vault to list credentials for.
 
-  - `bool includeArchived`
+  - `bool includeArchived` (query parameter)
 
-    Query param: Whether to include archived credentials in the results.
+    Whether to include archived credentials in the results.
 
-  - `int limit`
+  - `int limit` (query parameter)
 
-    Query param: Maximum number of credentials to return per page. Defaults to 20, maximum 100.
+    Maximum number of credentials to return per page. Defaults to 20, maximum 100.
 
     format: int32
 
-  - `string page`
+  - `string page` (query parameter)
 
-    Query param: Opaque pagination token from a previous `list_credentials` response.
+    Opaque pagination token from a previous `list_credentials` response.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1837,9 +1837,9 @@ List Credentials
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2050,17 +2050,17 @@ Get Credential
 
 - `CredentialRetrieveParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `required string credentialID`
+  - `required string credentialID` (path parameter)
 
-    Path param: Unique identifier of the credential to retrieve.
+    Unique identifier of the credential to retrieve.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -2162,9 +2162,9 @@ Get Credential
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2369,17 +2369,17 @@ Update Credential
 
 - `CredentialUpdateParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `required string credentialID`
+  - `required string credentialID` (path parameter)
 
-    Path param: Unique identifier of the credential to update.
+    Unique identifier of the credential to update.
 
   - `Auth auth`
 
-    Body param: Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
+    Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
 
     - `class BetaManagedAgentsMcpOAuthUpdateParams`
 
@@ -2499,17 +2499,17 @@ Update Credential
 
   - `string? displayName`
 
-    Body param: Updated human-readable name for the credential. 1-255 characters.
+    Updated human-readable name for the credential. 1-255 characters.
 
     minLength: 1, maxLength: 255
 
   - `IReadOnlyDictionary<string, string>? metadata`
 
-    Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
+    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -2611,9 +2611,9 @@ Update Credential
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2818,17 +2818,17 @@ Delete Credential
 
 - `CredentialDeleteParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `required string credentialID`
+  - `required string credentialID` (path parameter)
 
-    Path param: Unique identifier of the credential to delete.
+    Unique identifier of the credential to delete.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -2930,9 +2930,9 @@ Delete Credential
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2983,17 +2983,17 @@ Archive Credential
 
 - `CredentialArchiveParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `required string credentialID`
+  - `required string credentialID` (path parameter)
 
-    Path param: Unique identifier of the credential to archive.
+    Unique identifier of the credential to archive.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -3095,9 +3095,9 @@ Archive Credential
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -3302,17 +3302,17 @@ Validate Credential
 
 - `CredentialMcpOAuthValidateParams parameters`
 
-  - `required string vaultID`
+  - `required string vaultID` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `required string credentialID`
+  - `required string credentialID` (path parameter)
 
-    Path param: Unique identifier of the credential to validate.
+    Unique identifier of the credential to validate.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -3414,9 +3414,9 @@ Validate Credential
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

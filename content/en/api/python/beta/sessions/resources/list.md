@@ -13,19 +13,19 @@ List Session Resources
 
 ## Parameters
 
-- `session_id: str`
+- `session_id: str` (path parameter)
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
 
   format: int32
 
-- `page: Optional[str]`
+- `page: Optional[str]` (query parameter)
 
   Opaque cursor from a previous response's `next_page` field.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -131,7 +131,7 @@ List Session Resources
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

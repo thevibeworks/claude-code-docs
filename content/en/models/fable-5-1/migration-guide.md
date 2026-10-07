@@ -18,7 +18,7 @@ description: "Migrate to Claude Fable 5.1 and Claude Mythos 5.1 from Claude Fabl
   The skill applies the model ID swap and, as needed, breaking parameter changes, prefill replacement, and effort calibration for your target model across your code base, then produces a checklist of items to verify manually. It asks you to confirm the migration scope (entire working directory, a subdirectory, or a specific file list) before editing any files. The skill also detects Amazon Bedrock and Claude Platform on AWS clients and adjusts model ID formats and feature changes for those platforms.
 </Tip>
 
-[Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/whats-new-fable-5-1) succeeds Claude Fable 5 at the same input and output prices, with cache reads at a quarter of the cost. It's available on the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). [Claude Mythos 5.1](https://anthropic.com/glasswing) shares the same capabilities and is offered only to approved customers in Project Glasswing. For behavioral differences and prompting patterns, see [Prompting Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1).
+[Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/whats-new-fable-5-1) succeeds Claude Fable 5 at the same input and output prices, with cache reads at a quarter of the cost. It's available on the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview) shares the same capabilities and is available only to organizations verified through Anthropic's verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). For behavioral differences and prompting patterns, see [Prompting Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1).
 
 The baseline settings shared by `claude-fable-5-1` and `claude-mythos-5-1`:
 
@@ -32,7 +32,7 @@ The baseline settings shared by `claude-fable-5-1` and `claude-mythos-5-1`:
 
 Where the two models diverge:
 
-* **Availability:** Claude Fable 5.1 doesn't require access approval. Claude Mythos 5.1 is available only to approved customers in [Project Glasswing](https://anthropic.com/glasswing). Contact your Anthropic account team for access.
+* **Availability:** Claude Fable 5.1 doesn't require access approval. Claude Mythos 5.1 is available only to organizations verified through Anthropic's verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). To request access, apply to the program that covers your use case, or contact your Anthropic account team.
 * **Priority Tier:** Neither model is supported on [Priority Tier](https://platform.claude.com/docs/en/api/service-tiers#supported-models). Claude Fable 5 is.
 
 ## Migrating to Claude Fable 5.1 from Claude Fable 5
@@ -45,7 +45,7 @@ Migration is mostly drop-in. The API surface, limits, per-token pricing, tokeniz
 model = "claude-fable-5"  # Before
 model = "claude-fable-5-1"  # After
 
-# Or, for the Project Glasswing model with the same capabilities:
+# Or, for Claude Mythos 5.1, which offers the same capabilities to verified organizations:
 model = "claude-mythos-5-1"  # After
 ```
 
@@ -1506,7 +1506,7 @@ These changes aren't required, but each one lowers cost or latency or removes a 
 
 2. **Change instructions and tools with mid-conversation system messages:** To change instructions or tools partway through a session, append a [`role: "system"` message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages), with `tool_addition` and `tool_removal` blocks for tool changes (beta header `inline-tools-2026-09-15` on the Claude API). A `tool_addition` block can name a tool declared in `tools` at session start or [carry the tool's full definition](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta), so a tool that is unknown at session start doesn't need to be in `tools`. This preserves prompt cache hits on earlier turns and keeps the conversation history append-only. The older `mid-conversation-tool-changes-2026-07-01` header still works for changes that name a tool by reference, on the Claude API, Amazon Bedrock, and Google Cloud. The same message replaces forced `tool_choice` when a specific tool must run on the current turn (see [Breaking changes](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-breaking-changes)). For a reminder that applies to one turn only, send it as a separate text-only `role: "system"` message with `clear_at: "next_user_message"` ([turn-scoped system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages), beta header `mid-conversation-system-clear-at-2026-08-21`) and leave it in the history: it stops rendering after the next user message and costs no tokens once cleared. A message that carries `tool_addition` or `tool_removal` blocks can't be turn-scoped.
 
-3. **Use `fallbacks: "default"` for refusals:** Keep handling `stop_reason: "refusal"` and reading `stop_details.category` before response content. To re-run refused requests on another model automatically, set `fallbacks: "default"` (beta, `server-side-fallback-2026-07-01` header). `"default"` retries a declined request on the model Anthropic recommends for that category. The permitted fallback targets for Claude Fable 5.1 are Claude Opus 4.8 (`claude-opus-4-8`) and Claude Opus 5 (`claude-opus-5`). An explicit `fallbacks` list may name either. The fallback model doesn't receive Claude Fable 5.1's thinking blocks. If you build the retry yourself, [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) applies on the same terms as Claude Fable 5. See [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).
+3. **Use `fallbacks: "default"` for refusals:** Keep handling `stop_reason: "refusal"` and reading `stop_details.category` before response content. To re-run refused requests on another model automatically, set `fallbacks: "default"` (beta, `server-side-fallback-2026-07-01` header). `"default"` retries a declined request on the model Anthropic recommends for that category. The permitted fallback targets for Claude Fable 5.1 are Claude Opus 4.8 (`claude-opus-4-8`) and Claude Opus 5 (`claude-opus-5`). An explicit `fallbacks` list may name either. The fallback model doesn't receive Claude Fable 5.1's thinking blocks. The `fallbacks` parameter isn't available on Amazon Bedrock, Google Cloud, or Microsoft Foundry. On those platforms, use [client-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) instead. If you build the retry yourself, [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) applies on the same terms as Claude Fable 5. See [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).
 
 4. **Start at `high` effort and sweep:** The [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) default is `high`, and all five levels are supported. Keep the Claude Fable 5 guidance: `high` for most work, and `medium` as a cost control worth testing. Claude Fable 5.1's gains over Claude Fable 5 are largest at `xhigh` and `max`, but those levels also add thinking time and time-to-first-response, so step up to them for the most capability-sensitive tasks and where your evals show the gain. Run a fresh sweep on your own evals rather than carrying over a setting tuned for Claude Fable 5. See [Recommended effort levels for Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/effort#recommended-effort-levels-for-claude-fable-5-1).
 
@@ -1542,7 +1542,7 @@ Claude Fable 5.1 uses the same [Messages API](https://platform.claude.com/docs/e
 model = "claude-opus-5"  # Before
 model = "claude-fable-5-1"  # After
 
-# Or, for the Project Glasswing model with the same capabilities:
+# Or, for Claude Mythos 5.1, which offers the same capabilities to verified organizations:
 model = "claude-mythos-5-1"  # After
 ```
 
@@ -1582,7 +1582,7 @@ First apply [Migrating to Claude Mythos 5 and Claude Fable 5 from Claude Opus 4.
 model = "claude-opus-4-8"  # Before
 model = "claude-fable-5-1"  # After
 
-# Or, for the Project Glasswing model with the same capabilities:
+# Or, for Claude Mythos 5.1, which offers the same capabilities to verified organizations:
 model = "claude-mythos-5-1"  # After
 ```
 
@@ -1600,7 +1600,7 @@ model = "claude-mythos-5-1"  # After
 
 ## Migrating to Claude Mythos 5.1 from Claude Mythos 5
 
-[Claude Mythos 5.1](https://anthropic.com/glasswing) is the access-gated counterpart to Claude Fable 5.1. Confirm your organization's access with your Anthropic account team before switching model IDs.
+[Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview) is the counterpart to Claude Fable 5.1 for organizations verified through Anthropic's verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). Confirm that your organization has access to Claude Mythos 5.1 before you switch model IDs.
 
 The API-level delta matches [Migrating to Claude Fable 5.1 from Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1): forced tool choice returns a 400 error, and thinking blocks are preserved only for the model that produced them or a newer one (Claude Mythos 5.1 reads Claude Mythos 5's blocks, not the reverse). Unlike Claude Fable 5.1, Claude Mythos 5.1 doesn't run the conversation check, so editing earlier turns doesn't [invalidate thinking blocks](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-preserved-thinking), though it still restarts the prompt cache.
 

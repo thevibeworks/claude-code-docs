@@ -13,43 +13,43 @@ List Events
 
 ## Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `createdAtGt?:optional \Datetime`
+- `createdAtGt?:optional \Datetime` (query parameter)
 
   Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
-- `createdAtGte?:optional \Datetime`
+- `createdAtGte?:optional \Datetime` (query parameter)
 
   Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
-- `createdAtLt?:optional \Datetime`
+- `createdAtLt?:optional \Datetime` (query parameter)
 
   Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
-- `createdAtLte?:optional \Datetime`
+- `createdAtLte?:optional \Datetime` (query parameter)
 
   Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
-- `order?:optional Order`
+- `order?:optional Order` (query parameter)
 
   Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous response's `next_page`.
 
-- `types?:optional list<ManagedAgentsSessionEventType>`
+- `types?:optional list<ManagedAgentsSessionEventType>` (query parameter)
 
   Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -13,13 +13,13 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 ## Parameters
 
-- `--environment-id: string`
+- `--environment-id: string` (path parameter)
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

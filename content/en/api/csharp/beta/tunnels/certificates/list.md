@@ -17,27 +17,27 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 - `CertificateListParams parameters`
 
-  - `required string tunnelID`
+  - `required string tunnelID` (path parameter)
 
-    Path param: ID of the tunnel (`tnl_...`).
+    ID of the tunnel (`tnl_...`).
 
-  - `bool includeArchived`
+  - `bool includeArchived` (query parameter)
 
-    Query param: Whether to include archived certificates in the results. Defaults to false.
+    Whether to include archived certificates in the results. Defaults to false.
 
-  - `int limit`
+  - `int limit` (query parameter)
 
-    Query param: Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+    Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
     format: int32
 
-  - `string page`
+  - `string page` (query parameter)
 
-    Query param: Opaque pagination cursor from a previous `list_tunnel_certificates` response.
+    Opaque pagination cursor from a previous `list_tunnel_certificates` response.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -139,9 +139,9 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

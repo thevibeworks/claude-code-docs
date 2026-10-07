@@ -17,15 +17,15 @@ Retrieve detailed information about a specific work item.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `workID: string`
+- `workID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -143,21 +143,21 @@ Long poll for work items in the queue.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `blockMs?:optional int`
+- `blockMs?:optional int` (query parameter)
 
   How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
-- `reclaimOlderThanMs?:optional int`
+- `reclaimOlderThanMs?:optional int` (query parameter)
 
   Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `anthropicWorkerID?:optional string`
+- `anthropicWorkerID?:optional string` (header parameter)
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
@@ -274,11 +274,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `workID: string`
+- `workID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -393,19 +393,19 @@ Record a heartbeat for a work item to maintain the lease.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `workID: string`
+- `workID: string` (path parameter)
 
-- `desiredTTLSeconds?:optional int`
+- `desiredTTLSeconds?:optional int` (query parameter)
 
   Desired TTL in seconds
 
-- `expectedLastHeartbeat?:optional string`
+- `expectedLastHeartbeat?:optional string` (query parameter)
 
   Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -481,9 +481,9 @@ Stop a work item, initiating graceful or forced shutdown.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `workID: string`
+- `workID: string` (path parameter)
 
 - `force?:optional bool`
 
@@ -491,11 +491,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
   default: false
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -614,19 +614,19 @@ List work items in an environment.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of work items to return
 
   default: 20
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque cursor from previous response for pagination
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -747,19 +747,19 @@ Update work item metadata with merge semantics.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `workID: string`
+- `workID: string` (path parameter)
 
 - `metadata: array<string,string>`
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve existing metadata.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -876,13 +876,13 @@ Get statistics about the work queue for an environment.
 
 ### Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

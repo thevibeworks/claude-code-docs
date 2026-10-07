@@ -15,7 +15,7 @@ Create Credential
 
 ### Parameters
 
-- `vaultID: string`
+- `vaultID: string` (path parameter)
 
   Identifier of the vault to create the credential in.
 
@@ -23,7 +23,7 @@ Create Credential
 
   - `auth: BetaManagedAgentsMCPOAuthCreateParams | BetaManagedAgentsStaticBearerCreateParams | BetaManagedAgentsEnvironmentVariableCreateParams`
 
-    Body param: Authentication configuration for the credential.
+    Authentication configuration for the credential.
 
     - `interface BetaManagedAgentsMCPOAuthCreateParams`
 
@@ -185,17 +185,17 @@ Create Credential
 
   - `display_name?: string | null`
 
-    Body param: Human-readable name for the credential. Up to 255 characters.
+    Human-readable name for the credential. Up to 255 characters.
 
     maxLength: 255
 
   - `metadata?: Record<string, string>`
 
-    Body param: Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -299,9 +299,9 @@ Create Credential
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -513,29 +513,29 @@ List Credentials
 
 ### Parameters
 
-- `vaultID: string`
+- `vaultID: string` (path parameter)
 
   Identifier of the vault to list credentials for.
 
 - `params: CredentialListParams`
 
-  - `include_archived?: boolean`
+  - `include_archived?: boolean` (query parameter)
 
-    Query param: Whether to include archived credentials in the results.
+    Whether to include archived credentials in the results.
 
-  - `limit?: number`
+  - `limit?: number` (query parameter)
 
-    Query param: Maximum number of credentials to return per page. Defaults to 20, maximum 100.
+    Maximum number of credentials to return per page. Defaults to 20, maximum 100.
 
     format: int32
 
-  - `page?: string`
+  - `page?: string` (query parameter)
 
-    Query param: Opaque pagination token from a previous `list_credentials` response.
+    Opaque pagination token from a previous `list_credentials` response.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -639,9 +639,9 @@ List Credentials
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -852,19 +852,19 @@ Get Credential
 
 ### Parameters
 
-- `credentialID: string`
+- `credentialID: string` (path parameter)
 
   Unique identifier of the credential to retrieve.
 
 - `params: CredentialRetrieveParams`
 
-  - `vault_id: string`
+  - `vault_id: string` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -968,9 +968,9 @@ Get Credential
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1176,19 +1176,19 @@ Update Credential
 
 ### Parameters
 
-- `credentialID: string`
+- `credentialID: string` (path parameter)
 
   Unique identifier of the credential to update.
 
 - `params: CredentialUpdateParams`
 
-  - `vault_id: string`
+  - `vault_id: string` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
   - `auth?: BetaManagedAgentsMCPOAuthUpdateParams | BetaManagedAgentsStaticBearerUpdateParams | BetaManagedAgentsEnvironmentVariableUpdateParams`
 
-    Body param: Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
+    Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
 
     - `interface BetaManagedAgentsMCPOAuthUpdateParams`
 
@@ -1308,17 +1308,17 @@ Update Credential
 
   - `display_name?: string | null`
 
-    Body param: Updated human-readable name for the credential. 1-255 characters.
+    Updated human-readable name for the credential. 1-255 characters.
 
     minLength: 1, maxLength: 255
 
   - `metadata?: Record<string, string | null> | null`
 
-    Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
+    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -1422,9 +1422,9 @@ Update Credential
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1630,19 +1630,19 @@ Delete Credential
 
 ### Parameters
 
-- `credentialID: string`
+- `credentialID: string` (path parameter)
 
   Unique identifier of the credential to delete.
 
 - `params: CredentialDeleteParams`
 
-  - `vault_id: string`
+  - `vault_id: string` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -1746,9 +1746,9 @@ Delete Credential
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1800,19 +1800,19 @@ Archive Credential
 
 ### Parameters
 
-- `credentialID: string`
+- `credentialID: string` (path parameter)
 
   Unique identifier of the credential to archive.
 
 - `params: CredentialArchiveParams`
 
-  - `vault_id: string`
+  - `vault_id: string` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -1916,9 +1916,9 @@ Archive Credential
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2124,19 +2124,19 @@ Validate Credential
 
 ### Parameters
 
-- `credentialID: string`
+- `credentialID: string` (path parameter)
 
   Unique identifier of the credential to validate.
 
 - `params: CredentialMCPOAuthValidateParams`
 
-  - `vault_id: string`
+  - `vault_id: string` (path parameter)
 
-    Path param: Identifier of the vault containing the credential.
+    Identifier of the vault containing the credential.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -2240,9 +2240,9 @@ Validate Credential
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

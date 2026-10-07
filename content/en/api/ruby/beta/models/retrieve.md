@@ -15,11 +15,11 @@ The Models API response can be used to determine information about a specific mo
 
 ## Parameters
 
-- `model_id: String`
+- `model_id: String` (path parameter)
 
   Model identifier or alias.
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -125,7 +125,7 @@ The Models API response can be used to determine information about a specific mo
 
   - `:"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -13,31 +13,31 @@ List memory stores
 
 ## Parameters
 
-- `createdAtGte?:optional \Datetime`
+- `createdAtGte?:optional \Datetime` (query parameter)
 
   Return only stores whose `created_at` is at or after this time (inclusive). Sent on the wire as `created_at[gte]`.
 
-- `createdAtLte?:optional \Datetime`
+- `createdAtLte?:optional \Datetime` (query parameter)
 
   Return only stores whose `created_at` is at or before this time (inclusive). Sent on the wire as `created_at[lte]`.
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   When `true`, archived stores are included in the results. Defaults to `false` (archived stores are excluded).
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

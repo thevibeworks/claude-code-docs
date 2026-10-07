@@ -15,15 +15,15 @@ List User Profiles
 
 - `params: UserProfileListParams`
 
-  - `limit?: number`
+  - `limit?: number` (query parameter)
 
-    Query param: The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
+    The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
 
     format: int32
 
-  - `order?: "asc" | "desc"`
+  - `order?: "asc" | "desc"` (query parameter)
 
-    Query param: The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
+    The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
 
     - `"asc"`
 
@@ -33,9 +33,9 @@ List User Profiles
 
       Newest first when `order_by` is `created_at`, or names in descending order when `order_by` is `name`. This is the default.
 
-  - `order_by?: "created_at" | "name"`
+  - `order_by?: "created_at" | "name"` (query parameter)
 
-    Query param: The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
+    The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
 
     - `"created_at"`
 
@@ -45,15 +45,15 @@ List User Profiles
 
       Sort by `name`, ignoring the case of ASCII letters. Profiles without a name come last in either direction.
 
-  - `page?: string`
+  - `page?: string` (query parameter)
 
-    Query param: The cursor for the page to return, taken from `next_page` in a previous response.
+    The cursor for the page to return, taken from `next_page` in a previous response.
 
     Leave it out to get the first page.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -157,9 +157,9 @@ List User Profiles
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

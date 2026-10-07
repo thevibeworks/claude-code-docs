@@ -17,27 +17,27 @@ Create a memory store
 
 - `--name: string`
 
-  Body param: Human-readable name for the store. Required; 1–255 characters; no control characters. The mount-path slug under `/mnt/memory/` is derived from this name (lowercased, non-alphanumeric runs collapsed to a hyphen). Names need not be unique within a workspace.
+  Human-readable name for the store. Required; 1–255 characters; no control characters. The mount-path slug under `/mnt/memory/` is derived from this name (lowercased, non-alphanumeric runs collapsed to a hyphen). Names need not be unique within a workspace.
 
   minLength: 1, maxLength: 255
 
 - `--description: optional string`
 
-  Body param: Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
+  Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
 
   maxLength: 1024
 
 - `--metadata: optional map[string]`
 
-  Body param: Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Not visible to the agent.
+  Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Not visible to the agent.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -118,39 +118,39 @@ List memory stores
 
 ### Parameters
 
-- `--created-at-gte: optional string`
+- `--created-at-gte: optional string` (query parameter)
 
-  Query param: Return only stores whose `created_at` is at or after this time (inclusive). Sent on the wire as `created_at[gte]`.
-
-  format: date-time
-
-- `--created-at-lte: optional string`
-
-  Query param: Return only stores whose `created_at` is at or before this time (inclusive). Sent on the wire as `created_at[lte]`.
+  Return only stores whose `created_at` is at or after this time (inclusive). Sent on the wire as `created_at[gte]`.
 
   format: date-time
 
-- `--include-archived: optional boolean`
+- `--created-at-lte: optional string` (query parameter)
 
-  Query param: When `true`, archived stores are included in the results. Defaults to `false` (archived stores are excluded).
+  Return only stores whose `created_at` is at or before this time (inclusive). Sent on the wire as `created_at[lte]`.
 
-- `--limit: optional number`
+  format: date-time
 
-  Query param: Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
+- `--include-archived: optional boolean` (query parameter)
+
+  When `true`, archived stores are included in the results. Defaults to `false` (archived stores are excluded).
+
+- `--limit: optional number` (query parameter)
+
+  Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
+  Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -241,15 +241,15 @@ Retrieve a memory store
 
 ### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
   ID of the memory store to retrieve (a `memstore_...` identifier). Required. Enumerate IDs via `GET /v1/memory_stores`.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -332,33 +332,33 @@ Update a memory store
 
 ### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: ID of the memory store to update (a `memstore_...` identifier). Required. Enumerate IDs via `GET /v1/memory_stores`. Updating an archived store returns 400.
+  ID of the memory store to update (a `memstore_...` identifier). Required. Enumerate IDs via `GET /v1/memory_stores`. Updating an archived store returns 400.
 
 - `--description: optional string`
 
-  Body param: New description for the store, up to 1024 characters. Pass an empty string to clear it.
+  New description for the store, up to 1024 characters. Pass an empty string to clear it.
 
   maxLength: 1024
 
 - `--metadata: optional map[string]`
 
-  Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
+  Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
 - `--name: optional string`
 
-  Body param: New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
+  New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
 
   minLength: 1, maxLength: 255
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -439,15 +439,15 @@ Delete a memory store
 
 ### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
   ID of the memory store to permanently delete (a `memstore_...` identifier). Required. Deletion cascades to all memories and memory versions in the store and cannot be undone.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -492,15 +492,15 @@ Archive a memory store
 
 ### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
   ID of the memory store to archive (a `memstore_...` identifier). Required. Archiving is one-way and idempotent; archived stores cannot be unarchived. Enumerate IDs via `GET /v1/memory_stores`.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -641,31 +641,31 @@ Create a memory
 
 #### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store to create the memory in (`memstore_...`).
+  The ID of the memory store to create the memory in (`memstore_...`).
 
 - `--content: string`
 
-  Body param: UTF-8 text content for the new memory. Maximum 100 kB (102,400 bytes). Required; pass `""` explicitly to create an empty memory.
+  UTF-8 text content for the new memory. Maximum 100 kB (102,400 bytes). Required; pass `""` explicitly to create an empty memory.
 
 - `--path: string`
 
-  Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive.
+  Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive.
 
   minLength: 2, maxLength: 1024
 
-- `--view: optional "basic" or "full"`
+- `--view: optional "basic" or "full"` (query parameter)
 
-  Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -756,41 +756,41 @@ List memories
 
 #### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store to list memories from (`memstore_...`).
+  The ID of the memory store to list memories from (`memstore_...`).
 
-- `--depth: optional number`
+- `--depth: optional number` (query parameter)
 
-  Query param: `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
-
-  format: int32
-
-- `--limit: optional number`
-
-  Query param: Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
+  `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
 
   format: int32
 
-- `--page: optional string`
+- `--limit: optional number` (query parameter)
 
-  Query param: Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
+  Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
 
-- `--path-prefix: optional string`
+  format: int32
 
-  Query param: Optional path prefix filter. Must end with `/` (segment-aligned), e.g., `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
+- `--page: optional string` (query parameter)
 
-- `--view: optional "basic" or "full"`
+  Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
 
-  Query param: Which projection of each `memory` to return. Defaults to `basic` (content omitted). `full` populates `content` on each item and caps `limit` at 20; use this as the bulk-read path for export and sync.
+- `--path-prefix: optional string` (query parameter)
 
-- `--beta: optional array of AnthropicBeta`
+  Optional path prefix filter. Must end with `/` (segment-aligned), e.g., `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+- `--view: optional "basic" or "full"` (query parameter)
 
-- `--workspace-id: optional string`
+  Which projection of each `memory` to return. Defaults to `basic` (content omitted). `full` populates `content` on each item and caps `limit` at 20; use this as the bulk-read path for export and sync.
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+- `--workspace-id: optional string` (header parameter)
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -906,25 +906,25 @@ Retrieve a memory
 
 #### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store that holds the memory (`memstore_...`).
+  The ID of the memory store that holds the memory (`memstore_...`).
 
-- `--memory-id: string`
+- `--memory-id: string` (path parameter)
 
-  Path param: The ID of the memory to retrieve (`mem_...`).
+  The ID of the memory to retrieve (`mem_...`).
 
-- `--view: optional "basic" or "full"`
+- `--view: optional "basic" or "full"` (query parameter)
 
-  Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1014,39 +1014,39 @@ Update a memory
 
 #### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store that holds the memory (`memstore_...`).
+  The ID of the memory store that holds the memory (`memstore_...`).
 
-- `--memory-id: string`
+- `--memory-id: string` (path parameter)
 
-  Path param: The ID of the memory to update (`mem_...`).
+  The ID of the memory to update (`mem_...`).
 
-- `--view: optional "basic" or "full"`
+- `--view: optional "basic" or "full"` (query parameter)
 
-  Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
 - `--content: optional string`
 
-  Body param: New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
+  New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
 
 - `--path: optional string`
 
-  Body param: New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
+  New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
 
   minLength: 2, maxLength: 1024
 
 - `--precondition: optional object`
 
-  Body param: Optional optimistic-concurrency precondition. When supplied, the update applies only if the memory's current state matches; on mismatch the request returns `memory_precondition_failed_error` (HTTP 409). When omitted, the update is unconditional.
+  Optional optimistic-concurrency precondition. When supplied, the update applies only if the memory's current state matches; on mismatch the request returns `memory_precondition_failed_error` (HTTP 409). When omitted, the update is unconditional.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1136,27 +1136,27 @@ Delete a memory
 
 #### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store that holds the memory (`memstore_...`).
+  The ID of the memory store that holds the memory (`memstore_...`).
 
-- `--memory-id: string`
+- `--memory-id: string` (path parameter)
 
-  Path param: The ID of the memory to delete (`mem_...`).
+  The ID of the memory to delete (`mem_...`).
 
-- `--expected-content-sha256: optional string`
+- `--expected-content-sha256: optional string` (query parameter)
 
-  Query param: Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
+  Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
 
   If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1202,65 +1202,65 @@ List memory versions
 
 #### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store whose version history to list (`memstore_...`).
+  The ID of the memory store whose version history to list (`memstore_...`).
 
-- `--api-key-id: optional string`
+- `--api-key-id: optional string` (query parameter)
 
-  Query param: Return only versions written with the API key that has this ID.
+  Return only versions written with the API key that has this ID.
 
-- `--created-at-gte: optional string`
+- `--created-at-gte: optional string` (query parameter)
 
-  Query param: Return versions created at or after this time (inclusive).
-
-  format: date-time
-
-- `--created-at-lte: optional string`
-
-  Query param: Return versions created at or before this time (inclusive).
+  Return versions created at or after this time (inclusive).
 
   format: date-time
 
-- `--limit: optional number`
+- `--created-at-lte: optional string` (query parameter)
 
-  Query param: The maximum number of versions to return per page. Defaults to 20.
+  Return versions created at or before this time (inclusive).
+
+  format: date-time
+
+- `--limit: optional number` (query parameter)
+
+  The maximum number of versions to return per page. Defaults to 20.
 
   format: int32
 
-- `--memory-id: optional string`
+- `--memory-id: optional string` (query parameter)
 
-  Query param: Return only versions of the memory with this ID (`mem_...`).
+  Return only versions of the memory with this ID (`mem_...`).
 
   The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
-- `--operation: optional "created" or "modified" or "deleted"`
+- `--operation: optional "created" or "modified" or "deleted"` (query parameter)
 
-  Query param: Return only versions that record this kind of change.
+  Return only versions that record this kind of change.
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
+  The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `--service-account-id: optional string`
+- `--service-account-id: optional string` (query parameter)
 
-  Query param: Return only versions written by the service account with this ID (`svac_...`).
+  Return only versions written by the service account with this ID (`svac_...`).
 
-- `--session-id: optional string`
+- `--session-id: optional string` (query parameter)
 
-  Query param: Return only versions written by the session with this ID.
+  Return only versions written by the session with this ID.
 
-- `--view: optional "basic" or "full"`
+- `--view: optional "basic" or "full"` (query parameter)
 
-  Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1459,25 +1459,25 @@ Retrieve a memory version
 
 #### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store that holds the version (`memstore_...`).
+  The ID of the memory store that holds the version (`memstore_...`).
 
-- `--memory-version-id: string`
+- `--memory-version-id: string` (path parameter)
 
-  Path param: The ID of the memory version to retrieve (`memver_...`).
+  The ID of the memory version to retrieve (`memver_...`).
 
-- `--view: optional "basic" or "full"`
+- `--view: optional "basic" or "full"` (query parameter)
 
-  Query param: Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1664,21 +1664,21 @@ Redact a memory version
 
 #### Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store that holds the version (`memstore_...`).
+  The ID of the memory store that holds the version (`memstore_...`).
 
-- `--memory-version-id: string`
+- `--memory-version-id: string` (path parameter)
 
-  Path param: The ID of the memory version to redact (`memver_...`).
+  The ID of the memory version to redact (`memver_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

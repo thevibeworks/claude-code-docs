@@ -21,7 +21,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `Messages param.Field[[]BetaMessageParamResp]`
 
-    Body param: Input messages.
+    Input messages.
 
     Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
 
@@ -3393,29 +3393,29 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `Model param.Field[Model]`
 
-    Body param: The model that will complete your prompt.
+    The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
   - `CacheControl param.Field[BetaCacheControlEphemeral] Optional`
 
-    Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+    Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
   - `Compaction param.Field[BetaCompactionConfig] Optional`
 
-    Body param: Compaction configuration.
+    Compaction configuration.
 
     When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
   - `ContextManagement param.Field[BetaContextManagementConfig] Optional`
 
-    Body param: Context management configuration.
+    Context management configuration.
 
     This allows you to control how Claude manages context across multiple requests, such as whether to clear function results or not.
 
   - `MCPServers param.Field[[]BetaRequestMCPServerURLDefinition] Optional`
 
-    Body param: MCP servers to be utilized in this request
+    MCP servers to be utilized in this request
 
     maxItems: 20
 
@@ -3435,11 +3435,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `OutputConfig param.Field[BetaOutputConfig] Optional`
 
-    Body param: Configuration options for the model's output, such as the output format.
+    Configuration options for the model's output, such as the output format.
 
   - `Speed param.Field[BetaMessageCountTokensParamsSpeed] Optional`
 
-    Body param: The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+    The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
     - `const BetaMessageCountTokensParamsSpeedStandard BetaMessageCountTokensParamsSpeed = "standard"`
 
@@ -3447,7 +3447,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `System param.Field[BetaMessageCountTokensParamsSystemUnion] Optional`
 
-    Body param: System prompt.
+    System prompt.
 
     A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
@@ -3469,7 +3469,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `Thinking param.Field[BetaThinkingConfigParamUnionResp] Optional`
 
-    Body param: Configuration for enabling Claude's extended thinking.
+    Configuration for enabling Claude's extended thinking.
 
     When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
@@ -3477,11 +3477,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `ToolChoice param.Field[BetaToolChoiceUnion] Optional`
 
-    Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+    How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
   - `Tools param.Field[[]BetaMessageCountTokensParamsToolUnion] Optional`
 
-    Body param: Definitions of tools that the model may use.
+    Definitions of tools that the model may use.
 
     If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
@@ -3624,9 +3624,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Allows configuring enabled status and defer_loading for all tools
       from an MCP server, with optional per-tool overrides.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -3728,13 +3728,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `UserProfileID param.Field[string] Optional`
+  - `UserProfileID param.Field[string] Optional` (header parameter)
 
-    Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -3742,7 +3742,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     **Deprecated**
 
-    Body param: Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+    Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
     A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 

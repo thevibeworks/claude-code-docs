@@ -13,59 +13,59 @@ List Deployment Runs
 
 ## Parameters
 
-- `--created-at-gt: optional string`
+- `--created-at-gt: optional string` (query parameter)
 
-  Query param: Return runs created strictly after this time (exclusive).
-
-  format: date-time
-
-- `--created-at-gte: optional string`
-
-  Query param: Return runs created at or after this time (inclusive).
+  Return runs created strictly after this time (exclusive).
 
   format: date-time
 
-- `--created-at-lt: optional string`
+- `--created-at-gte: optional string` (query parameter)
 
-  Query param: Return runs created strictly before this time (exclusive).
-
-  format: date-time
-
-- `--created-at-lte: optional string`
-
-  Query param: Return runs created at or before this time (inclusive).
+  Return runs created at or after this time (inclusive).
 
   format: date-time
 
-- `--deployment-id: optional string`
+- `--created-at-lt: optional string` (query parameter)
 
-  Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
+  Return runs created strictly before this time (exclusive).
 
-- `--has-error: optional boolean`
+  format: date-time
 
-  Query param: Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
+- `--created-at-lte: optional string` (query parameter)
 
-- `--limit: optional number`
+  Return runs created at or before this time (inclusive).
 
-  Query param: Maximum results per page. Default 20, maximum 1000.
+  format: date-time
+
+- `--deployment-id: optional string` (query parameter)
+
+  Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
+
+- `--has-error: optional boolean` (query parameter)
+
+  Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
+
+- `--limit: optional number` (query parameter)
+
+  Maximum results per page. Default 20, maximum 1000.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
+  Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
-- `--trigger-type: optional "schedule" or "manual"`
+- `--trigger-type: optional "schedule" or "manual"` (query parameter)
 
-  Query param: Filter runs by what triggered them. Omit to return all runs.
+  Filter runs by what triggered them. Omit to return all runs.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

@@ -17,7 +17,7 @@ Create Session
 
   - `required Agent agent`
 
-    Body param: Agent identifier. Accepts the `agent` ID string, which pins the latest version for the session, or an `agent` object with both id and version specified.
+    Agent identifier. Accepts the `agent` ID string, which pins the latest version for the session, or an `agent` object with both id and version specified.
 
     - `string`
 
@@ -779,17 +779,17 @@ Create Session
 
   - `required string environmentID`
 
-    Body param: ID of the `environment` defining the container configuration for this session.
+    ID of the `environment` defining the container configuration for this session.
 
     minLength: 1, maxLength: 128
 
   - `BetaManagedAgentsBudgetLimit budget`
 
-    Body param: Enforced spend ceiling for the session. Omit to create an uncapped session. Every model the session can run — the agent's model and each callable agent's model — must have a public list price, or the request is rejected with reason `model_not_budgetable`.
+    Enforced spend ceiling for the session. Omit to create an uncapped session. Every model the session can run — the agent's model and each callable agent's model — must have a public list price, or the request is rejected with reason `model_not_budgetable`.
 
   - `IReadOnlyList<InitialEvent> initialEvents`
 
-    Body param: Initial events to send to the `session` at creation, processed in order. Supports `user.message` and `user.define_outcome` events. Maximum 50 events.
+    Initial events to send to the `session` at creation, processed in order. Supports `user.message` and `user.define_outcome` events. Maximum 50 events.
 
     - `class BetaManagedAgentsUserMessageEventParams`
 
@@ -991,11 +991,11 @@ Create Session
 
   - `IReadOnlyDictionary<string, string> metadata`
 
-    Body param: Arbitrary key-value metadata attached to the session. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Arbitrary key-value metadata attached to the session. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
   - `IReadOnlyList<Resource> resources`
 
-    Body param: Resources (e.g. repositories, files) to mount into the session's container.
+    Resources (e.g. repositories, files) to mount into the session's container.
 
     - `class BetaManagedAgentsGitHubRepositoryResourceParams`
 
@@ -1089,17 +1089,17 @@ Create Session
 
   - `string? title`
 
-    Body param: Human-readable session title.
+    Human-readable session title.
 
     maxLength: 500
 
   - `IReadOnlyList<string> vaultIds`
 
-    Body param: Vault IDs for stored credentials the agent can use during the session.
+    Vault IDs for stored credentials the agent can use during the session.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1201,9 +1201,9 @@ Create Session
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

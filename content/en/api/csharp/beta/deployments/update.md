@@ -15,13 +15,13 @@ Update Deployment
 
 - `DeploymentUpdateParams parameters`
 
-  - `required string deploymentID`
+  - `required string deploymentID` (path parameter)
 
-    Path param: Unique identifier of the deployment to update.
+    Unique identifier of the deployment to update.
 
   - `Agent agent`
 
-    Body param: Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
+    Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
 
     - `string`
 
@@ -45,23 +45,23 @@ Update Deployment
 
   - `BetaManagedAgentsBudgetLimit? budget`
 
-    Body param: Spend ceiling for future sessions. Full replacement. Omit to preserve; send null to clear (sessions created afterwards are uncapped). The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
+    Spend ceiling for future sessions. Full replacement. Omit to preserve; send null to clear (sessions created afterwards are uncapped). The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
   - `string? description`
 
-    Body param: Description. Omit to preserve; send empty string or null to clear.
+    Description. Omit to preserve; send empty string or null to clear.
 
     maxLength: 2048
 
   - `string environmentID`
 
-    Body param: ID of the `environment` where sessions run. Omit to preserve. Cannot be cleared.
+    ID of the `environment` where sessions run. Omit to preserve. Cannot be cleared.
 
     maxLength: 128
 
   - `IReadOnlyList<BetaManagedAgentsDeploymentInitialEventParams> initialEvents`
 
-    Body param: Initial events. Full replacement. Omit to preserve. Cannot be cleared. At least 1, maximum 50.
+    Initial events. Full replacement. Omit to preserve. Cannot be cleared. At least 1, maximum 50.
 
     - `class BetaManagedAgentsUserMessageEventParams`
 
@@ -281,17 +281,17 @@ Update Deployment
 
   - `IReadOnlyDictionary<string, string>? metadata`
 
-    Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
+    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
   - `string name`
 
-    Body param: Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
+    Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
     maxLength: 256
 
   - `IReadOnlyList<Resource>? resources`
 
-    Body param: Session resources. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 500.
+    Session resources. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 500.
 
     - `class BetaManagedAgentsGitHubRepositoryResourceParams`
 
@@ -385,15 +385,15 @@ Update Deployment
 
   - `BetaManagedAgentsScheduleParams? schedule`
 
-    Body param: Cron schedule. Full replacement. Omit to preserve; send null to clear (revert to manual-only).
+    Cron schedule. Full replacement. Omit to preserve; send null to clear (revert to manual-only).
 
   - `IReadOnlyList<string>? vaultIds`
 
-    Body param: Vault IDs. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 50.
+    Vault IDs. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 50.
 
-  - `IReadOnlyList<AnthropicBeta> betas`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -495,9 +495,9 @@ Update Deployment
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `string workspaceID`
+  - `string workspaceID` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

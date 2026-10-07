@@ -15,19 +15,19 @@ List work items in an environment.
 
 ## Parameters
 
-- `environment_id: str`
+- `environment_id: str` (path parameter)
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   Maximum number of work items to return
 
   default: 20, minimum: 1, maximum: 1000
 
-- `page: Optional[str]`
+- `page: Optional[str]` (query parameter)
 
   Opaque cursor from previous response for pagination
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 

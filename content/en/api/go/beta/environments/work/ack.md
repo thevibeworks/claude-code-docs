@@ -15,17 +15,15 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ## Parameters
 
-- `workID string`
+- `workID string` (path parameter)
 
 - `params BetaEnvironmentWorkAckParams`
 
-  - `EnvironmentID param.Field[string]`
+  - `EnvironmentID param.Field[string]` (path parameter)
 
-    Path param
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
-
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 

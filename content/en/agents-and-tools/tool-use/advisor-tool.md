@@ -10,6 +10,8 @@ This pattern fits long-horizon agentic workloads (coding agents, computer use, m
 
 ```mermaid
 sequenceDiagram
+  accTitle: How the executor model consults the advisor model
+  accDescr: Your application sends a request with the advisor tool to the executor model, which begins the task. The executor emits a server_tool_use block, and Anthropic runs the advisor model server-side. The advisor reads the full transcript and returns strategic guidance in an advisor_tool_result. The executor continues, informed by the advice, and returns the response to your application.
   participant U as Your application
   participant E as Executor model
   participant A as Advisor model

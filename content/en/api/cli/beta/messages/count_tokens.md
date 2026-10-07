@@ -19,7 +19,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `--message: array of BetaMessageParam`
 
-  Body param: Input messages.
+  Input messages.
 
   Our models are trained to operate on alternating `user` and `assistant` conversational turns. When creating a new `Message`, you specify the prior conversational turns with the `messages` parameter, and the model then generates the next `Message` in the conversation. Consecutive `user` or `assistant` turns in your request will be combined into a single turn.
 
@@ -70,55 +70,55 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `--model: "claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more or string`
 
-  Body param: The model that will complete your prompt.
+  The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
 - `--cache-control: optional object`
 
-  Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
+  Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
 - `--compaction: optional object`
 
-  Body param: Compaction configuration.
+  Compaction configuration.
 
   When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
 - `--context-management: optional object`
 
-  Body param: Context management configuration.
+  Context management configuration.
 
   This allows you to control how Claude manages context across multiple requests, such as whether to clear function results or not.
 
 - `--mcp-server: optional array of BetaRequestMCPServerURLDefinition`
 
-  Body param: MCP servers to be utilized in this request
+  MCP servers to be utilized in this request
 
   maxItems: 20
 
 - `--output-config: optional object`
 
-  Body param: Configuration options for the model's output, such as the output format.
+  Configuration options for the model's output, such as the output format.
 
 - `--output-format: optional object`
 
-  Body param: Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
   A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
 - `--speed: optional "standard" or "fast"`
 
-  Body param: The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
 - `--system: optional string or array of BetaTextBlockParam`
 
-  Body param: System prompt.
+  System prompt.
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
 - `--thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigBetweenTools or BetaThinkingConfigAdaptive`
 
-  Body param: Configuration for enabling Claude's extended thinking.
+  Configuration for enabling Claude's extended thinking.
 
   When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
 
@@ -126,11 +126,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `--tool-choice: optional BetaToolChoiceAuto or BetaToolChoiceAny or BetaToolChoiceTool or BetaToolChoiceNone`
 
-  Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
+  How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
 - `--tool: optional array of BetaTool or BetaToolBash20241022 or BetaToolBash20250124 or 25 more`
 
-  Body param: Definitions of tools that the model may use.
+  Definitions of tools that the model may use.
 
   If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
@@ -192,17 +192,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--user-profile-id: optional string`
+- `--user-profile-id: optional string` (header parameter)
 
-  Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

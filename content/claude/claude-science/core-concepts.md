@@ -30,6 +30,7 @@ A permission card appears in the conversation each time Claude needs a new kind 
 | - | - | - |
 | Read or write a folder | Access `<folder>` on your computer? | Read-only or Read & write; persists until revoked |
 | Run code | Run Python code? / Run R code? / Run a shell command? / Run a PowerShell command? (Windows) / Install packages? | Once, This conversation, This project, or Global |
+| Work in a write-access folder too large to check for credential files (Linux) | This folder is too large to check fully / This folder changed past what was checked | Asked once per folder, and again when new or changed subfolders go unchecked |
 | Reach a network host | Connect to `<target>`? | Persists until revoked |
 | Use a connector tool | Use `<tool>`? | Once, This conversation, This project, or Global |
 | Use a saved credential | Credentials | Once, This conversation, This project, or Global |

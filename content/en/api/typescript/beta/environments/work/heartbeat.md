@@ -15,25 +15,23 @@ Record a heartbeat for a work item to maintain the lease.
 
 ## Parameters
 
-- `workID: string`
+- `workID: string` (path parameter)
 
 - `params: WorkHeartbeatParams`
 
-  - `environment_id: string`
+  - `environment_id: string` (path parameter)
 
-    Path param
+  - `desired_ttl_seconds?: number | null` (query parameter)
 
-  - `desired_ttl_seconds?: number | null`
+    Desired TTL in seconds
 
-    Query param: Desired TTL in seconds
+  - `expected_last_heartbeat?: string | null` (query parameter)
 
-  - `expected_last_heartbeat?: string | null`
+    Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 
-    Query param: Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-  - `betas?: Array<AnthropicBeta>`
-
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 

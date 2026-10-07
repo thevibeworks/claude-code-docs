@@ -344,6 +344,7 @@ Numeric variables such as timeouts, token budgets, and retry counts accept scien
 | `CLAUDE_CODE_PERFORCE_MODE` | Set to `1` to enable Perforce-aware write protection. When set, Edit, Write, and NotebookEdit fail with a `p4 edit <file>` hint if the target file lacks the owner-write bit, which Perforce clears on synced files until `p4 edit` opens them. This prevents Claude Code from bypassing Perforce change tracking |
 | `CLAUDE_CODE_PLUGIN_CACHE_DIR` | Override the plugins root directory. Despite the name, this sets the parent directory, not the cache itself: marketplaces and the plugin cache live in subdirectories under this path. Defaults to `~/.claude/plugins` |
 | `CLAUDE_CODE_PLUGIN_DIRS` | Plugin directories to load for the session, each loaded the way a [`--plugin-dir`](/docs/en/plugins/cli-reference#flags-that-load-a-plugin-for-one-session) flag loads it. Separate multiple paths with `:` on Unix or `;` on Windows. Give each path as an absolute path or start it with `~`, because Claude Code skips relative paths. Requires Claude Code v2.1.280 or later. See [Load a plugin for one session](/docs/en/plugins/create#load-a-directory-or-archive-for-one-session) |
+| `CLAUDE_CODE_PLUGIN_DIR_WATCH` | Controls whether Claude Code reloads a [mod](/docs/en/plugins/mods/overview) when the mod's files change. Reloading applies to a mod you load from a directory with `--plugin-dir`, and it's on by default in interactive sessions. Set to `1` to turn it on in non-interactive sessions as well, or `0` to turn it off in every session. Requires Claude Code v2.1.287 or later. See [mod settings and environment variables](/docs/en/plugins/mods/reference#settings-and-environment-variables) |
 | `CLAUDE_CODE_PLUGIN_GIT_TIMEOUT_MS` | Timeout in milliseconds for cloning or refreshing a plugin marketplace (default: 120000). Increase this value for large repositories or slow network connections. See [Git clone timed out](/docs/en/plugins/troubleshooting#git-clone-timed-out-after-120s) |
 | `CLAUDE_CODE_PLUGIN_KEEP_MARKETPLACE_ON_FAILURE` | Set to `1` to skip the re-clone attempt and keep using the existing marketplace checkout when a marketplace refresh can't reach or authenticate to the remote. Useful in offline or airgapped environments where re-cloning would fail the same way. See [Marketplace updates fail in offline environments](/docs/en/plugins/troubleshooting#marketplace-updates-keep-failing-offline) |
 | `CLAUDE_CODE_PLUGIN_PREFER_HTTPS` | Set to `1` to clone GitHub `owner/repo` shorthand sources over HTTPS instead of SSH. Applies to plugin install and update, and to `/plugin marketplace add` and `update`. Useful in CI runners, containers, or any environment without a configured SSH key for `github.com` |
@@ -524,7 +525,7 @@ Set `CLAUDE_CODE_ENABLE_TELEMETRY` and the OpenTelemetry variables that turn on 
 
 ## What the subprocess environment scrub removes
 
-When you set [`CLAUDE_CODE_SUBPROCESS_ENV_SCRUB`](#variables) to `1`, Claude Code removes credentials from the environments of the subprocesses it starts, such as Bash commands, hooks, and stdio MCP servers. This reduces what a prompt injection attack can read through shell expansion. The Claude Code process keeps the credentials for its own API calls.
+When you set [`CLAUDE_CODE_SUBPROCESS_ENV_SCRUB`](#variables) to `1`, Claude Code removes credentials from the environments of the subprocesses it starts, such as Bash commands, hooks, and stdio MCP servers. This reduces what a prompt injection attack can read. The Claude Code process keeps the credentials for its own API calls.
 
 The scrub recognizes a credential by its variable name or by the shape of its value, so use it as one layer alongside narrow [permission rules](/docs/en/permissions) rather than as the only control.
 
@@ -536,7 +537,7 @@ The table shows what the scrub does to example variables:
 | `NPM_TOKEN`, `DB_PASSWORD` | Removes it, because the name looks like a credential |
 | `DATABASE_URL` that contains a password | Removes it, because the value looks like a credential |
 | `PIP_INDEX_URL` or `NPM_CONFIG_REGISTRY` that contains a password | Keeps the URL and cuts the username and password from it |
-| `CLAUDE_CONFIG_DIR` | Removes it. Requires Claude Code v2.1.251 or later |
+| `CLAUDE_CONFIG_DIR` | Removes it |
 | `GITHUB_TOKEN`, `GH_TOKEN`, `GH_ENTERPRISE_TOKEN`, `GITHUB_ENTERPRISE_TOKEN` | Leaves it in place, so that `gh` and scripts that call the GitHub API keep working |
 | `HTTP_PROXY`, `HTTPS_PROXY` | Leaves it in place, including a [username and password in the URL](/docs/en/network-config#basic-authentication). The [sandbox](/docs/en/sandboxing#network-isolation) can set these variables itself for sandboxed commands |
 | `GIT_CONFIG_COUNT`, `GIT_CONFIG_KEY_<n>`, `GIT_CONFIG_VALUE_<n>` | Leaves it in place, whatever it holds |
@@ -547,6 +548,8 @@ Because the scrub leaves `GITHUB_TOKEN` in place, give a GitHub Actions job the 
 Leave the scrub unset if a subprocess needs one of the removed variables.
 
 On Linux, the scrub also runs Bash subprocesses in an isolated PID namespace so they can't read host process environments through `/proc`. As a side effect, `ps`, `pgrep`, and `kill` can't see or signal host processes.
+
+Before v2.1.251, the scrub removed `ANTHROPIC_API_KEY` and `AWS_SECRET_ACCESS_KEY` and left the table's other example variables unchanged.
 
 ## Features that need feature-flag fetching
 

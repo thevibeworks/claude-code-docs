@@ -13,21 +13,21 @@ List environments with pagination support.
 
 ## Parameters
 
-- `include_archived: bool`
+- `include_archived: bool` (query parameter)
 
   Include archived environments in the response
 
-- `limit: Integer`
+- `limit: Integer` (query parameter)
 
   Maximum number of environments to return
 
   minimum: 1, maximum: 1000
 
-- `page: String`
+- `page: String` (query parameter)
 
   Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -133,7 +133,7 @@ List environments with pagination support.
 
   - `:"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

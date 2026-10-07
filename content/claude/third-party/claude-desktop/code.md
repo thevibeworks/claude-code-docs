@@ -75,6 +75,29 @@ With `"merge"`, two Claude Code policy keys weaken `blockReadsOutsideWorkingDire
   In a third-party deployment there is no Anthropic authentication, so Claude Code's server-managed settings tier is never present. If you have not separately deployed a Claude Code `managed-settings.json` or OS profile, Claude Desktop's policy applies automatically and you do not need to set `parentSettingsBehavior`.
 </Note>
 
+## Claude Code mods
+
+Code sessions support Claude Code [mods](https://code.claude.com/docs/en/plugins/mods/overview), code that a plugin runs inside Claude Code, and users can load their own. To stop users' own mods from loading in local Code sessions, deploy this Claude Code managed-settings file on each device:
+
+```json managed-settings.json theme={null}
+{
+  "parentSettingsBehavior": "merge",
+  "pluginConfigs": {
+    "cc-plugin-sec-default@builtin": {
+      "options": {
+        "allowManagedModsOnly": true
+      }
+    }
+  }
+}
+```
+
+* **Keep `parentSettingsBehavior`.** Without it, Claude Code ignores the sandbox and the other [managed policy](#applied-as-managed-policy) values that Claude Desktop supplies.
+* **Leave out `disableSideloadFlags`**, which a longer sample in the Claude Code docs includes. With it, Code sessions start without the skills and organization plugins that Claude Desktop delivers.
+* **Optionally, remove the `/plugin-authoring` command**, which has Claude write a mod. Add `"enabledPlugins": { "cc-plugin-plugin-authoring@builtin": false }` to the file.
+
+[Manage mods for your organization](https://code.claude.com/docs/en/plugins/mods/admin) covers the other controls. For sessions on an SSH host, see [Managed configuration on the remote host](/docs/third-party/claude-desktop/ssh-remote-sessions#managed-configuration-on-the-remote-host).
+
 ## Remote sessions over SSH
 
 A Code session can run its Claude Code engine on a remote host over SSH while the session's interface stays in Claude Desktop on the user's device. In a 3P deployment this is off until you set [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist), because the app forwards the session's inference credential to the host. [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) lists the credential kinds that work on a remote host and which of the keys above apply there.

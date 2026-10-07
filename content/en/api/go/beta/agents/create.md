@@ -17,7 +17,7 @@ Create Agent
 
   - `Model param.Field[BetaManagedAgentsModelConfigParamsResp]`
 
-    Body param: Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
+    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
     - `type BetaManagedAgentsModelConfigParamsResp`
 
@@ -167,19 +167,19 @@ Create Agent
 
   - `Name param.Field[string]`
 
-    Body param: Human-readable name for the agent.
+    Human-readable name for the agent.
 
     minLength: 1, maxLength: 256
 
   - `Description param.Field[string] Optional`
 
-    Body param: Description of what the agent does.
+    Description of what the agent does.
 
     maxLength: 2048
 
   - `MCPServers param.Field[[]BetaManagedAgentsURLMCPServerParamsResp] Optional`
 
-    Body param: MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
+    MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `Type BetaManagedAgentsURLMCPServerParamsType`
 
@@ -197,15 +197,15 @@ Create Agent
 
   - `Metadata param.Field[map[string, string]] Optional`
 
-    Body param: Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
   - `Multiagent param.Field[BetaManagedAgentsMultiagentParamsResp] Optional`
 
-    Body param: Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
+    Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
 
   - `Skills param.Field[[]BetaManagedAgentsSkillParamsUnionResp] Optional`
 
-    Body param: Skills available to the agent.
+    Skills available to the agent.
 
     - `type BetaManagedAgentsAnthropicSkillParamsResp`
 
@@ -245,13 +245,13 @@ Create Agent
 
   - `System param.Field[string] Optional`
 
-    Body param: System prompt for the agent.
+    System prompt for the agent.
 
     maxLength: 100000
 
   - `Tools param.Field[[]BetaAgentNewParamsToolUnion] Optional`
 
-    Body param: Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
+    Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
     - `type BetaManagedAgentsAgentToolset20260401ParamsResp`
 
@@ -679,9 +679,9 @@ Create Agent
 
         minLength: 1, maxLength: 128
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -783,9 +783,9 @@ Create Agent
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

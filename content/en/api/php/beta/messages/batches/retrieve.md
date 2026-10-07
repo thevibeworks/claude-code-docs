@@ -15,15 +15,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ## Parameters
 
-- `messageBatchID: string`
+- `messageBatchID: string` (path parameter)
 
   ID of the Message Batch.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

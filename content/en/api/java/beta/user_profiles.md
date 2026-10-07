@@ -17,7 +17,7 @@ Create User Profile
 
 - `UserProfileCreateParams params`
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -121,7 +121,7 @@ Create User Profile
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -354,13 +354,13 @@ List User Profiles
 
 - `UserProfileListParams params`
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
 
     format: int32
 
-  - `Optional<Order> order`
+  - `Optional<Order> order` (query parameter)
 
     The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
 
@@ -372,7 +372,7 @@ List User Profiles
 
       Newest first when `order_by` is `created_at`, or names in descending order when `order_by` is `name`. This is the default.
 
-  - `Optional<OrderBy> orderBy`
+  - `Optional<OrderBy> orderBy` (query parameter)
 
     The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
 
@@ -384,13 +384,13 @@ List User Profiles
 
       Sort by `name`, ignoring the case of ASCII letters. Profiles without a name come last in either direction.
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     The cursor for the page to return, taken from `next_page` in a previous response.
 
     Leave it out to get the first page.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -494,7 +494,7 @@ List User Profiles
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -694,11 +694,11 @@ Get User Profile
 
 - `UserProfileRetrieveParams params`
 
-  - `Optional<String> userProfileId`
+  - `Optional<String> userProfileId` (path parameter)
 
     The ID of the user profile to get (`uprof_...`).
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -802,7 +802,7 @@ Get User Profile
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -997,11 +997,11 @@ Update User Profile
 
 - `UserProfileUpdateParams params`
 
-  - `Optional<String> userProfileId`
+  - `Optional<String> userProfileId` (path parameter)
 
     The ID of the user profile to update (`uprof_...`).
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1105,7 +1105,7 @@ Update User Profile
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1338,11 +1338,11 @@ Create Enrollment URL
 
 - `UserProfileCreateEnrollmentUrlParams params`
 
-  - `Optional<String> userProfileId`
+  - `Optional<String> userProfileId` (path parameter)
 
     The ID of the user profile to create an enrollment URL for (`uprof_...`).
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1446,7 +1446,7 @@ Create Enrollment URL
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

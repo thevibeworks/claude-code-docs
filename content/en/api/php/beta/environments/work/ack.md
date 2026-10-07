@@ -15,11 +15,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ## Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `workID: string`
+- `workID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 

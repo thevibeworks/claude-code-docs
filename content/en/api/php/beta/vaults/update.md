@@ -13,7 +13,7 @@ Update Vault
 
 ## Parameters
 
-- `vaultID: string`
+- `vaultID: string` (path parameter)
 
   Unique identifier of the vault to update.
 
@@ -25,11 +25,11 @@ Update Vault
 
   Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

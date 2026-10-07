@@ -39,11 +39,11 @@ Create User Profile
 
   Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a company the platform resells Claude access to (`access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -168,29 +168,29 @@ List User Profiles
 
 ### Parameters
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
 
-- `order?:optional Order`
+- `order?:optional Order` (query parameter)
 
   The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
 
-- `orderBy?:optional OrderBy`
+- `orderBy?:optional OrderBy` (query parameter)
 
   The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   The cursor for the page to return, taken from `next_page` in a previous response.
 
   Leave it out to get the first page.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -310,15 +310,15 @@ Get User Profile
 
 ### Parameters
 
-- `userProfileID: string`
+- `userProfileID: string` (path parameter)
 
   The ID of the user profile to get (`uprof_...`).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -430,7 +430,7 @@ Update User Profile
 
 ### Parameters
 
-- `userProfileID: string`
+- `userProfileID: string` (path parameter)
 
   The ID of the user profile to update (`uprof_...`).
 
@@ -458,11 +458,11 @@ Update User Profile
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -588,15 +588,15 @@ Create Enrollment URL
 
 ### Parameters
 
-- `userProfileID: string`
+- `userProfileID: string` (path parameter)
 
   The ID of the user profile to create an enrollment URL for (`uprof_...`).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

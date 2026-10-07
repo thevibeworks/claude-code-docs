@@ -15,7 +15,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ## Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
@@ -23,11 +23,11 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   Optional free-text reason for the rotation, recorded for audit.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

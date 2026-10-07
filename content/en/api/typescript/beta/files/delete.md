@@ -13,13 +13,13 @@ Delete File
 
 ## Parameters
 
-- `fileID: string`
+- `fileID: string` (path parameter)
 
   ID of the File.
 
 - `params: FileDeleteParams`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -125,7 +125,7 @@ Delete File
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -15,21 +15,21 @@ Long poll for work items in the queue.
 
 ## Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
-- `blockMs?:optional int`
+- `blockMs?:optional int` (query parameter)
 
   How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
-- `reclaimOlderThanMs?:optional int`
+- `reclaimOlderThanMs?:optional int` (query parameter)
 
   Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `anthropicWorkerID?:optional string`
+- `anthropicWorkerID?:optional string` (header parameter)
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 

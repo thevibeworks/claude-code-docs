@@ -6,6 +6,32 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.59" description="October 6, 2026">
+  * Saved approvals for tools from your organization's plugins are cleared, so Claude asks again; new approvals apply only to the plugin that added the tool
+  * Skills from plugins your organization's admin uploads now appear under Organization in **Settings > Skills**, instead of under Featured
+  * Comment boxes on figures, PDFs, reports, and files now grow as you type, and a new comment that fails to save keeps your text and shows an error
+  * Fixed some files failing to upload when you add hundreds of files to a message at once
+  * `claude-science --here` now refuses to start on a data folder another install created if it holds organization policy files or folders that Claude Science creates for itself; if the folder is yours, run it once with `--trust-here-data`
+  * Security hardening of the analysis sandbox on Mac, Windows, and Linux
+  * Various bug fixes and security improvements
+</Update>
+
+<Update label="0.1.56" description="October 2, 2026">
+  * When safeguards flag a message for life sciences content, Claude Science can now retry it once on another model automatically, depending on the model; turn this off with **Switch models when a message is flagged** in **Settings > General > Model**
+  * Excel (.xlsx) previews now show cell colors, bold text, and color-scale heat maps
+  * Reviewer findings now open in place, with a button to the reviewer's full transcript
+  * A stalled file upload now stops by itself, and a failed upload says why under the file
+  * Skills: "Check for updates…" now lists only the imported skills whose files changed
+  * Claude now asks before it uses a tool from a connector that your organization's plugins add
+  * Fixed a case where the app could delete a skill from your computer when it started
+  * Windows: zoom the app window with Ctrl+Plus and Ctrl+Minus, and reset it with Ctrl+0
+  * Windows: IT teams can now deploy package mirror credentials as a `.netrc` file, as on Mac and Linux
+  * Mac: the app now applies only a fixed list of variables from the `env` file in the data folder; move a GitHub token to **Settings > Credentials**
+  * Admins can now turn off Claude's web search tool with `enable_web_search = false` in `config.toml`
+  * Security hardening of the analysis sandbox on Mac, Windows, and Linux
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.55" description="September 29, 2026">
   * New sessions on an organization's default model with more life sciences restrictions now show a notice with a one-click switch to another model
   * Fixed an error Claude ran into when outlining an existing multi-panel figure or drafting a paper's brief from its abstract and figure captions

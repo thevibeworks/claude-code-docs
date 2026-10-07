@@ -13,39 +13,39 @@ List memory versions
 
 ## Parameters
 
-- `memory_store_id: str`
+- `memory_store_id: str` (path parameter)
 
   The ID of the memory store whose version history to list (`memstore_...`).
 
-- `api_key_id: Optional[str]`
+- `api_key_id: Optional[str]` (query parameter)
 
   Return only versions written with the API key that has this ID.
 
-- `created_at_gte: Optional[Union[str, datetime]]`
+- `created_at_gte: Optional[Union[str, datetime]]` (query parameter)
 
   Return versions created at or after this time (inclusive).
 
   format: date-time
 
-- `created_at_lte: Optional[Union[str, datetime]]`
+- `created_at_lte: Optional[Union[str, datetime]]` (query parameter)
 
   Return versions created at or before this time (inclusive).
 
   format: date-time
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   The maximum number of versions to return per page. Defaults to 20.
 
   format: int32
 
-- `memory_id: Optional[str]`
+- `memory_id: Optional[str]` (query parameter)
 
   Return only versions of the memory with this ID (`mem_...`).
 
   The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
-- `operation: Optional[BetaManagedAgentsMemoryVersionOperation]`
+- `operation: Optional[BetaManagedAgentsMemoryVersionOperation]` (query parameter)
 
   Return only versions that record this kind of change.
 
@@ -61,19 +61,19 @@ List memory versions
 
     The memory was deleted. The `content`, `content_size_bytes`, and `content_sha256` fields are `null` on this version. The preceding version, while it is retained, records the deleted content's size and hash.
 
-- `page: Optional[str]`
+- `page: Optional[str]` (query parameter)
 
   The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-- `service_account_id: Optional[str]`
+- `service_account_id: Optional[str]` (query parameter)
 
   Return only versions written by the service account with this ID (`svac_...`).
 
-- `session_id: Optional[str]`
+- `session_id: Optional[str]` (query parameter)
 
   Return only versions written by the session with this ID.
 
-- `view: Optional[BetaManagedAgentsMemoryView]`
+- `view: Optional[BetaManagedAgentsMemoryView]` (query parameter)
 
   Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
@@ -85,7 +85,7 @@ List memory versions
 
     Return the object with `content` populated. On list endpoints, `view=full` caps `limit` at 20.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -191,7 +191,7 @@ List memory versions
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

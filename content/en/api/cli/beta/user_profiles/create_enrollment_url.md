@@ -13,15 +13,15 @@ Create Enrollment URL
 
 ## Parameters
 
-- `--user-profile-id: string`
+- `--user-profile-id: string` (path parameter)
 
   The ID of the user profile to create an enrollment URL for (`uprof_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

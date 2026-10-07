@@ -158,7 +158,7 @@ Every request carries these fixed headers, along with any [custom request header
 | `User-Agent`      | `anthropic-dlp/1`  |
 | `Accept-Encoding` | `identity`         |
 
-There are two hook events, told apart by the top-level `type` field. The prompt frame is sent once per governed inference request, before inference begins. The tool call frame is sent when a model response contains tool calls, before any of them runs, in organizations that have turned on **Validate tool calls**. Either way, Anthropic waits until your AI security server responds or the verdict timeout elapses.
+There are two hook events, told apart by the top-level `type` field. The prompt frame is sent once per governed inference request, before inference begins. The tool call frame is sent when a model response contains tool calls, before any of them runs, in organizations that have **Validate tool calls** on. Either way, Anthropic waits until your AI security server responds or the verdict timeout elapses.
 
 ## The prompt frame
 
@@ -283,12 +283,12 @@ An application tool is one that the Anthropic application making the request pro
 
 A third-party tool is one on a server that Anthropic knows of, such as a claude.ai connector or an MCP server that the request names in `mcp_servers`. This doesn't mean Anthropic has vetted the server.
 
-| Field             | Present              | Description                                                                                                                        |
-| ----------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | Always               | `"third_party"`                                                                                                                    |
-| `toolset_name`    | Optional             | The name the request gives the server.                                                                                             |
-| `origin`          | Optional             | The scheme, host, and non-default port of the server's URL. An absent `origin` means unknown, not safe.                            |
-| `verified_origin` | Whenever `origin` is | `true` only when Anthropic's servers connect to the server themselves. Treat `false` as an origin that Anthropic hasn't confirmed. |
+| Field             | Present              | Description                                                                                                                                                         |
+| ----------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`            | Always               | `"third_party"`                                                                                                                                                     |
+| `toolset_name`    | Optional             | The name the request gives the server.                                                                                                                              |
+| `origin`          | Optional             | The scheme, host, and non-default port of the server's URL. It can be a private or local address, `localhost` included. An absent `origin` means unknown, not safe. |
+| `verified_origin` | Whenever `origin` is | `true` only when Anthropic's servers connect to the server themselves. Treat `false` as an origin that Anthropic hasn't confirmed.                                  |
 
 A `tool_use` block for a tool on an MCP server that the request names `crm` in `mcp_servers`:
 
@@ -312,6 +312,10 @@ A `tool_use` block for a tool on an MCP server that the request names `crm` in `
 ### Client tools
 
 A client tool is any other tool. The application that calls Claude declares it and receives its calls. A call to a tool the request doesn't declare is also `"client"`.
+
+A tool on an MCP server that Claude Code connects to directly from the user's computer, such as a local MCP server, is a client tool. Its `tool_info` is `{"type": "client"}`, and its `tool_name` is the name Claude Code gives it, in the form `mcp__<server>__<tool>`.
+
+A deny stops the call before Claude Code runs it. The exchange between Claude Code and a local server doesn't pass through Anthropic, so your AI security server sees the tool's result only when Claude Code sends it back. Its text is then in a `tool_result` block in the next prompt frame.
 
 | Field          | Present  | Description                       |
 | -------------- | -------- | --------------------------------- |
@@ -802,6 +806,7 @@ The protocol grows without breaking correctly written servers. Your server must 
 * New `source.application` values.
 * New `actor.type` values. `actor` is a union discriminated on `type`, and `"user"` is the only kind sent today; a future kind guarantees only that `type` is present.
 * Content blocks with an unrecognized `type`.
+* Messages with a `role` other than `user` or `assistant`, which a later revision may add.
 
 Never reject a request because of an unrecognized block type or field; read the fields you know and skip the rest.
 

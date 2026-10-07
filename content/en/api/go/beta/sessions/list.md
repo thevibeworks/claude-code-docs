@@ -15,73 +15,73 @@ List Sessions
 
 - `params BetaSessionListParams`
 
-  - `AgentID param.Field[string] Optional`
+  - `AgentID param.Field[string] Optional` (query parameter)
 
-    Query param: Filter sessions created with this agent ID.
+    Filter sessions created with this agent ID.
 
-  - `AgentVersion param.Field[int64] Optional`
+  - `AgentVersion param.Field[int64] Optional` (query parameter)
 
-    Query param: Filter by agent version. Only applies when `agent_id` is also set.
-
-    format: int32
-
-  - `CreatedAtGt param.Field[Time] Optional`
-
-    Query param: Return sessions created after this time (exclusive).
-
-    format: date-time
-
-  - `CreatedAtGte param.Field[Time] Optional`
-
-    Query param: Return sessions created at or after this time (inclusive).
-
-    format: date-time
-
-  - `CreatedAtLt param.Field[Time] Optional`
-
-    Query param: Return sessions created before this time (exclusive).
-
-    format: date-time
-
-  - `CreatedAtLte param.Field[Time] Optional`
-
-    Query param: Return sessions created at or before this time (inclusive).
-
-    format: date-time
-
-  - `DeploymentID param.Field[string] Optional`
-
-    Query param: Filter sessions created by this deployment ID.
-
-  - `IncludeArchived param.Field[bool] Optional`
-
-    Query param: When true, includes archived sessions. Default: false (exclude archived).
-
-  - `Limit param.Field[int64] Optional`
-
-    Query param: Maximum number of results to return.
+    Filter by agent version. Only applies when `agent_id` is also set.
 
     format: int32
 
-  - `MemoryStoreID param.Field[string] Optional`
+  - `CreatedAtGt param.Field[Time] Optional` (query parameter)
 
-    Query param: Filter sessions whose resources contain a `memory_store` with this memory store ID.
+    Return sessions created after this time (exclusive).
 
-  - `Order param.Field[BetaSessionListParamsOrder] Optional`
+    format: date-time
 
-    Query param: Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
+  - `CreatedAtGte param.Field[Time] Optional` (query parameter)
+
+    Return sessions created at or after this time (inclusive).
+
+    format: date-time
+
+  - `CreatedAtLt param.Field[Time] Optional` (query parameter)
+
+    Return sessions created before this time (exclusive).
+
+    format: date-time
+
+  - `CreatedAtLte param.Field[Time] Optional` (query parameter)
+
+    Return sessions created at or before this time (inclusive).
+
+    format: date-time
+
+  - `DeploymentID param.Field[string] Optional` (query parameter)
+
+    Filter sessions created by this deployment ID.
+
+  - `IncludeArchived param.Field[bool] Optional` (query parameter)
+
+    When true, includes archived sessions. Default: false (exclude archived).
+
+  - `Limit param.Field[int64] Optional` (query parameter)
+
+    Maximum number of results to return.
+
+    format: int32
+
+  - `MemoryStoreID param.Field[string] Optional` (query parameter)
+
+    Filter sessions whose resources contain a `memory_store` with this memory store ID.
+
+  - `Order param.Field[BetaSessionListParamsOrder] Optional` (query parameter)
+
+    Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
     - `const BetaSessionListParamsOrderAsc BetaSessionListParamsOrder = "asc"`
 
     - `const BetaSessionListParamsOrderDesc BetaSessionListParamsOrder = "desc"`
 
-  - `Page param.Field[string] Optional`
+  - `Page param.Field[string] Optional` (query parameter)
 
-    Query param: Opaque pagination cursor from a previous response.
+    Opaque pagination cursor from a previous response.
 
-  - `Statuses param.Field[[]string] Optional`
+  - `Statuses param.Field[[]string] Optional` (query parameter)
 
-    Query param: Filter by session status. Repeat the parameter to match any of multiple statuses.
+    Filter by session status. Repeat the parameter to match any of multiple statuses.
 
     - `const BetaSessionListParamsStatusRescheduling BetaSessionListParamsStatus = "rescheduling"`
 
@@ -99,9 +99,9 @@ List Sessions
 
       Session has ended, either due to an error or completion.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -203,9 +203,9 @@ List Sessions
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

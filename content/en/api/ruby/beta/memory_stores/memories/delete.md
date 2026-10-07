@@ -13,21 +13,21 @@ Delete a memory
 
 ## Parameters
 
-- `memory_store_id: String`
+- `memory_store_id: String` (path parameter)
 
   The ID of the memory store that holds the memory (`memstore_...`).
 
-- `memory_id: String`
+- `memory_id: String` (path parameter)
 
   The ID of the memory to delete (`mem_...`).
 
-- `expected_content_sha256: String`
+- `expected_content_sha256: String` (query parameter)
 
   Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
 
   If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -133,7 +133,7 @@ Delete a memory
 
   - `:"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

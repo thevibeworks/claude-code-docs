@@ -15,33 +15,29 @@ Add Session Resource
 
 ### Parameters
 
-- `--session-id: string`
-
-  Path param
+- `--session-id: string` (path parameter)
 
 - `--file-id: string`
 
-  Body param: ID of a previously uploaded file.
+  ID of a previously uploaded file.
 
   minLength: 1, maxLength: 128
 
 - `--type: "file"`
 
-  Body param
-
 - `--mount-path: optional string`
 
-  Body param: Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+  Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
   minLength: 1, maxLength: 4096
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -102,27 +98,25 @@ List Session Resources
 
 ### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--limit: optional number` (query parameter)
 
-- `--limit: optional number`
-
-  Query param: Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
+  Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque cursor from a previous response's `next_page` field.
+  Opaque cursor from a previous response's `next_page` field.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -290,21 +284,17 @@ Get Session Resource
 
 ### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--resource-id: string` (path parameter)
 
-- `--resource-id: string`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Path param
+  Optional header to specify the beta version(s) you want to use.
 
-- `--beta: optional array of AnthropicBeta`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
-
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -452,27 +442,23 @@ Update Session Resource
 
 ### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
-
-- `--resource-id: string`
-
-  Path param
+- `--resource-id: string` (path parameter)
 
 - `--authorization-token: string`
 
-  Body param: New authorization token for the resource. Currently only `github_repository` resources support token rotation.
+  New authorization token for the resource. Currently only `github_repository` resources support token rotation.
 
   minLength: 1, maxLength: 4096
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -621,21 +607,17 @@ Delete Session Resource
 
 ### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--resource-id: string` (path parameter)
 
-- `--resource-id: string`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Path param
+  Optional header to specify the beta version(s) you want to use.
 
-- `--beta: optional array of AnthropicBeta`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
-
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

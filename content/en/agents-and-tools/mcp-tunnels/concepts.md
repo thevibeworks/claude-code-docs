@@ -46,6 +46,8 @@ Inner TLS spans Anthropic's backend and your proxy. cloudflared and the tunnel e
 
 ```mermaid
 sequenceDiagram
+  accTitle: How a request reaches an MCP server through a tunnel
+  accDescr: cloudflared, the proxy, and the upstream MCP server run inside your network. cloudflared opens an outbound connection on port 7844 to the tunnel edge on the Cloudflare network. The connection stays open, and no inbound port is opened. The Anthropic backend sends an MCP request to the tunnel edge over outer mTLS. The edge carries it over the open connection to cloudflared, which passes it to the proxy on localhost:8080. Inner TLS spans the Anthropic backend to the proxy and terminates at the proxy. The proxy routes the request by hostname to the upstream MCP server. The response returns along the same path, reversed.
   participant A as Anthropic<br/>backend
   participant E as Tunnel edge<br/>(Cloudflare network)
   participant C as cloudflared

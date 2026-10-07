@@ -19,17 +19,17 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 - `--display-name: optional string`
 
-  Body param: Optional human-readable name for the tunnel (1-255 characters).
+  Optional human-readable name for the tunnel (1-255 characters).
 
   minLength: 1, maxLength: 255
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -97,15 +97,15 @@ Fetches a tunnel by ID.
 
 ### Parameters
 
-- `--tunnel-id: string`
+- `--tunnel-id: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -176,27 +176,27 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 ### Parameters
 
-- `--include-archived: optional boolean`
+- `--include-archived: optional boolean` (query parameter)
 
-  Query param: Whether to include archived tunnels in the results. Defaults to false.
+  Whether to include archived tunnels in the results. Defaults to false.
 
-- `--limit: optional number`
+- `--limit: optional number` (query parameter)
 
-  Query param: Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
+  Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor from a previous `list_tunnels` response.
+  Opaque pagination cursor from a previous `list_tunnels` response.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -277,15 +277,15 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 ### Parameters
 
-- `--tunnel-id: string`
+- `--tunnel-id: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -356,15 +356,15 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 ### Parameters
 
-- `--tunnel-id: string`
+- `--tunnel-id: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -416,23 +416,23 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ### Parameters
 
-- `--tunnel-id: string`
+- `--tunnel-id: string` (path parameter)
 
-  Path param: ID of the tunnel (`tnl_...`).
+  ID of the tunnel (`tnl_...`).
 
 - `--reason: optional string`
 
-  Body param: Optional free-text reason for the rotation, recorded for audit.
+  Optional free-text reason for the rotation, recorded for audit.
 
   maxLength: 1024
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -534,23 +534,23 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 #### Parameters
 
-- `--tunnel-id: string`
+- `--tunnel-id: string` (path parameter)
 
-  Path param: ID of the tunnel (`tnl_...`).
+  ID of the tunnel (`tnl_...`).
 
 - `--ca-certificate-pem: string`
 
-  Body param: PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
+  PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
 
   maxLength: 8192
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -627,21 +627,21 @@ Fetches a tunnel certificate by ID.
 
 #### Parameters
 
-- `--tunnel-id: string`
+- `--tunnel-id: string` (path parameter)
 
-  Path param: ID of the tunnel (`tnl_...`).
+  ID of the tunnel (`tnl_...`).
 
-- `--certificate-id: string`
+- `--certificate-id: string` (path parameter)
 
-  Path param: ID of the certificate (`tcrt_...`).
+  ID of the certificate (`tcrt_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -718,31 +718,31 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 #### Parameters
 
-- `--tunnel-id: string`
+- `--tunnel-id: string` (path parameter)
 
-  Path param: ID of the tunnel (`tnl_...`).
+  ID of the tunnel (`tnl_...`).
 
-- `--include-archived: optional boolean`
+- `--include-archived: optional boolean` (query parameter)
 
-  Query param: Whether to include archived certificates in the results. Defaults to false.
+  Whether to include archived certificates in the results. Defaults to false.
 
-- `--limit: optional number`
+- `--limit: optional number` (query parameter)
 
-  Query param: Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+  Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor from a previous `list_tunnel_certificates` response.
+  Opaque pagination cursor from a previous `list_tunnel_certificates` response.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -831,21 +831,21 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 #### Parameters
 
-- `--tunnel-id: string`
+- `--tunnel-id: string` (path parameter)
 
-  Path param: ID of the tunnel (`tnl_...`).
+  ID of the tunnel (`tnl_...`).
 
-- `--certificate-id: string`
+- `--certificate-id: string` (path parameter)
 
-  Path param: ID of the certificate to archive (`tcrt_...`).
+  ID of the certificate to archive (`tcrt_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

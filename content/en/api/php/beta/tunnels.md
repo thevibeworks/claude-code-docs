@@ -21,11 +21,11 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   Optional human-readable name for the tunnel (1-255 characters).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -100,15 +100,15 @@ Fetches a tunnel by ID.
 
 ### Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -183,23 +183,23 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 ### Parameters
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   Whether to include archived tunnels in the results. Defaults to false.
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous `list_tunnels` response.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -281,15 +281,15 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 ### Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -364,15 +364,15 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 ### Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -432,7 +432,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ### Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
@@ -440,11 +440,11 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   Optional free-text reason for the rotation, recorded for audit.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -549,7 +549,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 #### Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
@@ -557,11 +557,11 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -642,19 +642,19 @@ Fetches a tunnel certificate by ID.
 
 #### Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `certificateID: string`
+- `certificateID: string` (path parameter)
 
   ID of the certificate (`tcrt_...`).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -735,27 +735,27 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 #### Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   Whether to include archived certificates in the results. Defaults to false.
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous `list_tunnel_certificates` response.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -843,19 +843,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 #### Parameters
 
-- `tunnelID: string`
+- `tunnelID: string` (path parameter)
 
   ID of the tunnel (`tnl_...`).
 
-- `certificateID: string`
+- `certificateID: string` (path parameter)
 
   ID of the certificate to archive (`tcrt_...`).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

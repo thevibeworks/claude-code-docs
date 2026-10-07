@@ -13,7 +13,7 @@ Create Skill Version
 
 ## Parameters
 
-- `skill_id: String`
+- `skill_id: String` (path parameter)
 
   Unique identifier for the skill.
 
@@ -25,7 +25,7 @@ Create Skill Version
 
   All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-- `betas: Array[AnthropicBeta]`
+- `betas: Array[AnthropicBeta]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -131,7 +131,7 @@ Create Skill Version
 
   - `:"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: String`
+- `workspace_id: String` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -13,19 +13,19 @@ Redact a memory version
 
 ## Parameters
 
-- `memoryStoreID: string`
+- `memoryStoreID: string` (path parameter)
 
   The ID of the memory store that holds the version (`memstore_...`).
 
-- `memoryVersionID: string`
+- `memoryVersionID: string` (path parameter)
 
   The ID of the memory version to redact (`memver_...`).
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

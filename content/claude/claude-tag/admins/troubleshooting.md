@@ -623,6 +623,24 @@ A channel session's outbound network access is deny-by-default. A host is reacha
 
 Test in a new thread. If the fix worked, the fetch that failed succeeds there.
 
+### Claude started blocking actions that used to run, such as API calls from routines
+
+**What you see**
+
+Members report that in channel threads and [routine](/docs/claude-tag/users/proactivity) runs, Claude says a permission check blocked an action, and the blocked actions are ones it carried out before, such as calling an external API.
+
+**What it means**
+
+Channel sessions and routines run in [auto mode](https://code.claude.com/docs/en/permission-modes#eliminate-prompts-with-auto-mode), where Claude's permission checker reviews each action and can stop it. The checker runs on Claude Sonnet 5, even when the sessions and routines themselves run on a different model.
+
+On the Enterprise plan, an admin can turn a model off for the whole organization, and while Claude Sonnet 5 is off, the checker blocks actions it would otherwise allow. Actions that an [auto mode allow rule](/docs/claude-tag/admins/customize#auto-mode-allow-rules) names still run. For the setting and the models it affects, see [Models your organization allows](/docs/claude-tag/admins/customize#models-your-organization-allows).
+
+**How to resolve**
+
+An Owner or Admin turns Claude Sonnet 5 back on under **Model access** on the [**Models**](https://claude.ai/admin-settings/models) page. If members use [personal connectors](/docs/claude-tag/concepts/personal-connectors#admin-controls-for-personal-connectors) in channels, turn Claude Opus 5 on there too. Sessions and routines keep running on the models you chose for them, and auto mode allow rules you already added can stay.
+
+A routine picks up the change on its next run. If the fix worked, the next run of a routine that was blocked completes the API calls the checker was blocking.
+
 ### A connection works in one channel but not another
 
 **What you see**

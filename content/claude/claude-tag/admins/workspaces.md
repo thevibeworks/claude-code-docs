@@ -26,7 +26,7 @@ If your company has more than one Claude organization (a subsidiary with its own
 
 <Steps>
   <Step title="Open the pairing dialog">
-    Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack). On the **General** tab, under **Connected workspaces**, click **Connect a workspace**.
+    Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack). On the **General** tab, under **Connected workspaces**, click **Connect new**.
   </Step>
 
   <Step title="Get a pairing code from Slack">
@@ -73,7 +73,11 @@ To get the Grid's pairing codes, a Slack Org Owner or Org Admin sends `@Claude c
 Paste the `enterprise_` code in one of these places:
 
 * **During setup:** paste the code into the **Paste the pairing code** field on the [setup page](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace)
-* **After setup:** click **Connect a workspace** under **Connected workspaces** on the **Slack** page, as in [Pair another workspace](#pair-another-workspace), and paste the code into the dialog. The Grid's row in the list shows **Enterprise Grid**.
+* **After setup:** click **Connect new** under **Connected workspaces** on the **Slack** page, as in [Pair another workspace](#pair-another-workspace), and paste the code into the dialog. If a workspace you've already paired belongs to a Grid you haven't paired, the list also has an **Enterprise Grid** row with the status **Not connected**, and **Connect** on that row opens the same dialog.
+
+<Note>Leave the workspaces you've already paired connected while you pair the Grid. They stay paired and keep their Claude data.</Note>
+
+**You'll see:** the Grid in the **Connected workspaces** list with **Enterprise Grid** and **Active** in the **Status** column.
 
 Claude answers a one-to-one direct message according to the pairing of the sender's home workspace, so only the Grid-wide pairing covers DMs from every workspace in the Grid.
 

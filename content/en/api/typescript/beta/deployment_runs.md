@@ -17,51 +17,51 @@ List Deployment Runs
 
 - `params: DeploymentRunListParams`
 
-  - `"created_at[gt]"?: string`
+  - `"created_at[gt]"?: string` (query parameter)
 
-    Query param: Return runs created strictly after this time (exclusive).
-
-    format: date-time
-
-  - `"created_at[gte]"?: string`
-
-    Query param: Return runs created at or after this time (inclusive).
+    Return runs created strictly after this time (exclusive).
 
     format: date-time
 
-  - `"created_at[lt]"?: string`
+  - `"created_at[gte]"?: string` (query parameter)
 
-    Query param: Return runs created strictly before this time (exclusive).
-
-    format: date-time
-
-  - `"created_at[lte]"?: string`
-
-    Query param: Return runs created at or before this time (inclusive).
+    Return runs created at or after this time (inclusive).
 
     format: date-time
 
-  - `deployment_id?: string`
+  - `"created_at[lt]"?: string` (query parameter)
 
-    Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
+    Return runs created strictly before this time (exclusive).
 
-  - `has_error?: boolean`
+    format: date-time
 
-    Query param: Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
+  - `"created_at[lte]"?: string` (query parameter)
 
-  - `limit?: number`
+    Return runs created at or before this time (inclusive).
 
-    Query param: Maximum results per page. Default 20, maximum 1000.
+    format: date-time
+
+  - `deployment_id?: string` (query parameter)
+
+    Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
+
+  - `has_error?: boolean` (query parameter)
+
+    Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
+
+  - `limit?: number` (query parameter)
+
+    Maximum results per page. Default 20, maximum 1000.
 
     format: int32
 
-  - `page?: string`
+  - `page?: string` (query parameter)
 
-    Query param: Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
+    Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
-  - `trigger_type?: BetaManagedAgentsTriggerType`
+  - `trigger_type?: BetaManagedAgentsTriggerType` (query parameter)
 
-    Query param: Filter runs by what triggered them. Omit to return all runs.
+    Filter runs by what triggered them. Omit to return all runs.
 
     - `"schedule"`
 
@@ -71,9 +71,9 @@ List Deployment Runs
 
       The run was started manually by creating a session directly against the deployment.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -177,9 +177,9 @@ List Deployment Runs
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -462,13 +462,13 @@ Get Deployment Run
 
 ### Parameters
 
-- `deploymentRunID: string`
+- `deploymentRunID: string` (path parameter)
 
   Unique identifier of the deployment run.
 
 - `params: DeploymentRunRetrieveParams`
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -574,7 +574,7 @@ Get Deployment Run
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -15,15 +15,15 @@ Create a memory
 
 - `MemoryCreateParams params`
 
-  - `Optional<String> memoryStoreId`
+  - `Optional<String> memoryStoreId` (path parameter)
 
     The ID of the memory store to create the memory in (`memstore_...`).
 
-  - `Optional<BetaManagedAgentsMemoryView> view`
+  - `Optional<BetaManagedAgentsMemoryView> view` (query parameter)
 
     Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -127,7 +127,7 @@ Create a memory
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

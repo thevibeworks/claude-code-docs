@@ -15,23 +15,23 @@ List work items in an environment.
 
 ## Parameters
 
-- `environmentID: string`
+- `environmentID: string` (path parameter)
 
 - `params: WorkListParams`
 
-  - `limit?: number`
+  - `limit?: number` (query parameter)
 
-    Query param: Maximum number of work items to return
+    Maximum number of work items to return
 
     minimum: 1, maximum: 1000
 
-  - `page?: string | null`
+  - `page?: string | null` (query parameter)
 
-    Query param: Opaque cursor from previous response for pagination
+    Opaque cursor from previous response for pagination
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 

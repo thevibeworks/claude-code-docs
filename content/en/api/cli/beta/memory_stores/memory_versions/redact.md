@@ -13,21 +13,21 @@ Redact a memory version
 
 ## Parameters
 
-- `--memory-store-id: string`
+- `--memory-store-id: string` (path parameter)
 
-  Path param: The ID of the memory store that holds the version (`memstore_...`).
+  The ID of the memory store that holds the version (`memstore_...`).
 
-- `--memory-version-id: string`
+- `--memory-version-id: string` (path parameter)
 
-  Path param: The ID of the memory version to redact (`memver_...`).
+  The ID of the memory version to redact (`memver_...`).
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

@@ -15,11 +15,11 @@ Get Session Resource
 
 - `ResourceRetrieveParams params`
 
-  - `String sessionId`
+  - `String sessionId` (path parameter)
 
-  - `Optional<String> resourceId`
+  - `Optional<String> resourceId` (path parameter)
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -123,7 +123,7 @@ Get Session Resource
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

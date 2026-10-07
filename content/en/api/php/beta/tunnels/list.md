@@ -15,23 +15,23 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 ## Parameters
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   Whether to include archived tunnels in the results. Defaults to false.
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous `list_tunnels` response.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

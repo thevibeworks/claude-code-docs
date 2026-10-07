@@ -47,11 +47,11 @@ Create Session
 
   Vault IDs for stored credentials the agent can use during the session.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -358,63 +358,63 @@ List Sessions
 
 ### Parameters
 
-- `agentID?:optional string`
+- `agentID?:optional string` (query parameter)
 
   Filter sessions created with this agent ID.
 
-- `agentVersion?:optional int`
+- `agentVersion?:optional int` (query parameter)
 
   Filter by agent version. Only applies when `agent_id` is also set.
 
-- `createdAtGt?:optional \Datetime`
+- `createdAtGt?:optional \Datetime` (query parameter)
 
   Return sessions created after this time (exclusive).
 
-- `createdAtGte?:optional \Datetime`
+- `createdAtGte?:optional \Datetime` (query parameter)
 
   Return sessions created at or after this time (inclusive).
 
-- `createdAtLt?:optional \Datetime`
+- `createdAtLt?:optional \Datetime` (query parameter)
 
   Return sessions created before this time (exclusive).
 
-- `createdAtLte?:optional \Datetime`
+- `createdAtLte?:optional \Datetime` (query parameter)
 
   Return sessions created at or before this time (inclusive).
 
-- `deploymentID?:optional string`
+- `deploymentID?:optional string` (query parameter)
 
   Filter sessions created by this deployment ID.
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   When true, includes archived sessions. Default: false (exclude archived).
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of results to return.
 
-- `memoryStoreID?:optional string`
+- `memoryStoreID?:optional string` (query parameter)
 
   Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
-- `order?:optional Order`
+- `order?:optional Order` (query parameter)
 
   Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous response.
 
-- `statuses?:optional list<Status>`
+- `statuses?:optional list<Status>` (query parameter)
 
   Filter by session status. Repeat the parameter to match any of multiple statuses.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -718,13 +718,13 @@ Get Session
 
 ### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1010,7 +1010,7 @@ Update Session
 
 ### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
 - `agent?:optional BetaManagedAgentsSessionAgentUpdate`
 
@@ -1032,11 +1032,11 @@ Update Session
 
   Vault IDs (`vlt_*`) to attach to the session. Not yet supported; requests setting this field are rejected. Reserved for future use.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1354,13 +1354,13 @@ Delete Session
 
 ### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1411,13 +1411,13 @@ Archive Session
 
 ### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2311,43 +2311,43 @@ List Events
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `createdAtGt?:optional \Datetime`
+- `createdAtGt?:optional \Datetime` (query parameter)
 
   Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
-- `createdAtGte?:optional \Datetime`
+- `createdAtGte?:optional \Datetime` (query parameter)
 
   Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
-- `createdAtLt?:optional \Datetime`
+- `createdAtLt?:optional \Datetime` (query parameter)
 
   Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
-- `createdAtLte?:optional \Datetime`
+- `createdAtLte?:optional \Datetime` (query parameter)
 
   Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
-- `order?:optional Order`
+- `order?:optional Order` (query parameter)
 
   Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous response's `next_page`.
 
-- `types?:optional list<ManagedAgentsSessionEventType>`
+- `types?:optional list<ManagedAgentsSessionEventType>` (query parameter)
 
   Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3159,17 +3159,17 @@ Send Events
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
 - `events: list<ManagedAgentsEventParams>`
 
   Events to send to the `session`.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3237,17 +3237,17 @@ Stream Events
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `eventDeltas?:optional list<BetaManagedAgentsDeltaType>`
+- `eventDeltas?:optional list<BetaManagedAgentsDeltaType>` (query parameter)
 
   When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4062,7 +4062,7 @@ Add Session Resource
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
 - `fileID: string`
 
@@ -4074,11 +4074,11 @@ Add Session Resource
 
   Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4148,21 +4148,21 @@ List Session Resources
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque cursor from a previous response's `next_page` field.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4298,15 +4298,15 @@ Get Session Resource
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `resourceID: string`
+- `resourceID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4428,19 +4428,19 @@ Update Session Resource
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `resourceID: string`
+- `resourceID: string` (path parameter)
 
 - `authorizationToken: string`
 
   New authorization token for the resource. Currently only `github_repository` resources support token rotation.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4563,15 +4563,15 @@ Delete Session Resource
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `resourceID: string`
+- `resourceID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4629,21 +4629,21 @@ List Session Threads
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum results per page. Defaults to 1000.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4819,15 +4819,15 @@ Get Session Thread
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `threadID: string`
+- `threadID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4997,15 +4997,15 @@ Archive Session Thread
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `threadID: string`
+- `threadID: string` (path parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -5177,19 +5177,19 @@ List Session Thread Events
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `threadID: string`
+- `threadID: string` (path parameter)
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -5996,19 +5996,19 @@ Stream Session Thread Events
 
 #### Parameters
 
-- `sessionID: string`
+- `sessionID: string` (path parameter)
 
-- `threadID: string`
+- `threadID: string` (path parameter)
 
-- `eventDeltas?:optional list<BetaManagedAgentsDeltaType>`
+- `eventDeltas?:optional list<BetaManagedAgentsDeltaType>` (query parameter)
 
   When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

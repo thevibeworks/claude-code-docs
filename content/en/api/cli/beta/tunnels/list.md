@@ -15,27 +15,27 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 ## Parameters
 
-- `--include-archived: optional boolean`
+- `--include-archived: optional boolean` (query parameter)
 
-  Query param: Whether to include archived tunnels in the results. Defaults to false.
+  Whether to include archived tunnels in the results. Defaults to false.
 
-- `--limit: optional number`
+- `--limit: optional number` (query parameter)
 
-  Query param: Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
+  Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor from a previous `list_tunnels` response.
+  Opaque pagination cursor from a previous `list_tunnels` response.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

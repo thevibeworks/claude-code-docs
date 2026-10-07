@@ -19,7 +19,7 @@ Create Agent
 
   - `Model param.Field[BetaManagedAgentsModelConfigParamsResp]`
 
-    Body param: Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
+    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
     - `type BetaManagedAgentsModelConfigParamsResp`
 
@@ -169,19 +169,19 @@ Create Agent
 
   - `Name param.Field[string]`
 
-    Body param: Human-readable name for the agent.
+    Human-readable name for the agent.
 
     minLength: 1, maxLength: 256
 
   - `Description param.Field[string] Optional`
 
-    Body param: Description of what the agent does.
+    Description of what the agent does.
 
     maxLength: 2048
 
   - `MCPServers param.Field[[]BetaManagedAgentsURLMCPServerParamsResp] Optional`
 
-    Body param: MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
+    MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `Type BetaManagedAgentsURLMCPServerParamsType`
 
@@ -199,15 +199,15 @@ Create Agent
 
   - `Metadata param.Field[map[string, string]] Optional`
 
-    Body param: Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
   - `Multiagent param.Field[BetaManagedAgentsMultiagentParamsResp] Optional`
 
-    Body param: Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
+    Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
 
   - `Skills param.Field[[]BetaManagedAgentsSkillParamsUnionResp] Optional`
 
-    Body param: Skills available to the agent.
+    Skills available to the agent.
 
     - `type BetaManagedAgentsAnthropicSkillParamsResp`
 
@@ -247,13 +247,13 @@ Create Agent
 
   - `System param.Field[string] Optional`
 
-    Body param: System prompt for the agent.
+    System prompt for the agent.
 
     maxLength: 100000
 
   - `Tools param.Field[[]BetaAgentNewParamsToolUnion] Optional`
 
-    Body param: Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
+    Tool configurations available to the agent. Maximum of 256 tools across all toolsets allowed.
 
     - `type BetaManagedAgentsAgentToolset20260401ParamsResp`
 
@@ -681,9 +681,9 @@ Create Agent
 
         minLength: 1, maxLength: 128
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -785,9 +785,9 @@ Create Agent
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1494,35 +1494,35 @@ List Agents
 
 - `params BetaAgentListParams`
 
-  - `CreatedAtGte param.Field[Time] Optional`
+  - `CreatedAtGte param.Field[Time] Optional` (query parameter)
 
-    Query param: Return agents created at or after this time (inclusive).
-
-    format: date-time
-
-  - `CreatedAtLte param.Field[Time] Optional`
-
-    Query param: Return agents created at or before this time (inclusive).
+    Return agents created at or after this time (inclusive).
 
     format: date-time
 
-  - `IncludeArchived param.Field[bool] Optional`
+  - `CreatedAtLte param.Field[Time] Optional` (query parameter)
 
-    Query param: Include archived agents in results. Defaults to false.
+    Return agents created at or before this time (inclusive).
 
-  - `Limit param.Field[int64] Optional`
+    format: date-time
 
-    Query param: Maximum results per page. Default 20, maximum 100.
+  - `IncludeArchived param.Field[bool] Optional` (query parameter)
+
+    Include archived agents in results. Defaults to false.
+
+  - `Limit param.Field[int64] Optional` (query parameter)
+
+    Maximum results per page. Default 20, maximum 100.
 
     format: int32
 
-  - `Page param.Field[string] Optional`
+  - `Page param.Field[string] Optional` (query parameter)
 
-    Query param: Opaque pagination cursor from a previous response.
+    Opaque pagination cursor from a previous response.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -1624,9 +1624,9 @@ List Agents
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2331,21 +2331,21 @@ Get Agent
 
 ### Parameters
 
-- `agentID string`
+- `agentID string` (path parameter)
 
   Unique identifier of the agent to retrieve.
 
 - `params BetaAgentGetParams`
 
-  - `Version param.Field[int64] Optional`
+  - `Version param.Field[int64] Optional` (query parameter)
 
-    Query param: Agent version. Omit for the most recent version. Must be at least 1 if specified.
+    Agent version. Omit for the most recent version. Must be at least 1 if specified.
 
     format: int32
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -2447,9 +2447,9 @@ Get Agent
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -3153,7 +3153,7 @@ Update Agent
 
 ### Parameters
 
-- `agentID string`
+- `agentID string` (path parameter)
 
   Unique identifier of the agent to update.
 
@@ -3161,13 +3161,13 @@ Update Agent
 
   - `Description param.Field[string] Optional`
 
-    Body param: Description. Omit to preserve; send empty string or null to clear.
+    Description. Omit to preserve; send empty string or null to clear.
 
     maxLength: 2048
 
   - `MCPServers param.Field[[]BetaManagedAgentsURLMCPServerParamsResp] Optional`
 
-    Body param: MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
+    MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector).
 
     - `Type BetaManagedAgentsURLMCPServerParamsType`
 
@@ -3185,11 +3185,11 @@ Update Agent
 
   - `Metadata param.Field[map[string, string]] Optional`
 
-    Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
+    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
   - `Model param.Field[BetaManagedAgentsModelConfigParamsResp] Optional`
 
-    Body param: Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
+    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
     - `type BetaManagedAgentsModelConfigParamsResp`
 
@@ -3339,17 +3339,17 @@ Update Agent
 
   - `Multiagent param.Field[BetaManagedAgentsMultiagentParamsResp] Optional`
 
-    Body param: Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
+    Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
 
   - `Name param.Field[string] Optional`
 
-    Body param: Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
+    Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
     maxLength: 256
 
   - `Skills param.Field[[]BetaManagedAgentsSkillParamsUnionResp] Optional`
 
-    Body param: Skills. Full replacement. Omit to preserve; send empty array or null to clear.
+    Skills. Full replacement. Omit to preserve; send empty array or null to clear.
 
     - `type BetaManagedAgentsAnthropicSkillParamsResp`
 
@@ -3389,13 +3389,13 @@ Update Agent
 
   - `System param.Field[string] Optional`
 
-    Body param: System prompt. Omit to preserve; send empty string or null to clear.
+    System prompt. Omit to preserve; send empty string or null to clear.
 
     maxLength: 100000
 
   - `Tools param.Field[[]BetaAgentUpdateParamsToolUnion] Optional`
 
-    Body param: Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
+    Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
     - `type BetaManagedAgentsAgentToolset20260401ParamsResp`
 
@@ -3825,13 +3825,13 @@ Update Agent
 
   - `Version param.Field[int64] Optional`
 
-    Body param: The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
+    The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
 
     format: int32
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -3933,9 +3933,9 @@ Update Agent
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -4641,13 +4641,13 @@ Archive Agent
 
 ### Parameters
 
-- `agentID string`
+- `agentID string` (path parameter)
 
   Unique identifier of the agent to archive.
 
 - `body BetaAgentArchiveParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -4751,7 +4751,7 @@ Archive Agent
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -9643,25 +9643,25 @@ List Agent Versions
 
 #### Parameters
 
-- `agentID string`
+- `agentID string` (path parameter)
 
   Agent ID to list versions for.
 
 - `params BetaAgentVersionListParams`
 
-  - `Limit param.Field[int64] Optional`
+  - `Limit param.Field[int64] Optional` (query parameter)
 
-    Query param: Maximum results per page. Default 20, maximum 100.
+    Maximum results per page. Default 20, maximum 100.
 
     format: int32
 
-  - `Page param.Field[string] Optional`
+  - `Page param.Field[string] Optional` (query parameter)
 
-    Query param: Opaque pagination cursor.
+    Opaque pagination cursor.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -9763,9 +9763,9 @@ List Agent Versions
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

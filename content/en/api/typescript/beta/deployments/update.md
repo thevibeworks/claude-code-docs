@@ -13,7 +13,7 @@ Update Deployment
 
 ## Parameters
 
-- `deploymentID: string`
+- `deploymentID: string` (path parameter)
 
   Unique identifier of the deployment to update.
 
@@ -21,7 +21,7 @@ Update Deployment
 
   - `agent?: string | BetaManagedAgentsAgentParams`
 
-    Body param: Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
+    Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
 
     - `string`
 
@@ -45,7 +45,7 @@ Update Deployment
 
   - `budget?: BetaManagedAgentsBudgetLimit | null`
 
-    Body param: Spend ceiling for future sessions. Full replacement. Omit to preserve; send null to clear (sessions created afterwards are uncapped). The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
+    Spend ceiling for future sessions. Full replacement. Omit to preserve; send null to clear (sessions created afterwards are uncapped). The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
     - `type: "limit"`
 
@@ -63,19 +63,19 @@ Update Deployment
 
   - `description?: string | null`
 
-    Body param: Description. Omit to preserve; send empty string or null to clear.
+    Description. Omit to preserve; send empty string or null to clear.
 
     maxLength: 2048
 
   - `environment_id?: string`
 
-    Body param: ID of the `environment` where sessions run. Omit to preserve. Cannot be cleared.
+    ID of the `environment` where sessions run. Omit to preserve. Cannot be cleared.
 
     maxLength: 128
 
   - `initial_events?: Array<BetaManagedAgentsDeploymentInitialEventParams>`
 
-    Body param: Initial events. Full replacement. Omit to preserve. Cannot be cleared. At least 1, maximum 50.
+    Initial events. Full replacement. Omit to preserve. Cannot be cleared. At least 1, maximum 50.
 
     - `interface BetaManagedAgentsUserMessageEventParams`
 
@@ -295,17 +295,17 @@ Update Deployment
 
   - `metadata?: Record<string, string | null> | null`
 
-    Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
+    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
   - `name?: string`
 
-    Body param: Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
+    Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
     maxLength: 256
 
   - `resources?: Array<BetaManagedAgentsGitHubRepositoryResourceParams | BetaManagedAgentsFileResourceParams | BetaManagedAgentsMemoryStoreResourceParam> | null`
 
-    Body param: Session resources. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 500.
+    Session resources. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 500.
 
     - `interface BetaManagedAgentsGitHubRepositoryResourceParams`
 
@@ -399,7 +399,7 @@ Update Deployment
 
   - `schedule?: BetaManagedAgentsScheduleParams | null`
 
-    Body param: Cron schedule. Full replacement. Omit to preserve; send null to clear (revert to manual-only).
+    Cron schedule. Full replacement. Omit to preserve; send null to clear (revert to manual-only).
 
     - `type: "cron"`
 
@@ -417,11 +417,11 @@ Update Deployment
 
   - `vault_ids?: Array<string> | null`
 
-    Body param: Vault IDs. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 50.
+    Vault IDs. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 50.
 
-  - `betas?: Array<AnthropicBeta>`
+  - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -525,9 +525,9 @@ Update Deployment
 
     - `"spend-limit-reads-2026-09-26"`
 
-  - `workspace_id?: string`
+  - `workspace_id?: string` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

@@ -17,47 +17,47 @@ Create Session
 
 - `--agent: string or BetaManagedAgentsAgentParams or BetaManagedAgentsAgentWithOverridesParams`
 
-  Body param: Agent identifier. Accepts the `agent` ID string, which pins the latest version for the session, or an `agent` object with both id and version specified.
+  Agent identifier. Accepts the `agent` ID string, which pins the latest version for the session, or an `agent` object with both id and version specified.
 
 - `--environment-id: string`
 
-  Body param: ID of the `environment` defining the container configuration for this session.
+  ID of the `environment` defining the container configuration for this session.
 
   minLength: 1, maxLength: 128
 
 - `--budget: optional object`
 
-  Body param: Enforced spend ceiling for the session. Omit to create an uncapped session. Every model the session can run — the agent's model and each callable agent's model — must have a public list price, or the request is rejected with reason `model_not_budgetable`.
+  Enforced spend ceiling for the session. Omit to create an uncapped session. Every model the session can run — the agent's model and each callable agent's model — must have a public list price, or the request is rejected with reason `model_not_budgetable`.
 
 - `--initial-event: optional array of BetaManagedAgentsUserMessageEventParams or BetaManagedAgentsUserDefineOutcomeEventParams`
 
-  Body param: Initial events to send to the `session` at creation, processed in order. Supports `user.message` and `user.define_outcome` events. Maximum 50 events.
+  Initial events to send to the `session` at creation, processed in order. Supports `user.message` and `user.define_outcome` events. Maximum 50 events.
 
 - `--metadata: optional map[string]`
 
-  Body param: Arbitrary key-value metadata attached to the session. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+  Arbitrary key-value metadata attached to the session. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
 - `--resource: optional array of BetaManagedAgentsGitHubRepositoryResourceParams or BetaManagedAgentsFileResourceParams or BetaManagedAgentsMemoryStoreResourceParam`
 
-  Body param: Resources (e.g. repositories, files) to mount into the session's container.
+  Resources (e.g. repositories, files) to mount into the session's container.
 
 - `--title: optional string`
 
-  Body param: Human-readable session title.
+  Human-readable session title.
 
   maxLength: 500
 
 - `--vault-id: optional array of string`
 
-  Body param: Vault IDs for stored credentials the agent can use during the session.
+  Vault IDs for stored credentials the agent can use during the session.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -1194,77 +1194,77 @@ List Sessions
 
 ### Parameters
 
-- `--agent-id: optional string`
+- `--agent-id: optional string` (query parameter)
 
-  Query param: Filter sessions created with this agent ID.
+  Filter sessions created with this agent ID.
 
-- `--agent-version: optional number`
+- `--agent-version: optional number` (query parameter)
 
-  Query param: Filter by agent version. Only applies when `agent_id` is also set.
-
-  format: int32
-
-- `--created-at-gt: optional string`
-
-  Query param: Return sessions created after this time (exclusive).
-
-  format: date-time
-
-- `--created-at-gte: optional string`
-
-  Query param: Return sessions created at or after this time (inclusive).
-
-  format: date-time
-
-- `--created-at-lt: optional string`
-
-  Query param: Return sessions created before this time (exclusive).
-
-  format: date-time
-
-- `--created-at-lte: optional string`
-
-  Query param: Return sessions created at or before this time (inclusive).
-
-  format: date-time
-
-- `--deployment-id: optional string`
-
-  Query param: Filter sessions created by this deployment ID.
-
-- `--include-archived: optional boolean`
-
-  Query param: When true, includes archived sessions. Default: false (exclude archived).
-
-- `--limit: optional number`
-
-  Query param: Maximum number of results to return.
+  Filter by agent version. Only applies when `agent_id` is also set.
 
   format: int32
 
-- `--memory-store-id: optional string`
+- `--created-at-gt: optional string` (query parameter)
 
-  Query param: Filter sessions whose resources contain a `memory_store` with this memory store ID.
+  Return sessions created after this time (exclusive).
 
-- `--order: optional "asc" or "desc"`
+  format: date-time
 
-  Query param: Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
+- `--created-at-gte: optional string` (query parameter)
 
-- `--page: optional string`
+  Return sessions created at or after this time (inclusive).
 
-  Query param: Opaque pagination cursor from a previous response.
+  format: date-time
 
-- `--status: optional array of "rescheduling" or "running" or "idle" or "terminated"`
+- `--created-at-lt: optional string` (query parameter)
 
-  Query param: Filter by session status. Repeat the parameter to match any of multiple statuses.
+  Return sessions created before this time (exclusive).
 
-- `--beta: optional array of AnthropicBeta`
+  format: date-time
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+- `--created-at-lte: optional string` (query parameter)
 
-- `--workspace-id: optional string`
+  Return sessions created at or before this time (inclusive).
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  format: date-time
+
+- `--deployment-id: optional string` (query parameter)
+
+  Filter sessions created by this deployment ID.
+
+- `--include-archived: optional boolean` (query parameter)
+
+  When true, includes archived sessions. Default: false (exclude archived).
+
+- `--limit: optional number` (query parameter)
+
+  Maximum number of results to return.
+
+  format: int32
+
+- `--memory-store-id: optional string` (query parameter)
+
+  Filter sessions whose resources contain a `memory_store` with this memory store ID.
+
+- `--order: optional "asc" or "desc"` (query parameter)
+
+  Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
+
+- `--page: optional string` (query parameter)
+
+  Opaque pagination cursor from a previous response.
+
+- `--status: optional array of "rescheduling" or "running" or "idle" or "terminated"` (query parameter)
+
+  Filter by session status. Repeat the parameter to match any of multiple statuses.
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+- `--workspace-id: optional string` (header parameter)
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -2417,13 +2417,13 @@ Get Session
 
 ### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3561,39 +3561,37 @@ Update Session
 
 ### Parameters
 
-- `--session-id: string`
-
-  Path param
+- `--session-id: string` (path parameter)
 
 - `--agent: optional object`
 
-  Body param: Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
+  Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
 
 - `--budget: optional object`
 
-  Body param: Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the session can run must have a public list price or the request is rejected with reason `model_not_budgetable`.
+  Enforced spend ceiling for the session. Set an object to replace the budget of a session that was created with one, or `null` to remove it; omit to preserve. A budget cannot be added to a session created without one (rejected with reason `budget_create_only`), and a removed budget cannot be re-added. Allowed in any non-terminated status. Lowering `max_list_cost` to at or below the session's consumed list cost is rejected with reason `budget_not_raised`, and every model the session can run must have a public list price or the request is rejected with reason `model_not_budgetable`.
 
 - `--metadata: optional map[string]`
 
-  Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve.
+  Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve.
 
 - `--title: optional string`
 
-  Body param: Human-readable session title.
+  Human-readable session title.
 
   minLength: 1, maxLength: 500
 
 - `--vault-id: optional array of string`
 
-  Body param: Vault IDs (`vlt_*`) to attach to the session. Not yet supported; requests setting this field are rejected. Reserved for future use.
+  Vault IDs (`vlt_*`) to attach to the session. Not yet supported; requests setting this field are rejected. Reserved for future use.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -4729,13 +4727,13 @@ Delete Session
 
 ### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4778,13 +4776,13 @@ Archive Session
 
 ### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -10762,59 +10760,55 @@ List Events
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--created-at-gt: optional string` (query parameter)
 
-- `--created-at-gt: optional string`
-
-  Query param: Return events created after this time (exclusive). Compared against the event's `processed_at` value.
+  Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `--created-at-gte: optional string`
+- `--created-at-gte: optional string` (query parameter)
 
-  Query param: Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
-
-  format: date-time
-
-- `--created-at-lt: optional string`
-
-  Query param: Return events created before this time (exclusive). Compared against the event's `processed_at` value.
+  Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `--created-at-lte: optional string`
+- `--created-at-lt: optional string` (query parameter)
 
-  Query param: Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
+  Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
   format: date-time
 
-- `--limit: optional number`
+- `--created-at-lte: optional string` (query parameter)
 
-  Query param
+  Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
+
+  format: date-time
+
+- `--limit: optional number` (query parameter)
 
   format: int32
 
-- `--order: optional "asc" or "desc"`
+- `--order: optional "asc" or "desc"` (query parameter)
 
-  Query param: Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
+  Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor from a previous response's `next_page`.
+  Opaque pagination cursor from a previous response's `next_page`.
 
-- `--type: optional array of BetaManagedAgentsSessionEventType`
+- `--type: optional array of BetaManagedAgentsSessionEventType` (query parameter)
 
-  Query param: Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
+  Filter by event type. Values match the `type` field on returned events (for example, `user.message` or `agent.tool_use`). Omit to return all event types.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -13382,21 +13376,19 @@ Send Events
 
 #### Parameters
 
-- `--session-id: string`
-
-  Path param
+- `--session-id: string` (path parameter)
 
 - `--event: array of BetaManagedAgentsEventParams`
 
-  Body param: Events to send to the `session`.
+  Events to send to the `session`.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -13885,21 +13877,19 @@ Stream Events
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--event-delta: optional array of BetaManagedAgentsDeltaType` (query parameter)
 
-- `--event-delta: optional array of BetaManagedAgentsDeltaType`
+  When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
-  Query param: When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-- `--beta: optional array of AnthropicBeta`
+  Optional header to specify the beta version(s) you want to use.
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+- `--workspace-id: optional string` (header parameter)
 
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -16503,33 +16493,29 @@ Add Session Resource
 
 #### Parameters
 
-- `--session-id: string`
-
-  Path param
+- `--session-id: string` (path parameter)
 
 - `--file-id: string`
 
-  Body param: ID of a previously uploaded file.
+  ID of a previously uploaded file.
 
   minLength: 1, maxLength: 128
 
 - `--type: "file"`
 
-  Body param
-
 - `--mount-path: optional string`
 
-  Body param: Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+  Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
   minLength: 1, maxLength: 4096
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -16590,27 +16576,25 @@ List Session Resources
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--limit: optional number` (query parameter)
 
-- `--limit: optional number`
-
-  Query param: Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
+  Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque cursor from a previous response's `next_page` field.
+  Opaque cursor from a previous response's `next_page` field.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -16778,21 +16762,17 @@ Get Session Resource
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--resource-id: string` (path parameter)
 
-- `--resource-id: string`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Path param
+  Optional header to specify the beta version(s) you want to use.
 
-- `--beta: optional array of AnthropicBeta`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
-
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -16940,27 +16920,23 @@ Update Session Resource
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
-
-- `--resource-id: string`
-
-  Path param
+- `--resource-id: string` (path parameter)
 
 - `--authorization-token: string`
 
-  Body param: New authorization token for the resource. Currently only `github_repository` resources support token rotation.
+  New authorization token for the resource. Currently only `github_repository` resources support token rotation.
 
   minLength: 1, maxLength: 4096
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -17109,21 +17085,17 @@ Delete Session Resource
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--resource-id: string` (path parameter)
 
-- `--resource-id: string`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Path param
+  Optional header to specify the beta version(s) you want to use.
 
-- `--beta: optional array of AnthropicBeta`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
-
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -17167,27 +17139,25 @@ List Session Threads
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--limit: optional number` (query parameter)
 
-- `--limit: optional number`
-
-  Query param: Maximum results per page. Defaults to 1000.
+  Maximum results per page. Defaults to 1000.
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param: Opaque pagination cursor from a previous response's `next_page`. Forward-only.
+  Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -17997,21 +17967,17 @@ Get Session Thread
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--thread-id: string` (path parameter)
 
-- `--thread-id: string`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Path param
+  Optional header to specify the beta version(s) you want to use.
 
-- `--beta: optional array of AnthropicBeta`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
-
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -18809,21 +18775,17 @@ Archive Session Thread
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--thread-id: string` (path parameter)
 
-- `--thread-id: string`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Path param
+  Optional header to specify the beta version(s) you want to use.
 
-- `--beta: optional array of AnthropicBeta`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
-
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -19623,31 +19585,23 @@ List Session Thread Events
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--thread-id: string` (path parameter)
 
-- `--thread-id: string`
-
-  Path param
-
-- `--limit: optional number`
-
-  Query param
+- `--limit: optional number` (query parameter)
 
   format: int32
 
-- `--page: optional string`
+- `--page: optional string` (query parameter)
 
-  Query param
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-- `--beta: optional array of AnthropicBeta`
+  Optional header to specify the beta version(s) you want to use.
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+- `--workspace-id: optional string` (header parameter)
 
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -22216,25 +22170,21 @@ Stream Session Thread Events
 
 #### Parameters
 
-- `--session-id: string`
+- `--session-id: string` (path parameter)
 
-  Path param
+- `--thread-id: string` (path parameter)
 
-- `--thread-id: string`
+- `--event-delta: optional array of BetaManagedAgentsDeltaType` (query parameter)
 
-  Path param
+  When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
-- `--event-delta: optional array of BetaManagedAgentsDeltaType`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Query param: When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--beta: optional array of AnthropicBeta`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
-
-- `--workspace-id: optional string`
-
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

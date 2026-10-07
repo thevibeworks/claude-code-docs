@@ -13,59 +13,59 @@ List Sessions
 
 ## Parameters
 
-- `agent_id: Optional[str]`
+- `agent_id: Optional[str]` (query parameter)
 
   Filter sessions created with this agent ID.
 
-- `agent_version: Optional[int]`
+- `agent_version: Optional[int]` (query parameter)
 
   Filter by agent version. Only applies when `agent_id` is also set.
 
   format: int32
 
-- `created_at_gt: Optional[Union[str, datetime]]`
+- `created_at_gt: Optional[Union[str, datetime]]` (query parameter)
 
   Return sessions created after this time (exclusive).
 
   format: date-time
 
-- `created_at_gte: Optional[Union[str, datetime]]`
+- `created_at_gte: Optional[Union[str, datetime]]` (query parameter)
 
   Return sessions created at or after this time (inclusive).
 
   format: date-time
 
-- `created_at_lt: Optional[Union[str, datetime]]`
+- `created_at_lt: Optional[Union[str, datetime]]` (query parameter)
 
   Return sessions created before this time (exclusive).
 
   format: date-time
 
-- `created_at_lte: Optional[Union[str, datetime]]`
+- `created_at_lte: Optional[Union[str, datetime]]` (query parameter)
 
   Return sessions created at or before this time (inclusive).
 
   format: date-time
 
-- `deployment_id: Optional[str]`
+- `deployment_id: Optional[str]` (query parameter)
 
   Filter sessions created by this deployment ID.
 
-- `include_archived: Optional[bool]`
+- `include_archived: Optional[bool]` (query parameter)
 
   When true, includes archived sessions. Default: false (exclude archived).
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   Maximum number of results to return.
 
   format: int32
 
-- `memory_store_id: Optional[str]`
+- `memory_store_id: Optional[str]` (query parameter)
 
   Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
-- `order: Optional[Literal["asc", "desc"]]`
+- `order: Optional[Literal["asc", "desc"]]` (query parameter)
 
   Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
@@ -73,11 +73,11 @@ List Sessions
 
   - `"desc"`
 
-- `page: Optional[str]`
+- `page: Optional[str]` (query parameter)
 
   Opaque pagination cursor from a previous response.
 
-- `statuses: Optional[List[Literal["rescheduling", "running", "idle", "terminated"]]]`
+- `statuses: Optional[List[Literal["rescheduling", "running", "idle", "terminated"]]]` (query parameter)
 
   Filter by session status. Repeat the parameter to match any of multiple statuses.
 
@@ -97,7 +97,7 @@ List Sessions
 
     Session has ended, either due to an error or completion.
 
-- `betas: Optional[List[AnthropicBetaParam]]`
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
@@ -203,7 +203,7 @@ List Sessions
 
   - `"spend-limit-reads-2026-09-26"`
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -13,7 +13,7 @@ Update User Profile
 
 ## Parameters
 
-- `userProfileID: string`
+- `userProfileID: string` (path parameter)
 
   The ID of the user profile to update (`uprof_...`).
 
@@ -41,11 +41,11 @@ Update User Profile
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

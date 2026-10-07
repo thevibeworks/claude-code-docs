@@ -13,77 +13,77 @@ List Sessions
 
 ## Parameters
 
-- `--agent-id: optional string`
+- `--agent-id: optional string` (query parameter)
 
-  Query param: Filter sessions created with this agent ID.
+  Filter sessions created with this agent ID.
 
-- `--agent-version: optional number`
+- `--agent-version: optional number` (query parameter)
 
-  Query param: Filter by agent version. Only applies when `agent_id` is also set.
-
-  format: int32
-
-- `--created-at-gt: optional string`
-
-  Query param: Return sessions created after this time (exclusive).
-
-  format: date-time
-
-- `--created-at-gte: optional string`
-
-  Query param: Return sessions created at or after this time (inclusive).
-
-  format: date-time
-
-- `--created-at-lt: optional string`
-
-  Query param: Return sessions created before this time (exclusive).
-
-  format: date-time
-
-- `--created-at-lte: optional string`
-
-  Query param: Return sessions created at or before this time (inclusive).
-
-  format: date-time
-
-- `--deployment-id: optional string`
-
-  Query param: Filter sessions created by this deployment ID.
-
-- `--include-archived: optional boolean`
-
-  Query param: When true, includes archived sessions. Default: false (exclude archived).
-
-- `--limit: optional number`
-
-  Query param: Maximum number of results to return.
+  Filter by agent version. Only applies when `agent_id` is also set.
 
   format: int32
 
-- `--memory-store-id: optional string`
+- `--created-at-gt: optional string` (query parameter)
 
-  Query param: Filter sessions whose resources contain a `memory_store` with this memory store ID.
+  Return sessions created after this time (exclusive).
 
-- `--order: optional "asc" or "desc"`
+  format: date-time
 
-  Query param: Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
+- `--created-at-gte: optional string` (query parameter)
 
-- `--page: optional string`
+  Return sessions created at or after this time (inclusive).
 
-  Query param: Opaque pagination cursor from a previous response.
+  format: date-time
 
-- `--status: optional array of "rescheduling" or "running" or "idle" or "terminated"`
+- `--created-at-lt: optional string` (query parameter)
 
-  Query param: Filter by session status. Repeat the parameter to match any of multiple statuses.
+  Return sessions created before this time (exclusive).
 
-- `--beta: optional array of AnthropicBeta`
+  format: date-time
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+- `--created-at-lte: optional string` (query parameter)
 
-- `--workspace-id: optional string`
+  Return sessions created at or before this time (inclusive).
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  format: date-time
+
+- `--deployment-id: optional string` (query parameter)
+
+  Filter sessions created by this deployment ID.
+
+- `--include-archived: optional boolean` (query parameter)
+
+  When true, includes archived sessions. Default: false (exclude archived).
+
+- `--limit: optional number` (query parameter)
+
+  Maximum number of results to return.
+
+  format: int32
+
+- `--memory-store-id: optional string` (query parameter)
+
+  Filter sessions whose resources contain a `memory_store` with this memory store ID.
+
+- `--order: optional "asc" or "desc"` (query parameter)
+
+  Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
+
+- `--page: optional string` (query parameter)
+
+  Opaque pagination cursor from a previous response.
+
+- `--status: optional array of "rescheduling" or "running" or "idle" or "terminated"` (query parameter)
+
+  Filter by session status. Repeat the parameter to match any of multiple statuses.
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+- `--workspace-id: optional string` (header parameter)
+
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

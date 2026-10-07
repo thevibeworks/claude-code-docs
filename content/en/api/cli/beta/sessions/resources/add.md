@@ -13,33 +13,29 @@ Add Session Resource
 
 ## Parameters
 
-- `--session-id: string`
-
-  Path param
+- `--session-id: string` (path parameter)
 
 - `--file-id: string`
 
-  Body param: ID of a previously uploaded file.
+  ID of a previously uploaded file.
 
   minLength: 1, maxLength: 128
 
 - `--type: "file"`
 
-  Body param
-
 - `--mount-path: optional string`
 
-  Body param: Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+  Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
   minLength: 1, maxLength: 4096
 
-- `--beta: optional array of AnthropicBeta`
+- `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Header param: Optional header to specify the beta version(s) you want to use.
+  Optional header to specify the beta version(s) you want to use.
 
-- `--workspace-id: optional string`
+- `--workspace-id: optional string` (header parameter)
 
-  Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+  Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
   Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 

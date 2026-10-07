@@ -15,15 +15,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ## Parameters
 
-- `after_id: Optional[str]`
+- `after_id: Optional[str]` (query parameter)
 
   ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
 
-- `before_id: Optional[str]`
+- `before_id: Optional[str]` (query parameter)
 
   ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-- `limit: Optional[int]`
+- `limit: Optional[int]` (query parameter)
 
   Number of items to return per page.
 
@@ -31,7 +31,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   default: 20, minimum: 1, maximum: 1000
 
-- `workspace_id: Optional[str]`
+- `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

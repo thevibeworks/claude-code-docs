@@ -13,39 +13,39 @@ List Deployments
 
 ## Parameters
 
-- `agentID?:optional string`
+- `agentID?:optional string` (query parameter)
 
   Filter by agent ID.
 
-- `createdAtGte?:optional \Datetime`
+- `createdAtGte?:optional \Datetime` (query parameter)
 
   Return deployments created at or after this time (inclusive).
 
-- `createdAtLte?:optional \Datetime`
+- `createdAtLte?:optional \Datetime` (query parameter)
 
   Return deployments created at or before this time (inclusive).
 
-- `includeArchived?:optional bool`
+- `includeArchived?:optional bool` (query parameter)
 
   When true, includes archived deployments. Default: false (exclude archived).
 
-- `limit?:optional int`
+- `limit?:optional int` (query parameter)
 
   Maximum results per page. Default 20, maximum 100.
 
-- `page?:optional string`
+- `page?:optional string` (query parameter)
 
   Opaque pagination cursor.
 
-- `status?:optional BetaManagedAgentsDeploymentStatus`
+- `status?:optional BetaManagedAgentsDeploymentStatus` (query parameter)
 
   Filter by status: `active` or `paused`. Omit for both. To include archived deployments, use `include_archived` instead; the two cannot be combined.
 
-- `betas?:optional list<AnthropicBeta>`
+- `betas?:optional list<AnthropicBeta>` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
 
-- `workspaceID?:optional string`
+- `workspaceID?:optional string` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

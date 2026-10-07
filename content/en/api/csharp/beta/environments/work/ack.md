@@ -17,17 +17,13 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 - `WorkAckParams parameters`
 
-  - `required string environmentID`
+  - `required string environmentID` (path parameter)
 
-    Path param
+  - `required string workID` (path parameter)
 
-  - `required string workID`
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Path param
-
-  - `IReadOnlyList<AnthropicBeta> betas`
-
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

@@ -17,55 +17,55 @@ List Deployment Runs
 
 - `params BetaDeploymentRunListParams`
 
-  - `CreatedAtGt param.Field[Time] Optional`
+  - `CreatedAtGt param.Field[Time] Optional` (query parameter)
 
-    Query param: Return runs created strictly after this time (exclusive).
-
-    format: date-time
-
-  - `CreatedAtGte param.Field[Time] Optional`
-
-    Query param: Return runs created at or after this time (inclusive).
+    Return runs created strictly after this time (exclusive).
 
     format: date-time
 
-  - `CreatedAtLt param.Field[Time] Optional`
+  - `CreatedAtGte param.Field[Time] Optional` (query parameter)
 
-    Query param: Return runs created strictly before this time (exclusive).
-
-    format: date-time
-
-  - `CreatedAtLte param.Field[Time] Optional`
-
-    Query param: Return runs created at or before this time (inclusive).
+    Return runs created at or after this time (inclusive).
 
     format: date-time
 
-  - `DeploymentID param.Field[string] Optional`
+  - `CreatedAtLt param.Field[Time] Optional` (query parameter)
 
-    Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
+    Return runs created strictly before this time (exclusive).
 
-  - `HasError param.Field[bool] Optional`
+    format: date-time
 
-    Query param: Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
+  - `CreatedAtLte param.Field[Time] Optional` (query parameter)
 
-  - `Limit param.Field[int64] Optional`
+    Return runs created at or before this time (inclusive).
 
-    Query param: Maximum results per page. Default 20, maximum 1000.
+    format: date-time
+
+  - `DeploymentID param.Field[string] Optional` (query parameter)
+
+    Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
+
+  - `HasError param.Field[bool] Optional` (query parameter)
+
+    Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
+
+  - `Limit param.Field[int64] Optional` (query parameter)
+
+    Maximum results per page. Default 20, maximum 1000.
 
     format: int32
 
-  - `Page param.Field[string] Optional`
+  - `Page param.Field[string] Optional` (query parameter)
 
-    Query param: Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
+    Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
-  - `TriggerType param.Field[BetaManagedAgentsTriggerType] Optional`
+  - `TriggerType param.Field[BetaManagedAgentsTriggerType] Optional` (query parameter)
 
-    Query param: Filter runs by what triggered them. Omit to return all runs.
+    Filter runs by what triggered them. Omit to return all runs.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
-    Header param: Optional header to specify the beta version(s) you want to use.
+    Optional header to specify the beta version(s) you want to use.
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
 
@@ -167,9 +167,9 @@ List Deployment Runs
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
-    Header param: Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
@@ -462,13 +462,13 @@ Get Deployment Run
 
 ### Parameters
 
-- `deploymentRunID string`
+- `deploymentRunID string` (path parameter)
 
   Unique identifier of the deployment run.
 
 - `query BetaDeploymentRunGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional`
+  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -572,7 +572,7 @@ Get Deployment Run
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional`
+  - `WorkspaceID param.Field[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

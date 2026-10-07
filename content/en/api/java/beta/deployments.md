@@ -17,7 +17,7 @@ Create Deployment
 
 - `DeploymentCreateParams params`
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -121,7 +121,7 @@ Create Deployment
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1131,41 +1131,41 @@ List Deployments
 
 - `DeploymentListParams params`
 
-  - `Optional<String> agentId`
+  - `Optional<String> agentId` (query parameter)
 
     Filter by agent ID.
 
-  - `Optional<LocalDateTime> createdAtGte`
+  - `Optional<LocalDateTime> createdAtGte` (query parameter)
 
     Return deployments created at or after this time (inclusive).
 
     format: date-time
 
-  - `Optional<LocalDateTime> createdAtLte`
+  - `Optional<LocalDateTime> createdAtLte` (query parameter)
 
     Return deployments created at or before this time (inclusive).
 
     format: date-time
 
-  - `Optional<Boolean> includeArchived`
+  - `Optional<Boolean> includeArchived` (query parameter)
 
     When true, includes archived deployments. Default: false (exclude archived).
 
-  - `Optional<Long> limit`
+  - `Optional<Long> limit` (query parameter)
 
     Maximum results per page. Default 20, maximum 100.
 
     format: int32
 
-  - `Optional<String> page`
+  - `Optional<String> page` (query parameter)
 
     Opaque pagination cursor.
 
-  - `Optional<BetaManagedAgentsDeploymentStatus> status`
+  - `Optional<BetaManagedAgentsDeploymentStatus> status` (query parameter)
 
     Filter by status: `active` or `paused`. Omit for both. To include archived deployments, use `include_archived` instead; the two cannot be combined.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1269,7 +1269,7 @@ List Deployments
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1900,11 +1900,11 @@ Get Deployment
 
 - `DeploymentRetrieveParams params`
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (path parameter)
 
     Unique identifier of the deployment.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -2008,7 +2008,7 @@ Get Deployment
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2634,11 +2634,11 @@ Update Deployment
 
 - `DeploymentUpdateParams params`
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (path parameter)
 
     Unique identifier of the deployment to update.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -2742,7 +2742,7 @@ Update Deployment
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3740,11 +3740,11 @@ Archive Deployment
 
 - `DeploymentArchiveParams params`
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (path parameter)
 
     Unique identifier of the deployment to archive.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -3848,7 +3848,7 @@ Archive Deployment
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4474,11 +4474,11 @@ Run Deployment Now
 
 - `DeploymentRunParams params`
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (path parameter)
 
     Unique identifier of the deployment to run.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -4582,7 +4582,7 @@ Run Deployment Now
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -4870,11 +4870,11 @@ Pause Deployment
 
 - `DeploymentPauseParams params`
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (path parameter)
 
     Unique identifier of the deployment to pause.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -4978,7 +4978,7 @@ Pause Deployment
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -5604,11 +5604,11 @@ Unpause Deployment
 
 - `DeploymentUnpauseParams params`
 
-  - `Optional<String> deploymentId`
+  - `Optional<String> deploymentId` (path parameter)
 
     Unique identifier of the deployment to unpause.
 
-  - `Optional<List<AnthropicBeta>> betas`
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -5712,7 +5712,7 @@ Unpause Deployment
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
-  - `Optional<String> workspaceId`
+  - `Optional<String> workspaceId` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
