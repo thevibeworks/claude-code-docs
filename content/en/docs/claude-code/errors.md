@@ -2164,7 +2164,7 @@ Claude Code replaces the unprocessable image with a text placeholder and retries
 
 **What to do:**
 
-* Resize the image before pasting. The API accepts images up to 8000 pixels on the longest edge for a single image, or 2000 pixels when many images are in context.
+* Resize the image before pasting. The API accepts images up to 8000 pixels on the longest edge for a single image, or 3000 pixels when more than 20 images are in context.
 * Take a tighter screenshot of the relevant region instead of the full screen
 
 ### Unable to resize image

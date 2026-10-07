@@ -1,7 +1,7 @@
 ---
-title: Migrating to Claude Haiku 4.5
+title: Claude Haiku 4.5 migration guide
 url: https://platform.claude.com/docs/en/models/haiku-4-5/migration-guide
-description: "Migrate to Claude Haiku 4.5 from earlier Haiku models: model IDs, breaking changes, and a migration checklist."
+description: Switch to Claude Haiku 4.5 from earlier Haiku models with this migration guide. The guidance to enable Claude Haiku 4.5 includes model IDs, breaking changes, and a migration checklist.
 ---
 
 <Note>

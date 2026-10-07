@@ -244,7 +244,7 @@ The same patterns tend to appear in tool descriptions and skills, which are wort
 
 ## Trade cost against intelligence
 
-These levers set where a single model sits between cost and intelligence: model choice, effort, re-running failures at a higher setting, the budgets and caps it works within, and whether it can see how much time has passed. Start with an effort sweep on your current model ([Tune effort](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#tune-effort)). From lowest to highest cost and capability, the current models are Claude Haiku 4.5, Claude Sonnet 5, Claude Opus 5.5, and Claude Fable 5.1 (the frontier model); [Models overview](https://platform.claude.com/docs/en/models/overview) has the full lineup and prices.
+These levers set where a single model sits between cost and intelligence: model choice, effort, re-running failures at a higher setting, the budgets and caps it works within, and whether it can see how much time has passed. Start with an effort sweep on your current model ([Tune effort](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#tune-effort)). From lowest to highest cost and capability, the current models are Claude Haiku 4.5, Claude Sonnet 5.5, Claude Opus 5.5, and Claude Fable 5.1 (the frontier model); [Models overview](https://platform.claude.com/docs/en/models/overview) has the full lineup and prices.
 
 ### Compare models on cost per task
 

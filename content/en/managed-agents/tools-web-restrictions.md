@@ -18,10 +18,7 @@ To control which sites the agent's web tools can reach, set a domain list on the
 Each tool carries its own list, so `web_search` and `web_fetch` can have different restrictions.
 
 <Note>
-  These per-tool lists are the way to restrict what the web tools can reach. Two other settings do not affect these tools:
-
-  * **Environment networking:** An environment's [`networking`](https://platform.claude.com/docs/en/managed-agents/environments#networking) settings control the sandbox's own outbound traffic. `web_search` and `web_fetch` run on Anthropic's servers, whether the environment is a cloud or self-hosted sandbox.
-  * **Organization settings:** Organization-level web search and web fetch settings in the Claude Console apply to the Messages API. They do not apply to Managed Agents sessions.
+  `web_search` and `web_fetch` run on Anthropic's servers, not in the sandbox. A cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) also applies its `allowed_hosts` to them; see [Set domain lists on an agent](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#set-domain-lists-on-an-agent). `unrestricted` networking and self-hosted environments do not limit them. The per-tool lists restrict these tools further. Organization-level web search and web fetch settings in the Claude Console apply to the Messages API. They do not apply to Managed Agents sessions.
 </Note>
 
 ## Set domain lists on an agent
@@ -373,6 +370,8 @@ The following example creates an agent that limits `web_search` to two sites and
   ```
 </CodeGroup>
 
+In a cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking), the environment's `allowed_hosts` also applies to `web_search` and `web_fetch`. Creating a session fails with a 400 error when an enabled web tool's `allowed_domains` has an entry that is not within `allowed_hosts`. So does a session update that adds such an entry. To fix it, add the host to `allowed_hosts` or remove the entry from `allowed_domains`. At runtime, a `web_fetch` call for a URL on a host that `allowed_hosts` does not match returns a `url_not_allowed` error result. `web_search` omits results from such hosts. The two lists match differently: a tool's entry covers its subdomains, but an `allowed_hosts` entry matches one exact host unless it starts with `*.`. For example, the tool entry `docs.example.com` is not within an `allowed_hosts` of `["example.com"]`, but it is within `["docs.example.com"]` or `["*.example.com"]`.
+
 In the Claude Console, set allowed or blocked domains from the `web_search` and `web_fetch` rows of the **Built-in tools** card on the agent form. Set `max_content_tokens` and `user_location` in the **Raw** view of the agent's configuration.
 
 ## Settings
@@ -449,6 +448,8 @@ On the same requests, the API also rejects three settings that depend on the sea
 * A domain in `allowed_domains` that Anthropic's crawler is not permitted to access.
 * A `user_location.country` that the search provider does not support. The message ends in `user_location.country: not a country the search provider supports`.
 * A `user_location.timezone` that is not a valid IANA name.
+
+In a cloud environment with `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking), session create and update also check `allowed_domains` against the environment's `allowed_hosts`. See the rule in [Set domain lists on an agent](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#set-domain-lists-on-an-agent).
 
 ### When an accepted setting is no longer valid
 

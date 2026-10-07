@@ -65,7 +65,7 @@ To keep thinking valid across a long session, treat the conversation as append-o
 
 ### Change effort mid-conversation (beta)
 
-On Claude Fable 5.1 you can change the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level mid-conversation without invalidating the prompt cache. Raise it for a hard step and lower it for routine ones. Per-message effort is in beta: include the `mid-conversation-output-config-2026-07-01` beta header. Claude Fable 5.1, Claude Mythos 5.1, and Claude Opus 5 support it on the Claude API and Google Cloud.
+On Claude Fable 5.1 you can change the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) level mid-conversation without invalidating the prompt cache. Raise it for a hard step and lower it for routine ones. Per-message effort is in beta: include the `mid-conversation-output-config-2026-07-01` beta header. Claude Fable 5.1 and Claude Mythos 5.1 support it on the Claude API, Google Cloud, and Amazon Bedrock. To use it with Claude Fable 5.1 through the Amazon Bedrock [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), send that value in the `anthropic_beta` array of the request body instead. For the other models that support it and the platforms for each, see [Change effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#changing-effort-mid-conversation).
 
 <CodeGroup>
   ```bash cURL

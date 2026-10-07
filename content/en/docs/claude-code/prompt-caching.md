@@ -256,7 +256,7 @@ Cached prefixes expire after a period of inactivity. Each request that hits the 
 
 On a Pro or Max plan, when you resume a large session after a long break, Claude Code [offers to resume from a summary](/docs/en/sessions#resume-from-a-summary) so later requests don't carry the full history.
 
-The time to live (TTL) controls how long a gap the cache survives. The API offers two: a five-minute TTL, and a [one-hour TTL](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration) that keeps the cache warm through longer breaks but [bills cache writes at a higher rate](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing). The longer TTL helps when you leave a session idle and come back to it, because you skip the reprocessing an expired prefix costs. It costs more on short bursts of work that never idle past five minutes, where the higher write rate applies and the longer cache lifetime goes unused.
+The time to live (TTL) controls how long a gap the cache survives. The API offers two: a five-minute TTL, and a [one-hour TTL](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration) that keeps the cache warm through longer breaks but [charges a higher rate for cache writes](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing). The longer TTL helps when you leave a session idle and come back to it, because you skip the reprocessing an expired prefix costs. It costs more on short bursts of work that never idle past five minutes, where the higher write rate applies and the longer cache lifetime goes unused.
 
 ### Which TTL each request gets
 
@@ -272,7 +272,7 @@ Unless you choose a TTL yourself, Claude Code requests the one-hour TTL only on 
 | Main conversation | One hour | Five minutes |
 | Everything else | Five minutes, except the server-controlled helper requests, which get one hour | Five minutes |
 
-Once you go over your plan's usage limit and Claude Code draws on [usage credits](https://support.claude.com/en/articles/12429409-extra-usage-for-paid-claude-plans), you are billed for that usage, so Claude Code drops the main conversation to the cheaper five-minute TTL. To keep the one-hour TTL there, [choose the TTL yourself](#choose-the-ttl-yourself).
+Once you go over your plan's usage limit and Claude Code draws on [usage credits](https://support.claude.com/en/articles/12429409-extra-usage-for-paid-claude-plans), you are billed for that usage, so Claude Code drops the main conversation to the five-minute TTL, which charges a lower rate for cache writes. To keep the one-hour TTL there, [choose the TTL yourself](#choose-the-ttl-yourself).
 
 ### Choose the TTL yourself
 

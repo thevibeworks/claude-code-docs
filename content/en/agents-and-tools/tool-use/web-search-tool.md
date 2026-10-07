@@ -237,7 +237,7 @@ The following examples use `web_search_20260318`:
   Web search is enabled for your organization unless an administrator has disabled it in the [Claude Console](https://platform.claude.com/settings/capabilities), where they can also restrict which domains it searches. If it's disabled, a request that includes the tool fails with a 400 `invalid_request_error` that says web search is not enabled, rather than an [error code](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool#errors) inside a search result.
 </Note>
 
-These organization-level settings in the Claude Console apply to Messages API requests only. [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) sessions use only the per-tool `allowed_domains` and `blocked_domains` lists on the agent toolset; see [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
+These organization-level settings in the Claude Console apply to Messages API requests only. [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) sessions use the per-tool `allowed_domains` and `blocked_domains` lists on the agent toolset instead; see [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions). For a session in a cloud environment with `limited` networking, the environment's `allowed_hosts` also applies to `web_search` and `web_fetch`; see [Networking](https://platform.claude.com/docs/en/managed-agents/environments#networking). The per-tool lists restrict these tools further, within the hosts that `allowed_hosts` allows.
 
 Provide the web search tool in your API request:
 

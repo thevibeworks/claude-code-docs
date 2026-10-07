@@ -669,7 +669,7 @@ Task budgets are not supported on [Claude Code](https://code.claude.com/docs/en/
   </Card>
 
   <Card title="Adaptive thinking" icon="brain" href="https://platform.claude.com/docs/en/build-with-claude/thinking">
-    Let Claude decide when and how much to use extended thinking.
+    Let Claude determine when and how much to use extended thinking.
   </Card>
 
   <Card title="Compaction" icon="arrows-clockwise" href="https://platform.claude.com/docs/en/build-with-claude/compaction">

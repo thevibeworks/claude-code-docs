@@ -281,7 +281,7 @@ On Claude Opus 5, thinking cannot be disabled at `xhigh` or `max` effort: reques
 
 When running Claude Opus 5 at `xhigh` or `max` effort, set a large `max_tokens` so the model has room to think and act across subagents and tool calls. Starting at 64k tokens and tuning from there is a reasonable default.
 
-Claude Opus 5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache.
+Claude Opus 5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache. Per-message effort isn't available for Claude Opus 5 on Amazon Bedrock.
 
 ### Recommended effort levels for Claude Opus 4.8
 
@@ -368,7 +368,9 @@ You can run later turns of a conversation at a different effort level in two way
 
 ### Per-message effort (beta)
 
-Per-message effort is in beta and requires the [beta header](https://platform.claude.com/docs/en/api/beta-headers) `mid-conversation-output-config-2026-07-01`. Models without per-message effort, including Claude Fable 5, return a 400 error: `output_config.effort requires a model that supports per-turn effort; this model does not`. On Claude Sonnet 5.5 with `thinking: {"type": "between_tools"}`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort per turn, use adaptive thinking.
+Per-message effort is in beta. On the Claude API and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), it's available on Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, and Claude Sonnet 5.5. On [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), it's available on Claude Fable 5.1, Claude Mythos 5.1, and Claude Opus 5.5. It requires the [beta header](https://platform.claude.com/docs/en/api/beta-headers) `mid-conversation-output-config-2026-07-01`. With the Amazon Bedrock [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), it's available on Claude Fable 5.1 and Claude Opus 5.5, and you send that value in the `anthropic_beta` array of the request body instead.
+
+Without the beta value, a per-message `output_config` returns a 400 error: `messages.N.output_config: Extra inputs are not permitted`, where `N` is the index of the `system` message in `messages`. With the beta value, models without per-message effort, including Claude Fable 5, return a 400 error: `output_config.effort requires a model that supports per-turn effort; this model does not`. On Amazon Bedrock, those models and Claude Opus 5 return the `Extra inputs are not permitted` error instead. On Claude Sonnet 5.5 with `thinking: {"type": "between_tools"}`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort per turn, use adaptive thinking.
 
 Add a `role: "system"` message with empty `content` and the new level in `output_config.effort`. The new level takes effect from the next `user` turn and holds until a later message changes it. Everything before that message is unchanged, so the cached prefix still matches.
 
@@ -665,7 +667,7 @@ The top-level `output_config.effort` applies to the whole request. To run a late
   </Card>
 
   <Card title="Steering thinking" icon="compass" href="https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost">
-    Understand adaptive thinking, where Claude decides when and how much to think, and steer it with effort and prompting.
+    Understand adaptive thinking, where Claude determines when and how much to think, and steer it with effort and prompting.
   </Card>
 
   <Card title="Thinking" icon="brain" href="https://platform.claude.com/docs/en/build-with-claude/thinking">

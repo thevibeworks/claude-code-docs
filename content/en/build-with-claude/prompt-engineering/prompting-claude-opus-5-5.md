@@ -122,7 +122,7 @@ In Anthropic's evaluations of small agent teams on research tasks, both signals 
 
 ## Thinking instructions in chat system prompts
 
-In chat applications, if your system prompt contains instructions that tell Claude to think carefully before answering, consider removing them for Claude Opus 5.5. The model decides for itself how much to think, and [effort](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5#calibrate-effort) is the main control. In Anthropic's testing in a chat product, removing such a line made replies start sooner, with no clear decline in the quality of the reply.
+In chat applications, if your system prompt contains instructions that tell Claude to think carefully before answering, consider removing them for Claude Opus 5.5. The model determines how much to think, and [effort](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5#calibrate-effort) is the main control. In Anthropic's testing in a chat product, removing such a line made replies start sooner, with no clear decline in the quality of the reply.
 
 In multi-turn chat, Claude Opus 5.5 sometimes goes back over an earlier answer while it thinks about a new message, even a short follow-up, which adds thinking and latency on later turns. If you would rather the model treat earlier answers as settled, add two sentences at the end of the system prompt:
 
