@@ -15,41 +15,41 @@ List Deployments
 
 - `params BetaDeploymentListParams`
 
-  - `AgentID param.Field[string] Optional` (query parameter)
+  - `AgentID param.Opt[string] Optional` (query parameter)
 
     Filter by agent ID.
 
-  - `CreatedAtGte param.Field[Time] Optional` (query parameter)
+  - `CreatedAtGte param.Opt[Time] Optional` (query parameter)
 
     Return deployments created at or after this time (inclusive).
 
     format: date-time
 
-  - `CreatedAtLte param.Field[Time] Optional` (query parameter)
+  - `CreatedAtLte param.Opt[Time] Optional` (query parameter)
 
     Return deployments created at or before this time (inclusive).
 
     format: date-time
 
-  - `IncludeArchived param.Field[bool] Optional` (query parameter)
+  - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
     When true, includes archived deployments. Default: false (exclude archived).
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     Maximum results per page. Default 20, maximum 100.
 
     format: int32
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     Opaque pagination cursor.
 
-  - `Status param.Field[BetaManagedAgentsDeploymentStatus] Optional` (query parameter)
+  - `Status BetaManagedAgentsDeploymentStatus Optional` (query parameter)
 
     Filter by status: `active` or `paused`. Omit for both. To include archived deployments, use `include_archived` instead; the two cannot be combined.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -153,7 +153,7 @@ List Deployments
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

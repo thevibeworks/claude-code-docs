@@ -11,6 +11,8 @@ url: https://platform.claude.com/docs/en/api/cli/completions
 
 **POST** `/v1/complete`
 
+**Deprecated**: Use the [Messages API](https://platform.claude.com/docs/en/api/messages/create) instead.
+
 [Legacy] Create a Text Completion.
 
 The Text Completions API is a legacy API. We recommend using the [Messages API](https://platform.claude.com/docs/en/api/messages) going forward.
@@ -27,7 +29,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   minimum: 1
 
-- `--model: "claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more or string`
+- `--model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
 
   The model that will complete your prompt.
 
@@ -135,11 +137,15 @@ Future models and features will not be compatible with Text Completions. See our
 
     The resulting completion up to and excluding the stop sequences.
 
-  - `model: "claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more or string`
+  - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-haiku-5-5"`
+
+      Fastest model for high-volume, real-time tasks
 
     - `"claude-sonnet-5-5"`
 
@@ -238,7 +244,7 @@ Future models and features will not be compatible with Text Completions. See our
 ant completions create \
   --api-key my-anthropic-api-key \
   --max-tokens-to-sample 256 \
-  --model claude-sonnet-5-5 \
+  --model claude-haiku-5-5 \
   --prompt '
 
 Human: Hello, world!
@@ -280,11 +286,15 @@ Assistant:'
 
     The resulting completion up to and excluding the stop sequences.
 
-  - `model: "claude-sonnet-5-5" or "claude-fable-5-1" or "claude-opus-5-5" or 16 more or string`
+  - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-haiku-5-5"`
+
+      Fastest model for high-volume, real-time tasks
 
     - `"claude-sonnet-5-5"`
 

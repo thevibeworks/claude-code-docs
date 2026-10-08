@@ -73,3 +73,7 @@ If your organization uses usage credits, those purchases are billed separately f
 ### Can you correct the details on an invoice we already received?
 
 No. Issued invoices can't be changed. An owner can update your billing details in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**, and the changes will appear on your next invoice.
+
+### Where can I see our team’s monthly API credits?
+
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.

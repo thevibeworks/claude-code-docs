@@ -87,6 +87,7 @@ Current and recently retired models are listed in the following table with their
 | claude-sonnet-4-5-20250929 | Deprecated    | September 30, 2026 | November 30, 2026                  |
 | claude-sonnet-4-20250514   | Retired       | April 14, 2026     | June 15, 2026                      |
 | claude-3-7-sonnet-20250219 | Retired       | October 28, 2025   | February 19, 2026                  |
+| claude-haiku-5-5           | Active        | N/A                | Not sooner than October 7, 2027    |
 | claude-haiku-4-5-20251001  | Active        | N/A                | Not sooner than October 15, 2026   |
 | claude-3-5-haiku-20241022  | Retired       | December 19, 2025  | February 19, 2026                  |
 | claude-3-haiku-20240307    | Retired       | February 19, 2026  | April 20, 2026                     |

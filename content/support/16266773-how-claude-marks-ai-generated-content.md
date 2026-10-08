@@ -50,6 +50,7 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | Claude Sonnet 5   | ✅                                                           | ✅\*                                                                                | ✅                                       |
 | Claude Sonnet 4.6 |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 4.5 |                                                             |                                                                                    | ✅                                       |
+| Claude Haiku 5.5  | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Haiku 4.5  |                                                             |                                                                                    | ✅                                       |
 
 **Rollout on Amazon Bedrock will complete by October 12.*

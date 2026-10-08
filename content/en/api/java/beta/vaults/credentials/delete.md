@@ -163,7 +163,7 @@ public final class Main {
 
         CredentialDeleteParams params = CredentialDeleteParams.builder()
             .vaultId("vlt_011CZkZDLs7fYzm1hXNPeRjv")
-            .credentialId("vcrd_011CZkZEMt8gZan2iYOQfSkw")
+            .credentialId("vcrd_011CZkZEMt8gZan2iYPQfSkw")
             .build();
         BetaManagedAgentsDeletedCredential betaManagedAgentsDeletedCredential = client.beta().vaults().credentials().delete(params);
     }
@@ -174,7 +174,7 @@ public final class Main {
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "type": "vault_credential_deleted"
 }
 ```

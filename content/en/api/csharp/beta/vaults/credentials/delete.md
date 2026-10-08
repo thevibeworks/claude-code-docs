@@ -151,7 +151,7 @@ Delete Credential
 CredentialDeleteParams parameters = new()
 {
     VaultID = "vlt_011CZkZDLs7fYzm1hXNPeRjv",
-    CredentialID = "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+    CredentialID = "vcrd_011CZkZEMt8gZan2iYPQfSkw",
 };
 
 var betaManagedAgentsDeletedCredential = await client.Beta.Vaults.Credentials.Delete(parameters);
@@ -163,7 +163,7 @@ Console.WriteLine(betaManagedAgentsDeletedCredential);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "type": "vault_credential_deleted"
 }
 ```

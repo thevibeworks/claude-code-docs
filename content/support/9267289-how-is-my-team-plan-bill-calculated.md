@@ -22,6 +22,12 @@ For instructions to add and remove members, see **[Manage members on Team and En
 
 If usage credits are enabled, your bill may include charges for usage beyond seat limits. For details on how usage credits work and how they're billed on your plan, see **[Manage usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970)**.
 
+### Monthly API credits
+
+Claude Max and Team plans include monthly credits for the Claude API. On Team plans, credits for all seats are pooled into one monthly balance, capped at $500. Usage is never charged to your Claude plan.
+
+The pool follows your seat count. It’s calculated from the seats on your plan each time credits are deposited. For example, a team with three Standard seats and two Premium seats receives $260 a month. Adding another Premium seat would increase the next cycle’s credits to $360. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 ---
 
 ## Billing examples

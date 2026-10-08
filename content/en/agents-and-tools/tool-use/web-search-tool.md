@@ -28,6 +28,8 @@ For web search's Zero Data Retention eligibility and the related `allowed_caller
 
 For model support, see the [Tool reference](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference).
 
+To check whether a model accepts web search before you send a request, read its `capabilities.server_tools.web_search.supported` value from the Models API. [Using the Models API](https://platform.claude.com/docs/en/models/overview#using-the-models-api) describes the field.
+
 ## How web search works
 
 When you add the web search tool to your API request:

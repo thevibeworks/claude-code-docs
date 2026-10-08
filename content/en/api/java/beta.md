@@ -503,7 +503,7 @@ The Models API response can be used to determine which models are available for 
 
     - `BetaCapabilitySupport codeExecution`
 
-      Whether the model supports code execution tools.
+      Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
 
     - `Optional<BetaCompactionCapability> compaction`
 
@@ -573,6 +573,22 @@ The Models API response can be used to determine which models are available for 
 
       Whether the model accepts PDF content blocks.
 
+    - `BetaServerToolsCapability serverTools`
+
+      Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
+
+      - `BetaCapabilitySupport codeExecution`
+
+        Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
+
+      - `boolean supported`
+
+        Whether this capability is supported by the model.
+
+      - `BetaCapabilitySupport webSearch`
+
+        Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
+
     - `BetaCapabilitySupport structuredOutputs`
 
       Whether the model supports structured output / JSON mode / strict tool schemas.
@@ -591,11 +607,15 @@ The Models API response can be used to determine which models are available for 
 
         - `BetaCapabilitySupport adaptive`
 
-          Whether the model supports thinking with type 'adaptive' (auto).
+          Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
+
+        - `BetaCapabilitySupport disabled`
+
+          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
 
         - `BetaCapabilitySupport enabled`
 
-          Whether the model supports thinking with type 'enabled'.
+          Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
   - `LocalDateTime createdAt`
 
@@ -712,6 +732,15 @@ public final class Main {
         "pdf_input": {
           "supported": true
         },
+        "server_tools": {
+          "code_execution": {
+            "supported": true
+          },
+          "supported": true,
+          "web_search": {
+            "supported": true
+          }
+        },
         "structured_outputs": {
           "supported": true
         },
@@ -719,6 +748,9 @@ public final class Main {
           "supported": true,
           "types": {
             "adaptive": {
+              "supported": true
+            },
+            "disabled": {
               "supported": true
             },
             "enabled": {
@@ -905,7 +937,7 @@ The Models API response can be used to determine information about a specific mo
 
     - `BetaCapabilitySupport codeExecution`
 
-      Whether the model supports code execution tools.
+      Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
 
     - `Optional<BetaCompactionCapability> compaction`
 
@@ -975,6 +1007,22 @@ The Models API response can be used to determine information about a specific mo
 
       Whether the model accepts PDF content blocks.
 
+    - `BetaServerToolsCapability serverTools`
+
+      Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
+
+      - `BetaCapabilitySupport codeExecution`
+
+        Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
+
+      - `boolean supported`
+
+        Whether this capability is supported by the model.
+
+      - `BetaCapabilitySupport webSearch`
+
+        Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
+
     - `BetaCapabilitySupport structuredOutputs`
 
       Whether the model supports structured output / JSON mode / strict tool schemas.
@@ -993,11 +1041,15 @@ The Models API response can be used to determine information about a specific mo
 
         - `BetaCapabilitySupport adaptive`
 
-          Whether the model supports thinking with type 'adaptive' (auto).
+          Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
+
+        - `BetaCapabilitySupport disabled`
+
+          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
 
         - `BetaCapabilitySupport enabled`
 
-          Whether the model supports thinking with type 'enabled'.
+          Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
   - `LocalDateTime createdAt`
 
@@ -1112,6 +1164,15 @@ public final class Main {
     "pdf_input": {
       "supported": true
     },
+    "server_tools": {
+      "code_execution": {
+        "supported": true
+      },
+      "supported": true,
+      "web_search": {
+        "supported": true
+      }
+    },
     "structured_outputs": {
       "supported": true
     },
@@ -1119,6 +1180,9 @@ public final class Main {
       "supported": true,
       "types": {
         "adaptive": {
+          "supported": true
+        },
+        "disabled": {
           "supported": true
         },
         "enabled": {
@@ -4238,6 +4302,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                         The model that will complete your prompt.
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                        - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                          Fastest model for high-volume, real-time tasks
 
                         - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -7683,6 +7751,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                    - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                      Fastest model for high-volume, real-time tasks
+
                     - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
                       Efficient model for coding and agents
@@ -9142,7 +9214,7 @@ public final class Main {
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-sonnet-5-5",
+        "model": "claude-haiku-5-5",
         "output_tokens": 0,
         "type": "message"
       }
@@ -12256,6 +12328,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                         The model that will complete your prompt.
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                        - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                          Fastest model for high-volume, real-time tasks
 
                         - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -16090,6 +16166,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             The model that will complete your prompt.
 
                             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                            - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                              Fastest model for high-volume, real-time tasks
 
                             - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -21157,6 +21237,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                            Fastest model for high-volume, real-time tasks
+
                           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
                             Efficient model for coding and agents
@@ -22438,6 +22522,10 @@ Create Agent
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
+
       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
         Efficient model for coding and agents
@@ -22622,7 +22710,7 @@ Create Agent
 
   - `Optional<BetaManagedAgentsMultiagentParams> multiagent`
 
-    Multiagent orchestration configuration. Currently supports the `coordinator` topology with a roster of 1-20 agents.
+    Multiagent orchestration configuration.
 
   - `Optional<List<BetaManagedAgentsSkillParams>> skills`
 
@@ -22914,6 +23002,102 @@ Create Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
+          - `Optional<BetaManagedAgentsWebFetchUrlSourcesParams> urlSources`
+
+            Which sources contribute URLs the tool may fetch. Omit to allow every source.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilterParams> clientToolResults`
+
+              Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
+
+              - `enum BetaManagedAgentsWebFetchUrlSourceShorthand`
+
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
+
+                - `ALL("all")`
+
+                - `NONE("none")`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceToolFilter: union`
+
+                Which tools' results contribute URLs that may be fetched.
+
+                - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                  - `JsonValue type = "all"`
+
+                - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                  This source contributes no URLs that may be fetched.
+
+                  - `JsonValue type = "none"`
+
+                - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                  Only the named tools' results contribute URLs that may be fetched.
+
+                  - `JsonValue type = "only"`
+
+                  - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                    The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                    - `JsonValue type = "tool_reference"`
+
+                      Must be "tool_reference".
+
+                    - `String name`
+
+                      Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                      minLength: 1, maxLength: 128
+
+                - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                  Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                  - `JsonValue type = "except"`
+
+                  - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                    The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                    - `JsonValue type = "tool_reference"`
+
+                      Must be "tool_reference".
+
+                    - `String name`
+
+                      Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                      minLength: 1, maxLength: 128
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilterParams> serverToolResults`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInputParams> userInput`
+
+              Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
+
+              - `enum BetaManagedAgentsWebFetchUrlSourceShorthand`
+
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceUserInput: union`
+
+                Whether URLs in the text of user messages may be fetched.
+
+                - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                  This source contributes no URLs that may be fetched.
+
         - `class BetaManagedAgentsWebSearchToolConfigParams`
 
           Configuration override for the web_search tool.
@@ -23143,6 +23327,10 @@ Create Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
 
       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -23511,6 +23699,82 @@ Create Agent
             - `class BetaManagedAgentsAutoPolicy`
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+            Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+              Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+                - `JsonValue type = "all"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
+                - `JsonValue type = "none"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                Only the named tools' results contribute URLs that may be fetched.
+
+                - `JsonValue type = "only"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+              - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `JsonValue type = "except"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+              Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
 
           - `Optional<List<String>> allowedDomains`
 
@@ -23754,7 +24018,7 @@ public final class Main {
       "version": "1"
     },
     {
-      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
       "type": "custom",
       "version": "2"
     }
@@ -23978,6 +24242,10 @@ List Agents
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
 
       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -24346,6 +24614,82 @@ List Agents
             - `class BetaManagedAgentsAutoPolicy`
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+            Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+              Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+                - `JsonValue type = "all"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
+                - `JsonValue type = "none"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                Only the named tools' results contribute URLs that may be fetched.
+
+                - `JsonValue type = "only"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+              - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `JsonValue type = "except"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+              Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
 
           - `Optional<List<String>> allowedDomains`
 
@@ -24586,7 +24930,7 @@ public final class Main {
           "version": "1"
         },
         {
-          "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+          "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
           "type": "custom",
           "version": "2"
         }
@@ -24797,6 +25141,10 @@ Get Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
 
       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -25166,6 +25514,82 @@ Get Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
+          - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+            Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+              Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+                - `JsonValue type = "all"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
+                - `JsonValue type = "none"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                Only the named tools' results contribute URLs that may be fetched.
+
+                - `JsonValue type = "only"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+              - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `JsonValue type = "except"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+              Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
           - `Optional<List<String>> allowedDomains`
 
           - `Optional<List<String>> blockedDomains`
@@ -25403,7 +25827,7 @@ public final class Main {
       "version": "1"
     },
     {
-      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
       "type": "custom",
       "version": "2"
     }
@@ -25599,6 +26023,10 @@ Update Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
 
       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -26048,6 +26476,102 @@ Update Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
+          - `Optional<BetaManagedAgentsWebFetchUrlSourcesParams> urlSources`
+
+            Which sources contribute URLs the tool may fetch. Omit to allow every source.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilterParams> clientToolResults`
+
+              Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
+
+              - `enum BetaManagedAgentsWebFetchUrlSourceShorthand`
+
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
+
+                - `ALL("all")`
+
+                - `NONE("none")`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceToolFilter: union`
+
+                Which tools' results contribute URLs that may be fetched.
+
+                - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                  - `JsonValue type = "all"`
+
+                - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                  This source contributes no URLs that may be fetched.
+
+                  - `JsonValue type = "none"`
+
+                - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                  Only the named tools' results contribute URLs that may be fetched.
+
+                  - `JsonValue type = "only"`
+
+                  - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                    The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                    - `JsonValue type = "tool_reference"`
+
+                      Must be "tool_reference".
+
+                    - `String name`
+
+                      Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                      minLength: 1, maxLength: 128
+
+                - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                  Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                  - `JsonValue type = "except"`
+
+                  - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                    The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                    - `JsonValue type = "tool_reference"`
+
+                      Must be "tool_reference".
+
+                    - `String name`
+
+                      Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                      minLength: 1, maxLength: 128
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilterParams> serverToolResults`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInputParams> userInput`
+
+              Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
+
+              - `enum BetaManagedAgentsWebFetchUrlSourceShorthand`
+
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceUserInput: union`
+
+                Whether URLs in the text of user messages may be fetched.
+
+                - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                  This source contributes no URLs that may be fetched.
+
         - `class BetaManagedAgentsWebSearchToolConfigParams`
 
           Configuration override for the web_search tool.
@@ -26283,6 +26807,10 @@ Update Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
 
       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -26651,6 +27179,82 @@ Update Agent
             - `class BetaManagedAgentsAutoPolicy`
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+            Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+              Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+                - `JsonValue type = "all"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
+                - `JsonValue type = "none"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                Only the named tools' results contribute URLs that may be fetched.
+
+                - `JsonValue type = "only"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+              - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `JsonValue type = "except"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+              Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
 
           - `Optional<List<String>> allowedDomains`
 
@@ -26889,7 +27493,7 @@ public final class Main {
       "version": "1"
     },
     {
-      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
       "type": "custom",
       "version": "2"
     }
@@ -27091,6 +27695,10 @@ Archive Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
 
       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -27459,6 +28067,82 @@ Archive Agent
             - `class BetaManagedAgentsAutoPolicy`
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+            Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+              Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+                - `JsonValue type = "all"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
+                - `JsonValue type = "none"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                Only the named tools' results contribute URLs that may be fetched.
+
+                - `JsonValue type = "only"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+              - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `JsonValue type = "except"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+              Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
 
           - `Optional<List<String>> allowedDomains`
 
@@ -27697,7 +28381,7 @@ public final class Main {
       "version": "1"
     },
     {
-      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
       "type": "custom",
       "version": "2"
     }
@@ -27911,6 +28595,10 @@ List Agent Versions
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
 
       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -28279,6 +28967,82 @@ List Agent Versions
             - `class BetaManagedAgentsAutoPolicy`
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+            Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+              Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+                - `JsonValue type = "all"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
+                - `JsonValue type = "none"`
+
+              - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                Only the named tools' results contribute URLs that may be fetched.
+
+                - `JsonValue type = "only"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+              - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `JsonValue type = "except"`
+
+                - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                  The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                  - `JsonValue type = "tool_reference"`
+
+                    Must be "tool_reference".
+
+                  - `String name`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+            - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+              Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+              - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                This source contributes no URLs that may be fetched.
 
           - `Optional<List<String>> allowedDomains`
 
@@ -28519,7 +29283,7 @@ public final class Main {
           "version": "1"
         },
         {
-          "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+          "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
           "type": "custom",
           "version": "2"
         }
@@ -32734,6 +33498,10 @@ Create Session
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
+
           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
             Efficient model for coding and agents
@@ -33171,6 +33939,102 @@ Create Session
                 - `class BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `Optional<BetaManagedAgentsWebFetchUrlSourcesParams> urlSources`
+
+                Which sources contribute URLs the tool may fetch. Omit to allow every source.
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilterParams> clientToolResults`
+
+                  Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
+
+                  - `enum BetaManagedAgentsWebFetchUrlSourceShorthand`
+
+                    String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
+
+                    - `ALL("all")`
+
+                    - `NONE("none")`
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceToolFilter: union`
+
+                    Which tools' results contribute URLs that may be fetched.
+
+                    - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                      Every URL from this source may be fetched. This is the default.
+
+                      - `JsonValue type = "all"`
+
+                    - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                      This source contributes no URLs that may be fetched.
+
+                      - `JsonValue type = "none"`
+
+                    - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                      Only the named tools' results contribute URLs that may be fetched.
+
+                      - `JsonValue type = "only"`
+
+                      - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                        The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                        - `JsonValue type = "tool_reference"`
+
+                          Must be "tool_reference".
+
+                        - `String name`
+
+                          Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                          minLength: 1, maxLength: 128
+
+                    - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                      Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `JsonValue type = "except"`
+
+                      - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                        The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                        - `JsonValue type = "tool_reference"`
+
+                          Must be "tool_reference".
+
+                        - `String name`
+
+                          Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                          minLength: 1, maxLength: 128
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilterParams> serverToolResults`
+
+                  Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInputParams> userInput`
+
+                  Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
+
+                  - `enum BetaManagedAgentsWebFetchUrlSourceShorthand`
+
+                    String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceUserInput: union`
+
+                    Whether URLs in the text of user messages may be fetched.
+
+                    - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                      Every URL from this source may be fetched. This is the default.
+
+                    - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                      This source contributes no URLs that may be fetched.
 
             - `class BetaManagedAgentsWebSearchToolConfigParams`
 
@@ -33722,6 +34586,10 @@ Create Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+          Fastest model for high-volume, real-time tasks
+
         - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
           Efficient model for coding and agents
@@ -34089,6 +34957,82 @@ Create Session
                     - `class BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                        - `JsonValue type = "all"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
+
+                        - `JsonValue type = "none"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                        Only the named tools' results contribute URLs that may be fetched.
+
+                        - `JsonValue type = "only"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                        - `JsonValue type = "except"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
 
                   - `Optional<List<String>> allowedDomains`
 
@@ -34690,7 +35634,7 @@ public final class Main {
         "version": "1"
       },
       {
-        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
         "type": "custom",
         "version": "2"
       }
@@ -34737,7 +35681,7 @@ public final class Main {
       "description": "Produce a 2-page summary as summary.md",
       "explanation": "All five sections present with inline citations.",
       "iteration": 0,
-      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVljxP",
+      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVmjxP",
       "result": "satisfied",
       "type": "outcome_evaluation"
     }
@@ -34752,7 +35696,7 @@ public final class Main {
       "updated_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+      "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
       "created_at": "2026-03-15T10:00:00Z",
       "mount_path": "/workspace/example-repo",
       "type": "github_repository",
@@ -35040,6 +35984,10 @@ List Sessions
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+          Fastest model for high-volume, real-time tasks
 
         - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -35408,6 +36356,82 @@ List Sessions
                     - `class BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                        - `JsonValue type = "all"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
+
+                        - `JsonValue type = "none"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                        Only the named tools' results contribute URLs that may be fetched.
+
+                        - `JsonValue type = "only"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                        - `JsonValue type = "except"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
 
                   - `Optional<List<String>> allowedDomains`
 
@@ -36007,7 +37031,7 @@ public final class Main {
             "version": "1"
           },
           {
-            "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+            "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
             "type": "custom",
             "version": "2"
           }
@@ -36054,7 +37078,7 @@ public final class Main {
           "description": "Produce a 2-page summary as summary.md",
           "explanation": "All five sections present with inline citations.",
           "iteration": 0,
-          "outcome_id": "outc_011CZkZRSw2kEfs6ncTVljxP",
+          "outcome_id": "outc_011CZkZRSw2kEfs6ncTVmjxP",
           "result": "satisfied",
           "type": "outcome_evaluation"
         }
@@ -36069,7 +37093,7 @@ public final class Main {
           "updated_at": "2026-03-15T10:00:00Z"
         },
         {
-          "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+          "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
           "created_at": "2026-03-15T10:00:00Z",
           "mount_path": "/workspace/example-repo",
           "type": "github_repository",
@@ -36279,6 +37303,10 @@ Get Session
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+          Fastest model for high-volume, real-time tasks
 
         - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -36647,6 +37675,82 @@ Get Session
                     - `class BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                        - `JsonValue type = "all"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
+
+                        - `JsonValue type = "none"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                        Only the named tools' results contribute URLs that may be fetched.
+
+                        - `JsonValue type = "only"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                        - `JsonValue type = "except"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
 
                   - `Optional<List<String>> allowedDomains`
 
@@ -37244,7 +38348,7 @@ public final class Main {
         "version": "1"
       },
       {
-        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
         "type": "custom",
         "version": "2"
       }
@@ -37291,7 +38395,7 @@ public final class Main {
       "description": "Produce a 2-page summary as summary.md",
       "explanation": "All five sections present with inline citations.",
       "iteration": 0,
-      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVljxP",
+      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVmjxP",
       "result": "satisfied",
       "type": "outcome_evaluation"
     }
@@ -37306,7 +38410,7 @@ public final class Main {
       "updated_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+      "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
       "created_at": "2026-03-15T10:00:00Z",
       "mount_path": "/workspace/example-repo",
       "type": "github_repository",
@@ -37534,6 +38638,10 @@ Update Session
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+          Fastest model for high-volume, real-time tasks
 
         - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -37902,6 +39010,82 @@ Update Session
                     - `class BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                        - `JsonValue type = "all"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
+
+                        - `JsonValue type = "none"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                        Only the named tools' results contribute URLs that may be fetched.
+
+                        - `JsonValue type = "only"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                        - `JsonValue type = "except"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
 
                   - `Optional<List<String>> allowedDomains`
 
@@ -38499,7 +39683,7 @@ public final class Main {
         "version": "1"
       },
       {
-        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
         "type": "custom",
         "version": "2"
       }
@@ -38546,7 +39730,7 @@ public final class Main {
       "description": "Produce a 2-page summary as summary.md",
       "explanation": "All five sections present with inline citations.",
       "iteration": 0,
-      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVljxP",
+      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVmjxP",
       "result": "satisfied",
       "type": "outcome_evaluation"
     }
@@ -38561,7 +39745,7 @@ public final class Main {
       "updated_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+      "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
       "created_at": "2026-03-15T10:00:00Z",
       "mount_path": "/workspace/example-repo",
       "type": "github_repository",
@@ -38932,6 +40116,10 @@ Archive Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+          Fastest model for high-volume, real-time tasks
+
         - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
           Efficient model for coding and agents
@@ -39299,6 +40487,82 @@ Archive Session
                     - `class BetaManagedAgentsAutoPolicy`
 
                       The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                        - `JsonValue type = "all"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
+
+                        - `JsonValue type = "none"`
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                        Only the named tools' results contribute URLs that may be fetched.
+
+                        - `JsonValue type = "only"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                        - `JsonValue type = "except"`
+
+                        - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                          - `JsonValue type = "tool_reference"`
+
+                            Must be "tool_reference".
+
+                          - `String name`
+
+                            Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                            minLength: 1, maxLength: 128
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                        Every URL from this source may be fetched. This is the default.
+
+                      - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                        This source contributes no URLs that may be fetched.
 
                   - `Optional<List<String>> allowedDomains`
 
@@ -39896,7 +41160,7 @@ public final class Main {
         "version": "1"
       },
       {
-        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
         "type": "custom",
         "version": "2"
       }
@@ -39943,7 +41207,7 @@ public final class Main {
       "description": "Produce a 2-page summary as summary.md",
       "explanation": "All five sections present with inline citations.",
       "iteration": 0,
-      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVljxP",
+      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVmjxP",
       "result": "satisfied",
       "type": "outcome_evaluation"
     }
@@ -39958,7 +41222,7 @@ public final class Main {
       "updated_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+      "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
       "created_at": "2026-03-15T10:00:00Z",
       "mount_path": "/workspace/example-repo",
       "type": "github_repository",
@@ -41475,7 +42739,7 @@ List Events
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
-    Emitted when a subagent is spawned as a new thread. Written to the parent thread's output stream so clients observing the session see child creation.
+    Emitted when a child thread is created. Written to the parent thread's output stream so clients observing the session see child creation.
 
     - `Type type`
 
@@ -41951,6 +43215,10 @@ List Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
+
           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
             Efficient model for coding and agents
@@ -42319,6 +43587,82 @@ List Events
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
+                    - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `JsonValue type = "all"`
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `JsonValue type = "none"`
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `JsonValue type = "only"`
+
+                          - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `JsonValue type = "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `String name`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `JsonValue type = "except"`
+
+                          - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `JsonValue type = "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `String name`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                          This source contributes no URLs that may be fetched.
+
                     - `Optional<List<String>> allowedDomains`
 
                     - `Optional<List<String>> blockedDomains`
@@ -42686,7 +44030,7 @@ public final class Main {
 {
   "data": [
     {
-      "id": "sevt_011CZkZGOp0iBcp4kaQSihUmy",
+      "id": "sevt_011CZkZGPp1iBcp4kaQSihUm",
       "content": [
         {
           "text": "Where is my order #1234?",
@@ -42697,7 +44041,7 @@ public final class Main {
       "processed_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sevt_011CZkZHPq1jCdq5lbRTjiVnz",
+      "id": "sevt_011CZkZHPq1jCdq5mbRTjiVn",
       "content": [
         {
           "text": "Let me look up order #1234 for you.",
@@ -43681,7 +45025,7 @@ public final class Main {
 {
   "data": [
     {
-      "id": "sevt_011CZkZGOp0iBcp4kaQSihUmy",
+      "id": "sevt_011CZkZGPp1iBcp4kaQSihUm",
       "content": [
         {
           "text": "Where is my order #1234?",
@@ -45061,7 +46405,7 @@ Stream Events
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
-    Emitted when a subagent is spawned as a new thread. Written to the parent thread's output stream so clients observing the session see child creation.
+    Emitted when a child thread is created. Written to the parent thread's output stream so clients observing the session see child creation.
 
     - `Type type`
 
@@ -45537,6 +46881,10 @@ Stream Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
+
           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
             Efficient model for coding and agents
@@ -45904,6 +47252,82 @@ Stream Events
                       - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `JsonValue type = "all"`
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `JsonValue type = "none"`
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `JsonValue type = "only"`
+
+                          - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `JsonValue type = "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `String name`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `JsonValue type = "except"`
+
+                          - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `JsonValue type = "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `String name`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                          This source contributes no URLs that may be fetched.
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -46321,7 +47745,7 @@ public final class Main {
 
 ```json
 {
-  "id": "sevt_011CZkZGOp0iBcp4kaQSihUmy",
+  "id": "sevt_011CZkZGPp1iBcp4kaQSihUm",
   "content": [
     {
       "text": "Where is my order #1234?",
@@ -46804,7 +48228,7 @@ public final class Main {
       "updated_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+      "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
       "created_at": "2026-03-15T10:00:00Z",
       "mount_path": "/workspace/example-repo",
       "type": "github_repository",
@@ -47083,7 +48507,7 @@ public final class Main {
 
 ```json
 {
-  "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+  "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
   "created_at": "2026-03-15T10:00:00Z",
   "mount_path": "/workspace/example-repo",
   "type": "github_repository",
@@ -47366,7 +48790,7 @@ public final class Main {
 
 ```json
 {
-  "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+  "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
   "created_at": "2026-03-15T10:00:00Z",
   "mount_path": "/workspace/example-repo",
   "type": "github_repository",
@@ -47689,7 +49113,7 @@ List Session Threads
 
 - `class BetaManagedAgentsSessionThread`
 
-  An execution thread within a `session`. Each session has one primary thread plus zero or more child threads spawned by the coordinator.
+  An execution thread within a `session`. Each session has one primary thread plus zero or more child threads.
 
   - `Type type`
 
@@ -47728,6 +49152,10 @@ List Session Threads
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
 
           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -48064,6 +49492,82 @@ List Session Threads
                 - `class BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                  Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                    - `JsonValue type = "all"`
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                    This source contributes no URLs that may be fetched.
+
+                    - `JsonValue type = "none"`
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                    Only the named tools' results contribute URLs that may be fetched.
+
+                    - `JsonValue type = "only"`
+
+                    - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                      The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                      - `JsonValue type = "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `String name`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                    Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                    - `JsonValue type = "except"`
+
+                    - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                      The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                      - `JsonValue type = "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `String name`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                  Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                  Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                    This source contributes no URLs that may be fetched.
 
               - `Optional<List<String>> allowedDomains`
 
@@ -48398,7 +49902,7 @@ public final class Main {
 {
   "data": [
     {
-      "id": "sthr_011CZkZVWa6oIjw0rgXZpnBt",
+      "id": "sthr_011CZkZVWa6oJjw1rgXZpnBt",
       "agent": {
         "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
         "description": "A focused research subagent.",
@@ -48616,7 +50120,7 @@ Get Session Thread
 
 - `class BetaManagedAgentsSessionThread`
 
-  An execution thread within a `session`. Each session has one primary thread plus zero or more child threads spawned by the coordinator.
+  An execution thread within a `session`. Each session has one primary thread plus zero or more child threads.
 
   - `Type type`
 
@@ -48655,6 +50159,10 @@ Get Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
 
           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -48991,6 +50499,82 @@ Get Session Thread
                 - `class BetaManagedAgentsAutoPolicy`
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                  Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                    - `JsonValue type = "all"`
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                    This source contributes no URLs that may be fetched.
+
+                    - `JsonValue type = "none"`
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                    Only the named tools' results contribute URLs that may be fetched.
+
+                    - `JsonValue type = "only"`
+
+                    - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                      The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                      - `JsonValue type = "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `String name`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                    Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                    - `JsonValue type = "except"`
+
+                    - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                      The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                      - `JsonValue type = "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `String name`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                  Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                  Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                    This source contributes no URLs that may be fetched.
 
               - `Optional<List<String>> allowedDomains`
 
@@ -49316,7 +50900,7 @@ public final class Main {
 
         ThreadRetrieveParams params = ThreadRetrieveParams.builder()
             .sessionId("sesn_011CZkZAtmR3yMPDzynEDxu7")
-            .threadId("sthr_011CZkZVWa6oIjw0rgXZpnBt")
+            .threadId("sthr_011CZkZVWa6oJjw1rgXZpnBt")
             .build();
         BetaManagedAgentsSessionThread betaManagedAgentsSessionThread = client.beta().sessions().threads().retrieve(params);
     }
@@ -49327,7 +50911,7 @@ public final class Main {
 
 ```json
 {
-  "id": "sthr_011CZkZVWa6oIjw0rgXZpnBt",
+  "id": "sthr_011CZkZVWa6oJjw1rgXZpnBt",
   "agent": {
     "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
     "description": "A focused research subagent.",
@@ -49542,7 +51126,7 @@ Archive Session Thread
 
 - `class BetaManagedAgentsSessionThread`
 
-  An execution thread within a `session`. Each session has one primary thread plus zero or more child threads spawned by the coordinator.
+  An execution thread within a `session`. Each session has one primary thread plus zero or more child threads.
 
   - `Type type`
 
@@ -49581,6 +51165,10 @@ Archive Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
 
           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
@@ -49918,6 +51506,82 @@ Archive Session Thread
 
                   The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
+              - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                  Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                    - `JsonValue type = "all"`
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                    This source contributes no URLs that may be fetched.
+
+                    - `JsonValue type = "none"`
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                    Only the named tools' results contribute URLs that may be fetched.
+
+                    - `JsonValue type = "only"`
+
+                    - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                      The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                      - `JsonValue type = "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `String name`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                    Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                    - `JsonValue type = "except"`
+
+                    - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                      The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                      - `JsonValue type = "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `String name`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                  Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                  Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                  - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                    This source contributes no URLs that may be fetched.
+
               - `Optional<List<String>> allowedDomains`
 
               - `Optional<List<String>> blockedDomains`
@@ -50242,7 +51906,7 @@ public final class Main {
 
         ThreadArchiveParams params = ThreadArchiveParams.builder()
             .sessionId("sesn_011CZkZAtmR3yMPDzynEDxu7")
-            .threadId("sthr_011CZkZVWa6oIjw0rgXZpnBt")
+            .threadId("sthr_011CZkZVWa6oJjw1rgXZpnBt")
             .build();
         BetaManagedAgentsSessionThread betaManagedAgentsSessionThread = client.beta().sessions().threads().archive(params);
     }
@@ -50253,7 +51917,7 @@ public final class Main {
 
 ```json
 {
-  "id": "sthr_011CZkZVWa6oIjw0rgXZpnBt",
+  "id": "sthr_011CZkZVWa6oJjw1rgXZpnBt",
   "agent": {
     "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
     "description": "A focused research subagent.",
@@ -51706,7 +53370,7 @@ List Session Thread Events
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
-    Emitted when a subagent is spawned as a new thread. Written to the parent thread's output stream so clients observing the session see child creation.
+    Emitted when a child thread is created. Written to the parent thread's output stream so clients observing the session see child creation.
 
     - `Type type`
 
@@ -52182,6 +53846,10 @@ List Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
+
           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
             Efficient model for coding and agents
@@ -52550,6 +54218,82 @@ List Session Thread Events
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
+                    - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `JsonValue type = "all"`
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `JsonValue type = "none"`
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `JsonValue type = "only"`
+
+                          - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `JsonValue type = "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `String name`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `JsonValue type = "except"`
+
+                          - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `JsonValue type = "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `String name`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                          This source contributes no URLs that may be fetched.
+
                     - `Optional<List<String>> allowedDomains`
 
                     - `Optional<List<String>> blockedDomains`
@@ -52908,7 +54652,7 @@ public final class Main {
 
         EventListParams params = EventListParams.builder()
             .sessionId("sesn_011CZkZAtmR3yMPDzynEDxu7")
-            .threadId("sthr_011CZkZVWa6oIjw0rgXZpnBt")
+            .threadId("sthr_011CZkZVWa6oJjw1rgXZpnBt")
             .build();
         EventListPage page = client.beta().sessions().threads().events().list(params);
     }
@@ -52921,7 +54665,7 @@ public final class Main {
 {
   "data": [
     {
-      "id": "sevt_011CZkZGOp0iBcp4kaQSihUmy",
+      "id": "sevt_011CZkZGPp1iBcp4kaQSihUm",
       "content": [
         {
           "text": "Where is my order #1234?",
@@ -52932,7 +54676,7 @@ public final class Main {
       "processed_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sevt_011CZkZHPq1jCdq5lbRTjiVnz",
+      "id": "sevt_011CZkZHPq1jCdq5mbRTjiVn",
       "content": [
         {
           "text": "Let me look up order #1234 for you.",
@@ -54315,7 +56059,7 @@ Stream Session Thread Events
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
-    Emitted when a subagent is spawned as a new thread. Written to the parent thread's output stream so clients observing the session see child creation.
+    Emitted when a child thread is created. Written to the parent thread's output stream so clients observing the session see child creation.
 
     - `Type type`
 
@@ -54791,6 +56535,10 @@ Stream Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
+
           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
             Efficient model for coding and agents
@@ -55158,6 +56906,82 @@ Stream Session Thread Events
                       - `class BetaManagedAgentsAutoPolicy`
 
                         The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `Optional<BetaManagedAgentsWebFetchUrlSources> urlSources`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> clientToolResults`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `JsonValue type = "all"`
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `JsonValue type = "none"`
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `JsonValue type = "only"`
+
+                          - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `JsonValue type = "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `String name`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `JsonValue type = "except"`
+
+                          - `List<BetaManagedAgentsWebFetchUrlSourceToolReference> tools`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `JsonValue type = "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `String name`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceToolFilter> serverToolResults`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                      - `Optional<BetaManagedAgentsWebFetchUrlSourceUserInput> userInput`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                          This source contributes no URLs that may be fetched.
 
                     - `Optional<List<String>> allowedDomains`
 
@@ -55568,7 +57392,7 @@ public final class Main {
 
         EventStreamParams params = EventStreamParams.builder()
             .sessionId("sesn_011CZkZAtmR3yMPDzynEDxu7")
-            .threadId("sthr_011CZkZVWa6oIjw0rgXZpnBt")
+            .threadId("sthr_011CZkZVWa6oJjw1rgXZpnBt")
             .build();
         StreamResponse<BetaManagedAgentsStreamSessionThreadEvents> betaManagedAgentsStreamSessionThreadEvents = client.beta().sessions().threads().events().streamStreaming(params);
     }
@@ -55579,7 +57403,7 @@ public final class Main {
 
 ```json
 {
-  "id": "sevt_011CZkZGOp0iBcp4kaQSihUmy",
+  "id": "sevt_011CZkZGPp1iBcp4kaQSihUm",
   "content": [
     {
       "text": "Where is my order #1234?",
@@ -64452,7 +66276,7 @@ public final class Main {
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -64790,7 +66614,7 @@ public final class Main {
 {
   "data": [
     {
-      "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+      "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
       "archived_at": null,
       "auth": {
         "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -65112,7 +66936,7 @@ public final class Main {
 
         CredentialRetrieveParams params = CredentialRetrieveParams.builder()
             .vaultId("vlt_011CZkZDLs7fYzm1hXNPeRjv")
-            .credentialId("vcrd_011CZkZEMt8gZan2iYOQfSkw")
+            .credentialId("vcrd_011CZkZEMt8gZan2iYPQfSkw")
             .build();
         BetaManagedAgentsCredential betaManagedAgentsCredential = client.beta().vaults().credentials().retrieve(params);
     }
@@ -65123,7 +66947,7 @@ public final class Main {
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -65572,7 +67396,7 @@ public final class Main {
 
         CredentialUpdateParams params = CredentialUpdateParams.builder()
             .vaultId("vlt_011CZkZDLs7fYzm1hXNPeRjv")
-            .credentialId("vcrd_011CZkZEMt8gZan2iYOQfSkw")
+            .credentialId("vcrd_011CZkZEMt8gZan2iYPQfSkw")
             .build();
         BetaManagedAgentsCredential betaManagedAgentsCredential = client.beta().vaults().credentials().update(params);
     }
@@ -65583,7 +67407,7 @@ public final class Main {
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -65760,7 +67584,7 @@ public final class Main {
 
         CredentialDeleteParams params = CredentialDeleteParams.builder()
             .vaultId("vlt_011CZkZDLs7fYzm1hXNPeRjv")
-            .credentialId("vcrd_011CZkZEMt8gZan2iYOQfSkw")
+            .credentialId("vcrd_011CZkZEMt8gZan2iYPQfSkw")
             .build();
         BetaManagedAgentsDeletedCredential betaManagedAgentsDeletedCredential = client.beta().vaults().credentials().delete(params);
     }
@@ -65771,7 +67595,7 @@ public final class Main {
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "type": "vault_credential_deleted"
 }
 ```
@@ -66078,7 +67902,7 @@ public final class Main {
 
         CredentialArchiveParams params = CredentialArchiveParams.builder()
             .vaultId("vlt_011CZkZDLs7fYzm1hXNPeRjv")
-            .credentialId("vcrd_011CZkZEMt8gZan2iYOQfSkw")
+            .credentialId("vcrd_011CZkZEMt8gZan2iYPQfSkw")
             .build();
         BetaManagedAgentsCredential betaManagedAgentsCredential = client.beta().vaults().credentials().archive(params);
     }
@@ -66089,7 +67913,7 @@ public final class Main {
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -66354,7 +68178,7 @@ public final class Main {
 
         CredentialMcpOAuthValidateParams params = CredentialMcpOAuthValidateParams.builder()
             .vaultId("vlt_011CZkZDLs7fYzm1hXNPeRjv")
-            .credentialId("vcrd_011CZkZEMt8gZan2iYOQfSkw")
+            .credentialId("vcrd_011CZkZEMt8gZan2iYPQfSkw")
             .build();
         BetaManagedAgentsCredentialValidation betaManagedAgentsCredentialValidation = client.beta().vaults().credentials().mcpOAuthValidate(params);
     }
@@ -66365,7 +68189,7 @@ public final class Main {
 
 ```json
 {
-  "credential_id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "credential_id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "has_refresh_token": true,
   "mcp_probe": {
     "http_response": {
@@ -82007,7 +83831,7 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `BetaServiceAccountTarget target`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `JsonValue type = "service_account"`
 
@@ -82349,7 +84173,7 @@ unless `include_archived=true`.
 
   - `BetaServiceAccountTarget target`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `JsonValue type = "service_account"`
 
@@ -82670,7 +84494,7 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
   - `BetaServiceAccountTarget target`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `JsonValue type = "service_account"`
 
@@ -83046,7 +84870,7 @@ Console session.
 
   - `BetaServiceAccountTarget target`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `JsonValue type = "service_account"`
 
@@ -83370,7 +85194,7 @@ other scopes require a Console session.
 
   - `BetaServiceAccountTarget target`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `JsonValue type = "service_account"`
 
@@ -93291,6 +95115,110 @@ Anthropic account team.
 
 - `SpendLimitSetParams params`
 
+  - `Optional<List<AnthropicBeta>> betas` (header parameter)
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
+
+    - `PROMPT_CACHING_2024_07_31("prompt-caching-2024-07-31")`
+
+    - `COMPUTER_USE_2024_10_22("computer-use-2024-10-22")`
+
+    - `COMPUTER_USE_2025_01_24("computer-use-2025-01-24")`
+
+    - `PDFS_2024_09_25("pdfs-2024-09-25")`
+
+    - `TOKEN_COUNTING_2024_11_01("token-counting-2024-11-01")`
+
+    - `TOKEN_EFFICIENT_TOOLS_2025_02_19("token-efficient-tools-2025-02-19")`
+
+    - `OUTPUT_128K_2025_02_19("output-128k-2025-02-19")`
+
+    - `FILES_API_2025_04_14("files-api-2025-04-14")`
+
+    - `MCP_CLIENT_2025_04_04("mcp-client-2025-04-04")`
+
+    - `MCP_CLIENT_2025_11_20("mcp-client-2025-11-20")`
+
+    - `DEV_FULL_THINKING_2025_05_14("dev-full-thinking-2025-05-14")`
+
+    - `INTERLEAVED_THINKING_2025_05_14("interleaved-thinking-2025-05-14")`
+
+    - `CODE_EXECUTION_2025_05_22("code-execution-2025-05-22")`
+
+    - `EXTENDED_CACHE_TTL_2025_04_11("extended-cache-ttl-2025-04-11")`
+
+    - `CONTEXT_1M_2025_08_07("context-1m-2025-08-07")`
+
+    - `CONTEXT_MANAGEMENT_2025_06_27("context-management-2025-06-27")`
+
+    - `MODEL_CONTEXT_WINDOW_EXCEEDED_2025_08_26("model-context-window-exceeded-2025-08-26")`
+
+    - `SKILLS_2025_10_02("skills-2025-10-02")`
+
+    - `FAST_MODE_2026_02_01("fast-mode-2026-02-01")`
+
+    - `OUTPUT_300K_2026_03_24("output-300k-2026-03-24")`
+
+    - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
+
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
+    - `USER_PROFILES_2026_09_04("user-profiles-2026-09-04")`
+
+    - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
+
+    - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
+
+    - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
+
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
+    - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
+
+    - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
+
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
+    - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
+
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
+    - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
+
+    - `COMPACT_2026_01_12("compact-2026-01-12")`
+
+    - `COMPUTER_USE_2025_11_24("computer-use-2025-11-24")`
+
+    - `MCP_TUNNELS_2026_06_22("mcp-tunnels-2026-06-22")`
+
+    - `STRUCTURED_OUTPUTS_2025_11_13("structured-outputs-2025-11-13")`
+
+    - `TASK_BUDGETS_2026_03_13("task-budgets-2026-03-13")`
+
+    - `THINKING_DISPLAY_UPDATES_2026_08_18("thinking-display-updates-2026-08-18")`
+
+    - `CE_USER_MANAGEMENT_2026_07_13("ce-user-management-2026-07-13")`
+
+    - `MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01("mid-conversation-output-config-2026-07-01")`
+
+    - `THINKING_BINDING_CONTROLS_2026_08_01("thinking-binding-controls-2026-08-01")`
+
+    - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
+    - `COMPACT_2026_09_04("compact-2026-09-04")`
+
+    - `INLINE_TOOLS_2026_09_15("inline-tools-2026-09-15")`
+
+    - `MCP_CLIENT_2026_09_15("mcp-client-2026-09-15")`
+
+    - `CE_PLUGINS_2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
+
   - `Optional<String> amount`
 
     Limit amount as a non-negative integer decimal string in the minor unit of the organization's billing currency (cents for USD): "50000" is $500.00. `null` sets an explicit no-limit override for this scope and `period` only — each period resolves independently, so caps for other periods still apply.
@@ -93717,7 +95645,7 @@ is not creation order.
 
     Return only limits with these scope types. A Claude Console organization has `organization` and `workspace` limits; a Claude Enterprise organization has `organization`, `seat_tier`, `rbac_group`, `organization_service` and `user` limits. Omit for all.
 
-    maxItems: 6
+    maxItems: 100
 
     - `ORGANIZATION("organization")`
 

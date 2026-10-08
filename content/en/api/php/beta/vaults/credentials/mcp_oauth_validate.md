@@ -79,7 +79,7 @@ $betaManagedAgentsCredentialValidation = $client
   ->vaults
   ->credentials
   ->mcpOAuthValidate(
-  'vcrd_011CZkZEMt8gZan2iYOQfSkw',
+  'vcrd_011CZkZEMt8gZan2iYPQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
@@ -92,7 +92,7 @@ var_dump($betaManagedAgentsCredentialValidation);
 
 ```json
 {
-  "credential_id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "credential_id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "has_refresh_token": true,
   "mcp_probe": {
     "http_response": {

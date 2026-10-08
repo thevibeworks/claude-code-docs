@@ -34,6 +34,19 @@ To turn bundled skills off, use the [`disableBundledSkills`](/docs/en/settings-r
 
 Bundled skills are listed alongside built-in commands in the [commands reference](/docs/en/commands), marked **Skill** in the Purpose column.
 
+### Check your setup with `/doctor`
+
+Run `/doctor` at the Claude Code prompt for a setup checkup that diagnoses issues and can fix them. Claude reports its findings first and asks for confirmation before changing anything. The checkup covers these areas:
+
+* **Installation health**: duplicate or leftover installs, `PATH` problems, unparseable settings files, and whether a newer version is available on your [release channel](/docs/en/setup#configure-release-channel)
+* **Extensions**: unused skills, MCP servers, and plugins compared with their context cost, and slow [hooks](/docs/en/hooks)
+* **`CLAUDE.md` files**: local `CLAUDE.md` files that duplicate checked-in ones, checked-in [`CLAUDE.md` content Claude could derive from the codebase](/docs/en/memory#my-claude-md-is-too-large), and the always-loaded guidance that remains, which Claude offers to migrate into skills and nested `CLAUDE.md` files that load on demand
+* **Permissions**: an offer to make [auto mode](/docs/en/permissions#permission-modes) your default permission mode and to [pre-approve](/docs/en/permissions) read-only commands that you frequently deny
+
+For read-only installation diagnostics without starting a session, run `claude doctor` in your terminal instead.
+
+To audit your instructions rather than your setup, run `/doctor prompt-audit` at the Claude Code prompt. Claude [checks your `CLAUDE.md` files, skills, and other configuration](/docs/en/memory#audit-your-instruction-files) for outdated or conflicting instructions instead of running the checkup. The `prompt-audit` subcommand requires Claude Code v2.1.283 or later.
+
 ### Run and verify your app
 
 Three bundled skills work together to launch your app and confirm changes against the running app instead of tests alone:
@@ -221,9 +234,14 @@ Claude Code downloads a synced skill from your account rather than reading a fil
 
 In a Cowork or cloud session, Claude Code loads the skills enabled for your claude.ai account, and [Skills in Cowork and cloud sessions](#skills-in-cowork-and-cloud-sessions) says how to choose which skills those sessions get.
 
-In your terminal, Claude Code syncs those skills in sessions where you sign in with your claude.ai account. When the session starts, Claude Code downloads your account's skills into `~/.claude/skills/synced/` in the background, then checks claude.ai for changes about every 10 minutes while the session runs. When a check finds that a skill was added, edited, or turned off on claude.ai, Claude Code adds, updates, or removes it in the running session without a restart. Syncing in terminal sessions requires Claude Code v2.1.273 or later.
+In your terminal, Claude Code syncs those skills in sessions where you sign in with your claude.ai account. When the session starts, Claude Code downloads your account's skills into `~/.claude/skills/synced/` in the background, then checks claude.ai for changes while the session runs. When a check finds that a skill was added, edited, or turned off on claude.ai, Claude Code adds, updates, or removes it in the running session without a restart. Syncing in terminal sessions requires Claude Code v2.1.273 or later.
 
-The sync never delays startup, because Claude waits for a skill's download only when it invokes that skill. A short [non-interactive](/docs/en/headless) run can therefore finish before a newly added skill downloads, in which case a later session downloads it. To make a non-interactive run download your skills and wait for the list before it answers the prompt, set [`CLAUDE_CODE_SYNC_SKILLS`](/docs/en/env-vars#variables) to `1`.
+The checks run less often while the session is idle:
+
+* **While you or Claude work in the session**: a check runs about every 10 minutes.
+* **While the session is idle**: a check runs about every 40 minutes. When you type in the session again, Claude Code checks within a few minutes if the last check was more than 10 minutes ago.
+
+The sync never delays startup, because Claude waits for a skill's download only when it invokes that skill. A short [non-interactive](/docs/en/headless) run can therefore finish before a newly added skill downloads, in which case a later session downloads it. To make a non-interactive run download your skills and wait for the list before it answers the prompt, set [`CLAUDE_CODE_SYNC_SKILLS`](/docs/en/env-vars#variables) to `1`. Before v2.1.273, terminal sessions downloaded them only in a `-p` run with this variable set.
 
 Claude Code syncs only in a session that signs in with your claude.ai account and [fetches feature flags from Anthropic](/docs/en/env-vars#features-that-need-feature-flag-fetching). It doesn't sync in these sessions:
 

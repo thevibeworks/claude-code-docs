@@ -19,17 +19,17 @@ List work items in an environment.
 
 - `params BetaEnvironmentWorkListParams`
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     Maximum number of work items to return
 
     minimum: 1, maximum: 1000
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     Opaque cursor from previous response for pagination
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 

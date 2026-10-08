@@ -1361,7 +1361,7 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `target: ServiceAccountTarget`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `type: "service_account"`
 
@@ -1577,7 +1577,7 @@ unless `include_archived=true`.
 
   - `target: ServiceAccountTarget`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `type: "service_account"`
 
@@ -1783,7 +1783,7 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
   - `target: ServiceAccountTarget`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `type: "service_account"`
 
@@ -2074,7 +2074,7 @@ Console session.
 
   - `target: ServiceAccountTarget`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `type: "service_account"`
 
@@ -2281,7 +2281,7 @@ other scopes require a Console session.
 
   - `target: ServiceAccountTarget`
 
-    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+    What this rule targets. Check `type` before reading the other fields. Tokens minted via a rule whose target `type` is `service_account` act as that service account.
 
     - `type: "service_account"`
 

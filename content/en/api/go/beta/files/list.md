@@ -15,11 +15,11 @@ List Files
 
 - `params BetaFileListParams`
 
-  - `IDs param.Field[[]string] Optional` (query parameter)
+  - `IDs []string Optional` (query parameter)
 
     Restrict the result set to Files whose `id` is in this list. At most 100 entries (after de-duplication). Mutually exclusive with `page` and `limit`. When supplied, the response is always a single page (`next_page` is null). IDs that do not resolve to a visible File — including deleted Files — are silently omitted.
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     Number of items to return per page.
 
@@ -27,15 +27,15 @@ List Files
 
     minimum: 1, maximum: 1000
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     Opaque page cursor returned in a prior list response's `next_page`. Prefixed `page_`.
 
-  - `ScopeID param.Field[string] Optional` (query parameter)
+  - `ScopeID param.Opt[string] Optional` (query parameter)
 
     Filter by scope ID. Only returns files associated with the specified scope (e.g., a session ID).
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -139,7 +139,7 @@ List Files
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

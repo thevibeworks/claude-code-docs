@@ -779,7 +779,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->sessions->threads->events->list(
-  'sthr_011CZkZVWa6oIjw0rgXZpnBt',
+  'sthr_011CZkZVWa6oJjw1rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   limit: 0,
   page: 'page',
@@ -796,7 +796,7 @@ var_dump($page);
 {
   "data": [
     {
-      "id": "sevt_011CZkZGOp0iBcp4kaQSihUmy",
+      "id": "sevt_011CZkZGPp1iBcp4kaQSihUm",
       "content": [
         {
           "text": "Where is my order #1234?",
@@ -807,7 +807,7 @@ var_dump($page);
       "processed_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sevt_011CZkZHPq1jCdq5lbRTjiVnz",
+      "id": "sevt_011CZkZHPq1jCdq5mbRTjiVn",
       "content": [
         {
           "text": "Let me look up order #1234 for you.",

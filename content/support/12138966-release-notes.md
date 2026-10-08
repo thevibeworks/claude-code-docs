@@ -1,5 +1,17 @@
 # Release notes
 
+## October 2026
+
+### October 7, 2026
+
+**Claude Haiku 5.5 launch**
+
+We just launched Claude Haiku 5.5, the cheapest, fastest, and most capable small model we’ve released, designed for high-volume, cost-sensitive tasks. For more information, see our blog post: **[Claude Haiku 5.5](https://www.anthropic.com/claude-haiku-5-5)**.
+
+**Monthly API credits for Max and Team plans**
+
+Max and Team plans now include monthly API credits for running your own apps and agents on the Claude Platform. They roll out over a few days. Claim them by linking a Claude Console organization in **Settings > Billing** (Max) or **Organization settings > Billing** (Team). Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 ## September 2026
 
 ### September 28, 2026

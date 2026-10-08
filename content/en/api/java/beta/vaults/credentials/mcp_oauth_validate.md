@@ -251,7 +251,7 @@ public final class Main {
 
         CredentialMcpOAuthValidateParams params = CredentialMcpOAuthValidateParams.builder()
             .vaultId("vlt_011CZkZDLs7fYzm1hXNPeRjv")
-            .credentialId("vcrd_011CZkZEMt8gZan2iYOQfSkw")
+            .credentialId("vcrd_011CZkZEMt8gZan2iYPQfSkw")
             .build();
         BetaManagedAgentsCredentialValidation betaManagedAgentsCredentialValidation = client.beta().vaults().credentials().mcpOAuthValidate(params);
     }
@@ -262,7 +262,7 @@ public final class Main {
 
 ```json
 {
-  "credential_id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "credential_id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "has_refresh_token": true,
   "mcp_probe": {
     "http_response": {

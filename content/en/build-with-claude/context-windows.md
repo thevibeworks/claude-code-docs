@@ -16,7 +16,9 @@ The "context window" refers to all the text a language model can reference when 
 
 The following diagram illustrates the standard context window behavior for API requests1:
 
-![Diagram of turns accumulating in the context window until the conversation approaches the token limit](https://platform.claude.com/docs/images/context-window.svg)
+<Frame>
+  ![Diagram of turns accumulating in the context window until the conversation approaches the token limit](https://platform.claude.com/docs/images/context-window.svg)
+</Frame>
 
 *1 Chat interfaces such as [claude.ai](https://claude.ai/) can also manage the context window on a rolling "first in, first out" basis.*
 
@@ -33,9 +35,9 @@ Everything in the request counts toward the context window: the system prompt, e
 
 ## Context window sizes by model
 
-Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, and [Claude Mythos Preview](https://anthropic.com/glasswing) have a 1M-token context window. A single request to any of them can generate up to 128k output tokens (`max_tokens`). Other Claude models, including Claude Sonnet 4.5 (deprecated), have a 200k-token context window.
+Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, Claude Haiku 5.5, and [Claude Mythos Preview](https://anthropic.com/glasswing) have a 1M-token context window. A single request to any of them can generate up to 128k output tokens (`max_tokens`). Other Claude models, including Claude Sonnet 4.5 (deprecated), have a 200k-token context window.
 
-For every model with a 1M-token context window, 1M is the default: you don't need a beta header, and long-context requests are billed at [standard pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing).
+For every model with a 1M-token context window, 1M is the default: you don't need a beta header, and long-context requests are billed at [standard pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing), except on Claude Haiku 5.5, where prompts over 100,000 tokens cost more.
 
 A single request can include up to 600 images or PDF pages (100 for models with a 200k-token context window). If you send many images or large documents, you might reach [request size limits](https://platform.claude.com/docs/en/api/overview#request-size-limits) before the token limit.
 
@@ -47,11 +49,13 @@ With [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking),
 
 Thinking tokens are a subset of your `max_tokens` parameter, are billed as output tokens, and count toward rate limits. With [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking), Claude determines its thinking allocation dynamically, so thinking token usage varies from request to request.
 
-Whether thinking blocks from previous assistant turns stay in the context window depends on the model. On Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, the API keeps previous thinking blocks by default, and they count toward the context window like any other input tokens. On earlier Opus and Sonnet models and all Haiku models, the API automatically strips previous thinking blocks from the conversation history when you pass them back, which preserves token capacity for conversation content. For the per-model defaults, see [thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model). To override the default in either direction, use [thinking block clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing#thinking-block-clearing).
+Whether thinking blocks from previous assistant turns stay in the context window depends on the model. On Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Haiku 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, the API keeps previous thinking blocks by default, and they count toward the context window like any other input tokens. On earlier Opus and Sonnet models and all Haiku models through Claude Haiku 4.5, the API automatically strips previous thinking blocks from the conversation history when you pass them back, which preserves token capacity for conversation content. For the per-model defaults, see [thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model). To override the default in either direction, use [thinking block clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing#thinking-block-clearing).
 
 The following diagram shows how tokens are managed when thinking is enabled on a model that strips previous thinking blocks:
 
-![Diagram of thinking on a model that strips previous thinking blocks: each turn's thinking block is generated in the output and not carried into later turns' input](https://platform.claude.com/docs/images/context-window-thinking.svg)
+<Frame>
+  ![Diagram of thinking on a model that strips previous thinking blocks: each turn's thinking block is generated in the output and not carried into later turns' input](https://platform.claude.com/docs/images/context-window-thinking.svg)
+</Frame>
 
 * **Stripping thinking blocks:** On models that strip previous thinking blocks, thinking blocks (shown in dark gray) are generated during each turn's output phase but are not carried forward as input tokens for subsequent turns. You do not need to strip the thinking blocks yourself: if you pass them back, the Claude API strips them automatically.
 * **Billing:** Thinking tokens are billed as output tokens once, when they are generated. On models that keep previous thinking blocks, the kept blocks are then part of later requests' input and are billed as input tokens, like the rest of the conversation history.
@@ -64,7 +68,9 @@ The following diagram shows how tokens are managed when thinking is enabled on a
 
 The following diagram illustrates how tokens are managed when you combine thinking with tool use on a model that strips previous thinking blocks:
 
-![Diagram of thinking with tool use: thinking is kept with its tool result, then dropped on the next user turn on models that strip previous thinking blocks](https://platform.claude.com/docs/images/context-window-thinking-tools.svg)
+<Frame>
+  ![Diagram of thinking with tool use: thinking is kept with its tool result, then dropped on the next user turn on models that strip previous thinking blocks](https://platform.claude.com/docs/images/context-window-thinking-tools.svg)
+</Frame>
 
 <Steps>
   <Step title="First turn architecture">
@@ -121,7 +127,7 @@ After each tool call, the API gives Claude an update on its remaining capacity:
 
 Image tokens are included in these budgets.
 
-Claude Opus 4.7 and later Opus models, Claude Sonnet 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, and Claude Mythos 5 don't receive these injected tags. On these models, you can give the model an explicit budget with [task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets), which are in beta.
+Claude Opus 4.7 and later Opus models, Claude Sonnet 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Haiku 5.5 don't receive these injected tags. On these models, you can give the model an explicit budget with [task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets), which are in beta.
 
 <Tip>
   For agents that span multiple sessions, design your state artifacts so that context recovery is fast when a new session starts. The [memory tool's multisession pattern](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#multisession-software-development-pattern) walks through a concrete approach. See also [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents).

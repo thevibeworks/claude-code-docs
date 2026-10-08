@@ -15,17 +15,17 @@ Create Vault
 
 - `params BetaVaultNewParams`
 
-  - `DisplayName param.Field[string]`
+  - `DisplayName string`
 
     Human-readable name for the vault. 1-255 characters.
 
     minLength: 1, maxLength: 255
 
-  - `Metadata param.Field[map[string, string]] Optional`
+  - `Metadata map[string, string] Optional`
 
     Arbitrary key-value metadata to attach to the vault. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -129,7 +129,7 @@ Create Vault
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

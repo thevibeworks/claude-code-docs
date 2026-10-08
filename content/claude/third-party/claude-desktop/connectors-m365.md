@@ -14,7 +14,12 @@ When Claude Desktop is deployed on third-party inference, Claude can read your o
 
 ## Choose a connector
 
-Both connectors provide the same read and search tools; they differ in data path and authentication. Write actions (sending mail, managing drafts and calendar events, working with files, and sending Teams messages) are available on the local connector when you grant [write scopes](#grant-write-scopes). For write actions on the remote connector, contact your Anthropic representative. Use this table to pick one, then follow that connector's section below.
+Both connectors provide the same read and search tools; they differ in data path and authentication. Write actions (sending mail, managing drafts and calendar events, working with files, and sending Teams messages) depend on the write scopes approved in Microsoft Entra:
+
+* **Remote connector**: an administrator approves the scopes on the Anthropic connector app. See [Control write actions on the remote connector](#control-write-actions-on-the-remote-connector).
+* **Local connector**: you [grant write scopes](#grant-write-scopes) on your own app registration and list them in the connector's configuration
+
+Use this table to pick a connector.
 
 | | Remote connector | Local connector |
 | - | - | - |
@@ -24,7 +29,7 @@ Both connectors provide the same read and search tools; they differ in data path
 | Allowlisting with Anthropic | Required (two to three business days) | Not needed |
 | Device egress | `login.microsoftonline.com` and the connector host | `login.microsoftonline.com` and `graph.microsoft.com` |
 | Device-based Conditional Access | Not supported (the server-side exchange has no device identity) | Supported on managed Windows and Mac devices through brokered sign-in |
-| Write actions | Contact your Anthropic representative | Available with [write scopes](#grant-write-scopes) |
+| Write actions | Available with [write scopes on the Anthropic connector app](#control-write-actions-on-the-remote-connector) | Available with [write scopes](#grant-write-scopes) |
 | US Government clouds | Separate connector deployment; contact your Anthropic representative | Built in; set `azureCloud` |
 
 ## Remote connector
@@ -63,7 +68,7 @@ The four steps below cover tenant consent, app registration, allowlisting, and d
     https://login.microsoftonline.com/YOUR_TENANT_ID/adminconsent?client_id=07c030f6-5743-41b7-ba00-0a6e85f37c17
     ```
 
-    The consent screen lists the delegated Microsoft Graph permissions the connector requests. All are read-only:
+    The consent screen lists the delegated Microsoft Graph permissions the connector requests. The read permissions include:
 
     | Scope | Purpose |
     | - | - |
@@ -74,6 +79,8 @@ The four steps below cover tenant consent, app registration, allowlisting, and d
     | `Sites.Read.All` | Read SharePoint site content the user can access |
     | `Chat.Read`, `ChatMessage.Read` | Read Teams chat messages the user can access |
     | `offline_access` | Allow the desktop to refresh its token without re-prompting |
+
+    The screen also lists the write permissions, such as `Mail.Send` and `Files.ReadWrite.All`. Accepting approves the whole list for every user in your tenant, which makes write actions available to every remote connector user. To keep the connector read-only or limit write actions to specific users, accept, then revoke the write scopes before you deploy the configuration in step 4. See [Control write actions on the remote connector](#control-write-actions-on-the-remote-connector).
 
     Review the permissions and select **Accept**.
 
@@ -142,6 +149,90 @@ In addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetr
 | - | - |
 | `login.microsoftonline.com` | Microsoft Entra sign-in |
 | `microsoft365.mcp.claude.com` | The connector service (substitute your deployment's hostname) |
+
+### Control write actions on the remote connector
+
+Claude can take a write action for a user through the remote connector once the matching write scope is approved for that user on the Anthropic connector app. The Entra admin center lists that app under **Enterprise applications** as **M365 MCP Server for Claude**.
+
+The write scopes are `Mail.Send`, `Mail.ReadWrite`, `MailboxSettings.ReadWrite`, `Calendars.ReadWrite`, `Files.ReadWrite.All`, `ChatMessage.Send`, `ChannelMessage.Send`, and `Chat.Create`. A tenant that approved the connector before Anthropic added the write scopes stays read-only until the write scopes are approved. To see which scopes your tenant has approved, open the app's **Permissions** page as described in [Revoke write scopes on the remote connector](#revoke-write-scopes-on-the-remote-connector).
+
+These controls apply to the connector service at `microsoft365.mcp.claude.com`. For write actions on a FedRAMP or GovCloud deployment, contact your Anthropic representative.
+
+<Warning>
+  The Microsoft 365 connector in claude.ai uses the same connector app. When an administrator approves the write scopes for the whole tenant, for either product, write actions become available to every remote connector user in that tenant. Both the admin consent link in [Set up the remote connector](#set-up-the-remote-connector) and **Grant admin consent for \{your organization}** on the **M365 MCP Server for Claude** app's **Permissions** page approve every permission the connector requests, including the write scopes.
+</Warning>
+
+Choose a control by who should have write actions:
+
+| Who gets write actions | What you do | Where it's enforced |
+| - | - | - |
+| Every remote connector user | Open the [admin consent link](#set-up-the-remote-connector) and select **Accept** | Microsoft Entra |
+| Specific users | Revoke the write scopes for the tenant, then [grant them user by user](#limit-remote-connector-write-actions-to-specific-users) | Microsoft Entra |
+| Nobody | [Revoke the write scopes](#revoke-write-scopes-on-the-remote-connector) | Microsoft Entra |
+| Users on devices you choose | [Block the write tools](#block-remote-connector-write-tools-in-claude-desktop) with `toolPolicy` on the other devices | Claude Desktop managed configuration |
+
+#### Revoke write scopes on the remote connector
+
+Revoking a write scope for the tenant turns off the matching write actions for remote connector users and for claude.ai users in the same tenant. Requires the Cloud Application Administrator or Application Administrator role in Microsoft Entra.
+
+1. In the [Microsoft Entra admin center](https://entra.microsoft.com), go to **Enterprise applications** and remove the application type filter next to the search box.
+2. Search for **M365 MCP Server for Claude** and open it.
+3. Go to **Permissions** and open the **Admin consent** tab, which shows the permissions approved for the whole tenant. If no write scope is listed, none is approved for the tenant.
+4. For each write scope in the Microsoft Graph list, select the scope, select **…**, select **Revoke permission**, and confirm. The scope disappears from the tab.
+5. Open the **User consent** tab, which shows the permissions granted to individual users. The admin center can't revoke these grants. To remove a write scope listed here, use Microsoft Graph or PowerShell as described in Microsoft's [Review permissions granted to enterprise applications](https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-application-permissions).
+6. If your tenant allows user consent, [require assignment on the connector app](#require-assignment-on-the-connector-app) so that only an administrator can approve its permissions.
+
+Write tools still appear in Claude Desktop after the scopes are revoked, and calls to them fail. To remove the tools from sessions, also [block them in Claude Desktop](#block-remote-connector-write-tools-in-claude-desktop).
+
+#### Limit remote connector write actions to specific users
+
+Microsoft Entra can record consent for a single user instead of the whole tenant. Keep the read scopes approved for the tenant, and grant the write scopes only to the users who need them. Requires at least the Cloud Application Administrator role in Microsoft Entra.
+
+1. Follow [Revoke write scopes on the remote connector](#revoke-write-scopes-on-the-remote-connector) so that no write scope is approved for the tenant.
+2. For each user, follow Microsoft's [Grant consent on behalf of a single user](https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/grant-consent-single-user) procedure. Use `07c030f6-5743-41b7-ba00-0a6e85f37c17` as the client application, Microsoft Graph as the resource, and the write scopes the user needs as the permissions.
+3. If a user already has a grant for the connector app on the **User consent** tab, update that grant. Microsoft's script creates a new grant and assumes none exists.
+
+Keep the limit in place after you create the grants:
+
+* **Fix a failed write action with a per-user grant**: add the missing scope to that user's grant. The admin consent link and the **Grant admin consent for \{your organization}** button on the **M365 MCP Server for Claude** app's **Permissions** page approve the write scopes for every user, even when a permission error points you to them.
+* **Revoke again after tenant-wide consent**: if you use either control to approve a permission Anthropic adds later, repeat [Revoke write scopes on the remote connector](#revoke-write-scopes-on-the-remote-connector) afterward
+* **Script changes to who has write actions**: each grant covers one user and can't target a group. Create a grant when a user gains write actions, and delete it with Microsoft Graph or PowerShell when they lose them.
+
+#### Require assignment on the connector app
+
+When an app requires assignment, Microsoft Entra accepts only administrator consent for its permissions, even if your tenant's user consent settings would otherwise let users consent for themselves. Only assigned users can get a token for the app, so assign people before you turn the setting on.
+
+1. In the [Microsoft Entra admin center](https://entra.microsoft.com), go to **Enterprise applications** and open **M365 MCP Server for Claude**.
+2. Under **Users and groups**, add every user or group that uses the connector in Claude Desktop or claude.ai, including people who only read.
+3. Go to **Properties** and set **Assignment required?** to **Yes**.
+
+If people in your tenant also use the connector in claude.ai, make the same change on the **M365 MCP Client for Claude** app, as described in [Set up the Microsoft 365 connector](https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector).
+
+#### Block remote connector write tools in Claude Desktop
+
+Set each write tool to `"blocked"` in the `toolPolicy` of the `m365` entry in [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#tool-permissions-for-managed-mcp-servers). Find each write tool's name and the scope it needs in the [Microsoft 365 connector security guide](https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide). For example, this entry blocks three of the write tools:
+
+```json theme={null}
+{
+  "name": "m365",
+  "url": "https://microsoft365.mcp.claude.com/mcp",
+  "transport": "http",
+  "oauth": {
+    "clientId": "APPLICATION_CLIENT_ID_FROM_STEP_2",
+    "tenantId": "DIRECTORY_TENANT_ID",
+    "scope": "api://07c030f6-5743-41b7-ba00-0a6e85f37c17/access_as_user offline_access"
+  },
+  "toolPolicy": {
+    "outlook_send_mail": "blocked",
+    "outlook_create_event": "blocked",
+    "sharepoint_upload_file": "blocked"
+  }
+}
+```
+
+Claude Desktop removes a blocked tool from Claude's session, and connector settings show the tool as blocked by your organization. To allow write tools for one group, deploy the entry without the blocks to that group's devices through your device-management tool.
+
+A block doesn't change the scopes approved in Microsoft Entra. On a device without the block, the same user can still take write actions, so also use one of the Entra controls to limit the user's account.
 
 ### Troubleshoot sign-in errors
 

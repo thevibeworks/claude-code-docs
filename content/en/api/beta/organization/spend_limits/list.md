@@ -31,7 +31,7 @@ is not creation order.
 
   Return only limits with these scope types. A Claude Console organization has `organization` and `workspace` limits; a Claude Enterprise organization has `organization`, `seat_tier`, `rbac_group`, `organization_service` and `user` limits. Omit for all.
 
-  maxItems: 6
+  maxItems: 100
 
   - `"organization"`
 

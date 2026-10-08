@@ -36,6 +36,8 @@ Users with Standard seats on the Team plan can access the following:
 
 - **Connectors for your workplace tools:** Connect Claude to Google Drive, Gmail, Google Calendar, GitHub, Microsoft 365, and Slack to search and retrieve context from your existing documents, emails, calendars, and team communications—without manual uploads.
 
+- **Monthly API credits:** Claude Max and Team plans include monthly credits for the Claude API. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 - **Everything in Pro, including:**
 
   - Access to all available models.

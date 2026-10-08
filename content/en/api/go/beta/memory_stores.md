@@ -17,23 +17,23 @@ Create a memory store
 
 - `params BetaMemoryStoreNewParams`
 
-  - `Name param.Field[string]`
+  - `Name string`
 
     Human-readable name for the store. Required; 1–255 characters; no control characters. The mount-path slug under `/mnt/memory/` is derived from this name (lowercased, non-alphanumeric runs collapsed to a hyphen). Names need not be unique within a workspace.
 
     minLength: 1, maxLength: 255
 
-  - `Description param.Field[string] Optional`
+  - `Description param.Opt[string] Optional`
 
     Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
 
     maxLength: 1024
 
-  - `Metadata param.Field[map[string, string]] Optional`
+  - `Metadata map[string, string] Optional`
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Not visible to the agent.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -137,7 +137,7 @@ Create a memory store
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -241,33 +241,33 @@ List memory stores
 
 - `params BetaMemoryStoreListParams`
 
-  - `CreatedAtGte param.Field[Time] Optional` (query parameter)
+  - `CreatedAtGte param.Opt[Time] Optional` (query parameter)
 
     Return only stores whose `created_at` is at or after this time (inclusive). Sent on the wire as `created_at[gte]`.
 
     format: date-time
 
-  - `CreatedAtLte param.Field[Time] Optional` (query parameter)
+  - `CreatedAtLte param.Opt[Time] Optional` (query parameter)
 
     Return only stores whose `created_at` is at or before this time (inclusive). Sent on the wire as `created_at[lte]`.
 
     format: date-time
 
-  - `IncludeArchived param.Field[bool] Optional` (query parameter)
+  - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
     When `true`, archived stores are included in the results. Defaults to `false` (archived stores are excluded).
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
 
     format: int32
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -371,7 +371,7 @@ List memory stores
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -480,7 +480,7 @@ Retrieve a memory store
 
 - `query BetaMemoryStoreGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -584,7 +584,7 @@ Retrieve a memory store
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -694,23 +694,23 @@ Update a memory store
 
 - `params BetaMemoryStoreUpdateParams`
 
-  - `Description param.Field[string] Optional`
+  - `Description param.Opt[string] Optional`
 
     New description for the store, up to 1024 characters. Pass an empty string to clear it.
 
     maxLength: 1024
 
-  - `Metadata param.Field[map[string, string]] Optional`
+  - `Metadata map[string, string] Optional`
 
     Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
-  - `Name param.Field[string] Optional`
+  - `Name param.Opt[string] Optional`
 
     New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
 
     minLength: 1, maxLength: 255
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -814,7 +814,7 @@ Update a memory store
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -924,7 +924,7 @@ Delete a memory store
 
 - `body BetaMemoryStoreDeleteParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1028,7 +1028,7 @@ Delete a memory store
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1100,7 +1100,7 @@ Archive a memory store
 
 - `body BetaMemoryStoreArchiveParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1204,7 +1204,7 @@ Archive a memory store
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1372,21 +1372,21 @@ Create a memory
 
 - `params BetaMemoryStoreMemoryNewParams`
 
-  - `Content param.Field[string]`
+  - `Content param.Opt[string]`
 
     UTF-8 text content for the new memory. Maximum 100 kB (102,400 bytes). Required; pass `""` explicitly to create an empty memory.
 
-  - `Path param.Field[string]`
+  - `Path string`
 
     Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive.
 
     minLength: 2, maxLength: 1024
 
-  - `View param.Field[BetaManagedAgentsMemoryView] Optional` (query parameter)
+  - `View BetaManagedAgentsMemoryView Optional` (query parameter)
 
     Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1490,7 +1490,7 @@ Create a memory
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1611,31 +1611,31 @@ List memories
 
 - `params BetaMemoryStoreMemoryListParams`
 
-  - `Depth param.Field[int64] Optional` (query parameter)
+  - `Depth param.Opt[int64] Optional` (query parameter)
 
     `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
 
     format: int32
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
 
     format: int32
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
 
-  - `PathPrefix param.Field[string] Optional` (query parameter)
+  - `PathPrefix param.Opt[string] Optional` (query parameter)
 
     Optional path prefix filter. Must end with `/` (segment-aligned), e.g., `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
 
-  - `View param.Field[BetaManagedAgentsMemoryView] Optional` (query parameter)
+  - `View BetaManagedAgentsMemoryView Optional` (query parameter)
 
     Which projection of each `memory` to return. Defaults to `basic` (content omitted). `full` populates `content` on each item and caps `limit` at 20; use this as the bulk-read path for export and sync.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1739,7 +1739,7 @@ List memories
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1876,15 +1876,15 @@ Retrieve a memory
 
 - `params BetaMemoryStoreMemoryGetParams`
 
-  - `MemoryStoreID param.Field[string]` (path parameter)
+  - `MemoryStoreID string` (path parameter)
 
     The ID of the memory store that holds the memory (`memstore_...`).
 
-  - `View param.Field[BetaManagedAgentsMemoryView] Optional` (query parameter)
+  - `View BetaManagedAgentsMemoryView Optional` (query parameter)
 
     Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1988,7 +1988,7 @@ Retrieve a memory
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2108,29 +2108,29 @@ Update a memory
 
 - `params BetaMemoryStoreMemoryUpdateParams`
 
-  - `MemoryStoreID param.Field[string]` (path parameter)
+  - `MemoryStoreID string` (path parameter)
 
     The ID of the memory store that holds the memory (`memstore_...`).
 
-  - `View param.Field[BetaManagedAgentsMemoryView] Optional` (query parameter)
+  - `View BetaManagedAgentsMemoryView Optional` (query parameter)
 
     Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-  - `Content param.Field[string] Optional`
+  - `Content param.Opt[string] Optional`
 
     New UTF-8 text content for the memory. Maximum 100 kB (102,400 bytes). Omit to leave the content unchanged (e.g., for a rename-only update).
 
-  - `Path param.Field[string] Optional`
+  - `Path param.Opt[string] Optional`
 
     New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
 
     minLength: 2, maxLength: 1024
 
-  - `Precondition param.Field[BetaManagedAgentsPrecondition] Optional`
+  - `Precondition BetaManagedAgentsPreconditionParam Optional`
 
     Optional optimistic-concurrency precondition. When supplied, the update applies only if the memory's current state matches; on mismatch the request returns `memory_precondition_failed_error` (HTTP 409). When omitted, the update is unconditional.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -2234,7 +2234,7 @@ Update a memory
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2354,17 +2354,17 @@ Delete a memory
 
 - `params BetaMemoryStoreMemoryDeleteParams`
 
-  - `MemoryStoreID param.Field[string]` (path parameter)
+  - `MemoryStoreID string` (path parameter)
 
     The ID of the memory store that holds the memory (`memstore_...`).
 
-  - `ExpectedContentSha256 param.Field[string] Optional` (query parameter)
+  - `ExpectedContentSha256 param.Opt[string] Optional` (query parameter)
 
     Delete the memory only if its current `content_sha256` equals this value, given as 64 lowercase hexadecimal characters. Omit it to delete unconditionally.
 
     If the hashes differ, the request fails with HTTP status 409 and nothing is deleted.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -2468,7 +2468,7 @@ Delete a memory
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2544,55 +2544,55 @@ List memory versions
 
 - `params BetaMemoryStoreMemoryVersionListParams`
 
-  - `APIKeyID param.Field[string] Optional` (query parameter)
+  - `APIKeyID param.Opt[string] Optional` (query parameter)
 
     Return only versions written with the API key that has this ID.
 
-  - `CreatedAtGte param.Field[Time] Optional` (query parameter)
+  - `CreatedAtGte param.Opt[Time] Optional` (query parameter)
 
     Return versions created at or after this time (inclusive).
 
     format: date-time
 
-  - `CreatedAtLte param.Field[Time] Optional` (query parameter)
+  - `CreatedAtLte param.Opt[Time] Optional` (query parameter)
 
     Return versions created at or before this time (inclusive).
 
     format: date-time
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     The maximum number of versions to return per page. Defaults to 20.
 
     format: int32
 
-  - `MemoryID param.Field[string] Optional` (query parameter)
+  - `MemoryID param.Opt[string] Optional` (query parameter)
 
     Return only versions of the memory with this ID (`mem_...`).
 
     The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
 
-  - `Operation param.Field[BetaManagedAgentsMemoryVersionOperation] Optional` (query parameter)
+  - `Operation BetaManagedAgentsMemoryVersionOperation Optional` (query parameter)
 
     Return only versions that record this kind of change.
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
-  - `ServiceAccountID param.Field[string] Optional` (query parameter)
+  - `ServiceAccountID param.Opt[string] Optional` (query parameter)
 
     Return only versions written by the service account with this ID (`svac_...`).
 
-  - `SessionID param.Field[string] Optional` (query parameter)
+  - `SessionID param.Opt[string] Optional` (query parameter)
 
     Return only versions written by the session with this ID.
 
-  - `View param.Field[BetaManagedAgentsMemoryView] Optional` (query parameter)
+  - `View BetaManagedAgentsMemoryView Optional` (query parameter)
 
     Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -2696,7 +2696,7 @@ List memory versions
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -2900,15 +2900,15 @@ Retrieve a memory version
 
 - `params BetaMemoryStoreMemoryVersionGetParams`
 
-  - `MemoryStoreID param.Field[string]` (path parameter)
+  - `MemoryStoreID string` (path parameter)
 
     The ID of the memory store that holds the version (`memstore_...`).
 
-  - `View param.Field[BetaManagedAgentsMemoryView] Optional` (query parameter)
+  - `View BetaManagedAgentsMemoryView Optional` (query parameter)
 
     Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -3012,7 +3012,7 @@ Retrieve a memory version
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -3213,11 +3213,11 @@ Redact a memory version
 
 - `params BetaMemoryStoreMemoryVersionRedactParams`
 
-  - `MemoryStoreID param.Field[string]` (path parameter)
+  - `MemoryStoreID string` (path parameter)
 
     The ID of the memory store that holds the version (`memstore_...`).
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -3321,7 +3321,7 @@ Redact a memory version
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

@@ -18,13 +18,17 @@ Your organization's billing address determines where your invoices are sent. You
 
 If you want to use a name other than the one tied to your payment method, an organization Owner should check the "Use a different name on invoices" box when adding or updating your payment method in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1791396000&amp;signature=057e655ad67d3b1733fea8ef12be545927111f6f03acd3e427b8cf083ab8db12&amp;req=dSklFMh6mINaWvMW1HO4zRZTxVvCss3TKAqLF4ERnlVvHlD3D1ogD9G%2BnPLv%0A5rXOEF8zl6xRRXzuwAU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1791460800&amp;signature=da531b3027600b0f907e3b058bdd27a9fa06ab433c081b5cf37e737a9887ab65&amp;req=dSklFMh6mINaWvMW3nq%2BgVr9wWuFWNj5OdvEXNYt8DWSkDZtq7IAUFrcS%2FZG%0Ar7Vt%2BtLYy5teJAb4%2BCEBrtTvmVQ%3D%0A)
 
 ## When will I be billed?
 
 Your payment method on file will be charged at the beginning of your billing cycle. The amount is based on the number of members on your team at the beginning of the billing cycle. If you add members or upgrade seats during the billing cycle, you'll be charged the prorated amount immediately. Removing members doesn't generate a credit or refund. The seat becomes available to assign to someone else.
 
 See **[How is my Team plan bill calculated?](https://support.claude.com/en/articles/9267289-how-is-my-team-plan-bill-calculated)** for more information about Team plan pricing.
+
+## Where can I see my monthly API credits?
+
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
 
 ## Where can I find the invoice or receipt for my Team plan payment?
 

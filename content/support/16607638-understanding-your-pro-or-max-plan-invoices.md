@@ -40,7 +40,7 @@ You can also open any invoice from your account:
 
 **Amount due.** The invoice total minus any applied balance. This is what your payment method was charged.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2629072970/c514f489b65072ccad08e803864f/e8c7a7de-905f-4a40-815f-c9c66edcdbf6?expires=1791396000&amp;signature=023cd3a79753069d0c2a9a377d0e8760e396cc6bae8cd07de363b0ca3e24d45f&amp;req=diYlH8l5n4hYWfMW1HO4zdWraRA851IePZYKVlMiWEXD96Lkfw9jhsz%2FFAjs%0A89LjHaJ9QaF94%2FQ8Brw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2629072970/c514f489b65072ccad08e803864f/e8c7a7de-905f-4a40-815f-c9c66edcdbf6?expires=1791460800&amp;signature=a2421f76f011ccd41f9e8bc6a5972cadf65c1714f405fe71531b57b87da0f6c2&amp;req=diYlH8l5n4hYWfMW3nq%2BgfC4Hr1DYjHJ5EYuWyZaPcMlWdRbdLhIgMgPgEkA%0Ax5tV5rBr%2FHUGd9o8LabDt4tvGGQ%3D%0A)
 
 ## Billing details on your invoice
 
@@ -69,3 +69,7 @@ No. Issued invoices can't be changed. Update your billing details in **[Settings
 ### Can I be invoiced in a different currency?
 
 Some subscribers pay their subscriptions using a different currency than the currency (or currencies) new subscribers would be offered in their region. To change your subscription currency, you must first mark your plan to cancel at the end of the current term, and wait for the end of term. Then when you re-purchase a new Pro or Max plan, you will use the same currency (or currency options) as new subscribers would in your region.
+
+### Where can I see my monthly API credits?
+
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.

@@ -19,7 +19,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `params BetaMessageNewParams`
 
-  - `MaxTokens param.Field[int64]`
+  - `MaxTokens int64`
 
     The maximum number of tokens to generate before stopping.
 
@@ -31,7 +31,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     minimum: 0
 
-  - `Messages param.Field[[]BetaMessageParamResp]`
+  - `Messages []BetaMessageParam`
 
     Input messages.
 
@@ -2986,6 +2986,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                        - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
+
+                          Fastest model for high-volume, real-time tasks
+
                         - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
                           Efficient model for coding and agents
@@ -3403,23 +3407,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `const BetaSystemMessageOutputConfigEffortMax BetaSystemMessageOutputConfigEffort = "max"`
 
-  - `Model param.Field[Model]`
+  - `Model Model`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `CacheControl param.Field[BetaCacheControlEphemeral] Optional`
+  - `CacheControl BetaCacheControlEphemeralParam Optional`
 
     Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-  - `Compaction param.Field[BetaCompactionConfig] Optional`
+  - `Compaction BetaCompactionConfigParam Optional`
 
     Compaction configuration.
 
     When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`.
 
-  - `Container param.Field[BetaMessageNewParamsContainerUnion] Optional`
+  - `Container BetaMessageNewParamsContainerUnion Optional`
 
     Container identifier for reuse across requests.
 
@@ -3459,17 +3463,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `string`
 
-  - `ContextManagement param.Field[BetaContextManagementConfig] Optional`
+  - `ContextManagement BetaContextManagementConfigParam Optional`
 
     Context management configuration.
 
     This allows you to control how Claude manages context across multiple requests, such as whether to clear function results or not.
 
-  - `Diagnostics param.Field[BetaDiagnosticsParamResp] Optional`
+  - `Diagnostics BetaDiagnosticsParam Optional`
 
     Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
-  - `FallbackCreditToken param.Field[BetaMessageNewParamsFallbackCreditTokenUnion] Optional`
+  - `FallbackCreditToken BetaMessageNewParamsFallbackCreditTokenUnion Optional`
 
     The `fallback_credit_token` from a prior refusal's `stop_details`.
 
@@ -3518,15 +3522,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `const BetaFallbackCreditTokenParamModeBestEffort BetaFallbackCreditTokenParamMode = "best_effort"`
 
-  - `Fallbacks param.Field[BetaFallbacksParamUnionResp] Optional`
+  - `Fallbacks BetaFallbacksParamUnion Optional`
 
     Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
 
-  - `InferenceGeo param.Field[string] Optional`
+  - `InferenceGeo param.Opt[string] Optional`
 
     Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
-  - `MCPServers param.Field[[]BetaRequestMCPServerURLDefinition] Optional`
+  - `MCPServers []BetaRequestMCPServerURLDefinitionParam Optional`
 
     MCP servers to be utilized in this request
 
@@ -3546,15 +3550,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Enabled bool Optional`
 
-  - `Metadata param.Field[BetaMetadata] Optional`
+  - `Metadata BetaMetadataParam Optional`
 
     An object describing metadata about the request.
 
-  - `OutputConfig param.Field[BetaOutputConfig] Optional`
+  - `OutputConfig BetaOutputConfigParam Optional`
 
     Configuration options for the model's output, such as the output format.
 
-  - `ServiceTier param.Field[BetaMessageNewParamsServiceTier] Optional`
+  - `ServiceTier BetaMessageNewParamsServiceTier Optional`
 
     Determines whether to use priority capacity (if available) or standard capacity for this request.
 
@@ -3564,7 +3568,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `const BetaMessageNewParamsServiceTierStandardOnly BetaMessageNewParamsServiceTier = "standard_only"`
 
-  - `Speed param.Field[BetaMessageNewParamsSpeed] Optional`
+  - `Speed BetaMessageNewParamsSpeed Optional`
 
     The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
@@ -3572,7 +3576,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `const BetaMessageNewParamsSpeedFast BetaMessageNewParamsSpeed = "fast"`
 
-  - `StopSequences param.Field[[]string] Optional`
+  - `StopSequences []string Optional`
 
     Custom text sequences that will cause the model to stop generating.
 
@@ -3580,7 +3584,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     If you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `"stop_sequence"` and the response `stop_sequence` value will contain the matched stop sequence.
 
-  - `System param.Field[[]BetaTextBlockParamResp] Optional`
+  - `System []BetaTextBlockParam Optional`
 
     System prompt.
 
@@ -3600,7 +3604,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Citations []BetaTextCitationParamUnionResp Optional`
 
-  - `Thinking param.Field[BetaThinkingConfigParamUnionResp] Optional`
+  - `Thinking BetaThinkingConfigParamUnion Optional`
 
     Configuration for enabling Claude's extended thinking.
 
@@ -3608,11 +3612,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-  - `ToolChoice param.Field[BetaToolChoiceUnion] Optional`
+  - `ToolChoice BetaToolChoiceUnionParam Optional`
 
     How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-  - `Tools param.Field[[]BetaToolUnion] Optional`
+  - `Tools []BetaToolUnionParam Optional`
 
     Definitions of tools that the model may use.
 
@@ -3757,7 +3761,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Allows configuring enabled status and defer_loading for all tools
       from an MCP server, with optional per-tool overrides.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -3861,17 +3865,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `UserProfileID param.Field[string] Optional` (header parameter)
+  - `UserProfileID param.Opt[string] Optional` (header parameter)
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
-  - `OutputFormat param.Field[BetaJSONOutputFormat] Optional`
+  - `OutputFormat BetaJSONOutputFormatParam Optional`
 
     **Deprecated**
 
@@ -3879,7 +3883,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
-  - `Temperature param.Field[float64] Optional`
+  - `Temperature param.Opt[float64] Optional`
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
@@ -3891,7 +3895,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     minimum: 0, maximum: 1
 
-  - `TopK param.Field[int64] Optional`
+  - `TopK param.Opt[int64] Optional`
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
@@ -3903,7 +3907,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     minimum: 0
 
-  - `TopP param.Field[float64] Optional`
+  - `TopP param.Opt[float64] Optional`
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
@@ -6648,6 +6652,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                    - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
+
+                      Fastest model for high-volume, real-time tasks
+
                     - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
                       Efficient model for coding and agents
@@ -8161,7 +8169,7 @@ func main() {
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-sonnet-5-5",
+        "model": "claude-haiku-5-5",
         "output_tokens": 0,
         "type": "message"
       }

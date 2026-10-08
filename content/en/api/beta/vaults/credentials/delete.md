@@ -159,7 +159,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID \
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "type": "vault_credential_deleted"
 }
 ```

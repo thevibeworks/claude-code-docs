@@ -153,7 +153,7 @@ require "anthropic"
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
 beta_managed_agents_deleted_credential = anthropic.beta.vaults.credentials.delete(
-  "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   vault_id: "vlt_011CZkZDLs7fYzm1hXNPeRjv"
 )
 
@@ -164,7 +164,7 @@ puts(beta_managed_agents_deleted_credential)
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "type": "vault_credential_deleted"
 }
 ```

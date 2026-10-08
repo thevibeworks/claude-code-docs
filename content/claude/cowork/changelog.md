@@ -6,6 +6,26 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.26454.2" description="2026-10-07">
+  Bundled Claude Code version: 2.1.293.
+
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v2.26454.0" description="2026-10-06">
   Bundled Claude Code version: 2.1.289.
 
@@ -413,7 +433,7 @@
 </Update>
 
 <Update label="Resolved: Cowork on Windows" description="2026-09-14">
-  Microsoft has released a Windows update that fixes the issue where Cowork could not reach your files on Windows PCs. Install the latest Windows update and restart your PC. On Windows 11 24H2 and 25H2 the fix is [KB5129195](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5129195-windows-11-24h2-25h2-security-update). No Claude Desktop update is needed.
+  Microsoft has released a Windows update that fixes the issue where Cowork could not reach your files on Windows PCs. Install the latest Windows update and restart your PC. On Windows 11 24H2 and 25H2 the fix is [KB5129195](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5129195-windows-11-24h2-25h2-security-update). On Windows 11 23H2 the fix is [KB5129242](https://support.microsoft.com/en-us/servicing/os/windows-11/2026/09/kb5129242-windows-11-23h2-update). On Windows 10 21H2 and 22H2 the fix is [KB5129236](https://support.microsoft.com/en-us/servicing/os/windows-10/2026/09/kb5129236-windows-10-21h2-22h2-update). No Claude Desktop update is needed.
 </Update>
 
 <Update label="v1.52386.6" description="2026-09-13">

@@ -22,6 +22,7 @@ featureMetadata:
     - claude-sonnet-5-5
     - claude-sonnet-5
     - claude-sonnet-4-6
+    - claude-haiku-5-5
   supportedPlatforms:
     Claude API: ga
     Claude Platform on AWS: ga
@@ -221,10 +222,10 @@ Set `output_config.effort` on the request. The following example runs one reques
 
 ## How effort works
 
-Most Claude models default to high effort, spending as many tokens as needed for excellent results; Claude Opus 5.5 defaults to medium. You can raise the effort level to `max` for the absolute highest capability, or lower it to be more conservative with token usage, optimizing for speed and cost while accepting some reduction in capability.
+Most Claude models default to high effort, spending as many tokens as needed for excellent results; Claude Opus 5.5 and Claude Haiku 5.5 default to medium. You can raise the effort level to `max` for the absolute highest capability, or lower it to be more conservative with token usage, optimizing for speed and cost while accepting some reduction in capability.
 
 <Tip>
-  Setting `effort` to the model's default (`"medium"` on Claude Opus 5.5, `"high"` on other models) produces exactly the same behavior as omitting the `effort` parameter entirely.
+  Setting `effort` to the model's default (`"medium"` on Claude Opus 5.5 and Claude Haiku 5.5, `"high"` on other models) produces exactly the same behavior as omitting the `effort` parameter entirely.
 </Tip>
 
 The effort parameter affects **all tokens** in the response, including:
@@ -237,13 +238,13 @@ Because effort applies to every output token, it works whether or not thinking i
 
 ### Effort levels
 
-| Level    | Description                                                                                                                                                                                                                                                                                                                | Typical use case                                                                           |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `max`    | Absolute maximum capability with no constraints on token spending. Available on Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Mythos Preview, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5.5, Claude Sonnet 5, and Claude Sonnet 4.6. | Tasks requiring the deepest possible reasoning and most thorough analysis                  |
-| `xhigh`  | Extended capability for long-horizon work. Available on Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5.5, and Claude Sonnet 5.                                                                                    | Long-running agentic and coding tasks (over 30 minutes) with token budgets in the millions |
-| `high`   | Spends as many tokens as the task needs for excellent results. The default on every model that supports effort except Claude Opus 5.5.                                                                                                                                                                                     | Complex reasoning, difficult coding problems, agentic tasks                                |
-| `medium` | Balanced approach with moderate token savings. The default on Claude Opus 5.5.                                                                                                                                                                                                                                             | Agentic tasks that require a balance of speed, cost, and performance                       |
-| `low`    | Most efficient. Significant token savings with some capability reduction.                                                                                                                                                                                                                                                  | Simpler tasks that need the best speed and lowest costs, such as subagents                 |
+| Level    | Description                                                                                                                                                                                                                                                                                                                                  | Typical use case                                                                           |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `max`    | Absolute maximum capability with no constraints on token spending. Available on Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Mythos Preview, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, Claude Sonnet 5.5, Claude Sonnet 5, Claude Sonnet 4.6, and Claude Haiku 5.5. | Tasks requiring the deepest possible reasoning and most thorough analysis                  |
+| `xhigh`  | Extended capability for long-horizon work. Available on Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5.5, Claude Sonnet 5, and Claude Haiku 5.5.                                                                                    | Long-running agentic and coding tasks (over 30 minutes) with token budgets in the millions |
+| `high`   | Spends as many tokens as the task needs for excellent results. The default on every model that supports effort except Claude Opus 5.5 and Claude Haiku 5.5.                                                                                                                                                                                  | Complex reasoning, difficult coding problems, agentic tasks                                |
+| `medium` | Balanced approach with moderate token savings. The default on Claude Opus 5.5 and Claude Haiku 5.5.                                                                                                                                                                                                                                          | Agentic tasks that require a balance of speed, cost, and performance                       |
+| `low`    | Most efficient. Significant token savings with some capability reduction.                                                                                                                                                                                                                                                                    | Simpler tasks that need the best speed and lowest costs, such as subagents                 |
 
 Not every model that supports `max` supports `xhigh`.
 
@@ -336,6 +337,14 @@ Sonnet 4.6 defaults to `high` effort. Explicitly set effort when using Sonnet 4.
 * **High effort:** For complex reasoning and tasks where quality matters more than speed or cost.
 * **Max effort:** For tasks requiring the absolute highest capability with no constraints on token spending.
 
+### Recommended effort levels for Claude Haiku 5.5
+
+Claude Haiku 5.5 supports all five effort levels, and `medium` is the default on the Claude API and in Claude Code. Effort is the main control for how much the model thinks, and with it quality, latency, and cost. **Start with `medium`** for most work, including agentic coding. Use `low`, the cheapest and fastest level, for chat, short tool tasks, and simple, high-volume requests. In long agent prompts, the model is more likely to skip a search, stop early, or skip a check at `low`. Use `high` for knowledge work, longer agent tasks, and strict instruction following. Use `xhigh` or `max` only where your evals show a quality gain, and compare them with Claude Sonnet 5.5 on performance, cost, and speed. Thinking is on by default and counts toward `max_tokens`, so leave room for it. See [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking).
+
+To get less thinking, lower the effort level. You can also send `thinking: {"type": "disabled"}` at `high` effort or below. At `xhigh` or `max`, it returns a 400 error, so use adaptive thinking there: omit the `thinking` field or send `thinking: {"type": "adaptive"}`.
+
+On the Claude API and Google Cloud, Claude Haiku 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache. With `thinking: {"type": "disabled"}`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort per turn, use adaptive thinking.
+
 ## Effort with tool use
 
 When using tools, the effort parameter affects both the explanations around tool calls and the tool calls themselves. Lower effort levels tend to:
@@ -364,13 +373,13 @@ For per-model thinking availability, see the [per-model configuration table](htt
 
 ## Change effort mid-conversation
 
-You can run later turns of a conversation at a different effort level in two ways. On Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, and Claude Sonnet 5.5, use a per-message effort change, which keeps the prompt cache. On other models, set a new top-level value on the next request, which starts the cache over.
+You can run later turns of a conversation at a different effort level in two ways. On Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5, use a per-message effort change, which keeps the prompt cache. On other models, set a new top-level value on the next request, which starts the cache over.
 
 ### Per-message effort (beta)
 
-Per-message effort is in beta. On the Claude API and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), it's available on Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, and Claude Sonnet 5.5. On [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), it's available on Claude Fable 5.1, Claude Mythos 5.1, and Claude Opus 5.5. It requires the [beta header](https://platform.claude.com/docs/en/api/beta-headers) `mid-conversation-output-config-2026-07-01`. With the Amazon Bedrock [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), it's available on Claude Fable 5.1 and Claude Opus 5.5, and you send that value in the `anthropic_beta` array of the request body instead.
+Per-message effort is in beta. On the Claude API and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), it's available on Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5. On [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), it's available on Claude Fable 5.1, Claude Mythos 5.1, and Claude Opus 5.5. It requires the [beta header](https://platform.claude.com/docs/en/api/beta-headers) `mid-conversation-output-config-2026-07-01`. With the Amazon Bedrock [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), it's available on Claude Fable 5.1 and Claude Opus 5.5, and you send that value in the `anthropic_beta` array of the request body instead.
 
-Without the beta value, a per-message `output_config` returns a 400 error: `messages.N.output_config: Extra inputs are not permitted`, where `N` is the index of the `system` message in `messages`. With the beta value, models without per-message effort, including Claude Fable 5, return a 400 error: `output_config.effort requires a model that supports per-turn effort; this model does not`. On Amazon Bedrock, those models and Claude Opus 5 return the `Extra inputs are not permitted` error instead. On Claude Sonnet 5.5 with `thinking: {"type": "between_tools"}`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort per turn, use adaptive thinking.
+Without the beta value, a per-message `output_config` returns a 400 error: `messages.N.output_config: Extra inputs are not permitted`, where `N` is the index of the `system` message in `messages`. With the beta value, models without per-message effort, including Claude Fable 5, return a 400 error: `output_config.effort requires a model that supports per-turn effort; this model does not`. On Amazon Bedrock, those models and Claude Opus 5 return the `Extra inputs are not permitted` error instead. On Claude Sonnet 5.5 with `thinking: {"type": "between_tools"}` and on Claude Haiku 5.5 with `thinking: {"type": "disabled"}`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort per turn, use adaptive thinking.
 
 Add a `role: "system"` message with empty `content` and the new level in `output_config.effort`. The new level takes effect from the next `user` turn and holds until a later message changes it. Everything before that message is unchanged, so the cached prefix still matches.
 
@@ -653,7 +662,7 @@ The top-level `output_config.effort` applies to the whole request. To run a late
 
 ## Best practices
 
-1. **Set effort explicitly:** The API defaults to `high` (`medium` on Claude Opus 5.5), but the right starting point depends on your model and workload.
+1. **Set effort explicitly:** The API defaults to `high` (`medium` on Claude Opus 5.5 and Claude Haiku 5.5), but the right starting point depends on your model and workload.
 2. **Use low for speed-sensitive or simple tasks:** When latency matters or tasks are straightforward, low effort can significantly reduce response times and costs.
 3. **Test your use case:** The impact of effort levels varies by task type. Evaluate performance on your specific use cases before deploying.
 4. **Consider dynamic effort:** Adjust effort based on task complexity. Simple queries may warrant low effort while agentic coding and complex reasoning benefit from high effort. See the next item before varying it within one conversation.

@@ -19,7 +19,7 @@ Archive Agent
 
 - `body BetaAgentArchiveParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -123,7 +123,7 @@ Archive Agent
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -172,6 +172,10 @@ Archive Agent
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
+
+        Fastest model for high-volume, real-time tasks
 
       - `const BetaManagedAgentsModelClaudeSonnet5_5 BetaManagedAgentsModel = "claude-sonnet-5-5"`
 
@@ -541,6 +545,82 @@ Archive Agent
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
+          - `URLSources BetaManagedAgentsWebFetchURLSources`
+
+            Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+            - `ClientToolResults BetaManagedAgentsWebFetchURLSourceToolFilterUnion`
+
+              Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+              - `type BetaManagedAgentsWebFetchURLSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+                - `Type All`
+
+              - `type BetaManagedAgentsWebFetchURLSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
+                - `Type None`
+
+              - `type BetaManagedAgentsWebFetchURLSourceOnly`
+
+                Only the named tools' results contribute URLs that may be fetched.
+
+                - `Type Only`
+
+                - `Tools []BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                  The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                  - `Type ToolReference`
+
+                    Must be "tool_reference".
+
+                  - `Name string`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+              - `type BetaManagedAgentsWebFetchURLSourceExcept`
+
+                Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `Type Except`
+
+                - `Tools []BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                  The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                  - `Type ToolReference`
+
+                    Must be "tool_reference".
+
+                  - `Name string`
+
+                    Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                    minLength: 1, maxLength: 128
+
+            - `ServerToolResults BetaManagedAgentsWebFetchURLSourceToolFilterUnion`
+
+              Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+            - `UserInput BetaManagedAgentsWebFetchURLSourceUserInputUnion`
+
+              Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+              - `type BetaManagedAgentsWebFetchURLSourceAll`
+
+                Every URL from this source may be fetched. This is the default.
+
+              - `type BetaManagedAgentsWebFetchURLSourceNone`
+
+                This source contributes no URLs that may be fetched.
+
           - `AllowedDomains []string Optional`
 
           - `BlockedDomains []string Optional`
@@ -786,7 +866,7 @@ func main() {
       "version": "1"
     },
     {
-      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+      "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
       "type": "custom",
       "version": "2"
     }

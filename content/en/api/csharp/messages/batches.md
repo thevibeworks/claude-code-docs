@@ -1087,6 +1087,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `ClaudeHaiku5_5("claude-haiku-5-5")`
+
+          Fastest model for high-volume, real-time tasks
+
         - `ClaudeSonnet5_5("claude-sonnet-5-5")`
 
           Efficient model for coding and agents
@@ -4696,6 +4700,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeHaiku5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
+
           - `ClaudeSonnet5_5("claude-sonnet-5-5")`
 
             Efficient model for coding and agents
@@ -6004,6 +6012,10 @@ await foreach (var messageBatchIndividualResponse in client.Messages.Batches.Res
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeHaiku5_5("claude-haiku-5-5")`
+
+            Fastest model for high-volume, real-time tasks
+
           - `ClaudeSonnet5_5("claude-sonnet-5-5")`
 
             Efficient model for coding and agents
@@ -7129,6 +7141,10 @@ await foreach (var messageBatchIndividualResponse in client.Messages.Batches.Res
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `ClaudeHaiku5_5("claude-haiku-5-5")`
+
+          Fastest model for high-volume, real-time tasks
+
         - `ClaudeSonnet5_5("claude-sonnet-5-5")`
 
           Efficient model for coding and agents
@@ -8215,6 +8231,10 @@ await foreach (var messageBatchIndividualResponse in client.Messages.Batches.Res
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `ClaudeHaiku5_5("claude-haiku-5-5")`
+
+        Fastest model for high-volume, real-time tasks
 
       - `ClaudeSonnet5_5("claude-sonnet-5-5")`
 

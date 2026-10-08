@@ -9,7 +9,7 @@ Preserved thinking is a property of newer Claude models that guards against dist
 * **The model can read the block.** Each model reads its own thinking blocks and those of a fixed set of other models. Claude Fable 5.1 reads blocks from Claude Opus 5 and, on the Claude API, from Claude Opus 5.5; neither Claude Opus 5 nor Claude Opus 5.5 reads blocks from Claude Fable 5.1. If the current model can't read a block, the API drops it from that request without an error. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
 * **Nothing before the thinking block has changed.** The top-level `system` prompt, `tools`, and `messages` before the block are its prefix. If the prefix differs from what you sent when the block was produced, that block and every later thinking block are invalid, and the API rejects the request with a 400 error or drops the invalid blocks, whichever you choose. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check).
 
-Claude Sonnet 5.5's thinking blocks are also tied to the account that produced them. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking) for where the API enforces this.
+Thinking blocks from Claude Sonnet 5.5 and Claude Haiku 5.5 are also tied to the account that produced them. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking) for where the API enforces this.
 
 The model check applies to every account. The API enforces the prefix check by default for accounts created on or after August 31, 2026, 00:00 UTC. On older accounts, it enforces the prefix check only on requests that set `thinking.block_binding.prefix_mismatch_behavior`. **Make your integration append-only regardless of your account's age**, so the same code works on every account, including newer accounts enforced by default.
 
@@ -30,18 +30,18 @@ Check your integration if, between two requests in one conversation, it does any
 
 On an older account, none of these produces an error unless the request sets `prefix_mismatch_behavior`, so a run with no errors on your own key doesn't show whether your code is affected. If people run your tool with their own API keys, those on newer accounts get the 400 error before you do. To see what they see without changing how your requests behave, send the `thinking-binding-controls-2026-08-01` beta header. On an older account, each response then flags blocks that fail the check, and the model still reads them (see [Set the mismatch behavior and read `input_transformations`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#preserved-thinking-controls)).
 
-Also check your integration if it sends Claude Sonnet 5.5 thinking blocks from one account in a request made by a different account. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
+Also check your integration if it sends Claude Sonnet 5.5 or Claude Haiku 5.5 thinking blocks from one account in a request made by a different account. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
 ## Switching models mid-conversation
 
 Claude Fable 5.1 and Claude Mythos 5.1 read thinking blocks produced by each other and by earlier Claude models. No earlier model reads thinking blocks from Claude Fable 5.1 or Claude Mythos 5.1.
 
-Claude Opus 5.5 reads thinking blocks from Claude Opus 5, from earlier Opus, Sonnet, and Haiku models, and, on the Claude API and Google Cloud, from Claude Sonnet 5.5, but not from Claude Fable or Claude Mythos models. On the Claude API, Claude Fable 5.1 and Claude Mythos 5.1 read thinking blocks from Claude Opus 5.5; no other model does. So a conversation that moves from Claude Opus 5 onto Claude Opus 5.5 keeps its reasoning, and so does one that moves from Claude Opus 5.5 up to Claude Fable 5.1 or Claude Mythos 5.1 on the Claude API. One that moves from Claude Fable 5.1 or Claude Mythos 5.1 to Claude Opus 5.5, or from Claude Opus 5.5 to any model other than those two, runs the turns after the switch without the previous model's reasoning. The blocks are dropped, not rejected, as described below.
+Claude Opus 5.5 reads thinking blocks from Claude Opus 5, from earlier Opus, Sonnet, and Haiku models, and, on the Claude API and Google Cloud, from Claude Sonnet 5.5 and Claude Haiku 5.5, but not from Claude Fable or Claude Mythos models. On the Claude API, Claude Fable 5.1 and Claude Mythos 5.1 read thinking blocks from Claude Opus 5.5; no other model does. So a conversation that moves from Claude Opus 5 onto Claude Opus 5.5 keeps its reasoning, and so does one that moves from Claude Opus 5.5 up to Claude Fable 5.1 or Claude Mythos 5.1 on the Claude API. One that moves from Claude Fable 5.1 or Claude Mythos 5.1 to Claude Opus 5.5, or from Claude Opus 5.5 to any model other than those two, runs the turns after the switch without the previous model's reasoning. The blocks are dropped, not rejected, as described later in this section.
 
-Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, and earlier models, but not from Claude Opus 5, Claude Opus 5.5, or any Claude Fable or Claude Mythos model. On the Claude API and Google Cloud, Claude Opus 5.5 reads thinking blocks from Claude Sonnet 5.5; no other model does. So a conversation that moves from Claude Sonnet 5 onto Claude Sonnet 5.5 keeps its reasoning, and so does one that moves from Claude Sonnet 5.5 up to Claude Opus 5.5 on the Claude API and Google Cloud. One that moves onto Claude Sonnet 5.5 from Claude Opus 5, Claude Opus 5.5, or a Claude Fable or Claude Mythos model runs the turns after the switch without the previous model's reasoning. So does any other move away from Claude Sonnet 5.5, for example a [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) to Claude Sonnet 5.
+Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, and earlier models, and, on the Claude API and Google Cloud, from Claude Haiku 5.5, but not from Claude Opus 5, Claude Opus 5.5, or any Claude Fable or Claude Mythos model. On the Claude API and Google Cloud, Claude Opus 5.5 reads thinking blocks from Claude Sonnet 5.5; no other model does. So a conversation that moves from Claude Sonnet 5 onto Claude Sonnet 5.5 keeps its reasoning, and so does one that moves from Claude Sonnet 5.5 up to Claude Opus 5.5 on the Claude API and Google Cloud. One that moves onto Claude Sonnet 5.5 from Claude Opus 5, Claude Opus 5.5, or a Claude Fable or Claude Mythos model runs the turns after the switch without the previous model's reasoning. So does any other move away from Claude Sonnet 5.5, for example a [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) to Claude Sonnet 5.
 
 * **A conversation that moves to Claude Fable 5.1 from an earlier model, or from Claude Opus 5.5 on the Claude API, keeps its reasoning.** The earlier model's thinking blocks stay readable, so the model thinks as usual from the first turn after the switch.
-* **A conversation that moves down to an earlier model loses Claude Fable 5.1's reasoning for that request.** This happens when a router sends a turn to a cheaper model, after a [classifier refusal fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback), or during a [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). The API removes the unreadable blocks before the prompt reaches the model. They aren't billed and don't count toward `input_tokens`.
+* **A conversation that moves down to an earlier model loses Claude Fable 5.1's reasoning for that request.** This occurs when a router sends a turn to a cheaper model, after a [classifier refusal fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback), or during a [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). The API removes the unreadable blocks before the prompt reaches the model. They aren't billed and don't count toward `input_tokens`.
 
 Keep sending the full history on every request, thinking blocks included, and let the API drop what the current model can't read. The API never edits your `messages` array, so the dropped blocks stay in your history. When the same history goes back to Claude Fable 5.1, its blocks are readable again, along with the earlier model's thinking. The reasoning is lost for good only if your client removes the blocks itself, for example a harness that strips thinking on a model switch or rebuilds the history from what each model used.
 
@@ -67,13 +67,13 @@ Without the header, the drop is silent. This entry isn't a bug in your integrati
 
 ## Thinking blocks stay with the account that produced them
 
-Thinking blocks that Claude Sonnet 5.5 produces work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model sees it, and the request succeeds. The model answers without the reasoning in the dropped blocks. Blocks from earlier models aren't affected.
+Thinking blocks that Claude Sonnet 5.5 or Claude Haiku 5.5 produces work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model sees it, and the request succeeds. The model answers without the reasoning in the dropped blocks. Blocks from earlier models aren't affected.
 
 On the Claude API and Google Cloud, with the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers), the response lists each dropped block in `input_transformations` as a `thinking_dropped` entry with `reason: "organization_binding_mismatch"`. Without the header, the drop is silent.
 
 ## Keeping the prefix unchanged
 
-On Claude Fable 5.1, Claude Opus 5.5, and Claude Sonnet 5.5, a thinking block stays valid only while everything you sent before it is unchanged on later requests. The checked prefix has three parts:
+On Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, a thinking block stays valid only while everything you sent before it is unchanged on later requests. The checked prefix has three parts:
 
 * The top-level `system` prompt
 * The set of `tools`
@@ -120,7 +120,7 @@ A tampered or undecryptable signature is a different failure. It always returns 
 
 #### Handle the error in code
 
-This is the 400 `invalid_request_error` shown earlier in this section. Don't resend the same body: it fails the same way every time. Retry once with the beta header and `prefix_mismatch_behavior: "drop_block"`, and store that choice with the session so every later request sends it too, including after a restart. On Claude Sonnet 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools`, keep the history append-only, or strip the thinking blocks from the edited turn on. If you can't send the beta header, remove every `thinking` and `redacted_thinking` block from the history once, leave them out, and continue. Then fix the edit that caused the mismatch.
+This is the 400 `invalid_request_error` shown earlier in this section. Don't resend the same body: it fails the same way every time. Retry once with the beta header and `prefix_mismatch_behavior: "drop_block"`, and store that choice with the session so every later request sends it too, including after a restart. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools` on Claude Sonnet 5.5, or `thinking: {"type": "disabled"}` on Claude Haiku 5.5, keep the history append-only, or strip the thinking blocks from the edited turn on. If you can't send the beta header, remove every `thinking` and `redacted_thinking` block from the history once, leave them out, and continue. Then fix the edit that caused the mismatch.
 
 ### Set the mismatch behavior and read `input_transformations`
 
@@ -129,7 +129,7 @@ The `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude
 * A top-level `input_transformations` array on every response
 * A `block_binding` object on the `thinking` configuration, whose one field is `prefix_mismatch_behavior`
 
-`block_binding` is accepted alongside `thinking.type: "adaptive"` and `thinking.type: "enabled"`. On Claude Sonnet 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. Sending it with `between_tools` returns a 400 error. Sending it without the beta header returns a 400 error whose message ends `block_binding: Extra inputs are not permitted`. Models that don't run the prefix check accept the object and report only model-check drops, so one request body works across models. The API reference calls the prefix check the conversation check.
+`block_binding` is accepted alongside `thinking.type: "adaptive"` and `thinking.type: "enabled"`. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. Sending it with `between_tools` on Claude Sonnet 5.5, or with `thinking: {"type": "disabled"}` on Claude Haiku 5.5, returns a 400 error. Sending it without the beta header returns a 400 error whose message ends `block_binding: Extra inputs are not permitted`. Models that don't run the prefix check accept the object and report only model-check drops, so one request body works across models. The API reference calls the prefix check the conversation check.
 
 The following request opts into dropping rather than rejecting. On a first turn there's nothing to replay, so `input_transformations` comes back empty:
 
@@ -396,9 +396,9 @@ When [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming
 
 ### When the API enforces the check
 
-The API enforces the prefix check on Claude Fable 5.1, Claude Opus 5.5, and Claude Sonnet 5.5 for new accounts.
+The API enforces the prefix check on Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 for new accounts.
 
-* **Accounts created on or after August 31, 2026, 00:00 UTC:** the API checks Claude Fable 5.1, Claude Opus 5.5, and Claude Sonnet 5.5 requests and applies `"error"` unless you set `"drop_block"`. The same definition of a new account applies to the Claude API and to cloud platforms.
+* **Accounts created on or after August 31, 2026, 00:00 UTC:** the API checks Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5 requests and applies `"error"` unless you set `"drop_block"`. The same definition of a new account applies to the Claude API and to cloud platforms.
 * **Older accounts:** the API enforces the check only on requests that set `prefix_mismatch_behavior`. Setting the field opts a request in, so you can see what a new account sees without creating one. On requests that leave it unset, the API still runs the check but lets failing blocks through to the model. With the beta header, the response lists each one in `input_transformations` as `thinking_mismatch_allowed`, so you can find prefix edits without changing what the model receives.
 
 To find out which group your account is in, take a Claude Fable 5.1 conversation that contains a thinking block, change something before that block, and send it to Claude Fable 5.1 without the beta header or the `block_binding` field. A 400 response that names the header means your account is enforced by default. A 200 response means it isn't. To confirm, send the same request again with the beta header, still without `block_binding`: the response lists every thinking block after your edit in `input_transformations` as `thinking_mismatch_allowed`.
@@ -1259,7 +1259,7 @@ Other platforms that offer these betas use the same names. To send them there, s
 
 Store the `content` array from each response and send it back unchanged as the assistant turn: every block type, in the order received, including `thinking` blocks whose `thinking` field is empty. A serializer that drops unknown block types, drops empty fields, or reorders blocks edits the prefix for every later turn.
 
-On Claude Fable 5.1, the `thinking` field is empty by default and the `signature` carries the reasoning, so a serializer that skips empty blocks removes thinking. If it removes all of them, nothing fails and the model loses its earlier reasoning on every turn. If you parse the stream yourself, keep the block even when no thinking text arrives: it opens, receives its `signature` in a `signature_delta` event, and closes. A block sent back with an empty `signature` fails.
+On Claude Fable 5.1 and Claude Haiku 5.5, the `thinking` field is empty by default and the `signature` carries the reasoning, so a serializer that skips empty blocks removes thinking. If it removes all of them, nothing fails and the model loses its earlier reasoning on every turn. If you parse the stream yourself, keep the block even when no thinking text arrives: it opens, receives its `signature` in a `signature_delta` event, and closes. A block sent back with an empty `signature` fails.
 
 ### Add instructions with a mid-conversation system message
 
@@ -1356,7 +1356,7 @@ You have two ways to use these blocks:
 * **Declare every tool up front.** Put every tool the session might need in `tools` on the first request, with `defer_loading: true` on any the model shouldn't see yet. Then turn tools on and off with `tool_addition` and `tool_removal` blocks that name them.
 * **Start with a snapshot and add tools as you go.** Put the tools you know about in `tools` on the first request. When a new tool comes along, define it inside a `tool_addition` block instead of editing `tools`.
 
-Either way, `tools` never changes, so earlier thinking stays valid and the prompt cache still hits, with the one exception noted below.
+Either way, `tools` never changes, so earlier thinking stays valid and the prompt cache still hits, with the one exception noted later in this section.
 
 For example, to withdraw a dangerous tool after a mode switch:
 
@@ -1417,7 +1417,7 @@ The `role: "system"` messages that carry these blocks join the prefix for later 
 
 ### Change effort with a per-message `output_config`
 
-Changing top-level `output_config.effort` between requests doesn't invalidate thinking, because effort isn't part of the prefix. Changing top-level effort does restart the prompt cache. On Claude Fable 5.1, use [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) instead: append a `role: "system"` message with empty `content` and the new level. It needs the beta header `mid-conversation-output-config-2026-07-01`.
+Changing top-level `output_config.effort` between requests doesn't invalidate thinking, because effort isn't part of the prefix. Changing top-level effort does restart the prompt cache. On Claude Fable 5.1 and on Claude Haiku 5.5 with adaptive thinking, use [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) instead: append a `role: "system"` message with empty `content` and the new level. It needs the beta header `mid-conversation-output-config-2026-07-01`.
 
 ```json
 { "role": "system", "content": [], "output_config": { "effort": "low" } }
@@ -1717,7 +1717,7 @@ A library, proxy, or gateway sits between someone else's history and the API, so
   </Accordion>
 
   <Accordion title="Does changing effort or other thinking settings between requests invalidate earlier thinking?">
-    No. `output_config.effort`, `max_tokens`, and the `thinking` configuration aren't part of the checked prefix, which covers only `system`, `tools`, and `messages`. A top-level effort change invalidates most of the prompt cache. On Claude Fable 5.1, a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#effort-changes) change keeps the prompt cache and is used as the new effort level until changed again.
+    No. `output_config.effort`, `max_tokens`, and the `thinking` configuration aren't part of the checked prefix, which covers only `system`, `tools`, and `messages`. A top-level effort change invalidates most of the prompt cache. On Claude Fable 5.1 and on Claude Haiku 5.5 with adaptive thinking, a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#effort-changes) change keeps the prompt cache and is used as the new effort level until changed again.
   </Accordion>
 
   <Accordion title="My tool list changes mid-session. How do I avoid invalidating the conversation?">
@@ -1739,7 +1739,7 @@ A library, proxy, or gateway sits between someone else's history and the API, so
   </Accordion>
 
   <Accordion title="A saved session now fails on every request. How do I get it working again?">
-    The stored history has an edit in it, so replaying it can't succeed. Send that session with `prefix_mismatch_behavior: "drop_block"` from now on, or remove its `thinking` and `redacted_thinking` blocks once and continue. On Claude Sonnet 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools`, keep the history append-only, or strip the thinking blocks from the edited turn on. Thinking the model produces from that point on stays valid as long as nothing before it changes again. Then find the edit so that new sessions don't hit it. See [Handle the error in code](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#handle-the-error-in-code).
+    The stored history has an edit in it, so replaying it can't succeed. Send that session with `prefix_mismatch_behavior: "drop_block"` from now on, or remove its `thinking` and `redacted_thinking` blocks once and continue. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools` on Claude Sonnet 5.5, or `thinking: {"type": "disabled"}` on Claude Haiku 5.5, keep the history append-only, or strip the thinking blocks from the edited turn on. Thinking the model produces from that point on stays valid as long as nothing before it changes again. Then find the edit so that new sessions don't hit it. See [Handle the error in code](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#handle-the-error-in-code).
   </Accordion>
 
   <Accordion title="My harness can route a turn to a non-Claude model. Do those turns invalidate Claude's earlier thinking?">
@@ -1747,7 +1747,7 @@ A library, proxy, or gateway sits between someone else's history and the API, so
   </Accordion>
 
   <Accordion title="Can I carry a conversation's reasoning into a new conversation?">
-    Not into a different conversation. A thinking block is usable only when it follows the exact `system`, `tools`, and `messages` it was produced from. A branch that replays that history unchanged up to the fork point keeps its thinking. A conversation that starts from anything else can't use it, so start that conversation from a summary of the task state, as in [simple compaction](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#custom-compaction-on-the-client): the goal, decisions made, files and results so far, and the next step. Claude Sonnet 5.5's thinking blocks also can't be reused from another account (see [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking)).
+    Not into a different conversation. A thinking block is usable only when it follows the exact `system`, `tools`, and `messages` it was produced from. A branch that replays that history unchanged up to the fork point keeps its thinking. A conversation that starts from anything else can't use it, so start that conversation from a summary of the task state, as in [simple compaction](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#custom-compaction-on-the-client): the goal, decisions made, files and results so far, and the next step. Thinking blocks from Claude Sonnet 5.5 and Claude Haiku 5.5 also can't be reused from another account (see [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking)).
   </Accordion>
 </AccordionGroup>
 

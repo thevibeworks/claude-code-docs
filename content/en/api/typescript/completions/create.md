@@ -9,6 +9,8 @@ url: https://platform.claude.com/docs/en/api/typescript/completions/create
 
 **POST** `/v1/complete`
 
+**Deprecated**: Use the [Messages API](https://platform.claude.com/docs/en/api/messages/create) instead.
+
 [Legacy] Create a Text Completion.
 
 The Text Completions API is a legacy API. We recommend using the [Messages API](https://platform.claude.com/docs/en/api/messages) going forward.
@@ -32,6 +34,10 @@ Future models and features will not be compatible with Text Completions. See our
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-haiku-5-5"`
+
+      Fastest model for high-volume, real-time tasks
 
     - `"claude-sonnet-5-5"`
 
@@ -342,6 +348,10 @@ Future models and features will not be compatible with Text Completions. See our
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-haiku-5-5"`
+
+      Fastest model for high-volume, real-time tasks
 
     - `"claude-sonnet-5-5"`
 

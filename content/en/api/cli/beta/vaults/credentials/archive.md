@@ -191,14 +191,14 @@ Archive Credential
 ant beta:vaults:credentials archive \
   --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
-  --credential-id vcrd_011CZkZEMt8gZan2iYOQfSkw
+  --credential-id vcrd_011CZkZEMt8gZan2iYPQfSkw
 ```
 
 ### Response (200)
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",

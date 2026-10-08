@@ -76,13 +76,13 @@ Persisted event type strings follow a `{domain}.{action}` naming convention; the
   </Tab>
 
   <Tab title="System events">
-    | Type             | Description                                                                                                                                                                                                                                                                                                                                                                    |
-    | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | `system.message` | Append privileged system-level context that applies to the accompanying turn and all subsequent turns. Supported on Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, and Claude Sonnet 5.5. On an unsupported primary model the event is rejected with `model_does_not_support_mid_conversation_system`. |
+    | Type             | Description                                                                                                                                                                                                                                                                                                                                                          |
+    | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `system.message` | Append privileged system-level context that applies to the accompanying turn and all subsequent turns. For the models that accept it, see [Supported models](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#supported-models). On an unsupported primary model the event is rejected with `model_does_not_support_mid_conversation_system`. |
   </Tab>
 
   <Tab title="Event deltas">
-    Event deltas are stream-only preview events. They are emitted on stream connections (session-level or per-thread) that opt in with the `event_deltas[]` parameter, and they are never persisted to the session's event history. See [Event deltas](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#event-deltas) for opting in, accumulating, and reconciling them.
+    Event deltas are stream-only preview events. They are emitted on stream connections (session-level or per-thread) that opt in with the `event_deltas[]` parameter, and they are never persisted to the session's event history. See [Preview responses with event deltas](https://platform.claude.com/docs/en/managed-agents/event-deltas) for opting in, accumulating, and reconciling them.
 
     | Type          | Description                                                                                                              |
     | ------------- | ------------------------------------------------------------------------------------------------------------------------ |

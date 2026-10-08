@@ -96,7 +96,7 @@ Every request counts against both the member's own monthly limit and the group's
 
 If a member belongs to more than one pooled group, the largest pool is used first. You can set a custom order under **Pooled budget priority**.
 
-**How to configure:** **Organization settings > Usage > Spend limits > By group/tier**. Open the group's menu, choose **Edit limits**, and set a **Pooled monthly budget** and a **Member monthly limit**. The group needs a monthly spend limit first. Owners, Primary Owners, Admins, the Billing role, and custom roles with Billing (Can manage) can set pools. In beta, the Billing permission applies to the whole org, so anyone who can edit one group's pool can edit every group's pool. Pools aren't available through the Admin API yet. See **[Manage pooled group budgets on Enterprise plans](https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans)**.
+**How to configure:** **Organization settings > Usage > Spend limits > By group/tier**. Open the group's menu, choose **Edit limits**, and set a **Pooled monthly budget** and a **Member monthly limit**. The group needs a monthly spend limit first. Owners, Primary Owners, the Billing role, and custom roles with Billing (Can manage) can set pools. In beta, the Billing permission applies to the whole org, so anyone who can edit one group's pool can edit every group's pool. Pools aren't available through the Admin API yet. See **[Manage pooled group budgets on Enterprise plans](https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans)**.
 
 ### User-level spend caps
 

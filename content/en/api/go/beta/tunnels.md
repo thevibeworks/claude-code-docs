@@ -19,13 +19,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 - `params BetaTunnelNewParams`
 
-  - `DisplayName param.Field[string] Optional`
+  - `DisplayName param.Opt[string] Optional`
 
     Optional human-readable name for the tunnel (1-255 characters).
 
     minLength: 1, maxLength: 255
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -129,7 +129,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -223,7 +223,7 @@ Fetches a tunnel by ID.
 
 - `query BetaTunnelGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -327,7 +327,7 @@ Fetches a tunnel by ID.
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -421,21 +421,21 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 - `params BetaTunnelListParams`
 
-  - `IncludeArchived param.Field[bool] Optional` (query parameter)
+  - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
     Whether to include archived tunnels in the results. Defaults to false.
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
     format: int32
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     Opaque pagination cursor from a previous `list_tunnels` response.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -539,7 +539,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -638,7 +638,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `body BetaTunnelArchiveParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -742,7 +742,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -840,7 +840,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `body BetaTunnelRevealTokenParams`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -944,7 +944,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1023,13 +1023,13 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 - `params BetaTunnelRotateTokenParams`
 
-  - `Reason param.Field[string] Optional`
+  - `Reason param.Opt[string] Optional`
 
     Optional free-text reason for the rotation, recorded for audit.
 
     maxLength: 1024
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1133,7 +1133,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1264,13 +1264,13 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `params BetaTunnelCertificateNewParams`
 
-  - `CACertificatePEM param.Field[string]`
+  - `CACertificatePEM string`
 
     PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
 
     maxLength: 8192
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1374,7 +1374,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1481,11 +1481,11 @@ Fetches a tunnel certificate by ID.
 
 - `params BetaTunnelCertificateGetParams`
 
-  - `TunnelID param.Field[string]` (path parameter)
+  - `TunnelID string` (path parameter)
 
     ID of the tunnel (`tnl_...`).
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1589,7 +1589,7 @@ Fetches a tunnel certificate by ID.
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1696,21 +1696,21 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 - `params BetaTunnelCertificateListParams`
 
-  - `IncludeArchived param.Field[bool] Optional` (query parameter)
+  - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
     Whether to include archived certificates in the results. Defaults to false.
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
     format: int32
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     Opaque pagination cursor from a previous `list_tunnel_certificates` response.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -1814,7 +1814,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -1924,11 +1924,11 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `params BetaTunnelCertificateArchiveParams`
 
-  - `TunnelID param.Field[string]` (path parameter)
+  - `TunnelID string` (path parameter)
 
     ID of the tunnel (`tnl_...`).
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -2032,7 +2032,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

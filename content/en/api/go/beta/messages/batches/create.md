@@ -19,7 +19,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 - `params BetaMessageBatchNewParams`
 
-  - `Requests param.Field[[]BetaMessageBatchNewParamsRequest]`
+  - `Requests []BetaMessageBatchNewParamsRequest`
 
     List of requests for prompt completion. Each is an individual request to create a Message.
 
@@ -3006,6 +3006,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                            - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
+
+                              Fastest model for high-volume, real-time tasks
+
                             - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 
                               Efficient model for coding and agents
@@ -4135,7 +4139,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         minimum: 0, maximum: 1
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -4239,11 +4243,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `UserProfileID param.Field[string] Optional` (header parameter)
+  - `UserProfileID param.Opt[string] Optional` (header parameter)
 
     The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

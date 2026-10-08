@@ -4,7 +4,7 @@
 
 # Troubleshoot Claude Science
 
-> Fix errors you see while using Claude Science: being signed out, capacity retries, Agent Failed, environment setup, connectors, and updates.
+> Fix errors you see while using Claude Science: being signed out, capacity retries, Agent Failed, environment setup, connectors, dictation, and updates.
 
 This page covers error messages that Claude Science shows while you work. Other problems have their own troubleshooting sections:
 
@@ -59,6 +59,18 @@ If the notice reads "Analysis is unavailable" instead, no Python or R code can r
 ### failed to load 5 times in a row — automatic retries are paused
 
 This message appears in **Settings > Connectors** on a Featured connector marked **Failed** (hold the pointer over **Failed**) and on the connector's own page. The connector runs on your computer and failed to start five times in a row, so Claude Science stopped trying. Turn the connector off and on again in **Settings > Connectors**, or restart Claude Science.
+
+## Dictation
+
+You can dictate a message with the microphone button in the composer instead of typing it. The messages in this section appear on the microphone button when dictation can't start.
+
+### Microphone access is blocked
+
+The microphone button in the composer shows a slash, and holding the pointer over it shows this message. Allow the microphone in your system's privacy settings. If Claude Science is open in a browser tab, also allow the microphone in the browser's site settings. Then select the microphone button again.
+
+For the steps, see the help for [Chrome](https://support.google.com/chrome/answer/2693767), [Safari](https://support.apple.com/guide/safari/customize-settings-per-website-ibrw7f78f7fe/mac), [macOS](https://support.apple.com/guide/mac-help/control-access-to-the-microphone-on-mac-mchla1b1e1fe/mac), and [Windows and Microsoft Edge](https://support.microsoft.com/en-us/windows/privacy/windows-camera-microphone-and-privacy).
+
+If holding the pointer over the microphone button shows "No microphone was found." instead, check that a microphone is connected and that your system's privacy settings allow access to it.
 
 ## Updates
 

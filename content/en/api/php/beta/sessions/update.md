@@ -240,7 +240,7 @@ var_dump($betaManagedAgentsSession);
         "version": "1"
       },
       {
-        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTlx",
+        "skill_id": "skill_011CZkZFNu9hAbo3jZPRgTmx",
         "type": "custom",
         "version": "2"
       }
@@ -287,7 +287,7 @@ var_dump($betaManagedAgentsSession);
       "description": "Produce a 2-page summary as summary.md",
       "explanation": "All five sections present with inline citations.",
       "iteration": 0,
-      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVljxP",
+      "outcome_id": "outc_011CZkZRSw2kEfs6ncTVmjxP",
       "result": "satisfied",
       "type": "outcome_evaluation"
     }
@@ -302,7 +302,7 @@ var_dump($betaManagedAgentsSession);
       "updated_at": "2026-03-15T10:00:00Z"
     },
     {
-      "id": "sesrsc_011CZkZCKr6eXyl0gWMOdQiu",
+      "id": "sesrsc_011CZkZCKr6eXym1gWMPdQiu",
       "created_at": "2026-03-15T10:00:00Z",
       "mount_path": "/workspace/example-repo",
       "type": "github_repository",

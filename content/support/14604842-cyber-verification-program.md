@@ -12,13 +12,13 @@ Our generally available models can still be used by all users for secure code re
 
 ## Access tiers
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1791460800&amp;signature=1002545dfdd036d650beb6b633e4436fa2c0b2988ddf8a65013e46a865e281fa&amp;req=dicmEM17moJWW%2FMW3nq%2BgVW5JBO7gX7EvJPg72lEz5yK%2FxawzjMykff%2BkOQW%0AEvTm80eFFQIeTgw0xffCEsuNQ%2Fg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1791525600&amp;signature=dadcfdabe95e1233b42e2ed7d89c0786be5ca71f923b7bfbfaa1bcfe57c5d006&amp;req=dicmEM17moJWW%2FMW3nq%2BgVW5JBO7gX%2FAuZ3g72lEz5ytEU49bzvNd54s69B5%0AAzMTf7f0641Cbem85jRXW9fc3d4%3D%0A)
 
 ## How to apply
 
 Apply through the **[Verification Portal](https://portal.anthropic.com/programs)**. We aim to send an email notification with our review decision or request for more information within seven business days. Fill out a single application, and we will place you at the highest tier based on the information we receive.
 
-Apply once per organization. Individual users within organizations should not apply separately as organization admins can designate seats for the program. Independent researchers, maintainers, and bug bounty hunters apply as individuals. Please note that only Tier C access is available for individual applicants at this time.
+Apply once per organization. Individual users within organizations should not apply separately as organization admins can designate seats for the program. Independent researchers, maintainers, and bug bounty hunters apply as individuals. Please note that only Defense access is available for individual applicants at this time.
 
 What you'll need:
 

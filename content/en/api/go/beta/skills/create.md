@@ -15,19 +15,19 @@ Create Skill
 
 - `params BetaSkillNewParams`
 
-  - `Files param.Field[[]Reader]`
+  - `Files []Reader`
 
     Files to upload for the skill.
 
     All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-  - `DisplayName param.Field[string] Optional`
+  - `DisplayName param.Opt[string] Optional`
 
     Human-readable, single-line label for the Skill. Maximum 255 characters.
     Always set: derived from the SKILL.md frontmatter `name` when omitted at
     creation. Not unique.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -131,7 +131,7 @@ Create Skill
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

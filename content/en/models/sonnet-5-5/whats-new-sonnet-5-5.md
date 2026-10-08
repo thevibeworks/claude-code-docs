@@ -102,7 +102,7 @@ Everything in [Refusals and fallback](https://platform.claude.com/docs/en/build-
 
 ## Pricing
 
-Claude Sonnet 5.5 has the same prices as Claude Sonnet 5, including prompt caching and batch processing rates. See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) for the full list, data residency, and tool pricing.
+Claude Sonnet 5.5 has the same prices as Claude Sonnet 5, except for prompt cache reads, which cost $0.10 USD per million tokens, half the Claude Sonnet 5 rate. See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) for the full list, data residency, and tool pricing.
 
 ## Availability
 

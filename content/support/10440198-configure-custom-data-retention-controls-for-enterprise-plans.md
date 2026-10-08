@@ -12,7 +12,29 @@ Data retention is based on the last observed activity:
 
 - **For chats:** Retention period starts from the time of the last message in the conversation.
 
-- **For projects:** Retention period starts from the time the project was last updated (this includes chat creation or project knowledge base modifications).
+- **For projects:**
+
+  - These actions reset the retention period:
+
+    - Sending a message in an existing chat in the project
+
+    - Creating a new chat in the project
+
+    - Editing the project's knowledge files, instructions, or sharing settings
+
+    - Starting a Claude Cowork session in the cloud from the project, or moving a cloud session into the project (this resets the period once, when the session starts or is moved)
+
+    - Connecting or disconnecting a local folder for Cowork
+
+    - Editing the project's knowledge files from a Cowork session
+
+  - These actions don't reset the retention period:
+
+    - Viewing a project or opening a chat in it
+
+    - Starting a *local* Cowork session
+
+    - Other work in a Cowork session, whether it runs in the cloud or on your computer
 
   - Project retention always takes precedence over chat retention for chats inside a project. This applies even if you haven’t set a custom project retention period: by default, projects are retained indefinitely, so chats inside projects are not deleted by your chat retention period.
 

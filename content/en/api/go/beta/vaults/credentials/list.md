@@ -19,21 +19,21 @@ List Credentials
 
 - `params BetaVaultCredentialListParams`
 
-  - `IncludeArchived param.Field[bool] Optional` (query parameter)
+  - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
     Whether to include archived credentials in the results.
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     Maximum number of credentials to return per page. Defaults to 20, maximum 100.
 
     format: int32
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     Opaque pagination token from a previous `list_credentials` response.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -137,7 +137,7 @@ List Credentials
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -332,7 +332,7 @@ func main() {
 {
   "data": [
     {
-      "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+      "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
       "archived_at": null,
       "auth": {
         "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",

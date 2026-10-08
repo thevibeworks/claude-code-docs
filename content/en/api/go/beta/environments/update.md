@@ -17,7 +17,7 @@ Update an existing environment's configuration.
 
 - `params BetaEnvironmentUpdateParams`
 
-  - `Config param.Field[BetaEnvironmentUpdateParamsConfigUnion] Optional`
+  - `Config BetaEnvironmentUpdateParamsConfigUnion Optional`
 
     Updated environment configuration
 
@@ -109,23 +109,23 @@ Update an existing environment's configuration.
 
         Environment type
 
-  - `Description param.Field[string] Optional`
+  - `Description param.Opt[string] Optional`
 
     Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
     maxLength: 1024
 
-  - `Metadata param.Field[map[string, string]] Optional`
+  - `Metadata map[string, string] Optional`
 
     User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-  - `Name param.Field[string] Optional`
+  - `Name param.Opt[string] Optional`
 
     Updated name for the environment
 
     minLength: 1, maxLength: 256
 
-  - `Scope param.Field[BetaEnvironmentUpdateParamsScope] Optional`
+  - `Scope BetaEnvironmentUpdateParamsScope Optional`
 
     The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -133,7 +133,7 @@ Update an existing environment's configuration.
 
     - `const BetaEnvironmentUpdateParamsScopeAccount BetaEnvironmentUpdateParamsScope = "account"`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -237,7 +237,7 @@ Update an existing environment's configuration.
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
