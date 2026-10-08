@@ -50,6 +50,8 @@ The window is organized into sections in the left sidebar. Work through them in 
 | **Egress** | A read-only firewall allowlist derived from everything you've entered above, grouped by feature<br />**Copy hostnames**, **Download .txt**, and **Test connectivity** actions |
 | **Source** | The bootstrap keys, if you are using the [bootstrap server](/docs/third-party/claude-desktop/bootstrap) delivery model instead of a full MDM profile<br />Bootstrap-delivered configuration takes priority over MDM-delivered values: it replaces them wholesale rather than merging key by key |
 
+To turn on [Unified Claude](/docs/third-party/claude-desktop/unified-claude#enabling-unified-claude), set `desktopHome` to `standard` in your MDM profile.
+
 <Note>
   When a managed (MDM-delivered) configuration is already present on the device, the configuration window opens read-only: it shows what the admin deployed, marks the configuration as organization-managed, and directs users to their IT administrator. To author a new configuration, use a device without a managed profile, or temporarily remove the profile. Profiles that set [only app-behavior keys](#update-keys-and-managed-precedence) (the update, configuration re-check, relaunch window, and network proxy keys) leave the window editable.
 </Note>

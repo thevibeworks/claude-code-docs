@@ -10,6 +10,30 @@
 
 The **Config** page in the admin portal is where you set product behavior such as the session timeout, Claude Desktop banner, product availability, and telemetry for the people you manage. The same page appears at both the tenant and the organization level, with the same list of settings, and this page explains how the two levels fit together. For the settings themselves, see [Available settings](/docs/government/config/settings).
 
+<Frame caption="Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-06-config-essentials.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=8624805f501e6ca7e01e12e6e94602ab" aria-label="Video walkthrough: Config essentials" data-path="images/government/videos/admin-06-config-essentials.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  Config sets product behavior for the people you manage. The tenant and each organization share the same page, and each level starts from the one above it.
+
+  In the admin view, open Config under Settings. Settings are grouped on the left, and the scope bar at the top shows which level you are editing.
+
+  Product availability has a switch for each product and feature. Chat, Cowork, and Code in Claude Desktop are on by default. Here the organization turns Code in Claude Desktop off and saves.
+
+  To treat one directory group differently, choose it in the scope bar. The same editor appears for that group, and Code in Claude Desktop is turned back on for its members, unless a higher-priority group has settings for them.
+
+  Under Integrations, Web search is off by default. Turning it on asks you to acknowledge how search works. Require approval for each search stays on, so members approve every search.
+
+  Under Sessions and access, Session idle timeout signs out inactive members after 24 hours by default. Lower levels can only shorten it, and lowering it applies from the next sign-in.
+
+  In the tenant view, open the same page and set the Claude Desktop banner for everyone. Choose Must use this value, open Preview impact, then save. Every organization now uses this value.
+
+  Back in the organization's Config, the banner shows Locked by your tenant and cannot be changed there.
+
+  You do not need to push anything. Claude Desktop checks for changes at launch and about every 10 minutes while it runs, or every 30 minutes on older versions, and prompts members to relaunch when something changed.
+</Accordion>
+
 ## How settings are applied
 
 Each setting is resolved through a chain that runs from the Anthropic default, to your tenant, to each organization. Directory groups add two further levels, described under [Group-specific settings](#group-specific-settings) below. A value set at any level becomes the starting point for the levels below it. An organization that doesn't set a value uses the tenant's value, and a tenant that doesn't set a value uses the Anthropic default. When you expand a setting you can see each step of this chain, which value is currently **In effect**, where it came from, and (in the tenant view) which organizations have set their own value.

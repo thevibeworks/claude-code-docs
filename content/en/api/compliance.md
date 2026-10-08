@@ -134856,6 +134856,11 @@ curl https://api.anthropic.com/v1/compliance/apps/chats \
 Permanently deletes a chat and all associated messages and
 files. This is a destructive operation that cannot be undone.
 
+A chat's remote sessions are deleted first. If that deletion cannot be
+confirmed, the request returns a 503 with error code
+`chat_delete_remote_sessions_unconfirmed` and leaves the chat unchanged.
+You can retry the request.
+
 #### Path parameters
 
 - `claude_chat_id: string`

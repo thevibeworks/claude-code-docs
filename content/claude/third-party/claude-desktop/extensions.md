@@ -390,6 +390,8 @@ To withdraw a plugin, remove its folder from `org-plugins/`. On Claude Desktop 1
 * **Code sessions** run hooks from marketplace plugins (Claude Desktop 1.32352.0 or later) and from plugins the user installed for Claude Code. Hooks from plugins in the `org-plugins/` directory do not run in Code sessions. In [remote SSH sessions](/docs/third-party/claude-desktop/ssh-remote-sessions#managed-configuration-on-the-remote-host), hooks from the plugins Claude Desktop copies to the host do not run.
 * **Chat conversations** run hooks from the same plugins as Cowork sessions, on Claude Desktop 1.52386.0 or later.
 
+With [Unified Claude](/docs/third-party/claude-desktop/unified-claude) on, a Cowork session started from the home screen runs the same hooks as any other Cowork session.
+
 A `UserPromptSubmit` hook that blocks a prompt stops that turn and shows the hook's reason to the user. When a conversation or session is created, Claude Desktop also sends its first message to your inference provider in a separate request, without tools, to generate the title shown in the sidebar. That request does not pass through plugin hooks, so a first message that a hook blocks still reaches your provider for titling.
 
 Claude Code [managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) deployed on the device govern these hooks as they do in the Claude Code CLI: `disableAllHooks` turns them off, and `allowManagedHooksOnly` keeps only the hooks those managed settings define.

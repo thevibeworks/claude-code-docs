@@ -472,6 +472,9 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 
   A single message in a chat conversation.
 
+  When the chat's `deleted_at` is set, `content` is an empty list and `files`,
+  `generated_files` and `artifacts` are null.
+
   - `id: string`
 
     Unique identifier for the message e.g. 'claude_chat_msg_abcd1234'

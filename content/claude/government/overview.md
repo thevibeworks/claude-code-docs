@@ -62,6 +62,46 @@ Every organization is linked to exactly one billing account, and usage by that o
 
 ## The three views
 
+<Frame caption="Video: Finding your way around (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-01-finding-your-way-around.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e815e7d6b488de1c9629bfaa2f1354ab" aria-label="Video walkthrough: Finding your way around" data-path="images/government/videos/admin-01-finding-your-way-around.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  Your tenant is your agency's deployment and holds its organizations. Each user belongs to one, run by Owners and Primary Owners. Tenant administrators manage the tenant.
+
+  This video shows the web portal, which you open in a browser. Members use Claude in the Claude Desktop app, with Chat, Cowork, and Code.
+
+  In a browser, open your agency's Claude for Government address and enter your work email.
+
+  Select Continue, and your agency's usual sign-in page opens.
+
+  After your agency's single sign-on, acknowledge the system-use notification.
+
+  As an organization owner, Marcus lands on the admin view. With several organizations, tenant administrators pick one from the organization menu at the top of the page.
+
+  Under People, Users lists each member's role and seat tier. Owners and Primary Owners manage these.
+
+  Under Settings, Readiness lists anything blocking members from using Claude. Every step here is complete.
+
+  The footer holds the view links. Select Switch to user view.
+
+  The Account view shows your profile, usage, and sessions. Members who are not owners land here. Marcus is a Primary Owner and, separately, a tenant administrator.
+
+  Switch to admin view takes you back.
+
+  Tenant administrators also get Switch to tenant view.
+
+  The tenant view covers every organization, with identity, seats, settings, and admins. Select an organization's name to open its admin view.
+
+  Until setup is complete, Resume setup sits above the navigation.
+
+  The dot on Settings flags Readiness. Its second card lists each organization, and Research Office still needs seats. Expand the row for its checklist, then follow Open to fix it.
+
+  Admins, under Settings, lists the tenant administrators. Keep at least two.
+
+  Switch to org view returns to the organization admin view.
+</Accordion>
+
 The portal has three views. Which ones you can reach depends on your role, and you switch between them using the link in the page footer.
 
 | View | Who has it | What it's for |

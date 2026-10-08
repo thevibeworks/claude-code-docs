@@ -505,7 +505,7 @@ For enterprise customers with specific needs:
 * Dedicated support
 * Custom terms
 
-Contact the sales team at [sales@anthropic.com](mailto:sales@anthropic.com) or through the [Claude Console](https://platform.claude.com/settings/limits) to discuss enterprise pricing options.
+Contact the sales team at [sales@anthropic.com](mailto:sales@anthropic.com) or through the [Claude Console](https://platform.claude.com/usage/limits) to discuss enterprise pricing options.
 
 ## Billing and payment
 

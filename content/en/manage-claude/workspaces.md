@@ -25,7 +25,7 @@ The Claude Code workspace keeps Claude Code traffic separate from your other API
 
 * Claude Code mints a per-user API key in this workspace at sign-in. You cannot create keys in it manually from the Console.
 * A Claude Code key stops working if its owner is removed from the workspace or organization, unlike a workspace key.
-* Claude Code usage is rate-limited separately, and admins can cap its share of the organization's limits under [Settings > Workspaces](https://platform.claude.com/settings/workspaces).
+* Claude Code usage is rate-limited separately, and admins can cap its share of the organization's limits on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console.
 * It is the only workspace that supports per-user monthly spend limits.
 
 <Warning>
@@ -116,10 +116,10 @@ To remove a member, click the trash icon next to their name.
 
 #### Set workspace limits
 
-Each workspace's settings split these across two tabs:
+You set a workspace's rate limits and spend limits in different places:
 
-* **Rate limits:** On the **Rate limits** tab, set limits per model tier for requests per minute, input tokens, or output tokens
-* **Spend limits:** On the **Spend limits** tab, cap monthly spending and configure alerts when spending reaches certain thresholds
+* **Rate limits:** On the [Rate limits](https://platform.claude.com/usage/limits) page, select the workspace from the **Workspace** dropdown menu and click **Edit** next to a model to set limits for requests per minute, input tokens, or output tokens.
+* **Spend limits:** On the workspace's **Spend limits** tab, cap monthly spending and configure alerts when spending reaches certain thresholds.
 
 #### Archive a workspace
 
@@ -1018,7 +1018,7 @@ You can set custom spend and rate limits for each workspace to protect against o
 You can set workspace limits lower than (but not higher than) your organization's limits:
 
 * **Spend limits:** Cap monthly spending for a workspace. Set these on the workspace's **Spend limits** settings tab in the [Claude Console](https://platform.claude.com/settings/workspaces).
-* **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. Set these on the workspace's **Rate limits** settings tab in the [Claude Console](https://platform.claude.com/settings/workspaces).
+* **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. To set these, go to the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 <Note>
   - You cannot set limits on the Default Workspace

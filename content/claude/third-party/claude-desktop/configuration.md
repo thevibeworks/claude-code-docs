@@ -73,7 +73,7 @@ There is no per-user managed location on Linux; per-user configuration goes thro
 
 ## Reference
 
-The reference below is generated from the configuration schema and grouped to match the sidebar of the in-app configuration window. The **Availability** column shows whether a key can be set in an MDM profile, returned from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or both. Its second line is the Claude Desktop version that added the key. For how the keys under **Models** work together, see [Models and effort levels](/docs/third-party/claude-desktop/models).
+The reference below is generated from the configuration schema and grouped to match the sidebar of the in-app configuration window. The **Availability** column shows whether a key can be set in an MDM profile, returned from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or both. Its second line is the Claude Desktop version that added the key. For how the keys under **Models** work together, see [Models and effort levels](/docs/third-party/claude-desktop/models). For how `desktopHome` overrides the other keys under **Chat surface** and **Cowork surface**, see [Unified Claude](/docs/third-party/claude-desktop/unified-claude#how-unified-claude-interacts-with-chat-and-cowork-settings). For which key under **Session retention** covers a conversation started from the home screen, see [Automatic deletion of idle sessions](/docs/third-party/claude-desktop/data-storage#automatic-deletion-of-idle-sessions).
 
 ## Connection
 

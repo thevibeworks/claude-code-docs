@@ -27,6 +27,18 @@ The Models API response can be used to determine which models are available for 
 
     ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
+  - `Lifecycle []string Optional` (query parameter)
+
+    Filter the list to models in any of the given lifecycle stages (`active`, `deprecated`, or `retired`). Up to 3 values. When omitted, the list contains the `active` and `deprecated` models; `retired` models appear only when `retired` is requested explicitly.
+
+    maxItems: 3
+
+    - `const ModelListParamsLifecycleActive ModelListParamsLifecycle = "active"`
+
+    - `const ModelListParamsLifecycleDeprecated ModelListParamsLifecycle = "deprecated"`
+
+    - `const ModelListParamsLifecycleRetired ModelListParamsLifecycle = "retired"`
+
   - `Limit param.Opt[int64] Optional` (query parameter)
 
     Number of items to return per page.
@@ -289,9 +301,31 @@ The Models API response can be used to determine which models are available for 
 
     format: date-time
 
+  - `DeprecatedAt Time`
+
+    RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
+
+    format: date-time
+
   - `DisplayName string`
 
     A human-readable name for the model.
+
+  - `Lifecycle ModelInfoLifecycle`
+
+    The model's current lifecycle stage.
+
+    - `active`: The model is available for use, open to new adopters, and not scheduled for retirement.
+    - `deprecated`: The model remains callable for organizations with existing access, but is headed for retirement and closed to new adopters.
+    - `retired`: The model is no longer available for use; inference requests naming it fail. It remains in the catalogue as the historical record of its retirement.
+
+    default: active
+
+    - `const ModelInfoLifecycleActive ModelInfoLifecycle = "active"`
+
+    - `const ModelInfoLifecycleDeprecated ModelInfoLifecycle = "deprecated"`
+
+    - `const ModelInfoLifecycleRetired ModelInfoLifecycle = "retired"`
 
   - `Line ModelLine`
 
@@ -314,6 +348,12 @@ The Models API response can be used to determine which models are available for 
   - `MaxTokens int64`
 
     Maximum value for the `max_tokens` parameter when using this model.
+
+  - `RetiresAt Time`
+
+    RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
+
+    format: date-time
 
 ### Example
 
@@ -421,10 +461,13 @@ func main() {
         }
       },
       "created_at": "2026-07-24T00:00:00Z",
+      "deprecated_at": "2019-12-27T18:11:19.117Z",
       "display_name": "Claude Opus 5",
+      "lifecycle": "active",
       "line": "haiku",
       "max_input_tokens": 0,
       "max_tokens": 0,
+      "retires_at": "2019-12-27T18:11:19.117Z",
       "type": "model"
     }
   ],
@@ -706,9 +749,31 @@ The Models API response can be used to determine information about a specific mo
 
     format: date-time
 
+  - `DeprecatedAt Time`
+
+    RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
+
+    format: date-time
+
   - `DisplayName string`
 
     A human-readable name for the model.
+
+  - `Lifecycle ModelInfoLifecycle`
+
+    The model's current lifecycle stage.
+
+    - `active`: The model is available for use, open to new adopters, and not scheduled for retirement.
+    - `deprecated`: The model remains callable for organizations with existing access, but is headed for retirement and closed to new adopters.
+    - `retired`: The model is no longer available for use; inference requests naming it fail. It remains in the catalogue as the historical record of its retirement.
+
+    default: active
+
+    - `const ModelInfoLifecycleActive ModelInfoLifecycle = "active"`
+
+    - `const ModelInfoLifecycleDeprecated ModelInfoLifecycle = "deprecated"`
+
+    - `const ModelInfoLifecycleRetired ModelInfoLifecycle = "retired"`
 
   - `Line ModelLine`
 
@@ -731,6 +796,12 @@ The Models API response can be used to determine information about a specific mo
   - `MaxTokens int64`
 
     Maximum value for the `max_tokens` parameter when using this model.
+
+  - `RetiresAt Time`
+
+    RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
+
+    format: date-time
 
 ### Example
 
@@ -840,10 +911,13 @@ func main() {
     }
   },
   "created_at": "2026-07-24T00:00:00Z",
+  "deprecated_at": "2019-12-27T18:11:19.117Z",
   "display_name": "Claude Opus 5",
+  "lifecycle": "active",
   "line": "haiku",
   "max_input_tokens": 0,
   "max_tokens": 0,
+  "retires_at": "2019-12-27T18:11:19.117Z",
   "type": "model"
 }
 ```
@@ -1184,9 +1258,31 @@ func main() {
 
     format: date-time
 
+  - `DeprecatedAt Time`
+
+    RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
+
+    format: date-time
+
   - `DisplayName string`
 
     A human-readable name for the model.
+
+  - `Lifecycle ModelInfoLifecycle`
+
+    The model's current lifecycle stage.
+
+    - `active`: The model is available for use, open to new adopters, and not scheduled for retirement.
+    - `deprecated`: The model remains callable for organizations with existing access, but is headed for retirement and closed to new adopters.
+    - `retired`: The model is no longer available for use; inference requests naming it fail. It remains in the catalogue as the historical record of its retirement.
+
+    default: active
+
+    - `const ModelInfoLifecycleActive ModelInfoLifecycle = "active"`
+
+    - `const ModelInfoLifecycleDeprecated ModelInfoLifecycle = "deprecated"`
+
+    - `const ModelInfoLifecycleRetired ModelInfoLifecycle = "retired"`
 
   - `Line ModelLine`
 
@@ -1209,6 +1305,12 @@ func main() {
   - `MaxTokens int64`
 
     Maximum value for the `max_tokens` parameter when using this model.
+
+  - `RetiresAt Time`
+
+    RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
+
+    format: date-time
 
 ### Model Line
 

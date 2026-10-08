@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1791443700&amp;signature=749500c57339c0d1efe0526921befbbd98a4d9bf92105ad390e6d21cfac136dd&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMNJ%2BIGwgN0ADj5oqFC2R8jKQt%2B3FSnrUsIq%0AhoYSUJVYZeYY8rCih%2BA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1791483300&amp;signature=1540c00270bac07fb4eba37815730b14fce45debd11243ddb8e2e1b02464a1d8&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMNJ9IG0gN0ADj5oqFDiqg5%2B5YHmtpBPj4p3%0AzzQs%2FOQCS65cJqdbL5Y%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1791443700&amp;signature=33445d403cca48bf609acb382e8dbdbc946214c962cac151c9471e69c0ea68de&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2d0jC%2Fr7A4lHPBihAUEbLs7d2xMPp0%2FGskK%0AyCF9UxO0lCrLS%2F6gDNE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1791483300&amp;signature=f6319002d02e5a77c9b93eb27cbdaab26771007dfabdf753e321922dd44b32d9&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2d0gC%2Fv7A4lHPBihAU9JAd3afGCWsCc9Kni%0AK%2Fmp1qsWVXP8KtTcQvU%3D%0A)
 
 ### Permission options
 

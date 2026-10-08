@@ -287,9 +287,29 @@ The Models API response can be used to determine information about a specific mo
 
     format: date-time
 
+  - `required DateTimeOffset? DeprecatedAt`
+
+    RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
+
+    format: date-time
+
   - `required string DisplayName`
 
     A human-readable name for the model.
+
+  - `required Lifecycle Lifecycle`
+
+    The model's current lifecycle stage.
+
+    - `active`: The model is available for use, open to new adopters, and not scheduled for retirement.
+    - `deprecated`: The model remains callable for organizations with existing access, but is headed for retirement and closed to new adopters.
+    - `retired`: The model is no longer available for use; inference requests naming it fail. It remains in the catalogue as the historical record of its retirement.
+
+    - `Active("active")`
+
+    - `Deprecated("deprecated")`
+
+    - `Retired("retired")`
 
   - `required BetaModelLine? Line`
 
@@ -312,6 +332,12 @@ The Models API response can be used to determine information about a specific mo
   - `required long? MaxTokens`
 
     Maximum value for the `max_tokens` parameter when using this model.
+
+  - `required DateTimeOffset? RetiresAt`
+
+    RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
+
+    format: date-time
 
 ## Example
 
@@ -411,10 +437,13 @@ Console.WriteLine(betaModelInfo);
     }
   },
   "created_at": "2026-07-24T00:00:00Z",
+  "deprecated_at": "2019-12-27T18:11:19.117Z",
   "display_name": "Claude Opus 5",
+  "lifecycle": "active",
   "line": "haiku",
   "max_input_tokens": 0,
   "max_tokens": 0,
+  "retires_at": "2019-12-27T18:11:19.117Z",
   "type": "model"
 }
 ```

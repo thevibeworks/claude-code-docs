@@ -12,6 +12,30 @@ Use this page to add Model Context Protocol servers for your own systems, choose
 
 A **connector** is a link between Claude and an external service. The service runs a Model Context Protocol (MCP) server, which is a standard way for a service to publish a set of tools that Claude can call. You add the server once here, and Claude for Government delivers it to the products you select.
 
+<Frame caption="Video: Connectors and plugins (2 min 8 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-07-connectors-and-plugins.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=43f78d15928eea46d27229f8dbc04db6" aria-label="Video walkthrough: Connectors and plugins" data-path="images/government/videos/admin-07-connectors-and-plugins.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  A connector lets Claude reach another service, such as Microsoft 365 or a system of your own. A plugin packages skills and commands for Claude Desktop.
+
+  Microsoft 365 setup starts in Microsoft Entra. An Entra administrator registers an application, approves its Microsoft Graph permissions, and sends you two values, the tenant ID and the client ID.
+
+  On Config, under Integrations, expand Microsoft 365. Paste the Tenant ID and the Client ID, keep Azure cloud on Commercial unless your Microsoft tenant is in GCC High or DoD. Check that Access matches what Entra approved, and save.
+
+  Members then connect Microsoft 365 in Claude Desktop with their own work account, and Claude reaches only what each member can already open.
+
+  For a system of your own, open Add connector on the Connectors card. Name it, enter the server's address, and choose how Claude authenticates, for example a shared secret or member sign-in. Select Next.
+
+  Discover tools asks the server which tools it offers. If the server cannot be reached from your browser, add tool names by hand on the next step.
+
+  Under Apply to, choose the products that receive it, here Claude Desktop only. Under Tool policy, switch off any tool you do not want, then save the connector. Members are still asked before Claude uses an allowed tool.
+
+  On the Plugins card, select Add plugins and drop a zip file. The preview shows its name and version. Choose Auto-install for everyone, or Members choose, then add it.
+
+  You do not need to push anything. Claude Desktop picks up the connector and the plugin when it next checks for changes. Members find plugins under Customize, Plugins.
+</Accordion>
+
 ## The Connectors card
 
 The **Connectors** card appears on your [tenant](/docs/government/tenant-admin/configuration) or [organization](/docs/government/org-admin/configuration) Config page alongside the built-in connector cards, and on the Config page for each [directory group](/docs/government/config/overview#group-specific-settings). It lists the connectors added at the level you are viewing and the connectors that level inherits, with each one's name, address, the products it applies to, and a summary of how many of its tools are allowed. Click **Add connector** to open the wizard, or click the edit icon next to a connector added at this level to change it.

@@ -14,7 +14,9 @@ Available on Claude Enterprise plans.
 
 - You need to be an Owner or Primary Owner in a Claude Enterprise organization to assign grants.
 
-- Members who should get access need the role type "Custom" on the **Members** page. Owners and Admins who keep their built-in role are not covered by custom roles.
+- Members who should get access need the role type "Custom" on the **Members** page. Owners, Primary Owners, and Admins who keep their built-in role are not covered by custom roles.
+
+- If your organization uses SCIM with group mappings, your identity provider (IdP) sets each user’s role type. To get the grant, a user needs to be in an IdP group that’s mapped to the custom role.
 
 ## Give members access with a custom role
 
@@ -40,7 +42,17 @@ To check that you’ve successfully given members access to your program:
 
 To remove access, clear the box in the **Grants** section in the custom role and save. To remove one person, take them out of the role's groups.
 
+## Where the model appears
+
+Users get access to the model through the grant. Once the role has the grant, users whose role type is "Custom" and who are in one of the role’s groups can use the model. A model that comes with a grant isn’t listed on the **Models** page or in a role’s **Add model** list, and you don’t add it there.
+
+Owners, Primary Owners, and Admins who keep their built-in role don’t get the model, even if they’re in one of the role’s groups.
+
 ## Troubleshooting
+
+### The model doesn’t appear for an Owner, Primary Owner, or Admin
+
+Custom roles don’t apply to Owners, Primary Owners, and Admins who keep their built-in role, so a grant on a custom role doesn’t reach them. To check that the grant works, test with a user whose role type is "Custom" and who is in one of the role’s groups.
 
 ### The Grants page, or the Grants section in the Models tab of the role, is missing
 

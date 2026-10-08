@@ -79,6 +79,32 @@ Both the OIDC and SAML sections include an **Attribute mapping** panel that's co
 
 ## SCIM provisioning
 
+<Frame caption="Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-04-directory-sync-scim-and-group-mappings.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e254e02786c5f309b5c5c240c7752c4e" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" data-path="images/government/videos/admin-04-directory-sync-scim-and-group-mappings.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  Directory sync is optional, and without it accounts are created at first sign-in. With it, your identity provider pushes users and groups, provisioning rules place them in organizations, and each organization maps groups to seat tiers and roles.
+
+  On Identity and access, open SCIM provisioning. Copy the SCIM base URL, which your provider may call the Tenant URL, and select Generate token.
+
+  The token is shown once. Copy it for your provider's secret token field, then select Done. You can revoke a token here at any time.
+
+  In your provider's provisioning settings, paste both values, assign the groups you want to sync, and turn provisioning on.
+
+  After the first sync, your groups appear under Directory groups with member counts, and people not yet placed wait under Synced, not routed.
+
+  Under Provisioning rules, route groups to organizations. Send research-staff to Research Office, and claude-users to Operations Bureau. The first match wins, so add the narrower group first or drag it to the top.
+
+  Once a rule covers them, they are placed in its organization, and the list clears on its own.
+
+  In the organization's admin view, People now includes Group mappings. Map claude-users to a seat tier, here Standard, and claude-owners to the Owner role. Each change is applied right away.
+
+  On Users, the provisioned members now hold their mapped seat tier and role.
+
+  While sync is connected, your directory is the source of truth. Change groups in your provider, because role or seat tier edits made by hand are overwritten by the group mappings.
+</Accordion>
+
 SCIM is the standard protocol identity providers use to push users and groups to a connected service automatically, so that accounts are created, updated, and deactivated in step with your agency's directory. Connecting SCIM is optional; without it, users are created the first time they sign in. With SCIM connected, a person your directory has never sent still gets an account the first time they sign in, if a [sign-in rule](#sign-in-rules) covers them.
 
 [Provisioning rules](#provisioning-rules-scim), [group mappings](/docs/government/org-admin/provisioning), and [group-specific settings](/docs/government/config/overview#group-specific-settings) need SCIM, because they act on the [directory groups](#directory-groups) your identity provider pushes. Model access and usage limits come from each person's [seat tier](/docs/government/org-admin/seat-tiers), which an organization owner can assign on the [Users](/docs/government/org-admin/users) page without SCIM.
@@ -106,6 +132,34 @@ Once a token is active and your directory completes its first sync, the provisio
 Once your identity provider has pushed groups over SCIM, they appear here with their member counts. To change the order, drag a group by the handle at the start of its row or use the **…** menu at the end. The order you set here is the priority used for group-level configuration on the [Config](/docs/government/config/overview#group-specific-settings) page.
 
 ## Routing rules
+
+<Frame caption="Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3b4fdf17a38f17ace0a31daff24dd678" aria-label="Video walkthrough: Organizations, seats, and routing rules" data-path="images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  Routing rules decide which organization each person lands in. Organizations hold users, seats, and settings, and their seats come from a billing account.
+
+  Marcus, a tenant administrator, signs in and opens the tenant view from the footer.
+
+  A new colleague, Rosa, tries to sign in. No routing rule covers Rosa yet, so the page says Almost there. The attempt is recorded for tenant administrators.
+
+  On Identity and access, Rejected sign-ins lists the attempt. Select Test in preview to check whether any rule covers Rosa.
+
+  The preview says refused at sign-in, because no rule matches Rosa yet.
+
+  Under Sign-in routing, add the first rule. Set If to Anyone with email domain, and choose example.gov. Set Then place in to Operations Bureau, and select Add rule. Rules run top to bottom, and the first match wins.
+
+  Run the preview again. Rosa would now be placed in Operations Bureau.
+
+  Rosa selects Try again and signs in once more. Rosa lands in Operations Bureau and gets a seat, because one was free.
+
+  On Organizations, expand Add organization. Enter a name and the Primary Owner's email, choose the billing account, then select Add. The owner does not automatically become a tenant administrator.
+
+  On Seats, the billing account shows its pool and the organizations it funds. Give Research Office seats and select Save. Its first seats also seat its Primary Owner, and the setup banner clears.
+
+  To send people to Research Office, add an identity provider group rule for them and drag it above the domain rule. Each person belongs to exactly one organization.
+</Accordion>
 
 A **routing rule** is an instruction of the form "if a person matches this condition, place them in this organization." Routing rules are the **only** way a new person gets into your deployment; there is no default organization and no fallback.
 

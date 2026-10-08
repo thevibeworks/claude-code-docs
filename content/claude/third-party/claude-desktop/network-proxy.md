@@ -14,6 +14,8 @@ Three parts of the product make network connections, and they do not all resolve
 * **The agent**: the Claude Code engine the app runs for every Chat, Cowork, and Code session. It sends inference requests and, in Code sessions, also makes its own web fetches, remote MCP connections, and plugin installs.
 * **Cowork's sandboxed shell**: the isolated environment where commands the agent runs in a Cowork session (`curl`, `pip`, `npm`, and so on) execute.
 
+With [Unified Claude](/docs/third-party/claude-desktop/unified-claude) on, a Cowork session started from the home screen runs its commands in Cowork's sandboxed shell.
+
 ## Default behavior
 
 With no proxy-related configuration, the app follows the operating system's proxy settings, including a PAC (proxy auto-configuration) script or automatic proxy detection if the OS is set up that way. PAC rules are evaluated per request, so different hosts can go to different proxies or connect directly, exactly as the script says.
