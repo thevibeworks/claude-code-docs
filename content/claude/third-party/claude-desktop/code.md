@@ -111,3 +111,5 @@ A Code session can run its Claude Code engine on a remote host over SSH while th
 ## Disabling Code
 
 To turn off Code, set `isClaudeCodeForDesktopEnabled` to `false` in your Claude Desktop on 3P configuration. Users can no longer open Code. Cowork is unaffected, and so is [Chat](/docs/third-party/claude-desktop/chat#configuration) if you have enabled it.
+
+If you set `desktopHome` to `off`, keep Code on. For what `desktopHome` does, see [Unified Claude](/docs/third-party/claude-desktop/unified-claude).

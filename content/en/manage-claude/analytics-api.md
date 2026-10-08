@@ -70,7 +70,7 @@ The Claude Enterprise Analytics API is available to Claude Enterprise organizati
 
 The Claude Enterprise Analytics API provides:
 
-* **User activity:** per-user daily metrics across chat (conversations, messages, projects, files, artifacts), Claude Code (sessions, commits, pull requests, lines of code, tool actions), and other Claude products
+* **User activity:** per-user daily metrics across chat (conversations, messages, projects, files, artifacts), Claude Code (sessions, commits, pull requests, lines of code, tool actions), Chat and Cowork unified (chat activity and Cowork sessions), and other Claude products
 * **Activity summaries:** organization-level daily, weekly, and monthly active users, seat counts, and pending invites
 * **Project, skill, and connector usage:** adoption breakdowns for chat projects, skills, and connectors
 * **Cost and usage reports:** per-user and organization-level token usage and cost over time (usage-based Enterprise plans)
@@ -93,7 +93,19 @@ Claude Enterprise Analytics API data is available for dates on or after January 
 
 **Active users.** A user counts as active for a day if any of the following is true: they sent at least one chat message in Claude, they had at least one Claude Code session (local or remote) associated with your Claude Enterprise organization that included tool use or git activity, or they had at least one Cowork session with tool use or message activity.
 
-**Per-product metric blocks.** Per-product metric objects (for example, Office Agent or Cowork metrics on a user-activity record) are always present on every record. Organizations without usage of that product see all-zero values rather than `null`.
+**Chat and Cowork unified (beta).** Chat and Cowork unified brings Cowork's features into claude.ai chat. Most activity in Chat and Cowork unified is reported under the `chat_cowork_unified` product value, not `chat` or `cowork`.
+
+In user activity and in skill, connector, and plugin usage, this usage appears in the `chat_cowork_unified_metrics` object. In activity summaries, it is counted in `chat_cowork_unified_daily_active_user_count`, `chat_cowork_unified_weekly_active_user_count`, and `chat_cowork_unified_monthly_active_user_count`.
+
+As more users start using Chat and Cowork unified, usage moves out of your chat and Cowork figures and into these new ones. Usage from days before a user starts using Chat and Cowork unified stays under chat or Cowork. Organization-wide figures, such as total token usage, total cost, and overall active user counts, do not change. Cost and usage reports filtered by product leave Chat and Cowork unified usage out unless `products[]` includes `chat_cowork_unified`.
+
+Some activity from users of Chat and Cowork unified, such as voice mode, can still be reported under chat or Cowork. A user's activity can also be split between products on the day they start using Chat and Cowork unified. The same is true on the day it is turned off for them. How the activity splits is not guaranteed.
+
+A user can appear in both the chat or Cowork counts and the Chat and Cowork unified counts. This can happen on a day when they use Chat and Cowork unified and some of their activity is still reported under chat or Cowork. Weekly and monthly counts can include them in both when the window has activity of both kinds, even on different days. For example, the window might cover days before and after they started using Chat and Cowork unified.
+
+When you filter user activity by project, each day's project activity is counted in one place only. If a user sent a chat message in Chat and Cowork unified that day, all their project activity is counted in `chat_cowork_unified_metrics.chat`. Otherwise, it is counted in `chat_metrics`.
+
+**Per-product metric blocks.** Per-product metric objects (for example, Office Agent or Cowork metrics on a user-activity record) are always present on every record. Organizations without usage of that product see all-zero values rather than `null`. The exception is Chat and Cowork unified: on deployments that do not offer it, its fields are left out of the response.
 
 **Connector names.** Connector names are normalized across sources. For example, `Atlassian MCP server`, `mcp-atlassian`, and `atlassian_MCP` all appear as `atlassian` in the connector usage endpoint.
 

@@ -20,6 +20,38 @@ If a detail looks wrong (for example, the tenant name is misspelled), contact An
 
 ## Step 2: Domains
 
+<Frame caption="Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-02-verify-your-domain-and-connect-single-sign-on.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=bf307a4d18d646cbce35d3c269be51b7" aria-label="Video walkthrough: Verify your domain and connect single sign-on" data-path="images/government/videos/admin-02-verify-your-domain-and-connect-single-sign-on.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  Before your members can sign in, your tenant needs a verified email domain and a connection to your identity provider.
+
+  Until single sign-on is connected, tenant administrators sign in with a link sent by email.
+
+  Enter your email, select Email me a sign-in link, and open the link from your inbox. Confirm with Sign in, then acknowledge the system-use notification.
+
+  Select Switch to tenant view in the footer, then Resume setup at the top, then Next.
+
+  Sign-in finds your tenant by email domain. Unless Anthropic already verified it, type your agency's domain and select Claim. The page shows a TXT record that proves ownership.
+
+  Your DNS administrator publishes the record. It can take a few minutes to an hour to appear.
+
+  Once the record is live, select Verify now. The domain now shows as Verified.
+
+  Next is Single sign-on. Copy the Redirect URI and the SP Entity ID. You will paste them into your provider.
+
+  In your provider, create an application and paste in those values. In return, OIDC gives you a client ID, a secret, and four endpoints. SAML gives one metadata file.
+
+  First, in another window, confirm you can sign in to your provider. This change applies to everyone, including you. Then enter the values and select Connect. The badge reads Connected. Administrators keep the emailed link as a fallback.
+
+  If your provider uses SAML instead, paste its metadata XML on the SAML tab. Saving one replaces the other.
+
+  Sign-in starts from Claude Desktop or the web portal. Starting from the app's tile in your provider's portal is not supported.
+
+  Both steps are now ticked. New people cannot sign in until a routing rule places them in an organization. That is the wizard's Routing step.
+</Accordion>
+
 Claude for Government looks at the domain of a person's email address to decide which tenant they belong to, so at least one verified domain must be registered before anyone else can sign in. The table at the top of this step lists the domains already on your tenant, along with whether each one is verified and whether it was added by Anthropic or by you.
 
 If Anthropic already verified the domain you plan to use, you can move straight on to the next step. To add another domain, type it into the **Claim a domain** field and click **Claim**. You will be shown a DNS TXT record to publish on that domain. Once the record is live, click **Verify now** next to the pending claim and the domain becomes active. DNS changes can take anywhere from a few minutes to an hour to propagate, so try again shortly if verification does not succeed on the first attempt.

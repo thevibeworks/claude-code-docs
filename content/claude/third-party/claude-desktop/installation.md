@@ -22,6 +22,8 @@ On Windows, Cowork requires the `.msix` package: fleets provisioned with the leg
 
 On Windows, Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace) before rollout.
 
+With [Unified Claude](/docs/third-party/claude-desktop/unified-claude) on, a message sent from the home screen starts a Cowork session on a device that can run Cowork, and a Chat conversation on a device that can't.
+
 ## Check device readiness
 
 Before installing Claude Desktop, you can confirm that a device supports Cowork by running the readiness check: a small standalone program that requires no installation or sign-in.

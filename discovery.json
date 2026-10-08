@@ -150,6 +150,7 @@
       "anthropics/sandbox-runtime",
       "anthropics/scone-bench",
       "anthropics/serde-saphyr",
+      "anthropics/snix",
       "anthropics/sse-starlette",
       "anthropics/swift-markdown",
       "anthropics/swift-markdown-ui",

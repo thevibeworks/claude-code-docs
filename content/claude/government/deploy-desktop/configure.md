@@ -75,6 +75,28 @@ The configuration that the app downloads for a user includes the following setti
 
 ## Configure a single machine
 
+<Frame caption="Video: Pilot Claude Desktop on one machine (1 min 34 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-08-pilot-claude-desktop-on-one-machine.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=753d21fb976775a19f3cca9521b738b3" aria-label="Video walkthrough: Pilot Claude Desktop on one machine" data-path="images/government/videos/admin-08-pilot-claude-desktop-on-one-machine.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  A fresh install connects to claude.ai. One setting, the bootstrap address on your Claude for Government host, points it at Claude for Government. Everything else arrives at sign-in.
+
+  First confirm your test account has a seat tier, the device and browser can reach your host and identity provider, and you have administrator rights.
+
+  Open the app and stay on the sign-in screen. Enable Developer Mode from Help, Troubleshooting, then open Developer, Configure Third-Party Inference.
+
+  The window opens on Connection. Change nothing there. In Source, enter the bootstrap address, leave Trust bootstrap-delivered settings off, and select Apply Changes.
+
+  After the relaunch, choose Sign in with your organization. The app shows a pairing code, and you finish sign-in in your browser.
+
+  Then a small window, Apply settings from your organization, lists a Gateway base URL. Confirm it is on your host and select Allow.
+
+  For your fleet, turn on Disable Claude.ai sign-in under Workspace, keep the trust switch off, and use Export for the macOS, Jamf, Intune, or Group Policy files.
+
+  One end-to-end check is a short Claude Desktop banner on the Config page. If it appears in the app after sign-in, per-user delivery works.
+</Accordion>
+
 <Note>
   Installing by hand needs administrator rights on the device. On Windows, the installer registers a Windows system service, so it must run as a local administrator. On macOS, installing to the shared Applications folder requires an administrator. On Linux, installing the package requires root.
 </Note>
@@ -120,6 +142,24 @@ Claude Desktop has a built-in configuration window that is hidden until you enab
 After the test, the same configuration window has an **Export** menu that produces files ready for your management system: a `.mobileconfig` profile for macOS, a `.reg` file for Windows, an ADMX template for Intune or Group Policy, and a Profile Manifest for Jamf. Before exporting, turn on **Disable Claude.ai sign-in** in the window's **Workspace** section so the exported profile hides the claude.ai option on managed devices, and make sure **Trust bootstrap-delivered settings** in the **Source** section is off so the exported files do not carry it.
 
 ## Deploy to your fleet
+
+<Frame caption="Video: Deploy to your fleet (1 min 31 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-09-deploy-to-your-fleet.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=bde163c8a3661fd5393106756950713c" aria-label="Video walkthrough: Deploy to your fleet" data-path="images/government/videos/admin-09-deploy-to-your-fleet.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  Push two values as device policy, the bootstrap address and the setting that hides the claude.ai sign-in option. On macOS they live in a configuration profile, on Windows in machine policy. Deliver them before the app, and note they carry no secrets.
+
+  On Windows, deploy the MSIX package machine-wide. Anthropic publishes Intune install and detection scripts, and an offline installer for networks that cannot reach downloads.claude.ai.
+
+  Cowork needs the Virtual Machine Platform feature, enabled with a restart before rollout. Run the Cowork readiness check on one device per hardware model.
+
+  Allow the app to reach your host, and browsers to reach the host, its sign-in service, and your identity provider. Cowork and Code also download components from downloads.claude.ai.
+
+  Decide on updates. If your agency distributes app updates itself, turn on Block automatic updates on the Config page, lock it, and add the disableAutoUpdates value to the profile. Otherwise, leave updates on.
+
+  With the configuration delivered first, users land directly on the organization sign-in screen, and the configuration window becomes read-only. After a profile change, fully quit and reopen the app.
+</Accordion>
 
 When your device management system deploys Claude Desktop, end users receive the app without running an installer themselves. The management system installs the package with the system or root account on each platform, so end users need no administrator rights and see no elevation prompt. Push both the app installer and the configuration profile below through the same system.
 
@@ -212,6 +252,26 @@ On Linux, apt installs Claude Desktop updates, and the app does not download or 
 To keep Linux devices on the versions your agency distributes, add the line `CLAUDE_DESKTOP_ADD_REPO=false` to `/etc/default/claude-desktop`, and create that file if it does not exist. The package then does not add the repository when it installs or upgrades. On a device that already has the package, also delete `/etc/apt/sources.list.d/claude-desktop.list`.
 
 ## Confirm it worked
+
+<Frame caption="Video: Verify a managed device and spot common failures (1 min 40 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-10-verify-a-managed-device-and-spot-common-failures.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3a725133f700322bdfcf0d684f9fd1c8" aria-label="Video walkthrough: Verify a managed device and spot common failures" data-path="images/government/videos/admin-10-verify-a-managed-device-and-spot-common-failures.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  On a managed device, the sign-in screen offers only Sign in with your organization, and the configuration window is read-only. Under Help, Troubleshooting, Generate Diagnostic Report saves a report that shows what the app read.
+
+  Sign in as a test user with a seat tier. Chat should work, the picker should list that user's models, and your Config page banner should appear in the app.
+
+  If the picker is empty, nothing is wrong with the device. Most often the user has no seat tier, and an organization owner assigns one on the Users page.
+
+  Only the claude.ai sign-in means the configuration did not reach the app. Check delivery and the diagnostic report, then quit and reopen.
+
+  A prompt to apply settings at every launch means the address was set per user. Have the user check the address and select Allow, and deliver it machine-wide to stop the prompt.
+
+  A Microsoft page saying you cannot access this right now comes from a Conditional Access policy, which your identity team resolves. Nothing in the app changes it.
+
+  On current app versions, Your session has expired with Sign in again is expected after the idle timeout your tenant sets, 24 hours by default. Signing in again reconnects the app. Older versions may call it a configuration sync issue, so update them.
+</Accordion>
 
 Run through these checks on a configured machine from either path.
 

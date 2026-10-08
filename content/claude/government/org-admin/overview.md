@@ -10,6 +10,28 @@
 
 The organization admin portal is where you manage the people, seats, and settings for a single organization in Claude for Government. It covers the day-to-day work of administering who has access, how much they can use, and how the Claude products behave for your users.
 
+<Frame caption="Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.">
+  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=d235ae566a0056c409a1b59b2a9623e7" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" data-path="images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness.mp4" />
+</Frame>
+
+<Accordion title="Transcript">
+  In an organization, a member's role decides what they can manage, and their seat tier decides which models they can use and how much. Readiness shows what still blocks your members.
+
+  Marcus, a Primary Owner, signs in and lands on the organization admin view.
+
+  Under Settings, Readiness lists what blocks members. Every required step is done, but one optional item remains, Assign seat tiers to members. Select Open Users.
+
+  Users lists every member with their role, seat tier, usage against the five-hour and seven-day limits, and last login.
+
+  Wen is Unassigned. Wen can sign in, but Claude Desktop offers no models. Choose a tier from the Seat tier dropdown. The change applies at once, and the models appear the next time Wen starts Claude Desktop.
+
+  Roles are User, Owner, and Primary Owner. Keep at least two Primary Owners, so one can always promote a replacement. From Priya's Role dropdown, Marcus chooses Primary Owner.
+
+  Tiers lists the seat tiers available to your organization. Anthropic-managed tiers are read-only, and your tenant can let you create your own.
+
+  Model access comes from the seat tier, never from the role. Tenant administrator is separate from these roles. If directory groups set roles or tiers, change the group in your provider, because the group mappings overwrite edits made by hand.
+</Accordion>
+
 ## Key concepts
 
 Before you use the portal, it helps to understand how the pieces fit together.
