@@ -1686,7 +1686,7 @@ Console.WriteLine(betaManagedAgentsCredential);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -2018,7 +2018,7 @@ await foreach (var item in page.Paginate())
 {
   "data": [
     {
-      "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+      "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
       "archived_at": null,
       "auth": {
         "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -2328,7 +2328,7 @@ Get Credential
 CredentialRetrieveParams parameters = new()
 {
     VaultID = "vlt_011CZkZDLs7fYzm1hXNPeRjv",
-    CredentialID = "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+    CredentialID = "vcrd_011CZkZEMt8gZan2iYPQfSkw",
 };
 
 var betaManagedAgentsCredential = await client.Beta.Vaults.Credentials.Retrieve(parameters);
@@ -2340,7 +2340,7 @@ Console.WriteLine(betaManagedAgentsCredential);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -2777,7 +2777,7 @@ Update Credential
 CredentialUpdateParams parameters = new()
 {
     VaultID = "vlt_011CZkZDLs7fYzm1hXNPeRjv",
-    CredentialID = "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+    CredentialID = "vcrd_011CZkZEMt8gZan2iYPQfSkw",
 };
 
 var betaManagedAgentsCredential = await client.Beta.Vaults.Credentials.Update(parameters);
@@ -2789,7 +2789,7 @@ Console.WriteLine(betaManagedAgentsCredential);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -2954,7 +2954,7 @@ Delete Credential
 CredentialDeleteParams parameters = new()
 {
     VaultID = "vlt_011CZkZDLs7fYzm1hXNPeRjv",
-    CredentialID = "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+    CredentialID = "vcrd_011CZkZEMt8gZan2iYPQfSkw",
 };
 
 var betaManagedAgentsDeletedCredential = await client.Beta.Vaults.Credentials.Delete(parameters);
@@ -2966,7 +2966,7 @@ Console.WriteLine(betaManagedAgentsDeletedCredential);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "type": "vault_credential_deleted"
 }
 ```
@@ -3261,7 +3261,7 @@ Archive Credential
 CredentialArchiveParams parameters = new()
 {
     VaultID = "vlt_011CZkZDLs7fYzm1hXNPeRjv",
-    CredentialID = "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+    CredentialID = "vcrd_011CZkZEMt8gZan2iYPQfSkw",
 };
 
 var betaManagedAgentsCredential = await client.Beta.Vaults.Credentials.Archive(parameters);
@@ -3273,7 +3273,7 @@ Console.WriteLine(betaManagedAgentsCredential);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -3526,7 +3526,7 @@ Validate Credential
 CredentialMcpOAuthValidateParams parameters = new()
 {
     VaultID = "vlt_011CZkZDLs7fYzm1hXNPeRjv",
-    CredentialID = "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+    CredentialID = "vcrd_011CZkZEMt8gZan2iYPQfSkw",
 };
 
 var betaManagedAgentsCredentialValidation = await client.Beta.Vaults.Credentials.McpOAuthValidate(parameters);
@@ -3538,7 +3538,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ```json
 {
-  "credential_id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "credential_id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "has_refresh_token": true,
   "mcp_probe": {
     "http_response": {

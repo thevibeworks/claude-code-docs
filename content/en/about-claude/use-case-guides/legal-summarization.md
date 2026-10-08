@@ -89,7 +89,7 @@ See the guide on [establishing success criteria](https://platform.claude.com/doc
 
 ### Select the right Claude model
 
-Model accuracy is extremely important when summarizing legal documents. Claude Opus 5 is an excellent choice for use cases such as this where high accuracy is required. If the size and quantity of your documents is large such that costs start to become a concern, you can also try using a smaller model such as Claude Haiku 4.5.
+Model accuracy is extremely important when summarizing legal documents. Claude Opus 5 is an excellent choice for use cases such as this where high accuracy is required. If the size and quantity of your documents is large such that costs start to become a concern, you can also try using a smaller model such as Claude Haiku 5.5.
 
 To help estimate these costs, the following is a comparison of the cost to summarize 1,000 sublease agreements using Opus and Haiku models:
 
@@ -101,34 +101,50 @@ To help estimate these costs, the following is a comparison of the cost to summa
 
 * **Estimated tokens**
 
-  * Input tokens: 86M (assuming 1 token per 3.5 characters)
-  * Output tokens per summary: 350
-  * Total output tokens: 350,000
+  * Input tokens: 108M, about 108,000 per agreement (about 1 token per 2.8 characters, the rate all three models showed on this guide's sample agreement)
+  * Output tokens per summary, including any thinking tokens, which are billed as output: about 4,800 on Claude Opus 5, 2,000 on Claude Opus 4.8, and 3,100 on Claude Haiku 5.5
+  * Total output tokens: 4.8M on Claude Opus 5, 2.0M on Claude Opus 4.8, and 3.1M on Claude Haiku 5.5
 
 * **Claude Opus 5 estimated cost**
 
-  * Input token cost: 86 MTok \* $5.00/MTok = $430.00 USD
-  * Output token cost: 0.35 MTok \* $25.00/MTok = $8.75 USD
-  * Total cost: $430.00 + $8.75 = $438.75 USD
+  * Input token cost: 108 MTok \* $5.00/MTok = $540.00 USD
+  * Output token cost: 4.8 MTok \* $25.00/MTok = $120.00 USD
+  * Total cost: $540.00 + $120.00 = $660.00 USD
 
 * **Claude Opus 4.8 estimated cost**
 
-  * Input token cost: 86 MTok \* $5.00/MTok = $430.00 USD
-  * Output token cost: 0.35 MTok \* $25.00/MTok = $8.75 USD
-  * Total cost: $430.00 + $8.75 = $438.75 USD
+  * Input token cost: 108 MTok \* $5.00/MTok = $540.00 USD
+  * Output token cost: 2.0 MTok \* $25.00/MTok = $50.00 USD
+  * Total cost: $540.00 + $50.00 = $590.00 USD
 
-* **Claude Haiku 4.5 estimated cost**
+* **Claude Haiku 5.5 estimated cost**, at its prices for prompts over 100,000 tokens
 
-  * Input token cost: 86 MTok \* $1.00/MTok = $86.00 USD
-  * Output token cost: 0.35 MTok \* $5.00/MTok = $1.75 USD
-  * Total cost: $86.00 + $1.75 = $87.75 USD
+  * Input token cost: 108 MTok \* $0.50/MTok = $54.00 USD
+  * Output token cost: 3.1 MTok \* $2.50/MTok = $7.75 USD
+  * Total cost: $54.00 + $7.75 = $61.75 USD
 
 <Tip>
-  Actual costs may differ from these estimates. These estimates are based on the example highlighted in the 
+  Actual costs may differ from these estimates. The token counts come from running the example in the 
 
   [Build a strong prompt](https://platform.claude.com/docs/en/about-claude/use-case-guides/legal-summarization#build-a-strong-prompt)
 
-   section.
+   section on this guide's sample agreement, about 105,000 input tokens, and output length varies with the document and from run to run. Each agreement here is one prompt of about 108,000 tokens, over the 100,000-token threshold of Claude Haiku 5.5's 
+
+  [long-prompt prices](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing)
+
+  . A document whose prompt stays at or under 100,000 tokens pays $0.10/MTok input and $0.50/MTok output instead. To see which prices apply, count your documents with 
+
+  [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting)
+
+   and 
+
+  `model`
+
+   set to 
+
+  `claude-haiku-5-5`
+
+  .
 </Tip>
 
 ### Transform documents into a format that Claude can process
@@ -188,7 +204,7 @@ client = anthropic.Anthropic()
 
 
 def summarize_document(
-    text, details_to_extract, model="claude-opus-5-5", max_tokens=1000
+    text, details_to_extract, model="claude-opus-5-5", max_tokens=16000
 ):
     # Format the details to extract to be placed within the prompt's context
     details_to_extract_str = "\n".join(details_to_extract)
@@ -295,7 +311,7 @@ def chunk_text(text, chunk_size=20000):
 
 
 def summarize_long_document(
-    text, details_to_extract, model="claude-opus-5-5", max_tokens=1000
+    text, details_to_extract, model="claude-opus-5-5", max_tokens=16000
 ):
     # Format the details to extract to be placed within the prompt's context
     details_to_extract_str = "\n".join(details_to_extract)

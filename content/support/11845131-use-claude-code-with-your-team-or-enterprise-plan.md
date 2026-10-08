@@ -79,3 +79,5 @@ To install and set up the extension for your IDE, see **[Platforms and integrati
 If your organization is on a **usage-based Enterprise plan** (including self-serve Enterprise), there are no per-seat usage limits—usage is based on consumption and billed at API rates. See **[How am I billed for my Enterprise plan?](https://support.claude.com/en/articles/11526368-how-am-i-billed-for-my-enterprise-plan)** for details on how usage billing works.
 
 If your organization is on a Team plan or a seat-based Enterprise plan, you can enable usage credits to allow team members to continue working with Claude, Cowork, and Claude Code after reaching their included usage limits. For more information, see **[Manage usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970-)**.
+
+Monthly API credits included with Team plans can’t be used in Claude Code or the Claude apps, including for extra usage. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.

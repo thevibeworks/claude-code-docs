@@ -926,6 +926,30 @@ var_dump($messageTokensCount);
 
   - `BashCodeExecutionToolResultErrorCode errorCode`
 
+### Browser Click Target
+
+- `class BrowserClickTarget`
+
+  - `class BrowserCoordinateTarget`
+
+    - `"coordinate" type`
+
+    - `int x`
+
+      Pixels from the left edge of the viewport.
+
+    - `int y`
+
+      Pixels from the top edge of the viewport.
+
+  - `class BrowserRefTarget`
+
+    - `"ref" type`
+
+    - `string ref`
+
+      An element reference (e.g. "ref_7") returned by a prior `read_page` or `find` result.
+
 ### Browser Close Tab Config
 
 - `class BrowserCloseTabConfig`
@@ -937,6 +961,48 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Close Tab Input
+
+- `class BrowserCloseTabInput`
+
+  - `string tabID`
+
+    The tab to close.
+
+### Browser Close Tab Tool Use Block
+
+- `class BrowserCloseTabToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserCloseTabInput input`
+
+    Close the tab with the given tab_id.
+
+  - `"close_tab" name`
+
+  - `"browser" toolsetName`
+
+### Browser Coordinate Target
+
+- `class BrowserCoordinateTarget`
+
+  - `"coordinate" type`
+
+  - `int x`
+
+    Pixels from the left edge of the viewport.
+
+  - `int y`
+
+    Pixels from the top edge of the viewport.
 
 ### Browser Double Click Config
 
@@ -950,6 +1016,42 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Double Click Input
+
+- `class BrowserDoubleClickInput`
+
+  - `BrowserClickTarget target`
+
+    Where to act: either a viewport coordinate or an element reference.
+
+  - `?string modifiers`
+
+    Optional modifier key chord to hold for the duration of this action (e.g. "shift", "ctrl+shift", "cmd+alt").
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Double Click Tool Use Block
+
+- `class BrowserDoubleClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserDoubleClickInput input`
+
+    Double left-click at a viewport coordinate or on an element by reference.
+
+  - `"double_click" name`
+
+  - `"browser" toolsetName`
+
 ### Browser File Upload Config
 
 - `class BrowserFileUploadConfig`
@@ -961,6 +1063,49 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser File Upload Input
+
+- `class BrowserFileUploadInput`
+
+  - `BrowserRefTarget target`
+
+    An element on the page, identified by a reference from a prior `read_page` or
+    `find` result. References are scoped to the tab that produced them and become
+    stale after navigation or a major re-render.
+
+  - `?list<string> documentIDs`
+
+    References to files the harness has staged, for deployments where the browser executor cannot read the caller's filesystem.
+
+  - `?list<string> paths`
+
+    File paths on the browser executor's filesystem.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser File Upload Tool Use Block
+
+- `class BrowserFileUploadToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserFileUploadInput input`
+
+    Set the value of a file-input element to one or more files. The target must be an
+    element reference; at least one of paths or document_ids is required.
+
+  - `"file_upload" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Find Config
 
@@ -974,6 +1119,39 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Find Input
+
+- `class BrowserFindInput`
+
+  - `string query`
+
+    Natural-language description of the element(s) to find.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Find Tool Use Block
+
+- `class BrowserFindToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserFindInput input`
+
+    Find elements matching a natural-language description (e.g. "search bar", "add to
+    cart button") and return up to 20 matches with element references.
+
+  - `"find" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Form Input Config
 
 - `class BrowserFormInputConfig`
@@ -985,6 +1163,55 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Form Input Input
+
+- `class BrowserFormInputInput`
+
+  - `BrowserRefTarget target`
+
+    An element on the page, identified by a reference from a prior `read_page` or
+    `find` result. References are scoped to the tab that produced them and become
+    stale after navigation or a major re-render.
+
+  - `BrowserFormInputValue value`
+
+    The value to set.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Form Input Tool Use Block
+
+- `class BrowserFormInputToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserFormInputInput input`
+
+    Set the value of a form element (input, textarea, select, checkbox). Use a
+    boolean for checkboxes, an option value or text for selects.
+
+  - `"form_input" name`
+
+  - `"browser" toolsetName`
+
+### Browser Form Input Value
+
+- `class BrowserFormInputValue`
+
+  - `string`
+
+  - `float`
+
+  - `bool`
 
 ### Browser Get Page Text Config
 
@@ -998,6 +1225,35 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Get Page Text Input
+
+- `class BrowserGetPageTextInput`
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Get Page Text Tool Use Block
+
+- `class BrowserGetPageTextToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserGetPageTextInput input`
+
+    Return the page's visible text content as plain text, prioritizing article
+    content. Suited to articles, documentation, and other text-heavy pages.
+
+  - `"get_page_text" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Hold Key Config
 
 - `class BrowserHoldKeyConfig`
@@ -1009,6 +1265,43 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Hold Key Input
+
+- `class BrowserHoldKeyInput`
+
+  - `float duration`
+
+    Seconds to hold the key down (maximum 30).
+
+  - `string text`
+
+    The key or chord to hold.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Hold Key Tool Use Block
+
+- `class BrowserHoldKeyToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserHoldKeyInput input`
+
+    Hold a key or key chord down for a duration, then release it. Uses the same key
+    names and "+" chord syntax as the key action.
+
+  - `"hold_key" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Hover Config
 
@@ -1022,6 +1315,38 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Hover Input
+
+- `class BrowserHoverInput`
+
+  - `BrowserClickTarget target`
+
+    Where to act: either a viewport coordinate or an element reference.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Hover Tool Use Block
+
+- `class BrowserHoverToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserHoverInput input`
+
+    Move the cursor to a coordinate or element without clicking.
+
+  - `"hover" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Javascript Exec Config
 
 - `class BrowserJavascriptExecConfig`
@@ -1034,6 +1359,40 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Javascript Exec Input
+
+- `class BrowserJavascriptExecInput`
+
+  - `string text`
+
+    JavaScript to execute in the page context.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Javascript Exec Tool Use Block
+
+- `class BrowserJavascriptExecToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserJavascriptExecInput input`
+
+    Execute JavaScript in the page context and return the value of the last
+    expression. The code runs with access to the DOM, `window`, and page variables.
+    Write the expression you want evaluated — do NOT use `return`.
+
+  - `"javascript_exec" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Key Config
 
 - `class BrowserKeyConfig`
@@ -1045,6 +1404,44 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Key Input
+
+- `class BrowserKeyInput`
+
+  - `string text`
+
+    The key, chord, or space-separated sequence to press.
+
+  - `?int repeat`
+
+    Number of times to repeat. Default 1.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Key Tool Use Block
+
+- `class BrowserKeyToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserKeyInput input`
+
+    Press a key or key chord. Use "+" to combine modifiers with a key (e.g. "ctrl+a",
+    "cmd+shift+p") and space to sequence presses (e.g. "Backspace Backspace Delete").
+    Common names like "Return", "Tab", "Escape", "BackSpace" are supported.
+
+  - `"key" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Left Click Config
 
@@ -1070,6 +1467,80 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Left Click Drag Input
+
+- `class BrowserLeftClickDragInput`
+
+  - `BrowserCoordinateTarget from`
+
+    A point in the browser viewport, in viewport pixels (the same frame as a
+    full-viewport screenshot).
+
+  - `BrowserCoordinateTarget target`
+
+    A point in the browser viewport, in viewport pixels (the same frame as a
+    full-viewport screenshot).
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Left Click Drag Tool Use Block
+
+- `class BrowserLeftClickDragToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserLeftClickDragInput input`
+
+    Press at `from`, drag to `target`, release. Both must be coordinate targets.
+
+  - `"left_click_drag" name`
+
+  - `"browser" toolsetName`
+
+### Browser Left Click Input
+
+- `class BrowserLeftClickInput`
+
+  - `BrowserClickTarget target`
+
+    Where to act: either a viewport coordinate or an element reference.
+
+  - `?string modifiers`
+
+    Optional modifier key chord to hold for the duration of this action (e.g. "shift", "ctrl+shift", "cmd+alt").
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Left Click Tool Use Block
+
+- `class BrowserLeftClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserLeftClickInput input`
+
+    Left-click at a viewport coordinate or on an element by reference.
+
+  - `"left_click" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Left Mouse Down Config
 
 - `class BrowserLeftMouseDownConfig`
@@ -1081,6 +1552,40 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Mouse Down Input
+
+- `class BrowserLeftMouseDownInput`
+
+  - `BrowserCoordinateTarget target`
+
+    A point in the browser viewport, in viewport pixels (the same frame as a
+    full-viewport screenshot).
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Left Mouse Down Tool Use Block
+
+- `class BrowserLeftMouseDownToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserLeftMouseDownInput input`
+
+    Press and hold the left mouse button at a viewport coordinate. Pair with
+    left_mouse_up to perform a custom drag.
+
+  - `"left_mouse_down" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Left Mouse Up Config
 
@@ -1094,6 +1599,39 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Left Mouse Up Input
+
+- `class BrowserLeftMouseUpInput`
+
+  - `BrowserCoordinateTarget target`
+
+    A point in the browser viewport, in viewport pixels (the same frame as a
+    full-viewport screenshot).
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Left Mouse Up Tool Use Block
+
+- `class BrowserLeftMouseUpToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserLeftMouseUpInput input`
+
+    Release the left mouse button at a viewport coordinate.
+
+  - `"left_mouse_up" name`
+
+  - `"browser" toolsetName`
+
 ### Browser List Tabs Config
 
 - `class BrowserListTabsConfig`
@@ -1105,6 +1643,30 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser List Tabs Input
+
+- `BrowserListTabsInput`
+
+### Browser List Tabs Tool Use Block
+
+- `class BrowserListTabsToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserListTabsInput input`
+
+    List all open tabs with each tab's tab_id, title, and URL.
+
+  - `"list_tabs" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Middle Click Config
 
@@ -1118,6 +1680,42 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Middle Click Input
+
+- `class BrowserMiddleClickInput`
+
+  - `BrowserClickTarget target`
+
+    Where to act: either a viewport coordinate or an element reference.
+
+  - `?string modifiers`
+
+    Optional modifier key chord to hold for the duration of this action (e.g. "shift", "ctrl+shift", "cmd+alt").
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Middle Click Tool Use Block
+
+- `class BrowserMiddleClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserMiddleClickInput input`
+
+    Middle-click at a viewport coordinate or on an element by reference.
+
+  - `"middle_click" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Mouse Move Config
 
 - `class BrowserMouseMoveConfig`
@@ -1129,6 +1727,39 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Mouse Move Input
+
+- `class BrowserMouseMoveInput`
+
+  - `BrowserCoordinateTarget target`
+
+    A point in the browser viewport, in viewport pixels (the same frame as a
+    full-viewport screenshot).
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Mouse Move Tool Use Block
+
+- `class BrowserMouseMoveToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserMouseMoveInput input`
+
+    Move the pointer to a viewport coordinate without clicking.
+
+  - `"mouse_move" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Navigate Config
 
@@ -1142,6 +1773,39 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Navigate Input
+
+- `class BrowserNavigateInput`
+
+  - `string url`
+
+    The URL to navigate to, or "back" / "forward" / "reload" for history navigation.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Navigate Tool Use Block
+
+- `class BrowserNavigateToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserNavigateInput input`
+
+    Navigate to a URL, or go back/forward/reload in history. The protocol may be
+    omitted (defaults to https://).
+
+  - `"navigate" name`
+
+  - `"browser" toolsetName`
+
 ### Browser New Tab Config
 
 - `class BrowserNewTabConfig`
@@ -1153,6 +1817,30 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser New Tab Input
+
+- `BrowserNewTabInput`
+
+### Browser New Tab Tool Use Block
+
+- `class BrowserNewTabToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserNewTabInput input`
+
+    Open a new empty tab and return its tab_id.
+
+  - `"new_tab" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Read Console Config
 
@@ -1166,6 +1854,36 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Read Console Input
+
+- `class BrowserReadConsoleInput`
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Read Console Tool Use Block
+
+- `class BrowserReadConsoleToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserReadConsoleInput input`
+
+    Return console output (log entries, errors, warnings) accumulated since the
+    driver attached to the tab and since the last read, one line per entry. An empty
+    result does not mean no traffic for a tab that predates attach.
+
+  - `"read_console" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Read Network Config
 
 - `class BrowserReadNetworkConfig`
@@ -1177,6 +1895,36 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Read Network Input
+
+- `class BrowserReadNetworkInput`
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Read Network Tool Use Block
+
+- `class BrowserReadNetworkToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserReadNetworkInput input`
+
+    Return the network requests (method, URL, status, MIME type, timing) recorded
+    since the driver attached to the tab and since the last read, one line per entry.
+    An empty result does not mean no traffic for a tab that predates attach.
+
+  - `"read_network" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Read Page Config
 
@@ -1190,6 +1938,67 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Read Page Filter
+
+- `enum BrowserReadPageFilter`
+
+  - `"all"`
+
+  - `"interactive"`
+
+### Browser Read Page Input
+
+- `class BrowserReadPageInput`
+
+  - `?int depth`
+
+    Maximum tree depth. Default 15.
+
+  - `?BrowserReadPageFilter filter`
+
+    Which elements to include. Omitted: every visible element. "interactive": interactive elements only. "all": additionally includes off-viewport elements.
+
+  - `?string ref`
+
+    Element reference to read a subtree from. Omit to read from the page root.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Read Page Tool Use Block
+
+- `class BrowserReadPageToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserReadPageInput input`
+
+    Return a structured accessibility tree of the page (or the subtree rooted at
+    `ref`), with element references like [ref_7] that can be used as targets on later
+    actions. Output is capped at 50,000 characters — narrow with `ref` or a smaller
+    `depth` when exceeded.
+
+  - `"read_page" name`
+
+  - `"browser" toolsetName`
+
+### Browser Ref Target
+
+- `class BrowserRefTarget`
+
+  - `"ref" type`
+
+  - `string ref`
+
+    An element reference (e.g. "ref_7") returned by a prior `read_page` or `find` result.
+
 ### Browser Right Click Config
 
 - `class BrowserRightClickConfig`
@@ -1201,6 +2010,42 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Right Click Input
+
+- `class BrowserRightClickInput`
+
+  - `BrowserClickTarget target`
+
+    Where to act: either a viewport coordinate or an element reference.
+
+  - `?string modifiers`
+
+    Optional modifier key chord to hold for the duration of this action (e.g. "shift", "ctrl+shift", "cmd+alt").
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Right Click Tool Use Block
+
+- `class BrowserRightClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserRightClickInput input`
+
+    Right-click at a viewport coordinate or on an element by reference.
+
+  - `"right_click" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Screenshot Config
 
@@ -1214,6 +2059,34 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Screenshot Input
+
+- `class BrowserScreenshotInput`
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Screenshot Tool Use Block
+
+- `class BrowserScreenshotToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserScreenshotInput input`
+
+    Capture the current browser viewport.
+
+  - `"screenshot" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Scroll Config
 
 - `class BrowserScrollConfig`
@@ -1226,6 +2099,37 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Scroll Direction
+
+- `enum BrowserScrollDirection`
+
+  - `"up"`
+
+  - `"down"`
+
+  - `"left"`
+
+  - `"right"`
+
+### Browser Scroll Input
+
+- `class BrowserScrollInput`
+
+  - `BrowserScrollDirection scrollDirection`
+
+  - `BrowserCoordinateTarget target`
+
+    A point in the browser viewport, in viewport pixels (the same frame as a
+    full-viewport screenshot).
+
+  - `?int scrollAmount`
+
+    Scroll-wheel notches (1–10). Default 3.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
 ### Browser Scroll To Config
 
 - `class BrowserScrollToConfig`
@@ -1237,6 +2141,60 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Scroll To Input
+
+- `class BrowserScrollToInput`
+
+  - `BrowserRefTarget target`
+
+    An element on the page, identified by a reference from a prior `read_page` or
+    `find` result. References are scoped to the tab that produced them and become
+    stale after navigation or a major re-render.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Scroll To Tool Use Block
+
+- `class BrowserScrollToToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserScrollToInput input`
+
+    Scroll an element into view.
+
+  - `"scroll_to" name`
+
+  - `"browser" toolsetName`
+
+### Browser Scroll Tool Use Block
+
+- `class BrowserScrollToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserScrollInput input`
+
+    Scroll at a viewport position. `target` must be a coordinate target.
+
+  - `"scroll" name`
+
+  - `"browser" toolsetName`
 
 ### Browser State Block Param
 
@@ -1412,6 +2370,619 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Switch Tab Input
+
+- `class BrowserSwitchTabInput`
+
+  - `string tabID`
+
+    The tab to switch to.
+
+### Browser Switch Tab Tool Use Block
+
+- `class BrowserSwitchTabToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserSwitchTabInput input`
+
+    Make the tab with the given tab_id the active tab — the tab that actions without
+    a tab_id apply to.
+
+  - `"switch_tab" name`
+
+  - `"browser" toolsetName`
+
+### Browser Tool Use Block
+
+- `class BrowserToolUseBlock`
+
+  - `class BrowserNavigateToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserNavigateInput input`
+
+      Navigate to a URL, or go back/forward/reload in history. The protocol may be
+      omitted (defaults to https://).
+
+    - `"navigate" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserListTabsToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserListTabsInput input`
+
+      List all open tabs with each tab's tab_id, title, and URL.
+
+    - `"list_tabs" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserNewTabToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserNewTabInput input`
+
+      Open a new empty tab and return its tab_id.
+
+    - `"new_tab" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserSwitchTabToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserSwitchTabInput input`
+
+      Make the tab with the given tab_id the active tab — the tab that actions without
+      a tab_id apply to.
+
+    - `"switch_tab" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserCloseTabToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserCloseTabInput input`
+
+      Close the tab with the given tab_id.
+
+    - `"close_tab" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserReadPageToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserReadPageInput input`
+
+      Return a structured accessibility tree of the page (or the subtree rooted at
+      `ref`), with element references like [ref_7] that can be used as targets on later
+      actions. Output is capped at 50,000 characters — narrow with `ref` or a smaller
+      `depth` when exceeded.
+
+    - `"read_page" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserGetPageTextToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserGetPageTextInput input`
+
+      Return the page's visible text content as plain text, prioritizing article
+      content. Suited to articles, documentation, and other text-heavy pages.
+
+    - `"get_page_text" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserReadConsoleToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserReadConsoleInput input`
+
+      Return console output (log entries, errors, warnings) accumulated since the
+      driver attached to the tab and since the last read, one line per entry. An empty
+      result does not mean no traffic for a tab that predates attach.
+
+    - `"read_console" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserReadNetworkToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserReadNetworkInput input`
+
+      Return the network requests (method, URL, status, MIME type, timing) recorded
+      since the driver attached to the tab and since the last read, one line per entry.
+      An empty result does not mean no traffic for a tab that predates attach.
+
+    - `"read_network" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserFindToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserFindInput input`
+
+      Find elements matching a natural-language description (e.g. "search bar", "add to
+      cart button") and return up to 20 matches with element references.
+
+    - `"find" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserFormInputToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserFormInputInput input`
+
+      Set the value of a form element (input, textarea, select, checkbox). Use a
+      boolean for checkboxes, an option value or text for selects.
+
+    - `"form_input" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserFileUploadToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserFileUploadInput input`
+
+      Set the value of a file-input element to one or more files. The target must be an
+      element reference; at least one of paths or document_ids is required.
+
+    - `"file_upload" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserScrollToToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserScrollToInput input`
+
+      Scroll an element into view.
+
+    - `"scroll_to" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserScreenshotToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserScreenshotInput input`
+
+      Capture the current browser viewport.
+
+    - `"screenshot" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserZoomToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserZoomInput input`
+
+      Return a cropped screenshot of the given viewport region, scaled up for closer
+      inspection — useful for small icons, buttons, or text. Coordinates are in the
+      same viewport-pixel space as a full screenshot.
+
+    - `"zoom" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserLeftClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserLeftClickInput input`
+
+      Left-click at a viewport coordinate or on an element by reference.
+
+    - `"left_click" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserRightClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserRightClickInput input`
+
+      Right-click at a viewport coordinate or on an element by reference.
+
+    - `"right_click" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserMiddleClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserMiddleClickInput input`
+
+      Middle-click at a viewport coordinate or on an element by reference.
+
+    - `"middle_click" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserDoubleClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserDoubleClickInput input`
+
+      Double left-click at a viewport coordinate or on an element by reference.
+
+    - `"double_click" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserTripleClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserTripleClickInput input`
+
+      Triple left-click at a viewport coordinate or on an element by reference
+      (typically selects a line or paragraph).
+
+    - `"triple_click" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserHoverToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserHoverInput input`
+
+      Move the cursor to a coordinate or element without clicking.
+
+    - `"hover" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserLeftClickDragToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserLeftClickDragInput input`
+
+      Press at `from`, drag to `target`, release. Both must be coordinate targets.
+
+    - `"left_click_drag" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserLeftMouseDownToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserLeftMouseDownInput input`
+
+      Press and hold the left mouse button at a viewport coordinate. Pair with
+      left_mouse_up to perform a custom drag.
+
+    - `"left_mouse_down" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserLeftMouseUpToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserLeftMouseUpInput input`
+
+      Release the left mouse button at a viewport coordinate.
+
+    - `"left_mouse_up" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserMouseMoveToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserMouseMoveInput input`
+
+      Move the pointer to a viewport coordinate without clicking.
+
+    - `"mouse_move" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserScrollToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserScrollInput input`
+
+      Scroll at a viewport position. `target` must be a coordinate target.
+
+    - `"scroll" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserTypeToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserTypeInput input`
+
+      Type a literal string at the current focus.
+
+    - `"type" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserKeyToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserKeyInput input`
+
+      Press a key or key chord. Use "+" to combine modifiers with a key (e.g. "ctrl+a",
+      "cmd+shift+p") and space to sequence presses (e.g. "Backspace Backspace Delete").
+      Common names like "Return", "Tab", "Escape", "BackSpace" are supported.
+
+    - `"key" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserHoldKeyToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserHoldKeyInput input`
+
+      Hold a key or key chord down for a duration, then release it. Uses the same key
+      names and "+" chord syntax as the key action.
+
+    - `"hold_key" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserWaitToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserWaitInput input`
+
+      Pause for the given duration.
+
+    - `"wait" name`
+
+    - `"browser" toolsetName`
+
+  - `class BrowserJavascriptExecToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `BrowserJavascriptExecInput input`
+
+      Execute JavaScript in the page context and return the value of the last
+      expression. The code runs with access to the DOM, `window`, and page variables.
+      Write the expression you want evaluated — do NOT use `return`.
+
+    - `"javascript_exec" name`
+
+    - `"browser" toolsetName`
+
 ### Browser Toolset 20260801
 
 - `class BrowserToolset20260801`
@@ -1566,6 +3137,43 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Triple Click Input
+
+- `class BrowserTripleClickInput`
+
+  - `BrowserClickTarget target`
+
+    Where to act: either a viewport coordinate or an element reference.
+
+  - `?string modifiers`
+
+    Optional modifier key chord to hold for the duration of this action (e.g. "shift", "ctrl+shift", "cmd+alt").
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Triple Click Tool Use Block
+
+- `class BrowserTripleClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserTripleClickInput input`
+
+    Triple left-click at a viewport coordinate or on an element by reference
+    (typically selects a line or paragraph).
+
+  - `"triple_click" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Type Config
 
 - `class BrowserTypeConfig`
@@ -1577,6 +3185,38 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Type Input
+
+- `class BrowserTypeInput`
+
+  - `string text`
+
+    The text to type.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Type Tool Use Block
+
+- `class BrowserTypeToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserTypeInput input`
+
+    Type a literal string at the current focus.
+
+  - `"type" name`
+
+  - `"browser" toolsetName`
 
 ### Browser Wait Config
 
@@ -1590,6 +3230,38 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Browser Wait Input
+
+- `class BrowserWaitInput`
+
+  - `float duration`
+
+    Seconds to wait (maximum 30).
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Wait Tool Use Block
+
+- `class BrowserWaitToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserWaitInput input`
+
+    Pause for the given duration.
+
+  - `"wait" name`
+
+  - `"browser" toolsetName`
+
 ### Browser Zoom Config
 
 - `class BrowserZoomConfig`
@@ -1601,6 +3273,40 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Zoom Input
+
+- `class BrowserZoomInput`
+
+  - `list<int> region`
+
+    [x0, y0, x1, y1] in viewport pixels.
+
+  - `?string tabID`
+
+    Tab to act on. Defaults to the active tab when omitted.
+
+### Browser Zoom Tool Use Block
+
+- `class BrowserZoomToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `BrowserZoomInput input`
+
+    Return a cropped screenshot of the given viewport region, scaled up for closer
+    inspection — useful for small icons, buttons, or text. Coordinates are in the
+    same viewport-pixel space as a full screenshot.
+
+  - `"zoom" name`
+
+  - `"browser" toolsetName`
 
 ### Cache Control Ephemeral
 
@@ -2241,6 +3947,30 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Computer Cursor Position Input
+
+- `ComputerCursorPositionInput`
+
+### Computer Cursor Position Tool Use Block
+
+- `class ComputerCursorPositionToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerCursorPositionInput input`
+
+    Get the current (x, y) pixel coordinate of the cursor.
+
+  - `"cursor_position" name`
+
+  - `"computer" toolsetName`
+
 ### Computer Double Click Config
 
 - `class ComputerDoubleClickConfig`
@@ -2252,6 +3982,39 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Double Click Input
+
+- `class ComputerDoubleClickInput`
+
+  - `?list<int> coordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+  - `?string text`
+
+    Optional key combination to hold down during this action (e.g. "ctrl", "shift", "ctrl+shift").
+
+### Computer Double Click Tool Use Block
+
+- `class ComputerDoubleClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerDoubleClickInput input`
+
+    Double-click the left mouse button at the specified (x, y) pixel coordinate, or
+    the current cursor position if `coordinate` is omitted.
+
+  - `"double_click" name`
+
+  - `"computer" toolsetName`
 
 ### Computer Hold Key Config
 
@@ -2265,6 +4028,39 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Computer Hold Key Input
+
+- `class ComputerHoldKeyInput`
+
+  - `int duration`
+
+    Duration to hold the key, in seconds.
+
+  - `string text`
+
+    The key or key-combination to hold.
+
+### Computer Hold Key Tool Use Block
+
+- `class ComputerHoldKeyToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerHoldKeyInput input`
+
+    Hold down a key or key-combination for a specified duration. Uses the same key
+    syntax as `key`.
+
+  - `"hold_key" name`
+
+  - `"computer" toolsetName`
+
 ### Computer Key Config
 
 - `class ComputerKeyConfig`
@@ -2276,6 +4072,42 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Key Input
+
+- `class ComputerKeyInput`
+
+  - `string text`
+
+    The key or key-combination to press.
+
+  - `?int repeat`
+
+    Number of times to repeat the key press. Default is 1.
+
+### Computer Key Tool Use Block
+
+- `class ComputerKeyToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerKeyInput input`
+
+    Press a key or key-combination on the keyboard. Use "+" to combine modifiers with
+    a key (e.g. "ctrl+s", "alt+Tab", "ctrl+shift+Escape"). Key names are
+    case-insensitive; common names like "Return", "Tab", "Escape", "Up", "Down",
+    "Left", "Right", "Home", "End", "Page_Up", "Page_Down", "Delete", "BackSpace" are
+    supported.
+
+  - `"key" name`
+
+  - `"computer" toolsetName`
 
 ### Computer Left Click Config
 
@@ -2301,6 +4133,75 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Computer Left Click Drag Input
+
+- `class ComputerLeftClickDragInput`
+
+  - `list<int> coordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+  - `list<int> startCoordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+  - `?string text`
+
+    Optional key combination to hold down during this action (e.g. "ctrl", "shift", "ctrl+shift").
+
+### Computer Left Click Drag Tool Use Block
+
+- `class ComputerLeftClickDragToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerLeftClickDragInput input`
+
+    Click and drag the cursor from `start_coordinate` to `coordinate`.
+
+  - `"left_click_drag" name`
+
+  - `"computer" toolsetName`
+
+### Computer Left Click Input
+
+- `class ComputerLeftClickInput`
+
+  - `?list<int> coordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+  - `?string text`
+
+    Optional key combination to hold down during this action (e.g. "ctrl", "shift", "ctrl+shift").
+
+### Computer Left Click Tool Use Block
+
+- `class ComputerLeftClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerLeftClickInput input`
+
+    Click the left mouse button at the specified (x, y) pixel coordinate, or the
+    current cursor position if `coordinate` is omitted.
+
+  - `"left_click" name`
+
+  - `"computer" toolsetName`
+
 ### Computer Left Mouse Down Config
 
 - `class ComputerLeftMouseDownConfig`
@@ -2312,6 +4213,30 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Mouse Down Input
+
+- `ComputerLeftMouseDownInput`
+
+### Computer Left Mouse Down Tool Use Block
+
+- `class ComputerLeftMouseDownToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerLeftMouseDownInput input`
+
+    Press and hold the left mouse button at the current cursor position.
+
+  - `"left_mouse_down" name`
+
+  - `"computer" toolsetName`
 
 ### Computer Left Mouse Up Config
 
@@ -2325,6 +4250,30 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Computer Left Mouse Up Input
+
+- `ComputerLeftMouseUpInput`
+
+### Computer Left Mouse Up Tool Use Block
+
+- `class ComputerLeftMouseUpToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerLeftMouseUpInput input`
+
+    Release the left mouse button.
+
+  - `"left_mouse_up" name`
+
+  - `"computer" toolsetName`
+
 ### Computer Middle Click Config
 
 - `class ComputerMiddleClickConfig`
@@ -2336,6 +4285,39 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Middle Click Input
+
+- `class ComputerMiddleClickInput`
+
+  - `?list<int> coordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+  - `?string text`
+
+    Optional key combination to hold down during this action (e.g. "ctrl", "shift", "ctrl+shift").
+
+### Computer Middle Click Tool Use Block
+
+- `class ComputerMiddleClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerMiddleClickInput input`
+
+    Click the middle mouse button at the specified (x, y) pixel coordinate, or the
+    current cursor position if `coordinate` is omitted.
+
+  - `"middle_click" name`
+
+  - `"computer" toolsetName`
 
 ### Computer Mouse Move Config
 
@@ -2349,6 +4331,35 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Computer Mouse Move Input
+
+- `class ComputerMouseMoveInput`
+
+  - `list<int> coordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+### Computer Mouse Move Tool Use Block
+
+- `class ComputerMouseMoveToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerMouseMoveInput input`
+
+    Move the cursor to a specified (x, y) pixel coordinate. Use this ONLY to hover
+    without clicking; otherwise use a click action directly.
+
+  - `"mouse_move" name`
+
+  - `"computer" toolsetName`
+
 ### Computer Right Click Config
 
 - `class ComputerRightClickConfig`
@@ -2360,6 +4371,39 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Right Click Input
+
+- `class ComputerRightClickInput`
+
+  - `?list<int> coordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+  - `?string text`
+
+    Optional key combination to hold down during this action (e.g. "ctrl", "shift", "ctrl+shift").
+
+### Computer Right Click Tool Use Block
+
+- `class ComputerRightClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerRightClickInput input`
+
+    Click the right mouse button at the specified (x, y) pixel coordinate, or the
+    current cursor position if `coordinate` is omitted.
+
+  - `"right_click" name`
+
+  - `"computer" toolsetName`
 
 ### Computer Screenshot Config
 
@@ -2373,6 +4417,30 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Computer Screenshot Input
+
+- `ComputerScreenshotInput`
+
+### Computer Screenshot Tool Use Block
+
+- `class ComputerScreenshotToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerScreenshotInput input`
+
+    Take a screenshot of the screen.
+
+  - `"screenshot" name`
+
+  - `"computer" toolsetName`
+
 ### Computer Scroll Config
 
 - `class ComputerScrollConfig`
@@ -2384,6 +4452,381 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Scroll Direction
+
+- `enum ComputerScrollDirection`
+
+  - `"up"`
+
+  - `"down"`
+
+  - `"left"`
+
+  - `"right"`
+
+### Computer Scroll Input
+
+- `class ComputerScrollInput`
+
+  - `int scrollAmount`
+
+    Number of 'clicks' of the scroll wheel.
+
+  - `ComputerScrollDirection scrollDirection`
+
+  - `?list<int> coordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+  - `?string text`
+
+    Optional key combination to hold down during this action (e.g. "ctrl", "shift", "ctrl+shift").
+
+### Computer Scroll Tool Use Block
+
+- `class ComputerScrollToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerScrollInput input`
+
+    Scroll the screen at the specified (x, y) pixel coordinate, or the current cursor
+    position if `coordinate` is omitted. Do NOT use PageUp/PageDown to scroll.
+
+  - `"scroll" name`
+
+  - `"computer" toolsetName`
+
+### Computer Tool Use Block
+
+- `class ComputerToolUseBlock`
+
+  - `class ComputerKeyToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerKeyInput input`
+
+      Press a key or key-combination on the keyboard. Use "+" to combine modifiers with
+      a key (e.g. "ctrl+s", "alt+Tab", "ctrl+shift+Escape"). Key names are
+      case-insensitive; common names like "Return", "Tab", "Escape", "Up", "Down",
+      "Left", "Right", "Home", "End", "Page_Up", "Page_Down", "Delete", "BackSpace" are
+      supported.
+
+    - `"key" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerHoldKeyToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerHoldKeyInput input`
+
+      Hold down a key or key-combination for a specified duration. Uses the same key
+      syntax as `key`.
+
+    - `"hold_key" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerTypeToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerTypeInput input`
+
+      Type a string of text on the keyboard.
+
+    - `"type" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerCursorPositionToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerCursorPositionInput input`
+
+      Get the current (x, y) pixel coordinate of the cursor.
+
+    - `"cursor_position" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerMouseMoveToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerMouseMoveInput input`
+
+      Move the cursor to a specified (x, y) pixel coordinate. Use this ONLY to hover
+      without clicking; otherwise use a click action directly.
+
+    - `"mouse_move" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerLeftMouseDownToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerLeftMouseDownInput input`
+
+      Press and hold the left mouse button at the current cursor position.
+
+    - `"left_mouse_down" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerLeftMouseUpToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerLeftMouseUpInput input`
+
+      Release the left mouse button.
+
+    - `"left_mouse_up" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerLeftClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerLeftClickInput input`
+
+      Click the left mouse button at the specified (x, y) pixel coordinate, or the
+      current cursor position if `coordinate` is omitted.
+
+    - `"left_click" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerLeftClickDragToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerLeftClickDragInput input`
+
+      Click and drag the cursor from `start_coordinate` to `coordinate`.
+
+    - `"left_click_drag" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerRightClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerRightClickInput input`
+
+      Click the right mouse button at the specified (x, y) pixel coordinate, or the
+      current cursor position if `coordinate` is omitted.
+
+    - `"right_click" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerMiddleClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerMiddleClickInput input`
+
+      Click the middle mouse button at the specified (x, y) pixel coordinate, or the
+      current cursor position if `coordinate` is omitted.
+
+    - `"middle_click" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerDoubleClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerDoubleClickInput input`
+
+      Double-click the left mouse button at the specified (x, y) pixel coordinate, or
+      the current cursor position if `coordinate` is omitted.
+
+    - `"double_click" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerTripleClickToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerTripleClickInput input`
+
+      Triple-click the left mouse button at the specified (x, y) pixel coordinate, or
+      the current cursor position if `coordinate` is omitted.
+
+    - `"triple_click" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerScrollToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerScrollInput input`
+
+      Scroll the screen at the specified (x, y) pixel coordinate, or the current cursor
+      position if `coordinate` is omitted. Do NOT use PageUp/PageDown to scroll.
+
+    - `"scroll" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerWaitToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerWaitInput input`
+
+      Wait for a specified duration.
+
+    - `"wait" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerScreenshotToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerScreenshotInput input`
+
+      Take a screenshot of the screen.
+
+    - `"screenshot" name`
+
+    - `"computer" toolsetName`
+
+  - `class ComputerZoomToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `ToolUseCaller caller`
+
+      Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+    - `ComputerZoomInput input`
+
+      Take a screenshot of a rectangular region. Region coordinates are in the
+      full-screenshot space (not physical display pixels). The crop is scaled up to
+      fill the image budget so fine details become legible.
+
+    - `"zoom" name`
+
+    - `"computer" toolsetName`
 
 ### Computer Toolset 20260801
 
@@ -2483,6 +4926,39 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Computer Triple Click Input
+
+- `class ComputerTripleClickInput`
+
+  - `?list<int> coordinate`
+
+    (x, y): x pixels from the left edge, y pixels from the top edge.
+
+  - `?string text`
+
+    Optional key combination to hold down during this action (e.g. "ctrl", "shift", "ctrl+shift").
+
+### Computer Triple Click Tool Use Block
+
+- `class ComputerTripleClickToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerTripleClickInput input`
+
+    Triple-click the left mouse button at the specified (x, y) pixel coordinate, or
+    the current cursor position if `coordinate` is omitted.
+
+  - `"triple_click" name`
+
+  - `"computer" toolsetName`
+
 ### Computer Type Config
 
 - `class ComputerTypeConfig`
@@ -2494,6 +4970,34 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Type Input
+
+- `class ComputerTypeInput`
+
+  - `string text`
+
+    The text to type.
+
+### Computer Type Tool Use Block
+
+- `class ComputerTypeToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerTypeInput input`
+
+    Type a string of text on the keyboard.
+
+  - `"type" name`
+
+  - `"computer" toolsetName`
 
 ### Computer Wait Config
 
@@ -2507,6 +5011,34 @@ var_dump($messageTokensCount);
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
+### Computer Wait Input
+
+- `class ComputerWaitInput`
+
+  - `int duration`
+
+    Duration to wait, in seconds.
+
+### Computer Wait Tool Use Block
+
+- `class ComputerWaitToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerWaitInput input`
+
+    Wait for a specified duration.
+
+  - `"wait" name`
+
+  - `"computer" toolsetName`
+
 ### Computer Zoom Config
 
 - `class ComputerZoomConfig`
@@ -2518,6 +5050,36 @@ var_dump($messageTokensCount);
   - `?bool enabled`
 
     Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Zoom Input
+
+- `class ComputerZoomInput`
+
+  - `list<int> region`
+
+    (x0, y0, x1, y1): The region to capture.
+
+### Computer Zoom Tool Use Block
+
+- `class ComputerZoomToolUseBlock`
+
+  - `"tool_use" type`
+
+  - `string id`
+
+  - `ToolUseCaller caller`
+
+    Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+  - `ComputerZoomInput input`
+
+    Take a screenshot of a rectangular region. Region coordinates are in the
+    full-screenshot space (not physical display pixels). The crop is scaled up to
+    fill the image budget so fine details become legible.
+
+  - `"zoom" name`
+
+  - `"computer" toolsetName`
 
 ### Container
 
@@ -4006,6 +6568,10 @@ var_dump($messageTokensCount);
 ### Model
 
 - `enum Model`
+
+  - `"claude-haiku-5-5"`
+
+    Fastest model for high-volume, real-time tasks
 
   - `"claude-sonnet-5-5"`
 
@@ -6071,6 +8637,950 @@ var_dump($messageTokensCount);
   - `?string toolsetName`
 
     For a toolset member tool_use, the toolset family this member belongs to.
+
+### Tool Use Caller
+
+- `class ToolUseCaller`
+
+  - `class DirectCaller`
+
+    - `"direct" type`
+
+  - `class ServerToolCaller`
+
+    - `"code_execution_20250825" type`
+
+    - `string toolID`
+
+  - `class ServerToolCaller20260120`
+
+    - `"code_execution_20260120" type`
+
+    - `string toolID`
+
+### Toolset Tool Use Block
+
+- `class ToolsetToolUseBlock`
+
+  - `class BrowserToolUseBlock`
+
+    - `class BrowserNavigateToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserNavigateInput input`
+
+        Navigate to a URL, or go back/forward/reload in history. The protocol may be
+        omitted (defaults to https://).
+
+      - `"navigate" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserListTabsToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserListTabsInput input`
+
+        List all open tabs with each tab's tab_id, title, and URL.
+
+      - `"list_tabs" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserNewTabToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserNewTabInput input`
+
+        Open a new empty tab and return its tab_id.
+
+      - `"new_tab" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserSwitchTabToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserSwitchTabInput input`
+
+        Make the tab with the given tab_id the active tab — the tab that actions without
+        a tab_id apply to.
+
+      - `"switch_tab" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserCloseTabToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserCloseTabInput input`
+
+        Close the tab with the given tab_id.
+
+      - `"close_tab" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserReadPageToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserReadPageInput input`
+
+        Return a structured accessibility tree of the page (or the subtree rooted at
+        `ref`), with element references like [ref_7] that can be used as targets on later
+        actions. Output is capped at 50,000 characters — narrow with `ref` or a smaller
+        `depth` when exceeded.
+
+      - `"read_page" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserGetPageTextToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserGetPageTextInput input`
+
+        Return the page's visible text content as plain text, prioritizing article
+        content. Suited to articles, documentation, and other text-heavy pages.
+
+      - `"get_page_text" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserReadConsoleToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserReadConsoleInput input`
+
+        Return console output (log entries, errors, warnings) accumulated since the
+        driver attached to the tab and since the last read, one line per entry. An empty
+        result does not mean no traffic for a tab that predates attach.
+
+      - `"read_console" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserReadNetworkToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserReadNetworkInput input`
+
+        Return the network requests (method, URL, status, MIME type, timing) recorded
+        since the driver attached to the tab and since the last read, one line per entry.
+        An empty result does not mean no traffic for a tab that predates attach.
+
+      - `"read_network" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserFindToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserFindInput input`
+
+        Find elements matching a natural-language description (e.g. "search bar", "add to
+        cart button") and return up to 20 matches with element references.
+
+      - `"find" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserFormInputToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserFormInputInput input`
+
+        Set the value of a form element (input, textarea, select, checkbox). Use a
+        boolean for checkboxes, an option value or text for selects.
+
+      - `"form_input" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserFileUploadToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserFileUploadInput input`
+
+        Set the value of a file-input element to one or more files. The target must be an
+        element reference; at least one of paths or document_ids is required.
+
+      - `"file_upload" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserScrollToToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserScrollToInput input`
+
+        Scroll an element into view.
+
+      - `"scroll_to" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserScreenshotToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserScreenshotInput input`
+
+        Capture the current browser viewport.
+
+      - `"screenshot" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserZoomToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserZoomInput input`
+
+        Return a cropped screenshot of the given viewport region, scaled up for closer
+        inspection — useful for small icons, buttons, or text. Coordinates are in the
+        same viewport-pixel space as a full screenshot.
+
+      - `"zoom" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserLeftClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserLeftClickInput input`
+
+        Left-click at a viewport coordinate or on an element by reference.
+
+      - `"left_click" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserRightClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserRightClickInput input`
+
+        Right-click at a viewport coordinate or on an element by reference.
+
+      - `"right_click" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserMiddleClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserMiddleClickInput input`
+
+        Middle-click at a viewport coordinate or on an element by reference.
+
+      - `"middle_click" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserDoubleClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserDoubleClickInput input`
+
+        Double left-click at a viewport coordinate or on an element by reference.
+
+      - `"double_click" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserTripleClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserTripleClickInput input`
+
+        Triple left-click at a viewport coordinate or on an element by reference
+        (typically selects a line or paragraph).
+
+      - `"triple_click" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserHoverToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserHoverInput input`
+
+        Move the cursor to a coordinate or element without clicking.
+
+      - `"hover" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserLeftClickDragToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserLeftClickDragInput input`
+
+        Press at `from`, drag to `target`, release. Both must be coordinate targets.
+
+      - `"left_click_drag" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserLeftMouseDownToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserLeftMouseDownInput input`
+
+        Press and hold the left mouse button at a viewport coordinate. Pair with
+        left_mouse_up to perform a custom drag.
+
+      - `"left_mouse_down" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserLeftMouseUpToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserLeftMouseUpInput input`
+
+        Release the left mouse button at a viewport coordinate.
+
+      - `"left_mouse_up" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserMouseMoveToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserMouseMoveInput input`
+
+        Move the pointer to a viewport coordinate without clicking.
+
+      - `"mouse_move" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserScrollToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserScrollInput input`
+
+        Scroll at a viewport position. `target` must be a coordinate target.
+
+      - `"scroll" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserTypeToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserTypeInput input`
+
+        Type a literal string at the current focus.
+
+      - `"type" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserKeyToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserKeyInput input`
+
+        Press a key or key chord. Use "+" to combine modifiers with a key (e.g. "ctrl+a",
+        "cmd+shift+p") and space to sequence presses (e.g. "Backspace Backspace Delete").
+        Common names like "Return", "Tab", "Escape", "BackSpace" are supported.
+
+      - `"key" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserHoldKeyToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserHoldKeyInput input`
+
+        Hold a key or key chord down for a duration, then release it. Uses the same key
+        names and "+" chord syntax as the key action.
+
+      - `"hold_key" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserWaitToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserWaitInput input`
+
+        Pause for the given duration.
+
+      - `"wait" name`
+
+      - `"browser" toolsetName`
+
+    - `class BrowserJavascriptExecToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `BrowserJavascriptExecInput input`
+
+        Execute JavaScript in the page context and return the value of the last
+        expression. The code runs with access to the DOM, `window`, and page variables.
+        Write the expression you want evaluated — do NOT use `return`.
+
+      - `"javascript_exec" name`
+
+      - `"browser" toolsetName`
+
+  - `class ComputerToolUseBlock`
+
+    - `class ComputerKeyToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerKeyInput input`
+
+        Press a key or key-combination on the keyboard. Use "+" to combine modifiers with
+        a key (e.g. "ctrl+s", "alt+Tab", "ctrl+shift+Escape"). Key names are
+        case-insensitive; common names like "Return", "Tab", "Escape", "Up", "Down",
+        "Left", "Right", "Home", "End", "Page_Up", "Page_Down", "Delete", "BackSpace" are
+        supported.
+
+      - `"key" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerHoldKeyToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerHoldKeyInput input`
+
+        Hold down a key or key-combination for a specified duration. Uses the same key
+        syntax as `key`.
+
+      - `"hold_key" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerTypeToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerTypeInput input`
+
+        Type a string of text on the keyboard.
+
+      - `"type" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerCursorPositionToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerCursorPositionInput input`
+
+        Get the current (x, y) pixel coordinate of the cursor.
+
+      - `"cursor_position" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerMouseMoveToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerMouseMoveInput input`
+
+        Move the cursor to a specified (x, y) pixel coordinate. Use this ONLY to hover
+        without clicking; otherwise use a click action directly.
+
+      - `"mouse_move" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerLeftMouseDownToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerLeftMouseDownInput input`
+
+        Press and hold the left mouse button at the current cursor position.
+
+      - `"left_mouse_down" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerLeftMouseUpToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerLeftMouseUpInput input`
+
+        Release the left mouse button.
+
+      - `"left_mouse_up" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerLeftClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerLeftClickInput input`
+
+        Click the left mouse button at the specified (x, y) pixel coordinate, or the
+        current cursor position if `coordinate` is omitted.
+
+      - `"left_click" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerLeftClickDragToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerLeftClickDragInput input`
+
+        Click and drag the cursor from `start_coordinate` to `coordinate`.
+
+      - `"left_click_drag" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerRightClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerRightClickInput input`
+
+        Click the right mouse button at the specified (x, y) pixel coordinate, or the
+        current cursor position if `coordinate` is omitted.
+
+      - `"right_click" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerMiddleClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerMiddleClickInput input`
+
+        Click the middle mouse button at the specified (x, y) pixel coordinate, or the
+        current cursor position if `coordinate` is omitted.
+
+      - `"middle_click" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerDoubleClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerDoubleClickInput input`
+
+        Double-click the left mouse button at the specified (x, y) pixel coordinate, or
+        the current cursor position if `coordinate` is omitted.
+
+      - `"double_click" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerTripleClickToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerTripleClickInput input`
+
+        Triple-click the left mouse button at the specified (x, y) pixel coordinate, or
+        the current cursor position if `coordinate` is omitted.
+
+      - `"triple_click" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerScrollToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerScrollInput input`
+
+        Scroll the screen at the specified (x, y) pixel coordinate, or the current cursor
+        position if `coordinate` is omitted. Do NOT use PageUp/PageDown to scroll.
+
+      - `"scroll" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerWaitToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerWaitInput input`
+
+        Wait for a specified duration.
+
+      - `"wait" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerScreenshotToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerScreenshotInput input`
+
+        Take a screenshot of the screen.
+
+      - `"screenshot" name`
+
+      - `"computer" toolsetName`
+
+    - `class ComputerZoomToolUseBlock`
+
+      - `"tool_use" type`
+
+      - `string id`
+
+      - `ToolUseCaller caller`
+
+        Which party invoked the tool call: the model directly, or a server tool on its behalf.
+
+      - `ComputerZoomInput input`
+
+        Take a screenshot of a rectangular region. Region coordinates are in the
+        full-screenshot space (not physical display pixels). The crop is scaled up to
+        fill the image budget so fine details become legible.
+
+      - `"zoom" name`
+
+      - `"computer" toolsetName`
+
+  - `class ToolUseBlock`
+
+    - `"tool_use" type`
+
+    - `string id`
+
+    - `Caller caller`
+
+    - `array<string,mixed> input`
+
+    - `string name`
+
+    - `?string toolsetName`
+
+      For a toolset member tool_use, the toolset family.
 
 ### URL Image Source
 

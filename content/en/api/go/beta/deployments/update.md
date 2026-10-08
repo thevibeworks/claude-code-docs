@@ -19,7 +19,7 @@ Update Deployment
 
 - `params BetaDeploymentUpdateParams`
 
-  - `Agent param.Field[BetaDeploymentUpdateParamsAgentUnion] Optional`
+  - `Agent BetaDeploymentUpdateParamsAgentUnion Optional`
 
     Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
 
@@ -43,23 +43,23 @@ Update Deployment
 
         format: int32
 
-  - `Budget param.Field[BetaManagedAgentsBudgetLimit] Optional`
+  - `Budget BetaManagedAgentsBudgetLimitParam Optional`
 
     Spend ceiling for future sessions. Full replacement. Omit to preserve; send null to clear (sessions created afterwards are uncapped). The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
-  - `Description param.Field[string] Optional`
+  - `Description param.Opt[string] Optional`
 
     Description. Omit to preserve; send empty string or null to clear.
 
     maxLength: 2048
 
-  - `EnvironmentID param.Field[string] Optional`
+  - `EnvironmentID param.Opt[string] Optional`
 
     ID of the `environment` where sessions run. Omit to preserve. Cannot be cleared.
 
     maxLength: 128
 
-  - `InitialEvents param.Field[[]BetaManagedAgentsDeploymentInitialEventParamsUnionResp] Optional`
+  - `InitialEvents []BetaManagedAgentsDeploymentInitialEventParamsUnion Optional`
 
     Initial events. Full replacement. Omit to preserve. Cannot be cleared. At least 1, maximum 50.
 
@@ -279,17 +279,17 @@ Update Deployment
 
           minLength: 1
 
-  - `Metadata param.Field[map[string, string]] Optional`
+  - `Metadata map[string, string] Optional`
 
     Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
-  - `Name param.Field[string] Optional`
+  - `Name param.Opt[string] Optional`
 
     Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
     maxLength: 256
 
-  - `Resources param.Field[[]BetaDeploymentUpdateParamsResourceUnion] Optional`
+  - `Resources []BetaDeploymentUpdateParamsResourceUnion Optional`
 
     Session resources. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 500.
 
@@ -383,15 +383,15 @@ Update Deployment
 
         maxLength: 4096
 
-  - `Schedule param.Field[BetaManagedAgentsScheduleParamsResp] Optional`
+  - `Schedule BetaManagedAgentsScheduleParams Optional`
 
     Cron schedule. Full replacement. Omit to preserve; send null to clear (revert to manual-only).
 
-  - `VaultIDs param.Field[[]string] Optional`
+  - `VaultIDs []string Optional`
 
     Vault IDs. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 50.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -495,7 +495,7 @@ Update Deployment
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

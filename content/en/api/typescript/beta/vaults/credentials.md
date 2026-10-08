@@ -486,7 +486,7 @@ console.log(betaManagedAgentsCredential.id);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -822,7 +822,7 @@ for await (const betaManagedAgentsCredential of client.beta.vaults.credentials.l
 {
   "data": [
     {
-      "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+      "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
       "archived_at": null,
       "auth": {
         "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -1138,7 +1138,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsCredential = await client.beta.vaults.credentials.retrieve(
-  "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   { vault_id: "vlt_011CZkZDLs7fYzm1hXNPeRjv" }
 );
 
@@ -1149,7 +1149,7 @@ console.log(betaManagedAgentsCredential.id);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -1592,7 +1592,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsCredential = await client.beta.vaults.credentials.update(
-  "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   { vault_id: "vlt_011CZkZDLs7fYzm1hXNPeRjv" }
 );
 
@@ -1603,7 +1603,7 @@ console.log(betaManagedAgentsCredential.id);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -1774,7 +1774,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsDeletedCredential = await client.beta.vaults.credentials.delete(
-  "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   { vault_id: "vlt_011CZkZDLs7fYzm1hXNPeRjv" }
 );
 
@@ -1785,7 +1785,7 @@ console.log(betaManagedAgentsDeletedCredential.id);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "type": "vault_credential_deleted"
 }
 ```
@@ -2086,7 +2086,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsCredential = await client.beta.vaults.credentials.archive(
-  "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   { vault_id: "vlt_011CZkZDLs7fYzm1hXNPeRjv" }
 );
 
@@ -2097,7 +2097,7 @@ console.log(betaManagedAgentsCredential.id);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",
@@ -2356,7 +2356,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsCredentialValidation =
-  await client.beta.vaults.credentials.mcpOAuthValidate("vcrd_011CZkZEMt8gZan2iYOQfSkw", {
+  await client.beta.vaults.credentials.mcpOAuthValidate("vcrd_011CZkZEMt8gZan2iYPQfSkw", {
     vault_id: "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   });
 
@@ -2367,7 +2367,7 @@ console.log(betaManagedAgentsCredentialValidation.credential_id);
 
 ```json
 {
-  "credential_id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "credential_id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "has_refresh_token": true,
   "mcp_probe": {
     "http_response": {

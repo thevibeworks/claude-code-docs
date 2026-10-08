@@ -21,7 +21,18 @@ An SSH remote session is a [Code](/docs/third-party/claude-desktop/code) session
 
 The engine keeps running on the host through a dropped SSH link, device sleep, or the user quitting Claude Desktop. It finishes the current turn, or stops at a permission prompt, then idles until the user reopens the session. Reopening starts a fresh engine from the transcript stored on the host, so a turn that finished while the app was closed is shown in full; a turn still running at that moment is cut short and not continued automatically. While Claude Desktop is closed, no new turns run and the inference credential is not refreshed, so a turn that outlives the credential fails with an authentication error.
 
-An idle engine stays on the host, with the credential in its environment, until the user reopens, archives, or deletes the session, the host restarts, or a Claude Desktop update replaces the remote server on the host (deferred while a session on that host was active in the last 24 hours, for up to 7 days).
+On a host that ends a user's processes at logout, the remote server and the engine end with the SSH connection that started them, so a turn in progress doesn't survive a disconnect. Linux hosts where systemd-logind's `KillUserProcesses` setting is `yes` and applies to the SSH user behave this way. To keep remote sessions running through a disconnect on such a host, ask the host's administrator to exempt the SSH user, for example by listing the user under `KillExcludeUsers` in the systemd-logind configuration.
+
+An idle engine stays on the host, with the credential in its environment, until one of these happens:
+
+* The user reopens, archives, or deletes the session.
+* The host restarts.
+* A Claude Desktop update replaces the remote server on the host (deferred while a session on that host was active in the last 24 hours, for up to 7 days).
+* On a Linux or macOS host, 30 days pass without a connection from Claude Desktop to the remote server. The remote server then stops and ends its engines. Requires Claude Desktop 1.52386.0 or later.
+
+While Claude Desktop is disconnected, the remote server keeps the most recent output of each running engine in a 16 MiB buffer. It drops older output, and the engine keeps running.
+
+On a Linux or macOS host, if Claude Desktop stayed open, it rejoins the running engine when it reconnects after device sleep or a dropped SSH link. It catches up from the buffer, and loads the part of the conversation that the buffer has dropped from the transcript stored on the host. If it can't load all of it, the session shows "Some output produced while you were disconnected may be missing here."
 
 ## Enable SSH remote sessions
 
@@ -44,7 +55,9 @@ Each entry is an exact hostname, an IP address, or a `*.` wildcard.
 * Entries do not restrict the port.
 * A value that is not an array of strings counts as `[]`.
 
-Both the host the user entered and the `HostName` that the device's `~/.ssh/config` resolves it to must match an entry, so an alias that resolves to a host outside the list is refused. A `ProxyCommand` is permitted when the resolved hostname matches; the app does not inspect where the command itself connects. The allowlist limits which hosts Claude Desktop connects to. It does not limit what the device can reach over SSH from a terminal. Use network controls for that.
+Claude Desktop matches entries against the `HostName` that the device's `~/.ssh/config` gives for the entered host, or against the entered host itself when the configuration has no entry for it or can't be evaluated. An alias is allowed when it resolves to a listed host, whatever the alias is called, and is refused when it resolves to a host outside the list. In the allowlist, enter the hostnames that aliases resolve to.
+
+A `ProxyCommand` is permitted when the resolved hostname matches. The app doesn't inspect where the command itself connects. The allowlist limits which hosts Claude Desktop connects to. It doesn't limit what the device can reach over SSH from a terminal. Use network controls for that.
 
 For example, this Linux managed-settings file turns the feature on for one domain:
 
@@ -99,25 +112,56 @@ Most of the policy that Claude Desktop applies to a local Code session applies o
 * `disabledBuiltinTools`, `builtinToolPolicy`, `autoModeEnabled`, and `disableBypassPermissionsMode`.
 * [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders), evaluated against the host's filesystem. `~` is the SSH user's home on the host, `%VAR%` entries are ignored, and Claude Desktop refuses to start a session in a directory outside every entry, so a fleet value such as `~/Documents/Claude` confines remote sessions to that path under the SSH user's home. A folder with `mode` set to `ro` is allowed on the host but not read-only there.
 * [`blockReadsOutsideWorkingDirectories`](/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories), evaluated on the host, so the working directories and the home directory it hides from shell commands are the SSH user's there. Hiding files from shell commands needs the host's sandbox dependencies (next item); on a host without them, or a Windows host, shell reads outside the working directories ask for approval instead, and the file-tool restriction applies regardless. Files a user attaches to a remote session stay readable, except on a Windows host, where the session's plugin files and attachments stay outside the file tools' reach under this key.
-* `coworkEgressAllowedHosts`, as Claude Code managed settings. The network and filesystem sandbox it produces with `allowedWorkspaceFolders` depends on the host having Claude Code's sandbox dependencies installed (see [Claude Code sandboxing](https://code.claude.com/docs/en/sandboxing)); without them, commands run unsandboxed and Claude Code shows a warning in the session.
+* `coworkEgressAllowedHosts`, as Claude Code managed settings. The network and filesystem sandbox it produces with `allowedWorkspaceFolders` depends on the host having Claude Code's sandbox dependencies installed (see [Claude Code sandboxing](https://code.claude.com/docs/en/sandboxing)). Without them, commands run unsandboxed. See [Sandbox status on the remote host](#sandbox-status-on-the-remote-host) for the message the session shows.
 * `managedMcpServers`, as the Claude Code managed setting that keeps users from adding their own MCP servers. The managed servers themselves are reached from the device.
 * Plugins from your [allowed marketplaces](/docs/third-party/claude-desktop/extensions), copied to the host. A plugin's `hooks` directory is not copied, so its hooks do not run in a remote session, and a plugin whose manifest declares hooks elsewhere is not copied at all.
 
 If the host has its own Claude Code managed settings, those take precedence over the policy Claude Desktop supplies, as described under [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) for local sessions.
+
+### Sandbox status on the remote host
+
+Claude Desktop asks Claude Code on the host whether the [sandbox](/docs/third-party/claude-desktop/code#applied-as-managed-policy) from your Claude Desktop policy is turned on and running there. The answer is Claude Code's own report, and it doesn't compare each allowed host or folder. Your policy includes the sandbox, and Claude Desktop asks, unless `coworkEgressAllowedHosts` contains `*` and `allowedWorkspaceFolders` is unset. Requires Claude Desktop 2.26454.0 or later.
+
+When the sandbox isn't confirmed, the session continues and shell commands can run outside the sandbox. To keep Claude Code from starting on a host whose operating system has no sandbox or that lacks a dependency, set [`sandbox.failIfUnavailable`](https://code.claude.com/docs/en/sandboxing#enforce-sandboxing-with-managed-settings) to `true` and [`parentSettingsBehavior`](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) to `"merge"` in the host's Claude Code managed settings. With `"merge"`, that setting applies together with your policy.
+
+Find the message, or the `reason` your collector received, for the cause and the fix.
+
+| Message in the session | `reason` your collector receives | Cause | Fix |
+| - | - | - | - |
+| Shell commands on `<host>` are running outside your organization's sandbox, which couldn't start | `cannot_start` | The sandbox is turned on but isn't running, for example because a Linux host lacks the sandbox dependencies | Install the [dependencies](https://code.claude.com/docs/en/sandboxing#set-up-linux-and-wsl2) on the host, then start a new session |
+| Your organization's sandbox isn't running on `<host>`. Claude Code has no sandbox for that operating system | `unsupported` | The host runs an operating system that Claude Code reports no sandbox for, such as Windows | Use a macOS or Linux host |
+| Your organization's sandbox policy isn't fully applied on `<host>`, so shell commands there may run outside it | `overridden` | Claude Code managed settings on the host replace your policy, even when they say nothing about the sandbox, or they turn the sandbox off or loosen it | Set `parentSettingsBehavior` to `"merge"` in the host's managed settings, and remove `sandbox` values there that conflict with your policy |
+| No message | `unknown` | Claude Code gives no answer that Claude Desktop can read | In a session on that host, ask Claude to run the two commands under [Confirm commands run inside the sandbox](https://code.claude.com/docs/en/sandboxing#confirm-commands-run-inside-the-sandbox) |
+
+With [`otlpEndpoint`](/docs/third-party/claude-desktop/configuration#otlpendpoint) set, your collector receives a `desktop_ssh_sandbox_check_failed` event under the `service.name` value `claude-desktop`, unless [`otlpDesktopLogLevel`](/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `off`. A session can send the event more than once, for example when the reason changes or after Claude Desktop restarts, so count distinct `session_id` values rather than events. The event carries these attributes:
+
+* **`reason`**: `cannot_start`, `unsupported`, `overridden`, or `unknown`
+* **`sandbox_on`**: `false` when Claude Code reports no sandbox running, `true` when it reports one that Claude Desktop can't match to your policy, and absent when Claude Code doesn't say
+* **`session_id`**: Claude Desktop's ID for the session
+* **`backend_kind`**: `ssh`
+
+The event doesn't name the host. To find the host, ask the user that the [user attribution](/docs/third-party/claude-desktop/telemetry#user-attribution) attributes identify.
 
 ## Host requirements
 
 The host needs the following.
 
 * Linux or macOS on x86\_64 or arm64, or Windows on x64 or arm64.
+* On a Linux host, glibc 2.17 or later, or musl. The Claude Code engine is a single executable, and its glibc build links only against glibc's own libraries. Version 2.17 is the oldest glibc that build can load, and Claude Code's [system requirements](https://code.claude.com/docs/en/setup#system-requirements) still apply. To see the host's C library and its version, run `ldd --version` on the host. For a musl host, see [Alpine Linux and musl-based distributions](https://code.claude.com/docs/en/setup#alpine-linux-and-musl-based-distributions).
 * An SSH server with the SFTP subsystem. On Windows, Microsoft's OpenSSH Server; with other SSH servers, the engine does not survive a dropped connection.
+* An SSH server that accepts several sessions on one connection. The device's OpenSSH client on macOS and Linux, and the built-in client, open a remote session's channels on one SSH connection, so `MaxSessions 1` in the server's `sshd_config` doesn't work. OpenSSH's default is 10. The server doesn't need to allow TCP, Unix socket, agent, or X11 forwarding. A `ProxyJump` host must allow TCP forwarding to the host's SSH port.
 * A POSIX shell, or PowerShell on Windows.
 * `git` on the path, for git features.
-* Up to about 700 MB of disk space in the SSH user's home directory, for the three Claude Code versions the app keeps.
+* A home directory that the SSH user can write to and run programs from, with about 1 GB of disk space for the three Claude Code versions the app keeps and a fourth while an update installs. A home directory mounted `noexec` doesn't work.
 
-The Claude Code engine is a standalone executable with no runtime dependencies. The device needs the OpenSSH client (`ssh` and `ssh-keygen`). Claude Desktop runs the first `ssh` on the user's `PATH`; to pin a specific OpenSSH installation instead, set [`sshClientPath`](/docs/third-party/claude-desktop/configuration#sshclientpath) (beta, Claude Desktop 1.46388.1 or later) to the program's absolute path, and `ssh-keygen` is then taken from the same directory when present. If the pinned program is missing or cannot be run, SSH connections fail with an error that shows the configured path, rather than falling back to another `ssh`.
+The device needs the OpenSSH client (`ssh` and `ssh-keygen`). Claude Desktop runs the first `ssh` on the user's `PATH`; to pin a specific OpenSSH installation instead, set [`sshClientPath`](/docs/third-party/claude-desktop/configuration#sshclientpath) (beta, Claude Desktop 1.46388.1 or later) to the program's absolute path, and `ssh-keygen` is then taken from the same directory when present. If the pinned program is missing or cannot be run, SSH connections fail with an error that shows the configured path, rather than falling back to another `ssh`.
 
 On macOS and Linux, Claude Desktop makes the SSH connection by running the device's OpenSSH client, so your own OpenSSH build's Kerberos (GSSAPI), certificate, and `ssh_config` support handles authentication. The program is the one `sshClientPath` names, or else the first `ssh` on the user's `PATH`, and it must be OpenSSH 7.6 or newer. On Windows, the app's built-in SSH client makes the connection by default, and the app runs the device's OpenSSH tools to evaluate the user's SSH configuration, look up host keys, and run the session's terminal. To have the device's OpenSSH client carry the connection on Windows too, set [`sshTransport`](/docs/third-party/claude-desktop/configuration#sshtransport) (beta) to `system-openssh`; the client must be Win32-OpenSSH 9.4 or newer. On a Windows device with no usable OpenSSH client and no `sshClientPath`, the built-in client is used regardless. Set `sshTransport` to `builtin` to use the built-in client on every platform. A change applies to new connections, and sessions that are already connected keep their client.
+
+The built-in client also makes the connection in these cases:
+
+* **The device can't start the OpenSSH client**: while `sshTransport` is unset or `auto` and `sshClientPath` is unset, the built-in client makes every connection until Claude Desktop restarts. Requires Claude Desktop 2.7032.0 or later.
+* **Claude Desktop is installed from the Microsoft Store**: the built-in client makes the connection unless `sshTransport` is `system-openssh`. With `system-openssh`, the device's OpenSSH client makes the connection, but the app can't show its prompts for a password, a one-time code, or a key passphrase, or its question about a host key that isn't on record. Use a sign-in method that needs no prompt, such as a key held by the SSH agent, and have users connect to each host once from a terminal before adding it in the app, so that the host's key is in the user's `known_hosts` file.
 
 Claude Desktop writes the following into the SSH user's home directory on the host. Each user who connects gets their own copy.
 
@@ -126,7 +170,7 @@ Claude Desktop writes the following into the SSH user's home directory on the ho
 | `~/.claude/remote/srv/<version>/` | The remote server that Claude Desktop talks to |
 | `~/.claude/remote/ccd-cli/<version>` | The Claude Code engine, one file per version (the three most recent versions are kept) |
 | `~/.claude/remote/run/<id>/` | The server's socket, token, and log |
-| `~/.claude/remote/plugins/<hash>/` | Plugins synced from the device |
+| `~/.claude/remote/plugins/<id>/` | Plugins synced from the device, in one folder for each Claude Desktop installation that connects |
 | `~/.claude/uploads/<session-id>/` | Files the user attached to a message. Not removed when the session ends |
 | `~/.claude/` and `~/.claude.json` | Claude Code's own data, including session transcripts. See [Data storage](/docs/third-party/claude-desktop/data-storage) |
 
@@ -137,20 +181,29 @@ Each side of a remote session needs its own network access.
 
 ### SSH configuration on the device
 
-Claude Desktop applies the host's entry in the user's `~/.ssh/config`. With the device's OpenSSH client (the default on macOS and Linux), the whole entry applies as it would in a terminal, including `ProxyJump`, certificate host keys, and GSSAPI, and the app still connects only to the resolved hostname that passed `sshHostAllowlist`. The built-in client (the default on Windows) applies the hostname, port, user, identity file, SSH agent, and `ProxyCommand`.
+Claude Desktop applies the host's entry in the user's `~/.ssh/config`. With the device's OpenSSH client (the default on macOS and Linux), `ssh` reads the entry itself, so settings such as `ProxyJump`, certificate host keys, and GSSAPI authentication apply, and the app still connects only to the resolved hostname that passed `sshHostAllowlist`. The built-in client (the default on Windows) applies the hostname, port, user, identity file, SSH agent, and `ProxyCommand`.
 
 * For hosts behind a bastion, configure a `ProxyJump` or `ProxyCommand`. `ProxyJump` works only when the device's OpenSSH client carries the connection (the default on macOS and Linux); the built-in client refuses it with a message suggesting `ProxyCommand`.
-* With the device's OpenSSH client, OpenSSH's own host key checking applies. For a host that is not yet in `~/.ssh/known_hosts`, the app shows the key's fingerprint, asks the user whether to trust it, and records a trusted key in the user's `known_hosts` file, unless the user's own SSH configuration accepts new keys without asking. `@cert-authority` entries are honored, and a changed host key is always refused.
+* With the device's OpenSSH client, OpenSSH's own host key checking applies. For a host whose key isn't on record yet, where the app can show a prompt, it shows the key's fingerprint, asks the user whether to trust it, and records a trusted key in the user's `known_hosts` file, unless the user's own SSH configuration accepts new keys without asking. The app can't show a prompt on every connection, for example when it reconnects in the background. Distribute the host keys or a host certificate authority to the devices, so that each host's key is on record before users connect. `@cert-authority` entries are honored. A key that differs from the one on record for the host is refused, whatever the entry's `StrictHostKeyChecking` says, unless another setting in the SSH configuration that applies to the host takes that check away, such as `NoHostAuthenticationForLocalhost yes` for a host on a loopback address.
 * With the built-in client, the host's key must already be in the device's `~/.ssh/known_hosts` as a plain entry. The app does not prompt to accept a new key and does not evaluate `@cert-authority` entries, so have users connect once from a terminal before adding the host in the app.
 * With the built-in client, an identity file protected by a passphrase is skipped, not prompted for. Load it into the SSH agent, or use an unencrypted key. With the device's OpenSSH client, the app asks for the passphrase once the host's key is verified, and skips the key if the user cancels.
-* With the built-in client, a host reached through a `ProxyCommand` skips host key verification and relies on the command to authenticate the host.
+* With the built-in client, a host reached through a `ProxyCommand` gets the same host key check as a host reached directly. Before Claude Desktop 2.9939.0, the built-in client skipped host key verification for such a host.
+* With the built-in client, a host connects with its key unchecked when its entry sets `StrictHostKeyChecking no`, sets `UserKnownHostsFile` to `none` or `/dev/null`, and sets no `RevokedHostKeys`. The app shows no password or one-time code prompt for such a host, so it needs a key or SSH agent sign-in.
 * The connection times out after 30 seconds. A larger `ConnectTimeout` in the host entry extends it.
+
+With either client, the connection that carries the session leaves these settings off, whatever the entry says:
+
+* **Forwarding**: `ForwardAgent`, `ForwardX11`, `Tunnel`, `LocalForward`, `RemoteForward`, and `DynamicForward`.
+* **Kerberos delegation**: `GSSAPIDelegateCredentials`. The host doesn't receive the user's Kerberos ticket over this connection, even where the entry says `GSSAPIDelegateCredentials yes`. A `ProxyJump` host is reached by a separate `ssh`, which applies the jump host's own entry.
+* **Commands**: `RemoteCommand` and `LocalCommand`.
+
+Where the session's terminal can't use that connection, and always with the built-in client, the terminal runs its own `ssh`, which applies the entry's forwarding and Kerberos delegation settings. With `ForwardAgent yes` in the entry, that `ssh` forwards the user's SSH agent to the host.
 
 ## Troubleshoot
 
 ### SSH isn't allowed by your organization
 
-The `sshHostAllowlist` in effect on this device is unset, empty, or has no entry that matches the host; the card's details say which. Both the host as the user entered it and the `HostName` from the device's `~/.ssh/config` must match. Which configuration source supplies the key on a device follows [Interaction with Claude Code managed settings on the device](#interaction-with-claude-code-managed-settings-on-the-device). The connection test reports the same denial as "Your organization's settings do not allow this connection."
+The `sshHostAllowlist` in effect on this device is unset, empty, or has no entry that matches the host. The card's details say which. The name that must match is the `HostName` that the device's `~/.ssh/config` resolves the entered host to, so an entry that lists only an alias doesn't allow the host. Which configuration source supplies the key on a device follows [Interaction with Claude Code managed settings on the device](#interaction-with-claude-code-managed-settings-on-the-device). The connection test reports the same denial as "Your organization's settings do not allow this connection."
 
 ### SSH to this machine isn't available
 
@@ -163,6 +216,16 @@ The configured inference credential is one of the kinds listed as refused under 
 ### SSH host key verification failed
 
 The host's key has changed, or it is not in the device's `~/.ssh/known_hosts` and was not trusted in the app (the built-in client never asks). Connect to the host from a terminal on the device to check and record the current key, then retry.
+
+### Setup on the host fails after SSH connects
+
+SSH connected, but Claude Desktop couldn't place or start the remote server or the engine on the host. Select **View details** on the failure card to read the app's own message, which can end with a code in square brackets. Match the code, or the start of the message:
+
+* **`[SFTP_UNAVAILABLE]`**: the host's SSH server refused the SFTP subsystem. Enable `Subsystem sftp` in the server's `sshd_config`.
+* **`[ENOSPC]` or `[EDQUOT]`**: a disk is full, or a quota is used up. In a message that starts with `Couldn't prepare the deploy locally`, the disk is the device's. In any other message it is the host's, so free space in the SSH user's home directory. [Host requirements](#host-requirements) gives the space the app needs.
+* **`Unsupported remote platform`**: the host's operating system or processor isn't among those under [Host requirements](#host-requirements).
+* **`Couldn't install the Claude CLI on the remote (cli archive)`, with no code**: the engine's install on the host failed. One cause is a glibc older than 2.17, where the engine can't start and the remote server removes it. Run `ldd --version` on the host to check.
+* **`[NO_INSTALL_RESULT]`**: the remote server's install step printed no result. A home directory mounted `noexec` is one cause.
 
 ## Related
 

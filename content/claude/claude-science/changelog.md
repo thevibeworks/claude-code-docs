@@ -6,6 +6,11 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.60" description="October 7, 2026">
+  * Mac: fixed a problem introduced in 0.1.59 where Python, R, and some shell commands could fail to run when Claude Science has access to many folders
+  * **Settings > Network > Package mirror** now shows a mirror credential file your organization deployed, instead of asking for a token
+</Update>
+
 <Update label="0.1.59" description="October 6, 2026">
   * Saved approvals for tools from your organization's plugins are cleared, so Claude asks again; new approvals apply only to the plugin that added the tool
   * Skills from plugins your organization's admin uploads now appear under Organization in **Settings > Skills**, instead of under Featured

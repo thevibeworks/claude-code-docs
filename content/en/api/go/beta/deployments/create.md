@@ -15,7 +15,7 @@ Create Deployment
 
 - `params BetaDeploymentNewParams`
 
-  - `Agent param.Field[BetaDeploymentNewParamsAgentUnion]`
+  - `Agent BetaDeploymentNewParamsAgentUnion`
 
     Agent to deploy. Accepts the `agent` ID string, which pins the latest version, or an `agent` object with both id and version specified. The agent must exist and not be archived.
 
@@ -39,13 +39,13 @@ Create Deployment
 
         format: int32
 
-  - `EnvironmentID param.Field[string]`
+  - `EnvironmentID string`
 
     ID of the `environment` defining the container configuration for sessions created from this deployment.
 
     minLength: 1, maxLength: 128
 
-  - `InitialEvents param.Field[[]BetaManagedAgentsDeploymentInitialEventParamsUnionResp]`
+  - `InitialEvents []BetaManagedAgentsDeploymentInitialEventParamsUnion`
 
     Events to send to each session immediately after creation. At least 1, maximum 50.
 
@@ -265,27 +265,27 @@ Create Deployment
 
           minLength: 1
 
-  - `Name param.Field[string]`
+  - `Name string`
 
     Human-readable name for the deployment.
 
     minLength: 1, maxLength: 256
 
-  - `Budget param.Field[BetaManagedAgentsBudgetLimit] Optional`
+  - `Budget BetaManagedAgentsBudgetLimitParam Optional`
 
     Enforced spend ceiling stamped onto each session created from this deployment, copied at session-creation time. Omit to leave sessions uncapped. The deployment agent's model must have a public list price, or the request is rejected; a multiagent roster is re-validated in full when each fire copies the cap, which fails closed the same way.
 
-  - `Description param.Field[string] Optional`
+  - `Description param.Opt[string] Optional`
 
     Description of what the deployment does.
 
     maxLength: 2048
 
-  - `Metadata param.Field[map[string, string]] Optional`
+  - `Metadata map[string, string] Optional`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `Resources param.Field[[]BetaDeploymentNewParamsResourceUnion] Optional`
+  - `Resources []BetaDeploymentNewParamsResourceUnion Optional`
 
     Resources (e.g. repositories, files) to mount into each session's container. Maximum 500.
 
@@ -379,15 +379,15 @@ Create Deployment
 
         maxLength: 4096
 
-  - `Schedule param.Field[BetaManagedAgentsScheduleParamsResp] Optional`
+  - `Schedule BetaManagedAgentsScheduleParams Optional`
 
     Optional recurring cron schedule. When present, the deployment fires automatically. Both expression and timezone are required when schedule is set.
 
-  - `VaultIDs param.Field[[]string] Optional`
+  - `VaultIDs []string Optional`
 
     Vault IDs for stored credentials the agent can use during sessions created from this deployment. Maximum 50.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -491,7 +491,7 @@ Create Deployment
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

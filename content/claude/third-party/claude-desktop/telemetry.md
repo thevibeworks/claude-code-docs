@@ -62,7 +62,7 @@ For third-party deployments, the export includes session metadata (event names, 
 
 The export carries logs and metrics. Cowork sessions, Code sessions, and the desktop application's own events arrive under the `service.name` values `cowork`, `claude-code-desktop`, and `claude-desktop` respectively. The app adds the collector host to the sandbox egress allowlist automatically, so `otlpEndpoint` does not need an entry in `coworkEgressAllowedHosts`; your perimeter firewall still needs to allow the host.
 
-For collector authentication headers, extra resource attributes, and the log level of the desktop application's own event stream, see [`otlpHeaders`, `otlpResourceAttributes`, and `otlpDesktopLogLevel`](/docs/third-party/claude-desktop/configuration#otlpheaders) in the configuration reference.
+For collector authentication headers, extra resource attributes, and the log level of the desktop application's own event stream, see [`otlpHeaders`, `otlpResourceAttributes`, and `otlpDesktopLogLevel`](/docs/third-party/claude-desktop/configuration#otlpheaders) in the configuration reference. Events on the `claude-desktop` stream include `desktop_ssh_sandbox_check_failed`, described under [Sandbox status on the remote host](/docs/third-party/claude-desktop/ssh-remote-sessions#sandbox-status-on-the-remote-host).
 
 ### Collector endpoint and headers
 

@@ -321,7 +321,7 @@ The unsafe categories can be customized to fit your specific needs. For example,
 
 ### Select the right Claude model
 
-When selecting a model, it’s important to consider the size of your data. If costs are a concern, a smaller model such as Claude Haiku 4.5 is an excellent choice because of its cost-effectiveness. The following is an estimate of the cost to moderate text for a social media platform that receives one billion posts per month:
+When selecting a model, it’s important to consider the size of your data. If costs are a concern, a smaller model such as Claude Haiku 5.5 is an excellent choice because of its cost-effectiveness. The following is an estimate of the cost to moderate text for a social media platform that receives one billion posts per month:
 
 * **Content size**
 
@@ -336,11 +336,11 @@ When selecting a model, it’s important to consider the size of your data. If c
   * Output tokens per flagged message: 50
   * Total output tokens: 1.5B
 
-* **Claude Haiku 4.5 estimated cost**
+* **Claude Haiku 5.5 estimated cost**
 
-  * Input token cost: 28,600 MTok \* $1.00/MTok = $28,600 USD
-  * Output token cost: 1,500 MTok \* $5.00/MTok = $7,500 USD
-  * Monthly cost: $28,600 + $7,500 = $36,100 USD
+  * Input token cost: 28,600 MTok \* $0.10/MTok = $2,860 USD
+  * Output token cost: 1,500 MTok \* $0.50/MTok = $750 USD
+  * Monthly cost: $2,860 + $750 = $3,610 USD
 
 * **Claude Opus 5 estimated cost**
 

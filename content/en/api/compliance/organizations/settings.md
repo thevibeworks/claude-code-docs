@@ -95,7 +95,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
       default: boolean
 
-    - `name: "access_transparency_enabled" or "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or 59 more`
+    - `name: "access_transparency_enabled" or "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or 60 more`
 
       - `"access_transparency_enabled"`
 
@@ -108,6 +108,8 @@ unknown organizations and organizations outside the hierarchy return 404.
       - `"artifact_connectors_enabled"`
 
       - `"ask_your_org_enabled"`
+
+      - `"chat_cowork_unified_enabled"`
 
       - `"chat_enabled"`
 
@@ -460,7 +462,7 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/sett
 
         default: boolean
 
-      - `name: "access_transparency_enabled" or "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or 59 more`
+      - `name: "access_transparency_enabled" or "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or 60 more`
 
         - `"access_transparency_enabled"`
 
@@ -473,6 +475,8 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/sett
         - `"artifact_connectors_enabled"`
 
         - `"ask_your_org_enabled"`
+
+        - `"chat_cowork_unified_enabled"`
 
         - `"chat_enabled"`
 

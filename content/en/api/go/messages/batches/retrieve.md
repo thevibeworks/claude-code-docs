@@ -21,7 +21,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 - `query MessageBatchGetParams`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

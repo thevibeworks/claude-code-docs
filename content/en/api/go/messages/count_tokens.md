@@ -19,7 +19,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `params MessageCountTokensParams`
 
-  - `Messages param.Field[[]MessageParamResp]`
+  - `Messages []MessageParam`
 
     Input messages.
 
@@ -1043,21 +1043,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `const MessageParamRoleSystem MessageParamRole = "system"`
 
-  - `Model param.Field[Model]`
+  - `Model Model`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `CacheControl param.Field[CacheControlEphemeral] Optional`
+  - `CacheControl CacheControlEphemeralParam Optional`
 
     Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-  - `OutputConfig param.Field[OutputConfig] Optional`
+  - `OutputConfig OutputConfigParam Optional`
 
     Configuration options for the model's output, such as the output format.
 
-  - `System param.Field[MessageCountTokensParamsSystemUnion] Optional`
+  - `System MessageCountTokensParamsSystemUnion Optional`
 
     System prompt.
 
@@ -1079,7 +1079,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `Citations []TextCitationParamUnionResp Optional`
 
-  - `Thinking param.Field[ThinkingConfigParamUnionResp] Optional`
+  - `Thinking ThinkingConfigParamUnion Optional`
 
     Configuration for enabling Claude's extended thinking.
 
@@ -1087,11 +1087,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-  - `ToolChoice param.Field[ToolChoiceUnion] Optional`
+  - `ToolChoice ToolChoiceUnionParam Optional`
 
     How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-  - `Tools param.Field[[]MessageCountTokensToolUnion] Optional`
+  - `Tools []MessageCountTokensToolUnionParam Optional`
 
     Definitions of tools that the model may use.
 
@@ -2731,11 +2731,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
-  - `UserProfileID param.Field[string] Optional` (header parameter)
+  - `UserProfileID param.Opt[string] Optional` (header parameter)
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

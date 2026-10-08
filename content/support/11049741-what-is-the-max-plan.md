@@ -18,6 +18,8 @@ The Max plan is designed for users who collaborate with Claude frequently and ne
 
 - **Longer, multi-step tasks:** Hand Claude work like reports, spreadsheets, and presentations, and it keeps going in the background. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
+- **Monthly API credits:** Claude Max and Team plans include monthly credits for the Claude API. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 ---
 
 ## How much does the Max plan cost?
@@ -38,7 +40,7 @@ Price and plans are subject to change at Anthropic's discretion.
 
 - The Max plan is currently available as a monthly subscription only.
 
-- When upgrading from a lower to a higher tier, your account will be charged on a prorated basis for the remainder of your billing cycle.
+- When upgrading from a lower to a higher tier, your account will be charged on a prorated basis for the remainder of your billing cycle. If you’ve claimed monthly API credits, you receive prorated credits right away, then the higher amount each billing cycle after that.
 
 - When moving from an annual Pro plan to a Max plan, if the remaining balance on your annual Pro plan is greater than your Max plan price, you will receive a credit to your account for the remaining balance. This credit will be applied to future subscription costs.
 

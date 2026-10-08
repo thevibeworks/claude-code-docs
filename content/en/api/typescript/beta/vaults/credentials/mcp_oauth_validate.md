@@ -245,7 +245,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsCredentialValidation =
-  await client.beta.vaults.credentials.mcpOAuthValidate("vcrd_011CZkZEMt8gZan2iYOQfSkw", {
+  await client.beta.vaults.credentials.mcpOAuthValidate("vcrd_011CZkZEMt8gZan2iYPQfSkw", {
     vault_id: "vlt_011CZkZDLs7fYzm1hXNPeRjv"
   });
 
@@ -256,7 +256,7 @@ console.log(betaManagedAgentsCredentialValidation.credential_id);
 
 ```json
 {
-  "credential_id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "credential_id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "has_refresh_token": true,
   "mcp_probe": {
     "http_response": {

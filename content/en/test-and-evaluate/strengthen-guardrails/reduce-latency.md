@@ -1,7 +1,7 @@
 ---
 title: Reducing latency
 url: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-latency
-description: Reduce Claude's response latency by choosing a faster model like Claude Haiku 4.5, trimming prompt and output tokens, and streaming responses.
+description: Reduce Claude's response latency by choosing a faster model like Claude Haiku 5.5, trimming prompt and output tokens, and streaming responses.
 ---
 
 Latency refers to the time it takes for the model to process a prompt and generate an output. Latency can be influenced by various factors, such as the size of the model, the complexity of the prompt, and the underlying infrastructure supporting the model and point of interaction.
@@ -29,37 +29,40 @@ For a more in-depth understanding of these terms, check out the [glossary](https
 
 One of the most direct ways to reduce latency is to select the appropriate model for your use case. Anthropic offers a [range of models](https://platform.claude.com/docs/en/models/overview) with different capabilities and performance characteristics. Consider your specific requirements and choose the model that best fits your needs in terms of speed and output quality.
 
-For speed-critical applications, **Claude Haiku 4.5** offers the fastest response times while maintaining high intelligence:
+For speed-critical applications, **Claude Haiku 5.5** offers the fastest response times while maintaining high intelligence. [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) is its main control for speed and cost. See [Use effort to control thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking). The following example runs it at `low`, the cheapest and fastest level, and leaves room in `max_tokens` for thinking:
 
 <CodeGroup>
   ```bash cURL
-  # For time-sensitive applications, use Claude Haiku 4.5
+  # For time-sensitive applications, use Claude Haiku 5.5 at low effort
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "content-type: application/json" \
     -d '{
-      "model": "claude-haiku-4-5",
-      "max_tokens": 100,
+      "model": "claude-haiku-5-5",
+      "max_tokens": 1024,
+      "output_config": {"effort": "low"},
       "messages": [{"role": "user", "content": "Summarize this customer feedback in 2 sentences: [feedback text]"}]
     }'
   ```
 
   ```bash CLI
-  # For time-sensitive applications, use Claude Haiku 4.5
+  # For time-sensitive applications, use Claude Haiku 5.5 at low effort
   ant messages create \
-    --model claude-haiku-4-5 \
-    --max-tokens 100 \
+    --model claude-haiku-5-5 \
+    --max-tokens 1024 \
+    --output-config '{effort: low}' \
     --message '{"role": "user", "content": "Summarize this customer feedback in 2 sentences: [feedback text]"}'
   ```
 
   ```python Python
   client = anthropic.Anthropic()
 
-  # For time-sensitive applications, use Claude Haiku 4.5
+  # For time-sensitive applications, use Claude Haiku 5.5 at low effort
   message = client.messages.create(
-      model="claude-haiku-4-5",
-      max_tokens=100,
+      model="claude-haiku-5-5",
+      max_tokens=1024,
+      output_config={"effort": "low"},
       messages=[
           {
               "role": "user",
@@ -67,16 +70,17 @@ For speed-critical applications, **Claude Haiku 4.5** offers the fastest respons
           }
       ],
   )
-  print(message.content[0].text)
+  print(next(block.text for block in message.content if block.type == "text"))
   ```
 
   ```typescript TypeScript
   const client = new Anthropic();
 
-  // For time-sensitive applications, use Claude Haiku 4.5
+  // For time-sensitive applications, use Claude Haiku 5.5 at low effort
   const message = await client.messages.create({
-    model: "claude-haiku-4-5",
-    max_tokens: 100,
+    model: "claude-haiku-5-5",
+    max_tokens: 1024,
+    output_config: { effort: "low" },
     messages: [
       {
         role: "user",
@@ -91,11 +95,12 @@ For speed-critical applications, **Claude Haiku 4.5** offers the fastest respons
   ```csharp C#
   AnthropicClient client = new();
 
-  // For time-sensitive applications, use Claude Haiku 4.5
+  // For time-sensitive applications, use Claude Haiku 5.5 at low effort
   var parameters = new MessageCreateParams
   {
-      Model = Model.ClaudeHaiku4_5,
-      MaxTokens = 100,
+      Model = Model.ClaudeHaiku5_5,
+      MaxTokens = 1024,
+      OutputConfig = new() { Effort = Effort.Low },
       Messages = [
           new()
           {
@@ -105,17 +110,26 @@ For speed-critical applications, **Claude Haiku 4.5** offers the fastest respons
       ]
   };
   var message = await client.Messages.Create(parameters);
-  message.Content[0].TryPickText(out var textBlock);
-  Console.WriteLine(textBlock?.Text);
+  foreach (var block in message.Content)
+  {
+      if (block.TryPickText(out var textBlock))
+      {
+          Console.WriteLine(textBlock.Text);
+          break;
+      }
+  }
   ```
 
   ```go Go
   client := anthropic.NewClient()
 
-  // For time-sensitive applications, use Claude Haiku 4.5
+  // For time-sensitive applications, use Claude Haiku 5.5 at low effort
   message, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-  	Model:     anthropic.ModelClaudeHaiku4_5,
-  	MaxTokens: 100,
+  	Model:     anthropic.ModelClaudeHaiku5_5,
+  	MaxTokens: 1024,
+  	OutputConfig: anthropic.OutputConfigParam{
+  		Effort: anthropic.OutputConfigEffortLow,
+  	},
   	Messages: []anthropic.MessageParam{
   		anthropic.NewUserMessage(anthropic.NewTextBlock("Summarize this customer feedback in 2 sentences: [feedback text]")),
   	},
@@ -123,44 +137,63 @@ For speed-critical applications, **Claude Haiku 4.5** offers the fastest respons
   if err != nil {
   	log.Fatal(err)
   }
-  fmt.Println(message.Content[0].Text)
+  for _, block := range message.Content {
+  	if textBlock, ok := block.AsAny().(anthropic.TextBlock); ok {
+  		fmt.Println(textBlock.Text)
+  		break
+  	}
+  }
   ```
 
   ```java Java
   AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-  // For time-sensitive applications, use Claude Haiku 4.5
+  // For time-sensitive applications, use Claude Haiku 5.5 at low effort
   MessageCreateParams params = MessageCreateParams.builder()
-      .model(Model.CLAUDE_HAIKU_4_5)
-      .maxTokens(100L)
+      .model(Model.CLAUDE_HAIKU_5_5)
+      .maxTokens(1024L)
+      .outputConfig(OutputConfig.builder()
+          .effort(OutputConfig.Effort.LOW)
+          .build())
       .addUserMessage("Summarize this customer feedback in 2 sentences: [feedback text]")
       .build();
   Message message = client.messages().create(params);
-  IO.println(message.content().get(0).text().map(TextBlock::text).orElse(""));
+  IO.println(message.content().stream()
+      .flatMap(block -> block.text().stream())
+      .map(TextBlock::text)
+      .findFirst()
+      .orElse(""));
   ```
 
   ```php PHP
   $client = new Client();
 
-  // For time-sensitive applications, use Claude Haiku 4.5
+  // For time-sensitive applications, use Claude Haiku 5.5 at low effort
   $message = $client->messages->create(
-      maxTokens: 100,
+      maxTokens: 1024,
       messages: [['role' => 'user', 'content' => 'Summarize this customer feedback in 2 sentences: [feedback text]']],
-      model: 'claude-haiku-4-5',
+      model: 'claude-haiku-5-5',
+      outputConfig: ['effort' => 'low'],
   );
-  echo $message->content[0]->text;
+  foreach ($message->content as $block) {
+      if ($block->type === 'text') {
+          echo $block->text;
+          break;
+      }
+  }
   ```
 
   ```ruby Ruby
   client = Anthropic::Client.new
 
-  # For time-sensitive applications, use Claude Haiku 4.5
+  # For time-sensitive applications, use Claude Haiku 5.5 at low effort
   message = client.messages.create(
-    model: "claude-haiku-4-5",
-    max_tokens: 100,
+    model: "claude-haiku-5-5",
+    max_tokens: 1024,
+    output_config: { effort: :low },
     messages: [{ role: "user", content: "Summarize this customer feedback in 2 sentences: [feedback text]" }]
   )
-  puts message.content.first.text
+  puts message.content.find { |block| block.type == :text }&.text
   ```
 </CodeGroup>
 
@@ -189,7 +222,7 @@ Here are some tips to help you optimize your prompts and outputs:
 
      tokens, the response will be cut off, perhaps mid-sentence or mid-word, so this is a blunt technique that might require post-processing and is usually most appropriate for multiple choice or short answer responses where the answer comes right at the beginning.
   </Note>
-* **Experiment with temperature:** The `temperature` [parameter](https://platform.claude.com/docs/en/api/messages/create) controls the randomness of the output. Lower values (for example, 0.2) can sometimes lead to more focused and shorter responses, while higher values (for example, 0.8) might result in more diverse but potentially longer outputs.
+* **Experiment with temperature:** The `temperature` [parameter](https://platform.claude.com/docs/en/api/messages/create) controls the randomness of the output. Lower values (for example, 0.2) can sometimes lead to more focused and shorter responses, while higher values (for example, 0.8) might result in more diverse but potentially longer outputs. Claude Haiku 5.5 accepts only the default `temperature` and returns a 400 error for any other value, so lower its [effort](https://platform.claude.com/docs/en/build-with-claude/effort) instead.
 
 Finding the right balance among prompt clarity, output quality, and token count might require some experimentation.
 

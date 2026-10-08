@@ -235,7 +235,7 @@ Here are some common success criteria that may be useful regardless of whether a
 
 The choice of model depends on the trade-offs between cost, accuracy, and response time.
 
-Many customers have found `claude-haiku-4-5-20251001` an ideal model for ticket routing, as it is the fastest and most cost-effective model in the Claude 4 family while still delivering excellent results. If your classification problem requires deep subject matter expertise or a large volume of intent categories, or complex reasoning, you may opt for the [larger Sonnet model](https://platform.claude.com/docs/en/models/overview).
+Claude Haiku 5.5 (`claude-haiku-5-5`) suits ticket routing: it's the fastest and most cost-effective current model, and at `low` effort it handles simple, high-volume requests such as classification. If your classification problem requires deep subject matter expertise or a large volume of intent categories, or complex reasoning, you may opt for the [larger Sonnet model](https://platform.claude.com/docs/en/models/overview).
 
 ### Build a strong prompt
 
@@ -307,7 +307,7 @@ def classify_support_request(ticket_contents):
 ```
 
 <Note>
-  This prompt is written for Claude Haiku 4.5, which runs here without thinking. On Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, and Claude Sonnet 5.5, ask for the intent and a one-sentence summary of the request instead. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
+  This prompt is written for Claude Haiku 5.5, which runs here at `low` effort. On Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, and Claude Sonnet 5.5, ask for the intent and a one-sentence summary of the request instead. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
 </Note>
 
 Here are the key components of this prompt:
@@ -333,7 +333,7 @@ import re
 client = anthropic.Anthropic()
 
 # Set the default model
-DEFAULT_MODEL = "claude-haiku-4-5-20251001"
+DEFAULT_MODEL = "claude-haiku-5-5"
 
 
 def classify_support_request(ticket_contents):
@@ -345,11 +345,14 @@ def classify_support_request(ticket_contents):
     # Send the prompt to the API to classify the support request.
     message = client.messages.create(
         model=DEFAULT_MODEL,
-        max_tokens=500,
+        max_tokens=2048,
+        output_config={"effort": "low"},
         messages=[{"role": "user", "content": classification_prompt}],
         stream=False,
     )
-    reasoning_and_intent = message.content[0].text
+    reasoning_and_intent = next(
+        (block.text for block in message.content if block.type == "text"), ""
+    )
 
     # Use Python's regular expressions library to extract `reasoning`.
     reasoning_match = re.search(
@@ -399,7 +402,7 @@ import re
 client = anthropic.Anthropic()
 
 # Set the default model
-DEFAULT_MODEL = "claude-haiku-4-5-20251001"
+DEFAULT_MODEL = "claude-haiku-5-5"
 
 
 def classify_support_request(request, actual_intent):
@@ -411,11 +414,14 @@ def classify_support_request(request, actual_intent):
 
     message = client.messages.create(
         model=DEFAULT_MODEL,
-        max_tokens=500,
+        max_tokens=2048,
+        output_config={"effort": "low"},
         messages=[{"role": "user", "content": classification_prompt}],
     )
     usage = message.usage  # Get the usage statistics for the API call for how many input and output tokens were used.
-    reasoning_and_intent = message.content[0].text
+    reasoning_and_intent = next(
+        (block.text for block in message.content if block.type == "text"), ""
+    )
 
     # Use Python's regular expressions library to extract `reasoning`.
     reasoning_match = re.search(
@@ -463,7 +469,33 @@ As the number of classes grows, the number of examples required also expands, po
 
 For example, you might have a top-level classifier that broadly categorizes tickets into "Technical Issues," "Billing Questions," and "General Inquiries." Each of these categories can then have its own sub-classifier to further refine the classification.
 
-![Classifier hierarchy routing tickets to Technical Issues, Billing Questions, or General Inquiries, each with a sub-classifier](https://platform.claude.com/docs/images/ticket-hierarchy.png)
+```mermaid
+---
+config:
+  flowchart:
+    nodeSpacing: 10
+    rankSpacing: 60
+    padding: 8
+    wrappingWidth: 300
+---
+flowchart LR
+  accTitle: Hierarchy of ticket classifiers
+  accDescr: Classifier hierarchy routing tickets to Technical Issues, Billing Questions, or General Inquiries, each with a sub-classifier
+  tickets[Support Tickets] --> technical[Technical Issues]
+  tickets --> billing[Billing Questions]
+  tickets --> general[General Inquiries]
+  technical --> software[Software Installation]
+  technical --> hardware[Hardware Troubleshooting]
+  technical --> network[Network Connectivity]
+  technical --> technicalMore[...]
+  billing --> invoice[Invoice Clarification]
+  billing --> payment[Payment Processing]
+  billing --> refund[Refund Requests]
+  general --> product[Product Information]
+  general --> order[Order Status]
+  general --> partnership[Partnership Opportunities]
+  general --> generalMore[...]
+```
 
 * **Pros - greater nuance and accuracy:** You can create different prompts for each parent path, allowing for more targeted and context-specific classification. This can lead to improved accuracy and more nuanced handling of customer requests.
 

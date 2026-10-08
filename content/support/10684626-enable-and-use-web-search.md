@@ -2,6 +2,8 @@
 
 You can have Claude search the internet to provide you with up-to-date information and insights when using the following models:
 
+- Haiku 5.5
+
 - Sonnet 5.5
 
 - Opus 5.5

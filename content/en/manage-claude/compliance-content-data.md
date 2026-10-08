@@ -24,6 +24,8 @@ Endpoints on this page paginate two ways; see [Paginate results](https://platfor
 
 Use [List chats](https://platform.claude.com/docs/en/api/compliance/apps/chats/list) to page through chat metadata, then [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) to fetch the full message content of one chat.
 
+Chats in the unified Claude experience are returned by these endpoints like any other chat: a chat that continues in a session in the cloud comes back as one chat. The work Claude does there appears in each message's `content` as `tool_use` blocks (the tool's `name` and `input`) and `tool_result` blocks (its output, matched by `tool_use_id`). Coverage of these chats is in beta.
+
 The chat list endpoint defaults to organization-wide scope: leave off `user_ids[]` to include every chat under your parent organization. Add `order_by=updated_at` to sort by last update time. This combination is the recommended way to export chats and keep an export current, because one paginated loop picks up new chats, chats with new messages, and chats deleted in claude.ai for every user without enumerating users first. The following request lists chats updated since a given date.
 
 ```bash cURL
@@ -271,6 +273,8 @@ The Compliance API exposes hard-delete endpoints for chats, files, project docum
 * [Delete file](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/delete): handles both chat files and project files.
 * [Delete project document](https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/delete): removes a single project document by ID.
 * [Delete project](https://platform.claude.com/docs/en/api/compliance/apps/projects/delete): see [Detach chats before deleting a project](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#detach-chats-before-deleting-a-project).
+
+For a chat in the unified Claude experience, [Delete chat](https://platform.claude.com/docs/en/api/compliance/apps/chats/delete) also deletes the sessions in the cloud that were started for the chat. It does not delete sessions that those sessions started.
 
 All four endpoints require the `delete:compliance_user_data` scope, which is granted separately from the read scope when the Compliance Access Key is created.
 

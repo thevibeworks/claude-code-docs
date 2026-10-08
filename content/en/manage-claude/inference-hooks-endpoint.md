@@ -148,7 +148,7 @@ The smallest working integration is a server that reads each request and allows 
 
 Anthropic sends an HTTPS `POST` to the URL your administrator configures. The whole configured URL is the endpoint: there is no fixed path suffix, so choose any path that suits your server.
 
-Host your AI security server where Anthropic can reach it: an `https://` URL on port 443, on a publicly routable host (private, loopback, and carrier-grade NAT ranges are refused at connect time), with a certificate that validates against the public CA trust store, responding without redirects. The configured URL must be the final destination. Reverse-tunnel hosts (ngrok and similar tunnel services) are not supported: Anthropic's network policy blocks them. Host your server on a domain you control. [Configure Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) covers how your administrator sets and tests the URL.
+Host your AI security server where Anthropic can reach it: an `https://` URL on port 443, on a publicly routable host (private, loopback, and carrier-grade NAT ranges are refused at connect time), with a certificate that validates against the public CA trust store, responding without redirects. The host must have an IPv4 address, which Anthropic uses even when the host also has IPv6 addresses; a URL whose host is `localhost` or an IPv6 address is refused. The configured URL must be the final destination. Reverse-tunnel hosts (ngrok and similar tunnel services) are not supported: Anthropic's network policy blocks them. Host your server on a domain you control. [Configure Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) covers how your administrator sets and tests the URL.
 
 Every request carries these fixed headers, along with any [custom request headers](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) your administrator configured and, once your organization has a signing secret, the `webhook-*` signature headers described in [Verify the signature](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#verify-the-signature):
 
@@ -219,12 +219,12 @@ An example request body:
 
 Each entry in `messages` has a `role` of `user` or `assistant` (tool results appear under the `user` role, matching the public Messages API content model) and a `content` array of blocks discriminated by `type`:
 
-| Block `type`  | Fields                                                                                                                                                                                                                                                                                                                                                                                        |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `text`        | `text`: the text content.                                                                                                                                                                                                                                                                                                                                                                     |
-| `tool_use`    | `id`: the identifier the matching tool result references. `tool_name`: the tool's name. `input`: the arguments the model passed to the tool. `tool_info`: on a tool call frame only (left out elsewhere, never `null`), an object that says who provides the tool; see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame). |
-| `tool_result` | `content`: the tool's output as text, with parts joined by newlines; binary parts such as images are replaced by placeholder markers, and raw bytes are never sent. `is_error`: whether the tool call failed. `tool_name`: the tool's name, so a policy can condition on tool identity without cross-referencing an earlier block. `tool_use_id`: the `id` of the matching `tool_use` block.  |
-| `attachment`  | `file_name`: the original file name or path. `media_type`: the attachment's media type. `size_bytes`: the size of the original file. `text`: the text content of the attachment when available, such as extracted document text, an audio transcript, or link metadata. Raw attachment bytes are never sent.                                                                                  |
+| Block `type`  | Fields                                                                                                                                                                                                                                                                                                                                                                                                |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `text`        | `text`: the text content.                                                                                                                                                                                                                                                                                                                                                                             |
+| `tool_use`    | `id`: the identifier the matching tool result references. `tool_name`: the tool's name. `input`: the arguments the model passed to the tool. `tool_info`: on a tool call frame only (left out elsewhere, never `null`), an object that says who runs or provides the tool; see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame). |
+| `tool_result` | `content`: the tool's output as text, with parts joined by newlines; binary parts such as images are replaced by placeholder markers, and raw bytes are never sent. `is_error`: whether the tool call failed. `tool_name`: the tool's name, so a policy can condition on tool identity without cross-referencing an earlier block. `tool_use_id`: the `id` of the matching `tool_use` block.          |
+| `attachment`  | `file_name`: the original file name or path. `media_type`: the attachment's media type. `size_bytes`: the size of the original file. `text`: the text content of the attachment when available, such as extracted document text, an audio transcript, or link metadata. Raw attachment bytes are never sent.                                                                                          |
 
 Apart from `type`, a `text` block's `text`, and a `tool_result` block's `content` and `is_error`, any of these fields can be `null` when the value isn't known; for example, an image arrives as an `attachment` block with `file_name` and `text` set to `null`.
 
@@ -252,27 +252,27 @@ It differs from the prompt frame in three ways:
 
 * `type` is `"tool_call"`.
 * `messages` holds only the latest message, the `assistant` message Claude just produced: any `text` blocks and one `tool_use` block per tool call the frame lists, in the order the model produced them. Earlier conversation is left out, because the prompt frame sent before that model call carried it. Read the last entry of `messages`, because the protocol may later add earlier messages before it.
-* Each `tool_use` block carries a `tool_info` object that says who provides the tool.
+* Each `tool_use` block carries a `tool_info` object that says who runs or provides the tool.
 
 Where `session_id` is set, it is the same on both frames. The tool call frame has its own `request_id`, which is opaque like the prompt frame's.
 
-`tool_info` says who provides the tool, not who runs it or what it can reach. It is one of four kinds, told apart by its `type` field, and each kind carries its own fields. Anthropic sends the first of the following kinds that fits the tool. New kinds may appear: accept a `type` you don't recognize, and for such a kind rely only on `type`.
+`tool_info` says who runs or provides the tool, not what the tool can reach. It is one of four kinds, told apart by its `type` field, and each kind carries its own fields. Anthropic sends the first of the following kinds that fits the tool. New kinds may appear: accept a `type` you don't recognize, and for such a kind rely only on `type`.
 
 An optional field that doesn't apply is left out, never `null`, so a `tool_info` can be just `{"type": "client"}`. `tool_name` is chosen by whoever defined the tool, and a server's `toolset_name` by whoever wrote the request, so don't treat either as a trust boundary.
 
 ### Platform tools
 
-A platform tool is one of the Claude API's predefined tools, such as web search or bash. It is `"platform"` whether Anthropic or the application that calls Claude runs it.
+A platform tool is one that the Claude API itself runs while it serves the request, such as web search or code execution.
 
 | Field          | Present  | Description                                                                                                         |
 | -------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
 | `type`         | Always   | `"platform"`                                                                                                        |
 | `tool_type`    | Always   | The tool's versioned type, such as `web_search_20250305`. Match it exactly; don't parse a name or a date out of it. |
-| `toolset_name` | Optional | The toolset the tool belongs to, such as `browser`.                                                                 |
+| `toolset_name` | Optional | The group of tools it belongs to.                                                                                   |
 
 ### Application tools
 
-An application tool is one that the Anthropic application making the request provides itself, such as claude.ai's own tools. It is `"application"` whether Anthropic or the application that calls Claude runs it.
+An application tool is one that the Anthropic application making the request provides itself, such as claude.ai's own tools.
 
 | Field          | Present  | Description                       |
 | -------------- | -------- | --------------------------------- |
@@ -311,16 +311,17 @@ A `tool_use` block for a tool on an MCP server that the request names `crm` in `
 
 ### Client tools
 
-A client tool is any other tool. The application that calls Claude declares it and receives its calls. A call to a tool the request doesn't declare is also `"client"`.
+A client tool is any other tool, usually one that the application calling Claude runs. A tool that Anthropic defines but the calling application runs, such as bash or computer use, is a client tool too, and carries its versioned type in `tool_type`. A call to a tool the request doesn't declare is also `"client"`.
 
 A tool on an MCP server that Claude Code connects to directly from the user's computer, such as a local MCP server, is a client tool. Its `tool_info` is `{"type": "client"}`, and its `tool_name` is the name Claude Code gives it, in the form `mcp__<server>__<tool>`.
 
 A deny stops the call before Claude Code runs it. The exchange between Claude Code and a local server doesn't pass through Anthropic, so your AI security server sees the tool's result only when Claude Code sends it back. Its text is then in a `tool_result` block in the next prompt frame.
 
-| Field          | Present  | Description                       |
-| -------------- | -------- | --------------------------------- |
-| `type`         | Always   | `"client"`                        |
-| `toolset_name` | Optional | The group of tools it belongs to. |
+| Field          | Present  | Description                                                                                                                                    |
+| -------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`         | Always   | `"client"`                                                                                                                                     |
+| `tool_type`    | Optional | The tool's versioned type, such as `bash_20250124`, when Anthropic defines the tool. Match it exactly; don't parse a name or a date out of it. |
+| `toolset_name` | Optional | The group of tools it belongs to, such as `browser`.                                                                                           |
 
 A `tool_use` block for a tool that the calling application declares:
 
@@ -334,6 +335,23 @@ A `tool_use` block for a tool that the calling application declares:
   },
   "tool_info": {
     "type": "client"
+  }
+}
+```
+
+A `tool_use` block for bash, which Anthropic defines and the calling application runs:
+
+```json
+{
+  "type": "tool_use",
+  "id": "toolu_01HiJkLmNoPqRsTuVwXyZaBc",
+  "tool_name": "bash",
+  "input": {
+    "command": "ls -la reports/"
+  },
+  "tool_info": {
+    "type": "client",
+    "tool_type": "bash_20250124"
   }
 }
 ```

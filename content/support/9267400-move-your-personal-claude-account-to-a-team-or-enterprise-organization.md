@@ -90,6 +90,12 @@ What happens to your Pro or Max plan after migrating depends on where you bought
 
 - **Apple App Store:** Your Pro or Max subscription isn't canceled. Apple doesn't allow third-party cancellation, so you'll need to cancel it yourself through your Apple ID settings. If you don't, Apple keeps charging you after your personal account closes.
 
+If you’ve claimed monthly API credits on your Max plan:
+
+- **Moving to a Team organization:** Your Max link ends. A Team Owner or Primary Owner can claim the team’s credits once the Team plan has been active for seven days.
+
+- **Moving to an Enterprise organization:** New credits stop. Credits you already have stay usable until they expire. Enterprise plans aren’t eligible for monthly API credits.
+
 For cancellation instructions, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
 
 ### How to start a migration
@@ -126,7 +132,7 @@ For the full walkthrough of your options, deadlines, and what happens to your su
 
 You may have both a personal account and an organization account tied to the same email address. You can switch between them by clicking your initials or name in the lower left corner of the screen.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1791396000&amp;signature=582e34e2587a48c9cea28fa1d3227be14ae06daa74fff3faada0844089e53041&amp;req=diMmFMh3noJbXvMW1HO4zXhPnNE1wRlhufhmlOXMdYbay24MiIya63iQmgHo%0AYUnUYGln%2FhfIGmrTUmk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1791460800&amp;signature=6808ba019d9bb8dbedef4605cd6adf67f8b1bc8ed44b2ef12a94bce366aa7ea9&amp;req=diMmFMh3noJbXvMW3nq%2BgXydQ01V7UMIA%2BRl6PawEblCw%2FZwu%2FBNcRXJ2v2J%0Aao2BhBDsPbp1o8mtw1agfqErIaA%3D%0A)
 
 A blue checkmark shows which account you're currently using. Click the other account to switch to it and access its separate conversations and projects.
 

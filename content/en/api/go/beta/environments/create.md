@@ -15,13 +15,13 @@ Create a new environment with the specified configuration.
 
 - `params BetaEnvironmentNewParams`
 
-  - `Name param.Field[string]`
+  - `Name string`
 
     Human-readable name for the environment
 
     minLength: 1, maxLength: 256
 
-  - `Config param.Field[BetaEnvironmentNewParamsConfigUnion] Optional`
+  - `Config BetaEnvironmentNewParamsConfigUnion Optional`
 
     Environment configuration
 
@@ -113,17 +113,17 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-  - `Description param.Field[string] Optional`
+  - `Description param.Opt[string] Optional`
 
     Optional description of the environment
 
     maxLength: 1024
 
-  - `Metadata param.Field[map[string, string]] Optional`
+  - `Metadata map[string, string] Optional`
 
     User-provided metadata key-value pairs
 
-  - `Scope param.Field[BetaEnvironmentNewParamsScope] Optional`
+  - `Scope BetaEnvironmentNewParamsScope Optional`
 
     The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. API organizations support only 'organization'; 'account' is rejected. If not specified, defaults based on organization type.
 
@@ -131,7 +131,7 @@ Create a new environment with the specified configuration.
 
     - `const BetaEnvironmentNewParamsScopeAccount BetaEnvironmentNewParamsScope = "account"`
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -235,7 +235,7 @@ Create a new environment with the specified configuration.
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

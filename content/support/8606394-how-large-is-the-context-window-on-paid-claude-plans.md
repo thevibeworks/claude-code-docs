@@ -16,6 +16,7 @@ This article explains how large the context window is on paid Claude plans (Pro,
 | Claude Sonnet 5.5 | 1M tokens          |
 | Claude Sonnet 5   | 1M tokens          |
 | Claude Sonnet 4.6 | 500K tokens        |
+| Claude Haiku 5.5  | 1M tokens          |
 
 Outside of these models, Claude’s context window size is 200K, meaning it can ingest 200K+ tokens (about 500 pages of text or more) when using a paid Claude plan to chat with Claude.
 
@@ -33,6 +34,7 @@ Outside of these models, Claude’s context window size is 200K, meaning it can 
 | Claude Sonnet 5.5 | 1M tokens                                                                                                                                                                                |
 | Claude Sonnet 5   | 1M tokens                                                                                                                                                                                |
 | Claude Sonnet 4.6 | 1M tokens<br>**Note:** 1M context window available by selecting `claude-sonnet-4-6[1m]` with `/model`; usage credits must be enabled to access (except for usage-based Enterprise plans) |
+| Claude Haiku 5.5  | 1M tokens                                                                                                                                                                                |
 
 ## Claude Cowork
 
@@ -48,6 +50,7 @@ Outside of these models, Claude’s context window size is 200K, meaning it can 
 | Claude Sonnet 5.5 | 1M tokens                                                                              |
 | Claude Sonnet 5   | 1M tokens<br>**Note:** Sonnet 5 automatically compacts the conversation at 500K tokens |
 | Claude Sonnet 4.6 | 200K tokens                                                                            |
+| Claude Haiku 5.5  | 500K tokens                                                                            |
 | Haiku 4.5         | 200K tokens                                                                            |
 
 ## Automatic context management

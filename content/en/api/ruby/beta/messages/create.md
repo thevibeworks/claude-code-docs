@@ -2988,6 +2988,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                      - `:"claude-haiku-5-5"`
+
+                        Fastest model for high-volume, real-time tasks
+
                       - `:"claude-sonnet-5-5"`
 
                         Efficient model for coding and agents
@@ -6864,6 +6868,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                    - `:"claude-haiku-5-5"`
+
+                      Fastest model for high-volume, real-time tasks
+
                     - `:"claude-sonnet-5-5"`
 
                       Efficient model for coding and agents
@@ -8291,7 +8299,7 @@ puts(beta_message)
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-sonnet-5-5",
+        "model": "claude-haiku-5-5",
         "output_tokens": 0,
         "type": "message"
       }

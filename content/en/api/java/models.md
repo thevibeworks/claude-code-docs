@@ -179,7 +179,7 @@ The Models API response can be used to determine which models are available for 
 
     - `CapabilitySupport codeExecution`
 
-      Whether the model supports code execution tools.
+      Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
 
     - `ContextManagementCapability contextManagement`
 
@@ -237,6 +237,22 @@ The Models API response can be used to determine which models are available for 
 
       Whether the model accepts PDF content blocks.
 
+    - `ServerToolsCapability serverTools`
+
+      Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
+
+      - `CapabilitySupport codeExecution`
+
+        Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
+
+      - `boolean supported`
+
+        Whether this capability is supported by the model.
+
+      - `CapabilitySupport webSearch`
+
+        Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
+
     - `CapabilitySupport structuredOutputs`
 
       Whether the model supports structured output / JSON mode / strict tool schemas.
@@ -255,11 +271,15 @@ The Models API response can be used to determine which models are available for 
 
         - `CapabilitySupport adaptive`
 
-          Whether the model supports thinking with type 'adaptive' (auto).
+          Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
+
+        - `CapabilitySupport disabled`
+
+          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
 
         - `CapabilitySupport enabled`
 
-          Whether the model supports thinking with type 'enabled'.
+          Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
   - `LocalDateTime createdAt`
 
@@ -367,6 +387,15 @@ public final class Main {
         "pdf_input": {
           "supported": true
         },
+        "server_tools": {
+          "code_execution": {
+            "supported": true
+          },
+          "supported": true,
+          "web_search": {
+            "supported": true
+          }
+        },
         "structured_outputs": {
           "supported": true
         },
@@ -374,6 +403,9 @@ public final class Main {
           "supported": true,
           "types": {
             "adaptive": {
+              "supported": true
+            },
+            "disabled": {
               "supported": true
             },
             "enabled": {
@@ -558,7 +590,7 @@ The Models API response can be used to determine information about a specific mo
 
     - `CapabilitySupport codeExecution`
 
-      Whether the model supports code execution tools.
+      Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
 
     - `ContextManagementCapability contextManagement`
 
@@ -616,6 +648,22 @@ The Models API response can be used to determine information about a specific mo
 
       Whether the model accepts PDF content blocks.
 
+    - `ServerToolsCapability serverTools`
+
+      Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
+
+      - `CapabilitySupport codeExecution`
+
+        Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
+
+      - `boolean supported`
+
+        Whether this capability is supported by the model.
+
+      - `CapabilitySupport webSearch`
+
+        Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
+
     - `CapabilitySupport structuredOutputs`
 
       Whether the model supports structured output / JSON mode / strict tool schemas.
@@ -634,11 +682,15 @@ The Models API response can be used to determine information about a specific mo
 
         - `CapabilitySupport adaptive`
 
-          Whether the model supports thinking with type 'adaptive' (auto).
+          Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
+
+        - `CapabilitySupport disabled`
+
+          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
 
         - `CapabilitySupport enabled`
 
-          Whether the model supports thinking with type 'enabled'.
+          Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
   - `LocalDateTime createdAt`
 
@@ -744,6 +796,15 @@ public final class Main {
     "pdf_input": {
       "supported": true
     },
+    "server_tools": {
+      "code_execution": {
+        "supported": true
+      },
+      "supported": true,
+      "web_search": {
+        "supported": true
+      }
+    },
     "structured_outputs": {
       "supported": true
     },
@@ -751,6 +812,9 @@ public final class Main {
       "supported": true,
       "types": {
         "adaptive": {
+          "supported": true
+        },
+        "disabled": {
           "supported": true
         },
         "enabled": {
@@ -860,7 +924,7 @@ public final class Main {
 
   - `CapabilitySupport codeExecution`
 
-    Whether the model supports code execution tools.
+    Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
 
   - `ContextManagementCapability contextManagement`
 
@@ -918,6 +982,22 @@ public final class Main {
 
     Whether the model accepts PDF content blocks.
 
+  - `ServerToolsCapability serverTools`
+
+    Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
+
+    - `CapabilitySupport codeExecution`
+
+      Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
+
+    - `boolean supported`
+
+      Whether this capability is supported by the model.
+
+    - `CapabilitySupport webSearch`
+
+      Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
+
   - `CapabilitySupport structuredOutputs`
 
     Whether the model supports structured output / JSON mode / strict tool schemas.
@@ -936,11 +1016,15 @@ public final class Main {
 
       - `CapabilitySupport adaptive`
 
-        Whether the model supports thinking with type 'adaptive' (auto).
+        Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
+
+      - `CapabilitySupport disabled`
+
+        Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
 
       - `CapabilitySupport enabled`
 
-        Whether the model supports thinking with type 'enabled'.
+        Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
 ### Model Info
 
@@ -974,7 +1058,7 @@ public final class Main {
 
     - `CapabilitySupport codeExecution`
 
-      Whether the model supports code execution tools.
+      Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
 
     - `ContextManagementCapability contextManagement`
 
@@ -1032,6 +1116,22 @@ public final class Main {
 
       Whether the model accepts PDF content blocks.
 
+    - `ServerToolsCapability serverTools`
+
+      Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
+
+      - `CapabilitySupport codeExecution`
+
+        Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
+
+      - `boolean supported`
+
+        Whether this capability is supported by the model.
+
+      - `CapabilitySupport webSearch`
+
+        Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
+
     - `CapabilitySupport structuredOutputs`
 
       Whether the model supports structured output / JSON mode / strict tool schemas.
@@ -1050,11 +1150,15 @@ public final class Main {
 
         - `CapabilitySupport adaptive`
 
-          Whether the model supports thinking with type 'adaptive' (auto).
+          Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
+
+        - `CapabilitySupport disabled`
+
+          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
 
         - `CapabilitySupport enabled`
 
-          Whether the model supports thinking with type 'enabled'.
+          Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
   - `LocalDateTime createdAt`
 
@@ -1104,6 +1208,28 @@ public final class Main {
 
   - `MYTHOS("mythos")`
 
+### Server Tools Capability
+
+- `class ServerToolsCapability`
+
+  Web search and code execution tool support, with one entry per tool.
+
+  - `CapabilitySupport codeExecution`
+
+    Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
+
+    - `boolean supported`
+
+      Whether this capability is supported by the model.
+
+  - `boolean supported`
+
+    Whether this capability is supported by the model.
+
+  - `CapabilitySupport webSearch`
+
+    Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
+
 ### Thinking Capability
 
 - `class ThinkingCapability`
@@ -1120,30 +1246,38 @@ public final class Main {
 
     - `CapabilitySupport adaptive`
 
-      Whether the model supports thinking with type 'adaptive' (auto).
+      Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
 
       - `boolean supported`
 
         Whether this capability is supported by the model.
 
+    - `CapabilitySupport disabled`
+
+      Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
+
     - `CapabilitySupport enabled`
 
-      Whether the model supports thinking with type 'enabled'.
+      Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
 
 ### Thinking Types
 
 - `class ThinkingTypes`
 
-  Supported thinking type configurations.
+  Which `thinking.type` values the model accepts on requests. Read each key on its own: for example, `enabled` can be false while `disabled` is true.
 
   - `CapabilitySupport adaptive`
 
-    Whether the model supports thinking with type 'adaptive' (auto).
+    Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
 
     - `boolean supported`
 
       Whether this capability is supported by the model.
 
+  - `CapabilitySupport disabled`
+
+    Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
+
   - `CapabilitySupport enabled`
 
-    Whether the model supports thinking with type 'enabled'.
+    Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).

@@ -106,6 +106,8 @@ For usage-based Enterprise plans, usage is billed based on actual consumption. F
 
 If you had purchased usage credits for your Team plan, any unused balance will roll over and become available on your new usage-based Enterprise plan.
 
+**Note:** Enterprise plans aren’t eligible for monthly API credits. If your team has claimed them, new credits stop when you migrate. Credits you already have stay usable until they expire.
+
 ### Provisioning process
 
 On the start date, you'll be provisioned and able to use the new features by the end of the day. After initial setup, Owners and Primary Owners can self-serve additional seats by navigating to **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)** and clicking "Manage" under **Total seats**.

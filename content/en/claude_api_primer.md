@@ -16,7 +16,8 @@ Step up for the hardest long-running agentic and research tasks, at 2.5x Claude 
 Previous Opus model: Claude Opus 5: claude-opus-5
 Smart model: Claude Sonnet 5.5: claude-sonnet-5-5
 Previous Sonnet model: Claude Sonnet 5: claude-sonnet-5
-For fast, cost-effective tasks: Claude Haiku 4.5: claude-haiku-4-5-20251001
+For fast, cost-effective tasks: Claude Haiku 5.5: claude-haiku-5-5
+Previous Haiku model: Claude Haiku 4.5: claude-haiku-4-5-20251001
 ```
 
 ## Calling the API
@@ -246,6 +247,7 @@ Thinking is supported in the following models:
 
 * Claude Opus 5.5 (`claude-opus-5-5`, adaptive thinking only, always on)
 * Claude Sonnet 5.5 (`claude-sonnet-5-5`, adaptive thinking only, on by default)
+* Claude Haiku 5.5 (`claude-haiku-5-5`, adaptive thinking only, on by default)
 * Claude Opus 5 (claude-opus-5, adaptive thinking only, on by default)
 * Claude Sonnet 5 (`claude-sonnet-5`, adaptive thinking only, on by default)
 * Claude Opus 4.8 (claude-opus-4-8, adaptive thinking only)

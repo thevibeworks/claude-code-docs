@@ -429,7 +429,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsCredential = await client.beta.vaults.credentials.update(
-  "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   { vault_id: "vlt_011CZkZDLs7fYzm1hXNPeRjv" }
 );
 
@@ -440,7 +440,7 @@ console.log(betaManagedAgentsCredential.id);
 
 ```json
 {
-  "id": "vcrd_011CZkZEMt8gZan2iYOQfSkw",
+  "id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "archived_at": null,
   "auth": {
     "mcp_server_url": "https://example-server.modelcontextprotocol.io/sse",

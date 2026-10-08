@@ -19,17 +19,17 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `params BetaEnvironmentWorkHeartbeatParams`
 
-  - `EnvironmentID param.Field[string]` (path parameter)
+  - `EnvironmentID string` (path parameter)
 
-  - `DesiredTTLSeconds param.Field[int64] Optional` (query parameter)
+  - `DesiredTTLSeconds param.Opt[int64] Optional` (query parameter)
 
     Desired TTL in seconds
 
-  - `ExpectedLastHeartbeat param.Field[string] Optional` (query parameter)
+  - `ExpectedLastHeartbeat param.Opt[string] Optional` (query parameter)
 
     Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 

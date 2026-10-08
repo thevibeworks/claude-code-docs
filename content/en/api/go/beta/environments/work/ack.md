@@ -19,9 +19,9 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 - `params BetaEnvironmentWorkAckParams`
 
-  - `EnvironmentID param.Field[string]` (path parameter)
+  - `EnvironmentID string` (path parameter)
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 

@@ -23,6 +23,7 @@ featureMetadata:
     - claude-sonnet-4-6
     - claude-sonnet-4-5-20250929
     - claude-opus-4-5-20251101
+    - claude-haiku-5-5
     - claude-haiku-4-5-20251001
   supportedPlatforms:
     Claude API: ga

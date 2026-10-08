@@ -3126,6 +3126,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                            - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                              Fastest model for high-volume, real-time tasks
+
                             - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
                               Efficient model for coding and agents
@@ -8192,6 +8196,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                            Fastest model for high-volume, real-time tasks
+
                           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
                             Efficient model for coding and agents
@@ -12180,6 +12188,10 @@ public final class Main {
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                            Fastest model for high-volume, real-time tasks
+
                           - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
                             Efficient model for coding and agents
@@ -15974,6 +15986,10 @@ public final class Main {
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                        - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                          Fastest model for high-volume, real-time tasks
+
                         - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 
                           Efficient model for coding and agents
@@ -19729,6 +19745,10 @@ public final class Main {
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
+
+                        Fastest model for high-volume, real-time tasks
 
                       - `CLAUDE_SONNET_5_5("claude-sonnet-5-5")`
 

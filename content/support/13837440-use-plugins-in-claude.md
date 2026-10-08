@@ -58,7 +58,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself. On Team and Enterprise plans, a colleague can share a plugin with you directly instead of sending you the file. See **[Use a plugin shared with you](#h_ef985546b4)** below. Plugins you add in Claude on the web or in Claude Desktop are saved to your account, not to your computer, so they follow you to chat, Cowork, and Claude Code.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1791396000&amp;signature=cbf6e5748d88910281c9f02a380333bf75124532da4758b7588c0fc0f8c2c197&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IxTeOvNVxakFVfq5WwywUIdLrWf8WPayk8o7%0A7oBFxEO%2Fh9z0QM45gBs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1791525600&amp;signature=be4587d5d31f35f7958233c705259983bd00736529386447047ef321a7223adb&amp;req=diEnFs1%2BlINeWPMW3nq%2BgVBR61lOu5kR3ytCn8XYmtDy7nsfJNRu6LMO4cp5%0AdyNDeff4HcqaUj9ovHlIvFOeYCo%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -68,7 +68,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you add brings skills and commands you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your plugins, in chat and in Cowork. In Cowork, you can also run a plugin's command by typing `/plugin-name:command`. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1791396000&amp;signature=b7e3c302362993ded691b52b06aa76a2bcbbfe2229077efcfe5188416456fd1a&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBff%2FikaUmKUxugP2BQt3%2FxtJlSX6AnHunEIS%0Agx9mmf1gZOb37oujcEE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1791525600&amp;signature=dc633726b03121da66ce081f4d638982e89e43c356d4d2e1344b3d7352d38ce2&amp;req=diEiEcp3m4lbXfMW3nq%2BgasPOp6KHAXoIOIpIe1p%2BLb6GwQV3rx1eDlEEsAM%0AS8FUvuu2TW%2FbdxPtwE4Wdtsq4LM%3D%0A)
 
 ---
 
@@ -185,6 +185,8 @@ To add a marketplace:
   - **Browse Anthropic sources:** Pick from marketplaces curated by Anthropic, such as Knowledge Work, Life Sciences, Financial Services, and Legal. Click "Add" next to the one you want, then click "Done."
 
   - **Add from a repository:** Enter a repository URL, or owner/repo for GitHub. Repositories on github.com work, and so do public repositories on gitlab.com and bitbucket.org.
+
+If your organization limits which marketplaces can be added, Claude refuses a repository your organization doesn’t allow. Ask an Owner which sources are permitted.
 
 To remove a marketplace, including the default Knowledge Work marketplace:
 

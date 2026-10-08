@@ -5,6 +5,10 @@ description: Model cards with detailed documentation for Claude models.
 ---
 
 <CardGroup cols={3}>
+  <Card title="Claude Haiku 5.5 System Card" icon="file" href="https://www.anthropic.com/document/claude-haiku-5-5-system-card">
+    Detailed documentation of Claude Haiku 5.5.
+  </Card>
+
   <Card title="Claude Opus 5.5 System Card" icon="file" href="https://www.anthropic.com/claude-opus-5-5-system-card">
     Detailed documentation of Claude Opus 5.5.
   </Card>

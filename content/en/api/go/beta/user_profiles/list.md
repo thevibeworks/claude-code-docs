@@ -15,13 +15,13 @@ List User Profiles
 
 - `params BetaUserProfileListParams`
 
-  - `Limit param.Field[int64] Optional` (query parameter)
+  - `Limit param.Opt[int64] Optional` (query parameter)
 
     The maximum number of user profiles to return, from 1 to 100. Defaults to 20.
 
     format: int32
 
-  - `Order param.Field[BetaUserProfileListParamsOrder] Optional` (query parameter)
+  - `Order BetaUserProfileListParamsOrder Optional` (query parameter)
 
     The sort direction, applied to the field that `order_by` selects. Defaults to `desc`.
 
@@ -33,7 +33,7 @@ List User Profiles
 
       Newest first when `order_by` is `created_at`, or names in descending order when `order_by` is `name`. This is the default.
 
-  - `OrderBy param.Field[BetaUserProfileListParamsOrderBy] Optional` (query parameter)
+  - `OrderBy BetaUserProfileListParamsOrderBy Optional` (query parameter)
 
     The field to sort user profiles by, in the direction that `order` sets. Defaults to `created_at`.
 
@@ -45,13 +45,13 @@ List User Profiles
 
       Sort by `name`, ignoring the case of ASCII letters. Profiles without a name come last in either direction.
 
-  - `Page param.Field[string] Optional` (query parameter)
+  - `Page param.Opt[string] Optional` (query parameter)
 
     The cursor for the page to return, taken from `next_page` in a previous response.
 
     Leave it out to get the first page.
 
-  - `Betas param.Field[[]AnthropicBeta] Optional` (header parameter)
+  - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -155,7 +155,7 @@ List User Profiles
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 

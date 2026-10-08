@@ -8,7 +8,7 @@ description: Guides for migrating to the latest Claude models from previous Clau
 * [Claude Mythos 5 and Claude Fable 5 migration guide](https://platform.claude.com/docs/en/models/fable-5/migration-guide)
 * [Claude Opus 5.5 migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide)
 * [Claude Sonnet 5.5 migration guide](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide)
-* [Claude Haiku 4.5 migration guide](https://platform.claude.com/docs/en/models/haiku-4-5/migration-guide)
+* [Claude Haiku 5.5 migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide)
 
 ## Get help
 

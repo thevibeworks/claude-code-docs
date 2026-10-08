@@ -23,7 +23,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 - `query MessageBatchResultsParams`
 
-  - `WorkspaceID param.Field[string] Optional` (header parameter)
+  - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
 
@@ -889,6 +889,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
+
+            Fastest model for high-volume, real-time tasks
 
           - `const ModelClaudeSonnet5_5 Model = "claude-sonnet-5-5"`
 

@@ -25,7 +25,9 @@ There are two hook events. `prompt` fires once per governed inference request, b
 
 The following diagram traces one example (a Cowork request where Claude also calls an O365 tool) to illustrate which parts of the flow are hooked. The hooked points are the diagram's steps 1, 2, and 3, where the prompt arrives, Claude calls the tool, and the tool result returns. At each one, your AI security server returns a verdict before the flow continues. Step 2 is hooked only with **Validate tool calls** on, and its one verdict covers all the tool calls in a response.
 
-![Flow diagram: the prompt, the tool call, and the tool result are each checked by the AI security server; the response is not](https://platform.claude.com/docs/images/inference-hooks-flow-2.svg)
+<Frame>
+  ![Flow diagram: the prompt, the tool call, and the tool result are each checked by the AI security server; the response is not](https://platform.claude.com/docs/images/inference-hooks-flow-2.svg)
+</Frame>
 
 A verdict is a small JSON object: `{"action": "allow"}` lets the request proceed, and a deny carries the user-facing reason. For the full verdict schema, see [Return a verdict](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#return-a-verdict).
 

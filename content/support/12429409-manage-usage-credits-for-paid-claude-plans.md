@@ -6,6 +6,8 @@ This article explains how usage credits work on your paid Claude plan (Pro, Max 
 
 Usage credits allow individuals subscribed to paid Claude plans (Pro, Max 5x, and Max 20x) to continue using Claude seamlessly after reaching their included usage limits. Instead of being blocked when you hit your session limits, you can switch to consumption-based pricing at standard API rates and continue your work without interruption.
 
+Usage credits are separate from the monthly API credits included with Max plans. Monthly API credits don’t apply to extra usage in Claude, Claude Code, or Claude Cowork. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 **Note:** If you subscribed through one of the Claude mobile apps, you can only enable usage credits on the web version of Claude. You will need to add your payment method before enabling and purchasing usage credits on the web.
 
 ---
@@ -46,7 +48,7 @@ To enable usage credits on your paid Claude plan:
 
 8. You can also enable auto-reload to automatically make a purchase when your balance falls below a threshold you set:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1805819785/5e203c38e6ba3f76bfd1dab0d5ce/fe062e7c-18cb-48cc-a7e2-754ac6e6c4be?expires=1791396000&amp;signature=0d4a3dc554e606012a02bbc23f9750d555f8c00f1ad22b76616d86249f1a35fe&amp;req=dSgnE8F%2FlIZXXPMW1HO4zYj2ABOarPY4opE7m38YdfcRDrSP6oo%2BX5ll%2BIpq%0Aa%2B82wCXI6HjQrurK3f4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1805819785/5e203c38e6ba3f76bfd1dab0d5ce/fe062e7c-18cb-48cc-a7e2-754ac6e6c4be?expires=1791460800&amp;signature=63e2e0957b032acf125f61cb51fac519e056f79dc10cd0d0a7283d2d67d0f5b2&amp;req=dSgnE8F%2FlIZXXPMW3nq%2BgZ83oo%2BP7c9pBXH0xflyUDlI5RG22O6%2BFn7nchLR%0AV7n08dYoXxuZlX%2Fu4kFFQkWLKUA%3D%0A)
 
 **Note:** There is a daily redemption limit of $2000.
 

@@ -19,7 +19,7 @@ compliance activities that can be filtered by various criteria.
 
 #### Query parameters
 
-- `activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 514 more`
+- `activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 516 more`
 
   Filter activities by type. See the response `data` schema for the additional fields each type returns. Cannot be combined with `exclude_activity_types[]`.
 
@@ -549,7 +549,7 @@ compliance activities that can be filtered by various criteria.
 
   - `"claude_plugin_downloaded"`
 
-    The archive of the plugin version a member was served was downloaded to install or update the plugin in one of the member's Claude apps (Claude in the browser, the Claude desktop app, Claude Code, or a cloud session).
+    The archive of the plugin version a member was served was downloaded to install or update the plugin in one of the member's Claude apps (Claude in the browser, the Claude desktop app, Claude Code, or a cloud session). Recorded when the member explicitly installs, updates or downloads the plugin (user_action), and when a fetch creates the member's install record for the plugin — its first delivery to them, whether a background sync of a plugin distributed to them or their own first install, which then carries both records (first_delivery). A plugin the member enabled in Claude is on the feed as claude_plugin_enabled and its later delivery by a client's background sync is not recorded again; nor are re-syncs, or fetches that only display the plugin's files in the browser.
 
   - `"claude_plugin_enabled"`
 
@@ -1058,6 +1058,14 @@ compliance activities that can be filtered by various criteria.
   - `"org_capability_grant_removed"`
 
     A capability grant was removed from a workspace or role.
+
+  - `"org_chat_cowork_unified_disabled"`
+
+    The organization's setting for the unified Chat and Cowork experience was turned off.
+
+  - `"org_chat_cowork_unified_enabled"`
+
+    The organization's setting for the unified Chat and Cowork experience was turned on.
 
   - `"org_claude_code_data_sharing_disabled"`
 
@@ -2146,7 +2154,7 @@ compliance activities that can be filtered by various criteria.
 
     format: date-time
 
-- `exclude_activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 514 more`
+- `exclude_activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 516 more`
 
   Exclude activities of these types. Cannot be combined with `activity_types[]`.
 
@@ -2676,7 +2684,7 @@ compliance activities that can be filtered by various criteria.
 
   - `"claude_plugin_downloaded"`
 
-    The archive of the plugin version a member was served was downloaded to install or update the plugin in one of the member's Claude apps (Claude in the browser, the Claude desktop app, Claude Code, or a cloud session).
+    The archive of the plugin version a member was served was downloaded to install or update the plugin in one of the member's Claude apps (Claude in the browser, the Claude desktop app, Claude Code, or a cloud session). Recorded when the member explicitly installs, updates or downloads the plugin (user_action), and when a fetch creates the member's install record for the plugin — its first delivery to them, whether a background sync of a plugin distributed to them or their own first install, which then carries both records (first_delivery). A plugin the member enabled in Claude is on the feed as claude_plugin_enabled and its later delivery by a client's background sync is not recorded again; nor are re-syncs, or fetches that only display the plugin's files in the browser.
 
   - `"claude_plugin_enabled"`
 
@@ -3185,6 +3193,14 @@ compliance activities that can be filtered by various criteria.
   - `"org_capability_grant_removed"`
 
     A capability grant was removed from a workspace or role.
+
+  - `"org_chat_cowork_unified_disabled"`
+
+    The organization's setting for the unified Chat and Cowork experience was turned off.
+
+  - `"org_chat_cowork_unified_enabled"`
+
+    The organization's setting for the unified Chat and Cowork experience was turned on.
 
   - `"org_claude_code_data_sharing_disabled"`
 
@@ -4265,7 +4281,7 @@ compliance activities that can be filtered by various criteria.
 
 #### Returns
 
-- `data: optional array of AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 514 more`
+- `data: optional array of AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 516 more`
 
   List of activity records. Each element's `type` field identifies which activity it is and which additional fields are present.
 
@@ -33697,7 +33713,7 @@ compliance activities that can be filtered by various criteria.
 
   - `ClaudePluginDownloaded object`
 
-    The archive of the plugin version a member was served was downloaded to install or update the plugin in one of the member's Claude apps (Claude in the browser, the Claude desktop app, Claude Code, or a cloud session).
+    The archive of the plugin version a member was served was downloaded to install or update the plugin in one of the member's Claude apps (Claude in the browser, the Claude desktop app, Claude Code, or a cloud session). Recorded when the member explicitly installs, updates or downloads the plugin (user_action), and when a fetch creates the member's install record for the plugin — its first delivery to them, whether a background sync of a plugin distributed to them or their own first install, which then carries both records (first_delivery). A plugin the member enabled in Claude is on the feed as claude_plugin_enabled and its later delivery by a client's background sync is not recorded again; nor are re-syncs, or fetches that only display the plugin's files in the browser.
 
     - `type: optional "claude_plugin_downloaded"`
 
@@ -33938,6 +33954,16 @@ compliance activities that can be filtered by various criteria.
     - `plugin_version_id: optional string or null`
 
       The version whose archive was downloaded; unset for a plugin that predates version records.
+
+    - `reason: optional "first_delivery" or "unspecified" or "user_action" or null`
+
+      Why this download was recorded: the member's explicit action, or the archive's first delivery to them.
+
+      - `"first_delivery"`
+
+      - `"unspecified"`
+
+      - `"user_action"`
 
   - `ClaudeProjectSyncSourceCreated object`
 
@@ -41846,6 +41872,10 @@ compliance activities that can be filtered by various criteria.
     - `shadow_mode: optional boolean or null`
 
       Whether the organization's Inference hooks run in shadow mode after this change, or null when this update did not change it. In shadow mode, prompts are still sent to the organization's endpoint and verdicts are recorded, but requests are never blocked.
+
+    - `validate_tool_calls: optional boolean or null`
+
+      Whether Inference hooks validate tool calls, as configured after this change. Null means tool calls are not validated: either nothing has been saved for this setting, as in a configuration created before the setting became available, or the setting is not yet available to the organization. A configuration created once the setting is available starts with it on by default. When on, tool calls the model requests are also sent to the organization's endpoint before they run, and its verdict is applied as it is for prompts.
 
   - `InferenceHooksSigningSecretGenerated object`
 
@@ -52895,6 +52925,10 @@ compliance activities that can be filtered by various criteria.
 
       format: date-time
 
+    - `event: optional string or null`
+
+      Which hook event the Inference hooks endpoint denied, the same value it received as `type`: "prompt" (the request's prompt, inspected before the model ran) or "tool_call" (the tool calls in a model response, inspected before any of them ran). Absent means "prompt".
+
     - `organization_id: optional string or null`
 
       Organization ID this activity is associated with
@@ -60022,6 +60056,486 @@ compliance activities that can be filtered by various criteria.
     - `organization_uuid: optional string or null`
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `OrgChatCoworkUnifiedDisabled object`
+
+    The organization's setting for the unified Chat and Cowork experience was turned off.
+
+    - `type: optional "org_chat_cowork_unified_disabled"`
+
+      default: org_chat_cowork_unified_disabled
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `current_value: optional boolean or null`
+
+      Setting value immediately after this change
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `previous_value: optional boolean or null`
+
+      Setting value immediately before this change
+
+  - `OrgChatCoworkUnifiedEnabled object`
+
+    The organization's setting for the unified Chat and Cowork experience was turned on.
+
+    - `type: optional "org_chat_cowork_unified_enabled"`
+
+      default: org_chat_cowork_unified_enabled
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `current_value: optional boolean or null`
+
+      Setting value immediately after this change
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `previous_value: optional boolean or null`
+
+      Setting value immediately before this change
 
   - `OrgClaudeCodeDataSharingDisabled object`
 
@@ -83323,7 +83837,7 @@ compliance activities that can be filtered by various criteria.
 
         - `user_agent: optional string or null`
 
-    - `updates: array of Name or Capabilities or RedactContent or 96 more`
+    - `updates: array of Name or Capabilities or RedactContent or 100 more`
 
       - `Name object`
 
@@ -85113,6 +85627,70 @@ compliance activities that can be filtered by various criteria.
         - `previous_value: optional boolean or null`
 
           Setting value immediately before this change
+
+      - `ArtifactTypeSlidesEnabled object`
+
+        The setting that lets members create Slides, one of Anthropic's built-in Artifact types, was changed for the organization.
+
+        - `type: optional "artifact_type_slides_enabled"`
+
+          default: artifact_type_slides_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `ArtifactTypeDesignEnabled object`
+
+        The setting that lets members create Design, one of Anthropic's built-in Artifact types and separate from the Claude Design setting, was changed for the organization.
+
+        - `type: optional "artifact_type_design_enabled"`
+
+          default: artifact_type_design_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `ArtifactTypeDesignSystemsEnabled object`
+
+        The setting that lets members create Design systems, one of Anthropic's built-in Artifact types, was changed for the organization.
+
+        - `type: optional "artifact_type_design_systems_enabled"`
+
+          default: artifact_type_design_systems_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `ArtifactTypeDocsEnabled object`
+
+        The setting that lets members create Claude Docs, one of Anthropic's built-in Artifact types, was changed for the organization.
+
+        - `type: optional "artifact_type_docs_enabled"`
+
+          default: artifact_type_docs_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
 
     - `id: optional string`
 
@@ -105126,11 +105704,31 @@ compliance activities that can be filtered by various criteria.
 
       Unique identifier for the activity e.g. 'activity_abcd1234'
 
+    - `allowed_inference_geos: optional string or null`
+
+      Inference geos the workspace allows, as a comma-separated list such as "global,us", or "unrestricted" when every geo is allowed
+
     - `created_at: optional string`
 
       When this activity occurred.
 
       format: date-time
+
+    - `default_inference_geo: optional string or null`
+
+      Inference geo the workspace uses when a request does not specify one
+
+    - `display_color: optional string or null`
+
+      Display color of the workspace, as a hex code such as "#ACA1CC"
+
+    - `external_key_id: optional string or null`
+
+      Tagged ID of the customer-managed encryption key the workspace uses; absent when it has none
+
+    - `name: optional string or null`
+
+      Name of the workspace
 
     - `organization_id: optional string or null`
 
@@ -105139,6 +105737,10 @@ compliance activities that can be filtered by various criteria.
     - `organization_uuid: optional string or null`
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `tag_count: optional number or null`
+
+      Number of tags the workspace was created with; tag keys and values are never recorded
 
   - `PlatformWorkspaceInferenceDataRetentionDisabled object`
 
@@ -107568,7 +108170,7 @@ compliance activities that can be filtered by various criteria.
 
       The field-level changes applied in this update
 
-      - `type: "allowed_inference_geos" or "default_inference_geo" or "display_color" or 4 more`
+      - `type: "allowed_inference_geos" or "default_inference_geo" or "display_color" or 5 more`
 
         The workspace field that changed
 
@@ -107584,15 +108186,17 @@ compliance activities that can be filtered by various criteria.
 
         - `"name"`
 
+        - `"tag_count"`
+
         - `"unspecified"`
 
       - `current_value: string`
 
-        Field value immediately after this change
+        Field value immediately after this change. For tag_count, the number of tags as a decimal string; tag keys and values are never recorded.
 
       - `previous_value: string`
 
-        Field value immediately before this change
+        Field value immediately before this change. For tag_count, the number of tags as a decimal string; tag keys and values are never recorded.
 
   - `ClaudePluginCreated object`
 
@@ -133450,7 +134054,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
       default: boolean
 
-    - `name: "access_transparency_enabled" or "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or 59 more`
+    - `name: "access_transparency_enabled" or "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or 60 more`
 
       - `"access_transparency_enabled"`
 
@@ -133463,6 +134067,8 @@ unknown organizations and organizations outside the hierarchy return 404.
       - `"artifact_connectors_enabled"`
 
       - `"ask_your_org_enabled"`
+
+      - `"chat_cowork_unified_enabled"`
 
       - `"chat_enabled"`
 
@@ -134162,7 +134768,7 @@ no time filter) with the default `order_by`. `user_ids[]` with
 
   - `name: string`
 
-    Chat name/title
+    Chat name. Empty when `deleted_at` is set.
 
   - `organization_uuid: string`
 
@@ -134644,7 +135250,7 @@ Retrieves message history and file metadata for a specific chat.
 
 - `name: string`
 
-  Chat name
+  Chat name. Empty when `deleted_at` is set.
 
 - `organization_uuid: string`
 
@@ -136110,7 +136716,7 @@ forward-only via `next_page`; there is no reverse cursor.
 
   - `product_surface: string or null`
 
-    The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), `claude_in_chrome` (the Claude in Chrome browser extension's built-in chat), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
+    The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine); `claude_code` (Claude Code); `claude_science` (Claude Science); `claude_in_chrome` (the Claude in Chrome browser extension's built-in chat); `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word` or `office_agents/outlook` (Claude for Microsoft 365, by app); `office_agents/google_docs`, `office_agents/google_sheets` or `office_agents/google_slides` (the Claude add-ins for Google Docs, Google Sheets, and Google Slides, by app); or `office_agents` alone (Claude for Microsoft 365 or one of the Google add-ins, app not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
   - `truncated: boolean`
 
@@ -136215,7 +136821,7 @@ inference call has aged out returns 404.
 
 - `product_surface: string or null`
 
-  The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), `claude_in_chrome` (the Claude in Chrome browser extension's built-in chat), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
+  The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine); `claude_code` (Claude Code); `claude_science` (Claude Science); `claude_in_chrome` (the Claude in Chrome browser extension's built-in chat); `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word` or `office_agents/outlook` (Claude for Microsoft 365, by app); `office_agents/google_docs`, `office_agents/google_sheets` or `office_agents/google_slides` (the Claude add-ins for Google Docs, Google Sheets, and Google Slides, by app); or `office_agents` alone (Claude for Microsoft 365 or one of the Google add-ins, app not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
 - `truncated: boolean`
 
@@ -136528,7 +137134,7 @@ response header.
 
   - `product_surface: string or null`
 
-    The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine), `claude_code` (Claude Code), `claude_science` (Claude Science), `claude_in_chrome` (the Claude in Chrome browser extension's built-in chat), or one of `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, and `office_agents/outlook` (Claude for Microsoft 365, by app; `office_agents` alone when the app is not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
+    The product the session ran in: `cowork` (Cowork in Claude Desktop on the user's machine); `claude_code` (Claude Code); `claude_science` (Claude Science); `claude_in_chrome` (the Claude in Chrome browser extension's built-in chat); `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word` or `office_agents/outlook` (Claude for Microsoft 365, by app); `office_agents/google_docs`, `office_agents/google_sheets` or `office_agents/google_slides` (the Claude add-ins for Google Docs, Google Sheets, and Google Slides, by app); or `office_agents` alone (Claude for Microsoft 365 or one of the Google add-ins, app not identified). New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
 
   - `truncated: boolean`
 
