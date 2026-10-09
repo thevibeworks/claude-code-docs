@@ -126,7 +126,7 @@ Claude can no longer read or post in that channel. Any member can run this unles
 Claude stops reading a channel's messages when either of these happens:
 
 * **Message volume.** Claude counts the messages posted in the channel since it last posted there itself, and stops reading when the count gets high enough.
-* **Inactivity.** When more than a week passes without anyone @-mentioning Claude in the channel and without Claude posting there, Claude stops reading.
+* **Inactivity.** When more than 10 days pass without anyone @-mentioning Claude in the channel and without Claude posting there, Claude stops reading.
 
 While Claude isn't reading a channel, it doesn't reply there unprompted. Claude posts no notice when it stops.
 

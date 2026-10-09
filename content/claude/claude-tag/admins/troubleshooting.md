@@ -490,6 +490,20 @@ The Slack workspace hasn't been paired with a Claude organization, or, for the s
 
 Run [the pairing flow](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace). If the fix worked, a mention in the workspace gets a reply.
 
+### The legacy Claude in Slack bot is retired effective October 5, 2026
+
+**What you see**
+
+Claude replies to a mention in a channel with a notice that begins ":warning: The legacy Claude in Slack bot is retired effective October 5, 2026 and no longer responds in channels." and doesn't do what it was asked.
+
+**What it means**
+
+The workspace is paired with your Claude organization, but the channel's or workspace's **Claude Tag version** is set to **Legacy**. Since that date, the earlier app no longer answers in channels of a paired workspace.
+
+**How to resolve**
+
+Check the **Claude Tag version** on the **Advanced** tab of the channel's page, then of its workspace's page, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), and set it to **New**. **Inherit** works only when the workspace, or the **Slack** page above it, is set to **New**. See [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/migrate-from-earlier). The next mention in the channel gets a reply from Claude.
+
 ### Using the legacy Claude in Slack bot. Ask your Claude workspace owner to enable Claude Tag.
 
 **What you see**
@@ -498,11 +512,11 @@ Claude posts "Using the legacy Claude in Slack bot. Ask your Claude workspace ow
 
 **What it means**
 
-The earlier per-user Claude in Slack app answered the message instead of the new version. That happens when the Slack workspace isn't paired with a Claude organization that has Claude Tag turned on, or when the channel's or workspace's **Claude Tag version** is set to **Legacy**. Turning Claude Tag on needs an Owner of your Claude organization, not a Slack workspace owner.
+The earlier per-user Claude in Slack app answered a direct message instead of the new version. That happens when the Slack workspace isn't paired with a Claude organization that has Claude Tag turned on, or when the workspace's **Claude Tag version** is set to **Legacy**. In a workspace paired with your Claude organization, the earlier app no longer answers in channels; a channel set to Legacy gets the [retirement notice](#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026) instead. Turning Claude Tag on needs an Owner of your Claude organization, not a Slack workspace owner.
 
 **How to resolve**
 
-An Owner turns on **Enable Claude Tag in Slack** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and [pairs the workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace). If the workspace is already paired, check the **Claude Tag version** on the **Advanced** tab of the channel's page, then of its workspace's page, and set it to **New** or **Inherit**; see [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/migrate-from-earlier). Once Claude Tag is on and the workspace is paired, the notice stops appearing.
+An Owner turns on **Enable Claude Tag in Slack** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and [pairs the workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace). If the workspace is already paired, check the **Claude Tag version** on the **Advanced** tab of the workspace's page and set it to **New**; see [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/migrate-from-earlier). Once Claude Tag is on and the workspace is paired, the notice stops appearing.
 
 ### Claude Tag is turned off for your organization
 
@@ -604,7 +618,7 @@ If the **Slack** page has a single [**Respond in channels** switch](/docs/claude
 
 ## Access and connections
 
-Access and connection errors usually mean Claude responded but couldn't reach a connected service, a repository, or a capability the sender's seat doesn't include. A scope left on **Legacy** only looks like an access problem; there, the earlier Claude in Slack answers instead of Claude Tag, so bundles and connections never apply.
+Access and connection errors usually mean Claude responded but couldn't reach a connected service, a repository, or a capability the sender's seat doesn't include. A channel still set to **Legacy** replies with the [retirement notice](#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026) rather than an access error.
 
 ### Claude says a host isn't allowed or it can't reach the internet
 
@@ -659,20 +673,19 @@ Apply the connector to the failing channel. Open the connector's page from the *
 
 **What you see**
 
-In the channel, Claude says it has no GitHub access, can't find a repository, or opens pull requests under the asker's name instead of its own.
+In the channel, Claude says it has no GitHub access or can't find a repository.
 
 **What it means**
 
-The most likely cause is a channel whose scope still has **Claude Tag version** set to **Legacy**, so the earlier Claude in Slack answers instead of Claude Tag. The other causes are a repository that isn't granted to the channel, a stale thread, or a repository the GitHub App installation doesn't cover.
+The cause is a repository that isn't granted to the channel, a stale thread, or a repository the GitHub App installation doesn't cover.
 
 **How to resolve**
 
 Go through these checks in order; the same checks, in the same order, apply when GitHub worked in a channel and then stopped.
 
-1. **Which version answers the channel**: if `@Claude` opens pull requests under the asker's name, the channel is on **Legacy**, and connectors only apply where Claude Tag answers. Switch the scope's **Claude Tag version** setting per [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/restrict-access#migrate-from-the-earlier-claude-in-slack). You're on the right version when pull requests open under the Claude GitHub App.
-2. **The repository granted to this channel**: open the channel from the **Channels** tab under **Claude's access** and check that the repository is in its **Claude's access** table, whether added on the channel's page, inherited from its workspace or the **Slack** page, or held by a bundle that applies there. [Grant repository access](/docs/claude-tag/admins/configure-github#grant-repository-access) covers granting it, and [Attach the bundle to a scope](/docs/claude-tag/admins/attach-to-scope) covers how access inherits. Granting makes the repository available to clone, but the code doesn't enter a session until a request names it.
-3. **A fresh thread**: a new thread picks up every configuration change, so test in one before checking anything further. If the repository is granted, asking Claude to read a file from it works in a new thread.
-4. **The GitHub App installation covers the repository**: if Claude reports a repository isn't available, isn't configured, or returned a 403, check the installation, since the app's repository selection is upstream of the grant in Claude. At [`claude.ai/admin-settings/source-control`](https://claude.ai/admin-settings/source-control), the organization that owns the repository should show **Connected** in the **GitHub** section. If its row shows a **Needs permissions** status instead, the install is waiting on a GitHub organization owner. Click **Review permissions** to approve it on github.com. If you aren't a GitHub organization owner, click the **Not the GitHub owner? Send instructions** link on that page. In the dialog that opens, click **Copy message** to copy a request you can send to someone who is. If the organization isn't listed at all, install the app with the **Add organization** button beside the **GitHub** heading (it reads **Connect** until a GitHub account is connected); [Link your GitHub organization](/docs/claude-tag/admins/configure-github#link-your-github-organization) covers both.
+1. **The repository granted to this channel**: open the channel from the **Channels** tab under **Claude's access** and check that the repository is in its **Claude's access** table, whether added on the channel's page, inherited from its workspace or the **Slack** page, or held by a bundle that applies there. [Grant repository access](/docs/claude-tag/admins/configure-github#grant-repository-access) covers granting it, and [Attach the bundle to a scope](/docs/claude-tag/admins/attach-to-scope) covers how access inherits. Granting makes the repository available to clone, but the code doesn't enter a session until a request names it.
+2. **A fresh thread**: a new thread picks up every configuration change, so test in one before checking anything further. If the repository is granted, asking Claude to read a file from it works in a new thread.
+3. **The GitHub App installation covers the repository**: if Claude reports a repository isn't available, isn't configured, or returned a 403, check the installation, since the app's repository selection is upstream of the grant in Claude. At [`claude.ai/admin-settings/source-control`](https://claude.ai/admin-settings/source-control), the organization that owns the repository should show **Connected** in the **GitHub** section. If its row shows a **Needs permissions** status instead, the install is waiting on a GitHub organization owner. Click **Review permissions** to approve it on github.com. If you aren't a GitHub organization owner, click the **Not the GitHub owner? Send instructions** link on that page. In the dialog that opens, click **Copy message** to copy a request you can send to someone who is. If the organization isn't listed at all, install the app with the **Add organization** button beside the **GitHub** heading (it reads **Connect** until a GitHub account is connected); [Link your GitHub organization](/docs/claude-tag/admins/configure-github#link-your-github-organization) covers both.
 
 For GitHub Enterprise Server repositories, confirm [the GHE host is registered](/docs/claude-tag/admins/configure-github#github-enterprise-server) instead. The github.com App install doesn't cover them.
 

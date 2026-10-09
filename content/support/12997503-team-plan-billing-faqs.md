@@ -18,7 +18,7 @@ Your organization's billing address determines where your invoices are sent. You
 
 If you want to use a name other than the one tied to your payment method, an organization Owner should check the "Use a different name on invoices" box when adding or updating your payment method in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1791483300&amp;signature=b10c999573eda311db68652f0bda23f1b6ba00c2ee15a6a783fe730394306473&amp;req=dSklFMh6mINaWvMW1HO4zRZTxVvFs8jQKAqLF4ERnlUm0nkuCJ8g0m6ACiw3%0AhsMRKIXEdlrlm45Oej4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1791530100&amp;signature=7f7d54d7684a4874f69761a68b6f9d114068ab4f9bcfdd538c61a9e8bc346e8c&amp;req=dSklFMh6mINaWvMW1HO4zRZTxVvEuMvSKAqLF4ERnlVxumoOX4bmZm79gqST%0A0h02d%2F42LHQQxtXO0Fk%3D%0A)
 
 ## When will I be billed?
 

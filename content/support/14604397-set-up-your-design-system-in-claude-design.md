@@ -44,6 +44,16 @@ Manage your design systems in **[Settings > Design systems](https://claude.ai/se
 
 ---
 
+## Use a design system with a keyboard
+
+To get into and out of the artifact panel, see **[Use artifacts with a keyboard or screen reader](https://support.claude.com/en/articles/17457950)**. That article also explains what focus means, what to do on a Mac laptop or in Safari, and how shortcuts are written.
+
+A design system opens as a list of sections beside the section you're reading. Return on a section in the list moves into it, Cmd+F6 (Ctrl+F6 on Windows) moves between the list and the section, and Cmd+Z (Ctrl+Z on Windows) undoes a change when you're not in a text box.
+
+**Note:** Live component previews in a design system can't be reached with Tab, so they can't be operated from the keyboard. Each component's name and notes can be read.
+
+---
+
 ## Set up a design system at claude.ai/design
 
 These steps use standalone Claude Design.

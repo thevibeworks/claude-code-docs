@@ -6,6 +6,55 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.31226.0" description="2026-10-08">
+  Bundled Claude Code version: 2.1.293.
+
+  **General**
+
+  * Added skills and local MCP servers to Settings > Import where importing this computer’s third-party history is on: skills saved in Claude (third-party) upload to your own skills automatically, and local MCP servers can be added and started after you confirm the command and settings each one runs with.
+  * Fixed chats showing "Page not found" when they could not be loaded because of a server or connection problem; the page now says the chat could not be loaded and offers a retry.
+  * Fixed dictation continuing to record after you let go of the microphone button, when holding it was the first microphone use since the app started.
+  * Fixed messages being sent under a different organization after the page switched organizations: a message held up by a sign-in prompt is no longer sent, one reported as not sent returns to the message box instead of sending later, and a stopped button or reply send now says why.
+  * Fixed programs that a session started, such as MCP servers, and the helper processes of local MCP servers staying running on Linux after the app crashed or was force-quit.
+
+  **Code**
+
+  * Changed environment variables to live on your saved environments: "This computer" starts clean, existing machine-wide variables are copied into the environments created for you, and the session’s Environment card shows the saved environment you started from.
+  * Changed SSH sessions to stop continuing an interrupted task on their own: select the session in the sidebar to resume it, a stopped task shows a message with Try again instead of nothing to press, and a task dropped when the host’s sign-in expired while the app was closed now says so.
+  * Fixed closing the window with the menu-bar icon turned off (Windows and Linux) stopping running sessions without the "Claude is still working" prompt.
+  * Fixed group delete of Code sessions: when uncommitted changes turn up partway through in a worktree folder the confirmation had not listed, that session is now kept with a notice.
+  * Fixed SSH sessions dropping their connection while idle or loading a large file, failing on hosts that print a notice before file transfer, staying at "Setting up plugins...", asking you to sign in when retrying was enough, and losing earlier messages on Windows hosts using cmd.exe or PowerShell.
+  * Fixed the Files pane losing unsaved edits: leaving the session with Auto save off now prompts first, and a file deleted, moved or changed on disk no longer discards your edits or mishandles the next key press.
+
+  **Cowork**
+
+  * Improved computer use on macOS: it no longer saves into hidden folders or types into an app that is not responding, menu commands are no longer reported as disabled after an app was briefly busy, screenshots show under the right step, and text is no longer reported as typed when nothing was.
+  * Fixed a scheduled task created while the task list was still loading overwriting the prompt of an existing task of the same name.
+  * Fixed Claude asking for access to a folder the session already had, which left scheduled runs waiting on an approval nobody was there to give.
+  * Fixed plugin installs, updates and marketplace refreshes sometimes failing or leaving a plugin missing from the list when started right after another, and a removed marketplace leaving an entry behind that could block adding another marketplace with the same name.
+  * Fixed scheduled tasks skipping a tool that an organization’s approval policy marks "ask": the run now shows the approval prompt and waits, and a newer run of the same task retires an earlier run’s unanswered prompt.
+  * Fixed the "Scheduled task failed" notification not appearing when a scheduled task’s sandbox could not start.
+
+  **3P**
+
+  * Added `desktopHome` for Unified Claude (beta), which combines Chat and Cowork into one experience, with Cowork’s agentic capabilities: set it to `standard` to turn Unified Claude on, to `off` to turn Chat and Cowork off entirely (Code is not affected), or leave it out of your configuration to stay on the current Chat and Cowork split until November 10, when Unified Claude goes on for all orgs. While the key is set, `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled` and `coworkTabEnabled` have no effect. A value the app does not recognize, such as `Standard`, reads as `off`.
+  * Added `otlpAttrMaxChars`, which sets the length at which Cowork tasks and Code sessions cut captured content, such as a raw API body, in the OpenTelemetry export (256 to 15,000,000 characters; 61,440 when unset).
+  * Added more to what `claudeAiImport.automatic3pImport` brings to a computer’s new organization: Cowork artifacts, projects, memory and global instructions, scheduled tasks from Cowork and Code, uploaded plugins, saved skills, and the optional plugins a user had on from the organization’s plugins directory or a marketplace served from its gateway’s or bootstrap server’s own address.
+  * Added two switches for `desktopHome` to the Setup window’s Allowed surfaces section: "Opt into the new Chat and Cowork unified view" and "Chat and Cowork unified view". While the key is set, Allow Chat, Allow Cowork and Advanced file analysis are hidden (their values are kept), and one "Chat and Cowork unified retention period" sets both retention periods.
+  * Changed `allowedWorkspaceFolders`: in SSH sessions Claude’s file tools can no longer modify a folder marked `ro`, as in a local Code session. Not enforced on Windows hosts, or on a host with Claude Code managed settings of its own; the key’s help text lists the other limits.
+  * Changed `inferenceModels[].prefer1m` and `modelPrefer1mContext`: each model that offers 1M and has the preference now shows as one model picker entry, with no standard entry beside it. New sessions on it use the 1M context window, also for people who had picked the standard entry; sessions already started keep theirs. Before, the preference only moved the starting selection, and only for the first model.
+  * Changed what `claudeAiImport.automatic3pImport` does without asking: the Cowork memory and global instructions it now brings over are used at once, and the scheduled tasks, plugins and skills arrive on or off as they were; only a brought-over project’s instructions wait for the user to accept them before new tasks use them. This can also reach computers that moved under an earlier release, at their first launch on this version.
+  * Removed the "Send to cloud" option from the Code tab’s suggested-task cards, which third-party deployments cannot use.
+  * Fixed a skill switched off in Customize still being offered to Claude and still running when asked for by name, and a skill deleted there still being offered in a Code session that was already running.
+  * Fixed Claude’s file edits in a worktree session sometimes landing in the main checkout or in another session’s worktree, except in SSH sessions on a Linux host over OpenSSH.
+  * Fixed Cowork tasks failing to start on Linux when the memory index is very long.
+  * Fixed the "Can’t reach" connection warning appearing when the inference provider is reachable but slow to respond.
+  * Fixed the command palette’s first row ("New chat" or "New session") not starting a conversation.
+  * Fixed the model picker showing identical rows when the model catalog or an administrator’s model list gives several model ids one name: each such row now shows the part of its id that differs, and its full id on hover.
+  * Fixed the OpenTelemetry export counting sessions nobody opened: background reads of the Code tab’s slash command and agent lists no longer send records or add to `claude_code.session.count`.
+  * Fixed tool calls to an OAuth-authenticated server in `managedMcpServers` failing until the next scheduled token refresh when the server rejected the token early, sometimes with a blank error, and failing for up to 30 minutes after the device came back online from a long offline period.
+</Update>
+
 <Update label="v2.26454.2" description="2026-10-07">
   Bundled Claude Code version: 2.1.293.
 

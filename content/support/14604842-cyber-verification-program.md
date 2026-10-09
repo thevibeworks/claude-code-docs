@@ -12,7 +12,7 @@ Our generally available models can still be used by all users for secure code re
 
 ## Access tiers
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1791525600&amp;signature=dadcfdabe95e1233b42e2ed7d89c0786be5ca71f923b7bfbfaa1bcfe57c5d006&amp;req=dicmEM17moJWW%2FMW3nq%2BgVW5JBO7gX%2FAuZ3g72lEz5ytEU49bzvNd54s69B5%0AAzMTf7f0641Cbem85jRXW9fc3d4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1791590400&amp;signature=02b3ae1f6c189bea64594e9f51abf169642cc7d554bf81ab525d3729a0953db7&amp;req=dicmEM17moJWW%2FMW3nq%2BgVW5JBO7gX%2FLvJ%2Fg72lEz5zkRB6Cbz0GOYcy27ds%0AMf2uGlAUKLKP%2Bxv6f3loRLXFrvI%3D%0A)
 
 ## How to apply
 
@@ -44,9 +44,13 @@ What you'll need:
 
 - The **[Usage Policy](https://www.anthropic.com/legal/aup)** still applies in full.
 
-- Building a client-facing product on these capabilities is governed separately by our Cyber Productization Policy. The Productization application will become available to users in CVP shortly.
+- You may leverage CVP enabled models for internal use such as running the model over your own code. See the **Building client-facing products** section for more information.
 
 - We may review, narrow, or withdraw a grant.
+
+## Building client-facing products
+
+Your CVP access covers security work on your organization's own code, products, and infrastructure. Your CVP grant may not be used to build or operate a client-facing product or service. For example, using CVP access to run the model against a customer's code or systems, letting a customer interact with the model through something you've built, or any other "productizing" of our models requires a separate application and approval. The productization application will become available in the Verification Portal to CVP users shortly.
 
 ## Security controls and requirements
 

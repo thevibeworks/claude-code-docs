@@ -37,6 +37,8 @@ This table below lists the beta and research preview features currently availabl
 | **[Claude Code Desktop](https://code.claude.com/docs/en/desktop#use-claude-code-desktop)**                                   | Claude Code       | Beta             |
 | **[Claude Code Security Center](https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code)** | Claude Code       | Research preview |
 | **[Claude Code web (CCR)](https://support.claude.com/en/articles/12618689-claude-code-on-the-web)**                          | Claude Code       | Research preview |
+| **[Claude Dashboards](https://support.claude.com/en/articles/17454700)**                                                     | Artifacts         | Beta             |
+| **[Claude Motion](https://support.claude.com/en/articles/17454997)**                                                         | Artifacts         | Beta             |
 | **[Code review](https://support.claude.com/en/articles/14233555-set-up-code-review-for-claude-code)**                        | Claude Code       | Research preview |
 | **[Claude for Word](https://support.claude.com/en/articles/14465370-use-claude-for-word)**                                   | Integrations      | Beta             |
 | **[GitHub integration](https://support.claude.com/en/articles/10167454-using-the-github-integration)**                       | Integrations      | Beta             |

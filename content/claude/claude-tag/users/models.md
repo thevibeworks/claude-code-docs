@@ -24,7 +24,7 @@ Tell Claude which model you want, in your own words, in the thread.
 @Claude switch to Claude Opus 5.5 for the rest of this thread.
 ```
 
-To confirm the switch, check the reply footers. The reply that acknowledges the switch still names the previous model, because Claude writes it before the switch takes effect; the new model appears in the footer of the reply after it. Asking in a thread changes the model for that thread only. To change what new threads in the channel start on, set a [default model for the channel](#set-a-default-model-for-the-channel) instead.
+To confirm the switch, check the reply footers. The reply that acknowledges the switch still names the previous model, because Claude writes it before the switch takes effect; the new model appears in the footer of the reply after it. If the session can't switch to the model you named, Claude says so in that same reply. Asking in a thread changes the model for that thread only. To change what new threads in the channel start on, set a [default model for the channel](#set-a-default-model-for-the-channel) instead.
 
 The same request works in a one-to-one direct message, where it applies to that conversation only. In a group DM, the switch applies to the thread you ask in.
 
@@ -70,7 +70,7 @@ Fast mode applies to the thread you turn it on in, and new threads start at stan
 
 After `!fast off`, a thread that Claude switched to Opus stays on Opus. To return to the earlier model, ask Claude to switch.
 
-Fast mode isn't available in a channel that runs with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works) because a guest is present, or in a [channel shared with another company](/docs/claude-tag/users/troubleshooting#claude-never-responds-in-a-channel-shared-with-another-company).
+Fast mode isn't available in a [channel shared with another company](/docs/claude-tag/users/troubleshooting#claude-never-responds-in-a-channel-shared-with-another-company).
 
 ## Which models you can use
 

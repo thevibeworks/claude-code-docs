@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1791483300&amp;signature=1540c00270bac07fb4eba37815730b14fce45debd11243ddb8e2e1b02464a1d8&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMNJ9IG0gN0ADj5oqFDiqg5%2B5YHmtpBPj4p3%0AzzQs%2FOQCS65cJqdbL5Y%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1791530100&amp;signature=79d024eb550d3d3020f77cc8ceeeee252fdd81bc1c8fe3ce61f65f223ce28081&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMNI%2F4K2gN0ADj5oqFAsaHzxcILJygnIbZq6%0AKwtC0k0eoo%2B48N73QyI%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1791483300&amp;signature=f6319002d02e5a77c9b93eb27cbdaab26771007dfabdf753e321922dd44b32d9&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2d0gC%2Fv7A4lHPBihAU9JAd3afGCWsCc9Kni%0AK%2Fmp1qsWVXP8KtTcQvU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1791530100&amp;signature=d7705c3dfe739a887d1885f03b6dcfe5f1b44522f92b5d46056de5b1b0e22122&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2d1iyzt7A4lHPBihAW0N8Oh9z%2FW2pbnHNkV%0Ac8dXiDEtWHYhLVu2phs%3D%0A)
 
 ### Permission options
 

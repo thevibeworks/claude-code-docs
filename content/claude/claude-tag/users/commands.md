@@ -136,7 +136,8 @@ When Claude doesn't apply the command, its reply says why:
 | Claude replies | What to do |
 | :- | :- |
 | `Fast mode isn't turned on for this organization. An organization owner can turn it on.` | Ask an Owner to [allow fast mode](/docs/claude-tag/admins/customize#allow-fast-mode) |
-| `Fast mode isn't available in a channel with guests.` | Work in a channel without guests. This channel runs with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works) while a guest is present, and sessions there stay at standard speed. |
+| `Fast mode can't be changed for organizations with restricted compliance settings.` | Work at standard speed. Your organization's compliance settings don't allow fast mode. |
+| `Fast mode isn't available for this session.` | Run the command in a new thread. If Claude gives the same reply there, fast mode isn't available in this channel. |
 | `Only a workspace member who can use Claude here can change fast mode.` | Ask a full member of the workspace who can message Claude in this channel to run the command |
 | `No session is running in this channel.` | Run `!fast` in a thread. You ran it at the top level of a channel that has no session of its own. |
 | `No session is running here, so there is nothing to switch.` | You ran `!fast off` in a thread where Claude has no session. If you turned fast mode on at the channel's top level, send `@Claude !fast off` at the top level too, not as a reply under Claude's confirmation. Otherwise do nothing, because a new session in the thread starts at standard speed. |

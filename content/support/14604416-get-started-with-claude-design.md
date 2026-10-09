@@ -2,7 +2,7 @@
 
 **[Claude Design](https://claude.com/product/design)** lets you create designs, interactive prototypes, one-pagers, and other visual work by chatting with Claude. It's one of the templates you can start an artifact from, so you can use it in any chat, in Claude Code, and from the **Artifacts** tab, with on-canvas editing and your design system included. This guide walks you through creating your first design, iterating on it, and getting the most out of it. Learn more about **[what artifacts are and how to use them](https://support.claude.com/en/articles/9487310)**.
 
-Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Pro, Max, and Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone Claude Design experience at claude.ai/design keeps working and has its own separate setting.
+Claude Design is available on Free, Pro, Max, Team, and Enterprise plans, and it's on by default. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone version at claude.ai/design closes on December 14, 2026. Learn more in **[Migrate from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 This guide assumes your organization’s design system has already been set up, so everything you create will automatically use your brand’s colors, typography, and component patterns. If you’re a design lead who needs to set up or modify the design system itself, see **[Set up your design system in Claude Design](https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design)**.
 
@@ -16,9 +16,9 @@ This guide assumes your organization’s design system has already been set up, 
 
 - **In Claude Code:** Ask Claude to turn your idea into a design, or use /design to create, edit, and sync designs, on desktop or in the terminal.
 
-- **In the Claude app for iOS and Android:** Ask for a design in any conversation and check back later for the result, then view it full screen in the **Artifacts** tab. To start from a template, edit on the canvas, or change sharing settings, use Claude on web or desktop.
+- **In the Claude app for iOS and Android:** Ask for a design in any conversation and check back later for the result, then view it full screen in the **Artifacts** tab. You can also edit a design. To change sharing settings, use Claude on web or desktop.
 
-- **At claude.ai/design:** The standalone experience keeps working, and your existing projects stay where they are.
+- **At claude.ai/design:** The standalone version keeps working until it closes on December 14, 2026, and your existing projects stay there until then. Migrate your design systems to Claude before it closes. Learn more in **[Migrate from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 ---
 
@@ -28,7 +28,7 @@ Claude Design pairs a conversation with a canvas. You describe what you want, an
 
 The typical flow is:
 
-1. Start a design from a conversation, the Artifacts tab, or claude.ai/design.
+1. Start a design from a conversation or the "Artifacts" tab.
 
 2. Attach or import the design system you want Claude to build with.
 
@@ -62,7 +62,7 @@ On Enterprise plans, admins can reserve publishing, setting the default, and del
 
 ### Bring over a design system from claude.ai/design
 
-Design systems you made at claude.ai/design can move over, so Claude can use them in any chat, including in Claude Code. Learn more about **[setting up your design system](https://support.claude.com/en/articles/14604397)**.
+Design systems you made in the standalone version at claude.ai/design can move over, so Claude can use them in any chat, including in Claude Code. Migrate them before the standalone version closes on December 14, 2026. Learn more in **[Migrate from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 ### Add context to your project
 
@@ -134,6 +134,81 @@ Use rich layout controls for quick visual and aesthetic shifts, specifically to 
 
 Use **comments** for targeted, component-level changes (“fix this button,” “adjust this spacing”). Use **chat** for structural changes, new sections, or anything that requires explanation or context. **Edit directly** for quick visual and aesthetic changes.
 
+---
+
+## Use Claude Design with a keyboard
+
+To get into and out of the artifact panel, and to comment from the panel's header, see **[Use artifacts with a keyboard or screen reader](https://support.claude.com/en/articles/17457950)**. That article also explains what focus means, what to do on a Mac laptop or in Safari, and how the tables show keys.
+
+A design is a canvas of artboards. Each artboard holds layers, such as text, shapes, and images, and a layer can hold other layers inside it.
+
+### Move between the editor's areas
+
+Press F6 to move to the next area and Shift+F6 to move to the previous one. Cmd+F6 (Ctrl+F6 on Windows) works in place of F6, with or without Shift. The areas are the top bar, the canvas, and the properties panel. When something is selected and the properties panel is closed, F6 also stops at the toolbar that floats over the selection.
+
+**Note:** Finish editing text before you press F6. Press Escape or Tab to end the edit first. F6 moves you out of a text edit without ending it.
+
+### Work inside an artboard
+
+Press Tab until you reach an artboard's title. Its name includes its position, such as artboard 1 of 7. From the title, Space selects the artboard, and Return goes inside it, to its layers. Once inside:
+
+- Tab and Shift+Tab move between layers. Home and End move to the first and last layer.
+
+- Return on a layer that holds other layers moves inside it. On a text layer, Return starts editing.
+
+- Shift+Return goes up one level.
+
+- Escape leaves the artboard, and the artboard stays selected. Escape again clears the selection.
+
+When you're editing a text layer, press Escape or Tab when you're done. As you move, the editor tells screen readers what's selected and its position, such as 1 of 5.
+
+### Move, duplicate, and delete
+
+To move an artboard, select it (Space on its title) and press the arrow keys. It moves one pixel at a time, or 10 with Shift. Inside an artboard, the arrow keys do something else: with or without Shift, they move you to the next or previous layer and never move the layer itself. To move the layer you're on, hold Option (Alt on Windows) and press an arrow key. A freely placed layer moves one pixel, or 10 with Shift. A layer that's part of a row, column, or grid swaps places with its neighbor instead: Up or Left moves it earlier, and Down or Right moves it later. The editor sends a short confirmation of the move to screen readers.
+
+With an artboard or layer selected, press Cmd+D (Ctrl+D on Windows) to duplicate it, and Delete or Backspace to delete it. Press Cmd+Z (Ctrl+Z on Windows) to undo. The editor sends a short confirmation of each of these to screen readers.
+
+### Use the toolbar over a selection
+
+The toolbar that floats over a selection is there only while the properties panel is closed, and F6 reaches it. In it, the arrow keys move between its controls, Home and End move to the first and last, and Escape goes back to the canvas with your selection kept. You can also reach each control with Tab.
+
+### Use the properties panel and the list of layers
+
+Cmd+\ (Ctrl+\ on Windows) opens the properties panel and moves focus into it. Pressing it again closes the panel, and focus returns to the "Properties" button in the top bar. Color, font, and other pop-ups in the panel take focus when they open, and Escape closes them. When you choose a text color, the color picker tells you whether its contrast against the background is good or poor.
+
+In the properties panel's list of layers: the Up arrow and Down arrow keys move between rows, the Right arrow key expands a row and then moves inside it, the Left arrow key collapses it and then moves out, Return or Space selects that layer on the canvas, and Return again on a text layer edits it.
+
+**Warning:** In the list of layers, Delete, Backspace, and Cmd+X (Ctrl+X on Windows) act on whatever is selected on the canvas, which might not be the row you moved to. Press Return on the row first.
+
+### Claude Design keyboard shortcuts
+
+| **Action**                                               | **Mac**                           | **Windows**                       |
+| -------------------------------------------------------- | --------------------------------- | --------------------------------- |
+| Next area                                                | F6 or Cmd+F6                      | F6 or Ctrl+F6                     |
+| Previous area                                            | Shift+F6 or Cmd+Shift+F6          | Shift+F6 or Ctrl+Shift+F6         |
+| Move to an artboard's title                              | Tab                               | Tab                               |
+| Select the artboard (on its title)                       | Space                             | Space                             |
+| Go into the artboard, move inside a layer, or edit text  | Return                            | Enter                             |
+| Next layer, previous layer (inside an artboard)          | Tab, Shift+Tab, or the arrow keys | Tab, Shift+Tab, or the arrow keys |
+| First layer, last layer                                  | Home, End                         | Home, End                         |
+| Up one level (inside an artboard)                        | Shift+Return                      | Shift+Enter                       |
+| Leave the artboard                                       | Escape                            | Escape                            |
+| Move the selected artboard (on its title)                | Arrow keys (Shift for 10 pixels)  | Arrow keys (Shift for 10 pixels)  |
+| Move or reorder the layer you're on (inside an artboard) | Option+arrow keys                 | Alt+arrow keys                    |
+| Duplicate                                                | Cmd+D                             | Ctrl+D                            |
+| Delete                                                   | Delete or Backspace               | Delete or Backspace               |
+| Copy, paste                                              | Cmd+C, Cmd+V                      | Ctrl+C, Ctrl+V                    |
+| Cut (a layer)                                            | Cmd+X                             | Ctrl+X                            |
+| Group, ungroup (layers)                                  | Cmd+G, Cmd+Shift+G                | Ctrl+G, Ctrl+Shift+G              |
+| Flip horizontally, flip vertically                       | Shift+H, Shift+V                  | Shift+H, Shift+V                  |
+| Select all                                               | Cmd+A                             | Ctrl+A                            |
+| Undo, redo                                               | Cmd+Z, Cmd+Shift+Z                | Ctrl+Z, Ctrl+Shift+Z              |
+| Open or close the properties panel                       | Cmd+\                             | Ctrl+\                            |
+| Zoom in, zoom out, fit to the window                     | Cmd+Plus, Cmd+Minus, Cmd+0        | Ctrl+Plus, Ctrl+Minus, Ctrl+0     |
+| Show or hide layout guides                               | Shift+G                           | Shift+G                           |
+
+---
+
 ## Manage versions and revisions
 
 If you want to explore a different direction without losing your current work, tell Claude: “Save what we have and try a completely different approach.” Claude will save your current project and confirm where it’s saved, so you can reference earlier iterations in the conversation easily.
@@ -152,7 +227,7 @@ Use the “Export” button in the upper right corner when viewing your project 
 
 - Export as PPTX
 
-- Export to Google Slides (available only at claude.ai/design)
+- Export to Google Slides
 
 - Export as standalone HTML
 
@@ -198,7 +273,7 @@ If you reach your usage limits, Claude Design is unavailable until your limits r
 
 ## Known limitations
 
-Claude Design is now available in beta. A few things to be aware of:
+A few things to be aware of:
 
 - **Comment persistence:** Inline comments occasionally don't appear on the page, but you can still see them by opening the comments view.
 
@@ -206,10 +281,14 @@ Claude Design is now available in beta. A few things to be aware of:
 
 - **Chat errors:** If you hit a "chat upstream error," try starting a new chat tab within the same project.
 
-- **Mobile:** In the Claude app for iOS and Android, you can ask for a design and view it in the Artifacts tab. Editing on the canvas and changing sharing settings need Claude on web or desktop.
+- **Mobile:** It's not possible to change sharing settings on the Claude app for iOS and Android, so you'll need to use Claude on web or desktop for this.
 
 - **Multi-person editing:** Two or more people editing a design project at the same time is still basic and may not work reliably.
 
 - **Design system import:** Design system import is only as good as its source. A messy codebase or an incomplete file will show up in the output.
 
 - **Version history:** Claude Design doesn't have version history yet.
+
+- **Deleting from the list of layers:** In the properties panel's list of layers, Delete, Backspace, and cut act on what's selected on the canvas, not the row you moved to. Press Return on the row first.
+
+- **Adding to a design with a keyboard:** Placing a new text layer, artboard, shape, or note on the canvas needs a mouse or trackpad. Ask Claude to add it.

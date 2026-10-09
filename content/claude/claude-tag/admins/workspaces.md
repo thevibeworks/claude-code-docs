@@ -94,14 +94,14 @@ The **Claude Tag version** setting is on the page's **Advanced** tab and is unav
 | Label | Effect |
 | :- | :- |
 | **New** | Claude Tag. Bundles, skills, and custom instructions apply |
-| **Legacy** | The earlier per-user Claude in Slack. Bundles and skills do not apply. Being deprecated; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier) |
+| **Legacy** | The earlier per-user Claude in Slack. In channels it replies only with a retirement notice, and you can't switch a scope to it; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier) |
 | **Inherit** | Use the parent's value. Not shown on the **Slack** page |
 
 Turning off **Respond in all channels** doesn't stop Claude in a workspace or channel whose own enable switch is on. On the Enterprise plan, launching setup for a single workspace turns on that workspace's enable switch, so Claude keeps responding in that workspace. The switch is at the top of the **General** tab on the **Slack** page, which sets the default for every workspace and channel. Direct messages from members who have connected a Claude account are unaffected.
 
-Both versions answer through the same @Claude app, so turning off a workspace's or channel's enable switch silences the Legacy version there too. To opt out of Claude Tag while keeping the earlier behavior, leave the switch on and set **Claude Tag version** to **Legacy**.
+Both versions answer through the same @Claude app, so turning off a workspace's or channel's enable switch silences the Legacy version there too.
 
-Per-scope version changes (workspace and channel) are reversible; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier).
+Switching a workspace or channel between **New** and **Inherit** is reversible; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier).
 
 ### What each Claude Tag switch turns off
 

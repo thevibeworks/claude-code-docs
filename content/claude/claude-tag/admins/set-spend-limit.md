@@ -47,6 +47,14 @@ Not every organization sees this page. A trial organization that hasn't enabled 
 
 There's no published per-task cost guidance. For a pilot, set a spend limit you're comfortable with for the first month, then watch the per-channel usage breakdown on the same page and adjust. If a promotional credit covers the pilot's usage, that breakdown shows \$0.00. In that case, watch the **List price** column of the **Spend by channel** table at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag) instead.
 
+## Warnings before the limit is reached
+
+When your organization's Claude Tag usage passes 75% of the monthly spend limit, Claude posts a heads-up in Slack, and it posts another at 90%. A channel with its own [per-channel limit](#per-channel-limits) gets the same two heads-ups for that limit.
+
+* **Where it appears**: at the top level of the channel Claude was working in when usage crossed the threshold, so everyone there sees it, not only the thread that triggered it. Usage in a one-to-one DM with Claude doesn't post one.
+* **What it says**: it begins `:warning: Heads up`, names the share of the limit used, and says that an Owner of your Claude organization can raise the limit
+* **How often**: each threshold posts at most once per month for the organization's limit, and at most once per month for each channel's limit. After the limit is raised, the heads-ups can post again on the way to the new limit.
+
 ## What happens when the spend limit is reached
 
 When usage reaches the spend limit, Claude stops and tells the requester in the thread that it couldn't finish. The requester can ask an admin to raise the limit.

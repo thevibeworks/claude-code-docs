@@ -14,10 +14,11 @@ Claude Desktop on third-party (3P) builds the model picker in Chat, Cowork, and 
 
 If you leave `inferenceModels` unset and your provider supports [model discovery](/docs/third-party/claude-desktop/configuration#modeldiscoveryenabled), Claude Desktop fills the picker from the provider's model list at launch. The first discovered model is then the default model.
 
-Each entry is either a model ID string or an object. In an object, `name` holds the model ID and every other field is optional. Two of the optional fields change how the picker shows the model:
+Each entry is either a model ID string or an object. In an object, `name` holds the model ID and every other field is optional. Three of the optional fields change how the picker shows the model:
 
 * `labelOverride` sets the display name for an ID the picker can't turn into a readable name, such as a gateway routing alias or an Amazon Bedrock application inference profile ARN. Claude Desktop still sends `name` to your provider.
-* `supports1m: true` adds a second entry that shows the same name with **1M context window** beneath it. Set it only when your deployment accepts 1M-token requests for that model. Otherwise, requests from the 1M entry fail at the provider. Add `prefer1m: true` to the default model's entry to make its 1M entry the default selection. Users can still choose the standard entry.
+* `supports1m: true` adds a second entry that shows the same name with **1M context window** beneath it. Set it only when your deployment accepts 1M-token requests for that model. Otherwise, requests from the 1M entry fail at the provider.
+* `prefer1m: true`, with `supports1m: true`, shows the model as one entry. New conversations with it use the 1M context window.
 
 ## Effort levels
 

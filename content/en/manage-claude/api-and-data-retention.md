@@ -143,7 +143,7 @@ Organizations with a ZDR arrangement can make these models available in a specif
 
 <Steps>
   <Step title="Open the workspace's privacy controls">
-    In [Claude Console > Settings > Workspaces](https://platform.claude.com/settings/workspaces), select the workspace and open its **Privacy controls** tab.
+    In [Claude Console > Settings > Workspaces](https://platform.claude.com/settings/workspaces), select the workspace. In the panel that opens, click **Security** to open the workspace's Security page. Under **Data retention**, click **Manage in Privacy controls**.
   </Step>
 
   <Step title="Turn on 30-day data retention">

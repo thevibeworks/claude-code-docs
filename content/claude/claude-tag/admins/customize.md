@@ -105,7 +105,7 @@ Turning the toggle on has these effects in Slack:
 * **Speed**: every session starts at standard speed until someone turns fast mode on for it, and no per-channel setting starts sessions in fast mode
 * **Who turns it on**: any member who can message Claude in a channel can turn fast mode on for a thread there by sending [`@Claude !fast`](/docs/claude-tag/users/commands#turn-fast-mode-on-or-off)
 * **Model**: when a thread is on a model other than Opus, such as Sonnet, `!fast` moves it to the newest Opus model among the [models your organization allows](#models-your-organization-allows), and the thread stays on that model after `!fast off`
-* **Where**: sessions stay at standard speed in a channel that runs with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works) because a guest is present, and in a channel shared with another company
+* **Where**: sessions stay at standard speed in a channel shared with another company
 * **Cost**: a channel thread in fast mode bills to your organization like other [channel work](/docs/claude-tag/admins/set-spend-limit#how-claude-tag-usage-is-billed), at the [fast mode rates](https://code.claude.com/docs/en/fast-mode#understand-the-cost-tradeoff)
 
 ## Configure the environment for a scope
