@@ -463,28 +463,28 @@ To continue the session:
 
 ## Multiagent and outcome-driven sessions
 
-In a [multiagent session](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), every domain list that applies to a thread is enforced at the same time. An agent in the coordinator's roster is bound by three sets of lists:
+In a [multiagent session](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), every domain list that applies to a thread is enforced at the same time. An agent listed in `subagents.predefined_agents` is bound by three sets of lists:
 
 * Its own `allowed_domains` and `blocked_domains`
 * Those of any agent that called it
-* The coordinator's current lists
+* The current lists of the agent that the session runs
 
 The settings combine as follows:
 
-| Setting                               | How it combines                                                                                                                                                                                 |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `allowed_domains`                     | The tool can reach a host only if every list covers it.                                                                                                                                         |
-| `blocked_domains`                     | The lists add together.                                                                                                                                                                         |
-| `max_content_tokens`, `user_location` | Not combined. A thread uses the value from its own tool configuration if set. Otherwise it uses the value from the agent that called it, and otherwise the coordinator's current configuration. |
+| Setting                               | How it combines                                                                                                                                                                                          |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `allowed_domains`                     | The tool can reach a host only if every list covers it.                                                                                                                                                  |
+| `blocked_domains`                     | The lists add together.                                                                                                                                                                                  |
+| `max_content_tokens`, `user_location` | Not combined. A thread uses the value from its own tool configuration if set. Otherwise it uses the value from the agent that called it, and otherwise the current configuration of the session's agent. |
 
-A roster agent can therefore narrow what a tool reaches but never widen it:
+A listed agent can therefore narrow what a tool reaches but never widen it:
 
-* A roster agent that sets `blocked_domains` keeps the coordinator's `allowed_domains` and blocks those hosts within it.
-* A roster agent that sets its own `allowed_domains` can reach only the hosts that both its list and the coordinator's list cover.
+* A listed agent that sets `blocked_domains` keeps the `allowed_domains` of the session's agent and blocks those hosts within it.
+* A listed agent that sets its own `allowed_domains` can reach only the hosts that both its list and the list of the session's agent cover.
 
-A `{"type": "self"}` roster entry has no web settings of its own and follows the coordinator's current settings.
+A `{"type": "self"}` entry in `subagents.predefined_agents` has no web settings of its own and follows the current settings of the session's agent.
 
-If the combined `allowed_domains` lists have no domain in common, the tool stays available to that agent but every call fails. Each call returns a `url_not_allowed` error stating that no domain is permitted. The tool description tells the model the same. To avoid this, keep each roster agent's `allowed_domains` inside the coordinator's.
+If the combined `allowed_domains` lists have no domain in common, the tool stays available to that agent but every call fails. Each call returns a `url_not_allowed` error stating that no domain is permitted. The tool description tells the model the same. To avoid this, keep each listed agent's `allowed_domains` inside the `allowed_domains` of the session's agent.
 
 The grader in [outcome-driven sessions](https://platform.claude.com/docs/en/managed-agents/define-outcomes) runs without `web_search` and `web_fetch`, regardless of these settings.
 
@@ -492,7 +492,7 @@ The grader in [outcome-driven sessions](https://platform.claude.com/docs/en/mana
 
 You can change the lists on an idle session by [updating its tools](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-agent-configuration). The new lists apply to the rest of the session.
 
-In a multiagent session, every thread applies the new lists from its next turn. The update does not change a roster agent's own lists. Those stay as the agent's definition set them when the session was created.
+In a multiagent session, every thread applies the new lists from its next turn. For an agent listed in `subagents.predefined_agents`, the update does not change the agent's own lists. Those stay as the agent's definition set them when the session was created.
 
 ## Differences from the Messages API tools
 

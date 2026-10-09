@@ -45,20 +45,20 @@ First, install Anthropic's [client SDK](https://platform.claude.com/docs/en/cli-
   <Tab title="Java">
     <CodeGroup exclude="shell, python, typescript, csharp, go, php, ruby">
       ```groovy Gradle
-      implementation("com.anthropic:anthropic-java:2.70.0")
-      implementation("com.anthropic:anthropic-java-vertex:2.70.0")
+      implementation("com.anthropic:anthropic-java:2.71.0")
+      implementation("com.anthropic:anthropic-java-vertex:2.71.0")
       ```
 
       ```xml Maven
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java</artifactId>
-          <version>2.70.0</version>
+          <version>2.71.0</version>
       </dependency>
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java-vertex</artifactId>
-          <version>2.70.0</version>
+          <version>2.71.0</version>
       </dependency>
       ```
 
@@ -69,10 +69,17 @@ First, install Anthropic's [client SDK](https://platform.claude.com/docs/en/cli-
       import com.anthropic.models.messages.MessageCreateParams;
       import com.anthropic.models.messages.Model;
       import com.anthropic.vertex.backends.VertexBackend;
+      import com.google.auth.oauth2.GoogleCredentials;
 
-      void main() {
+      void main() throws Exception {
           AnthropicClient client = AnthropicOkHttpClient.builder()
-              .backend(VertexBackend.fromEnv())
+              .backend(
+                  VertexBackend.builder()
+                      .googleCredentials(GoogleCredentials.getApplicationDefault())
+                      .region("global")
+                      .project("MY_PROJECT_ID")
+                      .build()
+              )
               .build();
 
           MessageCreateParams params = MessageCreateParams.builder()
@@ -267,11 +274,17 @@ The following examples show how to generate text from Claude on Agent Platform:
   import com.anthropic.models.messages.MessageCreateParams;
   import com.anthropic.models.messages.Model;
   import com.anthropic.vertex.backends.VertexBackend;
+  import com.google.auth.oauth2.GoogleCredentials;
 
-  void main() {
-      // Uses default Google Cloud credentials
+  void main() throws Exception {
       AnthropicClient client = AnthropicOkHttpClient.builder()
-          .backend(VertexBackend.fromEnv())
+          .backend(
+              VertexBackend.builder()
+                  .googleCredentials(GoogleCredentials.getApplicationDefault())
+                  .region("global")
+                  .project("MY_PROJECT_ID")
+                  .build()
+          )
           .build();
 
       Message message = client
@@ -538,7 +551,6 @@ Set the `region` parameter to `"global"` when initializing the client:
   import com.google.auth.oauth2.GoogleCredentials;
 
   void main() throws Exception {
-      // Uses default Google Cloud credentials
       AnthropicClient client = AnthropicOkHttpClient.builder()
           .backend(
               VertexBackend.builder()
@@ -922,7 +934,6 @@ Specify a specific region such as `"us-east5"` or `"europe-west1"`:
   import com.google.auth.oauth2.GoogleCredentials;
 
   void main() throws Exception {
-      // Uses default Google Cloud credentials with specific region
       AnthropicClient client = AnthropicOkHttpClient.builder()
           .backend(
               VertexBackend.builder()

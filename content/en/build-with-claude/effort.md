@@ -339,7 +339,7 @@ Sonnet 4.6 defaults to `high` effort. Explicitly set effort when using Sonnet 4.
 
 ### Recommended effort levels for Claude Haiku 5.5
 
-Claude Haiku 5.5 supports all five effort levels, and `medium` is the default on the Claude API and in Claude Code. Effort is the main control for how much the model thinks, and with it quality, latency, and cost. **Start with `medium`** for most work, including agentic coding. Use `low`, the cheapest and fastest level, for chat, short tool tasks, and simple, high-volume requests. In long agent prompts, the model is more likely to skip a search, stop early, or skip a check at `low`. Use `high` for knowledge work, longer agent tasks, and strict instruction following. Use `xhigh` or `max` only where your evals show a quality gain, and compare them with Claude Sonnet 5.5 on performance, cost, and speed. Thinking is on by default and counts toward `max_tokens`, so leave room for it. See [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking).
+Claude Haiku 5.5 supports all five effort levels, and `medium` is the default. Effort is the main control for how much the model thinks, and with it quality, latency, and cost. **Start with `medium`** for most work, including agentic coding. Use `low`, the cheapest and fastest level, for chat, short tool tasks, and simple, high-volume requests. In long agent prompts, the model is more likely to skip a search, stop early, or skip a check at `low`. Use `high` for knowledge work, longer agent tasks, and strict instruction following. Use `xhigh` or `max` only where your evals show a quality gain, and compare them with Claude Sonnet 5.5 on performance, cost, and speed. Thinking is on by default and counts toward `max_tokens`, so leave room for it. See [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking).
 
 To get less thinking, lower the effort level. You can also send `thinking: {"type": "disabled"}` at `high` effort or below. At `xhigh` or `max`, it returns a 400 error, so use adaptive thinking there: omit the `thinking` field or send `thinking: {"type": "adaptive"}`.
 
@@ -381,7 +381,7 @@ Per-message effort is in beta. On the Claude API and [Google Cloud](https://plat
 
 Without the beta value, a per-message `output_config` returns a 400 error: `messages.N.output_config: Extra inputs are not permitted`, where `N` is the index of the `system` message in `messages`. With the beta value, models without per-message effort, including Claude Fable 5, return a 400 error: `output_config.effort requires a model that supports per-turn effort; this model does not`. On Amazon Bedrock, those models and Claude Opus 5 return the `Extra inputs are not permitted` error instead. On Claude Sonnet 5.5 with `thinking: {"type": "between_tools"}` and on Claude Haiku 5.5 with `thinking: {"type": "disabled"}`, effort can't change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort per turn, use adaptive thinking.
 
-Add a `role: "system"` message with empty `content` and the new level in `output_config.effort`. The new level takes effect from the next `user` turn and holds until a later message changes it. Everything before that message is unchanged, so the cached prefix still matches.
+Add a `role: "system"` message with empty `content` and the new level in `output_config.effort`. Placed directly after a `user` turn with new input, it sets the level for Claude's reply to that turn. Placed anywhere else, such as between an `assistant` turn and the next `user` turn as in the following example, it takes effect from the next `user` turn with new input. A `user` turn that holds only `tool_result` blocks doesn't count as new input, so a change placed after one in a tool-use loop waits for the next `user` turn with new input. The new level then holds until a later message changes it. Everything before that message is unchanged, so the cached prefix still matches.
 
 The following example starts at `high`, then drops to `low` for a routine follow-up:
 
@@ -654,7 +654,7 @@ The following example starts at `high`, then drops to `low` for a routine follow
 
 An effort-only system message carries no text, so the [placement rules for mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations) don't apply. It can appear anywhere in `messages`, including as the first entry or between an `assistant` turn and the next `user` turn. Values are the level names (`low`, `medium`, `high`, `xhigh`, and `max`).
 
-On Claude Fable 5.1, prefer this form over changing the top-level value between requests. A top-level change restarts the cache and also steers the model less reliably: its earlier replies were written at the previous level, and it tends to stay consistent with them.
+Prefer this form over changing the top-level value between requests. A top-level change restarts the cache and, on Claude Fable 5.1, also steers the model less reliably: its earlier replies were written at the previous level, and it tends to stay consistent with them.
 
 ### Top-level effort on the next request
 

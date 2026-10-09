@@ -89,7 +89,9 @@ Users then sign in as described under [Onboard users](#onboard-users).
 
 Conversations from the earlier configuration stay on the device, and Claude Desktop copies them into the app's history automatically. On each device the copy runs once, in the background, the next time the app starts with the user signed in. The earlier Cowork, Chat, and Code sessions then appear in the app's sidebar. The originals stay in place, so the copied sessions use disk space a second time.
 
-* **To turn the automatic copy off**, go to the **Connectors** page and, under **Claude.ai data import**, turn off the **Automatically import earlier third-party sessions** switch before users sign in. This sets `automatic3pImport` under [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) to `false`. A device that already made the copy keeps it, and the app lists it under **Settings → Import & export → Import history**, where each user can remove the copied sessions.
+The copy also brings over each user's Cowork projects, artifacts, memory, and global instructions, and their scheduled tasks from Cowork and Code. It brings over the plugins they uploaded unless [`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled) is `false`, and the skills they saved unless [`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled) is `false`. Memory and global instructions apply right away, scheduled tasks and uploaded plugins stay on or off as they were, and new tasks use a project's instructions only after the user accepts them. See [Automatic import of earlier third-party sessions](/docs/third-party/claude-desktop/import#automatic-import-of-earlier-third-party-sessions) for each item.
+
+* **To turn the automatic copy off**, go to the **Connectors** page and, under **Claude.ai data import**, turn off the **Automatically import earlier third-party sessions** switch before users sign in. This sets `automatic3pImport` under [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) to `false`. A device that already made the copy keeps it, and the app lists it under **Settings → Import & export → Import history**, where each user can remove the copied sessions and the projects copied with them.
 * **If you import a configuration file exported from Claude Desktop**, check the **Automatically import earlier third-party sessions** switch after the upload. The exported file can mark this switch as off even if nobody turned it off, and the console keeps the value from the file.
 * **To let users also import their claude.ai conversations**, or bring over anything the automatic copy left out, turn on the **Enable import** switch under **Claude.ai data import** on the **Connectors** page. This sets `enabled` under [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) to `true`. Users then open **Settings → Import & export** in the app and click **Import…** to open the [import wizard](/docs/third-party/claude-desktop/import#open-the-import-wizard).
 
@@ -100,7 +102,7 @@ From the console you can set the same [configuration keys](/docs/third-party/cla
 | Page | What you configure there |
 | - | - |
 | **Connection** | The inference provider ([gateway](/docs/third-party/claude-desktop/gateway), [Amazon Bedrock](/docs/third-party/claude-desktop/bedrock), [Bedrock Mantle](/docs/third-party/claude-desktop/mantle), [Google Cloud's Agent Platform](/docs/third-party/claude-desktop/vertex), or [Microsoft Foundry](/docs/third-party/claude-desktop/foundry)), its endpoint, region, or project, how users authenticate to it, custom request headers, and, under **Models**, the model list, default model, model discovery, and cost-estimate rates. **Desktop sign-in** on this page holds the **Require this organization in Claude Desktop** switch described under [Users in more than one Claude organization](#users-in-more-than-one-claude-organization). |
-| **Capabilities** | Whether Chat, Cowork, and Code are each available, the folders and network hosts the app may use, permission modes and built-in tool policy, the [built-in browser](/docs/third-party/claude-desktop/browser#manage-the-built-in-browser-from-the-enterprise-admin-console) and its site permissions, whether users may add their own skills and plugins, and organization instructions |
+| **Capabilities** | Whether Chat, Cowork, and Code are each available, [Unified Claude](#turn-on-unified-claude), the folders and network hosts the app may use, permission modes and built-in tool policy, the [built-in browser](/docs/third-party/claude-desktop/browser#manage-the-built-in-browser-from-the-enterprise-admin-console) and its site permissions, whether users may add their own skills and plugins, and organization instructions |
 | **Connectors** | Managed MCP servers, including the [built-in connectors](/docs/third-party/claude-desktop/built-in-connectors), whether users may add their own MCP servers, desktop extension policy, and [**Claude.ai data import**](/docs/third-party/claude-desktop/import) |
 | **Telemetry & updates** | Which telemetry categories go to Anthropic, whether users' apps report [usage analytics](#usage-analytics) to your organization, OpenTelemetry export to your collector, update policy, the [configuration relaunch window](#configuration-updates), the configuration re-check interval, and [how much of the configuration devices keep on disk](#configuration-kept-on-devices) |
 | **Limits** | A per-user token limit and its window |
@@ -117,7 +119,7 @@ Most of these settings can also differ per group of users, on the **Permission p
   Choose an interactive sign-in wherever your provider offers one. It is the recommended credential kind for a deployment managed from the console. Users sign in inside the app with their own accounts, and there is no shared credential to distribute to devices or rotate.
 </Tip>
 
-The console never holds a provider credential. The **Credential kind** field on the **Connection** page tells Claude Desktop how each user's device obtains one, and offers the kinds your provider supports: **Interactive sign-in** in the app, **Workforce Identity** (Google Cloud's Agent Platform only), **Cloud vendor profile** (an AWS profile or Google Cloud credentials file already on the device), or **Helper script** (a [credential helper](/docs/third-party/claude-desktop/credential-helper) on the device). Static API keys and bearer tokens aren't offered, because the console refuses to store them. The same **Connection** settings go to every user, so a credential kind that depends on something present on each device works only if your device management puts it there.
+The console never holds a provider credential. The **Credential kind** field on the **Connection** page tells Claude Desktop how each user's device obtains one, and offers the kinds your provider supports: **Interactive sign-in** in the app, **Identity provider sign-in (OIDC)** (for example, for [Amazon Bedrock behind an authenticating proxy](/docs/third-party/claude-desktop/bedrock#sign-in-with-your-identity-provider)), **Workforce Identity** (Google Cloud's Agent Platform only), **Cloud vendor profile** (an AWS profile or Google Cloud credentials file already on the device), or **Helper script** (a [credential helper](/docs/third-party/claude-desktop/credential-helper) on the device). Static API keys and bearer tokens aren't offered, because the console refuses to store them. The same **Connection** settings go to every user, so a credential kind that depends on something present on each device works only if your device management puts it there.
 
 | Provider | Recommended credential kind | Credential fields on the **Connection** page | What users do at first launch |
 | - | - | - | - |
@@ -153,6 +155,56 @@ A policy can, for example, turn Chat, Cowork, and Code on or off, narrow the mod
 Policies are ranked in the order shown on the page, and you drag them to change the ranking. When a user belongs to several listed groups, most settings, including the model list, come from the highest-ranked of their policies that sets them, and lower-ranked policies fill in only what the higher ones leave unset. Managed MCP servers combine instead, so the user keeps every server that any of their policies selects. The OpenTelemetry settings and the token limit each come from one policy only, the highest-ranked policy that sets any part of them. Lower-ranked policies' values for them are ignored, and any part that policy leaves unset keeps the organization-wide value.
 
 For example, if the Traders policy (ranked first) turns Code off and selects the wiki server, and the Analysts policy (ranked second) sets a token limit and selects the tickets server, a user in both groups has Code off, the Analysts token limit, and both servers. Everything these policies leave unset comes from the organization-wide settings, and a user in no listed group gets the organization-wide settings unchanged. Groups are managed on the **Groups** page under **People**, including groups synced from your identity provider.
+
+A group's policy can also turn on Unified Claude for that group, as described under [Turn on Unified Claude](#turn-on-unified-claude).
+
+### Turn on Unified Claude
+
+[Unified Claude](/docs/third-party/claude-desktop/unified-claude) combines Chat and Cowork into one experience. These switches under **Allowed surfaces** on the **Capabilities** page control Unified Claude for your organization:
+
+* **Opt into the new Chat and Cowork unified view** turns Unified Claude on or off
+* **Chat and Cowork unified view** takes the place of the separate **Chat** and **Cowork** switches when you turn on the **Opt into the new Chat and Cowork unified view** switch. Turn on the **Chat and Cowork unified view** switch to give users the unified view. Turn it off to turn Chat and Cowork off entirely. Code is not affected.
+
+A group's policy has the same two switches in its **Capabilities** section.
+
+Unified Claude is in beta. In an organization with no saved configuration, the console starts with Unified Claude on and stores it when you first click **Save changes** on the **Connection** page. In an organization with a saved configuration, nothing changes until you turn Unified Claude on.
+
+While Unified Claude is on, it overrides the **Chat**, [**Advanced file analysis**](/docs/third-party/claude-desktop/chat#advanced-file-analysis), and **Cowork** switches, including where you turned one of them off.
+
+<Warning>
+  While Unified Claude is on for your organization, it is on for every group. That includes a group whose policy turns Chat or Cowork off. You can't return a group to separate Chat and Cowork until you turn Unified Claude off for your organization.
+
+  To keep Chat, advanced file analysis, and Cowork off for a group, turn off the **Chat and Cowork unified view** switch in the group's policy. Where Unified Claude is still off for your organization, set the group's switches before you turn Unified Claude on. Turn on the group's **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is on, turn it off. To keep a group's own **Chat** and **Cowork** switches in effect, keep Unified Claude off for your organization. Turn it on only in the policies of the groups that should have it. For a member of several groups, Unified Claude comes from the highest-ranked of their policies that sets it, even when a higher-ranked policy turns Chat or Cowork off.
+</Warning>
+
+To turn on Unified Claude for your whole organization, open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. Under **Allowed surfaces**, turn on the **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is off, turn it on. Click **Save changes**.
+
+To turn on Unified Claude for some groups only:
+
+<Steps>
+  <Step title="Make sure Unified Claude is off for your organization">
+    Open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. If the **Opt into the new Chat and Cowork unified view** switch under **Allowed surfaces** is off, continue with the next step. If the switch is on, turn it off, set the **Chat** and **Cowork** switches that reappear, and click **Save changes**.
+  </Step>
+
+  <Step title="Open the group's policy">
+    Go to the **Permission policies** page under **People**. Open the group's policy, or click **Add permission policy** and pick the group, as described under [Per-group permission policies](#per-group-permission-policies).
+  </Step>
+
+  <Step title="Turn on Unified Claude for the group">
+    In the policy's **Capabilities** section, turn on the **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is off, turn it on.
+  </Step>
+
+  <Step title="Save the policy">
+    Click **Save changes**.
+  </Step>
+</Steps>
+
+Turn off Unified Claude for your organization or for a group:
+
+* **For your whole organization**: open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. Under **Allowed surfaces**, turn off the **Opt into the new Chat and Cowork unified view** switch. The **Chat** and **Cowork** switches reappear in the positions they had. Switches that nobody set are at their defaults. Cowork is on, and Chat and advanced file analysis are off. Set the switches as you want, then click **Save changes**.
+* **For a group**: while Unified Claude is off for your organization, open **Organization settings**, go to the **Permission policies** page under **People**, and open the group's policy. If the policy has other settings, click **Reset to default** in the **Opt into the new Chat and Cowork unified view** row, then click **Save changes**. If the policy has no other settings, remove the policy with **Remove policy** on the **Permission policies** page. The **Chat** and **Cowork** switches then apply to the group again.
+
+Turning on Unified Claude sets the [`desktopHome`](/docs/third-party/claude-desktop/configuration#desktophome) key, and turning it off removes the key. The **Chat and Cowork unified view** switch saves the value `standard` when it is on and `off` when it is off. With the value `off`, the **Opt into the new Chat and Cowork unified view** switch stays on, and Chat and Cowork are off entirely. Users' apps pick up the change as described under [Configuration updates](#configuration-updates).
 
 ### Plugin marketplaces
 
@@ -249,7 +301,7 @@ If something looks wrong, **Help → Troubleshooting → Generate Diagnostic Rep
 
 A user's Claude account can belong to your deployment's organization and to other Claude organizations, and the user can move between them in Claude Desktop. When such a user signs in, the app opens in their other organization and asks whether to switch to yours, with **Switch and restart** and **Not now** buttons. A user who chooses **Not now** isn't asked again on that device and can switch later by choosing your organization from the account menu. Each move into or out of your organization restarts the app, because third-party mode runs as a separate app configuration. To go back, the user chooses **Sign out** and signs in to Claude again after the restart. From Claude Desktop 1.49585.0, they can instead pick their other organization from the account menu, which also restarts the app and asks them to sign in.
 
-To remove the choice, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. Members who also belong to another organization are then switched to yours the next time Claude Desktop starts or they sign in. Browsers are not affected.
+To remove the choice, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. Members who also belong to another organization are then switched to yours the next time Claude Desktop starts or they sign in. While they are in your organization, the account menu lists another of their organizations only if that organization has the same setting on. Browsers are not affected.
 
 ### Configuration updates
 

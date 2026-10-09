@@ -19,6 +19,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.

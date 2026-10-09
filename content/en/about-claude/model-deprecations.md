@@ -126,7 +126,7 @@ On April 14, 2026, Anthropic notified developers using Claude Sonnet 4 and Claud
 
 | Retirement date | Deprecated model           | Recommended replacement |
 | --------------- | -------------------------- | ----------------------- |
-| June 15, 2026   | `claude-sonnet-4-20250514` | `claude-sonnet-4-6`     |
+| June 15, 2026   | `claude-sonnet-4-20250514` | `claude-sonnet-5-5`     |
 | June 15, 2026   | `claude-opus-4-20250514`   | `claude-opus-4-8`       |
 
 ### 2026-02-19: Claude Haiku 3 model
@@ -163,7 +163,7 @@ On October 28, 2025, Anthropic notified developers using Claude Sonnet 3.7 model
 
 | Retirement date   | Deprecated model             | Recommended replacement |
 | ----------------- | ---------------------------- | ----------------------- |
-| February 19, 2026 | `claude-3-7-sonnet-20250219` | `claude-sonnet-4-6`     |
+| February 19, 2026 | `claude-3-7-sonnet-20250219` | `claude-sonnet-5-5`     |
 
 ### 2025-08-13: Claude Sonnet 3.5 models
 
@@ -175,8 +175,8 @@ On August 13, 2025, Anthropic notified developers using Claude Sonnet 3.5 models
 
 | Retirement date  | Deprecated model             | Recommended replacement |
 | ---------------- | ---------------------------- | ----------------------- |
-| October 28, 2025 | `claude-3-5-sonnet-20240620` | `claude-sonnet-4-6`     |
-| October 28, 2025 | `claude-3-5-sonnet-20241022` | `claude-sonnet-4-6`     |
+| October 28, 2025 | `claude-3-5-sonnet-20240620` | `claude-sonnet-5-5`     |
+| October 28, 2025 | `claude-3-5-sonnet-20241022` | `claude-sonnet-5-5`     |
 
 ### 2025-06-30: Claude Opus 3 model
 
@@ -202,7 +202,7 @@ On January 21, 2025, Anthropic notified developers using Claude 2, Claude 2.1, a
 | --------------- | -------------------------- | ----------------------- |
 | July 21, 2025   | `claude-2.0`               | `claude-opus-4-8`       |
 | July 21, 2025   | `claude-2.1`               | `claude-opus-4-8`       |
-| July 21, 2025   | `claude-3-sonnet-20240229` | `claude-sonnet-4-6`     |
+| July 21, 2025   | `claude-3-sonnet-20240229` | `claude-sonnet-5-5`     |
 
 ### 2024-09-04: Claude 1 and Instant models
 
@@ -226,8 +226,8 @@ On September 4, 2024, Anthropic notified developers using Claude 1 and Instant m
 
 Anthropic occasionally deprecates request parameters that no longer apply to current models. How the API treats a deprecated parameter depends on the model, as the following table shows. Most SDKs keep deprecated parameters in their request types so existing code continues to type-check. The Python SDK (v1.0 and later) removes `temperature`, `top_p`, and `top_k`, so passing them raises a `TypeError`.
 
-| Parameter                       | Status                                 | Behavior                                                                                                                                         | Recommended replacement                                                                                                                                     |
-| ------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `temperature`, `top_p`, `top_k` | Deprecated (Claude Opus 4.7 and later) | Returns a 400 error when set to a non-default value on Claude 4.7 and later models and [Claude Mythos Preview](https://anthropic.com/glasswing). | Omit and use [prompting](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) to guide model behavior. |
+| Parameter                       | Status                                   | Behavior                                                                                                                                         | Recommended replacement                                                                                                                                     |
+| ------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `temperature`, `top_p`, `top_k` | Deprecated (Claude 4.7 and later models) | Returns a 400 error when set to a non-default value on Claude 4.7 and later models and [Claude Mythos Preview](https://anthropic.com/glasswing). | Omit and use [prompting](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) to guide model behavior. |
 
 For migration steps, see the [migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide).

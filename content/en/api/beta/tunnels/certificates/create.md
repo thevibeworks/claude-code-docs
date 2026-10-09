@@ -19,6 +19,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.

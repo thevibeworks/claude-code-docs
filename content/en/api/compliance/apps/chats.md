@@ -121,6 +121,12 @@ no time filter) with the default `order_by`. `user_ids[]` with
 
 ### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 ### Returns
@@ -255,6 +261,12 @@ You can retry the request.
   The chat ID (tagged ID, e.g., claude_chat_abc123)
 
 ### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -477,6 +489,12 @@ Retrieves message history and file metadata for a specific chat.
     format: date-time
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -775,7 +793,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
   "id": "claude_chat_abc123",
   "name": "Product Requirements Discussion",
   "created_at": "2025-06-07T08:09:10Z",
-  "updated_at": "2025-06-07T08:09:11Z",
+  "updated_at": "2025-06-07T08:10:05Z",
   "organization_id": "org_abc123",
   "organization_uuid": "abcdef01-2345-6789-abcd-ef0123456789",
   "project_id": "claude_proj_xyz789",
@@ -793,7 +811,9 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
       "content": [
         {
           "type": "text",
-          "text": "Can you help me draft requirements for our new dashboard feature?"
+          "text": "Can you help me draft requirements for our new dashboard feature?",
+          "truncated": false,
+          "thinking_redacted": false
         }
       ],
       "files": [
@@ -814,7 +834,9 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
       "content": [
         {
           "type": "text",
-          "text": "I'd be happy to help you draft requirements for your dashboard feature..."
+          "text": "I'd be happy to help you draft requirements for your dashboard feature...",
+          "truncated": false,
+          "thinking_redacted": false
         }
       ],
       "artifacts": [
@@ -825,11 +847,61 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
           "artifact_type": "text/markdown"
         }
       ]
+    },
+    {
+      "id": "claude_chat_msg_ghi789",
+      "role": "user",
+      "created_at": "2025-06-07T08:10:00Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Are there any open support tickets about the dashboard?",
+          "truncated": false,
+          "thinking_redacted": false
+        }
+      ]
+    },
+    {
+      "id": "claude_chat_msg_jkl012",
+      "role": "assistant",
+      "created_at": "2025-06-07T08:10:05Z",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01Abc",
+          "name": "search_tickets",
+          "input": "{\"query\":\"dashboard\",\"status\":\"open\"}",
+          "truncated": false,
+          "integration_name": "Example Integration",
+          "mcp_server_url": "https://mcp.example.com"
+        },
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_01Abc",
+          "name": "search_tickets",
+          "is_error": false,
+          "integration_name": "Example Integration",
+          "mcp_server_url": "https://mcp.example.com",
+          "content": [
+            {
+              "type": "text",
+              "text": "2 open tickets: #1042 Dashboard loads slowly; #1057 Export button missing"
+            }
+          ],
+          "truncated": false
+        },
+        {
+          "type": "text",
+          "text": "There are two open tickets: one about slow loading and one about a missing export button.",
+          "truncated": false,
+          "thinking_redacted": false
+        }
+      ]
     }
   ],
   "has_more": false,
   "first_id": "eyJtc2dfdXVpZCI6ICIwZjcwYjA2Ni0uLi4ifQ==",
-  "last_id": "eyJtc2dfdXVpZCI6ICJhNGUwYjE3Mi0uLi4ifQ=="
+  "last_id": "eyJtc2dfdXVpZCI6ICI3YzFlOWQ0Yi0uLi4ifQ=="
 }
 ```
 
@@ -850,6 +922,12 @@ download the bytes.
   The file ID (tagged ID, e.g., claude_file_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -931,6 +1009,12 @@ operation that cannot be undone.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -977,6 +1061,12 @@ Downloads the binary content of a file referenced in chat messages.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Example
@@ -1004,6 +1094,12 @@ Use the sibling `/content` endpoint to download the bytes.
   The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -1074,6 +1170,12 @@ Downloads the binary content of a file the assistant created via tool use.
   The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 

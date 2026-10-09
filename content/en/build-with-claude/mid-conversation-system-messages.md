@@ -1631,7 +1631,7 @@ A few situations where this matters:
 * **Per-turn context that must be authoritative.** You want to inject a freshness note, a session deadline, or a tool-availability change with system-level weight, and it changes too often to live in the cached prefix.
 * **Per-turn reminders that shouldn't pile up.** A harness nudges the model after each batch of tool results ("request independent reads together", "the user hasn't heard from you in a while") and wants the model to see only the newest copy. A [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) renders for one turn and then costs nothing, without deleting anything from the history.
 * **State changes your application observes.** Your application notices something Claude should treat as an operator-level fact: files changed on disk, the user toggled an auto-approve setting, available tools changed, or the remaining token budget dropped below a threshold.
-* **User input that should not interrupt an agentic loop.** A user types a follow-up while Claude is still executing tools for the previous request. Relaying it as a system message after the next tool result lets Claude fold the new input into the work it is already doing, instead of treating it as a fresh request to switch to. See [Placement after tool results](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#placement-after-tool-results).
+* **User input that should not interrupt an agentic loop.** A user types a follow-up while Claude is still executing tools for the previous request. Relaying it as a system message after the next tool result lets Claude fold the new input into the work it is already doing, instead of treating it as a fresh request to switch to. On Claude Sonnet 5.5 and Claude Haiku 5.5, append the user's words as a `text` block after the last `tool_result` in the same `user` message instead. See [Placement after tool results](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#placement-after-tool-results).
 * **Mode switches that grant standing permissions.** A session-level mode can use a mid-conversation system message to grant standing consent to an expensive capability, such as automatically launching multiagent workflows, with a short refresher every several turns and an exit notice when the mode is turned off. For a worked example, see [Build an orchestration mode](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-effort-example).
 
 In all of these cases you could put the instruction in a regular `user` message, and Claude does follow instructions that arrive in user turns. The difference is priority: a `user` message is treated as coming from the end user, while a `system` message is treated as coming from you, the application operator. When the two conflict, system instructions take precedence, so use the `system` role for operator-level facts and constraints that should hold even if the end user asks for something different. A mid-conversation system message keeps that operator-level priority without paying the cache-miss cost of editing the top-level `system` field.
@@ -1953,11 +1953,11 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
 
 This example enables [automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching) with the top-level `cache_control` field. Prompt caching is opt-in: if a request has no `cache_control` field (automatic or an [explicit breakpoint](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#explicit-cache-breakpoints)), nothing is cached and every request pays the regular input token price for the full conversation. With caching enabled, appending the system message leaves the already-cached turns unchanged, so the request that carries the new instruction still reads them from cache instead of processing them again. Caching also requires the conversation to meet the [minimum cacheable prompt length](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#cache-limitations); an example as short as this one falls below it, so `cache_creation_input_tokens` and `cache_read_input_tokens` stay at 0 until the conversation grows.
 
-A mid-conversation system message must immediately follow a `user` turn (or an `assistant` turn ending in a server tool result), and must either be the last entry in `messages` or be immediately followed by an `assistant` turn. A `user` message that carries `tool_result` blocks counts: in an agentic loop you can place the system message right after the tool results, before Claude's next turn. Any other position, including between an `assistant` `tool_use` block and the `tool_result` that answers it, returns a 400 error.
+A mid-conversation system message that carries content (`text`, `tool_addition`, or `tool_removal` blocks) must immediately follow a `user` turn (or an `assistant` turn ending in a server tool result), and must either be the last entry in `messages` or be immediately followed by an `assistant` turn. A `user` message that carries `tool_result` blocks counts: in an agentic loop you can place the system message right after the tool results, before Claude's next turn. Any other position for a message that carries content, including between an `assistant` `tool_use` block and the `tool_result` that answers it, returns a 400 error. A message with empty `content` that only sets [`output_config.effort`](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) is accepted anywhere in `messages`. Consecutive `system` messages are judged together, so an effort-only message next to one that carries content follows the rule for content.
 
 ### Placement after tool results
 
-In an [agentic loop](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), the system message goes after the `user` message that delivers the tool results. This is also where your application can relay input that the user typed while Claude was working, so the new context is absorbed without restarting the turn:
+In an [agentic loop](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), the system message goes after the `user` message that delivers the tool results. On most models, this is also where your application can relay input that the user typed while Claude was working, so the new context is absorbed without restarting the turn (for Claude Sonnet 5.5 and Claude Haiku 5.5, see the end of this section):
 
 ```json
 [
@@ -1982,6 +1982,27 @@ In an [agentic loop](https://platform.claude.com/docs/en/agents-and-tools/tool-u
 Phrase the system content as context rather than as a command that overrides the user. State the fact ("new input arrived from the user: X", "the remaining token budget is now Y") and let Claude act on it. Claude is trained to resist instructions that appear to work against the user, and that protection still applies to the system role, so language such as "ignore what the user said" is less effective than stating what changed.
 
 This pattern is for relaying input from the conversation's own end user. Do not use it to pass tool output, retrieved documents, or other third-party content; keep that content in `tool_result` blocks (see [Limitations](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations)).
+
+On Claude Sonnet 5.5 and Claude Haiku 5.5, deliver the user's words in the user turn instead. These models are trained to resist prompt injection through tool results, so they can treat a system message placed right after a tool result as untrusted text and ignore it. Append the user's words as a `text` block after the last `tool_result` in the same `user` message. Keep harness notices, such as reminders, in a separate mid-conversation system message after that `user` message, and never put a notice and the user's words in the same block:
+
+```json
+[
+  { "role": "user", "content": "Run the test suite and fix any failures." },
+  {
+    "role": "assistant",
+    "content": [{ "type": "tool_use", "id": "toolu_01", "name": "run_tests", "input": {} }]
+  },
+  {
+    "role": "user",
+    "content": [
+      { "type": "tool_result", "tool_use_id": "toolu_01", "content": "12 passed, 0 failed" },
+      { "type": "text", "text": "Also update the changelog before you finish." }
+    ]
+  }
+]
+```
+
+For more on this behavior, see [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#mid-turn-user-messages-and-task-budgets) and [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#mid-turn-user-messages).
 
 ### Turn-scoped system messages
 

@@ -24,6 +24,14 @@ Results are ordered by creation time (newest first). Use the
 
   Opaque cursor from a previous response's `next_page`.
 
+## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ## Returns
 
 - `data: array of ExternalKey`

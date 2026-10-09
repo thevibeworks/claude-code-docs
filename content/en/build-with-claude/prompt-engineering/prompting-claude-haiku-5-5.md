@@ -19,7 +19,9 @@ Existing Claude Haiku 4.5 prompts should perform well without changes. Start wit
 * Requests return `stop_reason: "refusal"`: [Safeguard refusals](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#safeguard-refusals)
 
 <Note>
-  For the five breaking API changes when migrating from Claude Haiku 4.5, see the [migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide).
+  For the breaking API changes when migrating from Claude Haiku 4.5, see the [migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide).
+
+  Several sections on this page suggest text to add to your system prompt. Add it to new conversations only. A request that sends thinking blocks back after `system` changed can return a 400 error, so a stored conversation resumed with the new system prompt can fail. To change instructions partway through a conversation, [put them in the newest turn](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#changing-context). On the Claude API, Amazon Bedrock, and Google Cloud, you can instead [append a system message to the conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#new-instructions).
 </Note>
 
 ## Use effort to control thinking
@@ -27,7 +29,7 @@ Existing Claude Haiku 4.5 prompts should perform well without changes. Start wit
 [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) is the main control for how much Claude Haiku 5.5 thinks. It replaces the thinking budget (`budget_tokens`) that Claude Haiku 4.5 used, so there's no old setting to carry over. Compare two or three of these levels on your own evals:
 
 * `low` is the cheapest and fastest level. Use it for chat, short tool tasks, and simple, high-volume requests. In long agent prompts, the model is more likely to skip a search, stop early, or skip a check at this level.
-* `medium` is the default on the Claude API and in Claude Code. Start here for most work, including agentic coding.
+* `medium` is the default. Start here for most work, including agentic coding.
 * `high` suits knowledge work, longer agent tasks, and strict instruction following.
 * `xhigh` and `max` are for work where a quality gain on your evals justifies the cost. Thinking and replies get much longer at these levels, so also run your evals on Claude Sonnet 5.5 and compare performance, cost, and speed.
 
@@ -36,7 +38,7 @@ Claude Haiku 5.5 is the first Haiku model with effort levels. Thinking works as 
 * Thinking is on by default and counts toward `max_tokens`, which can go up to 128,000. A `max_tokens` value sized for Claude Haiku 4.5 requests that ran without thinking can cut the reply off, so leave room for thinking.
 * To get less thinking, lower the effort level. In Anthropic's testing, telling the model in the prompt to answer directly didn't stop it from thinking. You can also turn thinking off with `thinking: {"type": "disabled"}`. This works at `low`, `medium`, and `high` only. At `xhigh` and `max`, the request returns a 400 error.
 * At `xhigh` effort in multi-turn chats, the model sometimes writes its whole answer in its thinking and ends the turn with no visible text. If you see this behavior, check each response for an empty reply.
-* Changing the top-level `effort` value between requests invalidates the prompt cache for the conversation's messages. To run individual turns at a different level, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta), which keeps the cache. It needs the `mid-conversation-output-config-2026-07-01` beta header and adaptive thinking, which is the default. With thinking off, a per-message effort change returns a 400 error.
+* Changing the top-level `effort` value between requests invalidates the prompt cache for the conversation's messages. On the Claude API and Google Cloud, you can change the level partway through a conversation with a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta), which keeps the cache. A change holds for every later turn until another one replaces it. It needs the `mid-conversation-output-config-2026-07-01` beta header and adaptive thinking, which is the default. With thinking off, a per-message effort change returns a 400 error.
 
 ## Accurate search results
 
@@ -45,6 +47,8 @@ When you give Claude Haiku 5.5 a search tool, also give it today's date. In Anth
 ```text wrap
 The current date is {{current_date}}.
 ```
+
+Render the date once, when the conversation starts, and send the same `system` and `tools` on every later request in that conversation (see [Keep earlier turns unchanged](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#keep-earlier-turns-unchanged)). When a conversation continues on a later day, [give the new date in the newest turn](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#changing-context) instead.
 
 The model also sometimes needs an extra nudge to search. This happens most at `low` effort and with long system prompts. To fix it, add this text directly after the date:
 

@@ -54,6 +54,8 @@ Checks Anthropic's update feed and downloads new builds.
 | - | - | - |
 | `disableAutoUpdates` | `false` | The app never checks for or downloads updates. Your IT team must redistribute new builds. |
 
+On Linux, installing the `claude-desktop` package adds Anthropic's apt repository. `apt upgrade` then installs new versions from `downloads.claude.ai`, and so do unattended upgrades on devices that have them turned on, whatever the value of `disableAutoUpdates`. To keep Linux devices on the versions you distribute, add the line `CLAUDE_DESKTOP_ADD_REPO=false` to `/etc/default/claude-desktop`, creating the file if it doesn't exist, before you install the package. On a device that already has the package, also delete `/etc/apt/sources.list.d/claude-desktop.list`.
+
 ## Sending telemetry to your own collector
 
 Independently of what's sent to Anthropic, you can export session activity to your own OpenTelemetry collector by setting `otlpEndpoint`. This is the recommended way to retain an audit trail in environments that disable Anthropic-bound telemetry.
@@ -277,14 +279,14 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 
 ## Disabling all Anthropic-bound connections
 
-Each connection in the following table has a managed-configuration key that turns it off.
+Each connection in the following table has a managed-configuration key that turns it off, except `apt` updates on Linux, which you turn off on the device.
 
 | Connection | What it carries | Key that turns it off |
 | - | - | - |
 | Crash, error, and performance reporting | Diagnostic metadata, never prompt or response content. See [Essential telemetry](#essential-telemetry). | [`disableEssentialTelemetry`](/docs/third-party/claude-desktop/configuration#disableessentialtelemetry) set to `true` |
 | Product analytics and diagnostic-report uploads | Feature adoption, session counts, and UI interactions, plus Claude Code usage telemetry. No prompt or response content. See [Non-essential telemetry](#non-essential-telemetry). | [`disableNonessentialTelemetry`](/docs/third-party/claude-desktop/configuration#disablenonessentialtelemetry) set to `true` |
-| Connector favicons, artifact previews, and MCP App widgets | Icon fetches, and the sandboxed iframe pages that render previews and widgets. See [Non-essential services](#non-essential-services). | [`disableNonessentialServices`](/docs/third-party/claude-desktop/configuration#disablenonessentialservices) set to `true` |
-| Auto-updates | Requests to Anthropic's update feed, and downloads of new builds. See [Auto-updates](#auto-updates). | [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates) set to `true` |
+| Connector favicons, artifact previews, and MCP App widgets | Icon fetches, and the sandboxed iframe pages that render previews and widgets. Some of these requests go to third-party hosts rather than to Anthropic, such as the icon fetches to `www.google.com` and `*.gstatic.com`. See [Non-essential services](#non-essential-services) and, for each host, [Required egress paths](#required-egress-paths). | [`disableNonessentialServices`](/docs/third-party/claude-desktop/configuration#disablenonessentialservices) set to `true` |
+| Auto-updates | Requests to Anthropic's update feed, and downloads of new builds. On Linux, `apt` downloads new versions from `downloads.claude.ai`. See [Auto-updates](#auto-updates). | [`disableAutoUpdates`](/docs/third-party/claude-desktop/configuration#disableautoupdates) set to `true`. On Linux, also keep Anthropic's apt repository off the device, as described under [Auto-updates](#auto-updates). |
 | Model catalog | The signed model catalog that labels the model picker, fetched from `downloads.claude.ai` at launch and then every 5 to 15 minutes, including on devices installed with the offline installer. A blocked catalog request affects nothing else. | [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) set to `false`, or [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) set to a mirror inside your network |
 | Web Fetch domain check in [Code](/docs/third-party/claude-desktop/code) sessions | The hostname of each page Claude Code fetches, sent to `api.anthropic.com` before the fetch. See [Web Fetch](/docs/third-party/claude-desktop/web-tools#web-fetch). | [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) set to `true`, or `WebFetch` added to [`disabledBuiltinTools`](/docs/third-party/claude-desktop/configuration#disabledbuiltintools) |
 
@@ -295,6 +297,7 @@ These optional features add hosts back when you turn them on:
 * [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) download the remote-session components from `downloads.claude.ai`. The offline installer bundles those components for Linux x64 and arm64 hosts, so devices installed with it download them only when connecting to hosts on other platforms.
 * [Import from claude.ai](/docs/third-party/claude-desktop/import) reaches `claude.ai`, `api.anthropic.com`, and `storage.googleapis.com` (for the export download) only while a user signs in to claude.ai and fetches an export in the import wizard.
 * The [built-in browser](/docs/third-party/claude-desktop/browser) contacts `releases.claude.com` for its [site safety check](/docs/third-party/claude-desktop/browser#site-safety-check).
+* With the [remote Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365#remote-connector), the app connects to the connector service that Anthropic hosts, at the host in the entry's `url` (`microsoft365.mcp.claude.com` in the setup steps).
 
 An app that receives its configuration from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) still connects to Anthropic with all of these keys set. It never fetches the model catalog (its model names and options come from the console's settings), and it contacts `api.anthropic.com` at every launch and at each configuration check (every 10 minutes by default) to download its configuration. The app contacts `claude.ai` when the user signs in. While the organization's **Report desktop usage to this organization** switch is on, the app also sends [usage analytics](/docs/third-party/claude-desktop/admin-console#usage-analytics) counts to `api.anthropic.com` every few minutes during use. You turn the telemetry categories for these apps on and off on the console's **Telemetry & updates** page.
 

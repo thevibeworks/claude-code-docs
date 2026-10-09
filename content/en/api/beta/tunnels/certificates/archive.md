@@ -23,6 +23,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.

@@ -2900,7 +2900,7 @@ Here's a complete example of a long-running conversation with compaction:
 
 On Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, remove the `thinking` and `redacted_thinking` blocks from any assistant turn you re-insert after the compaction block, or send `thinking.block_binding.prefix_mismatch_behavior: "drop_block"` with the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers). Those blocks were produced when the full history was present, so they no longer pass the [conversation check](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation). Where the check is enforced, the continuation request is rejected with a 400 error. The preserved text and tool blocks can stay as they are. Letting the API summarize everything, without re-inserting earlier turns, avoids this. On Claude Sonnet 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools`, remove the blocks instead. On Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`, so with `thinking: {"type": "disabled"}`, remove the blocks instead.
 
-Here's an example that uses `pause_after_compaction` to preserve the prior exchange and the current user message (three messages total) verbatim instead of summarizing them:
+Here's an example that uses `pause_after_compaction` to preserve the prior exchange and the current user message (three messages total) instead of summarizing them. It keeps their text and tool blocks unchanged, removes the `thinking` and `redacted_thinking` blocks from the preserved assistant turn, and drops that turn if nothing else is left:
 
 <CodeGroup>
   ```bash cURL
@@ -2992,8 +2992,22 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
           compaction_block = response.content[0]
 
           # Preserve the prior exchange + current user message (3 messages)
-          # by including them after the compaction block
-          preserved_messages = messages[-3:] if len(messages) >= 3 else messages
+          # by including them after the compaction block, without thinking
+          # blocks; an assistant turn left with no content is dropped
+          preserved_messages = [
+              {
+                  **message,
+                  "content": [
+                      block
+                      for block in message["content"]
+                      if block.type not in ("thinking", "redacted_thinking")
+                  ],
+              }
+              if message["role"] == "assistant"
+              else message
+              for message in messages[-3:]
+          ]
+          preserved_messages = [m for m in preserved_messages if m["content"]]
 
           # Build new message list: compaction + preserved messages
           new_assistant_content = [compaction_block]
@@ -3058,8 +3072,21 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
       const compactionBlock = response.content[0];
 
       // Preserve the prior exchange + current user message (3 messages)
-      // by including them after the compaction block
-      const preservedMessages = messages.length >= 3 ? messages.slice(-3) : [...messages];
+      // by including them after the compaction block, without thinking
+      // blocks; an assistant turn left with no content is dropped
+      const preservedMessages = messages
+        .slice(-3)
+        .map((message) =>
+          message.role === "assistant" && Array.isArray(message.content)
+            ? {
+                ...message,
+                content: message.content.filter(
+                  (block) => block.type !== "thinking" && block.type !== "redacted_thinking"
+                )
+              }
+            : message
+        )
+        .filter((message) => message.content.length > 0);
 
       // Build new message list: compaction + preserved messages
       const messagesAfterCompaction: Anthropic.Beta.Messages.BetaMessageParam[] = [
@@ -3130,9 +3157,21 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
           if (!response.Content[0].TryPickCompaction(out _))
               throw new InvalidOperationException("Expected compaction block");
 
-          var preserved = messages.Count >= 3
-              ? messages.Skip(messages.Count - 3).ToList()
-              : new List<BetaMessageParam>(messages);
+          // Preserve the prior exchange + current user message (3 messages),
+          // without thinking blocks; an assistant turn left empty is dropped
+          var preserved = messages
+              .Skip(Math.Max(0, messages.Count - 3))
+              .Select(message => message.Content.TryPickBetaContentBlockParams(out var blocks)
+                  ? new BetaMessageParam
+                  {
+                      Role = message.Role,
+                      Content = blocks
+                          .Where(block => block.Type.GetString() is not ("thinking" or "redacted_thinking"))
+                          .ToList()
+                  }
+                  : message)
+              .Where(message => !message.Content.TryPickBetaContentBlockParams(out var blocks) || blocks.Count > 0)
+              .ToList();
 
           var messagesAfterCompaction = new List<BetaMessageParam>
           {
@@ -3215,11 +3254,21 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
   	if response.StopReason == "compaction" {
   		compactionParam := response.Content[0].ToParam()
 
+  		// Preserve the prior exchange + current user message (3 messages),
+  		// without thinking blocks; an assistant turn left empty is dropped
   		var preserved []anthropic.BetaMessageParam
-  		if len(messages) >= 3 {
-  			preserved = messages[len(messages)-3:]
-  		} else {
-  			preserved = messages
+  		for _, message := range messages[max(0, len(messages)-3):] {
+  			var content []anthropic.BetaContentBlockParamUnion
+  			for _, block := range message.Content {
+  				if block.OfThinking == nil && block.OfRedactedThinking == nil {
+  					content = append(content, block)
+  				}
+  			}
+  			if len(content) == 0 {
+  				continue
+  			}
+  			message.Content = content
+  			preserved = append(preserved, message)
   		}
 
   		messagesAfterCompaction := []anthropic.BetaMessageParam{
@@ -3297,10 +3346,22 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
           // Check if compaction occurred and paused
           if (response.stopReason().isPresent()
                   && response.stopReason().get().equals(BetaStopReason.COMPACTION)) {
-              // Preserve the prior exchange + current user message (3 messages)
-              List<BetaMessageParam> preservedMessages = messages.size() >= 3
-                  ? new ArrayList<>(messages.subList(messages.size() - 3, messages.size()))
-                  : new ArrayList<>(messages);
+              // Preserve the prior exchange + current user message (3 messages),
+              // without thinking blocks; an assistant turn left empty is dropped
+              List<BetaMessageParam> preservedMessages = new ArrayList<>();
+              for (BetaMessageParam message : messages.subList(Math.max(0, messages.size() - 3), messages.size())) {
+                  if (message.content().isBetaContentBlockParams()) {
+                      message = message.toBuilder()
+                          .contentOfBetaContentBlockParams(message.content().asBetaContentBlockParams().stream()
+                              .filter(block -> !block.isThinking() && !block.isRedactedThinking())
+                              .toList())
+                          .build();
+                      if (message.content().asBetaContentBlockParams().isEmpty()) {
+                          continue;
+                      }
+                  }
+                  preservedMessages.add(message);
+              }
 
               // Build new message list: compaction + preserved messages
               List<BetaMessageParam> messagesAfterCompaction = new ArrayList<>();
@@ -3368,9 +3429,17 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
       if ($response->stopReason === 'compaction') {
           $compactionBlock = $response->content[0];
 
-          $preserved = count($messages) >= 3
-              ? array_slice($messages, -3)
-              : $messages;
+          // Preserve the prior exchange + current user message (3 messages),
+          // without thinking blocks; an assistant turn left empty is dropped
+          $preserved = array_values(array_filter(array_map(
+              fn($message) => $message['role'] === 'assistant'
+                  ? array_merge($message, ['content' => array_values(array_filter(
+                      $message['content'],
+                      fn($block) => !in_array($block->type, ['thinking', 'redacted_thinking'], true)
+                  ))])
+                  : $message,
+              array_slice($messages, -3)
+          ), fn($message) => $message['content'] !== []));
 
           $messagesAfterCompaction = array_merge(
               [['role' => 'assistant', 'content' => [$compactionBlock]]],
@@ -3431,7 +3500,13 @@ Here's an example that uses `pause_after_compaction` to preserve the prior excha
     if response.stop_reason == :compaction
       compaction_block = response.content[0]
 
-      preserved = messages.length >= 3 ? messages[-3..-1] : messages.dup
+      # Preserve the prior exchange + current user message (3 messages),
+      # without thinking blocks; an assistant turn left empty is dropped
+      preserved = messages.last(3).map do |message|
+        next message unless message[:role] == "assistant"
+
+        message.merge(content: message[:content].reject { |block| %i[thinking redacted_thinking].include?(block.type) })
+      end.reject { |message| message[:content].empty? }
 
       messages_after_compaction = [
         { role: "assistant", content: [compaction_block] }

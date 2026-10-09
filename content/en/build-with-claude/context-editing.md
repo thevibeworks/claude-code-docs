@@ -17,7 +17,7 @@ description: Automatically manage conversation context as it grows with context 
 Context editing allows you to selectively clear specific content from conversation history as it grows. Beyond optimizing costs and staying within limits, this is about actively curating what Claude sees: context is a finite resource with diminishing returns, and irrelevant content degrades model focus. Context editing gives you fine-grained runtime control over that curation. For the broader principles behind context management, see [Effective context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents). This page covers:
 
 * **Tool result clearing** - Best for agentic workflows with heavy tool use where old tool results are no longer needed
-* **Thinking block clearing** - For managing thinking blocks when using extended thinking, with options to preserve recent thinking for context continuity
+* **Thinking block clearing** - For managing thinking blocks from earlier turns, with options to preserve recent thinking for context continuity
 * **Client-side SDK compaction** - An SDK-based alternative for summary-based context management (server-side compaction is generally preferred)
 
 | Approach        | Where it runs | Strategies                                                                                            | How it works                                                                                                                                                                                                                                                                                                                                                                                                |
@@ -41,7 +41,7 @@ When activated, the API automatically clears the oldest tool results in chronolo
 
 ### Thinking block clearing
 
-The `clear_thinking_20251015` strategy manages `thinking` blocks in conversations when extended thinking is enabled. This strategy gives you control over thinking preservation: you can choose to keep more thinking blocks to maintain reasoning continuity, or clear them more aggressively to save context space.
+The `clear_thinking_20251015` strategy manages `thinking` blocks from earlier assistant turns. This strategy gives you control over thinking preservation: you can choose to keep more thinking blocks to maintain reasoning continuity, or clear them more aggressively to save context space.
 
 <Tip>
   **Default behavior:** The default varies by model class.
@@ -696,7 +696,7 @@ You can customize the tool result clearing behavior with additional parameters:
 
 ## Thinking block clearing usage
 
-Enable thinking block clearing to manage context and prompt caching effectively when extended thinking is enabled:
+Use thinking block clearing to manage context and prompt caching in conversations that carry thinking blocks from earlier turns:
 
 <CodeGroup>
   ```bash cURL

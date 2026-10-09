@@ -17,6 +17,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 ### Headers
 
+- `"anthropic-version": optional string`
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.
@@ -596,6 +598,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 ### Headers
 
+- `"anthropic-version": optional string`
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.
@@ -1008,6 +1012,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 ### Headers
 
+- `"anthropic-version": optional string`
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.
@@ -1414,6 +1420,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   The ID of the dream to cancel (`drm_...`).
 
 ### Headers
+
+- `"anthropic-version": optional string`
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -1822,6 +1830,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   The ID of the dream to archive (`drm_...`).
 
 ### Headers
+
+- `"anthropic-version": optional string`
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 

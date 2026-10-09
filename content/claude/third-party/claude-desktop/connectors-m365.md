@@ -27,7 +27,7 @@ Use this table to pick a connector.
 | App registrations you own | One desktop client app, plus tenant consent to Anthropic's connector app | One dedicated public client app |
 | Token exchange | On-behalf-of exchange in Anthropic's infrastructure | Tokens acquired and stored on the device |
 | Allowlisting with Anthropic | Required (two to three business days) | Not needed |
-| Device egress | `login.microsoftonline.com` and the connector host | `login.microsoftonline.com` and `graph.microsoft.com` |
+| Device egress | `login.microsoftonline.com` and the connector host | `login.microsoftonline.com`, `graph.microsoft.com`, and your tenant's SharePoint and OneDrive hosts |
 | Device-based Conditional Access | Not supported (the server-side exchange has no device identity) | Supported on managed Windows and Mac devices through brokered sign-in |
 | Write actions | Available with [write scopes on the Anthropic connector app](#control-write-actions-on-the-remote-connector) | Available with [write scopes](#grant-write-scopes) |
 | US Government clouds | Separate connector deployment; contact your Anthropic representative | Built in; set `azureCloud` |
@@ -268,7 +268,7 @@ Choose the local connector when your data-residency requirements do not allow Mi
   </Step>
 
   <Step title="Configure Claude Desktop">
-    In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **Microsoft 365** under the **Built-in** group. Enter the values below, then select **Test connection** to verify that the server starts and lists its tools, and select **Save**.
+    In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **Microsoft 365** under the **Built-in** group. Enter the values below, then select **Test this connection** to verify that the server starts and lists its tools, and select **Save**.
 
     | Field | Value |
     | - | - |
@@ -296,7 +296,7 @@ Choose the local connector when your data-residency requirements do not allow Mi
     | `tenantId` | Yes | Your Directory (tenant) ID. |
     | `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for US Government clouds. |
     | `continuousAccessEvaluation` | No | `enabled` (default) or `disabled`. When enabled, the connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours and stop working within minutes after an administrator revokes the user's sessions or disables the account in Entra, and, where your tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is used from outside that network. `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts, and an already-issued token stays in use until it expires (select **Disconnect**, then **Connect**, to sign in again immediately). Requires Claude Desktop 1.49585.0 or later; earlier versions ignore the field and request standard one-hour tokens. |
-    | `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. A string array named `scopes` is also accepted only before 12:00 PM Pacific Time (19:00 UTC) on October 7, 2026. See [Configure scopes](#configure-scopes). |
+    | `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. The app rejects an entry that has a `scopes` array, so write the scopes as one string. See [Configure scopes](#configure-scopes). |
     | `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers). |
 
     The server ships inside the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.
@@ -309,8 +309,11 @@ Choose the local connector when your data-residency requirements do not allow Mi
     | - | - |
     | `login.microsoftonline.com` | Microsoft Entra sign-in |
     | `graph.microsoft.com` | Microsoft Graph data APIs |
+    | Your tenant's SharePoint and OneDrive hosts | Downloads of OneDrive and SharePoint files |
 
-    US Government cloud deployments use `login.microsoftonline.us` and `graph.microsoft.us` (or `dod-graph.microsoft.us` for `us-gov-dod`) instead, matching the `azureCloud` setting. GCC High (`us-gov-high`) support has been confirmed in customer deployments. No egress to any Anthropic host is needed for Microsoft 365 data with the local connector.
+    To read Office documents, such as Word and PowerPoint files, the connector asks Microsoft Graph for a PDF version and follows the redirect Graph returns. Microsoft chooses the host in that redirect.
+
+    US Government cloud deployments use `login.microsoftonline.us` and `graph.microsoft.us` (or `dod-graph.microsoft.us` for `us-gov-dod`) instead of `login.microsoftonline.com` and `graph.microsoft.com`, matching the `azureCloud` setting. GCC High (`us-gov-high`) support has been confirmed in customer deployments. No egress to any Anthropic host is needed for Microsoft 365 data with the local connector.
   </Step>
 </Steps>
 
@@ -333,13 +336,15 @@ To request a different set, list scopes in the entry's `scope` field. The connec
 
 Six optional read scopes are not in the standard set:
 
-* `ChannelMessage.Read.All` adds Teams channel messages to chat search results and lets Claude list a channel's messages (`teams_list_channel_messages`). Requires tenant-admin consent.
+* `ChannelMessage.Read.All` enables Teams message search (`chat_message_search`), including searches of 1:1 and group chats, and lets Claude list a channel's messages (`teams_list_channel_messages`). Requires tenant-admin consent.
 * `OnlineMeetingTranscript.Read.All` enables reading meeting transcripts. Requires tenant-admin consent.
 * `MailboxSettings.Read` lets the connector read the user's mailbox time zone so that dates in requests follow the user's local time rather than UTC.
 * `People.Read` enables people search (`search_people`), which resolves a name to a user before starting a Teams chat.
 * `Team.ReadBasic.All` and `Channel.ReadBasic.All` let Claude list the user's teams and their channels (`teams_list_teams`, `teams_list_channels`), which Claude uses to find the team and channel IDs that the channel-message tools take.
 
-Until `ChannelMessage.Read.All` and `OnlineMeetingTranscript.Read.All` are granted, chat search omits channel results and transcript requests return a permission error. The `search_people`, `teams_list_teams`, and `teams_list_channels` tools require Claude Desktop version 1.32885.1 or later, and `teams_list_channel_messages` requires 1.49585.0 or later.
+Until `ChannelMessage.Read.All` is granted, Teams message search returns an error with an admin consent link, including for 1:1 and group chats. Claude can still list chats (`teams_list_chats`) and read their messages (`read_resource`) with `Chat.Read`. Until `OnlineMeetingTranscript.Read.All` is granted, transcript requests return a permission error. The `search_people`, `teams_list_teams`, and `teams_list_channels` tools require Claude Desktop version 1.32885.1 or later, and `teams_list_channel_messages` requires 1.49585.0 or later.
+
+Grant admin consent for `ChannelMessage.Read.All` or `OnlineMeetingTranscript.Read.All` in Microsoft Entra before you list it in `scope`. While the connector requests one of these scopes without admin consent, Microsoft Entra refuses the whole token request (`AADSTS65001`) instead of leaving that scope out. If the entry has no `scope` field yet, list the standard read scopes as well, because `scope` replaces them.
 
 The `scope` field accepts only scopes the connector can use. An entry containing an unrecognized scope name is rejected as a whole at configuration load, with an error in the app's main log listing the valid names, and the connector does not appear.
 
@@ -355,7 +360,7 @@ The connector provides these read and search tools:
 | `outlook_calendar_search` | Search calendar events |
 | `find_meeting_availability` | Find free meeting times |
 | `outlook_find_available_time` | Find open time slots for a meeting between the user and specific participants |
-| `chat_message_search` | Search Teams chat (1:1 and group; channel messages need `ChannelMessage.Read.All`) |
+| `chat_message_search` | Search Teams messages in 1:1 chats, group chats, and channels (needs `ChannelMessage.Read.All` as well as `Chat.Read`) |
 | `sharepoint_search`, `sharepoint_folder_search` | Search SharePoint and OneDrive |
 | `read_resource` | Fetch a specific item, such as a message, event, or file |
 | `teams_list_chats` | List the user's Teams chats and their members, to find a chat to read or post in |
@@ -410,6 +415,8 @@ Browser sign-in works on tenants without device-based Conditional Access policie
     If a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically and stays on the browser flow until Claude Desktop restarts. A user canceling the broker dialog does not trigger the fallback. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself carries the device identity (see above); fix the broker requirement that caused the fallback and restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event.
 
     A missing broker redirect URI does not trigger the fallback on Windows. The broker shows Entra error `AADSTS50011` in its own sign-in dialog, and closing that dialog counts as canceling, so every sign-in attempt ends at the same error until you register the URI above. To have users sign in through the browser instead of the broker, set [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `disabled` in the managed configuration. Tokens from browser sign-in carry no device identity claim unless the browser itself provides one (see above), so device-based Conditional Access policies block them.
+
+    To have **Connect** sign in with the work account already signed in to Windows, without the account picker, set [`microsoftAuthDefaultAccount`](/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) to `enabled`. See the key's reference entry for the requirements and the cases where users still get the picker.
   </Accordion>
 
   <Accordion title="Requirements for brokered sign-in on macOS">
@@ -440,7 +447,7 @@ Selecting **Disconnect** next to the connector signs the user out and deletes it
 
 | Symptom | Cause | Fix |
 | - | - | - |
-| **Test connection** reports that the built-in server is not included | The installed Claude Desktop version predates the built-in connector | Upgrade Claude Desktop |
+| **Test this connection** reports that the built-in server is not included | The installed Claude Desktop version predates the built-in connector | Upgrade Claude Desktop |
 | **Microsoft 365** is missing from the **Add server** options | The installed Claude Desktop version predates the built-in connector | Upgrade Claude Desktop, or author the JSON entry directly |
 | Connector missing from settings | The entry was rejected during configuration parsing: an unrecognized scope name in `scope`, a missing `tenantId` or `clientId`, or a `url`, `transport`, or `command` field mixed into the entry | Check the app's main log for a line naming the dropped entry |
 | Sign-in opens the browser on a managed device where the broker was expected | macOS: Claude Desktop is older than 1.19367.0, Company Portal is not installed, the SSO configuration profile is not deployed, or the broker redirect URI is not registered. Windows: Claude Desktop is older than 1.13576.0, the device is not Entra-joined or Entra-registered, or `microsoftAuthBroker` is set to `disabled` | Re-check the brokered sign-in requirements above |

@@ -19,6 +19,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.

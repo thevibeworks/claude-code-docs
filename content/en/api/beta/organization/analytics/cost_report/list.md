@@ -178,6 +178,14 @@ Requires an API key with the `read:analytics` scope.
 
   maxItems: 100
 
+## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ## Returns
 
 - `data: array of BetaAnalyticsCostReportTimeBucket`

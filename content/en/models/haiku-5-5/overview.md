@@ -90,8 +90,9 @@ For code changes, see the [migration guide](https://platform.claude.com/docs/en/
 ## Good to know
 
 * Adaptive thinking is on by default. Control thinking depth with the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort).
-* Omit `temperature`, `top_p`, and `top_k`, since a non-default value for any of them returns a 400 error.
+* Omit `temperature`, `top_p`, and `top_k`. See [Remove sampling parameters](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#remove-sampling-parameters) for the values that return a 400 error.
 * On the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing#extended-output-beta), Claude Haiku 5.5 supports up to 300k output tokens with the `output-300k-2026-03-24` beta header.
+* The minimum cacheable prompt length is 512 tokens. See [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#cache-limitations).
 * Query limits and capabilities programmatically with the [Models API](https://platform.claude.com/docs/en/api/models/list).
 
 ## Resources
@@ -110,7 +111,7 @@ For code changes, see the [migration guide](https://platform.claude.com/docs/en/
   </Card>
 
   <Card title="Context windows" icon="stack" href="https://platform.claude.com/docs/en/build-with-claude/context-windows">
-    1M tokens. How the window is counted and managed.
+    How the context window is counted and managed.
   </Card>
 </CardGroup>
 

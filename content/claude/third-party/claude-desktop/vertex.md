@@ -17,7 +17,7 @@ Google Cloud's Agent Platform authenticates with Google Cloud Application Defaul
 | Proof of concept, single team | [Service-account key](#credentials-file) (`inferenceVertexCredentialsFile`) | The key file on each device | No (shared service account) | A long-lived secret distributed to every device. Simplest to start; not recommended for broad rollout. |
 | Users have Google Workspace or Cloud Identity accounts | [In-app Google sign-in](#in-app-google-sign-in) (`inferenceVertexOAuth*`) | None | Yes | Users sign in with their Google account inside the app. See the session-control warning below. |
 | Users authenticate with a third-party IdP (Entra ID, Okta, Ping, …) and you don't want to provision Google identities | [In-app Workforce Identity sign-in](#in-app-workforce-identity-sign-in) (`inferenceVertexWorkforce*`) | None | Yes (workforce-pool principal) | Users sign in with their corporate identity inside the app. The app runs PKCE against your IdP and exchanges the ID token at Google STS. |
-| Your organization already has tooling that obtains a bearer token accepted by Google Cloud's Agent Platform | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | The helper executable on each device | Depends on what the helper obtains | The helper's stdout is sent as the bearer on each inference request. |
+| Your organization already has tooling that obtains a bearer token accepted by Google Cloud's Agent Platform | [Credential helper](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) (`inferenceCredentialHelper`) | The helper executable on each device | Depends on what the helper obtains | The app sends the token the helper prints as the bearer on each inference request. |
 | You already operate an LLM proxy | [Gateway provider](/docs/third-party/claude-desktop/gateway) instead of Google Cloud's Agent Platform | None | At your gateway | The proxy holds the Google Cloud credentials; the app authenticates only to the proxy. |
 
 <Warning>
@@ -217,7 +217,7 @@ With this in place, clicking **Sign in with Google** opens the browser, Google i
 #### Notes and limitations
 
 * **Precedence.** When both `inferenceVertexOAuthClientId` and `inferenceVertexCredentialsFile` are set and `inferenceCredentialKind` is not, Google sign-in takes precedence and the credentials file is ignored (the app logs a multi-credential warning). To force the credentials file, set `inferenceCredentialKind` to `vendor-profile` or remove the OAuth client keys.
-* **Both keys required.** If only one of `inferenceVertexOAuthClientId` or `inferenceVertexOAuthClientSecret` is set, the app logs a warning and falls back to standard Application Default Credentials discovery.
+* **Both keys required.** Set `inferenceVertexOAuthClientId` and `inferenceVertexOAuthClientSecret` together. With only one of them set, the app shows no **Sign in with Google** page.
 * **Client rotation.** If you replace the OAuth client in Google Cloud and push the new client ID via MDM, existing users are automatically signed out and prompted to sign in again on next launch.
 
 ### In-app Workforce Identity sign-in
@@ -316,4 +316,4 @@ For in-app Google sign-in, the browser flow runs on the host (outside the Cowork
 
 ## Troubleshoot
 
-To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [Data storage and residency](/docs/third-party/claude-desktop/data-storage).
+To confirm which keys the app read and whether the provider settings validated, use **Help → Troubleshooting → Generate Diagnostic Report**, export the report, and check `managed-config.txt` and `provider-status.txt`; see [Verifying the deployment](/docs/third-party/claude-desktop/installation#verifying-the-deployment) for that workflow and the common causes when the app does not enter 3P mode. Application log locations are listed in [User identity and local data](/docs/third-party/claude-desktop/data-storage#where-data-lives).

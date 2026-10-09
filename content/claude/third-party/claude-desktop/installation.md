@@ -149,12 +149,12 @@ To apply a Group Policy change on a device, run `gpupdate /force` in a Command P
 
 Claude Desktop runs Chat conversations, Cowork tasks, and Code sessions through an agent helper, a signed binary that it keeps under its user-data directory (with the standard installer) and launches when a user works in Chat, Cowork, or Code. If your organization runs binary-authorization or EDR software (such as [Santa](https://santa.dev), CrowdStrike Falcon, or Microsoft Defender ASR) with path-based deny rules, the agent helper may be blocked from launching. The symptom is that Claude Desktop opens normally and reads the managed configuration, but Chat conversations, Cowork tasks, and Code sessions fail to start.
 
-**Allowlist the helper by signing identity rather than path** so the rule survives version updates.
+**Allowlist the helper by signing identity rather than path** so the rule survives version updates. The helper's path includes a `<build-id>` folder, a 12-character name that differs from one build of the helper to the next.
 
 **macOS**
 
 ```
-~/Library/Application Support/Claude-3p/claude-code/<version>/claude.app/Contents/MacOS/claude
+~/Library/Application Support/Claude-3p/claude-code/<version>/<build-id>/claude.app/Contents/MacOS/claude
 ```
 
 The helper is Developer ID signed and notarized:
@@ -167,7 +167,7 @@ For Santa, a `TEAMID` allow rule for `Q6L2SF6YDW` covers the helper across versi
 **Windows**
 
 ```
-%LOCALAPPDATA%\Claude-3p\claude-code\<version>\claude.exe
+%LOCALAPPDATA%\Claude-3p\claude-code\<version>\<build-id>\claude.exe
 ```
 
 The helper is Authenticode-signed with publisher `Anthropic, PBC`. For Defender ASR or AppLocker, allowlist by publisher rather than path. Standard installs use `%APPDATA%\Claude\` with the same subpath.
