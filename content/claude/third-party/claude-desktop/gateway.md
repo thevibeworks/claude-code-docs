@@ -316,14 +316,14 @@ If your deployment supports the 1M-token context window for a model, set `suppor
 
 The model picker then shows a second entry for the model, described as **1M context window**; the standard entry has no context-size label, and the default selection is unchanged. `supports1m` is an assertion about your gateway rather than something the app can verify: if the gateway does not accept 1M-token requests for that model, requests made from the 1M picker entry fail at inference time. Only set it on models you have confirmed against your deployment. The [Models section of the configuration reference](/docs/third-party/claude-desktop/configuration#models) documents the remaining entry fields, including display labels and tier mapping.
 
-Users with no saved selection start on the standard entry. To start them on the **1M context window** entry of the default (first) model instead, add `prefer1m: true` next to `supports1m` on that model's entry, or set [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true` when discovery populates the picker.
+To show a model as one entry, add `prefer1m: true` next to `supports1m` on its entry. New conversations with that model use the 1M context window. To do this for every model that supports 1M, set [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true`.
 
 ### Context window and compaction
 
 Cowork and Code sessions keep a long conversation within the model's context window by compacting it. To compact, the session sends one request that asks the model to summarize the conversation so far, then continues from the summary. Through a gateway, a session can't read the model's real context window from the provider, so it assumes one from the model ID and the picker entry:
 
 * **Standard entry**: 1M tokens for a model the session recognizes as having a native 1M context window, as listed under [the context window behind a gateway](https://code.claude.com/docs/en/model-config#context-window-behind-a-gateway) in the Claude Code documentation, and 200K tokens for every other model ID, including IDs the session doesn't recognize. On Claude Desktop versions earlier than 2.19675.0, a session assumes 200K tokens on this entry for every model.
-* **1M context window entry**: 1M tokens, regardless of the model ID.
+* **1M context window entry**, or the single entry from `prefer1m` or `modelPrefer1mContext`: 1M tokens, regardless of the model ID.
 
 If the gateway or the provider accepts less than the window a session assumes, requests past that limit fail. The session then compacts and retries only when the provider's too-long error reaches it unchanged. To make sessions compact earlier than the window they assume, for example when your provider serves a natively 1M model with only a 200K window, see [Set the auto-compact window](https://code.claude.com/docs/en/model-config#set-the-auto-compact-window) in the Claude Code documentation. For a model ID the session doesn't recognize, see [Correct the window for a gateway or custom model ID](https://code.claude.com/docs/en/model-config#correct-the-window-for-a-gateway-or-custom-model-id).
 
@@ -366,7 +366,7 @@ On Claude API, Google Cloud's Agent Platform, Amazon Bedrock, and Amazon Bedrock
 
 **Model picker is empty or missing models.** Check your gateway's `GET /v1/models` response and your `inferenceModels` list (see [Models](#models)). When `/v1/models` is unreachable or returns an error, the picker falls back to the `inferenceModels` list; if that list is empty, so is the picker.
 
-**The 1M context window entry does not appear in the picker.** `supports1m` takes effect only when the entry's `name` matches the model ID the picker uses. Setting it on a bare alias (for example `sonnet`) while discovery returns full model IDs produces no match. Set `supports1m` on an entry whose `name` is the exact ID your gateway's `/v1/models` endpoint returns.
+**The 1M context window entry does not appear in the picker.** `supports1m` takes effect only when the entry's `name` matches the model ID the picker uses. Setting it on a bare alias (for example `sonnet`) while discovery returns full model IDs produces no match. Set `supports1m` on an entry whose `name` is the exact ID your gateway's `/v1/models` endpoint returns. With `prefer1m` or `modelPrefer1mContext` set, a model whose `name` matches has one entry and no **1M context window** label.
 
 **`Your context window is full` in a Code session, or `This conversation is too long to continue. Start a new session, or remove some tools to free up space.` in a Cowork session.** The app shows these when Claude Code reports `Prompt is too long · automatic compaction failed: …`, meaning a session tried to compact the conversation and the summary request failed. Despite that wording, the conversation isn't lost. After you fix the cause, the user's next message in the same session retries compaction. The error the summary request returned is in the gateway's logs as the response to the session's last `POST /v1/messages` request before the failure. Match it to a cause as follows.
 

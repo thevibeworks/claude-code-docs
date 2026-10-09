@@ -81,12 +81,12 @@ Create and manage workspaces in the [Claude Console](https://platform.claude.com
   </Step>
 
   <Step title="Create the workspace">
-    Click **Create** to finalize.
+    Click **Create workspace** to finalize.
   </Step>
 </Steps>
 
 <Tip>
-  To switch between workspaces in the Console, use the **Workspaces** selector in the top-left corner.
+  To switch between workspaces in the Console, leave Settings and use the workspace picker at the top of the sidebar.
 </Tip>
 
 #### Edit workspace details
@@ -94,7 +94,7 @@ Create and manage workspaces in the [Claude Console](https://platform.claude.com
 To modify a workspace's name or color:
 
 1. Select the workspace from the list.
-2. Click the ellipsis menu (**...**) and choose **Edit details**.
+2. Open the **More actions** menu (three dots) and select **Edit details**.
 3. Update the name or color and save your changes.
 
 <Note>
@@ -103,12 +103,16 @@ To modify a workspace's name or color:
 
 #### Add members to a workspace
 
-1. Navigate to the workspace's **Members** tab.
-2. Click **Add to Workspace**.
-3. Select an organization member and assign them a [workspace role](https://platform.claude.com/docs/en/manage-claude/workspaces#workspace-roles-and-permissions).
-4. Confirm the addition.
+1. In the Claude Console, go to the [Members](https://platform.claude.com/settings/members) page.
+2. Click **Add to workspace**.
+3. Select the workspace, the organization member to add, and their [workspace role](https://platform.claude.com/docs/en/manage-claude/workspaces#workspace-roles-and-permissions).
+4. Click **Add to workspace** to confirm.
 
-To remove a member, click the trash icon next to their name.
+#### Remove members from a workspace
+
+1. On the [Members](https://platform.claude.com/settings/members) page, select the workspace from the **Workspace** dropdown menu. If it shows **All**, **Remove member** removes the member from your organization instead.
+2. At the end of the member's row, open the **More actions** menu (three dots) and select **Remove member**.
+3. Click **Remove** to confirm.
 
 <Note>
   Organization admins and billing members cannot be removed from workspaces while they hold those organization roles.
@@ -119,11 +123,11 @@ To remove a member, click the trash icon next to their name.
 You set a workspace's rate limits and spend limits in different places:
 
 * **Rate limits:** On the [Rate limits](https://platform.claude.com/usage/limits) page, select the workspace from the **Workspace** dropdown menu and click **Edit** next to a model to set limits for requests per minute, input tokens, or output tokens.
-* **Spend limits:** On the workspace's **Spend limits** tab, cap monthly spending and configure alerts when spending reaches certain thresholds.
+* **Spend limits:** Select the workspace under [Settings > Workspaces](https://platform.claude.com/settings/workspaces). In the panel that opens, click **Spend limits** to cap monthly spending and configure alerts when spending reaches certain thresholds.
 
 #### Archive a workspace
 
-To archive a workspace, click the ellipsis menu (**...**) and select **Archive**. Archiving:
+To archive a workspace, open its **More actions** menu (three dots) and select **Archive workspace**. Archiving:
 
 * Preserves historical data for reporting
 * Deactivates the workspace and archives every API key created for it
@@ -1017,7 +1021,7 @@ You can set custom spend and rate limits for each workspace to protect against o
 
 You can set workspace limits lower than (but not higher than) your organization's limits:
 
-* **Spend limits:** Cap monthly spending for a workspace. Set these on the workspace's **Spend limits** settings tab in the [Claude Console](https://platform.claude.com/settings/workspaces).
+* **Spend limits:** Cap monthly spending for a workspace. To set these, select the workspace under [Settings > Workspaces](https://platform.claude.com/settings/workspaces) in the Claude Console. In the panel that opens, click **Spend limits**.
 * **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. To set these, go to the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 <Note>

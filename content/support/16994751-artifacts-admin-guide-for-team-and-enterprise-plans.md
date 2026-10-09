@@ -20,12 +20,14 @@ This lets users create and publish artifacts to a shareable Anthropic-hosted pag
 
 Templates are the starting points users pick when they create an artifact.
 
-| **Template**   | **What users can do with it**                                                                |
-| -------------- | -------------------------------------------------------------------------------------------- |
-| Slides         | Start decks they can present, restyle with a design system, and export to PowerPoint         |
-| Design         | Lay out screens, flows, and graphics as artboards they can edit by hand                      |
-| Design systems | Capture colors, fonts, and components once so Claude applies them to new decks and designs   |
-| Docs           | Start docs their team reads, comments on, and edits in place while Claude keeps them current |
+| **Template**      | **What users can do with it**                                                                                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Slides            | Start decks they can present, restyle with a design system, and export to PowerPoint                                                |
+| Design            | Lay out screens, flows, and graphics as artboards they can edit by hand                                                             |
+| Design systems    | Capture colors, fonts, and components once so Claude applies them to new decks and designs                                          |
+| Docs              | Start docs their team reads, comments on, and edits in place while Claude keeps them current                                        |
+| Dashboards (beta) | Build dashboards from a data warehouse or connected apps, with each chart showing its query and when it was last refreshed          |
+| Motion (beta)     | Make animated explainers, charts, and walkthroughs from their content, and export them as MP4 video. Team and Enterprise plans only |
 
 **To enable a template:**
 
@@ -35,9 +37,17 @@ Templates are the starting points users pick when they create an artifact.
 
 **Note:** Turning a template off doesn't impact artifacts users already made using that template.
 
+**Defaults:**
+
+- **Docs, Slides, and Design:** On by default on Team plans. On Enterprise plans, they turn on by default on October 15, 2026. Turn any of them off before then if you don't want them on.
+
+- **Motion:** On by default on Team plans, and off by default on Enterprise plans.
+
+- **Dashboards:** Available on paid plans. Off by default on Enterprise plans.
+
 ### Standalone Claude Design at claude.ai/design
 
-Standalone Claude Design is a separate product from the **Design** template, and it has its own setting in **[Organization settings > Claude Design](https://claude.ai/admin-settings/claude-design)**. Turning one on doesn't turn on the other. Users' existing projects stay at **claude.ai/design** and also appear in the **Artifacts** tab.
+Standalone Claude Design at **claude.ai/design** closes on December 14, 2026. Until then, it has its own setting in **[Organization settings > Claude Design](https://claude.ai/admin-settings/claude-design)**, separate from the **Design** template. Users' existing projects stay at **claude.ai/design** until it closes, and up to 60 of them also appear in the **Artifacts** tab. To let users migrate their design systems, keep **Artifacts** and **Design systems** on. Learn more in **[Migrate from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 ---
 
@@ -139,6 +149,8 @@ The capabilities that cover artifacts are:
 | Docs                       | Starting artifacts from the Docs template                                                                                    |
 | Slides                     | Starting artifacts from the Slides template                                                                                  |
 | Claude Design [standalone] | Access to standalone Claude Design at claude.ai/design                                                                       |
+| Dashboards                 | Starting artifacts from the Dashboards template                                                                              |
+| Motion                     | Starting artifacts from the Motion template                                                                                  |
 
 Users outside those groups can still open, comment on, and use artifacts shared with them.
 
@@ -198,7 +210,7 @@ Artifacts, including designs, decks, and docs, count toward each user's existing
 
 - **Compliance API:** Artifacts made in conversations and the **Artifacts** tab are recorded at the artifact level. For docs, events for the doc itself are recorded, but activity inside a doc, like edits and comments, isn't recorded yet.
 
-- **Analytics:** Navigate to **[Analytics > Claude Design](https://claude.ai/analytics/claude-design)** for daily, weekly, and monthly active users. These analytics cover claude.ai/design only, and don't include designs made in conversations or the **Artifacts** tab.
+- **Analytics:** These analytics cover claude.ai/design only, and don't include designs made in conversations or the **Artifacts** tab.
 
 - **Audit logs:** Standalone Claude Design doesn't support audit logs.
 
@@ -220,7 +232,9 @@ Removing someone from your organization, including through your identity provide
 
 ### Organizations with special configurations
 
-- **CMEK, ZDR, or a HIPAA-ready configuration:** The new artifacts experience, including templates, design systems, and email invitations, isn't available yet. These organizations keep using live artifacts in Cowork.
+- **HIPAA-ready configurations:** An Owner can turn on Claude Docs, Slides, Design, Dashboards, and Motion in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)** after accepting the terms. These aren't covered under your Business Associate Agreement (BAA), so keep protected health information (PHI) out of them.
+
+- **CMEK:** Artifacts are available.
 
 - **Education and K-12 organizations:** Email invitations aren't available.
 
@@ -228,7 +242,7 @@ Removing someone from your organization, including through your identity provide
 
 ## Third-party platform availability
 
-Artifacts are available in Claude on web and desktop, in Claude Code, and at claude.ai/design for standalone Claude Design. In Claude for iOS and Claude for Android, users can ask for an artifact and view the result. Artifacts aren't available through third-party cloud platforms.
+Artifacts are available in Claude on web and desktop, in Claude Code, and at claude.ai/design for standalone Claude Design until it closes. In Claude for iOS and Claude for Android, users can ask for an artifact, view the result, and edit docs, decks, and designs. Artifacts aren't available through third-party cloud platforms.
 
 ---
 

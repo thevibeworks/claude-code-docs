@@ -105,7 +105,7 @@ To let Claude respond only in channels you choose, for example during a pilot co
 
 These steps need the per-scope switches. If the **Slack** page shows [**Respond in channels**](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan) instead, you can't limit Claude this way. Use [blocked channel patterns](#block-or-auto-join-channels-by-name) to keep it out of specific channels.
 
-<Note>Turning Claude off in a scope silences the earlier Claude in Slack there too. If you're in the middle of migrating from the earlier app, decide which scopes stay on **Legacy** before you start; the earlier app keeps answering in those channels.</Note>
+<Note>Turning Claude off in a scope silences the earlier Claude in Slack there too.</Note>
 
 <Steps>
   <Step title="Turn Claude Tag off in every channel">
@@ -113,7 +113,7 @@ These steps need the per-scope switches. If the **Slack** page shows [**Respond 
   </Step>
 
   <Step title="Reset the scopes that override it">
-    Open each workspace's or channel's page that has its own setting, except the ones you're keeping on **Legacy**. Its switch shows **Set for this workspace** or **Set for this channel** underneath. Click the **Use inherited setting** link beside that line. The scope then follows the off state on the **Slack** page.
+    Open each workspace's or channel's page that has its own setting. Its switch shows **Set for this workspace** or **Set for this channel** underneath. Click the **Use inherited setting** link beside that line. The scope then follows the off state on the **Slack** page.
   </Step>
 
   <Step title="Switch each chosen channel back on">

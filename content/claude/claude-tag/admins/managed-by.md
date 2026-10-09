@@ -127,7 +127,7 @@ Claude proposes the correction as a change to the managed channel's instructions
   </Step>
 
   <Step title="Confirm the card">
-    Select **Confirm** if the wording is right. To reword it, select **Cancel** and tell Claude what to change. The card expires 10 minutes after Claude posts it. After you confirm, the card says that the managed channel's instructions were updated.
+    Select **Confirm** if the wording is right. To reword it, select **Cancel** and tell Claude what to change. The card expires 30 minutes after Claude posts it. After you confirm, the card says that the managed channel's instructions were updated.
   </Step>
 
   <Step title="Read the text back">

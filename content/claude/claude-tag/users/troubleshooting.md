@@ -35,7 +35,7 @@ Work through these in order. Each step says what success looks like and where to
 3. **Is Claude Tag turned on for this channel?** Mention it again now that it's invited. **Works**: it reacts and replies. **Fails**: Claude replies in one of these ways, and each needs your admin:
    * **A notice that starts "Claude isn't on in this channel yet"**: your admin hasn't finished setting up Claude Tag. Send them [Launch Claude Tag](/docs/claude-tag/admins/setup-overview#launch-claude-tag).
    * **A notice that says "Claude is disabled in this channel"**: Claude Tag is turned off for the channel, its workspace, or the organization. Send them [Claude is disabled in this channel](/docs/claude-tag/admins/troubleshooting#claude-is-disabled-in-this-channel).
-   * **A reply that behaves like the earlier Claude in Slack**: the channel is set to **Legacy**. Replies have no channel memory, and pull requests open under your name rather than Claude's. Send them [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/restrict-access#migrate-from-the-earlier-claude-in-slack).
+   * **A notice that the legacy Claude in Slack bot is retired**: the channel is still set to **Legacy**. Send them [The legacy Claude in Slack bot is retired](/docs/claude-tag/admins/troubleshooting#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026).
 
 If `@Claude` still gets no reaction and no reply after all three, send the [admin entries for a silent workspace](/docs/claude-tag/admins/troubleshooting#nothing-responds) to an admin. For silence in one channel, send them to your Claude admin. For silence across a whole workspace or a whole Enterprise Grid, send them to whoever administers Slack for you, because the fix usually needs a Slack admin.
 

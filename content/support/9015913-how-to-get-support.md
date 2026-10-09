@@ -185,3 +185,7 @@ No. Reply in your existing conversation, in the messenger or by email, and it mo
 ### I have a business-critical outage. Is there a faster path?
 
 Organization owners and admins on qualifying Enterprise plans have prioritized options in the messenger. Platform status is always available on **[our status page](https://status.claude.com)**.
+
+## Does chatting with Fin impact Claude usage or spend limits?
+
+No. Chatting with Fin will not impact Claude usage or spend limits.

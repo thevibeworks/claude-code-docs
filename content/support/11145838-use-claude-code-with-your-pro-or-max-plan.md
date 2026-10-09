@@ -60,7 +60,7 @@ To install and set up the extension for your IDE, see **[Platforms and integrati
 
 ## What happens when you hit usage limits
 
-Both Pro and Max plans offer usage limits that are shared across Claude and Claude Code, meaning all activity in both tools counts against the same usage limits. To help you monitor your usage, you will see warning messages about remaining capacity.
+Both Pro and Max plans have a five-hour session limit and a weekly limit. Max plans also have a separate weekly limit for Fable. These limits are shared across Claude and Claude Code, meaning all activity in both tools counts against the same limits. To help you monitor your usage, you’ll see warning messages as you approach any limit.
 
 When you reach your usage limits, you can select from a few options based on your needs:
 
@@ -68,7 +68,7 @@ When you reach your usage limits, you can select from a few options based on you
 
 - Consider upgrading to the Max 5x plan if you consistently hit limits and need more capacity for larger repositories.
 
-- **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to continue using Claude with your Pro plan after hitting the included usage limit.
+- **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to keep using Claude with your Pro plan after you reach your five-hour session limit or your weekly limit.
 
 - Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
 
@@ -78,7 +78,7 @@ When you reach your usage limits, you can select from a few options based on you
 
 - If you're on the Max 5x plan, consider upgrading to the Max 20x plan if you consistently hit limits.
 
-- **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to continue using Claude with your Max plan after hitting the included usage limit.
+- **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to keep using Claude with your Max plan after you reach your five-hour session limit, your general weekly limit, or your separate weekly limit for Fable.
 
 - Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
 
@@ -143,8 +143,6 @@ Auto-reload functionality is managed within your Claude Console account, not thr
 ### Summary
 
 - Claude Code maintains strict user control over billing decisions.
-
-- All transitions to API credit usage require explicit user consent.
 
 - Auto-reload is an independent Claude Console feature.
 

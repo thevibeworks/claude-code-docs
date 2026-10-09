@@ -56,6 +56,8 @@ The new unified Claude experience isn't available yet for organizations that use
 
 This turns on the new unified Claude experience for every member of your organization. To limit access to specific members, use roles instead.
 
+Scheduled tasks and session history will continue working after the change. You don’t need to update or recreate anything.
+
 ### For specific members, using roles
 
 If your organization uses custom roles, you can grant the new unified Claude experience to specific roles:

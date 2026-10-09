@@ -304,7 +304,7 @@ The reference below is generated from the configuration schema and grouped to ma
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
 | <span id="modeldiscoveryenabled" />Model discovery<br />`modelDiscoveryEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.8089.0 | — | Auto-populate the model picker from the provider at launch. |
-| <span id="modelprefer1mcontext" />Default to 1M context<br />`modelPrefer1mContext` | `boolean` | MDM + Bootstrap<br />Added in 1.28929.0 | — | When a user has no saved selection, start the picker on the 1M-context variant of the default model if it offers one. |
+| <span id="modelprefer1mcontext" />Use 1M wherever it’s available<br />`modelPrefer1mContext` | `boolean` | MDM + Bootstrap<br />Added in 1.28929.0 | — | Every model that offers 1M, in your list or from your gateway, shows one option and requests 1M. |
 | <span id="inferencemodels" />Model list<br />`inferenceModels` | `object[]` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Override the auto-discovered model list. First entry is the default. |
 | <span id="defaultmodeleffort" />Default model effort<br />`defaultModelEffort` | `enum` | MDM + Bootstrap<br />Added in 2.110.0 | — | Effort level the default model (the first listed model) starts at, instead of Anthropic’s recommended level: low, medium, high, xhigh or max. One of: `low`, `medium`, `high`, `xhigh`, `max`. |
 | <span id="alwaysstartwithdefaultmodel" />Always start with the default model<br />`alwaysStartWithDefaultModel` | `boolean` | MDM + Bootstrap<br />Added in 2.110.0 | — | When true, each new conversation or task starts on the default model, and a person’s model and effort changes are no longer saved as their default. |
@@ -320,7 +320,7 @@ The reference below is generated from the configuration schema and grouped to ma
   </Accordion>
 
   <Accordion title="modelPrefer1mContext details">
-    When a user has no saved selection, start the picker on the 1M-context variant of the default model (the first listed model, or the first model your endpoint returns under discovery) if it offers one. A saved selection is always kept; users who picked a model before this version need to pick the 1M row once, after which it persists. Equivalent to setting `prefer1m` on the default entry of `inferenceModels`, but also applies under dynamic discovery.
+    Every model that offers a 1M-token context window shows one option in the model picker, and sessions on it request 1M from your provider. A model offers 1M when its `inferenceModels` entry sets `supports1m` or, under discovery, when your gateway's model list marks it. Equivalent to setting `prefer1m` on each of those entries, but also applies under dynamic discovery. To leave one listed model out, remove its `supports1m`. Beside a model list in which no entry sets `supports1m`, this setting does nothing. Older Claude Desktop versions show both options and only start the default model on its 1M option.
   </Accordion>
 
   <Accordion title="inferenceModels details">
@@ -334,7 +334,7 @@ The reference below is generated from the configuration schema and grouped to ma
     [{"name": "claude-sonnet-5", "supports1m": true}, "claude-opus-4-8"]
     ```
 
-    `"claude-sonnet-5[1m]"` is shorthand for the same entry. When an ID is listed both bare and with `[1m]` (as a gateway lists it), the picker shows one model with a 1M variant; put `labelOverride` on the bare entry (a label on the `[1m]` spelling is ignored there); tier-tagged entries are not folded. `prefer1m: true` (no effect without `supports1m`) makes the 1M variant the default picker selection when this entry is the default model; users can still switch, and an explicit pick is kept. Under dynamic discovery (no explicit list), set `modelPrefer1mContext` instead.
+    `"claude-sonnet-5[1m]"` is shorthand for the same entry. When an ID is listed both bare and with `[1m]` (as a gateway lists it), the picker shows one model with a 1M variant; put `labelOverride` on the bare entry (a label on the `[1m]` spelling is ignored there); tier-tagged entries are not folded. `prefer1m: true` (no effect without `supports1m`) shows only the 1M variant of the model. Under dynamic discovery (no explicit list), set `modelPrefer1mContext` instead.
 
     **Display label** (`labelOverride`) is for IDs the picker can't derive a friendly name from (Bedrock ARNs, gateway routing aliases). Display-only; `name` is still what the app sends:
 
@@ -353,7 +353,7 @@ The reference below is generated from the configuration schema and grouped to ma
     | `name` | `string` | — | Model ID exactly as the provider expects it. The first entry is the default model. |
     | `labelOverride` | `string` | — | Shown in the model picker. Leave blank to auto-format from the ID. |
     | `supports1m` | `boolean` | — | Adds a 1M-context variant of this model to the picker. Set only if the deployment accepts 1M-token context for it. |
-    | `prefer1m` | `boolean` | — | Make the 1M-context variant the default picker selection when this model is the default (first) entry. Users can still choose the standard variant. |
+    | `prefer1m` | `boolean` | — | Shows one option for this model and requests 1M from your provider. Does nothing unless the entry offers 1M. |
     | `anthropicFamilyTier` | `enum` | — | Which Claude tier this model stands in for. Pins the bare alias (e.g. ‘opus’) and, for opus/fable, the refusal fallback. One of: `sonnet`, `opus`, `haiku`, `fable`, `mythos`. |
     | `isFamilyDefault` | `boolean` | — | When several models share a tier alias, marks this one as the model the alias resolves to. Otherwise the first listed wins. |
     | `maxEffort` | `enum` | — | Highest effort level offered for this model; higher levels are hidden and never requested by Claude Desktop. An unrecognized value caps the model at low. One of: `low`, `medium`, `high`, `xhigh`, `max`. |
@@ -502,10 +502,15 @@ The reference below is generated from the configuration schema and grouped to ma
 | - | - | - | - | - |
 | <span id="chattabenabled" />Allow Chat<br />`chatTabEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.13576.0 | — | Enable Chat. Quick questions and drafting. |
 | <span id="chatadvancedfileanalysisenabled" />Advanced file analysis<br />`chatAdvancedFileAnalysisEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.14271.0 | — | Allow Claude to run code in a local sandbox to analyze attached files it can’t read natively — like Excel and PowerPoint. Off by default. |
+| <span id="desktophome" />Desktop home<br />`desktopHome` | `enum` | MDM + Bootstrap<br />Added in 1.52386.0 | — | Unifies Chat and Cowork into one home. When set, it replaces Allow Chat, Advanced file analysis, and Allow Cowork. Leave unset to keep those. One of: `standard`, `off`. |
 
 <AccordionGroup>
   <Accordion title="chatAdvancedFileAnalysisEnabled details">
     Also enables inline data analysis. The sandbox can only read files attached to the conversation and, read-only, the folders added to the chat's project through the app; it has no network access. Project folders are not available in the sandbox of a chat started while a rule on `Read`, `Grep` or `Glob` is set: in `disabledBuiltinTools`, in `builtinToolPolicy` with a value other than `allow`, or as a deny or ask rule in Claude Code's own managed settings on the device, whether or not the rule covers the folder. They are not available either where those managed settings cannot be read, or where Claude Code takes its managed settings from a gateway. Claude's file tools still read what the rules allow.
+  </Accordion>
+
+  <Accordion title="desktopHome details">
+    `standard` turns on Unified Claude, which combines Chat and Cowork into one experience, with Cowork's agentic capabilities. `off` turns Chat, file analysis, and Cowork off. `isClaudeCodeForDesktopEnabled` still decides Code. Remove the key to hand control back to `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, and `coworkTabEnabled`. Values are case-sensitive, so `Standard` is not recognized. A value that the app does not recognize is read as `off`, so update the app on devices before you deploy a value added in a later version.
   </Accordion>
 </AccordionGroup>
 
@@ -522,11 +527,11 @@ The reference below is generated from the configuration schema and grouped to ma
   <Accordion title="sshHostAllowlist details">
     When off, the SSH option is hidden and any connection attempt is refused.
 
-    Entries are exact hostnames (`build01.corp.example.com`) or `*.` wildcards (`*.corp.example.com` matches the apex and subdomains at any depth); matching is case-insensitive and ignores a `user@` prefix. Both the host the user entered and the `HostName` their `~/.ssh/config` resolves it to must match, so an alias cannot reach a host outside the list. `ProxyCommand` is permitted when the resolved host matches (this key governs which hosts the app offers, not network egress); `ProxyJump` is permitted likewise on the system-OpenSSH engine (the default on macOS and Linux; see `sshTransport`) and refused, with a message suggesting `ProxyCommand`, by the built-in SSH library.
+    Entries are exact hostnames (`build01.corp.example.com`) or `*.` wildcards (`*.corp.example.com` matches the apex and subdomains at any depth); matching is case-insensitive and ignores a `user@` prefix. The list is compared with the `HostName` that the user's SSH configuration (`~/.ssh/config`) gives for the host they entered, or with the entered host itself when the configuration has no entry for it or cannot be evaluated. So an alias is allowed when the host it points to is listed, whatever the alias is called, and refused when it is not. `ProxyCommand` is permitted when the resolved host matches (this key governs which hosts the app offers, not network egress); `ProxyJump` is permitted likewise on the system-OpenSSH engine (the default on macOS and Linux; see `sshTransport`) and refused, with a message suggesting `ProxyCommand`, by the built-in SSH library.
 
-    This is opt-in because a remote session runs Claude Code on the SSH host and the app forwards the session's inference credential to it, plus your OTLP collector endpoint and auth headers when `otlpEndpoint` is set. List only hosts you trust with those. Token-based credentials are forwarded; file-based kinds (Bedrock IAM Identity Center sign-in or AWS profile, Vertex Google sign-in or a credentials file) are refused at session start.
+    This is opt-in because a remote session runs Claude Code on the SSH host and the app forwards the session's inference credential to it, plus your OTLP collector endpoint and auth headers when `otlpEndpoint` is set. List only hosts you trust with those. Token-based credentials are forwarded. File-based credentials (Bedrock IAM Identity Center sign-in or AWS profile, Vertex Google sign-in or a credentials file) are never forwarded, and a session that needs one from the device is refused.
 
-    If this key is unset, an `sshHostAllowlist` in Claude Code's own managed-settings file on the device still applies; when both are set, this key wins where the app's configuration is admin-managed (MDM, the admin console, or a device-managed bootstrap URL) and otherwise applies only while that file sets none. `allowedWorkspaceFolders` still applies on the remote host.
+    If this key is unset, an `sshHostAllowlist` in Claude Code's own managed-settings file on the device still applies; when both are set, this key wins where the app's configuration is admin-managed (MDM, the admin console, or a device-managed bootstrap URL) and otherwise applies only while that file sets none. `allowedWorkspaceFolders` still applies on the remote host. Claude Code's managed settings on a host replace the sandbox, network, permission, and MCP rules this app sends unless they set `parentSettingsBehavior` to `"merge"`.
   </Accordion>
 
   <Accordion title="sshClientPath details">
@@ -622,7 +627,7 @@ The reference below is generated from the configuration schema and grouped to ma
   <Accordion title="builtinToolPolicy details">
     Keys use the same tool names and argument-scoped rule syntax as **Disabled built-in tools** (`disabledBuiltinTools`), and scopes apply in the same sessions. A bare `Bash` key also governs Claude Code's `PowerShell` tool (its shell on Windows PCs without Git for Windows); argument-scoped `Bash(…)` keys do not. Scoped **ask** rules reach sessions only through Claude Code's managed-settings channel, so another Claude Code managed-settings source replaces them unless it sets `parentSettingsBehavior` to `"merge"` (bare names hold either way). They need the same fleet-wide build support, and an older build drops a scoped **ask** entry as a configuration error (which also blocks WSL sessions on Windows until that client updates), so the tool runs unprompted.
 
-    An **ask** entry, bare or scoped, also turns off the app's remembered “always allow” choices for that tool, so each prompted call is confirmed individually. **ask** on a file tool (`Read`, `Write`, `Edit`, `Glob`, `Grep`) prompts in Cowork, Chat and Code sessions. Calls that Cowork and Chat always refuse are still refused without a prompt: paths outside the session's connected folders (in Chat, outside its scratch directory and its project's folders) and protected or sensitive files inside them. A Cowork task running unattended (a scheduled run) refuses a call that needs approval rather than waiting for someone to approve it. Code side chats cannot prompt, so they block matching calls. An unusable entry is dropped and recorded as a configuration error; a value other than `allow` or `ask` is treated as `ask` and reported. To remove a tool or deny a rule outright, use **Disabled built-in tools** instead.
+    An **ask** entry, bare or scoped, also turns off the app's remembered “always allow” choices for that tool, so each prompted call is confirmed individually. **ask** on a file tool (`Read`, `Write`, `Edit`, `Glob`, `Grep`) prompts in Cowork, Chat and Code sessions. Calls that Cowork and Chat always refuse are still refused without a prompt: paths outside the session's connected folders (in Chat, outside its scratch directory and its project's folders) and protected or sensitive files inside them. A scheduled task in Cowork waits at the prompt, which appears in the task's session and, when that session is not in view, as a desktop notification. Code side chats cannot prompt, so they block matching calls. An unusable entry is dropped and recorded as a configuration error; a value other than `allow` or `ask` is treated as `ask` and reported. To remove a tool or deny a rule outright, use **Disabled built-in tools** instead.
   </Accordion>
 
   <Accordion title="autoModeEnabled details">
@@ -666,11 +671,11 @@ The reference below is generated from the configuration schema and grouped to ma
     | - | - | - | - |
     | `path` | `string` | — | Absolute folder path. May start with \~ or one of the listed %VAR% tokens, expanded per user. Subfolders are included. |
     | `isDefaultSelected` | `boolean` | — | Shows as a folder chip on the new-task page and skips the trust prompt. Users can remove it. |
-    | `mode` | `enum` | — | Read-only folders can be viewed and searched but not modified in Cowork. In Code, applies to file tools only; Bash and SSH do not yet enforce read-only. One of: `rw`, `ro`. |
+    | `mode` | `enum` | — | Read-only folders can be viewed and searched but not modified in Cowork. In Code, applies to file tools only. Over SSH, also to Bash in its sandbox. One of: `rw`, `ro`. |
   </Accordion>
 
   <Accordion title="blockReadsOutsideWorkingDirectories details">
-    When set to `true`, Code sessions refuse reads outside their working directories (the session folder plus any `allowedWorkspaceFolders`). The file tools (Read, Grep, Glob) refuse them in every permission mode; where Claude Code's sandbox runs (macOS, or Linux and SSH hosts with bubblewrap, once `allowedWorkspaceFolders` or an egress allowlist is also configured) shell commands cannot see the home directory and other user folders (`/Users`, `/home`, mounted volumes) and a read there is refused with no prompt; elsewhere (Windows, Linux without bubblewrap, or neither folders nor an egress allowlist configured) such shell reads prompt for approval. The app keeps the user's git configuration files (which may themselves embed credentials such as URL tokens; a symlinked one stays hidden), its own Claude Code installation, and the session's plugin and attachment folders readable (not on a Windows SSH host, where plugin files and attachments stay out of the file tools' reach under the block). An allowed folder that is or contains the home directory leaves it readable.
+    When set to `true`, Code sessions refuse reads outside their working directories (the session folder plus any `allowedWorkspaceFolders`). The file tools (Read, Grep, Glob) refuse them in every permission mode; where Claude Code's sandbox runs (macOS, or Linux and SSH hosts with bubblewrap, once `allowedWorkspaceFolders` is set or an egress allowlist applies: in third-party deployments one applies unless `coworkEgressAllowedHosts` contains `*`, in first-party deployments none does) shell commands cannot see the home directory and other user folders (`/Users`, `/home`, mounted volumes) and a read there is refused with no prompt; elsewhere (Windows, Linux without bubblewrap, or neither folders nor an egress allowlist in effect) such shell reads prompt for approval. The app keeps the user's git configuration files (which may themselves embed credentials such as URL tokens; a symlinked one stays hidden), its own Claude Code installation, and the session's plugin and attachment folders readable (not on a Windows SSH host, where plugin files and attachments stay out of the file tools' reach under the block). An allowed folder that is or contains the home directory leaves it readable.
 
     Users can re-open folders (even their whole home) in their own Claude Code settings with `sandbox.filesystem.allowRead` or `permissions.additionalDirectories`; settings files tracked in a git repository cannot. The key travels on Claude Code's managed-settings channel: another Claude Code managed-settings source replaces it unless that source sets `parentSettingsBehavior` to `"merge"`, and one that sets `sandbox.filesystem.allowManagedReadPathsOnly` reduces it to approval prompts. This is `permissions.blockReadsOutsideWorkingDirectories` in Claude Code's [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings).
 
@@ -760,7 +765,7 @@ The reference below is generated from the configuration schema and grouped to ma
   <Accordion title="managedMcpServers details">
     For OAuth-authenticated entries, the app builds the redirect URI as `http://<callbackHost>:<callbackPort>/callback`; register that exact value with the OAuth provider. Tokens refresh automatically during a session.
 
-    `toolPolicy` locks the per-tool approval state, keyed by tool name: `"blocked"` removes the tool from the session and labels it admin-blocked, `"ask"` requires approval on every call (Allow once / Deny only; no persistent always-allow), `"allow"` pre-approves. Tools **not listed** follow the user's choice: the prompt offers a persistent Always allow, except for tools that can modify data, which show a session-scoped **Allow for this task** alongside **Allow for all tasks** with a malicious-instruction warning. In Code sessions, `blocked` and `ask` are forwarded as Claude Code permission rules; `allow` is not.
+    `toolPolicy` locks the per-tool approval state, keyed by tool name: `"blocked"` removes the tool from the session and labels it admin-blocked, `"ask"` requires approval on every call (Allow once / Deny only; no persistent always-allow; a scheduled Cowork task waits at that prompt), `"allow"` pre-approves. Tools **not listed** follow the user's choice: the prompt offers a persistent Always allow, except for tools that can modify data, which show a session-scoped **Allow for this task** alongside **Allow for all tasks** with a malicious-instruction warning. In Code sessions, `blocked` and `ask` are forwarded as Claude Code permission rules; `allow` is not.
 
     Keys may contain `*` wildcards (`"read_*"` matches every tool whose name starts with `read_`; anchored, and `*` is the only wildcard). When several wildcard keys match, the strictest applies (blocked > ask > allow). An exact-name key wins over matching wildcards, with two exceptions in the stricter direction: in Code sessions a wildcard `ask`, or a wildcard `blocked` other than the bare `"*"`, beats a less strict exact key (so `"*": "blocked"` plus exact `"allow"` entries still works as deny-by-default there); and in chat approval prompts and always-allow persistence a wildcard `ask` keeps every matching tool behind a per-call prompt even when a more permissive exact key matches, while direct tool invocations such as artifact or widget calls follow the exact key.
 
@@ -964,6 +969,7 @@ The reference below is generated from the configuration schema and grouped to ma
 | <span id="otlpdesktoploglevel" />Desktop telemetry export level<br />`otlpDesktopLogLevel` | `enum` | MDM + Bootstrap<br />Added in 1.9255.0 | `error` | Controls the Claude Desktop application’s events, separate from Cowork and Code sessions. Defaults to error. One of: `off`, `error`, `warn`, `info`, `debug`. Defaults to `error`. |
 | <span id="otlpcontentcapture" />Content capture categories<br />`otlpContentCapture` | `enum[]` | MDM + Bootstrap<br />Added in 1.15962.0 | — | Content categories the desktop exporter sends unredacted to your collector. Leave empty to redact all content (default). One of: `userPrompts`, `assistantResponses`, `toolDetails`, `toolContent`, `rawApiBodies`. |
 | <span id="otlptracesenabled" />Export traces<br />`otlpTracesEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.22209.0 | — | Also export OpenTelemetry traces from Cowork tasks and Code sessions. Uses Claude Code’s session tracing. |
+| <span id="otlpattrmaxchars" />Telemetry attribute length limit<br />`otlpAttrMaxChars` | `integer` | MDM + Bootstrap<br />Added in 2.31226.0 | — | Maximum length, in characters, of captured content such as a raw API body (256–15,000,000). Cowork tasks and Code sessions use 61,440 when unset. Range: 256–15000000. |
 
 <AccordionGroup>
   <Accordion title="otlpProtocol details">
@@ -989,13 +995,23 @@ The reference below is generated from the configuration schema and grouped to ma
     * `assistantResponses` — assistant message text
     * `toolDetails` — tool input arguments, e.g. the web-search query string
     * `toolContent` — tool output content, e.g. fetched page text or command stdout
-    * `rawApiBodies` — full inference API request and response bodies
+    * `rawApiBodies` — inference API request and response bodies, each cut at 61,440 characters by default
 
     These mirror Claude Code's `OTEL_LOG_*` env vars; see the [Claude Code monitoring docs](https://code.claude.com/docs/en/monitoring-usage).
   </Accordion>
 
   <Accordion title="otlpTracesEnabled details">
     Enables Claude Code's session tracing (`CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1` + `OTEL_TRACES_EXPORTER=otlp`) in spawned Cowork tasks and Code sessions. Each user interaction exports a trace whose spans and events carry `trace_id`/`span_id`, enabling end-to-end correlation in your observability backend (metrics do not carry trace context; correlate those via `session.id`). Traces go to the collector endpoint and protocol configured above. When `otlpEndpoint` is set, this key alone decides whether those sessions export traces: leaving it unset or `false` keeps traces off even if Claude Code's own settings or managed settings (for example a `managed-settings.json` on the device) turn tracing on. Without `otlpEndpoint` it has no effect. The span structure may evolve between Claude Code releases; see the [Claude Code monitoring docs](https://code.claude.com/docs/en/monitoring-usage).
+  </Accordion>
+
+  <Accordion title="otlpAttrMaxChars details">
+    Captured content longer than this is cut at the end and marked as truncated.
+
+    * Cowork tasks and Code sessions: 61,440 when unset. Applies to model responses, tool content and raw API bodies. User prompts are not cut, and `tool_input` keeps its own smaller limits. A cut request body keeps the oldest messages and loses the newest, so to capture whole bodies with `rawApiBodies`, set this just above your longest body, not at the maximum. Lower it to reduce volume. While this key and `otlpEndpoint` are set, Claude Code's own settings and managed settings (for example a `managed-settings.json` on the device) cannot change the limit or the export interval.
+    * Claude add-in for Microsoft 365: 4,000 when unset. Values above 32,000 count as 32,000.
+    * The desktop application's own events are not affected.
+
+    A collector refuses an export over its size limit, and every event in that export is lost. By default an OpenTelemetry Collector accepts 20 MiB per OTLP/HTTP request (`max_request_body_size`) and 4 MiB per gRPC message (`max_recv_msg_size_mib`). Keep that limit at a few times the size of your longest body: one export can carry several, and a character takes one byte in Latin text and up to three otherwise. With this key set, Code sessions export events as they happen, not every five seconds, as Cowork tasks already do, so the collector sees more, smaller requests.
   </Accordion>
 </AccordionGroup>
 

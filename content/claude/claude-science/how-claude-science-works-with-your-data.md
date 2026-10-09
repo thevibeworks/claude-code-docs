@@ -18,7 +18,7 @@ On Pro and Max plans the [Consumer Terms of Service](https://www.anthropic.com/l
 
 | Where | What |
 | - | - |
-| The computer running Claude Science | Conversation history, project files and artifacts, saved memory, settings, and stored credentials, in a local folder Anthropic doesn't host or sync (see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices)) |
+| The computer running Claude Science | Conversation history, project files and artifacts, saved memory, most settings, and stored credentials, in a local folder Anthropic doesn't host or sync (see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices)) |
 | Anthropic | The items listed under [What Anthropic receives](#what-anthropic-receives) |
 | Services your organization or members connect | Jobs, files, and queries sent to your SSH hosts, your Modal account, scientific model endpoints, cloud storage, and the external services that local (Featured and custom) connectors, sandboxed code, and remote jobs call, directly from the computer or your own compute and without passing through Anthropic (see [Admin controls](/docs/claude-science/admin-controls#organization-settings)) |
 

@@ -2,7 +2,7 @@
 
 **Please note:** This page is hosted outside of Claude for Government's FedRAMP boundary. Don't share sensitive information with our AI support bot.
 
-This article explains how Claude for Government Admins can contact Anthropic Support. We've designed a specialized process to ensure your sensitive information remains secure while providing you with the help you need.
+This article explains how Claude for Government Admins can contact Anthropic Support. We've designed a specialized process to ensure your sensitive information remains secure while providing you with the help you need. Learn more about setting up and managing your agency’s deployment in the **[Claude for Government documentation](https://claude.com/docs/government/overview)**.
 
 ## How to get started
 

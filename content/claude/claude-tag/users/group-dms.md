@@ -69,7 +69,7 @@ Claude can't make the change in these cases:
   </Step>
 
   <Step title="Confirm the change">
-    Select **Confirm** within 10 minutes. The card changes to a line that names the person who confirmed and says Claude now replies only when @mentioned.
+    Select **Confirm** within 30 minutes. The card changes to a line that names the person who confirmed and says Claude now replies only when @mentioned.
   </Step>
 </Steps>
 

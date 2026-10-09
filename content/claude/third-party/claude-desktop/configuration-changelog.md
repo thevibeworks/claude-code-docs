@@ -8,6 +8,34 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.31226.0" description="2026-10-08">
+  <div className="cfg-keys">
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`otlpAttrMaxChars`](/docs/third-party/claude-desktop/configuration#otlpattrmaxchars) | `integer` | Telemetry attribute length limit |
+    | [`desktopHome`](/docs/third-party/claude-desktop/configuration#desktophome) | `enum` | Desktop home |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "otlp": {
+      "attrMaxChars": "<integer>"
+    },
+    "chatSurface": {
+      "desktopHome": "<standard|off>"
+    }
+  }
+  ```
+
+  **Changed:**
+
+  * `allowedWorkspaceFolders`: in SSH sessions Claude's file tools can no longer modify a folder marked `ro`, as in a local Code session. Not enforced on Windows hosts, or on a host with Claude Code managed settings of its own (unless they set `parentSettingsBehavior` to `merge`).
+  * `claudeAiImport.automatic3pImport` now also brings over Cowork artifacts, projects, memory and global instructions, scheduled tasks from Cowork and Code, uploaded plugins (unless `userPluginUploadsEnabled` is off), saved skills (unless `skillCreationEnabled` is off) and the optional plugins a user had on from the organization's plugins directory or a marketplace served from its gateway's or bootstrap server's own address, also on computers that moved under an earlier release.
+  * `inferenceModels[].prefer1m` and `modelPrefer1mContext` now show one model picker entry for each model that offers 1M and has the preference, and start its new sessions at 1M, whichever entry a user had picked. Earlier releases only moved the starting selection of the first model.
+</Update>
+
 <Update label="v2.26454.2" description="2026-10-07">
   No configuration changes in this release.
 </Update>

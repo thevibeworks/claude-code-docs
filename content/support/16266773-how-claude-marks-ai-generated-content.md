@@ -53,7 +53,7 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | Claude Haiku 5.5  | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Haiku 4.5  |                                                             |                                                                                    | ✅                                       |
 
-**Rollout on Amazon Bedrock will complete by October 12.*
+**Rollout on Amazon Bedrock will complete by October 17.*
 
 Consistent with our commitments under the Code, Anthropic is adding watermarks to outputs from models released before August 2, 2026.
 
