@@ -21,6 +21,12 @@ Anthropic account team.
 
 ### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.
@@ -339,6 +345,14 @@ Retrieve a spend limit by ID.
 
   ID of the Spend Limit.
 
+### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ### Returns
 
 - `BetaSpendLimit object`
@@ -496,6 +510,14 @@ workspace limits. Deleting them through the API is in an early access preview.
 
   ID of the Spend Limit.
 
+### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ### Returns
 
 - `type: "spend_limit_deleted"`
@@ -566,6 +588,12 @@ preview. To request access, contact your Anthropic account team.
   - `"workspace"`
 
 ### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -1260,6 +1288,14 @@ contact your Anthropic account team.
 
   maxItems: 100
 
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 #### Returns
 
 - `data: array of BetaSpendSummary`
@@ -1484,6 +1520,14 @@ Requests whose requester is no longer a member are excluded.
   - `"denied"`
 
   - `"pending"`
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 #### Returns
 
@@ -1764,6 +1808,14 @@ requester at the request's period.
 
   ID of the spend limit increase request.
 
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 #### Returns
 
 - `BetaSpendLimitIncreaseRequest object`
@@ -2037,6 +2089,14 @@ the member was blocked on. Anthropic emails the requester unless
 - `spend_limit_increase_request_id: string`
 
   ID of the spend limit increase request.
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 #### Body parameters
 
@@ -2404,6 +2464,14 @@ Idempotent on `denied`; denying an already-`approved` request returns
 - `spend_limit_increase_request_id: string`
 
   ID of the spend limit increase request.
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 #### Body parameters
 

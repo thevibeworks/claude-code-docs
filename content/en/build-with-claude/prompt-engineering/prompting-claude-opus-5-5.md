@@ -43,7 +43,7 @@ At a given level, Claude Opus 5.5 tends to think more per turn than Claude Opus 
 * Reserve `xhigh` and `max` for work where you've measured a quality gain.
 * To get less thinking, lower the effort level first. Lowering effort reduces thinking, and with it cost and latency, more reliably than prompt instructions do.
 
-Changing the top-level `effort` value between requests invalidates the prompt cache. To run individual turns at a different level, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which keeps the cache.
+Changing the top-level `effort` value between requests invalidates the prompt cache. To change the level partway through a conversation, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which keeps the cache. A change holds for every later turn until another one replaces it.
 
 ## Prompts written for thinking disabled
 

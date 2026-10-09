@@ -38,6 +38,14 @@ omitted from the results.
 
   Opaque cursor from a previous response's `next_page`.
 
+### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ### Returns
 
 - `data: array of ServiceAccountWorkspaceMember`
@@ -128,6 +136,14 @@ accounts cannot be added and are rejected.
 - `workspace_id: string`
 
   ID of the workspace.
+
+### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 ### Body parameters
 
@@ -236,6 +252,14 @@ account returns 404.
 
   ID of the service account.
 
+### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ### Returns
 
 - `ServiceAccountWorkspaceMember object`
@@ -319,6 +343,14 @@ rejected.
 - `service_account_id: string`
 
   ID of the service account.
+
+### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 ### Body parameters
 
@@ -420,6 +452,14 @@ membership. Archived workspaces return 400.
 - `service_account_id: string`
 
   ID of the service account.
+
+### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 ### Returns
 

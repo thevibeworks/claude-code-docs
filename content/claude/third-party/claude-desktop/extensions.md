@@ -133,7 +133,7 @@ Google Workspace and Microsoft 365 each have a dedicated setup path:
   </Card>
 
   <Card title="Microsoft 365" icon="microsoft" href="/docs/third-party/claude-desktop/connectors-m365">
-    Outlook, OneDrive, SharePoint, and Teams. Requires registering an app in your Entra tenant and an Anthropic allowlist step.
+    Outlook, OneDrive, SharePoint, and Teams. Requires registering an app in your Entra tenant. The remote connector also needs an Anthropic allowlist step.
   </Card>
 </Columns>
 
@@ -404,7 +404,9 @@ Unless restricted by an admin, end users can add their own extensions through th
 * **Skills:** create and upload their own [skills](/docs/skills/overview), including by asking Claude to save one in a conversation
 * **Local MCP servers:** add local MCP server processes from **Settings → Developer**
 
-End users cannot add remote MCP servers or install desktop extension files (`.mcpb`) themselves. Remote servers are available only via admin-provisioned `managedMcpServers` or organization plugins. User-added extensions are stored in the user's [local data directory](/docs/third-party/claude-desktop/data-storage) and apply only to that device.
+End users cannot add remote MCP servers from the app's settings or install desktop extension files (`.mcpb`) themselves. Remote servers come from admin-provisioned `managedMcpServers`, from organization plugins, and from other plugins that bundle them, including plugins users install. A Code session can also load the servers a user defines in Claude Code's own configuration (`~/.claude.json`, a project's `.mcp.json`, or `claude mcp add`). To limit plugin-bundled servers, see [Controlling user extensions](#controlling-user-extensions). To limit the servers a Code session loads, see [Applied as managed policy](/docs/third-party/claude-desktop/code#applied-as-managed-policy).
+
+User-added extensions are stored in the user's [local data directory](/docs/third-party/claude-desktop/data-storage) and apply only to that device.
 
 ## Controlling user extensions
 

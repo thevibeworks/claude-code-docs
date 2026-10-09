@@ -26,6 +26,14 @@ accounts cannot be added and are rejected.
 
   ID of the workspace.
 
+## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ## Body parameters
 
 - `service_account_id: string`

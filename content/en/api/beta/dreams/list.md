@@ -79,6 +79,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   Optional header to specify the beta version(s) you want to use.

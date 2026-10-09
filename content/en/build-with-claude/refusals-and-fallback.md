@@ -15,7 +15,7 @@ Related pages:
 * [SDK middleware](https://platform.claude.com/docs/en/cli-sdks-libraries/middleware): the SDK helper that wraps all of this.
 * [Fallback and billing cookbook](https://platform.claude.com/cookbook/fable-5-fallback-billing-guide): a worked end-to-end example.
 
-The simplest setup, in beta on the Claude API: set `fallbacks` to `"default"`, and the API retries a declined request on the fallback model Anthropic recommends for its refusal category. For categories with no recommended fallback, the refusal stands.
+The simplest setup, in beta on the Claude API: set `fallbacks` to `"default"`, and the API retries a declined request on the fallback model Anthropic recommends for its refusal category. For categories with no recommended fallback, the refusal stands. Claude Haiku 5.5 has no server-side fallback, so for it use [client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) or [write the retry yourself](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry).
 
 <CodeGroup>
   ```bash cURL
@@ -211,7 +211,7 @@ These billing rules apply on every platform: the Claude API, Amazon Bedrock, Cla
 
 **Mid-stream refusals:** A mid-stream refusal bills the input tokens and the output already streamed at normal rates.
 
-**Fallback:** When you use fallback, the refusal that triggered it is billed, in addition to the fallback request, when it arrived mid-stream or is in one of the billed categories. [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) compensates for the fallback request's prompt-cache miss, so you don't pay to cache the conversation twice. For how server-side fallback reports each attempt, see [Billing and rate limits](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#billing-and-rate-limits).
+**Fallback:** When you use fallback, the refusal that triggered it is billed, in addition to the fallback request, when it arrived mid-stream or is in one of the billed categories. [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) compensates for the fallback request's prompt-cache miss, so you don't pay to cache the conversation twice. A Claude Haiku 5.5 refusal carries no fallback credit, so a fallback after one pays the full cost of writing the fallback model's prompt cache. For how server-side fallback reports each attempt, see [Billing and rate limits](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#billing-and-rate-limits).
 
 The billed categories may change as Anthropic keeps measuring and refining its safeguards' false positive rates. The **Billed before any output** column in the [refusal category table](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) lists the billed categories.
 
@@ -225,7 +225,7 @@ There are three ways to retry a refused request on another model. The right one 
 | Any platform, using an Anthropic SDK | [The SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback)                                                                                   | Configure once on the client. Retries happen automatically. |
 | Raw HTTP or custom retry logic       | [A manual retry](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry) with [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) | Full control. Fallback credit keeps the cost down.          |
 
-Server-side fallback and the SDK middleware apply fallback credit for you. You only need the [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) page when you build the retry yourself.
+Server-side fallback and the SDK middleware apply fallback credit for you. You only need the [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) page when you build the retry yourself. Claude Haiku 5.5 has neither server-side fallback nor fallback credit, so use the SDK middleware or a manual retry.
 
 ## Server-side fallback
 
@@ -776,7 +776,7 @@ Sticky routing applies to both streaming and non-streaming requests. On a stream
 
 ## Client-side fallback with the SDK middleware
 
-The SDK includes a refusal-fallback middleware. You configure it once on the client with your list of fallback models. Calls through `client.beta.messages` (csharp, go: `client.Beta.Messages`; java: `client.beta().messages()`; php: `$client->beta->messages`) then retry refused requests automatically, on any platform. The middleware also sends the `fallback-credit-2026-07-01` beta header on every request it handles, so retries are repriced without per-request setup.
+The SDK includes a refusal-fallback middleware. You configure it once on the client with your list of fallback models. Calls through `client.beta.messages` (csharp, go: `client.Beta.Messages`; java: `client.beta().messages()`; php: `$client->beta->messages`) then retry refused requests automatically, on any platform. The middleware also sends the `fallback-credit-2026-07-01` beta header on every request it handles, so retries are repriced without per-request setup. A Claude Haiku 5.5 refusal carries no fallback credit, so a retry after one pays the full cost of writing the fallback model's prompt cache.
 
 ### Setting it up
 
@@ -1128,7 +1128,7 @@ Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware
 
 * Retries walk your fallback list in order. A fallback model that itself refuses passes the request to the next entry.
 * When every model in the list has declined, the middleware returns the final refusal (the last model's refusal response) rather than raising an error.
-* Thinking blocks from Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, or Claude Fable 5 pass through unchanged. Each retry re-sends your original request body, and the only blocks the middleware removes from conversation history on later requests are the `fallback` boundary blocks it added itself. The fallback model can't read Claude Fable 5.1 blocks, which are [preserved only for that model or a newer one](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), so the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Google Cloud.
+* Thinking blocks from Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, or Claude Fable 5 pass through unchanged. Each retry re-sends your original request body, and the only blocks the middleware removes from conversation history on later requests are the `fallback` boundary blocks it added itself. The fallback model can't read Claude Fable 5.1 blocks, which only [Claude Fable 5.1 and Claude Mythos 5.1 read](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), so the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Google Cloud. Claude Opus 5.5 and Claude Sonnet 5.5 read Claude Haiku 5.5 blocks on the Claude API and Google Cloud, and the API drops them for a fallback model that can't read them.
 * Responses served through the middleware include a `fallback` content block at each model boundary, the same as server-side fallback responses. The middleware manages those blocks for you on later requests.
 * The model that accepted is recorded in `BetaFallbackState`, so follow-up requests that share the state stay pinned to it rather than re-asking a model that refused.
 
@@ -1148,7 +1148,7 @@ Over raw HTTP or with custom retry logic, implement the pattern the middleware w
   <Step title="Re-send on a fallback model">
     Send the same request with `model` set to a fallback model, such as Claude Opus 4.8. If the refused request sent `thinking: {"type": "between_tools"}`, change `thinking` first: only Claude Sonnet 5.5 accepts that value, so omit `thinking` or set a value the fallback model accepts. [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) under the `2026-07-01` header makes this change for you when it falls back to Claude Sonnet 5. Another model can normally serve a request that Claude Fable 5.1 or Claude Fable 5 declines. How you handle the conversation history depends on whether you redeem a [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit):
 
-    * **Not redeeming a credit:** you can leave the earlier `thinking` and `redacted_thinking` blocks in place or strip them to save input tokens. The fallback model normally can't use them either way: it ignores Claude Fable 5 blocks, and Claude Fable 5.1 blocks are [preserved only for that model or a newer one](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), so the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Google Cloud.
+    * **Not redeeming a credit:** you can leave the earlier `thinking` and `redacted_thinking` blocks in place or strip them to save input tokens. The fallback model normally can't use them either way: only Claude Fable 5.1 and Claude Mythos 5.1 [read Claude Fable 5.1 blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-for-model), and only those two models, Claude Fable 5, and Claude Mythos 5 read Claude Fable 5 blocks, so for any other fallback model the API drops them. The API also drops Claude Opus 5.5 blocks for every fallback model except Claude Fable 5.1 and Claude Mythos 5.1 (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). It drops Claude Sonnet 5.5 blocks too, for every fallback model except Claude Opus 5.5 on the Claude API and Google Cloud. A retry after a Claude Haiku 5.5 refusal is always in this case. Claude Opus 5.5 and Claude Sonnet 5.5 read Claude Haiku 5.5 blocks on the Claude API and Google Cloud, so leave those blocks in place when you fall back to either model there. For a fallback model that can't read them, the API drops them without billing them.
     * **Redeeming a credit:** send the body unchanged, because redemption requires an exact match. The server handles the earlier model's thinking blocks on a redemption, so do not strip them (see [Fields that must match the refused request](https://platform.claude.com/docs/en/build-with-claude/fallback-credit#reference)).
   </Step>
 
@@ -1157,7 +1157,7 @@ Over raw HTTP or with custom retry logic, implement the pattern the middleware w
   </Step>
 </Steps>
 
-A manual retry writes the fallback model's prompt cache from scratch, which costs more than reading an existing cache. [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) refunds that cost; redeem it on every retry you build yourself. A Claude Haiku 5.5 refusal carries no fallback credit, so a retry after one writes the fallback model's cache at full price.
+A manual retry writes the fallback model's prompt cache from scratch, which costs more than reading an existing cache. [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) refunds that cost; redeem it on every retry you build yourself. A Claude Haiku 5.5 refusal carries no fallback credit, so a retry after one pays the full cost of writing the fallback model's prompt cache.
 
 ## Refusals in Message Batches
 
@@ -1166,8 +1166,9 @@ A refused request in a [Message Batch](https://platform.claude.com/docs/en/build
 Server-side fallback is not available for batches (a batch request that includes `fallbacks` produces a per-item errored result). To retry refused batch items:
 
 1. Collect the refused items from the results.
-2. Strip the Claude Fable 5.1 or Claude Fable 5 thinking blocks from any multi-turn histories.
-3. Resubmit them on a fallback model as a new batch or as direct requests.
+2. Leave the thinking blocks in multi-turn histories in place, or strip them to save input tokens. For a fallback model that can't read them, the API drops them without billing them, as in [a manual retry](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry).
+3. If a refused item sent `thinking: {"type": "between_tools"}`, omit `thinking` or set a value the fallback model accepts. Only Claude Sonnet 5.5 accepts `between_tools`.
+4. Resubmit them on a fallback model as a new batch or as direct requests.
 
 ## Common pitfalls
 

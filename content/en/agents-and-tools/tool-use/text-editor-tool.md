@@ -2238,9 +2238,10 @@ The text editor tool uses the same pricing structure as other tools used with Cl
 
 In addition to the base tokens, the following additional input tokens are needed for the text editor tool:
 
-| Tool                                | Additional input tokens |
-| ----------------------------------- | ----------------------- |
-| `text_editor_20250429` (Claude 4.x) | 700 tokens              |
+| Tool                                                                           | Additional input tokens |
+| ------------------------------------------------------------------------------ | ----------------------- |
+| `text_editor_20250728` (Claude 4.7 and later models and Claude Mythos Preview) | 974 tokens              |
+| `text_editor_20250728` (Claude 4.6 and earlier models)                         | 745 tokens              |
 
 For more detailed information about tool pricing, see [Tool use pricing](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#pricing).
 

@@ -9,6 +9,14 @@ url: https://platform.claude.com/docs/en/api/organization/external_keys/create
 
 Create an external key config owned by the caller's organization.
 
+## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ## Body parameters
 
 - `provider_config: AWSExternalKeyConfig or GCPExternalKeyConfig or AzureExternalKeyConfigParam`

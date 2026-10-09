@@ -61,7 +61,7 @@ The local connector is in beta, and the in-app configuration window marks it wit
   </Step>
 
   <Step title="Add the managed entry">
-    In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **GitHub** under the **Built-in** group. Enter the client ID from step 1, select **Test connection** to verify that the bundled server starts and lists its tools, and select **Save**.
+    In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **GitHub** under the **Built-in** group. Enter the client ID from step 1, select **Test this connection** to verify that the bundled server starts and lists its tools, and select **Save**.
 
     If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `github`:
 

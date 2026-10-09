@@ -14,13 +14,24 @@ Each import is a one-time copy. New activity on claude.ai after you import does 
 
 Claude Desktop can automatically copy into your history the Cowork, Chat, and Code sessions it stored on this computer under an earlier third-party configuration. In an organization managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), this automatic copy is on unless it's turned off in your organization's settings. In any other deployment it runs only if your administrator turns it on.
 
-The copy runs once on each computer, in the background shortly after the app starts, and the sessions then appear in the sidebar. Your original sessions stay where they were, and sessions you already imported are skipped. The copy is listed under **Import history** in **Settings → Import & export**, where the **Remove** button deletes the copied sessions from your history. The app doesn't copy them again later.
+Along with the sessions, the automatic copy brings over other things you had under the earlier configuration:
+
+* **Projects**: your Cowork projects. New tasks use a project's instructions only after you accept them.
+* **Memory and global instructions**: your Cowork memory and global instructions. New tasks use them right away.
+* **Scheduled tasks**: your scheduled tasks from Cowork and Code. Each stays on or off as it was.
+* **Uploaded plugins**: plugins you uploaded, unless your administrator has turned off plugin uploads ([`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled)). Each stays on or off as it was.
+* **Saved skills**: skills you saved, unless your administrator has turned off skill creation ([`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled)).
+* **Your organization's optional plugins**: the ones you had turned on are turned on again, if they come from your organization's plugins directory or from a marketplace hosted at the address of its gateway or bootstrap server.
+* **Artifacts**: your Cowork artifacts.
+
+The copy runs once on each computer, in the background shortly after the app starts, and the sessions then appear in the sidebar. Your original sessions stay where they were, and sessions you already imported are skipped. The copy is listed under **Import history** in **Settings → Import & export**, where the **Remove** button deletes the copied sessions and the projects copied with them. The app doesn't copy them again later.
 
 Use the [import wizard](#open-the-import-wizard) for your claude.ai conversations and projects, and for any local sessions the automatic copy left out.
 
 ## Before you open the import wizard
 
 * Your administrator has turned import on by setting [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) with `enabled` set to `true` in the managed configuration. The import wizard is off by default; until then, **Settings → Import & export** has no **Import…** button and reports that import isn't enabled for this deployment. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) doesn't depend on this setting.
+* If your administrator lists the claude.ai organizations you may import from, with `allowedOrganizationUuids` under [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport), you can import only by signing in to claude.ai, and only from a listed organization. A sign-in to any other organization or to a personal account is refused, and the wizard's options to import from a file or from earlier sessions on this computer are turned off. The [automatic import of earlier third-party sessions](#automatic-import-of-earlier-third-party-sessions) isn't affected by this list.
 * Claude Desktop is installed and running in third-party mode. See [Installation and setup](/docs/third-party/claude-desktop/installation).
 * To bring history over from a claude.ai Team or Enterprise workspace, an owner of that workspace has enabled member data export (next section). Personal claude.ai accounts can always export.
 

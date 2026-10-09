@@ -170,6 +170,8 @@ A session that reaches its budget goes idle with a `stop_reason` of `budget_reac
 2. A [`session.usage`](https://platform.claude.com/docs/en/managed-agents/budgets#monitor-spend) event with the session's cumulative usage and list cost.
 3. A `session.status_idle` event with a `stop_reason` of `budget_reached`. The usage event always immediately precedes this idle event.
 
+If [workflow runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs#budgets-and-limits) are open, each one that isn't already idle also gets a `workflow_run.status_idle` event.
+
 A thread whose final request both crosses the cap and completes its turn reports `end_turn` on its own `session.thread_status_idle` event while the session still reports `budget_reached`; treat the session-level `stop_reason` as the signal that the session paused at its budget.
 
 ### Events accepted at the cap
@@ -183,11 +185,11 @@ While the session is at or over its budget, it accepts only events that settle w
 
 Any event that would start new work, such as `user.message`, is rejected with a 400 error naming this list. Settled results are recorded without triggering a new model request; the session stays paused at its budget.
 
-A `user.interrupt` sent while the session is paused at its budget (all threads paused at the cap) is accepted and ignored: it does not appear in the event list and changes nothing. Change or remove the budget to continue.
+A `user.interrupt` sent while the session is paused at its budget (all threads paused at the cap) is accepted and ignored: it does not appear in the event list and changes nothing. Change or remove the budget to continue. It sends no [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#budgets-and-limits) event either: the budget has already paused every open run.
 
 ## Resume a session at its budget
 
-Change or remove the budget with a session update. An accepted update resumes the session's paused work automatically; no further client action is needed.
+Change or remove the budget with a session update. An accepted update resumes the session's paused work automatically; no further client action is needed. Each [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#budgets-and-limits) that the budget paused also gets a `workflow_run.status_running` event.
 
 ### Change the budget
 
@@ -402,7 +404,7 @@ The cap is copied onto each session the deployment starts, so it bounds each run
 
 ## Models without a list price
 
-A budget can only track consumption the platform can price. Creating a budgeted session whose agent, or any agent or advisor on its [multiagent roster](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), uses a model with no public list price is rejected with a 400 error stating that no list price is available for the model.
+A budget can only track consumption the platform can price. Creating a budgeted session whose agent, or any agent listed in `subagents.predefined_agents` or `workflows.predefined_agents`, or the advisor set in its [multiagent configuration](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), uses a model with no public list price is rejected with a 400 error stating that no list price is available for the model.
 
 If a budgeted session's usage comes to include a model with no list price, the budget can no longer measure the session's spend: the session can pause with a `stop_reason` of `budget_reached`, and changing the budget is rejected. Remove the budget to resume the session.
 

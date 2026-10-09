@@ -16,12 +16,12 @@ Once a session exists, use these operations to read, update, archive, or delete 
 
 Sessions progress through these statuses. See [Start a session](https://platform.claude.com/docs/en/managed-agents/sessions) for the session lifecycle.
 
-| Status         | Description                                                                                                                                             |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `idle`         | Agent is waiting for input, including user messages or tool confirmations. Sessions created without `initial_events` start in `idle`.                   |
-| `running`      | Agent is actively executing.                                                                                                                            |
-| `rescheduling` | Transient error occurred, retrying automatically.                                                                                                       |
-| `terminated`   | Session has ended, either because of an unrecoverable error or because it was archived. A session that finishes its work goes `idle`, not `terminated`. |
+| Status         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `idle`         | Agent is waiting for input, including user messages or tool confirmations. Sessions created without `initial_events` start in `idle`. A session can be `idle` while a [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#while-a-run-is-open) is still open, so `idle` alone doesn't mean that the work is done. See [Know when the work is done](https://platform.claude.com/docs/en/managed-agents/workflow-runs#know-when-the-work-is-done). |
+| `running`      | Agent is actively executing.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `rescheduling` | Transient error occurred, retrying automatically.                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `terminated`   | Session has ended, either because of an unrecoverable error or because it was archived. A session that finishes its work goes `idle`, not `terminated`.                                                                                                                                                                                                                                                                                                                      |
 
 ## Updating the agent configuration
 
@@ -31,7 +31,7 @@ Only the agent's `tools` and `mcp_servers` can change after a session is created
 
 The semantics of a `tools` or `mcp_servers` update are full replacement: the provided array is the new value. To preserve existing entries, `GET` the session, modify the array, and `POST` it back.
 
-The session must be `idle` to update the agent. To update the agent while the session is running, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent) by itself and wait for the session to become `idle`.
+The session must be `idle` to update the agent. To update the agent while the session is running, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent) by itself and wait for the session to become `idle`. If a [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#while-a-run-is-open) is open, whether it's running or paused, the update returns a 400 error, even when the session is `idle`. An interrupt doesn't end a run, so the update still fails after you interrupt the session. Send a `user.message` that [asks the agent to stop its runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open), or wait until every run has ended.
 
 <CodeGroup>
   ```bash cURL
@@ -533,7 +533,7 @@ A `page` cursor is opaque and encodes the `order` of the request that produced i
 
 ## Archiving a session
 
-Archive a session to prevent new events from being sent while preserving its history. A `running` session cannot be archived; to archive one, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent) by itself and wait for the session to become `idle`.
+Archive a session to prevent new events from being sent while preserving its history. A `running` session cannot be archived; to archive one, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent) by itself and wait for the session to become `idle`. If a [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#while-a-run-is-open) is open, archiving might return a 400 error, even when the session is `idle`, or it might succeed and end the run. Before you archive, send a `user.message` that [asks the agent to stop its runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open), or wait until each run has ended. Then archive the session once it's `idle`.
 
 <CodeGroup>
   ```bash cURL
@@ -582,7 +582,7 @@ Archive a session to prevent new events from being sent while preserving its his
 
 ## Deleting a session
 
-Delete a session to permanently remove its record, events, and associated sandbox. A `running` session cannot be deleted; to delete one, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent) by itself and wait for the session to become `idle`.
+Delete a session to permanently remove its record, events, and associated sandbox. A `running` session cannot be deleted; to delete one, send a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent) by itself and wait for the session to become `idle`. If a [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#while-a-run-is-open) is open, deleting might return a 400 error, even when the session is `idle`, or it might succeed. After a delete that succeeds, no `workflow_run` event reports the end of the session's runs. Before you delete, send a `user.message` that [asks the agent to stop its runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open), or wait until each run has ended. Then delete the session once it's `idle`.
 
 Memory stores, vaults, skills, environments, and agents are independent resources and are not affected by session deletion. Files you uploaded through the Files API are also unaffected, but files the session itself produced are scoped to it and are permanently deleted along with its filesystem. Download anything you need to keep before deleting the session. An output file written at the end of the last turn can take a few seconds after the session goes idle to appear in the [session's file list](https://platform.claude.com/docs/en/managed-agents/files#listing-and-downloading-session-files), so check that the files you expect are listed first.
 

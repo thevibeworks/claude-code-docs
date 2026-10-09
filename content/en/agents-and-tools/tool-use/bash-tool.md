@@ -1920,10 +1920,10 @@ Beyond isolation, add these controls:
 
 The bash tool definition adds the following input tokens to your request. This is in addition to the per-model [tool use system prompt](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#pricing) that applies whenever any tool is present.
 
-| Model                                               | Additional input tokens |
-| --------------------------------------------------- | ----------------------- |
-| Claude Opus 5, Claude Opus 4.8, and Claude Opus 4.7 | 325 tokens              |
-| Claude Opus 4.6, Claude Sonnet 4.6, and earlier     | 244 tokens              |
+| Model                                                 | Additional input tokens |
+| ----------------------------------------------------- | ----------------------- |
+| Claude 4.7 and later models and Claude Mythos Preview | 325 tokens              |
+| Claude 4.6 and earlier models                         | 244 tokens              |
 
 Additional tokens are consumed by:
 

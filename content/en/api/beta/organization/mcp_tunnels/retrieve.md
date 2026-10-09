@@ -21,6 +21,12 @@ Retrieve a single tunnel in the caller's organization by ID.
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `mcp-tunnels-2026-05-19` in this header.

@@ -22,7 +22,7 @@ Press Ctrl+C to detach. The session keeps running, and connecting again loads it
 
 ## Follow and steer the session
 
-The terminal view shows the conversation live: messages and tool calls, with each call's duration and outcome. A status bar shows whether the session is running, idle, or waiting for your approval. In [multiagent](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration) sessions, the view follows the session's primary thread, which includes the messages the coordinator exchanges with the agents it delegates to.
+The terminal view shows the conversation live: messages and tool calls, with each call's duration and outcome. A status bar shows whether the session is running, idle, or waiting for your approval. In [multiagent](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration) sessions, the view follows the session's primary thread, which includes the messages exchanged between the agent that the session runs and the agents it delegates to.
 
 | Key                | Action                                                                                                                     |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------- |

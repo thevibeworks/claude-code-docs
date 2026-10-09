@@ -740,7 +740,7 @@ A `session.status_idle` event means the agent has stopped and is waiting for inp
 | `requires_action`  | One or more tool calls need an answer from you, such as a custom tool call or a confirmation request.                                              | [Answer each blocking tool call](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#answer-tool-calls-that-pause-the-session).            |
 | `budget_reached`   | The session's tracked list cost reached its [budget](https://platform.claude.com/docs/en/managed-agents/budgets).                                  | [Change or remove the budget](https://platform.claude.com/docs/en/managed-agents/budgets#resume-a-session-at-its-budget).                                      |
 
-No event resumes a session paused at its budget. The paused work resumes automatically when you change the budget to a value above the consumed list cost, or remove it. See [When a session reaches its budget](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget) for the events that mark the pause and the events the session still accepts.
+No event you send resumes a session paused at its budget. The paused work resumes automatically when you change the budget to a value above the consumed list cost, or remove it. When the work resumes, the session emits a `workflow_run.status_running` event for each [workflow run that the budget paused](https://platform.claude.com/docs/en/managed-agents/workflow-runs#budgets-and-limits). See [When a session reaches its budget](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget) for the events that mark the pause and the events the session still accepts.
 
 ## Answer tool calls that pause the session
 
@@ -748,14 +748,20 @@ A session pauses when the agent invokes a [custom tool](https://platform.claude.
 
 1. The session emits the tool call as an `agent.custom_tool_use`, `agent.tool_use`, or `agent.mcp_tool_use` event.
 2. The session pauses with a `session.status_idle` event whose `stop_reason.type` is `requires_action`. The blocking event IDs are in the `stop_reason.event_ids` array.
-3. For each blocking event ID, send a [`user.custom_tool_result`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#return-a-custom-tool-result) or a [`user.tool_confirmation`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#confirm-a-tool-call) event.
+3. For each blocking event ID, send a [`user.custom_tool_result`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#return-a-custom-tool-result) or a [`user.tool_confirmation`](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#confirm-a-tool-call) event. A custom tool result doesn't have to wait for step 2.
 4. Once all blocking events are resolved, the session transitions back to `running`.
 
-In a multiagent session, a subagent's blocking events are cross-posted to the primary thread. See [Tool permissions and custom tools](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#tool-permissions-and-custom-tools).
+In a multiagent session, a subagent's blocking events are cross-posted to the primary thread. See [Tool permissions and custom tools](https://platform.claude.com/docs/en/managed-agents/session-threads#tool-permissions-and-custom-tools).
 
 ### Return a custom tool result
 
 The `agent.custom_tool_use` event contains the tool name and input. Execute the tool in your system. Then send a `user.custom_tool_result` event, passing the event ID in the `custom_tool_use_id` parameter along with the result content.
+
+You can send the result as soon as the `agent.custom_tool_use` event arrives, without waiting for `session.status_idle`. The session still emits `session.status_idle` with a `requires_action` stop reason for the call, and your client can ignore it. A second result for the same call is accepted and has no effect.
+
+When you [reconnect](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#reconnect-without-missing-events) to a paused session, `stop_reason.event_ids` on the latest `session.status_idle` event lists the calls to answer.
+
+The following example answers each call as it arrives:
 
 <CodeGroup>
   ```bash cURL
@@ -770,25 +776,24 @@ The `agent.custom_tool_use` event contains the tool name and input. Execute the 
   while IFS= read -r -u "$stream_fd" line; do
     [[ $line == data:* ]] || continue
     event_json="${line#data: }"
-    stop_reason=$(jq -r 'select(.type == "session.status_idle") | .stop_reason.type // empty' <<<"$event_json")
-    case "$stop_reason" in
-      requires_action)
-        while IFS= read -r event_id; do
-          # Execute the tool and send the result back
-          result=$(call_tool "$event_id")
-          jq -n --arg id "$event_id" --arg result "$result" \
-            '{events: [{type: "user.custom_tool_result", custom_tool_use_id: $id, content: [{type: "text", text: $result}]}]}' |
-            curl --fail-with-body -sS \
-              "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
-              -H "x-api-key: $ANTHROPIC_API_KEY" \
-              -H "anthropic-version: 2023-06-01" \
-              -H "anthropic-beta: managed-agents-2026-04-01" \
-              -H "content-type: application/json" \
-              -d @-
-        done < <(jq -r '.stop_reason.event_ids[]' <<<"$event_json")
+    case $(jq -r '.type' <<<"$event_json") in
+      agent.custom_tool_use)
+        # Execute the tool and send the result back
+        result=$(call_tool "$(jq -r '.name' <<<"$event_json")" "$(jq -c '.input' <<<"$event_json")")
+        jq --arg result "$result" \
+          '{events: [{type: "user.custom_tool_result", custom_tool_use_id: .id, content: [{type: "text", text: $result}]}]}' <<<"$event_json" |
+          curl --fail-with-body -sS \
+            "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
+            -H "x-api-key: $ANTHROPIC_API_KEY" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "anthropic-beta: managed-agents-2026-04-01" \
+            -H "content-type: application/json" \
+            -d @-
         ;;
-      end_turn)
-        break
+      session.status_idle)
+        if [[ $(jq -r '.stop_reason.type' <<<"$event_json") == end_turn ]]; then
+          break
+        fi
         ;;
     esac
   done
@@ -803,53 +808,51 @@ The `agent.custom_tool_use` event contains the tool name and input. Execute the 
   ```python Python
   with client.beta.sessions.events.stream(session.id) as stream:
       for event in stream:
-          if event.type == "session.status_idle" and (stop_reason := event.stop_reason):
-              match stop_reason.type:
-                  case "requires_action":
-                      for event_id in stop_reason.event_ids:
-                          # Look up the custom tool use event and execute it
-                          tool_event = events_by_id[event_id]
-                          result = call_tool(tool_event.name, tool_event.input)
+          match event.type:
+              case "agent.custom_tool_use":
+                  # Execute the tool
+                  result = call_tool(event.name, event.input)
 
-                          # Send the result back
-                          client.beta.sessions.events.send(
-                              session.id,
-                              events=[
-                                  {
-                                      "type": "user.custom_tool_result",
-                                      "custom_tool_use_id": event_id,
-                                      "content": [{"type": "text", "text": result}],
-                                  },
-                              ],
-                          )
-                  case "end_turn":
+                  # Send the result back
+                  client.beta.sessions.events.send(
+                      session.id,
+                      events=[
+                          {
+                              "type": "user.custom_tool_result",
+                              "custom_tool_use_id": event.id,
+                              "content": [{"type": "text", "text": result}],
+                          },
+                      ],
+                  )
+              case "session.status_idle":
+                  if event.stop_reason and event.stop_reason.type == "end_turn":
                       break
   ```
 
   ```typescript TypeScript
   const stream = await client.beta.sessions.events.stream(session.id);
 
-  for await (const event of stream) {
-    if (event.type !== "session.status_idle") continue;
-    if (event.stop_reason.type === "end_turn") break;
-    if (event.stop_reason.type !== "requires_action") continue;
+  loop: for await (const event of stream) {
+    switch (event.type) {
+      case "agent.custom_tool_use": {
+        // Execute the tool
+        const result = await callTool(event.name, event.input);
 
-    for (const eventId of event.stop_reason.event_ids) {
-      // Look up the custom tool use event and execute it
-      const toolEvent = eventsById.get(eventId);
-      if (!toolEvent) continue;
-      const result = await callTool(toolEvent.name, toolEvent.input);
-
-      // Send the result back
-      await client.beta.sessions.events.send(session.id, {
-        events: [
-          {
-            type: "user.custom_tool_result",
-            custom_tool_use_id: eventId,
-            content: [{ type: "text", text: result }],
-          },
-        ],
-      });
+        // Send the result back
+        await client.beta.sessions.events.send(session.id, {
+          events: [
+            {
+              type: "user.custom_tool_result",
+              custom_tool_use_id: event.id,
+              content: [{ type: "text", text: result }],
+            },
+          ],
+        });
+        break;
+      }
+      case "session.status_idle":
+        if (event.stop_reason.type === "end_turn") break loop;
+        break;
     }
   }
   ```
@@ -857,39 +860,34 @@ The `agent.custom_tool_use` event contains the tool name and input. Execute the 
   ```csharp C#
   await foreach (var streamEvent in client.Beta.Sessions.Events.StreamStreaming(session.ID))
   {
-      if (streamEvent.Value is not BetaManagedAgentsSessionStatusIdleEvent idle) continue;
-
-      if (idle.StopReason?.Value is BetaManagedAgentsSessionRequiresAction requiresAction)
+      if (streamEvent.Value is BetaManagedAgentsAgentCustomToolUseEvent toolUse)
       {
-          foreach (var eventId in requiresAction.EventIds)
-          {
-              // Look up the custom tool use event and execute it
-              var toolEvent = eventsById[eventId];
-              var result = await CallTool(toolEvent.Name, toolEvent.Input);
+          // Execute the tool
+          var result = await CallTool(toolUse.Name, toolUse.Input);
 
-              // Send the result back
-              await client.Beta.Sessions.Events.Send(session.ID, new()
-              {
-                  Events =
-                  [
-                      new BetaManagedAgentsUserCustomToolResultEventParams
-                      {
-                          Type = BetaManagedAgentsUserCustomToolResultEventParamsType.UserCustomToolResult,
-                          CustomToolUseID = eventId,
-                          Content =
-                          [
-                              new BetaManagedAgentsTextBlock
-                              {
-                                  Type = BetaManagedAgentsTextBlockType.Text,
-                                  Text = result,
-                              },
-                          ],
-                      },
-                  ],
-              });
-          }
+          // Send the result back
+          await client.Beta.Sessions.Events.Send(session.ID, new()
+          {
+              Events =
+              [
+                  new BetaManagedAgentsUserCustomToolResultEventParams
+                  {
+                      Type = BetaManagedAgentsUserCustomToolResultEventParamsType.UserCustomToolResult,
+                      CustomToolUseID = toolUse.ID,
+                      Content =
+                      [
+                          new BetaManagedAgentsTextBlock
+                          {
+                              Type = BetaManagedAgentsTextBlockType.Text,
+                              Text = result,
+                          },
+                      ],
+                  },
+              ],
+          });
       }
-      else if (idle.StopReason?.Value is BetaManagedAgentsSessionEndTurn)
+      else if (streamEvent.Value is BetaManagedAgentsSessionStatusIdleEvent idle
+          && idle.StopReason?.Value is BetaManagedAgentsSessionEndTurn)
       {
           break;
       }
@@ -902,36 +900,31 @@ The `agent.custom_tool_use` event contains the tool name and input. Execute the 
 
   loop:
   	for stream.Next() {
-  		event, ok := stream.Current().AsAny().(anthropic.BetaManagedAgentsSessionStatusIdleEvent)
-  		if !ok {
-  			continue
-  		}
-  		switch stopReason := event.StopReason.AsAny().(type) {
-  		case anthropic.BetaManagedAgentsSessionRequiresAction:
-  			for _, eventID := range stopReason.EventIDs {
-  				// Look up the custom tool use event and execute it
-  				toolEvent := eventsByID[eventID]
-  				result := callTool(toolEvent.Name, toolEvent.Input)
-  				// Send the result back
-  				if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
-  					Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
-  						OfUserCustomToolResult: &anthropic.BetaManagedAgentsUserCustomToolResultEventParams{
-  							Type:            anthropic.BetaManagedAgentsUserCustomToolResultEventParamsTypeUserCustomToolResult,
-  							CustomToolUseID: eventID,
-  							Content: []anthropic.BetaManagedAgentsUserCustomToolResultEventParamsContentUnion{{
-  								OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-  									Type: anthropic.BetaManagedAgentsTextBlockTypeText,
-  									Text: result,
-  								},
-  							}},
-  						},
-  					}},
-  				}); err != nil {
-  					panic(err)
-  				}
+  		switch event := stream.Current().AsAny().(type) {
+  		case anthropic.BetaManagedAgentsAgentCustomToolUseEvent:
+  			// Execute the tool
+  			result := callTool(event.Name, event.Input)
+  			// Send the result back
+  			if _, err := client.Beta.Sessions.Events.Send(ctx, session.ID, anthropic.BetaSessionEventSendParams{
+  				Events: []anthropic.BetaManagedAgentsEventParamsUnion{{
+  					OfUserCustomToolResult: &anthropic.BetaManagedAgentsUserCustomToolResultEventParams{
+  						Type:            anthropic.BetaManagedAgentsUserCustomToolResultEventParamsTypeUserCustomToolResult,
+  						CustomToolUseID: event.ID,
+  						Content: []anthropic.BetaManagedAgentsUserCustomToolResultEventParamsContentUnion{{
+  							OfText: &anthropic.BetaManagedAgentsTextBlockParam{
+  								Type: anthropic.BetaManagedAgentsTextBlockTypeText,
+  								Text: result,
+  							},
+  						}},
+  					},
+  				}},
+  			}); err != nil {
+  				panic(err)
   			}
-  		case anthropic.BetaManagedAgentsSessionEndTurn:
-  			break loop
+  		case anthropic.BetaManagedAgentsSessionStatusIdleEvent:
+  			if _, ok := event.StopReason.AsAny().(anthropic.BetaManagedAgentsSessionEndTurn); ok {
+  				break loop
+  			}
   		}
   	}
   	if err := stream.Err(); err != nil {
@@ -941,28 +934,32 @@ The `agent.custom_tool_use` event contains the tool name and input. Execute the 
 
   ```java Java
   try (var stream = client.beta().sessions().events().streamStreaming(session.id())) {
-      stream.stream()
-          .filter(BetaManagedAgentsStreamSessionEvents::isSessionStatusIdle)
-          .map(idleEvent -> idleEvent.asSessionStatusIdle().stopReason())
-          .takeWhile(stopReason -> !stopReason.isEndTurn())
-          .filter(stopReason -> stopReason.isRequiresAction())
-          .flatMap(stopReason -> stopReason.asRequiresAction().eventIds().stream())
-          .forEach(eventId -> {
-              // Look up the custom tool use event and execute it
-              var toolEvent = eventsById.get(eventId);
-              var result = callTool(toolEvent.name(), toolEvent.input());
+      loop:
+      for (var event : (Iterable<BetaManagedAgentsStreamSessionEvents>) stream.stream()::iterator) {
+          switch (event.type().value()) {
+              case AGENT_CUSTOM_TOOL_USE -> {
+                  // Execute the tool
+                  var toolUse = event.asAgentCustomToolUse();
+                  var result = callTool(toolUse.name(), toolUse.input());
 
-              // Send the result back
-              client.beta().sessions().events().send(
-                  session.id(),
-                  EventSendParams.builder()
-                      .addEvent(BetaManagedAgentsUserCustomToolResultEventParams.builder()
-                          .type(BetaManagedAgentsUserCustomToolResultEventParams.Type.USER_CUSTOM_TOOL_RESULT)
-                          .customToolUseId(eventId)
-                          .addTextContent(result)
-                          .build())
-                      .build());
-          });
+                  // Send the result back
+                  client.beta().sessions().events().send(
+                      session.id(),
+                      EventSendParams.builder()
+                          .addEvent(BetaManagedAgentsUserCustomToolResultEventParams.builder()
+                              .type(BetaManagedAgentsUserCustomToolResultEventParams.Type.USER_CUSTOM_TOOL_RESULT)
+                              .customToolUseId(toolUse.id())
+                              .addTextContent(result)
+                              .build())
+                          .build());
+              }
+              case SESSION_STATUS_IDLE -> {
+                  if (event.asSessionStatusIdle().stopReason().isEndTurn()) {
+                      break loop;
+                  }
+              }
+          }
+      }
   }
   ```
 
@@ -970,30 +967,28 @@ The `agent.custom_tool_use` event contains the tool name and input. Execute the 
   $stream = $client->beta->sessions->events->streamStream($session->id);
 
   foreach ($stream as $event) {
-      if ($event instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsSessionStatusIdleEvent && $event->stopReason) {
-          switch (true) {
-              case $event->stopReason instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsSessionRequiresAction:
-                  foreach ($event->stopReason->eventIDs as $eventId) {
-                      // Look up the custom tool use event and execute it
-                      $toolEvent = $eventsById[$eventId];
-                      $result = callTool($toolEvent->name, $toolEvent->input);
+      switch (true) {
+          case $event instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsAgentCustomToolUseEvent:
+              // Execute the tool
+              $result = callTool($event->name, $event->input);
 
-                      // Send the result back
-                      $client->beta->sessions->events->send(
-                          $session->id,
-                          events: [
-                              [
-                                  'type' => 'user.custom_tool_result',
-                                  'custom_tool_use_id' => $eventId,
-                                  'content' => [['type' => 'text', 'text' => $result]],
-                              ],
-                          ],
-                      );
-                  }
-                  break;
-              case $event->stopReason instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsSessionEndTurn:
+              // Send the result back
+              $client->beta->sessions->events->send(
+                  $session->id,
+                  events: [
+                      [
+                          'type' => 'user.custom_tool_result',
+                          'custom_tool_use_id' => $event->id,
+                          'content' => [['type' => 'text', 'text' => $result]],
+                      ],
+                  ],
+              );
+              break;
+          case $event instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsSessionStatusIdleEvent:
+              if ($event->stopReason instanceof \Anthropic\Beta\Sessions\Events\ManagedAgentsSessionEndTurn) {
                   break 2;
-          }
+              }
+              break;
       }
   }
   ```
@@ -1001,33 +996,28 @@ The `agent.custom_tool_use` event contains the tool name and input. Execute the 
   ```ruby Ruby
   client.beta.sessions.events.stream_events(session.id).each do |event|
     case event
+    when Anthropic::Beta::Sessions::BetaManagedAgentsAgentCustomToolUseEvent
+      # Execute the tool
+      result = call_tool.call(event.name, event.input)
+      # Send the result back
+      client.beta.sessions.events.send_(
+        session.id,
+        events: [
+          {
+            type: "user.custom_tool_result",
+            custom_tool_use_id: event.id,
+            content: [{type: "text", text: result}]
+          }
+        ]
+      )
     when Anthropic::Beta::Sessions::BetaManagedAgentsSessionStatusIdleEvent
-      stop_reason = event.stop_reason
-      case stop_reason
-      when Anthropic::Beta::Sessions::BetaManagedAgentsSessionRequiresAction
-        stop_reason.event_ids.each do |event_id|
-          # Look up the custom tool use event and execute it
-          tool_event = events_by_id[event_id]
-          result = call_tool.call(tool_event.name, tool_event.input)
-          # Send the result back
-          client.beta.sessions.events.send_(
-            session.id,
-            events: [
-              {
-                type: "user.custom_tool_result",
-                custom_tool_use_id: event_id,
-                content: [{type: "text", text: result}]
-              }
-            ]
-          )
-        end
-      when Anthropic::Beta::Sessions::BetaManagedAgentsSessionEndTurn
-        break
-      end
+      break if event.stop_reason.is_a?(Anthropic::Beta::Sessions::BetaManagedAgentsSessionEndTurn)
     end
   end
   ```
 </CodeGroup>
+
+If the agent has [workflow runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs) open, a custom tool call can arrive while the session stays `running`. The `requires_action` idle event arrives only when none of the [session's threads](https://platform.claude.com/docs/en/managed-agents/session-threads) is working. Don't wait for it: answer each call when its `agent.custom_tool_use` event arrives. The sample in [Follow a run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#follow-a-run) shows how.
 
 ### Confirm a tool call
 
@@ -1260,6 +1250,8 @@ The following example approves every pending call:
   end
   ```
 </CodeGroup>
+
+The previous example approves each call after the session goes idle. If the agent has [workflow runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs) open, a tool call can wait for your confirmation while the session stays `running`. Don't wait for the idle event: when an `agent.tool_use` or `agent.mcp_tool_use` event arrives whose [`evaluated_permission`](https://platform.claude.com/docs/en/managed-agents/permission-policies#see-how-each-call-was-evaluated) is `ask`, answer it. The sample in [Follow a run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#follow-a-run) answers custom tool calls this way, and its introduction says how to add confirmations.
 
 ## Resume an idle session
 
@@ -1627,7 +1619,7 @@ The call returns as soon as the events are queued. The interrupt then takes effe
 2. The `user.interrupt` event appears on the stream, and the interrupted turn ends with a `session.status_idle` event.
 3. The agent starts its next turn with the `user.message` you sent after the interrupt.
 
-The idle event's `stop_reason.type` is `end_turn`, the same value as a turn that finishes on its own.
+The idle event's `stop_reason.type` is `end_turn`, the same value as a turn that finishes on its own. If workflow runs are open, the interrupt ends none of them. A run that's running can keep the session `running`, so the `session.status_idle` event in step 2 might not arrive. See [Interrupt a session with runs open](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open).
 
 ## List past events
 

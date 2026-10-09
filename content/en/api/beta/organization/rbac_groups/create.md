@@ -11,6 +11,14 @@ Create an RBAC Group in the Claude Enterprise tenant. Groups created via the API
 
 The RBAC Groups API is available to Claude Enterprise organizations only.
 
+## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ## Body parameters
 
 - `name: string`

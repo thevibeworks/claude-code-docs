@@ -21,6 +21,14 @@ encrypted data requires the original key identity to decrypt.
 
   maxLength: 2048
 
+## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ## Body parameters
 
 - `display_name: optional string or null`

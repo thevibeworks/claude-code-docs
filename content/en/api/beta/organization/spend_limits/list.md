@@ -48,6 +48,12 @@ preview. To request access, contact your Anthropic account team.
 
 ## Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `spend-limit-reads-2026-09-26` in this header.

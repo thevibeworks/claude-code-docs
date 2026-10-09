@@ -52,6 +52,14 @@ Enterprise plan. Requires an API key with the `read:analytics` scope.
 
   Opaque cursor from a previous response's `next_page` field. `next_page` is currently always null, so there is never a cursor to send.
 
+### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 ### Returns
 
 - `data: array of BetaAnalyticsSingleDayActivitySummary`

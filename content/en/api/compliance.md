@@ -4277,6 +4277,12 @@ compliance activities that can be filtered by various criteria.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -83837,7 +83843,7 @@ compliance activities that can be filtered by various criteria.
 
         - `user_agent: optional string or null`
 
-    - `updates: array of Name or Capabilities or RedactContent or 100 more`
+    - `updates: array of Name or Capabilities or RedactContent or 101 more`
 
       - `Name object`
 
@@ -85683,6 +85689,22 @@ compliance activities that can be filtered by various criteria.
         - `type: optional "artifact_type_docs_enabled"`
 
           default: artifact_type_docs_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `ArtifactTypeMotionEnabled object`
+
+        The setting that lets members create Motion, one of Anthropic's built-in Artifact types, was changed for the organization.
+
+        - `type: optional "artifact_type_motion_enabled"`
+
+          default: artifact_type_motion_enabled
 
         - `current_value: optional boolean or null`
 
@@ -133552,6 +133574,12 @@ Returns organizations sorted by creation date in ascending order. Use
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -133631,6 +133659,12 @@ List current user members of an organization.
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -133746,6 +133780,12 @@ List Compliance Roles
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -133830,6 +133870,12 @@ Get Compliance Role
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -133909,6 +133955,12 @@ List Compliance Role Permissions
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -133993,6 +134045,12 @@ unknown organizations and organizations outside the hierarchy return 404.
   The organization's UUID
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -134373,6 +134431,12 @@ List Compliance Groups
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -134466,6 +134530,12 @@ Get Compliance Group
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -134554,6 +134624,12 @@ List Compliance Group Members
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -134734,6 +134810,12 @@ no time filter) with the default `order_by`. `user_ids[]` with
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -134868,6 +134950,12 @@ You can retry the request.
   The chat ID (tagged ID, e.g., claude_chat_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -135006,6 +135094,12 @@ Retrieves message history and file metadata for a specific chat.
     format: date-time
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -135304,7 +135398,7 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
   "id": "claude_chat_abc123",
   "name": "Product Requirements Discussion",
   "created_at": "2025-06-07T08:09:10Z",
-  "updated_at": "2025-06-07T08:09:11Z",
+  "updated_at": "2025-06-07T08:10:05Z",
   "organization_id": "org_abc123",
   "organization_uuid": "abcdef01-2345-6789-abcd-ef0123456789",
   "project_id": "claude_proj_xyz789",
@@ -135322,7 +135416,9 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
       "content": [
         {
           "type": "text",
-          "text": "Can you help me draft requirements for our new dashboard feature?"
+          "text": "Can you help me draft requirements for our new dashboard feature?",
+          "truncated": false,
+          "thinking_redacted": false
         }
       ],
       "files": [
@@ -135343,7 +135439,9 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
       "content": [
         {
           "type": "text",
-          "text": "I'd be happy to help you draft requirements for your dashboard feature..."
+          "text": "I'd be happy to help you draft requirements for your dashboard feature...",
+          "truncated": false,
+          "thinking_redacted": false
         }
       ],
       "artifacts": [
@@ -135354,11 +135452,61 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
           "artifact_type": "text/markdown"
         }
       ]
+    },
+    {
+      "id": "claude_chat_msg_ghi789",
+      "role": "user",
+      "created_at": "2025-06-07T08:10:00Z",
+      "content": [
+        {
+          "type": "text",
+          "text": "Are there any open support tickets about the dashboard?",
+          "truncated": false,
+          "thinking_redacted": false
+        }
+      ]
+    },
+    {
+      "id": "claude_chat_msg_jkl012",
+      "role": "assistant",
+      "created_at": "2025-06-07T08:10:05Z",
+      "content": [
+        {
+          "type": "tool_use",
+          "id": "toolu_01Abc",
+          "name": "search_tickets",
+          "input": "{\"query\":\"dashboard\",\"status\":\"open\"}",
+          "truncated": false,
+          "integration_name": "Example Integration",
+          "mcp_server_url": "https://mcp.example.com"
+        },
+        {
+          "type": "tool_result",
+          "tool_use_id": "toolu_01Abc",
+          "name": "search_tickets",
+          "is_error": false,
+          "integration_name": "Example Integration",
+          "mcp_server_url": "https://mcp.example.com",
+          "content": [
+            {
+              "type": "text",
+              "text": "2 open tickets: #1042 Dashboard loads slowly; #1057 Export button missing"
+            }
+          ],
+          "truncated": false
+        },
+        {
+          "type": "text",
+          "text": "There are two open tickets: one about slow loading and one about a missing export button.",
+          "truncated": false,
+          "thinking_redacted": false
+        }
+      ]
     }
   ],
   "has_more": false,
   "first_id": "eyJtc2dfdXVpZCI6ICIwZjcwYjA2Ni0uLi4ifQ==",
-  "last_id": "eyJtc2dfdXVpZCI6ICJhNGUwYjE3Mi0uLi4ifQ=="
+  "last_id": "eyJtc2dfdXVpZCI6ICI3YzFlOWQ0Yi0uLi4ifQ=="
 }
 ```
 
@@ -135379,6 +135527,12 @@ download the bytes.
   The file ID (tagged ID, e.g., claude_file_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -135460,6 +135614,12 @@ operation that cannot be undone.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -135506,6 +135666,12 @@ Downloads the binary content of a file referenced in chat messages.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Example
@@ -135533,6 +135699,12 @@ Use the sibling `/content` endpoint to download the bytes.
   The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -135603,6 +135775,12 @@ Downloads the binary content of a file the assistant created via tool use.
   The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -135696,6 +135874,12 @@ are sorted chronologically (time ascending) by created_at.
   Filter by user IDs. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -135810,6 +135994,12 @@ Get detailed information for a specific project.
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -135937,6 +136127,12 @@ Project must have no attached chats - returns 409 if chats exist.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -136005,6 +136201,12 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -136154,6 +136356,12 @@ role.
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -136340,6 +136548,12 @@ Get detailed information for a specific project document.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -136415,6 +136629,12 @@ consumer can dedupe or match hashes without downloading every document.
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -136506,6 +136726,12 @@ Hard-deletes the project document permanently.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -136558,6 +136784,12 @@ without downloading every artifact.
   The artifact version ID (tagged ID, e.g., claude_artifact_version_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -136636,6 +136868,12 @@ Returns the full text content of the artifact version.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Example
@@ -136692,6 +136930,12 @@ forward-only via `next_page`; there is no reverse cursor.
     format: date-time
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -136801,6 +137045,12 @@ inference call has aged out returns 404.
 - `local_session_id: string`
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -136944,6 +137194,12 @@ response header.
   default: 10000, minimum: -1, maximum: 2147483647
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -137295,6 +137551,12 @@ retrieve the next page, and stop when `next_page` is null.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -137464,6 +137726,12 @@ malformed session identifier returns 400.
   default: 10000, minimum: -1, maximum: 2147483647
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
@@ -137776,6 +138044,12 @@ returned.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Returns
@@ -137788,15 +138062,17 @@ returned.
 
     Artifact identifier (tagged ID)
 
-  - `artifact_type: "claude_design" or "claude_design_systems" or "claude_docs" or 3 more`
+  - `artifact_type: "claude_design" or "claude_design_systems" or "claude_docs" or 4 more`
 
-    Which kind of Artifact this is: `code` for a site published from Claude Code, or the built-in Artifact type it was made from — `claude_docs` (Claude Docs), `claude_slides` (Slides), `claude_design` (Design) or `claude_design_systems` (a design system). `other` is an Artifact made from a built-in type this list does not name yet.
+    Which kind of Artifact this is: `code` for a site published from Claude Code, or the built-in Artifact type it was made from — `claude_docs` (Claude Docs), `claude_slides` (Slides), `claude_design` (Design), `claude_design_systems` (a design system) or `claude_motion` (Motion). `other` is an Artifact made from a built-in type this list does not name yet.
 
     - `"claude_design"`
 
     - `"claude_design_systems"`
 
     - `"claude_docs"`
+
+    - `"claude_motion"`
 
     - `"claude_slides"`
 
@@ -137943,6 +138219,12 @@ only for identity-stored content; validate against it when present.
 
 #### Headers
 
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+
 - `"x-api-key": optional string`
 
 #### Example
@@ -137973,6 +138255,12 @@ Artifact.
   The Artifact ID (tagged ID, e.g., cart_abc123)
 
 #### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
 
 - `"x-api-key": optional string`
 
