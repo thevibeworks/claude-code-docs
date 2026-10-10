@@ -183,11 +183,7 @@ Create Agent
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -989,11 +985,7 @@ Create Agent
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -1065,33 +1057,139 @@ Create Agent
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `Type type`
+    - `class BetaManagedAgentsMultiagentCoordinator`
 
-    - `List<Agent> agents`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `Type type`
 
-      - `class BetaManagedAgentsAgentReference`
+      - `List<Agent> agents`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `Type type`
+        - `class BetaManagedAgentsAgentReference`
 
-        - `String id`
+          A resolved agent reference with a concrete version.
 
-        - `long version`
+          - `Type type`
 
-          format: int32
+          - `String id`
 
-      - `class BetaManagedAgentsAdvisor`
+          - `long version`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `Type type`
+        - `class BetaManagedAgentsAdvisor`
 
-        - `String model`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `Type type`
+
+          - `String model`
+
+            The advisor model id.
+
+    - `class BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `JsonValue type = "multiagent_20261001"`
+
+      - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `JsonValue type = "enabled"`
+
+          - `String model`
+
+            The advisor model id.
+
+        - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentSubagents subagents`
+
+        Whether the agent can spawn session threads.
+
+        - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `JsonValue type = "enabled"`
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `JsonValue type = "disabled"`
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+        Whether the agent can start workflow runs.
+
+        - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `JsonValue type = "disabled"`
 
   - `String name`
 
@@ -1616,14 +1714,36 @@ public final class Main {
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -1904,11 +2024,7 @@ List Agents
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -1980,33 +2096,139 @@ List Agents
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `Type type`
+    - `class BetaManagedAgentsMultiagentCoordinator`
 
-    - `List<Agent> agents`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `Type type`
 
-      - `class BetaManagedAgentsAgentReference`
+      - `List<Agent> agents`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `Type type`
+        - `class BetaManagedAgentsAgentReference`
 
-        - `String id`
+          A resolved agent reference with a concrete version.
 
-        - `long version`
+          - `Type type`
 
-          format: int32
+          - `String id`
 
-      - `class BetaManagedAgentsAdvisor`
+          - `long version`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `Type type`
+        - `class BetaManagedAgentsAdvisor`
 
-        - `String model`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `Type type`
+
+          - `String model`
+
+            The advisor model id.
+
+    - `class BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `JsonValue type = "multiagent_20261001"`
+
+      - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `JsonValue type = "enabled"`
+
+          - `String model`
+
+            The advisor model id.
+
+        - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentSubagents subagents`
+
+        Whether the agent can spawn session threads.
+
+        - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `JsonValue type = "enabled"`
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `JsonValue type = "disabled"`
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+        Whether the agent can start workflow runs.
+
+        - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `JsonValue type = "disabled"`
 
   - `String name`
 
@@ -2528,14 +2750,36 @@ public final class Main {
         "speed": "standard"
       },
       "multiagent": {
-        "agents": [
-          {
-            "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-            "type": "agent",
-            "version": 1
-          }
-        ],
-        "type": "coordinator"
+        "advisor": {
+          "type": "disabled"
+        },
+        "subagents": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        },
+        "type": "multiagent_20261001",
+        "workflows": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        }
       },
       "name": "My First Agent",
       "skills": [
@@ -2803,11 +3047,7 @@ Get Agent
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -2879,33 +3119,139 @@ Get Agent
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `Type type`
+    - `class BetaManagedAgentsMultiagentCoordinator`
 
-    - `List<Agent> agents`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `Type type`
 
-      - `class BetaManagedAgentsAgentReference`
+      - `List<Agent> agents`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `Type type`
+        - `class BetaManagedAgentsAgentReference`
 
-        - `String id`
+          A resolved agent reference with a concrete version.
 
-        - `long version`
+          - `Type type`
 
-          format: int32
+          - `String id`
 
-      - `class BetaManagedAgentsAdvisor`
+          - `long version`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `Type type`
+        - `class BetaManagedAgentsAdvisor`
 
-        - `String model`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `Type type`
+
+          - `String model`
+
+            The advisor model id.
+
+    - `class BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `JsonValue type = "multiagent_20261001"`
+
+      - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `JsonValue type = "enabled"`
+
+          - `String model`
+
+            The advisor model id.
+
+        - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentSubagents subagents`
+
+        Whether the agent can spawn session threads.
+
+        - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `JsonValue type = "enabled"`
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `JsonValue type = "disabled"`
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+        Whether the agent can start workflow runs.
+
+        - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `JsonValue type = "disabled"`
 
   - `String name`
 
@@ -3425,14 +3771,36 @@ public final class Main {
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -3685,11 +4053,7 @@ Update Agent
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -4469,11 +4833,7 @@ Update Agent
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -4545,33 +4905,139 @@ Update Agent
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `Type type`
+    - `class BetaManagedAgentsMultiagentCoordinator`
 
-    - `List<Agent> agents`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `Type type`
 
-      - `class BetaManagedAgentsAgentReference`
+      - `List<Agent> agents`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `Type type`
+        - `class BetaManagedAgentsAgentReference`
 
-        - `String id`
+          A resolved agent reference with a concrete version.
 
-        - `long version`
+          - `Type type`
 
-          format: int32
+          - `String id`
 
-      - `class BetaManagedAgentsAdvisor`
+          - `long version`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `Type type`
+        - `class BetaManagedAgentsAdvisor`
 
-        - `String model`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `Type type`
+
+          - `String model`
+
+            The advisor model id.
+
+    - `class BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `JsonValue type = "multiagent_20261001"`
+
+      - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `JsonValue type = "enabled"`
+
+          - `String model`
+
+            The advisor model id.
+
+        - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentSubagents subagents`
+
+        Whether the agent can spawn session threads.
+
+        - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `JsonValue type = "enabled"`
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `JsonValue type = "disabled"`
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+        Whether the agent can start workflow runs.
+
+        - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `JsonValue type = "disabled"`
 
   - `String name`
 
@@ -5091,14 +5557,36 @@ public final class Main {
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -5357,11 +5845,7 @@ Archive Agent
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -5433,33 +5917,139 @@ Archive Agent
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `Type type`
+    - `class BetaManagedAgentsMultiagentCoordinator`
 
-    - `List<Agent> agents`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `Type type`
 
-      - `class BetaManagedAgentsAgentReference`
+      - `List<Agent> agents`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `Type type`
+        - `class BetaManagedAgentsAgentReference`
 
-        - `String id`
+          A resolved agent reference with a concrete version.
 
-        - `long version`
+          - `Type type`
 
-          format: int32
+          - `String id`
 
-      - `class BetaManagedAgentsAdvisor`
+          - `long version`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `Type type`
+        - `class BetaManagedAgentsAdvisor`
 
-        - `String model`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `Type type`
+
+          - `String model`
+
+            The advisor model id.
+
+    - `class BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `JsonValue type = "multiagent_20261001"`
+
+      - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `JsonValue type = "enabled"`
+
+          - `String model`
+
+            The advisor model id.
+
+        - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentSubagents subagents`
+
+        Whether the agent can spawn session threads.
+
+        - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `JsonValue type = "enabled"`
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `JsonValue type = "disabled"`
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+        Whether the agent can start workflow runs.
+
+        - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `JsonValue type = "disabled"`
 
   - `String name`
 
@@ -5979,14 +6569,36 @@ public final class Main {
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -6133,11 +6745,7 @@ public final class Main {
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -6209,33 +6817,139 @@ public final class Main {
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `Type type`
+    - `class BetaManagedAgentsMultiagentCoordinator`
 
-    - `List<Agent> agents`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `Type type`
 
-      - `class BetaManagedAgentsAgentReference`
+      - `List<Agent> agents`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `Type type`
+        - `class BetaManagedAgentsAgentReference`
 
-        - `String id`
+          A resolved agent reference with a concrete version.
 
-        - `long version`
+          - `Type type`
 
-          format: int32
+          - `String id`
 
-      - `class BetaManagedAgentsAdvisor`
+          - `long version`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `Type type`
+        - `class BetaManagedAgentsAdvisor`
 
-        - `String model`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `Type type`
+
+          - `String model`
+
+            The advisor model id.
+
+    - `class BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `JsonValue type = "multiagent_20261001"`
+
+      - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `JsonValue type = "enabled"`
+
+          - `String model`
+
+            The advisor model id.
+
+        - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentSubagents subagents`
+
+        Whether the agent can spawn session threads.
+
+        - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `JsonValue type = "enabled"`
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `JsonValue type = "disabled"`
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+        Whether the agent can start workflow runs.
+
+        - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `JsonValue type = "disabled"`
 
   - `String name`
 
@@ -9243,11 +9957,7 @@ public final class Main {
 
   - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-    Fastest model with near-frontier intelligence
-
   - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-    Fastest model with near-frontier intelligence
 
   - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -9327,11 +10037,7 @@ public final class Main {
 
     - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-      Fastest model with near-frontier intelligence
-
     - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-      Fastest model with near-frontier intelligence
 
     - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -9457,11 +10163,7 @@ public final class Main {
 
     - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-      Fastest model with near-frontier intelligence
-
     - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-      Fastest model with near-frontier intelligence
 
     - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -9553,6 +10255,94 @@ public final class Main {
 
     - `FAST("fast")`
 
+### Beta Managed Agents Multiagent Advisor
+
+- `class BetaManagedAgentsMultiagentAdvisor: union`
+
+  Whether the session's primary thread can consult an advisor model.
+
+  - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+    The session's primary thread can consult `model` mid-turn.
+
+    - `JsonValue type = "enabled"`
+
+    - `String model`
+
+      The advisor model id.
+
+  - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+    The agent has no advisor.
+
+    - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Advisor Disabled
+
+- `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+  The agent has no advisor.
+
+  - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Advisor Disabled Params
+
+- `class BetaManagedAgentsMultiagentAdvisorDisabledParams`
+
+  The agent has no advisor.
+
+  - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Advisor Enabled
+
+- `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+  The session's primary thread can consult `model` mid-turn.
+
+  - `JsonValue type = "enabled"`
+
+  - `String model`
+
+    The advisor model id.
+
+### Beta Managed Agents Multiagent Advisor Enabled Params
+
+- `class BetaManagedAgentsMultiagentAdvisorEnabledParams`
+
+  The session's primary thread can consult `model` mid-turn.
+
+  - `JsonValue type = "enabled"`
+
+  - `String model`
+
+    A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+    minLength: 1, maxLength: 256
+
+### Beta Managed Agents Multiagent Advisor Params
+
+- `class BetaManagedAgentsMultiagentAdvisorParams: union`
+
+  Whether the session's primary thread can consult an advisor model.
+
+  - `class BetaManagedAgentsMultiagentAdvisorEnabledParams`
+
+    The session's primary thread can consult `model` mid-turn.
+
+    - `JsonValue type = "enabled"`
+
+    - `String model`
+
+      A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+      minLength: 1, maxLength: 256
+
+  - `class BetaManagedAgentsMultiagentAdvisorDisabledParams`
+
+    The agent has no advisor.
+
+    - `JsonValue type = "disabled"`
+
 ### Beta Managed Agents Multiagent Coordinator
 
 - `class BetaManagedAgentsMultiagentCoordinator`
@@ -9637,6 +10427,106 @@ public final class Main {
 
         minLength: 1, maxLength: 256
 
+### Beta Managed Agents Multiagent Inline Agents
+
+- `class BetaManagedAgentsMultiagentInlineAgents: union`
+
+  Whether the agent can define inline agents. The agent defines an inline agent itself, in a workflow run's plan or when it spawns a session thread, and the inline agent is not saved.
+
+  - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+    The agent can define inline agents.
+
+    - `JsonValue type = "enabled"`
+
+  - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+    The agent cannot define inline agents.
+
+    - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Disabled
+
+- `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+  The agent cannot define inline agents.
+
+  - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Disabled Params
+
+- `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+  The agent cannot define inline agents.
+
+  - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Enabled
+
+- `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+  The agent can define inline agents.
+
+  - `JsonValue type = "enabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Enabled Params
+
+- `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+  The agent can define inline agents.
+
+  - `JsonValue type = "enabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Params
+
+- `class BetaManagedAgentsMultiagentInlineAgentsParams: union`
+
+  Whether the agent can define inline agents. The agent defines an inline agent itself, in a workflow run's plan or when it spawns a session thread, and the inline agent is not saved.
+
+  - `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+    The agent can define inline agents.
+
+    - `JsonValue type = "enabled"`
+
+  - `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+    The agent cannot define inline agents.
+
+    - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Predefined Agent Params
+
+- `class BetaManagedAgentsMultiagentPredefinedAgentParams: union`
+
+  One agent in a `predefined_agents` list. It is an agent ID string, an `agent` reference with an optional `version`, or `self` for the agent that owns this configuration.
+
+  - `String`
+
+  - `class BetaManagedAgentsAgentParams`
+
+    Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+    - `Type type`
+
+    - `String id`
+
+      The `agent` ID.
+
+      minLength: 1, maxLength: 128
+
+    - `Optional<Long> version`
+
+      The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+      format: int32
+
+  - `class BetaManagedAgentsMultiagentSelfParams`
+
+    Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+    - `Type type`
+
 ### Beta Managed Agents Multiagent Self Params
 
 - `class BetaManagedAgentsMultiagentSelfParams`
@@ -9644,6 +10534,668 @@ public final class Main {
   Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
 
   - `Type type`
+
+### Beta Managed Agents Multiagent Subagents
+
+- `class BetaManagedAgentsMultiagentSubagents: union`
+
+  Whether the agent can spawn session threads.
+
+  - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+    The agent can spawn session threads.
+
+    - `JsonValue type = "enabled"`
+
+    - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+      Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+      - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+        The agent can define inline agents.
+
+        - `JsonValue type = "enabled"`
+
+      - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+        The agent cannot define inline agents.
+
+        - `JsonValue type = "disabled"`
+
+    - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+      Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+      - `Type type`
+
+      - `String id`
+
+      - `long version`
+
+        format: int32
+
+  - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+    The agent cannot spawn session threads.
+
+    - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Subagents Disabled
+
+- `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+  The agent cannot spawn session threads.
+
+  - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Subagents Disabled Params
+
+- `class BetaManagedAgentsMultiagentSubagentsDisabledParams`
+
+  The agent cannot spawn session threads.
+
+  - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Subagents Enabled
+
+- `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+  The agent can spawn session threads.
+
+  - `JsonValue type = "enabled"`
+
+  - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+    Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+    - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+      The agent can define inline agents.
+
+      - `JsonValue type = "enabled"`
+
+    - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+      The agent cannot define inline agents.
+
+      - `JsonValue type = "disabled"`
+
+  - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+    Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+    - `Type type`
+
+    - `String id`
+
+    - `long version`
+
+      format: int32
+
+### Beta Managed Agents Multiagent Subagents Enabled Params
+
+- `class BetaManagedAgentsMultiagentSubagentsEnabledParams`
+
+  The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+  - `JsonValue type = "enabled"`
+
+  - `Optional<BetaManagedAgentsMultiagentInlineAgentsParams> inlineAgents`
+
+    Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+    - `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+      The agent can define inline agents.
+
+      - `JsonValue type = "enabled"`
+
+    - `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+      The agent cannot define inline agents.
+
+      - `JsonValue type = "disabled"`
+
+  - `Optional<List<BetaManagedAgentsMultiagentPredefinedAgentParams>> predefinedAgents`
+
+    Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+    - `String`
+
+    - `class BetaManagedAgentsAgentParams`
+
+      Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+      - `Type type`
+
+      - `String id`
+
+        The `agent` ID.
+
+        minLength: 1, maxLength: 128
+
+      - `Optional<Long> version`
+
+        The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+        format: int32
+
+    - `class BetaManagedAgentsMultiagentSelfParams`
+
+      Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+      - `Type type`
+
+### Beta Managed Agents Multiagent Subagents Params
+
+- `class BetaManagedAgentsMultiagentSubagentsParams: union`
+
+  Whether the agent can spawn session threads.
+
+  - `class BetaManagedAgentsMultiagentSubagentsEnabledParams`
+
+    The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+    - `JsonValue type = "enabled"`
+
+    - `Optional<BetaManagedAgentsMultiagentInlineAgentsParams> inlineAgents`
+
+      Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+      - `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+        The agent can define inline agents.
+
+        - `JsonValue type = "enabled"`
+
+      - `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+        The agent cannot define inline agents.
+
+        - `JsonValue type = "disabled"`
+
+    - `Optional<List<BetaManagedAgentsMultiagentPredefinedAgentParams>> predefinedAgents`
+
+      Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+      - `String`
+
+      - `class BetaManagedAgentsAgentParams`
+
+        Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+        - `Type type`
+
+        - `String id`
+
+          The `agent` ID.
+
+          minLength: 1, maxLength: 128
+
+        - `Optional<Long> version`
+
+          The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+          format: int32
+
+      - `class BetaManagedAgentsMultiagentSelfParams`
+
+        Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+        - `Type type`
+
+  - `class BetaManagedAgentsMultiagentSubagentsDisabledParams`
+
+    The agent cannot spawn session threads.
+
+    - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Workflows
+
+- `class BetaManagedAgentsMultiagentWorkflows: union`
+
+  Whether the agent can start workflow runs.
+
+  - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+    The agent can start workflow runs.
+
+    - `JsonValue type = "enabled"`
+
+    - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+      Whether a run's plan can define inline agents, which are not saved.
+
+      - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+        The agent can define inline agents.
+
+        - `JsonValue type = "enabled"`
+
+      - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+        The agent cannot define inline agents.
+
+        - `JsonValue type = "disabled"`
+
+    - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+      Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+      - `Type type`
+
+      - `String id`
+
+      - `long version`
+
+        format: int32
+
+  - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+    The agent cannot start workflow runs.
+
+    - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Workflows Disabled
+
+- `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+  The agent cannot start workflow runs.
+
+  - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Workflows Disabled Params
+
+- `class BetaManagedAgentsMultiagentWorkflowsDisabledParams`
+
+  The agent cannot start workflow runs.
+
+  - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent Workflows Enabled
+
+- `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+  The agent can start workflow runs.
+
+  - `JsonValue type = "enabled"`
+
+  - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+    Whether a run's plan can define inline agents, which are not saved.
+
+    - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+      The agent can define inline agents.
+
+      - `JsonValue type = "enabled"`
+
+    - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+      The agent cannot define inline agents.
+
+      - `JsonValue type = "disabled"`
+
+  - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+    Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+    - `Type type`
+
+    - `String id`
+
+    - `long version`
+
+      format: int32
+
+### Beta Managed Agents Multiagent Workflows Enabled Params
+
+- `class BetaManagedAgentsMultiagentWorkflowsEnabledParams`
+
+  The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+  - `JsonValue type = "enabled"`
+
+  - `Optional<BetaManagedAgentsMultiagentInlineAgentsParams> inlineAgents`
+
+    Whether a run's plan can define inline agents. Defaults to enabled.
+
+    - `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+      The agent can define inline agents.
+
+      - `JsonValue type = "enabled"`
+
+    - `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+      The agent cannot define inline agents.
+
+      - `JsonValue type = "disabled"`
+
+  - `Optional<List<BetaManagedAgentsMultiagentPredefinedAgentParams>> predefinedAgents`
+
+    Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+    - `String`
+
+    - `class BetaManagedAgentsAgentParams`
+
+      Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+      - `Type type`
+
+      - `String id`
+
+        The `agent` ID.
+
+        minLength: 1, maxLength: 128
+
+      - `Optional<Long> version`
+
+        The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+        format: int32
+
+    - `class BetaManagedAgentsMultiagentSelfParams`
+
+      Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+      - `Type type`
+
+### Beta Managed Agents Multiagent Workflows Params
+
+- `class BetaManagedAgentsMultiagentWorkflowsParams: union`
+
+  Whether the agent can start workflow runs.
+
+  - `class BetaManagedAgentsMultiagentWorkflowsEnabledParams`
+
+    The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+    - `JsonValue type = "enabled"`
+
+    - `Optional<BetaManagedAgentsMultiagentInlineAgentsParams> inlineAgents`
+
+      Whether a run's plan can define inline agents. Defaults to enabled.
+
+      - `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+        The agent can define inline agents.
+
+        - `JsonValue type = "enabled"`
+
+      - `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+        The agent cannot define inline agents.
+
+        - `JsonValue type = "disabled"`
+
+    - `Optional<List<BetaManagedAgentsMultiagentPredefinedAgentParams>> predefinedAgents`
+
+      Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+      - `String`
+
+      - `class BetaManagedAgentsAgentParams`
+
+        Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+        - `Type type`
+
+        - `String id`
+
+          The `agent` ID.
+
+          minLength: 1, maxLength: 128
+
+        - `Optional<Long> version`
+
+          The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+          format: int32
+
+      - `class BetaManagedAgentsMultiagentSelfParams`
+
+        Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+        - `Type type`
+
+  - `class BetaManagedAgentsMultiagentWorkflowsDisabledParams`
+
+    The agent cannot start workflow runs.
+
+    - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent20261001
+
+- `class BetaManagedAgentsMultiagent20261001`
+
+  Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+  - `JsonValue type = "multiagent_20261001"`
+
+  - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+    Whether the session's primary thread can consult an advisor model.
+
+    - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+      The session's primary thread can consult `model` mid-turn.
+
+      - `JsonValue type = "enabled"`
+
+      - `String model`
+
+        The advisor model id.
+
+    - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+      The agent has no advisor.
+
+      - `JsonValue type = "disabled"`
+
+  - `BetaManagedAgentsMultiagentSubagents subagents`
+
+    Whether the agent can spawn session threads.
+
+    - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+      The agent can spawn session threads.
+
+      - `JsonValue type = "enabled"`
+
+      - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+        Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+        - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+          The agent can define inline agents.
+
+          - `JsonValue type = "enabled"`
+
+        - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+          The agent cannot define inline agents.
+
+          - `JsonValue type = "disabled"`
+
+      - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+        Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+        - `Type type`
+
+        - `String id`
+
+        - `long version`
+
+          format: int32
+
+    - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+      The agent cannot spawn session threads.
+
+      - `JsonValue type = "disabled"`
+
+  - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+    Whether the agent can start workflow runs.
+
+    - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+      The agent can start workflow runs.
+
+      - `JsonValue type = "enabled"`
+
+      - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+        Whether a run's plan can define inline agents, which are not saved.
+
+      - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+        Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+        - `Type type`
+
+        - `String id`
+
+        - `long version`
+
+          format: int32
+
+    - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+      The agent cannot start workflow runs.
+
+      - `JsonValue type = "disabled"`
+
+### Beta Managed Agents Multiagent20261001 Params
+
+- `class BetaManagedAgentsMultiagent20261001Params`
+
+  Multiagent configuration with three members, each enabled or disabled on its own. On an update, if the agent's stored `multiagent` also has type `multiagent_20261001`, this configuration is merged into the stored one, level by level, instead of replacing it. A key that the update omits keeps its stored value. A key sent as null takes its default, on create as well, so `"workflows": null` enables workflows. An object sent with a `type` other than the stored one replaces the stored object, and the keys that it omits take their defaults. A `predefined_agents` list that is sent replaces the stored list. Every object that is sent needs its `type`, and an enabled `advisor` needs its `model`. Other validation applies to the merged result.
+
+  - `JsonValue type = "multiagent_20261001"`
+
+  - `Optional<BetaManagedAgentsMultiagentAdvisorParams> advisor`
+
+    Whether the session's primary thread can consult an advisor model. Defaults to disabled.
+
+    - `class BetaManagedAgentsMultiagentAdvisorEnabledParams`
+
+      The session's primary thread can consult `model` mid-turn.
+
+      - `JsonValue type = "enabled"`
+
+      - `String model`
+
+        A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+        minLength: 1, maxLength: 256
+
+    - `class BetaManagedAgentsMultiagentAdvisorDisabledParams`
+
+      The agent has no advisor.
+
+      - `JsonValue type = "disabled"`
+
+  - `Optional<BetaManagedAgentsMultiagentSubagentsParams> subagents`
+
+    Whether the agent can spawn session threads. Defaults to enabled.
+
+    - `class BetaManagedAgentsMultiagentSubagentsEnabledParams`
+
+      The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+      - `JsonValue type = "enabled"`
+
+      - `Optional<BetaManagedAgentsMultiagentInlineAgentsParams> inlineAgents`
+
+        Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+        - `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+          The agent can define inline agents.
+
+          - `JsonValue type = "enabled"`
+
+        - `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+          The agent cannot define inline agents.
+
+          - `JsonValue type = "disabled"`
+
+      - `Optional<List<BetaManagedAgentsMultiagentPredefinedAgentParams>> predefinedAgents`
+
+        Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+        - `String`
+
+        - `class BetaManagedAgentsAgentParams`
+
+          Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+          - `Type type`
+
+          - `String id`
+
+            The `agent` ID.
+
+            minLength: 1, maxLength: 128
+
+          - `Optional<Long> version`
+
+            The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+            format: int32
+
+        - `class BetaManagedAgentsMultiagentSelfParams`
+
+          Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+          - `Type type`
+
+    - `class BetaManagedAgentsMultiagentSubagentsDisabledParams`
+
+      The agent cannot spawn session threads.
+
+      - `JsonValue type = "disabled"`
+
+  - `Optional<BetaManagedAgentsMultiagentWorkflowsParams> workflows`
+
+    Whether the agent can start workflow runs. Defaults to enabled.
+
+    - `class BetaManagedAgentsMultiagentWorkflowsEnabledParams`
+
+      The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+      - `JsonValue type = "enabled"`
+
+      - `Optional<BetaManagedAgentsMultiagentInlineAgentsParams> inlineAgents`
+
+        Whether a run's plan can define inline agents. Defaults to enabled.
+
+      - `Optional<List<BetaManagedAgentsMultiagentPredefinedAgentParams>> predefinedAgents`
+
+        Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+        - `String`
+
+        - `class BetaManagedAgentsAgentParams`
+
+          Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+        - `class BetaManagedAgentsMultiagentSelfParams`
+
+          Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+    - `class BetaManagedAgentsMultiagentWorkflowsDisabledParams`
+
+      The agent cannot start workflow runs.
+
+      - `JsonValue type = "disabled"`
 
 ### Beta Managed Agents Read Tool Config
 
@@ -9793,11 +11345,7 @@ public final class Main {
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -11569,11 +13117,7 @@ List Agent Versions
 
       - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-        Fastest model with near-frontier intelligence
-
       - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-        Fastest model with near-frontier intelligence
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -11645,33 +13189,139 @@ List Agent Versions
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `Type type`
+    - `class BetaManagedAgentsMultiagentCoordinator`
 
-    - `List<Agent> agents`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `Type type`
 
-      - `class BetaManagedAgentsAgentReference`
+      - `List<Agent> agents`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `Type type`
+        - `class BetaManagedAgentsAgentReference`
 
-        - `String id`
+          A resolved agent reference with a concrete version.
 
-        - `long version`
+          - `Type type`
 
-          format: int32
+          - `String id`
 
-      - `class BetaManagedAgentsAdvisor`
+          - `long version`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `Type type`
+        - `class BetaManagedAgentsAdvisor`
 
-        - `String model`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `Type type`
+
+          - `String model`
+
+            The advisor model id.
+
+    - `class BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `JsonValue type = "multiagent_20261001"`
+
+      - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `JsonValue type = "enabled"`
+
+          - `String model`
+
+            The advisor model id.
+
+        - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentSubagents subagents`
+
+        Whether the agent can spawn session threads.
+
+        - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `JsonValue type = "enabled"`
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `JsonValue type = "disabled"`
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `JsonValue type = "disabled"`
+
+      - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+        Whether the agent can start workflow runs.
+
+        - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `JsonValue type = "enabled"`
+
+          - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `List<BetaManagedAgentsAgentReference> predefinedAgents`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `Type type`
+
+            - `String id`
+
+            - `long version`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `JsonValue type = "disabled"`
 
   - `String name`
 
@@ -12193,14 +13843,36 @@ public final class Main {
         "speed": "standard"
       },
       "multiagent": {
-        "agents": [
-          {
-            "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-            "type": "agent",
-            "version": 1
-          }
-        ],
-        "type": "coordinator"
+        "advisor": {
+          "type": "disabled"
+        },
+        "subagents": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        },
+        "type": "multiagent_20261001",
+        "workflows": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        }
       },
       "name": "My First Agent",
       "skills": [

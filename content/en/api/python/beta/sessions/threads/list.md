@@ -25,6 +25,20 @@ List Session Threads
 
   Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
+- `statuses: Optional[List[BetaManagedAgentsSessionThreadStatus]]` (query parameter)
+
+  Return only threads that have one of these statuses.
+
+  Repeat the parameter to give more than one status. Leave it out to return threads of every status.
+
+  - `"running"`
+
+  - `"idle"`
+
+  - `"rescheduling"`
+
+  - `"terminated"`
+
 - `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
@@ -227,11 +241,7 @@ List Session Threads
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -773,6 +783,52 @@ List Session Threads
 
         The advisor model id.
 
+    - `class BetaManagedAgentsInlineAgent`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `type: Literal["inline"]`
+
+      - `description: Optional[str]`
+
+      - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
+
+        - `type: Literal["url"]`
+
+        - `name: str`
+
+        - `url: str`
+
+      - `model: BetaManagedAgentsModelConfig`
+
+        Model identifier and configuration.
+
+      - `name: str`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `skills: List[Skill]`
+
+        - `class BetaManagedAgentsAnthropicSkill`
+
+          A resolved Anthropic-managed skill.
+
+        - `class BetaManagedAgentsCustomSkill`
+
+          A resolved user-created custom skill.
+
+      - `system: Optional[str]`
+
+      - `tools: List[Tool]`
+
+        - `class BetaManagedAgentsAgentToolset20260401`
+
+        - `class BetaManagedAgentsMCPToolset`
+
+        - `class BetaManagedAgentsCustomTool`
+
+          A custom tool as returned in API responses.
+
   - `archived_at: Optional[datetime]`
 
     When the thread was archived. Null if not archived.
@@ -905,6 +961,10 @@ List Session Threads
 
         format: int32
 
+  - `workflow_run_id: Optional[str]`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```python
@@ -1010,7 +1070,8 @@ print(page.id)
           "web_fetch_requests": 0,
           "web_search_requests": 3
         }
-      }
+      },
+      "workflow_run_id": null
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="

@@ -31,7 +31,7 @@ When a member selects **Add to channel** or **Approve and post**, picks a channe
 
 Reading a channel's full history requires being added there. Workspace search can surface public-channel content, the same as any app with the search scope.
 
-In a Slack Connect channel (shared with another company), Claude doesn't answer, and a mention there gets a notice saying so. See [Slack Connect channels](/docs/claude-tag/admins/restrict-access#slack-connect-channels).
+In a Slack Connect channel (shared with another company), Claude answers only where an Owner or a Claude Tag admin of your Claude organization has [turned it on](/docs/claude-tag/admins/restrict-access#slack-connect-channels), and then with [limited access](/docs/claude-tag/admins/restrict-access#what-access-claude-has-in-a-slack-connect-channel).
 
 ## Requested scopes
 

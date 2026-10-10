@@ -12,7 +12,7 @@
 
 Chat in Claude Desktop on third-party (3P) is a conversational surface for quick questions and drafting. Unlike [Cowork](/docs/cowork/overview) and [Code](/docs/third-party/claude-desktop/code), which run agentic sessions with access to folders you grant and a code-execution environment, a Chat conversation runs with a deliberately small tool surface: it can search and fetch the web under your admin configuration, read files attached to the conversation, read the project's memory and the files in the project's folders when the conversation is inside a project, write files into a scratch space of its own, and use skills from the plugins you provision, and nothing else on the machine. Chat is off by default and is enabled with a single configuration key.
 
-Like everything else in 3P mode, Chat conversations run against your configured inference provider, and conversation history lives on the user's device. See [User identity and local data](/docs/third-party/claude-desktop/data-storage#chat-conversations) for exactly what is written where and what can leave the device.
+Chat conversations run against your configured inference provider, and their history is stored on the user's device. See [User identity and local data](/docs/third-party/claude-desktop/data-storage#chat-conversations) for exactly what is written where and what can leave the device.
 
 ## What a Chat conversation can reach
 

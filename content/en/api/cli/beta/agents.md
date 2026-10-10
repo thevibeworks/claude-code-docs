@@ -39,7 +39,7 @@ Create Agent
 
   Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-- `--multiagent: optional object`
+- `--multiagent: optional BetaManagedAgentsMultiagentCoordinatorParams or BetaManagedAgentsMultiagent20261001Params`
 
   Multiagent orchestration configuration.
 
@@ -157,11 +157,7 @@ Create Agent
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -229,37 +225,151 @@ Create Agent
 
       - `"fast"`
 
-  - `multiagent: object`
+  - `multiagent: BetaManagedAgentsMultiagentCoordinator or BetaManagedAgentsMultiagent20261001`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `type: "coordinator"`
+    - `beta_managed_agents_multiagent_coordinator: object`
 
-    - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `type: "coordinator"`
 
-      - `beta_managed_agents_agent_reference: object`
+      - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `type: "agent"`
+        - `beta_managed_agents_agent_reference: object`
 
-        - `id: string`
+          A resolved agent reference with a concrete version.
 
-        - `version: number`
+          - `type: "agent"`
 
-          format: int32
+          - `id: string`
 
-      - `beta_managed_agents_advisor: object`
+          - `version: number`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `type: "advisor"`
+        - `beta_managed_agents_advisor: object`
 
-        - `model: string`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `type: "advisor"`
+
+          - `model: string`
+
+            The advisor model id.
+
+    - `beta_managed_agents_multiagent20261001: object`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `type: "multiagent_20261001"`
+
+      - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `type: "enabled"`
+
+          - `model: string`
+
+            The advisor model id.
+
+        - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+          The agent has no advisor.
+
+          - `type: "disabled"`
+
+      - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+        Whether the agent can spawn session threads.
+
+        - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+          The agent can spawn session threads.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+              - `type: "enabled"`
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+              - `type: "disabled"`
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+          The agent cannot spawn session threads.
+
+          - `type: "disabled"`
+
+      - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+        Whether the agent can start workflow runs.
+
+        - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+          The agent can start workflow runs.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+          The agent cannot start workflow runs.
+
+          - `type: "disabled"`
 
   - `name: string`
 
@@ -787,14 +897,36 @@ ant beta:agents create \
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -977,11 +1109,7 @@ List Agents
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -1049,37 +1177,151 @@ List Agents
 
         - `"fast"`
 
-    - `multiagent: object`
+    - `multiagent: BetaManagedAgentsMultiagentCoordinator or BetaManagedAgentsMultiagent20261001`
 
       Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-      - `type: "coordinator"`
+      - `beta_managed_agents_multiagent_coordinator: object`
 
-      - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
+        Resolved coordinator topology with a concrete agent roster.
 
-        Agents the coordinator may spawn as session threads, each resolved to a specific version.
+        - `type: "coordinator"`
 
-        - `beta_managed_agents_agent_reference: object`
+        - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
-          A resolved agent reference with a concrete version.
+          Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-          - `type: "agent"`
+          - `beta_managed_agents_agent_reference: object`
 
-          - `id: string`
+            A resolved agent reference with a concrete version.
 
-          - `version: number`
+            - `type: "agent"`
 
-            format: int32
+            - `id: string`
 
-        - `beta_managed_agents_advisor: object`
+            - `version: number`
 
-          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+              format: int32
 
-          - `type: "advisor"`
+          - `beta_managed_agents_advisor: object`
 
-          - `model: string`
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-            The advisor model id.
+            - `type: "advisor"`
+
+            - `model: string`
+
+              The advisor model id.
+
+      - `beta_managed_agents_multiagent20261001: object`
+
+        Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+        - `type: "multiagent_20261001"`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: "enabled"`
+
+            - `model: string`
+
+              The advisor model id.
+
+          - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+            The agent has no advisor.
+
+            - `type: "disabled"`
+
+        - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          Whether the agent can spawn session threads.
+
+          - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+            The agent can spawn session threads.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+                - `type: "enabled"`
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+                - `type: "disabled"`
+
+            - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+              Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+            The agent cannot spawn session threads.
+
+            - `type: "disabled"`
+
+        - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          Whether the agent can start workflow runs.
+
+          - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+            The agent can start workflow runs.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+            - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+              Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+            The agent cannot start workflow runs.
+
+            - `type: "disabled"`
 
     - `name: string`
 
@@ -1611,14 +1853,36 @@ ant beta:agents list \
         "speed": "standard"
       },
       "multiagent": {
-        "agents": [
-          {
-            "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-            "type": "agent",
-            "version": 1
-          }
-        ],
-        "type": "coordinator"
+        "advisor": {
+          "type": "disabled"
+        },
+        "subagents": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        },
+        "type": "multiagent_20261001",
+        "workflows": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        }
       },
       "name": "My First Agent",
       "skills": [
@@ -1784,11 +2048,7 @@ Get Agent
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -1856,37 +2116,151 @@ Get Agent
 
       - `"fast"`
 
-  - `multiagent: object`
+  - `multiagent: BetaManagedAgentsMultiagentCoordinator or BetaManagedAgentsMultiagent20261001`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `type: "coordinator"`
+    - `beta_managed_agents_multiagent_coordinator: object`
 
-    - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `type: "coordinator"`
 
-      - `beta_managed_agents_agent_reference: object`
+      - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `type: "agent"`
+        - `beta_managed_agents_agent_reference: object`
 
-        - `id: string`
+          A resolved agent reference with a concrete version.
 
-        - `version: number`
+          - `type: "agent"`
 
-          format: int32
+          - `id: string`
 
-      - `beta_managed_agents_advisor: object`
+          - `version: number`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `type: "advisor"`
+        - `beta_managed_agents_advisor: object`
 
-        - `model: string`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `type: "advisor"`
+
+          - `model: string`
+
+            The advisor model id.
+
+    - `beta_managed_agents_multiagent20261001: object`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `type: "multiagent_20261001"`
+
+      - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `type: "enabled"`
+
+          - `model: string`
+
+            The advisor model id.
+
+        - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+          The agent has no advisor.
+
+          - `type: "disabled"`
+
+      - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+        Whether the agent can spawn session threads.
+
+        - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+          The agent can spawn session threads.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+              - `type: "enabled"`
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+              - `type: "disabled"`
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+          The agent cannot spawn session threads.
+
+          - `type: "disabled"`
+
+      - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+        Whether the agent can start workflow runs.
+
+        - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+          The agent can start workflow runs.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+          The agent cannot start workflow runs.
+
+          - `type: "disabled"`
 
   - `name: string`
 
@@ -2413,14 +2787,36 @@ ant beta:agents retrieve \
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -2495,7 +2891,7 @@ Update Agent
 
   Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
-- `--multiagent: optional object`
+- `--multiagent: optional BetaManagedAgentsMultiagentCoordinatorParams or BetaManagedAgentsMultiagent20261001Params`
 
   Multiagent orchestration configuration. Full replacement. Omit to preserve; send null to clear.
 
@@ -2625,11 +3021,7 @@ Update Agent
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -2697,37 +3089,151 @@ Update Agent
 
       - `"fast"`
 
-  - `multiagent: object`
+  - `multiagent: BetaManagedAgentsMultiagentCoordinator or BetaManagedAgentsMultiagent20261001`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `type: "coordinator"`
+    - `beta_managed_agents_multiagent_coordinator: object`
 
-    - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `type: "coordinator"`
 
-      - `beta_managed_agents_agent_reference: object`
+      - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `type: "agent"`
+        - `beta_managed_agents_agent_reference: object`
 
-        - `id: string`
+          A resolved agent reference with a concrete version.
 
-        - `version: number`
+          - `type: "agent"`
 
-          format: int32
+          - `id: string`
 
-      - `beta_managed_agents_advisor: object`
+          - `version: number`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `type: "advisor"`
+        - `beta_managed_agents_advisor: object`
 
-        - `model: string`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `type: "advisor"`
+
+          - `model: string`
+
+            The advisor model id.
+
+    - `beta_managed_agents_multiagent20261001: object`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `type: "multiagent_20261001"`
+
+      - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `type: "enabled"`
+
+          - `model: string`
+
+            The advisor model id.
+
+        - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+          The agent has no advisor.
+
+          - `type: "disabled"`
+
+      - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+        Whether the agent can spawn session threads.
+
+        - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+          The agent can spawn session threads.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+              - `type: "enabled"`
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+              - `type: "disabled"`
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+          The agent cannot spawn session threads.
+
+          - `type: "disabled"`
+
+      - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+        Whether the agent can start workflow runs.
+
+        - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+          The agent can start workflow runs.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+          The agent cannot start workflow runs.
+
+          - `type: "disabled"`
 
   - `name: string`
 
@@ -3254,14 +3760,36 @@ ant beta:agents update \
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -3418,11 +3946,7 @@ Archive Agent
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -3490,37 +4014,151 @@ Archive Agent
 
       - `"fast"`
 
-  - `multiagent: object`
+  - `multiagent: BetaManagedAgentsMultiagentCoordinator or BetaManagedAgentsMultiagent20261001`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `type: "coordinator"`
+    - `beta_managed_agents_multiagent_coordinator: object`
 
-    - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `type: "coordinator"`
 
-      - `beta_managed_agents_agent_reference: object`
+      - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `type: "agent"`
+        - `beta_managed_agents_agent_reference: object`
 
-        - `id: string`
+          A resolved agent reference with a concrete version.
 
-        - `version: number`
+          - `type: "agent"`
 
-          format: int32
+          - `id: string`
 
-      - `beta_managed_agents_advisor: object`
+          - `version: number`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `type: "advisor"`
+        - `beta_managed_agents_advisor: object`
 
-        - `model: string`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `type: "advisor"`
+
+          - `model: string`
+
+            The advisor model id.
+
+    - `beta_managed_agents_multiagent20261001: object`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `type: "multiagent_20261001"`
+
+      - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `type: "enabled"`
+
+          - `model: string`
+
+            The advisor model id.
+
+        - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+          The agent has no advisor.
+
+          - `type: "disabled"`
+
+      - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+        Whether the agent can spawn session threads.
+
+        - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+          The agent can spawn session threads.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+              - `type: "enabled"`
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+              - `type: "disabled"`
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+          The agent cannot spawn session threads.
+
+          - `type: "disabled"`
+
+      - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+        Whether the agent can start workflow runs.
+
+        - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+          The agent can start workflow runs.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+          The agent cannot start workflow runs.
+
+          - `type: "disabled"`
 
   - `name: string`
 
@@ -4047,14 +4685,36 @@ ant beta:agents archive \
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -4201,11 +4861,7 @@ ant beta:agents archive \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -4273,37 +4929,151 @@ ant beta:agents archive \
 
       - `"fast"`
 
-  - `multiagent: object`
+  - `multiagent: BetaManagedAgentsMultiagentCoordinator or BetaManagedAgentsMultiagent20261001`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `type: "coordinator"`
+    - `beta_managed_agents_multiagent_coordinator: object`
 
-    - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `type: "coordinator"`
 
-      - `beta_managed_agents_agent_reference: object`
+      - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `type: "agent"`
+        - `beta_managed_agents_agent_reference: object`
 
-        - `id: string`
+          A resolved agent reference with a concrete version.
 
-        - `version: number`
+          - `type: "agent"`
 
-          format: int32
+          - `id: string`
 
-      - `beta_managed_agents_advisor: object`
+          - `version: number`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `type: "advisor"`
+        - `beta_managed_agents_advisor: object`
 
-        - `model: string`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `type: "advisor"`
+
+          - `model: string`
+
+            The advisor model id.
+
+    - `beta_managed_agents_multiagent20261001: object`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `type: "multiagent_20261001"`
+
+      - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `type: "enabled"`
+
+          - `model: string`
+
+            The advisor model id.
+
+        - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+          The agent has no advisor.
+
+          - `type: "disabled"`
+
+      - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+        Whether the agent can spawn session threads.
+
+        - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+          The agent can spawn session threads.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+              - `type: "enabled"`
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+              - `type: "disabled"`
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+          The agent cannot spawn session threads.
+
+          - `type: "disabled"`
+
+      - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+        Whether the agent can start workflow runs.
+
+        - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+          The agent can start workflow runs.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+          - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+          The agent cannot start workflow runs.
+
+          - `type: "disabled"`
 
   - `name: string`
 
@@ -7407,11 +8177,7 @@ ant beta:agents archive \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -7537,11 +8303,7 @@ ant beta:agents archive \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -7633,6 +8395,94 @@ ant beta:agents archive \
 
     - `"fast"`
 
+### Beta Managed Agents Multiagent Advisor
+
+- `beta_managed_agents_multiagent_advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+  Whether the session's primary thread can consult an advisor model.
+
+  - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+    The session's primary thread can consult `model` mid-turn.
+
+    - `type: "enabled"`
+
+    - `model: string`
+
+      The advisor model id.
+
+  - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+    The agent has no advisor.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Advisor Disabled
+
+- `beta_managed_agents_multiagent_advisor_disabled: object`
+
+  The agent has no advisor.
+
+  - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Advisor Disabled Params
+
+- `beta_managed_agents_multiagent_advisor_disabled_params: object`
+
+  The agent has no advisor.
+
+  - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Advisor Enabled
+
+- `beta_managed_agents_multiagent_advisor_enabled: object`
+
+  The session's primary thread can consult `model` mid-turn.
+
+  - `type: "enabled"`
+
+  - `model: string`
+
+    The advisor model id.
+
+### Beta Managed Agents Multiagent Advisor Enabled Params
+
+- `beta_managed_agents_multiagent_advisor_enabled_params: object`
+
+  The session's primary thread can consult `model` mid-turn.
+
+  - `type: "enabled"`
+
+  - `model: string`
+
+    A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+    minLength: 1, maxLength: 256
+
+### Beta Managed Agents Multiagent Advisor Params
+
+- `beta_managed_agents_multiagent_advisor_params: BetaManagedAgentsMultiagentAdvisorEnabledParams or BetaManagedAgentsMultiagentAdvisorDisabledParams`
+
+  Whether the session's primary thread can consult an advisor model.
+
+  - `beta_managed_agents_multiagent_advisor_enabled_params: object`
+
+    The session's primary thread can consult `model` mid-turn.
+
+    - `type: "enabled"`
+
+    - `model: string`
+
+      A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+      minLength: 1, maxLength: 256
+
+  - `beta_managed_agents_multiagent_advisor_disabled_params: object`
+
+    The agent has no advisor.
+
+    - `type: "disabled"`
+
 ### Beta Managed Agents Multiagent Coordinator
 
 - `beta_managed_agents_multiagent_coordinator: object`
@@ -7717,6 +8567,106 @@ ant beta:agents archive \
 
         minLength: 1, maxLength: 256
 
+### Beta Managed Agents Multiagent Inline Agents
+
+- `beta_managed_agents_multiagent_inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+  Whether the agent can define inline agents. The agent defines an inline agent itself, in a workflow run's plan or when it spawns a session thread, and the inline agent is not saved.
+
+  - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+    The agent can define inline agents.
+
+    - `type: "enabled"`
+
+  - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+    The agent cannot define inline agents.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Disabled
+
+- `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+  The agent cannot define inline agents.
+
+  - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Disabled Params
+
+- `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+  The agent cannot define inline agents.
+
+  - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Enabled
+
+- `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+  The agent can define inline agents.
+
+  - `type: "enabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Enabled Params
+
+- `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+  The agent can define inline agents.
+
+  - `type: "enabled"`
+
+### Beta Managed Agents Multiagent Inline Agents Params
+
+- `beta_managed_agents_multiagent_inline_agents_params: BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+  Whether the agent can define inline agents. The agent defines an inline agent itself, in a workflow run's plan or when it spawns a session thread, and the inline agent is not saved.
+
+  - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+    The agent can define inline agents.
+
+    - `type: "enabled"`
+
+  - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+    The agent cannot define inline agents.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Predefined Agent Params
+
+- `beta_managed_agents_multiagent_predefined_agent_params: string or BetaManagedAgentsAgentParams or BetaManagedAgentsMultiagentSelfParams`
+
+  One agent in a `predefined_agents` list. It is an agent ID string, an `agent` reference with an optional `version`, or `self` for the agent that owns this configuration.
+
+  - `union_member_0: string`
+
+  - `beta_managed_agents_agent_params: object`
+
+    Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+    - `type: "agent"`
+
+    - `id: string`
+
+      The `agent` ID.
+
+      minLength: 1, maxLength: 128
+
+    - `version: optional number`
+
+      The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+      format: int32
+
+  - `beta_managed_agents_multiagent_self_params: object`
+
+    Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+    - `type: "self"`
+
 ### Beta Managed Agents Multiagent Self Params
 
 - `beta_managed_agents_multiagent_self_params: object`
@@ -7724,6 +8674,684 @@ ant beta:agents archive \
   Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
 
   - `type: "self"`
+
+### Beta Managed Agents Multiagent Subagents
+
+- `beta_managed_agents_multiagent_subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+  Whether the agent can spawn session threads.
+
+  - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+    The agent can spawn session threads.
+
+    - `type: "enabled"`
+
+    - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+      Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+      - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+        The agent can define inline agents.
+
+        - `type: "enabled"`
+
+      - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+        The agent cannot define inline agents.
+
+        - `type: "disabled"`
+
+    - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+      Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+      - `type: "agent"`
+
+      - `id: string`
+
+      - `version: number`
+
+        format: int32
+
+  - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+    The agent cannot spawn session threads.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Subagents Disabled
+
+- `beta_managed_agents_multiagent_subagents_disabled: object`
+
+  The agent cannot spawn session threads.
+
+  - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Subagents Disabled Params
+
+- `beta_managed_agents_multiagent_subagents_disabled_params: object`
+
+  The agent cannot spawn session threads.
+
+  - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Subagents Enabled
+
+- `beta_managed_agents_multiagent_subagents_enabled: object`
+
+  The agent can spawn session threads.
+
+  - `type: "enabled"`
+
+  - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+    Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+    - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+      The agent can define inline agents.
+
+      - `type: "enabled"`
+
+    - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+      The agent cannot define inline agents.
+
+      - `type: "disabled"`
+
+  - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+    Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+    - `type: "agent"`
+
+    - `id: string`
+
+    - `version: number`
+
+      format: int32
+
+### Beta Managed Agents Multiagent Subagents Enabled Params
+
+- `beta_managed_agents_multiagent_subagents_enabled_params: object`
+
+  The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+  - `type: "enabled"`
+
+  - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+    Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+    - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+      The agent can define inline agents.
+
+      - `type: "enabled"`
+
+    - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+      The agent cannot define inline agents.
+
+      - `type: "disabled"`
+
+  - `predefined_agents: optional array of BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+    Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+    - `union_member_0: string`
+
+    - `beta_managed_agents_agent_params: object`
+
+      Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+      - `type: "agent"`
+
+      - `id: string`
+
+        The `agent` ID.
+
+        minLength: 1, maxLength: 128
+
+      - `version: optional number`
+
+        The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+        format: int32
+
+    - `beta_managed_agents_multiagent_self_params: object`
+
+      Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+      - `type: "self"`
+
+### Beta Managed Agents Multiagent Subagents Params
+
+- `beta_managed_agents_multiagent_subagents_params: BetaManagedAgentsMultiagentSubagentsEnabledParams or BetaManagedAgentsMultiagentSubagentsDisabledParams`
+
+  Whether the agent can spawn session threads.
+
+  - `beta_managed_agents_multiagent_subagents_enabled_params: object`
+
+    The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+    - `type: "enabled"`
+
+    - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+      Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+      - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+        The agent can define inline agents.
+
+        - `type: "enabled"`
+
+      - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+        The agent cannot define inline agents.
+
+        - `type: "disabled"`
+
+    - `predefined_agents: optional array of BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+      Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+      - `union_member_0: string`
+
+      - `beta_managed_agents_agent_params: object`
+
+        Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+        - `type: "agent"`
+
+        - `id: string`
+
+          The `agent` ID.
+
+          minLength: 1, maxLength: 128
+
+        - `version: optional number`
+
+          The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+          format: int32
+
+      - `beta_managed_agents_multiagent_self_params: object`
+
+        Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+        - `type: "self"`
+
+  - `beta_managed_agents_multiagent_subagents_disabled_params: object`
+
+    The agent cannot spawn session threads.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Workflows
+
+- `beta_managed_agents_multiagent_workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+  Whether the agent can start workflow runs.
+
+  - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+    The agent can start workflow runs.
+
+    - `type: "enabled"`
+
+    - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+      Whether a run's plan can define inline agents, which are not saved.
+
+      - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+        The agent can define inline agents.
+
+        - `type: "enabled"`
+
+      - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+        The agent cannot define inline agents.
+
+        - `type: "disabled"`
+
+    - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+      Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+      - `type: "agent"`
+
+      - `id: string`
+
+      - `version: number`
+
+        format: int32
+
+  - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+    The agent cannot start workflow runs.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Workflows Disabled
+
+- `beta_managed_agents_multiagent_workflows_disabled: object`
+
+  The agent cannot start workflow runs.
+
+  - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Workflows Disabled Params
+
+- `beta_managed_agents_multiagent_workflows_disabled_params: object`
+
+  The agent cannot start workflow runs.
+
+  - `type: "disabled"`
+
+### Beta Managed Agents Multiagent Workflows Enabled
+
+- `beta_managed_agents_multiagent_workflows_enabled: object`
+
+  The agent can start workflow runs.
+
+  - `type: "enabled"`
+
+  - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+    Whether a run's plan can define inline agents, which are not saved.
+
+    - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+      The agent can define inline agents.
+
+      - `type: "enabled"`
+
+    - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+      The agent cannot define inline agents.
+
+      - `type: "disabled"`
+
+  - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+    Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+    - `type: "agent"`
+
+    - `id: string`
+
+    - `version: number`
+
+      format: int32
+
+### Beta Managed Agents Multiagent Workflows Enabled Params
+
+- `beta_managed_agents_multiagent_workflows_enabled_params: object`
+
+  The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+  - `type: "enabled"`
+
+  - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+    Whether a run's plan can define inline agents. Defaults to enabled.
+
+    - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+      The agent can define inline agents.
+
+      - `type: "enabled"`
+
+    - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+      The agent cannot define inline agents.
+
+      - `type: "disabled"`
+
+  - `predefined_agents: optional array of BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+    Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+    - `union_member_0: string`
+
+    - `beta_managed_agents_agent_params: object`
+
+      Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+      - `type: "agent"`
+
+      - `id: string`
+
+        The `agent` ID.
+
+        minLength: 1, maxLength: 128
+
+      - `version: optional number`
+
+        The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+        format: int32
+
+    - `beta_managed_agents_multiagent_self_params: object`
+
+      Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+      - `type: "self"`
+
+### Beta Managed Agents Multiagent Workflows Params
+
+- `beta_managed_agents_multiagent_workflows_params: BetaManagedAgentsMultiagentWorkflowsEnabledParams or BetaManagedAgentsMultiagentWorkflowsDisabledParams`
+
+  Whether the agent can start workflow runs.
+
+  - `beta_managed_agents_multiagent_workflows_enabled_params: object`
+
+    The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+    - `type: "enabled"`
+
+    - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+      Whether a run's plan can define inline agents. Defaults to enabled.
+
+      - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+        The agent can define inline agents.
+
+        - `type: "enabled"`
+
+      - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+        The agent cannot define inline agents.
+
+        - `type: "disabled"`
+
+    - `predefined_agents: optional array of BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+      Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+      - `union_member_0: string`
+
+      - `beta_managed_agents_agent_params: object`
+
+        Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+        - `type: "agent"`
+
+        - `id: string`
+
+          The `agent` ID.
+
+          minLength: 1, maxLength: 128
+
+        - `version: optional number`
+
+          The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+          format: int32
+
+      - `beta_managed_agents_multiagent_self_params: object`
+
+        Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+        - `type: "self"`
+
+  - `beta_managed_agents_multiagent_workflows_disabled_params: object`
+
+    The agent cannot start workflow runs.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Multiagent20261001
+
+- `beta_managed_agents_multiagent20261001: object`
+
+  Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+  - `type: "multiagent_20261001"`
+
+  - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+    Whether the session's primary thread can consult an advisor model.
+
+    - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+      The session's primary thread can consult `model` mid-turn.
+
+      - `type: "enabled"`
+
+      - `model: string`
+
+        The advisor model id.
+
+    - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+      The agent has no advisor.
+
+      - `type: "disabled"`
+
+  - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+    Whether the agent can spawn session threads.
+
+    - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+      The agent can spawn session threads.
+
+      - `type: "enabled"`
+
+      - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+        Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+        - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+          The agent can define inline agents.
+
+          - `type: "enabled"`
+
+        - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+          The agent cannot define inline agents.
+
+          - `type: "disabled"`
+
+      - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+        Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+        - `type: "agent"`
+
+        - `id: string`
+
+        - `version: number`
+
+          format: int32
+
+    - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+      The agent cannot spawn session threads.
+
+      - `type: "disabled"`
+
+  - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+    Whether the agent can start workflow runs.
+
+    - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+      The agent can start workflow runs.
+
+      - `type: "enabled"`
+
+      - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+        Whether a run's plan can define inline agents, which are not saved.
+
+        - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+          The agent can define inline agents.
+
+        - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+          The agent cannot define inline agents.
+
+      - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+        Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+        - `type: "agent"`
+
+        - `id: string`
+
+        - `version: number`
+
+          format: int32
+
+    - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+      The agent cannot start workflow runs.
+
+      - `type: "disabled"`
+
+### Beta Managed Agents Multiagent20261001 Params
+
+- `beta_managed_agents_multiagent20261001_params: object`
+
+  Multiagent configuration with three members, each enabled or disabled on its own. On an update, if the agent's stored `multiagent` also has type `multiagent_20261001`, this configuration is merged into the stored one, level by level, instead of replacing it. A key that the update omits keeps its stored value. A key sent as null takes its default, on create as well, so `"workflows": null` enables workflows. An object sent with a `type` other than the stored one replaces the stored object, and the keys that it omits take their defaults. A `predefined_agents` list that is sent replaces the stored list. Every object that is sent needs its `type`, and an enabled `advisor` needs its `model`. Other validation applies to the merged result.
+
+  - `type: "multiagent_20261001"`
+
+  - `advisor: optional BetaManagedAgentsMultiagentAdvisorEnabledParams or BetaManagedAgentsMultiagentAdvisorDisabledParams`
+
+    Whether the session's primary thread can consult an advisor model. Defaults to disabled.
+
+    - `beta_managed_agents_multiagent_advisor_enabled_params: object`
+
+      The session's primary thread can consult `model` mid-turn.
+
+      - `type: "enabled"`
+
+      - `model: string`
+
+        A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+        minLength: 1, maxLength: 256
+
+    - `beta_managed_agents_multiagent_advisor_disabled_params: object`
+
+      The agent has no advisor.
+
+      - `type: "disabled"`
+
+  - `subagents: optional BetaManagedAgentsMultiagentSubagentsEnabledParams or BetaManagedAgentsMultiagentSubagentsDisabledParams`
+
+    Whether the agent can spawn session threads. Defaults to enabled.
+
+    - `beta_managed_agents_multiagent_subagents_enabled_params: object`
+
+      The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+      - `type: "enabled"`
+
+      - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+        Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+        - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+          The agent can define inline agents.
+
+          - `type: "enabled"`
+
+        - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+          The agent cannot define inline agents.
+
+          - `type: "disabled"`
+
+      - `predefined_agents: optional array of BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+        Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+        - `union_member_0: string`
+
+        - `beta_managed_agents_agent_params: object`
+
+          Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+          - `type: "agent"`
+
+          - `id: string`
+
+            The `agent` ID.
+
+            minLength: 1, maxLength: 128
+
+          - `version: optional number`
+
+            The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+            format: int32
+
+        - `beta_managed_agents_multiagent_self_params: object`
+
+          Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+          - `type: "self"`
+
+    - `beta_managed_agents_multiagent_subagents_disabled_params: object`
+
+      The agent cannot spawn session threads.
+
+      - `type: "disabled"`
+
+  - `workflows: optional BetaManagedAgentsMultiagentWorkflowsEnabledParams or BetaManagedAgentsMultiagentWorkflowsDisabledParams`
+
+    Whether the agent can start workflow runs. Defaults to enabled.
+
+    - `beta_managed_agents_multiagent_workflows_enabled_params: object`
+
+      The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+      - `type: "enabled"`
+
+      - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+        Whether a run's plan can define inline agents. Defaults to enabled.
+
+        - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+          The agent can define inline agents.
+
+        - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+          The agent cannot define inline agents.
+
+      - `predefined_agents: optional array of BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+        Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+        - `union_member_0: string`
+
+        - `beta_managed_agents_agent_params: object`
+
+          Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+        - `beta_managed_agents_multiagent_self_params: object`
+
+          Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+    - `beta_managed_agents_multiagent_workflows_disabled_params: object`
+
+      The agent cannot start workflow runs.
+
+      - `type: "disabled"`
 
 ### Beta Managed Agents Read Tool Config
 
@@ -7873,11 +9501,7 @@ ant beta:agents archive \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -9643,11 +11267,7 @@ List Agent Versions
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -9715,37 +11335,151 @@ List Agent Versions
 
         - `"fast"`
 
-    - `multiagent: object`
+    - `multiagent: BetaManagedAgentsMultiagentCoordinator or BetaManagedAgentsMultiagent20261001`
 
       Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-      - `type: "coordinator"`
+      - `beta_managed_agents_multiagent_coordinator: object`
 
-      - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
+        Resolved coordinator topology with a concrete agent roster.
 
-        Agents the coordinator may spawn as session threads, each resolved to a specific version.
+        - `type: "coordinator"`
 
-        - `beta_managed_agents_agent_reference: object`
+        - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
-          A resolved agent reference with a concrete version.
+          Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-          - `type: "agent"`
+          - `beta_managed_agents_agent_reference: object`
 
-          - `id: string`
+            A resolved agent reference with a concrete version.
 
-          - `version: number`
+            - `type: "agent"`
 
-            format: int32
+            - `id: string`
 
-        - `beta_managed_agents_advisor: object`
+            - `version: number`
 
-          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+              format: int32
 
-          - `type: "advisor"`
+          - `beta_managed_agents_advisor: object`
 
-          - `model: string`
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-            The advisor model id.
+            - `type: "advisor"`
+
+            - `model: string`
+
+              The advisor model id.
+
+      - `beta_managed_agents_multiagent20261001: object`
+
+        Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+        - `type: "multiagent_20261001"`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: "enabled"`
+
+            - `model: string`
+
+              The advisor model id.
+
+          - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+            The agent has no advisor.
+
+            - `type: "disabled"`
+
+        - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          Whether the agent can spawn session threads.
+
+          - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+            The agent can spawn session threads.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+                - `type: "enabled"`
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+                - `type: "disabled"`
+
+            - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+              Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+            The agent cannot spawn session threads.
+
+            - `type: "disabled"`
+
+        - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          Whether the agent can start workflow runs.
+
+          - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+            The agent can start workflow runs.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+            - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+              Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+            The agent cannot start workflow runs.
+
+            - `type: "disabled"`
 
     - `name: string`
 
@@ -10278,14 +12012,36 @@ ant beta:agents:versions list \
         "speed": "standard"
       },
       "multiagent": {
-        "agents": [
-          {
-            "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-            "type": "agent",
-            "version": 1
-          }
-        ],
-        "type": "coordinator"
+        "advisor": {
+          "type": "disabled"
+        },
+        "subagents": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        },
+        "type": "multiagent_20261001",
+        "workflows": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        }
       },
       "name": "My First Agent",
       "skills": [

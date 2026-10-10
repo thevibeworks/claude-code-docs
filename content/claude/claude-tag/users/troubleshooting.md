@@ -111,25 +111,31 @@ Editing a sent message to add a mention doesn't trigger a response; Claude only 
 
 Send a new message with the mention included.
 
-### Claude never responds in a channel shared with another company
+<a id="claude-never-responds-in-a-channel-shared-with-another-company" />
+
+### Claude is silent in a channel shared with another company
 
 **What you see**
 
-A mention in a Slack Connect channel, one shared with another company, gets a notice that Claude isn't turned on for Slack Connect channels, and no answer.
+A mention in a Slack Connect channel, one shared with another company, gets no answer and no notice, gets a reply only you can see, or gets a notice saying the thread's earlier session can't continue.
 
 **What it means**
 
-Claude doesn't work in [Slack Connect channels](/docs/claude-tag/admins/restrict-access#slack-connect-channels), and no admin setting turns it on there. If the channel became a Slack Connect channel after Claude was added, Claude stops answering from then on, including in threads it was already part of.
+Find what you saw in this list:
+
+* **No answer and no notice.** By default, Claude is off in Slack Connect channels and posts no notice there. An Owner or a Claude Tag admin can [turn Claude on for Slack Connect channels](/docs/claude-tag/admins/restrict-access#slack-connect-channels). If your admin has turned Claude on and it still doesn't answer, your admin can check the cases listed there.
+* **A reply only you can see.** If Claude's reply starts "This is a shared Slack Connect channel, and here I only act on requests from people in the host organization with a connected Claude account", the company that set up Claude in this channel has limited it to its own members.
+* **A notice about the thread's earlier session.** The notice "This channel is now shared with another organization through Slack Connect, so this thread's earlier session can't continue here" means Claude was working in this thread before the channel was shared. Mention `@Claude` in a new thread.
 
 A channel shared across workspaces inside your Enterprise Grid is different. When every workspace in the channel belongs to your one Claude organization, Claude answers, but with only your organization's default access and settings, so a repository or an instruction set up for that channel doesn't apply. A notice in the thread points this out from time to time. When the workspaces are connected to different Claude organizations, you see "This channel is shared among several Claude workspaces, so Claude cannot respond here" instead of an answer.
 
 Where guest access is restricted, you may first see "This channel is shared across multiple workspaces, and Claude can't verify whether it includes guests, so Claude can't respond here." If you ask Claude from another conversation to act in one of these channels, such as posting a message there, you see a reply that ends "Claude isn't available in channels shared across your Enterprise Grid".
 
-Each of these messages means the channel spans more than one workspace. The [admin entries on these messages](/docs/claude-tag/admins/troubleshooting#this-channel-is-shared-across-multiple-workspaces) explain what causes each one and what an admin can change.
+Each of these Enterprise Grid messages means the channel spans more than one workspace. The [admin entries on these messages](/docs/claude-tag/admins/troubleshooting#this-channel-is-shared-across-multiple-workspaces) explain what causes each one and what an admin can change.
 
 **How to resolve**
 
-Move the conversation to an internal channel that belongs to a single workspace, or to a DM, and mention Claude there.
+Move the conversation to an internal channel that belongs to a single workspace, or to a DM, and mention Claude there. For a Slack Connect channel, you can also ask your admin to [turn Claude on there](/docs/claude-tag/admins/restrict-access#slack-connect-channels).
 
 ### Couldn't check this channel just now
 

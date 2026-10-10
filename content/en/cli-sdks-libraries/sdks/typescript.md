@@ -478,7 +478,7 @@ Note that requests that time out are [retried twice by default](https://platform
   Consider using the streaming [Messages API](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#streaming-responses) for longer running requests.
 </Warning>
 
-Avoid setting a large `max_tokens` value without using streaming. Some networks may drop idle connections after a certain period of time, which can cause the request to fail or [timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#timeouts) without receiving a response from Anthropic.
+Avoid setting a large `max_tokens` value without using streaming. Some networks may drop idle connections after a certain period of time, which can cause the request to fail or [time out](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#timeouts) without receiving a response from Anthropic.
 
 This SDK also throws an error if a non-streaming request is expected to be above roughly 10 minutes long. Passing `stream: true` or [overriding](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#timeouts) the `timeout` option at the client or request level disables this error.
 
@@ -726,9 +726,9 @@ To modify proxy behavior, you can provide custom `fetchOptions` that add runtime
 
 ## Beta features
 
-Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [build with Claude overview](https://platform.claude.com/docs/en/build-with-claude/overview).
+Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
-You can access most beta API features through the beta property of the client. To enable a particular beta feature, you need to add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) to the `betas` field when creating a message.
+You can access most beta API features through the `beta` property of the client. To enable a particular beta feature, you need to add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) to the `betas` field when creating a message.
 
 For example, to enable [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing):
 

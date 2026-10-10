@@ -131,7 +131,7 @@ List Events
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -464,6 +464,10 @@ List Events
     - `string sessionThreadID`
 
       Public `sthr_` ID of the newly created thread.
+
+    - `?string workflowRunID`
+
+      Identifier of the workflow run that created the thread, or `null` for any other thread.
 
   - `class ManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -795,6 +799,150 @@ List Events
 
       The session's configured budget at the snapshot time, or null when the session has no budget.
 
+  - `class ManagedAgentsWorkflowRunCreatedEvent`
+
+    - `"workflow_run.created" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `?string description`
+
+      Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+    - `string name`
+
+      Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+    - `list<ManagedAgentsWorkflowRunPhase> phases`
+
+      The phases that the run's plan declares, in the plan's order. Can be empty.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunStatusEndedEvent`
+
+    - `"workflow_run.status_ended" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `ManagedAgentsWorkflowRunResult result`
+
+      How the run ended.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunPhaseStartedEvent`
+
+    - `"workflow_run.phase_started" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `string workflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class ManagedAgentsWorkflowRunPhaseEndedEvent`
+
+    - `"workflow_run.phase_ended" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `string phaseStartedID`
+
+      Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `string workflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class ManagedAgentsWorkflowRunStatusRunningEvent`
+
+    - `"workflow_run.status_running" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunStatusIdleEvent`
+
+    - `"workflow_run.status_idle" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunErrorEvent`
+
+    - `"workflow_run.error" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `ManagedAgentsWorkflowRunError error`
+
+      Why the run did not finish, or was not created.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `?string workflowRunID`
+
+      Identifier of the run that met the error, or `null` when the error kept a run from being created.
+
 ### Example
 
 ```php
@@ -1031,7 +1179,7 @@ Stream Events
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -1364,6 +1512,10 @@ Stream Events
     - `string sessionThreadID`
 
       Public `sthr_` ID of the newly created thread.
+
+    - `?string workflowRunID`
+
+      Identifier of the workflow run that created the thread, or `null` for any other thread.
 
   - `class ManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -1714,6 +1866,150 @@ Stream Events
     - `?BetaManagedAgentsBudgetLimit budget`
 
       The session's configured budget at the snapshot time, or null when the session has no budget.
+
+  - `class ManagedAgentsWorkflowRunCreatedEvent`
+
+    - `"workflow_run.created" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `?string description`
+
+      Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+    - `string name`
+
+      Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+    - `list<ManagedAgentsWorkflowRunPhase> phases`
+
+      The phases that the run's plan declares, in the plan's order. Can be empty.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunStatusEndedEvent`
+
+    - `"workflow_run.status_ended" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `ManagedAgentsWorkflowRunResult result`
+
+      How the run ended.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunPhaseStartedEvent`
+
+    - `"workflow_run.phase_started" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `string workflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class ManagedAgentsWorkflowRunPhaseEndedEvent`
+
+    - `"workflow_run.phase_ended" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `string phaseStartedID`
+
+      Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `string workflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class ManagedAgentsWorkflowRunStatusRunningEvent`
+
+    - `"workflow_run.status_running" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunStatusIdleEvent`
+
+    - `"workflow_run.status_idle" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunErrorEvent`
+
+    - `"workflow_run.error" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `ManagedAgentsWorkflowRunError error`
+
+      Why the run did not finish, or was not created.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `?string workflowRunID`
+
+      Identifier of the run that met the error, or `null` when the error kept a run from being created.
 
 ### Example
 
@@ -2230,7 +2526,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -2330,6 +2626,16 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     The source of the image data.
 
+### Beta Managed Agents Max Workflow Runs Workflow Run Error
+
+- `class ManagedAgentsMaxWorkflowRunsWorkflowRunError`
+
+  - `"max_workflow_runs_error" type`
+
+  - `string message`
+
+    Short explanation written by the server. It never contains content from the run or its agents.
+
 ### Beta Managed Agents MCP Authentication Failed Error
 
 - `class ManagedAgentsMCPAuthenticationFailedError`
@@ -2421,6 +2727,16 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `MediaType mediaType`
 
     MIME type of the text content. Must be "text/plain".
+
+### Beta Managed Agents Program Workflow Run Error
+
+- `class ManagedAgentsProgramWorkflowRunError`
+
+  - `"program_error" type`
+
+  - `string message`
+
+    Short explanation written by the server. It never contains content from the run or its agents.
 
 ### Beta Managed Agents Redacted Block
 
@@ -2700,7 +3016,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -3034,6 +3350,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Public `sthr_` ID of the newly created thread.
 
+    - `?string workflowRunID`
+
+      Identifier of the workflow run that created the thread, or `null` for any other thread.
+
   - `class ManagedAgentsSpanOutcomeEvaluationStartEvent`
 
     - `Type type`
@@ -3364,6 +3684,150 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       The session's configured budget at the snapshot time, or null when the session has no budget.
 
+  - `class ManagedAgentsWorkflowRunCreatedEvent`
+
+    - `"workflow_run.created" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `?string description`
+
+      Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+    - `string name`
+
+      Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+    - `list<ManagedAgentsWorkflowRunPhase> phases`
+
+      The phases that the run's plan declares, in the plan's order. Can be empty.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunStatusEndedEvent`
+
+    - `"workflow_run.status_ended" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `ManagedAgentsWorkflowRunResult result`
+
+      How the run ended.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunPhaseStartedEvent`
+
+    - `"workflow_run.phase_started" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `string workflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class ManagedAgentsWorkflowRunPhaseEndedEvent`
+
+    - `"workflow_run.phase_ended" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `string phaseStartedID`
+
+      Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `string workflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class ManagedAgentsWorkflowRunStatusRunningEvent`
+
+    - `"workflow_run.status_running" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunStatusIdleEvent`
+
+    - `"workflow_run.status_idle" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunErrorEvent`
+
+    - `"workflow_run.error" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `ManagedAgentsWorkflowRunError error`
+
+      Why the run did not finish, or was not created.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `?string workflowRunID`
+
+      Identifier of the run that met the error, or `null` when the error kept a run from being created.
+
 ### Beta Managed Agents Session Event Type
 
 - `enum ManagedAgentsSessionEventType`
@@ -3435,6 +3899,20 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `"system.message"`
 
   - `"session.usage"`
+
+  - `"workflow_run.created"`
+
+  - `"workflow_run.status_running"`
+
+  - `"workflow_run.status_idle"`
+
+  - `"workflow_run.status_ended"`
+
+  - `"workflow_run.error"`
+
+  - `"workflow_run.phase_started"`
+
+  - `"workflow_run.phase_ended"`
 
 ### Beta Managed Agents Session Refusal
 
@@ -3555,6 +4033,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `string sessionThreadID`
 
     Public `sthr_` ID of the newly created thread.
+
+  - `?string workflowRunID`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
 
 ### Beta Managed Agents Session Thread Status Idle Event
 
@@ -3902,7 +4384,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -4235,6 +4717,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
     - `string sessionThreadID`
 
       Public `sthr_` ID of the newly created thread.
+
+    - `?string workflowRunID`
+
+      Identifier of the workflow run that created the thread, or `null` for any other thread.
 
   - `class ManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -4586,6 +5072,150 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       The session's configured budget at the snapshot time, or null when the session has no budget.
 
+  - `class ManagedAgentsWorkflowRunCreatedEvent`
+
+    - `"workflow_run.created" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `?string description`
+
+      Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+    - `string name`
+
+      Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+    - `list<ManagedAgentsWorkflowRunPhase> phases`
+
+      The phases that the run's plan declares, in the plan's order. Can be empty.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunStatusEndedEvent`
+
+    - `"workflow_run.status_ended" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `ManagedAgentsWorkflowRunResult result`
+
+      How the run ended.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunPhaseStartedEvent`
+
+    - `"workflow_run.phase_started" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `string workflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class ManagedAgentsWorkflowRunPhaseEndedEvent`
+
+    - `"workflow_run.phase_ended" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `string phaseStartedID`
+
+      Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `string workflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class ManagedAgentsWorkflowRunStatusRunningEvent`
+
+    - `"workflow_run.status_running" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunStatusIdleEvent`
+
+    - `"workflow_run.status_idle" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `string workflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class ManagedAgentsWorkflowRunErrorEvent`
+
+    - `"workflow_run.error" type`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `ManagedAgentsWorkflowRunError error`
+
+      Why the run did not finish, or was not created.
+
+    - `\Datetime processedAt`
+
+      Timestamp when this event was processed.
+
+    - `?string workflowRunID`
+
+      Identifier of the run that met the error, or `null` when the error kept a run from being created.
+
 ### Beta Managed Agents System Message Event Params
 
 - `class ManagedAgentsSystemMessageEventParams`
@@ -4626,6 +5256,26 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
+### Beta Managed Agents Thread Limit Workflow Run Error
+
+- `class ManagedAgentsThreadLimitWorkflowRunError`
+
+  - `"thread_limit_error" type`
+
+  - `string message`
+
+    Short explanation written by the server. It never contains content from the run or its agents.
+
+### Beta Managed Agents Timeout Workflow Run Error
+
+- `class ManagedAgentsTimeoutWorkflowRunError`
+
+  - `"timeout_error" type`
+
+  - `string message`
+
+    Short explanation written by the server. It never contains content from the run or its agents.
+
 ### Beta Managed Agents Unknown Error
 
 - `class ManagedAgentsUnknownError`
@@ -4639,6 +5289,16 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `RetryStatus retryStatus`
 
     What the client should do next.
+
+### Beta Managed Agents Unknown Workflow Run Error
+
+- `class ManagedAgentsUnknownWorkflowRunError`
+
+  - `"unknown_error" type`
+
+  - `string message`
+
+    Short explanation written by the server. It never contains content from the run or its agents.
 
 ### Beta Managed Agents URL Document Source
 
@@ -4672,7 +5332,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `string customToolUseID`
 
-    The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+    The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
   - `?list<Content> content`
 
@@ -4698,7 +5358,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `string customToolUseID`
 
-    The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+    The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
   - `?list<Content> content`
 
@@ -4877,3 +5537,263 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `?bool isError`
 
     Whether the tool execution resulted in an error.
+
+### Beta Managed Agents Workflow Run Created Event
+
+- `class ManagedAgentsWorkflowRunCreatedEvent`
+
+  - `"workflow_run.created" type`
+
+  - `string id`
+
+    Unique identifier for this event.
+
+  - `?string description`
+
+    Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+  - `string name`
+
+    Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+  - `list<ManagedAgentsWorkflowRunPhase> phases`
+
+    The phases that the run's plan declares, in the plan's order. Can be empty.
+
+  - `\Datetime processedAt`
+
+    Timestamp when this event was processed.
+
+  - `string workflowRunID`
+
+    Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+### Beta Managed Agents Workflow Run Error
+
+- `class ManagedAgentsWorkflowRunError`
+
+  - `class ManagedAgentsTimeoutWorkflowRunError`
+
+    - `"timeout_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class ManagedAgentsProgramWorkflowRunError`
+
+    - `"program_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class ManagedAgentsUnknownWorkflowRunError`
+
+    - `"unknown_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class ManagedAgentsThreadLimitWorkflowRunError`
+
+    - `"thread_limit_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class ManagedAgentsMaxWorkflowRunsWorkflowRunError`
+
+    - `"max_workflow_runs_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+### Beta Managed Agents Workflow Run Error Event
+
+- `class ManagedAgentsWorkflowRunErrorEvent`
+
+  - `"workflow_run.error" type`
+
+  - `string id`
+
+    Unique identifier for this event.
+
+  - `ManagedAgentsWorkflowRunError error`
+
+    Why the run did not finish, or was not created.
+
+  - `\Datetime processedAt`
+
+    Timestamp when this event was processed.
+
+  - `?string workflowRunID`
+
+    Identifier of the run that met the error, or `null` when the error kept a run from being created.
+
+### Beta Managed Agents Workflow Run Phase
+
+- `class ManagedAgentsWorkflowRunPhase`
+
+  - `string id`
+
+    Unique identifier for the phase.
+
+  - `?string description`
+
+    Description that the agent gave the phase, passed on as written, or `null` if it gave none.
+
+  - `string name`
+
+    Name that the agent gave the phase, passed on as written.
+
+### Beta Managed Agents Workflow Run Phase Ended Event
+
+- `class ManagedAgentsWorkflowRunPhaseEndedEvent`
+
+  - `"workflow_run.phase_ended" type`
+
+  - `string id`
+
+    Unique identifier for this event.
+
+  - `string phaseStartedID`
+
+    Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+  - `\Datetime processedAt`
+
+    Timestamp when this event was processed.
+
+  - `string workflowRunID`
+
+    Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `string workflowRunPhaseID`
+
+    Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+### Beta Managed Agents Workflow Run Phase Started Event
+
+- `class ManagedAgentsWorkflowRunPhaseStartedEvent`
+
+  - `"workflow_run.phase_started" type`
+
+  - `string id`
+
+    Unique identifier for this event.
+
+  - `\Datetime processedAt`
+
+    Timestamp when this event was processed.
+
+  - `string workflowRunID`
+
+    Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `string workflowRunPhaseID`
+
+    Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+### Beta Managed Agents Workflow Run Result
+
+- `class ManagedAgentsWorkflowRunResult`
+
+  - `class ManagedAgentsWorkflowRunResultCompleted`
+
+    - `"completed" type`
+
+  - `class ManagedAgentsWorkflowRunResultError`
+
+    - `"error" type`
+
+    - `ManagedAgentsWorkflowRunError error`
+
+      Why the run did not finish.
+
+  - `class ManagedAgentsWorkflowRunResultStopped`
+
+    - `"stopped" type`
+
+### Beta Managed Agents Workflow Run Result Completed
+
+- `class ManagedAgentsWorkflowRunResultCompleted`
+
+  - `"completed" type`
+
+### Beta Managed Agents Workflow Run Result Error
+
+- `class ManagedAgentsWorkflowRunResultError`
+
+  - `"error" type`
+
+  - `ManagedAgentsWorkflowRunError error`
+
+    Why the run did not finish.
+
+### Beta Managed Agents Workflow Run Result Stopped
+
+- `class ManagedAgentsWorkflowRunResultStopped`
+
+  - `"stopped" type`
+
+### Beta Managed Agents Workflow Run Status Ended Event
+
+- `class ManagedAgentsWorkflowRunStatusEndedEvent`
+
+  - `"workflow_run.status_ended" type`
+
+  - `string id`
+
+    Unique identifier for this event.
+
+  - `\Datetime processedAt`
+
+    Timestamp when this event was processed.
+
+  - `ManagedAgentsWorkflowRunResult result`
+
+    How the run ended.
+
+  - `string workflowRunID`
+
+    Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+### Beta Managed Agents Workflow Run Status Idle Event
+
+- `class ManagedAgentsWorkflowRunStatusIdleEvent`
+
+  - `"workflow_run.status_idle" type`
+
+  - `string id`
+
+    Unique identifier for this event.
+
+  - `\Datetime processedAt`
+
+    Timestamp when this event was processed.
+
+  - `string workflowRunID`
+
+    Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+### Beta Managed Agents Workflow Run Status Running Event
+
+- `class ManagedAgentsWorkflowRunStatusRunningEvent`
+
+  - `"workflow_run.status_running" type`
+
+  - `string id`
+
+    Unique identifier for this event.
+
+  - `\Datetime processedAt`
+
+    Timestamp when this event was processed.
+
+  - `string workflowRunID`
+
+    Identifier of the run. The same value is on all of the run's `workflow_run.*` events.

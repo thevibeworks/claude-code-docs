@@ -6,7 +6,7 @@
 
 > How Claude Desktop on 3P identifies users and where it stores conversations, settings, and credentials on disk
 
-Claude Desktop on third-party (3P) keeps conversations, settings, and credentials on the device. When the configuration comes from MDM, a local file, or a bootstrap server, users have no Anthropic account and never sign in to Anthropic, and Anthropic holds no per-user state. When your organization manages the app from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), users sign in with a Claude account to receive their settings, and [Where your data goes](/docs/third-party/claude-desktop/admin-console#where-your-data-goes) lists what Anthropic stores in that case.
+Claude Desktop on third-party (3P) keeps conversations, settings, and credentials on the device. For [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions), the remote host also stores their conversations and receives your inference credential. When the configuration comes from MDM, a local file, or a bootstrap server, users have no Anthropic account and never sign in to Anthropic, and Anthropic holds no per-user state. When your organization manages the app from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), users sign in with a Claude account to receive their settings, and [Where your data goes](/docs/third-party/claude-desktop/admin-console#where-your-data-goes) lists what Anthropic stores in that case.
 
 ## Identity
 
@@ -102,6 +102,8 @@ The app deletes whole sessions in the background. A chat or Cowork task is delet
 
 ## Removing data
 
-To fully reset a device's Claude Desktop on 3P state, delete the application-data directory above and the `~/Claude/` user-files folder. Code session transcripts are in Claude Code's store at `~/.claude/projects/`, which Claude Code in the terminal also uses, so delete them there separately if you need to remove them. For [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions#host-requirements), that store and any attached files are on the remote host. To return to standard Claude Desktop without removing data, choose the Anthropic sign-in option on the sign-in screen; to also remove the locally authored 3P configuration, delete the `configLibrary/` directory.
+To fully reset a device's Claude Desktop on 3P state, delete the application-data directory above and the `~/Claude/` user-files folder. Code session transcripts are in Claude Code's store at `~/.claude/projects/`, which Claude Code in the terminal also uses, so delete them there separately if you need to remove them. For [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions#host-requirements), transcripts are in `~/.claude/projects/` and attached files in `~/.claude/uploads/` in the SSH user's home directory on the remote host. Claude Desktop also copies those transcripts to the device, into folders in `~/.claude/projects/` whose names start with `ssh-`, so delete them in both places.
 
-Conversation history exists only on this device, or on the SSH host for remote Code sessions, so deleting it is unrecoverable.
+To return to standard Claude Desktop without removing data, choose the Anthropic sign-in option on the sign-in screen; to also remove the locally authored 3P configuration, delete the `configLibrary/` directory.
+
+Except for SSH remote sessions, conversation history exists only on this device, so deleting it is unrecoverable. Deleting an SSH remote session in the app doesn't delete its transcript on the remote host.

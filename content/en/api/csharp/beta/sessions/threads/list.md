@@ -27,6 +27,20 @@ List Session Threads
 
     Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
+  - `IReadOnlyList<BetaManagedAgentsSessionThreadStatus> statuses` (query parameter)
+
+    Return only threads that have one of these statuses.
+
+    Repeat the parameter to give more than one status. Leave it out to return threads of every status.
+
+    - `Running("running")`
+
+    - `Idle("idle")`
+
+    - `Rescheduling("rescheduling")`
+
+    - `Terminated("terminated")`
+
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
@@ -227,11 +241,7 @@ List Session Threads
 
           - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
-            Fastest model with near-frontier intelligence
-
           - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
-
-            Fastest model with near-frontier intelligence
 
           - `ClaudeOpus4_5("claude-opus-4-5")`
 
@@ -771,6 +781,52 @@ List Session Threads
 
         The advisor model id.
 
+    - `class BetaManagedAgentsInlineAgent`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `JsonElement Type = "inline"`
+
+      - `required string? Description`
+
+      - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
+
+        - `required Type Type`
+
+        - `required string Name`
+
+        - `required string Url`
+
+      - `required BetaManagedAgentsModelConfig Model`
+
+        Model identifier and configuration.
+
+      - `required string Name`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `required IReadOnlyList<Skill> Skills`
+
+        - `class BetaManagedAgentsAnthropicSkill`
+
+          A resolved Anthropic-managed skill.
+
+        - `class BetaManagedAgentsCustomSkill`
+
+          A resolved user-created custom skill.
+
+      - `required string? System`
+
+      - `required IReadOnlyList<Tool> Tools`
+
+        - `class BetaManagedAgentsAgentToolset20260401`
+
+        - `class BetaManagedAgentsMcpToolset`
+
+        - `class BetaManagedAgentsCustomTool`
+
+          A custom tool as returned in API responses.
+
   - `required DateTimeOffset? ArchivedAt`
 
     When the thread was archived. Null if not archived.
@@ -903,6 +959,10 @@ List Session Threads
 
         format: int32
 
+  - `required string? WorkflowRunID`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```csharp
@@ -1005,7 +1065,8 @@ await foreach (var item in page.Paginate())
           "web_fetch_requests": 0,
           "web_search_requests": 3
         }
-      }
+      },
+      "workflow_run_id": null
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="

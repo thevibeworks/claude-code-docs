@@ -1414,6 +1414,7 @@ type SDKAssistantMessage = {
   agent_id?: string;
   timestamp?: string;
   context_usage?: SDKContextUsage;
+  usage_report?: SDKUsageReport;
   user_message_uuid?: string;
   user_message_uuids?: string[];
   resume_reason?: string;
@@ -1435,11 +1436,19 @@ The `message` field is a [`BetaMessage`](https://platform.claude.com/docs/en/api
 
 Match a subagent's messages to its task events on `agent_id` rather than pairing a message's `parent_tool_use_id` with a task event's `tool_use_id`. When a tool call resumes the subagent, the task events carry that call's `tool_use_id`, while the messages keep the `parent_tool_use_id` of the tool call that first started the subagent, so the two no longer match.
 
-Claude Code sets `user_message_uuid` and `user_message_uuids` on the turn's first assistant message, under the conditions in [`user_message_uuid`](#user_message_uuid). When Claude Code re-runs a turn that a restart interrupted, the re-run's assistant messages that carry those fields also carry [`resume_reason`](#resume_reason).
+Claude Code sets `user_message_uuid` and `user_message_uuids` on the turn's first assistant message, under the conditions in [`user_message_uuid`](#user_message_uuid). When the turn continues one that a restart interrupted, the assistant messages that carry those fields also carry [`resume_reason`](#resume_reason).
 
 `timestamp` is the ISO 8601 time when the message's content finished generating on the process that produced it. The value comes from that machine's clock, so use it for display only and don't order messages by it. One API turn can produce several assistant messages that share a `message.id`, each with its own `timestamp`. When the field is absent, fall back to the time you received the message.
 
 `context_usage` is a structured copy of the `/context` report, typed as [`SDKContextUsage`](#sdkcontextusage), and requires Agent SDK v0.3.232 or later. When you send `/context` as a prompt, Claude Code delivers the report as an assistant message whose `message.content` holds the markdown table, and attaches `context_usage` to that same message. Claude Code doesn't set the field on any other assistant message, and earlier versions deliver the `/context` table without it, so read the breakdown from the field when it's present and fall back to the markdown text when it isn't.
+
+`usage_report` is a structured copy of the `/usage` report, typed as [`SDKUsageReport`](#sdkusagereport), and requires Agent SDK v0.3.273 or later. When you send `/usage` as a prompt, Claude Code delivers the report as an assistant message whose `message.content` holds the text. It attaches `usage_report` to that same message only when the session meets all of these conditions:
+
+* The session authenticates with a claude.ai credential
+* The credential shows a known plan type or carries the `user:profile` scope
+* The account isn't on usage-based billing
+
+A `claude setup-token` token passed as `CLAUDE_CODE_OAUTH_TOKEN` doesn't qualify by default, because it carries only the `user:inference` scope. Other sessions, such as API-key sessions, deliver the text without the field, and so do earlier versions. Read the report from the field when it's present and fall back to the text when it isn't.
 
 ### `SDKUserMessage`
 
@@ -1467,6 +1476,11 @@ type SDKUserMessage = {
 Set `pasted_content` to send content the user pasted into your prompt UI rather than typed, one entry per paste, each a string or an array of content blocks. Claude Code appends each entry's text after the typed text, in order, and may wrap each paste in `<pasted_content>` tags. Blocks other than text are ignored, so send images and documents in `message.content`. Requires Agent SDK v0.3.277 or later.
 
 Set `inline_pastes` to tell Claude Code which parts of `message.content` the user pasted rather than typed, one string per paste. The prompt text stays where the user put it. Claude Code may wrap each listed paste in `<pasted_content>` tags where it stands, so Claude can tell pasted material from the user's own words. Only pastes in the prompt's last text block are wrapped. Requires TypeScript Agent SDK v0.3.280 or later.
+
+Each paste field has a size limit:
+
+* `pasted_content`: if the entries plus the content blocks inside them number more than 1,000, Claude Code ignores the whole field.
+* `inline_pastes`: Claude Code uses the first 100 entries that aren't blank and ignores the rest.
 
 Set `shouldQuery`, `client_composed`, or `priority` to change how Claude Code handles a message you send:
 
@@ -1608,7 +1622,7 @@ Several fields on the result carry diagnostic detail beyond `subtype`:
 * `ttft_stream_ms`: time in milliseconds until the first `message_start` stream event, when the response stream opens. Lower than `ttft_ms`; the gap between the two is time spent streaming the first message. Present on the success arm only.
 * `user_message_uuid`: the `uuid` of the message you sent that this turn answered. See [`user_message_uuid`](#user_message_uuid) for which results carry it.
 * `user_message_uuids`: the `uuid`s of every message you sent that Claude Code answered in this turn. See [`user_message_uuids`](#user_message_uuids).
-* `resume_reason`: why Claude Code re-ran this turn after a restart interrupted it. Present on both arms. See [`resume_reason`](#resume_reason).
+* `resume_reason`: why this turn continues one that a restart interrupted. Present on both arms. See [`resume_reason`](#resume_reason).
 * `local_command`: the name of the command the turn dispatched, on the success result of a turn that a command completed without entering the agent loop, such as `/compact`. The name is folded to lowercase letters and underscores, so `/reload-plugins` reports `reload_plugins`. A command that an MCP server provides, and the built-in `/mcp`, report `mcp`. A command you defined yourself reports `custom`. The arguments are never included. Absent on every turn that entered the agent loop and on sends that ran no command. Requires Agent SDK v0.3.268 or later.
 * `request_sent_wall_ms`: epoch milliseconds at which Claude Code dispatched the API request, for joins against server-side timestamps. Present only together with [`user_message_uuid`](#user_message_uuid), on a success result with `is_error` false whose turn sent an API request.
 * `first_content_frame_ms`: time in milliseconds until the first `content_block_start` or `content_block_delta` stream event, counting thinking blocks as content. Present on the success arm only, when `is_error` is false. Requires Agent SDK v0.3.260 or later.
@@ -1656,7 +1670,7 @@ Which of your messages a turn answers depends on how the turn started:
 
 * **A regular message you sent**, meaning one without `isSynthetic: true`: the turn answers that message for its whole run. When you send several messages close together, Claude Code can merge them into one turn, and the field then carries only the last message's `uuid`. To match the reply to any of the merged messages, use [`user_message_uuids`](#user_message_uuids).
 * **A message you sent with `isSynthetic: true`**: the turn answers that message at first. If Claude Code picks up a regular message of yours between tool calls, the turn answers the picked-up message from then on. Echoing a synthetic message's `uuid` requires Agent SDK v0.3.265 or later; earlier versions echo nothing on synthetic turns.
-* **The prompt Claude Code generates to re-run an interrupted turn under [`CLAUDE_CODE_RESUME_INTERRUPTED_TURN`](/docs/en/env-vars)**: when the interrupted turn's last prompt is a regular message you sent, whether it opened the turn or Claude Code picked it up during the turn, the re-run answers that message at first. [`resume_reason`](#resume_reason) tells the re-run's frames from the interrupted attempt's. When the last prompt isn't a regular message of yours, the re-run answers no message of yours at first. If Claude Code picks up a regular message of yours between tool calls, the turn answers the picked-up message from then on. Echoing the interrupted turn's prompt requires Agent SDK v0.3.268 or later.
+* **The prompt Claude Code generates to continue an interrupted turn under [`CLAUDE_CODE_RESUME_INTERRUPTED_TURN`](/docs/en/env-vars)**: when the interrupted turn's last prompt is a regular message you sent, whether it opened the turn or Claude Code picked it up during the turn, the continued turn answers that message at first. [`resume_reason`](#resume_reason) tells the continued turn's frames from the interrupted attempt's. When the last prompt isn't a regular message of yours, the continued turn answers no message of yours at first. If Claude Code picks up a regular message of yours between tool calls, the turn answers the picked-up message from then on. Echoing the interrupted turn's prompt requires Agent SDK v0.3.268 or later.
 * **Any other prompt Claude Code generated itself**: the turn answers no message of yours at first and its frames carry no echo. If Claude Code picks up a regular message of yours between tool calls, the turn answers that message from then on. The pickup echo requires Agent SDK v0.3.265 or later; earlier versions echo nothing on these turns.
 
 Claude Code echoes the answered message's `uuid` on three kinds of frame:
@@ -1684,14 +1698,14 @@ When a first reply or result carries `user_message_uuid` without the list, it ca
 
 #### `resume_reason`
 
-Why Claude Code re-ran this turn after a restart. Claude Code sets this field on a turn it re-ran under [`CLAUDE_CODE_RESUME_INTERRUPTED_TURN`](/docs/en/env-vars), so you can tell the re-run's reply and result from the interrupted attempt's. Requires Agent SDK v0.3.268 or later.
+Why this turn continues one that a restart interrupted. Claude Code sets this field on a turn that continues an interrupted one under [`CLAUDE_CODE_RESUME_INTERRUPTED_TURN`](/docs/en/env-vars), so you can tell the continued turn's reply and result from the interrupted attempt's. Requires Agent SDK v0.3.268 or later.
 
 Claude Code sets the field on two kinds of frame:
 
-* **The re-run's result**: on the success and error arms alike, whether or not the result carries `user_message_uuid`.
-* **The re-run's reply frames**: those that carry [`user_message_uuid`](#user_message_uuid).
+* **The continued turn's result**: on the success and error arms alike, whether or not the result carries `user_message_uuid`.
+* **The continued turn's reply frames**: those that carry [`user_message_uuid`](#user_message_uuid).
 
-The value is a short lowercase token naming why the turn was re-run, such as `interrupted_turn`.
+The value is a short lowercase token, such as `interrupted_turn`.
 
 #### `queued_turn_count`
 
@@ -1848,7 +1862,7 @@ type SDKPartialAssistantMessage = {
 };
 ```
 
-Claude Code sets `user_message_uuid` and `user_message_uuids` on the turn's first non-ping stream event, and again when the message that the turn is answering changes, under the conditions in [`user_message_uuid`](#user_message_uuid). When Claude Code re-runs a turn that a restart interrupted, the re-run's stream events that carry those fields also carry [`resume_reason`](#resume_reason).
+Claude Code sets `user_message_uuid` and `user_message_uuids` on the turn's first non-ping stream event, and again when the message that the turn is answering changes, under the conditions in [`user_message_uuid`](#user_message_uuid). When the turn continues one that a restart interrupted, the stream events that carry those fields also carry [`resume_reason`](#resume_reason).
 
 ### `SDKCompactBoundaryMessage`
 
@@ -2052,6 +2066,77 @@ Each `kind` value says what the row's tokens are:
 * `free`: the remaining window
 * `buffer`: the compaction reserve
 * `deferred`: tool schemas Claude Code holds out of the window and excludes from the usage calculation, listed for awareness
+
+### `SDKUsageReport`
+
+Structured form of the `/usage` report, carried as `usage_report` on the [`SDKAssistantMessage`](#sdkassistantmessage) that delivers a `/usage` result. Agent SDK v0.3.273 and later export the type. The type is experimental: its shape may change.
+
+```typescript theme={null}
+type SDKUsageReport = {
+  session: {
+    total_cost_usd: number;
+    total_api_duration_ms: number;
+    total_duration_ms: number;
+    total_lines_added: number;
+    total_lines_removed: number;
+    model_usage: { [modelName: string]: ModelUsage };
+  };
+  rate_limits: {
+    limits:
+      | {
+          kind: string;
+          group: string;
+          percent: number;
+          resets_at: string | null;
+          scope?: {
+            model?: { display_name: string } | null;
+            surface?: { display_name: string } | null;
+          } | null;
+          severity: string;
+          is_active: boolean;
+        }[]
+      | null;
+    extra_usage?: {
+      is_enabled: boolean;
+      monthly_limit: number | null;
+      used_credits: number | null;
+      utilization: number | null;
+      currency?: string | null;
+    } | null;
+  } | null;
+};
+```
+
+The top-level fields are `session` and `rate_limits`:
+
+* `session`: Claude Code's running cost and usage totals, read from the same ledger as `total_cost_usd` and `modelUsage` on [`SDKResultMessage`](#sdkresultmessage). Each `model_usage` entry is a [`ModelUsage`](#modelusage).
+* `rate_limits`: the plan's usage rows in `limits` and usage-credits spend in `extra_usage`. It is `null` when Claude Code couldn't get the plan's usage, for example when the session's OAuth token lacks the `user:profile` scope.
+
+Claude Code computes `session.total_cost_usd` locally from token counts, so it is an estimate and not what your plan bills. The usage-credits spend the server reports is the separate `extra_usage` block. See [Track cost and usage](/docs/en/agent-sdk/cost-tracking) for the accuracy caveats.
+
+`limits` holds the server's usage rows as the server sent them: which meters apply, their scope, labels, severity, and order are the server's, so render the rows verbatim.
+
+* An empty array means the server reported no meters.
+* `null` means Claude Code has no rows to report.
+
+Each row of `limits` describes one usage meter:
+
+| Field | Type | Description |
+| - | - | - |
+| `kind` | `string` | The server's meter kind, such as `session`, `weekly_all`, or `weekly_scoped`. Classify a row on this, never on a label |
+| `group` | `string` | The server's row group, such as `session` or `weekly`. Rows render grouped under it, in the server's order |
+| `percent` | `number` | Share of the window used, 0-100 |
+| `resets_at` | `string \| null` | ISO 8601 timestamp when the window resets |
+| `scope` | `object \| null` | Optional. What a scoped row is for, a model or a surface, with the server's display label |
+| `severity` | `string` | The server's reading of the row for a meter's color, such as `normal`, `warning`, or `critical` |
+| `is_active` | `boolean` | `true` on the row the server picks for a single-value indicator to show |
+
+Before Agent SDK v0.3.277, the type declared `severity` and `is_active` as optional and nullable, and a row could arrive without them.
+
+`extra_usage` is the [usage credits](https://support.claude.com/en/articles/12429409-extra-usage-for-paid-claude-plans) spend and cap for the billing period as the server reports them, present when the plan has usage credits. Amounts are in minor units of `currency`, cents for USD.
+
+* `monthly_limit` is `null` when this account has no spending cap of its own. On Team and Enterprise plans, don't render `null` as unlimited.
+* `is_enabled` is `false` while usage credits can't pay for requests.
 
 ### `SDKMessageOrigin`
 
@@ -3164,7 +3249,7 @@ Runs a [dynamic workflow](/docs/en/workflows): a script that orchestrates many s
 | - | - | - |
 | `script` | `string` | Inline workflow script. Must begin with `export const meta = { name, description }` as a literal, followed by the script body using `agent()`, `parallel()`, `pipeline()`, and `phase()`. An optional `phases` array in `meta` groups agents under named stages in the progress view |
 | `name` | `string` | Name of a built-in workflow or one saved in `.claude/workflows/`. Resolved to a script |
-| `scriptPath` | `string` | Path to a workflow script file on disk. Takes precedence over `script` and `name`. Claude Code persists every invocation's script and returns the path in the result, so you can edit that file and re-invoke with the same `scriptPath` to iterate |
+| `scriptPath` | `string` | Path to a workflow script file on disk, such as the `scriptPath` a previous run returned. Takes precedence over `script` and `name`. Claude Code rejects `scriptPath` with an error when the session's tools don't include `Read` |
 | `args` | `unknown` | Input value exposed to the script as the global `args`, for parameterized named workflows such as a research question or a list of file paths. Pass arrays and objects as actual JSON values, not as a JSON-encoded string |
 | `resumeFromRunId` | `string` | Run ID of a prior `Workflow` invocation to resume. Completed `agent()` calls with unchanged inputs usually return cached results; the rest run live. [Resume after a pause](/docs/en/workflows#resume-after-a-pause) covers which completed calls re-run. Same session only |
 | `title` | `string` | Ignored; the script's `meta` block sets the title |
@@ -5120,6 +5205,7 @@ type SDKTaskNotificationMessage = {
   task_id: string;
   tool_use_id?: string;
   status: "completed" | "failed" | "stopped";
+  reason?: "worker_restart";
   output_file: string;
   summary: string;
   ambient?: boolean;
@@ -5133,6 +5219,8 @@ type SDKTaskNotificationMessage = {
   session_id: string;
 };
 ```
+
+`reason` is set when a task ends for a cause other than its own completion, failure, or stop, and requires Agent SDK v0.3.273 or later. Claude Code sets it only in sessions that connect through claude.ai: cloud sessions, including those on self-hosted runners, and Remote Control sessions. A local `query()` call never sets it. Its one value, `worker_restart`, means the Claude Code process that was running the task restarted. The notification carries status `"stopped"`, so treat the task as neither completed nor failed.
 
 When Claude Code [moves a long MCP tool call to the background](/docs/en/mcp#automatic-backgrounding-of-long-tool-calls), the `tool_result` block for that call holds only a placeholder and the call's real result arrives in this notification. Match the notification to the call with `tool_use_id`. On a `completed` notification, `resource_links` lists the files the tool returned by reference as [`SDKMcpResourceLink`](#sdkmcpresourcelink) entries, with the same 50-link and 64 KiB limits as [`tool_use_result.resourceLinks`](#sdkusermessage). Claude Code omits `resource_links` when the result had no links and on notifications for tasks that aren't MCP tool calls. `resource_links` requires Agent SDK v0.3.257 or later.
 

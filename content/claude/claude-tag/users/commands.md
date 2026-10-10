@@ -22,6 +22,8 @@ A command is `@Claude` followed immediately by one of a few exact words starting
 
 Claude replies with the commands it understands in your workspace. The list can differ by workspace, since a command can be enabled for some workspaces and not others.
 
+In a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), one shared with another company, only `!help`, `!mute`, `!unmute`, `!restart`, and `!fast` work, and people from the other company can use only `!help`.
+
 ## Get the link to configure a channel
 
 ```text wrap theme={null}
@@ -142,8 +144,6 @@ When Claude doesn't apply the command, its reply says why:
 | `No session is running in this channel.` | Run `!fast` in a thread. You ran it at the top level of a channel that has no session of its own. |
 | `No session is running here, so there is nothing to switch.` | You ran `!fast off` in a thread where Claude has no session. If you turned fast mode on at the channel's top level, send `@Claude !fast off` at the top level too, not as a reply under Claude's confirmation. Otherwise do nothing, because a new session in the thread starts at standard speed. |
 | `Sorry, I couldn't change fast mode. Please try again.` | Run the command again |
-
-In a [channel shared with another company](/docs/claude-tag/users/troubleshooting#claude-never-responds-in-a-channel-shared-with-another-company), Claude doesn't answer `!fast`. Use a channel that only your organization is in.
 
 ## Send feedback
 

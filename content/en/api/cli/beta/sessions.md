@@ -145,11 +145,7 @@ Create Session
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -217,547 +213,693 @@ Create Session
 
         - `"fast"`
 
-    - `multiagent: object`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-      - `type: "coordinator"`
+      - `beta_managed_agents_session_multiagent_coordinator: object`
 
-      - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+        Resolved coordinator topology with full agent definitions for each roster member.
 
-        Full `agent` definitions the coordinator may spawn as session threads.
+        - `type: "coordinator"`
 
-        - `beta_managed_agents_session_thread_agent: object`
+        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-          Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+          Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `type: "agent"`
+          - `beta_managed_agents_session_thread_agent: object`
 
-          - `id: string`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `description: string`
+            - `type: "agent"`
 
-          - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+            - `id: string`
 
-            - `type: "url"`
+            - `description: string`
 
-            - `name: string`
+            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-            - `url: string`
-
-          - `model: object`
-
-            Model identifier and configuration.
-
-            - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-              The model that will power your agent.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-              How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-            - `inference_geo: optional string`
-
-              Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-            - `speed: optional "standard" or "fast"`
-
-              Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-          - `name: string`
-
-          - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-            - `beta_managed_agents_anthropic_skill: object`
-
-              A resolved Anthropic-managed skill.
-
-              - `type: "anthropic"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-            - `beta_managed_agents_custom_skill: object`
-
-              A resolved user-created custom skill.
-
-              - `type: "custom"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-          - `system: string`
-
-          - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-            - `beta_managed_agents_agent_toolset20260401: object`
-
-              - `type: "agent_toolset_20260401"`
-
-              - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                - `beta_managed_agents_bash_tool_config: object`
-
-                  Configuration for the bash tool.
-
-                  - `type: "bash"`
-
-                  - `enabled: boolean`
-
-                  - `name: "bash"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                      - `type: "always_allow"`
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                      - `type: "always_ask"`
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `type: "auto"`
-
-                - `beta_managed_agents_edit_tool_config: object`
-
-                  Configuration for the edit tool.
-
-                  - `type: "edit"`
-
-                  - `enabled: boolean`
-
-                  - `name: "edit"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_read_tool_config: object`
-
-                  Configuration for the read tool.
-
-                  - `type: "read"`
-
-                  - `enabled: boolean`
-
-                  - `name: "read"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_write_tool_config: object`
-
-                  Configuration for the write tool.
-
-                  - `type: "write"`
-
-                  - `enabled: boolean`
-
-                  - `name: "write"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_glob_tool_config: object`
-
-                  Configuration for the glob tool.
-
-                  - `type: "glob"`
-
-                  - `enabled: boolean`
-
-                  - `name: "glob"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_grep_tool_config: object`
-
-                  Configuration for the grep tool.
-
-                  - `type: "grep"`
-
-                  - `enabled: boolean`
-
-                  - `name: "grep"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_web_fetch_tool_config: object`
-
-                  Configuration for the web_fetch tool.
-
-                  - `type: "web_fetch"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_fetch"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `url_sources: object`
-
-                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                    - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                        - `type: "only"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                        - `type: "except"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                    - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                    - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `max_content_tokens: optional number`
-
-                    format: int32
-
-                - `beta_managed_agents_web_search_tool_config: object`
-
-                  Configuration for the web_search tool.
-
-                  - `type: "web_search"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_search"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `user_location: optional object`
-
-                    Approximate user location for search result localization.
-
-                    - `type: "approximate"`
-
-                      Location precision. Only "approximate" is supported.
-
-                    - `city: optional string`
-
-                      City name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `country: optional string`
-
-                      Two-letter ISO 3166-1 country code, uppercase.
-
-                    - `region: optional string`
-
-                      Region or state name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `timezone: optional string`
-
-                      IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                      minLength: 1, maxLength: 255
-
-              - `default_config: object`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-            - `beta_managed_agents_mcp_toolset: object`
-
-              - `type: "mcp_toolset"`
-
-              - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                - `enabled: boolean`
-
-                - `name: string`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `default_config: object`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `mcp_server_name: string`
-
-            - `beta_managed_agents_custom_tool: object`
-
-              A custom tool as returned in API responses.
-
-              - `type: "custom"`
-
-              - `description: string`
-
-              - `input_schema: object`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: "object"`
-
-                - `properties: optional map[unknown]`
-
-                - `required: optional array of string`
+              - `type: "url"`
 
               - `name: string`
 
-          - `version: number`
+              - `url: string`
 
-            format: int32
+            - `model: object`
 
-        - `beta_managed_agents_advisor: object`
+              Model identifier and configuration.
 
-          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-          - `type: "advisor"`
+                The model that will power your agent.
 
-          - `model: string`
+                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            The advisor model id.
+              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+              - `inference_geo: optional string`
+
+                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+              - `speed: optional "standard" or "fast"`
+
+                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `name: string`
+
+            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `beta_managed_agents_anthropic_skill: object`
+
+                A resolved Anthropic-managed skill.
+
+                - `type: "anthropic"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+              - `beta_managed_agents_custom_skill: object`
+
+                A resolved user-created custom skill.
+
+                - `type: "custom"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+            - `system: string`
+
+            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `beta_managed_agents_agent_toolset20260401: object`
+
+                - `type: "agent_toolset_20260401"`
+
+                - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                  - `beta_managed_agents_bash_tool_config: object`
+
+                    Configuration for the bash tool.
+
+                    - `type: "bash"`
+
+                    - `enabled: boolean`
+
+                    - `name: "bash"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: "always_allow"`
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: "always_ask"`
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `type: "auto"`
+
+                  - `beta_managed_agents_edit_tool_config: object`
+
+                    Configuration for the edit tool.
+
+                    - `type: "edit"`
+
+                    - `enabled: boolean`
+
+                    - `name: "edit"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_read_tool_config: object`
+
+                    Configuration for the read tool.
+
+                    - `type: "read"`
+
+                    - `enabled: boolean`
+
+                    - `name: "read"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_write_tool_config: object`
+
+                    Configuration for the write tool.
+
+                    - `type: "write"`
+
+                    - `enabled: boolean`
+
+                    - `name: "write"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_glob_tool_config: object`
+
+                    Configuration for the glob tool.
+
+                    - `type: "glob"`
+
+                    - `enabled: boolean`
+
+                    - `name: "glob"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_grep_tool_config: object`
+
+                    Configuration for the grep tool.
+
+                    - `type: "grep"`
+
+                    - `enabled: boolean`
+
+                    - `name: "grep"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_web_fetch_tool_config: object`
+
+                    Configuration for the web_fetch tool.
+
+                    - `type: "web_fetch"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_fetch"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `url_sources: object`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `type: "only"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `type: "except"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `max_content_tokens: optional number`
+
+                      format: int32
+
+                  - `beta_managed_agents_web_search_tool_config: object`
+
+                    Configuration for the web_search tool.
+
+                    - `type: "web_search"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_search"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `user_location: optional object`
+
+                      Approximate user location for search result localization.
+
+                      - `type: "approximate"`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: optional string`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: optional string`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: optional string`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: optional string`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: object`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_mcp_toolset: object`
+
+                - `type: "mcp_toolset"`
+
+                - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                  - `enabled: boolean`
+
+                  - `name: string`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `default_config: object`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `mcp_server_name: string`
+
+              - `beta_managed_agents_custom_tool: object`
+
+                A custom tool as returned in API responses.
+
+                - `type: "custom"`
+
+                - `description: string`
+
+                - `input_schema: object`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: "object"`
+
+                  - `properties: optional map[unknown]`
+
+                  - `required: optional array of string`
+
+                - `name: string`
+
+            - `version: number`
+
+              format: int32
+
+          - `beta_managed_agents_advisor: object`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `type: "advisor"`
+
+            - `model: string`
+
+              The advisor model id.
+
+      - `beta_managed_agents_session_multiagent20261001: object`
+
+        Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+        - `type: "multiagent_20261001"`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: "enabled"`
+
+            - `model: string`
+
+              The advisor model id.
+
+          - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+            The agent has no advisor.
+
+            - `type: "disabled"`
+
+        - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          Whether the agent can spawn session threads.
+
+          - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+            The agent can spawn session threads.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+                - `type: "enabled"`
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+                - `type: "disabled"`
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+            The agent cannot spawn session threads.
+
+            - `type: "disabled"`
+
+        - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          Whether the agent can start workflow runs.
+
+          - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+            The agent can start workflow runs.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+            The agent cannot start workflow runs.
+
+            - `type: "disabled"`
 
     - `name: string`
 
@@ -1456,11 +1598,7 @@ List Sessions
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -1528,547 +1666,693 @@ List Sessions
 
           - `"fast"`
 
-      - `multiagent: object`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
         Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-        - `type: "coordinator"`
+        - `beta_managed_agents_session_multiagent_coordinator: object`
 
-        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+          Resolved coordinator topology with full agent definitions for each roster member.
 
-          Full `agent` definitions the coordinator may spawn as session threads.
+          - `type: "coordinator"`
 
-          - `beta_managed_agents_session_thread_agent: object`
+          - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+            Full `agent` definitions the coordinator may spawn as session threads.
 
-            - `type: "agent"`
+            - `beta_managed_agents_session_thread_agent: object`
 
-            - `id: string`
+              Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-            - `description: string`
+              - `type: "agent"`
 
-            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+              - `id: string`
 
-              - `type: "url"`
+              - `description: string`
 
-              - `name: string`
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-              - `url: string`
-
-            - `model: object`
-
-              Model identifier and configuration.
-
-              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-                The model that will power your agent.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-              - `inference_geo: optional string`
-
-                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-              - `speed: optional "standard" or "fast"`
-
-                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-            - `name: string`
-
-            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-              - `beta_managed_agents_anthropic_skill: object`
-
-                A resolved Anthropic-managed skill.
-
-                - `type: "anthropic"`
-
-                - `skill_id: string`
-
-                - `version: string`
-
-              - `beta_managed_agents_custom_skill: object`
-
-                A resolved user-created custom skill.
-
-                - `type: "custom"`
-
-                - `skill_id: string`
-
-                - `version: string`
-
-            - `system: string`
-
-            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-              - `beta_managed_agents_agent_toolset20260401: object`
-
-                - `type: "agent_toolset_20260401"`
-
-                - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                  - `beta_managed_agents_bash_tool_config: object`
-
-                    Configuration for the bash tool.
-
-                    - `type: "bash"`
-
-                    - `enabled: boolean`
-
-                    - `name: "bash"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                        - `type: "always_allow"`
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                        - `type: "always_ask"`
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                        - `type: "auto"`
-
-                  - `beta_managed_agents_edit_tool_config: object`
-
-                    Configuration for the edit tool.
-
-                    - `type: "edit"`
-
-                    - `enabled: boolean`
-
-                    - `name: "edit"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_read_tool_config: object`
-
-                    Configuration for the read tool.
-
-                    - `type: "read"`
-
-                    - `enabled: boolean`
-
-                    - `name: "read"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_write_tool_config: object`
-
-                    Configuration for the write tool.
-
-                    - `type: "write"`
-
-                    - `enabled: boolean`
-
-                    - `name: "write"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_glob_tool_config: object`
-
-                    Configuration for the glob tool.
-
-                    - `type: "glob"`
-
-                    - `enabled: boolean`
-
-                    - `name: "glob"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_grep_tool_config: object`
-
-                    Configuration for the grep tool.
-
-                    - `type: "grep"`
-
-                    - `enabled: boolean`
-
-                    - `name: "grep"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_web_fetch_tool_config: object`
-
-                    Configuration for the web_fetch tool.
-
-                    - `type: "web_fetch"`
-
-                    - `enabled: boolean`
-
-                    - `name: "web_fetch"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `url_sources: object`
-
-                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                          - `type: "all"`
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                          - `type: "none"`
-
-                        - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                          Only the named tools' results contribute URLs that may be fetched.
-
-                          - `type: "only"`
-
-                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                            - `type: "tool_reference"`
-
-                              Must be "tool_reference".
-
-                            - `name: string`
-
-                              Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                              minLength: 1, maxLength: 128
-
-                        - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                          - `type: "except"`
-
-                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                            - `type: "tool_reference"`
-
-                              Must be "tool_reference".
-
-                            - `name: string`
-
-                              Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                              minLength: 1, maxLength: 128
-
-                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                        - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                          Only the named tools' results contribute URLs that may be fetched.
-
-                        - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                          - `type: "all"`
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                          - `type: "none"`
-
-                    - `allowed_domains: optional array of string`
-
-                    - `blocked_domains: optional array of string`
-
-                    - `max_content_tokens: optional number`
-
-                      format: int32
-
-                  - `beta_managed_agents_web_search_tool_config: object`
-
-                    Configuration for the web_search tool.
-
-                    - `type: "web_search"`
-
-                    - `enabled: boolean`
-
-                    - `name: "web_search"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `allowed_domains: optional array of string`
-
-                    - `blocked_domains: optional array of string`
-
-                    - `user_location: optional object`
-
-                      Approximate user location for search result localization.
-
-                      - `type: "approximate"`
-
-                        Location precision. Only "approximate" is supported.
-
-                      - `city: optional string`
-
-                        City name.
-
-                        minLength: 1, maxLength: 255
-
-                      - `country: optional string`
-
-                        Two-letter ISO 3166-1 country code, uppercase.
-
-                      - `region: optional string`
-
-                        Region or state name.
-
-                        minLength: 1, maxLength: 255
-
-                      - `timezone: optional string`
-
-                        IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                        minLength: 1, maxLength: 255
-
-                - `default_config: object`
-
-                  Resolved default configuration for agent tools.
-
-                  - `enabled: boolean`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `beta_managed_agents_mcp_toolset: object`
-
-                - `type: "mcp_toolset"`
-
-                - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                  - `enabled: boolean`
-
-                  - `name: string`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `default_config: object`
-
-                  Resolved default configuration for all tools from an MCP server.
-
-                  - `enabled: boolean`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `mcp_server_name: string`
-
-              - `beta_managed_agents_custom_tool: object`
-
-                A custom tool as returned in API responses.
-
-                - `type: "custom"`
-
-                - `description: string`
-
-                - `input_schema: object`
-
-                  JSON Schema for custom tool input parameters.
-
-                  - `type: "object"`
-
-                  - `properties: optional map[unknown]`
-
-                  - `required: optional array of string`
+                - `type: "url"`
 
                 - `name: string`
 
-            - `version: number`
+                - `url: string`
 
-              format: int32
+              - `model: object`
 
-          - `beta_managed_agents_advisor: object`
+                Model identifier and configuration.
 
-            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+                - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-            - `type: "advisor"`
+                  The model that will power your agent.
 
-            - `model: string`
+                  See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-              The advisor model id.
+                - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                  How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+                - `inference_geo: optional string`
+
+                  Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+                - `speed: optional "standard" or "fast"`
+
+                  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `beta_managed_agents_anthropic_skill: object`
+
+                  A resolved Anthropic-managed skill.
+
+                  - `type: "anthropic"`
+
+                  - `skill_id: string`
+
+                  - `version: string`
+
+                - `beta_managed_agents_custom_skill: object`
+
+                  A resolved user-created custom skill.
+
+                  - `type: "custom"`
+
+                  - `skill_id: string`
+
+                  - `version: string`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `beta_managed_agents_agent_toolset20260401: object`
+
+                  - `type: "agent_toolset_20260401"`
+
+                  - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                    - `beta_managed_agents_bash_tool_config: object`
+
+                      Configuration for the bash tool.
+
+                      - `type: "bash"`
+
+                      - `enabled: boolean`
+
+                      - `name: "bash"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                          - `type: "always_allow"`
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                          - `type: "always_ask"`
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                          - `type: "auto"`
+
+                    - `beta_managed_agents_edit_tool_config: object`
+
+                      Configuration for the edit tool.
+
+                      - `type: "edit"`
+
+                      - `enabled: boolean`
+
+                      - `name: "edit"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_read_tool_config: object`
+
+                      Configuration for the read tool.
+
+                      - `type: "read"`
+
+                      - `enabled: boolean`
+
+                      - `name: "read"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_write_tool_config: object`
+
+                      Configuration for the write tool.
+
+                      - `type: "write"`
+
+                      - `enabled: boolean`
+
+                      - `name: "write"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_glob_tool_config: object`
+
+                      Configuration for the glob tool.
+
+                      - `type: "glob"`
+
+                      - `enabled: boolean`
+
+                      - `name: "glob"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_grep_tool_config: object`
+
+                      Configuration for the grep tool.
+
+                      - `type: "grep"`
+
+                      - `enabled: boolean`
+
+                      - `name: "grep"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_web_fetch_tool_config: object`
+
+                      Configuration for the web_fetch tool.
+
+                      - `type: "web_fetch"`
+
+                      - `enabled: boolean`
+
+                      - `name: "web_fetch"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `url_sources: object`
+
+                        Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                          Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                            - `type: "all"`
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                            - `type: "none"`
+
+                          - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                            Only the named tools' results contribute URLs that may be fetched.
+
+                            - `type: "only"`
+
+                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                              The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                              - `type: "tool_reference"`
+
+                                Must be "tool_reference".
+
+                              - `name: string`
+
+                                Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                minLength: 1, maxLength: 128
+
+                          - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                            - `type: "except"`
+
+                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                              The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                              - `type: "tool_reference"`
+
+                                Must be "tool_reference".
+
+                              - `name: string`
+
+                                Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                minLength: 1, maxLength: 128
+
+                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                          Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                          - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                            Only the named tools' results contribute URLs that may be fetched.
+
+                          - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                        - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                          Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                            - `type: "all"`
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                            - `type: "none"`
+
+                      - `allowed_domains: optional array of string`
+
+                      - `blocked_domains: optional array of string`
+
+                      - `max_content_tokens: optional number`
+
+                        format: int32
+
+                    - `beta_managed_agents_web_search_tool_config: object`
+
+                      Configuration for the web_search tool.
+
+                      - `type: "web_search"`
+
+                      - `enabled: boolean`
+
+                      - `name: "web_search"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `allowed_domains: optional array of string`
+
+                      - `blocked_domains: optional array of string`
+
+                      - `user_location: optional object`
+
+                        Approximate user location for search result localization.
+
+                        - `type: "approximate"`
+
+                          Location precision. Only "approximate" is supported.
+
+                        - `city: optional string`
+
+                          City name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `country: optional string`
+
+                          Two-letter ISO 3166-1 country code, uppercase.
+
+                        - `region: optional string`
+
+                          Region or state name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `timezone: optional string`
+
+                          IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                          minLength: 1, maxLength: 255
+
+                  - `default_config: object`
+
+                    Resolved default configuration for agent tools.
+
+                    - `enabled: boolean`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `beta_managed_agents_mcp_toolset: object`
+
+                  - `type: "mcp_toolset"`
+
+                  - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                    - `enabled: boolean`
+
+                    - `name: string`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `default_config: object`
+
+                    Resolved default configuration for all tools from an MCP server.
+
+                    - `enabled: boolean`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `mcp_server_name: string`
+
+                - `beta_managed_agents_custom_tool: object`
+
+                  A custom tool as returned in API responses.
+
+                  - `type: "custom"`
+
+                  - `description: string`
+
+                  - `input_schema: object`
+
+                    JSON Schema for custom tool input parameters.
+
+                    - `type: "object"`
+
+                    - `properties: optional map[unknown]`
+
+                    - `required: optional array of string`
+
+                  - `name: string`
+
+              - `version: number`
+
+                format: int32
+
+            - `beta_managed_agents_advisor: object`
+
+              Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+              - `type: "advisor"`
+
+              - `model: string`
+
+                The advisor model id.
+
+        - `beta_managed_agents_session_multiagent20261001: object`
+
+          Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+          - `type: "multiagent_20261001"`
+
+          - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+            Whether the session's primary thread can consult an advisor model.
+
+            - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+              The session's primary thread can consult `model` mid-turn.
+
+              - `type: "enabled"`
+
+              - `model: string`
+
+                The advisor model id.
+
+            - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+              The agent has no advisor.
+
+              - `type: "disabled"`
+
+          - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+            Whether the agent can spawn session threads.
+
+            - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+              The agent can spawn session threads.
+
+              - `type: "enabled"`
+
+              - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+                - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                  The agent can define inline agents.
+
+                  - `type: "enabled"`
+
+                - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                  The agent cannot define inline agents.
+
+                  - `type: "disabled"`
+
+              - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+                - `type: "agent"`
+
+                - `id: string`
+
+                - `description: string`
+
+                - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                - `model: object`
+
+                  Model identifier and configuration.
+
+                - `name: string`
+
+                - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `system: string`
+
+                - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `version: number`
+
+                  format: int32
+
+            - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+              The agent cannot spawn session threads.
+
+              - `type: "disabled"`
+
+          - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+            Whether the agent can start workflow runs.
+
+            - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+              The agent can start workflow runs.
+
+              - `type: "enabled"`
+
+              - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                Whether a run's plan can define inline agents, which are not saved.
+
+                - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                  The agent can define inline agents.
+
+                - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                  The agent cannot define inline agents.
+
+              - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+                - `type: "agent"`
+
+                - `id: string`
+
+                - `description: string`
+
+                - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                - `model: object`
+
+                  Model identifier and configuration.
+
+                - `name: string`
+
+                - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `system: string`
+
+                - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `version: number`
+
+                  format: int32
+
+            - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+              The agent cannot start workflow runs.
+
+              - `type: "disabled"`
 
       - `name: string`
 
@@ -2713,11 +2997,7 @@ Get Session
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -2785,547 +3065,693 @@ Get Session
 
         - `"fast"`
 
-    - `multiagent: object`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-      - `type: "coordinator"`
+      - `beta_managed_agents_session_multiagent_coordinator: object`
 
-      - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+        Resolved coordinator topology with full agent definitions for each roster member.
 
-        Full `agent` definitions the coordinator may spawn as session threads.
+        - `type: "coordinator"`
 
-        - `beta_managed_agents_session_thread_agent: object`
+        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-          Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+          Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `type: "agent"`
+          - `beta_managed_agents_session_thread_agent: object`
 
-          - `id: string`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `description: string`
+            - `type: "agent"`
 
-          - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+            - `id: string`
 
-            - `type: "url"`
+            - `description: string`
 
-            - `name: string`
+            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-            - `url: string`
-
-          - `model: object`
-
-            Model identifier and configuration.
-
-            - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-              The model that will power your agent.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-              How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-            - `inference_geo: optional string`
-
-              Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-            - `speed: optional "standard" or "fast"`
-
-              Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-          - `name: string`
-
-          - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-            - `beta_managed_agents_anthropic_skill: object`
-
-              A resolved Anthropic-managed skill.
-
-              - `type: "anthropic"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-            - `beta_managed_agents_custom_skill: object`
-
-              A resolved user-created custom skill.
-
-              - `type: "custom"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-          - `system: string`
-
-          - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-            - `beta_managed_agents_agent_toolset20260401: object`
-
-              - `type: "agent_toolset_20260401"`
-
-              - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                - `beta_managed_agents_bash_tool_config: object`
-
-                  Configuration for the bash tool.
-
-                  - `type: "bash"`
-
-                  - `enabled: boolean`
-
-                  - `name: "bash"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                      - `type: "always_allow"`
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                      - `type: "always_ask"`
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `type: "auto"`
-
-                - `beta_managed_agents_edit_tool_config: object`
-
-                  Configuration for the edit tool.
-
-                  - `type: "edit"`
-
-                  - `enabled: boolean`
-
-                  - `name: "edit"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_read_tool_config: object`
-
-                  Configuration for the read tool.
-
-                  - `type: "read"`
-
-                  - `enabled: boolean`
-
-                  - `name: "read"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_write_tool_config: object`
-
-                  Configuration for the write tool.
-
-                  - `type: "write"`
-
-                  - `enabled: boolean`
-
-                  - `name: "write"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_glob_tool_config: object`
-
-                  Configuration for the glob tool.
-
-                  - `type: "glob"`
-
-                  - `enabled: boolean`
-
-                  - `name: "glob"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_grep_tool_config: object`
-
-                  Configuration for the grep tool.
-
-                  - `type: "grep"`
-
-                  - `enabled: boolean`
-
-                  - `name: "grep"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_web_fetch_tool_config: object`
-
-                  Configuration for the web_fetch tool.
-
-                  - `type: "web_fetch"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_fetch"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `url_sources: object`
-
-                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                    - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                        - `type: "only"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                        - `type: "except"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                    - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                    - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `max_content_tokens: optional number`
-
-                    format: int32
-
-                - `beta_managed_agents_web_search_tool_config: object`
-
-                  Configuration for the web_search tool.
-
-                  - `type: "web_search"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_search"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `user_location: optional object`
-
-                    Approximate user location for search result localization.
-
-                    - `type: "approximate"`
-
-                      Location precision. Only "approximate" is supported.
-
-                    - `city: optional string`
-
-                      City name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `country: optional string`
-
-                      Two-letter ISO 3166-1 country code, uppercase.
-
-                    - `region: optional string`
-
-                      Region or state name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `timezone: optional string`
-
-                      IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                      minLength: 1, maxLength: 255
-
-              - `default_config: object`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-            - `beta_managed_agents_mcp_toolset: object`
-
-              - `type: "mcp_toolset"`
-
-              - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                - `enabled: boolean`
-
-                - `name: string`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `default_config: object`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `mcp_server_name: string`
-
-            - `beta_managed_agents_custom_tool: object`
-
-              A custom tool as returned in API responses.
-
-              - `type: "custom"`
-
-              - `description: string`
-
-              - `input_schema: object`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: "object"`
-
-                - `properties: optional map[unknown]`
-
-                - `required: optional array of string`
+              - `type: "url"`
 
               - `name: string`
 
-          - `version: number`
+              - `url: string`
 
-            format: int32
+            - `model: object`
 
-        - `beta_managed_agents_advisor: object`
+              Model identifier and configuration.
 
-          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-          - `type: "advisor"`
+                The model that will power your agent.
 
-          - `model: string`
+                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            The advisor model id.
+              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+              - `inference_geo: optional string`
+
+                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+              - `speed: optional "standard" or "fast"`
+
+                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `name: string`
+
+            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `beta_managed_agents_anthropic_skill: object`
+
+                A resolved Anthropic-managed skill.
+
+                - `type: "anthropic"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+              - `beta_managed_agents_custom_skill: object`
+
+                A resolved user-created custom skill.
+
+                - `type: "custom"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+            - `system: string`
+
+            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `beta_managed_agents_agent_toolset20260401: object`
+
+                - `type: "agent_toolset_20260401"`
+
+                - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                  - `beta_managed_agents_bash_tool_config: object`
+
+                    Configuration for the bash tool.
+
+                    - `type: "bash"`
+
+                    - `enabled: boolean`
+
+                    - `name: "bash"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: "always_allow"`
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: "always_ask"`
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `type: "auto"`
+
+                  - `beta_managed_agents_edit_tool_config: object`
+
+                    Configuration for the edit tool.
+
+                    - `type: "edit"`
+
+                    - `enabled: boolean`
+
+                    - `name: "edit"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_read_tool_config: object`
+
+                    Configuration for the read tool.
+
+                    - `type: "read"`
+
+                    - `enabled: boolean`
+
+                    - `name: "read"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_write_tool_config: object`
+
+                    Configuration for the write tool.
+
+                    - `type: "write"`
+
+                    - `enabled: boolean`
+
+                    - `name: "write"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_glob_tool_config: object`
+
+                    Configuration for the glob tool.
+
+                    - `type: "glob"`
+
+                    - `enabled: boolean`
+
+                    - `name: "glob"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_grep_tool_config: object`
+
+                    Configuration for the grep tool.
+
+                    - `type: "grep"`
+
+                    - `enabled: boolean`
+
+                    - `name: "grep"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_web_fetch_tool_config: object`
+
+                    Configuration for the web_fetch tool.
+
+                    - `type: "web_fetch"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_fetch"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `url_sources: object`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `type: "only"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `type: "except"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `max_content_tokens: optional number`
+
+                      format: int32
+
+                  - `beta_managed_agents_web_search_tool_config: object`
+
+                    Configuration for the web_search tool.
+
+                    - `type: "web_search"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_search"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `user_location: optional object`
+
+                      Approximate user location for search result localization.
+
+                      - `type: "approximate"`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: optional string`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: optional string`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: optional string`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: optional string`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: object`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_mcp_toolset: object`
+
+                - `type: "mcp_toolset"`
+
+                - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                  - `enabled: boolean`
+
+                  - `name: string`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `default_config: object`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `mcp_server_name: string`
+
+              - `beta_managed_agents_custom_tool: object`
+
+                A custom tool as returned in API responses.
+
+                - `type: "custom"`
+
+                - `description: string`
+
+                - `input_schema: object`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: "object"`
+
+                  - `properties: optional map[unknown]`
+
+                  - `required: optional array of string`
+
+                - `name: string`
+
+            - `version: number`
+
+              format: int32
+
+          - `beta_managed_agents_advisor: object`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `type: "advisor"`
+
+            - `model: string`
+
+              The advisor model id.
+
+      - `beta_managed_agents_session_multiagent20261001: object`
+
+        Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+        - `type: "multiagent_20261001"`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: "enabled"`
+
+            - `model: string`
+
+              The advisor model id.
+
+          - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+            The agent has no advisor.
+
+            - `type: "disabled"`
+
+        - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          Whether the agent can spawn session threads.
+
+          - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+            The agent can spawn session threads.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+                - `type: "enabled"`
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+                - `type: "disabled"`
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+            The agent cannot spawn session threads.
+
+            - `type: "disabled"`
+
+        - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          Whether the agent can start workflow runs.
+
+          - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+            The agent can start workflow runs.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+            The agent cannot start workflow runs.
+
+            - `type: "disabled"`
 
     - `name: string`
 
@@ -3979,11 +4405,7 @@ Update Session
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -4051,547 +4473,693 @@ Update Session
 
         - `"fast"`
 
-    - `multiagent: object`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-      - `type: "coordinator"`
+      - `beta_managed_agents_session_multiagent_coordinator: object`
 
-      - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+        Resolved coordinator topology with full agent definitions for each roster member.
 
-        Full `agent` definitions the coordinator may spawn as session threads.
+        - `type: "coordinator"`
 
-        - `beta_managed_agents_session_thread_agent: object`
+        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-          Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+          Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `type: "agent"`
+          - `beta_managed_agents_session_thread_agent: object`
 
-          - `id: string`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `description: string`
+            - `type: "agent"`
 
-          - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+            - `id: string`
 
-            - `type: "url"`
+            - `description: string`
 
-            - `name: string`
+            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-            - `url: string`
-
-          - `model: object`
-
-            Model identifier and configuration.
-
-            - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-              The model that will power your agent.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-              How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-            - `inference_geo: optional string`
-
-              Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-            - `speed: optional "standard" or "fast"`
-
-              Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-          - `name: string`
-
-          - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-            - `beta_managed_agents_anthropic_skill: object`
-
-              A resolved Anthropic-managed skill.
-
-              - `type: "anthropic"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-            - `beta_managed_agents_custom_skill: object`
-
-              A resolved user-created custom skill.
-
-              - `type: "custom"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-          - `system: string`
-
-          - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-            - `beta_managed_agents_agent_toolset20260401: object`
-
-              - `type: "agent_toolset_20260401"`
-
-              - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                - `beta_managed_agents_bash_tool_config: object`
-
-                  Configuration for the bash tool.
-
-                  - `type: "bash"`
-
-                  - `enabled: boolean`
-
-                  - `name: "bash"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                      - `type: "always_allow"`
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                      - `type: "always_ask"`
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `type: "auto"`
-
-                - `beta_managed_agents_edit_tool_config: object`
-
-                  Configuration for the edit tool.
-
-                  - `type: "edit"`
-
-                  - `enabled: boolean`
-
-                  - `name: "edit"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_read_tool_config: object`
-
-                  Configuration for the read tool.
-
-                  - `type: "read"`
-
-                  - `enabled: boolean`
-
-                  - `name: "read"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_write_tool_config: object`
-
-                  Configuration for the write tool.
-
-                  - `type: "write"`
-
-                  - `enabled: boolean`
-
-                  - `name: "write"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_glob_tool_config: object`
-
-                  Configuration for the glob tool.
-
-                  - `type: "glob"`
-
-                  - `enabled: boolean`
-
-                  - `name: "glob"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_grep_tool_config: object`
-
-                  Configuration for the grep tool.
-
-                  - `type: "grep"`
-
-                  - `enabled: boolean`
-
-                  - `name: "grep"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_web_fetch_tool_config: object`
-
-                  Configuration for the web_fetch tool.
-
-                  - `type: "web_fetch"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_fetch"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `url_sources: object`
-
-                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                    - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                        - `type: "only"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                        - `type: "except"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                    - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                    - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `max_content_tokens: optional number`
-
-                    format: int32
-
-                - `beta_managed_agents_web_search_tool_config: object`
-
-                  Configuration for the web_search tool.
-
-                  - `type: "web_search"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_search"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `user_location: optional object`
-
-                    Approximate user location for search result localization.
-
-                    - `type: "approximate"`
-
-                      Location precision. Only "approximate" is supported.
-
-                    - `city: optional string`
-
-                      City name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `country: optional string`
-
-                      Two-letter ISO 3166-1 country code, uppercase.
-
-                    - `region: optional string`
-
-                      Region or state name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `timezone: optional string`
-
-                      IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                      minLength: 1, maxLength: 255
-
-              - `default_config: object`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-            - `beta_managed_agents_mcp_toolset: object`
-
-              - `type: "mcp_toolset"`
-
-              - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                - `enabled: boolean`
-
-                - `name: string`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `default_config: object`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `mcp_server_name: string`
-
-            - `beta_managed_agents_custom_tool: object`
-
-              A custom tool as returned in API responses.
-
-              - `type: "custom"`
-
-              - `description: string`
-
-              - `input_schema: object`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: "object"`
-
-                - `properties: optional map[unknown]`
-
-                - `required: optional array of string`
+              - `type: "url"`
 
               - `name: string`
 
-          - `version: number`
+              - `url: string`
 
-            format: int32
+            - `model: object`
 
-        - `beta_managed_agents_advisor: object`
+              Model identifier and configuration.
 
-          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-          - `type: "advisor"`
+                The model that will power your agent.
 
-          - `model: string`
+                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            The advisor model id.
+              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+              - `inference_geo: optional string`
+
+                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+              - `speed: optional "standard" or "fast"`
+
+                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `name: string`
+
+            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `beta_managed_agents_anthropic_skill: object`
+
+                A resolved Anthropic-managed skill.
+
+                - `type: "anthropic"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+              - `beta_managed_agents_custom_skill: object`
+
+                A resolved user-created custom skill.
+
+                - `type: "custom"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+            - `system: string`
+
+            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `beta_managed_agents_agent_toolset20260401: object`
+
+                - `type: "agent_toolset_20260401"`
+
+                - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                  - `beta_managed_agents_bash_tool_config: object`
+
+                    Configuration for the bash tool.
+
+                    - `type: "bash"`
+
+                    - `enabled: boolean`
+
+                    - `name: "bash"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: "always_allow"`
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: "always_ask"`
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `type: "auto"`
+
+                  - `beta_managed_agents_edit_tool_config: object`
+
+                    Configuration for the edit tool.
+
+                    - `type: "edit"`
+
+                    - `enabled: boolean`
+
+                    - `name: "edit"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_read_tool_config: object`
+
+                    Configuration for the read tool.
+
+                    - `type: "read"`
+
+                    - `enabled: boolean`
+
+                    - `name: "read"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_write_tool_config: object`
+
+                    Configuration for the write tool.
+
+                    - `type: "write"`
+
+                    - `enabled: boolean`
+
+                    - `name: "write"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_glob_tool_config: object`
+
+                    Configuration for the glob tool.
+
+                    - `type: "glob"`
+
+                    - `enabled: boolean`
+
+                    - `name: "glob"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_grep_tool_config: object`
+
+                    Configuration for the grep tool.
+
+                    - `type: "grep"`
+
+                    - `enabled: boolean`
+
+                    - `name: "grep"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_web_fetch_tool_config: object`
+
+                    Configuration for the web_fetch tool.
+
+                    - `type: "web_fetch"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_fetch"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `url_sources: object`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `type: "only"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `type: "except"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `max_content_tokens: optional number`
+
+                      format: int32
+
+                  - `beta_managed_agents_web_search_tool_config: object`
+
+                    Configuration for the web_search tool.
+
+                    - `type: "web_search"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_search"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `user_location: optional object`
+
+                      Approximate user location for search result localization.
+
+                      - `type: "approximate"`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: optional string`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: optional string`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: optional string`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: optional string`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: object`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_mcp_toolset: object`
+
+                - `type: "mcp_toolset"`
+
+                - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                  - `enabled: boolean`
+
+                  - `name: string`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `default_config: object`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `mcp_server_name: string`
+
+              - `beta_managed_agents_custom_tool: object`
+
+                A custom tool as returned in API responses.
+
+                - `type: "custom"`
+
+                - `description: string`
+
+                - `input_schema: object`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: "object"`
+
+                  - `properties: optional map[unknown]`
+
+                  - `required: optional array of string`
+
+                - `name: string`
+
+            - `version: number`
+
+              format: int32
+
+          - `beta_managed_agents_advisor: object`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `type: "advisor"`
+
+            - `model: string`
+
+              The advisor model id.
+
+      - `beta_managed_agents_session_multiagent20261001: object`
+
+        Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+        - `type: "multiagent_20261001"`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: "enabled"`
+
+            - `model: string`
+
+              The advisor model id.
+
+          - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+            The agent has no advisor.
+
+            - `type: "disabled"`
+
+        - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          Whether the agent can spawn session threads.
+
+          - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+            The agent can spawn session threads.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+                - `type: "enabled"`
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+                - `type: "disabled"`
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+            The agent cannot spawn session threads.
+
+            - `type: "disabled"`
+
+        - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          Whether the agent can start workflow runs.
+
+          - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+            The agent can start workflow runs.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+            The agent cannot start workflow runs.
+
+            - `type: "disabled"`
 
     - `name: string`
 
@@ -5272,11 +5840,7 @@ Archive Session
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -5344,547 +5908,693 @@ Archive Session
 
         - `"fast"`
 
-    - `multiagent: object`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-      - `type: "coordinator"`
+      - `beta_managed_agents_session_multiagent_coordinator: object`
 
-      - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+        Resolved coordinator topology with full agent definitions for each roster member.
 
-        Full `agent` definitions the coordinator may spawn as session threads.
+        - `type: "coordinator"`
 
-        - `beta_managed_agents_session_thread_agent: object`
+        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-          Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+          Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `type: "agent"`
+          - `beta_managed_agents_session_thread_agent: object`
 
-          - `id: string`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `description: string`
+            - `type: "agent"`
 
-          - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+            - `id: string`
 
-            - `type: "url"`
+            - `description: string`
 
-            - `name: string`
+            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-            - `url: string`
-
-          - `model: object`
-
-            Model identifier and configuration.
-
-            - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-              The model that will power your agent.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-              How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-            - `inference_geo: optional string`
-
-              Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-            - `speed: optional "standard" or "fast"`
-
-              Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-          - `name: string`
-
-          - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-            - `beta_managed_agents_anthropic_skill: object`
-
-              A resolved Anthropic-managed skill.
-
-              - `type: "anthropic"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-            - `beta_managed_agents_custom_skill: object`
-
-              A resolved user-created custom skill.
-
-              - `type: "custom"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-          - `system: string`
-
-          - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-            - `beta_managed_agents_agent_toolset20260401: object`
-
-              - `type: "agent_toolset_20260401"`
-
-              - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                - `beta_managed_agents_bash_tool_config: object`
-
-                  Configuration for the bash tool.
-
-                  - `type: "bash"`
-
-                  - `enabled: boolean`
-
-                  - `name: "bash"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                      - `type: "always_allow"`
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                      - `type: "always_ask"`
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `type: "auto"`
-
-                - `beta_managed_agents_edit_tool_config: object`
-
-                  Configuration for the edit tool.
-
-                  - `type: "edit"`
-
-                  - `enabled: boolean`
-
-                  - `name: "edit"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_read_tool_config: object`
-
-                  Configuration for the read tool.
-
-                  - `type: "read"`
-
-                  - `enabled: boolean`
-
-                  - `name: "read"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_write_tool_config: object`
-
-                  Configuration for the write tool.
-
-                  - `type: "write"`
-
-                  - `enabled: boolean`
-
-                  - `name: "write"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_glob_tool_config: object`
-
-                  Configuration for the glob tool.
-
-                  - `type: "glob"`
-
-                  - `enabled: boolean`
-
-                  - `name: "glob"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_grep_tool_config: object`
-
-                  Configuration for the grep tool.
-
-                  - `type: "grep"`
-
-                  - `enabled: boolean`
-
-                  - `name: "grep"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_web_fetch_tool_config: object`
-
-                  Configuration for the web_fetch tool.
-
-                  - `type: "web_fetch"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_fetch"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `url_sources: object`
-
-                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                    - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                        - `type: "only"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                        - `type: "except"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                    - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                    - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `max_content_tokens: optional number`
-
-                    format: int32
-
-                - `beta_managed_agents_web_search_tool_config: object`
-
-                  Configuration for the web_search tool.
-
-                  - `type: "web_search"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_search"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `user_location: optional object`
-
-                    Approximate user location for search result localization.
-
-                    - `type: "approximate"`
-
-                      Location precision. Only "approximate" is supported.
-
-                    - `city: optional string`
-
-                      City name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `country: optional string`
-
-                      Two-letter ISO 3166-1 country code, uppercase.
-
-                    - `region: optional string`
-
-                      Region or state name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `timezone: optional string`
-
-                      IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                      minLength: 1, maxLength: 255
-
-              - `default_config: object`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-            - `beta_managed_agents_mcp_toolset: object`
-
-              - `type: "mcp_toolset"`
-
-              - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                - `enabled: boolean`
-
-                - `name: string`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `default_config: object`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `mcp_server_name: string`
-
-            - `beta_managed_agents_custom_tool: object`
-
-              A custom tool as returned in API responses.
-
-              - `type: "custom"`
-
-              - `description: string`
-
-              - `input_schema: object`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: "object"`
-
-                - `properties: optional map[unknown]`
-
-                - `required: optional array of string`
+              - `type: "url"`
 
               - `name: string`
 
-          - `version: number`
+              - `url: string`
 
-            format: int32
+            - `model: object`
 
-        - `beta_managed_agents_advisor: object`
+              Model identifier and configuration.
 
-          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-          - `type: "advisor"`
+                The model that will power your agent.
 
-          - `model: string`
+                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            The advisor model id.
+              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+              - `inference_geo: optional string`
+
+                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+              - `speed: optional "standard" or "fast"`
+
+                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `name: string`
+
+            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `beta_managed_agents_anthropic_skill: object`
+
+                A resolved Anthropic-managed skill.
+
+                - `type: "anthropic"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+              - `beta_managed_agents_custom_skill: object`
+
+                A resolved user-created custom skill.
+
+                - `type: "custom"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+            - `system: string`
+
+            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `beta_managed_agents_agent_toolset20260401: object`
+
+                - `type: "agent_toolset_20260401"`
+
+                - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                  - `beta_managed_agents_bash_tool_config: object`
+
+                    Configuration for the bash tool.
+
+                    - `type: "bash"`
+
+                    - `enabled: boolean`
+
+                    - `name: "bash"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: "always_allow"`
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: "always_ask"`
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `type: "auto"`
+
+                  - `beta_managed_agents_edit_tool_config: object`
+
+                    Configuration for the edit tool.
+
+                    - `type: "edit"`
+
+                    - `enabled: boolean`
+
+                    - `name: "edit"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_read_tool_config: object`
+
+                    Configuration for the read tool.
+
+                    - `type: "read"`
+
+                    - `enabled: boolean`
+
+                    - `name: "read"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_write_tool_config: object`
+
+                    Configuration for the write tool.
+
+                    - `type: "write"`
+
+                    - `enabled: boolean`
+
+                    - `name: "write"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_glob_tool_config: object`
+
+                    Configuration for the glob tool.
+
+                    - `type: "glob"`
+
+                    - `enabled: boolean`
+
+                    - `name: "glob"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_grep_tool_config: object`
+
+                    Configuration for the grep tool.
+
+                    - `type: "grep"`
+
+                    - `enabled: boolean`
+
+                    - `name: "grep"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_web_fetch_tool_config: object`
+
+                    Configuration for the web_fetch tool.
+
+                    - `type: "web_fetch"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_fetch"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `url_sources: object`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `type: "only"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `type: "except"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `max_content_tokens: optional number`
+
+                      format: int32
+
+                  - `beta_managed_agents_web_search_tool_config: object`
+
+                    Configuration for the web_search tool.
+
+                    - `type: "web_search"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_search"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `user_location: optional object`
+
+                      Approximate user location for search result localization.
+
+                      - `type: "approximate"`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: optional string`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: optional string`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: optional string`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: optional string`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: object`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_mcp_toolset: object`
+
+                - `type: "mcp_toolset"`
+
+                - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                  - `enabled: boolean`
+
+                  - `name: string`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `default_config: object`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `mcp_server_name: string`
+
+              - `beta_managed_agents_custom_tool: object`
+
+                A custom tool as returned in API responses.
+
+                - `type: "custom"`
+
+                - `description: string`
+
+                - `input_schema: object`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: "object"`
+
+                  - `properties: optional map[unknown]`
+
+                  - `required: optional array of string`
+
+                - `name: string`
+
+            - `version: number`
+
+              format: int32
+
+          - `beta_managed_agents_advisor: object`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `type: "advisor"`
+
+            - `model: string`
+
+              The advisor model id.
+
+      - `beta_managed_agents_session_multiagent20261001: object`
+
+        Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+        - `type: "multiagent_20261001"`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: "enabled"`
+
+            - `model: string`
+
+              The advisor model id.
+
+          - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+            The agent has no advisor.
+
+            - `type: "disabled"`
+
+        - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          Whether the agent can spawn session threads.
+
+          - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+            The agent can spawn session threads.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+                - `type: "enabled"`
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+                - `type: "disabled"`
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+            The agent cannot spawn session threads.
+
+            - `type: "disabled"`
+
+        - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          Whether the agent can start workflow runs.
+
+          - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+            The agent can start workflow runs.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+            The agent cannot start workflow runs.
+
+            - `type: "disabled"`
 
     - `name: string`
 
@@ -6554,11 +7264,7 @@ ant beta:sessions archive \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -6636,11 +7342,7 @@ ant beta:sessions archive \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -7560,87 +8262,337 @@ ant beta:sessions archive \
 
 ### Beta Managed Agents Multiagent
 
-- `beta_managed_agents_multiagent: object`
+- `beta_managed_agents_multiagent: BetaManagedAgentsMultiagentCoordinator or BetaManagedAgentsMultiagent20261001`
 
   Resolved multiagent orchestration configuration as returned in API responses.
 
-  - `type: "coordinator"`
+  - `beta_managed_agents_multiagent_coordinator: object`
 
-  - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
+    Resolved coordinator topology with a concrete agent roster.
 
-    Agents the coordinator may spawn as session threads, each resolved to a specific version.
+    - `type: "coordinator"`
 
-    - `beta_managed_agents_agent_reference: object`
+    - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
-      A resolved agent reference with a concrete version.
+      Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-      - `type: "agent"`
+      - `beta_managed_agents_agent_reference: object`
 
-      - `id: string`
+        A resolved agent reference with a concrete version.
 
-      - `version: number`
+        - `type: "agent"`
 
-        format: int32
+        - `id: string`
 
-    - `beta_managed_agents_advisor: object`
+        - `version: number`
 
-      Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+          format: int32
 
-      - `type: "advisor"`
+      - `beta_managed_agents_advisor: object`
 
-      - `model: string`
+        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-        The advisor model id.
+        - `type: "advisor"`
+
+        - `model: string`
+
+          The advisor model id.
+
+  - `beta_managed_agents_multiagent20261001: object`
+
+    Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+    - `type: "multiagent_20261001"`
+
+    - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+      Whether the session's primary thread can consult an advisor model.
+
+      - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+        The session's primary thread can consult `model` mid-turn.
+
+        - `type: "enabled"`
+
+        - `model: string`
+
+          The advisor model id.
+
+      - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+        The agent has no advisor.
+
+        - `type: "disabled"`
+
+    - `subagents: BetaManagedAgentsMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+      Whether the agent can spawn session threads.
+
+      - `beta_managed_agents_multiagent_subagents_enabled: object`
+
+        The agent can spawn session threads.
+
+        - `type: "enabled"`
+
+        - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+          Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+          - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+            The agent can define inline agents.
+
+            - `type: "enabled"`
+
+          - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+            The agent cannot define inline agents.
+
+            - `type: "disabled"`
+
+        - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+          Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+          - `type: "agent"`
+
+          - `id: string`
+
+          - `version: number`
+
+            format: int32
+
+      - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+        The agent cannot spawn session threads.
+
+        - `type: "disabled"`
+
+    - `workflows: BetaManagedAgentsMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+      Whether the agent can start workflow runs.
+
+      - `beta_managed_agents_multiagent_workflows_enabled: object`
+
+        The agent can start workflow runs.
+
+        - `type: "enabled"`
+
+        - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+          Whether a run's plan can define inline agents, which are not saved.
+
+          - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+            The agent can define inline agents.
+
+          - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+            The agent cannot define inline agents.
+
+        - `predefined_agents: array of BetaManagedAgentsAgentReference`
+
+          Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+          - `type: "agent"`
+
+          - `id: string`
+
+          - `version: number`
+
+            format: int32
+
+      - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+        The agent cannot start workflow runs.
+
+        - `type: "disabled"`
 
 ### Beta Managed Agents Multiagent Params
 
-- `beta_managed_agents_multiagent_params: object`
+- `beta_managed_agents_multiagent_params: BetaManagedAgentsMultiagentCoordinatorParams or BetaManagedAgentsMultiagent20261001Params`
 
   Multiagent orchestration configuration.
 
-  - `type: "coordinator"`
+  - `beta_managed_agents_multiagent_coordinator_params: object`
 
-  - `agents: array of BetaManagedAgentsMultiagentRosterEntryParams`
+    A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster.
 
-    Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
+    - `type: "coordinator"`
 
-    - `union_member_0: string`
+    - `agents: array of BetaManagedAgentsMultiagentRosterEntryParams`
 
-    - `beta_managed_agents_agent_params: object`
+      Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
 
-      Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+      - `union_member_0: string`
 
-      - `type: "agent"`
+      - `beta_managed_agents_agent_params: object`
 
-      - `id: string`
+        Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
 
-        The `agent` ID.
+        - `type: "agent"`
 
-        minLength: 1, maxLength: 128
+        - `id: string`
 
-      - `version: optional number`
+          The `agent` ID.
 
-        The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+          minLength: 1, maxLength: 128
 
-        format: int32
+        - `version: optional number`
 
-    - `beta_managed_agents_multiagent_self_params: object`
+          The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
-      Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+          format: int32
 
-      - `type: "self"`
+      - `beta_managed_agents_multiagent_self_params: object`
 
-    - `beta_managed_agents_advisor_params: object`
+        Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
 
-      Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
+        - `type: "self"`
 
-      - `type: "advisor"`
+      - `beta_managed_agents_advisor_params: object`
 
-      - `model: string`
+        Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`.
 
-        A Claude model id. The model must be permitted as an advisor for this agent's model.
+        - `type: "advisor"`
 
-        minLength: 1, maxLength: 256
+        - `model: string`
+
+          A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+          minLength: 1, maxLength: 256
+
+  - `beta_managed_agents_multiagent20261001_params: object`
+
+    Multiagent configuration with three members, each enabled or disabled on its own. On an update, if the agent's stored `multiagent` also has type `multiagent_20261001`, this configuration is merged into the stored one, level by level, instead of replacing it. A key that the update omits keeps its stored value. A key sent as null takes its default, on create as well, so `"workflows": null` enables workflows. An object sent with a `type` other than the stored one replaces the stored object, and the keys that it omits take their defaults. A `predefined_agents` list that is sent replaces the stored list. Every object that is sent needs its `type`, and an enabled `advisor` needs its `model`. Other validation applies to the merged result.
+
+    - `type: "multiagent_20261001"`
+
+    - `advisor: optional BetaManagedAgentsMultiagentAdvisorEnabledParams or BetaManagedAgentsMultiagentAdvisorDisabledParams`
+
+      Whether the session's primary thread can consult an advisor model. Defaults to disabled.
+
+      - `beta_managed_agents_multiagent_advisor_enabled_params: object`
+
+        The session's primary thread can consult `model` mid-turn.
+
+        - `type: "enabled"`
+
+        - `model: string`
+
+          A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+          minLength: 1, maxLength: 256
+
+      - `beta_managed_agents_multiagent_advisor_disabled_params: object`
+
+        The agent has no advisor.
+
+        - `type: "disabled"`
+
+    - `subagents: optional BetaManagedAgentsMultiagentSubagentsEnabledParams or BetaManagedAgentsMultiagentSubagentsDisabledParams`
+
+      Whether the agent can spawn session threads. Defaults to enabled.
+
+      - `beta_managed_agents_multiagent_subagents_enabled_params: object`
+
+        The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+        - `type: "enabled"`
+
+        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+          Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+          - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+            The agent can define inline agents.
+
+            - `type: "enabled"`
+
+          - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+            The agent cannot define inline agents.
+
+            - `type: "disabled"`
+
+        - `predefined_agents: optional array of BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+          Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+          - `union_member_0: string`
+
+          - `beta_managed_agents_agent_params: object`
+
+            Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+            - `type: "agent"`
+
+            - `id: string`
+
+              The `agent` ID.
+
+              minLength: 1, maxLength: 128
+
+            - `version: optional number`
+
+              The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+              format: int32
+
+          - `beta_managed_agents_multiagent_self_params: object`
+
+            Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+            - `type: "self"`
+
+      - `beta_managed_agents_multiagent_subagents_disabled_params: object`
+
+        The agent cannot spawn session threads.
+
+        - `type: "disabled"`
+
+    - `workflows: optional BetaManagedAgentsMultiagentWorkflowsEnabledParams or BetaManagedAgentsMultiagentWorkflowsDisabledParams`
+
+      Whether the agent can start workflow runs. Defaults to enabled.
+
+      - `beta_managed_agents_multiagent_workflows_enabled_params: object`
+
+        The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent.
+
+        - `type: "enabled"`
+
+        - `inline_agents: optional BetaManagedAgentsMultiagentInlineAgentsEnabledParams or BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+          Whether a run's plan can define inline agents. Defaults to enabled.
+
+          - `beta_managed_agents_multiagent_inline_agents_enabled_params: object`
+
+            The agent can define inline agents.
+
+          - `beta_managed_agents_multiagent_inline_agents_disabled_params: object`
+
+            The agent cannot define inline agents.
+
+        - `predefined_agents: optional array of BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+          Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+          - `union_member_0: string`
+
+          - `beta_managed_agents_agent_params: object`
+
+            Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version
+
+          - `beta_managed_agents_multiagent_self_params: object`
+
+            Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
+
+      - `beta_managed_agents_multiagent_workflows_disabled_params: object`
+
+        The agent cannot start workflow runs.
+
+        - `type: "disabled"`
 
 ### Beta Managed Agents Multiagent Roster Entry Params
 
@@ -7824,11 +8776,7 @@ ant beta:sessions archive \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -7896,9 +8844,1167 @@ ant beta:sessions archive \
 
         - `"fast"`
 
-    - `multiagent: object`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
+
+      - `beta_managed_agents_session_multiagent_coordinator: object`
+
+        Resolved coordinator topology with full agent definitions for each roster member.
+
+        - `type: "coordinator"`
+
+        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+
+          Full `agent` definitions the coordinator may spawn as session threads.
+
+          - `beta_managed_agents_session_thread_agent: object`
+
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `description: string`
+
+            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `type: "url"`
+
+              - `name: string`
+
+              - `url: string`
+
+            - `model: object`
+
+              Model identifier and configuration.
+
+              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+                The model that will power your agent.
+
+                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+              - `inference_geo: optional string`
+
+                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+              - `speed: optional "standard" or "fast"`
+
+                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `name: string`
+
+            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `beta_managed_agents_anthropic_skill: object`
+
+                A resolved Anthropic-managed skill.
+
+                - `type: "anthropic"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+              - `beta_managed_agents_custom_skill: object`
+
+                A resolved user-created custom skill.
+
+                - `type: "custom"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+            - `system: string`
+
+            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `beta_managed_agents_agent_toolset20260401: object`
+
+                - `type: "agent_toolset_20260401"`
+
+                - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                  - `beta_managed_agents_bash_tool_config: object`
+
+                    Configuration for the bash tool.
+
+                    - `type: "bash"`
+
+                    - `enabled: boolean`
+
+                    - `name: "bash"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: "always_allow"`
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: "always_ask"`
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `type: "auto"`
+
+                  - `beta_managed_agents_edit_tool_config: object`
+
+                    Configuration for the edit tool.
+
+                    - `type: "edit"`
+
+                    - `enabled: boolean`
+
+                    - `name: "edit"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_read_tool_config: object`
+
+                    Configuration for the read tool.
+
+                    - `type: "read"`
+
+                    - `enabled: boolean`
+
+                    - `name: "read"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_write_tool_config: object`
+
+                    Configuration for the write tool.
+
+                    - `type: "write"`
+
+                    - `enabled: boolean`
+
+                    - `name: "write"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_glob_tool_config: object`
+
+                    Configuration for the glob tool.
+
+                    - `type: "glob"`
+
+                    - `enabled: boolean`
+
+                    - `name: "glob"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_grep_tool_config: object`
+
+                    Configuration for the grep tool.
+
+                    - `type: "grep"`
+
+                    - `enabled: boolean`
+
+                    - `name: "grep"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_web_fetch_tool_config: object`
+
+                    Configuration for the web_fetch tool.
+
+                    - `type: "web_fetch"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_fetch"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `url_sources: object`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `type: "only"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `type: "except"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `max_content_tokens: optional number`
+
+                      format: int32
+
+                  - `beta_managed_agents_web_search_tool_config: object`
+
+                    Configuration for the web_search tool.
+
+                    - `type: "web_search"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_search"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `user_location: optional object`
+
+                      Approximate user location for search result localization.
+
+                      - `type: "approximate"`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: optional string`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: optional string`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: optional string`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: optional string`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: object`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_mcp_toolset: object`
+
+                - `type: "mcp_toolset"`
+
+                - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                  - `enabled: boolean`
+
+                  - `name: string`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `default_config: object`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `mcp_server_name: string`
+
+              - `beta_managed_agents_custom_tool: object`
+
+                A custom tool as returned in API responses.
+
+                - `type: "custom"`
+
+                - `description: string`
+
+                - `input_schema: object`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: "object"`
+
+                  - `properties: optional map[unknown]`
+
+                  - `required: optional array of string`
+
+                - `name: string`
+
+            - `version: number`
+
+              format: int32
+
+          - `beta_managed_agents_advisor: object`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `type: "advisor"`
+
+            - `model: string`
+
+              The advisor model id.
+
+      - `beta_managed_agents_session_multiagent20261001: object`
+
+        Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+        - `type: "multiagent_20261001"`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: "enabled"`
+
+            - `model: string`
+
+              The advisor model id.
+
+          - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+            The agent has no advisor.
+
+            - `type: "disabled"`
+
+        - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          Whether the agent can spawn session threads.
+
+          - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+            The agent can spawn session threads.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+                - `type: "enabled"`
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+                - `type: "disabled"`
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+            The agent cannot spawn session threads.
+
+            - `type: "disabled"`
+
+        - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          Whether the agent can start workflow runs.
+
+          - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+            The agent can start workflow runs.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+            The agent cannot start workflow runs.
+
+            - `type: "disabled"`
+
+    - `name: string`
+
+    - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+      - `beta_managed_agents_anthropic_skill: object`
+
+        A resolved Anthropic-managed skill.
+
+      - `beta_managed_agents_custom_skill: object`
+
+        A resolved user-created custom skill.
+
+    - `system: string`
+
+    - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+      - `beta_managed_agents_agent_toolset20260401: object`
+
+      - `beta_managed_agents_mcp_toolset: object`
+
+      - `beta_managed_agents_custom_tool: object`
+
+        A custom tool as returned in API responses.
+
+    - `version: number`
+
+      format: int32
+
+  - `archived_at: string`
+
+    When the session was archived. Null if not archived.
+
+    format: date-time
+
+  - `budget: object`
+
+    The session's enforced spend ceiling, or null when no budget is set.
+
+    - `type: "limit"`
+
+    - `max_list_cost: object`
+
+      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
+
+      - `amount: string`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `currency: "USD"`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+  - `created_at: string`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `environment_id: string`
+
+  - `metadata: map[string]`
+
+  - `outcome_evaluations: array of BetaManagedAgentsOutcomeEvaluationResource`
+
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
+
+    - `type: "outcome_evaluation"`
+
+    - `completed_at: string`
+
+      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
+
+      format: date-time
+
+    - `description: string`
+
+      What the agent should produce.
+
+    - `explanation: string`
+
+      Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
+
+    - `iteration: number`
+
+      0-indexed revision cycle the outcome is currently on.
+
+      format: int32
+
+    - `outcome_id: string`
+
+      Server-generated outc_ ID for this outcome.
+
+    - `result: string`
+
+      Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
+
+  - `resources: array of BetaManagedAgentsSessionResource`
+
+    - `beta_managed_agents_github_repository_resource: object`
+
+      - `type: "github_repository"`
+
+      - `id: string`
+
+      - `created_at: string`
+
+        A timestamp in RFC 3339 format
+
+        format: date-time
+
+      - `mount_path: string`
+
+      - `updated_at: string`
+
+        A timestamp in RFC 3339 format
+
+        format: date-time
+
+      - `url: string`
+
+      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
+
+        - `beta_managed_agents_branch_checkout: object`
+
+          - `type: "branch"`
+
+          - `name: string`
+
+            Branch name to check out.
+
+            minLength: 1, maxLength: 255
+
+        - `beta_managed_agents_commit_checkout: object`
+
+          - `type: "commit"`
+
+          - `sha: string`
+
+            Full commit SHA to check out.
+
+            minLength: 7, maxLength: 64
+
+    - `beta_managed_agents_file_resource: object`
+
+      - `type: "file"`
+
+      - `id: string`
+
+      - `created_at: string`
+
+        A timestamp in RFC 3339 format
+
+        format: date-time
+
+      - `file_id: string`
+
+      - `mount_path: string`
+
+      - `updated_at: string`
+
+        A timestamp in RFC 3339 format
+
+        format: date-time
+
+    - `beta_managed_agents_memory_store_resource: object`
+
+      A memory store attached to an agent session.
+
+      - `type: "memory_store"`
+
+      - `memory_store_id: string`
+
+        The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+
+      - `access: optional "read_write" or "read_only"`
+
+        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
+
+        - `"read_write"`
+
+        - `"read_only"`
+
+      - `description: optional string`
+
+        Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
+
+      - `instructions: optional string`
+
+        Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+
+        maxLength: 4096
+
+      - `mount_path: optional string`
+
+        Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
+
+      - `name: optional string`
+
+        Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
+
+  - `stats: object`
+
+    Timing statistics for the session.
+
+    - `active_seconds: optional number`
+
+      Cumulative time in seconds the session spent in `running` status. Excludes idle time.
+
+      format: double
+
+    - `duration_seconds: optional number`
+
+      Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
+
+      format: double
+
+  - `status: "rescheduling" or "running" or "idle" or "terminated"`
+
+    - `"rescheduling"`
+
+      Transient error occurred, retrying automatically.
+
+    - `"running"`
+
+      Agent is actively executing.
+
+    - `"idle"`
+
+      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
+
+    - `"terminated"`
+
+      Session has ended, either due to an error or completion.
+
+  - `title: string`
+
+  - `updated_at: string`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `usage: object`
+
+    Cumulative token usage for the session.
+
+    - `active_seconds: optional number`
+
+      Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
+
+      format: double
+
+    - `cache_creation: optional object`
+
+      Tokens used to create prompt cache entries, broken down by cache TTL.
+
+      - `ephemeral_1h_input_tokens: optional number`
+
+        Tokens used to create 1-hour ephemeral cache entries.
+
+        format: int32
+
+      - `ephemeral_5m_input_tokens: optional number`
+
+        Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
+
+    - `cache_read_input_tokens: optional number`
+
+      Total tokens read from prompt cache.
+
+      format: int32
+
+    - `input_tokens: optional number`
+
+      Total input tokens consumed across all turns.
+
+      format: int32
+
+    - `list_cost: optional object`
+
+      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
+
+      - `amount: string`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `currency: "USD"`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+    - `output_tokens: optional number`
+
+      Total output tokens generated across all turns.
+
+      format: int32
+
+    - `server_tool_use: optional object`
+
+      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
+
+      - `web_fetch_requests: optional number`
+
+        Number of server-executed web fetch requests.
+
+        format: int32
+
+      - `web_search_requests: optional number`
+
+        Number of server-executed web search requests.
+
+        format: int32
+
+  - `vault_ids: array of string`
+
+    Vault IDs attached to the session at creation. Empty when no vaults were supplied.
+
+  - `deployment_id: optional string`
+
+    Deployment ID when the session was created from a deployment reference. Null otherwise.
+
+### Beta Managed Agents Session Agent
+
+- `beta_managed_agents_session_agent: object`
+
+  Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
+
+  - `type: "agent"`
+
+  - `id: string`
+
+  - `description: string`
+
+  - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+    - `type: "url"`
+
+    - `name: string`
+
+    - `url: string`
+
+  - `model: object`
+
+    Model identifier and configuration.
+
+    - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+      The model that will power your agent.
+
+      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-haiku-5-5"`
+
+        Fastest model for high-volume, real-time tasks
+
+      - `"claude-sonnet-5-5"`
+
+        Efficient model for coding and agents
+
+      - `"claude-opus-5-5"`
+
+        Powerful intelligence for coding, knowledge work, and long-running agents
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `"claude-sonnet-5"`
+
+        Efficient model for coding and agents
+
+      - `"claude-fable-5"`
+
+        Next generation of intelligence for the hardest knowledge work and coding problems
+
+      - `"claude-opus-5"`
+
+        Powerful intelligence for long-running agents and coding
+
+      - `"claude-opus-4-8"`
+
+        Powerful intelligence for long-running agents and coding
+
+      - `"claude-opus-4-7"`
+
+        Powerful intelligence for long-running agents and coding
+
+      - `"claude-opus-4-6"`
+
+        Powerful intelligence for long-running agents and coding
+
+      - `"claude-sonnet-4-6"`
+
+        Best combination of speed and intelligence
+
+      - `"claude-haiku-4-5"`
+
+      - `"claude-haiku-4-5-20251001"`
+
+      - `"claude-opus-4-5"`
+
+        Powerful intelligence for long-running agents and coding
+
+      - `"claude-opus-4-5-20251101"`
+
+        Powerful intelligence for long-running agents and coding
+
+      - `"claude-sonnet-4-5"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        High-performance model for agents and coding
+
+      - `"claude-sonnet-4-5-20250929"`
+
+        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+        High-performance model for agents and coding
+
+    - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+      How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+      - `beta_managed_agents_effort_low: object`
+
+        Low effort. Favors latency over reasoning depth.
+
+        - `type: "low"`
+
+      - `beta_managed_agents_effort_medium: object`
+
+        Medium effort. Balances latency and reasoning depth.
+
+        - `type: "medium"`
+
+      - `beta_managed_agents_effort_high: object`
+
+        High effort. Favors reasoning depth.
+
+        - `type: "high"`
+
+      - `beta_managed_agents_effort_xhigh: object`
+
+        Extra-high effort. Not all models accept this level.
+
+        - `type: "xhigh"`
+
+      - `beta_managed_agents_effort_max: object`
+
+        Maximum effort. Favors reasoning depth over latency.
+
+        - `type: "max"`
+
+    - `inference_geo: optional string`
+
+      Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+    - `speed: optional "standard" or "fast"`
+
+      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+      - `"standard"`
+
+      - `"fast"`
+
+  - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
+
+    Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
+
+    - `beta_managed_agents_session_multiagent_coordinator: object`
+
+      Resolved coordinator topology with full agent definitions for each roster member.
 
       - `type: "coordinator"`
 
@@ -8438,1017 +10544,147 @@ ant beta:sessions archive \
 
             The advisor model id.
 
-    - `name: string`
+    - `beta_managed_agents_session_multiagent20261001: object`
 
-    - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+      Resolved multiagent configuration with three members, as copied to the `session` at creation.
 
-      - `beta_managed_agents_anthropic_skill: object`
+      - `type: "multiagent_20261001"`
 
-        A resolved Anthropic-managed skill.
+      - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
 
-      - `beta_managed_agents_custom_skill: object`
+        Whether the session's primary thread can consult an advisor model.
 
-        A resolved user-created custom skill.
+        - `beta_managed_agents_multiagent_advisor_enabled: object`
 
-    - `system: string`
+          The session's primary thread can consult `model` mid-turn.
 
-    - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+          - `type: "enabled"`
 
-      - `beta_managed_agents_agent_toolset20260401: object`
+          - `model: string`
 
-      - `beta_managed_agents_mcp_toolset: object`
+            The advisor model id.
 
-      - `beta_managed_agents_custom_tool: object`
+        - `beta_managed_agents_multiagent_advisor_disabled: object`
 
-        A custom tool as returned in API responses.
+          The agent has no advisor.
 
-    - `version: number`
+          - `type: "disabled"`
 
-      format: int32
+      - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
 
-  - `archived_at: string`
+        Whether the agent can spawn session threads.
 
-    When the session was archived. Null if not archived.
+        - `beta_managed_agents_session_multiagent_subagents_enabled: object`
 
-    format: date-time
+          The agent can spawn session threads.
 
-  - `budget: object`
+          - `type: "enabled"`
 
-    The session's enforced spend ceiling, or null when no budget is set.
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
 
-    - `type: "limit"`
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
 
-    - `max_list_cost: object`
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
 
-      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
+              The agent can define inline agents.
 
-      - `amount: string`
+              - `type: "enabled"`
 
-        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
 
-      - `currency: "USD"`
+              The agent cannot define inline agents.
 
-        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+              - `type: "disabled"`
 
-  - `created_at: string`
+          - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
 
-    A timestamp in RFC 3339 format
+            Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
 
-    format: date-time
+            - `type: "agent"`
 
-  - `environment_id: string`
-
-  - `metadata: map[string]`
-
-  - `outcome_evaluations: array of BetaManagedAgentsOutcomeEvaluationResource`
-
-    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
-
-    - `type: "outcome_evaluation"`
-
-    - `completed_at: string`
-
-      When the outcome reached a terminal result. Null while `pending`/`running`/`evaluating`.
-
-      format: date-time
-
-    - `description: string`
-
-      What the agent should produce.
-
-    - `explanation: string`
-
-      Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
-
-    - `iteration: number`
-
-      0-indexed revision cycle the outcome is currently on.
-
-      format: int32
-
-    - `outcome_id: string`
-
-      Server-generated outc_ ID for this outcome.
-
-    - `result: string`
-
-      Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
-
-  - `resources: array of BetaManagedAgentsSessionResource`
-
-    - `beta_managed_agents_github_repository_resource: object`
-
-      - `type: "github_repository"`
-
-      - `id: string`
-
-      - `created_at: string`
-
-        A timestamp in RFC 3339 format
-
-        format: date-time
-
-      - `mount_path: string`
-
-      - `updated_at: string`
-
-        A timestamp in RFC 3339 format
-
-        format: date-time
-
-      - `url: string`
-
-      - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
-
-        - `beta_managed_agents_branch_checkout: object`
-
-          - `type: "branch"`
-
-          - `name: string`
-
-            Branch name to check out.
-
-            minLength: 1, maxLength: 255
-
-        - `beta_managed_agents_commit_checkout: object`
-
-          - `type: "commit"`
-
-          - `sha: string`
-
-            Full commit SHA to check out.
-
-            minLength: 7, maxLength: 64
-
-    - `beta_managed_agents_file_resource: object`
-
-      - `type: "file"`
-
-      - `id: string`
-
-      - `created_at: string`
-
-        A timestamp in RFC 3339 format
-
-        format: date-time
-
-      - `file_id: string`
-
-      - `mount_path: string`
-
-      - `updated_at: string`
-
-        A timestamp in RFC 3339 format
-
-        format: date-time
-
-    - `beta_managed_agents_memory_store_resource: object`
-
-      A memory store attached to an agent session.
-
-      - `type: "memory_store"`
-
-      - `memory_store_id: string`
-
-        The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `access: optional "read_write" or "read_only"`
-
-        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
-
-        - `"read_write"`
-
-        - `"read_only"`
-
-      - `description: optional string`
-
-        Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
-
-      - `instructions: optional string`
-
-        Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-
-        maxLength: 4096
-
-      - `mount_path: optional string`
-
-        Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
-
-      - `name: optional string`
-
-        Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
-
-  - `stats: object`
-
-    Timing statistics for the session.
-
-    - `active_seconds: optional number`
-
-      Cumulative time in seconds the session spent in `running` status. Excludes idle time.
-
-      format: double
-
-    - `duration_seconds: optional number`
-
-      Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
-
-      format: double
-
-  - `status: "rescheduling" or "running" or "idle" or "terminated"`
-
-    - `"rescheduling"`
-
-      Transient error occurred, retrying automatically.
-
-    - `"running"`
-
-      Agent is actively executing.
-
-    - `"idle"`
-
-      Agent is waiting for input, including user messages or tool confirmations. Sessions start in idle.
-
-    - `"terminated"`
-
-      Session has ended, either due to an error or completion.
-
-  - `title: string`
-
-  - `updated_at: string`
-
-    A timestamp in RFC 3339 format
-
-    format: date-time
-
-  - `usage: object`
-
-    Cumulative token usage for the session.
-
-    - `active_seconds: optional number`
-
-      Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
-
-      format: double
-
-    - `cache_creation: optional object`
-
-      Tokens used to create prompt cache entries, broken down by cache TTL.
-
-      - `ephemeral_1h_input_tokens: optional number`
-
-        Tokens used to create 1-hour ephemeral cache entries.
-
-        format: int32
-
-      - `ephemeral_5m_input_tokens: optional number`
-
-        Tokens used to create 5-minute ephemeral cache entries.
-
-        format: int32
-
-    - `cache_read_input_tokens: optional number`
-
-      Total tokens read from prompt cache.
-
-      format: int32
-
-    - `input_tokens: optional number`
-
-      Total input tokens consumed across all turns.
-
-      format: int32
-
-    - `list_cost: optional object`
-
-      Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session.
-
-      - `amount: string`
-
-        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
-
-      - `currency: "USD"`
-
-        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-    - `output_tokens: optional number`
-
-      Total output tokens generated across all turns.
-
-      format: int32
-
-    - `server_tool_use: optional object`
-
-      Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session.
-
-      - `web_fetch_requests: optional number`
-
-        Number of server-executed web fetch requests.
-
-        format: int32
-
-      - `web_search_requests: optional number`
-
-        Number of server-executed web search requests.
-
-        format: int32
-
-  - `vault_ids: array of string`
-
-    Vault IDs attached to the session at creation. Empty when no vaults were supplied.
-
-  - `deployment_id: optional string`
-
-    Deployment ID when the session was created from a deployment reference. Null otherwise.
-
-### Beta Managed Agents Session Agent
-
-- `beta_managed_agents_session_agent: object`
-
-  Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
-
-  - `type: "agent"`
-
-  - `id: string`
-
-  - `description: string`
-
-  - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
-
-    - `type: "url"`
-
-    - `name: string`
-
-    - `url: string`
-
-  - `model: object`
-
-    Model identifier and configuration.
-
-    - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-      The model that will power your agent.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-      - `"claude-haiku-5-5"`
-
-        Fastest model for high-volume, real-time tasks
-
-      - `"claude-sonnet-5-5"`
-
-        Efficient model for coding and agents
-
-      - `"claude-opus-5-5"`
-
-        Powerful intelligence for coding, knowledge work, and long-running agents
-
-      - `"claude-fable-5-1"`
-
-        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-      - `"claude-sonnet-5"`
-
-        Efficient model for coding and agents
-
-      - `"claude-fable-5"`
-
-        Next generation of intelligence for the hardest knowledge work and coding problems
-
-      - `"claude-opus-5"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-opus-4-8"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-opus-4-7"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-opus-4-6"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-sonnet-4-6"`
-
-        Best combination of speed and intelligence
-
-      - `"claude-haiku-4-5"`
-
-        Fastest model with near-frontier intelligence
-
-      - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
-
-      - `"claude-opus-4-5"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-opus-4-5-20251101"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-sonnet-4-5"`
-
-        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-        High-performance model for agents and coding
-
-      - `"claude-sonnet-4-5-20250929"`
-
-        **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-        High-performance model for agents and coding
-
-    - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-      How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-      - `beta_managed_agents_effort_low: object`
-
-        Low effort. Favors latency over reasoning depth.
-
-        - `type: "low"`
-
-      - `beta_managed_agents_effort_medium: object`
-
-        Medium effort. Balances latency and reasoning depth.
-
-        - `type: "medium"`
-
-      - `beta_managed_agents_effort_high: object`
-
-        High effort. Favors reasoning depth.
-
-        - `type: "high"`
-
-      - `beta_managed_agents_effort_xhigh: object`
-
-        Extra-high effort. Not all models accept this level.
-
-        - `type: "xhigh"`
-
-      - `beta_managed_agents_effort_max: object`
-
-        Maximum effort. Favors reasoning depth over latency.
-
-        - `type: "max"`
-
-    - `inference_geo: optional string`
-
-      Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-    - `speed: optional "standard" or "fast"`
-
-      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-      - `"standard"`
-
-      - `"fast"`
-
-  - `multiagent: object`
-
-    Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
-
-    - `type: "coordinator"`
-
-    - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
-
-      Full `agent` definitions the coordinator may spawn as session threads.
-
-      - `beta_managed_agents_session_thread_agent: object`
-
-        Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
-
-        - `type: "agent"`
-
-        - `id: string`
-
-        - `description: string`
-
-        - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
-
-          - `type: "url"`
-
-          - `name: string`
-
-          - `url: string`
-
-        - `model: object`
-
-          Model identifier and configuration.
-
-          - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-            The model that will power your agent.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-            How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-          - `inference_geo: optional string`
-
-            Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-          - `speed: optional "standard" or "fast"`
-
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-        - `name: string`
-
-        - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-          - `beta_managed_agents_anthropic_skill: object`
-
-            A resolved Anthropic-managed skill.
-
-            - `type: "anthropic"`
-
-            - `skill_id: string`
-
-            - `version: string`
-
-          - `beta_managed_agents_custom_skill: object`
-
-            A resolved user-created custom skill.
-
-            - `type: "custom"`
-
-            - `skill_id: string`
-
-            - `version: string`
-
-        - `system: string`
-
-        - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-          - `beta_managed_agents_agent_toolset20260401: object`
-
-            - `type: "agent_toolset_20260401"`
-
-            - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-              - `beta_managed_agents_bash_tool_config: object`
-
-                Configuration for the bash tool.
-
-                - `type: "bash"`
-
-                - `enabled: boolean`
-
-                - `name: "bash"`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                    - `type: "always_allow"`
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                    - `type: "always_ask"`
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `type: "auto"`
-
-              - `beta_managed_agents_edit_tool_config: object`
-
-                Configuration for the edit tool.
-
-                - `type: "edit"`
-
-                - `enabled: boolean`
-
-                - `name: "edit"`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `beta_managed_agents_read_tool_config: object`
-
-                Configuration for the read tool.
-
-                - `type: "read"`
-
-                - `enabled: boolean`
-
-                - `name: "read"`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `beta_managed_agents_write_tool_config: object`
-
-                Configuration for the write tool.
-
-                - `type: "write"`
-
-                - `enabled: boolean`
-
-                - `name: "write"`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `beta_managed_agents_glob_tool_config: object`
-
-                Configuration for the glob tool.
-
-                - `type: "glob"`
-
-                - `enabled: boolean`
-
-                - `name: "glob"`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `beta_managed_agents_grep_tool_config: object`
-
-                Configuration for the grep tool.
-
-                - `type: "grep"`
-
-                - `enabled: boolean`
-
-                - `name: "grep"`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `beta_managed_agents_web_fetch_tool_config: object`
-
-                Configuration for the web_fetch tool.
-
-                - `type: "web_fetch"`
-
-                - `enabled: boolean`
-
-                - `name: "web_fetch"`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `url_sources: object`
-
-                  Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                  - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                    Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                    - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                      Every URL from this source may be fetched. This is the default.
-
-                      - `type: "all"`
-
-                    - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                      This source contributes no URLs that may be fetched.
-
-                      - `type: "none"`
-
-                    - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                      Only the named tools' results contribute URLs that may be fetched.
-
-                      - `type: "only"`
-
-                      - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                        The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                        - `type: "tool_reference"`
-
-                          Must be "tool_reference".
-
-                        - `name: string`
-
-                          Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                          minLength: 1, maxLength: 128
-
-                    - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                      Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                      - `type: "except"`
-
-                      - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                        The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                        - `type: "tool_reference"`
-
-                          Must be "tool_reference".
-
-                        - `name: string`
-
-                          Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                          minLength: 1, maxLength: 128
-
-                  - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                    Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                    - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                      Every URL from this source may be fetched. This is the default.
-
-                    - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                      This source contributes no URLs that may be fetched.
-
-                    - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                      Only the named tools' results contribute URLs that may be fetched.
-
-                    - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                      Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                  - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                    Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                    - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                      Every URL from this source may be fetched. This is the default.
-
-                      - `type: "all"`
-
-                    - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                      This source contributes no URLs that may be fetched.
-
-                      - `type: "none"`
-
-                - `allowed_domains: optional array of string`
-
-                - `blocked_domains: optional array of string`
-
-                - `max_content_tokens: optional number`
-
-                  format: int32
-
-              - `beta_managed_agents_web_search_tool_config: object`
-
-                Configuration for the web_search tool.
-
-                - `type: "web_search"`
-
-                - `enabled: boolean`
-
-                - `name: "web_search"`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `allowed_domains: optional array of string`
-
-                - `blocked_domains: optional array of string`
-
-                - `user_location: optional object`
-
-                  Approximate user location for search result localization.
-
-                  - `type: "approximate"`
-
-                    Location precision. Only "approximate" is supported.
-
-                  - `city: optional string`
-
-                    City name.
-
-                    minLength: 1, maxLength: 255
-
-                  - `country: optional string`
-
-                    Two-letter ISO 3166-1 country code, uppercase.
-
-                  - `region: optional string`
-
-                    Region or state name.
-
-                    minLength: 1, maxLength: 255
-
-                  - `timezone: optional string`
-
-                    IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                    minLength: 1, maxLength: 255
-
-            - `default_config: object`
-
-              Resolved default configuration for agent tools.
-
-              - `enabled: boolean`
-
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                Permission policy for tool execution.
-
-                - `beta_managed_agents_always_allow_policy: object`
-
-                  Tool calls are automatically approved without user confirmation.
-
-                - `beta_managed_agents_always_ask_policy: object`
-
-                  Tool calls require user confirmation before execution.
-
-                - `beta_managed_agents_auto_policy: object`
-
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-          - `beta_managed_agents_mcp_toolset: object`
-
-            - `type: "mcp_toolset"`
-
-            - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-              - `enabled: boolean`
-
-              - `name: string`
-
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                Permission policy for tool execution.
-
-                - `beta_managed_agents_always_allow_policy: object`
-
-                  Tool calls are automatically approved without user confirmation.
-
-                - `beta_managed_agents_always_ask_policy: object`
-
-                  Tool calls require user confirmation before execution.
-
-                - `beta_managed_agents_auto_policy: object`
-
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-            - `default_config: object`
-
-              Resolved default configuration for all tools from an MCP server.
-
-              - `enabled: boolean`
-
-              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                Permission policy for tool execution.
-
-                - `beta_managed_agents_always_allow_policy: object`
-
-                  Tool calls are automatically approved without user confirmation.
-
-                - `beta_managed_agents_always_ask_policy: object`
-
-                  Tool calls require user confirmation before execution.
-
-                - `beta_managed_agents_auto_policy: object`
-
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-            - `mcp_server_name: string`
-
-          - `beta_managed_agents_custom_tool: object`
-
-            A custom tool as returned in API responses.
-
-            - `type: "custom"`
+            - `id: string`
 
             - `description: string`
 
-            - `input_schema: object`
+            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-              JSON Schema for custom tool input parameters.
+            - `model: object`
 
-              - `type: "object"`
-
-              - `properties: optional map[unknown]`
-
-              - `required: optional array of string`
+              Model identifier and configuration.
 
             - `name: string`
 
-        - `version: number`
+            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
 
-          format: int32
+            - `system: string`
 
-      - `beta_managed_agents_advisor: object`
+            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            - `version: number`
 
-        - `type: "advisor"`
+              format: int32
 
-        - `model: string`
+        - `beta_managed_agents_multiagent_subagents_disabled: object`
 
-          The advisor model id.
+          The agent cannot spawn session threads.
+
+          - `type: "disabled"`
+
+      - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+        Whether the agent can start workflow runs.
+
+        - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+          The agent can start workflow runs.
+
+          - `type: "enabled"`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+            - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+              The agent can define inline agents.
+
+            - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+              The agent cannot define inline agents.
+
+          - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+            Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+            - `type: "agent"`
+
+            - `id: string`
+
+            - `description: string`
+
+            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+            - `model: object`
+
+              Model identifier and configuration.
+
+            - `name: string`
+
+            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+            - `system: string`
+
+            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+            - `version: number`
+
+              format: int32
+
+        - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+          The agent cannot start workflow runs.
+
+          - `type: "disabled"`
 
   - `name: string`
 
@@ -10044,6 +11280,798 @@ ant beta:sessions archive \
 
         minLength: 1, maxLength: 128
 
+### Beta Managed Agents Session Multiagent
+
+- `beta_managed_agents_session_multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
+
+  Resolved multiagent orchestration configuration as returned on a `session`.
+
+  - `beta_managed_agents_session_multiagent_coordinator: object`
+
+    Resolved coordinator topology with full agent definitions for each roster member.
+
+    - `type: "coordinator"`
+
+    - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+
+      Full `agent` definitions the coordinator may spawn as session threads.
+
+      - `beta_managed_agents_session_thread_agent: object`
+
+        Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+
+        - `type: "agent"`
+
+        - `id: string`
+
+        - `description: string`
+
+        - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+          - `type: "url"`
+
+          - `name: string`
+
+          - `url: string`
+
+        - `model: object`
+
+          Model identifier and configuration.
+
+          - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+            The model that will power your agent.
+
+            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-haiku-5-5"`
+
+              Fastest model for high-volume, real-time tasks
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
+
+            - `"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `"claude-sonnet-5"`
+
+              Efficient model for coding and agents
+
+            - `"claude-fable-5"`
+
+              Next generation of intelligence for the hardest knowledge work and coding problems
+
+            - `"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-opus-4-8"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-opus-4-7"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-opus-4-6"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-sonnet-4-6"`
+
+              Best combination of speed and intelligence
+
+            - `"claude-haiku-4-5"`
+
+            - `"claude-haiku-4-5-20251001"`
+
+            - `"claude-opus-4-5"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-opus-4-5-20251101"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-sonnet-4-5"`
+
+              **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              High-performance model for agents and coding
+
+            - `"claude-sonnet-4-5-20250929"`
+
+              **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              High-performance model for agents and coding
+
+          - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+            How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+            - `beta_managed_agents_effort_low: object`
+
+              Low effort. Favors latency over reasoning depth.
+
+              - `type: "low"`
+
+            - `beta_managed_agents_effort_medium: object`
+
+              Medium effort. Balances latency and reasoning depth.
+
+              - `type: "medium"`
+
+            - `beta_managed_agents_effort_high: object`
+
+              High effort. Favors reasoning depth.
+
+              - `type: "high"`
+
+            - `beta_managed_agents_effort_xhigh: object`
+
+              Extra-high effort. Not all models accept this level.
+
+              - `type: "xhigh"`
+
+            - `beta_managed_agents_effort_max: object`
+
+              Maximum effort. Favors reasoning depth over latency.
+
+              - `type: "max"`
+
+          - `inference_geo: optional string`
+
+            Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+          - `speed: optional "standard" or "fast"`
+
+            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `"standard"`
+
+            - `"fast"`
+
+        - `name: string`
+
+        - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+          - `beta_managed_agents_anthropic_skill: object`
+
+            A resolved Anthropic-managed skill.
+
+            - `type: "anthropic"`
+
+            - `skill_id: string`
+
+            - `version: string`
+
+          - `beta_managed_agents_custom_skill: object`
+
+            A resolved user-created custom skill.
+
+            - `type: "custom"`
+
+            - `skill_id: string`
+
+            - `version: string`
+
+        - `system: string`
+
+        - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+          - `beta_managed_agents_agent_toolset20260401: object`
+
+            - `type: "agent_toolset_20260401"`
+
+            - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+              - `beta_managed_agents_bash_tool_config: object`
+
+                Configuration for the bash tool.
+
+                - `type: "bash"`
+
+                - `enabled: boolean`
+
+                - `name: "bash"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                    - `type: "always_allow"`
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                    - `type: "always_ask"`
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `type: "auto"`
+
+              - `beta_managed_agents_edit_tool_config: object`
+
+                Configuration for the edit tool.
+
+                - `type: "edit"`
+
+                - `enabled: boolean`
+
+                - `name: "edit"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_read_tool_config: object`
+
+                Configuration for the read tool.
+
+                - `type: "read"`
+
+                - `enabled: boolean`
+
+                - `name: "read"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_write_tool_config: object`
+
+                Configuration for the write tool.
+
+                - `type: "write"`
+
+                - `enabled: boolean`
+
+                - `name: "write"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_glob_tool_config: object`
+
+                Configuration for the glob tool.
+
+                - `type: "glob"`
+
+                - `enabled: boolean`
+
+                - `name: "glob"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_grep_tool_config: object`
+
+                Configuration for the grep tool.
+
+                - `type: "grep"`
+
+                - `enabled: boolean`
+
+                - `name: "grep"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_web_fetch_tool_config: object`
+
+                Configuration for the web_fetch tool.
+
+                - `type: "web_fetch"`
+
+                - `enabled: boolean`
+
+                - `name: "web_fetch"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `url_sources: object`
+
+                  Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                  - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                    Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                    - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                      Every URL from this source may be fetched. This is the default.
+
+                      - `type: "all"`
+
+                    - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                      This source contributes no URLs that may be fetched.
+
+                      - `type: "none"`
+
+                    - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                      Only the named tools' results contribute URLs that may be fetched.
+
+                      - `type: "only"`
+
+                      - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                        The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                        - `type: "tool_reference"`
+
+                          Must be "tool_reference".
+
+                        - `name: string`
+
+                          Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                          minLength: 1, maxLength: 128
+
+                    - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                      Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `type: "except"`
+
+                      - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                        The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                        - `type: "tool_reference"`
+
+                          Must be "tool_reference".
+
+                        - `name: string`
+
+                          Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                          minLength: 1, maxLength: 128
+
+                  - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                    Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                    - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                      Every URL from this source may be fetched. This is the default.
+
+                    - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                      This source contributes no URLs that may be fetched.
+
+                    - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                      Only the named tools' results contribute URLs that may be fetched.
+
+                    - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                      Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                  - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                    Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                    - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                      Every URL from this source may be fetched. This is the default.
+
+                      - `type: "all"`
+
+                    - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                      This source contributes no URLs that may be fetched.
+
+                      - `type: "none"`
+
+                - `allowed_domains: optional array of string`
+
+                - `blocked_domains: optional array of string`
+
+                - `max_content_tokens: optional number`
+
+                  format: int32
+
+              - `beta_managed_agents_web_search_tool_config: object`
+
+                Configuration for the web_search tool.
+
+                - `type: "web_search"`
+
+                - `enabled: boolean`
+
+                - `name: "web_search"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `allowed_domains: optional array of string`
+
+                - `blocked_domains: optional array of string`
+
+                - `user_location: optional object`
+
+                  Approximate user location for search result localization.
+
+                  - `type: "approximate"`
+
+                    Location precision. Only "approximate" is supported.
+
+                  - `city: optional string`
+
+                    City name.
+
+                    minLength: 1, maxLength: 255
+
+                  - `country: optional string`
+
+                    Two-letter ISO 3166-1 country code, uppercase.
+
+                  - `region: optional string`
+
+                    Region or state name.
+
+                    minLength: 1, maxLength: 255
+
+                  - `timezone: optional string`
+
+                    IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                    minLength: 1, maxLength: 255
+
+            - `default_config: object`
+
+              Resolved default configuration for agent tools.
+
+              - `enabled: boolean`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_mcp_toolset: object`
+
+            - `type: "mcp_toolset"`
+
+            - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+              - `enabled: boolean`
+
+              - `name: string`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `default_config: object`
+
+              Resolved default configuration for all tools from an MCP server.
+
+              - `enabled: boolean`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `mcp_server_name: string`
+
+          - `beta_managed_agents_custom_tool: object`
+
+            A custom tool as returned in API responses.
+
+            - `type: "custom"`
+
+            - `description: string`
+
+            - `input_schema: object`
+
+              JSON Schema for custom tool input parameters.
+
+              - `type: "object"`
+
+              - `properties: optional map[unknown]`
+
+              - `required: optional array of string`
+
+            - `name: string`
+
+        - `version: number`
+
+          format: int32
+
+      - `beta_managed_agents_advisor: object`
+
+        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+        - `type: "advisor"`
+
+        - `model: string`
+
+          The advisor model id.
+
+  - `beta_managed_agents_session_multiagent20261001: object`
+
+    Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+    - `type: "multiagent_20261001"`
+
+    - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+      Whether the session's primary thread can consult an advisor model.
+
+      - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+        The session's primary thread can consult `model` mid-turn.
+
+        - `type: "enabled"`
+
+        - `model: string`
+
+          The advisor model id.
+
+      - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+        The agent has no advisor.
+
+        - `type: "disabled"`
+
+    - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+      Whether the agent can spawn session threads.
+
+      - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+        The agent can spawn session threads.
+
+        - `type: "enabled"`
+
+        - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+          Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+          - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+            The agent can define inline agents.
+
+            - `type: "enabled"`
+
+          - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+            The agent cannot define inline agents.
+
+            - `type: "disabled"`
+
+        - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+          Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+          - `type: "agent"`
+
+          - `id: string`
+
+          - `description: string`
+
+          - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+          - `model: object`
+
+            Model identifier and configuration.
+
+          - `name: string`
+
+          - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+          - `system: string`
+
+          - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+          - `version: number`
+
+            format: int32
+
+      - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+        The agent cannot spawn session threads.
+
+        - `type: "disabled"`
+
+    - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+      Whether the agent can start workflow runs.
+
+      - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+        The agent can start workflow runs.
+
+        - `type: "enabled"`
+
+        - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+          Whether a run's plan can define inline agents, which are not saved.
+
+          - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+            The agent can define inline agents.
+
+          - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+            The agent cannot define inline agents.
+
+        - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+          Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+          - `type: "agent"`
+
+          - `id: string`
+
+          - `description: string`
+
+          - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+          - `model: object`
+
+            Model identifier and configuration.
+
+          - `name: string`
+
+          - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+          - `system: string`
+
+          - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+          - `version: number`
+
+            format: int32
+
+      - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+        The agent cannot start workflow runs.
+
+        - `type: "disabled"`
+
 ### Beta Managed Agents Session Multiagent Coordinator
 
 - `beta_managed_agents_session_multiagent_coordinator: object`
@@ -10130,11 +12158,7 @@ ant beta:sessions archive \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -10694,6 +12718,3358 @@ ant beta:sessions archive \
 
         The advisor model id.
 
+### Beta Managed Agents Session Multiagent Subagents
+
+- `beta_managed_agents_session_multiagent_subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+  Whether the agent can spawn session threads.
+
+  - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+    The agent can spawn session threads.
+
+    - `type: "enabled"`
+
+    - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+      Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+      - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+        The agent can define inline agents.
+
+        - `type: "enabled"`
+
+      - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+        The agent cannot define inline agents.
+
+        - `type: "disabled"`
+
+    - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+      Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+      - `type: "agent"`
+
+      - `id: string`
+
+      - `description: string`
+
+      - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+        - `type: "url"`
+
+        - `name: string`
+
+        - `url: string`
+
+      - `model: object`
+
+        Model identifier and configuration.
+
+        - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+          The model that will power your agent.
+
+          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-haiku-5-5"`
+
+            Fastest model for high-volume, real-time tasks
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
+
+          - `"claude-opus-5-5"`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-sonnet-5"`
+
+            Efficient model for coding and agents
+
+          - `"claude-fable-5"`
+
+            Next generation of intelligence for the hardest knowledge work and coding problems
+
+          - `"claude-opus-5"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-opus-4-8"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-opus-4-7"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-opus-4-6"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-sonnet-4-6"`
+
+            Best combination of speed and intelligence
+
+          - `"claude-haiku-4-5"`
+
+          - `"claude-haiku-4-5-20251001"`
+
+          - `"claude-opus-4-5"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-opus-4-5-20251101"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-sonnet-4-5"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            High-performance model for agents and coding
+
+          - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            High-performance model for agents and coding
+
+        - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+          - `beta_managed_agents_effort_low: object`
+
+            Low effort. Favors latency over reasoning depth.
+
+            - `type: "low"`
+
+          - `beta_managed_agents_effort_medium: object`
+
+            Medium effort. Balances latency and reasoning depth.
+
+            - `type: "medium"`
+
+          - `beta_managed_agents_effort_high: object`
+
+            High effort. Favors reasoning depth.
+
+            - `type: "high"`
+
+          - `beta_managed_agents_effort_xhigh: object`
+
+            Extra-high effort. Not all models accept this level.
+
+            - `type: "xhigh"`
+
+          - `beta_managed_agents_effort_max: object`
+
+            Maximum effort. Favors reasoning depth over latency.
+
+            - `type: "max"`
+
+        - `inference_geo: optional string`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+        - `speed: optional "standard" or "fast"`
+
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+          - `"standard"`
+
+          - `"fast"`
+
+      - `name: string`
+
+      - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+        - `beta_managed_agents_anthropic_skill: object`
+
+          A resolved Anthropic-managed skill.
+
+          - `type: "anthropic"`
+
+          - `skill_id: string`
+
+          - `version: string`
+
+        - `beta_managed_agents_custom_skill: object`
+
+          A resolved user-created custom skill.
+
+          - `type: "custom"`
+
+          - `skill_id: string`
+
+          - `version: string`
+
+      - `system: string`
+
+      - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+        - `beta_managed_agents_agent_toolset20260401: object`
+
+          - `type: "agent_toolset_20260401"`
+
+          - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+            - `beta_managed_agents_bash_tool_config: object`
+
+              Configuration for the bash tool.
+
+              - `type: "bash"`
+
+              - `enabled: boolean`
+
+              - `name: "bash"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                  - `type: "always_allow"`
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                  - `type: "always_ask"`
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `type: "auto"`
+
+            - `beta_managed_agents_edit_tool_config: object`
+
+              Configuration for the edit tool.
+
+              - `type: "edit"`
+
+              - `enabled: boolean`
+
+              - `name: "edit"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_read_tool_config: object`
+
+              Configuration for the read tool.
+
+              - `type: "read"`
+
+              - `enabled: boolean`
+
+              - `name: "read"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_write_tool_config: object`
+
+              Configuration for the write tool.
+
+              - `type: "write"`
+
+              - `enabled: boolean`
+
+              - `name: "write"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_glob_tool_config: object`
+
+              Configuration for the glob tool.
+
+              - `type: "glob"`
+
+              - `enabled: boolean`
+
+              - `name: "glob"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_grep_tool_config: object`
+
+              Configuration for the grep tool.
+
+              - `type: "grep"`
+
+              - `enabled: boolean`
+
+              - `name: "grep"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_web_fetch_tool_config: object`
+
+              Configuration for the web_fetch tool.
+
+              - `type: "web_fetch"`
+
+              - `enabled: boolean`
+
+              - `name: "web_fetch"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `url_sources: object`
+
+                Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                  Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                  - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                    - `type: "all"`
+
+                  - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                    This source contributes no URLs that may be fetched.
+
+                    - `type: "none"`
+
+                  - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                    Only the named tools' results contribute URLs that may be fetched.
+
+                    - `type: "only"`
+
+                    - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                      The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                      - `type: "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `name: string`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                  - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                    Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                    - `type: "except"`
+
+                    - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                      The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                      - `type: "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `name: string`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                  Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                  - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                  - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                    This source contributes no URLs that may be fetched.
+
+                  - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                    Only the named tools' results contribute URLs that may be fetched.
+
+                  - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                    Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                  Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                  - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                    - `type: "all"`
+
+                  - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                    This source contributes no URLs that may be fetched.
+
+                    - `type: "none"`
+
+              - `allowed_domains: optional array of string`
+
+              - `blocked_domains: optional array of string`
+
+              - `max_content_tokens: optional number`
+
+                format: int32
+
+            - `beta_managed_agents_web_search_tool_config: object`
+
+              Configuration for the web_search tool.
+
+              - `type: "web_search"`
+
+              - `enabled: boolean`
+
+              - `name: "web_search"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `allowed_domains: optional array of string`
+
+              - `blocked_domains: optional array of string`
+
+              - `user_location: optional object`
+
+                Approximate user location for search result localization.
+
+                - `type: "approximate"`
+
+                  Location precision. Only "approximate" is supported.
+
+                - `city: optional string`
+
+                  City name.
+
+                  minLength: 1, maxLength: 255
+
+                - `country: optional string`
+
+                  Two-letter ISO 3166-1 country code, uppercase.
+
+                - `region: optional string`
+
+                  Region or state name.
+
+                  minLength: 1, maxLength: 255
+
+                - `timezone: optional string`
+
+                  IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                  minLength: 1, maxLength: 255
+
+          - `default_config: object`
+
+            Resolved default configuration for agent tools.
+
+            - `enabled: boolean`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `beta_managed_agents_mcp_toolset: object`
+
+          - `type: "mcp_toolset"`
+
+          - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+            - `enabled: boolean`
+
+            - `name: string`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `default_config: object`
+
+            Resolved default configuration for all tools from an MCP server.
+
+            - `enabled: boolean`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `mcp_server_name: string`
+
+        - `beta_managed_agents_custom_tool: object`
+
+          A custom tool as returned in API responses.
+
+          - `type: "custom"`
+
+          - `description: string`
+
+          - `input_schema: object`
+
+            JSON Schema for custom tool input parameters.
+
+            - `type: "object"`
+
+            - `properties: optional map[unknown]`
+
+            - `required: optional array of string`
+
+          - `name: string`
+
+      - `version: number`
+
+        format: int32
+
+  - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+    The agent cannot spawn session threads.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Session Multiagent Subagents Enabled
+
+- `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+  The agent can spawn session threads.
+
+  - `type: "enabled"`
+
+  - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+    Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+    - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+      The agent can define inline agents.
+
+      - `type: "enabled"`
+
+    - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+      The agent cannot define inline agents.
+
+      - `type: "disabled"`
+
+  - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+    Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+    - `type: "agent"`
+
+    - `id: string`
+
+    - `description: string`
+
+    - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+      - `type: "url"`
+
+      - `name: string`
+
+      - `url: string`
+
+    - `model: object`
+
+      Model identifier and configuration.
+
+      - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+        The model that will power your agent.
+
+        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-haiku-5-5"`
+
+          Fastest model for high-volume, real-time tasks
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `"claude-sonnet-5"`
+
+          Efficient model for coding and agents
+
+        - `"claude-fable-5"`
+
+          Next generation of intelligence for the hardest knowledge work and coding problems
+
+        - `"claude-opus-5"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-opus-4-8"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-opus-4-7"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-opus-4-6"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-sonnet-4-6"`
+
+          Best combination of speed and intelligence
+
+        - `"claude-haiku-4-5"`
+
+        - `"claude-haiku-4-5-20251001"`
+
+        - `"claude-opus-4-5"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-opus-4-5-20251101"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-sonnet-4-5"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          High-performance model for agents and coding
+
+        - `"claude-sonnet-4-5-20250929"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          High-performance model for agents and coding
+
+      - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+        - `beta_managed_agents_effort_low: object`
+
+          Low effort. Favors latency over reasoning depth.
+
+          - `type: "low"`
+
+        - `beta_managed_agents_effort_medium: object`
+
+          Medium effort. Balances latency and reasoning depth.
+
+          - `type: "medium"`
+
+        - `beta_managed_agents_effort_high: object`
+
+          High effort. Favors reasoning depth.
+
+          - `type: "high"`
+
+        - `beta_managed_agents_effort_xhigh: object`
+
+          Extra-high effort. Not all models accept this level.
+
+          - `type: "xhigh"`
+
+        - `beta_managed_agents_effort_max: object`
+
+          Maximum effort. Favors reasoning depth over latency.
+
+          - `type: "max"`
+
+      - `inference_geo: optional string`
+
+        Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+      - `speed: optional "standard" or "fast"`
+
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+        - `"standard"`
+
+        - `"fast"`
+
+    - `name: string`
+
+    - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+      - `beta_managed_agents_anthropic_skill: object`
+
+        A resolved Anthropic-managed skill.
+
+        - `type: "anthropic"`
+
+        - `skill_id: string`
+
+        - `version: string`
+
+      - `beta_managed_agents_custom_skill: object`
+
+        A resolved user-created custom skill.
+
+        - `type: "custom"`
+
+        - `skill_id: string`
+
+        - `version: string`
+
+    - `system: string`
+
+    - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+      - `beta_managed_agents_agent_toolset20260401: object`
+
+        - `type: "agent_toolset_20260401"`
+
+        - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+          - `beta_managed_agents_bash_tool_config: object`
+
+            Configuration for the bash tool.
+
+            - `type: "bash"`
+
+            - `enabled: boolean`
+
+            - `name: "bash"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+                - `type: "always_allow"`
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+                - `type: "always_ask"`
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `type: "auto"`
+
+          - `beta_managed_agents_edit_tool_config: object`
+
+            Configuration for the edit tool.
+
+            - `type: "edit"`
+
+            - `enabled: boolean`
+
+            - `name: "edit"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_read_tool_config: object`
+
+            Configuration for the read tool.
+
+            - `type: "read"`
+
+            - `enabled: boolean`
+
+            - `name: "read"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_write_tool_config: object`
+
+            Configuration for the write tool.
+
+            - `type: "write"`
+
+            - `enabled: boolean`
+
+            - `name: "write"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_glob_tool_config: object`
+
+            Configuration for the glob tool.
+
+            - `type: "glob"`
+
+            - `enabled: boolean`
+
+            - `name: "glob"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_grep_tool_config: object`
+
+            Configuration for the grep tool.
+
+            - `type: "grep"`
+
+            - `enabled: boolean`
+
+            - `name: "grep"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_web_fetch_tool_config: object`
+
+            Configuration for the web_fetch tool.
+
+            - `type: "web_fetch"`
+
+            - `enabled: boolean`
+
+            - `name: "web_fetch"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `url_sources: object`
+
+              Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+              - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                  - `type: "all"`
+
+                - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                  This source contributes no URLs that may be fetched.
+
+                  - `type: "none"`
+
+                - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                  Only the named tools' results contribute URLs that may be fetched.
+
+                  - `type: "only"`
+
+                  - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                    The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                    - `type: "tool_reference"`
+
+                      Must be "tool_reference".
+
+                    - `name: string`
+
+                      Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                      minLength: 1, maxLength: 128
+
+                - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                  Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                  - `type: "except"`
+
+                  - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                    The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                    - `type: "tool_reference"`
+
+                      Must be "tool_reference".
+
+                    - `name: string`
+
+                      Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                      minLength: 1, maxLength: 128
+
+              - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                  This source contributes no URLs that may be fetched.
+
+                - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                  Only the named tools' results contribute URLs that may be fetched.
+
+                - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                  Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+              - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                  - `type: "all"`
+
+                - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                  This source contributes no URLs that may be fetched.
+
+                  - `type: "none"`
+
+            - `allowed_domains: optional array of string`
+
+            - `blocked_domains: optional array of string`
+
+            - `max_content_tokens: optional number`
+
+              format: int32
+
+          - `beta_managed_agents_web_search_tool_config: object`
+
+            Configuration for the web_search tool.
+
+            - `type: "web_search"`
+
+            - `enabled: boolean`
+
+            - `name: "web_search"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `allowed_domains: optional array of string`
+
+            - `blocked_domains: optional array of string`
+
+            - `user_location: optional object`
+
+              Approximate user location for search result localization.
+
+              - `type: "approximate"`
+
+                Location precision. Only "approximate" is supported.
+
+              - `city: optional string`
+
+                City name.
+
+                minLength: 1, maxLength: 255
+
+              - `country: optional string`
+
+                Two-letter ISO 3166-1 country code, uppercase.
+
+              - `region: optional string`
+
+                Region or state name.
+
+                minLength: 1, maxLength: 255
+
+              - `timezone: optional string`
+
+                IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                minLength: 1, maxLength: 255
+
+        - `default_config: object`
+
+          Resolved default configuration for agent tools.
+
+          - `enabled: boolean`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object`
+
+              Tool calls require user confirmation before execution.
+
+            - `beta_managed_agents_auto_policy: object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `beta_managed_agents_mcp_toolset: object`
+
+        - `type: "mcp_toolset"`
+
+        - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+          - `enabled: boolean`
+
+          - `name: string`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object`
+
+              Tool calls require user confirmation before execution.
+
+            - `beta_managed_agents_auto_policy: object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `default_config: object`
+
+          Resolved default configuration for all tools from an MCP server.
+
+          - `enabled: boolean`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object`
+
+              Tool calls require user confirmation before execution.
+
+            - `beta_managed_agents_auto_policy: object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `mcp_server_name: string`
+
+      - `beta_managed_agents_custom_tool: object`
+
+        A custom tool as returned in API responses.
+
+        - `type: "custom"`
+
+        - `description: string`
+
+        - `input_schema: object`
+
+          JSON Schema for custom tool input parameters.
+
+          - `type: "object"`
+
+          - `properties: optional map[unknown]`
+
+          - `required: optional array of string`
+
+        - `name: string`
+
+    - `version: number`
+
+      format: int32
+
+### Beta Managed Agents Session Multiagent Workflows
+
+- `beta_managed_agents_session_multiagent_workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+  Whether the agent can start workflow runs.
+
+  - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+    The agent can start workflow runs.
+
+    - `type: "enabled"`
+
+    - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+      Whether a run's plan can define inline agents, which are not saved.
+
+      - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+        The agent can define inline agents.
+
+        - `type: "enabled"`
+
+      - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+        The agent cannot define inline agents.
+
+        - `type: "disabled"`
+
+    - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+      Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+      - `type: "agent"`
+
+      - `id: string`
+
+      - `description: string`
+
+      - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+        - `type: "url"`
+
+        - `name: string`
+
+        - `url: string`
+
+      - `model: object`
+
+        Model identifier and configuration.
+
+        - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+          The model that will power your agent.
+
+          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-haiku-5-5"`
+
+            Fastest model for high-volume, real-time tasks
+
+          - `"claude-sonnet-5-5"`
+
+            Efficient model for coding and agents
+
+          - `"claude-opus-5-5"`
+
+            Powerful intelligence for coding, knowledge work, and long-running agents
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-sonnet-5"`
+
+            Efficient model for coding and agents
+
+          - `"claude-fable-5"`
+
+            Next generation of intelligence for the hardest knowledge work and coding problems
+
+          - `"claude-opus-5"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-opus-4-8"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-opus-4-7"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-opus-4-6"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-sonnet-4-6"`
+
+            Best combination of speed and intelligence
+
+          - `"claude-haiku-4-5"`
+
+          - `"claude-haiku-4-5-20251001"`
+
+          - `"claude-opus-4-5"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-opus-4-5-20251101"`
+
+            Powerful intelligence for long-running agents and coding
+
+          - `"claude-sonnet-4-5"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            High-performance model for agents and coding
+
+          - `"claude-sonnet-4-5-20250929"`
+
+            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+            High-performance model for agents and coding
+
+        - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+          - `beta_managed_agents_effort_low: object`
+
+            Low effort. Favors latency over reasoning depth.
+
+            - `type: "low"`
+
+          - `beta_managed_agents_effort_medium: object`
+
+            Medium effort. Balances latency and reasoning depth.
+
+            - `type: "medium"`
+
+          - `beta_managed_agents_effort_high: object`
+
+            High effort. Favors reasoning depth.
+
+            - `type: "high"`
+
+          - `beta_managed_agents_effort_xhigh: object`
+
+            Extra-high effort. Not all models accept this level.
+
+            - `type: "xhigh"`
+
+          - `beta_managed_agents_effort_max: object`
+
+            Maximum effort. Favors reasoning depth over latency.
+
+            - `type: "max"`
+
+        - `inference_geo: optional string`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+        - `speed: optional "standard" or "fast"`
+
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+          - `"standard"`
+
+          - `"fast"`
+
+      - `name: string`
+
+      - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+        - `beta_managed_agents_anthropic_skill: object`
+
+          A resolved Anthropic-managed skill.
+
+          - `type: "anthropic"`
+
+          - `skill_id: string`
+
+          - `version: string`
+
+        - `beta_managed_agents_custom_skill: object`
+
+          A resolved user-created custom skill.
+
+          - `type: "custom"`
+
+          - `skill_id: string`
+
+          - `version: string`
+
+      - `system: string`
+
+      - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+        - `beta_managed_agents_agent_toolset20260401: object`
+
+          - `type: "agent_toolset_20260401"`
+
+          - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+            - `beta_managed_agents_bash_tool_config: object`
+
+              Configuration for the bash tool.
+
+              - `type: "bash"`
+
+              - `enabled: boolean`
+
+              - `name: "bash"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                  - `type: "always_allow"`
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                  - `type: "always_ask"`
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `type: "auto"`
+
+            - `beta_managed_agents_edit_tool_config: object`
+
+              Configuration for the edit tool.
+
+              - `type: "edit"`
+
+              - `enabled: boolean`
+
+              - `name: "edit"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_read_tool_config: object`
+
+              Configuration for the read tool.
+
+              - `type: "read"`
+
+              - `enabled: boolean`
+
+              - `name: "read"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_write_tool_config: object`
+
+              Configuration for the write tool.
+
+              - `type: "write"`
+
+              - `enabled: boolean`
+
+              - `name: "write"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_glob_tool_config: object`
+
+              Configuration for the glob tool.
+
+              - `type: "glob"`
+
+              - `enabled: boolean`
+
+              - `name: "glob"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_grep_tool_config: object`
+
+              Configuration for the grep tool.
+
+              - `type: "grep"`
+
+              - `enabled: boolean`
+
+              - `name: "grep"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `beta_managed_agents_web_fetch_tool_config: object`
+
+              Configuration for the web_fetch tool.
+
+              - `type: "web_fetch"`
+
+              - `enabled: boolean`
+
+              - `name: "web_fetch"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `url_sources: object`
+
+                Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                  Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                  - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                    - `type: "all"`
+
+                  - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                    This source contributes no URLs that may be fetched.
+
+                    - `type: "none"`
+
+                  - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                    Only the named tools' results contribute URLs that may be fetched.
+
+                    - `type: "only"`
+
+                    - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                      The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                      - `type: "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `name: string`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                  - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                    Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                    - `type: "except"`
+
+                    - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                      The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                      - `type: "tool_reference"`
+
+                        Must be "tool_reference".
+
+                      - `name: string`
+
+                        Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                        minLength: 1, maxLength: 128
+
+                - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                  Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                  - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                  - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                    This source contributes no URLs that may be fetched.
+
+                  - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                    Only the named tools' results contribute URLs that may be fetched.
+
+                  - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                    Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                  Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                  - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                    Every URL from this source may be fetched. This is the default.
+
+                    - `type: "all"`
+
+                  - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                    This source contributes no URLs that may be fetched.
+
+                    - `type: "none"`
+
+              - `allowed_domains: optional array of string`
+
+              - `blocked_domains: optional array of string`
+
+              - `max_content_tokens: optional number`
+
+                format: int32
+
+            - `beta_managed_agents_web_search_tool_config: object`
+
+              Configuration for the web_search tool.
+
+              - `type: "web_search"`
+
+              - `enabled: boolean`
+
+              - `name: "web_search"`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `allowed_domains: optional array of string`
+
+              - `blocked_domains: optional array of string`
+
+              - `user_location: optional object`
+
+                Approximate user location for search result localization.
+
+                - `type: "approximate"`
+
+                  Location precision. Only "approximate" is supported.
+
+                - `city: optional string`
+
+                  City name.
+
+                  minLength: 1, maxLength: 255
+
+                - `country: optional string`
+
+                  Two-letter ISO 3166-1 country code, uppercase.
+
+                - `region: optional string`
+
+                  Region or state name.
+
+                  minLength: 1, maxLength: 255
+
+                - `timezone: optional string`
+
+                  IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                  minLength: 1, maxLength: 255
+
+          - `default_config: object`
+
+            Resolved default configuration for agent tools.
+
+            - `enabled: boolean`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `beta_managed_agents_mcp_toolset: object`
+
+          - `type: "mcp_toolset"`
+
+          - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+            - `enabled: boolean`
+
+            - `name: string`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `default_config: object`
+
+            Resolved default configuration for all tools from an MCP server.
+
+            - `enabled: boolean`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `mcp_server_name: string`
+
+        - `beta_managed_agents_custom_tool: object`
+
+          A custom tool as returned in API responses.
+
+          - `type: "custom"`
+
+          - `description: string`
+
+          - `input_schema: object`
+
+            JSON Schema for custom tool input parameters.
+
+            - `type: "object"`
+
+            - `properties: optional map[unknown]`
+
+            - `required: optional array of string`
+
+          - `name: string`
+
+      - `version: number`
+
+        format: int32
+
+  - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+    The agent cannot start workflow runs.
+
+    - `type: "disabled"`
+
+### Beta Managed Agents Session Multiagent Workflows Enabled
+
+- `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+  The agent can start workflow runs.
+
+  - `type: "enabled"`
+
+  - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+    Whether a run's plan can define inline agents, which are not saved.
+
+    - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+      The agent can define inline agents.
+
+      - `type: "enabled"`
+
+    - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+      The agent cannot define inline agents.
+
+      - `type: "disabled"`
+
+  - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+    Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+    - `type: "agent"`
+
+    - `id: string`
+
+    - `description: string`
+
+    - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+      - `type: "url"`
+
+      - `name: string`
+
+      - `url: string`
+
+    - `model: object`
+
+      Model identifier and configuration.
+
+      - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+        The model that will power your agent.
+
+        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-haiku-5-5"`
+
+          Fastest model for high-volume, real-time tasks
+
+        - `"claude-sonnet-5-5"`
+
+          Efficient model for coding and agents
+
+        - `"claude-opus-5-5"`
+
+          Powerful intelligence for coding, knowledge work, and long-running agents
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `"claude-sonnet-5"`
+
+          Efficient model for coding and agents
+
+        - `"claude-fable-5"`
+
+          Next generation of intelligence for the hardest knowledge work and coding problems
+
+        - `"claude-opus-5"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-opus-4-8"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-opus-4-7"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-opus-4-6"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-sonnet-4-6"`
+
+          Best combination of speed and intelligence
+
+        - `"claude-haiku-4-5"`
+
+        - `"claude-haiku-4-5-20251001"`
+
+        - `"claude-opus-4-5"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-opus-4-5-20251101"`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `"claude-sonnet-4-5"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          High-performance model for agents and coding
+
+        - `"claude-sonnet-4-5-20250929"`
+
+          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+          High-performance model for agents and coding
+
+      - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+        How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+        - `beta_managed_agents_effort_low: object`
+
+          Low effort. Favors latency over reasoning depth.
+
+          - `type: "low"`
+
+        - `beta_managed_agents_effort_medium: object`
+
+          Medium effort. Balances latency and reasoning depth.
+
+          - `type: "medium"`
+
+        - `beta_managed_agents_effort_high: object`
+
+          High effort. Favors reasoning depth.
+
+          - `type: "high"`
+
+        - `beta_managed_agents_effort_xhigh: object`
+
+          Extra-high effort. Not all models accept this level.
+
+          - `type: "xhigh"`
+
+        - `beta_managed_agents_effort_max: object`
+
+          Maximum effort. Favors reasoning depth over latency.
+
+          - `type: "max"`
+
+      - `inference_geo: optional string`
+
+        Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+      - `speed: optional "standard" or "fast"`
+
+        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+        - `"standard"`
+
+        - `"fast"`
+
+    - `name: string`
+
+    - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+      - `beta_managed_agents_anthropic_skill: object`
+
+        A resolved Anthropic-managed skill.
+
+        - `type: "anthropic"`
+
+        - `skill_id: string`
+
+        - `version: string`
+
+      - `beta_managed_agents_custom_skill: object`
+
+        A resolved user-created custom skill.
+
+        - `type: "custom"`
+
+        - `skill_id: string`
+
+        - `version: string`
+
+    - `system: string`
+
+    - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+      - `beta_managed_agents_agent_toolset20260401: object`
+
+        - `type: "agent_toolset_20260401"`
+
+        - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+          - `beta_managed_agents_bash_tool_config: object`
+
+            Configuration for the bash tool.
+
+            - `type: "bash"`
+
+            - `enabled: boolean`
+
+            - `name: "bash"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+                - `type: "always_allow"`
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+                - `type: "always_ask"`
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `type: "auto"`
+
+          - `beta_managed_agents_edit_tool_config: object`
+
+            Configuration for the edit tool.
+
+            - `type: "edit"`
+
+            - `enabled: boolean`
+
+            - `name: "edit"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_read_tool_config: object`
+
+            Configuration for the read tool.
+
+            - `type: "read"`
+
+            - `enabled: boolean`
+
+            - `name: "read"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_write_tool_config: object`
+
+            Configuration for the write tool.
+
+            - `type: "write"`
+
+            - `enabled: boolean`
+
+            - `name: "write"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_glob_tool_config: object`
+
+            Configuration for the glob tool.
+
+            - `type: "glob"`
+
+            - `enabled: boolean`
+
+            - `name: "glob"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_grep_tool_config: object`
+
+            Configuration for the grep tool.
+
+            - `type: "grep"`
+
+            - `enabled: boolean`
+
+            - `name: "grep"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_web_fetch_tool_config: object`
+
+            Configuration for the web_fetch tool.
+
+            - `type: "web_fetch"`
+
+            - `enabled: boolean`
+
+            - `name: "web_fetch"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `url_sources: object`
+
+              Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+              - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                  - `type: "all"`
+
+                - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                  This source contributes no URLs that may be fetched.
+
+                  - `type: "none"`
+
+                - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                  Only the named tools' results contribute URLs that may be fetched.
+
+                  - `type: "only"`
+
+                  - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                    The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                    - `type: "tool_reference"`
+
+                      Must be "tool_reference".
+
+                    - `name: string`
+
+                      Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                      minLength: 1, maxLength: 128
+
+                - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                  Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                  - `type: "except"`
+
+                  - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                    The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                    - `type: "tool_reference"`
+
+                      Must be "tool_reference".
+
+                    - `name: string`
+
+                      Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                      minLength: 1, maxLength: 128
+
+              - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                  This source contributes no URLs that may be fetched.
+
+                - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                  Only the named tools' results contribute URLs that may be fetched.
+
+                - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                  Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+              - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                  Every URL from this source may be fetched. This is the default.
+
+                  - `type: "all"`
+
+                - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                  This source contributes no URLs that may be fetched.
+
+                  - `type: "none"`
+
+            - `allowed_domains: optional array of string`
+
+            - `blocked_domains: optional array of string`
+
+            - `max_content_tokens: optional number`
+
+              format: int32
+
+          - `beta_managed_agents_web_search_tool_config: object`
+
+            Configuration for the web_search tool.
+
+            - `type: "web_search"`
+
+            - `enabled: boolean`
+
+            - `name: "web_search"`
+
+            - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+              Permission policy for tool execution.
+
+              - `beta_managed_agents_always_allow_policy: object`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `beta_managed_agents_always_ask_policy: object`
+
+                Tool calls require user confirmation before execution.
+
+              - `beta_managed_agents_auto_policy: object`
+
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `allowed_domains: optional array of string`
+
+            - `blocked_domains: optional array of string`
+
+            - `user_location: optional object`
+
+              Approximate user location for search result localization.
+
+              - `type: "approximate"`
+
+                Location precision. Only "approximate" is supported.
+
+              - `city: optional string`
+
+                City name.
+
+                minLength: 1, maxLength: 255
+
+              - `country: optional string`
+
+                Two-letter ISO 3166-1 country code, uppercase.
+
+              - `region: optional string`
+
+                Region or state name.
+
+                minLength: 1, maxLength: 255
+
+              - `timezone: optional string`
+
+                IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                minLength: 1, maxLength: 255
+
+        - `default_config: object`
+
+          Resolved default configuration for agent tools.
+
+          - `enabled: boolean`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object`
+
+              Tool calls require user confirmation before execution.
+
+            - `beta_managed_agents_auto_policy: object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+      - `beta_managed_agents_mcp_toolset: object`
+
+        - `type: "mcp_toolset"`
+
+        - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+          - `enabled: boolean`
+
+          - `name: string`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object`
+
+              Tool calls require user confirmation before execution.
+
+            - `beta_managed_agents_auto_policy: object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `default_config: object`
+
+          Resolved default configuration for all tools from an MCP server.
+
+          - `enabled: boolean`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object`
+
+              Tool calls require user confirmation before execution.
+
+            - `beta_managed_agents_auto_policy: object`
+
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+        - `mcp_server_name: string`
+
+      - `beta_managed_agents_custom_tool: object`
+
+        A custom tool as returned in API responses.
+
+        - `type: "custom"`
+
+        - `description: string`
+
+        - `input_schema: object`
+
+          JSON Schema for custom tool input parameters.
+
+          - `type: "object"`
+
+          - `properties: optional map[unknown]`
+
+          - `required: optional array of string`
+
+        - `name: string`
+
+    - `version: number`
+
+      format: int32
+
+### Beta Managed Agents Session Multiagent20261001
+
+- `beta_managed_agents_session_multiagent20261001: object`
+
+  Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+  - `type: "multiagent_20261001"`
+
+  - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+    Whether the session's primary thread can consult an advisor model.
+
+    - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+      The session's primary thread can consult `model` mid-turn.
+
+      - `type: "enabled"`
+
+      - `model: string`
+
+        The advisor model id.
+
+    - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+      The agent has no advisor.
+
+      - `type: "disabled"`
+
+  - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+    Whether the agent can spawn session threads.
+
+    - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+      The agent can spawn session threads.
+
+      - `type: "enabled"`
+
+      - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+        Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+        - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+          The agent can define inline agents.
+
+          - `type: "enabled"`
+
+        - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+          The agent cannot define inline agents.
+
+          - `type: "disabled"`
+
+      - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+        Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+        - `type: "agent"`
+
+        - `id: string`
+
+        - `description: string`
+
+        - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+          - `type: "url"`
+
+          - `name: string`
+
+          - `url: string`
+
+        - `model: object`
+
+          Model identifier and configuration.
+
+          - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+            The model that will power your agent.
+
+            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-haiku-5-5"`
+
+              Fastest model for high-volume, real-time tasks
+
+            - `"claude-sonnet-5-5"`
+
+              Efficient model for coding and agents
+
+            - `"claude-opus-5-5"`
+
+              Powerful intelligence for coding, knowledge work, and long-running agents
+
+            - `"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `"claude-sonnet-5"`
+
+              Efficient model for coding and agents
+
+            - `"claude-fable-5"`
+
+              Next generation of intelligence for the hardest knowledge work and coding problems
+
+            - `"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-opus-4-8"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-opus-4-7"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-opus-4-6"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-sonnet-4-6"`
+
+              Best combination of speed and intelligence
+
+            - `"claude-haiku-4-5"`
+
+            - `"claude-haiku-4-5-20251001"`
+
+            - `"claude-opus-4-5"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-opus-4-5-20251101"`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `"claude-sonnet-4-5"`
+
+              **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              High-performance model for agents and coding
+
+            - `"claude-sonnet-4-5-20250929"`
+
+              **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+              High-performance model for agents and coding
+
+          - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+            How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+            - `beta_managed_agents_effort_low: object`
+
+              Low effort. Favors latency over reasoning depth.
+
+              - `type: "low"`
+
+            - `beta_managed_agents_effort_medium: object`
+
+              Medium effort. Balances latency and reasoning depth.
+
+              - `type: "medium"`
+
+            - `beta_managed_agents_effort_high: object`
+
+              High effort. Favors reasoning depth.
+
+              - `type: "high"`
+
+            - `beta_managed_agents_effort_xhigh: object`
+
+              Extra-high effort. Not all models accept this level.
+
+              - `type: "xhigh"`
+
+            - `beta_managed_agents_effort_max: object`
+
+              Maximum effort. Favors reasoning depth over latency.
+
+              - `type: "max"`
+
+          - `inference_geo: optional string`
+
+            Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+          - `speed: optional "standard" or "fast"`
+
+            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `"standard"`
+
+            - `"fast"`
+
+        - `name: string`
+
+        - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+          - `beta_managed_agents_anthropic_skill: object`
+
+            A resolved Anthropic-managed skill.
+
+            - `type: "anthropic"`
+
+            - `skill_id: string`
+
+            - `version: string`
+
+          - `beta_managed_agents_custom_skill: object`
+
+            A resolved user-created custom skill.
+
+            - `type: "custom"`
+
+            - `skill_id: string`
+
+            - `version: string`
+
+        - `system: string`
+
+        - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+          - `beta_managed_agents_agent_toolset20260401: object`
+
+            - `type: "agent_toolset_20260401"`
+
+            - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+              - `beta_managed_agents_bash_tool_config: object`
+
+                Configuration for the bash tool.
+
+                - `type: "bash"`
+
+                - `enabled: boolean`
+
+                - `name: "bash"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                    - `type: "always_allow"`
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                    - `type: "always_ask"`
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `type: "auto"`
+
+              - `beta_managed_agents_edit_tool_config: object`
+
+                Configuration for the edit tool.
+
+                - `type: "edit"`
+
+                - `enabled: boolean`
+
+                - `name: "edit"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_read_tool_config: object`
+
+                Configuration for the read tool.
+
+                - `type: "read"`
+
+                - `enabled: boolean`
+
+                - `name: "read"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_write_tool_config: object`
+
+                Configuration for the write tool.
+
+                - `type: "write"`
+
+                - `enabled: boolean`
+
+                - `name: "write"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_glob_tool_config: object`
+
+                Configuration for the glob tool.
+
+                - `type: "glob"`
+
+                - `enabled: boolean`
+
+                - `name: "glob"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_grep_tool_config: object`
+
+                Configuration for the grep tool.
+
+                - `type: "grep"`
+
+                - `enabled: boolean`
+
+                - `name: "grep"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_web_fetch_tool_config: object`
+
+                Configuration for the web_fetch tool.
+
+                - `type: "web_fetch"`
+
+                - `enabled: boolean`
+
+                - `name: "web_fetch"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `url_sources: object`
+
+                  Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                  - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                    Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                    - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                      Every URL from this source may be fetched. This is the default.
+
+                      - `type: "all"`
+
+                    - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                      This source contributes no URLs that may be fetched.
+
+                      - `type: "none"`
+
+                    - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                      Only the named tools' results contribute URLs that may be fetched.
+
+                      - `type: "only"`
+
+                      - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                        The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                        - `type: "tool_reference"`
+
+                          Must be "tool_reference".
+
+                        - `name: string`
+
+                          Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                          minLength: 1, maxLength: 128
+
+                    - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                      Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `type: "except"`
+
+                      - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                        The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                        - `type: "tool_reference"`
+
+                          Must be "tool_reference".
+
+                        - `name: string`
+
+                          Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                          minLength: 1, maxLength: 128
+
+                  - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                    Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                    - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                      Every URL from this source may be fetched. This is the default.
+
+                    - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                      This source contributes no URLs that may be fetched.
+
+                    - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                      Only the named tools' results contribute URLs that may be fetched.
+
+                    - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                      Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                  - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                    Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                    - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                      Every URL from this source may be fetched. This is the default.
+
+                      - `type: "all"`
+
+                    - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                      This source contributes no URLs that may be fetched.
+
+                      - `type: "none"`
+
+                - `allowed_domains: optional array of string`
+
+                - `blocked_domains: optional array of string`
+
+                - `max_content_tokens: optional number`
+
+                  format: int32
+
+              - `beta_managed_agents_web_search_tool_config: object`
+
+                Configuration for the web_search tool.
+
+                - `type: "web_search"`
+
+                - `enabled: boolean`
+
+                - `name: "web_search"`
+
+                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                  Permission policy for tool execution.
+
+                  - `beta_managed_agents_always_allow_policy: object`
+
+                    Tool calls are automatically approved without user confirmation.
+
+                  - `beta_managed_agents_always_ask_policy: object`
+
+                    Tool calls require user confirmation before execution.
+
+                  - `beta_managed_agents_auto_policy: object`
+
+                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `allowed_domains: optional array of string`
+
+                - `blocked_domains: optional array of string`
+
+                - `user_location: optional object`
+
+                  Approximate user location for search result localization.
+
+                  - `type: "approximate"`
+
+                    Location precision. Only "approximate" is supported.
+
+                  - `city: optional string`
+
+                    City name.
+
+                    minLength: 1, maxLength: 255
+
+                  - `country: optional string`
+
+                    Two-letter ISO 3166-1 country code, uppercase.
+
+                  - `region: optional string`
+
+                    Region or state name.
+
+                    minLength: 1, maxLength: 255
+
+                  - `timezone: optional string`
+
+                    IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                    minLength: 1, maxLength: 255
+
+            - `default_config: object`
+
+              Resolved default configuration for agent tools.
+
+              - `enabled: boolean`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+          - `beta_managed_agents_mcp_toolset: object`
+
+            - `type: "mcp_toolset"`
+
+            - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+              - `enabled: boolean`
+
+              - `name: string`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `default_config: object`
+
+              Resolved default configuration for all tools from an MCP server.
+
+              - `enabled: boolean`
+
+              - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                Permission policy for tool execution.
+
+                - `beta_managed_agents_always_allow_policy: object`
+
+                  Tool calls are automatically approved without user confirmation.
+
+                - `beta_managed_agents_always_ask_policy: object`
+
+                  Tool calls require user confirmation before execution.
+
+                - `beta_managed_agents_auto_policy: object`
+
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+            - `mcp_server_name: string`
+
+          - `beta_managed_agents_custom_tool: object`
+
+            A custom tool as returned in API responses.
+
+            - `type: "custom"`
+
+            - `description: string`
+
+            - `input_schema: object`
+
+              JSON Schema for custom tool input parameters.
+
+              - `type: "object"`
+
+              - `properties: optional map[unknown]`
+
+              - `required: optional array of string`
+
+            - `name: string`
+
+        - `version: number`
+
+          format: int32
+
+    - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+      The agent cannot spawn session threads.
+
+      - `type: "disabled"`
+
+  - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+    Whether the agent can start workflow runs.
+
+    - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+      The agent can start workflow runs.
+
+      - `type: "enabled"`
+
+      - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+        Whether a run's plan can define inline agents, which are not saved.
+
+        - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+          The agent can define inline agents.
+
+        - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+          The agent cannot define inline agents.
+
+      - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+        Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+        - `type: "agent"`
+
+        - `id: string`
+
+        - `description: string`
+
+        - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+        - `model: object`
+
+          Model identifier and configuration.
+
+        - `name: string`
+
+        - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+        - `system: string`
+
+        - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+        - `version: number`
+
+          format: int32
+
+    - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+      The agent cannot start workflow runs.
+
+      - `type: "disabled"`
+
 ### Beta Managed Agents Session Stats
 
 - `beta_managed_agents_session_stats: object`
@@ -10804,11 +16180,7 @@ ant beta:sessions archive \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -10876,547 +16248,693 @@ ant beta:sessions archive \
 
         - `"fast"`
 
-    - `multiagent: object`
+    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-      - `type: "coordinator"`
+      - `beta_managed_agents_session_multiagent_coordinator: object`
 
-      - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+        Resolved coordinator topology with full agent definitions for each roster member.
 
-        Full `agent` definitions the coordinator may spawn as session threads.
+        - `type: "coordinator"`
 
-        - `beta_managed_agents_session_thread_agent: object`
+        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-          Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+          Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `type: "agent"`
+          - `beta_managed_agents_session_thread_agent: object`
 
-          - `id: string`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `description: string`
+            - `type: "agent"`
 
-          - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+            - `id: string`
 
-            - `type: "url"`
+            - `description: string`
 
-            - `name: string`
+            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-            - `url: string`
-
-          - `model: object`
-
-            Model identifier and configuration.
-
-            - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-              The model that will power your agent.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-              How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-            - `inference_geo: optional string`
-
-              Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-            - `speed: optional "standard" or "fast"`
-
-              Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-          - `name: string`
-
-          - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-            - `beta_managed_agents_anthropic_skill: object`
-
-              A resolved Anthropic-managed skill.
-
-              - `type: "anthropic"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-            - `beta_managed_agents_custom_skill: object`
-
-              A resolved user-created custom skill.
-
-              - `type: "custom"`
-
-              - `skill_id: string`
-
-              - `version: string`
-
-          - `system: string`
-
-          - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-            - `beta_managed_agents_agent_toolset20260401: object`
-
-              - `type: "agent_toolset_20260401"`
-
-              - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                - `beta_managed_agents_bash_tool_config: object`
-
-                  Configuration for the bash tool.
-
-                  - `type: "bash"`
-
-                  - `enabled: boolean`
-
-                  - `name: "bash"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                      - `type: "always_allow"`
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                      - `type: "always_ask"`
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `type: "auto"`
-
-                - `beta_managed_agents_edit_tool_config: object`
-
-                  Configuration for the edit tool.
-
-                  - `type: "edit"`
-
-                  - `enabled: boolean`
-
-                  - `name: "edit"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_read_tool_config: object`
-
-                  Configuration for the read tool.
-
-                  - `type: "read"`
-
-                  - `enabled: boolean`
-
-                  - `name: "read"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_write_tool_config: object`
-
-                  Configuration for the write tool.
-
-                  - `type: "write"`
-
-                  - `enabled: boolean`
-
-                  - `name: "write"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_glob_tool_config: object`
-
-                  Configuration for the glob tool.
-
-                  - `type: "glob"`
-
-                  - `enabled: boolean`
-
-                  - `name: "glob"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_grep_tool_config: object`
-
-                  Configuration for the grep tool.
-
-                  - `type: "grep"`
-
-                  - `enabled: boolean`
-
-                  - `name: "grep"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_web_fetch_tool_config: object`
-
-                  Configuration for the web_fetch tool.
-
-                  - `type: "web_fetch"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_fetch"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `url_sources: object`
-
-                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                    - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                        - `type: "only"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                        - `type: "except"`
-
-                        - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                          - `type: "tool_reference"`
-
-                            Must be "tool_reference".
-
-                          - `name: string`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                    - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                      - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                    - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                      - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: "all"`
-
-                      - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: "none"`
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `max_content_tokens: optional number`
-
-                    format: int32
-
-                - `beta_managed_agents_web_search_tool_config: object`
-
-                  Configuration for the web_search tool.
-
-                  - `type: "web_search"`
-
-                  - `enabled: boolean`
-
-                  - `name: "web_search"`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `allowed_domains: optional array of string`
-
-                  - `blocked_domains: optional array of string`
-
-                  - `user_location: optional object`
-
-                    Approximate user location for search result localization.
-
-                    - `type: "approximate"`
-
-                      Location precision. Only "approximate" is supported.
-
-                    - `city: optional string`
-
-                      City name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `country: optional string`
-
-                      Two-letter ISO 3166-1 country code, uppercase.
-
-                    - `region: optional string`
-
-                      Region or state name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `timezone: optional string`
-
-                      IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                      minLength: 1, maxLength: 255
-
-              - `default_config: object`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-            - `beta_managed_agents_mcp_toolset: object`
-
-              - `type: "mcp_toolset"`
-
-              - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                - `enabled: boolean`
-
-                - `name: string`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `default_config: object`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: boolean`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `beta_managed_agents_always_allow_policy: object`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `beta_managed_agents_always_ask_policy: object`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `beta_managed_agents_auto_policy: object`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `mcp_server_name: string`
-
-            - `beta_managed_agents_custom_tool: object`
-
-              A custom tool as returned in API responses.
-
-              - `type: "custom"`
-
-              - `description: string`
-
-              - `input_schema: object`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: "object"`
-
-                - `properties: optional map[unknown]`
-
-                - `required: optional array of string`
+              - `type: "url"`
 
               - `name: string`
 
-          - `version: number`
+              - `url: string`
 
-            format: int32
+            - `model: object`
 
-        - `beta_managed_agents_advisor: object`
+              Model identifier and configuration.
 
-          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-          - `type: "advisor"`
+                The model that will power your agent.
 
-          - `model: string`
+                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            The advisor model id.
+              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+              - `inference_geo: optional string`
+
+                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+              - `speed: optional "standard" or "fast"`
+
+                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+            - `name: string`
+
+            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `beta_managed_agents_anthropic_skill: object`
+
+                A resolved Anthropic-managed skill.
+
+                - `type: "anthropic"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+              - `beta_managed_agents_custom_skill: object`
+
+                A resolved user-created custom skill.
+
+                - `type: "custom"`
+
+                - `skill_id: string`
+
+                - `version: string`
+
+            - `system: string`
+
+            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `beta_managed_agents_agent_toolset20260401: object`
+
+                - `type: "agent_toolset_20260401"`
+
+                - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                  - `beta_managed_agents_bash_tool_config: object`
+
+                    Configuration for the bash tool.
+
+                    - `type: "bash"`
+
+                    - `enabled: boolean`
+
+                    - `name: "bash"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: "always_allow"`
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: "always_ask"`
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `type: "auto"`
+
+                  - `beta_managed_agents_edit_tool_config: object`
+
+                    Configuration for the edit tool.
+
+                    - `type: "edit"`
+
+                    - `enabled: boolean`
+
+                    - `name: "edit"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_read_tool_config: object`
+
+                    Configuration for the read tool.
+
+                    - `type: "read"`
+
+                    - `enabled: boolean`
+
+                    - `name: "read"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_write_tool_config: object`
+
+                    Configuration for the write tool.
+
+                    - `type: "write"`
+
+                    - `enabled: boolean`
+
+                    - `name: "write"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_glob_tool_config: object`
+
+                    Configuration for the glob tool.
+
+                    - `type: "glob"`
+
+                    - `enabled: boolean`
+
+                    - `name: "glob"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_grep_tool_config: object`
+
+                    Configuration for the grep tool.
+
+                    - `type: "grep"`
+
+                    - `enabled: boolean`
+
+                    - `name: "grep"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_web_fetch_tool_config: object`
+
+                    Configuration for the web_fetch tool.
+
+                    - `type: "web_fetch"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_fetch"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `url_sources: object`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `type: "only"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `type: "except"`
+
+                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `type: "tool_reference"`
+
+                              Must be "tool_reference".
+
+                            - `name: string`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                        - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: "all"`
+
+                        - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: "none"`
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `max_content_tokens: optional number`
+
+                      format: int32
+
+                  - `beta_managed_agents_web_search_tool_config: object`
+
+                    Configuration for the web_search tool.
+
+                    - `type: "web_search"`
+
+                    - `enabled: boolean`
+
+                    - `name: "web_search"`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `allowed_domains: optional array of string`
+
+                    - `blocked_domains: optional array of string`
+
+                    - `user_location: optional object`
+
+                      Approximate user location for search result localization.
+
+                      - `type: "approximate"`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: optional string`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: optional string`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: optional string`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: optional string`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: object`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `beta_managed_agents_mcp_toolset: object`
+
+                - `type: "mcp_toolset"`
+
+                - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                  - `enabled: boolean`
+
+                  - `name: string`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `default_config: object`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: boolean`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `beta_managed_agents_always_allow_policy: object`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `beta_managed_agents_always_ask_policy: object`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `beta_managed_agents_auto_policy: object`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `mcp_server_name: string`
+
+              - `beta_managed_agents_custom_tool: object`
+
+                A custom tool as returned in API responses.
+
+                - `type: "custom"`
+
+                - `description: string`
+
+                - `input_schema: object`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: "object"`
+
+                  - `properties: optional map[unknown]`
+
+                  - `required: optional array of string`
+
+                - `name: string`
+
+            - `version: number`
+
+              format: int32
+
+          - `beta_managed_agents_advisor: object`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `type: "advisor"`
+
+            - `model: string`
+
+              The advisor model id.
+
+      - `beta_managed_agents_session_multiagent20261001: object`
+
+        Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+        - `type: "multiagent_20261001"`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: "enabled"`
+
+            - `model: string`
+
+              The advisor model id.
+
+          - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+            The agent has no advisor.
+
+            - `type: "disabled"`
+
+        - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          Whether the agent can spawn session threads.
+
+          - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+            The agent can spawn session threads.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+                - `type: "enabled"`
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+                - `type: "disabled"`
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+            The agent cannot spawn session threads.
+
+            - `type: "disabled"`
+
+        - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          Whether the agent can start workflow runs.
+
+          - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+            The agent can start workflow runs.
+
+            - `type: "enabled"`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+              - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                The agent can define inline agents.
+
+              - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                The agent cannot define inline agents.
+
+            - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+              - `type: "agent"`
+
+              - `id: string`
+
+              - `description: string`
+
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+              - `model: object`
+
+                Model identifier and configuration.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+              - `version: number`
+
+                format: int32
+
+          - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+            The agent cannot start workflow runs.
+
+            - `type: "disabled"`
 
     - `name: string`
 
@@ -12268,7 +17786,7 @@ List Events
 
       - `custom_tool_use_id: string`
 
-        The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+        The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
@@ -12340,7 +17858,7 @@ List Events
 
     - `beta_managed_agents_agent_custom_tool_use_event: object`
 
-      Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result.
+      Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result. The client can send it as soon as this event arrives, without waiting for `session.status_idle`.
 
       - `type: "agent.custom_tool_use"`
 
@@ -13300,6 +18818,10 @@ List Events
 
         Public `sthr_` ID of the newly created thread.
 
+      - `workflow_run_id: string`
+
+        Identifier of the workflow run that created the thread, or `null` for any other thread.
+
     - `beta_managed_agents_span_outcome_evaluation_start_event: object`
 
       Emitted when an outcome evaluation cycle begins.
@@ -13838,11 +19360,7 @@ List Events
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -13910,547 +19428,693 @@ List Events
 
             - `"fast"`
 
-        - `multiagent: object`
+        - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
           Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-          - `type: "coordinator"`
+          - `beta_managed_agents_session_multiagent_coordinator: object`
 
-          - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+            Resolved coordinator topology with full agent definitions for each roster member.
 
-            Full `agent` definitions the coordinator may spawn as session threads.
+            - `type: "coordinator"`
 
-            - `beta_managed_agents_session_thread_agent: object`
+            - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-              Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+              Full `agent` definitions the coordinator may spawn as session threads.
 
-              - `type: "agent"`
+              - `beta_managed_agents_session_thread_agent: object`
 
-              - `id: string`
+                Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-              - `description: string`
+                - `type: "agent"`
 
-              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+                - `id: string`
 
-                - `type: "url"`
+                - `description: string`
 
-                - `name: string`
+                - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-                - `url: string`
-
-              - `model: object`
-
-                Model identifier and configuration.
-
-                - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-                  The model that will power your agent.
-
-                  See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-                  How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-                - `inference_geo: optional string`
-
-                  Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-                - `speed: optional "standard" or "fast"`
-
-                  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-              - `name: string`
-
-              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-                - `beta_managed_agents_anthropic_skill: object`
-
-                  A resolved Anthropic-managed skill.
-
-                  - `type: "anthropic"`
-
-                  - `skill_id: string`
-
-                  - `version: string`
-
-                - `beta_managed_agents_custom_skill: object`
-
-                  A resolved user-created custom skill.
-
-                  - `type: "custom"`
-
-                  - `skill_id: string`
-
-                  - `version: string`
-
-              - `system: string`
-
-              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-                - `beta_managed_agents_agent_toolset20260401: object`
-
-                  - `type: "agent_toolset_20260401"`
-
-                  - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                    - `beta_managed_agents_bash_tool_config: object`
-
-                      Configuration for the bash tool.
-
-                      - `type: "bash"`
-
-                      - `enabled: boolean`
-
-                      - `name: "bash"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                          - `type: "always_allow"`
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                          - `type: "always_ask"`
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                          - `type: "auto"`
-
-                    - `beta_managed_agents_edit_tool_config: object`
-
-                      Configuration for the edit tool.
-
-                      - `type: "edit"`
-
-                      - `enabled: boolean`
-
-                      - `name: "edit"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_read_tool_config: object`
-
-                      Configuration for the read tool.
-
-                      - `type: "read"`
-
-                      - `enabled: boolean`
-
-                      - `name: "read"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_write_tool_config: object`
-
-                      Configuration for the write tool.
-
-                      - `type: "write"`
-
-                      - `enabled: boolean`
-
-                      - `name: "write"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_glob_tool_config: object`
-
-                      Configuration for the glob tool.
-
-                      - `type: "glob"`
-
-                      - `enabled: boolean`
-
-                      - `name: "glob"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_grep_tool_config: object`
-
-                      Configuration for the grep tool.
-
-                      - `type: "grep"`
-
-                      - `enabled: boolean`
-
-                      - `name: "grep"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_web_fetch_tool_config: object`
-
-                      Configuration for the web_fetch tool.
-
-                      - `type: "web_fetch"`
-
-                      - `enabled: boolean`
-
-                      - `name: "web_fetch"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `url_sources: object`
-
-                        Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                          Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                          - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                            Every URL from this source may be fetched. This is the default.
-
-                            - `type: "all"`
-
-                          - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                            This source contributes no URLs that may be fetched.
-
-                            - `type: "none"`
-
-                          - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                            Only the named tools' results contribute URLs that may be fetched.
-
-                            - `type: "only"`
-
-                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                              The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                              - `type: "tool_reference"`
-
-                                Must be "tool_reference".
-
-                              - `name: string`
-
-                                Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                                minLength: 1, maxLength: 128
-
-                          - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                            - `type: "except"`
-
-                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                              The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                              - `type: "tool_reference"`
-
-                                Must be "tool_reference".
-
-                              - `name: string`
-
-                                Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                                minLength: 1, maxLength: 128
-
-                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                          Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                          - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                            Every URL from this source may be fetched. This is the default.
-
-                          - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                            This source contributes no URLs that may be fetched.
-
-                          - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                            Only the named tools' results contribute URLs that may be fetched.
-
-                          - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                        - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                          Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                          - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                            Every URL from this source may be fetched. This is the default.
-
-                            - `type: "all"`
-
-                          - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                            This source contributes no URLs that may be fetched.
-
-                            - `type: "none"`
-
-                      - `allowed_domains: optional array of string`
-
-                      - `blocked_domains: optional array of string`
-
-                      - `max_content_tokens: optional number`
-
-                        format: int32
-
-                    - `beta_managed_agents_web_search_tool_config: object`
-
-                      Configuration for the web_search tool.
-
-                      - `type: "web_search"`
-
-                      - `enabled: boolean`
-
-                      - `name: "web_search"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `allowed_domains: optional array of string`
-
-                      - `blocked_domains: optional array of string`
-
-                      - `user_location: optional object`
-
-                        Approximate user location for search result localization.
-
-                        - `type: "approximate"`
-
-                          Location precision. Only "approximate" is supported.
-
-                        - `city: optional string`
-
-                          City name.
-
-                          minLength: 1, maxLength: 255
-
-                        - `country: optional string`
-
-                          Two-letter ISO 3166-1 country code, uppercase.
-
-                        - `region: optional string`
-
-                          Region or state name.
-
-                          minLength: 1, maxLength: 255
-
-                        - `timezone: optional string`
-
-                          IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                          minLength: 1, maxLength: 255
-
-                  - `default_config: object`
-
-                    Resolved default configuration for agent tools.
-
-                    - `enabled: boolean`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_mcp_toolset: object`
-
-                  - `type: "mcp_toolset"`
-
-                  - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                    - `enabled: boolean`
-
-                    - `name: string`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `default_config: object`
-
-                    Resolved default configuration for all tools from an MCP server.
-
-                    - `enabled: boolean`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `mcp_server_name: string`
-
-                - `beta_managed_agents_custom_tool: object`
-
-                  A custom tool as returned in API responses.
-
-                  - `type: "custom"`
-
-                  - `description: string`
-
-                  - `input_schema: object`
-
-                    JSON Schema for custom tool input parameters.
-
-                    - `type: "object"`
-
-                    - `properties: optional map[unknown]`
-
-                    - `required: optional array of string`
+                  - `type: "url"`
 
                   - `name: string`
 
-              - `version: number`
+                  - `url: string`
 
-                format: int32
+                - `model: object`
 
-            - `beta_managed_agents_advisor: object`
+                  Model identifier and configuration.
 
-              Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+                  - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-              - `type: "advisor"`
+                    The model that will power your agent.
 
-              - `model: string`
+                    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                The advisor model id.
+                  - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                    How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+                  - `inference_geo: optional string`
+
+                    Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+                  - `speed: optional "standard" or "fast"`
+
+                    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+                - `name: string`
+
+                - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                  - `beta_managed_agents_anthropic_skill: object`
+
+                    A resolved Anthropic-managed skill.
+
+                    - `type: "anthropic"`
+
+                    - `skill_id: string`
+
+                    - `version: string`
+
+                  - `beta_managed_agents_custom_skill: object`
+
+                    A resolved user-created custom skill.
+
+                    - `type: "custom"`
+
+                    - `skill_id: string`
+
+                    - `version: string`
+
+                - `system: string`
+
+                - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                  - `beta_managed_agents_agent_toolset20260401: object`
+
+                    - `type: "agent_toolset_20260401"`
+
+                    - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                      - `beta_managed_agents_bash_tool_config: object`
+
+                        Configuration for the bash tool.
+
+                        - `type: "bash"`
+
+                        - `enabled: boolean`
+
+                        - `name: "bash"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                            - `type: "always_allow"`
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                            - `type: "always_ask"`
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                            - `type: "auto"`
+
+                      - `beta_managed_agents_edit_tool_config: object`
+
+                        Configuration for the edit tool.
+
+                        - `type: "edit"`
+
+                        - `enabled: boolean`
+
+                        - `name: "edit"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_read_tool_config: object`
+
+                        Configuration for the read tool.
+
+                        - `type: "read"`
+
+                        - `enabled: boolean`
+
+                        - `name: "read"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_write_tool_config: object`
+
+                        Configuration for the write tool.
+
+                        - `type: "write"`
+
+                        - `enabled: boolean`
+
+                        - `name: "write"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_glob_tool_config: object`
+
+                        Configuration for the glob tool.
+
+                        - `type: "glob"`
+
+                        - `enabled: boolean`
+
+                        - `name: "glob"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_grep_tool_config: object`
+
+                        Configuration for the grep tool.
+
+                        - `type: "grep"`
+
+                        - `enabled: boolean`
+
+                        - `name: "grep"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_web_fetch_tool_config: object`
+
+                        Configuration for the web_fetch tool.
+
+                        - `type: "web_fetch"`
+
+                        - `enabled: boolean`
+
+                        - `name: "web_fetch"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `url_sources: object`
+
+                          Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                          - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                            Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                            - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                              Every URL from this source may be fetched. This is the default.
+
+                              - `type: "all"`
+
+                            - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                              This source contributes no URLs that may be fetched.
+
+                              - `type: "none"`
+
+                            - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                              Only the named tools' results contribute URLs that may be fetched.
+
+                              - `type: "only"`
+
+                              - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                                The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                                - `type: "tool_reference"`
+
+                                  Must be "tool_reference".
+
+                                - `name: string`
+
+                                  Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                  minLength: 1, maxLength: 128
+
+                            - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                              Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                              - `type: "except"`
+
+                              - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                                The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                                - `type: "tool_reference"`
+
+                                  Must be "tool_reference".
+
+                                - `name: string`
+
+                                  Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                  minLength: 1, maxLength: 128
+
+                          - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                            Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                            - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                              Every URL from this source may be fetched. This is the default.
+
+                            - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                              This source contributes no URLs that may be fetched.
+
+                            - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                              Only the named tools' results contribute URLs that may be fetched.
+
+                            - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                              Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                            Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                            - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                              Every URL from this source may be fetched. This is the default.
+
+                              - `type: "all"`
+
+                            - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                              This source contributes no URLs that may be fetched.
+
+                              - `type: "none"`
+
+                        - `allowed_domains: optional array of string`
+
+                        - `blocked_domains: optional array of string`
+
+                        - `max_content_tokens: optional number`
+
+                          format: int32
+
+                      - `beta_managed_agents_web_search_tool_config: object`
+
+                        Configuration for the web_search tool.
+
+                        - `type: "web_search"`
+
+                        - `enabled: boolean`
+
+                        - `name: "web_search"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `allowed_domains: optional array of string`
+
+                        - `blocked_domains: optional array of string`
+
+                        - `user_location: optional object`
+
+                          Approximate user location for search result localization.
+
+                          - `type: "approximate"`
+
+                            Location precision. Only "approximate" is supported.
+
+                          - `city: optional string`
+
+                            City name.
+
+                            minLength: 1, maxLength: 255
+
+                          - `country: optional string`
+
+                            Two-letter ISO 3166-1 country code, uppercase.
+
+                          - `region: optional string`
+
+                            Region or state name.
+
+                            minLength: 1, maxLength: 255
+
+                          - `timezone: optional string`
+
+                            IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                            minLength: 1, maxLength: 255
+
+                    - `default_config: object`
+
+                      Resolved default configuration for agent tools.
+
+                      - `enabled: boolean`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_mcp_toolset: object`
+
+                    - `type: "mcp_toolset"`
+
+                    - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                      - `enabled: boolean`
+
+                      - `name: string`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `default_config: object`
+
+                      Resolved default configuration for all tools from an MCP server.
+
+                      - `enabled: boolean`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `mcp_server_name: string`
+
+                  - `beta_managed_agents_custom_tool: object`
+
+                    A custom tool as returned in API responses.
+
+                    - `type: "custom"`
+
+                    - `description: string`
+
+                    - `input_schema: object`
+
+                      JSON Schema for custom tool input parameters.
+
+                      - `type: "object"`
+
+                      - `properties: optional map[unknown]`
+
+                      - `required: optional array of string`
+
+                    - `name: string`
+
+                - `version: number`
+
+                  format: int32
+
+              - `beta_managed_agents_advisor: object`
+
+                Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+                - `type: "advisor"`
+
+                - `model: string`
+
+                  The advisor model id.
+
+          - `beta_managed_agents_session_multiagent20261001: object`
+
+            Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+            - `type: "multiagent_20261001"`
+
+            - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+              Whether the session's primary thread can consult an advisor model.
+
+              - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+                The session's primary thread can consult `model` mid-turn.
+
+                - `type: "enabled"`
+
+                - `model: string`
+
+                  The advisor model id.
+
+              - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+                The agent has no advisor.
+
+                - `type: "disabled"`
+
+            - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+              Whether the agent can spawn session threads.
+
+              - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+                The agent can spawn session threads.
+
+                - `type: "enabled"`
+
+                - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                  Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+                  - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                    The agent can define inline agents.
+
+                    - `type: "enabled"`
+
+                  - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                    The agent cannot define inline agents.
+
+                    - `type: "disabled"`
+
+                - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                  Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+                  - `type: "agent"`
+
+                  - `id: string`
+
+                  - `description: string`
+
+                  - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                  - `model: object`
+
+                    Model identifier and configuration.
+
+                  - `name: string`
+
+                  - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                  - `system: string`
+
+                  - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                  - `version: number`
+
+                    format: int32
+
+              - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+                The agent cannot spawn session threads.
+
+                - `type: "disabled"`
+
+            - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+              Whether the agent can start workflow runs.
+
+              - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+                The agent can start workflow runs.
+
+                - `type: "enabled"`
+
+                - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                  Whether a run's plan can define inline agents, which are not saved.
+
+                  - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                    The agent can define inline agents.
+
+                  - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                    The agent cannot define inline agents.
+
+                - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                  Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+                  - `type: "agent"`
+
+                  - `id: string`
+
+                  - `description: string`
+
+                  - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                  - `model: object`
+
+                    Model identifier and configuration.
+
+                  - `name: string`
+
+                  - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                  - `system: string`
+
+                  - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                  - `version: number`
+
+                    format: int32
+
+              - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+                The agent cannot start workflow runs.
+
+                - `type: "disabled"`
 
         - `name: string`
 
@@ -14631,6 +20295,282 @@ List Events
         - `max_list_cost: object`
 
           Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
+
+    - `beta_managed_agents_workflow_run_created_event: object`
+
+      A workflow run was created. A workflow run is background work that the session's agent starts. Emitted once per run, before the run's other `workflow_run.*` events.
+
+      - `type: "workflow_run.created"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `description: string`
+
+        Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+      - `name: string`
+
+        Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+      - `phases: array of BetaManagedAgentsWorkflowRunPhase`
+
+        The phases that the run's plan declares, in the plan's order. Can be empty.
+
+        - `id: string`
+
+          Unique identifier for the phase.
+
+        - `description: string`
+
+          Description that the agent gave the phase, passed on as written, or `null` if it gave none.
+
+        - `name: string`
+
+          Name that the agent gave the phase, passed on as written.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `beta_managed_agents_workflow_run_status_ended_event: object`
+
+      A workflow run ended. Emitted once per run, as the last of the run's `workflow_run.*` events.
+
+      - `type: "workflow_run.status_ended"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `result: BetaManagedAgentsWorkflowRunResultCompleted or BetaManagedAgentsWorkflowRunResultError or BetaManagedAgentsWorkflowRunResultStopped`
+
+        How the run ended.
+
+        - `beta_managed_agents_workflow_run_result_completed: object`
+
+          The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded.
+
+          - `type: "completed"`
+
+        - `beta_managed_agents_workflow_run_result_error: object`
+
+          The run failed or reached its time limit.
+
+          - `type: "error"`
+
+          - `error: BetaManagedAgentsTimeoutWorkflowRunError or BetaManagedAgentsProgramWorkflowRunError or BetaManagedAgentsUnknownWorkflowRunError or 2 more`
+
+            Why the run did not finish.
+
+            - `beta_managed_agents_timeout_workflow_run_error: object`
+
+              The run reached its time limit.
+
+              - `type: "timeout_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+            - `beta_managed_agents_program_workflow_run_error: object`
+
+              The plan, a program that the agent wrote, failed, or the server refused it.
+
+              - `type: "program_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+            - `beta_managed_agents_unknown_workflow_run_error: object`
+
+              A failure that has no type of its own.
+
+              - `type: "unknown_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+            - `beta_managed_agents_thread_limit_workflow_run_error: object`
+
+              The run exceeded the limit on the number of threads that a run can create.
+
+              - `type: "thread_limit_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+            - `beta_managed_agents_max_workflow_runs_workflow_run_error: object`
+
+              No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+              - `type: "max_workflow_runs_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+        - `beta_managed_agents_workflow_run_result_stopped: object`
+
+          The agent stopped the run.
+
+          - `type: "stopped"`
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `beta_managed_agents_workflow_run_phase_started_event: object`
+
+      A workflow run's plan entered a phase.
+
+      - `type: "workflow_run.phase_started"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+      - `workflow_run_phase_id: string`
+
+        Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+    - `beta_managed_agents_workflow_run_phase_ended_event: object`
+
+      A workflow run's plan left a phase, or the run's end closed it. Emitted once for every `workflow_run.phase_started` event, before the run's `workflow_run.status_ended` event. The event does not say whether the plan finished the phase's work, or why it left.
+
+      - `type: "workflow_run.phase_ended"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `phase_started_id: string`
+
+        Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+      - `workflow_run_phase_id: string`
+
+        Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+    - `beta_managed_agents_workflow_run_status_running_event: object`
+
+      A workflow run is running. Emitted when the run starts to execute, and each time it resumes after being idle. A run that starts idle emits `workflow_run.status_idle` first.
+
+      - `type: "workflow_run.status_running"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `beta_managed_agents_workflow_run_status_idle_event: object`
+
+      A workflow run is idle. Emitted each time the run goes idle, whatever the cause. If the run ends while idle, no `workflow_run.status_running` comes between this event and its `workflow_run.status_ended`.
+
+      - `type: "workflow_run.status_idle"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `beta_managed_agents_workflow_run_error_event: object`
+
+      A workflow run met an error, or an error kept a run from being created. A run that ends with a `result.type` of `error` emits this event before its `workflow_run.status_ended`, with the same `error`.
+
+      - `type: "workflow_run.error"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `error: BetaManagedAgentsTimeoutWorkflowRunError or BetaManagedAgentsProgramWorkflowRunError or BetaManagedAgentsUnknownWorkflowRunError or 2 more`
+
+        Why the run did not finish, or was not created.
+
+        - `beta_managed_agents_timeout_workflow_run_error: object`
+
+          The run reached its time limit.
+
+        - `beta_managed_agents_program_workflow_run_error: object`
+
+          The plan, a program that the agent wrote, failed, or the server refused it.
+
+        - `beta_managed_agents_unknown_workflow_run_error: object`
+
+          A failure that has no type of its own.
+
+        - `beta_managed_agents_thread_limit_workflow_run_error: object`
+
+          The run exceeded the limit on the number of threads that a run can create.
+
+        - `beta_managed_agents_max_workflow_runs_workflow_run_error: object`
+
+          No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run that met the error, or `null` when the error kept a run from being created.
 
   - `next_page: optional string`
 
@@ -14948,7 +20888,7 @@ Send Events
 
       - `custom_tool_use_id: string`
 
-        The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+        The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
@@ -15205,7 +21145,7 @@ Stream Events
 
 #### Returns
 
-- `beta_managed_agents_stream_session_events: BetaManagedAgentsUserMessageEvent or BetaManagedAgentsUserInterruptEvent or BetaManagedAgentsUserToolConfirmationEvent or 34 more`
+- `beta_managed_agents_stream_session_events: BetaManagedAgentsUserMessageEvent or BetaManagedAgentsUserInterruptEvent or BetaManagedAgentsUserToolConfirmationEvent or 41 more`
 
   Server-sent event in the session stream.
 
@@ -15445,7 +21385,7 @@ Stream Events
 
     - `custom_tool_use_id: string`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
@@ -15517,7 +21457,7 @@ Stream Events
 
   - `beta_managed_agents_agent_custom_tool_use_event: object`
 
-    Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result.
+    Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result. The client can send it as soon as this event arrives, without waiting for `session.status_idle`.
 
     - `type: "agent.custom_tool_use"`
 
@@ -16477,6 +22417,10 @@ Stream Events
 
       Public `sthr_` ID of the newly created thread.
 
+    - `workflow_run_id: string`
+
+      Identifier of the workflow run that created the thread, or `null` for any other thread.
+
   - `beta_managed_agents_span_outcome_evaluation_start_event: object`
 
     Emitted when an outcome evaluation cycle begins.
@@ -17015,11 +22959,7 @@ Stream Events
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -17087,547 +23027,693 @@ Stream Events
 
           - `"fast"`
 
-      - `multiagent: object`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
         Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-        - `type: "coordinator"`
+        - `beta_managed_agents_session_multiagent_coordinator: object`
 
-        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+          Resolved coordinator topology with full agent definitions for each roster member.
 
-          Full `agent` definitions the coordinator may spawn as session threads.
+          - `type: "coordinator"`
 
-          - `beta_managed_agents_session_thread_agent: object`
+          - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+            Full `agent` definitions the coordinator may spawn as session threads.
 
-            - `type: "agent"`
+            - `beta_managed_agents_session_thread_agent: object`
 
-            - `id: string`
+              Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-            - `description: string`
+              - `type: "agent"`
 
-            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+              - `id: string`
 
-              - `type: "url"`
+              - `description: string`
 
-              - `name: string`
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-              - `url: string`
-
-            - `model: object`
-
-              Model identifier and configuration.
-
-              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-                The model that will power your agent.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-              - `inference_geo: optional string`
-
-                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-              - `speed: optional "standard" or "fast"`
-
-                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-            - `name: string`
-
-            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-              - `beta_managed_agents_anthropic_skill: object`
-
-                A resolved Anthropic-managed skill.
-
-                - `type: "anthropic"`
-
-                - `skill_id: string`
-
-                - `version: string`
-
-              - `beta_managed_agents_custom_skill: object`
-
-                A resolved user-created custom skill.
-
-                - `type: "custom"`
-
-                - `skill_id: string`
-
-                - `version: string`
-
-            - `system: string`
-
-            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-              - `beta_managed_agents_agent_toolset20260401: object`
-
-                - `type: "agent_toolset_20260401"`
-
-                - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                  - `beta_managed_agents_bash_tool_config: object`
-
-                    Configuration for the bash tool.
-
-                    - `type: "bash"`
-
-                    - `enabled: boolean`
-
-                    - `name: "bash"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                        - `type: "always_allow"`
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                        - `type: "always_ask"`
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                        - `type: "auto"`
-
-                  - `beta_managed_agents_edit_tool_config: object`
-
-                    Configuration for the edit tool.
-
-                    - `type: "edit"`
-
-                    - `enabled: boolean`
-
-                    - `name: "edit"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_read_tool_config: object`
-
-                    Configuration for the read tool.
-
-                    - `type: "read"`
-
-                    - `enabled: boolean`
-
-                    - `name: "read"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_write_tool_config: object`
-
-                    Configuration for the write tool.
-
-                    - `type: "write"`
-
-                    - `enabled: boolean`
-
-                    - `name: "write"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_glob_tool_config: object`
-
-                    Configuration for the glob tool.
-
-                    - `type: "glob"`
-
-                    - `enabled: boolean`
-
-                    - `name: "glob"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_grep_tool_config: object`
-
-                    Configuration for the grep tool.
-
-                    - `type: "grep"`
-
-                    - `enabled: boolean`
-
-                    - `name: "grep"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_web_fetch_tool_config: object`
-
-                    Configuration for the web_fetch tool.
-
-                    - `type: "web_fetch"`
-
-                    - `enabled: boolean`
-
-                    - `name: "web_fetch"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `url_sources: object`
-
-                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                          - `type: "all"`
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                          - `type: "none"`
-
-                        - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                          Only the named tools' results contribute URLs that may be fetched.
-
-                          - `type: "only"`
-
-                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                            - `type: "tool_reference"`
-
-                              Must be "tool_reference".
-
-                            - `name: string`
-
-                              Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                              minLength: 1, maxLength: 128
-
-                        - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                          - `type: "except"`
-
-                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                            - `type: "tool_reference"`
-
-                              Must be "tool_reference".
-
-                            - `name: string`
-
-                              Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                              minLength: 1, maxLength: 128
-
-                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                        - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                          Only the named tools' results contribute URLs that may be fetched.
-
-                        - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                          - `type: "all"`
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                          - `type: "none"`
-
-                    - `allowed_domains: optional array of string`
-
-                    - `blocked_domains: optional array of string`
-
-                    - `max_content_tokens: optional number`
-
-                      format: int32
-
-                  - `beta_managed_agents_web_search_tool_config: object`
-
-                    Configuration for the web_search tool.
-
-                    - `type: "web_search"`
-
-                    - `enabled: boolean`
-
-                    - `name: "web_search"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `allowed_domains: optional array of string`
-
-                    - `blocked_domains: optional array of string`
-
-                    - `user_location: optional object`
-
-                      Approximate user location for search result localization.
-
-                      - `type: "approximate"`
-
-                        Location precision. Only "approximate" is supported.
-
-                      - `city: optional string`
-
-                        City name.
-
-                        minLength: 1, maxLength: 255
-
-                      - `country: optional string`
-
-                        Two-letter ISO 3166-1 country code, uppercase.
-
-                      - `region: optional string`
-
-                        Region or state name.
-
-                        minLength: 1, maxLength: 255
-
-                      - `timezone: optional string`
-
-                        IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                        minLength: 1, maxLength: 255
-
-                - `default_config: object`
-
-                  Resolved default configuration for agent tools.
-
-                  - `enabled: boolean`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `beta_managed_agents_mcp_toolset: object`
-
-                - `type: "mcp_toolset"`
-
-                - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                  - `enabled: boolean`
-
-                  - `name: string`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `default_config: object`
-
-                  Resolved default configuration for all tools from an MCP server.
-
-                  - `enabled: boolean`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `mcp_server_name: string`
-
-              - `beta_managed_agents_custom_tool: object`
-
-                A custom tool as returned in API responses.
-
-                - `type: "custom"`
-
-                - `description: string`
-
-                - `input_schema: object`
-
-                  JSON Schema for custom tool input parameters.
-
-                  - `type: "object"`
-
-                  - `properties: optional map[unknown]`
-
-                  - `required: optional array of string`
+                - `type: "url"`
 
                 - `name: string`
 
-            - `version: number`
+                - `url: string`
 
-              format: int32
+              - `model: object`
 
-          - `beta_managed_agents_advisor: object`
+                Model identifier and configuration.
 
-            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+                - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-            - `type: "advisor"`
+                  The model that will power your agent.
 
-            - `model: string`
+                  See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-              The advisor model id.
+                - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                  How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+                - `inference_geo: optional string`
+
+                  Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+                - `speed: optional "standard" or "fast"`
+
+                  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `beta_managed_agents_anthropic_skill: object`
+
+                  A resolved Anthropic-managed skill.
+
+                  - `type: "anthropic"`
+
+                  - `skill_id: string`
+
+                  - `version: string`
+
+                - `beta_managed_agents_custom_skill: object`
+
+                  A resolved user-created custom skill.
+
+                  - `type: "custom"`
+
+                  - `skill_id: string`
+
+                  - `version: string`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `beta_managed_agents_agent_toolset20260401: object`
+
+                  - `type: "agent_toolset_20260401"`
+
+                  - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                    - `beta_managed_agents_bash_tool_config: object`
+
+                      Configuration for the bash tool.
+
+                      - `type: "bash"`
+
+                      - `enabled: boolean`
+
+                      - `name: "bash"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                          - `type: "always_allow"`
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                          - `type: "always_ask"`
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                          - `type: "auto"`
+
+                    - `beta_managed_agents_edit_tool_config: object`
+
+                      Configuration for the edit tool.
+
+                      - `type: "edit"`
+
+                      - `enabled: boolean`
+
+                      - `name: "edit"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_read_tool_config: object`
+
+                      Configuration for the read tool.
+
+                      - `type: "read"`
+
+                      - `enabled: boolean`
+
+                      - `name: "read"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_write_tool_config: object`
+
+                      Configuration for the write tool.
+
+                      - `type: "write"`
+
+                      - `enabled: boolean`
+
+                      - `name: "write"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_glob_tool_config: object`
+
+                      Configuration for the glob tool.
+
+                      - `type: "glob"`
+
+                      - `enabled: boolean`
+
+                      - `name: "glob"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_grep_tool_config: object`
+
+                      Configuration for the grep tool.
+
+                      - `type: "grep"`
+
+                      - `enabled: boolean`
+
+                      - `name: "grep"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_web_fetch_tool_config: object`
+
+                      Configuration for the web_fetch tool.
+
+                      - `type: "web_fetch"`
+
+                      - `enabled: boolean`
+
+                      - `name: "web_fetch"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `url_sources: object`
+
+                        Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                          Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                            - `type: "all"`
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                            - `type: "none"`
+
+                          - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                            Only the named tools' results contribute URLs that may be fetched.
+
+                            - `type: "only"`
+
+                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                              The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                              - `type: "tool_reference"`
+
+                                Must be "tool_reference".
+
+                              - `name: string`
+
+                                Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                minLength: 1, maxLength: 128
+
+                          - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                            - `type: "except"`
+
+                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                              The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                              - `type: "tool_reference"`
+
+                                Must be "tool_reference".
+
+                              - `name: string`
+
+                                Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                minLength: 1, maxLength: 128
+
+                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                          Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                          - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                            Only the named tools' results contribute URLs that may be fetched.
+
+                          - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                        - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                          Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                            - `type: "all"`
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                            - `type: "none"`
+
+                      - `allowed_domains: optional array of string`
+
+                      - `blocked_domains: optional array of string`
+
+                      - `max_content_tokens: optional number`
+
+                        format: int32
+
+                    - `beta_managed_agents_web_search_tool_config: object`
+
+                      Configuration for the web_search tool.
+
+                      - `type: "web_search"`
+
+                      - `enabled: boolean`
+
+                      - `name: "web_search"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `allowed_domains: optional array of string`
+
+                      - `blocked_domains: optional array of string`
+
+                      - `user_location: optional object`
+
+                        Approximate user location for search result localization.
+
+                        - `type: "approximate"`
+
+                          Location precision. Only "approximate" is supported.
+
+                        - `city: optional string`
+
+                          City name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `country: optional string`
+
+                          Two-letter ISO 3166-1 country code, uppercase.
+
+                        - `region: optional string`
+
+                          Region or state name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `timezone: optional string`
+
+                          IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                          minLength: 1, maxLength: 255
+
+                  - `default_config: object`
+
+                    Resolved default configuration for agent tools.
+
+                    - `enabled: boolean`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `beta_managed_agents_mcp_toolset: object`
+
+                  - `type: "mcp_toolset"`
+
+                  - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                    - `enabled: boolean`
+
+                    - `name: string`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `default_config: object`
+
+                    Resolved default configuration for all tools from an MCP server.
+
+                    - `enabled: boolean`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `mcp_server_name: string`
+
+                - `beta_managed_agents_custom_tool: object`
+
+                  A custom tool as returned in API responses.
+
+                  - `type: "custom"`
+
+                  - `description: string`
+
+                  - `input_schema: object`
+
+                    JSON Schema for custom tool input parameters.
+
+                    - `type: "object"`
+
+                    - `properties: optional map[unknown]`
+
+                    - `required: optional array of string`
+
+                  - `name: string`
+
+              - `version: number`
+
+                format: int32
+
+            - `beta_managed_agents_advisor: object`
+
+              Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+              - `type: "advisor"`
+
+              - `model: string`
+
+                The advisor model id.
+
+        - `beta_managed_agents_session_multiagent20261001: object`
+
+          Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+          - `type: "multiagent_20261001"`
+
+          - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+            Whether the session's primary thread can consult an advisor model.
+
+            - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+              The session's primary thread can consult `model` mid-turn.
+
+              - `type: "enabled"`
+
+              - `model: string`
+
+                The advisor model id.
+
+            - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+              The agent has no advisor.
+
+              - `type: "disabled"`
+
+          - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+            Whether the agent can spawn session threads.
+
+            - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+              The agent can spawn session threads.
+
+              - `type: "enabled"`
+
+              - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+                - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                  The agent can define inline agents.
+
+                  - `type: "enabled"`
+
+                - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                  The agent cannot define inline agents.
+
+                  - `type: "disabled"`
+
+              - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+                - `type: "agent"`
+
+                - `id: string`
+
+                - `description: string`
+
+                - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                - `model: object`
+
+                  Model identifier and configuration.
+
+                - `name: string`
+
+                - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `system: string`
+
+                - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `version: number`
+
+                  format: int32
+
+            - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+              The agent cannot spawn session threads.
+
+              - `type: "disabled"`
+
+          - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+            Whether the agent can start workflow runs.
+
+            - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+              The agent can start workflow runs.
+
+              - `type: "enabled"`
+
+              - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                Whether a run's plan can define inline agents, which are not saved.
+
+                - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                  The agent can define inline agents.
+
+                - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                  The agent cannot define inline agents.
+
+              - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+                - `type: "agent"`
+
+                - `id: string`
+
+                - `description: string`
+
+                - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                - `model: object`
+
+                  Model identifier and configuration.
+
+                - `name: string`
+
+                - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `system: string`
+
+                - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `version: number`
+
+                  format: int32
+
+            - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+              The agent cannot start workflow runs.
+
+              - `type: "disabled"`
 
       - `name: string`
 
@@ -17866,6 +23952,282 @@ Stream Events
       - `max_list_cost: object`
 
         Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
+
+  - `beta_managed_agents_workflow_run_created_event: object`
+
+    A workflow run was created. A workflow run is background work that the session's agent starts. Emitted once per run, before the run's other `workflow_run.*` events.
+
+    - `type: "workflow_run.created"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `description: string`
+
+      Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+    - `name: string`
+
+      Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+    - `phases: array of BetaManagedAgentsWorkflowRunPhase`
+
+      The phases that the run's plan declares, in the plan's order. Can be empty.
+
+      - `id: string`
+
+        Unique identifier for the phase.
+
+      - `description: string`
+
+        Description that the agent gave the phase, passed on as written, or `null` if it gave none.
+
+      - `name: string`
+
+        Name that the agent gave the phase, passed on as written.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `beta_managed_agents_workflow_run_status_ended_event: object`
+
+    A workflow run ended. Emitted once per run, as the last of the run's `workflow_run.*` events.
+
+    - `type: "workflow_run.status_ended"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `result: BetaManagedAgentsWorkflowRunResultCompleted or BetaManagedAgentsWorkflowRunResultError or BetaManagedAgentsWorkflowRunResultStopped`
+
+      How the run ended.
+
+      - `beta_managed_agents_workflow_run_result_completed: object`
+
+        The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded.
+
+        - `type: "completed"`
+
+      - `beta_managed_agents_workflow_run_result_error: object`
+
+        The run failed or reached its time limit.
+
+        - `type: "error"`
+
+        - `error: BetaManagedAgentsTimeoutWorkflowRunError or BetaManagedAgentsProgramWorkflowRunError or BetaManagedAgentsUnknownWorkflowRunError or 2 more`
+
+          Why the run did not finish.
+
+          - `beta_managed_agents_timeout_workflow_run_error: object`
+
+            The run reached its time limit.
+
+            - `type: "timeout_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `beta_managed_agents_program_workflow_run_error: object`
+
+            The plan, a program that the agent wrote, failed, or the server refused it.
+
+            - `type: "program_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `beta_managed_agents_unknown_workflow_run_error: object`
+
+            A failure that has no type of its own.
+
+            - `type: "unknown_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `beta_managed_agents_thread_limit_workflow_run_error: object`
+
+            The run exceeded the limit on the number of threads that a run can create.
+
+            - `type: "thread_limit_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `beta_managed_agents_max_workflow_runs_workflow_run_error: object`
+
+            No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+            - `type: "max_workflow_runs_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+      - `beta_managed_agents_workflow_run_result_stopped: object`
+
+        The agent stopped the run.
+
+        - `type: "stopped"`
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `beta_managed_agents_workflow_run_phase_started_event: object`
+
+    A workflow run's plan entered a phase.
+
+    - `type: "workflow_run.phase_started"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `workflow_run_phase_id: string`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `beta_managed_agents_workflow_run_phase_ended_event: object`
+
+    A workflow run's plan left a phase, or the run's end closed it. Emitted once for every `workflow_run.phase_started` event, before the run's `workflow_run.status_ended` event. The event does not say whether the plan finished the phase's work, or why it left.
+
+    - `type: "workflow_run.phase_ended"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `phase_started_id: string`
+
+      Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `workflow_run_phase_id: string`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `beta_managed_agents_workflow_run_status_running_event: object`
+
+    A workflow run is running. Emitted when the run starts to execute, and each time it resumes after being idle. A run that starts idle emits `workflow_run.status_idle` first.
+
+    - `type: "workflow_run.status_running"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `beta_managed_agents_workflow_run_status_idle_event: object`
+
+    A workflow run is idle. Emitted each time the run goes idle, whatever the cause. If the run ends while idle, no `workflow_run.status_running` comes between this event and its `workflow_run.status_ended`.
+
+    - `type: "workflow_run.status_idle"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `beta_managed_agents_workflow_run_error_event: object`
+
+    A workflow run met an error, or an error kept a run from being created. A run that ends with a `result.type` of `error` emits this event before its `workflow_run.status_ended`, with the same `error`.
+
+    - `type: "workflow_run.error"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `error: BetaManagedAgentsTimeoutWorkflowRunError or BetaManagedAgentsProgramWorkflowRunError or BetaManagedAgentsUnknownWorkflowRunError or 2 more`
+
+      Why the run did not finish, or was not created.
+
+      - `beta_managed_agents_timeout_workflow_run_error: object`
+
+        The run reached its time limit.
+
+      - `beta_managed_agents_program_workflow_run_error: object`
+
+        The plan, a program that the agent wrote, failed, or the server refused it.
+
+      - `beta_managed_agents_unknown_workflow_run_error: object`
+
+        A failure that has no type of its own.
+
+      - `beta_managed_agents_thread_limit_workflow_run_error: object`
+
+        The run exceeded the limit on the number of threads that a run can create.
+
+      - `beta_managed_agents_max_workflow_runs_workflow_run_error: object`
+
+        No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run that met the error, or `null` when the error kept a run from being created.
 
 #### Example
 
@@ -18561,6 +24923,12 @@ List Session Threads
 
   Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
+- `--status: optional array of BetaManagedAgentsSessionThreadStatus` (query parameter)
+
+  Return only threads that have one of these statuses.
+
+  Repeat the parameter to give more than one status. Leave it out to return threads of every status.
+
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
   Optional header to specify the beta version(s) you want to use.
@@ -18587,7 +24955,7 @@ List Session Threads
 
       Unique identifier for this thread.
 
-    - `agent: BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+    - `agent: BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor or BetaManagedAgentsInlineAgent`
 
       Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
@@ -18665,11 +25033,7 @@ List Session Threads
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -19229,6 +25593,70 @@ List Session Threads
 
           The advisor model id.
 
+      - `beta_managed_agents_inline_agent: object`
+
+        An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+        - `type: "inline"`
+
+        - `description: string`
+
+        - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+          - `type: "url"`
+
+          - `name: string`
+
+          - `url: string`
+
+        - `model: object`
+
+          Model identifier and configuration.
+
+          - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+            The model that will power your agent.
+
+            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+            How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+          - `inference_geo: optional string`
+
+            Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+          - `speed: optional "standard" or "fast"`
+
+            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+        - `name: string`
+
+          The name that the agent's definition gave, or one that the server assigned.
+
+        - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+          - `beta_managed_agents_anthropic_skill: object`
+
+            A resolved Anthropic-managed skill.
+
+          - `beta_managed_agents_custom_skill: object`
+
+            A resolved user-created custom skill.
+
+        - `system: string`
+
+        - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+          - `beta_managed_agents_agent_toolset20260401: object`
+
+          - `beta_managed_agents_mcp_toolset: object`
+
+          - `beta_managed_agents_custom_tool: object`
+
+            A custom tool as returned in API responses.
+
     - `archived_at: string`
 
       When the thread was archived. Null if not archived.
@@ -19361,6 +25789,10 @@ List Session Threads
 
           format: int32
 
+    - `workflow_run_id: string`
+
+      Identifier of the workflow run that created the thread, or `null` for any other thread.
+
   - `next_page: optional string`
 
     Opaque cursor for the next page. Null when no more results.
@@ -19460,7 +25892,8 @@ ant beta:sessions:threads list \
           "web_fetch_requests": 0,
           "web_search_requests": 3
         }
-      }
+      },
+      "workflow_run_id": null
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
@@ -19503,7 +25936,7 @@ Get Session Thread
 
     Unique identifier for this thread.
 
-  - `agent: BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+  - `agent: BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor or BetaManagedAgentsInlineAgent`
 
     Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
@@ -19581,11 +26014,7 @@ Get Session Thread
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -20145,6 +26574,70 @@ Get Session Thread
 
         The advisor model id.
 
+    - `beta_managed_agents_inline_agent: object`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `type: "inline"`
+
+      - `description: string`
+
+      - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+        - `type: "url"`
+
+        - `name: string`
+
+        - `url: string`
+
+      - `model: object`
+
+        Model identifier and configuration.
+
+        - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+          The model that will power your agent.
+
+          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+        - `inference_geo: optional string`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+        - `speed: optional "standard" or "fast"`
+
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+      - `name: string`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+        - `beta_managed_agents_anthropic_skill: object`
+
+          A resolved Anthropic-managed skill.
+
+        - `beta_managed_agents_custom_skill: object`
+
+          A resolved user-created custom skill.
+
+      - `system: string`
+
+      - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+        - `beta_managed_agents_agent_toolset20260401: object`
+
+        - `beta_managed_agents_mcp_toolset: object`
+
+        - `beta_managed_agents_custom_tool: object`
+
+          A custom tool as returned in API responses.
+
   - `archived_at: string`
 
     When the thread was archived. Null if not archived.
@@ -20276,6 +26769,10 @@ Get Session Thread
         Number of server-executed web search requests.
 
         format: int32
+
+  - `workflow_run_id: string`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
 
 #### Example
 
@@ -20371,7 +26868,8 @@ ant beta:sessions:threads retrieve \
       "web_fetch_requests": 0,
       "web_search_requests": 3
     }
-  }
+  },
+  "workflow_run_id": null
 }
 ```
 
@@ -20411,7 +26909,7 @@ Archive Session Thread
 
     Unique identifier for this thread.
 
-  - `agent: BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+  - `agent: BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor or BetaManagedAgentsInlineAgent`
 
     Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
@@ -20489,11 +26987,7 @@ Archive Session Thread
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -21053,6 +27547,70 @@ Archive Session Thread
 
         The advisor model id.
 
+    - `beta_managed_agents_inline_agent: object`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `type: "inline"`
+
+      - `description: string`
+
+      - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+        - `type: "url"`
+
+        - `name: string`
+
+        - `url: string`
+
+      - `model: object`
+
+        Model identifier and configuration.
+
+        - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+
+          The model that will power your agent.
+
+          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+          How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+        - `inference_geo: optional string`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+        - `speed: optional "standard" or "fast"`
+
+          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+      - `name: string`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+        - `beta_managed_agents_anthropic_skill: object`
+
+          A resolved Anthropic-managed skill.
+
+        - `beta_managed_agents_custom_skill: object`
+
+          A resolved user-created custom skill.
+
+      - `system: string`
+
+      - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+        - `beta_managed_agents_agent_toolset20260401: object`
+
+        - `beta_managed_agents_mcp_toolset: object`
+
+        - `beta_managed_agents_custom_tool: object`
+
+          A custom tool as returned in API responses.
+
   - `archived_at: string`
 
     When the thread was archived. Null if not archived.
@@ -21185,6 +27743,10 @@ Archive Session Thread
 
         format: int32
 
+  - `workflow_run_id: string`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 #### Example
 
 ```bash
@@ -21279,7 +27841,8 @@ ant beta:sessions:threads archive \
       "web_fetch_requests": 0,
       "web_search_requests": 3
     }
-  }
+  },
+  "workflow_run_id": null
 }
 ```
 
@@ -21561,7 +28124,7 @@ List Session Thread Events
 
       - `custom_tool_use_id: string`
 
-        The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+        The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
@@ -21633,7 +28196,7 @@ List Session Thread Events
 
     - `beta_managed_agents_agent_custom_tool_use_event: object`
 
-      Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result.
+      Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result. The client can send it as soon as this event arrives, without waiting for `session.status_idle`.
 
       - `type: "agent.custom_tool_use"`
 
@@ -22593,6 +29156,10 @@ List Session Thread Events
 
         Public `sthr_` ID of the newly created thread.
 
+      - `workflow_run_id: string`
+
+        Identifier of the workflow run that created the thread, or `null` for any other thread.
+
     - `beta_managed_agents_span_outcome_evaluation_start_event: object`
 
       Emitted when an outcome evaluation cycle begins.
@@ -23131,11 +29698,7 @@ List Session Thread Events
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -23203,547 +29766,693 @@ List Session Thread Events
 
             - `"fast"`
 
-        - `multiagent: object`
+        - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
           Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-          - `type: "coordinator"`
+          - `beta_managed_agents_session_multiagent_coordinator: object`
 
-          - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+            Resolved coordinator topology with full agent definitions for each roster member.
 
-            Full `agent` definitions the coordinator may spawn as session threads.
+            - `type: "coordinator"`
 
-            - `beta_managed_agents_session_thread_agent: object`
+            - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-              Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+              Full `agent` definitions the coordinator may spawn as session threads.
 
-              - `type: "agent"`
+              - `beta_managed_agents_session_thread_agent: object`
 
-              - `id: string`
+                Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-              - `description: string`
+                - `type: "agent"`
 
-              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+                - `id: string`
 
-                - `type: "url"`
+                - `description: string`
 
-                - `name: string`
+                - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-                - `url: string`
-
-              - `model: object`
-
-                Model identifier and configuration.
-
-                - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-                  The model that will power your agent.
-
-                  See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-                  How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-                - `inference_geo: optional string`
-
-                  Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-                - `speed: optional "standard" or "fast"`
-
-                  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-              - `name: string`
-
-              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-                - `beta_managed_agents_anthropic_skill: object`
-
-                  A resolved Anthropic-managed skill.
-
-                  - `type: "anthropic"`
-
-                  - `skill_id: string`
-
-                  - `version: string`
-
-                - `beta_managed_agents_custom_skill: object`
-
-                  A resolved user-created custom skill.
-
-                  - `type: "custom"`
-
-                  - `skill_id: string`
-
-                  - `version: string`
-
-              - `system: string`
-
-              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-                - `beta_managed_agents_agent_toolset20260401: object`
-
-                  - `type: "agent_toolset_20260401"`
-
-                  - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                    - `beta_managed_agents_bash_tool_config: object`
-
-                      Configuration for the bash tool.
-
-                      - `type: "bash"`
-
-                      - `enabled: boolean`
-
-                      - `name: "bash"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                          - `type: "always_allow"`
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                          - `type: "always_ask"`
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                          - `type: "auto"`
-
-                    - `beta_managed_agents_edit_tool_config: object`
-
-                      Configuration for the edit tool.
-
-                      - `type: "edit"`
-
-                      - `enabled: boolean`
-
-                      - `name: "edit"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_read_tool_config: object`
-
-                      Configuration for the read tool.
-
-                      - `type: "read"`
-
-                      - `enabled: boolean`
-
-                      - `name: "read"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_write_tool_config: object`
-
-                      Configuration for the write tool.
-
-                      - `type: "write"`
-
-                      - `enabled: boolean`
-
-                      - `name: "write"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_glob_tool_config: object`
-
-                      Configuration for the glob tool.
-
-                      - `type: "glob"`
-
-                      - `enabled: boolean`
-
-                      - `name: "glob"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_grep_tool_config: object`
-
-                      Configuration for the grep tool.
-
-                      - `type: "grep"`
-
-                      - `enabled: boolean`
-
-                      - `name: "grep"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `beta_managed_agents_web_fetch_tool_config: object`
-
-                      Configuration for the web_fetch tool.
-
-                      - `type: "web_fetch"`
-
-                      - `enabled: boolean`
-
-                      - `name: "web_fetch"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `url_sources: object`
-
-                        Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                          Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                          - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                            Every URL from this source may be fetched. This is the default.
-
-                            - `type: "all"`
-
-                          - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                            This source contributes no URLs that may be fetched.
-
-                            - `type: "none"`
-
-                          - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                            Only the named tools' results contribute URLs that may be fetched.
-
-                            - `type: "only"`
-
-                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                              The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                              - `type: "tool_reference"`
-
-                                Must be "tool_reference".
-
-                              - `name: string`
-
-                                Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                                minLength: 1, maxLength: 128
-
-                          - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                            - `type: "except"`
-
-                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                              The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                              - `type: "tool_reference"`
-
-                                Must be "tool_reference".
-
-                              - `name: string`
-
-                                Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                                minLength: 1, maxLength: 128
-
-                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                          Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                          - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                            Every URL from this source may be fetched. This is the default.
-
-                          - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                            This source contributes no URLs that may be fetched.
-
-                          - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                            Only the named tools' results contribute URLs that may be fetched.
-
-                          - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                        - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                          Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                          - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                            Every URL from this source may be fetched. This is the default.
-
-                            - `type: "all"`
-
-                          - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                            This source contributes no URLs that may be fetched.
-
-                            - `type: "none"`
-
-                      - `allowed_domains: optional array of string`
-
-                      - `blocked_domains: optional array of string`
-
-                      - `max_content_tokens: optional number`
-
-                        format: int32
-
-                    - `beta_managed_agents_web_search_tool_config: object`
-
-                      Configuration for the web_search tool.
-
-                      - `type: "web_search"`
-
-                      - `enabled: boolean`
-
-                      - `name: "web_search"`
-
-                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                        Permission policy for tool execution.
-
-                        - `beta_managed_agents_always_allow_policy: object`
-
-                          Tool calls are automatically approved without user confirmation.
-
-                        - `beta_managed_agents_always_ask_policy: object`
-
-                          Tool calls require user confirmation before execution.
-
-                        - `beta_managed_agents_auto_policy: object`
-
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `allowed_domains: optional array of string`
-
-                      - `blocked_domains: optional array of string`
-
-                      - `user_location: optional object`
-
-                        Approximate user location for search result localization.
-
-                        - `type: "approximate"`
-
-                          Location precision. Only "approximate" is supported.
-
-                        - `city: optional string`
-
-                          City name.
-
-                          minLength: 1, maxLength: 255
-
-                        - `country: optional string`
-
-                          Two-letter ISO 3166-1 country code, uppercase.
-
-                        - `region: optional string`
-
-                          Region or state name.
-
-                          minLength: 1, maxLength: 255
-
-                        - `timezone: optional string`
-
-                          IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                          minLength: 1, maxLength: 255
-
-                  - `default_config: object`
-
-                    Resolved default configuration for agent tools.
-
-                    - `enabled: boolean`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `beta_managed_agents_mcp_toolset: object`
-
-                  - `type: "mcp_toolset"`
-
-                  - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                    - `enabled: boolean`
-
-                    - `name: string`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `default_config: object`
-
-                    Resolved default configuration for all tools from an MCP server.
-
-                    - `enabled: boolean`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `mcp_server_name: string`
-
-                - `beta_managed_agents_custom_tool: object`
-
-                  A custom tool as returned in API responses.
-
-                  - `type: "custom"`
-
-                  - `description: string`
-
-                  - `input_schema: object`
-
-                    JSON Schema for custom tool input parameters.
-
-                    - `type: "object"`
-
-                    - `properties: optional map[unknown]`
-
-                    - `required: optional array of string`
+                  - `type: "url"`
 
                   - `name: string`
 
-              - `version: number`
+                  - `url: string`
 
-                format: int32
+                - `model: object`
 
-            - `beta_managed_agents_advisor: object`
+                  Model identifier and configuration.
 
-              Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+                  - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-              - `type: "advisor"`
+                    The model that will power your agent.
 
-              - `model: string`
+                    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                The advisor model id.
+                  - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                    How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+                  - `inference_geo: optional string`
+
+                    Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+                  - `speed: optional "standard" or "fast"`
+
+                    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+                - `name: string`
+
+                - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                  - `beta_managed_agents_anthropic_skill: object`
+
+                    A resolved Anthropic-managed skill.
+
+                    - `type: "anthropic"`
+
+                    - `skill_id: string`
+
+                    - `version: string`
+
+                  - `beta_managed_agents_custom_skill: object`
+
+                    A resolved user-created custom skill.
+
+                    - `type: "custom"`
+
+                    - `skill_id: string`
+
+                    - `version: string`
+
+                - `system: string`
+
+                - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                  - `beta_managed_agents_agent_toolset20260401: object`
+
+                    - `type: "agent_toolset_20260401"`
+
+                    - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                      - `beta_managed_agents_bash_tool_config: object`
+
+                        Configuration for the bash tool.
+
+                        - `type: "bash"`
+
+                        - `enabled: boolean`
+
+                        - `name: "bash"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                            - `type: "always_allow"`
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                            - `type: "always_ask"`
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                            - `type: "auto"`
+
+                      - `beta_managed_agents_edit_tool_config: object`
+
+                        Configuration for the edit tool.
+
+                        - `type: "edit"`
+
+                        - `enabled: boolean`
+
+                        - `name: "edit"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_read_tool_config: object`
+
+                        Configuration for the read tool.
+
+                        - `type: "read"`
+
+                        - `enabled: boolean`
+
+                        - `name: "read"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_write_tool_config: object`
+
+                        Configuration for the write tool.
+
+                        - `type: "write"`
+
+                        - `enabled: boolean`
+
+                        - `name: "write"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_glob_tool_config: object`
+
+                        Configuration for the glob tool.
+
+                        - `type: "glob"`
+
+                        - `enabled: boolean`
+
+                        - `name: "glob"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_grep_tool_config: object`
+
+                        Configuration for the grep tool.
+
+                        - `type: "grep"`
+
+                        - `enabled: boolean`
+
+                        - `name: "grep"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `beta_managed_agents_web_fetch_tool_config: object`
+
+                        Configuration for the web_fetch tool.
+
+                        - `type: "web_fetch"`
+
+                        - `enabled: boolean`
+
+                        - `name: "web_fetch"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `url_sources: object`
+
+                          Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                          - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                            Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                            - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                              Every URL from this source may be fetched. This is the default.
+
+                              - `type: "all"`
+
+                            - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                              This source contributes no URLs that may be fetched.
+
+                              - `type: "none"`
+
+                            - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                              Only the named tools' results contribute URLs that may be fetched.
+
+                              - `type: "only"`
+
+                              - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                                The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                                - `type: "tool_reference"`
+
+                                  Must be "tool_reference".
+
+                                - `name: string`
+
+                                  Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                  minLength: 1, maxLength: 128
+
+                            - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                              Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                              - `type: "except"`
+
+                              - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                                The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                                - `type: "tool_reference"`
+
+                                  Must be "tool_reference".
+
+                                - `name: string`
+
+                                  Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                  minLength: 1, maxLength: 128
+
+                          - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                            Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                            - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                              Every URL from this source may be fetched. This is the default.
+
+                            - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                              This source contributes no URLs that may be fetched.
+
+                            - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                              Only the named tools' results contribute URLs that may be fetched.
+
+                            - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                              Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                            Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                            - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                              Every URL from this source may be fetched. This is the default.
+
+                              - `type: "all"`
+
+                            - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                              This source contributes no URLs that may be fetched.
+
+                              - `type: "none"`
+
+                        - `allowed_domains: optional array of string`
+
+                        - `blocked_domains: optional array of string`
+
+                        - `max_content_tokens: optional number`
+
+                          format: int32
+
+                      - `beta_managed_agents_web_search_tool_config: object`
+
+                        Configuration for the web_search tool.
+
+                        - `type: "web_search"`
+
+                        - `enabled: boolean`
+
+                        - `name: "web_search"`
+
+                        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                          Permission policy for tool execution.
+
+                          - `beta_managed_agents_always_allow_policy: object`
+
+                            Tool calls are automatically approved without user confirmation.
+
+                          - `beta_managed_agents_always_ask_policy: object`
+
+                            Tool calls require user confirmation before execution.
+
+                          - `beta_managed_agents_auto_policy: object`
+
+                            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `allowed_domains: optional array of string`
+
+                        - `blocked_domains: optional array of string`
+
+                        - `user_location: optional object`
+
+                          Approximate user location for search result localization.
+
+                          - `type: "approximate"`
+
+                            Location precision. Only "approximate" is supported.
+
+                          - `city: optional string`
+
+                            City name.
+
+                            minLength: 1, maxLength: 255
+
+                          - `country: optional string`
+
+                            Two-letter ISO 3166-1 country code, uppercase.
+
+                          - `region: optional string`
+
+                            Region or state name.
+
+                            minLength: 1, maxLength: 255
+
+                          - `timezone: optional string`
+
+                            IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                            minLength: 1, maxLength: 255
+
+                    - `default_config: object`
+
+                      Resolved default configuration for agent tools.
+
+                      - `enabled: boolean`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `beta_managed_agents_mcp_toolset: object`
+
+                    - `type: "mcp_toolset"`
+
+                    - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                      - `enabled: boolean`
+
+                      - `name: string`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `default_config: object`
+
+                      Resolved default configuration for all tools from an MCP server.
+
+                      - `enabled: boolean`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `mcp_server_name: string`
+
+                  - `beta_managed_agents_custom_tool: object`
+
+                    A custom tool as returned in API responses.
+
+                    - `type: "custom"`
+
+                    - `description: string`
+
+                    - `input_schema: object`
+
+                      JSON Schema for custom tool input parameters.
+
+                      - `type: "object"`
+
+                      - `properties: optional map[unknown]`
+
+                      - `required: optional array of string`
+
+                    - `name: string`
+
+                - `version: number`
+
+                  format: int32
+
+              - `beta_managed_agents_advisor: object`
+
+                Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+                - `type: "advisor"`
+
+                - `model: string`
+
+                  The advisor model id.
+
+          - `beta_managed_agents_session_multiagent20261001: object`
+
+            Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+            - `type: "multiagent_20261001"`
+
+            - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+              Whether the session's primary thread can consult an advisor model.
+
+              - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+                The session's primary thread can consult `model` mid-turn.
+
+                - `type: "enabled"`
+
+                - `model: string`
+
+                  The advisor model id.
+
+              - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+                The agent has no advisor.
+
+                - `type: "disabled"`
+
+            - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+              Whether the agent can spawn session threads.
+
+              - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+                The agent can spawn session threads.
+
+                - `type: "enabled"`
+
+                - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                  Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+                  - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                    The agent can define inline agents.
+
+                    - `type: "enabled"`
+
+                  - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                    The agent cannot define inline agents.
+
+                    - `type: "disabled"`
+
+                - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                  Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+                  - `type: "agent"`
+
+                  - `id: string`
+
+                  - `description: string`
+
+                  - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                  - `model: object`
+
+                    Model identifier and configuration.
+
+                  - `name: string`
+
+                  - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                  - `system: string`
+
+                  - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                  - `version: number`
+
+                    format: int32
+
+              - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+                The agent cannot spawn session threads.
+
+                - `type: "disabled"`
+
+            - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+              Whether the agent can start workflow runs.
+
+              - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+                The agent can start workflow runs.
+
+                - `type: "enabled"`
+
+                - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                  Whether a run's plan can define inline agents, which are not saved.
+
+                  - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                    The agent can define inline agents.
+
+                  - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                    The agent cannot define inline agents.
+
+                - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                  Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+                  - `type: "agent"`
+
+                  - `id: string`
+
+                  - `description: string`
+
+                  - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                  - `model: object`
+
+                    Model identifier and configuration.
+
+                  - `name: string`
+
+                  - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                  - `system: string`
+
+                  - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                  - `version: number`
+
+                    format: int32
+
+              - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+                The agent cannot start workflow runs.
+
+                - `type: "disabled"`
 
         - `name: string`
 
@@ -23925,6 +30634,282 @@ List Session Thread Events
 
           Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
 
+    - `beta_managed_agents_workflow_run_created_event: object`
+
+      A workflow run was created. A workflow run is background work that the session's agent starts. Emitted once per run, before the run's other `workflow_run.*` events.
+
+      - `type: "workflow_run.created"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `description: string`
+
+        Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+      - `name: string`
+
+        Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+      - `phases: array of BetaManagedAgentsWorkflowRunPhase`
+
+        The phases that the run's plan declares, in the plan's order. Can be empty.
+
+        - `id: string`
+
+          Unique identifier for the phase.
+
+        - `description: string`
+
+          Description that the agent gave the phase, passed on as written, or `null` if it gave none.
+
+        - `name: string`
+
+          Name that the agent gave the phase, passed on as written.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `beta_managed_agents_workflow_run_status_ended_event: object`
+
+      A workflow run ended. Emitted once per run, as the last of the run's `workflow_run.*` events.
+
+      - `type: "workflow_run.status_ended"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `result: BetaManagedAgentsWorkflowRunResultCompleted or BetaManagedAgentsWorkflowRunResultError or BetaManagedAgentsWorkflowRunResultStopped`
+
+        How the run ended.
+
+        - `beta_managed_agents_workflow_run_result_completed: object`
+
+          The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded.
+
+          - `type: "completed"`
+
+        - `beta_managed_agents_workflow_run_result_error: object`
+
+          The run failed or reached its time limit.
+
+          - `type: "error"`
+
+          - `error: BetaManagedAgentsTimeoutWorkflowRunError or BetaManagedAgentsProgramWorkflowRunError or BetaManagedAgentsUnknownWorkflowRunError or 2 more`
+
+            Why the run did not finish.
+
+            - `beta_managed_agents_timeout_workflow_run_error: object`
+
+              The run reached its time limit.
+
+              - `type: "timeout_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+            - `beta_managed_agents_program_workflow_run_error: object`
+
+              The plan, a program that the agent wrote, failed, or the server refused it.
+
+              - `type: "program_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+            - `beta_managed_agents_unknown_workflow_run_error: object`
+
+              A failure that has no type of its own.
+
+              - `type: "unknown_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+            - `beta_managed_agents_thread_limit_workflow_run_error: object`
+
+              The run exceeded the limit on the number of threads that a run can create.
+
+              - `type: "thread_limit_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+            - `beta_managed_agents_max_workflow_runs_workflow_run_error: object`
+
+              No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+              - `type: "max_workflow_runs_error"`
+
+              - `message: string`
+
+                Short explanation written by the server. It never contains content from the run or its agents.
+
+        - `beta_managed_agents_workflow_run_result_stopped: object`
+
+          The agent stopped the run.
+
+          - `type: "stopped"`
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `beta_managed_agents_workflow_run_phase_started_event: object`
+
+      A workflow run's plan entered a phase.
+
+      - `type: "workflow_run.phase_started"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+      - `workflow_run_phase_id: string`
+
+        Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+    - `beta_managed_agents_workflow_run_phase_ended_event: object`
+
+      A workflow run's plan left a phase, or the run's end closed it. Emitted once for every `workflow_run.phase_started` event, before the run's `workflow_run.status_ended` event. The event does not say whether the plan finished the phase's work, or why it left.
+
+      - `type: "workflow_run.phase_ended"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `phase_started_id: string`
+
+        Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+      - `workflow_run_phase_id: string`
+
+        Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+    - `beta_managed_agents_workflow_run_status_running_event: object`
+
+      A workflow run is running. Emitted when the run starts to execute, and each time it resumes after being idle. A run that starts idle emits `workflow_run.status_idle` first.
+
+      - `type: "workflow_run.status_running"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `beta_managed_agents_workflow_run_status_idle_event: object`
+
+      A workflow run is idle. Emitted each time the run goes idle, whatever the cause. If the run ends while idle, no `workflow_run.status_running` comes between this event and its `workflow_run.status_ended`.
+
+      - `type: "workflow_run.status_idle"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `beta_managed_agents_workflow_run_error_event: object`
+
+      A workflow run met an error, or an error kept a run from being created. A run that ends with a `result.type` of `error` emits this event before its `workflow_run.status_ended`, with the same `error`.
+
+      - `type: "workflow_run.error"`
+
+      - `id: string`
+
+        Unique identifier for this event.
+
+      - `error: BetaManagedAgentsTimeoutWorkflowRunError or BetaManagedAgentsProgramWorkflowRunError or BetaManagedAgentsUnknownWorkflowRunError or 2 more`
+
+        Why the run did not finish, or was not created.
+
+        - `beta_managed_agents_timeout_workflow_run_error: object`
+
+          The run reached its time limit.
+
+        - `beta_managed_agents_program_workflow_run_error: object`
+
+          The plan, a program that the agent wrote, failed, or the server refused it.
+
+        - `beta_managed_agents_unknown_workflow_run_error: object`
+
+          A failure that has no type of its own.
+
+        - `beta_managed_agents_thread_limit_workflow_run_error: object`
+
+          The run exceeded the limit on the number of threads that a run can create.
+
+        - `beta_managed_agents_max_workflow_runs_workflow_run_error: object`
+
+          No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+      - `processed_at: string`
+
+        Timestamp when this event was processed.
+
+        format: date-time
+
+      - `workflow_run_id: string`
+
+        Identifier of the run that met the error, or `null` when the error kept a run from being created.
+
   - `next_page: optional string`
 
     Opaque cursor for the next page. Null when no more results.
@@ -24000,7 +30985,7 @@ Stream Session Thread Events
 
 #### Returns
 
-- `beta_managed_agents_stream_session_thread_events: BetaManagedAgentsUserMessageEvent or BetaManagedAgentsUserInterruptEvent or BetaManagedAgentsUserToolConfirmationEvent or 34 more`
+- `beta_managed_agents_stream_session_thread_events: BetaManagedAgentsUserMessageEvent or BetaManagedAgentsUserInterruptEvent or BetaManagedAgentsUserToolConfirmationEvent or 41 more`
 
   Server-sent event in a single thread's stream.
 
@@ -24240,7 +31225,7 @@ Stream Session Thread Events
 
     - `custom_tool_use_id: string`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
@@ -24312,7 +31297,7 @@ Stream Session Thread Events
 
   - `beta_managed_agents_agent_custom_tool_use_event: object`
 
-    Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result.
+    Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result. The client can send it as soon as this event arrives, without waiting for `session.status_idle`.
 
     - `type: "agent.custom_tool_use"`
 
@@ -25272,6 +32257,10 @@ Stream Session Thread Events
 
       Public `sthr_` ID of the newly created thread.
 
+    - `workflow_run_id: string`
+
+      Identifier of the workflow run that created the thread, or `null` for any other thread.
+
   - `beta_managed_agents_span_outcome_evaluation_start_event: object`
 
     Emitted when an outcome evaluation cycle begins.
@@ -25810,11 +32799,7 @@ Stream Session Thread Events
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -25882,547 +32867,693 @@ Stream Session Thread Events
 
           - `"fast"`
 
-      - `multiagent: object`
+      - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator or BetaManagedAgentsSessionMultiagent20261001`
 
         Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-        - `type: "coordinator"`
+        - `beta_managed_agents_session_multiagent_coordinator: object`
 
-        - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
+          Resolved coordinator topology with full agent definitions for each roster member.
 
-          Full `agent` definitions the coordinator may spawn as session threads.
+          - `type: "coordinator"`
 
-          - `beta_managed_agents_session_thread_agent: object`
+          - `agents: array of BetaManagedAgentsSessionThreadAgent or BetaManagedAgentsAdvisor`
 
-            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+            Full `agent` definitions the coordinator may spawn as session threads.
 
-            - `type: "agent"`
+            - `beta_managed_agents_session_thread_agent: object`
 
-            - `id: string`
+              Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-            - `description: string`
+              - `type: "agent"`
 
-            - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+              - `id: string`
 
-              - `type: "url"`
+              - `description: string`
 
-              - `name: string`
+              - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
-              - `url: string`
-
-            - `model: object`
-
-              Model identifier and configuration.
-
-              - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
-
-                The model that will power your agent.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
-
-                How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
-
-              - `inference_geo: optional string`
-
-                Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-              - `speed: optional "standard" or "fast"`
-
-                Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
-
-            - `name: string`
-
-            - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
-
-              - `beta_managed_agents_anthropic_skill: object`
-
-                A resolved Anthropic-managed skill.
-
-                - `type: "anthropic"`
-
-                - `skill_id: string`
-
-                - `version: string`
-
-              - `beta_managed_agents_custom_skill: object`
-
-                A resolved user-created custom skill.
-
-                - `type: "custom"`
-
-                - `skill_id: string`
-
-                - `version: string`
-
-            - `system: string`
-
-            - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
-
-              - `beta_managed_agents_agent_toolset20260401: object`
-
-                - `type: "agent_toolset_20260401"`
-
-                - `configs: array of BetaManagedAgentsAgentToolConfig`
-
-                  - `beta_managed_agents_bash_tool_config: object`
-
-                    Configuration for the bash tool.
-
-                    - `type: "bash"`
-
-                    - `enabled: boolean`
-
-                    - `name: "bash"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                        - `type: "always_allow"`
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                        - `type: "always_ask"`
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                        - `type: "auto"`
-
-                  - `beta_managed_agents_edit_tool_config: object`
-
-                    Configuration for the edit tool.
-
-                    - `type: "edit"`
-
-                    - `enabled: boolean`
-
-                    - `name: "edit"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_read_tool_config: object`
-
-                    Configuration for the read tool.
-
-                    - `type: "read"`
-
-                    - `enabled: boolean`
-
-                    - `name: "read"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_write_tool_config: object`
-
-                    Configuration for the write tool.
-
-                    - `type: "write"`
-
-                    - `enabled: boolean`
-
-                    - `name: "write"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_glob_tool_config: object`
-
-                    Configuration for the glob tool.
-
-                    - `type: "glob"`
-
-                    - `enabled: boolean`
-
-                    - `name: "glob"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_grep_tool_config: object`
-
-                    Configuration for the grep tool.
-
-                    - `type: "grep"`
-
-                    - `enabled: boolean`
-
-                    - `name: "grep"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `beta_managed_agents_web_fetch_tool_config: object`
-
-                    Configuration for the web_fetch tool.
-
-                    - `type: "web_fetch"`
-
-                    - `enabled: boolean`
-
-                    - `name: "web_fetch"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `url_sources: object`
-
-                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                          - `type: "all"`
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                          - `type: "none"`
-
-                        - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                          Only the named tools' results contribute URLs that may be fetched.
-
-                          - `type: "only"`
-
-                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                            - `type: "tool_reference"`
-
-                              Must be "tool_reference".
-
-                            - `name: string`
-
-                              Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                              minLength: 1, maxLength: 128
-
-                        - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                          - `type: "except"`
-
-                          - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
-
-                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                            - `type: "tool_reference"`
-
-                              Must be "tool_reference".
-
-                            - `name: string`
-
-                              Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                              minLength: 1, maxLength: 128
-
-                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
-
-                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                        - `beta_managed_agents_web_fetch_url_source_only: object`
-
-                          Only the named tools' results contribute URLs that may be fetched.
-
-                        - `beta_managed_agents_web_fetch_url_source_except: object`
-
-                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                      - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
-
-                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                        - `beta_managed_agents_web_fetch_url_source_all: object`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                          - `type: "all"`
-
-                        - `beta_managed_agents_web_fetch_url_source_none: object`
-
-                          This source contributes no URLs that may be fetched.
-
-                          - `type: "none"`
-
-                    - `allowed_domains: optional array of string`
-
-                    - `blocked_domains: optional array of string`
-
-                    - `max_content_tokens: optional number`
-
-                      format: int32
-
-                  - `beta_managed_agents_web_search_tool_config: object`
-
-                    Configuration for the web_search tool.
-
-                    - `type: "web_search"`
-
-                    - `enabled: boolean`
-
-                    - `name: "web_search"`
-
-                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `beta_managed_agents_always_allow_policy: object`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `beta_managed_agents_always_ask_policy: object`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `beta_managed_agents_auto_policy: object`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `allowed_domains: optional array of string`
-
-                    - `blocked_domains: optional array of string`
-
-                    - `user_location: optional object`
-
-                      Approximate user location for search result localization.
-
-                      - `type: "approximate"`
-
-                        Location precision. Only "approximate" is supported.
-
-                      - `city: optional string`
-
-                        City name.
-
-                        minLength: 1, maxLength: 255
-
-                      - `country: optional string`
-
-                        Two-letter ISO 3166-1 country code, uppercase.
-
-                      - `region: optional string`
-
-                        Region or state name.
-
-                        minLength: 1, maxLength: 255
-
-                      - `timezone: optional string`
-
-                        IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                        minLength: 1, maxLength: 255
-
-                - `default_config: object`
-
-                  Resolved default configuration for agent tools.
-
-                  - `enabled: boolean`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `beta_managed_agents_mcp_toolset: object`
-
-                - `type: "mcp_toolset"`
-
-                - `configs: array of BetaManagedAgentsMCPToolConfig`
-
-                  - `enabled: boolean`
-
-                  - `name: string`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `default_config: object`
-
-                  Resolved default configuration for all tools from an MCP server.
-
-                  - `enabled: boolean`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `beta_managed_agents_always_allow_policy: object`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `beta_managed_agents_always_ask_policy: object`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `beta_managed_agents_auto_policy: object`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `mcp_server_name: string`
-
-              - `beta_managed_agents_custom_tool: object`
-
-                A custom tool as returned in API responses.
-
-                - `type: "custom"`
-
-                - `description: string`
-
-                - `input_schema: object`
-
-                  JSON Schema for custom tool input parameters.
-
-                  - `type: "object"`
-
-                  - `properties: optional map[unknown]`
-
-                  - `required: optional array of string`
+                - `type: "url"`
 
                 - `name: string`
 
-            - `version: number`
+                - `url: string`
 
-              format: int32
+              - `model: object`
 
-          - `beta_managed_agents_advisor: object`
+                Model identifier and configuration.
 
-            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+                - `id: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
 
-            - `type: "advisor"`
+                  The model that will power your agent.
 
-            - `model: string`
+                  See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-              The advisor model id.
+                - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+                  How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied.
+
+                - `inference_geo: optional string`
+
+                  Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
+                - `speed: optional "standard" or "fast"`
+
+                  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
+
+              - `name: string`
+
+              - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `beta_managed_agents_anthropic_skill: object`
+
+                  A resolved Anthropic-managed skill.
+
+                  - `type: "anthropic"`
+
+                  - `skill_id: string`
+
+                  - `version: string`
+
+                - `beta_managed_agents_custom_skill: object`
+
+                  A resolved user-created custom skill.
+
+                  - `type: "custom"`
+
+                  - `skill_id: string`
+
+                  - `version: string`
+
+              - `system: string`
+
+              - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `beta_managed_agents_agent_toolset20260401: object`
+
+                  - `type: "agent_toolset_20260401"`
+
+                  - `configs: array of BetaManagedAgentsAgentToolConfig`
+
+                    - `beta_managed_agents_bash_tool_config: object`
+
+                      Configuration for the bash tool.
+
+                      - `type: "bash"`
+
+                      - `enabled: boolean`
+
+                      - `name: "bash"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                          - `type: "always_allow"`
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                          - `type: "always_ask"`
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                          - `type: "auto"`
+
+                    - `beta_managed_agents_edit_tool_config: object`
+
+                      Configuration for the edit tool.
+
+                      - `type: "edit"`
+
+                      - `enabled: boolean`
+
+                      - `name: "edit"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_read_tool_config: object`
+
+                      Configuration for the read tool.
+
+                      - `type: "read"`
+
+                      - `enabled: boolean`
+
+                      - `name: "read"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_write_tool_config: object`
+
+                      Configuration for the write tool.
+
+                      - `type: "write"`
+
+                      - `enabled: boolean`
+
+                      - `name: "write"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_glob_tool_config: object`
+
+                      Configuration for the glob tool.
+
+                      - `type: "glob"`
+
+                      - `enabled: boolean`
+
+                      - `name: "glob"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_grep_tool_config: object`
+
+                      Configuration for the grep tool.
+
+                      - `type: "grep"`
+
+                      - `enabled: boolean`
+
+                      - `name: "grep"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `beta_managed_agents_web_fetch_tool_config: object`
+
+                      Configuration for the web_fetch tool.
+
+                      - `type: "web_fetch"`
+
+                      - `enabled: boolean`
+
+                      - `name: "web_fetch"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `url_sources: object`
+
+                        Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                        - `client_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                          Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                            - `type: "all"`
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                            - `type: "none"`
+
+                          - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                            Only the named tools' results contribute URLs that may be fetched.
+
+                            - `type: "only"`
+
+                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                              The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                              - `type: "tool_reference"`
+
+                                Must be "tool_reference".
+
+                              - `name: string`
+
+                                Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                minLength: 1, maxLength: 128
+
+                          - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                            - `type: "except"`
+
+                            - `tools: array of BetaManagedAgentsWebFetchURLSourceToolReference`
+
+                              The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                              - `type: "tool_reference"`
+
+                                Must be "tool_reference".
+
+                              - `name: string`
+
+                                Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                minLength: 1, maxLength: 128
+
+                        - `server_tool_results: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone or BetaManagedAgentsWebFetchURLSourceOnly or BetaManagedAgentsWebFetchURLSourceExcept`
+
+                          Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                          - `beta_managed_agents_web_fetch_url_source_only: object`
+
+                            Only the named tools' results contribute URLs that may be fetched.
+
+                          - `beta_managed_agents_web_fetch_url_source_except: object`
+
+                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                        - `user_input: BetaManagedAgentsWebFetchURLSourceAll or BetaManagedAgentsWebFetchURLSourceNone`
+
+                          Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                          - `beta_managed_agents_web_fetch_url_source_all: object`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                            - `type: "all"`
+
+                          - `beta_managed_agents_web_fetch_url_source_none: object`
+
+                            This source contributes no URLs that may be fetched.
+
+                            - `type: "none"`
+
+                      - `allowed_domains: optional array of string`
+
+                      - `blocked_domains: optional array of string`
+
+                      - `max_content_tokens: optional number`
+
+                        format: int32
+
+                    - `beta_managed_agents_web_search_tool_config: object`
+
+                      Configuration for the web_search tool.
+
+                      - `type: "web_search"`
+
+                      - `enabled: boolean`
+
+                      - `name: "web_search"`
+
+                      - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `beta_managed_agents_always_allow_policy: object`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `beta_managed_agents_always_ask_policy: object`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `beta_managed_agents_auto_policy: object`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `allowed_domains: optional array of string`
+
+                      - `blocked_domains: optional array of string`
+
+                      - `user_location: optional object`
+
+                        Approximate user location for search result localization.
+
+                        - `type: "approximate"`
+
+                          Location precision. Only "approximate" is supported.
+
+                        - `city: optional string`
+
+                          City name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `country: optional string`
+
+                          Two-letter ISO 3166-1 country code, uppercase.
+
+                        - `region: optional string`
+
+                          Region or state name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `timezone: optional string`
+
+                          IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                          minLength: 1, maxLength: 255
+
+                  - `default_config: object`
+
+                    Resolved default configuration for agent tools.
+
+                    - `enabled: boolean`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `beta_managed_agents_mcp_toolset: object`
+
+                  - `type: "mcp_toolset"`
+
+                  - `configs: array of BetaManagedAgentsMCPToolConfig`
+
+                    - `enabled: boolean`
+
+                    - `name: string`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `default_config: object`
+
+                    Resolved default configuration for all tools from an MCP server.
+
+                    - `enabled: boolean`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy or BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `beta_managed_agents_always_allow_policy: object`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `beta_managed_agents_always_ask_policy: object`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `beta_managed_agents_auto_policy: object`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `mcp_server_name: string`
+
+                - `beta_managed_agents_custom_tool: object`
+
+                  A custom tool as returned in API responses.
+
+                  - `type: "custom"`
+
+                  - `description: string`
+
+                  - `input_schema: object`
+
+                    JSON Schema for custom tool input parameters.
+
+                    - `type: "object"`
+
+                    - `properties: optional map[unknown]`
+
+                    - `required: optional array of string`
+
+                  - `name: string`
+
+              - `version: number`
+
+                format: int32
+
+            - `beta_managed_agents_advisor: object`
+
+              Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+              - `type: "advisor"`
+
+              - `model: string`
+
+                The advisor model id.
+
+        - `beta_managed_agents_session_multiagent20261001: object`
+
+          Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+          - `type: "multiagent_20261001"`
+
+          - `advisor: BetaManagedAgentsMultiagentAdvisorEnabled or BetaManagedAgentsMultiagentAdvisorDisabled`
+
+            Whether the session's primary thread can consult an advisor model.
+
+            - `beta_managed_agents_multiagent_advisor_enabled: object`
+
+              The session's primary thread can consult `model` mid-turn.
+
+              - `type: "enabled"`
+
+              - `model: string`
+
+                The advisor model id.
+
+            - `beta_managed_agents_multiagent_advisor_disabled: object`
+
+              The agent has no advisor.
+
+              - `type: "disabled"`
+
+          - `subagents: BetaManagedAgentsSessionMultiagentSubagentsEnabled or BetaManagedAgentsMultiagentSubagentsDisabled`
+
+            Whether the agent can spawn session threads.
+
+            - `beta_managed_agents_session_multiagent_subagents_enabled: object`
+
+              The agent can spawn session threads.
+
+              - `type: "enabled"`
+
+              - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+                - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                  The agent can define inline agents.
+
+                  - `type: "enabled"`
+
+                - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                  The agent cannot define inline agents.
+
+                  - `type: "disabled"`
+
+              - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+                - `type: "agent"`
+
+                - `id: string`
+
+                - `description: string`
+
+                - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                - `model: object`
+
+                  Model identifier and configuration.
+
+                - `name: string`
+
+                - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `system: string`
+
+                - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `version: number`
+
+                  format: int32
+
+            - `beta_managed_agents_multiagent_subagents_disabled: object`
+
+              The agent cannot spawn session threads.
+
+              - `type: "disabled"`
+
+          - `workflows: BetaManagedAgentsSessionMultiagentWorkflowsEnabled or BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+            Whether the agent can start workflow runs.
+
+            - `beta_managed_agents_session_multiagent_workflows_enabled: object`
+
+              The agent can start workflow runs.
+
+              - `type: "enabled"`
+
+              - `inline_agents: BetaManagedAgentsMultiagentInlineAgentsEnabled or BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                Whether a run's plan can define inline agents, which are not saved.
+
+                - `beta_managed_agents_multiagent_inline_agents_enabled: object`
+
+                  The agent can define inline agents.
+
+                - `beta_managed_agents_multiagent_inline_agents_disabled: object`
+
+                  The agent cannot define inline agents.
+
+              - `predefined_agents: array of BetaManagedAgentsSessionThreadAgent`
+
+                Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+                - `type: "agent"`
+
+                - `id: string`
+
+                - `description: string`
+
+                - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
+
+                - `model: object`
+
+                  Model identifier and configuration.
+
+                - `name: string`
+
+                - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
+
+                - `system: string`
+
+                - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
+
+                - `version: number`
+
+                  format: int32
+
+            - `beta_managed_agents_multiagent_workflows_disabled: object`
+
+              The agent cannot start workflow runs.
+
+              - `type: "disabled"`
 
       - `name: string`
 
@@ -26661,6 +33792,282 @@ Stream Session Thread Events
       - `max_list_cost: object`
 
         Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
+
+  - `beta_managed_agents_workflow_run_created_event: object`
+
+    A workflow run was created. A workflow run is background work that the session's agent starts. Emitted once per run, before the run's other `workflow_run.*` events.
+
+    - `type: "workflow_run.created"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `description: string`
+
+      Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+    - `name: string`
+
+      Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+    - `phases: array of BetaManagedAgentsWorkflowRunPhase`
+
+      The phases that the run's plan declares, in the plan's order. Can be empty.
+
+      - `id: string`
+
+        Unique identifier for the phase.
+
+      - `description: string`
+
+        Description that the agent gave the phase, passed on as written, or `null` if it gave none.
+
+      - `name: string`
+
+        Name that the agent gave the phase, passed on as written.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `beta_managed_agents_workflow_run_status_ended_event: object`
+
+    A workflow run ended. Emitted once per run, as the last of the run's `workflow_run.*` events.
+
+    - `type: "workflow_run.status_ended"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `result: BetaManagedAgentsWorkflowRunResultCompleted or BetaManagedAgentsWorkflowRunResultError or BetaManagedAgentsWorkflowRunResultStopped`
+
+      How the run ended.
+
+      - `beta_managed_agents_workflow_run_result_completed: object`
+
+        The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded.
+
+        - `type: "completed"`
+
+      - `beta_managed_agents_workflow_run_result_error: object`
+
+        The run failed or reached its time limit.
+
+        - `type: "error"`
+
+        - `error: BetaManagedAgentsTimeoutWorkflowRunError or BetaManagedAgentsProgramWorkflowRunError or BetaManagedAgentsUnknownWorkflowRunError or 2 more`
+
+          Why the run did not finish.
+
+          - `beta_managed_agents_timeout_workflow_run_error: object`
+
+            The run reached its time limit.
+
+            - `type: "timeout_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `beta_managed_agents_program_workflow_run_error: object`
+
+            The plan, a program that the agent wrote, failed, or the server refused it.
+
+            - `type: "program_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `beta_managed_agents_unknown_workflow_run_error: object`
+
+            A failure that has no type of its own.
+
+            - `type: "unknown_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `beta_managed_agents_thread_limit_workflow_run_error: object`
+
+            The run exceeded the limit on the number of threads that a run can create.
+
+            - `type: "thread_limit_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `beta_managed_agents_max_workflow_runs_workflow_run_error: object`
+
+            No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+            - `type: "max_workflow_runs_error"`
+
+            - `message: string`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+      - `beta_managed_agents_workflow_run_result_stopped: object`
+
+        The agent stopped the run.
+
+        - `type: "stopped"`
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `beta_managed_agents_workflow_run_phase_started_event: object`
+
+    A workflow run's plan entered a phase.
+
+    - `type: "workflow_run.phase_started"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `workflow_run_phase_id: string`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `beta_managed_agents_workflow_run_phase_ended_event: object`
+
+    A workflow run's plan left a phase, or the run's end closed it. Emitted once for every `workflow_run.phase_started` event, before the run's `workflow_run.status_ended` event. The event does not say whether the plan finished the phase's work, or why it left.
+
+    - `type: "workflow_run.phase_ended"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `phase_started_id: string`
+
+      Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `workflow_run_phase_id: string`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `beta_managed_agents_workflow_run_status_running_event: object`
+
+    A workflow run is running. Emitted when the run starts to execute, and each time it resumes after being idle. A run that starts idle emits `workflow_run.status_idle` first.
+
+    - `type: "workflow_run.status_running"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `beta_managed_agents_workflow_run_status_idle_event: object`
+
+    A workflow run is idle. Emitted each time the run goes idle, whatever the cause. If the run ends while idle, no `workflow_run.status_running` comes between this event and its `workflow_run.status_ended`.
+
+    - `type: "workflow_run.status_idle"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `beta_managed_agents_workflow_run_error_event: object`
+
+    A workflow run met an error, or an error kept a run from being created. A run that ends with a `result.type` of `error` emits this event before its `workflow_run.status_ended`, with the same `error`.
+
+    - `type: "workflow_run.error"`
+
+    - `id: string`
+
+      Unique identifier for this event.
+
+    - `error: BetaManagedAgentsTimeoutWorkflowRunError or BetaManagedAgentsProgramWorkflowRunError or BetaManagedAgentsUnknownWorkflowRunError or 2 more`
+
+      Why the run did not finish, or was not created.
+
+      - `beta_managed_agents_timeout_workflow_run_error: object`
+
+        The run reached its time limit.
+
+      - `beta_managed_agents_program_workflow_run_error: object`
+
+        The plan, a program that the agent wrote, failed, or the server refused it.
+
+      - `beta_managed_agents_unknown_workflow_run_error: object`
+
+        A failure that has no type of its own.
+
+      - `beta_managed_agents_thread_limit_workflow_run_error: object`
+
+        The run exceeded the limit on the number of threads that a run can create.
+
+      - `beta_managed_agents_max_workflow_runs_workflow_run_error: object`
+
+        No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+    - `processed_at: string`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `workflow_run_id: string`
+
+      Identifier of the run that met the error, or `null` when the error kept a run from being created.
 
 #### Example
 

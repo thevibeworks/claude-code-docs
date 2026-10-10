@@ -123,11 +123,7 @@ Create Session
 
         - `:"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `:"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `:"claude-opus-4-5"`
 
@@ -1339,11 +1335,7 @@ Create Session
 
         - `:"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `:"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `:"claude-opus-4-5"`
 
@@ -1413,509 +1405,647 @@ Create Session
 
         - `:fast`
 
-    - `multiagent: BetaManagedAgentsSessionMultiagentCoordinator`
+    - `multiagent: BetaManagedAgentsSessionMultiagent`
 
       Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-      - `type: :coordinator`
+      - `class BetaManagedAgentsSessionMultiagentCoordinator`
 
-      - `agents: Array[BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor]`
+        Resolved coordinator topology with full agent definitions for each roster member.
 
-        Full `agent` definitions the coordinator may spawn as session threads.
+        - `type: :coordinator`
 
-        - `class BetaManagedAgentsSessionThreadAgent`
+        - `agents: Array[BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor]`
 
-          Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+          Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `type: :agent`
+          - `class BetaManagedAgentsSessionThreadAgent`
 
-          - `id: String`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `description: String`
+            - `type: :agent`
 
-          - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
+            - `id: String`
 
-            - `type: :url`
+            - `description: String`
 
-            - `name: String`
+            - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
-            - `url: String`
-
-          - `model: BetaManagedAgentsModelConfig`
-
-            Model identifier and configuration.
-
-          - `name: String`
-
-          - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
-
-            - `class BetaManagedAgentsAnthropicSkill`
-
-              A resolved Anthropic-managed skill.
-
-              - `type: :anthropic`
-
-              - `skill_id: String`
-
-              - `version: String`
-
-            - `class BetaManagedAgentsCustomSkill`
-
-              A resolved user-created custom skill.
-
-              - `type: :custom`
-
-              - `skill_id: String`
-
-              - `version: String`
-
-          - `system_: String`
-
-          - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
-
-            - `class BetaManagedAgentsAgentToolset20260401`
-
-              - `type: :agent_toolset_20260401`
-
-              - `configs: Array[BetaManagedAgentsAgentToolConfig]`
-
-                - `class BetaManagedAgentsBashToolConfig`
-
-                  Configuration for the bash tool.
-
-                  - `type: :bash`
-
-                  - `enabled: bool`
-
-                  - `name: :bash`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                      - `type: :always_allow`
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                      - `type: :always_ask`
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                      - `type: :auto`
-
-                - `class BetaManagedAgentsEditToolConfig`
-
-                  Configuration for the edit tool.
-
-                  - `type: :edit`
-
-                  - `enabled: bool`
-
-                  - `name: :edit`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `class BetaManagedAgentsReadToolConfig`
-
-                  Configuration for the read tool.
-
-                  - `type: :read`
-
-                  - `enabled: bool`
-
-                  - `name: :read`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `class BetaManagedAgentsWriteToolConfig`
-
-                  Configuration for the write tool.
-
-                  - `type: :write`
-
-                  - `enabled: bool`
-
-                  - `name: :write`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `class BetaManagedAgentsGlobToolConfig`
-
-                  Configuration for the glob tool.
-
-                  - `type: :glob`
-
-                  - `enabled: bool`
-
-                  - `name: :glob`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `class BetaManagedAgentsGrepToolConfig`
-
-                  Configuration for the grep tool.
-
-                  - `type: :grep`
-
-                  - `enabled: bool`
-
-                  - `name: :grep`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `class BetaManagedAgentsWebFetchToolConfig`
-
-                  Configuration for the web_fetch tool.
-
-                  - `type: :web_fetch`
-
-                  - `enabled: bool`
-
-                  - `name: :web_fetch`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `url_sources: BetaManagedAgentsWebFetchURLSources`
-
-                    Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                    - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
-
-                      Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                      - `class BetaManagedAgentsWebFetchURLSourceAll`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                        - `type: :all`
-
-                      - `class BetaManagedAgentsWebFetchURLSourceNone`
-
-                        This source contributes no URLs that may be fetched.
-
-                        - `type: :none`
-
-                      - `class BetaManagedAgentsWebFetchURLSourceOnly`
-
-                        Only the named tools' results contribute URLs that may be fetched.
-
-                        - `type: :only`
-
-                        - `tools: Array[BetaManagedAgentsWebFetchURLSourceToolReference]`
-
-                          The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                          - `type: :tool_reference`
-
-                            Must be "tool_reference".
-
-                          - `name: String`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                      - `class BetaManagedAgentsWebFetchURLSourceExcept`
-
-                        Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                        - `type: :except`
-
-                        - `tools: Array[BetaManagedAgentsWebFetchURLSourceToolReference]`
-
-                          The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                          - `type: :tool_reference`
-
-                            Must be "tool_reference".
-
-                          - `name: String`
-
-                            Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                            minLength: 1, maxLength: 128
-
-                    - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
-
-                      Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                    - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
-
-                      Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                      - `class BetaManagedAgentsWebFetchURLSourceAll`
-
-                        Every URL from this source may be fetched. This is the default.
-
-                      - `class BetaManagedAgentsWebFetchURLSourceNone`
-
-                        This source contributes no URLs that may be fetched.
-
-                  - `allowed_domains: Array[String]`
-
-                  - `blocked_domains: Array[String]`
-
-                  - `max_content_tokens: Integer`
-
-                    format: int32
-
-                - `class BetaManagedAgentsWebSearchToolConfig`
-
-                  Configuration for the web_search tool.
-
-                  - `type: :web_search`
-
-                  - `enabled: bool`
-
-                  - `name: :web_search`
-
-                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `allowed_domains: Array[String]`
-
-                  - `blocked_domains: Array[String]`
-
-                  - `user_location: BetaManagedAgentsUserLocation`
-
-                    Approximate user location for search result localization.
-
-                    - `type: :approximate`
-
-                      Location precision. Only "approximate" is supported.
-
-                    - `city: String`
-
-                      City name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `country: String`
-
-                      Two-letter ISO 3166-1 country code, uppercase.
-
-                    - `region: String`
-
-                      Region or state name.
-
-                      minLength: 1, maxLength: 255
-
-                    - `timezone: String`
-
-                      IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                      minLength: 1, maxLength: 255
-
-              - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `class BetaManagedAgentsAutoPolicy`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-            - `class BetaManagedAgentsMCPToolset`
-
-              - `type: :mcp_toolset`
-
-              - `configs: Array[BetaManagedAgentsMCPToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: String`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `class BetaManagedAgentsAutoPolicy`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-                  - `class BetaManagedAgentsAutoPolicy`
-
-                    The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `mcp_server_name: String`
-
-            - `class BetaManagedAgentsCustomTool`
-
-              A custom tool as returned in API responses.
-
-              - `type: :custom`
-
-              - `description: String`
-
-              - `input_schema: BetaManagedAgentsCustomToolInputSchema`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: :object`
-
-                - `properties: Hash[Symbol, untyped]`
-
-                - `required: Array[String]`
+              - `type: :url`
 
               - `name: String`
 
-          - `version: Integer`
+              - `url: String`
 
-            format: int32
+            - `model: BetaManagedAgentsModelConfig`
 
-        - `class BetaManagedAgentsAdvisor`
+              Model identifier and configuration.
 
-          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            - `name: String`
 
-          - `type: :advisor`
+            - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
 
-          - `model: String`
+              - `class BetaManagedAgentsAnthropicSkill`
 
-            The advisor model id.
+                A resolved Anthropic-managed skill.
+
+                - `type: :anthropic`
+
+                - `skill_id: String`
+
+                - `version: String`
+
+              - `class BetaManagedAgentsCustomSkill`
+
+                A resolved user-created custom skill.
+
+                - `type: :custom`
+
+                - `skill_id: String`
+
+                - `version: String`
+
+            - `system_: String`
+
+            - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
+
+              - `class BetaManagedAgentsAgentToolset20260401`
+
+                - `type: :agent_toolset_20260401`
+
+                - `configs: Array[BetaManagedAgentsAgentToolConfig]`
+
+                  - `class BetaManagedAgentsBashToolConfig`
+
+                    Configuration for the bash tool.
+
+                    - `type: :bash`
+
+                    - `enabled: bool`
+
+                    - `name: :bash`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: :always_allow`
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: :always_ask`
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                        - `type: :auto`
+
+                  - `class BetaManagedAgentsEditToolConfig`
+
+                    Configuration for the edit tool.
+
+                    - `type: :edit`
+
+                    - `enabled: bool`
+
+                    - `name: :edit`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `class BetaManagedAgentsReadToolConfig`
+
+                    Configuration for the read tool.
+
+                    - `type: :read`
+
+                    - `enabled: bool`
+
+                    - `name: :read`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `class BetaManagedAgentsWriteToolConfig`
+
+                    Configuration for the write tool.
+
+                    - `type: :write`
+
+                    - `enabled: bool`
+
+                    - `name: :write`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `class BetaManagedAgentsGlobToolConfig`
+
+                    Configuration for the glob tool.
+
+                    - `type: :glob`
+
+                    - `enabled: bool`
+
+                    - `name: :glob`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `class BetaManagedAgentsGrepToolConfig`
+
+                    Configuration for the grep tool.
+
+                    - `type: :grep`
+
+                    - `enabled: bool`
+
+                    - `name: :grep`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `class BetaManagedAgentsWebFetchToolConfig`
+
+                    Configuration for the web_fetch tool.
+
+                    - `type: :web_fetch`
+
+                    - `enabled: bool`
+
+                    - `name: :web_fetch`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `url_sources: BetaManagedAgentsWebFetchURLSources`
+
+                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                      - `client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+
+                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                        - `class BetaManagedAgentsWebFetchURLSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                          - `type: :all`
+
+                        - `class BetaManagedAgentsWebFetchURLSourceNone`
+
+                          This source contributes no URLs that may be fetched.
+
+                          - `type: :none`
+
+                        - `class BetaManagedAgentsWebFetchURLSourceOnly`
+
+                          Only the named tools' results contribute URLs that may be fetched.
+
+                          - `type: :only`
+
+                          - `tools: Array[BetaManagedAgentsWebFetchURLSourceToolReference]`
+
+                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                            - `type: :tool_reference`
+
+                              Must be "tool_reference".
+
+                            - `name: String`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                        - `class BetaManagedAgentsWebFetchURLSourceExcept`
+
+                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                          - `type: :except`
+
+                          - `tools: Array[BetaManagedAgentsWebFetchURLSourceToolReference]`
+
+                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                            - `type: :tool_reference`
+
+                              Must be "tool_reference".
+
+                            - `name: String`
+
+                              Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                              minLength: 1, maxLength: 128
+
+                      - `server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter`
+
+                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                      - `user_input: BetaManagedAgentsWebFetchURLSourceUserInput`
+
+                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                        - `class BetaManagedAgentsWebFetchURLSourceAll`
+
+                          Every URL from this source may be fetched. This is the default.
+
+                        - `class BetaManagedAgentsWebFetchURLSourceNone`
+
+                          This source contributes no URLs that may be fetched.
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `max_content_tokens: Integer`
+
+                      format: int32
+
+                  - `class BetaManagedAgentsWebSearchToolConfig`
+
+                    Configuration for the web_search tool.
+
+                    - `type: :web_search`
+
+                    - `enabled: bool`
+
+                    - `name: :web_search`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `user_location: BetaManagedAgentsUserLocation`
+
+                      Approximate user location for search result localization.
+
+                      - `type: :approximate`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: String`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: String`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: String`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: String`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `class BetaManagedAgentsAutoPolicy`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+              - `class BetaManagedAgentsMCPToolset`
+
+                - `type: :mcp_toolset`
+
+                - `configs: Array[BetaManagedAgentsMCPToolConfig]`
+
+                  - `enabled: bool`
+
+                  - `name: String`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `class BetaManagedAgentsAutoPolicy`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                    - `class BetaManagedAgentsAutoPolicy`
+
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `mcp_server_name: String`
+
+              - `class BetaManagedAgentsCustomTool`
+
+                A custom tool as returned in API responses.
+
+                - `type: :custom`
+
+                - `description: String`
+
+                - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: :object`
+
+                  - `properties: Hash[Symbol, untyped]`
+
+                  - `required: Array[String]`
+
+                - `name: String`
+
+            - `version: Integer`
+
+              format: int32
+
+          - `class BetaManagedAgentsAdvisor`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `type: :advisor`
+
+            - `model: String`
+
+              The advisor model id.
+
+      - `class BetaManagedAgentsSessionMultiagent20261001`
+
+        Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+        - `type: :multiagent_20261001`
+
+        - `advisor: BetaManagedAgentsMultiagentAdvisor`
+
+          Whether the session's primary thread can consult an advisor model.
+
+          - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+            The session's primary thread can consult `model` mid-turn.
+
+            - `type: :enabled`
+
+            - `model: String`
+
+              The advisor model id.
+
+          - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+            The agent has no advisor.
+
+            - `type: :disabled`
+
+        - `subagents: BetaManagedAgentsSessionMultiagentSubagents`
+
+          Whether the agent can spawn session threads.
+
+          - `class BetaManagedAgentsSessionMultiagentSubagentsEnabled`
+
+            The agent can spawn session threads.
+
+            - `type: :enabled`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgents`
+
+              Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+              - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+                The agent can define inline agents.
+
+                - `type: :enabled`
+
+              - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                The agent cannot define inline agents.
+
+                - `type: :disabled`
+
+            - `predefined_agents: Array[BetaManagedAgentsSessionThreadAgent]`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+              - `type: :agent`
+
+              - `id: String`
+
+              - `description: String`
+
+              - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
+
+              - `model: BetaManagedAgentsModelConfig`
+
+                Model identifier and configuration.
+
+              - `name: String`
+
+              - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
+
+              - `system_: String`
+
+              - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
+
+              - `version: Integer`
+
+                format: int32
+
+          - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+            The agent cannot spawn session threads.
+
+            - `type: :disabled`
+
+        - `workflows: BetaManagedAgentsSessionMultiagentWorkflows`
+
+          Whether the agent can start workflow runs.
+
+          - `class BetaManagedAgentsSessionMultiagentWorkflowsEnabled`
+
+            The agent can start workflow runs.
+
+            - `type: :enabled`
+
+            - `inline_agents: BetaManagedAgentsMultiagentInlineAgents`
+
+              Whether a run's plan can define inline agents, which are not saved.
+
+            - `predefined_agents: Array[BetaManagedAgentsSessionThreadAgent]`
+
+              Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+              - `type: :agent`
+
+              - `id: String`
+
+              - `description: String`
+
+              - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
+
+              - `model: BetaManagedAgentsModelConfig`
+
+                Model identifier and configuration.
+
+              - `name: String`
+
+              - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
+
+              - `system_: String`
+
+              - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
+
+              - `version: Integer`
+
+                format: int32
+
+          - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+            The agent cannot start workflow runs.
+
+            - `type: :disabled`
 
     - `name: String`
 

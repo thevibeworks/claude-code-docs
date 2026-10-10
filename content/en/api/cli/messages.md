@@ -39,7 +39,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
 
-  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response.
+  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response. This is called prefill. On models that don't support prefill, creating a message that ends with a partial `assistant` response returns a 400 error. See [Prefill not supported](https://platform.claude.com/docs/en/api/errors#prefill-not-supported).
 
   Example with a single `user` message:
 
@@ -57,7 +57,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   ]
   ```
 
-  Example with a partially-filled response from Claude:
+  Example with a partially-filled response from Claude, for models that support prefill:
 
   ```json
   [
@@ -134,11 +134,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `--thinking: optional ThinkingConfigEnabled or ThinkingConfigDisabled or ThinkingConfigBetweenTools or ThinkingConfigAdaptive`
 
-  Configuration for enabling Claude's extended thinking.
+  Configuration for Claude's thinking.
 
-  When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
+  With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
-  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+  Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking) for each model's behavior.
 
 - `--tool-choice: optional ToolChoiceAuto or ToolChoiceAny or ToolChoiceTool or ToolChoiceNone`
 
@@ -1049,11 +1049,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -1943,7 +1939,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
 
-  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response.
+  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response. This is called prefill. On models that don't support prefill, creating a message that ends with a partial `assistant` response returns a 400 error. See [Prefill not supported](https://platform.claude.com/docs/en/api/errors#prefill-not-supported).
 
   Example with a single `user` message:
 
@@ -1961,7 +1957,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   ]
   ```
 
-  Example with a partially-filled response from Claude:
+  Example with a partially-filled response from Claude, for models that support prefill:
 
   ```json
   [
@@ -2008,11 +2004,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `--thinking: optional ThinkingConfigEnabled or ThinkingConfigDisabled or ThinkingConfigBetweenTools or ThinkingConfigAdaptive`
 
-  Configuration for enabling Claude's extended thinking.
+  Configuration for Claude's thinking.
 
-  When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
+  With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
-  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+  Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking) for each model's behavior.
 
 - `--tool-choice: optional ToolChoiceAuto or ToolChoiceAny or ToolChoiceTool or ToolChoiceNone`
 
@@ -15911,11 +15907,7 @@ ant messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -21448,11 +21440,7 @@ ant messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -22473,11 +22461,7 @@ ant messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -24508,7 +24492,7 @@ ant messages count-tokens \
 
   - `display: optional "summarized" or "omitted"`
 
-    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
     - `"summarized"`
 
@@ -24544,7 +24528,7 @@ ant messages count-tokens \
 
   - `display: optional "summarized" or "omitted"`
 
-    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
     - `"summarized"`
 
@@ -24554,11 +24538,11 @@ ant messages count-tokens \
 
 - `thinking_config_param: ThinkingConfigEnabled or ThinkingConfigDisabled or ThinkingConfigBetweenTools or ThinkingConfigAdaptive`
 
-  Configuration for enabling Claude's extended thinking.
+  Configuration for Claude's thinking.
 
-  When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
+  With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
-  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+  Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking) for each model's behavior.
 
   - `thinking_config_enabled: object`
 
@@ -24576,7 +24560,7 @@ ant messages count-tokens \
 
     - `display: optional "summarized" or "omitted"`
 
-      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
       - `"summarized"`
 
@@ -24596,7 +24580,7 @@ ant messages count-tokens \
 
     - `display: optional "summarized" or "omitted"`
 
-      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
       - `"summarized"`
 
@@ -34274,11 +34258,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 

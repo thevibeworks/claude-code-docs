@@ -6,7 +6,7 @@
 
 > Run Claude Desktop against your own cloud inference provider
 
-Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly. The app runs from a bundled local web application, and conversation history is stored on the user's device.
+Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly. The app runs from a bundled local web application. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions).
 
 You get the full Claude Desktop experience (Chat, Cowork, and Code, including file creation, multi-step research, and sub-agent coordination) with inference and billing handled by the provider you choose. You can also turn on [Unified Claude](/docs/third-party/claude-desktop/unified-claude), which combines Chat and Cowork into one experience.
 
@@ -30,7 +30,7 @@ Claude Desktop on 3P keeps the standard feature set and relocates inference to t
 | Model inference | Anthropic API | Your configured provider endpoint (Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, or gateway), or the Anthropic API |
 | Web application | Loaded from claude.ai | Bundled inside the desktop app |
 | User identity | Anthropic account | Local device identity only (Anthropic account when managed from the claude.ai admin console) |
-| Conversation storage | Anthropic backend | Local disk on the user's machine |
+| Conversation storage | Anthropic backend | Local disk on the user's machine, and the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) |
 | Code execution sandbox | Local VM | Local VM (identical) |
 | Configuration | Admin console at claude.ai | OS-native configuration (MDM-managed or per-user), a bootstrap server, or the claude.ai admin console |
 
@@ -38,7 +38,7 @@ The desktop app detects 3P mode at launch from the configured inference provider
 
 ### Security posture
 
-* **Conversation content goes only to your configured endpoint.** The app sends prompts, responses, files, and tool outputs only to your configured inference endpoint and stores them only on the local machine. What happens to that content at the endpoint depends on the provider, as described under [Data handling by provider](#data-handling-by-provider).
+* **Conversation content goes only to your configured endpoint.** The app sends prompts, responses, files, and tool outputs only to your configured inference endpoint and stores them only on the local machine. If you enable [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions), Claude Code runs those sessions on a remote host, which also receives that content, sends it to your endpoint, and stores it. What happens to that content at the endpoint depends on the provider, as described under [Data handling by provider](#data-handling-by-provider).
 * **Sandboxed tool execution.** Shell commands run in the hardened Cowork VM; file access is scoped to your allowed folders and web fetches to your egress allowlist.
 * **Auditable telemetry.** Crash reports and product analytics are scrubbed of conversation and user data before being sent to Anthropic, and can be fully disabled via configuration keys. Independently, you can export session activity to your own OpenTelemetry collector. The export is metadata only by default, with prompt and tool content available as an explicit opt-in.
 * **Centrally managed.** Configuration is delivered through your existing MDM (Jamf, Intune, Workspace ONE, Group Policy), a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or the [admin console](/docs/third-party/claude-desktop/admin-console). End users cannot override a configuration that MDM delivers.
@@ -63,10 +63,11 @@ For the Anthropic API, Anthropic processes conversation data under your Anthropi
 
 1. The cloud region you select for inference
 2. The physical location of the user's device, where conversations are persisted
+3. The physical location of any [SSH remote session](/docs/third-party/claude-desktop/ssh-remote-sessions) host, which sends that session's inference requests and stores its conversation
 
 For multi-region organizations, deploy distinct MDM configuration profiles per geography so each user population points at an in-region endpoint. Google Cloud's Agent Platform and Amazon Bedrock each offer Claude models in the EU, UK, and Asia/Pacific regions; consult your provider's model-availability documentation for the current list.
 
-**Microsoft Foundry:** Residency is set by the [hosting option and deployment type](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) you select when you deploy the model in Microsoft Foundry. Deployments hosted on Azure offer two deployment types: Global Standard, which may run inference in any available region, and US Data Zone Standard, which keeps inference within the United States. Deployments hosted on Anthropic offer Global Standard only. As with the other providers, conversation history is stored on the user's device. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
+**Microsoft Foundry:** Residency is set by the [hosting option and deployment type](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) you select when you deploy the model in Microsoft Foundry. Deployments hosted on Azure offer two deployment types: Global Standard, which may run inference in any available region, and US Data Zone Standard, which keeps inference within the United States. Deployments hosted on Anthropic offer Global Standard only. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions). See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
 
 ## Public sector and highly regulated environments
 

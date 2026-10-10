@@ -6,6 +6,27 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.31226.1" description="2026-10-09">
+  Bundled Claude Code version: 2.1.295.
+
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * Changed MSIX installs on Windows so that programs started through Git Bash in a session end when the app updates instead of staying open.
+  * Fixed every request failing on a 1M-context model when the inference gateway or cloud provider refuses the 1M-context capability; the request is now resent without it.
+</Update>
+
 <Update label="v2.31226.0" description="2026-10-08">
   Bundled Claude Code version: 2.1.293.
 

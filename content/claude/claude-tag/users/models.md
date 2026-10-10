@@ -70,8 +70,6 @@ Fast mode applies to the thread you turn it on in, and new threads start at stan
 
 After `!fast off`, a thread that Claude switched to Opus stays on Opus. To return to the earlier model, ask Claude to switch.
 
-Fast mode isn't available in a [channel shared with another company](/docs/claude-tag/users/troubleshooting#claude-never-responds-in-a-channel-shared-with-another-company).
-
 ## Which models you can use
 
 Anthropic manages the list of models on offer, and your organization's settings narrow it. The options include Opus and Sonnet models, drawn from the models your organization allows, and in channels that list applies regardless of your own account's model access. Every list you see in Slack, the direct message selector and the models Claude offers to switch to, is already filtered to that set.

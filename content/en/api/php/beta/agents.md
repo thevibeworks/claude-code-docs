@@ -184,14 +184,36 @@ var_dump($betaManagedAgentsAgent);
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -371,14 +393,36 @@ var_dump($page);
         "speed": "standard"
       },
       "multiagent": {
-        "agents": [
-          {
-            "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-            "type": "agent",
-            "version": 1
-          }
-        ],
-        "type": "coordinator"
+        "advisor": {
+          "type": "disabled"
+        },
+        "subagents": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        },
+        "type": "multiagent_20261001",
+        "workflows": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        }
       },
       "name": "My First Agent",
       "skills": [
@@ -544,14 +588,36 @@ var_dump($betaManagedAgentsAgent);
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -788,14 +854,36 @@ var_dump($betaManagedAgentsAgent);
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -953,14 +1041,36 @@ var_dump($betaManagedAgentsAgent);
     "speed": "standard"
   },
   "multiagent": {
-    "agents": [
-      {
-        "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-        "type": "agent",
-        "version": 1
-      }
-    ],
-    "type": "coordinator"
+    "advisor": {
+      "type": "disabled"
+    },
+    "subagents": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    },
+    "type": "multiagent_20261001",
+    "workflows": {
+      "inline_agents": {
+        "type": "enabled"
+      },
+      "predefined_agents": [
+        {
+          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+          "type": "agent",
+          "version": 1
+        }
+      ],
+      "type": "enabled"
+    }
   },
   "name": "My First Agent",
   "skills": [
@@ -1899,11 +2009,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `"claude-haiku-4-5"`
 
-    Fastest model with near-frontier intelligence
-
   - `"claude-haiku-4-5-20251001"`
-
-    Fastest model with near-frontier intelligence
 
   - `"claude-opus-4-5"`
 
@@ -1971,6 +2077,70 @@ var_dump($betaManagedAgentsAgent);
 
     Inference speed mode. Defaults to `standard`.
 
+### Beta Managed Agents Multiagent Advisor
+
+- `class BetaManagedAgentsMultiagentAdvisor`
+
+  - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+    - `"enabled" type`
+
+    - `string model`
+
+      The advisor model id.
+
+  - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+    - `"disabled" type`
+
+### Beta Managed Agents Multiagent Advisor Disabled
+
+- `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+  - `"disabled" type`
+
+### Beta Managed Agents Multiagent Advisor Disabled Params
+
+- `class BetaManagedAgentsMultiagentAdvisorDisabledParams`
+
+  - `"disabled" type`
+
+### Beta Managed Agents Multiagent Advisor Enabled
+
+- `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+  - `"enabled" type`
+
+  - `string model`
+
+    The advisor model id.
+
+### Beta Managed Agents Multiagent Advisor Enabled Params
+
+- `class BetaManagedAgentsMultiagentAdvisorEnabledParams`
+
+  - `"enabled" type`
+
+  - `string model`
+
+    A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+### Beta Managed Agents Multiagent Advisor Params
+
+- `class BetaManagedAgentsMultiagentAdvisorParams`
+
+  - `class BetaManagedAgentsMultiagentAdvisorEnabledParams`
+
+    - `"enabled" type`
+
+    - `string model`
+
+      A Claude model id. The model must be permitted as an advisor for this agent's model.
+
+  - `class BetaManagedAgentsMultiagentAdvisorDisabledParams`
+
+    - `"disabled" type`
+
 ### Beta Managed Agents Multiagent Coordinator
 
 - `class BetaManagedAgentsMultiagentCoordinator`
@@ -1991,11 +2161,277 @@ var_dump($betaManagedAgentsAgent);
 
     Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
 
+### Beta Managed Agents Multiagent Inline Agents
+
+- `class BetaManagedAgentsMultiagentInlineAgents`
+
+  - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+    - `"enabled" type`
+
+  - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+    - `"disabled" type`
+
+### Beta Managed Agents Multiagent Inline Agents Disabled
+
+- `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+  - `"disabled" type`
+
+### Beta Managed Agents Multiagent Inline Agents Disabled Params
+
+- `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+  - `"disabled" type`
+
+### Beta Managed Agents Multiagent Inline Agents Enabled
+
+- `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+  - `"enabled" type`
+
+### Beta Managed Agents Multiagent Inline Agents Enabled Params
+
+- `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+  - `"enabled" type`
+
+### Beta Managed Agents Multiagent Inline Agents Params
+
+- `class BetaManagedAgentsMultiagentInlineAgentsParams`
+
+  - `class BetaManagedAgentsMultiagentInlineAgentsEnabledParams`
+
+    - `"enabled" type`
+
+  - `class BetaManagedAgentsMultiagentInlineAgentsDisabledParams`
+
+    - `"disabled" type`
+
+### Beta Managed Agents Multiagent Predefined Agent Params
+
+- `class BetaManagedAgentsMultiagentPredefinedAgentParams`
+
+  - `string`
+
+  - `class BetaManagedAgentsAgentParams`
+
+    - `Type type`
+
+    - `string id`
+
+      The `agent` ID.
+
+    - `?int version`
+
+      The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+  - `class BetaManagedAgentsMultiagentSelfParams`
+
+    - `Type type`
+
 ### Beta Managed Agents Multiagent Self Params
 
 - `class BetaManagedAgentsMultiagentSelfParams`
 
   - `Type type`
+
+### Beta Managed Agents Multiagent Subagents
+
+- `class BetaManagedAgentsMultiagentSubagents`
+
+  - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+    - `"enabled" type`
+
+    - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+      Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+    - `list<BetaManagedAgentsAgentReference> predefinedAgents`
+
+      Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+  - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+    - `"disabled" type`
+
+### Beta Managed Agents Multiagent Subagents Disabled
+
+- `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+  - `"disabled" type`
+
+### Beta Managed Agents Multiagent Subagents Disabled Params
+
+- `class BetaManagedAgentsMultiagentSubagentsDisabledParams`
+
+  - `"disabled" type`
+
+### Beta Managed Agents Multiagent Subagents Enabled
+
+- `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+  - `"enabled" type`
+
+  - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+    Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+  - `list<BetaManagedAgentsAgentReference> predefinedAgents`
+
+    Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+### Beta Managed Agents Multiagent Subagents Enabled Params
+
+- `class BetaManagedAgentsMultiagentSubagentsEnabledParams`
+
+  - `"enabled" type`
+
+  - `?BetaManagedAgentsMultiagentInlineAgentsParams inlineAgents`
+
+    Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+  - `?list<BetaManagedAgentsMultiagentPredefinedAgentParams> predefinedAgents`
+
+    Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+### Beta Managed Agents Multiagent Subagents Params
+
+- `class BetaManagedAgentsMultiagentSubagentsParams`
+
+  - `class BetaManagedAgentsMultiagentSubagentsEnabledParams`
+
+    - `"enabled" type`
+
+    - `?BetaManagedAgentsMultiagentInlineAgentsParams inlineAgents`
+
+      Whether the agent can define inline agents when it spawns session threads. Defaults to enabled.
+
+    - `?list<BetaManagedAgentsMultiagentPredefinedAgentParams> predefinedAgents`
+
+      Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other.
+
+  - `class BetaManagedAgentsMultiagentSubagentsDisabledParams`
+
+    - `"disabled" type`
+
+### Beta Managed Agents Multiagent Workflows
+
+- `class BetaManagedAgentsMultiagentWorkflows`
+
+  - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+    - `"enabled" type`
+
+    - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+      Whether a run's plan can define inline agents, which are not saved.
+
+    - `list<BetaManagedAgentsAgentReference> predefinedAgents`
+
+      Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+  - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+    - `"disabled" type`
+
+### Beta Managed Agents Multiagent Workflows Disabled
+
+- `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+  - `"disabled" type`
+
+### Beta Managed Agents Multiagent Workflows Disabled Params
+
+- `class BetaManagedAgentsMultiagentWorkflowsDisabledParams`
+
+  - `"disabled" type`
+
+### Beta Managed Agents Multiagent Workflows Enabled
+
+- `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+  - `"enabled" type`
+
+  - `BetaManagedAgentsMultiagentInlineAgents inlineAgents`
+
+    Whether a run's plan can define inline agents, which are not saved.
+
+  - `list<BetaManagedAgentsAgentReference> predefinedAgents`
+
+    Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+### Beta Managed Agents Multiagent Workflows Enabled Params
+
+- `class BetaManagedAgentsMultiagentWorkflowsEnabledParams`
+
+  - `"enabled" type`
+
+  - `?BetaManagedAgentsMultiagentInlineAgentsParams inlineAgents`
+
+    Whether a run's plan can define inline agents. Defaults to enabled.
+
+  - `?list<BetaManagedAgentsMultiagentPredefinedAgentParams> predefinedAgents`
+
+    Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+### Beta Managed Agents Multiagent Workflows Params
+
+- `class BetaManagedAgentsMultiagentWorkflowsParams`
+
+  - `class BetaManagedAgentsMultiagentWorkflowsEnabledParams`
+
+    - `"enabled" type`
+
+    - `?BetaManagedAgentsMultiagentInlineAgentsParams inlineAgents`
+
+      Whether a run's plan can define inline agents. Defaults to enabled.
+
+    - `?list<BetaManagedAgentsMultiagentPredefinedAgentParams> predefinedAgents`
+
+      Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other.
+
+  - `class BetaManagedAgentsMultiagentWorkflowsDisabledParams`
+
+    - `"disabled" type`
+
+### Beta Managed Agents Multiagent20261001
+
+- `class BetaManagedAgentsMultiagent20261001`
+
+  - `"multiagent_20261001" type`
+
+  - `BetaManagedAgentsMultiagentAdvisor advisor`
+
+    Whether the session's primary thread can consult an advisor model.
+
+  - `BetaManagedAgentsMultiagentSubagents subagents`
+
+    Whether the agent can spawn session threads.
+
+  - `BetaManagedAgentsMultiagentWorkflows workflows`
+
+    Whether the agent can start workflow runs.
+
+### Beta Managed Agents Multiagent20261001 Params
+
+- `class BetaManagedAgentsMultiagent20261001Params`
+
+  - `"multiagent_20261001" type`
+
+  - `?BetaManagedAgentsMultiagentAdvisorParams advisor`
+
+    Whether the session's primary thread can consult an advisor model. Defaults to disabled.
+
+  - `?BetaManagedAgentsMultiagentSubagentsParams subagents`
+
+    Whether the agent can spawn session threads. Defaults to enabled.
+
+  - `?BetaManagedAgentsMultiagentWorkflowsParams workflows`
+
+    Whether the agent can start workflow runs. Defaults to enabled.
 
 ### Beta Managed Agents Read Tool Config
 
@@ -2572,14 +3008,36 @@ var_dump($page);
         "speed": "standard"
       },
       "multiagent": {
-        "agents": [
-          {
-            "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-            "type": "agent",
-            "version": 1
-          }
-        ],
-        "type": "coordinator"
+        "advisor": {
+          "type": "disabled"
+        },
+        "subagents": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        },
+        "type": "multiagent_20261001",
+        "workflows": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        }
       },
       "name": "My First Agent",
       "skills": [
