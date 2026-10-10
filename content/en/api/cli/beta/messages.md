@@ -39,7 +39,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
 
-  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response.
+  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response. This is called prefill. On models that don't support prefill, creating a message that ends with a partial `assistant` response returns a 400 error. See [Prefill not supported](https://platform.claude.com/docs/en/api/errors#prefill-not-supported).
 
   Example with a single `user` message:
 
@@ -57,7 +57,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   ]
   ```
 
-  Example with a partially-filled response from Claude:
+  Example with a partially-filled response from Claude, for models that support prefill:
 
   ```json
   [
@@ -137,7 +137,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `--fallbacks: optional array of BetaFallbackParam or "default"`
 
-  Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
+  Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. Some models don't support fallbacks; on those models, a list of fallback models returns a 400 error. See [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). The string "default" requests the requested model's server-defined default fallback configuration. On a model that doesn't support fallbacks, the request runs on the requested model alone, so a declined request stays declined.
 
 - `--inference-geo: optional string`
 
@@ -189,11 +189,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `--thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigBetweenTools or BetaThinkingConfigAdaptive`
 
-  Configuration for enabling Claude's extended thinking.
+  Configuration for Claude's thinking.
 
-  When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
+  With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
-  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+  Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking) for each model's behavior.
 
 - `--tool-choice: optional BetaToolChoiceAuto or BetaToolChoiceAny or BetaToolChoiceTool or BetaToolChoiceNone`
 
@@ -3374,11 +3374,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     - `"claude-haiku-4-5"`
 
-                      Fastest model with near-frontier intelligence
-
                     - `"claude-haiku-4-5-20251001"`
-
-                      Fastest model with near-frontier intelligence
 
                     - `"claude-opus-4-5"`
 
@@ -3751,11 +3747,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -3996,11 +3988,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -4289,7 +4277,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-      - Determine which iterations exceeded long context thresholds (>=200k tokens)
       - Calculate the context window size from the last `message` entry
       - Understand token accumulation across server-side tool use loops
 
@@ -4397,11 +4384,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -4585,11 +4568,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -4732,11 +4711,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -5241,7 +5216,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-        - Determine which iterations exceeded long context thresholds (>=200k tokens)
         - Calculate the context window size from the last `message` entry
         - Understand token accumulation across server-side tool use loops
 
@@ -5929,7 +5903,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
 
-  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response.
+  If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response. This is called prefill. On models that don't support prefill, creating a message that ends with a partial `assistant` response returns a 400 error. See [Prefill not supported](https://platform.claude.com/docs/en/api/errors#prefill-not-supported).
 
   Example with a single `user` message:
 
@@ -5947,7 +5921,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   ]
   ```
 
-  Example with a partially-filled response from Claude:
+  Example with a partially-filled response from Claude, for models that support prefill:
 
   ```json
   [
@@ -6022,11 +5996,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `--thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigBetweenTools or BetaThinkingConfigAdaptive`
 
-  Configuration for enabling Claude's extended thinking.
+  Configuration for Claude's thinking.
 
-  When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
+  With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
-  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+  Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking) for each model's behavior.
 
 - `--tool-choice: optional BetaToolChoiceAuto or BetaToolChoiceAny or BetaToolChoiceTool or BetaToolChoiceNone`
 
@@ -6252,11 +6226,7 @@ ant beta:messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -6404,11 +6374,7 @@ ant beta:messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -16466,11 +16432,7 @@ ant beta:messages count-tokens \
 
                 - `"claude-haiku-4-5"`
 
-                  Fastest model with near-frontier intelligence
-
                 - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
 
                 - `"claude-opus-4-5"`
 
@@ -19077,11 +19039,7 @@ ant beta:messages count-tokens \
 
                 - `"claude-haiku-4-5"`
 
-                  Fastest model with near-frontier intelligence
-
                 - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
 
                 - `"claude-opus-4-5"`
 
@@ -25172,11 +25130,7 @@ ant beta:messages count-tokens \
 
                   - `"claude-haiku-4-5"`
 
-                    Fastest model with near-frontier intelligence
-
                   - `"claude-haiku-4-5-20251001"`
-
-                    Fastest model with near-frontier intelligence
 
                   - `"claude-opus-4-5"`
 
@@ -25549,11 +25503,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -29351,11 +29301,7 @@ ant beta:messages count-tokens \
 
                   - `"claude-haiku-4-5"`
 
-                    Fastest model with near-frontier intelligence
-
                   - `"claude-haiku-4-5-20251001"`
-
-                    Fastest model with near-frontier intelligence
 
                   - `"claude-opus-4-5"`
 
@@ -29831,11 +29777,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -30717,11 +30659,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -30873,11 +30811,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -31140,11 +31074,7 @@ ant beta:messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -31238,11 +31168,7 @@ ant beta:messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -31381,11 +31307,7 @@ ant beta:messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -31490,11 +31412,7 @@ ant beta:messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -31610,7 +31528,7 @@ ant beta:messages count-tokens \
 
       - `display: optional "summarized" or "omitted" or "updates"`
 
-        Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+        Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
         - `"summarized"`
 
@@ -31640,7 +31558,7 @@ ant beta:messages count-tokens \
 
       - `display: optional "summarized" or "omitted" or "updates"`
 
-        Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+        Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
         - `"summarized"`
 
@@ -31684,7 +31602,7 @@ ant beta:messages count-tokens \
 
 - `beta_fallbacks_param: array of BetaFallbackParam or "default"`
 
-  Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
+  Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. Some models don't support fallbacks; on those models, a list of fallback models returns a 400 error. See [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). The string "default" requests the requested model's server-defined default fallback configuration. On a model that doesn't support fallbacks, the request runs on the requested model alone, so a declined request stays declined.
 
   - `union_member_0: array of BetaFallbackParam`
 
@@ -31748,11 +31666,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -31868,7 +31782,7 @@ ant beta:messages count-tokens \
 
         - `display: optional "summarized" or "omitted" or "updates"`
 
-          Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+          Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
           - `"summarized"`
 
@@ -31898,7 +31812,7 @@ ant beta:messages count-tokens \
 
         - `display: optional "summarized" or "omitted" or "updates"`
 
-          Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+          Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
           - `"summarized"`
 
@@ -32122,7 +32036,6 @@ ant beta:messages count-tokens \
 
   Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-  - Determine which iterations exceeded long context thresholds (>=200k tokens)
   - Calculate the context window size from the last `message` entry
   - Understand token accumulation across server-side tool use loops
 
@@ -32230,11 +32143,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -32418,11 +32327,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -32565,11 +32470,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -36314,11 +36215,7 @@ ant beta:messages count-tokens \
 
                     - `"claude-haiku-4-5"`
 
-                      Fastest model with near-frontier intelligence
-
                     - `"claude-haiku-4-5-20251001"`
-
-                      Fastest model with near-frontier intelligence
 
                     - `"claude-opus-4-5"`
 
@@ -36691,11 +36588,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -36936,11 +36829,7 @@ ant beta:messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -37229,7 +37118,6 @@ ant beta:messages count-tokens \
 
       Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-      - Determine which iterations exceeded long context thresholds (>=200k tokens)
       - Calculate the context window size from the last `message` entry
       - Understand token accumulation across server-side tool use loops
 
@@ -37337,11 +37225,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -37525,11 +37409,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -37672,11 +37552,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -37964,7 +37840,6 @@ ant beta:messages count-tokens \
 
     Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-    - Determine which iterations exceeded long context thresholds (>=200k tokens)
     - Calculate the context window size from the last `message` entry
     - Understand token accumulation across server-side tool use loops
 
@@ -38072,11 +37947,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -38260,11 +38131,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -38407,11 +38274,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -38591,11 +38454,7 @@ ant beta:messages count-tokens \
 
     - `"claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `"claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `"claude-opus-4-5"`
 
@@ -42342,11 +42201,7 @@ ant beta:messages count-tokens \
 
                     - `"claude-haiku-4-5"`
 
-                      Fastest model with near-frontier intelligence
-
                     - `"claude-haiku-4-5-20251001"`
-
-                      Fastest model with near-frontier intelligence
 
                     - `"claude-opus-4-5"`
 
@@ -42822,11 +42677,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -46343,11 +46194,7 @@ ant beta:messages count-tokens \
 
                     - `"claude-haiku-4-5"`
 
-                      Fastest model with near-frontier intelligence
-
                     - `"claude-haiku-4-5-20251001"`
-
-                      Fastest model with near-frontier intelligence
 
                     - `"claude-opus-4-5"`
 
@@ -46720,11 +46567,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -47130,7 +46973,6 @@ ant beta:messages count-tokens \
 
       Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-      - Determine which iterations exceeded long context thresholds (>=200k tokens)
       - Calculate the context window size from the last `message` entry
       - Understand token accumulation across server-side tool use loops
 
@@ -47238,11 +47080,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -47426,11 +47264,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -47573,11 +47407,7 @@ ant beta:messages count-tokens \
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -50810,11 +50640,7 @@ ant beta:messages count-tokens \
 
                       - `"claude-haiku-4-5"`
 
-                        Fastest model with near-frontier intelligence
-
                       - `"claude-haiku-4-5-20251001"`
-
-                        Fastest model with near-frontier intelligence
 
                       - `"claude-opus-4-5"`
 
@@ -51187,11 +51013,7 @@ ant beta:messages count-tokens \
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -51432,11 +51254,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -51725,7 +51543,6 @@ ant beta:messages count-tokens \
 
         Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-        - Determine which iterations exceeded long context thresholds (>=200k tokens)
         - Calculate the context window size from the last `message` entry
         - Understand token accumulation across server-side tool use loops
 
@@ -51833,11 +51650,7 @@ ant beta:messages count-tokens \
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -52021,11 +51834,7 @@ ant beta:messages count-tokens \
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -52168,11 +51977,7 @@ ant beta:messages count-tokens \
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -55433,11 +55238,7 @@ ant beta:messages count-tokens \
 
                         - `"claude-haiku-4-5"`
 
-                          Fastest model with near-frontier intelligence
-
                         - `"claude-haiku-4-5-20251001"`
-
-                          Fastest model with near-frontier intelligence
 
                         - `"claude-opus-4-5"`
 
@@ -55810,11 +55611,7 @@ ant beta:messages count-tokens \
 
               - `"claude-haiku-4-5"`
 
-                Fastest model with near-frontier intelligence
-
               - `"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
 
               - `"claude-opus-4-5"`
 
@@ -56055,11 +55852,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -56348,7 +56141,6 @@ ant beta:messages count-tokens \
 
           Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-          - Determine which iterations exceeded long context thresholds (>=200k tokens)
           - Calculate the context window size from the last `message` entry
           - Understand token accumulation across server-side tool use loops
 
@@ -56456,11 +56248,7 @@ ant beta:messages count-tokens \
 
               - `"claude-haiku-4-5"`
 
-                Fastest model with near-frontier intelligence
-
               - `"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
 
               - `"claude-opus-4-5"`
 
@@ -56644,11 +56432,7 @@ ant beta:messages count-tokens \
 
               - `"claude-haiku-4-5"`
 
-                Fastest model with near-frontier intelligence
-
               - `"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
 
               - `"claude-opus-4-5"`
 
@@ -56791,11 +56575,7 @@ ant beta:messages count-tokens \
 
               - `"claude-haiku-4-5"`
 
-                Fastest model with near-frontier intelligence
-
               - `"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
 
               - `"claude-opus-4-5"`
 
@@ -57159,7 +56939,6 @@ ant beta:messages count-tokens \
 
         Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-        - Determine which iterations exceeded long context thresholds (>=200k tokens)
         - Calculate the context window size from the last `message` entry
         - Understand token accumulation across server-side tool use loops
 
@@ -60590,11 +60369,7 @@ ant beta:messages count-tokens \
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -63251,11 +63026,7 @@ ant beta:messages count-tokens \
 
             - `"claude-haiku-4-5"`
 
-              Fastest model with near-frontier intelligence
-
             - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
 
             - `"claude-opus-4-5"`
 
@@ -65814,11 +65585,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -67438,7 +67205,7 @@ ant beta:messages count-tokens \
 
   - `display: optional "summarized" or "omitted" or "updates"`
 
-    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
     - `"summarized"`
 
@@ -67488,7 +67255,7 @@ ant beta:messages count-tokens \
 
   - `display: optional "summarized" or "omitted" or "updates"`
 
-    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
     - `"summarized"`
 
@@ -67500,11 +67267,11 @@ ant beta:messages count-tokens \
 
 - `beta_thinking_config_param: BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigBetweenTools or BetaThinkingConfigAdaptive`
 
-  Configuration for enabling Claude's extended thinking.
+  Configuration for Claude's thinking.
 
-  When enabled, responses include `thinking` content blocks showing Claude's thinking process before the final answer. Requires a minimum budget of 1,024 tokens and counts towards your `max_tokens` limit.
+  With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
-  See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+  Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking) for each model's behavior.
 
   - `beta_thinking_config_enabled: object`
 
@@ -67534,7 +67301,7 @@ ant beta:messages count-tokens \
 
     - `display: optional "summarized" or "omitted" or "updates"`
 
-      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
       - `"summarized"`
 
@@ -67564,7 +67331,7 @@ ant beta:messages count-tokens \
 
     - `display: optional "summarized" or "omitted" or "updates"`
 
-      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
+      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
       - `"summarized"`
 
@@ -70116,11 +69883,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -72602,11 +72365,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -76575,11 +76334,7 @@ ant beta:messages count-tokens \
 
       - `"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `"claude-opus-4-5"`
 
@@ -79320,7 +79075,6 @@ ant beta:messages count-tokens \
 
     Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-    - Determine which iterations exceeded long context thresholds (>=200k tokens)
     - Calculate the context window size from the last `message` entry
     - Understand token accumulation across server-side tool use loops
 
@@ -79428,11 +79182,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -79616,11 +79366,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -79763,11 +79509,7 @@ ant beta:messages count-tokens \
 
         - `"claude-haiku-4-5"`
 
-          Fastest model with near-frontier intelligence
-
         - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
 
         - `"claude-opus-4-5"`
 
@@ -86076,11 +85818,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           - `"claude-haiku-4-5"`
 
-                            Fastest model with near-frontier intelligence
-
                           - `"claude-haiku-4-5-20251001"`
-
-                            Fastest model with near-frontier intelligence
 
                           - `"claude-opus-4-5"`
 
@@ -86453,11 +86191,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `"claude-haiku-4-5"`
 
-                  Fastest model with near-frontier intelligence
-
                 - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
 
                 - `"claude-opus-4-5"`
 
@@ -86698,11 +86432,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -86991,7 +86721,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
-            - Determine which iterations exceeded long context thresholds (>=200k tokens)
             - Calculate the context window size from the last `message` entry
             - Understand token accumulation across server-side tool use loops
 
@@ -87099,11 +86828,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `"claude-haiku-4-5"`
 
-                  Fastest model with near-frontier intelligence
-
                 - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
 
                 - `"claude-opus-4-5"`
 
@@ -87287,11 +87012,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `"claude-haiku-4-5"`
 
-                  Fastest model with near-frontier intelligence
-
                 - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
 
                 - `"claude-opus-4-5"`
 
@@ -87434,11 +87155,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `"claude-haiku-4-5"`
 
-                  Fastest model with near-frontier intelligence
-
                 - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
 
                 - `"claude-opus-4-5"`
 

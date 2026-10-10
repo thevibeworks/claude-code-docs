@@ -129,6 +129,20 @@ List Events
 
     - `SessionUsage("session.usage")`
 
+    - `WorkflowRunCreated("workflow_run.created")`
+
+    - `WorkflowRunStatusRunning("workflow_run.status_running")`
+
+    - `WorkflowRunStatusIdle("workflow_run.status_idle")`
+
+    - `WorkflowRunStatusEnded("workflow_run.status_ended")`
+
+    - `WorkflowRunError("workflow_run.error")`
+
+    - `WorkflowRunPhaseStarted("workflow_run.phase_started")`
+
+    - `WorkflowRunPhaseEnded("workflow_run.phase_ended")`
+
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
@@ -481,7 +495,7 @@ List Events
 
     - `required string CustomToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `IReadOnlyList<Content> Content`
 
@@ -553,7 +567,7 @@ List Events
 
   - `class BetaManagedAgentsAgentCustomToolUseEvent`
 
-    Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result.
+    Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result. The client can send it as soon as this event arrives, without waiting for `session.status_idle`.
 
     - `required Type Type`
 
@@ -1495,6 +1509,10 @@ List Events
 
       Public `sthr_` ID of the newly created thread.
 
+    - `required string? WorkflowRunID`
+
+      Identifier of the workflow run that created the thread, or `null` for any other thread.
+
   - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
     Emitted when an outcome evaluation cycle begins.
@@ -1995,11 +2013,7 @@ List Events
 
           - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
-            Fastest model with near-frontier intelligence
-
           - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
-
-            Fastest model with near-frontier intelligence
 
           - `ClaudeOpus4_5("claude-opus-4-5")`
 
@@ -2067,509 +2081,647 @@ List Events
 
           - `Fast("fast")`
 
-      - `required BetaManagedAgentsSessionMultiagentCoordinator? Multiagent`
+      - `required BetaManagedAgentsSessionMultiagent? Multiagent`
 
         Resolved multiagent orchestration configuration. Null when the agent is single-threaded.
 
-        - `required Type Type`
+        - `class BetaManagedAgentsSessionMultiagentCoordinator`
 
-        - `required IReadOnlyList<Agent> Agents`
+          Resolved coordinator topology with full agent definitions for each roster member.
 
-          Full `agent` definitions the coordinator may spawn as session threads.
+          - `required Type Type`
 
-          - `class BetaManagedAgentsSessionThreadAgent`
+          - `required IReadOnlyList<Agent> Agents`
 
-            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+            Full `agent` definitions the coordinator may spawn as session threads.
 
-            - `required Type Type`
+            - `class BetaManagedAgentsSessionThreadAgent`
 
-            - `required string ID`
-
-            - `required string? Description`
-
-            - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
+              Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
               - `required Type Type`
 
-              - `required string Name`
+              - `required string ID`
 
-              - `required string Url`
+              - `required string? Description`
 
-            - `required BetaManagedAgentsModelConfig Model`
-
-              Model identifier and configuration.
-
-            - `required string Name`
-
-            - `required IReadOnlyList<Skill> Skills`
-
-              - `class BetaManagedAgentsAnthropicSkill`
-
-                A resolved Anthropic-managed skill.
+              - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
                 - `required Type Type`
-
-                - `required string SkillID`
-
-                - `required string Version`
-
-              - `class BetaManagedAgentsCustomSkill`
-
-                A resolved user-created custom skill.
-
-                - `required Type Type`
-
-                - `required string SkillID`
-
-                - `required string Version`
-
-            - `required string? System`
-
-            - `required IReadOnlyList<Tool> Tools`
-
-              - `class BetaManagedAgentsAgentToolset20260401`
-
-                - `required Type Type`
-
-                - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
-
-                  - `class BetaManagedAgentsBashToolConfig`
-
-                    Configuration for the bash tool.
-
-                    - `JsonElement Type = "bash"`
-
-                    - `required bool Enabled`
-
-                    - `JsonElement Name = "bash"`
-
-                    - `required PermissionPolicy PermissionPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                        - `required Type Type`
-
-                      - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                        Tool calls require user confirmation before execution.
-
-                        - `required Type Type`
-
-                      - `class BetaManagedAgentsAutoPolicy`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                        - `JsonElement Type = "auto"`
-
-                  - `class BetaManagedAgentsEditToolConfig`
-
-                    Configuration for the edit tool.
-
-                    - `JsonElement Type = "edit"`
-
-                    - `required bool Enabled`
-
-                    - `JsonElement Name = "edit"`
-
-                    - `required PermissionPolicy PermissionPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `class BetaManagedAgentsAutoPolicy`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `class BetaManagedAgentsReadToolConfig`
-
-                    Configuration for the read tool.
-
-                    - `JsonElement Type = "read"`
-
-                    - `required bool Enabled`
-
-                    - `JsonElement Name = "read"`
-
-                    - `required PermissionPolicy PermissionPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `class BetaManagedAgentsAutoPolicy`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `class BetaManagedAgentsWriteToolConfig`
-
-                    Configuration for the write tool.
-
-                    - `JsonElement Type = "write"`
-
-                    - `required bool Enabled`
-
-                    - `JsonElement Name = "write"`
-
-                    - `required PermissionPolicy PermissionPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `class BetaManagedAgentsAutoPolicy`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `class BetaManagedAgentsGlobToolConfig`
-
-                    Configuration for the glob tool.
-
-                    - `JsonElement Type = "glob"`
-
-                    - `required bool Enabled`
-
-                    - `JsonElement Name = "glob"`
-
-                    - `required PermissionPolicy PermissionPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `class BetaManagedAgentsAutoPolicy`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `class BetaManagedAgentsGrepToolConfig`
-
-                    Configuration for the grep tool.
-
-                    - `JsonElement Type = "grep"`
-
-                    - `required bool Enabled`
-
-                    - `JsonElement Name = "grep"`
-
-                    - `required PermissionPolicy PermissionPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `class BetaManagedAgentsAutoPolicy`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                  - `class BetaManagedAgentsWebFetchToolConfig`
-
-                    Configuration for the web_fetch tool.
-
-                    - `JsonElement Type = "web_fetch"`
-
-                    - `required bool Enabled`
-
-                    - `JsonElement Name = "web_fetch"`
-
-                    - `required PermissionPolicy PermissionPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `class BetaManagedAgentsAutoPolicy`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `required BetaManagedAgentsWebFetchUrlSources? UrlSources`
-
-                      Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
-
-                      - `required BetaManagedAgentsWebFetchUrlSourceToolFilter? ClientToolResults`
-
-                        Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
-
-                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                          - `JsonElement Type = "all"`
-
-                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
-
-                          This source contributes no URLs that may be fetched.
-
-                          - `JsonElement Type = "none"`
-
-                        - `class BetaManagedAgentsWebFetchUrlSourceOnly`
-
-                          Only the named tools' results contribute URLs that may be fetched.
-
-                          - `JsonElement Type = "only"`
-
-                          - `required IReadOnlyList<BetaManagedAgentsWebFetchUrlSourceToolReference> Tools`
-
-                            The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
-
-                            - `JsonElement Type = "tool_reference"`
-
-                              Must be "tool_reference".
-
-                            - `required string Name`
-
-                              Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                              minLength: 1, maxLength: 128
-
-                        - `class BetaManagedAgentsWebFetchUrlSourceExcept`
-
-                          Every tool's results contribute URLs that may be fetched, except the named tools' results.
-
-                          - `JsonElement Type = "except"`
-
-                          - `required IReadOnlyList<BetaManagedAgentsWebFetchUrlSourceToolReference> Tools`
-
-                            The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
-
-                            - `JsonElement Type = "tool_reference"`
-
-                              Must be "tool_reference".
-
-                            - `required string Name`
-
-                              Name of the tool. Compared exactly, so upper and lower case letters are different.
-
-                              minLength: 1, maxLength: 128
-
-                      - `required BetaManagedAgentsWebFetchUrlSourceToolFilter? ServerToolResults`
-
-                        Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
-
-                      - `required BetaManagedAgentsWebFetchUrlSourceUserInput? UserInput`
-
-                        Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
-
-                        - `class BetaManagedAgentsWebFetchUrlSourceAll`
-
-                          Every URL from this source may be fetched. This is the default.
-
-                        - `class BetaManagedAgentsWebFetchUrlSourceNone`
-
-                          This source contributes no URLs that may be fetched.
-
-                    - `IReadOnlyList<string> AllowedDomains`
-
-                    - `IReadOnlyList<string> BlockedDomains`
-
-                    - `int? MaxContentTokens`
-
-                      format: int32
-
-                  - `class BetaManagedAgentsWebSearchToolConfig`
-
-                    Configuration for the web_search tool.
-
-                    - `JsonElement Type = "web_search"`
-
-                    - `required bool Enabled`
-
-                    - `JsonElement Name = "web_search"`
-
-                    - `required PermissionPolicy PermissionPolicy`
-
-                      Permission policy for tool execution.
-
-                      - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                        Tool calls are automatically approved without user confirmation.
-
-                      - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                        Tool calls require user confirmation before execution.
-
-                      - `class BetaManagedAgentsAutoPolicy`
-
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                    - `IReadOnlyList<string> AllowedDomains`
-
-                    - `IReadOnlyList<string> BlockedDomains`
-
-                    - `BetaManagedAgentsUserLocation? UserLocation`
-
-                      Approximate user location for search result localization.
-
-                      - `JsonElement Type = "approximate"`
-
-                        Location precision. Only "approximate" is supported.
-
-                      - `string? City`
-
-                        City name.
-
-                        minLength: 1, maxLength: 255
-
-                      - `string? Country`
-
-                        Two-letter ISO 3166-1 country code, uppercase.
-
-                      - `string? Region`
-
-                        Region or state name.
-
-                        minLength: 1, maxLength: 255
-
-                      - `string? Timezone`
-
-                        IANA timezone identifier, e.g. "America/Los_Angeles".
-
-                        minLength: 1, maxLength: 255
-
-                - `required BetaManagedAgentsAgentToolsetDefaultConfig DefaultConfig`
-
-                  Resolved default configuration for agent tools.
-
-                  - `required bool Enabled`
-
-                  - `required PermissionPolicy PermissionPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-              - `class BetaManagedAgentsMcpToolset`
-
-                - `required Type Type`
-
-                - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
-
-                  - `required bool Enabled`
-
-                  - `required string Name`
-
-                  - `required PermissionPolicy PermissionPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
-
-                  Resolved default configuration for all tools from an MCP server.
-
-                  - `required bool Enabled`
-
-                  - `required PermissionPolicy PermissionPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                      Tool calls require user confirmation before execution.
-
-                    - `class BetaManagedAgentsAutoPolicy`
-
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
-
-                - `required string McpServerName`
-
-              - `class BetaManagedAgentsCustomTool`
-
-                A custom tool as returned in API responses.
-
-                - `required Type Type`
-
-                - `required string Description`
-
-                - `required BetaManagedAgentsCustomToolInputSchema InputSchema`
-
-                  JSON Schema for custom tool input parameters.
-
-                  - `JsonElement Type = "object"`
-
-                  - `IReadOnlyDictionary<string, JsonElement>? Properties`
-
-                  - `IReadOnlyList<string>? Required`
 
                 - `required string Name`
 
-            - `required int Version`
+                - `required string Url`
 
-              format: int32
+              - `required BetaManagedAgentsModelConfig Model`
 
-          - `class BetaManagedAgentsAdvisor`
+                Model identifier and configuration.
 
-            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+              - `required string Name`
 
-            - `required Type Type`
+              - `required IReadOnlyList<Skill> Skills`
 
-            - `required string Model`
+                - `class BetaManagedAgentsAnthropicSkill`
 
-              The advisor model id.
+                  A resolved Anthropic-managed skill.
+
+                  - `required Type Type`
+
+                  - `required string SkillID`
+
+                  - `required string Version`
+
+                - `class BetaManagedAgentsCustomSkill`
+
+                  A resolved user-created custom skill.
+
+                  - `required Type Type`
+
+                  - `required string SkillID`
+
+                  - `required string Version`
+
+              - `required string? System`
+
+              - `required IReadOnlyList<Tool> Tools`
+
+                - `class BetaManagedAgentsAgentToolset20260401`
+
+                  - `required Type Type`
+
+                  - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
+
+                    - `class BetaManagedAgentsBashToolConfig`
+
+                      Configuration for the bash tool.
+
+                      - `JsonElement Type = "bash"`
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name = "bash"`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                          - `required Type Type`
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                          Tool calls require user confirmation before execution.
+
+                          - `required Type Type`
+
+                        - `class BetaManagedAgentsAutoPolicy`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                          - `JsonElement Type = "auto"`
+
+                    - `class BetaManagedAgentsEditToolConfig`
+
+                      Configuration for the edit tool.
+
+                      - `JsonElement Type = "edit"`
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name = "edit"`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `class BetaManagedAgentsAutoPolicy`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `class BetaManagedAgentsReadToolConfig`
+
+                      Configuration for the read tool.
+
+                      - `JsonElement Type = "read"`
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name = "read"`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `class BetaManagedAgentsAutoPolicy`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `class BetaManagedAgentsWriteToolConfig`
+
+                      Configuration for the write tool.
+
+                      - `JsonElement Type = "write"`
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name = "write"`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `class BetaManagedAgentsAutoPolicy`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `class BetaManagedAgentsGlobToolConfig`
+
+                      Configuration for the glob tool.
+
+                      - `JsonElement Type = "glob"`
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name = "glob"`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `class BetaManagedAgentsAutoPolicy`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `class BetaManagedAgentsGrepToolConfig`
+
+                      Configuration for the grep tool.
+
+                      - `JsonElement Type = "grep"`
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name = "grep"`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `class BetaManagedAgentsAutoPolicy`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                    - `class BetaManagedAgentsWebFetchToolConfig`
+
+                      Configuration for the web_fetch tool.
+
+                      - `JsonElement Type = "web_fetch"`
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name = "web_fetch"`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `class BetaManagedAgentsAutoPolicy`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `required BetaManagedAgentsWebFetchUrlSources? UrlSources`
+
+                        Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source.
+
+                        - `required BetaManagedAgentsWebFetchUrlSourceToolFilter? ClientToolResults`
+
+                          Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results.
+
+                          - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                            - `JsonElement Type = "all"`
+
+                          - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                            This source contributes no URLs that may be fetched.
+
+                            - `JsonElement Type = "none"`
+
+                          - `class BetaManagedAgentsWebFetchUrlSourceOnly`
+
+                            Only the named tools' results contribute URLs that may be fetched.
+
+                            - `JsonElement Type = "only"`
+
+                            - `required IReadOnlyList<BetaManagedAgentsWebFetchUrlSourceToolReference> Tools`
+
+                              The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results.
+
+                              - `JsonElement Type = "tool_reference"`
+
+                                Must be "tool_reference".
+
+                              - `required string Name`
+
+                                Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                minLength: 1, maxLength: 128
+
+                          - `class BetaManagedAgentsWebFetchUrlSourceExcept`
+
+                            Every tool's results contribute URLs that may be fetched, except the named tools' results.
+
+                            - `JsonElement Type = "except"`
+
+                            - `required IReadOnlyList<BetaManagedAgentsWebFetchUrlSourceToolReference> Tools`
+
+                              The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results.
+
+                              - `JsonElement Type = "tool_reference"`
+
+                                Must be "tool_reference".
+
+                              - `required string Name`
+
+                                Name of the tool. Compared exactly, so upper and lower case letters are different.
+
+                                minLength: 1, maxLength: 128
+
+                        - `required BetaManagedAgentsWebFetchUrlSourceToolFilter? ServerToolResults`
+
+                          Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both.
+
+                        - `required BetaManagedAgentsWebFetchUrlSourceUserInput? UserInput`
+
+                          Whether URLs in the text of user messages may be fetched. Null when not set, which allows them.
+
+                          - `class BetaManagedAgentsWebFetchUrlSourceAll`
+
+                            Every URL from this source may be fetched. This is the default.
+
+                          - `class BetaManagedAgentsWebFetchUrlSourceNone`
+
+                            This source contributes no URLs that may be fetched.
+
+                      - `IReadOnlyList<string> AllowedDomains`
+
+                      - `IReadOnlyList<string> BlockedDomains`
+
+                      - `int? MaxContentTokens`
+
+                        format: int32
+
+                    - `class BetaManagedAgentsWebSearchToolConfig`
+
+                      Configuration for the web_search tool.
+
+                      - `JsonElement Type = "web_search"`
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name = "web_search"`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                          Tool calls require user confirmation before execution.
+
+                        - `class BetaManagedAgentsAutoPolicy`
+
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                      - `IReadOnlyList<string> AllowedDomains`
+
+                      - `IReadOnlyList<string> BlockedDomains`
+
+                      - `BetaManagedAgentsUserLocation? UserLocation`
+
+                        Approximate user location for search result localization.
+
+                        - `JsonElement Type = "approximate"`
+
+                          Location precision. Only "approximate" is supported.
+
+                        - `string? City`
+
+                          City name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `string? Country`
+
+                          Two-letter ISO 3166-1 country code, uppercase.
+
+                        - `string? Region`
+
+                          Region or state name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `string? Timezone`
+
+                          IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                          minLength: 1, maxLength: 255
+
+                  - `required BetaManagedAgentsAgentToolsetDefaultConfig DefaultConfig`
+
+                    Resolved default configuration for agent tools.
+
+                    - `required bool Enabled`
+
+                    - `required PermissionPolicy PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                - `class BetaManagedAgentsMcpToolset`
+
+                  - `required Type Type`
+
+                  - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
+
+                    - `required bool Enabled`
+
+                    - `required string Name`
+
+                    - `required PermissionPolicy PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
+
+                    Resolved default configuration for all tools from an MCP server.
+
+                    - `required bool Enabled`
+
+                    - `required PermissionPolicy PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                      - `class BetaManagedAgentsAutoPolicy`
+
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+
+                  - `required string McpServerName`
+
+                - `class BetaManagedAgentsCustomTool`
+
+                  A custom tool as returned in API responses.
+
+                  - `required Type Type`
+
+                  - `required string Description`
+
+                  - `required BetaManagedAgentsCustomToolInputSchema InputSchema`
+
+                    JSON Schema for custom tool input parameters.
+
+                    - `JsonElement Type = "object"`
+
+                    - `IReadOnlyDictionary<string, JsonElement>? Properties`
+
+                    - `IReadOnlyList<string>? Required`
+
+                  - `required string Name`
+
+              - `required int Version`
+
+                format: int32
+
+            - `class BetaManagedAgentsAdvisor`
+
+              Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+              - `required Type Type`
+
+              - `required string Model`
+
+                The advisor model id.
+
+        - `class BetaManagedAgentsSessionMultiagent20261001`
+
+          Resolved multiagent configuration with three members, as copied to the `session` at creation.
+
+          - `JsonElement Type = "multiagent_20261001"`
+
+          - `required BetaManagedAgentsMultiagentAdvisor Advisor`
+
+            Whether the session's primary thread can consult an advisor model.
+
+            - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+              The session's primary thread can consult `model` mid-turn.
+
+              - `JsonElement Type = "enabled"`
+
+              - `required string Model`
+
+                The advisor model id.
+
+            - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+              The agent has no advisor.
+
+              - `JsonElement Type = "disabled"`
+
+          - `required BetaManagedAgentsSessionMultiagentSubagents Subagents`
+
+            Whether the agent can spawn session threads.
+
+            - `class BetaManagedAgentsSessionMultiagentSubagentsEnabled`
+
+              The agent can spawn session threads.
+
+              - `JsonElement Type = "enabled"`
+
+              - `required BetaManagedAgentsMultiagentInlineAgents InlineAgents`
+
+                Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+                - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+                  The agent can define inline agents.
+
+                  - `JsonElement Type = "enabled"`
+
+                - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+                  The agent cannot define inline agents.
+
+                  - `JsonElement Type = "disabled"`
+
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgent> PredefinedAgents`
+
+                Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads.
+
+                - `required Type Type`
+
+                - `required string ID`
+
+                - `required string? Description`
+
+                - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
+
+                - `required BetaManagedAgentsModelConfig Model`
+
+                  Model identifier and configuration.
+
+                - `required string Name`
+
+                - `required IReadOnlyList<Skill> Skills`
+
+                - `required string? System`
+
+                - `required IReadOnlyList<Tool> Tools`
+
+                - `required int Version`
+
+                  format: int32
+
+            - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+              The agent cannot spawn session threads.
+
+              - `JsonElement Type = "disabled"`
+
+          - `required BetaManagedAgentsSessionMultiagentWorkflows Workflows`
+
+            Whether the agent can start workflow runs.
+
+            - `class BetaManagedAgentsSessionMultiagentWorkflowsEnabled`
+
+              The agent can start workflow runs.
+
+              - `JsonElement Type = "enabled"`
+
+              - `required BetaManagedAgentsMultiagentInlineAgents InlineAgents`
+
+                Whether a run's plan can define inline agents, which are not saved.
+
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgent> PredefinedAgents`
+
+                Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use.
+
+                - `required Type Type`
+
+                - `required string ID`
+
+                - `required string? Description`
+
+                - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
+
+                - `required BetaManagedAgentsModelConfig Model`
+
+                  Model identifier and configuration.
+
+                - `required string Name`
+
+                - `required IReadOnlyList<Skill> Skills`
+
+                - `required string? System`
+
+                - `required IReadOnlyList<Tool> Tools`
+
+                - `required int Version`
+
+                  format: int32
+
+            - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+              The agent cannot start workflow runs.
+
+              - `JsonElement Type = "disabled"`
 
       - `required string Name`
 
@@ -2736,6 +2888,262 @@ List Events
     - `BetaManagedAgentsBudgetLimit? Budget`
 
       The session's configured budget at the snapshot time, or null when the session has no budget.
+
+  - `class BetaManagedAgentsWorkflowRunCreatedEvent`
+
+    A workflow run was created. A workflow run is background work that the session's agent starts. Emitted once per run, before the run's other `workflow_run.*` events.
+
+    - `JsonElement Type = "workflow_run.created"`
+
+    - `required string ID`
+
+      Unique identifier for this event.
+
+    - `required string? Description`
+
+      Description that the agent gave the run, passed on as written, or `null` if it gave none.
+
+    - `required string Name`
+
+      Name that the agent gave the run, passed on as written, or a name that the server assigned.
+
+    - `required IReadOnlyList<BetaManagedAgentsWorkflowRunPhase> Phases`
+
+      The phases that the run's plan declares, in the plan's order. Can be empty.
+
+      - `required string ID`
+
+        Unique identifier for the phase.
+
+      - `required string? Description`
+
+        Description that the agent gave the phase, passed on as written, or `null` if it gave none.
+
+      - `required string Name`
+
+        Name that the agent gave the phase, passed on as written.
+
+    - `required DateTimeOffset ProcessedAt`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `required string WorkflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class BetaManagedAgentsWorkflowRunStatusEndedEvent`
+
+    A workflow run ended. Emitted once per run, as the last of the run's `workflow_run.*` events.
+
+    - `JsonElement Type = "workflow_run.status_ended"`
+
+    - `required string ID`
+
+      Unique identifier for this event.
+
+    - `required DateTimeOffset ProcessedAt`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `required BetaManagedAgentsWorkflowRunResult Result`
+
+      How the run ended.
+
+      - `class BetaManagedAgentsWorkflowRunResultCompleted`
+
+        The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded.
+
+        - `JsonElement Type = "completed"`
+
+      - `class BetaManagedAgentsWorkflowRunResultError`
+
+        The run failed or reached its time limit.
+
+        - `JsonElement Type = "error"`
+
+        - `required BetaManagedAgentsWorkflowRunError Error`
+
+          Why the run did not finish.
+
+          - `class BetaManagedAgentsTimeoutWorkflowRunError`
+
+            The run reached its time limit.
+
+            - `JsonElement Type = "timeout_error"`
+
+            - `required string Message`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `class BetaManagedAgentsProgramWorkflowRunError`
+
+            The plan, a program that the agent wrote, failed, or the server refused it.
+
+            - `JsonElement Type = "program_error"`
+
+            - `required string Message`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `class BetaManagedAgentsUnknownWorkflowRunError`
+
+            A failure that has no type of its own.
+
+            - `JsonElement Type = "unknown_error"`
+
+            - `required string Message`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `class BetaManagedAgentsThreadLimitWorkflowRunError`
+
+            The run exceeded the limit on the number of threads that a run can create.
+
+            - `JsonElement Type = "thread_limit_error"`
+
+            - `required string Message`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+          - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunError`
+
+            No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+            - `JsonElement Type = "max_workflow_runs_error"`
+
+            - `required string Message`
+
+              Short explanation written by the server. It never contains content from the run or its agents.
+
+      - `class BetaManagedAgentsWorkflowRunResultStopped`
+
+        The agent stopped the run.
+
+        - `JsonElement Type = "stopped"`
+
+    - `required string WorkflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class BetaManagedAgentsWorkflowRunPhaseStartedEvent`
+
+    A workflow run's plan entered a phase.
+
+    - `JsonElement Type = "workflow_run.phase_started"`
+
+    - `required string ID`
+
+      Unique identifier for this event.
+
+    - `required DateTimeOffset ProcessedAt`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `required string WorkflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `required string WorkflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class BetaManagedAgentsWorkflowRunPhaseEndedEvent`
+
+    A workflow run's plan left a phase, or the run's end closed it. Emitted once for every `workflow_run.phase_started` event, before the run's `workflow_run.status_ended` event. The event does not say whether the plan finished the phase's work, or why it left.
+
+    - `JsonElement Type = "workflow_run.phase_ended"`
+
+    - `required string ID`
+
+      Unique identifier for this event.
+
+    - `required string PhaseStartedID`
+
+      Identifier of the `workflow_run.phase_started` event that opened the phase.
+
+    - `required DateTimeOffset ProcessedAt`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `required string WorkflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+    - `required string WorkflowRunPhaseID`
+
+      Identifier of the phase, as in `phases` on the run's `workflow_run.created` event.
+
+  - `class BetaManagedAgentsWorkflowRunStatusRunningEvent`
+
+    A workflow run is running. Emitted when the run starts to execute, and each time it resumes after being idle. A run that starts idle emits `workflow_run.status_idle` first.
+
+    - `JsonElement Type = "workflow_run.status_running"`
+
+    - `required string ID`
+
+      Unique identifier for this event.
+
+    - `required DateTimeOffset ProcessedAt`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `required string WorkflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class BetaManagedAgentsWorkflowRunStatusIdleEvent`
+
+    A workflow run is idle. Emitted each time the run goes idle, whatever the cause. If the run ends while idle, no `workflow_run.status_running` comes between this event and its `workflow_run.status_ended`.
+
+    - `JsonElement Type = "workflow_run.status_idle"`
+
+    - `required string ID`
+
+      Unique identifier for this event.
+
+    - `required DateTimeOffset ProcessedAt`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `required string WorkflowRunID`
+
+      Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
+
+  - `class BetaManagedAgentsWorkflowRunErrorEvent`
+
+    A workflow run met an error, or an error kept a run from being created. A run that ends with a `result.type` of `error` emits this event before its `workflow_run.status_ended`, with the same `error`.
+
+    - `JsonElement Type = "workflow_run.error"`
+
+    - `required string ID`
+
+      Unique identifier for this event.
+
+    - `required BetaManagedAgentsWorkflowRunError Error`
+
+      Why the run did not finish, or was not created.
+
+    - `required DateTimeOffset ProcessedAt`
+
+      Timestamp when this event was processed.
+
+      format: date-time
+
+    - `required string? WorkflowRunID`
+
+      Identifier of the run that met the error, or `null` when the error kept a run from being created.
 
 ## Example
 

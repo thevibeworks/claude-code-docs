@@ -154,7 +154,7 @@ Claude can also post into other public channels, and the rules depend on where y
 
 A private channel is readable only from inside it. Inviting Claude lets it work in that channel, but Claude can't read the private channel's messages from any other channel or DM. To ask about a private channel, ask in that channel.
 
-Claude can't post into a channel in a different workspace, and it doesn't answer in a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), one shared with another company.
+Claude can't post into a channel in a different workspace. In a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), one shared with another company, Claude answers only if an Owner or a Claude Tag admin has turned it on there, and then with [limited access](/docs/claude-tag/admins/restrict-access#what-access-claude-has-in-a-slack-connect-channel).
 
 When more than one surface would work, prefer a channel. Work that happens there compounds, because Claude can draw on it in later threads and teammates can find it, redirect it, or build on it.
 

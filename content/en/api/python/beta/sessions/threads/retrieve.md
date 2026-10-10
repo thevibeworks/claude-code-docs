@@ -219,11 +219,7 @@ Get Session Thread
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -765,6 +761,52 @@ Get Session Thread
 
         The advisor model id.
 
+    - `class BetaManagedAgentsInlineAgent`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `type: Literal["inline"]`
+
+      - `description: Optional[str]`
+
+      - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
+
+        - `type: Literal["url"]`
+
+        - `name: str`
+
+        - `url: str`
+
+      - `model: BetaManagedAgentsModelConfig`
+
+        Model identifier and configuration.
+
+      - `name: str`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `skills: List[Skill]`
+
+        - `class BetaManagedAgentsAnthropicSkill`
+
+          A resolved Anthropic-managed skill.
+
+        - `class BetaManagedAgentsCustomSkill`
+
+          A resolved user-created custom skill.
+
+      - `system: Optional[str]`
+
+      - `tools: List[Tool]`
+
+        - `class BetaManagedAgentsAgentToolset20260401`
+
+        - `class BetaManagedAgentsMCPToolset`
+
+        - `class BetaManagedAgentsCustomTool`
+
+          A custom tool as returned in API responses.
+
   - `archived_at: Optional[datetime]`
 
     When the thread was archived. Null if not archived.
@@ -897,6 +939,10 @@ Get Session Thread
 
         format: int32
 
+  - `workflow_run_id: Optional[str]`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```python
@@ -1000,6 +1046,7 @@ print(beta_managed_agents_session_thread.id)
       "web_fetch_requests": 0,
       "web_search_requests": 3
     }
-  }
+  },
+  "workflow_run_id": null
 }
 ```

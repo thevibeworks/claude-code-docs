@@ -143,7 +143,7 @@ Archive Session Thread
 
     Unique identifier for this thread.
 
-  - `agent: BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor`
+  - `agent: BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor | BetaManagedAgentsInlineAgent`
 
     Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
@@ -221,11 +221,7 @@ Archive Session Thread
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -767,6 +763,52 @@ Archive Session Thread
 
         The advisor model id.
 
+    - `interface BetaManagedAgentsInlineAgent`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `type: "inline"`
+
+      - `description: string | null`
+
+      - `mcp_servers: Array<BetaManagedAgentsMCPServerURLDefinition>`
+
+        - `type: "url"`
+
+        - `name: string`
+
+        - `url: string`
+
+      - `model: BetaManagedAgentsModelConfig`
+
+        Model identifier and configuration.
+
+      - `name: string`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `skills: Array<BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill>`
+
+        - `interface BetaManagedAgentsAnthropicSkill`
+
+          A resolved Anthropic-managed skill.
+
+        - `interface BetaManagedAgentsCustomSkill`
+
+          A resolved user-created custom skill.
+
+      - `system: string | null`
+
+      - `tools: Array<BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool>`
+
+        - `interface BetaManagedAgentsAgentToolset20260401`
+
+        - `interface BetaManagedAgentsMCPToolset`
+
+        - `interface BetaManagedAgentsCustomTool`
+
+          A custom tool as returned in API responses.
+
   - `archived_at: string | null`
 
     When the thread was archived. Null if not archived.
@@ -899,6 +941,10 @@ Archive Session Thread
 
         format: int32
 
+  - `workflow_run_id: string | null`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```typescript
@@ -1001,6 +1047,7 @@ console.log(betaManagedAgentsSessionThread.id);
       "web_fetch_requests": 0,
       "web_search_requests": 3
     }
-  }
+  },
+  "workflow_run_id": null
 }
 ```

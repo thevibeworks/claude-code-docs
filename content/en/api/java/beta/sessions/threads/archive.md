@@ -219,11 +219,7 @@ Archive Session Thread
 
           - `CLAUDE_HAIKU_4_5("claude-haiku-4-5")`
 
-            Fastest model with near-frontier intelligence
-
           - `CLAUDE_HAIKU_4_5_20251001("claude-haiku-4-5-20251001")`
-
-            Fastest model with near-frontier intelligence
 
           - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
@@ -763,6 +759,52 @@ Archive Session Thread
 
         The advisor model id.
 
+    - `class BetaManagedAgentsInlineAgent`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `JsonValue type = "inline"`
+
+      - `Optional<String> description`
+
+      - `List<BetaManagedAgentsMcpServerUrlDefinition> mcpServers`
+
+        - `Type type`
+
+        - `String name`
+
+        - `String url`
+
+      - `BetaManagedAgentsModelConfig model`
+
+        Model identifier and configuration.
+
+      - `String name`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `List<Skill> skills`
+
+        - `class BetaManagedAgentsAnthropicSkill`
+
+          A resolved Anthropic-managed skill.
+
+        - `class BetaManagedAgentsCustomSkill`
+
+          A resolved user-created custom skill.
+
+      - `Optional<String> system`
+
+      - `List<Tool> tools`
+
+        - `class BetaManagedAgentsAgentToolset20260401`
+
+        - `class BetaManagedAgentsMcpToolset`
+
+        - `class BetaManagedAgentsCustomTool`
+
+          A custom tool as returned in API responses.
+
   - `Optional<LocalDateTime> archivedAt`
 
     When the thread was archived. Null if not archived.
@@ -895,6 +937,10 @@ Archive Session Thread
 
         format: int32
 
+  - `Optional<String> workflowRunId`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```java
@@ -1005,6 +1051,7 @@ public final class Main {
       "web_fetch_requests": 0,
       "web_search_requests": 3
     }
-  }
+  },
+  "workflow_run_id": null
 }
 ```

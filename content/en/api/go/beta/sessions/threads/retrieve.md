@@ -219,11 +219,7 @@ Get Session Thread
 
           - `const BetaManagedAgentsModelClaudeHaiku4_5 BetaManagedAgentsModel = "claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `const BetaManagedAgentsModelClaudeHaiku4_5_20251001 BetaManagedAgentsModel = "claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `const BetaManagedAgentsModelClaudeOpus4_5 BetaManagedAgentsModel = "claude-opus-4-5"`
 
@@ -763,6 +759,52 @@ Get Session Thread
 
         The advisor model id.
 
+    - `type BetaManagedAgentsInlineAgent`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `Type Inline`
+
+      - `Description string`
+
+      - `MCPServers []BetaManagedAgentsMCPServerURLDefinition`
+
+        - `Type BetaManagedAgentsMCPServerURLDefinitionType`
+
+        - `Name string`
+
+        - `URL string`
+
+      - `Model BetaManagedAgentsModelConfig`
+
+        Model identifier and configuration.
+
+      - `Name string`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `Skills []BetaManagedAgentsInlineAgentSkillUnion`
+
+        - `type BetaManagedAgentsAnthropicSkill`
+
+          A resolved Anthropic-managed skill.
+
+        - `type BetaManagedAgentsCustomSkill`
+
+          A resolved user-created custom skill.
+
+      - `System string`
+
+      - `Tools []BetaManagedAgentsInlineAgentToolUnion`
+
+        - `type BetaManagedAgentsAgentToolset20260401`
+
+        - `type BetaManagedAgentsMCPToolset`
+
+        - `type BetaManagedAgentsCustomTool`
+
+          A custom tool as returned in API responses.
+
   - `ArchivedAt Time`
 
     When the thread was archived. Null if not archived.
@@ -895,6 +937,10 @@ Get Session Thread
 
         format: int32
 
+  - `WorkflowRunID string`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```go
@@ -1011,6 +1057,7 @@ func main() {
       "web_fetch_requests": 0,
       "web_search_requests": 3
     }
-  }
+  },
+  "workflow_run_id": null
 }
 ```

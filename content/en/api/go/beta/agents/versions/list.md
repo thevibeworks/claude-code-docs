@@ -229,11 +229,7 @@ List Agent Versions
 
       - `const BetaManagedAgentsModelClaudeHaiku4_5 BetaManagedAgentsModel = "claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `const BetaManagedAgentsModelClaudeHaiku4_5_20251001 BetaManagedAgentsModel = "claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `const BetaManagedAgentsModelClaudeOpus4_5 BetaManagedAgentsModel = "claude-opus-4-5"`
 
@@ -301,37 +297,143 @@ List Agent Versions
 
       - `const BetaManagedAgentsModelConfigSpeedFast BetaManagedAgentsModelConfigSpeed = "fast"`
 
-  - `Multiagent BetaManagedAgentsMultiagent`
+  - `Multiagent BetaManagedAgentsMultiagentUnion`
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `Type BetaManagedAgentsMultiagentType`
+    - `type BetaManagedAgentsMultiagentCoordinator`
 
-    - `Agents []BetaManagedAgentsMultiagentAgentUnion`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `Type BetaManagedAgentsMultiagentCoordinatorType`
 
-      - `type BetaManagedAgentsAgentReference`
+      - `Agents []BetaManagedAgentsMultiagentCoordinatorAgentUnion`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `Type BetaManagedAgentsAgentReferenceType`
+        - `type BetaManagedAgentsAgentReference`
 
-        - `ID string`
+          A resolved agent reference with a concrete version.
 
-        - `Version int64`
+          - `Type BetaManagedAgentsAgentReferenceType`
 
-          format: int32
+          - `ID string`
 
-      - `type BetaManagedAgentsAdvisor`
+          - `Version int64`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `Type BetaManagedAgentsAdvisorType`
+        - `type BetaManagedAgentsAdvisor`
 
-        - `Model string`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `Type BetaManagedAgentsAdvisorType`
+
+          - `Model string`
+
+            The advisor model id.
+
+    - `type BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `Type Multiagent20261001`
+
+      - `Advisor BetaManagedAgentsMultiagentAdvisorUnion`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `type BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `Type Enabled`
+
+          - `Model string`
+
+            The advisor model id.
+
+        - `type BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `Type Disabled`
+
+      - `Subagents BetaManagedAgentsMultiagentSubagentsUnion`
+
+        Whether the agent can spawn session threads.
+
+        - `type BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `Type Enabled`
+
+          - `InlineAgents BetaManagedAgentsMultiagentInlineAgentsUnion`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `type BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `Type Enabled`
+
+            - `type BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `Type Disabled`
+
+          - `PredefinedAgents []BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `Type BetaManagedAgentsAgentReferenceType`
+
+            - `ID string`
+
+            - `Version int64`
+
+              format: int32
+
+        - `type BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `Type Disabled`
+
+      - `Workflows BetaManagedAgentsMultiagentWorkflowsUnion`
+
+        Whether the agent can start workflow runs.
+
+        - `type BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `Type Enabled`
+
+          - `InlineAgents BetaManagedAgentsMultiagentInlineAgentsUnion`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `PredefinedAgents []BetaManagedAgentsAgentReference`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `Type BetaManagedAgentsAgentReferenceType`
+
+            - `ID string`
+
+            - `Version int64`
+
+              format: int32
+
+        - `type BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `Type Disabled`
 
   - `Name string`
 
@@ -861,14 +963,36 @@ func main() {
         "speed": "standard"
       },
       "multiagent": {
-        "agents": [
-          {
-            "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-            "type": "agent",
-            "version": 1
-          }
-        ],
-        "type": "coordinator"
+        "advisor": {
+          "type": "disabled"
+        },
+        "subagents": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        },
+        "type": "multiagent_20261001",
+        "workflows": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        }
       },
       "name": "My First Agent",
       "skills": [

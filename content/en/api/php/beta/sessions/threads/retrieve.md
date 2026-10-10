@@ -73,6 +73,10 @@ Get Session Thread
 
     Cumulative token usage for this thread. Null until the thread's first idle transition.
 
+  - `?string workflowRunID`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```php
@@ -177,6 +181,7 @@ var_dump($betaManagedAgentsSessionThread);
       "web_fetch_requests": 0,
       "web_search_requests": 3
     }
-  }
+  },
+  "workflow_run_id": null
 }
 ```

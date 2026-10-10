@@ -844,11 +844,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `ClaudeHaiku4_5("claude-haiku-4-5")`
 
-            Fastest model with near-frontier intelligence
-
           - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
-
-            Fastest model with near-frontier intelligence
 
           - `ClaudeOpus4_5("claude-opus-4-5")`
 

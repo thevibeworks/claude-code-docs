@@ -27,6 +27,20 @@ List Session Threads
 
     Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
+  - `Statuses []BetaManagedAgentsSessionThreadStatus Optional` (query parameter)
+
+    Return only threads that have one of these statuses.
+
+    Repeat the parameter to give more than one status. Leave it out to return threads of every status.
+
+    - `const BetaManagedAgentsSessionThreadStatusRunning BetaManagedAgentsSessionThreadStatus = "running"`
+
+    - `const BetaManagedAgentsSessionThreadStatusIdle BetaManagedAgentsSessionThreadStatus = "idle"`
+
+    - `const BetaManagedAgentsSessionThreadStatusRescheduling BetaManagedAgentsSessionThreadStatus = "rescheduling"`
+
+    - `const BetaManagedAgentsSessionThreadStatusTerminated BetaManagedAgentsSessionThreadStatus = "terminated"`
+
   - `Betas []AnthropicBeta Optional` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
@@ -227,11 +241,7 @@ List Session Threads
 
           - `const BetaManagedAgentsModelClaudeHaiku4_5 BetaManagedAgentsModel = "claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `const BetaManagedAgentsModelClaudeHaiku4_5_20251001 BetaManagedAgentsModel = "claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `const BetaManagedAgentsModelClaudeOpus4_5 BetaManagedAgentsModel = "claude-opus-4-5"`
 
@@ -771,6 +781,52 @@ List Session Threads
 
         The advisor model id.
 
+    - `type BetaManagedAgentsInlineAgent`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `Type Inline`
+
+      - `Description string`
+
+      - `MCPServers []BetaManagedAgentsMCPServerURLDefinition`
+
+        - `Type BetaManagedAgentsMCPServerURLDefinitionType`
+
+        - `Name string`
+
+        - `URL string`
+
+      - `Model BetaManagedAgentsModelConfig`
+
+        Model identifier and configuration.
+
+      - `Name string`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `Skills []BetaManagedAgentsInlineAgentSkillUnion`
+
+        - `type BetaManagedAgentsAnthropicSkill`
+
+          A resolved Anthropic-managed skill.
+
+        - `type BetaManagedAgentsCustomSkill`
+
+          A resolved user-created custom skill.
+
+      - `System string`
+
+      - `Tools []BetaManagedAgentsInlineAgentToolUnion`
+
+        - `type BetaManagedAgentsAgentToolset20260401`
+
+        - `type BetaManagedAgentsMCPToolset`
+
+        - `type BetaManagedAgentsCustomTool`
+
+          A custom tool as returned in API responses.
+
   - `ArchivedAt Time`
 
     When the thread was archived. Null if not archived.
@@ -903,6 +959,10 @@ List Session Threads
 
         format: int32
 
+  - `WorkflowRunID string`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```go
@@ -1019,7 +1079,8 @@ func main() {
           "web_fetch_requests": 0,
           "web_search_requests": 3
         }
-      }
+      },
+      "workflow_run_id": null
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="

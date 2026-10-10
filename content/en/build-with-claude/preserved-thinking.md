@@ -97,7 +97,7 @@ You choose with `thinking.block_binding.prefix_mismatch_behavior`:
 * **`"drop_block"`:** the API drops each failing block and every thinking block after it, and the request succeeds. Dropped blocks aren't billed. The model answers that turn without using reasoning from dropped blocks, and the prompt cache restarts at the edit. The response lists each dropped block in `input_transformations` (on the `message_start` event when streaming) with `reason: "prefix_binding_mismatch"`.
 
 <Warning>
-  `"drop_block"` hides the error but doesn't fix the edit that caused it. Dropped blocks aren't billed, but a session's token usage might still increase because Claude can sometimes think more to re-create the dropped thinking. The increase tends to be larger when more thinking blocks are dropped, or when blocks are dropped on more turns of a long session.
+  `"drop_block"` keeps requests succeeding, but it doesn't fix the edit that caused the mismatch, and it has a cost. Dropping blocks can significantly increase the output tokens generated, especially at higher effort levels or when blocks are dropped on every turn. For more information, see [Output-token cost of `"drop_block"`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#drop-block-cost). Dropped blocks aren't billed, but Claude re-creates the reasoning it can no longer read, so it generates more output tokens. Output quality might also change on tasks where later turns build on earlier reasoning. Use `"drop_block"` as a stopgap while you fix the edit, but not as a long-term setting.
 </Warning>
 
 Count the responses in each session whose `input_transformations` has a `prefix_binding_mismatch` entry, alert on them, and replace each edit with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits). In the Message Batches API, an item that leaves the field unset doesn't fail. Where the API enforces the check by default, it drops the failing blocks instead. Set `"error"` explicitly there if you want batch items to fail.
@@ -120,9 +120,17 @@ It usually ends with a sentence naming what changed, for example that the `syste
 
 A tampered or undecryptable signature is a different failure. It always returns a 400 (``Invalid `signature` in `thinking` block`` with no sentence about the conversation), and `prefix_mismatch_behavior` doesn't apply to it.
 
+#### Output-token cost of `"drop_block"`
+
+In Anthropic's testing on a multi-turn coding benchmark, dropping thinking blocks once per session increased output tokens by 2.5% at low effort, 3.9% at medium, 4.5% at high, and 20.1% at max. Dropping them on every turn after the first increased output tokens by 4.6% at low effort, 9.7% at medium, 10.3% at high, and 67.1% at max. The exact impact depends on your harness.
+
+When Claude can no longer read reasoning from earlier turns, it re-creates that reasoning, so requests that drop thinking blocks generate more output tokens and can take longer to respond. A drop on every turn costs more than an occasional drop, and how much more depends on your harness: how often it edits the prefix and how much each turn builds on earlier reasoning.
+
+Before you rely on `"drop_block"`, run evals on your own workload to measure the increase. If it's small, `"drop_block"` can keep requests succeeding while you fix the edit. Either way, fixing the edit with a pattern from [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits) is a better long-term solution.
+
 #### Handle the error in code
 
-This is the 400 `invalid_request_error` shown earlier in this section. Don't resend the same body: it fails the same way every time. Retry once with the beta header and `prefix_mismatch_behavior: "drop_block"`, and store that choice with the session so every later request sends it too, including after a restart. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools` on Claude Sonnet 5.5, or `thinking: {"type": "disabled"}` on Claude Haiku 5.5, keep the history append-only, or strip the thinking blocks from the edited turn on. If you can't send the beta header, remove every `thinking` and `redacted_thinking` block from the history once, leave them out, and continue. Then fix the edit that caused the mismatch.
+This is the 400 `invalid_request_error` shown earlier in this section. Don't resend the same body: it fails the same way every time. Retry once with the beta header and `prefix_mismatch_behavior: "drop_block"`, as a stopgap ([`"drop_block"` can raise output tokens](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#drop-block-cost)), and store that choice with the session so every later request sends it too, including after a restart. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With `between_tools` on Claude Sonnet 5.5, or `thinking: {"type": "disabled"}` on Claude Haiku 5.5, keep the history append-only, or strip the thinking blocks from the edited turn on. If you can't send the beta header, remove every `thinking` and `redacted_thinking` block from the history once, leave them out, and continue. Then fix the edit that caused the mismatch.
 
 ### Set the mismatch behavior and read `input_transformations`
 

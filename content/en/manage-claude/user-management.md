@@ -434,6 +434,8 @@ curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_grou
 
 Custom roles are read-only through the API: these endpoints catalog your organization's custom roles (defined in [claude.ai organization settings](https://claude.ai/admin-settings) or provisioned by Anthropic) and the permissions each role grants. Custom-role reads use the `read:members` scope (there is no separate role scope) and work with an organization-level key: unlike the group endpoints, they do not require a key created for all linked organizations, and the catalog returned is your organization's own.
 
+Read a role's name from its `display_name` field. The deprecated `name` field is still returned, always equal to `display_name`. For a role provisioned by Anthropic, `display_name` can differ from the label claude.ai shows, and Anthropic might change the name. To keep a lasting reference to a role, store its `id`.
+
 ### List roles
 
 `GET /v1/organizations/rbac_roles` returns your organization's custom roles. Requires the `read:members` scope.
@@ -452,6 +454,7 @@ curl "https://api.anthropic.com/v1/organizations/rbac_roles?limit=20" \
     {
       "type": "rbac_role",
       "id": "rbac_role_01CdEfGhIjKlMnOpQrStUv",
+      "display_name": "Engineering base",
       "name": "Engineering base",
       "created_at": "2026-03-18T10:01:42Z",
       "updated_at": "2026-05-02T08:55:09Z"

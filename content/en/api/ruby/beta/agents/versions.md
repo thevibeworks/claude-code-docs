@@ -231,11 +231,7 @@ List Agent Versions
 
       - `:"claude-haiku-4-5"`
 
-        Fastest model with near-frontier intelligence
-
       - `:"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
 
       - `:"claude-opus-4-5"`
 
@@ -309,33 +305,139 @@ List Agent Versions
 
     Multiagent orchestration configuration. Null when the agent is single-threaded.
 
-    - `type: :coordinator`
+    - `class BetaManagedAgentsMultiagentCoordinator`
 
-    - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
+      Resolved coordinator topology with a concrete agent roster.
 
-      Agents the coordinator may spawn as session threads, each resolved to a specific version.
+      - `type: :coordinator`
 
-      - `class BetaManagedAgentsAgentReference`
+      - `agents: Array[BetaManagedAgentsAgentReference | BetaManagedAgentsAdvisor]`
 
-        A resolved agent reference with a concrete version.
+        Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `type: :agent`
+        - `class BetaManagedAgentsAgentReference`
 
-        - `id: String`
+          A resolved agent reference with a concrete version.
 
-        - `version: Integer`
+          - `type: :agent`
 
-          format: int32
+          - `id: String`
 
-      - `class BetaManagedAgentsAdvisor`
+          - `version: Integer`
 
-        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+            format: int32
 
-        - `type: :advisor`
+        - `class BetaManagedAgentsAdvisor`
 
-        - `model: String`
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
-          The advisor model id.
+          - `type: :advisor`
+
+          - `model: String`
+
+            The advisor model id.
+
+    - `class BetaManagedAgentsMultiagent20261001`
+
+      Resolved multiagent configuration with three members, each enabled or disabled on its own.
+
+      - `type: :multiagent_20261001`
+
+      - `advisor: BetaManagedAgentsMultiagentAdvisor`
+
+        Whether the session's primary thread can consult an advisor model.
+
+        - `class BetaManagedAgentsMultiagentAdvisorEnabled`
+
+          The session's primary thread can consult `model` mid-turn.
+
+          - `type: :enabled`
+
+          - `model: String`
+
+            The advisor model id.
+
+        - `class BetaManagedAgentsMultiagentAdvisorDisabled`
+
+          The agent has no advisor.
+
+          - `type: :disabled`
+
+      - `subagents: BetaManagedAgentsMultiagentSubagents`
+
+        Whether the agent can spawn session threads.
+
+        - `class BetaManagedAgentsMultiagentSubagentsEnabled`
+
+          The agent can spawn session threads.
+
+          - `type: :enabled`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgents`
+
+            Whether the agent can define inline agents, which are not saved, when it spawns session threads.
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsEnabled`
+
+              The agent can define inline agents.
+
+              - `type: :enabled`
+
+            - `class BetaManagedAgentsMultiagentInlineAgentsDisabled`
+
+              The agent cannot define inline agents.
+
+              - `type: :disabled`
+
+          - `predefined_agents: Array[BetaManagedAgentsAgentReference]`
+
+            Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version.
+
+            - `type: :agent`
+
+            - `id: String`
+
+            - `version: Integer`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentSubagentsDisabled`
+
+          The agent cannot spawn session threads.
+
+          - `type: :disabled`
+
+      - `workflows: BetaManagedAgentsMultiagentWorkflows`
+
+        Whether the agent can start workflow runs.
+
+        - `class BetaManagedAgentsMultiagentWorkflowsEnabled`
+
+          The agent can start workflow runs.
+
+          - `type: :enabled`
+
+          - `inline_agents: BetaManagedAgentsMultiagentInlineAgents`
+
+            Whether a run's plan can define inline agents, which are not saved.
+
+          - `predefined_agents: Array[BetaManagedAgentsAgentReference]`
+
+            Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version.
+
+            - `type: :agent`
+
+            - `id: String`
+
+            - `version: Integer`
+
+              format: int32
+
+        - `class BetaManagedAgentsMultiagentWorkflowsDisabled`
+
+          The agent cannot start workflow runs.
+
+          - `type: :disabled`
 
   - `name: String`
 
@@ -848,14 +950,36 @@ puts(page)
         "speed": "standard"
       },
       "multiagent": {
-        "agents": [
-          {
-            "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-            "type": "agent",
-            "version": 1
-          }
-        ],
-        "type": "coordinator"
+        "advisor": {
+          "type": "disabled"
+        },
+        "subagents": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        },
+        "type": "multiagent_20261001",
+        "workflows": {
+          "inline_agents": {
+            "type": "enabled"
+          },
+          "predefined_agents": [
+            {
+              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
+              "type": "agent",
+              "version": 1
+            }
+          ],
+          "type": "enabled"
+        }
       },
       "name": "My First Agent",
       "skills": [

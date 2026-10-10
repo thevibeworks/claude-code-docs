@@ -27,6 +27,20 @@ List Session Threads
 
     Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
+  - `statuses?: Array<BetaManagedAgentsSessionThreadStatus>` (query parameter)
+
+    Return only threads that have one of these statuses.
+
+    Repeat the parameter to give more than one status. Leave it out to return threads of every status.
+
+    - `"running"`
+
+    - `"idle"`
+
+    - `"rescheduling"`
+
+    - `"terminated"`
+
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
     Optional header to specify the beta version(s) you want to use.
@@ -151,7 +165,7 @@ List Session Threads
 
     Unique identifier for this thread.
 
-  - `agent: BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor`
+  - `agent: BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor | BetaManagedAgentsInlineAgent`
 
     Resolved agent definition for this thread. Snapshot of the agent at thread creation time.
 
@@ -229,11 +243,7 @@ List Session Threads
 
           - `"claude-haiku-4-5"`
 
-            Fastest model with near-frontier intelligence
-
           - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
 
           - `"claude-opus-4-5"`
 
@@ -775,6 +785,52 @@ List Session Threads
 
         The advisor model id.
 
+    - `interface BetaManagedAgentsInlineAgent`
+
+      An agent that has no Agent resource, and so no `id` or `version`. It is defined inline, in a workflow run's plan or when a session thread is spawned, and is not saved.
+
+      - `type: "inline"`
+
+      - `description: string | null`
+
+      - `mcp_servers: Array<BetaManagedAgentsMCPServerURLDefinition>`
+
+        - `type: "url"`
+
+        - `name: string`
+
+        - `url: string`
+
+      - `model: BetaManagedAgentsModelConfig`
+
+        Model identifier and configuration.
+
+      - `name: string`
+
+        The name that the agent's definition gave, or one that the server assigned.
+
+      - `skills: Array<BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill>`
+
+        - `interface BetaManagedAgentsAnthropicSkill`
+
+          A resolved Anthropic-managed skill.
+
+        - `interface BetaManagedAgentsCustomSkill`
+
+          A resolved user-created custom skill.
+
+      - `system: string | null`
+
+      - `tools: Array<BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool>`
+
+        - `interface BetaManagedAgentsAgentToolset20260401`
+
+        - `interface BetaManagedAgentsMCPToolset`
+
+        - `interface BetaManagedAgentsCustomTool`
+
+          A custom tool as returned in API responses.
+
   - `archived_at: string | null`
 
     When the thread was archived. Null if not archived.
@@ -907,6 +963,10 @@ List Session Threads
 
         format: int32
 
+  - `workflow_run_id: string | null`
+
+    Identifier of the workflow run that created the thread, or `null` for any other thread.
+
 ## Example
 
 ```typescript
@@ -1011,7 +1071,8 @@ for await (const betaManagedAgentsSessionThread of client.beta.sessions.threads.
           "web_fetch_requests": 0,
           "web_search_requests": 3
         }
-      }
+      },
+      "workflow_run_id": null
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="

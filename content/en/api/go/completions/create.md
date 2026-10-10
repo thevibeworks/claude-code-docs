@@ -299,11 +299,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `const ModelClaudeHaiku4_5 Model = "claude-haiku-4-5"`
 
-      Fastest model with near-frontier intelligence
-
     - `const ModelClaudeHaiku4_5_20251001 Model = "claude-haiku-4-5-20251001"`
-
-      Fastest model with near-frontier intelligence
 
     - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
