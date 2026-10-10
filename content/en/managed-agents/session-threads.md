@@ -57,12 +57,10 @@ List all threads associated with a session as follows:
   ```
 
   ```csharp C#
-  await foreach (var thread in (await client.Beta.Sessions.Threads.List(session.ID)).Paginate())
+  await foreach (var sessionThread in (await client.Beta.Sessions.Threads.List(session.ID)).Paginate())
   {
-      var label = thread.Agent.TryPickBetaManagedAgentsSessionThread(out var agent)
-          ? agent.Name
-          : thread.Agent.Json.GetProperty("type").GetString();
-      Console.WriteLine($"[{label}] {thread.Status.Raw()}");
+      var label = sessionThread.Agent.Name ?? sessionThread.Agent.Json.GetProperty("type").GetString();
+      Console.WriteLine($"[{label}] {sessionThread.Status.Raw()}");
   }
   ```
 
@@ -486,9 +484,9 @@ A thread's stream doesn't replay earlier events. Right after `session.thread_cre
           {
               foreach (var block in message.Content)
               {
-                  if (block.Type == "text")
+                  if (block.Value is BetaManagedAgentsTextBlock textBlock)
                   {
-                      Console.Write(block.Text);
+                      Console.Write(textBlock.Text);
                   }
               }
           }
@@ -619,7 +617,7 @@ A thread's stream doesn't replay earlier events. Right after `session.thread_cre
       var page = await client.Beta.Sessions.Threads.Events.List(thread.ID, new() { SessionID = session.ID });
       await foreach (var evt in page.Paginate())
       {
-          Console.WriteLine($"[{evt.Type}] {evt.ProcessedAt}");
+          Console.WriteLine($"[{evt.Json.GetProperty("type").GetString()}] {evt.ProcessedAt}");
       }
       ```
 

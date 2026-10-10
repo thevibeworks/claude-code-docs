@@ -8,6 +8,6 @@ To manage feedback for your Console organization:
 
 2. Toggle the feedback switch on or off.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1729186182/ebf4032a12a8c56959ca927726ce/Screenshot+2025-09-16+at+12_32_31%E2%80%AFPM.png?expires=1791615600&amp;signature=4f111aa2acc9663f07738cbab9bc652c5bcb6b27bc3540177283fdcc215cbf93&amp;req=dSclH8h2m4BXW%2FMW1HO4zVpN5XYbWG1DJ%2FadMup7FQf58aI9gIhmEPJLp%2F4w%0ArLOjCn4LvzRLHp20dxg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1729186182/ebf4032a12a8c56959ca927726ce/Screenshot+2025-09-16+at+12_32_31%E2%80%AFPM.png?expires=1791649800&amp;signature=7c1b4b110409cef2d065ccea17015030971cfd9b650575a334f811655a3cd5f4&amp;req=dSclH8h2m4BXW%2FMW1HO4zVpN5XYbXWFNJ%2FadMup7FQcPXsZfbYdLngU4v7uR%0A920Um8Q3RN1dkf%2BEdAA%3D%0A)
 
 More information on how Anthropic collects, uses, and stores feedback data can be found in our Privacy Center: [How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)

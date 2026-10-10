@@ -172,7 +172,7 @@ Claude Sonnet 5.5 runs safety classifiers that can decline a request. A decline 
 * `reasoning_extraction`: the request asks the model to reproduce its internal reasoning in the response text.
 * `general_harms`: the request falls under another usage-policy area. Benign work can also trigger this category.
 
-If the `bio` classifier blocks your organization's life sciences work, you can apply to the [Life Sciences Verification Program](https://www.anthropic.com/news/life-sciences-verification-program).
+If the `cyber` classifier blocks your organization's legitimate security work, you can apply to the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). If the `bio` classifier blocks your organization's life sciences work, you can apply to the [Life Sciences Verification Program](https://www.anthropic.com/news/life-sciences-verification-program).
 
 If you turn on [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (beta), it retries `cyber` and `frontier_llm` declines on Claude Sonnet 5. It doesn't retry `bio`, `reasoning_extraction`, or `general_harms` declines. See [Refusals, fallback, and billing](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5#refusals-fallback-and-billing).
 

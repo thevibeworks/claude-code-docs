@@ -1011,6 +1011,14 @@
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/managed-agents/events-and-streaming"
     },
+    "https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5": {
+      "since": "2026-10-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/fable-5/overview"
+    },
+    "https://platform.claude.com/docs/en/models/fable-5/migration-guide": {
+      "since": "2026-10-10",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/fable-5-1/migration-guide"
+    },
     "https://platform.claude.com/docs/en/models/haiku-4-5/migration-guide": {
       "since": "2026-10-08",
       "reason": "moved -> https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide"

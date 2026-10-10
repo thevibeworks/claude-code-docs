@@ -682,7 +682,7 @@ scope: "Which settings files can set the key: user (~/.claude/settings.json), pr
 | [`fileCheckpointingEnabled`](#filecheckpointingenabled) | Turn off or on the file snapshots that [`/rewind`](/docs/en/checkpointing) restores | Memory and context | Any file |
 | [`fileSuggestion`](#filesuggestion) | Supply [`@` file autocomplete](/docs/en/interactive-mode#quick-commands) from your own command | Interface and terminal | Any file |
 | [`footerLinksRegexes`](#footerlinksregexes) | Make issue or review IDs in output into [clickable links](/docs/en/statusline#clickable-links) below the input box | Interface and terminal | User or managed |
-| [`forceLoginGatewayUrl`](#forcelogingatewayurl) | Set the [gateway URL](/docs/en/claude-apps-gateway#set-the-gateway-url) the login screen connects to | Authentication and providers | Managed |
+| [`forceLoginGatewayUrl`](#forcelogingatewayurl) | Set the [gateway URL](/docs/en/claude-apps-gateway#set-the-gateway-url) the login screen connects to | Authentication and providers | User or managed |
 | [`forceLoginMethod`](#forceloginmethod) | [Restrict login](/docs/en/authentication#restrict-login-to-your-organization) to claude.ai, Claude Console, or a [cloud gateway](/docs/en/claude-apps-gateway) | Authentication and providers | Any file |
 | [`forceLoginOrgUUID`](#forceloginorguuid) | [Pin claude.ai logins to your organization](/docs/en/authentication#restrict-login-to-your-organization); only a managed source enforces it | Authentication and providers | Any file |
 | [`forceRemoteSettingsRefresh`](#forceremotesettingsrefresh) | Block startup until [server-managed settings](/docs/en/server-managed-settings) are freshly fetched | Enterprise and managed settings | Managed |
@@ -5601,7 +5601,7 @@ Unlike [`awsAuthRefresh`](#awsauthrefresh), Claude Code always runs this command
 
 Restrict which kind of account people can log in with. Set `"claudeai"` to allow only claude.ai accounts, `"console"` to allow only Claude Console accounts, or `"gateway"` to send people to a [cloud gateway](/docs/en/claude-apps-gateway) instead of a first-party login. Administrators set it in managed settings and pair it with [`forceLoginOrgUUID`](#forceloginorguuid) to keep developers' claude.ai logins inside one organization. If you set it to `"claudeai"` or `"console"` in any settings file, Claude Code also stops offering the [keyless Console sign-in](/docs/en/authentication#sign-in-without-an-api-key) in the sessions that file applies to.
 
-* **Scope**: [`Any file`](#scopes). Claude Code honors `"gateway"` only from a managed source on the machine: `managed-settings.json`, the macOS plist or Windows HKLM registry, or a policy helper. It treats `"gateway"` as unset in user, project, local, HKCU, and server-managed settings, the same rule as [`forceLoginGatewayUrl`](#forcelogingatewayurl).
+* **Scope**: [`Any file`](#scopes). Claude Code honors `"gateway"` from the same sources as [`forceLoginGatewayUrl`](#forcelogingatewayurl) and treats it as unset everywhere else.
 * **Type**: string, one of:
   * `"claudeai"`: only claude.ai accounts can log in
   * `"console"`: only Claude Console accounts can log in
@@ -5622,9 +5622,9 @@ When a managed source on the machine sets `"gateway"`, Claude Code doesn't use a
 
 Set the gateway URL the `/login` Cloud gateway screen connects to, so people reach your [cloud gateway](/docs/en/claude-apps-gateway) without typing its address. The screen has no URL field: with this key set, it shows your gateway URL and connects when the person presses Enter; without it, it tells them to contact their IT administrator.
 
-Either this key or `forceLoginMethod: "gateway"` makes the machine gateway-only, except for sessions that select a cloud provider with `CLAUDE_CODE_USE_*`. `/login` then opens on the Cloud gateway screen with no login-method picker. See [Administrator policy requires a Cloud gateway sign-in](/docs/en/errors#administrator-policy-requires-a-cloud-gateway-sign-in) for what happens to a leftover first-party login or API key. Set both keys so the screen connects instead of showing an error.
+In managed settings, either this key or `forceLoginMethod: "gateway"` makes the machine gateway-only, except for sessions that select a cloud provider with `CLAUDE_CODE_USE_*`. `/login` then opens on the Cloud gateway screen with no login-method picker. See [Administrator policy requires a Cloud gateway sign-in](/docs/en/errors#administrator-policy-requires-a-cloud-gateway-sign-in) for what happens to a leftover first-party login or API key. Set both keys so the screen connects instead of showing an error.
 
-* **Scope**: [`Managed`](#scopes). Read only from a source on the machine: `managed-settings.json`, the macOS plist or Windows HKLM registry, or a policy helper. Claude Code ignores it in HKCU and server-managed settings.
+* **Scope**: [`User or managed`](#scopes). Read from a managed source on the machine: `managed-settings.json`, the macOS plist or Windows HKLM registry, or a policy helper. On a machine with none of those, Claude Code v2.1.295 or later also reads it from [user settings](/docs/en/claude-apps-gateway#set-the-gateway-url-in-user-settings). Claude Code ignores it in HKCU and server-managed settings.
 * **Type**: string, a full URL including the scheme
 * **Default**: unset, so the Cloud gateway screen shows an error telling people to contact their IT administrator
 
