@@ -20,11 +20,11 @@ The desktop extension allowlist is disabled by default, so an organization Owner
 
 4. Switch to the "Desktop" tab:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781755172/63c92550571842577ad435860ec5/6f5cc4e1-ff7d-48de-863a-c4e6184d4605?expires=1791649800&amp;signature=a617cbf06a15d76666979e810a02d0f0ca775b1e9e31a9c273b33e887a6e2c8d&amp;req=dScvF857mIBYW%2FMW1HO4zQ9pXEsM%2B3nT0ugSQm1MFW9d7WayOhJ8FL59Co6V%0AzGnw%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781755172/63c92550571842577ad435860ec5/6f5cc4e1-ff7d-48de-863a-c4e6184d4605?expires=1791663300&amp;signature=dfc2e9dc746b5cc60ddc610146cfac2e01fb70123f9c1450b97b1a34fec0e0e5&amp;req=dScvF857mIBYW%2FMW1HO4zQ9pXEsM%2BXPY0ugSQm1MFW9eC%2BC237j%2BwYbNWVzt%0AmziD%0A)
 
 5. Toggle **Allowlist** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781755578/a6bafff5f084dc86ae463703fd3d/6cf0ee18-4e71-4129-98e8-cc08174e3c3a?expires=1791649800&amp;signature=15692094c9d64f0f6430602aac130d943b86d4c05f04f30209ce4b94eacdd64c&amp;req=dScvF857mIRYUfMW1HO4zaj0BXAtTa4MTAorLxpdoc%2BosuB8NQ2rP7j394%2BK%0ATRP7%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781755578/a6bafff5f084dc86ae463703fd3d/6cf0ee18-4e71-4129-98e8-cc08174e3c3a?expires=1791663300&amp;signature=2ad87ba3e5c77af9d04807f14a66f2ec2879da5801432c7379898f6c6065fd8e&amp;req=dScvF857mIRYUfMW1HO4zaj0BXAtT6QHTAorLxpdoc8r5P3Mm2BUPrwNQO%2FG%0Afx1B%0A)
 
 ## What happens after enabling the allowlist?
 
@@ -42,7 +42,7 @@ Consider completing the allowlist setup during off-hours to minimize disruption 
 
 **Important:** The allowlist requires Claude Desktop version 0.13.91 or higher, so users should update the desktop app by clicking “Claude”, then either “Check for updates” or “Restart to update to Claude 0.13.91”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781756960/ad18af50c83d35f2673656c23e00/a7ee450f-0c7d-42d6-a75f-fb1bc088cb52?expires=1791649800&amp;signature=07289f009abfeaf890cc5139211f279291a880aa5e7498f0b51b6f2008341be7&amp;req=dScvF857m4hZWfMW1HO4zYUJqIKsDjvjCEDZ5AdBjIYO1dOroDw5H68bF41p%0A6ZfLa%2BVhoRoGXcFCRg4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781756960/ad18af50c83d35f2673656c23e00/a7ee450f-0c7d-42d6-a75f-fb1bc088cb52?expires=1791663300&amp;signature=104baa49af09a46906c36c8e3712fd3149078c02446fe03a002622850314e43f&amp;req=dScvF857m4hZWfMW1HO4zYUJqIKsDDHoCEDZ5AdBjIZeUwB1hRFjooqNQ11N%0AHOW0ZcL%2F5eH7Rb9qVxI%3D%0A)
 
 ## Managing allowed extensions
 
@@ -60,7 +60,7 @@ After enabling the allowlist, you can choose which extensions to allow:
 
 If you want to remove an extension from the allowlist, click the “...” button and “Remove from allowlist.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781751250/6558c0f59aea7976bd44b0213d76/e750f02b-cd0d-437e-a83f-9ac362cdf456?expires=1791649800&amp;signature=7f2f0189de4b409b342c8622033ed1ab099b6cfe21ad2eb68a1dfd2762569b7b&amp;req=dScvF857nINaWfMW1HO4zTrxBKkv%2B16dqXridZhfx1IgPD3MIW9iw5pR54CI%0AdXT6MWxTFDdMINqFpo8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781751250/6558c0f59aea7976bd44b0213d76/e750f02b-cd0d-437e-a83f-9ac362cdf456?expires=1791663300&amp;signature=1c055e12b45b960bec83892e7932f2abe590e2db602dcc3fcc9cdccc5201ee16&amp;req=dScvF857nINaWfMW1HO4zTrxBKkv%2BVSWqXridZhfx1L4kU%2FeuxyEWPJRZJja%0A6uZ765ommm9uZzBTChQ%3D%0A)
 
 ## Uploading custom extensions
 

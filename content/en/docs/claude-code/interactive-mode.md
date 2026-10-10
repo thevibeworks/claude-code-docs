@@ -18,7 +18,7 @@
 
 | Shortcut | Description | Context |
 | :- | :- | :- |
-| `Ctrl+C` | Interrupt, or clear input | Interrupts a running operation. If nothing is running, the first press clears the prompt input and a second press exits Claude Code |
+| `Ctrl+C` | Interrupt, or clear input | Interrupts a running operation. If nothing is running, the first press clears the prompt input and a second press exits Claude Code. Press `Up` while the prompt is still empty to bring the cleared draft back, which requires Claude Code v2.1.288 or later |
 | `Ctrl+X Ctrl+K` | Stop all running [background subagents](/docs/en/sub-agents#run-subagents-in-foreground-or-background) in this session, and turn off [artifact auto-replies](/docs/en/artifacts#let-claude-reply-to-comments-on-its-own) for the rest of it. Press twice within 3 seconds to confirm. You can press it while a background subagent's permission prompt is open | Subagent control |
 | `Ctrl+D` | Exit Claude Code session | The first press shows a confirmation hint and a second press within 800ms exits. When the prompt has text, `Ctrl+D` deletes the character after the cursor instead |
 | `Ctrl+G` or `Ctrl+X Ctrl+E` | Open in default text editor | Edit your prompt or custom response in your default text editor. `Ctrl+X Ctrl+E` is the readline-native binding. Turn on **Show last response in external editor** in `/config` to prepend Claude's previous reply as `#`-commented context above your prompt; Claude Code strips the comment block when you save |
@@ -391,6 +391,8 @@ Claude Code runs some commands as soon as you send them instead of queueing them
 Press `Up` from the first line of the input box to take back the queued messages and commands. Claude Code removes them from the queue and puts them in the input box, one per line, ahead of any text you had typed. Edit the text and press `Enter` to queue it again as one entry, or clear the input box to drop it.
 
 Claude Code takes back queued shell commands only when the input box is empty and you have nothing else queued, and it switches the input box to shell mode when it does. Otherwise it leaves them in the queue, listed with their `!` prefix, and runs them after the turn ends.
+
+If you take back queued text while `←` [waits to background the session](/docs/en/agent-view#switch-sessions-without-leaving-the-terminal), the text stays in the input box and Claude Code cancels the switch. If you take it back at the moment the session moves, the text disappears with the foreground screen: it wasn't sent. Each message you took back is saved as its own entry in [command history](#command-history). To recover one, reopen the session and press `Up` on an empty prompt with nothing queued.
 
 ## Prompt suggestions
 
