@@ -1574,7 +1574,7 @@ model = "claude-mythos-5-1"  # After
 
 ## Migrating to Claude Fable 5.1 from Claude Opus 4.8 or earlier
 
-First apply [Migrating to Claude Mythos 5 and Claude Fable 5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/fable-5/migration-guide#migrating-from-claude-opus-48) for the API-level changes from Claude Opus 4.8. It covers adaptive thinking, thinking output, refusals, effort, the caching minimum, pricing, and data retention. Then apply the remaining delta in [Migrating to Claude Fable 5.1 from Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migrating-from-claude-fable-5-to-claude-fable-5-1). On Claude Opus 4.7 or earlier, start with the matching [Claude Opus 5.5 migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide) section.
+Work through the checklist below. On Claude Opus 4.7 or earlier, start with the matching [Claude Opus 5.5 migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide) section.
 
 ### Update your model name
 
@@ -1591,12 +1591,13 @@ model = "claude-mythos-5-1"  # After
 * If your organization has a zero data retention (ZDR) arrangement, confirm eligibility first: these models aren't available under ZDR unless expressly authorized by Anthropic. Claude Opus 4.8 is available under ZDR.
 * Update the model name from `claude-opus-4-8` to `claude-fable-5-1` (or `claude-mythos-5-1`).
 * Remove any `thinking: {type: "disabled"}` configuration and revisit `max_tokens`. Requests without a `thinking` field run with adaptive thinking.
+* Update response parsing that reads content by position, such as `content[0].text`: a response can now start with `thinking` blocks, so select content blocks by `type` instead.
 * Replace forced `tool_choice` (`any` or `tool`) with `auto` plus an explicit instruction (`user` turn or mid-conversation system message) and `strict: true` tools, or with JSON outputs.
 * Pass `thinking` blocks back unchanged and treat their text as display-only. Claude Fable 5.1 reads Claude Opus 4.8's thinking blocks: a conversation that moves onto `claude-fable-5-1` keeps its earlier reasoning. Claude Opus 4.8 can't read Claude Fable 5.1's blocks.
 * If your code builds the `messages` array itself, check whether it [edits earlier turns](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#fable-5-1-preserved-thinking). Integrations written for Claude Opus 4.8 and earlier often truncate old turns, strip or rebuild earlier messages, or refresh the `system` prompt each request, and Claude Opus 4.8 never objected. On `claude-fable-5-1` each of those invalidates later thinking blocks.
 * Handle `stop_reason: "refusal"`, read `stop_details.category`, and consider `fallbacks: "default"` (beta).
 * Apply the preserved-thinking, history-editing, behavior, per-message effort, and progress-update items from the [Claude Fable 5 checklist](https://platform.claude.com/docs/en/models/fable-5-1/migration-guide#migration-checklist-fable-5-1-from-fable-5).
-* Re-evaluate `effort` (start at `high`), review prompts near the 512-token caching minimum, and re-baseline cost and latency. Per-token pricing differs.
+* Re-evaluate `effort` (start at `high`), review prompts near the 512-token [caching minimum](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#cache-limitations) (1,024 tokens on Claude Opus 4.8), and re-baseline cost and latency. Per-token pricing differs, and thinking tokens are billed as output tokens, so workloads that ran without thinking on Claude Opus 4.8 can produce more output tokens per request.
 
 ## Migrating to Claude Mythos 5.1 from Claude Mythos 5
 

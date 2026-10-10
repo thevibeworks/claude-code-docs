@@ -170,7 +170,7 @@ The messages endpoint returns the chat's metadata plus a `chat_messages` array s
 
 ## Retrieve files and artifacts
 
-Files and artifacts are downloaded by ID, not listed independently. The IDs come from the chat messages endpoint in [Retrieve chats and messages](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-chats-and-messages) (the `files`, `generated_files`, and `artifacts` arrays on each message) or, for project-level uploads, from the [project attachments endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-projects-and-attachments).
+Files and artifacts are downloaded by ID. Except for Claude Docs documents (see the end of this section), they aren't listed independently. The IDs come from the chat messages endpoint in [Retrieve chats and messages](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-chats-and-messages) (the `files`, `generated_files`, and `artifacts` arrays on each message) or, for project-level uploads, from the [project attachments endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-projects-and-attachments).
 
 Pick the endpoint that matches your ID type and the data you need. The same file content endpoint serves both chat files and project files.
 
@@ -207,6 +207,8 @@ curl --fail-with-body -sS \
 In curl, the `--remote-header-name` (`-J`) option, which normally saves a download under the `Content-Disposition` file name, does not read the `filename*` form, so name the saved file yourself with `--output`. In a script, take the name from the file's `filename` field in the chat messages or [Get file metadata](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/retrieve) response, or decode `filename*`. Either way, it is the name the user gave the upload, so treat it as untrusted before using it as an output path: keep only the base name, allow only characters that are safe on your filesystem, and refuse names that begin with `-` or `.`.
 
 Unlike the file content endpoint, the artifact content endpoint returns a JSON object. Pass the `version_id` from one of the entries in an assistant message's `artifacts` array, not the artifact's stable `id`; each new version of an artifact has its own `version_id`. The response's `content` field holds exactly that version's text, and its `title` and `artifact_type` fields describe the artifact. [Get artifact metadata](https://platform.claude.com/docs/en/api/compliance/apps/artifacts/retrieve) computes `size_bytes` and `md5` over the UTF-8 encoding of that text, so compare them with the `content` value rather than the whole response body.
+
+Claude Docs documents are listed separately, by [List code artifacts](https://platform.claude.com/docs/en/api/compliance/code/artifacts/list), with `artifact_type` set to `claude_docs`. A document's `versions` list is empty and its `published_version_id` is `null`. To download a document's current text, call `GET /v1/compliance/apps/code/artifacts/{artifact_id}/content?multi_file_format=zip`. It returns a ZIP archive with one Word (.docx) file for each tab that holds text. Comments, uploaded files, and edit history aren't included. Downloading Claude Docs through the Compliance API is in beta.
 
 ## Retrieve projects and attachments
 

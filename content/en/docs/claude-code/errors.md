@@ -1789,6 +1789,8 @@ Claude Code sends the check through the same [proxy configuration](/docs/en/netw
 
 Claude Code skips this check when a [managed settings file, MDM policy, or policy helper](/docs/en/managed-settings) sets [`forceLoginMethod`](/docs/en/settings-reference#forceloginmethod) to `"gateway"`, or sets [`forceLoginGatewayUrl`](/docs/en/settings-reference#forcelogingatewayurl) without `forceLoginMethod`. With either configuration, Claude Code opens the sign-in step on the **Cloud gateway** screen rather than an Anthropic sign-in method. Claude Code also skips the check when a managed settings source on the machine exists but can't be read, since that source may hold the gateway configuration. Before v2.1.247, Claude Code ran the check under this configuration too, and exited with this error when Anthropic's endpoints were unreachable.
 
+Claude Code also skips the check on a machine with no managed settings when your own `~/.claude/settings.json` [names a gateway](/docs/en/claude-apps-gateway#set-the-gateway-url-in-user-settings) with `forceLoginMethod` and `forceLoginGatewayUrl`. Before v2.1.295, Claude Code ran the check in that case.
+
 **What to do:**
 
 * If the message names a proxy variable, check that its value points at the right proxy and ask your network team to allow HTTPS connections through it to the host in the message. See [Network configuration](/docs/en/network-config).
