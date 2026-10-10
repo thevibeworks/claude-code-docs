@@ -35,6 +35,7 @@ Match the message you see to a section below.
 | `Connection lost while your computer was asleep` | [Automatic retries](#automatic-retries) |
 | `<model> is temporarily unavailable, so auto mode cannot determine the safety of...` | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action) |
 | `Auto mode could not evaluate this action and is blocking it for safety` | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action) |
+| `Not run · auto mode's check had no usable answer` | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action) |
 | `Auto mode classifier transcript exceeded context window` | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action) |
 | `Agent aborted: auto mode classifier request refused by the safety safeguard` | [Server errors](#auto-mode-cannot-determine-the-safety-of-an-action) |
 | `The server-side auto mode classifier gave no verdict` | [Server errors](#the-server-returned-no-safety-verdict) |
@@ -261,6 +262,7 @@ Match the message you see to a section below.
 | `Marketplace "<name>" is already added from a different source` | [Plugin errors](#marketplace-is-already-added-from-a-different-source) |
 | `"<name>" is another spelling of "<reserved>", a reserved marketplace name` | [Plugin errors](#marketplace-name-is-another-spelling-of-a-reserved-name) |
 | `Cannot add marketplace "<name>": Claude Code cannot install plugins from a marketplace with this name` | [Plugin troubleshooting](/docs/en/plugins/troubleshooting#cannot-install-plugins-from-a-marketplace-with-this-name) |
+| `Cannot add marketplace "<name>": Claude Code reserves this name and cannot register a marketplace under it` | [Plugin troubleshooting](/docs/en/plugins/troubleshooting#claude-code-reserves-this-name) |
 | `Marketplace "<name>" is added but ignored` | [Plugin troubleshooting](/docs/en/plugins/troubleshooting#marketplace-is-added-but-ignored) |
 | `Marketplace "<name>" is registered but was refused (see the debug log)` | [Plugin troubleshooting](/docs/en/plugins/troubleshooting#marketplace-is-added-but-ignored) |
 | `references ${user_config.*} in a shell-form command` | [Plugin errors](#plugin-command-references-user-config) |
@@ -307,6 +309,7 @@ Match the message you see to a section below.
 | `Your disk quota is full on the filesystem with Claude Code's temp directory <dir> (EDQUOT)` | [Tool errors](#disk-quota-or-temp-filesystem-is-full) |
 | `The filesystem with Claude Code's temp directory <dir>, or your disk quota on it, is full (ENOSPC)` | [Tool errors](#disk-quota-or-temp-filesystem-is-full) |
 | `Command output was lost: the temp filesystem at <dir> is full` / `is out of inodes` | [Tool errors](#disk-quota-or-temp-filesystem-is-full) |
+| `File is not valid UTF-8. It may use a legacy encoding such as Windows-1252, Shift-JIS or GBK, or be binary` | [Tool errors](#file-is-not-valid-utf-8) |
 | `the source file is not valid UTF-8 text` / `the source file is not valid UTF-16 text` | [Tool errors](#the-source-file-is-not-valid-utf-8-text) |
 | `the source file has the replacement character U+FFFD` | [Tool errors](#the-source-file-is-not-valid-utf-8-text) |
 | `Not published: that file is on a network share` | [Tool errors](#not-published-that-file-is-on-a-network-share) |
@@ -576,6 +579,8 @@ When the classifier model is unavailable:
 ```text theme={null}
 <model> is temporarily unavailable, so auto mode cannot determine the safety of <tool> right now. Wait a moment and then try this action again.
 ```
+
+In an interactive session, a dim `Not run · auto mode's check had no usable answer` row appears under the tool call instead of this message. Press `Ctrl+O` to read the message in the [transcript viewer](/docs/en/interactive-mode#transcript-viewer). The denials under [The server returned no safety verdict](#the-server-returned-no-safety-verdict) show the same row. Before v2.1.296, the message appeared under the call as a red error.
 
 When Claude Code can determine the failure category, it names the category in parentheses after `temporarily unavailable`, for example `<model> is temporarily unavailable (rate-limited), so auto mode cannot determine the safety of <tool> right now`. The categories are `(rate-limited)`, `(overloaded)`, `(server error)`, `(timed out)`, and `(connection failed)`. If `(timed out)` or `(connection failed)` repeats, check your connection; see [Unable to connect to API](#unable-to-connect-to-api). Before v2.1.229, the message never named a category and read `Wait briefly and then try this action again`.
 
@@ -3555,7 +3560,7 @@ You passed a session ID to `claude --resume <session-id>` and no saved transcrip
 No conversation found with session ID: <session-id>
 ```
 
-Claude Code exits with code 1 after showing the message. Claude Code [searches the current project first, then every other project on this machine](/docs/en/sessions#resume-a-session) for the ID. Before v2.1.223, the lookup stopped at the current project directory and its git worktrees, so resume from the directory the session last worked in.
+Claude Code exits with code 1 after showing the message. Claude Code [searches the current project first, then every other project on this machine](/docs/en/sessions#where-the-session-picker-looks) for the ID. Before v2.1.223, the lookup stopped at the current project directory and its git worktrees, so resume from the directory the session last worked in.
 
 Common causes:
 
@@ -4373,6 +4378,25 @@ The message names what ran out:
 * Or restart Claude Code with [`CLAUDE_CODE_TMPDIR`](/docs/en/env-vars) set to a directory on a filesystem with room
 * Then have Claude run the command again. The output it printed was lost, not truncated
 
+<h3 id="file-is-not-valid-utf-8">
+  File is not valid UTF-8
+</h3>
+
+Claude used the Edit or NotebookEdit tool on a file whose bytes don't decode as UTF-8, and Claude Code refused the change. Nothing was written, so the file is as it was. Those tools save the whole file back as UTF-8, which would have turned every byte they couldn't decode into the replacement character `U+FFFD`. The message appears in the tool result:
+
+```text wrap theme={null}
+File is not valid UTF-8. It may use a legacy encoding such as Windows-1252, Shift-JIS or GBK, or be binary. This tool saves the whole file as UTF-8, which would replace every byte it cannot decode with U+FFFD. Nothing was written. Make the change with a shell command that reads and writes the file in its own encoding, or ask the user whether to convert the file to UTF-8 first.
+```
+
+A file that is meant to be UTF-8 gets this message too when it contains even one invalid byte sequence, because the check covers the file's bytes as a whole.
+
+**What to do:**
+
+* To keep the file in its current encoding, let Claude make the change with a shell command that reads and writes the file in that encoding, as the message tells it to
+* To keep editing the file with the Edit tool, convert it to UTF-8, or fix the invalid bytes in a file that is meant to be UTF-8, then ask Claude to make the edit again
+
+Before v2.1.296, Edit and NotebookEdit applied such an edit and saved every byte they couldn't decode as `U+FFFD`. On those versions, update Claude Code.
+
 <h3 id="the-source-file-is-not-valid-utf-8-text">
   The source file is not valid UTF-8 text
 </h3>
@@ -5096,7 +5120,7 @@ Claude Code doesn't add network paths as working directories. Looking up a netwo
 Paths that Claude Code refuses this way include:
 
 * UNC shares such as `\\server\share`
-* Automount paths such as `/net/<host>`, unless you launched Claude Code from a directory under that host's automount
+* Automount paths such as `/net/<host>`, unless you launched Claude Code from a directory under that host's automount. Reads under that automount still go through the [network path check](/docs/en/permissions#network-paths).
 * Local paths that reach a network location through a symbolic link or junction
 
 Mapped drive letters and `\\wsl$` paths don't count as network paths.
