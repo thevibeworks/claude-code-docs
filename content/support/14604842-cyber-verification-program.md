@@ -12,7 +12,7 @@ Our generally available models can still be used by all users for secure code re
 
 ## Access tiers
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1791702000&amp;signature=7974d5f80cbaf85b53425ea7a4c6a95f915ddfa3b2be69738d12c503b5a94c85&amp;req=dicmEM17moJWW%2FMW1HO4zVYZ0Nm5bsZHy1US26KtMzLls6PJhUwG3RC6t5ji%0AYHTbQ3JvXBUF4NN3%2FGY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1791738000&amp;signature=c0dd47778c82c61ce00e29b86f088b9d675c7ec9ec639238d0660a1b19f2c01c&amp;req=dicmEM17moJWW%2FMW1HO4zVYZ0Nm5bcxHy1US26KtMzIDC7zObw8hAUYntm2x%0AgP8ma6t7bzNY2cMAFbU%3D%0A)
 
 ## How to apply
 
