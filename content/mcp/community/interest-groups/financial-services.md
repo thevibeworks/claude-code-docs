@@ -86,6 +86,7 @@ ecosystem.
 | - | - | - | - | - |
 | Xin Fu | Bloomberg | [@imfing](https://github.com/imfing) | *TBD* | Participant |
 | Kengo Arao | Bloomberg | [@KengoA](https://github.com/KengoA) | *TBD* | Participant |
+| King Yew Choo | True Primary | [@kychooo](https://github.com/kychooo) | kychooo | Participant |
 
 Open to anyone. Join the `#financial-services-ig` channel on the
 [MCP Contributors Discord](/community/communication#discord). Calls are open and no approval is
