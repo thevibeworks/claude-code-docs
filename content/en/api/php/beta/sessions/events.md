@@ -107,7 +107,7 @@ List Events
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?string denyMessage`
 
@@ -131,7 +131,7 @@ List Events
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -697,7 +697,7 @@ List Events
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -1155,7 +1155,7 @@ Stream Events
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?string denyMessage`
 
@@ -1179,7 +1179,7 @@ Stream Events
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -1745,7 +1745,7 @@ Stream Events
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -2514,7 +2514,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?string denyMessage`
 
@@ -2526,7 +2526,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -2558,7 +2558,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -2992,7 +2992,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?string denyMessage`
 
@@ -3016,7 +3016,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -3582,7 +3582,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -4360,7 +4360,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?string denyMessage`
 
@@ -4384,7 +4384,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string customToolUseID`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -4950,7 +4950,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `string toolUseID`
 
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `?list<Content> content`
 
@@ -5332,7 +5332,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `string customToolUseID`
 
-    The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+    The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
   - `?list<Content> content`
 
@@ -5358,7 +5358,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `string customToolUseID`
 
-    The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+    The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
   - `?list<Content> content`
 
@@ -5488,7 +5488,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `string toolUseID`
 
-    The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+    The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
   - `?string denyMessage`
 
@@ -5514,7 +5514,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `string toolUseID`
 
-    The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+    The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
   - `?string denyMessage`
 
@@ -5528,7 +5528,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `string toolUseID`
 
-    The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+    The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=php#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
   - `?list<Content> content`
 

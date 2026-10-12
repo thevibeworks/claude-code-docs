@@ -27,7 +27,7 @@ Update Credential
 
     Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
 
-    - `type BetaManagedAgentsMCPOAuthUpdateParamsResp`
+    - `type BetaManagedAgentsMCPOAuthUpdateParams`
 
       Parameters for updating an MCP OAuth credential. The `mcp_server_url` is immutable.
 
@@ -45,7 +45,7 @@ Update Credential
 
         format: date-time
 
-      - `Refresh BetaManagedAgentsMCPOAuthRefreshUpdateParamsResp Optional`
+      - `Refresh BetaManagedAgentsMCPOAuthRefreshUpdateParams Optional`
 
         Updated refresh token configuration.
 
@@ -61,9 +61,9 @@ Update Credential
 
           maxLength: 8192
 
-        - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshUpdateParamsTokenEndpointAuthUnionResp Optional`
+        - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshUpdateParamsTokenEndpointAuthUnion Optional`
 
-          - `type BetaManagedAgentsTokenEndpointAuthBasicUpdateParamResp`
+          - `type BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 
             Updated HTTP Basic authentication parameters for the token endpoint.
 
@@ -75,7 +75,7 @@ Update Credential
 
               minLength: 1, maxLength: 512
 
-          - `type BetaManagedAgentsTokenEndpointAuthPostUpdateParamResp`
+          - `type BetaManagedAgentsTokenEndpointAuthPostUpdateParam`
 
             Updated POST body authentication parameters for the token endpoint.
 
@@ -87,7 +87,7 @@ Update Credential
 
               minLength: 1, maxLength: 512
 
-    - `type BetaManagedAgentsStaticBearerUpdateParamsResp`
+    - `type BetaManagedAgentsStaticBearerUpdateParams`
 
       Parameters for updating a static bearer token credential. The `mcp_server_url` is immutable.
 
@@ -99,13 +99,13 @@ Update Credential
 
         minLength: 1, maxLength: 8192
 
-    - `type BetaManagedAgentsEnvironmentVariableUpdateParamsResp`
+    - `type BetaManagedAgentsEnvironmentVariableUpdateParams`
 
       Parameters for updating an environment variable credential. `secret_name` is immutable.
 
       - `Type BetaManagedAgentsEnvironmentVariableUpdateParamsType`
 
-      - `InjectionLocation BetaManagedAgentsInjectionLocationUpdateParamsResp Optional`
+      - `InjectionLocation BetaManagedAgentsInjectionLocationUpdateParams Optional`
 
         Updated injection location.
 
@@ -117,17 +117,17 @@ Update Credential
 
           Substitute when the placeholder appears in a request header value.
 
-      - `Networking BetaManagedAgentsCredentialNetworkingParamsUnionResp Optional`
+      - `Networking BetaManagedAgentsCredentialNetworkingParamsUnion Optional`
 
         Updated networking scope. Full replacement.
 
-        - `type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsResp`
+        - `type BetaManagedAgentsUnrestrictedCredentialNetworkingParams`
 
           Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
           - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType`
 
-        - `type BetaManagedAgentsLimitedCredentialNetworkingParamsResp`
+        - `type BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
 

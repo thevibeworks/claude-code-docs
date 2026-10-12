@@ -103,7 +103,7 @@ The pattern relies on two guarantees:
 
 ### SDK accumulator helpers
 
-Each SDK's helper handles the `index` bookkeeping. The Go, Java, Ruby, and C# helpers also key the accumulating preview by the event's `id`. With the Python, TypeScript, and PHP helpers, keep that map yourself and fold each delta into the entry for its `id`.
+Each SDK's helper handles the `index` (java, php; csharp, go: `Index`) bookkeeping. The Go, Java, Ruby, and C# helpers also key the accumulating preview by the event's `id` (java, php; csharp, go: `ID`). With the Python, TypeScript, and PHP helpers, keep that map yourself and fold each delta into the entry for its `id` (java, php; csharp, go: `ID`).
 
 The following examples opt in to `agent.message` previews and reconcile them with the buffered event:
 

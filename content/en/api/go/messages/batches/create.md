@@ -13,7 +13,7 @@ Send a batch of Message creation requests.
 
 The Message Batches API can be used to process multiple Messages API requests at once. Once a Message Batch is created, it begins processing immediately. Batches can take up to 24 hours to complete.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=go)
 
 ## Parameters
 
@@ -37,7 +37,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Messages API creation parameters for the individual request.
 
-      See the [Messages API reference](https://platform.claude.com/docs/en/api/messages) for full documentation on available parameters.
+      See the [Messages API reference](https://platform.claude.com/docs/en/api/messages?sdk_languages=go) for full documentation on available parameters.
 
       - `MaxTokens int64`
 
@@ -45,13 +45,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-        Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+        Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=go#pre-warming-the-cache) without generating a response.
 
-        Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+        Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=go) for details.
 
         minimum: 0
 
-      - `Messages []MessageParamResp`
+      - `Messages []MessageParam`
 
         Input messages.
 
@@ -59,7 +59,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
 
-        If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response. This is called prefill. On models that don't support prefill, creating a message that ends with a partial `assistant` response returns a 400 error. See [Prefill not supported](https://platform.claude.com/docs/en/api/errors#prefill-not-supported).
+        If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response. This is called prefill. On models that don't support prefill, creating a message that ends with a partial `assistant` response returns a 400 error. See [Prefill not supported](https://platform.claude.com/docs/en/api/errors?sdk_languages=go#prefill-not-supported).
 
         Example with a single `user` message:
 
@@ -96,17 +96,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
         ```
 
-        See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
+        See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=go).
 
-        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=go#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
         There is a limit of 100,000 messages in a single request.
 
-        - `Content []ContentBlockParamUnionResp`
+        - `Content []ContentBlockParamUnion`
 
-          - `[]ContentBlockParamUnionResp`
+          - `[]ContentBlockParamUnion`
 
-            - `type TextBlockParamResp`
+            - `type TextBlockParam`
 
               - `Type Text`
 
@@ -114,7 +114,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minLength: 1
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
@@ -129,15 +129,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=go) for details.
 
                   - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
                   - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
 
-              - `Citations []TextCitationParamUnionResp Optional`
+              - `Citations []TextCitationParamUnion Optional`
 
-                - `type CitationCharLocationParamResp`
+                - `type CitationCharLocationParam`
 
                   - `Type CharLocation`
 
@@ -157,7 +157,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                - `type CitationPageLocationParamResp`
+                - `type CitationPageLocationParam`
 
                   - `Type PageLocation`
 
@@ -177,7 +177,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 1
 
-                - `type CitationContentBlockLocationParamResp`
+                - `type CitationContentBlockLocationParam`
 
                   - `Type ContentBlockLocation`
 
@@ -207,7 +207,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minimum: 0
 
-                - `type CitationWebSearchResultLocationParamResp`
+                - `type CitationWebSearchResultLocationParam`
 
                   - `Type WebSearchResultLocation`
 
@@ -223,7 +223,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     minLength: 1
 
-                - `type CitationSearchResultLocationParamResp`
+                - `type CitationSearchResultLocationParam`
 
                   - `Type SearchResultLocation`
 
@@ -257,13 +257,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Title string`
 
-            - `type ImageBlockParamResp`
+            - `type ImageBlockParam`
 
               - `Type Image`
 
-              - `Source ImageBlockParamSourceUnionResp`
+              - `Source ImageBlockParamSourceUnion`
 
-                - `type Base64ImageSource`
+                - `type Base64ImageSourceParam`
 
                   - `Type Base64`
 
@@ -281,23 +281,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const Base64ImageSourceMediaTypeImageWebP Base64ImageSourceMediaType = "image/webp"`
 
-                - `type URLImageSource`
+                - `type URLImageSourceParam`
 
                   - `Type URL`
 
                   - `URL string`
 
-                - `type FileImageSource`
+                - `type FileImageSourceParam`
 
                   - `Type File`
 
                   - `FileID string`
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Transformations ImageTransformationsParamResp Optional`
+              - `Transformations ImageTransformationsParam Optional`
 
                 Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -309,11 +309,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const ImageTransformationsParamOversizedImageError ImageTransformationsParamOversizedImage = "error"`
 
-            - `type DocumentBlockParamResp`
+            - `type DocumentBlockParam`
 
               - `Type Document`
 
-              - `Source DocumentBlockParamSourceUnionResp`
+              - `Source DocumentBlockParamSourceUnion`
 
                 - `type Base64PDFSource`
 
@@ -333,37 +333,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `MediaType TextPlain`
 
-                - `type ContentBlockSource`
+                - `type ContentBlockSourceParam`
 
                   - `Type Content`
 
-                  - `Content ContentBlockSourceContentUnion`
+                  - `Content ContentBlockSourceContentUnionParam`
 
                     - `string`
 
-                    - `[]ContentBlockSourceContentItemUnion`
+                    - `[]ContentBlockSourceContentItemUnionParam`
 
-                      - `type TextBlockParamResp`
+                      - `type TextBlockParam`
 
-                      - `type ImageBlockParamResp`
+                      - `type ImageBlockParam`
 
-                - `type URLPDFSource`
+                - `type URLPDFSourceParam`
 
                   - `Type URL`
 
                   - `URL string`
 
-                - `type FileDocumentSource`
+                - `type FileDocumentSourceParam`
 
                   - `Type File`
 
                   - `FileID string`
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Citations CitationsConfigParamResp Optional`
+              - `Citations CitationsConfigParam Optional`
 
                 - `Enabled bool Optional`
 
@@ -375,11 +375,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minLength: 1, maxLength: 500
 
-            - `type SearchResultBlockParamResp`
+            - `type SearchResultBlockParam`
 
               - `Type SearchResult`
 
-              - `Content []TextBlockParamResp`
+              - `Content []TextBlockParam`
 
                 - `Type Text`
 
@@ -387,23 +387,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   minLength: 1
 
-                - `CacheControl CacheControlEphemeral Optional`
+                - `CacheControl CacheControlEphemeralParam Optional`
 
                   Create a cache control breakpoint at this content block.
 
-                - `Citations []TextCitationParamUnionResp Optional`
+                - `Citations []TextCitationParamUnion Optional`
 
               - `Source string`
 
               - `Title string`
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Citations CitationsConfigParamResp Optional`
+              - `Citations CitationsConfigParam Optional`
 
-            - `type ThinkingBlockParamResp`
+            - `type ThinkingBlockParam`
 
               - `Type Thinking`
 
@@ -417,7 +417,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `thinking` text of this block as returned by the API.
 
-            - `type RedactedThinkingBlockParamResp`
+            - `type RedactedThinkingBlockParam`
 
               - `Type RedactedThinking`
 
@@ -425,7 +425,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-            - `type ToolUseBlockParamResp`
+            - `type ToolUseBlockParam`
 
               - `Type ToolUse`
 
@@ -439,11 +439,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minLength: 1, maxLength: 200
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller ToolUseBlockParamCallerUnionResp Optional`
+              - `Caller ToolUseBlockParamCallerUnion Optional`
 
                 - `type DirectCaller`
 
@@ -475,7 +475,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
-            - `type ToolResultBlockParamResp`
+            - `type ToolResultBlockParam`
 
               - `Type ToolResult`
 
@@ -483,23 +483,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^[a-zA-Z0-9_-]+$
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Content []ToolResultBlockParamContentUnionResp Optional`
+              - `Content []ToolResultBlockParamContentUnion Optional`
 
-                - `[]ToolResultBlockParamContentUnionResp`
+                - `[]ToolResultBlockParamContentUnion`
 
-                  - `type TextBlockParamResp`
+                  - `type TextBlockParam`
 
-                  - `type ImageBlockParamResp`
+                  - `type ImageBlockParam`
 
-                  - `type SearchResultBlockParamResp`
+                  - `type SearchResultBlockParam`
 
-                  - `type DocumentBlockParamResp`
+                  - `type DocumentBlockParam`
 
-                  - `type ToolReferenceBlockParamResp`
+                  - `type ToolReferenceBlockParam`
 
                     Tool reference block that can be included in tool_result content.
 
@@ -509,11 +509,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `CacheControl CacheControlEphemeral Optional`
+                    - `CacheControl CacheControlEphemeralParam Optional`
 
                       Create a cache control breakpoint at this content block.
 
-                  - `type BrowserStateBlockParamResp`
+                  - `type BrowserStateBlockParam`
 
                     The caller's browser state after a browser toolset member call —
                     the full inventory of open tabs, which tab is active, and any side
@@ -525,7 +525,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `Type BrowserState`
 
-                    - `Tabs []BrowserStateTabEntry`
+                    - `Tabs []BrowserStateTabEntryParam`
 
                       All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
@@ -553,17 +553,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-                    - `CacheControl CacheControlEphemeral Optional`
+                    - `CacheControl CacheControlEphemeralParam Optional`
 
                       Create a cache control breakpoint at this content block.
 
-                    - `StateChanges []BrowserStateChangeUnion Optional`
+                    - `StateChanges []BrowserStateChangeUnionParam Optional`
 
                       Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
                       minItems: 1, maxItems: 200
 
-                      - `type BrowserStateChangeTabOpened`
+                      - `type BrowserStateChangeTabOpenedParam`
 
                         A tab this call's execution opened that remains open at its end —
                         the creation delta of the `tabs` inventory, not an event log.
@@ -581,7 +581,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `type BrowserStateChangeDownloadStarted`
+                      - `type BrowserStateChangeDownloadStartedParam`
 
                         A file download that started during this call.
 
@@ -599,7 +599,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `type BrowserStateChangeDownloadCompleted`
+                      - `type BrowserStateChangeDownloadCompletedParam`
 
                         A file download that finished during this call, reported with the
                         same `download_id` as its `download_started` — or without a prior
@@ -632,7 +632,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           minimum: 0
 
-                      - `type BrowserStateChangeDownloadFailed`
+                      - `type BrowserStateChangeDownloadFailedParam`
 
                         A file download that failed — or was cancelled — during this call.
 
@@ -664,7 +664,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
 
-            - `type ServerToolUseBlockParamResp`
+            - `type ServerToolUseBlockParam`
 
               - `Type ServerToolUse`
 
@@ -690,11 +690,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `const ServerToolUseBlockParamNameToolSearchToolBm25 ServerToolUseBlockParamName = "tool_search_tool_bm25"`
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller ServerToolUseBlockParamCallerUnionResp Optional`
+              - `Caller ServerToolUseBlockParamCallerUnion Optional`
 
                 - `type DirectCaller`
 
@@ -706,13 +706,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type ServerToolCaller20260120`
 
-            - `type WebSearchToolResultBlockParamResp`
+            - `type WebSearchToolResultBlockParam`
 
               - `Type WebSearchToolResult`
 
-              - `Content WebSearchToolResultBlockParamContentUnionResp`
+              - `Content WebSearchToolResultBlockParamContentUnion`
 
-                - `[]WebSearchResultBlockParamResp`
+                - `[]WebSearchResultBlockParam`
 
                   - `Type WebSearchResult`
 
@@ -724,7 +724,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `PageAge string Optional`
 
-                - `type WebSearchToolRequestError`
+                - `type WebSearchToolRequestErrorParam`
 
                   - `Type WebSearchToolResultError`
 
@@ -746,11 +746,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller WebSearchToolResultBlockParamCallerUnionResp Optional`
+              - `Caller WebSearchToolResultBlockParamCallerUnion Optional`
 
                 - `type DirectCaller`
 
@@ -762,13 +762,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type ServerToolCaller20260120`
 
-            - `type WebFetchToolResultBlockParamResp`
+            - `type WebFetchToolResultBlockParam`
 
               - `Type WebFetchToolResult`
 
-              - `Content WebFetchToolResultBlockParamContentUnionResp`
+              - `Content WebFetchToolResultBlockParamContentUnion`
 
-                - `type WebFetchToolResultErrorBlockParamResp`
+                - `type WebFetchToolResultErrorBlockParam`
 
                   - `Type WebFetchToolResultError`
 
@@ -794,11 +794,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const WebFetchToolResultErrorCodeContentTooLarge WebFetchToolResultErrorCode = "content_too_large"`
 
-                - `type WebFetchBlockParamResp`
+                - `type WebFetchBlockParam`
 
                   - `Type WebFetchResult`
 
-                  - `Content DocumentBlockParamResp`
+                  - `Content DocumentBlockParam`
 
                   - `URL string`
 
@@ -812,11 +812,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller WebFetchToolResultBlockParamCallerUnionResp Optional`
+              - `Caller WebFetchToolResultBlockParamCallerUnion Optional`
 
                 - `type DirectCaller`
 
@@ -828,13 +828,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type ServerToolCaller20260120`
 
-            - `type CodeExecutionToolResultBlockParamResp`
+            - `type CodeExecutionToolResultBlockParam`
 
               - `Type CodeExecutionToolResult`
 
-              - `Content CodeExecutionToolResultBlockParamContentUnionResp`
+              - `Content CodeExecutionToolResultBlockParamContentUnion`
 
-                - `type CodeExecutionToolResultErrorParamResp`
+                - `type CodeExecutionToolResultErrorParam`
 
                   - `Type CodeExecutionToolResultError`
 
@@ -848,11 +848,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const CodeExecutionToolResultErrorCodeExecutionTimeExceeded CodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
-                - `type CodeExecutionResultBlockParamResp`
+                - `type CodeExecutionResultBlockParam`
 
                   - `Type CodeExecutionResult`
 
-                  - `Content []CodeExecutionOutputBlockParamResp`
+                  - `Content []CodeExecutionOutputBlockParam`
 
                     - `Type CodeExecutionOutput`
 
@@ -864,13 +864,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Stdout string`
 
-                - `type EncryptedCodeExecutionResultBlockParamResp`
+                - `type EncryptedCodeExecutionResultBlockParam`
 
                   Code execution result with encrypted stdout for PFC + web_search results.
 
                   - `Type EncryptedCodeExecutionResult`
 
-                  - `Content []CodeExecutionOutputBlockParamResp`
+                  - `Content []CodeExecutionOutputBlockParam`
 
                     - `Type CodeExecutionOutput`
 
@@ -886,17 +886,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type BashCodeExecutionToolResultBlockParamResp`
+            - `type BashCodeExecutionToolResultBlockParam`
 
               - `Type BashCodeExecutionToolResult`
 
-              - `Content BashCodeExecutionToolResultBlockParamContentUnionResp`
+              - `Content BashCodeExecutionToolResultBlockParamContentUnion`
 
-                - `type BashCodeExecutionToolResultErrorParamResp`
+                - `type BashCodeExecutionToolResultErrorParam`
 
                   - `Type BashCodeExecutionToolResultError`
 
@@ -912,11 +912,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `const BashCodeExecutionToolResultErrorCodeOutputFileTooLarge BashCodeExecutionToolResultErrorCode = "output_file_too_large"`
 
-                - `type BashCodeExecutionResultBlockParamResp`
+                - `type BashCodeExecutionResultBlockParam`
 
                   - `Type BashCodeExecutionResult`
 
-                  - `Content []BashCodeExecutionOutputBlockParamResp`
+                  - `Content []BashCodeExecutionOutputBlockParam`
 
                     - `Type BashCodeExecutionOutput`
 
@@ -932,17 +932,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type TextEditorCodeExecutionToolResultBlockParamResp`
+            - `type TextEditorCodeExecutionToolResultBlockParam`
 
               - `Type TextEditorCodeExecutionToolResult`
 
-              - `Content TextEditorCodeExecutionToolResultBlockParamContentUnionResp`
+              - `Content TextEditorCodeExecutionToolResultBlockParamContentUnion`
 
-                - `type TextEditorCodeExecutionToolResultErrorParamResp`
+                - `type TextEditorCodeExecutionToolResultErrorParam`
 
                   - `Type TextEditorCodeExecutionToolResultError`
 
@@ -960,7 +960,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ErrorMessage string Optional`
 
-                - `type TextEditorCodeExecutionViewResultBlockParamResp`
+                - `type TextEditorCodeExecutionViewResultBlockParam`
 
                   - `Type TextEditorCodeExecutionViewResult`
 
@@ -980,13 +980,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `TotalLines int64 Optional`
 
-                - `type TextEditorCodeExecutionCreateResultBlockParamResp`
+                - `type TextEditorCodeExecutionCreateResultBlockParam`
 
                   - `Type TextEditorCodeExecutionCreateResult`
 
                   - `IsFileUpdate bool`
 
-                - `type TextEditorCodeExecutionStrReplaceResultBlockParamResp`
+                - `type TextEditorCodeExecutionStrReplaceResultBlockParam`
 
                   - `Type TextEditorCodeExecutionStrReplaceResult`
 
@@ -1004,17 +1004,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type ToolSearchToolResultBlockParamResp`
+            - `type ToolSearchToolResultBlockParam`
 
               - `Type ToolSearchToolResult`
 
-              - `Content ToolSearchToolResultBlockParamContentUnionResp`
+              - `Content ToolSearchToolResultBlockParamContentUnion`
 
-                - `type ToolSearchToolResultErrorParamResp`
+                - `type ToolSearchToolResultErrorParam`
 
                   - `Type ToolSearchToolResultError`
 
@@ -1030,11 +1030,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ErrorMessage string Optional`
 
-                - `type ToolSearchToolSearchResultBlockParamResp`
+                - `type ToolSearchToolSearchResultBlockParam`
 
                   - `Type ToolSearchToolSearchResult`
 
-                  - `ToolReferences []ToolReferenceBlockParamResp`
+                  - `ToolReferences []ToolReferenceBlockParam`
 
                     - `Type ToolReference`
 
@@ -1042,7 +1042,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `CacheControl CacheControlEphemeral Optional`
+                    - `CacheControl CacheControlEphemeralParam Optional`
 
                       Create a cache control breakpoint at this content block.
 
@@ -1050,11 +1050,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
-            - `type ContainerUploadBlockParamResp`
+            - `type ContainerUploadBlockParam`
 
               A content block that represents a file to be uploaded to the container
               Files uploaded via this block will be available in the container's input directory.
@@ -1063,7 +1063,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `FileID string`
 
-              - `CacheControl CacheControlEphemeral Optional`
+              - `CacheControl CacheControlEphemeralParam Optional`
 
                 Create a cache control breakpoint at this content block.
 
@@ -1163,15 +1163,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           High-performance model for agents and coding
 
-      - `CacheControl CacheControlEphemeral Optional`
+      - `CacheControl CacheControlEphemeralParam Optional`
 
         Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-      - `Container MessageCreateParamsContainerUnionResp Optional`
+      - `Container MessageCreateParamsContainerUnion Optional`
 
         Container identifier for reuse across requests.
 
-        - `type ContainerParamsResp`
+        - `type ContainerParams`
 
           Container parameters with skills to be loaded.
 
@@ -1179,7 +1179,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Container id
 
-          - `Skills []SkillParamsResp Optional`
+          - `Skills []SkillParams Optional`
 
             List of skills to load in the container
 
@@ -1207,7 +1207,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `string`
 
-      - `Diagnostics DiagnosticsParamResp Optional`
+      - `Diagnostics DiagnosticsParam Optional`
 
         Request-level diagnostics. Supply `previous_message_id` to have the response include `diagnostics.cache_miss_reason` explaining any prompt-cache divergence from that prior request.
 
@@ -1221,7 +1221,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
-      - `Metadata Metadata Optional`
+      - `Metadata MetadataParam Optional`
 
         An object describing metadata about the request.
 
@@ -1233,7 +1233,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           maxLength: 512
 
-      - `OutputConfig OutputConfig Optional`
+      - `OutputConfig OutputConfigParam Optional`
 
         Configuration options for the model's output, such as the output format.
 
@@ -1253,9 +1253,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `const OutputConfigEffortMax OutputConfigEffort = "max"`
 
-        - `Format JSONOutputFormat Optional`
+        - `Format JSONOutputFormatParam Optional`
 
-          A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+          A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs?sdk_languages=go)
 
           - `Type JSONSchema`
 
@@ -1267,7 +1267,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-        Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
+        Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers?sdk_languages=go) for details.
 
         - `const MessageBatchNewParamsRequestParamsServiceTierAuto MessageBatchNewParamsRequestParamsServiceTier = "auto"`
 
@@ -1285,13 +1285,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
 
-        In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks) for an example in each language.
+        In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming?sdk_languages=go#streaming-with-sdks) for an example in each language.
 
-      - `System []TextBlockParamResp Optional`
+      - `System []TextBlockParam Optional`
 
         System prompt.
 
-        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
+        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=go#give-claude-a-role).
 
         - `[]TextBlockParam`
 
@@ -1301,21 +1301,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minLength: 1
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations []TextCitationParamUnionResp Optional`
+          - `Citations []TextCitationParamUnion Optional`
 
-      - `Thinking ThinkingConfigParamUnionResp Optional`
+      - `Thinking ThinkingConfigParamUnion Optional`
 
         Configuration for Claude's thinking.
 
         With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
-        Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking) for each model's behavior.
+        Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=go#configuring-thinking) for each model's behavior.
 
-        - `type ThinkingConfigEnabled`
+        - `type ThinkingConfigEnabledParam`
 
           - `Type Enabled`
 
@@ -1325,43 +1325,43 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Must be ≥1024 and less than `max_tokens`.
 
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=go) for details.
 
             minimum: 1024
 
           - `Display ThinkingConfigEnabledDisplay Optional`
 
-            Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
+            Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=go#controlling-thinking-display).
 
             - `const ThinkingConfigEnabledDisplaySummarized ThinkingConfigEnabledDisplay = "summarized"`
 
             - `const ThinkingConfigEnabledDisplayOmitted ThinkingConfigEnabledDisplay = "omitted"`
 
-        - `type ThinkingConfigDisabled`
+        - `type ThinkingConfigDisabledParam`
 
           - `Type Disabled`
 
-        - `type ThinkingConfigBetweenTools`
+        - `type ThinkingConfigBetweenToolsParam`
 
           - `Type BetweenTools`
 
-        - `type ThinkingConfigAdaptive`
+        - `type ThinkingConfigAdaptiveParam`
 
           - `Type Adaptive`
 
           - `Display ThinkingConfigAdaptiveDisplay Optional`
 
-            Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
+            Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=go#controlling-thinking-display).
 
             - `const ThinkingConfigAdaptiveDisplaySummarized ThinkingConfigAdaptiveDisplay = "summarized"`
 
             - `const ThinkingConfigAdaptiveDisplayOmitted ThinkingConfigAdaptiveDisplay = "omitted"`
 
-      - `ToolChoice ToolChoiceUnion Optional`
+      - `ToolChoice ToolChoiceUnionParam Optional`
 
         How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-        - `type ToolChoiceAuto`
+        - `type ToolChoiceAutoParam`
 
           The model will automatically decide whether to use tools.
 
@@ -1373,7 +1373,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-        - `type ToolChoiceAny`
+        - `type ToolChoiceAnyParam`
 
           The model will use any available tools.
 
@@ -1385,7 +1385,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `type ToolChoiceTool`
+        - `type ToolChoiceToolParam`
 
           The model will use the specified tool with `tool_choice.name`.
 
@@ -1401,19 +1401,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-        - `type ToolChoiceNone`
+        - `type ToolChoiceNoneParam`
 
           The model will not be allowed to use tools.
 
           - `Type None`
 
-      - `Tools []ToolUnion Optional`
+      - `Tools []ToolUnionParam Optional`
 
         Definitions of tools that the model may use.
 
         If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
+        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools?sdk_languages=go), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool?sdk_languages=go)).
 
         Each tool definition includes:
 
@@ -1469,13 +1469,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-        See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
+        See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview?sdk_languages=go) for more details.
 
-        - `type Tool`
+        - `type ToolParam`
 
           - `Type ToolType Optional`
 
-          - `InputSchema ToolInputSchema`
+          - `InputSchema ToolInputSchemaParam`
 
             [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
@@ -1505,7 +1505,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -1529,7 +1529,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type ToolBash20250124`
+        - `type ToolBash20250124Param`
 
           - `Type Bash20250124`
 
@@ -1549,7 +1549,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -1563,7 +1563,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type CodeExecutionTool20250522`
+        - `type CodeExecutionTool20250522Param`
 
           - `Type CodeExecution20250522`
 
@@ -1583,7 +1583,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -1595,7 +1595,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type CodeExecutionTool20250825`
+        - `type CodeExecutionTool20250825Param`
 
           - `Type CodeExecution20250825`
 
@@ -1615,7 +1615,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -1627,7 +1627,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type CodeExecutionTool20260120`
+        - `type CodeExecutionTool20260120Param`
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -1649,7 +1649,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -1661,7 +1661,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type CodeExecutionTool20260521`
+        - `type CodeExecutionTool20260521Param`
 
           Code execution tool with REPL state persistence.
 
@@ -1683,7 +1683,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -1695,7 +1695,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type BrowserToolset20260801`
+        - `type BrowserToolset20260801Param`
 
           The browser toolset: a single `tools[]` entry (carrying no
           `name`) that declares the browser tool family. The model is served
@@ -1704,15 +1704,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type BrowserToolset20260801`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Configs BrowserToolsetConfigs Optional`
+          - `Configs BrowserToolsetConfigsParam Optional`
 
             Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
-            - `Type BrowserTypeConfig Optional`
+            - `Type BrowserTypeConfigParam Optional`
 
               `type`'s config overrides.
 
@@ -1724,7 +1724,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `CloseTab BrowserCloseTabConfig Optional`
+            - `CloseTab BrowserCloseTabConfigParam Optional`
 
               `close_tab`'s config overrides.
 
@@ -1736,7 +1736,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `DoubleClick BrowserDoubleClickConfig Optional`
+            - `DoubleClick BrowserDoubleClickConfigParam Optional`
 
               `double_click`'s config overrides.
 
@@ -1748,7 +1748,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `FileUpload BrowserFileUploadConfig Optional`
+            - `FileUpload BrowserFileUploadConfigParam Optional`
 
               `file_upload`'s config overrides.
 
@@ -1760,7 +1760,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Find BrowserFindConfig Optional`
+            - `Find BrowserFindConfigParam Optional`
 
               `find`'s config overrides.
 
@@ -1772,7 +1772,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `FormInput BrowserFormInputConfig Optional`
+            - `FormInput BrowserFormInputConfigParam Optional`
 
               `form_input`'s config overrides.
 
@@ -1784,7 +1784,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `GetPageText BrowserGetPageTextConfig Optional`
+            - `GetPageText BrowserGetPageTextConfigParam Optional`
 
               `get_page_text`'s config overrides.
 
@@ -1796,7 +1796,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `HoldKey BrowserHoldKeyConfig Optional`
+            - `HoldKey BrowserHoldKeyConfigParam Optional`
 
               `hold_key`'s config overrides.
 
@@ -1808,7 +1808,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Hover BrowserHoverConfig Optional`
+            - `Hover BrowserHoverConfigParam Optional`
 
               `hover`'s config overrides.
 
@@ -1820,7 +1820,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `JavascriptExec BrowserJavascriptExecConfig Optional`
+            - `JavascriptExec BrowserJavascriptExecConfigParam Optional`
 
               `javascript_exec`'s config overrides.
 
@@ -1832,7 +1832,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Key BrowserKeyConfig Optional`
+            - `Key BrowserKeyConfigParam Optional`
 
               `key`'s config overrides.
 
@@ -1844,7 +1844,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `LeftClick BrowserLeftClickConfig Optional`
+            - `LeftClick BrowserLeftClickConfigParam Optional`
 
               `left_click`'s config overrides.
 
@@ -1856,7 +1856,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `LeftClickDrag BrowserLeftClickDragConfig Optional`
+            - `LeftClickDrag BrowserLeftClickDragConfigParam Optional`
 
               `left_click_drag`'s config overrides.
 
@@ -1868,7 +1868,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `LeftMouseDown BrowserLeftMouseDownConfig Optional`
+            - `LeftMouseDown BrowserLeftMouseDownConfigParam Optional`
 
               `left_mouse_down`'s config overrides.
 
@@ -1880,7 +1880,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `LeftMouseUp BrowserLeftMouseUpConfig Optional`
+            - `LeftMouseUp BrowserLeftMouseUpConfigParam Optional`
 
               `left_mouse_up`'s config overrides.
 
@@ -1892,7 +1892,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `ListTabs BrowserListTabsConfig Optional`
+            - `ListTabs BrowserListTabsConfigParam Optional`
 
               `list_tabs`'s config overrides.
 
@@ -1904,7 +1904,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `MiddleClick BrowserMiddleClickConfig Optional`
+            - `MiddleClick BrowserMiddleClickConfigParam Optional`
 
               `middle_click`'s config overrides.
 
@@ -1916,7 +1916,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `MouseMove BrowserMouseMoveConfig Optional`
+            - `MouseMove BrowserMouseMoveConfigParam Optional`
 
               `mouse_move`'s config overrides.
 
@@ -1928,7 +1928,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Navigate BrowserNavigateConfig Optional`
+            - `Navigate BrowserNavigateConfigParam Optional`
 
               `navigate`'s config overrides.
 
@@ -1940,7 +1940,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `NewTab BrowserNewTabConfig Optional`
+            - `NewTab BrowserNewTabConfigParam Optional`
 
               `new_tab`'s config overrides.
 
@@ -1952,7 +1952,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `ReadConsole BrowserReadConsoleConfig Optional`
+            - `ReadConsole BrowserReadConsoleConfigParam Optional`
 
               `read_console`'s config overrides.
 
@@ -1964,7 +1964,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `ReadNetwork BrowserReadNetworkConfig Optional`
+            - `ReadNetwork BrowserReadNetworkConfigParam Optional`
 
               `read_network`'s config overrides.
 
@@ -1976,7 +1976,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `ReadPage BrowserReadPageConfig Optional`
+            - `ReadPage BrowserReadPageConfigParam Optional`
 
               `read_page`'s config overrides.
 
@@ -1988,7 +1988,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `RightClick BrowserRightClickConfig Optional`
+            - `RightClick BrowserRightClickConfigParam Optional`
 
               `right_click`'s config overrides.
 
@@ -2000,7 +2000,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Screenshot BrowserScreenshotConfig Optional`
+            - `Screenshot BrowserScreenshotConfigParam Optional`
 
               `screenshot`'s config overrides.
 
@@ -2012,7 +2012,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Scroll BrowserScrollConfig Optional`
+            - `Scroll BrowserScrollConfigParam Optional`
 
               `scroll`'s config overrides.
 
@@ -2024,7 +2024,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `ScrollTo BrowserScrollToConfig Optional`
+            - `ScrollTo BrowserScrollToConfigParam Optional`
 
               `scroll_to`'s config overrides.
 
@@ -2036,7 +2036,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `SwitchTab BrowserSwitchTabConfig Optional`
+            - `SwitchTab BrowserSwitchTabConfigParam Optional`
 
               `switch_tab`'s config overrides.
 
@@ -2048,7 +2048,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `TripleClick BrowserTripleClickConfig Optional`
+            - `TripleClick BrowserTripleClickConfigParam Optional`
 
               `triple_click`'s config overrides.
 
@@ -2060,7 +2060,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Wait BrowserWaitConfig Optional`
+            - `Wait BrowserWaitConfigParam Optional`
 
               `wait`'s config overrides.
 
@@ -2072,7 +2072,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Zoom BrowserZoomConfig Optional`
+            - `Zoom BrowserZoomConfigParam Optional`
 
               `zoom`'s config overrides.
 
@@ -2084,7 +2084,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `type MemoryTool20250818`
+        - `type MemoryTool20250818Param`
 
           - `Type Memory20250818`
 
@@ -2104,7 +2104,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -2118,7 +2118,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type ComputerToolset20260801`
+        - `type ComputerToolset20260801Param`
 
           The computer toolset: a single `tools[]` entry (carrying no
           `name`) that declares the computer tool family. The model is
@@ -2131,15 +2131,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type ComputerToolset20260801`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Configs ComputerToolsetConfigs Optional`
+          - `Configs ComputerToolsetConfigsParam Optional`
 
             Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
-            - `Type ComputerTypeConfig Optional`
+            - `Type ComputerTypeConfigParam Optional`
 
               `type`'s config overrides.
 
@@ -2151,7 +2151,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `CursorPosition ComputerCursorPositionConfig Optional`
+            - `CursorPosition ComputerCursorPositionConfigParam Optional`
 
               `cursor_position`'s config overrides.
 
@@ -2163,7 +2163,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `DoubleClick ComputerDoubleClickConfig Optional`
+            - `DoubleClick ComputerDoubleClickConfigParam Optional`
 
               `double_click`'s config overrides.
 
@@ -2175,7 +2175,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `HoldKey ComputerHoldKeyConfig Optional`
+            - `HoldKey ComputerHoldKeyConfigParam Optional`
 
               `hold_key`'s config overrides.
 
@@ -2187,7 +2187,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Key ComputerKeyConfig Optional`
+            - `Key ComputerKeyConfigParam Optional`
 
               `key`'s config overrides.
 
@@ -2199,7 +2199,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `LeftClick ComputerLeftClickConfig Optional`
+            - `LeftClick ComputerLeftClickConfigParam Optional`
 
               `left_click`'s config overrides.
 
@@ -2211,7 +2211,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `LeftClickDrag ComputerLeftClickDragConfig Optional`
+            - `LeftClickDrag ComputerLeftClickDragConfigParam Optional`
 
               `left_click_drag`'s config overrides.
 
@@ -2223,7 +2223,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `LeftMouseDown ComputerLeftMouseDownConfig Optional`
+            - `LeftMouseDown ComputerLeftMouseDownConfigParam Optional`
 
               `left_mouse_down`'s config overrides.
 
@@ -2235,7 +2235,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `LeftMouseUp ComputerLeftMouseUpConfig Optional`
+            - `LeftMouseUp ComputerLeftMouseUpConfigParam Optional`
 
               `left_mouse_up`'s config overrides.
 
@@ -2247,7 +2247,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `MiddleClick ComputerMiddleClickConfig Optional`
+            - `MiddleClick ComputerMiddleClickConfigParam Optional`
 
               `middle_click`'s config overrides.
 
@@ -2259,7 +2259,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `MouseMove ComputerMouseMoveConfig Optional`
+            - `MouseMove ComputerMouseMoveConfigParam Optional`
 
               `mouse_move`'s config overrides.
 
@@ -2271,7 +2271,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `RightClick ComputerRightClickConfig Optional`
+            - `RightClick ComputerRightClickConfigParam Optional`
 
               `right_click`'s config overrides.
 
@@ -2283,7 +2283,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Screenshot ComputerScreenshotConfig Optional`
+            - `Screenshot ComputerScreenshotConfigParam Optional`
 
               `screenshot`'s config overrides.
 
@@ -2295,7 +2295,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Scroll ComputerScrollConfig Optional`
+            - `Scroll ComputerScrollConfigParam Optional`
 
               `scroll`'s config overrides.
 
@@ -2307,7 +2307,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `TripleClick ComputerTripleClickConfig Optional`
+            - `TripleClick ComputerTripleClickConfigParam Optional`
 
               `triple_click`'s config overrides.
 
@@ -2319,7 +2319,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Wait ComputerWaitConfig Optional`
+            - `Wait ComputerWaitConfigParam Optional`
 
               `wait`'s config overrides.
 
@@ -2331,7 +2331,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-            - `Zoom ComputerZoomConfig Optional`
+            - `Zoom ComputerZoomConfigParam Optional`
 
               `zoom`'s config overrides.
 
@@ -2343,7 +2343,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-        - `type ToolTextEditor20250124`
+        - `type ToolTextEditor20250124Param`
 
           - `Type TextEditor20250124`
 
@@ -2363,7 +2363,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -2377,7 +2377,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type ToolTextEditor20250429`
+        - `type ToolTextEditor20250429Param`
 
           - `Type TextEditor20250429`
 
@@ -2397,7 +2397,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -2411,7 +2411,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type ToolTextEditor20250728`
+        - `type ToolTextEditor20250728Param`
 
           - `Type TextEditor20250728`
 
@@ -2431,7 +2431,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -2451,7 +2451,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type WebSearchTool20250305`
+        - `type WebSearchTool20250305Param`
 
           - `Type WebSearch20250305`
 
@@ -2479,7 +2479,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -2497,7 +2497,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `UserLocation UserLocation Optional`
+          - `UserLocation UserLocationParam Optional`
 
             Parameters for the user's location. Used to provide more relevant search results.
 
@@ -2527,7 +2527,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minLength: 1, maxLength: 255
 
-        - `type WebFetchTool20250910`
+        - `type WebFetchTool20250910Param`
 
           - `Type WebFetch20250910`
 
@@ -2555,11 +2555,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             List of domains to block fetching from
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations CitationsConfigParamResp Optional`
+          - `Citations CitationsConfigParam Optional`
 
             Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2583,93 +2583,93 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `URLSources WebFetchURLSources Optional`
+          - `URLSources WebFetchURLSourcesParam Optional`
 
             Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
-            - `ClientToolResults WebFetchURLSourcesClientToolResultsUnion Optional`
+            - `ClientToolResults WebFetchURLSourcesClientToolResultsUnionParam Optional`
 
               Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
 
-              - `type WebFetchURLSourceAll`
+              - `type WebFetchURLSourceAllParam`
 
                 The `url_sources` variant under which a source contributes in
                 full: every result of the tool filter's source, or all user input.
 
                 - `Type All`
 
-              - `type WebFetchURLSourceNone`
+              - `type WebFetchURLSourceNoneParam`
 
                 The `url_sources` variant under which a source contributes nothing:
                 no result of the tool filter's source, or no user input.
 
                 - `Type None`
 
-              - `type WebFetchURLSourceOnly`
+              - `type WebFetchURLSourceOnlyParam`
 
                 The tool filter variant under which only the named tools' results
                 contribute.
 
                 - `Type Only`
 
-                - `Tools []WebFetchURLSourceToolReference`
+                - `Tools []WebFetchURLSourceToolReferenceParam`
 
                   - `Type ToolReference`
 
                   - `Name string`
 
-              - `type WebFetchURLSourceExcept`
+              - `type WebFetchURLSourceExceptParam`
 
                 The tool filter variant under which every result but the named
                 tools' contributes.
 
                 - `Type Except`
 
-                - `Tools []WebFetchURLSourceToolReference`
+                - `Tools []WebFetchURLSourceToolReferenceParam`
 
                   - `Type ToolReference`
 
                   - `Name string`
 
-            - `ServerToolResults WebFetchURLSourcesServerToolResultsUnion Optional`
+            - `ServerToolResults WebFetchURLSourcesServerToolResultsUnionParam Optional`
 
               Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
 
-              - `type WebFetchURLSourceAll`
+              - `type WebFetchURLSourceAllParam`
 
                 The `url_sources` variant under which a source contributes in
                 full: every result of the tool filter's source, or all user input.
 
-              - `type WebFetchURLSourceNone`
+              - `type WebFetchURLSourceNoneParam`
 
                 The `url_sources` variant under which a source contributes nothing:
                 no result of the tool filter's source, or no user input.
 
-              - `type WebFetchURLSourceOnly`
+              - `type WebFetchURLSourceOnlyParam`
 
                 The tool filter variant under which only the named tools' results
                 contribute.
 
-              - `type WebFetchURLSourceExcept`
+              - `type WebFetchURLSourceExceptParam`
 
                 The tool filter variant under which every result but the named
                 tools' contributes.
 
-            - `UserInput WebFetchURLSourcesUserInputUnion Optional`
+            - `UserInput WebFetchURLSourcesUserInputUnionParam Optional`
 
               Whether URLs in user messages are fetchable: "all" or "none".
 
-              - `type WebFetchURLSourceAll`
+              - `type WebFetchURLSourceAllParam`
 
                 The `url_sources` variant under which a source contributes in
                 full: every result of the tool filter's source, or all user input.
 
-              - `type WebFetchURLSourceNone`
+              - `type WebFetchURLSourceNoneParam`
 
                 The `url_sources` variant under which a source contributes nothing:
                 no result of the tool filter's source, or no user input.
 
-        - `type WebSearchTool20260209`
+        - `type WebSearchTool20260209Param`
 
           - `Type WebSearch20260209`
 
@@ -2697,7 +2697,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -2715,11 +2715,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `UserLocation UserLocation Optional`
+          - `UserLocation UserLocationParam Optional`
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-        - `type WebFetchTool20260209`
+        - `type WebFetchTool20260209Param`
 
           - `Type WebFetch20260209`
 
@@ -2747,11 +2747,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             List of domains to block fetching from
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations CitationsConfigParamResp Optional`
+          - `Citations CitationsConfigParam Optional`
 
             Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2775,11 +2775,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `URLSources WebFetchURLSources Optional`
+          - `URLSources WebFetchURLSourcesParam Optional`
 
             Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
-        - `type WebFetchTool20260309`
+        - `type WebFetchTool20260309Param`
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -2809,11 +2809,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             List of domains to block fetching from
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations CitationsConfigParamResp Optional`
+          - `Citations CitationsConfigParam Optional`
 
             Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2837,7 +2837,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `URLSources WebFetchURLSources Optional`
+          - `URLSources WebFetchURLSourcesParam Optional`
 
             Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -2845,7 +2845,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-        - `type WebSearchTool20260318`
+        - `type WebSearchTool20260318Param`
 
           - `Type WebSearch20260318`
 
@@ -2873,7 +2873,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -2899,11 +2899,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `UserLocation UserLocation Optional`
+          - `UserLocation UserLocationParam Optional`
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-        - `type WebFetchTool20260318`
+        - `type WebFetchTool20260318Param`
 
           - `Type WebFetch20260318`
 
@@ -2931,11 +2931,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             List of domains to block fetching from
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations CitationsConfigParamResp Optional`
+          - `Citations CitationsConfigParam Optional`
 
             Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -2967,7 +2967,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `URLSources WebFetchURLSources Optional`
+          - `URLSources WebFetchURLSourcesParam Optional`
 
             Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -2975,7 +2975,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-        - `type ToolSearchToolBm25_20251119`
+        - `type ToolSearchToolBm25_20251119Param`
 
           - `Type ToolSearchToolBm25_20251119Type`
 
@@ -2999,7 +2999,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 
@@ -3011,7 +3011,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
-        - `type ToolSearchToolRegex20251119`
+        - `type ToolSearchToolRegex20251119Param`
 
           - `Type ToolSearchToolRegex20251119Type`
 
@@ -3035,7 +3035,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral Optional`
+          - `CacheControl CacheControlEphemeralParam Optional`
 
             Create a cache control breakpoint at this content block.
 

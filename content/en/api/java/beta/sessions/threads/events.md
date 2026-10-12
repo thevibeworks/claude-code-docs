@@ -349,7 +349,7 @@ List Session Thread Events
 
     - `String toolUseId`
 
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=java#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `Optional<String> denyMessage`
 
@@ -379,7 +379,7 @@ List Session Thread Events
 
     - `String customToolUseId`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=java#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `Optional<List<Content>> content`
 
@@ -1747,7 +1747,7 @@ List Session Thread Events
 
     - `String toolUseId`
 
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=java#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `Optional<List<Content>> content`
 
@@ -3432,7 +3432,7 @@ Stream Session Thread Events
 
     - `String toolUseId`
 
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=java#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `Optional<String> denyMessage`
 
@@ -3462,7 +3462,7 @@ Stream Session Thread Events
 
     - `String customToolUseId`
 
-      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=java#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `Optional<List<Content>> content`
 
@@ -4830,7 +4830,7 @@ Stream Session Thread Events
 
     - `String toolUseId`
 
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
+      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=java#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `Optional<List<Content>> content`
 

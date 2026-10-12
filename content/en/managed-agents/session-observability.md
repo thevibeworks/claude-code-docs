@@ -10,7 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-Use the session viewer in the Claude Console to inspect what an agent did in a session, without writing any code. Use the session's `usage` totals to see what that work consumed.
+Use the session viewer in the Claude Console to inspect what an agent did in a session, without writing any code. Use the session's `usage` (java, php; csharp, go: `Usage`) totals to see what that work consumed.
 
 ## Inspect a session in the Console
 
@@ -83,7 +83,7 @@ Each [session thread](https://platform.claude.com/docs/en/managed-agents/session
 
 ### Read usage from the stream
 
-You don't have to poll the session to observe these totals. The `session.usage` event carries the same cumulative snapshot on the session stream and in the event history. The snapshot holds the `usage` object plus the session's `budget`, which is `null` when the session has none.
+You don't have to poll the session to observe these totals. The `session.usage` event carries the same cumulative snapshot on the session stream and in the event history. The snapshot holds the `usage` (java, php; csharp, go: `Usage`) object plus the session's `budget` (java, php; csharp, go: `Budget`), which is `null` when the session has none.
 
 The event is emitted on idle transitions rather than on a timer:
 

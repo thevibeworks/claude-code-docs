@@ -21,7 +21,7 @@ Update an existing environment's configuration.
 
     Updated environment configuration
 
-    - `type BetaCloudConfigParamsResp`
+    - `type BetaCloudConfigParams`
 
       Request params for `cloud` environment configuration.
 
@@ -32,7 +32,7 @@ Update an existing environment's configuration.
 
         Environment type
 
-      - `Networking BetaCloudConfigParamsNetworkingUnionResp Optional`
+      - `Networking BetaCloudConfigParamsNetworkingUnion Optional`
 
         Network configuration policy. Omit on update to preserve the existing value.
 
@@ -44,7 +44,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-        - `type BetaLimitedNetworkParamsResp`
+        - `type BetaLimitedNetworkParams`
 
           Limited network request params.
 
@@ -67,7 +67,7 @@ Update an existing environment's configuration.
 
             Specifies domains the container can reach.
 
-      - `Packages BetaPackagesParamsResp Optional`
+      - `Packages BetaPackagesParams Optional`
 
         Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
@@ -101,7 +101,7 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-    - `type BetaSelfHostedConfigParamsResp`
+    - `type BetaSelfHostedConfigParams`
 
       Request params for `self_hosted` environment configuration.
 

@@ -11,7 +11,7 @@ url: https://platform.claude.com/docs/en/api/ruby/messages/batches/list
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=ruby)
 
 ## Parameters
 

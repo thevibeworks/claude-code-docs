@@ -15,7 +15,7 @@ Send a batch of Message creation requests.
 
 The Message Batches API can be used to process multiple Messages API requests at once. Once a Message Batch is created, it begins processing immediately. Batches can take up to 24 hours to complete.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=cli)
 
 ### Parameters
 
@@ -176,7 +176,7 @@ ant beta:messages:batches create \
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=cli)
 
 ### Parameters
 
@@ -331,7 +331,7 @@ ant beta:messages:batches retrieve \
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=cli)
 
 ### Parameters
 
@@ -520,7 +520,7 @@ Batches may be canceled any time before processing ends. Once cancellation is in
 
 The number of canceled requests is specified in `request_counts`. To determine which requests were canceled, check the individual results within the batch. Note that cancellation may not result in any canceled requests if they were non-interruptible.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=cli)
 
 ### Parameters
 
@@ -677,7 +677,7 @@ Delete a Message Batch.
 
 Message Batches can only be deleted once they've finished processing. If you'd like to delete an in-progress batch, you must first cancel it.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=cli)
 
 ### Parameters
 
@@ -736,7 +736,7 @@ Streams the results of a Message Batch as a `.jsonl` file.
 
 Each line in the file is a JSON object containing the result of a single request in the Message Batch. Results are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=cli)
 
 ### Parameters
 
@@ -999,7 +999,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
 
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=cli) for details.
 
             - `thinking: string`
 
@@ -1015,7 +1015,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
 
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=cli#redacted-thinking-blocks) for details.
 
           - `beta_tool_use_block: object`
 
@@ -1733,7 +1733,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                             - `"5m"`
 
@@ -1784,7 +1784,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -1831,7 +1831,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -1876,7 +1876,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -1923,7 +1923,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -1970,7 +1970,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2004,7 +2004,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional object`
 
@@ -2429,7 +2429,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2482,7 +2482,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2541,7 +2541,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2594,7 +2594,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2653,7 +2653,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2703,7 +2703,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional object`
 
@@ -2948,7 +2948,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -2995,7 +2995,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -3042,7 +3042,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -3103,7 +3103,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -3192,7 +3192,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -3349,7 +3349,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -3438,7 +3438,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -3527,7 +3527,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -3618,7 +3618,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -3715,7 +3715,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -3894,7 +3894,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `caching: optional object`
 
@@ -3911,7 +3911,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -3972,7 +3972,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -4021,7 +4021,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -4061,7 +4061,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional map[BetaMCPToolConfig]`
 
@@ -4270,7 +4270,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `"reasoning_extraction"`
 
-                  The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+                  The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=cli).
 
                 - `"general_harms"`
 
@@ -4511,7 +4511,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"reasoning_extraction"`
 
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=cli).
 
             - `"general_harms"`
 
@@ -5881,7 +5881,7 @@ ant beta:messages:batches results \
 
               This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
 
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=cli) for details.
 
             - `thinking: string`
 
@@ -5897,7 +5897,7 @@ ant beta:messages:batches results \
 
               Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
 
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=cli#redacted-thinking-blocks) for details.
 
           - `beta_tool_use_block: object`
 
@@ -6615,7 +6615,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                             - `"5m"`
 
@@ -6666,7 +6666,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -6713,7 +6713,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -6758,7 +6758,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -6805,7 +6805,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -6852,7 +6852,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -6886,7 +6886,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional object`
 
@@ -7311,7 +7311,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -7364,7 +7364,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -7423,7 +7423,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -7476,7 +7476,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -7535,7 +7535,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -7585,7 +7585,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional object`
 
@@ -7830,7 +7830,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -7877,7 +7877,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -7924,7 +7924,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -7985,7 +7985,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -8074,7 +8074,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -8231,7 +8231,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -8320,7 +8320,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -8409,7 +8409,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -8500,7 +8500,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -8597,7 +8597,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `citations: optional object`
 
@@ -8776,7 +8776,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `caching: optional object`
 
@@ -8793,7 +8793,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -8854,7 +8854,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -8903,7 +8903,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `defer_loading: optional boolean`
 
@@ -8943,7 +8943,7 @@ ant beta:messages:batches results \
                             - `5m`: 5 minutes
                             - `1h`: 1 hour
 
-                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                            Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `configs: optional map[BetaMCPToolConfig]`
 
@@ -9152,7 +9152,7 @@ ant beta:messages:batches results \
 
                 - `"reasoning_extraction"`
 
-                  The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+                  The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=cli).
 
                 - `"general_harms"`
 
@@ -9393,7 +9393,7 @@ ant beta:messages:batches results \
 
             - `"reasoning_extraction"`
 
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=cli).
 
             - `"general_harms"`
 
@@ -10583,7 +10583,7 @@ ant beta:messages:batches results \
 
             This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
 
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=cli) for details.
 
           - `thinking: string`
 
@@ -10599,7 +10599,7 @@ ant beta:messages:batches results \
 
             Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
 
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=cli#redacted-thinking-blocks) for details.
 
         - `beta_tool_use_block: object`
 
@@ -11317,7 +11317,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                           - `"5m"`
 
@@ -11368,7 +11368,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -11415,7 +11415,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -11460,7 +11460,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -11507,7 +11507,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -11554,7 +11554,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -11588,7 +11588,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `configs: optional object`
 
@@ -12013,7 +12013,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12066,7 +12066,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12125,7 +12125,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12178,7 +12178,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12237,7 +12237,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12287,7 +12287,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `configs: optional object`
 
@@ -12532,7 +12532,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12579,7 +12579,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12626,7 +12626,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12687,7 +12687,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -12776,7 +12776,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `citations: optional object`
 
@@ -12933,7 +12933,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -13022,7 +13022,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `citations: optional object`
 
@@ -13111,7 +13111,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `citations: optional object`
 
@@ -13202,7 +13202,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -13299,7 +13299,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `citations: optional object`
 
@@ -13478,7 +13478,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `caching: optional object`
 
@@ -13495,7 +13495,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -13556,7 +13556,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -13605,7 +13605,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `defer_loading: optional boolean`
 
@@ -13645,7 +13645,7 @@ ant beta:messages:batches results \
                           - `5m`: 5 minutes
                           - `1h`: 1 hour
 
-                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                          Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                       - `configs: optional map[BetaMCPToolConfig]`
 
@@ -13854,7 +13854,7 @@ ant beta:messages:batches results \
 
               - `"reasoning_extraction"`
 
-                The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+                The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=cli).
 
               - `"general_harms"`
 
@@ -14095,7 +14095,7 @@ ant beta:messages:batches results \
 
           - `"reasoning_extraction"`
 
-            The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+            The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=cli).
 
           - `"general_harms"`
 
@@ -15247,7 +15247,7 @@ ant beta:messages:batches results \
 
           This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
 
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=cli) for details.
 
         - `thinking: string`
 
@@ -15263,7 +15263,7 @@ ant beta:messages:batches results \
 
           Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
 
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=cli#redacted-thinking-blocks) for details.
 
       - `beta_tool_use_block: object`
 
@@ -15981,7 +15981,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                         - `"5m"`
 
@@ -16032,7 +16032,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16079,7 +16079,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16124,7 +16124,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16171,7 +16171,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16218,7 +16218,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16252,7 +16252,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `configs: optional object`
 
@@ -16677,7 +16677,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16730,7 +16730,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16789,7 +16789,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16842,7 +16842,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16901,7 +16901,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -16951,7 +16951,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `configs: optional object`
 
@@ -17196,7 +17196,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -17243,7 +17243,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -17290,7 +17290,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -17351,7 +17351,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -17440,7 +17440,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `citations: optional object`
 
@@ -17597,7 +17597,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -17686,7 +17686,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `citations: optional object`
 
@@ -17775,7 +17775,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `citations: optional object`
 
@@ -17866,7 +17866,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -17963,7 +17963,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `citations: optional object`
 
@@ -18142,7 +18142,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `caching: optional object`
 
@@ -18159,7 +18159,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -18220,7 +18220,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -18269,7 +18269,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `defer_loading: optional boolean`
 
@@ -18309,7 +18309,7 @@ ant beta:messages:batches results \
                         - `5m`: 5 minutes
                         - `1h`: 1 hour
 
-                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=cli) for details.
 
                     - `configs: optional map[BetaMCPToolConfig]`
 
@@ -18518,7 +18518,7 @@ ant beta:messages:batches results \
 
             - `"reasoning_extraction"`
 
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=cli).
 
             - `"general_harms"`
 
@@ -18759,7 +18759,7 @@ ant beta:messages:batches results \
 
         - `"reasoning_extraction"`
 
-          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=cli).
 
         - `"general_harms"`
 

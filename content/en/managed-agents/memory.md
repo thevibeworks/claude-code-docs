@@ -25,7 +25,7 @@ Every change to a memory creates an immutable **memory version**, giving you an 
 
 ## Create a memory store
 
-Give the store a `name` and a `description`. The description is passed to the agent, telling it what the store contains.
+Give the store a `name` (java, php; csharp, go: `Name`) and a `description` (java, php; csharp, go: `Description`). The description is passed to the agent, telling it what the store contains.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -122,7 +122,7 @@ Give the store a `name` and a `description`. The description is passed to the ag
   ```
 </CodeGroup>
 
-The memory store `id` (`memstore_...`) is what you pass when attaching the store to a session.
+The memory store `id` (java, php; csharp, go: `ID`) (`memstore_...`) is what you pass when attaching the store to a session.
 
 ### Seed it with content (optional)
 
@@ -212,11 +212,11 @@ Pre-load a store with reference material before any agent runs:
 
 ## Attach a memory store to a session
 
-Memory stores are attached in the session's `resources[]` array when the [session is created](https://platform.claude.com/docs/en/managed-agents/sessions#creating-a-session). Unlike file resources, memory stores can only be attached at session creation time; adding or removing one from a running session is not supported. You attach memory stores the same way for sessions on cloud and [self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory); self-hosted environments accept only `memory_store` resources.
+Memory stores are attached in the session's `resources` (java, php; csharp, go: `Resources`) array when the [session is created](https://platform.claude.com/docs/en/managed-agents/sessions#creating-a-session). Unlike file resources, memory stores can only be attached at session creation time; adding or removing one from a running session is not supported. You attach memory stores the same way for sessions on cloud and [self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory); self-hosted environments accept only `memory_store` resources.
 
-Optionally include `instructions` to provide session-specific guidance for how the agent should use this store. It is shown to the agent alongside the store's `name` and `description`, and is capped at 4,096 characters.
+Optionally include `instructions` (java, php; csharp, go: `Instructions`) to provide session-specific guidance for how the agent should use this store. It is shown to the agent alongside the store's `name` (java, php; csharp, go: `Name`) and `description` (java, php; csharp, go: `Description`), and is capped at 4,096 characters.
 
-You can configure `access` as well. It defaults to `read_write` (shown explicitly in the following example), but `read_only` is also supported.
+You can configure `access` (java, php; csharp, go: `Access`) as well. It defaults to `read_write` (shown explicitly in the following example), but `read_only` is also supported.
 
 <CodeGroup>
   ```bash cURL
@@ -381,9 +381,9 @@ A maximum of **8 memory stores** are supported per session. Attach multiple stor
 
 ### How the agent accesses memory
 
-Each attached store is mounted inside the session's sandbox as a directory under `/mnt/memory/`. The directory name is the store's display name sanitized to a filesystem-safe slug (lowercased; non-alphanumeric runs become a single hyphen), so a store named "Demo Memory" mounts at `/mnt/memory/demo-memory/`. The exact path is returned in the `mount_path` field on the session's memory-store resource; read it from there rather than constructing it yourself. The agent reads and writes the store with the standard [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools). Writes under the mount path are persisted back to the store and stay in sync across sessions that share it; writes to any other path under `/mnt/memory/` fail, because the sandbox mounts that parent directory read-only. A short description of each mount (display name, mount path, access mode, store `description`, and any `instructions`) is automatically added to the system prompt.
+Each attached store is mounted inside the session's sandbox as a directory under `/mnt/memory/`. The directory name is the store's display name sanitized to a filesystem-safe slug (lowercased; non-alphanumeric runs become a single hyphen), so a store named "Demo Memory" mounts at `/mnt/memory/demo-memory/`. The exact path is returned in the `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) field on the session's memory-store resource; read it from there rather than constructing it yourself. The agent reads and writes the store with the standard [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools). Writes under the mount path are persisted back to the store and stay in sync across sessions that share it; writes to any other path under `/mnt/memory/` fail, because the sandbox mounts that parent directory read-only. A short description of each mount (display name, mount path, access mode, store `description` (java, php; csharp, go: `Description`), and any `instructions` (java, php; csharp, go: `Instructions`)) is automatically added to the system prompt.
 
-`access` is enforced at the filesystem level: a `read_only` mount rejects writes, while writes to a `read_write` mount produce [memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes) attributed to the session.
+`access` (java, php; csharp, go: `Access`) is enforced at the filesystem level: a `read_only` mount rejects writes, while writes to a `read_write` mount produce [memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes) attributed to the session.
 
 <Note>
   On [self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory), each store's directory is a local copy that the worker manages rather than a live mount. The worker reconciles each copy with its store after tool calls, at most once per sync interval (15 seconds by default), and once more when the session ends. The agent's `write` and `edit` tools change only the local copy; the worker uploads those changes at its next sync, so another session running on a self-hosted sandbox sees a change only after both workers have synced. Paths under `/mnt/memory/` outside the store directories are not scratch space there: the worker's file tools refuse to write to them, and anything a shell command writes there is never synced to a store.
@@ -573,7 +573,7 @@ See the [Retrieve a memory reference](https://platform.claude.com/docs/en/api/be
 
 ### Create a memory
 
-`POST /v1/memory_stores/{memory_store_id}/memories` (curl; python, ruby: `client.beta.memory_stores.memories.create()`; typescript: `client.beta.memoryStores.memories.create()`; go: `client.Beta.MemoryStores.Memories.New()`; java: `client.beta().memoryStores().memories().create()`; csharp: `client.Beta.MemoryStores.Memories.Create()`; php: `$client->beta->memoryStores->memories->create()`; cli: `ant beta:memory-stores:memories create`) creates a memory at a given `path`. Create does not overwrite; to change an existing memory, [update it](https://platform.claude.com/docs/en/managed-agents/memory#update-a-memory) with `POST /v1/memory_stores/{memory_store_id}/memories/{memory_id}` (curl; python, ruby: `client.beta.memory_stores.memories.update()`; typescript: `client.beta.memoryStores.memories.update()`; go, csharp: `client.Beta.MemoryStores.Memories.Update()`; java: `client.beta().memoryStores().memories().update()`; php: `$client->beta->memoryStores->memories->update()`; cli: `ant beta:memory-stores:memories update`).
+`POST /v1/memory_stores/{memory_store_id}/memories` (curl; python, ruby: `client.beta.memory_stores.memories.create()`; typescript: `client.beta.memoryStores.memories.create()`; go: `client.Beta.MemoryStores.Memories.New()`; java: `client.beta().memoryStores().memories().create()`; csharp: `client.Beta.MemoryStores.Memories.Create()`; php: `$client->beta->memoryStores->memories->create()`; cli: `ant beta:memory-stores:memories create`) creates a memory at a given `path` (java, php; csharp, go: `Path`). Create does not overwrite; to change an existing memory, [update it](https://platform.claude.com/docs/en/managed-agents/memory#update-a-memory) with `POST /v1/memory_stores/{memory_store_id}/memories/{memory_id}` (curl; python, ruby: `client.beta.memory_stores.memories.update()`; typescript: `client.beta.memoryStores.memories.update()`; go, csharp: `client.Beta.MemoryStores.Memories.Update()`; java: `client.beta().memoryStores().memories().update()`; php: `$client->beta->memoryStores->memories->update()`; cli: `ant beta:memory-stores:memories update`).
 
 <CodeGroup>
   ```bash cURL
@@ -656,7 +656,7 @@ See the [Create a memory reference](https://platform.claude.com/docs/en/api/beta
 
 ### Update a memory
 
-`POST /v1/memory_stores/{memory_store_id}/memories/{memory_id}` (curl; python, ruby: `client.beta.memory_stores.memories.update()`; typescript: `client.beta.memoryStores.memories.update()`; go, csharp: `client.Beta.MemoryStores.Memories.Update()`; java: `client.beta().memoryStores().memories().update()`; php: `$client->beta->memoryStores->memories->update()`; cli: `ant beta:memory-stores:memories update`) modifies an existing memory by ID. You can change `content`, `path` (a rename), or both. The example renames a memory to an archive path:
+`POST /v1/memory_stores/{memory_store_id}/memories/{memory_id}` (curl; python, ruby: `client.beta.memory_stores.memories.update()`; typescript: `client.beta.memoryStores.memories.update()`; go, csharp: `client.Beta.MemoryStores.Memories.Update()`; java: `client.beta().memoryStores().memories().update()`; php: `$client->beta->memoryStores->memories->update()`; cli: `ant beta:memory-stores:memories update`) modifies an existing memory by ID. You can change `content` (java, php; csharp, go: `Content`), `path` (java, php; csharp, go: `Path`) (a rename), or both. The example renames a memory to an archive path:
 
 <CodeGroup>
   ```bash cURL
@@ -918,7 +918,7 @@ Every mutation to a memory creates an immutable **memory version** (`memver_...`
 
 Versions belong to the store (not the individual memory) and are not deleted when the memory itself is deleted, so the audit trail also covers deleted memories, subject to the retention described below. Versions are retained for 30 days after they are written; however, the recent versions of a live memory are always kept regardless of age, so memories that change infrequently might retain history beyond 30 days. The live `GET /v1/memory_stores/{memory_store_id}/memories/{memory_id}` (curl; python, ruby: `client.beta.memory_stores.memories.retrieve()`; typescript: `client.beta.memoryStores.memories.retrieve()`; go: `client.Beta.MemoryStores.Memories.Get()`; java: `client.beta().memoryStores().memories().retrieve()`; csharp: `client.Beta.MemoryStores.Memories.Retrieve()`; php: `$client->beta->memoryStores->memories->retrieve()`; cli: `ant beta:memory-stores:memories retrieve`) call always returns the latest version; the version endpoints give you the retained history.
 
-There is no dedicated restore endpoint; to roll back, retrieve the version you want and write its `content` back with `POST /v1/memory_stores/{memory_store_id}/memories/{memory_id}` (curl; python, ruby: `client.beta.memory_stores.memories.update()`; typescript: `client.beta.memoryStores.memories.update()`; go, csharp: `client.Beta.MemoryStores.Memories.Update()`; java: `client.beta().memoryStores().memories().update()`; php: `$client->beta->memoryStores->memories->update()`; cli: `ant beta:memory-stores:memories update`) (or `POST /v1/memory_stores/{memory_store_id}/memories` (curl; python, ruby: `client.beta.memory_stores.memories.create()`; typescript: `client.beta.memoryStores.memories.create()`; go: `client.Beta.MemoryStores.Memories.New()`; java: `client.beta().memoryStores().memories().create()`; csharp: `client.Beta.MemoryStores.Memories.Create()`; php: `$client->beta->memoryStores->memories->create()`; cli: `ant beta:memory-stores:memories create`) if the parent memory has been deleted, provided the version you want is still retained).
+There is no dedicated restore endpoint; to roll back, retrieve the version you want and write its `content` (java, php; csharp, go: `Content`) back with `POST /v1/memory_stores/{memory_store_id}/memories/{memory_id}` (curl; python, ruby: `client.beta.memory_stores.memories.update()`; typescript: `client.beta.memoryStores.memories.update()`; go, csharp: `client.Beta.MemoryStores.Memories.Update()`; java: `client.beta().memoryStores().memories().update()`; php: `$client->beta->memoryStores->memories->update()`; cli: `ant beta:memory-stores:memories update`) (or `POST /v1/memory_stores/{memory_store_id}/memories` (curl; python, ruby: `client.beta.memory_stores.memories.create()`; typescript: `client.beta.memoryStores.memories.create()`; go: `client.Beta.MemoryStores.Memories.New()`; java: `client.beta().memoryStores().memories().create()`; csharp: `client.Beta.MemoryStores.Memories.Create()`; php: `$client->beta->memoryStores->memories->create()`; cli: `ant beta:memory-stores:memories create`) if the parent memory has been deleted, provided the version you want is still retained).
 
 Past memory versions might be deleted after 30 days. To preserve memory history for longer, export versions through the API.
 
@@ -1040,7 +1040,7 @@ See the [List memory versions reference](https://platform.claude.com/docs/en/api
 
 ### Retrieve a version
 
-Fetching an individual version returns the same fields as the list response plus the full `content` body.
+Fetching an individual version returns the same fields as the list response plus the full `content` (java, php; csharp, go: `Content`) body.
 
 <CodeGroup>
   ```bash cURL
@@ -1197,7 +1197,7 @@ In addition to [`create`](https://platform.claude.com/docs/en/api/beta/memory_st
 
 ### List stores
 
-List stores in the workspace. Archived stores are excluded by default; pass `include_archived: true` to include them.
+List stores in the workspace. Archived stores are excluded by default; set `include_archived` (java, php: `includeArchived`; csharp, go: `IncludeArchived`) to `true` to include them.
 
 <CodeGroup>
   ```bash cURL

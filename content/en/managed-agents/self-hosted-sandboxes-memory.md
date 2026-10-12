@@ -10,7 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-Sessions on a self-hosted environment attach [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) exactly as sessions on cloud environments do. List them in `resources` when you create the session, as shown in [Attach a memory store to a session](https://platform.claude.com/docs/en/managed-agents/memory#attach-a-memory-store-to-a-session). A session accepts up to 8 memory stores.
+Sessions on a self-hosted environment attach [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) exactly as sessions on cloud environments do. List them in `resources` (java, php; csharp, go: `Resources`) when you create the session, as shown in [Attach a memory store to a session](https://platform.claude.com/docs/en/managed-agents/memory#attach-a-memory-store-to-a-session). A session accepts up to 8 memory stores.
 
 The difference is who materializes the store. On a self-hosted environment your worker, rather than Anthropic's infrastructure, downloads each store into the sandbox and syncs the agent's changes back.
 
@@ -33,7 +33,7 @@ Before you start the worker, create the parent directory and make it writable by
 sudo mkdir -p /mnt/memory && sudo chown "$USER" /mnt/memory
 ```
 
-Do not create the per-store directories yourself. The worker creates each store's `mount_path` directory (for example, `/mnt/memory/user-preferences`) when a session starts and removes it when the session ends. If something already exists at that path, the worker refuses to start the session's work.
+Do not create the per-store directories yourself. The worker creates each store's `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) directory (for example, `/mnt/memory/user-preferences`) when a session starts and removes it when the session ends. If something already exists at that path, the worker refuses to start the session's work.
 
 In the [sandbox-per-session pattern](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session), the sandbox image needs a writable `/mnt/memory`. You don't need to bind-mount the memory directories to the host, because the worker uploads their contents to the store before the sandbox exits.
 
@@ -45,7 +45,7 @@ Two sessions cannot mount the same store on one host at the same time, because b
 
 When the worker claims a work item whose session has memory stores attached, it:
 
-1. **Downloads each store to its `mount_path`.** This is the same directory under `/mnt/memory/` that cloud sessions use, and the session's system prompt describes it to the agent. For example, a store named "User Preferences" lands at `/mnt/memory/user-preferences/`.
+1. **Downloads each store to its `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`).** This is the same directory under `/mnt/memory/` that cloud sessions use, and the session's system prompt describes it to the agent. For example, a store named "User Preferences" lands at `/mnt/memory/user-preferences/`.
 2. **Opens those directories to the file tools.** The agent works on memories with the same file tools it uses in the working directory.
 3. **Reconciles changes after tool calls,** at most once per sync interval (15 seconds by default). Memories that changed in the store are written to disk, and files the agent changed are uploaded to the store.
 4. **Runs a final sync when the session ends.** It flushes any uploads still pending for up to 30 seconds, then removes the directories it created.
@@ -79,7 +79,7 @@ A shorter interval narrows the window in which another session sees stale memori
 
 Disable memory support only on workers whose sessions attach no memory stores. A disabled worker neither downloads nor syncs stores, so a session with stores attached runs without them even though its system prompt still describes them.
 
-While memory support is enabled, a work item that arrives without a `secret` for a session with attached stores fails rather than running without memory. See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
+While memory support is enabled, a work item that arrives without a `secret` (java, php; csharp, go: `Secret`) for a session with attached stores fails rather than running without memory. See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
 
 ### Deletions
 
