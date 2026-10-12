@@ -42,7 +42,7 @@ Requests whose requester is no longer a member are excluded.
 
   The version of the Claude API you want to use.
 
-  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning).
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
 
 ## Returns
 

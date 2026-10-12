@@ -21,7 +21,7 @@ checked when the marketplace actually synchronizes.
 
 Nothing is recorded on the Compliance API activity feed.
 
-For a worked example, see [Validate marketplace content](/docs/en/manage-claude/plugins-api#validate-marketplace-content)
+For a worked example, see [Validate marketplace content](https://platform.claude.com/docs/en/manage-claude/plugins-api?sdk_languages=http#validate-marketplace-content)
 in the Plugins API guide.
 
 **Accepted credentials:** an Admin API key with the `read:plugins` or `write:plugins` scope; `read:org_audit` and `read:compliance_org_data` do not grant it.

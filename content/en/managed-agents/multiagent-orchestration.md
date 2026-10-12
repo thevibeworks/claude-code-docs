@@ -42,7 +42,7 @@ To set which agents the agent can call, see [Predefined and inline agents](https
 
 Every subagent, and every agent in a workflow run, is one of two kinds:
 
-* **Predefined agent:** An agent that you have already [created](https://platform.claude.com/docs/en/managed-agents/agent-setup), and that you list in the `multiagent` block. It uses its own configuration: model, system prompt, tools, MCP servers, and skills.
+* **Predefined agent:** An agent that you have already [created](https://platform.claude.com/docs/en/managed-agents/agent-setup), and that you list in the `multiagent` (java, php; csharp, go: `Multiagent`) block. It uses its own configuration: model, system prompt, tools, MCP servers, and skills.
 * **Inline agent:** An agent that is not saved. The agent that the session runs, or a workflow, defines it when it hands out the work. It uses that agent's model, tools, MCP servers, and skills.
 
 Both kinds work under `subagents` and under `workflows`:
@@ -107,7 +107,7 @@ Which configuration a subagent uses depends on whether it is a [predefined or an
 
 ### List the subagents
 
-When [defining your agent](https://platform.claude.com/docs/en/managed-agents/agent-setup), set `subagents.predefined_agents` in the `multiagent` block to list the agents that it can delegate to:
+When [defining your agent](https://platform.claude.com/docs/en/managed-agents/agent-setup), set the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) in the `multiagent` (java, php; csharp, go: `Multiagent`) block to list the agents that it can delegate to:
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -359,22 +359,22 @@ When [defining your agent](https://platform.claude.com/docs/en/managed-agents/ag
   ```
 </CodeGroup>
 
-The agent can also delegate to inline agents unless you turn them off. For that setting, and for the forms that an entry of `subagents.predefined_agents` takes, see [Predefined and inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents).
+The agent can also delegate to inline agents unless you turn them off. For that setting, and for the forms that an entry of the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) takes, see [Predefined and inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents).
 
-`"advisor": {"type": "enabled", "model": "<model id>"}` gives the session's primary thread an advisor it can consult mid-turn. The advisor is a setting in the `multiagent` block, not an entry in this list. See [Give the session an advisor](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor).
+`"advisor": {"type": "enabled", "model": "<model id>"}` gives the session's primary thread an advisor it can consult mid-turn. The advisor is a setting in the `multiagent` (java, php; csharp, go: `Multiagent`) block, not an entry in this list. See [Give the session an advisor](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor).
 
 Dynamic workflows are also enabled by default with this type, so this agent can plan large work that runs many agents in the background. To turn them off, or to list agents that a workflow can use, see [Turn on dynamic workflows](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#turn-on-dynamic-workflows).
 
-The following rules apply to the agents you list in `subagents.predefined_agents`, and also to the agents you list in `workflows.predefined_agents`:
+The following rules apply to the agents you list in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`), and also to the agents you list in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `workflows` (java, php; csharp, go: `Workflows`):
 
-* **Pinning:** The agent's configuration, including its `subagents.predefined_agents` list, is snapshotted when the agent is created or updated. Referenced agents stay pinned to the versions resolved then and don't pick up later updates to their definitions. An update that doesn't send the list keeps the versions that are already pinned. To delegate to a newer version of a referenced agent, [update the agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent) so its `subagents.predefined_agents` list references that version.
-* **One level:** The agent can delegate to only one level of agents. Referencing another agent that has `multiagent` set fails the create or update request with a 400 validation error.
-* **Up to 20 agents:** `subagents.predefined_agents` can list up to 20 unique agents. The limit is per list: `workflows.predefined_agents` can also list up to 20. The agent can call multiple copies of each agent, within the session's [thread limit](https://platform.claude.com/docs/en/managed-agents/session-threads).
-* **Inference geography:** The agent and every agent that you list, in `subagents.predefined_agents` or in `workflows.predefined_agents`, must pin the same [inference geography](https://platform.claude.com/docs/en/manage-claude/data-residency) (`model.inference_geo` in the [agent definition](https://platform.claude.com/docs/en/managed-agents/agent-setup)), or none of them can pin one. A mismatch in either list is rejected with a 400 validation error. That check runs both when the agent is saved and when a [session-create override](https://platform.claude.com/docs/en/managed-agents/sessions#override-agent-configuration-for-a-session) changes any of the pins.
+* **Pinning:** The agent's configuration, including the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of its `subagents` (java, php; csharp, go: `Subagents`), is snapshotted when the agent is created or updated. Referenced agents stay pinned to the versions resolved then and don't pick up later updates to their definitions. An update that doesn't send the list keeps the versions that are already pinned. To delegate to a newer version of a referenced agent, [update the agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent) so the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of its `subagents` (java, php; csharp, go: `Subagents`) references that version.
+* **One level:** The agent can delegate to only one level of agents. Referencing another agent that has `multiagent` (java, php; csharp, go: `Multiagent`) set fails the create or update request with a 400 validation error.
+* **Up to 20 agents:** The `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) can list up to 20 unique agents. The limit is per list: the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `workflows` (java, php; csharp, go: `Workflows`) can also list up to 20. The agent can call multiple copies of each agent, within the session's [thread limit](https://platform.claude.com/docs/en/managed-agents/session-threads).
+* **Inference geography:** The agent and every agent that you list, in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) or of `workflows` (java, php; csharp, go: `Workflows`), must pin the same [inference geography](https://platform.claude.com/docs/en/manage-claude/data-residency) (`inference_geo` (java, php: `inferenceGeo`; csharp, go: `InferenceGeo`) in the `model` (java, php; csharp, go: `Model`) of the [agent definition](https://platform.claude.com/docs/en/managed-agents/agent-setup)), or none of them can pin one. A mismatch in either list is rejected with a 400 validation error. That check runs both when the agent is saved and when a [session-create override](https://platform.claude.com/docs/en/managed-agents/sessions#override-agent-configuration-for-a-session) changes any of the pins.
 
 ### Create the session
 
-Create a session referencing the agent. The agent delegates to the agents you list in `subagents.predefined_agents` as needed. It can also delegate to [inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents) unless you turn them off.
+Create a session referencing the agent. The agent delegates to the agents you list in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) as needed. It can also delegate to [inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents) unless you turn them off.
 
 <CodeGroup>
   ```bash cURL
@@ -457,14 +457,14 @@ Create a session referencing the agent. The agent delegates to the agents you li
 
 ### Connect agents to MCP servers
 
-MCP servers are agent-scoped: each agent definition declares its own servers and tools. An inline agent has no agent definition, so it uses the MCP servers and tools of the agent that the session runs. Vault credentials are session-scoped: `vault_ids` passed at session creation apply to every thread. Two implications for your integration:
+MCP servers are agent-scoped: each agent definition declares its own servers and tools. An inline agent has no agent definition, so it uses the MCP servers and tools of the agent that the session runs. Vault credentials are session-scoped: `vault_ids` (java: `vaultIds`; php: `vaultIDs`; csharp: `VaultIds`; go: `VaultIDs`) passed at session creation apply to every thread. Two implications for your integration:
 
 * To authenticate MCP servers, include a vault credential for every MCP server used across all agents.
-* To limit an agent's access, declare only the servers it needs in its agent definition. You can't limit an inline agent this way. To allow only the agents you list, disable `inline_agents` in both `subagents` and `workflows`, and list at least one agent in each. See [Predefined and inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents).
+* To limit an agent's access, declare only the servers it needs in its agent definition. You can't limit an inline agent this way. To allow only the agents you list, disable `inline_agents` (java, php: `inlineAgents`; csharp, go: `InlineAgents`) in both `subagents` (java, php; csharp, go: `Subagents`) and `workflows` (java, php; csharp, go: `Workflows`), and list at least one agent in each. See [Predefined and inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents).
 
 [Agent configuration overrides](https://platform.claude.com/docs/en/managed-agents/sessions#override-agent-configuration-for-a-session) at session creation can replace the MCP servers of the agent that the session runs and those of its `self` copies.
 
-With a `limited` [environment](https://platform.claude.com/docs/en/managed-agents/environments#networking), session creation fails with a 400 error when the agent, or an agent you list in `subagents.predefined_agents` or `workflows.predefined_agents`, declares an MCP server whose host is not in `allowed_hosts`. Setting `allow_mcp_servers: true` in the environment's networking turns this check off.
+With a `limited` [environment](https://platform.claude.com/docs/en/managed-agents/environments#networking), session creation fails with a 400 error when the agent, or an agent you list in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) or `workflows` (java, php; csharp, go: `Workflows`), declares an MCP server whose host is not in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). Setting `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) to `true` in the environment's networking turns this check off.
 
 Create the researcher, which declares the GitHub MCP server, and the agent that delegates to the researcher:
 
@@ -880,10 +880,10 @@ Then create the session with the vault that holds the GitHub credential:
   ```
 </CodeGroup>
 
-In this example, only the researcher declares the GitHub MCP server, so the agent that the session runs does not have access. The session's `vault_ids` supply the GitHub credential to the researcher's thread.
+In this example, only the researcher declares the GitHub MCP server, so the agent that the session runs does not have access. The session's `vault_ids` (java: `vaultIds`; php: `vaultIDs`; csharp: `VaultIds`; go: `VaultIDs`) supply the GitHub credential to the researcher's thread.
 
 <Tip>
-  If an agent's MCP calls fail to authenticate after you declare the server, confirm the credential's `mcp_server_url` refers to the same server as the agent's `mcp_servers[].url`. Both URLs are normalized before matching (scheme and host lowercased, default ports and trailing slashes stripped), so differences in host casing, a default port, or a trailing slash don't prevent a match; a different path, subdomain, or non-default port does.
+  If an agent's MCP calls fail to authenticate after you declare the server, confirm the credential's `mcp_server_url` (java: `mcpServerUrl`; php: `mcpServerURL`; csharp: `McpServerUrl`; go: `MCPServerURL`) refers to the same server as the agent's `mcp_servers[].url` (java, php: `mcpServers[].url`; csharp: `McpServers[].Url`; go: `MCPServers[].URL`). Both URLs are normalized before matching (scheme and host lowercased, default ports and trailing slashes stripped), so differences in host casing, a default port, or a trailing slash don't prevent a match; a different path, subdomain, or non-default port does.
 </Tip>
 
 ### Threads
@@ -892,10 +892,10 @@ Each agent's session thread has its own event stream. To list, interrupt, or arc
 
 ## Dynamic workflows
 
-With dynamic workflows, an agent can take on work with many pieces, such as reviewing hundreds of documents or cross-checking many sources. The agent writes a **workflow**: a program that runs many agents in phases and combines what they return. The server runs it in the background as a **workflow run**, while the agent keeps working or ends its turn. You turn dynamic workflows on or off with the `workflows` setting in the agent's `multiagent` block. A run's agents can work at the same time, so a long task can finish sooner than if one agent did each piece in turn.
+With dynamic workflows, an agent can take on work with many pieces, such as reviewing hundreds of documents or cross-checking many sources. The agent writes a **workflow**: a program that runs many agents in phases and combines what they return. The server runs it in the background as a **workflow run**, while the agent keeps working or ends its turn. You turn dynamic workflows on or off with the `workflows` (java, php; csharp, go: `Workflows`) setting in the agent's `multiagent` (java, php; csharp, go: `Multiagent`) block. A run's agents can work at the same time, so a long task can finish sooner than if one agent did each piece in turn.
 
 * **How a run starts:** You describe the work in a `user.message`. From that, the agent determines whether and when to start a run, so there's no additional API call. Instead, you influence the agent's determination by describing when to use a run in `user.message` or in the agent's system prompt. (Permission policies apply to the tools that a run's agents call, not to starting the run.)
-* **Which agents it uses:** [Inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents) that the workflow defines, predefined agents that you list in `workflows.predefined_agents`, or both. If you list none, the workflow defines them all. An inline agent uses the model of the agent that the session runs. To let a run use another model for some of its agents, create them as agents and list them in `workflows.predefined_agents`.
+* **Which agents it uses:** [Inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents) that the workflow defines, predefined agents that you list in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `workflows` (java, php; csharp, go: `Workflows`), or both. If you list none, the workflow defines them all. An inline agent uses the model of the agent that the session runs. To let a run use another model for some of its agents, create them as agents and list them in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `workflows` (java, php; csharp, go: `Workflows`).
 * **How you follow it:** Run events arrive on the session's event stream, and each agent in the run works in a [session thread](https://platform.claude.com/docs/en/managed-agents/session-threads) that you can list, read, and stream. See [Workflow runs](https://platform.claude.com/docs/en/managed-agents/workflow-runs) for the events, interrupts, limits, and [what a run's threads show](https://platform.claude.com/docs/en/managed-agents/workflow-runs#a-runs-threads).
 
 ### Turn on dynamic workflows
@@ -1092,7 +1092,7 @@ Keep the following in mind:
 
   * A setting or field you leave out keeps its stored value.
   * A setting or field you send as `null` takes its default, and so does everything inside it, whatever you had stored.
-  * A `predefined_agents` list you send replaces the stored list.
+  * A `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list you send replaces the stored list.
   * A setting you send with a different `type` replaces the stored setting, and the fields you leave out of it take their defaults.
   * Every object you send needs its `type`, and an enabled `advisor` needs its `model`.
 
@@ -1100,9 +1100,9 @@ Keep the following in mind:
 
 * **Existing sessions:** A session copies the setting when it is created, so changing the agent later doesn't change a session that already exists.
 
-* **Agents you can list:** An agent that has `multiagent` set can't be listed as a subagent of another agent, or in another agent's `workflows.predefined_agents`. An agent can list itself in either list with `{"type": "self"}`, which reads back as its own `id` and `version`.
+* **Agents you can list:** An agent that has `multiagent` (java, php; csharp, go: `Multiagent`) set can't be listed as a subagent of another agent, or in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `workflows` (java, php; csharp, go: `Workflows`) in another agent. An agent can list itself in either list with `{"type": "self"}`, which reads back as its own `id` and `version`.
 
-* **Tool names:** The `ant__` prefix is reserved. If your agent already has a custom tool whose name starts with `ant__`, every update fails with a 400 error until you send `tools` without that name. A new session is refused with a 400 error too if its agent, or an agent in either list, has such a tool. Rename or remove the tool in the same update that turns dynamic workflows on. See [Custom tools](https://platform.claude.com/docs/en/managed-agents/tools#custom-tools).
+* **Tool names:** The `ant__` prefix is reserved. If your agent already has a custom tool whose name starts with `ant__`, every update fails with a 400 error until you send `tools` (java, php; csharp, go: `Tools`) without that name. A new session is refused with a 400 error too if its agent, or an agent in either list, has such a tool. Rename or remove the tool in the same update that turns dynamic workflows on. See [Custom tools](https://platform.claude.com/docs/en/managed-agents/tools#custom-tools).
 
 * **Budget:** Set a [session budget](https://platform.claude.com/docs/en/managed-agents/budgets) when you create the session to cap the session's spend, runs included; you can't add one to an existing session. Runs pause when the session reaches the budget, and runs that the budget paused resume when you raise or remove it, unless an interrupt also paused them. See [Budgets and limits](https://platform.claude.com/docs/en/managed-agents/workflow-runs#budgets-and-limits).
 
@@ -1128,7 +1128,7 @@ For a run's events, interrupting a session with runs open, what changes while a 
 
 ## Give the session an advisor
 
-An enabled `advisor` setting in the agent's `multiagent` block gives the session's primary thread an **advisor**: a model it can consult mid-turn for strategic guidance, such as planning an approach, getting unstuck, or reviewing work before finishing. The setting is disabled by default. To enable it, set `advisor` to `{"type": "enabled", "model": "..."}`, which has exactly two fields, `type` and `model`:
+An enabled `advisor` setting in the agent's `multiagent` (java, php; csharp, go: `Multiagent`) block gives the session's primary thread an **advisor**: a model it can consult mid-turn for strategic guidance, such as planning an approach, getting unstuck, or reviewing work before finishing. The setting is disabled by default. To enable it, set `advisor` to `{"type": "enabled", "model": "..."}`, which has exactly two fields, `type` and `model`:
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -1275,17 +1275,17 @@ An enabled `advisor` setting in the agent's `multiagent` block gives the session
   ```
 </CodeGroup>
 
-This example sets only `advisor`. The other two settings, `subagents` and `workflows`, keep their defaults, so both are enabled, and the agent can also delegate to inline agents and start workflow runs. For an agent that consults an advisor and does all the work itself, set both to `{"type": "disabled"}`.
+This example sets only `advisor` (java, php; csharp, go: `Advisor`). The other two settings, `subagents` (java, php; csharp, go: `Subagents`) and `workflows` (java, php; csharp, go: `Workflows`), keep their defaults, so both are enabled, and the agent can also delegate to inline agents and start workflow runs. For an agent that consults an advisor and does all the work itself, set both to `{"type": "disabled"}`.
 
-You can't list the advisor in `subagents.predefined_agents` or `workflows.predefined_agents`. An enabled `advisor` reserves the name `anthropic.advisor`. While it is enabled, neither list can hold an agent literally named `anthropic.advisor`: the request is rejected with a 400 validation error.
+You can't list the advisor in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) or `workflows` (java, php; csharp, go: `Workflows`). An enabled `advisor` (java, php; csharp, go: `Advisor`) reserves the name `anthropic.advisor`. While it is enabled, neither list can hold an agent literally named `anthropic.advisor`: the request is rejected with a 400 validation error.
 
 The advisor model must meet a minimum capability bar, and the agent's own model must not be more capable than its advisor; models of equal capability can pair. An invalid pairing is rejected with a 400 validation error when the agent is saved, and again when a session is created. The pairing is also checked when each consultation starts: if it's no longer valid, that consultation fails and the session continues. Valid pairings follow the advisor tool's [model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility) table.
 
-The advisor is also available as a [server tool on the Messages API](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool). The Managed Agents surface differs in configuration and delivery: the `advisor` setting has no `max_uses`, `max_tokens`, or `caching` fields, and advice arrives through thread events rather than `advisor_tool_result` blocks.
+The advisor is also available as a [server tool on the Messages API](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool). The Managed Agents surface differs in configuration and delivery: the `advisor` (java, php; csharp, go: `Advisor`) setting has no `max_uses`, `max_tokens`, or `caching` fields, and advice arrives through thread events rather than `advisor_tool_result` blocks.
 
 ### How consultations work
 
-Each consultation runs as a platform-spawned thread named `anthropic.advisor` that terminates itself when the consultation completes, and the advice is delivered to the primary thread as an `agent.thread_message_received` event. A consultation emits the standard thread events, identified by the reserved name `anthropic.advisor` (the thread lifecycle events carry it as `agent_name`, and the advice delivery carries it as `from_agent_name`), typically in this order:
+Each consultation runs as a platform-spawned thread named `anthropic.advisor` that terminates itself when the consultation completes, and the advice is delivered to the primary thread as an `agent.thread_message_received` event. A consultation emits the standard thread events, identified by the reserved name `anthropic.advisor` (the thread lifecycle events carry it as `agent_name` (java, php: `agentName`; csharp, go: `AgentName`), and the advice delivery carries it as `from_agent_name` (java, php: `fromAgentName`; csharp, go: `FromAgentName`)), typically in this order:
 
 1. `session.thread_created`
 2. `session.thread_status_running`
@@ -1297,7 +1297,7 @@ No `agent.tool_use` events are emitted for a consultation, and no `agent.thread_
 
 Whether your client can read the advice is the advisor model's policy. It mirrors the [result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants) split on the Messages API advisor tool. An advisor model that returns plaintext results there delivers readable text here. One that returns redacted results delivers a `[{"type": "redacted"}]` placeholder on every client surface, while the agent still reads the full advice server-side. The preceding example uses the newest Opus model available to you as the advisor. Claude Opus 5 and Claude Opus 5.5 return redacted results, so with either one your client sees only the placeholder. To read the advice on the event stream, use an advisor that returns plaintext, such as Claude Opus 4.8. A model's policy can change with no change to the API, so handle both `text` and `redacted` blocks. Some agent models pair only with redacted-result advisors; see the advisor tool's [compatibility table](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility). Advisor thinking is never surfaced. Clients cannot send `redacted` blocks themselves; an event containing one is rejected with a 400 validation error.
 
-A failed or interrupted consultation never fails the agent's turn: the agent continues after a generic notice that the consultation failed. A session-level `user.interrupt` during a consultation terminates the advisor thread with no advice delivered; a `user.interrupt` with the advisor thread's `session_thread_id` abandons only that consultation.
+A failed or interrupted consultation never fails the agent's turn: the agent continues after a generic notice that the consultation failed. A session-level `user.interrupt` during a consultation terminates the advisor thread with no advice delivered; a `user.interrupt` with the advisor thread's `session_thread_id` (java: `sessionThreadId`; php: `sessionThreadID`; csharp, go: `SessionThreadID`) abandons only that consultation.
 
 ### Advisor threads
 

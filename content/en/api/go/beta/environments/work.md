@@ -2270,7 +2270,7 @@ func main() {
 
 ### Beta Self Hosted Work Stop Request
 
-- `type BetaSelfHostedWorkStopRequest`
+- `type BetaSelfHostedWorkStopRequestParam`
 
   Request to stop a work item.
 
@@ -2282,7 +2282,7 @@ func main() {
 
 ### Beta Self Hosted Work Update Request
 
-- `type BetaSelfHostedWorkUpdateRequest`
+- `type BetaSelfHostedWorkUpdateRequestParam`
 
   Request to update work item metadata.
 

@@ -52,11 +52,11 @@ This page documents the pre-built workers that serve a `self_hosted` environment
 
 ## Sandbox filesystem
 
-| Path                       | Contents                                                                                                                                                                                                                     |
-| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/workspace`               | The system default working directory for tool execution and skill download. If you use a different working directory, update your agent's system prompt so Claude can locate the skill files.                                |
-| `<workdir>/skills/<name>/` | The agent's downloaded skills.                                                                                                                                                                                               |
-| `/mnt/memory/<store>/`     | One directory per attached memory store, at the store's `mount_path` (for example, `/mnt/memory/user-preferences/`). The worker creates these directories when it claims the session and removes them when the session ends. |
+| Path                       | Contents                                                                                                                                                                                                                                                                       |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `/workspace`               | The system default working directory for tool execution and skill download. If you use a different working directory, update your agent's system prompt so Claude can locate the skill files.                                                                                  |
+| `<workdir>/skills/<name>/` | The agent's downloaded skills.                                                                                                                                                                                                                                                 |
+| `/mnt/memory/<store>/`     | One directory per attached memory store, at the store's `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) (for example, `/mnt/memory/user-preferences/`). The worker creates these directories when it claims the session and removes them when the session ends. |
 
 On self-hosted environments the session's system prompt omits the `/mnt/session/outputs` instruction used on Anthropic-managed sandboxes. Final deliverables land wherever the agent writes them in your sandbox filesystem, typically under the working directory.
 

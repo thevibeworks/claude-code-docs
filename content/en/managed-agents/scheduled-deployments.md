@@ -16,11 +16,11 @@ For the launch context and examples of what teams run on schedules, see [schedul
 
 ## Create a scheduled deployment
 
-When creating a deployment, you pass the [session configurations](https://platform.claude.com/docs/en/managed-agents/sessions) required for execution, in addition to a `schedule`.
+When creating a deployment, you pass the [session configurations](https://platform.claude.com/docs/en/managed-agents/sessions) required for execution, in addition to a `schedule` (java, php; csharp, go: `Schedule`).
 
 * Deployments require [agent configuration](https://platform.claude.com/docs/en/managed-agents/agent-setup) and [environment configuration](https://platform.claude.com/docs/en/managed-agents/environments), and optionally accept [files](https://platform.claude.com/docs/en/managed-agents/files), [GitHub](https://platform.claude.com/docs/en/managed-agents/github), [memory stores](https://platform.claude.com/docs/en/managed-agents/memory), and [vaults](https://platform.claude.com/docs/en/managed-agents/vaults). A deployment that targets a [self-hosted environment](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory) can attach memory stores; `file` and `github_repository` resources require a cloud environment. The Claude Console deployment form does not currently offer memory stores for self-hosted environments; attach them through the API or an SDK instead.
 * Deployments also require at least one initial event, a `user.message` or `user.define_outcome`, that starts each session's work. In a deployment file for `ant apply`, the text below the frontmatter becomes that `user.message`.
-* In the `schedule`, you define a cron `expression` and a `timezone`. Maximum granularity supported is at the minute level.
+* In the `schedule` (java, php; csharp, go: `Schedule`), you define a cron `expression` (java, php; csharp, go: `Expression`) and a `timezone` (java, php; csharp, go: `Timezone`). Maximum granularity supported is at the minute level.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -266,33 +266,149 @@ See the [Create Deployment reference](https://platform.claude.com/docs/en/api/be
 
 ### Set a budget on each run
 
-Pass the optional `budget` object when you create or update the deployment. It takes the same shape as a [session budget](https://platform.claude.com/docs/en/managed-agents/budgets). The deployment copies the cap onto each session it starts, so the budget bounds every run separately rather than acting as a cumulative ceiling across runs: a deployment with a `"2000"` cap can spend up to about $20 on every run.
+Pass the optional `budget` (java, php; csharp, go: `Budget`) object when you create or update the deployment. It takes the same shape as a [session budget](https://platform.claude.com/docs/en/managed-agents/budgets). The deployment copies the cap onto each session it starts, so the budget bounds every run separately rather than acting as a cumulative ceiling across runs: a deployment with a `"2000"` cap can spend up to about $20 on every run.
 
-A session started by the deployment behaves exactly like any other budgeted session: it pauses with `budget_reached` when its own list cost [reaches the cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). Changing the deployment's budget applies to runs started afterward; a session already running keeps the cap it started with, which you can [change through the session itself](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-session-budget). Unlike a session budget, a deployment's budget can be removed with `"budget": null` and set again later.
+A session started by the deployment behaves exactly like any other budgeted session: it pauses with `budget_reached` when its own list cost [reaches the cap](https://platform.claude.com/docs/en/managed-agents/budgets#when-a-session-reaches-its-budget). Changing the deployment's budget applies to runs started afterward; a session already running keeps the cap it started with, which you can [change through the session itself](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-session-budget). Unlike a session budget, a deployment's budget can be removed with `"budget": null` (python: `budget=None`; typescript: `budget: null`; ruby: `budget: nil`; go: `Budget: param.NullStruct[anthropic.BetaManagedAgentsBudgetLimitParam]()`; java: `.budget(Optional.empty())`; csharp: `Budget = null`; php: `requestOptions: ['extraBodyParams' => ['budget' => null]]`; cli: `--budget null`) and set again later.
 
 The following example sets a budget on an existing deployment:
 
-```bash cURL
-curl --fail-with-body -sS "https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID?beta=true" \
-  -H "x-api-key: $ANTHROPIC_API_KEY" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "anthropic-beta: managed-agents-2026-04-01" \
-  -H "content-type: application/json" \
-  -d @- <<'EOF'
-{
-  "budget": {
-    "type": "limit",
-    "max_list_cost": {"amount": "2000", "currency": "USD"}
+<CodeGroup defaultLanguage="CLI">
+  ```bash cURL
+  curl --fail-with-body -sS "https://api.anthropic.com/v1/deployments/$DEPLOYMENT_ID?beta=true" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: managed-agents-2026-04-01" \
+    -H "content-type: application/json" \
+    -d @- <<'EOF'
+  {
+    "budget": {
+      "type": "limit",
+      "max_list_cost": {"amount": "2000", "currency": "USD"}
+    }
   }
-}
-EOF
-```
+  EOF
+  ```
+
+  <CodeGroupItem>
+    ```bash CLI
+    ant apply deployment.md
+    ```
+
+    <File filename="deployment.md">
+      ```markdown
+      ---
+      name: Weekly compliance scan
+      agent: agent_011CYm1BLqPXpQRk5khsSXrs
+      environment_id: env_01595EKxaaTTGwwY3kyXdtbs
+      schedule:
+        type: cron
+        expression: "0 20 * * 5"
+        timezone: America/New_York
+      budget:
+        type: limit
+        max_list_cost:
+          amount: "2000"
+          currency: USD
+      ---
+
+      Run the weekly compliance scan.
+      ```
+    </File>
+  </CodeGroupItem>
+
+  ```python Python
+  updated_deployment = client.beta.deployments.update(
+      deployment.id,
+      budget={
+          "type": "limit",
+          "max_list_cost": {"amount": "2000", "currency": "USD"},
+      },
+  )
+  print(updated_deployment.budget.max_list_cost.amount)  # 2000
+  ```
+
+  ```typescript TypeScript
+  const updatedDeployment = await client.beta.deployments.update(deployment.id, {
+    budget: {
+      type: "limit",
+      max_list_cost: { amount: "2000", currency: "USD" },
+    },
+  });
+  console.log(updatedDeployment.budget?.max_list_cost.amount); // 2000
+  ```
+
+  ```csharp C#
+  var updatedDeployment = await client.Beta.Deployments.Update(deployment.ID, new()
+  {
+      Budget = new()
+      {
+          Type = BetaManagedAgentsBudgetLimitType.Limit,
+          MaxListCost = new() { Amount = "2000", Currency = BetaCurrency.Usd },
+      },
+  });
+  Console.WriteLine(updatedDeployment.Budget?.MaxListCost.Amount);  // 2000
+  ```
+
+  ```go Go
+  updatedDeployment, err := client.Beta.Deployments.Update(ctx, deployment.ID, anthropic.BetaDeploymentUpdateParams{
+  	Budget: anthropic.BetaManagedAgentsBudgetLimitParam{
+  		Type: anthropic.BetaManagedAgentsBudgetLimitTypeLimit,
+  		MaxListCost: anthropic.BetaMonetaryAmountParam{
+  			Amount:   "2000",
+  			Currency: anthropic.BetaCurrencyUsd,
+  		},
+  	},
+  })
+  if err != nil {
+  	panic(err)
+  }
+  fmt.Println(updatedDeployment.Budget.MaxListCost.Amount) // 2000
+  ```
+
+  ```java Java
+  var updatedDeployment = client.beta().deployments().update(
+      deployment.id(),
+      DeploymentUpdateParams.builder()
+          .budget(BetaManagedAgentsBudgetLimit.builder()
+              .type(BetaManagedAgentsBudgetLimit.Type.LIMIT)
+              .maxListCost(BetaMonetaryAmount.builder()
+                  .amount("2000")
+                  .currency(BetaCurrency.USD)
+                  .build())
+              .build())
+          .build()
+  );
+  IO.println(updatedDeployment.budget().orElseThrow().maxListCost().amount());  // 2000
+  ```
+
+  ```php PHP
+  $updatedDeployment = $client->beta->deployments->update(
+      $deployment->id,
+      budget: [
+          'type' => 'limit',
+          'max_list_cost' => ['amount' => '2000', 'currency' => 'USD'],
+      ],
+  );
+  echo "{$updatedDeployment->budget->maxListCost->amount}\n"; // 2000
+  ```
+
+  ```ruby Ruby
+  updated_deployment = client.beta.deployments.update(
+    deployment.id,
+    budget: {
+      type: "limit",
+      max_list_cost: {amount: "2000", currency: "USD"}
+    }
+  )
+  puts updated_deployment.budget.max_list_cost.amount # 2000
+  ```
+</CodeGroup>
 
 ## Deployment runs
 
 Deployments can fail to trigger for a variety of reasons: for example, if the `environment` resource has been archived, or if session creation is rate-limited. Each attempt at executing a deployment generates a **deployment run** record, allowing you to track successes and failures independent of the session lifecycle.
 
-Successful deployments generate active sessions, and a successful deployment run contains the associated `session_id`. To follow a session's lifecycle, track the session events through the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) or [webhooks](https://platform.claude.com/docs/en/managed-agents/webhooks). Deployment lifecycle changes and the outcome of each scheduled run are also delivered as webhook events, listed in the Deployment events and Deployment run events tabs of [Supported event types](https://platform.claude.com/docs/en/managed-agents/webhooks#supported-event-types).
+Successful deployments generate active sessions, and a successful deployment run contains the associated `session_id` (java: `sessionId`; php: `sessionID`; csharp, go: `SessionID`). To follow a session's lifecycle, track the session events through the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) or [webhooks](https://platform.claude.com/docs/en/managed-agents/webhooks). Deployment lifecycle changes and the outcome of each scheduled run are also delivered as webhook events, listed in the Deployment events and Deployment run events tabs of [Supported event types](https://platform.claude.com/docs/en/managed-agents/webhooks#supported-event-types).
 
 List all deployment runs for a deployment as follows:
 

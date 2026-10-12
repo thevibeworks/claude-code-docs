@@ -15,7 +15,7 @@ Send a batch of Message creation requests.
 
 The Message Batches API can be used to process multiple Messages API requests at once. Once a Message Batch is created, it begins processing immediately. Batches can take up to 24 hours to complete.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=java)
 
 ### Parameters
 
@@ -49,7 +49,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Messages API creation parameters for the individual request.
 
-      See the [Messages API reference](https://platform.claude.com/docs/en/api/messages) for full documentation on available parameters.
+      See the [Messages API reference](https://platform.claude.com/docs/en/api/messages?sdk_languages=java) for full documentation on available parameters.
 
       - `long maxTokens`
 
@@ -57,9 +57,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-        Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
+        Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=java#pre-warming-the-cache) without generating a response.
 
-        Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+        Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=java) for details.
 
         minimum: 0
 
@@ -71,7 +71,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Each input message must be an object with a `role` and `content`. You can specify a single `user`-role message, or you can include multiple `user` and `assistant` messages.
 
-        If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response. This is called prefill. On models that don't support prefill, creating a message that ends with a partial `assistant` response returns a 400 error. See [Prefill not supported](https://platform.claude.com/docs/en/api/errors#prefill-not-supported).
+        If the final message uses the `assistant` role, the response content will continue immediately from the content in that message. This can be used to constrain part of the model's response. This is called prefill. On models that don't support prefill, creating a message that ends with a partial `assistant` response returns a 400 error. See [Prefill not supported](https://platform.claude.com/docs/en/api/errors?sdk_languages=java#prefill-not-supported).
 
         Example with a single `user` message:
 
@@ -108,9 +108,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         {"role": "user", "content": [{"type": "text", "text": "Hello, Claude"}]}
         ```
 
-        See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages).
+        See [input examples](https://platform.claude.com/docs/en/build-with-claude/working-with-messages?sdk_languages=java).
 
-        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
+        Note that if you want to include a [system prompt](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=java#give-claude-a-role), you can use the top-level `system` parameter — there is no `"system"` role for input messages in the Messages API.
 
         There is a limit of 100,000 messages in a single request.
 
@@ -143,7 +143,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `5m`: 5 minutes
                   - `1h`: 1 hour
 
-                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+                  Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching?sdk_languages=java) for details.
 
                   - `TTL_5M("5m")`
 
@@ -1271,7 +1271,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `Optional<JsonOutputFormat> format`
 
-          A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+          A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs?sdk_languages=java)
 
           - `JsonValue type = "json_schema"`
 
@@ -1283,7 +1283,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Determines whether to use priority capacity (if available) or standard capacity for this request.
 
-        Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers) for details.
+        Anthropic offers different levels of service for your API requests. See [service-tiers](https://platform.claude.com/docs/en/api/service-tiers?sdk_languages=java) for details.
 
         - `AUTO("auto")`
 
@@ -1301,13 +1301,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Whether to incrementally stream the response using server-sent events. When `true`, SDKs return a raw event stream.
 
-        In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming#streaming-with-sdks) for an example in each language.
+        In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming?sdk_languages=java#streaming-with-sdks) for an example in each language.
 
       - `Optional<System> system`
 
         System prompt.
 
-        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
+        A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices?sdk_languages=java#give-claude-a-role).
 
         - `String`
 
@@ -1331,7 +1331,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         With `{"type": "adaptive"}`, Claude decides when and how much to think. With `{"type": "enabled"}` (manual extended thinking), you set a `budget_tokens` of at least 1,024. Thinking tokens count toward your `max_tokens` limit.
 
-        Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking) for each model's behavior.
+        Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=java#configuring-thinking) for each model's behavior.
 
         - `class ThinkingConfigEnabled`
 
@@ -1343,13 +1343,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Must be ≥1024 and less than `max_tokens`.
 
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java) for details.
 
             minimum: 1024
 
           - `Optional<Display> display`
 
-            Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
+            Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=java#controlling-thinking-display).
 
             - `SUMMARIZED("summarized")`
 
@@ -1369,7 +1369,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Optional<Display> display`
 
-            Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
+            Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=java#controlling-thinking-display).
 
             - `SUMMARIZED("summarized")`
 
@@ -1431,7 +1431,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         If you include `tools` in your API request, the model may return `tool_use` content blocks that represent the model's use of those tools. You can then run those tools using the tool input generated by the model and then optionally return results back to the model using `tool_result` content blocks.
 
-        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)).
+        There are two types of tools: **client tools** and **server tools**. The behavior described below applies to client tools. For [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools?sdk_languages=java), see their individual documentation as each has its own behavior (e.g., the [web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool?sdk_languages=java)).
 
         Each tool definition includes:
 
@@ -1487,7 +1487,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Tools can be used for workflows that include running client-side tools and functions, or more generally whenever you want the model to produce a particular JSON structure of output.
 
-        See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
+        See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview?sdk_languages=java) for more details.
 
         - `class Tool`
 
@@ -3262,7 +3262,7 @@ public final class Main {
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=java)
 
 ### Parameters
 
@@ -3428,7 +3428,7 @@ public final class Main {
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=java)
 
 ### Parameters
 
@@ -3615,7 +3615,7 @@ Batches may be canceled any time before processing ends. Once cancellation is in
 
 The number of canceled requests is specified in `request_counts`. To determine which requests were canceled, check the individual results within the batch. Note that cancellation may not result in any canceled requests if they were non-interruptible.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=java)
 
 ### Parameters
 
@@ -3783,7 +3783,7 @@ Delete a Message Batch.
 
 Message Batches can only be deleted once they've finished processing. If you'd like to delete an in-progress batch, you must first cancel it.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=java)
 
 ### Parameters
 
@@ -3853,7 +3853,7 @@ Streams the results of a Message Batch as a `.jsonl` file.
 
 Each line in the file is a JSON object containing the result of a single request in the Message Batch. Results are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing?sdk_languages=java)
 
 ### Parameters
 
@@ -4114,7 +4114,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
 
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java) for details.
 
             - `String thinking`
 
@@ -4130,7 +4130,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
 
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java#redacted-thinking-blocks) for details.
 
           - `class ToolUseBlock`
 
@@ -4746,7 +4746,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `REASONING_EXTRACTION("reasoning_extraction")`
 
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=java).
 
             - `GENERAL_HARMS("general_harms")`
 
@@ -5433,7 +5433,7 @@ public final class Main {
 
               This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
 
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java) for details.
 
             - `String thinking`
 
@@ -5449,7 +5449,7 @@ public final class Main {
 
               Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
 
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java#redacted-thinking-blocks) for details.
 
           - `class ToolUseBlock`
 
@@ -6065,7 +6065,7 @@ public final class Main {
 
             - `REASONING_EXTRACTION("reasoning_extraction")`
 
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=java).
 
             - `GENERAL_HARMS("general_harms")`
 
@@ -6558,7 +6558,7 @@ public final class Main {
 
             This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
 
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java) for details.
 
           - `String thinking`
 
@@ -6574,7 +6574,7 @@ public final class Main {
 
             Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
 
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java#redacted-thinking-blocks) for details.
 
         - `class ToolUseBlock`
 
@@ -7190,7 +7190,7 @@ public final class Main {
 
           - `REASONING_EXTRACTION("reasoning_extraction")`
 
-            The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+            The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=java).
 
           - `GENERAL_HARMS("general_harms")`
 
@@ -7645,7 +7645,7 @@ public final class Main {
 
           This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
 
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java) for details.
 
         - `String thinking`
 
@@ -7661,7 +7661,7 @@ public final class Main {
 
           Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
 
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=java#redacted-thinking-blocks) for details.
 
       - `class ToolUseBlock`
 
@@ -8277,7 +8277,7 @@ public final class Main {
 
         - `REASONING_EXTRACTION("reasoning_extraction")`
 
-          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=java).
 
         - `GENERAL_HARMS("general_harms")`
 
