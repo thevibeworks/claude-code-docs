@@ -298,7 +298,7 @@ In a macOS `.mobileconfig` payload (Okta example):
 
 From Claude Desktop 2.7032.0, `inferenceCredentialKind: "external-idp"` with [`inferenceIdpOidc`](/docs/third-party/claude-desktop/configuration#inferenceidpoidc) and `inferenceIdpAuthFlow`, the keys [Amazon Bedrock identity provider sign-in](/docs/third-party/claude-desktop/bedrock#sign-in-with-your-identity-provider) uses, is an equivalent spelling of this configuration; `interactive` with `inferenceGatewayOidc` keeps working, so keep it until every device runs 2.7032.0 or later.
 
-Earlier app versions used `inferenceGatewayAuthScheme: "sso"` to select this mode. That value is deprecated; set `inferenceCredentialKind: "interactive"` instead. Existing deployments that still send `inferenceGatewayAuthScheme: "sso"` work only before 12:00 PM Pacific Time (19:00 UTC) on October 7, 2026. From then on, the value doesn't select browser sign-in, so set `inferenceCredentialKind: "interactive"`.
+Earlier app versions used `inferenceGatewayAuthScheme: "sso"` to select this mode. That value is deprecated, so set `inferenceCredentialKind: "interactive"` instead. The [configuration changelog](/docs/third-party/claude-desktop/configuration-changelog#v2-26454-0) says which app versions read the deprecated value.
 
 ### Models
 
@@ -356,7 +356,12 @@ On Claude API, Google Cloud's Agent Platform, Amazon Bedrock, and Amazon Bedrock
 
 **`OIDC discovery failed (HTTP 404)` or `(HTTP 405)`** — The `issuer` value is not the issuer base URL. Most often the metadata URI (ending in `/.well-known/openid-configuration`) was pasted instead, which doubles the path. Remove that suffix so `issuer` is just `https://YOUR_ORG.okta.com` (or the equivalent for your provider).
 
-**`no credential configured for provider "gateway": set inferenceCredentialKind or one of the credential fields`** — `inferenceCredentialKind: "interactive"` is not present in the pushed configuration.
+**`no credential configured for provider "gateway": set inferenceCredentialKind or one of the credential fields`.** `inferenceCredentialKind: "interactive"` isn't present in the configuration Claude Desktop is using. Add it where Claude Desktop gets its configuration:
+
+* **A managed profile that doesn't set `bootstrapUrl`**: add the key to the profile you push to devices.
+* **A [bootstrap server](/docs/third-party/claude-desktop/bootstrap)**: return the key in the response, then quit and reopen Claude Desktop. A copy of the key in the managed profile has no effect. A message that also includes `bootstrap response failed validation` comes from this case.
+
+A [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) is a bootstrap server that sets the connection keys in its response itself, so you can't add this key in the gateway's configuration. Earlier gateway versions send `inferenceGatewayAuthScheme: "sso"` in place of this key. [Upgrade the gateway](https://code.claude.com/docs/en/claude-apps-gateway-deploy#upgrades) to the current Claude Code version, then quit and reopen Claude Desktop. Or update Claude Desktop to a version that [reads `inferenceGatewayAuthScheme: "sso"`](/docs/third-party/claude-desktop/configuration-changelog#v2-26454-0).
 
 **Browser shows "Connected" but the app reports the sign-in failed, or `Token exchange failed (HTTP 401)`** — The browser step succeeded, but the identity provider rejected the follow-up token request. This usually means the IdP application is registered as a confidential (Web) client, which expects a client secret. Claude is a public PKCE client and doesn't send one. Register a public/native client instead: **Native Application** in Okta, or the **Mobile and desktop applications** platform in Entra ID. Application type generally can't be changed after creation, so you may need to create a new one.
 
