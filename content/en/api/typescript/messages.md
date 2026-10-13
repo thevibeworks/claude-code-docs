@@ -4403,7 +4403,7 @@ const client = new Anthropic({
 const message = await client.messages.create({
   max_tokens: 1024,
   messages: [{ content: "Hello, world", role: "user" }],
-  model: "claude-opus-5"
+  model: "claude-opus-5-5"
 });
 
 console.log(message.id);
@@ -4448,7 +4448,7 @@ console.log(message.id);
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
@@ -7439,7 +7439,7 @@ const client = new Anthropic({
 
 const messageTokensCount = await client.messages.countTokens({
   messages: [{ content: "Hello, world", role: "user" }],
-  model: "claude-opus-5"
+  model: "claude-opus-5-5"
 });
 
 console.log(messageTokensCount.input_tokens);
@@ -39340,7 +39340,7 @@ const messageBatch = await client.messages.batches.create({
       params: {
         max_tokens: 1024,
         messages: [{ content: "Hello, world", role: "user" }],
-        model: "claude-opus-5"
+        model: "claude-opus-5-5"
       }
     }
   ]
@@ -39974,7 +39974,7 @@ console.log(deletedMessageBatch.id);
 
 ### Retrieve Message Batch results
 
-`client.messages.batches.results(messageBatchID, params?, options?): MessageBatchIndividualResponse | Stream<MessageBatchIndividualResponse>`
+`client.messages.batches.results(messageBatchID, params?, options?): JSONLDecoder<MessageBatchIndividualResponse>`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 
@@ -41260,9 +41260,8 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const messageBatchIndividualResponse = await client.messages.batches.results(
-  "message_batch_id"
-);
-
-console.log(messageBatchIndividualResponse.custom_id);
+const stream = await client.messages.batches.results("message_batch_id");
+for await (const messageBatchIndividualResponse of stream) {
+  console.log(messageBatchIndividualResponse.custom_id);
+}
 ```

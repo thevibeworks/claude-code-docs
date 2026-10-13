@@ -1002,7 +1002,7 @@ for await (const betaManagedAgentsSessionThread of client.beta.sessions.threads.
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },

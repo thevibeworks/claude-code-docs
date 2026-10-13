@@ -280,7 +280,7 @@ Here's how to detect and handle streaming refusals in your application:
               break;
           }
       }
-  } catch (Exception $e) {
+  } catch (\Exception $e) {
       echo "Error: " . $e->getMessage() . "\n";
   }
   ```

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/ruby/messages/batches/results
 
 # Retrieve Message Batch results
 
-`messages.batches.results(message_batch_id, **kwargs) -> MessageBatchIndividualResponse`
+`messages.batches.results_streaming(message_batch_id, **kwargs) -> JsonLStream<MessageBatchIndividualResponse>`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 
@@ -1139,7 +1139,9 @@ require "anthropic"
 
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
-message_batch_individual_response = anthropic.messages.batches.results("message_batch_id")
+stream = anthropic.messages.batches.results_streaming("message_batch_id")
 
-puts(message_batch_individual_response)
+stream.each do |batch|
+  puts(batch)
+end
 ```

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/sessions/threads/events/st
 
 # Stream Session Thread Events
 
-`$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsStreamSessionThreadEvents`
+`$client->beta->sessions->threads->events->streamStream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): BaseStream<ManagedAgentsStreamSessionThreadEvents>`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 

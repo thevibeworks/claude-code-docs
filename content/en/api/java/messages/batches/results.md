@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/java/messages/batches/results
 
 # Retrieve Message Batch results
 
-`MessageBatchIndividualResponse messages().batches().resultsStreaming(params = BatchResultsParams.none(), requestOptions = RequestOptions.none())`
+`StreamResponse<MessageBatchIndividualResponse> messages().batches().resultsStreaming(params = BatchResultsParams.none(), requestOptions = RequestOptions.none())`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

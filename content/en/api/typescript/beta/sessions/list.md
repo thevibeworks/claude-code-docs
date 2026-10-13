@@ -1354,7 +1354,7 @@ for await (const betaManagedAgentsSession of client.beta.sessions.list()) {
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -1374,7 +1374,7 @@ for await (const betaManagedAgentsSession of client.beta.sessions.list()) {
                 }
               ],
               "model": {
-                "id": "claude-opus-5",
+                "id": "claude-opus-5-5",
                 "effort": {
                   "type": "low"
                 },

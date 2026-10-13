@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/messages/batches/results
 
 # Retrieve Message Batch results
 
-`$client->beta->messages->batches->results(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): MessageBatchIndividualResponse`
+`$client->beta->messages->batches->resultsStream(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): BaseStream<MessageBatchIndividualResponse>`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

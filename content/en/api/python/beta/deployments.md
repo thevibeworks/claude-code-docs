@@ -253,7 +253,7 @@ Create Deployment
 
     - `type: Literal["system.message"]`
 
-    - `content: List[BetaManagedAgentsSystemContentBlock]`
+    - `content: Iterable[BetaManagedAgentsSystemContentBlockParam]`
 
       System content blocks to append. Text-only.
 
@@ -2922,7 +2922,7 @@ Update Deployment
 
     - `type: Literal["system.message"]`
 
-    - `content: List[BetaManagedAgentsSystemContentBlock]`
+    - `content: Iterable[BetaManagedAgentsSystemContentBlockParam]`
 
       System content blocks to append. Text-only.
 
@@ -7368,7 +7368,7 @@ print(beta_managed_agents_deployment.id)
 
     - `type: Literal["system.message"]`
 
-    - `content: List[BetaManagedAgentsSystemContentBlock]`
+    - `content: Iterable[BetaManagedAgentsSystemContentBlockParam]`
 
       System content blocks to append. Text-only.
 

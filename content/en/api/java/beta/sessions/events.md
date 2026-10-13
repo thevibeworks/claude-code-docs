@@ -4185,7 +4185,7 @@ public final class Main {
 
 ## Stream Events
 
-`BetaManagedAgentsStreamSessionEvents beta().sessions().events().streamStreaming(params = EventStreamParams.none(), requestOptions = RequestOptions.none())`
+`StreamResponse<BetaManagedAgentsStreamSessionEvents> beta().sessions().events().streamStreaming(params = EventStreamParams.none(), requestOptions = RequestOptions.none())`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 

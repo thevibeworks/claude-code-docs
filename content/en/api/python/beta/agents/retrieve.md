@@ -939,7 +939,7 @@ print(beta_managed_agents_agent.id)
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },

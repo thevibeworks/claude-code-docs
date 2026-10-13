@@ -34,13 +34,13 @@ The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and
 
 ### Batch processing
 
-| Action                 | Routes authorized                                                       |
-| ---------------------- | ----------------------------------------------------------------------- |
-| `CreateBatchInference` | `POST /v1/messages/batches`                                             |
-| `GetBatchInference`    | `GET /v1/messages/batches/{id}` `GET /v1/messages/batches/{id}/results` |
-| `ListBatchInferences`  | `GET /v1/messages/batches`                                              |
-| `CancelBatchInference` | `POST /v1/messages/batches/{id}/cancel`                                 |
-| `DeleteBatchInference` | `DELETE /v1/messages/batches/{id}`                                      |
+| Action                 | Routes authorized                                                            |
+| ---------------------- | ---------------------------------------------------------------------------- |
+| `CreateBatchInference` | `POST /v1/messages/batches`                                                  |
+| `GetBatchInference`    | `GET /v1/messages/batches/{id}`<br />`GET /v1/messages/batches/{id}/results` |
+| `ListBatchInferences`  | `GET /v1/messages/batches`                                                   |
+| `CancelBatchInference` | `POST /v1/messages/batches/{id}/cancel`                                      |
+| `DeleteBatchInference` | `DELETE /v1/messages/batches/{id}`                                           |
 
 <Note>
   `GetBatchInference` authorizes both reading batch metadata and downloading batch results. The `AnthropicReadOnlyAccess`, `AnthropicInferenceAccess`, and `AnthropicLimitedAccess` policies' `Get*` wildcards include this action.
@@ -55,12 +55,12 @@ The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and
 
 ### Files
 
-| Action       | Routes authorized                                 |
-| ------------ | ------------------------------------------------- |
-| `CreateFile` | `POST /v1/files`                                  |
-| `GetFile`    | `GET /v1/files/{id}` `GET /v1/files/{id}/content` |
-| `ListFiles`  | `GET /v1/files`                                   |
-| `DeleteFile` | `DELETE /v1/files/{id}`                           |
+| Action       | Routes authorized                                      |
+| ------------ | ------------------------------------------------------ |
+| `CreateFile` | `POST /v1/files`                                       |
+| `GetFile`    | `GET /v1/files/{id}`<br />`GET /v1/files/{id}/content` |
+| `ListFiles`  | `GET /v1/files`                                        |
+| `DeleteFile` | `DELETE /v1/files/{id}`                                |
 
 <Note>
   `GetFile` authorizes both metadata and content download. A principal with read-only access can download file bytes, not just list files.
@@ -68,13 +68,13 @@ The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and
 
 ### Skills
 
-| Action        | Routes authorized                                                                                                                              |
-| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CreateSkill` | `POST /v1/skills`                                                                                                                              |
-| `GetSkill`    | `GET /v1/skills/{id}` `GET /v1/skills/{id}/versions` `GET /v1/skills/{id}/versions/{version}` `GET /v1/skills/{id}/versions/{version}/content` |
-| `ListSkills`  | `GET /v1/skills`                                                                                                                               |
-| `UpdateSkill` | `POST /v1/skills/{id}/versions` `DELETE /v1/skills/{id}/versions/{version}`                                                                    |
-| `DeleteSkill` | `DELETE /v1/skills/{id}`                                                                                                                       |
+| Action        | Routes authorized                                                                                                                                             |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CreateSkill` | `POST /v1/skills`                                                                                                                                             |
+| `GetSkill`    | `GET /v1/skills/{id}`<br />`GET /v1/skills/{id}/versions`<br />`GET /v1/skills/{id}/versions/{version}`<br />`GET /v1/skills/{id}/versions/{version}/content` |
+| `ListSkills`  | `GET /v1/skills`                                                                                                                                              |
+| `UpdateSkill` | `POST /v1/skills/{id}/versions`<br />`DELETE /v1/skills/{id}/versions/{version}`                                                                              |
+| `DeleteSkill` | `DELETE /v1/skills/{id}`                                                                                                                                      |
 
 <Note>
   `GetSkill` authorizes both skill metadata and skill-content download. A principal with read-only access can download skill bytes, not just list skills.
@@ -86,13 +86,13 @@ The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and
 
 ### Agents
 
-| Action         | Routes authorized                                    |
-| -------------- | ---------------------------------------------------- |
-| `CreateAgent`  | `POST /v1/agents`                                    |
-| `GetAgent`     | `GET /v1/agents/{id}` `GET /v1/agents/{id}/versions` |
-| `ListAgents`   | `GET /v1/agents`                                     |
-| `UpdateAgent`  | `POST /v1/agents/{id}`                               |
-| `ArchiveAgent` | `POST /v1/agents/{id}/archive`                       |
+| Action         | Routes authorized                                         |
+| -------------- | --------------------------------------------------------- |
+| `CreateAgent`  | `POST /v1/agents`                                         |
+| `GetAgent`     | `GET /v1/agents/{id}`<br />`GET /v1/agents/{id}/versions` |
+| `ListAgents`   | `GET /v1/agents`                                          |
+| `UpdateAgent`  | `POST /v1/agents/{id}`                                    |
+| `ArchiveAgent` | `POST /v1/agents/{id}/archive`                            |
 
 <Note>
   Agents support only archive, not hard delete. A policy that denies `aws-external-anthropic:Delete*` does not block `ArchiveAgent`. Deny `ArchiveAgent`, `UpdateAgent`, and `CreateAgent` if you need to prevent any agent mutation.
@@ -100,14 +100,14 @@ The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and
 
 ### Sessions
 
-| Action           | Routes authorized                                                                                                                                                             |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CreateSession`  | `POST /v1/sessions`                                                                                                                                                           |
-| `GetSession`     | `GET /v1/sessions/{id}` `GET /v1/sessions/{id}/events` `GET /v1/sessions/{id}/events/stream` `GET /v1/sessions/{id}/resources` `GET /v1/sessions/{id}/resources/{id}`         |
-| `ListSessions`   | `GET /v1/sessions`                                                                                                                                                            |
-| `UpdateSession`  | `POST /v1/sessions/{id}` `POST /v1/sessions/{id}/events` `POST /v1/sessions/{id}/resources` `POST /v1/sessions/{id}/resources/{id}` `DELETE /v1/sessions/{id}/resources/{id}` |
-| `ArchiveSession` | `POST /v1/sessions/{id}/archive`                                                                                                                                              |
-| `DeleteSession`  | `DELETE /v1/sessions/{id}`                                                                                                                                                    |
+| Action           | Routes authorized                                                                                                                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CreateSession`  | `POST /v1/sessions`                                                                                                                                                                               |
+| `GetSession`     | `GET /v1/sessions/{id}`<br />`GET /v1/sessions/{id}/events`<br />`GET /v1/sessions/{id}/events/stream`<br />`GET /v1/sessions/{id}/resources`<br />`GET /v1/sessions/{id}/resources/{id}`         |
+| `ListSessions`   | `GET /v1/sessions`                                                                                                                                                                                |
+| `UpdateSession`  | `POST /v1/sessions/{id}`<br />`POST /v1/sessions/{id}/events`<br />`POST /v1/sessions/{id}/resources`<br />`POST /v1/sessions/{id}/resources/{id}`<br />`DELETE /v1/sessions/{id}/resources/{id}` |
+| `ArchiveSession` | `POST /v1/sessions/{id}/archive`                                                                                                                                                                  |
+| `DeleteSession`  | `DELETE /v1/sessions/{id}`                                                                                                                                                                        |
 
 <Note>
   `GetSession` authorizes reading session metadata, the full event stream (conversation history), and session resources. The `AnthropicReadOnlyAccess`, `AnthropicInferenceAccess`, and `AnthropicLimitedAccess` policies' `Get*` wildcards include this action.
@@ -119,15 +119,15 @@ The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and
 
 ### Environments
 
-| Action                   | Routes authorized                                                                                                                                                                                                                        |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CreateEnvironment`      | `POST /v1/environments`                                                                                                                                                                                                                  |
-| `GetEnvironment`         | `GET /v1/environments/{id}` `GET /v1/environments/{id}/work` `GET /v1/environments/{id}/work/{work_id}` `GET /v1/environments/{id}/work/stats`                                                                                           |
-| `ListEnvironments`       | `GET /v1/environments`                                                                                                                                                                                                                   |
-| `UpdateEnvironment`      | `POST /v1/environments/{id}`                                                                                                                                                                                                             |
-| `ArchiveEnvironment`     | `POST /v1/environments/{id}/archive`                                                                                                                                                                                                     |
-| `DeleteEnvironment`      | `DELETE /v1/environments/{id}`                                                                                                                                                                                                           |
-| `ProcessEnvironmentWork` | `GET /v1/environments/{id}/work/poll` `POST /v1/environments/{id}/work/{work_id}` `POST /v1/environments/{id}/work/{work_id}/ack` `POST /v1/environments/{id}/work/{work_id}/heartbeat` `POST /v1/environments/{id}/work/{work_id}/stop` |
+| Action                   | Routes authorized                                                                                                                                                                                                                                            |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `CreateEnvironment`      | `POST /v1/environments`                                                                                                                                                                                                                                      |
+| `GetEnvironment`         | `GET /v1/environments/{id}`<br />`GET /v1/environments/{id}/work`<br />`GET /v1/environments/{id}/work/{work_id}`<br />`GET /v1/environments/{id}/work/stats`                                                                                                |
+| `ListEnvironments`       | `GET /v1/environments`                                                                                                                                                                                                                                       |
+| `UpdateEnvironment`      | `POST /v1/environments/{id}`                                                                                                                                                                                                                                 |
+| `ArchiveEnvironment`     | `POST /v1/environments/{id}/archive`                                                                                                                                                                                                                         |
+| `DeleteEnvironment`      | `DELETE /v1/environments/{id}`                                                                                                                                                                                                                               |
+| `ProcessEnvironmentWork` | `GET /v1/environments/{id}/work/poll`<br />`POST /v1/environments/{id}/work/{work_id}`<br />`POST /v1/environments/{id}/work/{work_id}/ack`<br />`POST /v1/environments/{id}/work/{work_id}/heartbeat`<br />`POST /v1/environments/{id}/work/{work_id}/stop` |
 
 <Note>
   A policy that denies `aws-external-anthropic:Delete*` does not block `ArchiveEnvironment`. `ProcessEnvironmentWork` is not matched by `Create*`, `Update*`, `Delete*`, or `Archive*` wildcards. Deny `ArchiveEnvironment`, `UpdateEnvironment`, `CreateEnvironment`, and `ProcessEnvironmentWork` as well if you need to prevent any environment mutation.
@@ -139,14 +139,14 @@ The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and
 
 ### Vaults
 
-| Action         | Routes authorized                                                                                                                                                                           |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CreateVault`  | `POST /v1/vaults`                                                                                                                                                                           |
-| `GetVault`     | `GET /v1/vaults/{id}` `GET /v1/vaults/{id}/credentials` `GET /v1/vaults/{id}/credentials/{id}`                                                                                              |
-| `ListVaults`   | `GET /v1/vaults`                                                                                                                                                                            |
-| `UpdateVault`  | `POST /v1/vaults/{id}` `POST /v1/vaults/{id}/credentials` `POST /v1/vaults/{id}/credentials/{id}` `POST /v1/vaults/{id}/credentials/{id}/archive` `DELETE /v1/vaults/{id}/credentials/{id}` |
-| `ArchiveVault` | `POST /v1/vaults/{id}/archive`                                                                                                                                                              |
-| `DeleteVault`  | `DELETE /v1/vaults/{id}`                                                                                                                                                                    |
+| Action         | Routes authorized                                                                                                                                                                                               |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CreateVault`  | `POST /v1/vaults`                                                                                                                                                                                               |
+| `GetVault`     | `GET /v1/vaults/{id}`<br />`GET /v1/vaults/{id}/credentials`<br />`GET /v1/vaults/{id}/credentials/{id}`                                                                                                        |
+| `ListVaults`   | `GET /v1/vaults`                                                                                                                                                                                                |
+| `UpdateVault`  | `POST /v1/vaults/{id}`<br />`POST /v1/vaults/{id}/credentials`<br />`POST /v1/vaults/{id}/credentials/{id}`<br />`POST /v1/vaults/{id}/credentials/{id}/archive`<br />`DELETE /v1/vaults/{id}/credentials/{id}` |
+| `ArchiveVault` | `POST /v1/vaults/{id}/archive`                                                                                                                                                                                  |
+| `DeleteVault`  | `DELETE /v1/vaults/{id}`                                                                                                                                                                                        |
 
 <Note>
   Creating, updating, archiving, or deleting an individual vault credential maps to `UpdateVault`. Reading a credential maps to `GetVault`. Vault credential secrets are not exposed: secret fields are write-only and are never returned by `GetVault` (see [Authenticate with vaults](https://platform.claude.com/docs/en/managed-agents/vaults)). A policy that denies `aws-external-anthropic:Delete*` still allows credential deletion, and a policy that denies `aws-external-anthropic:Create*` still allows credential creation. Deny `UpdateVault`, `CreateVault`, and `ArchiveVault` as well if you need to prevent any vault mutation.
@@ -154,14 +154,14 @@ The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and
 
 ### Memory stores
 
-| Action               | Routes authorized                                                                                                                                                                                                        |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `CreateMemoryStore`  | `POST /v1/memory_stores`                                                                                                                                                                                                 |
-| `GetMemoryStore`     | `GET /v1/memory_stores/{id}` `GET /v1/memory_stores/{id}/memories` `GET /v1/memory_stores/{id}/memories/{id}` `GET /v1/memory_stores/{id}/memory_versions` `GET /v1/memory_stores/{id}/memory_versions/{id}`             |
-| `ListMemoryStores`   | `GET /v1/memory_stores`                                                                                                                                                                                                  |
-| `UpdateMemoryStore`  | `POST /v1/memory_stores/{id}` `POST /v1/memory_stores/{id}/memories` `POST /v1/memory_stores/{id}/memories/{id}` `DELETE /v1/memory_stores/{id}/memories/{id}` `POST /v1/memory_stores/{id}/memory_versions/{id}/redact` |
-| `ArchiveMemoryStore` | `POST /v1/memory_stores/{id}/archive`                                                                                                                                                                                    |
-| `DeleteMemoryStore`  | `DELETE /v1/memory_stores/{id}`                                                                                                                                                                                          |
+| Action               | Routes authorized                                                                                                                                                                                                                            |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CreateMemoryStore`  | `POST /v1/memory_stores`                                                                                                                                                                                                                     |
+| `GetMemoryStore`     | `GET /v1/memory_stores/{id}`<br />`GET /v1/memory_stores/{id}/memories`<br />`GET /v1/memory_stores/{id}/memories/{id}`<br />`GET /v1/memory_stores/{id}/memory_versions`<br />`GET /v1/memory_stores/{id}/memory_versions/{id}`             |
+| `ListMemoryStores`   | `GET /v1/memory_stores`                                                                                                                                                                                                                      |
+| `UpdateMemoryStore`  | `POST /v1/memory_stores/{id}`<br />`POST /v1/memory_stores/{id}/memories`<br />`POST /v1/memory_stores/{id}/memories/{id}`<br />`DELETE /v1/memory_stores/{id}/memories/{id}`<br />`POST /v1/memory_stores/{id}/memory_versions/{id}/redact` |
+| `ArchiveMemoryStore` | `POST /v1/memory_stores/{id}/archive`                                                                                                                                                                                                        |
+| `DeleteMemoryStore`  | `DELETE /v1/memory_stores/{id}`                                                                                                                                                                                                              |
 
 <Note>
   `GetMemoryStore` authorizes reading store metadata, all memories, and memory version history. The `AnthropicReadOnlyAccess`, `AnthropicInferenceAccess`, and `AnthropicLimitedAccess` policies' `Get*` wildcards include this action.

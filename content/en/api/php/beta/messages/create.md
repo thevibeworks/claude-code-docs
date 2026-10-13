@@ -545,7 +545,7 @@ $betaMessage = $client->beta->messages->create(
       'outputConfig' => ['effort' => 'low'],
     ],
   ],
-  model: Model::CLAUDE_OPUS_5,
+  model: Model::CLAUDE_OPUS_5_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   container: [
@@ -691,7 +691,7 @@ var_dump($betaMessage);
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",

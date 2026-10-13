@@ -364,7 +364,7 @@ public final class Main {
 
 ```json
 {
-  "id": "claude-opus-5",
+  "id": "claude-opus-5-5",
   "allowed_fallback_models": [
     "string"
   ],
@@ -447,9 +447,9 @@ public final class Main {
       }
     }
   },
-  "created_at": "2026-07-24T00:00:00Z",
+  "created_at": "2026-09-21T00:00:00Z",
   "deprecated_at": "2019-12-27T18:11:19.117Z",
-  "display_name": "Claude Opus 5",
+  "display_name": "Claude Opus 5.5",
   "lifecycle": "active",
   "line": "haiku",
   "max_input_tokens": 0,

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/go/messages/batches/results
 
 # Retrieve Message Batch results
 
-`client.Messages.Batches.Results(ctx, messageBatchID, query) (*MessageBatchIndividualResponse, error)`
+`client.Messages.Batches.ResultsStreaming(ctx, messageBatchID, query) *jsonl.Stream[MessageBatchIndividualResponse]`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

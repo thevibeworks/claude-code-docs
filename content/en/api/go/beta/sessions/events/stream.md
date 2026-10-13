@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/go/beta/sessions/events/stream
 
 # Stream Events
 
-`client.Beta.Sessions.Events.Stream(ctx, sessionID, params) (*BetaManagedAgentsStreamSessionEventsUnion, error)`
+`client.Beta.Sessions.Events.StreamEvents(ctx, sessionID, params) *ssestream.Stream[BetaManagedAgentsStreamSessionEventsUnion]`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 

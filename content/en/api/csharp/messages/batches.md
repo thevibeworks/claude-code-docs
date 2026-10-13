@@ -3220,7 +3220,7 @@ BatchCreateParams parameters = new()
                         Role = Role.User,
                     },
                 ],
-                Model = Model.ClaudeOpus5,
+                Model = Model.ClaudeOpus5_5,
                 CacheControl = new() { Ttl = Ttl.Ttl5m },
                 Container = new ContainerParams()
                 {
@@ -3911,7 +3911,7 @@ Console.WriteLine(deletedMessageBatch);
 
 ## Retrieve Message Batch results
 
-`MessageBatchIndividualResponse Messages.Batches.ResultsStreaming(parameters, cancellationToken = default)`
+`IAsyncEnumerable<MessageBatchIndividualResponse> Messages.Batches.ResultsStreaming(parameters, cancellationToken = default)`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

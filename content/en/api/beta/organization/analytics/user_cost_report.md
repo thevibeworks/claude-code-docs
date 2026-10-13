@@ -317,7 +317,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   - `model: string or null`
 
-    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
 
   - `product: string or null`
 
@@ -412,7 +412,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_cost_report \
       "ending_at": "2019-12-27T18:11:19.117Z",
       "inference_geo": "global",
       "list_amount": "51600.000000",
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "product": "chat",
       "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
       "requests": 128,

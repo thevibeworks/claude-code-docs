@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/ruby/beta/sessions/events/stream
 
 # Stream Events
 
-`beta.sessions.events.stream(session_id, **kwargs) -> BetaManagedAgentsStreamSessionEvents`
+`beta.sessions.events.stream_events(session_id, **kwargs) -> Stream<BetaManagedAgentsStreamSessionEvents>`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 
@@ -3086,9 +3086,11 @@ require "anthropic"
 
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
-beta_managed_agents_stream_session_events = anthropic.beta.sessions.events.stream("sesn_011CZkZAtmR3yMPDzynEDxu7")
+stream = anthropic.beta.sessions.events.stream_events("sesn_011CZkZAtmR3yMPDzynEDxu7")
 
-puts(beta_managed_agents_stream_session_events)
+stream.each do |event|
+  puts(event)
+end
 ```
 
 ### Response (200)

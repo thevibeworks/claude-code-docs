@@ -997,7 +997,7 @@ puts(page)
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -2045,7 +2045,7 @@ puts(beta_managed_agents_session_thread)
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -3090,7 +3090,7 @@ puts(beta_managed_agents_session_thread)
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -10715,7 +10715,7 @@ puts(page)
 
 ### Stream Session Thread Events
 
-`beta.sessions.threads.events.stream(thread_id, **kwargs) -> BetaManagedAgentsStreamSessionThreadEvents`
+`beta.sessions.threads.events.stream_events(thread_id, **kwargs) -> Stream<BetaManagedAgentsStreamSessionThreadEvents>`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
@@ -13798,12 +13798,14 @@ require "anthropic"
 
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
-beta_managed_agents_stream_session_thread_events = anthropic.beta.sessions.threads.events.stream(
+stream = anthropic.beta.sessions.threads.events.stream_events(
   "sthr_011CZkZVWa6oJjw1rgXZpnBt",
   session_id: "sesn_011CZkZAtmR3yMPDzynEDxu7"
 )
 
-puts(beta_managed_agents_stream_session_thread_events)
+stream.each do |event|
+  puts(event)
+end
 ```
 
 ##### Response (200)

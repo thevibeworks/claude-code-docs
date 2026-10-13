@@ -8377,7 +8377,7 @@ const client = new Anthropic({
 const betaMessage = await client.beta.messages.create({
   max_tokens: 1024,
   messages: [{ content: "Hello, world", role: "user" }],
-  model: "claude-opus-5"
+  model: "claude-opus-5-5"
 });
 
 console.log(betaMessage.id);
@@ -8431,7 +8431,7 @@ console.log(betaMessage.id);
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",

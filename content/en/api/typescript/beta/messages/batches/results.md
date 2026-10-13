@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/messages/batches/re
 
 # Retrieve Message Batch results
 
-`client.beta.messages.batches.results(messageBatchID, params?, options?): BetaMessageBatchIndividualResponse | Stream<BetaMessageBatchIndividualResponse>`
+`client.beta.messages.batches.results(messageBatchID, params?, options?): JSONLDecoder<BetaMessageBatchIndividualResponse>`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 
@@ -4113,9 +4113,8 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaMessageBatchIndividualResponse = await client.beta.messages.batches.results(
-  "message_batch_id"
-);
-
-console.log(betaMessageBatchIndividualResponse.custom_id);
+const stream = await client.beta.messages.batches.results("message_batch_id");
+for await (const betaMessageBatchIndividualResponse of stream) {
+  console.log(betaMessageBatchIndividualResponse.custom_id);
+}
 ```

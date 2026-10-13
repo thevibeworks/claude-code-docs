@@ -1248,7 +1248,7 @@ ant beta:sessions create \
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -1268,7 +1268,7 @@ ant beta:sessions create \
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -2709,7 +2709,7 @@ ant beta:sessions list \
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -2729,7 +2729,7 @@ ant beta:sessions list \
                 }
               ],
               "model": {
-                "id": "claude-opus-5",
+                "id": "claude-opus-5-5",
                 "effort": {
                   "type": "low"
                 },
@@ -4099,7 +4099,7 @@ ant beta:sessions retrieve \
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -4119,7 +4119,7 @@ ant beta:sessions retrieve \
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -5507,7 +5507,7 @@ ant beta:sessions update \
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -5527,7 +5527,7 @@ ant beta:sessions update \
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -6942,7 +6942,7 @@ ant beta:sessions archive \
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -6962,7 +6962,7 @@ ant beta:sessions archive \
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -7210,7 +7210,7 @@ ant beta:sessions archive \
 
   - `model: optional BetaManagedAgentsModel or BetaManagedAgentsModelConfigParams`
 
-    Replacement model. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object. Omit to use the agent's model.
+    Replacement model. Accepts the model string, e.g. `claude-opus-5-5`, or a `model_config` object. Omit to use the agent's model.
 
     - `union_member_0: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more`
 
@@ -25823,7 +25823,7 @@ ant beta:sessions:threads list \
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -26799,7 +26799,7 @@ ant beta:sessions:threads retrieve \
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -27772,7 +27772,7 @@ ant beta:sessions:threads archive \
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },

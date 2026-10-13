@@ -2962,7 +2962,7 @@ const client = new Anthropic({
 
 const messageTokensCount = await client.messages.countTokens({
   messages: [{ content: "Hello, world", role: "user" }],
-  model: "claude-opus-5"
+  model: "claude-opus-5-5"
 });
 
 console.log(messageTokensCount.input_tokens);

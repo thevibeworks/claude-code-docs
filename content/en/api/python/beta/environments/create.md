@@ -65,7 +65,7 @@ Create a new environment with the specified configuration.
 
           Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
-        - `allowed_hosts: Optional[List[str]]`
+        - `allowed_hosts: Optional[Sequence[str]]`
 
           Specifies domains the container can reach.
 
@@ -79,27 +79,27 @@ Create a new environment with the specified configuration.
 
         default: packages
 
-      - `apt: Optional[List[str]]`
+      - `apt: Optional[Sequence[str]]`
 
         Ubuntu/Debian packages to install
 
-      - `cargo: Optional[List[str]]`
+      - `cargo: Optional[Sequence[str]]`
 
         Rust packages to install
 
-      - `gem: Optional[List[str]]`
+      - `gem: Optional[Sequence[str]]`
 
         Ruby packages to install
 
-      - `go: Optional[List[str]]`
+      - `go: Optional[Sequence[str]]`
 
         Go packages to install
 
-      - `npm: Optional[List[str]]`
+      - `npm: Optional[Sequence[str]]`
 
         Node.js packages to install
 
-      - `pip: Optional[List[str]]`
+      - `pip: Optional[Sequence[str]]`
 
         Python packages to install
 

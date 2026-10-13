@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/messages/batches/result
 
 # Retrieve Message Batch results
 
-`beta.messages.batches.results(message_batch_id, **kwargs)  -> BetaMessageBatchIndividualResponse`
+`beta.messages.batches.results(message_batch_id, **kwargs)  -> JSONLDecoder[BetaMessageBatchIndividualResponse]`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

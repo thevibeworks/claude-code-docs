@@ -15,7 +15,7 @@ Create Agent
 
 - `--model: BetaManagedAgentsModel or BetaManagedAgentsModelConfigParams`
 
-  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=cli#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
+  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=cli#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control
 
 - `--name: string`
 
@@ -864,7 +864,7 @@ Create Agent
 ```bash
 ant beta:agents create \
   --api-key my-anthropic-api-key \
-  --model claude-opus-5 \
+  --model claude-opus-5-5 \
   --name 'My First Agent'
 ```
 
@@ -887,7 +887,7 @@ ant beta:agents create \
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },

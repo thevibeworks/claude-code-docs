@@ -4039,7 +4039,7 @@ anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
 beta_message_tokens_count = anthropic.beta.messages.count_tokens(
   messages: [{content: "Hello, world", role: :user}],
-  model: Anthropic::Model::CLAUDE_OPUS_5
+  model: Anthropic::Model::CLAUDE_OPUS_5_5
 )
 
 puts(beta_message_tokens_count)

@@ -324,7 +324,7 @@ The actual credential values you supply (`token` (java, php; csharp, go: `Token`
               type: 'mcp_oauth',
               mcpServerURL: 'https://mcp.slack.com/mcp',
               accessToken: 'xoxp-...',
-              expiresAt: new DateTimeImmutable('2099-12-31T23:59:59Z'),
+              expiresAt: new \DateTimeImmutable('2099-12-31T23:59:59Z'),
               refresh: ManagedAgentsMCPOAuthRefreshParams::with(
                   tokenEndpoint: 'https://slack.com/api/oauth.v2.user.access',
                   clientID: '1234567890.0987654321',
@@ -958,7 +958,7 @@ Secret values, `display_name` (java, php: `displayName`; csharp, go: `DisplayNam
       auth: ManagedAgentsMCPOAuthUpdateParams::with(
           type: 'mcp_oauth',
           accessToken: 'xoxp-new-...',
-          expiresAt: new DateTimeImmutable('2099-12-31T23:59:59Z'),
+          expiresAt: new \DateTimeImmutable('2099-12-31T23:59:59Z'),
           refresh: ManagedAgentsMCPOAuthRefreshUpdateParams::with(refreshToken: 'xoxe-1-new-...'),
       ),
   );

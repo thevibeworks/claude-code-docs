@@ -4376,7 +4376,7 @@ BatchCreateParams parameters = new()
                         OutputConfig = new() { Effort = Effort.Low },
                     },
                 ],
-                Model = Model.ClaudeOpus5,
+                Model = Model.ClaudeOpus5_5,
                 CacheControl = new() { Ttl = Ttl.Ttl5m },
                 Compaction = new() { Instructions = "instructions" },
                 Container = new BetaContainerParams()

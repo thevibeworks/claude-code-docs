@@ -927,7 +927,7 @@ ant beta:sessions:threads list \
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -1903,7 +1903,7 @@ ant beta:sessions:threads retrieve \
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -2876,7 +2876,7 @@ ant beta:sessions:threads archive \
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },

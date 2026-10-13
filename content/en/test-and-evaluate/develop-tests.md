@@ -98,10 +98,10 @@ Here are some criteria that might be important for your use case. This list is n
 Most use cases need multidimensional evaluation along several success criteria.
 
 <Accordion title="Example multidimensional criteria for sentiment analysis">
-  |      | Criteria                                                                                                                                                                                                                                                           |
-  | ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-  | Bad  | The model should classify sentiments well                                                                                                                                                                                                                          |
-  | Good | On a held-out test set of 10,000 diverse Twitter posts, the sentiment analysis model should achieve: - an F1 score of at least 0.85 - 99.5% of outputs are non-toxic - 90% of errors would cause inconvenience, not egregious error\* - 95% response time \< 200ms |
+  |      | Criteria                                                                                                                                                                                                                                                                               |
+  | ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Bad  | The model should classify sentiments well                                                                                                                                                                                                                                              |
+  | Good | On a held-out test set of 10,000 diverse Twitter posts, the sentiment analysis model should achieve:<br />- an F1 score of at least 0.85<br />- 99.5% of outputs are non-toxic<br />- 90% of errors would cause inconvenience, not egregious error\*<br />- 95% response time \< 200ms |
 
   \*In reality, you would also define what "inconvenience" and "egregious" mean.
 </Accordion>
@@ -743,7 +743,9 @@ Most use cases need multidimensional evaluation along several success criteria.
         }
         const lcs = lcsLengths[candidateWords.length][referenceWords.length];
 
-        if (lcs === 0) return 0;
+        if (lcs === 0) {
+          return 0;
+        }
         const precision = lcs / candidateWords.length;
         const recall = lcs / referenceWords.length;
         return (2 * precision * recall) / (precision + recall);
@@ -1549,7 +1551,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           );
           $scoreText = trim(contentText($response));
           if (filter_var($scoreText, FILTER_VALIDATE_INT) === false) {
-              throw new RuntimeException("Unexpected rating from grader: {$scoreText}");
+              throw new \RuntimeException("Unexpected rating from grader: {$scoreText}");
           }
           return (int) $scoreText;
       }
@@ -2719,7 +2721,7 @@ Most use cases need multidimensional evaluation along several success criteria.
           );
           $scoreText = trim(contentText($response));
           if (filter_var($scoreText, FILTER_VALIDATE_INT) === false) {
-              throw new RuntimeException("Unexpected rating from grader: {$scoreText}");
+              throw new \RuntimeException("Unexpected rating from grader: {$scoreText}");
           }
           return (int) $scoreText;
       }

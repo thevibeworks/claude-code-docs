@@ -1012,7 +1012,7 @@ func main() {
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -2074,7 +2074,7 @@ func main() {
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -3133,7 +3133,7 @@ func main() {
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -10766,7 +10766,7 @@ func main() {
 
 ### Stream Session Thread Events
 
-`client.Beta.Sessions.Threads.Events.Stream(ctx, threadID, params) (*BetaManagedAgentsStreamSessionThreadEventsUnion, error)`
+`client.Beta.Sessions.Threads.Events.StreamEvents(ctx, threadID, params) *ssestream.Stream[BetaManagedAgentsStreamSessionThreadEventsUnion]`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 

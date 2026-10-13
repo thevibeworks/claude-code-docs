@@ -398,7 +398,7 @@ var_dump($page);
 {
   "data": [
     {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "allowed_fallback_models": [
         "string"
       ],
@@ -481,9 +481,9 @@ var_dump($page);
           }
         }
       },
-      "created_at": "2026-07-24T00:00:00Z",
+      "created_at": "2026-09-21T00:00:00Z",
       "deprecated_at": "2019-12-27T18:11:19.117Z",
-      "display_name": "Claude Opus 5",
+      "display_name": "Claude Opus 5.5",
       "lifecycle": "active",
       "line": "haiku",
       "max_input_tokens": 0,
@@ -604,7 +604,7 @@ var_dump($betaModelInfo);
 
 ```json
 {
-  "id": "claude-opus-5",
+  "id": "claude-opus-5-5",
   "allowed_fallback_models": [
     "string"
   ],
@@ -687,9 +687,9 @@ var_dump($betaModelInfo);
       }
     }
   },
-  "created_at": "2026-07-24T00:00:00Z",
+  "created_at": "2026-09-21T00:00:00Z",
   "deprecated_at": "2019-12-27T18:11:19.117Z",
-  "display_name": "Claude Opus 5",
+  "display_name": "Claude Opus 5.5",
   "lifecycle": "active",
   "line": "haiku",
   "max_input_tokens": 0,
@@ -1243,7 +1243,7 @@ $betaMessage = $client->beta->messages->create(
       'outputConfig' => ['effort' => 'low'],
     ],
   ],
-  model: Model::CLAUDE_OPUS_5,
+  model: Model::CLAUDE_OPUS_5_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   container: [
@@ -1389,7 +1389,7 @@ var_dump($betaMessage);
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
@@ -1684,7 +1684,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
       'outputConfig' => ['effort' => 'low'],
     ],
   ],
-  model: Model::CLAUDE_OPUS_5,
+  model: Model::CLAUDE_OPUS_5_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   contextManagement: [
@@ -1888,7 +1888,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
             'outputConfig' => ['effort' => 'low'],
           ],
         ],
-        'model' => Model::CLAUDE_OPUS_5,
+        'model' => Model::CLAUDE_OPUS_5_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'compaction' => [
           'type' => 'summarize', 'instructions' => 'instructions'
@@ -2478,7 +2478,7 @@ var_dump($betaDeletedMessageBatch);
 
 ### Retrieve Message Batch results
 
-`$client->beta->messages->batches->results(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): MessageBatchIndividualResponse`
+`$client->beta->messages->batches->resultsStream(string messageBatchID, ?list<AnthropicBeta> betas, ?string workspaceID): BaseStream<MessageBatchIndividualResponse>`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 
@@ -2556,7 +2556,7 @@ Create Agent
 
 - `model: Model`
 
-  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=php#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
+  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=php#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control
 
 - `name: string`
 
@@ -2656,7 +2656,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsAgent = $client->beta->agents->create(
-  model: BetaManagedAgentsModel::CLAUDE_OPUS_5,
+  model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
   name: 'My First Agent',
   description: 'A general-purpose starter agent.',
   mcpServers: [
@@ -2715,7 +2715,7 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
@@ -2924,7 +2924,7 @@ var_dump($page);
         "foo": "bar"
       },
       "model": {
-        "id": "claude-opus-5",
+        "id": "claude-opus-5-5",
         "effort": {
           "type": "low"
         },
@@ -3119,7 +3119,7 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
@@ -3227,7 +3227,7 @@ Update Agent
 
 - `model?:optional Model`
 
-  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=php#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
+  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=php#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
 - `multiagent?:optional BetaManagedAgentsMultiagentParams`
 
@@ -3330,7 +3330,7 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
   ],
   metadata: ['foo' => 'string'],
   model: [
-    'id' => BetaManagedAgentsModel::CLAUDE_OPUS_5,
+    'id' => BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
     'effort' => 'low',
     'inferenceGeo' => 'inference_geo',
     'speed' => 'standard',
@@ -3385,7 +3385,7 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
@@ -3572,7 +3572,7 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
@@ -3773,7 +3773,7 @@ var_dump($page);
         "foo": "bar"
       },
       "model": {
-        "id": "claude-opus-5",
+        "id": "claude-opus-5-5",
         "effort": {
           "type": "low"
         },
@@ -5792,7 +5792,7 @@ var_dump($betaManagedAgentsSession);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -5812,7 +5812,7 @@ var_dump($betaManagedAgentsSession);
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -6148,7 +6148,7 @@ var_dump($page);
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -6168,7 +6168,7 @@ var_dump($page);
                 }
               ],
               "model": {
-                "id": "claude-opus-5",
+                "id": "claude-opus-5-5",
                 "effort": {
                   "type": "low"
                 },
@@ -6444,7 +6444,7 @@ var_dump($betaManagedAgentsSession);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -6464,7 +6464,7 @@ var_dump($betaManagedAgentsSession);
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -6788,7 +6788,7 @@ var_dump($betaManagedAgentsSession);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -6808,7 +6808,7 @@ var_dump($betaManagedAgentsSession);
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -7137,7 +7137,7 @@ var_dump($betaManagedAgentsSession);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -7157,7 +7157,7 @@ var_dump($betaManagedAgentsSession);
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -8393,7 +8393,7 @@ var_dump($betaManagedAgentsSendSessionEvents);
 
 ### Stream Events
 
-`$client->beta->sessions->events->stream(string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsStreamSessionEvents`
+`$client->beta->sessions->events->streamStream(string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): BaseStream<ManagedAgentsStreamSessionEvents>`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 
@@ -10056,7 +10056,7 @@ var_dump($page);
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -10242,7 +10242,7 @@ var_dump($betaManagedAgentsSessionThread);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -10425,7 +10425,7 @@ var_dump($betaManagedAgentsSessionThread);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -11470,7 +11470,7 @@ var_dump($page);
 
 ### Stream Session Thread Events
 
-`$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsStreamSessionThreadEvents`
+`$client->beta->sessions->threads->events->streamStream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): BaseStream<ManagedAgentsStreamSessionThreadEvents>`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
@@ -28799,7 +28799,7 @@ var_dump($page);
           "claude_tag_user_id": "U0123ABCDEF",
           "context_window": "0-200k",
           "inference_geo": "global",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "output_tokens": 0,
           "product": "chat",
           "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
@@ -28964,7 +28964,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   - `?string model`
 
-    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
 
   - `int outputTokens`
 
@@ -29064,7 +29064,7 @@ var_dump($page);
       "context_window": "0-200k",
       "ending_at": "2019-12-27T18:11:19.117Z",
       "inference_geo": "global",
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "output_tokens": 891000,
       "product": "chat",
       "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
@@ -29233,7 +29233,7 @@ var_dump($page);
           "currency": "USD",
           "inference_geo": "global",
           "list_amount": "list_amount",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "product": "chat",
           "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
           "requests": 0,
@@ -29402,7 +29402,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   - `?string model`
 
-    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
 
   - `?string product`
 
@@ -29489,7 +29489,7 @@ var_dump($page);
       "ending_at": "2019-12-27T18:11:19.117Z",
       "inference_geo": "global",
       "list_amount": "51600.000000",
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "product": "chat",
       "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
       "requests": 128,
@@ -29566,7 +29566,7 @@ Anthropic account team.
 
   - `bool isEnabled`
 
-    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
   - `SpendLimitPeriod period`
 
@@ -29658,7 +29658,7 @@ Retrieve a spend limit by ID.
 
   - `bool isEnabled`
 
-    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
   - `SpendLimitPeriod period`
 
@@ -29768,12 +29768,10 @@ var_dump($spendLimit);
 
 List the organization's spend limits.
 
-A Claude Console organization's limits come in an order that is stable across
-pages. A Claude Enterprise organization's are grouped by scope type,
-in the order `organization`, `seat_tier`, `rbac_group`,
-`organization_service`, `user`; within a type they come in a fixed order that
-is not creation order. Listing Claude Console limits is in an early access
-preview. To request access, contact your Anthropic account team.
+Limits are grouped by scope type, in the order `organization`, `seat_tier`,
+`rbac_group`, `organization_service`, `user`; within a type they come in a
+fixed order that is not creation order. Supported for Claude Enterprise
+organizations only, not for Claude Console organizations.
 
 #### Parameters
 
@@ -29789,7 +29787,7 @@ preview. To request access, contact your Anthropic account team.
 
 - `scopeType?:optional list<ScopeType>` (query parameter)
 
-  Return only limits with these scope types. A Claude Console organization has `organization` and `workspace` limits; a Claude Enterprise organization has `organization`, `seat_tier`, `rbac_group`, `organization_service` and `user` limits. Omit for all.
+  Return only limits with these scope types. Omit for all.
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
@@ -29821,7 +29819,7 @@ preview. To request access, contact your Anthropic account team.
 
   - `bool isEnabled`
 
-    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
   - `SpendLimitPeriod period`
 
@@ -29890,9 +29888,9 @@ List each member's effective spend limit and period-to-date spend.
 
 Returns one row per (member, period) the member resolves a spend limit
 for, with the `source` scope the spend limit was inherited from.
-Paginates by member, so a member's periods never split across pages. Listing
-Claude Console limits is in an early access preview. To request access,
-contact your Anthropic account team.
+Paginates by member, so a member's periods never split across pages.
+Supported for Claude Enterprise organizations only, not for Claude Console
+organizations.
 
 #### Parameters
 

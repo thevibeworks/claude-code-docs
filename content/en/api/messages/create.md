@@ -4409,7 +4409,7 @@ curl https://api.anthropic.com/v1/messages \
               "role": "user"
             }
           ],
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "stream": false,
           "system": [
             {
@@ -4480,7 +4480,7 @@ curl https://api.anthropic.com/v1/messages \
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",

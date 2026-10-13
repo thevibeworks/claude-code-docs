@@ -824,7 +824,7 @@ for await (const betaModelInfo of client.beta.models.list()) {
 {
   "data": [
     {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "allowed_fallback_models": [
         "string"
       ],
@@ -907,9 +907,9 @@ for await (const betaModelInfo of client.beta.models.list()) {
           }
         }
       },
-      "created_at": "2026-07-24T00:00:00Z",
+      "created_at": "2026-09-21T00:00:00Z",
       "deprecated_at": "2019-12-27T18:11:19.117Z",
-      "display_name": "Claude Opus 5",
+      "display_name": "Claude Opus 5.5",
       "lifecycle": "active",
       "line": "haiku",
       "max_input_tokens": 0,
@@ -1284,7 +1284,7 @@ console.log(betaModelInfo.id);
 
 ```json
 {
-  "id": "claude-opus-5",
+  "id": "claude-opus-5-5",
   "allowed_fallback_models": [
     "string"
   ],
@@ -1367,9 +1367,9 @@ console.log(betaModelInfo.id);
       }
     }
   },
-  "created_at": "2026-07-24T00:00:00Z",
+  "created_at": "2026-09-21T00:00:00Z",
   "deprecated_at": "2019-12-27T18:11:19.117Z",
-  "display_name": "Claude Opus 5",
+  "display_name": "Claude Opus 5.5",
   "lifecycle": "active",
   "line": "haiku",
   "max_input_tokens": 0,
@@ -9755,7 +9755,7 @@ const client = new Anthropic({
 const betaMessage = await client.beta.messages.create({
   max_tokens: 1024,
   messages: [{ content: "Hello, world", role: "user" }],
-  model: "claude-opus-5"
+  model: "claude-opus-5-5"
 });
 
 console.log(betaMessage.id);
@@ -9809,7 +9809,7 @@ console.log(betaMessage.id);
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
@@ -13911,7 +13911,7 @@ const client = new Anthropic({
 
 const betaMessageTokensCount = await client.beta.messages.countTokens({
   messages: [{ content: "Hello, world", role: "user" }],
-  model: "claude-opus-5"
+  model: "claude-opus-5-5"
 });
 
 console.log(betaMessageTokensCount.context_management);
@@ -18312,7 +18312,7 @@ const betaMessageBatch = await client.beta.messages.batches.create({
       params: {
         max_tokens: 1024,
         messages: [{ content: "Hello, world", role: "user" }],
-        model: "claude-opus-5"
+        model: "claude-opus-5-5"
       }
     }
   ]
@@ -19370,7 +19370,7 @@ console.log(betaDeletedMessageBatch.id);
 
 ### Retrieve Message Batch results
 
-`client.beta.messages.batches.results(messageBatchID, params?, options?): BetaMessageBatchIndividualResponse | Stream<BetaMessageBatchIndividualResponse>`
+`client.beta.messages.batches.results(messageBatchID, params?, options?): JSONLDecoder<BetaMessageBatchIndividualResponse>`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 
@@ -23478,11 +23478,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaMessageBatchIndividualResponse = await client.beta.messages.batches.results(
-  "message_batch_id"
-);
-
-console.log(betaMessageBatchIndividualResponse.custom_id);
+const stream = await client.beta.messages.batches.results("message_batch_id");
+for await (const betaMessageBatchIndividualResponse of stream) {
+  console.log(betaMessageBatchIndividualResponse.custom_id);
+}
 ```
 
 ## Beta › Agents
@@ -23501,7 +23500,7 @@ Create Agent
 
   - `model: BetaManagedAgentsModel | BetaManagedAgentsModelConfigParams`
 
-    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=typescript#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
+    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=typescript#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control
 
     - `type BetaManagedAgentsModel = "claude-haiku-5-5" | "claude-sonnet-5-5" | "claude-opus-5-5" | 14 more | (string & {})`
 
@@ -25311,7 +25310,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsAgent = await client.beta.agents.create({
-  model: "claude-opus-5",
+  model: "claude-opus-5-5",
   name: "My First Agent"
 });
 
@@ -25337,7 +25336,7 @@ console.log(betaManagedAgentsAgent.id);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
@@ -26371,7 +26370,7 @@ for await (const betaManagedAgentsAgent of client.beta.agents.list()) {
         "foo": "bar"
       },
       "model": {
-        "id": "claude-opus-5",
+        "id": "claude-opus-5-5",
         "effort": {
           "type": "low"
         },
@@ -27391,7 +27390,7 @@ console.log(betaManagedAgentsAgent.id);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
@@ -27517,7 +27516,7 @@ Update Agent
 
   - `model?: BetaManagedAgentsModel | BetaManagedAgentsModelConfigParams`
 
-    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=typescript#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
+    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=typescript#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
     - `type BetaManagedAgentsModel = "claude-haiku-5-5" | "claude-sonnet-5-5" | "claude-opus-5-5" | 14 more | (string & {})`
 
@@ -29331,7 +29330,7 @@ console.log(betaManagedAgentsAgent.id);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
@@ -30342,7 +30341,7 @@ console.log(betaManagedAgentsAgent.id);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
@@ -31368,7 +31367,7 @@ for await (const betaManagedAgentsAgent of client.beta.agents.versions.list(
         "foo": "bar"
       },
       "model": {
-        "id": "claude-opus-5",
+        "id": "claude-opus-5-5",
         "effort": {
           "type": "low"
         },
@@ -35475,7 +35474,7 @@ Create Session
 
       - `model?: BetaManagedAgentsModel | BetaManagedAgentsModelConfigParams`
 
-        Replacement model. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object. Omit to use the agent's model.
+        Replacement model. Accepts the model string, e.g. `claude-opus-5-5`, or a `model_config` object. Omit to use the agent's model.
 
         - `type BetaManagedAgentsModel = "claude-haiku-5-5" | "claude-sonnet-5-5" | "claude-opus-5-5" | 14 more | (string & {})`
 
@@ -37799,7 +37798,7 @@ console.log(betaManagedAgentsSession.id);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -37819,7 +37818,7 @@ console.log(betaManagedAgentsSession.id);
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -39328,7 +39327,7 @@ for await (const betaManagedAgentsSession of client.beta.sessions.list()) {
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -39348,7 +39347,7 @@ for await (const betaManagedAgentsSession of client.beta.sessions.list()) {
                 }
               ],
               "model": {
-                "id": "claude-opus-5",
+                "id": "claude-opus-5-5",
                 "effort": {
                   "type": "low"
                 },
@@ -40778,7 +40777,7 @@ console.log(betaManagedAgentsSession.id);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -40798,7 +40797,7 @@ console.log(betaManagedAgentsSession.id);
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -42804,7 +42803,7 @@ console.log(betaManagedAgentsSession.id);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -42824,7 +42823,7 @@ console.log(betaManagedAgentsSession.id);
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -44411,7 +44410,7 @@ console.log(betaManagedAgentsSession.id);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -44431,7 +44430,7 @@ console.log(betaManagedAgentsSession.id);
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },
@@ -48763,7 +48762,7 @@ console.log(betaManagedAgentsSendSessionEvents.data);
 
 ### Stream Events
 
-`client.beta.sessions.events.stream(sessionID, params?, options?): BetaManagedAgentsStreamSessionEvents | Stream<BetaManagedAgentsStreamSessionEvents>`
+`client.beta.sessions.events.stream(sessionID, params?, options?): Stream<BetaManagedAgentsStreamSessionEvents>`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 
@@ -51848,11 +51847,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsStreamSessionEvents = await client.beta.sessions.events.stream(
-  "sesn_011CZkZAtmR3yMPDzynEDxu7"
-);
-
-console.log(betaManagedAgentsStreamSessionEvents);
+const stream = await client.beta.sessions.events.stream("sesn_011CZkZAtmR3yMPDzynEDxu7");
+for await (const betaManagedAgentsStreamSessionEvents of stream) {
+  console.log(betaManagedAgentsStreamSessionEvents);
+}
 ```
 
 ##### Response (200)
@@ -54067,7 +54065,7 @@ for await (const betaManagedAgentsSessionThread of client.beta.sessions.threads.
           }
         ],
         "model": {
-          "id": "claude-opus-5",
+          "id": "claude-opus-5-5",
           "effort": {
             "type": "low"
           },
@@ -55119,7 +55117,7 @@ console.log(betaManagedAgentsSessionThread.id);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -56168,7 +56166,7 @@ console.log(betaManagedAgentsSessionThread.id);
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -59324,7 +59322,7 @@ for await (const betaManagedAgentsSessionEvent of client.beta.sessions.threads.e
 
 ### Stream Session Thread Events
 
-`client.beta.sessions.threads.events.stream(threadID, params, options?): BetaManagedAgentsStreamSessionThreadEvents | Stream<BetaManagedAgentsStreamSessionThreadEvents>`
+`client.beta.sessions.threads.events.stream(threadID, params, options?): Stream<BetaManagedAgentsStreamSessionThreadEvents>`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
@@ -62411,12 +62409,13 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsStreamSessionThreadEvents =
-  await client.beta.sessions.threads.events.stream("sthr_011CZkZVWa6oJjw1rgXZpnBt", {
-    session_id: "sesn_011CZkZAtmR3yMPDzynEDxu7"
-  });
-
-console.log(betaManagedAgentsStreamSessionThreadEvents);
+const stream = await client.beta.sessions.threads.events.stream(
+  "sthr_011CZkZVWa6oJjw1rgXZpnBt",
+  { session_id: "sesn_011CZkZAtmR3yMPDzynEDxu7" }
+);
+for await (const betaManagedAgentsStreamSessionThreadEvents of stream) {
+  console.log(betaManagedAgentsStreamSessionThreadEvents);
+}
 ```
 
 ##### Response (200)
@@ -98983,7 +98982,7 @@ key with the `read:analytics` scope.
 
     - `model: string | null`
 
-      Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+      Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
 
     - `output_tokens: number`
 
@@ -99066,7 +99065,7 @@ for await (const betaAnalyticsUsageReportTimeBucket of client.beta.organization.
           "claude_tag_user_id": "U0123ABCDEF",
           "context_window": "0-200k",
           "inference_geo": "global",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "output_tokens": 0,
           "product": "chat",
           "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
@@ -99381,7 +99380,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   - `model: string | null`
 
-    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
 
   - `output_tokens: number`
 
@@ -99474,7 +99473,7 @@ for await (const betaAnalyticsUsageUsersItem of client.beta.organization.analyti
       "context_window": "0-200k",
       "ending_at": "2019-12-27T18:11:19.117Z",
       "inference_geo": "global",
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "output_tokens": 891000,
       "product": "chat",
       "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
@@ -99749,7 +99748,7 @@ Requires an API key with the `read:analytics` scope.
 
     - `model: string | null`
 
-      Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+      Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
 
     - `product: string | null`
 
@@ -99829,7 +99828,7 @@ for await (const betaAnalyticsCostReportTimeBucket of client.beta.organization.a
           "currency": "USD",
           "inference_geo": "global",
           "list_amount": "list_amount",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "product": "chat",
           "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
           "requests": 0,
@@ -100144,7 +100143,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   - `model: string | null`
 
-    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
+    Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution.
 
   - `product: string | null`
 
@@ -100230,7 +100229,7 @@ for await (const betaAnalyticsCostUsersItem of client.beta.organization.analytic
       "ending_at": "2019-12-27T18:11:19.117Z",
       "inference_geo": "global",
       "list_amount": "51600.000000",
-      "model": "claude-opus-5",
+      "model": "claude-opus-5-5",
       "product": "chat",
       "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
       "requests": 128,
@@ -100457,7 +100456,7 @@ Anthropic account team.
 
   - `is_enabled: boolean`
 
-    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
   - `period: BetaSpendLimitPeriod`
 
@@ -100619,7 +100618,7 @@ Retrieve a spend limit by ID.
 
   - `is_enabled: boolean`
 
-    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
   - `period: BetaSpendLimitPeriod`
 
@@ -100793,12 +100792,10 @@ console.log(spendLimit.id);
 
 List the organization's spend limits.
 
-A Claude Console organization's limits come in an order that is stable across
-pages. A Claude Enterprise organization's are grouped by scope type,
-in the order `organization`, `seat_tier`, `rbac_group`,
-`organization_service`, `user`; within a type they come in a fixed order that
-is not creation order. Listing Claude Console limits is in an early access
-preview. To request access, contact your Anthropic account team.
+Limits are grouped by scope type, in the order `organization`, `seat_tier`,
+`rbac_group`, `organization_service`, `user`; within a type they come in a
+fixed order that is not creation order. Supported for Claude Enterprise
+organizations only, not for Claude Console organizations.
 
 #### Parameters
 
@@ -100816,7 +100813,7 @@ preview. To request access, contact your Anthropic account team.
 
   - `scope_type?: Array<"organization" | "organization_service" | "rbac_group" | 3 more> | null` (query parameter)
 
-    Return only limits with these scope types. A Claude Console organization has `organization` and `workspace` limits; a Claude Enterprise organization has `organization`, `seat_tier`, `rbac_group`, `organization_service` and `user` limits. Omit for all.
+    Return only limits with these scope types. Omit for all.
 
     maxItems: 100
 
@@ -100970,7 +100967,7 @@ preview. To request access, contact your Anthropic account team.
 
   - `is_enabled: boolean`
 
-    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
   - `period: BetaSpendLimitPeriod`
 
@@ -101101,9 +101098,9 @@ List each member's effective spend limit and period-to-date spend.
 
 Returns one row per (member, period) the member resolves a spend limit
 for, with the `source` scope the spend limit was inherited from.
-Paginates by member, so a member's periods never split across pages. Listing
-Claude Console limits is in an early access preview. To request access,
-contact your Anthropic account team.
+Paginates by member, so a member's periods never split across pages.
+Supported for Claude Enterprise organizations only, not for Claude Console
+organizations.
 
 #### Parameters
 
@@ -102070,7 +102067,7 @@ the member was blocked on. Anthropic emails the requester unless
 
     - `is_enabled: boolean`
 
-      Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+      Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
     - `period: BetaSpendLimitPeriod`
 

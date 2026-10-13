@@ -288,9 +288,9 @@ curl https://api.anthropic.com/v1/organizations/cost_report \
           "context_window": "0-200k",
           "cost_type": "tokens",
           "currency": "USD",
-          "description": "Claude Opus 5 Usage - Input Tokens",
+          "description": "Claude Opus 5.5 Usage - Input Tokens",
           "inference_geo": "global",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "service_tier": "standard",
           "token_type": "cache_creation.ephemeral_1h_input_tokens",
           "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"

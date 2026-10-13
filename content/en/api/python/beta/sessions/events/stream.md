@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/python/beta/sessions/events/stream
 
 # Stream Events
 
-`beta.sessions.events.stream(session_id, **kwargs)  -> BetaManagedAgentsStreamSessionEvents`
+`beta.sessions.events.stream(session_id, **kwargs)  -> Stream[BetaManagedAgentsStreamSessionEvents]`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 

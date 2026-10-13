@@ -17,7 +17,7 @@ compliance activities that can be filtered by various criteria.
 
 ### Query parameters
 
-- `activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 516 more`
+- `activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 522 more`
 
   Filter activities by type. See the response `data` schema for the additional fields each type returns. Cannot be combined with `exclude_activity_types[]`.
 
@@ -268,6 +268,10 @@ compliance activities that can be filtered by various criteria.
   - `"claude_artifact_published"`
 
     A new version of an artifact was published — for an artifact created in a chat this is the action that made it publicly viewable; for an artifact created outside a chat it is recorded when the artifact is saved, including saves of private artifacts, except that automatic saves made while a person keeps editing may be recorded periodically for that person rather than once per save; changes to who can access the artifact are recorded separately as claude_artifact_sharing_updated.
+
+  - `"claude_artifact_sent_to_partner"`
+
+    A member sent an export of an artifact to a partner application ("Send to …" on the artifact; a partner is a third-party application listed in Claude's connector directory): a file exported from the artifact was made available over a temporary link for the chosen partner to fetch. One activity is recorded per send, in the artifact owner's organization with the sending member as actor, whether or not the partner then retrieved the file; the partner's own import of the file is not part of this record. The file's name and contents are not recorded.
 
   - `"claude_artifact_sharing_updated"`
 
@@ -684,6 +688,26 @@ compliance activities that can be filtered by various criteria.
   - `"claude_skill_security_scan_completed"`
 
     A security scan of a skill completed and produced a verdict.
+
+  - `"claude_survey_closed"`
+
+    An organization admin closed an in-app survey before its end date, ending the collection of responses; a survey that reaches its end date records no event.
+
+  - `"claude_survey_created"`
+
+    An organization admin launched an in-app survey to its chosen audience, opening it immediately or at a scheduled start time.
+
+  - `"claude_survey_deleted"`
+
+    An organization admin permanently deleted a closed in-app survey together with every response collected for it.
+
+  - `"claude_survey_response_submitted"`
+
+    A member submitted their response to an in-app survey run by their organization; the record omits the response content, and a retried submission can produce more than one record for the same response.
+
+  - `"claude_survey_responses_exported"`
+
+    An organization admin downloaded a survey's responses as a CSV file, one row per response with the member's email address (blank if it is no longer available, for example because they left the organization), the groups, department and cost center they were invited through, the product they answered in, the submission time, and their answers.
 
   - `"claude_user_role_updated"`
 
@@ -2152,7 +2176,7 @@ compliance activities that can be filtered by various criteria.
 
     format: date-time
 
-- `exclude_activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 516 more`
+- `exclude_activity_types: optional array of "abuse_decision_received" or "account_deleted" or "admin_api_key_created" or 522 more`
 
   Exclude activities of these types. Cannot be combined with `activity_types[]`.
 
@@ -2403,6 +2427,10 @@ compliance activities that can be filtered by various criteria.
   - `"claude_artifact_published"`
 
     A new version of an artifact was published — for an artifact created in a chat this is the action that made it publicly viewable; for an artifact created outside a chat it is recorded when the artifact is saved, including saves of private artifacts, except that automatic saves made while a person keeps editing may be recorded periodically for that person rather than once per save; changes to who can access the artifact are recorded separately as claude_artifact_sharing_updated.
+
+  - `"claude_artifact_sent_to_partner"`
+
+    A member sent an export of an artifact to a partner application ("Send to …" on the artifact; a partner is a third-party application listed in Claude's connector directory): a file exported from the artifact was made available over a temporary link for the chosen partner to fetch. One activity is recorded per send, in the artifact owner's organization with the sending member as actor, whether or not the partner then retrieved the file; the partner's own import of the file is not part of this record. The file's name and contents are not recorded.
 
   - `"claude_artifact_sharing_updated"`
 
@@ -2819,6 +2847,26 @@ compliance activities that can be filtered by various criteria.
   - `"claude_skill_security_scan_completed"`
 
     A security scan of a skill completed and produced a verdict.
+
+  - `"claude_survey_closed"`
+
+    An organization admin closed an in-app survey before its end date, ending the collection of responses; a survey that reaches its end date records no event.
+
+  - `"claude_survey_created"`
+
+    An organization admin launched an in-app survey to its chosen audience, opening it immediately or at a scheduled start time.
+
+  - `"claude_survey_deleted"`
+
+    An organization admin permanently deleted a closed in-app survey together with every response collected for it.
+
+  - `"claude_survey_response_submitted"`
+
+    A member submitted their response to an in-app survey run by their organization; the record omits the response content, and a retried submission can produce more than one record for the same response.
+
+  - `"claude_survey_responses_exported"`
+
+    An organization admin downloaded a survey's responses as a CSV file, one row per response with the member's email address (blank if it is no longer available, for example because they left the organization), the groups, department and cost center they were invited through, the product they answered in, the submission time, and their answers.
 
   - `"claude_user_role_updated"`
 
@@ -4285,7 +4333,7 @@ compliance activities that can be filtered by various criteria.
 
 ### Returns
 
-- `data: optional array of AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 516 more`
+- `data: optional array of AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 522 more`
 
   List of activity records. Each element's `type` field identifies which activity it is and which additional fields are present.
 
@@ -21757,6 +21805,262 @@ compliance activities that can be filtered by various criteria.
 
       The access level the invitation granted before the change, for example `commenter`.
 
+  - `ClaudeArtifactSentToPartner object`
+
+    A member sent an export of an artifact to a partner application ("Send to …" on the artifact; a partner is a third-party application listed in Claude's connector directory): a file exported from the artifact was made available over a temporary link for the chosen partner to fetch. One activity is recorded per send, in the artifact owner's organization with the sending member as actor, whether or not the partner then retrieved the file; the partner's own import of the file is not part of this record. The file's name and contents are not recorded.
+
+    - `type: optional "claude_artifact_sent_to_partner"`
+
+      default: claude_artifact_sent_to_partner
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `claude_artifact_id: string`
+
+      Tagged ID of the artifact the file was exported from.
+
+    - `claude_artifact_send_id: string`
+
+      Tagged ID of this send; a new one for every link created, so two sends of the same artifact to the same partner are distinct.
+
+    - `claude_artifact_version_id: string`
+
+      The version of the artifact served to the member when they sent it.
+
+    - `mime_type: string`
+
+      MIME type of the exported file, for example `text/html`.
+
+    - `size_bytes: number`
+
+      Size of the exported file in bytes.
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `partner_mcp_directory_server_id: optional string or null`
+
+      Tagged ID of the partner's MCP directory listing (the listing's public ID), as reported by the member's Claude app when it sent the file. It is not independently verified, and is absent when the app did not report a valid listing ID.
+
   - `ClaudeChatAccessFailed object`
 
     A user was denied access to a Claude.ai chat conversation.
@@ -34990,6 +35294,1214 @@ compliance activities that can be filtered by various criteria.
     - `skill_version: optional string or null`
 
       The version that was downloaded; unset for an unversioned skill.
+
+  - `ClaudeSurveyClosed object`
+
+    An organization admin closed an in-app survey before its end date, ending the collection of responses; a survey that reaches its end date records no event.
+
+    - `type: optional "claude_survey_closed"`
+
+      default: claude_survey_closed
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `survey_id: string`
+
+      Tagged ID of the closed survey, e.g. "srvy_01HX...".
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `ClaudeSurveyCreated object`
+
+    An organization admin launched an in-app survey to its chosen audience, opening it immediately or at a scheduled start time.
+
+    - `type: optional "claude_survey_created"`
+
+      default: claude_survey_created
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `all_members: boolean`
+
+      Whether the survey was opened to every member of the organization. When false, it was opened to members who, at launch, were in any of the selected groups, departments, or cost centers.
+
+    - `survey_id: string`
+
+      Tagged ID of the created survey, e.g. "srvy_01HX...".
+
+    - `survey_name: string`
+
+      The name the admin gave the survey. Not shown to members.
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `audience_cost_centers: optional array of string`
+
+      Cost center values the admin selected, exactly as the organization's identity provider sends them through SCIM. Empty when the survey did not target by cost center.
+
+    - `audience_departments: optional array of string`
+
+      Department values the admin selected, exactly as the organization's identity provider sends them through SCIM. Empty when the survey did not target by department.
+
+    - `audience_group_ids: optional array of string`
+
+      Tagged IDs of the groups the survey was opened to, e.g. "rbac_group_01HX...".
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `ClaudeSurveyDeleted object`
+
+    An organization admin permanently deleted a closed in-app survey together with every response collected for it.
+
+    - `type: optional "claude_survey_deleted"`
+
+      default: claude_survey_deleted
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `response_count: number`
+
+      The number of submitted responses that were deleted with the survey.
+
+    - `survey_id: string`
+
+      Tagged ID of the deleted survey, e.g. "srvy_01HX...".
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `ClaudeSurveyResponseSubmitted object`
+
+    A member submitted their response to an in-app survey run by their organization; the record omits the response content, and a retried submission can produce more than one record for the same response.
+
+    - `type: optional "claude_survey_response_submitted"`
+
+      default: claude_survey_response_submitted
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `survey_id: string`
+
+      Tagged ID of the survey that was answered, e.g. "srvy_01HX...".
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `ClaudeSurveyResponsesExported object`
+
+    An organization admin downloaded a survey's responses as a CSV file, one row per response with the member's email address (blank if it is no longer available, for example because they left the organization), the groups, department and cost center they were invited through, the product they answered in, the submission time, and their answers.
+
+    - `type: optional "claude_survey_responses_exported"`
+
+      default: claude_survey_responses_exported
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `response_count: number`
+
+      The number of submitted responses included in the export.
+
+    - `survey_id: string`
+
+      Tagged ID of the exported survey, e.g. "srvy_01HX...".
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
 
   - `ClaudeUserSeatTierUpdated object`
 
@@ -133550,7 +135062,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
 ### Activity List Response
 
-- `ActivityListResponse = AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 516 more`
+- `ActivityListResponse = AbuseDecisionReceived or AccountDeleted or AdminAPIKeyCreated or 522 more`
 
   - `AbuseDecisionReceived object`
 
@@ -151020,6 +152532,262 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       The access level the invitation granted before the change, for example `commenter`.
 
+  - `ClaudeArtifactSentToPartner object`
+
+    A member sent an export of an artifact to a partner application ("Send to …" on the artifact; a partner is a third-party application listed in Claude's connector directory): a file exported from the artifact was made available over a temporary link for the chosen partner to fetch. One activity is recorded per send, in the artifact owner's organization with the sending member as actor, whether or not the partner then retrieved the file; the partner's own import of the file is not part of this record. The file's name and contents are not recorded.
+
+    - `type: optional "claude_artifact_sent_to_partner"`
+
+      default: claude_artifact_sent_to_partner
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `claude_artifact_id: string`
+
+      Tagged ID of the artifact the file was exported from.
+
+    - `claude_artifact_send_id: string`
+
+      Tagged ID of this send; a new one for every link created, so two sends of the same artifact to the same partner are distinct.
+
+    - `claude_artifact_version_id: string`
+
+      The version of the artifact served to the member when they sent it.
+
+    - `mime_type: string`
+
+      MIME type of the exported file, for example `text/html`.
+
+    - `size_bytes: number`
+
+      Size of the exported file in bytes.
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+    - `partner_mcp_directory_server_id: optional string or null`
+
+      Tagged ID of the partner's MCP directory listing (the listing's public ID), as reported by the member's Claude app when it sent the file. It is not independently verified, and is absent when the app did not report a valid listing ID.
+
   - `ClaudeChatAccessFailed object`
 
     A user was denied access to a Claude.ai chat conversation.
@@ -164253,6 +166021,1214 @@ curl https://api.anthropic.com/v1/compliance/activities \
     - `skill_version: optional string or null`
 
       The version that was downloaded; unset for an unversioned skill.
+
+  - `ClaudeSurveyClosed object`
+
+    An organization admin closed an in-app survey before its end date, ending the collection of responses; a survey that reaches its end date records no event.
+
+    - `type: optional "claude_survey_closed"`
+
+      default: claude_survey_closed
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `survey_id: string`
+
+      Tagged ID of the closed survey, e.g. "srvy_01HX...".
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `ClaudeSurveyCreated object`
+
+    An organization admin launched an in-app survey to its chosen audience, opening it immediately or at a scheduled start time.
+
+    - `type: optional "claude_survey_created"`
+
+      default: claude_survey_created
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `all_members: boolean`
+
+      Whether the survey was opened to every member of the organization. When false, it was opened to members who, at launch, were in any of the selected groups, departments, or cost centers.
+
+    - `survey_id: string`
+
+      Tagged ID of the created survey, e.g. "srvy_01HX...".
+
+    - `survey_name: string`
+
+      The name the admin gave the survey. Not shown to members.
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `audience_cost_centers: optional array of string`
+
+      Cost center values the admin selected, exactly as the organization's identity provider sends them through SCIM. Empty when the survey did not target by cost center.
+
+    - `audience_departments: optional array of string`
+
+      Department values the admin selected, exactly as the organization's identity provider sends them through SCIM. Empty when the survey did not target by department.
+
+    - `audience_group_ids: optional array of string`
+
+      Tagged IDs of the groups the survey was opened to, e.g. "rbac_group_01HX...".
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `ClaudeSurveyDeleted object`
+
+    An organization admin permanently deleted a closed in-app survey together with every response collected for it.
+
+    - `type: optional "claude_survey_deleted"`
+
+      default: claude_survey_deleted
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `response_count: number`
+
+      The number of submitted responses that were deleted with the survey.
+
+    - `survey_id: string`
+
+      Tagged ID of the deleted survey, e.g. "srvy_01HX...".
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `ClaudeSurveyResponseSubmitted object`
+
+    A member submitted their response to an in-app survey run by their organization; the record omits the response content, and a retried submission can produce more than one record for the same response.
+
+    - `type: optional "claude_survey_response_submitted"`
+
+      default: claude_survey_response_submitted
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `survey_id: string`
+
+      Tagged ID of the survey that was answered, e.g. "srvy_01HX...".
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
+
+  - `ClaudeSurveyResponsesExported object`
+
+    An organization admin downloaded a survey's responses as a CSV file, one row per response with the member's email address (blank if it is no longer available, for example because they left the organization), the groups, department and cost center they were invited through, the product they answered in, the submission time, and their answers.
+
+    - `type: optional "claude_survey_responses_exported"`
+
+      default: claude_survey_responses_exported
+
+    - `actor: APIActor or UserActor or UnauthenticatedUserActor or 8 more`
+
+      - `APIActor object`
+
+        - `type: optional "api_actor"`
+
+          default: api_actor
+
+        - `api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `UserActor object`
+
+        - `type: optional "user_actor"`
+
+          default: user_actor
+
+        - `email_address: string`
+
+          format: email
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `user_id: string`
+
+      - `UnauthenticatedUserActor object`
+
+        - `type: optional "unauthenticated_user_actor"`
+
+          default: unauthenticated_user_actor
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+        - `unauthenticated_email_address: optional string or null`
+
+          format: email
+
+      - `AnthropicActor object`
+
+        - `type: optional "anthropic_actor"`
+
+          default: anthropic_actor
+
+        - `email_address: optional string or null`
+
+          format: email
+
+      - `SystemActor object`
+
+        Automated background processing performed by Anthropic systems, acting
+        without a user or customer credential.
+
+        - `type: optional "system_actor"`
+
+          default: system_actor
+
+        - `service: optional string or null`
+
+          Name of the automated process that performed the action, when known.
+
+      - `AdminAPIKeyActor object`
+
+        - `type: optional "admin_api_key_actor"`
+
+          default: admin_api_key_actor
+
+        - `admin_api_key_id: string`
+
+        - `ip_address: string`
+
+        - `user_agent: string`
+
+      - `ServiceAccountActor object`
+
+        - `type: optional "service_account_actor"`
+
+          default: service_account_actor
+
+        - `ip_address: string`
+
+        - `service_account_id: string`
+
+        - `user_agent: string`
+
+      - `ScimDirectorySyncActor object`
+
+        - `type: optional "scim_directory_sync_actor"`
+
+          default: scim_directory_sync_actor
+
+        - `directory_id: string`
+
+        - `workos_event_id: string`
+
+        - `idp_connection_type: optional string or null`
+
+      - `FederatedIdentityActor object`
+
+        A federated external workload authenticated via a verified OIDC token.
+
+        Carries the verified issuer, subject, and audience claims from the
+        presented JWT.
+
+        - `type: optional "federated_identity_actor"`
+
+          default: federated_identity_actor
+
+        - `issuer: string`
+
+        - `subject: string`
+
+        - `audience: optional array of string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+      - `FederatedActor object`
+
+        An external identity asserted by a trusted provider — a cloud-provider
+        gateway or a customer-registered federation issuer — acting without an
+        Anthropic-provisioned account or service account.
+
+        - `type: optional "federated_actor"`
+
+          default: federated_actor
+
+        - `provider: FederatedActorAwsProvider or FederatedActorAzureProvider or FederatedActorGcpProvider or FederatedActorOidcProvider`
+
+          - `FederatedActorAwsProvider object`
+
+            Asserting party: the AWS account the organization is bound to.
+
+            - `type: optional "aws"`
+
+              default: aws
+
+            - `account_id: string`
+
+            - `signed_principal: string`
+
+              The AWS-signed ARN of the IAM principal that requested the token.
+
+          - `FederatedActorAzureProvider object`
+
+            Asserting party: the Azure subscription the organization is bound to.
+
+            - `type: optional "azure"`
+
+              default: azure
+
+            - `subscription_id: string`
+
+          - `FederatedActorGcpProvider object`
+
+            Asserting party: the GCP project the organization is bound to.
+
+            - `type: optional "gcp"`
+
+              default: gcp
+
+            - `project_number: string`
+
+          - `FederatedActorOidcProvider object`
+
+            Asserting party: a customer-registered OIDC federation issuer.
+
+            - `type: optional "oidc"`
+
+              default: oidc
+
+            - `issuer: optional string or null`
+
+              The federation issuer's URL. Null when the presented credential failed verification.
+
+        - `ip_address: optional string or null`
+
+        - `subject: optional string or null`
+
+          The provider's verified identifier for the caller; its form depends on the provider.
+
+        - `user_agent: optional string or null`
+
+      - `AttestedDeviceActor object`
+
+        An attested mobile device authenticated via Apple App Attest.
+
+        - `type: optional "attested_device_actor"`
+
+          default: attested_device_actor
+
+        - `external_client_id: string`
+
+        - `kid_hash: string`
+
+        - `ip_address: optional string or null`
+
+        - `user_agent: optional string or null`
+
+    - `response_count: number`
+
+      The number of submitted responses included in the export.
+
+    - `survey_id: string`
+
+      Tagged ID of the exported survey, e.g. "srvy_01HX...".
+
+    - `id: optional string`
+
+      Unique identifier for the activity e.g. 'activity_abcd1234'
+
+    - `created_at: optional string`
+
+      When this activity occurred.
+
+      format: date-time
+
+    - `organization_id: optional string or null`
+
+      Organization ID this activity is associated with
+
+    - `organization_uuid: optional string or null`
+
+      Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
 
   - `ClaudeUserSeatTierUpdated object`
 

@@ -122,7 +122,9 @@ First check which resolution tier your model is on (see [Resolution and token co
    */
   function roundTiesToEven(value: number): number {
     const floor = Math.floor(value);
-    if (value - floor !== 0.5) return Math.round(value);
+    if (value - floor !== 0.5) {
+      return Math.round(value);
+    }
     return floor % 2 === 0 ? floor : floor + 1;
   }
 
@@ -144,7 +146,9 @@ First check which resolution tier your model is on (see [Resolution and token co
       Math.ceil(h / 28) * 28 <= maxEdge &&
       countImageTokens(w, h) <= maxTokens;
 
-    if (fits(width, height)) return [width, height];
+    if (fits(width, height)) {
+      return [width, height];
+    }
     if (height > width) {
       const [resizedH, resizedW] = resizedSize(height, width, maxEdge, maxTokens);
       return [resizedW, resizedH];

@@ -72,8 +72,8 @@ foreach ($stream as $event) {
 Streaming requires an HTTP client that returns the response body incrementally. When Guzzle is the discovered PSR-18 client, the SDK configures it for streaming automatically. With a buffering client, the `foreach` loop yields every event at once when the response completes instead of incrementally; if you observe that symptom, install Guzzle or supply a streaming-capable PSR-18 client through the `streamingTransporter` request option:
 
 ```php
-$client = new Anthropic\Client(
-  requestOptions: Anthropic\RequestOptions::with(streamingTransporter: $myStreamingClient),
+$client = new \Anthropic\Client(
+  requestOptions: \Anthropic\RequestOptions::with(streamingTransporter: $myStreamingClient),
 );
 ```
 
@@ -160,8 +160,10 @@ foreach ($page->getItems() as $item) {
   echo $item->id, PHP_EOL;
 }
 // make additional network requests to fetch items from all pages, including and after the current page
+// ...
 foreach ($page->pagingEachItem() as $item) {
   echo $item->id, PHP_EOL;
+// ...
 }
 ```
 

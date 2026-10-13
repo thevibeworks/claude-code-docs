@@ -935,7 +935,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID \
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },

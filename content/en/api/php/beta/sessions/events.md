@@ -1081,7 +1081,7 @@ var_dump($betaManagedAgentsSendSessionEvents);
 
 ## Stream Events
 
-`$client->beta->sessions->events->stream(string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsStreamSessionEvents`
+`$client->beta->sessions->events->streamStream(string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas, ?string workspaceID): BaseStream<ManagedAgentsStreamSessionEvents>`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 

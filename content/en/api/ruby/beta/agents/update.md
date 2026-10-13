@@ -47,7 +47,7 @@ Update Agent
 
 - `model: BetaManagedAgentsModel | BetaManagedAgentsModelConfigParams`
 
-  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=ruby#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
+  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=ruby#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
   - `type BetaManagedAgentsModel = :"claude-haiku-5-5" | :"claude-sonnet-5-5" | :"claude-opus-5-5" | 14 more | String`
 
@@ -1860,7 +1860,7 @@ puts(beta_managed_agents_agent)
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },
