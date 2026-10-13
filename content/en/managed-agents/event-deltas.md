@@ -252,7 +252,9 @@ The following examples opt in to `agent.message` previews and reconcile them wit
         // 1. Note the announced id and open the snapshot. Deltas and the
         //    buffered event carry the same id.
         const preview = accumulateManagedAgentsEvent(undefined, event);
-        if (preview) previews.set(event.event.id, preview);
+        if (preview) {
+          previews.set(event.event.id, preview);
+        }
         console.log(`event_start             ${event.event.type} ${event.event.id}`);
         break;
       }
@@ -491,7 +493,83 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   ```
 
   ```php PHP
-  // In PHP, set eventDeltas on EventStreamParams and accumulate with Anthropic\Lib\Sessions\EventAccumulator.
+  use Anthropic\Beta\Sessions\BetaManagedAgentsDeltaEvent;
+  use Anthropic\Beta\Sessions\BetaManagedAgentsDeltaType;
+  use Anthropic\Beta\Sessions\BetaManagedAgentsStartEvent;
+  use Anthropic\Beta\Sessions\Events\ManagedAgentsAgentMessageEvent;
+  use Anthropic\Beta\Sessions\Events\ManagedAgentsSessionStatusIdleEvent;
+  use Anthropic\Beta\Sessions\Events\ManagedAgentsSpanModelRequestEndEvent;
+  use Anthropic\Beta\Sessions\Events\ManagedAgentsTextBlock;
+  use Anthropic\Lib\Sessions\EventAccumulator;
+
+  // Preview snapshots, keyed by event id. EventAccumulator::accumulate() adds each
+  // event_start / event_delta to an agent.message snapshot; the buffered
+  // agent.message replaces it.
+  $previews = [];
+
+  // The text of an agent.message snapshot or event
+  $textOf = fn (ManagedAgentsAgentMessageEvent $message): string => implode(
+      '',
+      array_map(
+          fn ($block) => $block->text,
+          array_filter(
+              $message->content,
+              fn ($block) => $block instanceof ManagedAgentsTextBlock,
+          ),
+      ),
+  );
+
+  // Opt in to agent.message previews on this connection
+  $stream = $client->beta->sessions->events->streamStream(
+      $session->id,
+      eventDeltas: [BetaManagedAgentsDeltaType::AGENT_MESSAGE],
+  );
+
+  $client->beta->sessions->events->send(
+      $session->id,
+      events: [
+          [
+              'type' => 'user.message',
+              'content' => [['type' => 'text', 'text' => 'Describe the repo in one sentence.']],
+          ],
+      ],
+  );
+
+  foreach ($stream as $event) {
+      switch (true) {
+          case $event instanceof BetaManagedAgentsStartEvent:
+              $snapshot = EventAccumulator::accumulate(null, $event);
+              if ($snapshot !== null) {
+                  $previews[$event->event->id] = $snapshot;
+              }
+              printf("event_start             %s %s\n", $event->event->type, $event->event->id);
+              break;
+          case $event instanceof BetaManagedAgentsDeltaEvent:
+              // Skip a late delta for a preview that was already replaced or closed
+              if (!isset($previews[$event->eventID])) {
+                  break; // Break switch statement
+              }
+              $previews[$event->eventID] = EventAccumulator::accumulate($previews[$event->eventID], $event);
+              printf("event_delta             preview: %s\n", json_encode($textOf($previews[$event->eventID])));
+              break;
+          case $event instanceof ManagedAgentsAgentMessageEvent:
+              // The buffered event is the record: it replaces and closes the preview
+              unset($previews[$event->id]);
+              printf("agent.message           %s %s\n", $event->id, json_encode($textOf($event)));
+              break;
+          case $event instanceof ManagedAgentsSpanModelRequestEndEvent:
+              // No more deltas are coming. Close any preview whose
+              // buffered event never arrived.
+              foreach (array_keys($previews) as $eventID) {
+                  printf("span.model_request_end  closing preview for %s\n", $eventID);
+              }
+              $previews = [];
+              break;
+          case $event instanceof ManagedAgentsSessionStatusIdleEvent:
+              break 2; // Break foreach loop
+      }
+  }
+  $stream->close();
   ```
 
   ```ruby Ruby
@@ -636,7 +714,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   ```
 
   ```python Python
-  # List the session's threads and pick a child: child threads carry a non-null
+  # List the session's threads and pick a child: child threads have a non-null
   # parent_thread_id, and the primary thread's parent_thread_id is null.
   child_thread = next(
       thread
@@ -667,7 +745,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   ```
 
   ```typescript TypeScript
-  // List the session's threads and pick a child: child threads carry a non-null
+  // List the session's threads and pick a child: child threads have a non-null
   // parent_thread_id, and the primary thread's parent_thread_id is null.
   let childThreadId: string | undefined;
   for await (const thread of client.beta.sessions.threads.list(session.id)) {
@@ -676,7 +754,9 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
       break;
     }
   }
-  if (!childThreadId) throw new Error("No child thread found");
+  if (!childThreadId) {
+    throw new Error("No child thread found");
+  }
 
   // The child thread's stream takes the same event_deltas parameter as the
   // session stream.
@@ -707,7 +787,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   ```
 
   ```csharp C#
-  // List the session's threads and pick a child: child threads carry a non-null
+  // List the session's threads and pick a child: child threads have a non-null
   // parent_thread_id, and the primary thread's parent_thread_id is null.
   var threads = await client.Beta.Sessions.Threads.List(session.ID);
   var childThread = threads.Items.First(thread => thread.ParentThreadID is not null);
@@ -741,7 +821,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   ```
 
   ```go Go
-  	// List the session's threads and pick a child: child threads carry a non-null
+  	// List the session's threads and pick a child: child threads have a non-null
   	// parent_thread_id, and the primary thread's parent_thread_id is null.
   	var childThreadID string
   	threads := client.Beta.Sessions.Threads.ListAutoPaging(ctx, session.ID, anthropic.BetaSessionThreadListParams{})
@@ -788,7 +868,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   ```
 
   ```java Java
-  // List the session's threads and pick a child: child threads carry a non-null
+  // List the session's threads and pick a child: child threads have a non-null
   // parent_thread_id, and the primary thread's parent_thread_id is null.
   var childThread = client.beta().sessions().threads().list(session.id()).autoPager().stream()
       .filter(thread -> thread.parentThreadId().isPresent())
@@ -824,11 +904,54 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   ```
 
   ```php PHP
-  // In PHP, set eventDeltas on the thread EventStreamParams and accumulate with Anthropic\Lib\Sessions\EventAccumulator.
+  use Anthropic\Beta\Sessions\BetaManagedAgentsDeltaEvent;
+  use Anthropic\Beta\Sessions\BetaManagedAgentsDeltaType;
+  use Anthropic\Beta\Sessions\Events\ManagedAgentsAgentMessageEvent;
+  use Anthropic\Beta\Sessions\Events\ManagedAgentsSessionThreadStatusIdleEvent;
+  use Anthropic\Beta\Sessions\Events\ManagedAgentsTextBlock;
+
+  // List the session's threads and pick a child: child threads have a non-null
+  // parentThreadID, and the primary thread's parentThreadID is null.
+  $childThread = null;
+  foreach ($client->beta->sessions->threads->list($session->id)->pagingEachItem() as $thread) {
+      if ($thread->parentThreadID !== null) {
+          $childThread = $thread;
+          break;
+      }
+  }
+
+  // The child thread's stream takes the same eventDeltas parameter as the
+  // session stream.
+  $stream = $client->beta->sessions->threads->events->streamStream(
+      $childThread->id,
+      sessionID: $session->id,
+      eventDeltas: [BetaManagedAgentsDeltaType::AGENT_MESSAGE],
+  );
+
+  foreach ($stream as $event) {
+      switch (true) {
+          case $event instanceof BetaManagedAgentsDeltaEvent:
+              echo $event->delta->content->text;
+              break;
+          case $event instanceof ManagedAgentsAgentMessageEvent:
+              // The buffered event is the authoritative record; render its content
+              echo "\n";
+              foreach ($event->content as $block) {
+                  if ($block instanceof ManagedAgentsTextBlock) {
+                      echo $block->text;
+                  }
+              }
+              echo "\n";
+              break;
+          case $event instanceof ManagedAgentsSessionThreadStatusIdleEvent:
+              break 2; // Break foreach loop
+      }
+  }
+  $stream->close();
   ```
 
   ```ruby Ruby
-  # List the session's threads and pick a child: child threads carry a non-null
+  # List the session's threads and pick a child: child threads have a non-null
   # parent_thread_id, and the primary thread's parent_thread_id is null.
   child_thread = client.beta.sessions.threads.list(session.id).to_enum.find { it.parent_thread_id }
 

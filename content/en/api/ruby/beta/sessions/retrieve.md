@@ -1265,7 +1265,7 @@ puts(beta_managed_agents_session)
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -1285,7 +1285,7 @@ puts(beta_managed_agents_session)
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },

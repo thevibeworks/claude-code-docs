@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/sessions/events/str
 
 # Stream Events
 
-`client.beta.sessions.events.stream(sessionID, params?, options?): BetaManagedAgentsStreamSessionEvents | Stream<BetaManagedAgentsStreamSessionEvents>`
+`client.beta.sessions.events.stream(sessionID, params?, options?): Stream<BetaManagedAgentsStreamSessionEvents>`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 
@@ -3090,11 +3090,10 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsStreamSessionEvents = await client.beta.sessions.events.stream(
-  "sesn_011CZkZAtmR3yMPDzynEDxu7"
-);
-
-console.log(betaManagedAgentsStreamSessionEvents);
+const stream = await client.beta.sessions.events.stream("sesn_011CZkZAtmR3yMPDzynEDxu7");
+for await (const betaManagedAgentsStreamSessionEvents of stream) {
+  console.log(betaManagedAgentsStreamSessionEvents);
+}
 ```
 
 ### Response (200)

@@ -3236,7 +3236,7 @@ curl https://api.anthropic.com/v1/messages/batches \
                     "role": "user"
                   }
                 ],
-                "model": "claude-opus-5"
+                "model": "claude-opus-5-5"
               }
             }
           ]

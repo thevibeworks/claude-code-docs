@@ -5768,7 +5768,7 @@ ant beta:messages create \
   --api-key my-anthropic-api-key \
   --max-tokens 1024 \
   --message '{content: [{text: x, type: text}], role: user}' \
-  --model claude-opus-5
+  --model claude-opus-5-5
 ```
 
 #### Response (200)
@@ -5819,7 +5819,7 @@ ant beta:messages create \
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
@@ -6106,7 +6106,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 ant beta:messages count-tokens \
   --api-key my-anthropic-api-key \
   --message '{content: [{text: x, type: text}], role: user}' \
-  --model claude-opus-5
+  --model claude-opus-5-5
 ```
 
 #### Response (200)
@@ -82125,7 +82125,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 ```bash
 ant beta:messages:batches create \
   --api-key my-anthropic-api-key \
-  --request '{custom_id: my-custom-id-1, params: {max_tokens: 1024, messages: [{content: [{text: x, type: text}], role: user}], model: claude-opus-5}}'
+  --request '{custom_id: my-custom-id-1, params: {max_tokens: 1024, messages: [{content: [{text: x, type: text}], role: user}], model: claude-opus-5-5}}'
 ```
 
 ##### Response (200)

@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/sessions/events/stream
 
 # Stream Events
 
-`BetaManagedAgentsStreamSessionEvents Beta.Sessions.Events.StreamStreaming(parameters, cancellationToken = default)`
+`IAsyncEnumerable<BetaManagedAgentsStreamSessionEvents> Beta.Sessions.Events.StreamStreaming(parameters, cancellationToken = default)`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 

@@ -17,7 +17,7 @@ Create Agent
 
   - `model: BetaManagedAgentsModel | BetaManagedAgentsModelConfigParams`
 
-    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=typescript#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
+    Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=typescript#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control
 
     - `type BetaManagedAgentsModel = "claude-haiku-5-5" | "claude-sonnet-5-5" | "claude-opus-5-5" | 14 more | (string & {})`
 
@@ -1827,7 +1827,7 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsAgent = await client.beta.agents.create({
-  model: "claude-opus-5",
+  model: "claude-opus-5-5",
   name: "My First Agent"
 });
 
@@ -1853,7 +1853,7 @@ console.log(betaManagedAgentsAgent.id);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },

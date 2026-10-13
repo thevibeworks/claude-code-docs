@@ -81,7 +81,7 @@ Create User Profile
 
     minLength: 1, maxLength: 255
 
-  - `onboarded_at: Optional[datetime]`
+  - `onboarded_at: Optional[Union[str, datetime]]`
 
     When the entity opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future.
 
@@ -1106,7 +1106,7 @@ Update User Profile
 
     minLength: 1, maxLength: 255
 
-  - `onboarded_at: Optional[datetime]`
+  - `onboarded_at: Optional[Union[str, datetime]]`
 
     When the entity opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future.
 
@@ -1844,7 +1844,7 @@ print(beta_user_profile_enrollment_url.expires_at)
 
     minLength: 1, maxLength: 255
 
-  - `onboarded_at: Optional[datetime]`
+  - `onboarded_at: Optional[Union[str, datetime]]`
 
     When the entity opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future.
 

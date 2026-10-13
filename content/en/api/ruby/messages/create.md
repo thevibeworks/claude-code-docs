@@ -4273,7 +4273,7 @@ anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 message = anthropic.messages.create(
   max_tokens: 1024,
   messages: [{content: "Hello, world", role: :user}],
-  model: Anthropic::Model::CLAUDE_OPUS_5
+  model: Anthropic::Model::CLAUDE_OPUS_5_5
 )
 
 puts(message)
@@ -4318,7 +4318,7 @@ puts(message)
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",

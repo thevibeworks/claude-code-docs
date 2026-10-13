@@ -80,11 +80,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   There is a limit of 100,000 messages in a single request.
 
-  - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 14 more]]]`
+  - `content: Union[str, Iterable[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 14 more]]]`
 
     - `str`
 
-    - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 14 more]]`
+    - `Iterable[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 14 more]]`
 
       - `class TextBlockParam`
 
@@ -94,7 +94,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minLength: 1
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -115,7 +115,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `"1h"`
 
-        - `citations: Optional[List[TextCitationParam]]`
+        - `citations: Optional[Iterable[TextCitationParam]]`
 
           - `class CitationCharLocationParam`
 
@@ -243,11 +243,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `source: Source`
 
-          - `class Base64ImageSource`
+          - `class Base64ImageSourceParam`
 
             - `type: Literal["base64"]`
 
-            - `data: str`
+            - `data: Union[str, Base64FileInput]`
 
               format: byte
 
@@ -261,19 +261,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `"image/webp"`
 
-          - `class URLImageSource`
+          - `class URLImageSourceParam`
 
             - `type: Literal["url"]`
 
             - `url: str`
 
-          - `class FileImageSource`
+          - `class FileImageSourceParam`
 
             - `type: Literal["file"]`
 
             - `file_id: str`
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -313,33 +313,33 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `media_type: Literal["text/plain"]`
 
-          - `class ContentBlockSource`
+          - `class ContentBlockSourceParam`
 
             - `type: Literal["content"]`
 
-            - `content: Union[str, List[ContentBlockSourceContent]]`
+            - `content: Union[str, Iterable[ContentBlockSourceContentParam]]`
 
               - `str`
 
-              - `List[ContentBlockSourceContent]`
+              - `Iterable[ContentBlockSourceContentParam]`
 
                 - `class TextBlockParam`
 
                 - `class ImageBlockParam`
 
-          - `class URLPDFSource`
+          - `class URLPDFSourceParam`
 
             - `type: Literal["url"]`
 
             - `url: str`
 
-          - `class FileDocumentSource`
+          - `class FileDocumentSourceParam`
 
             - `type: Literal["file"]`
 
             - `file_id: str`
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -359,7 +359,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: Literal["search_result"]`
 
-        - `content: List[TextBlockParam]`
+        - `content: Iterable[TextBlockParam]`
 
           - `type: Literal["text"]`
 
@@ -367,17 +367,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             minLength: 1
 
-          - `cache_control: Optional[CacheControlEphemeral]`
+          - `cache_control: Optional[CacheControlEphemeralParam]`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: Optional[List[TextCitationParam]]`
+          - `citations: Optional[Iterable[TextCitationParam]]`
 
         - `source: str`
 
         - `title: str`
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -419,7 +419,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minLength: 1, maxLength: 200
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -463,15 +463,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^[a-zA-Z0-9_-]+$
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
-        - `content: Optional[Union[str, List[Content], null]]`
+        - `content: Optional[Union[str, Iterable[Content]]]`
 
           - `str`
 
-          - `List[Content]`
+          - `Iterable[Content]`
 
             - `class TextBlockParam`
 
@@ -491,7 +491,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `cache_control: Optional[CacheControlEphemeral]`
+              - `cache_control: Optional[CacheControlEphemeralParam]`
 
                 Create a cache control breakpoint at this content block.
 
@@ -507,7 +507,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `type: Literal["browser_state"]`
 
-              - `tabs: List[BrowserStateTabEntry]`
+              - `tabs: Iterable[BrowserStateTabEntryParam]`
 
                 All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
@@ -535,17 +535,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
-              - `cache_control: Optional[CacheControlEphemeral]`
+              - `cache_control: Optional[CacheControlEphemeralParam]`
 
                 Create a cache control breakpoint at this content block.
 
-              - `state_changes: Optional[List[BrowserStateChange]]`
+              - `state_changes: Optional[Iterable[BrowserStateChangeParam]]`
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
                 minItems: 1, maxItems: 200
 
-                - `class BrowserStateChangeTabOpened`
+                - `class BrowserStateChangeTabOpenedParam`
 
                   A tab this call's execution opened that remains open at its end —
                   the creation delta of the `tabs` inventory, not an event log.
@@ -563,7 +563,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BrowserStateChangeDownloadStarted`
+                - `class BrowserStateChangeDownloadStartedParam`
 
                   A file download that started during this call.
 
@@ -581,7 +581,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `class BrowserStateChangeDownloadCompleted`
+                - `class BrowserStateChangeDownloadCompletedParam`
 
                   A file download that finished during this call, reported with the
                   same `download_id` as its `download_started` — or without a prior
@@ -614,7 +614,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     minimum: 0
 
-                - `class BrowserStateChangeDownloadFailed`
+                - `class BrowserStateChangeDownloadFailedParam`
 
                   A file download that failed — or was cancelled — during this call.
 
@@ -672,7 +672,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `"tool_search_tool_bm25"`
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -692,9 +692,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: Literal["web_search_tool_result"]`
 
-        - `content: WebSearchToolResultBlockParamContent`
+        - `content: WebSearchToolResultBlockParamContentParam`
 
-          - `List[WebSearchResultBlockParam]`
+          - `Iterable[WebSearchResultBlockParam]`
 
             - `type: Literal["web_search_result"]`
 
@@ -706,7 +706,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `page_age: Optional[str]`
 
-          - `class WebSearchToolRequestError`
+          - `class WebSearchToolRequestErrorParam`
 
             - `type: Literal["web_search_tool_result_error"]`
 
@@ -728,7 +728,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -794,7 +794,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -814,7 +814,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: Literal["code_execution_tool_result"]`
 
-        - `content: CodeExecutionToolResultBlockParamContent`
+        - `content: CodeExecutionToolResultBlockParamContentParam`
 
           - `class CodeExecutionToolResultErrorParam`
 
@@ -834,7 +834,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: Literal["code_execution_result"]`
 
-            - `content: List[CodeExecutionOutputBlockParam]`
+            - `content: Iterable[CodeExecutionOutputBlockParam]`
 
               - `type: Literal["code_execution_output"]`
 
@@ -852,7 +852,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: Literal["encrypted_code_execution_result"]`
 
-            - `content: List[CodeExecutionOutputBlockParam]`
+            - `content: Iterable[CodeExecutionOutputBlockParam]`
 
               - `type: Literal["code_execution_output"]`
 
@@ -868,7 +868,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -898,7 +898,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: Literal["bash_code_execution_result"]`
 
-            - `content: List[BashCodeExecutionOutputBlockParam]`
+            - `content: Iterable[BashCodeExecutionOutputBlockParam]`
 
               - `type: Literal["bash_code_execution_output"]`
 
@@ -914,7 +914,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -972,7 +972,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: Literal["text_editor_code_execution_str_replace_result"]`
 
-            - `lines: Optional[List[str]]`
+            - `lines: Optional[Sequence[str]]`
 
             - `new_lines: Optional[int]`
 
@@ -986,7 +986,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -1016,7 +1016,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: Literal["tool_search_tool_search_result"]`
 
-            - `tool_references: List[ToolReferenceBlockParam]`
+            - `tool_references: Iterable[ToolReferenceBlockParam]`
 
               - `type: Literal["tool_reference"]`
 
@@ -1024,7 +1024,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `cache_control: Optional[CacheControlEphemeral]`
+              - `cache_control: Optional[CacheControlEphemeralParam]`
 
                 Create a cache control breakpoint at this content block.
 
@@ -1032,7 +1032,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -1045,7 +1045,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `file_id: str`
 
-        - `cache_control: Optional[CacheControlEphemeral]`
+        - `cache_control: Optional[CacheControlEphemeralParam]`
 
           Create a cache control breakpoint at this content block.
 
@@ -1163,7 +1163,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Container id
 
-    - `skills: Optional[List[SkillParams]]`
+    - `skills: Optional[Iterable[SkillParams]]`
 
       List of skills to load in the container
 
@@ -1237,7 +1237,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"max"`
 
-  - `format: Optional[JSONOutputFormat]`
+  - `format: Optional[JSONOutputFormatParam]`
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs?sdk_languages=python)
 
@@ -1287,11 +1287,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       minLength: 1
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
-    - `citations: Optional[List[TextCitationParam]]`
+    - `citations: Optional[Iterable[TextCitationParam]]`
 
 - `thinking: Optional[ThinkingConfigParam]`
 
@@ -1301,7 +1301,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Which `type` values are accepted, and what happens when you omit `thinking`, depend on the model. See [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=python#configuring-thinking) for each model's behavior.
 
-  - `class ThinkingConfigEnabled`
+  - `class ThinkingConfigEnabledParam`
 
     - `type: Literal["enabled"]`
 
@@ -1323,15 +1323,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"omitted"`
 
-  - `class ThinkingConfigDisabled`
+  - `class ThinkingConfigDisabledParam`
 
     - `type: Literal["disabled"]`
 
-  - `class ThinkingConfigBetweenTools`
+  - `class ThinkingConfigBetweenToolsParam`
 
     - `type: Literal["between_tools"]`
 
-  - `class ThinkingConfigAdaptive`
+  - `class ThinkingConfigAdaptiveParam`
 
     - `type: Literal["adaptive"]`
 
@@ -1347,7 +1347,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-  - `class ToolChoiceAuto`
+  - `class ToolChoiceAutoParam`
 
     The model will automatically decide whether to use tools.
 
@@ -1359,7 +1359,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-  - `class ToolChoiceAny`
+  - `class ToolChoiceAnyParam`
 
     The model will use any available tools.
 
@@ -1371,7 +1371,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `class ToolChoiceTool`
+  - `class ToolChoiceToolParam`
 
     The model will use the specified tool with `tool_choice.name`.
 
@@ -1387,7 +1387,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `class ToolChoiceNone`
+  - `class ToolChoiceNoneParam`
 
     The model will not be allowed to use tools.
 
@@ -1457,7 +1457,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview?sdk_languages=python) for more details.
 
-  - `class Tool`
+  - `class ToolParam`
 
     - `type: Optional[Literal["custom"]]`
 
@@ -1471,7 +1471,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `properties: Optional[Dict[str, object]]`
 
-      - `required: Optional[List[str]]`
+      - `required: Optional[Sequence[str]]`
 
     - `name: str`
 
@@ -1491,7 +1491,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -1509,13 +1509,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
-    - `input_examples: Optional[List[Dict[str, object]]]`
+    - `input_examples: Optional[Iterable[Dict[str, object]]]`
 
     - `strict: Optional[bool]`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolBash20250124`
+  - `class ToolBash20250124Param`
 
     - `type: Literal["bash_20250124"]`
 
@@ -1535,7 +1535,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -1543,13 +1543,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `input_examples: Optional[List[Dict[str, object]]]`
+    - `input_examples: Optional[Iterable[Dict[str, object]]]`
 
     - `strict: Optional[bool]`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20250522`
+  - `class CodeExecutionTool20250522Param`
 
     - `type: Literal["code_execution_20250522"]`
 
@@ -1569,7 +1569,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -1581,7 +1581,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20250825`
+  - `class CodeExecutionTool20250825Param`
 
     - `type: Literal["code_execution_20250825"]`
 
@@ -1601,7 +1601,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -1613,7 +1613,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20260120`
+  - `class CodeExecutionTool20260120Param`
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -1635,7 +1635,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -1647,7 +1647,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class CodeExecutionTool20260521`
+  - `class CodeExecutionTool20260521Param`
 
     Code execution tool with REPL state persistence.
 
@@ -1669,7 +1669,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -1681,7 +1681,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class BrowserToolset20260801`
+  - `class BrowserToolset20260801Param`
 
     The browser toolset: a single `tools[]` entry (carrying no
     `name`) that declares the browser tool family. The model is served
@@ -1690,15 +1690,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: Literal["browser_toolset_20260801"]`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
-    - `configs: Optional[BrowserToolsetConfigs]`
+    - `configs: Optional[BrowserToolsetConfigsParam]`
 
       Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
-      - `type: Optional[BrowserTypeConfig]`
+      - `type: Optional[BrowserTypeConfigParam]`
 
         `type`'s config overrides.
 
@@ -1710,7 +1710,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `close_tab: Optional[BrowserCloseTabConfig]`
+      - `close_tab: Optional[BrowserCloseTabConfigParam]`
 
         `close_tab`'s config overrides.
 
@@ -1722,7 +1722,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `double_click: Optional[BrowserDoubleClickConfig]`
+      - `double_click: Optional[BrowserDoubleClickConfigParam]`
 
         `double_click`'s config overrides.
 
@@ -1734,7 +1734,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `file_upload: Optional[BrowserFileUploadConfig]`
+      - `file_upload: Optional[BrowserFileUploadConfigParam]`
 
         `file_upload`'s config overrides.
 
@@ -1746,7 +1746,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `find: Optional[BrowserFindConfig]`
+      - `find: Optional[BrowserFindConfigParam]`
 
         `find`'s config overrides.
 
@@ -1758,7 +1758,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `form_input: Optional[BrowserFormInputConfig]`
+      - `form_input: Optional[BrowserFormInputConfigParam]`
 
         `form_input`'s config overrides.
 
@@ -1770,7 +1770,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `get_page_text: Optional[BrowserGetPageTextConfig]`
+      - `get_page_text: Optional[BrowserGetPageTextConfigParam]`
 
         `get_page_text`'s config overrides.
 
@@ -1782,7 +1782,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hold_key: Optional[BrowserHoldKeyConfig]`
+      - `hold_key: Optional[BrowserHoldKeyConfigParam]`
 
         `hold_key`'s config overrides.
 
@@ -1794,7 +1794,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hover: Optional[BrowserHoverConfig]`
+      - `hover: Optional[BrowserHoverConfigParam]`
 
         `hover`'s config overrides.
 
@@ -1806,7 +1806,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `javascript_exec: Optional[BrowserJavascriptExecConfig]`
+      - `javascript_exec: Optional[BrowserJavascriptExecConfigParam]`
 
         `javascript_exec`'s config overrides.
 
@@ -1818,7 +1818,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `key: Optional[BrowserKeyConfig]`
+      - `key: Optional[BrowserKeyConfigParam]`
 
         `key`'s config overrides.
 
@@ -1830,7 +1830,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click: Optional[BrowserLeftClickConfig]`
+      - `left_click: Optional[BrowserLeftClickConfigParam]`
 
         `left_click`'s config overrides.
 
@@ -1842,7 +1842,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click_drag: Optional[BrowserLeftClickDragConfig]`
+      - `left_click_drag: Optional[BrowserLeftClickDragConfigParam]`
 
         `left_click_drag`'s config overrides.
 
@@ -1854,7 +1854,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_down: Optional[BrowserLeftMouseDownConfig]`
+      - `left_mouse_down: Optional[BrowserLeftMouseDownConfigParam]`
 
         `left_mouse_down`'s config overrides.
 
@@ -1866,7 +1866,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_up: Optional[BrowserLeftMouseUpConfig]`
+      - `left_mouse_up: Optional[BrowserLeftMouseUpConfigParam]`
 
         `left_mouse_up`'s config overrides.
 
@@ -1878,7 +1878,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `list_tabs: Optional[BrowserListTabsConfig]`
+      - `list_tabs: Optional[BrowserListTabsConfigParam]`
 
         `list_tabs`'s config overrides.
 
@@ -1890,7 +1890,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `middle_click: Optional[BrowserMiddleClickConfig]`
+      - `middle_click: Optional[BrowserMiddleClickConfigParam]`
 
         `middle_click`'s config overrides.
 
@@ -1902,7 +1902,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `mouse_move: Optional[BrowserMouseMoveConfig]`
+      - `mouse_move: Optional[BrowserMouseMoveConfigParam]`
 
         `mouse_move`'s config overrides.
 
@@ -1914,7 +1914,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `navigate: Optional[BrowserNavigateConfig]`
+      - `navigate: Optional[BrowserNavigateConfigParam]`
 
         `navigate`'s config overrides.
 
@@ -1926,7 +1926,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `new_tab: Optional[BrowserNewTabConfig]`
+      - `new_tab: Optional[BrowserNewTabConfigParam]`
 
         `new_tab`'s config overrides.
 
@@ -1938,7 +1938,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_console: Optional[BrowserReadConsoleConfig]`
+      - `read_console: Optional[BrowserReadConsoleConfigParam]`
 
         `read_console`'s config overrides.
 
@@ -1950,7 +1950,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_network: Optional[BrowserReadNetworkConfig]`
+      - `read_network: Optional[BrowserReadNetworkConfigParam]`
 
         `read_network`'s config overrides.
 
@@ -1962,7 +1962,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_page: Optional[BrowserReadPageConfig]`
+      - `read_page: Optional[BrowserReadPageConfigParam]`
 
         `read_page`'s config overrides.
 
@@ -1974,7 +1974,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `right_click: Optional[BrowserRightClickConfig]`
+      - `right_click: Optional[BrowserRightClickConfigParam]`
 
         `right_click`'s config overrides.
 
@@ -1986,7 +1986,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `screenshot: Optional[BrowserScreenshotConfig]`
+      - `screenshot: Optional[BrowserScreenshotConfigParam]`
 
         `screenshot`'s config overrides.
 
@@ -1998,7 +1998,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll: Optional[BrowserScrollConfig]`
+      - `scroll: Optional[BrowserScrollConfigParam]`
 
         `scroll`'s config overrides.
 
@@ -2010,7 +2010,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll_to: Optional[BrowserScrollToConfig]`
+      - `scroll_to: Optional[BrowserScrollToConfigParam]`
 
         `scroll_to`'s config overrides.
 
@@ -2022,7 +2022,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `switch_tab: Optional[BrowserSwitchTabConfig]`
+      - `switch_tab: Optional[BrowserSwitchTabConfigParam]`
 
         `switch_tab`'s config overrides.
 
@@ -2034,7 +2034,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `triple_click: Optional[BrowserTripleClickConfig]`
+      - `triple_click: Optional[BrowserTripleClickConfigParam]`
 
         `triple_click`'s config overrides.
 
@@ -2046,7 +2046,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `wait: Optional[BrowserWaitConfig]`
+      - `wait: Optional[BrowserWaitConfigParam]`
 
         `wait`'s config overrides.
 
@@ -2058,7 +2058,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `zoom: Optional[BrowserZoomConfig]`
+      - `zoom: Optional[BrowserZoomConfigParam]`
 
         `zoom`'s config overrides.
 
@@ -2070,7 +2070,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class MemoryTool20250818`
+  - `class MemoryTool20250818Param`
 
     - `type: Literal["memory_20250818"]`
 
@@ -2090,7 +2090,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2098,13 +2098,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `input_examples: Optional[List[Dict[str, object]]]`
+    - `input_examples: Optional[Iterable[Dict[str, object]]]`
 
     - `strict: Optional[bool]`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ComputerToolset20260801`
+  - `class ComputerToolset20260801Param`
 
     The computer toolset: a single `tools[]` entry (carrying no
     `name`) that declares the computer tool family. The model is
@@ -2117,15 +2117,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: Literal["computer_toolset_20260801"]`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
-    - `configs: Optional[ComputerToolsetConfigs]`
+    - `configs: Optional[ComputerToolsetConfigsParam]`
 
       Sparse per-member overrides, keyed by member name. Absent, null, and {} are equivalent; a member's defaults apply wherever its key is absent.
 
-      - `type: Optional[ComputerTypeConfig]`
+      - `type: Optional[ComputerTypeConfigParam]`
 
         `type`'s config overrides.
 
@@ -2137,7 +2137,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `cursor_position: Optional[ComputerCursorPositionConfig]`
+      - `cursor_position: Optional[ComputerCursorPositionConfigParam]`
 
         `cursor_position`'s config overrides.
 
@@ -2149,7 +2149,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `double_click: Optional[ComputerDoubleClickConfig]`
+      - `double_click: Optional[ComputerDoubleClickConfigParam]`
 
         `double_click`'s config overrides.
 
@@ -2161,7 +2161,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hold_key: Optional[ComputerHoldKeyConfig]`
+      - `hold_key: Optional[ComputerHoldKeyConfigParam]`
 
         `hold_key`'s config overrides.
 
@@ -2173,7 +2173,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `key: Optional[ComputerKeyConfig]`
+      - `key: Optional[ComputerKeyConfigParam]`
 
         `key`'s config overrides.
 
@@ -2185,7 +2185,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click: Optional[ComputerLeftClickConfig]`
+      - `left_click: Optional[ComputerLeftClickConfigParam]`
 
         `left_click`'s config overrides.
 
@@ -2197,7 +2197,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click_drag: Optional[ComputerLeftClickDragConfig]`
+      - `left_click_drag: Optional[ComputerLeftClickDragConfigParam]`
 
         `left_click_drag`'s config overrides.
 
@@ -2209,7 +2209,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_down: Optional[ComputerLeftMouseDownConfig]`
+      - `left_mouse_down: Optional[ComputerLeftMouseDownConfigParam]`
 
         `left_mouse_down`'s config overrides.
 
@@ -2221,7 +2221,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_up: Optional[ComputerLeftMouseUpConfig]`
+      - `left_mouse_up: Optional[ComputerLeftMouseUpConfigParam]`
 
         `left_mouse_up`'s config overrides.
 
@@ -2233,7 +2233,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `middle_click: Optional[ComputerMiddleClickConfig]`
+      - `middle_click: Optional[ComputerMiddleClickConfigParam]`
 
         `middle_click`'s config overrides.
 
@@ -2245,7 +2245,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `mouse_move: Optional[ComputerMouseMoveConfig]`
+      - `mouse_move: Optional[ComputerMouseMoveConfigParam]`
 
         `mouse_move`'s config overrides.
 
@@ -2257,7 +2257,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `right_click: Optional[ComputerRightClickConfig]`
+      - `right_click: Optional[ComputerRightClickConfigParam]`
 
         `right_click`'s config overrides.
 
@@ -2269,7 +2269,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `screenshot: Optional[ComputerScreenshotConfig]`
+      - `screenshot: Optional[ComputerScreenshotConfigParam]`
 
         `screenshot`'s config overrides.
 
@@ -2281,7 +2281,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll: Optional[ComputerScrollConfig]`
+      - `scroll: Optional[ComputerScrollConfigParam]`
 
         `scroll`'s config overrides.
 
@@ -2293,7 +2293,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `triple_click: Optional[ComputerTripleClickConfig]`
+      - `triple_click: Optional[ComputerTripleClickConfigParam]`
 
         `triple_click`'s config overrides.
 
@@ -2305,7 +2305,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `wait: Optional[ComputerWaitConfig]`
+      - `wait: Optional[ComputerWaitConfigParam]`
 
         `wait`'s config overrides.
 
@@ -2317,7 +2317,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `zoom: Optional[ComputerZoomConfig]`
+      - `zoom: Optional[ComputerZoomConfigParam]`
 
         `zoom`'s config overrides.
 
@@ -2329,7 +2329,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `class ToolTextEditor20250124`
+  - `class ToolTextEditor20250124Param`
 
     - `type: Literal["text_editor_20250124"]`
 
@@ -2349,7 +2349,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2357,13 +2357,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `input_examples: Optional[List[Dict[str, object]]]`
+    - `input_examples: Optional[Iterable[Dict[str, object]]]`
 
     - `strict: Optional[bool]`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolTextEditor20250429`
+  - `class ToolTextEditor20250429Param`
 
     - `type: Literal["text_editor_20250429"]`
 
@@ -2383,7 +2383,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2391,13 +2391,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `input_examples: Optional[List[Dict[str, object]]]`
+    - `input_examples: Optional[Iterable[Dict[str, object]]]`
 
     - `strict: Optional[bool]`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolTextEditor20250728`
+  - `class ToolTextEditor20250728Param`
 
     - `type: Literal["text_editor_20250728"]`
 
@@ -2417,7 +2417,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2425,7 +2425,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-    - `input_examples: Optional[List[Dict[str, object]]]`
+    - `input_examples: Optional[Iterable[Dict[str, object]]]`
 
     - `max_characters: Optional[int]`
 
@@ -2437,7 +2437,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class WebSearchTool20250305`
+  - `class WebSearchTool20250305Param`
 
     - `type: Literal["web_search_20250305"]`
 
@@ -2457,15 +2457,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: Optional[List[str]]`
+    - `allowed_domains: Optional[Sequence[str]]`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: Optional[List[str]]`
+    - `blocked_domains: Optional[Sequence[str]]`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2483,7 +2483,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: Optional[UserLocation]`
+    - `user_location: Optional[UserLocationParam]`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -2513,7 +2513,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minLength: 1, maxLength: 255
 
-  - `class WebFetchTool20250910`
+  - `class WebFetchTool20250910Param`
 
     - `type: Literal["web_fetch_20250910"]`
 
@@ -2533,15 +2533,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: Optional[List[str]]`
+    - `allowed_domains: Optional[Sequence[str]]`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: Optional[List[str]]`
+    - `blocked_domains: Optional[Sequence[str]]`
 
       List of domains to block fetching from
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2569,7 +2569,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `url_sources: Optional[WebFetchURLSources]`
+    - `url_sources: Optional[WebFetchURLSourcesParam]`
 
       Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -2577,41 +2577,41 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[].
 
-        - `class WebFetchURLSourceAll`
+        - `class WebFetchURLSourceAllParam`
 
           The `url_sources` variant under which a source contributes in
           full: every result of the tool filter's source, or all user input.
 
           - `type: Literal["all"]`
 
-        - `class WebFetchURLSourceNone`
+        - `class WebFetchURLSourceNoneParam`
 
           The `url_sources` variant under which a source contributes nothing:
           no result of the tool filter's source, or no user input.
 
           - `type: Literal["none"]`
 
-        - `class WebFetchURLSourceOnly`
+        - `class WebFetchURLSourceOnlyParam`
 
           The tool filter variant under which only the named tools' results
           contribute.
 
           - `type: Literal["only"]`
 
-          - `tools: List[WebFetchURLSourceToolReference]`
+          - `tools: Iterable[WebFetchURLSourceToolReferenceParam]`
 
             - `type: Literal["tool_reference"]`
 
             - `name: str`
 
-        - `class WebFetchURLSourceExcept`
+        - `class WebFetchURLSourceExceptParam`
 
           The tool filter variant under which every result but the named
           tools' contributes.
 
           - `type: Literal["except"]`
 
-          - `tools: List[WebFetchURLSourceToolReference]`
+          - `tools: Iterable[WebFetchURLSourceToolReferenceParam]`
 
             - `type: Literal["tool_reference"]`
 
@@ -2621,22 +2621,22 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute.
 
-        - `class WebFetchURLSourceAll`
+        - `class WebFetchURLSourceAllParam`
 
           The `url_sources` variant under which a source contributes in
           full: every result of the tool filter's source, or all user input.
 
-        - `class WebFetchURLSourceNone`
+        - `class WebFetchURLSourceNoneParam`
 
           The `url_sources` variant under which a source contributes nothing:
           no result of the tool filter's source, or no user input.
 
-        - `class WebFetchURLSourceOnly`
+        - `class WebFetchURLSourceOnlyParam`
 
           The tool filter variant under which only the named tools' results
           contribute.
 
-        - `class WebFetchURLSourceExcept`
+        - `class WebFetchURLSourceExceptParam`
 
           The tool filter variant under which every result but the named
           tools' contributes.
@@ -2645,17 +2645,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Whether URLs in user messages are fetchable: "all" or "none".
 
-        - `class WebFetchURLSourceAll`
+        - `class WebFetchURLSourceAllParam`
 
           The `url_sources` variant under which a source contributes in
           full: every result of the tool filter's source, or all user input.
 
-        - `class WebFetchURLSourceNone`
+        - `class WebFetchURLSourceNoneParam`
 
           The `url_sources` variant under which a source contributes nothing:
           no result of the tool filter's source, or no user input.
 
-  - `class WebSearchTool20260209`
+  - `class WebSearchTool20260209Param`
 
     - `type: Literal["web_search_20260209"]`
 
@@ -2675,15 +2675,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: Optional[List[str]]`
+    - `allowed_domains: Optional[Sequence[str]]`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: Optional[List[str]]`
+    - `blocked_domains: Optional[Sequence[str]]`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2701,11 +2701,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: Optional[UserLocation]`
+    - `user_location: Optional[UserLocationParam]`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class WebFetchTool20260209`
+  - `class WebFetchTool20260209Param`
 
     - `type: Literal["web_fetch_20260209"]`
 
@@ -2725,15 +2725,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: Optional[List[str]]`
+    - `allowed_domains: Optional[Sequence[str]]`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: Optional[List[str]]`
+    - `blocked_domains: Optional[Sequence[str]]`
 
       List of domains to block fetching from
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2761,11 +2761,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `url_sources: Optional[WebFetchURLSources]`
+    - `url_sources: Optional[WebFetchURLSourcesParam]`
 
       Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
-  - `class WebFetchTool20260309`
+  - `class WebFetchTool20260309Param`
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -2787,15 +2787,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: Optional[List[str]]`
+    - `allowed_domains: Optional[Sequence[str]]`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: Optional[List[str]]`
+    - `blocked_domains: Optional[Sequence[str]]`
 
       List of domains to block fetching from
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2823,7 +2823,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `url_sources: Optional[WebFetchURLSources]`
+    - `url_sources: Optional[WebFetchURLSourcesParam]`
 
       Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -2831,7 +2831,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class WebSearchTool20260318`
+  - `class WebSearchTool20260318Param`
 
     - `type: Literal["web_search_20260318"]`
 
@@ -2851,15 +2851,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: Optional[List[str]]`
+    - `allowed_domains: Optional[Sequence[str]]`
 
       If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-    - `blocked_domains: Optional[List[str]]`
+    - `blocked_domains: Optional[Sequence[str]]`
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2885,11 +2885,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: Optional[UserLocation]`
+    - `user_location: Optional[UserLocationParam]`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
-  - `class WebFetchTool20260318`
+  - `class WebFetchTool20260318Param`
 
     - `type: Literal["web_fetch_20260318"]`
 
@@ -2909,15 +2909,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `allowed_domains: Optional[List[str]]`
+    - `allowed_domains: Optional[Sequence[str]]`
 
       List of domains to allow fetching from
 
-    - `blocked_domains: Optional[List[str]]`
+    - `blocked_domains: Optional[Sequence[str]]`
 
       List of domains to block fetching from
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2953,7 +2953,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `url_sources: Optional[WebFetchURLSources]`
+    - `url_sources: Optional[WebFetchURLSourcesParam]`
 
       Which sources contribute to the set of URLs the tool may fetch. Omitted means every source.
 
@@ -2961,7 +2961,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `class ToolSearchToolBm25_20251119`
+  - `class ToolSearchToolBm25_20251119Param`
 
     - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
@@ -2985,7 +2985,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -2997,7 +2997,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `class ToolSearchToolRegex20251119`
+  - `class ToolSearchToolRegex20251119Param`
 
     - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
@@ -3021,7 +3021,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"code_execution_20260521"`
 
-    - `cache_control: Optional[CacheControlEphemeral]`
+    - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Create a cache control breakpoint at this content block.
 
@@ -4370,7 +4370,7 @@ message = client.messages.create(
             "role": "user",
         }
     ],
-    model="claude-opus-5",
+    model="claude-opus-5-5",
 )
 print(message.id)
 ```
@@ -4414,7 +4414,7 @@ print(message.id)
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",

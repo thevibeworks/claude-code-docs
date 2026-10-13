@@ -3222,7 +3222,7 @@ public final class Main {
                 .params(BatchCreateParams.Request.Params.builder()
                     .maxTokens(1024L)
                     .addUserMessage("Hello, world")
-                    .model(Model.CLAUDE_OPUS_5)
+                    .model(Model.CLAUDE_OPUS_5_5)
                     .build())
                 .build())
             .build();
@@ -3845,7 +3845,7 @@ public final class Main {
 
 ## Retrieve Message Batch results
 
-`MessageBatchIndividualResponse messages().batches().resultsStreaming(params = BatchResultsParams.none(), requestOptions = RequestOptions.none())`
+`StreamResponse<MessageBatchIndividualResponse> messages().batches().resultsStreaming(params = BatchResultsParams.none(), requestOptions = RequestOptions.none())`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

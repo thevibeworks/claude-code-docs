@@ -19,7 +19,7 @@ Update Session
 
   Agent configuration update. Only `tools` and `mcp_servers` are updatable mid-session. Only valid for sessions created from an agent or deployment reference. The session must not be running.
 
-  - `mcp_servers: Optional[List[BetaManagedAgentsURLMCPServerParams]]`
+  - `mcp_servers: Optional[Iterable[BetaManagedAgentsURLMCPServerParams]]`
 
     Replacement MCP server list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
 
@@ -37,7 +37,7 @@ Update Session
 
       maxLength: 2048
 
-  - `tools: Optional[List[Tool]]`
+  - `tools: Optional[Iterable[Tool]]`
 
     Replacement tool list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
 
@@ -47,7 +47,7 @@ Update Session
 
       - `type: Literal["agent_toolset_20260401"]`
 
-      - `configs: Optional[List[BetaManagedAgentsAgentToolConfigParams]]`
+      - `configs: Optional[Iterable[BetaManagedAgentsAgentToolConfigParams]]`
 
         Per-tool configuration overrides.
 
@@ -247,11 +247,11 @@ Update Session
 
             Must be "web_fetch".
 
-          - `allowed_domains: Optional[List[str]]`
+          - `allowed_domains: Optional[Sequence[str]]`
 
             Only fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
 
-          - `blocked_domains: Optional[List[str]]`
+          - `blocked_domains: Optional[Sequence[str]]`
 
             Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
@@ -285,7 +285,7 @@ Update Session
 
             Which sources contribute URLs the tool may fetch. Omit to allow every source.
 
-            - `client_tool_results: Optional[Union[BetaManagedAgentsWebFetchURLSourceShorthand, BetaManagedAgentsWebFetchURLSourceToolFilter, null]]`
+            - `client_tool_results: Optional[BetaManagedAgentsWebFetchURLSourceToolFilterParams]`
 
               Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
@@ -351,11 +351,11 @@ Update Session
 
                       minLength: 1, maxLength: 128
 
-            - `server_tool_results: Optional[Union[BetaManagedAgentsWebFetchURLSourceShorthand, BetaManagedAgentsWebFetchURLSourceToolFilter, null]]`
+            - `server_tool_results: Optional[BetaManagedAgentsWebFetchURLSourceToolFilterParams]`
 
               Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch".
 
-            - `user_input: Optional[Union[BetaManagedAgentsWebFetchURLSourceShorthand, BetaManagedAgentsWebFetchURLSourceUserInput, null]]`
+            - `user_input: Optional[BetaManagedAgentsWebFetchURLSourceUserInputParams]`
 
               Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
@@ -387,11 +387,11 @@ Update Session
 
             Must be "web_search".
 
-          - `allowed_domains: Optional[List[str]]`
+          - `allowed_domains: Optional[Sequence[str]]`
 
             Only return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
 
-          - `blocked_domains: Optional[List[str]]`
+          - `blocked_domains: Optional[Sequence[str]]`
 
             Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
 
@@ -415,7 +415,7 @@ Update Session
 
               The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
 
-          - `user_location: Optional[BetaManagedAgentsUserLocation]`
+          - `user_location: Optional[BetaManagedAgentsUserLocationParam]`
 
             Approximate user location for search result localization.
 
@@ -481,7 +481,7 @@ Update Session
 
         minLength: 1, maxLength: 255
 
-      - `configs: Optional[List[BetaManagedAgentsMCPToolConfigParams]]`
+      - `configs: Optional[Iterable[BetaManagedAgentsMCPToolConfigParams]]`
 
         Per-tool configuration overrides.
 
@@ -547,7 +547,7 @@ Update Session
 
         minLength: 1
 
-      - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+      - `input_schema: BetaManagedAgentsCustomToolInputSchemaParam`
 
         JSON Schema defining the expected input parameters for the tool.
 
@@ -1850,7 +1850,7 @@ print(beta_managed_agents_session.id)
       }
     ],
     "model": {
-      "id": "claude-opus-5",
+      "id": "claude-opus-5-5",
       "effort": {
         "type": "low"
       },
@@ -1870,7 +1870,7 @@ print(beta_managed_agents_session.id)
             }
           ],
           "model": {
-            "id": "claude-opus-5",
+            "id": "claude-opus-5-5",
             "effort": {
               "type": "low"
             },

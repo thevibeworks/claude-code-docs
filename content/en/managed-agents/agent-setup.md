@@ -469,7 +469,7 @@ With the CLI, edit the agent's file and run `ant apply` again; apply supplies `v
 
 The preceding example supplies `version` from the create response, so the update only applies if nothing else has changed the agent since you read it. To apply an update unconditionally, omit `version` from the request:
 
-<CodeGroup exclude="shell:CLI, python, typescript, csharp, go, java, php, ruby">
+<CodeGroup>
   ```bash cURL
   updated_agent=$(curl -fsSL "https://api.anthropic.com/v1/agents/$AGENT_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -481,6 +481,78 @@ The preceding example supplies `version` from the create response, so the update
     }')
 
   echo "New version: $(jq -r '.version' <<< "$updated_agent")"
+  ```
+
+  ```bash CLI
+  ant beta:agents update \
+    --agent-id "$AGENT_ID" \
+    --description "Writes and reviews code."
+  ```
+
+  ```python Python
+  unconditional_agent = client.beta.agents.update(
+      agent.id,
+      description="Writes and reviews code.",
+  )
+
+  print(f"New version: {unconditional_agent.version}")
+  ```
+
+  ```typescript TypeScript
+  const unconditionalAgent = await client.beta.agents.update(agent.id, {
+    description: "Writes and reviews code.",
+  });
+
+  console.log(`New version: ${unconditionalAgent.version}`);
+  ```
+
+  ```csharp C#
+  var unconditionalAgent = await client.Beta.Agents.Update(agent.ID, new()
+  {
+      Description = "Writes and reviews code.",
+  });
+
+  Console.WriteLine($"New version: {unconditionalAgent.Version}");
+  ```
+
+  ```go Go
+  unconditionalAgent, err := client.Beta.Agents.Update(ctx, agent.ID, anthropic.BetaAgentUpdateParams{
+  	Description: anthropic.String("Writes and reviews code."),
+  })
+  if err != nil {
+  	panic(err)
+  }
+
+  fmt.Printf("New version: %d\n", unconditionalAgent.Version)
+  ```
+
+  ```java Java
+  var unconditionalAgent = client.beta().agents().update(
+      agent.id(),
+      AgentUpdateParams.builder()
+          .description("Writes and reviews code.")
+          .build()
+  );
+
+  IO.println("New version: " + unconditionalAgent.version());
+  ```
+
+  ```php PHP
+  $unconditionalAgent = $client->beta->agents->update(
+      $agent->id,
+      description: 'Writes and reviews code.',
+  );
+
+  echo "New version: {$unconditionalAgent->version}\n";
+  ```
+
+  ```ruby Ruby
+  unconditional_agent = client.beta.agents.update(
+    agent.id,
+    description: "Writes and reviews code."
+  )
+
+  puts "New version: #{unconditional_agent.version}"
   ```
 </CodeGroup>
 
@@ -504,7 +576,7 @@ The preceding example supplies `version` from the create response, so the update
 
 The following update clears the description, deletes the `team` key from `metadata` (java, php; csharp, go: `Metadata`), and sets `workflows` (java, php; csharp, go: `Workflows`) to `null`, which turns dynamic workflows on:
 
-<CodeGroup exclude="shell:CLI">
+<CodeGroup defaultLanguage="CLI">
   ```bash cURL
   cleared_agent=$(curl -fsSL "https://api.anthropic.com/v1/agents/$AGENT_ID" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -519,6 +591,32 @@ The following update clears the description, deletes the `team` key from `metada
 
   echo "Description: $(jq -r '.description' <<< "$cleared_agent")"
   ```
+
+  <CodeGroupItem>
+    ```bash CLI
+    ant apply code-reviewer.md
+    ```
+
+    <File filename="code-reviewer.md">
+      ```markdown
+      ---
+      name: Code Reviewer
+      model: claude-opus-5-5
+      tools:
+        - type: agent_toolset_20260401
+      metadata:
+        owner: docs
+      multiagent:
+        type: multiagent_20261001
+        workflows: null
+      ---
+
+      You are a helpful coding agent.
+      ```
+    </File>
+
+    The file no longer has `description` or the `team` key, so `ant apply` sends `null` for them. Deleting a setting inside `multiagent` keeps its stored value, so the file sets `workflows` to `null`.
+  </CodeGroupItem>
 
   ```python Python
   cleared_agent = client.beta.agents.update(
@@ -681,7 +779,7 @@ Fetch the full version history to track how an agent has changed over time. Resu
 
   ```php PHP
   foreach ($client->beta->agents->versions->list($agent->id)->pagingEachItem() as $version) {
-      echo "Version {$version->version}: {$version->updatedAt->format(DateTimeInterface::ATOM)}\n";
+      echo "Version {$version->version}: {$version->updatedAt->format(\DateTimeInterface::ATOM)}\n";
   }
   ```
 
@@ -742,7 +840,7 @@ Archiving makes the agent read-only and cannot be undone. Existing sessions cont
   ```php PHP
   $archived = $client->beta->agents->archive($agent->id);
 
-  echo "Archived at: {$archived->archivedAt->format(DateTimeInterface::ATOM)}\n";
+  echo "Archived at: {$archived->archivedAt->format(\DateTimeInterface::ATOM)}\n";
   ```
 
   ```ruby Ruby

@@ -228,7 +228,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
             "amount": 186,
             "currency": "USD"
           },
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "tokens": {
             "cache_creation": 2340,
             "cache_read": 8790,
@@ -241,7 +241,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
             "amount": 42,
             "currency": "USD"
           },
-          "model": "claude-sonnet-5",
+          "model": "claude-sonnet-5-5",
           "tokens": {
             "cache_creation": 890,
             "cache_read": 3420,

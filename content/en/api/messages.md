@@ -4411,7 +4411,7 @@ curl https://api.anthropic.com/v1/messages \
               "role": "user"
             }
           ],
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "stream": false,
           "system": [
             {
@@ -4482,7 +4482,7 @@ curl https://api.anthropic.com/v1/messages \
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
@@ -7480,7 +7480,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
               "role": "user"
             }
           ],
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "system": [
             {
               "text": "Today'\''s date is 2024-06-01.",
@@ -39410,7 +39410,7 @@ curl https://api.anthropic.com/v1/messages/batches \
                     "role": "user"
                   }
                 ],
-                "model": "claude-opus-5"
+                "model": "claude-opus-5-5"
               }
             }
           ]

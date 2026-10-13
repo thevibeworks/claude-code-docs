@@ -4203,7 +4203,7 @@ func main() {
 
 ## Stream Events
 
-`client.Beta.Sessions.Events.Stream(ctx, sessionID, params) (*BetaManagedAgentsStreamSessionEventsUnion, error)`
+`client.Beta.Sessions.Events.StreamEvents(ctx, sessionID, params) *ssestream.Stream[BetaManagedAgentsStreamSessionEventsUnion]`
 
 **GET** `/v1/sessions/{session_id}/events/stream`
 

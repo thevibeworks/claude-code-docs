@@ -934,7 +934,7 @@ puts(beta_managed_agents_agent)
     "foo": "bar"
   },
   "model": {
-    "id": "claude-opus-5",
+    "id": "claude-opus-5-5",
     "effort": {
       "type": "low"
     },

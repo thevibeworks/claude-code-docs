@@ -3088,7 +3088,7 @@ public final class Main {
 
 ## Stream Session Thread Events
 
-`BetaManagedAgentsStreamSessionThreadEvents beta().sessions().threads().events().streamStreaming(params, requestOptions = RequestOptions.none())`
+`StreamResponse<BetaManagedAgentsStreamSessionThreadEvents> beta().sessions().threads().events().streamStreaming(params, requestOptions = RequestOptions.none())`
 
 **GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 

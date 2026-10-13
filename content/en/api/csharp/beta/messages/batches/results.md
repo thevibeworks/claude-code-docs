@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/messages/batches/result
 
 # Retrieve Message Batch results
 
-`BetaMessageBatchIndividualResponse Beta.Messages.Batches.ResultsStreaming(parameters, cancellationToken = default)`
+`IAsyncEnumerable<BetaMessageBatchIndividualResponse> Beta.Messages.Batches.ResultsStreaming(parameters, cancellationToken = default)`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

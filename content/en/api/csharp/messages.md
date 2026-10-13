@@ -4025,7 +4025,7 @@ MessageCreateParams parameters = new()
             Role = Role.User,
         },
     ],
-    Model = Model.ClaudeOpus5,
+    Model = Model.ClaudeOpus5_5,
 };
 
 var message = await client.Messages.Create(parameters);
@@ -4072,7 +4072,7 @@ Console.WriteLine(message);
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-5",
+  "model": "claude-opus-5-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
@@ -6867,7 +6867,7 @@ MessageCountTokensParams parameters = new()
             Role = Role.User,
         },
     ],
-    Model = Model.ClaudeOpus5,
+    Model = Model.ClaudeOpus5_5,
 };
 
 var messageTokensCount = await client.Messages.CountTokens(parameters);
@@ -37591,7 +37591,7 @@ BatchCreateParams parameters = new()
                         Role = Role.User,
                     },
                 ],
-                Model = Model.ClaudeOpus5,
+                Model = Model.ClaudeOpus5_5,
                 CacheControl = new() { Ttl = Ttl.Ttl5m },
                 Container = new ContainerParams()
                 {
@@ -38282,7 +38282,7 @@ Console.WriteLine(deletedMessageBatch);
 
 ### Retrieve Message Batch results
 
-`MessageBatchIndividualResponse Messages.Batches.ResultsStreaming(parameters, cancellationToken = default)`
+`IAsyncEnumerable<MessageBatchIndividualResponse> Messages.Batches.ResultsStreaming(parameters, cancellationToken = default)`
 
 **GET** `/v1/messages/batches/{message_batch_id}/results`
 

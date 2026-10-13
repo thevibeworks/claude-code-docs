@@ -1502,7 +1502,7 @@ print(beta_managed_agents_deleted_memory.id)
 
 ### Beta Managed Agents Precondition
 
-- `class BetaManagedAgentsPrecondition`
+- `class BetaManagedAgentsPreconditionParam`
 
   Optional condition that must hold for an update to apply. When omitted, the update is unconditional. Asserts the current state of the memory being updated. When an update changes `path`, the precondition still refers to the memory's current content, not the destination path. Currently the only supported variant is `content_sha256`.
 

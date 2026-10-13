@@ -223,7 +223,7 @@ Send Events
 
       minLength: 1, maxLength: 128
 
-    - `content: Optional[List[Content]]`
+    - `content: Optional[Iterable[Content]]`
 
       The result content returned by the tool.
 
@@ -335,7 +335,7 @@ Send Events
 
       minLength: 1, maxLength: 128
 
-    - `content: Optional[List[Content]]`
+    - `content: Optional[Iterable[Content]]`
 
       The result content returned by the tool.
 
@@ -365,7 +365,7 @@ Send Events
 
     - `type: Literal["system.message"]`
 
-    - `content: List[BetaManagedAgentsSystemContentBlock]`
+    - `content: Iterable[BetaManagedAgentsSystemContentBlockParam]`
 
       System content blocks to append. Text-only.
 

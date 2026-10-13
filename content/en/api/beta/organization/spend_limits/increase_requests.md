@@ -739,7 +739,7 @@ the member was blocked on. Anthropic emails the requester unless
 
   - `is_enabled: boolean`
 
-    Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+    Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
   - `period: BetaSpendLimitPeriod`
 
@@ -1575,7 +1575,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limit_increase_requests/$S
 
     - `is_enabled: boolean`
 
-      Read-only. `false` when extra usage is switched off for this organization (`organization` limit) or for this member (`user` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
+      Read-only. `false` when extra usage is switched off for this organization (`organization` limit); `amount` is kept and applies again when it's switched back on. Always `true` for other limits.
 
     - `period: BetaSpendLimitPeriod`
 

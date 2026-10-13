@@ -1231,7 +1231,7 @@ The bash handler runs the requested command with a timeout, captures combined st
   if (DOC_TEST_MODE) {
       $workDir = sys_get_temp_dir() . '/orchestration-' . bin2hex(random_bytes(8));
       if (!mkdir($workDir, 0700)) {
-          throw new RuntimeException("could not create working directory {$workDir}");
+          throw new \RuntimeException("could not create working directory {$workDir}");
       }
       file_put_contents(
           $workDir . '/sample.py',
@@ -1776,7 +1776,7 @@ Each workflow subtask becomes its own small agent loop with the bash tool, runni
    */
   function drainMessageStream(iterable $events): array
   {
-      $stringValue = fn ($value) => $value instanceof BackedEnum ? $value->value : $value;
+      $stringValue = fn ($value) => $value instanceof \BackedEnum ? $value->value : $value;
       $blocks = [];
       $jsonBuffers = [];
       $stopReason = null;
@@ -2701,7 +2701,7 @@ The fan-out accepts up to `MAX_TOTAL_SUBTASKS` prompts, runs them through the jo
       if (is_string($raw)) {
           try {
               $raw = json_decode($raw, true, flags: JSON_THROW_ON_ERROR);
-          } catch (JsonException) {
+          } catch (\JsonException) {
               $raw = str_contains($raw, "\n") ? explode("\n", $raw) : [$raw];
           }
       }
@@ -2746,7 +2746,7 @@ The fan-out accepts up to `MAX_TOTAL_SUBTASKS` prompts, runs them through the jo
       $runOne = function (string $prompt) use ($client, $model): string {
           try {
               return journaled($prompt, fn () => runSubagent($client, $model, $prompt));
-          } catch (Throwable $error) {
+          } catch (\Throwable $error) {
               // Isolation boundary: one bad subagent should not end the run.
               return '(subagent failed: ' . $error::class . ': ' . $error->getMessage() . ')';
           }

@@ -987,7 +987,7 @@ The class should have two main methods: one that calls the API to generate a mes
                   static fn ($block): bool => $block instanceof TextBlock,
               );
               if (!$firstBlock instanceof TextBlock) {
-                  throw new RuntimeException('An error occurred: Unexpected response type');
+                  throw new \RuntimeException('An error occurred: Unexpected response type');
               }
 
               $this->messages[] = MessageParam::with(role: 'assistant', content: $firstBlock->text);
@@ -1002,7 +1002,7 @@ The class should have two main methods: one that calls the API to generate a mes
               return $firstBlock->text;
           }
 
-          throw new RuntimeException('An error occurred: Unexpected response type');
+          throw new \RuntimeException('An error occurred: Unexpected response type');
       }
 
       /**
@@ -1016,7 +1016,7 @@ The class should have two main methods: one that calls the API to generate a mes
               return sprintf('Quote generated: $%.2f per month', $premium);
           }
 
-          throw new RuntimeException('An unexpected tool was used');
+          throw new \RuntimeException('An unexpected tool was used');
       }
   }
   ```

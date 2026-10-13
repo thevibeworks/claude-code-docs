@@ -193,7 +193,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $messageTokensCount = $client->messages->countTokens(
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: Model::CLAUDE_OPUS_5,
+  model: Model::CLAUDE_OPUS_5_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   outputConfig: [
     'effort' => 'low',
