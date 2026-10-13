@@ -244,12 +244,14 @@ Claude also doesn't answer in a Slack Connect channel in these cases, and posts 
 
 When Claude answers in a Slack Connect channel, it follows the channel's own instructions and has:
 
-* No [bundles](/docs/claude-tag/admins/attach-to-scope) or connections, except a bundle an Owner [attaches directly to the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) after it's shared with the other company, or one attached specifically for Slack Connect channels. A bundle attached before the channel was shared, or by someone who isn't an Owner, doesn't reach it until an Owner removes it from the channel and attaches it again.
+* No [bundles](/docs/claude-tag/admins/attach-to-scope) or connections inherited from the workspace or the **Slack** page, and none attached by a [channel rule](/docs/claude-tag/admins/attach-to-scope#attach-a-bundle-to-channels-by-name), except a bundle attached specifically for Slack Connect channels. A bundle [attached directly to the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) still applies, whether it was attached before or after the channel was shared and whoever attached it, unless it's set to apply only in channels with guests. Claude can use the connectors in that bundle for anyone it answers there, including the other company's people.
 * No instructions set on the workspace or on the **Slack** page.
 * No memory, skills, or repositories.
 * No [environment set on the scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope). The session runs on the standard environment.
 
-Treat the channel's instructions as visible to the other company. In a Slack Connect channel, Claude also doesn't search your workspace, look up people or channels, read other channels, publish [artifacts](/docs/claude-tag/concepts/security-and-data#artifact-visibility), or set up [routines](/docs/claude-tag/users/proactivity). Routines set up in the channel before it was shared don't run there.
+Treat the channel's instructions, and the connectors in its bundles, as available to the other company. Before you turn Claude on in a Slack Connect channel, or share a channel where it's already on, check the bundles on the channel's page and [remove the channel from any bundle](/docs/claude-tag/admins/attach-to-scope#choose-where-a-bundle-applies) you don't want used there.
+
+In a Slack Connect channel, Claude also doesn't search your workspace, look up people or channels, read other channels, publish [artifacts](/docs/claude-tag/concepts/security-and-data#artifact-visibility), or set up [routines](/docs/claude-tag/users/proactivity). Routines set up in the channel before it was shared don't run there.
 
 #### Who can use Claude in a Slack Connect channel
 

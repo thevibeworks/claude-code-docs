@@ -21,18 +21,18 @@ This page covers the device side: the managed settings, where to put them on eac
 * **Claude Code is current.** This setup requires Claude Code 2.1.267 or later (`claude --version`).
 * **Claude Desktop is current.** Update Claude Desktop to [the supported version](/docs/government/deploy-desktop/configure#before-you-begin) before turning on Claude Code for the terminal.
 * **Devices can reach Claude for Government.** Claude Code must reach the gateway address over HTTPS on port 443, and the user's browser must reach the Claude for Government host, its sign-in service, and your agency's identity provider, the same hosts that [Claude Desktop sign-in](/docs/government/deploy-desktop/configure#before-you-begin) needs.
-* **You can place a system-level file or policy.** The settings count only from a system-level location: a file in a system directory, a macOS configuration profile, or a machine-level Windows registry policy. Deliver them through your device management system or by hand with administrator rights.
+* **You can place a system-level file or policy.** The settings are enforced only from a system-level location: a file in a system directory, a macOS configuration profile, or a machine-level Windows registry policy. Deliver them through your device management system or by hand with administrator rights.
 
 ## The managed settings
 
-Claude Code reads device-level policy from what it calls managed settings. For Claude for Government they contain two keys that turn on gateway sign-in, an `env` block, and one key recommended on devices that also run Claude Desktop.
+Claude Code reads device-level policy from what it calls managed settings. For Claude for Government they contain two keys that turn on gateway sign-in, an `env` block, and one optional key for devices that also run Claude Desktop.
 
 | Key | Value | Purpose |
 | - | - | - |
 | `forceLoginMethod` | `"gateway"` | Required. Replaces Claude Code's sign-in choices with a single **Cloud gateway** screen. |
 | `forceLoginGatewayUrl` | The Claude for Government gateway address | Required. The address the **Cloud gateway** screen connects to. |
 | `env` | The eight variables shown below | Required. Keeps Claude Code's telemetry to Anthropic and its pre-sign-in background connections off from the first launch, and sets its request headers, request body fields, and certificate checking as described below. |
-| `parentSettingsBehavior` | `"merge"` | Recommended on devices that also run Claude Desktop, harmless elsewhere: Code sessions inside Claude Desktop then keep Claude Desktop's own restrictions alongside these settings, as [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) describes. |
+| `parentSettingsBehavior` | `"merge"` | Optional. Where these managed settings govern Code sessions in Claude Desktop, `"merge"` layers Claude Desktop's own restrictions, its sandbox included, under them, as [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) describes. |
 
 As a `managed-settings.json` file:
 
@@ -56,7 +56,7 @@ As a `managed-settings.json` file:
 
 Your Anthropic representative provides the gateway address. Replace `<claude-for-government-gateway-address>` with it so the value is the full address starting with a single `https://`, including any path. The address is the same for every device and contains no credentials, so one file serves your whole fleet.
 
-Claude Code honors the two sign-in keys only from a system-level location and ignores them in a user's own settings or a per-user registry policy.
+Claude Code requires the gateway sign-in only when the two sign-in keys come from a system-level location. Set there, they take the place of the same keys in a user's own settings file; a value in a per-user registry policy does not turn the sign-in on.
 
 ### Before sign-in
 
@@ -165,10 +165,10 @@ Run through these checks on one configured device before the wider rollout.
 
 ## Things to know
 
-* Only the gateway sign-in described on this page delivers the organization's settings to Claude Code.
+* Only the gateway sign-in described on this page delivers the organization's settings to the Claude Code command-line tool. Once a user is signed in, those settings replace the Claude Code policy in these managed settings, hooks and permission rules included, apart from the two sign-in keys, any `env` variables the organization's settings leave unset, and the [keys Claude Code reads from every admin source](https://code.claude.com/docs/en/managed-settings#keys-read-from-every-admin-source).
 * A claude.ai sign-in left on a device from earlier use is ignored once these settings are in place. A leftover `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `apiKeyHelper`, or saved Claude Console key is not: until the user has signed in through the gateway, Claude Code stops and asks for its removal, as [Troubleshooting](#troubleshooting) describes.
 * Where the Claude Code extension for VS Code is used, have users remove an earlier claude.ai sign-in with `claude auth logout` or the extension's **Claude Code: Logout** command before they sign in through the gateway, not after: both commands clear every credential Claude Code has stored, the gateway sign-in included.
 * To take a device out of this setup, have its users sign out with `claude auth logout` before you remove the settings.
 * After sign-in, the organization's settings turn off the Claude Code settings that run a helper command (`apiKeyHelper`, `proxyAuthHelper`, `awsAuthRefresh`, `awsCredentialExport`, `gcpAuthRefresh`, `otelHeadersHelper`), wherever it is set. If your devices reach the network through a proxy that needs a helper command to authenticate, raise this with your Anthropic representative before you deploy.
 * With these settings Claude Code does not check for or install updates in the background. Distribute new versions through your software deployment tooling, or have users run `claude update` (standard installer) or their package manager.
-* Code sessions inside Claude Desktop sign in through Claude Desktop, not through these settings, but on a device that has this file its `env` block applies to them too, and `parentSettingsBehavior` set to `"merge"` keeps Claude Desktop's own restrictions in force alongside it.
+* Code sessions inside Claude Desktop sign in through Claude Desktop, not through these settings, but the `env` block applies to them too. For the other settings that govern them on a device that also has these managed settings, see [Code in Claude Desktop](/docs/government/security/security-and-data-handling#code-in-claude-desktop).

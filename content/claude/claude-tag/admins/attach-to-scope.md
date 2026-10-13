@@ -61,7 +61,10 @@ Channels Claude was added to appear on the **Channels** tab automatically, each 
 
 To find a channel, use the search field on the **Channels** tab. It matches channel names and channel IDs (pasting a channel link copied from Slack also works), and searching a workspace's name shows that workspace's channels.
 
-In a channel shared across more than one workspace in your Enterprise Grid, bundles on the channel or its workspace don't apply. See [Channels shared across workspaces in your Enterprise Grid](/docs/claude-tag/admins/restrict-access#channels-shared-across-workspaces-in-your-enterprise-grid) for what Claude does there instead.
+Sharing a channel changes which bundles apply there:
+
+* **Shared across workspaces in your Enterprise Grid**: bundles on the channel or its workspace don't apply. See [Channels shared across workspaces in your Enterprise Grid](/docs/claude-tag/admins/restrict-access#channels-shared-across-workspaces-in-your-enterprise-grid) for what Claude does there instead.
+* **Shared with another company through Slack Connect**: once Claude is [turned on in the channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), bundles attached directly to the channel apply there, including ones you attached before the channel was shared. Claude can use their connectors for the other company's people in the channel too. [What access Claude has in a Slack Connect channel](/docs/claude-tag/admins/restrict-access#what-access-claude-has-in-a-slack-connect-channel) covers which bundles reach that channel and which don't.
 
 <Warning>A bundle attached to a public channel grants its access to anyone who joins that channel. In most Slack workspaces, anyone can join a public channel, so the channel's join policy becomes the effective access control for whatever the bundle grants. Keep elevated credentials in private channels.</Warning>
 

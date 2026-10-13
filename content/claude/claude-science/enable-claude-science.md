@@ -45,7 +45,7 @@ Under **From the Claude connector directory**, you can select additional life-sc
 
 The **PubMed**, **Clinical Trials**, **ChEMBL**, and **bioRxiv** rows and the directory list are read-only if your organization has HIPAA compliance enabled or your role can't add connectors for the organization; add those connectors from **Organization settings** > **Connectors** after enabling. The switches for the local connectors still work, and in an organization with HIPAA compliance enabled they start off so you can turn on the ones you have reviewed.
 
-By continuing, you authorize your team to let Claude use the optional enabled resources on their behalf. These resources and content they reach may be subject to third-party terms (viewable in Settings), and your users are solely responsible for compliance.
+By continuing, you represent that your team has the necessary rights to access these resources and you authorize Claude to do so on their behalf. You can review terms in Settings.
 
 ## Who gets access after you enable
 

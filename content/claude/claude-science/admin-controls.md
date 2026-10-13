@@ -83,7 +83,7 @@ When you turn a connector or skill off, Claude can no longer use it for any memb
 
 Members can still turn off, in their own app, any item you leave on. The app remembers each member's choice, so it applies again if you turn an item off and later back on. Turning a Featured skill off doesn't stop a member from writing a skill of their own; whether members can add their own skills is governed by [Custom skills](#custom-skills).
 
-When you turn Claude Science on, the [**Turn on Claude Science** dialog](/docs/claude-science/enable-claude-science#turn-on-claude-science) notes: "By continuing, you authorize your team to let Claude use the optional enabled resources on their behalf. These resources and content they reach may be subject to third-party terms (viewable in Settings), and your users are solely responsible for compliance."
+When you turn Claude Science on, the [**Turn on Claude Science** dialog](/docs/claude-science/enable-claude-science#turn-on-claude-science) notes: "By continuing, you represent that your team has the necessary rights to access these resources and you authorize Claude to do so on their behalf. You can review terms in Settings."
 
 ### Connectors you add in claude.ai
 

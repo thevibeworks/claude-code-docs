@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1791877500&amp;signature=b361f46873d875cbae6d54ab40b14b9bc46c0b78922a3d705395b8481ee7a775&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMNF%2B4WygN0ADj5oqFCeg2si2%2FMKRH4w2mlM%0AuehQwtbC%2FlQkQ2Of5ic%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1791915300&amp;signature=7576bbdc687ecc3b7905e134b0713b1af3520bd90799d31a851170bfcd9e1830&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMNE%2FYe0gN0ADj5oqFDMdP4tze0EB%2Be1zn2u%0AOY3B8keyU9P68sSd3Dg%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1791877500&amp;signature=0ed8f4e7c36fc95a71d95a9e74b3a512ccbbd83d055dfbed3781af20cf13aa41&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2d4jyvp7A4lHPBihAVcGOrK1Ws7KVlGygmI%0AVfs5P69uPaoAFJHVdJA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1791915300&amp;signature=1a1bcb322bbef6ea182d916ae97a5c7ee0eec7f8c046a32d4cdd42c9982b8e03&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2d5iSnv7A4lHPBihAWoWFoxehhw0cI512zQ%0Aa450HxLTKYAWQJEUm2U%3D%0A)
 
 ### Permission options
 
