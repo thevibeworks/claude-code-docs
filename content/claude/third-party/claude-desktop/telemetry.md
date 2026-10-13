@@ -106,18 +106,31 @@ To include content in the export, set `otlpContentCapture` to an array of catego
 | Category | Captures |
 | - | - |
 | `userPrompts` | User message text and conversation titles |
-| `assistantResponses` | Model response text |
+| `assistantResponses` | Model response text, up to the [content length limit](#content-length-limit) |
 | `toolDetails` | Tool input arguments (for example, the web-search query string) |
-| `toolContent` | Tool output content |
-| `rawApiBodies` | Full inference request and response bodies |
+| `toolContent` | Tool output content, up to the [content length limit](#content-length-limit) |
+| `rawApiBodies` | Inference request and response bodies, up to the [content length limit](#content-length-limit) |
 
 On Claude Desktop version 1.17377 or later, enabling `userPrompts` also captures model responses, even if `assistantResponses` is not listed. On those versions, no `otlpContentCapture` configuration captures user prompts without model responses.
 
 Conversation titles arrive on the desktop application's own stream (`claude-desktop`) as a `desktop_session_title_set` event that carries each Cowork and Code session's title and the Claude Code `session.id` to join on. The event is exported only when [`otlpDesktopLogLevel`](/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `info` or `debug`, and the title text is included only when `otlpContentCapture` includes `userPrompts`. Requires Claude Desktop 1.44121.1 or later.
 
-With `rawApiBodies`, Claude Code truncates each request or response body at 60 KB by default and always redacts Claude's extended-thinking content. See [API request body event](https://code.claude.com/docs/en/monitoring-usage#api-request-body-event) in the Claude Code documentation.
+With `rawApiBodies`, Claude Code always redacts Claude's extended-thinking content. See [API request body event](https://code.claude.com/docs/en/monitoring-usage#api-request-body-event) in the Claude Code documentation.
 
 Content is exported only to your configured `otlpEndpoint`. Anthropic does not receive it.
+
+### Content length limit
+
+In Chat, Cowork, and Code sessions, the OpenTelemetry export by default cuts [captured](#content-capture) model responses, tool content, and request and response bodies at 61,440 characters each. User prompts are not cut. When a request or response body is cut, the [body event](https://code.claude.com/docs/en/monitoring-usage#api-request-body-event) carries `body_truncated` set to `"true"`, and `body_length` holds the full length in characters.
+
+To change the limit, set [`otlpAttrMaxChars`](/docs/third-party/claude-desktop/configuration#otlpattrmaxchars) to a number of characters from 256 to 15,000,000. The key doesn't change the smaller limits of `tool_input`, an attribute of the `toolDetails` category. To capture whole bodies, find the largest `body_length` on the events where `body_truncated` is `"true"`, and set `otlpAttrMaxChars` slightly above it.
+
+Before you raise the limit, make sure that both of these are true:
+
+* **Collector**: your collector's request size limit is a few times the size of your longest body, since one export request can carry several bodies. The key counts characters and the collector counts bytes, and one character can use more than one byte.
+* **Backend**: your backend accepts attribute values of the new length.
+
+`otlpAttrMaxChars` requires Claude Desktop 2.31226.0 or later.
 
 ### Traces (beta)
 

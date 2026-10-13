@@ -35,7 +35,7 @@ Additional Featured connectors: **BioMart**, **CellGuide** (CELLxGENE cell types
 
 Four Directory connectors are available from the [connector directory](https://claude.com/connectors) and are accessible in Claude Science and other Claude products: **PubMed**, **Clinical Trials**, **ChEMBL**, and **bioRxiv**. On Team and Enterprise plans, directory connectors appear only once they're added for your organization.
 
-By choosing to enable connectors, you authorize Claude to use the optional enabled resources on your behalf and confirm you have the necessary rights and licenses. These resources and content they reach may be subject to third-party terms (viewable in Settings), and you are solely responsible for compliance. On Team and Enterprise plans, an admin in your organization gives this authorization for the team when turning Claude Science on and choosing which connectors members can use, and you remain responsible for complying with those terms.
+By choosing to enable connectors, you represent that you have the necessary rights to access these resources and you authorize Claude to do so on your behalf. You can review their terms in Settings. On Team and Enterprise plans, an admin in your organization gives this authorization for the team when turning Claude Science on and choosing which connectors members can use, and you remain responsible for complying with those terms.
 
 ## Using connectors
 

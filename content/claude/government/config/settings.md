@@ -158,7 +158,7 @@ The **Claude Desktop home** setting chooses what members see in Claude Desktop. 
 
 ### Claude Code
 
-The **Claude Code** section of the **Config** page holds your organization's settings for Claude Code, in the command-line tool and in Code in Claude Desktop 2.9939.2 or later. Claude for Government delivers them after a member signs in. While Claude Code is in [early access](/docs/government/deploy-claude-code/configure), the section appears once your agency has access.
+The **Claude Code** section of the **Config** page holds your organization's settings for Claude Code. Claude for Government delivers them to the command-line tool after a member signs in, and in Claude Desktop 2.9939.2 or later they can also reach Code sessions. While Claude Code is in [early access](/docs/government/deploy-claude-code/configure), the section appears once your agency has access.
 
 * **Blocked shell commands**: command names, such as `curl` or `ssh`, that Claude Code never runs. None are blocked by default.
 * **Managed hooks**: hooks that run in every member's Claude Code sessions, such as a command that writes an audit record after each tool use. None are set by default.
