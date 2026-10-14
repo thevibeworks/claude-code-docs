@@ -2,19 +2,15 @@
 
 Data exports are available to individual Claude users on Free, Pro, and Max plans. Data exports include conversation data and the user data for your account.
 
-If you're a member of a Team or Enterprise plan, only your organization's Primary Owner can access data exports. For more information, see **[Export your organization's data](https://support.claude.com/en/articles/13346720)**.
+If you’re on a Team or Enterprise plan, you can export your own data once an organization Owner or Primary Owner turn this on. Primary Owners export the whole organization’s data instead.
 
-Individual Claude users can export user information and chat history from **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)** on the web app or Claude Desktop (it's not possible to run an export from Claude for iOS or Android).
+Individual Claude users can export user information and chat history from **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)** on the web app or Claude Desktop. It's not possible to run an export from Claude for iOS or Android.
 
-Follow these steps to export your data:
+To export your data:
 
-1. Click on your initials in the lower left corner of your account.
+1. Go to **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**.
 
-2. Select "Settings" from the menu.
-
-3. Navigate to the "Privacy" section.
-
-4. Click the "Export data" button.
+2. Click “Export data”.
 
 Once the export has been processed, you will receive a download link via email.
 
@@ -29,6 +25,16 @@ Please note:
 - The download link will expire 24 hours after delivery.
 
 - If your link expires, you can always request a new one by repeating the export process.
+
+---
+
+## Export your data on a Team or Enterprise plan
+
+If you’re on a Team or Enterprise plan, you can export your own chats by following the steps above once an owner turns on the “Allow members to export their own data” setting for your organization. If you don’t see the “Export data” button, ask an owner whether the setting is on. The export includes your own chats. It doesn’t include the contents of files you uploaded.
+
+**Important:** Primary Owners don’t see the “Export data” button in their personal settings. Primary Owners export the whole organization’s data from **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)** instead. Learn more about **[exporting your organization’s data](https://support.claude.com/en/articles/13346720)**.
+
+---
 
 ## Can I import or migrate this data to another Claude account?
 

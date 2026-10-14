@@ -104,25 +104,25 @@ Starring a project allows for quick access from your projects and chats list, vi
 
 You can move a standalone chat into a project by clicking on the dropdown arrow next to the chat name, then “Add to project”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1791993600&amp;signature=80035b2e60cc189be946f3fbaad7b4e4980f14b94d4062212c6abd5671d0f2c6&amp;req=dScvEsh3nYNbUfMW1HO4zQABaGBlQ6MTBSXNVFXQ%2FVG3pYSRu0gigb1BeJFV%0AKAVaWv3uV2nE5BNh4t0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1792108800&amp;signature=af1d0d3609d05d90f3194266b282c295b08cc595aba2f81f2fb30e3ec8f60ded&amp;req=dScvEsh3nYNbUfMW3nq%2BgXuLDiqr6TQxVPcvfZakkxH5GlDFZ%2B8ZfYcPCAmz%0AsfC9JtDnYUSpRVhgXXEB21Un%2BSw%3D%0A)
 
 Browse or search for the correct project in the **Move chat** modal that appears, then click on it to move the chat.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1791993600&amp;signature=c5fccaaabdaa71551c720a947f55b650086f22b0b9d4b653f4cce6ef160af0f7&amp;req=dScvEsh3nYhaWPMW1HO4zSMECyG5wgoHgYbpTjViBxDMndR3c9XYMrzf7FGm%0Ayk3uH2MAQgJPiQvzPEE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1792108800&amp;signature=653d3f78f3403ce81ff0b84863b21cb7d10a23ee02dfdceff03118c214688c01&amp;req=dScvEsh3nYhaWPMW3nq%2BgaHJV1YEkYwc%2FSOLKq4iewpxZe7aWfMaaUsn5A6V%0AVcpAqpfsAFHUa0n53nttSxd5Ro8%3D%0A)
 
 You can also remove chats from projects, or move them between projects, using the same dropdown menu within the chat:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1791993600&amp;signature=755e2e8dca21d1780fab5f41aca91d3d132fa398d9d8c3bb7b232e5ec84278e0&amp;req=dScvEsh2mIdXW%2FMW1HO4zb6DufYlB0YMS2r1%2FGRlqOTpAHHYIzJdAsHblaGD%0AYm%2BO5fVxxXFIZ8BBa6g%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1792108800&amp;signature=c7c8e0e087ffa7f7f4e47b5ee5dae90f47dc9b9a9010e35a2a3950911605025a&amp;req=dScvEsh2mIdXW%2FMW3nq%2BgcRackgj712vAoJgXkUx%2BGGi1OmAB3EbjGuD8Jij%0AZbfA%2FWZrHSdvcYk4UFvbXJIctTM%3D%0A)
 
 ---
 
-## Move chats to manage Claude’s memory
+## Manage Claude’s memory in projects
 
 Memory is on by default for Free, Pro, and Max plans on the web, Claude Desktop, and Claude Mobile. On Team and Enterprise plans, memory is available when an owner has enabled it.
 
-For Team and Enterprise plans using Claude’s memory, the ability to move chats into and out of projects allows you to manage what’s included in Claude’s memory. Each project has its own memory, kept separate from your non-project chats. For example, if you accidentally start an unrelated chat in a project and need to remove it from the project-specific memory summary, you can click “Remove from project” so it will be included in Claude’s non-project memory instead.
+Each project has its own memory. While working in a project, Claude uses the project's memory alongside your memory from chats outside of projects, but not memory from other projects. New memory is saved to the project, and if you have memory turned on, Claude can reference it in chats outside of projects too. To keep a project's memory fully separate, turn off "Use account memory" under **Memory** on the project's page.
 
-You can also turn memory off for a single chat, inside or outside a project, by turning off "Memory" in the "+" menu before you send your first message. A project chat started this way doesn't use or add to the project's memory.
+You can turn memory off for a single chat, inside or outside a project, by turning off "Memory" in the "+" menu before you send your first message. A project chat started this way doesn't use or add to the project's memory.
 
 Refer to our article on chat search and memory for more information: **[What is Claude’s memory?](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_82126ebcc9)**
 

@@ -152,7 +152,7 @@ The capabilities that cover artifacts are:
 | Dashboards                 | Starting artifacts from the Dashboards template                                                                              |
 | Motion                     | Starting artifacts from the Motion template                                                                                  |
 
-Users outside those groups can still open, comment on, and use artifacts shared with them.
+Users without the **Artifacts** capability can still open artifacts shared with them, comment on them, and change their data, at the sharing level they were given, up to Contributor. Contributor lets someone use an artifact, save what they enter in it, and comment, without editing the artifact itself. A user without the capability who was shared as an Editor gets Contributor access at most. They can't create, edit, publish, or share artifacts.
 
 Learn more about **[managing custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452)** and **[setting up role-based permissions on Enterprise plans](https://support.claude.com/en/articles/13930458)**.
 

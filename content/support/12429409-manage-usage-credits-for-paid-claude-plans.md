@@ -50,7 +50,7 @@ To enable usage credits on your paid Claude plan:
 
 8. You can also enable auto-reload to automatically make a purchase when your balance falls below a threshold you set:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1805819785/5e203c38e6ba3f76bfd1dab0d5ce/fe062e7c-18cb-48cc-a7e2-754ac6e6c4be?expires=1791993600&amp;signature=dcebdb327cd4c9fd3c896a9b97fc2976bf9c835701dc87935f5f3994a9b4ba78&amp;req=dSgnE8F%2FlIZXXPMW1HO4zYj2ABOQrPM%2BopE7m38YdfdIEuAZP2A%2BJd%2BdWEcJ%0AQsjSxogz%2FK23kreCgfw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1805819785/5e203c38e6ba3f76bfd1dab0d5ce/fe062e7c-18cb-48cc-a7e2-754ac6e6c4be?expires=1792008900&amp;signature=fe73c0294f0ab88f987365b69514fec0841a41037642626f1c23578d51f9f076&amp;req=dSgnE8F%2FlIZXXPMW1HO4zYj2ABCZpfgxopE7m38Ydfdn4zYs98JI7ex5hQ9L%0AZl3Ptph0TenLJJMQdDA%3D%0A)
 
 ---
 

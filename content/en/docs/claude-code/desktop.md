@@ -605,9 +605,17 @@ The `autoPort` field controls what happens when your preferred port is already i
 
 * **`true`**: Claude finds and uses a free port automatically. Suitable for most dev servers.
 * **`false`**: Claude fails with an error. Use this when your server must use a specific port, such as for OAuth callbacks or CORS allowlists.
-* **Not set (default)**: Claude asks whether the server needs that exact port, then saves your answer.
+* **Not set (default)**: your server gets the next free port, as with `true`, except in the one case below. Before Claude Desktop v2.37337.0, Claude asks whether the server needs that exact port instead, then saves your answer in `launch.json`.
 
-When Claude picks a different port, it passes the assigned port to your server via the `PORT` environment variable.
+If your preferred port is in use and `autoPort` is unset, your server stays stopped when all of these hold:
+
+* You start the server through an `npm`, `yarn`, `pnpm`, or `bun` script.
+* Your preferred port is hardcoded in that script, or Claude can't inspect the script.
+* You don't pass the port in `runtimeArgs`.
+
+In that case, free the port, remove the hardcoded value, or change `port` to match the script. Setting `"autoPort": true` instead works only for a script that reads `PORT`.
+
+Have your server read its port from the `PORT` environment variable, which carries the assigned port. When Claude moves your server to a different port, it also rewrites a `--port` or `-p` value in `runtimeArgs` to match.
 
 #### Examples
 
