@@ -210,7 +210,7 @@ At runtime the model calls a wrapped tool like any other custom tool:
 
 ### Install an MCP SDK
 
-The SDK's [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#client-side-mcp-helpers) convert the server's tools into the runnable tools the worker accepts. Install an MCP SDK alongside the Anthropic SDK: `pip install "anthropic[mcp]" "mcp>=1.24"` (python; typescript: `npm install @modelcontextprotocol/sdk`; go: `go get github.com/modelcontextprotocol/go-sdk`).
+The SDK's [Client-side MCP helpers](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#client-side-mcp-helpers) convert the server's tools into the runnable tools the worker accepts. Install an MCP SDK alongside the Anthropic SDK: `pip install "anthropic[mcp]" "mcp>=1.24"` (typescript: `npm install @modelcontextprotocol/sdk`; go: `go get github.com/modelcontextprotocol/go-sdk`).
 
 The examples connect without authentication. To send credentials, configure the `http_client` (typescript: `requestInit`; go: `HTTPClient`) you hand to the MCP transport.
 
@@ -433,7 +433,7 @@ The examples connect without authentication. To send credentials, configure the 
   </Step>
 
   <Step title="Serve the tools from the worker">
-    Connect to the same MCP server at startup, convert its tools with `async_mcp_tool` (python; typescript: `mcpTools`; go: `mcp.NewBetaTools`), and register them alongside `beta_agent_toolset_20260401` (python; typescript: `betaAgentToolset20260401`; go: `agenttoolset.BetaAgentToolset20260401`). Keep one MCP session open for the life of the worker.
+    Connect to the same MCP server at startup, convert its tools with `async_mcp_tool` (typescript: `mcpTools`; go: `mcp.NewBetaTools`), and register them alongside `beta_agent_toolset_20260401` (typescript: `betaAgentToolset20260401`; go: `agenttoolset.BetaAgentToolset20260401`). Keep one MCP session open for the life of the worker.
 
     <CodeGroup exclude="shell">
       ```python Python
@@ -618,7 +618,7 @@ The MCP helpers keep the server's names and descriptions, and most schemas pass 
 | `name`                    | Unique per agent. Letters, digits, underscores, and hyphens, 1–128 characters. Cannot match a built-in agent tool such as `bash` or `read`, or use the reserved `mcp__` prefix or `ant__` prefix.                                                                                             |
 | `description`             | Required and non-empty.                                                                                                                                                                                                                                                                       |
 | `input_schema`            | Accepts the JSON Schema keywords MCP servers commonly emit, such as `additionalProperties` and `title`. Rejects reference keywords such as `$ref` anywhere, and top-level `oneOf`, `anyOf`, and `allOf`. Property names use letters, digits, underscores, dots, and hyphens, 1–64 characters. |
-| The agent's `tools` array | At most 128 entries. Each wrapped tool is one entry, and the built-in toolset is one more.                                                                                                                                                                                                    |
+| The agent's `tools` array | At most 256 entries. Each wrapped tool is one entry, and the built-in toolset is one more.                                                                                                                                                                                                    |
 
 Two cases need extra work:
 

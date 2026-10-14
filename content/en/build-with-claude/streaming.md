@@ -138,7 +138,7 @@ The [Python SDK](https://github.com/anthropics/anthropic-sdk-python) and [TypeSc
 
 ## Get the final message without handling events
 
-If you don't need to process text as it arrives, the SDK provides a way to use streaming internally while returning the complete `Message` object, identical to what `client.messages.create()` (python, typescript, ruby; go: `client.Messages.New()`; java: `client.messages().create()`; csharp: `client.Messages.Create()`; php: `$client->messages->create()`) returns. This is especially useful for requests with large `max_tokens` values, where the SDK requires streaming to avoid HTTP timeouts.
+If you don't need to process text as it arrives, the SDK provides a way to use streaming internally while returning the complete `Message` object, identical to what `client.messages.create()` (go: `client.Messages.New()`; java: `client.messages().create()`; csharp: `client.Messages.Create()`; php: `$client->messages->create()`) returns. This is especially useful for requests with large `max_tokens` values, where the SDK requires streaming to avoid HTTP timeouts.
 
 <CodeGroup exclude="shell:cURL">
   ```bash CLI

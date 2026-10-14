@@ -28,7 +28,7 @@ Members and invites are the same endpoints for both organization types; this pag
 <Check>
   **Scoped Admin API key required**
 
-  These endpoints require an Admin API key with the `read:members` scope (member and invite `GET` endpoints, and all custom-role endpoints; there is no separate role scope), the `write:members` scope (member and invite `POST` and `DELETE` endpoints), the `read:rbac_groups` scope (group `GET` endpoints), or the `write:rbac_groups` scope (group `POST` and `DELETE` endpoints). A key carrying the `read:org_audit` scope (a read-only scope for security-audit integrations) can also call every `GET` endpoint on this page and the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) read endpoints. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization) for where your primary owner creates one and which scopes to select. Pass the key in the `x-api-key` header on every request, together with the [`anthropic-version`](https://platform.claude.com/docs/en/api/versioning) header.
+  These endpoints require an Admin API key with the `read:members` scope (member and invite `GET` endpoints, and all custom-role endpoints; there is no separate role scope), the `write:members` scope (member and invite `POST` and `DELETE` endpoints), the `read:rbac_groups` scope (group `GET` endpoints), or the `write:rbac_groups` scope (group `POST` and `DELETE` endpoints). Assigning the `managed` role, or groups on an invite, requires `write:rbac_groups` in addition to `write:members`. A key carrying the `read:org_audit` scope (a read-only scope for security-audit integrations) can also call every `GET` endpoint on this page and the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) read endpoints. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#create-a-key-for-a-claude-enterprise-organization) for where your primary owner creates one and which scopes to select. Pass the key in the `x-api-key` header on every request, together with the [`anthropic-version`](https://platform.claude.com/docs/en/api/versioning) header.
 </Check>
 
 ## Overview
@@ -87,7 +87,7 @@ Every member has exactly one organization role. Reads return the member's role a
 | `membership_admin` | A member who can manage the organization's members.                                       |
 | `primary_owner`    | The organization's primary owner. There is exactly one.                                   |
 
-The API can assign only the `user` and `managed` roles, on invite creation and on role updates. The administrative roles (`owner`, `membership_admin`, and `primary_owner`) are assigned in claude.ai organization settings, and members holding them cannot be modified or removed through this API.
+The API can assign only the `user` and `managed` roles, on invite creation and on role updates. Assigning `managed` requires the `write:rbac_groups` scope in addition to `write:members`, because a managed member's permissions come from the custom roles attached to their groups. The administrative roles (`owner`, `membership_admin`, and `primary_owner`) are assigned in claude.ai organization settings, and members holding them cannot be modified or removed through this API.
 
 ### Members and invites
 
@@ -143,7 +143,7 @@ curl "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQr
 
 ### Change a member's role
 
-`POST /v1/organizations/users/{user_id}` sets the member's role to `user` or `managed`. Members holding an administrative role (`owner`, `membership_admin`, or `primary_owner`) cannot be changed through this endpoint, and administrative roles cannot be assigned; both return 400 and are managed in claude.ai organization settings. If your organization's identity provider manages roles (advanced SSO or advanced SCIM provisioning), role updates return 400. Requires the `write:members` scope.
+`POST /v1/organizations/users/{user_id}` sets the member's role to `user` or `managed`. Members holding an administrative role (`owner`, `membership_admin`, or `primary_owner`) cannot be changed through this endpoint, and administrative roles cannot be assigned; both return 400 and are managed in claude.ai organization settings. If your organization's identity provider manages roles (advanced SSO or advanced SCIM provisioning), role updates return 400. Requires the `write:members` scope, plus `write:rbac_groups` when changing the role to `managed`.
 
 For complete parameter details and response schemas, see [Update user](https://platform.claude.com/docs/en/api/organization/users/update) in the API reference.
 
@@ -178,7 +178,7 @@ curl -X DELETE "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGh
 
 ### Create an invite
 
-`POST /v1/organizations/invites` sends an invitation email and returns the invite with a server-assigned `expires_at`. `role` must be `user` or `managed`. If a pending invite already exists for the email address, or the address already belongs to a member, the request returns 400 naming the existing resource. Organizations whose identity provider provisions users automatically (JIT or SCIM) cannot create invites through the API. Requires the `write:members` scope.
+`POST /v1/organizations/invites` sends an invitation email and returns the invite with a server-assigned `expires_at`. `role` must be `user` or `managed`. If a pending invite already exists for the email address, or the address already belongs to a member, the request returns 400 naming the existing resource. Organizations whose identity provider provisions users automatically (JIT or SCIM) cannot create invites through the API. Requires the `write:members` scope, plus `write:rbac_groups` when `role` is `managed`.
 
 On plans that draw members from a finite seat pool, the invite automatically takes a seat from the lowest tier that has availability; the API does not take a tier parameter. If no seat is free, the request fails with a 400 error rather than purchasing a seat. Add seats through the organization's plan management and retry.
 

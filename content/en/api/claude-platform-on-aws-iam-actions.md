@@ -23,7 +23,7 @@ The ARN region is always populated and matches the region the workspace is bound
 
 ## Actions
 
-The service defines 72 actions. Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Get*` and `List*` wildcards produce a clean read-only boundary.
+Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Get*` and `List*` wildcards produce a clean read-only boundary.
 
 ### Inference
 

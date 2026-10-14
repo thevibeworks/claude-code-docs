@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/manage-claude/wif-providers/kubernetes
 description: Authenticate to the Claude API from self-managed Kubernetes clusters using projected service account tokens.
 ---
 
-Self-managed Kubernetes clusters (kubeadm, k3s, OpenShift, and on-premises distributions) sign OIDC JSON Web Tokens (JWTs) for every pod through [projected service account tokens](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection). The cluster's API server acts as the OIDC issuer, and each token's `sub` claim follows the form `system:serviceaccount:<namespace>:<service-account>`. You can find your cluster's issuer URL by reading its discovery document:
+Self-managed Kubernetes clusters (kubeadm, k3s, OpenShift, and on-premise distributions) sign OIDC JSON Web Tokens (JWTs) for every pod through [projected service account tokens](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection). The cluster's API server acts as the OIDC issuer, and each token's `sub` claim follows the form `system:serviceaccount:<namespace>:<service-account>`. You can find your cluster's issuer URL by reading its discovery document:
 
 ```bash cURL
 kubectl get --raw /.well-known/openid-configuration | jq -r .issuer

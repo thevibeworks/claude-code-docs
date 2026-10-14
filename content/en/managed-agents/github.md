@@ -397,11 +397,11 @@ A `github_repository` resource accepts the following fields:
 
 | Field                                                                                     | Description                                                                                                                                                                                       |
 | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type` (java, php; csharp, go: `Type`)                                                    | Required. Must be `"github_repository"`.                                                                                                                                                          |
-| `url` (java, php; csharp: `Url`; go: `URL`)                                               | Required. The repository's HTTPS URL in the form `https://github.com/<owner>/<repo>`, without a `.git` suffix. Other forms, including SSH URLs, are rejected with an `invalid_request_error`.     |
+| `type` (csharp, go: `Type`)                                                               | Required. Must be `"github_repository"`.                                                                                                                                                          |
+| `url` (csharp: `Url`; go: `URL`)                                                          | Required. The repository's HTTPS URL in the form `https://github.com/<owner>/<repo>`, without a `.git` suffix. Other forms, including SSH URLs, are rejected with an `invalid_request_error`.     |
 | `authorization_token` (java, php: `authorizationToken`; csharp, go: `AuthorizationToken`) | Required. The GitHub token used to clone the repository. It is not echoed in API responses. See [Token permissions](https://platform.claude.com/docs/en/managed-agents/github#token-permissions). |
 | `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`)                            | Optional. The directory under `/workspace` to clone the repository into. Defaults to `/workspace/<repo-name>`.                                                                                    |
-| `checkout` (java, php; csharp, go: `Checkout`)                                            | Optional. A branch (`{"type": "branch", "name": "main"}`) or commit (`{"type": "commit", "sha": "..."}`) to check out. Defaults to the repository's default branch.                               |
+| `checkout` (csharp, go: `Checkout`)                                                       | Optional. A branch (`{"type": "branch", "name": "main"}`) or commit (`{"type": "commit", "sha": "..."}`) to check out. Defaults to the repository's default branch.                               |
 
 Mounting a repository also loads any skills stored in its root `.claude/skills` directory. Skills are discovered once per session, from the repository state checked out at session start. See [Load skills from a GitHub repository](https://platform.claude.com/docs/en/managed-agents/skills#load-skills-from-a-github-repository).
 
@@ -422,7 +422,7 @@ When providing a GitHub token, use the minimum required permissions:
 
 ## Multiple repositories
 
-Mount multiple repositories by adding entries to the `resources` (java, php; csharp, go: `Resources`) array:
+Mount multiple repositories by adding entries to the `resources` (csharp, go: `Resources`) array:
 
 <CodeGroup>
   ```bash cURL
@@ -585,7 +585,7 @@ Mount multiple repositories by adding entries to the `resources` (java, php; csh
 
 ## Managing repositories on a running session
 
-After a session is created, you can list its repository resources and rotate their authorization tokens. Each resource has an `id` (java, php; csharp, go: `ID`) returned at session creation time (or through `GET /v1/sessions/{session_id}/resources` (curl; python, typescript, ruby: `client.beta.sessions.resources.list()`; go, csharp: `client.Beta.Sessions.Resources.List()`; java: `client.beta().sessions().resources().list()`; php: `$client->beta->sessions->resources->list()`; cli: `ant beta:sessions:resources list`)) that you use for updates. Repositories are attached for the lifetime of the session; to change which repositories are mounted, create a new session.
+After a session is created, you can list its repository resources and rotate their authorization tokens. Each resource has an `id` (csharp, go: `ID`) returned at session creation time (or through `GET /v1/sessions/{session_id}/resources` (python, typescript, ruby: `client.beta.sessions.resources.list()`; go, csharp: `client.Beta.Sessions.Resources.List()`; java: `client.beta().sessions().resources().list()`; php: `$client->beta->sessions->resources->list()`; cli: `ant beta:sessions:resources list`)) that you use for updates. Repositories are attached for the lifetime of the session; to change which repositories are mounted, create a new session.
 
 <CodeGroup>
   ```bash cURL

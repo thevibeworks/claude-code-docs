@@ -150,7 +150,7 @@ This page covers `type: cloud` environments. To run sandboxes on your own infras
   ```
 </CodeGroup>
 
-Use a unique, descriptive `name` (java, php; csharp, go: `Name`) so you can tell environments apart. This example uses `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) with package managers allowed, so the sandbox can reach the package registries and code hosts. To let it reach other hosts, add them to `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`).
+Use a unique, descriptive `name` (csharp, go: `Name`) so you can tell environments apart. This example uses `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking) with package managers allowed, so the sandbox can reach the package registries and code hosts. To let it reach other hosts, add them to `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`).
 
 ## Use the environment in a session
 
@@ -235,7 +235,7 @@ Pass the environment ID as a string when [creating a session](https://platform.c
 
 ### Packages
 
-The `packages` (java, php; csharp, go: `Packages`) field pre-installs packages into the sandbox before the agent starts. Packages are installed by their respective package managers and cached across sessions that share the same environment. When multiple package managers are specified, they run in alphabetical order (apt, cargo, gem, go, npm, pip). You can optionally pin specific versions. Unpinned packages install the latest version. If the environment uses `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking), also set `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) in `networking` (java, php; csharp, go: `Networking`) to `true`; otherwise the request is rejected with a 400 error.
+The `packages` (csharp, go: `Packages`) field pre-installs packages into the sandbox before the agent starts. Packages are installed by their respective package managers and cached across sessions that share the same environment. When multiple package managers are specified, they run in alphabetical order (apt, cargo, gem, go, npm, pip). You can optionally pin specific versions. Unpinned packages install the latest version. If the environment uses `limited` [networking](https://platform.claude.com/docs/en/managed-agents/environments#networking), also set `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) in `networking` (csharp, go: `Networking`) to `true`; otherwise the request is rejected with a 400 error.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -416,7 +416,7 @@ Supported package managers:
 
 ### Networking
 
-The `networking` (java, php; csharp, go: `Networking`) field controls the sandbox's outbound network access.
+The `networking` (csharp, go: `Networking`) field controls the sandbox's outbound network access.
 
 With `limited` networking, `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) also applies to the `web_search` and `web_fetch` tools, which run on Anthropic's servers. A `web_fetch` call for a URL on a host that `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) does not match returns an error result to the agent. `web_search` omits results from hosts that `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) does not match. `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) and `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) add no hosts for these tools. When `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) lists no hosts, no `web_fetch` or `web_search` call returns a page or a search result. A host that you add to `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) for these tools is also open to the sandbox. `unrestricted` networking and self-hosted environments do not limit these tools. To restrict them further, set `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) or `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`) on the tool's entry in the agent toolset. See [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
 
@@ -426,7 +426,7 @@ With `limited` networking, `allowed_hosts` (java, php: `allowedHosts`; csharp, g
 | `unrestricted` | Full outbound network access, except for a general safety blocklist. Before you use it, read [Risks of unrestricted networking](https://platform.claude.com/docs/en/managed-agents/environments#risks-of-unrestricted-networking).                                                                                                                                                                                                                                           |
 
 <Note>
-  Set `networking` (java, php; csharp, go: `Networking`) explicitly in API requests; a create request that omits it gets `unrestricted`. The Claude Console's form for creating an environment starts with **Limited** selected and nothing else allowed.
+  Set `networking` (csharp, go: `Networking`) explicitly in API requests; a create request that omits it gets `unrestricted`. The Claude Console's form for creating an environment starts with **Limited** selected and nothing else allowed.
 </Note>
 
 The following example creates an environment with `limited` networking:
@@ -599,7 +599,7 @@ When using `limited` networking:
 
 * `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) specifies domains the sandbox can reach. Specify bare hostnames or wildcard patterns (such as `*.example.com`). Do not include a URL scheme, port, or path. A bare hostname matches that exact host: `example.com` does not match `www.example.com`. `*.example.com` matches every subdomain of `example.com`, but not `example.com` itself.
 * `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) allows outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) array. Defaults to `false`. While it is `false`, session creation fails with a 400 error if the agent declares an MCP server whose host is not in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). The same applies to [an agent it can delegate to](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration). To fix it, add the host to `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) or set `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) to `true`.
-* `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) allows outbound access to a set of public package registries and code hosts beyond those listed in the `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) array. See [Package manager hosts](https://platform.claude.com/docs/en/managed-agents/environments#package-manager-hosts) for the list. Defaults to `false`. Set it to `true` whenever the environment specifies `packages` (java, php; csharp, go: `Packages`); otherwise the request is rejected with a 400 error, even if the registry hosts are listed in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`).
+* `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) allows outbound access to a set of public package registries and code hosts beyond those listed in the `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) array. See [Package manager hosts](https://platform.claude.com/docs/en/managed-agents/environments#package-manager-hosts) for the list. Defaults to `false`. Set it to `true` whenever the environment specifies `packages` (csharp, go: `Packages`); otherwise the request is rejected with a 400 error, even if the registry hosts are listed in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`).
 
 #### Package manager hosts
 
@@ -619,7 +619,7 @@ When `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `A
 | Containers   | `registry-1.docker.io`, `auth.docker.io`, `production.cloudflare.docker.com`, `download.docker.com`, `ghcr.io`                                                                             |
 
 <Warning>
-  Network access is granted per host, not per operation. The sandbox can send any request to an allowed host, including uploads such as `git push` and package publishing, with any credential the command supplies. If the agent processes untrusted input (repository files, fetched web content, or third-party tool output), a successful prompt injection could use an allowed host to copy files out of the sandbox. To reduce this risk, set the `bash` tool's [permission policy](https://platform.claude.com/docs/en/managed-agents/permission-policies) to `always_ask` or `auto`. If the environment does not specify `packages` (java, php; csharp, go: `Packages`), you can instead leave `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) set to `false` and list only the hosts your agent needs in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`).
+  Network access is granted per host, not per operation. The sandbox can send any request to an allowed host, including uploads such as `git push` and package publishing, with any credential the command supplies. If the agent processes untrusted input (repository files, fetched web content, or third-party tool output), a successful prompt injection could use an allowed host to copy files out of the sandbox. To reduce this risk, set the `bash` tool's [permission policy](https://platform.claude.com/docs/en/managed-agents/permission-policies) to `always_ask` or `auto`. If the environment does not specify `packages` (csharp, go: `Packages`), you can instead leave `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) set to `false` and list only the hosts your agent needs in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`).
 </Warning>
 
 #### Risks of unrestricted networking
