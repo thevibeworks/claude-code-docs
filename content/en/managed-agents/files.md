@@ -84,7 +84,7 @@ First, upload a file using the [Files API](https://platform.claude.com/docs/en/b
 
 ## Mounting files in a session
 
-Mount uploaded files into the sandbox by adding them to the `resources` (java, php; csharp, go: `Resources`) array when creating a session:
+Mount uploaded files into the sandbox by adding them to the `resources` (csharp, go: `Resources`) array when creating a session:
 
 <Tip>
   The `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) is optional, but make sure the uploaded file has a descriptive name so the agent can identify it.
@@ -235,7 +235,7 @@ A new `file_id` (java: `fileId`; php: `fileID`; csharp, go: `FileID`) is created
 
 ## Multiple files
 
-Mount multiple files by adding entries to the `resources` (java, php; csharp, go: `Resources`) array:
+Mount multiple files by adding entries to the `resources` (csharp, go: `Resources`) array:
 
 <CodeGroup>
   ```bash cURL
@@ -354,7 +354,7 @@ A maximum of 500 files is supported per session.
 
 ## Managing files on a running session
 
-You can add or remove files from a session after creation using the session resources API. Each resource has an `id` (java, php; csharp, go: `ID`) returned when it is added (or listed), which you use for deletes.
+You can add or remove files from a session after creation using the session resources API. Each resource has an `id` (csharp, go: `ID`) returned when it is added (or listed), which you use for deletes.
 
 <CodeGroup>
   ```bash cURL
@@ -446,7 +446,7 @@ You can add or remove files from a session after creation using the session reso
   ```
 </CodeGroup>
 
-List all resources on a session with `GET /v1/sessions/{session_id}/resources` (curl; python, typescript, ruby: `client.beta.sessions.resources.list()`; go, csharp: `client.Beta.Sessions.Resources.List()`; java: `client.beta().sessions().resources().list()`; php: `$client->beta->sessions->resources->list()`; cli: `ant beta:sessions:resources list`). To remove a file, call `DELETE /v1/sessions/{session_id}/resources/{resource_id}` (curl; python, typescript, ruby: `client.beta.sessions.resources.delete()`; go, csharp: `client.Beta.Sessions.Resources.Delete()`; java: `client.beta().sessions().resources().delete()`; php: `$client->beta->sessions->resources->delete()`; cli: `ant beta:sessions:resources delete`) with the resource ID:
+List all resources on a session with `GET /v1/sessions/{session_id}/resources` (python, typescript, ruby: `client.beta.sessions.resources.list()`; go, csharp: `client.Beta.Sessions.Resources.List()`; java: `client.beta().sessions().resources().list()`; php: `$client->beta->sessions->resources->list()`; cli: `ant beta:sessions:resources list`). To remove a file, call `DELETE /v1/sessions/{session_id}/resources/{resource_id}` (python, typescript, ruby: `client.beta.sessions.resources.delete()`; go, csharp: `client.Beta.Sessions.Resources.Delete()`; java: `client.beta().sessions().resources().delete()`; php: `$client->beta->sessions->resources->delete()`; cli: `ant beta:sessions:resources delete`) with the resource ID:
 
 <CodeGroup>
   ```bash cURL
@@ -555,7 +555,7 @@ List all resources on a session with `GET /v1/sessions/{session_id}/resources` (
 
 Use the [Files API](https://platform.claude.com/docs/en/build-with-claude/files) to list files scoped to a session and download them. Files the agent writes to `/mnt/session/outputs/` appear in the list shortly after the agent finishes writing them, sometimes a few seconds after the session goes idle. If an output file you expect is missing, list again after a short delay; once it appears in the list, its upload has finished.
 
-Filtering by `scope_id` (java: `scopeId`; php: `scopeID`; csharp, go: `ScopeID`) requires the `managed-agents-2026-04-01` beta header, so the list examples call `GET /v1/files` (curl; python, typescript, ruby: `client.beta.files.list()`; go, csharp: `client.Beta.Files.List()`; java: `client.beta().files().list()`; php: `$client->beta->files->list()`; cli: `ant beta:files list`) and pass that header explicitly.
+Filtering by `scope_id` (java: `scopeId`; php: `scopeID`; csharp, go: `ScopeID`) requires the `managed-agents-2026-04-01` beta header, so the list examples call `GET /v1/files` (python, typescript, ruby: `client.beta.files.list()`; go, csharp: `client.Beta.Files.List()`; java: `client.beta().files().list()`; php: `$client->beta->files->list()`; cli: `ant beta:files list`) and pass that header explicitly.
 
 <CodeGroup>
   ```bash cURL

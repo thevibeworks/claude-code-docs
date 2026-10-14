@@ -10,7 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-To control which sites the agent's web tools can reach, set a domain list on the `web_search` and `web_fetch` entries of the [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools#configuring-the-toolset). Each of these `configs` (java, php; csharp, go: `Configs`) entries takes one of two lists:
+To control which sites the agent's web tools can reach, set a domain list on the `web_search` and `web_fetch` entries of the [agent toolset](https://platform.claude.com/docs/en/managed-agents/tools#configuring-the-toolset). Each of these `configs` (csharp, go: `Configs`) entries takes one of two lists:
 
 * **`allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`):** The tool can reach only these hosts.
 * **`blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`):** The tool can never reach these hosts.
@@ -23,7 +23,7 @@ Each tool carries its own list, so `web_search` and `web_fetch` can have differe
 
 ## Set domain lists on an agent
 
-The following example creates an agent that limits `web_search` to two sites and blocks one host for `web_fetch`. It also sets `user_location` (java, php: `userLocation`; csharp, go: `UserLocation`) and `max_content_tokens` (java, php: `maxContentTokens`; csharp, go: `MaxContentTokens`), which [Settings](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#settings) describes. The example then prints the `configs` (java, php; csharp, go: `Configs`) array from the response.
+The following example creates an agent that limits `web_search` to two sites and blocks one host for `web_fetch`. It also sets `user_location` (java, php: `userLocation`; csharp, go: `UserLocation`) and `max_content_tokens` (java, php: `maxContentTokens`; csharp, go: `MaxContentTokens`), which [Settings](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#settings) describes. The example then prints the `configs` (csharp, go: `Configs`) array from the response.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -376,7 +376,7 @@ In the Claude Console, set allowed or blocked domains from the `web_search` and 
 
 ## Settings
 
-In addition to `enabled` (java, php; csharp, go: `Enabled`) and `permission_policy` (java, php: `permissionPolicy`; csharp, go: `PermissionPolicy`), the web tool entries accept the following settings:
+In addition to `enabled` (csharp, go: `Enabled`) and `permission_policy` (java, php: `permissionPolicy`; csharp, go: `PermissionPolicy`), the web tool entries accept the following settings:
 
 | Setting                                                                              | Applies to                | Description                                                                                                                                                                                                     |
 | ------------------------------------------------------------------------------------ | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -433,7 +433,7 @@ Prefer plain hostnames for `web_search` too. The search provider matches path su
 
 ## Validation errors
 
-The API validates these settings when you [create an agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#create-an-agent) or [update an agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent). It also validates them when you create or update a session that supplies `tools` (java, php; csharp, go: `Tools`).
+The API validates these settings when you [create an agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#create-an-agent) or [update an agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent). It also validates them when you create or update a session that supplies `tools` (csharp, go: `Tools`).
 
 Format and limit violations are rejected with a 400 `invalid_request_error`:
 
@@ -463,7 +463,7 @@ To continue the session:
 
 ## Multiagent and outcome-driven sessions
 
-In a [multiagent session](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), every domain list that applies to a thread is enforced at the same time. An agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) is bound by three sets of lists:
+In a [multiagent session](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration), every domain list that applies to a thread is enforced at the same time. An agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`) is bound by three sets of lists:
 
 * Its own `allowed_domains` and `blocked_domains`
 * Those of any agent that called it
@@ -482,7 +482,7 @@ A listed agent can therefore narrow what a tool reaches but never widen it:
 * A listed agent that sets `blocked_domains` keeps the `allowed_domains` of the session's agent and blocks those hosts within it.
 * A listed agent that sets its own `allowed_domains` can reach only the hosts that both its list and the list of the session's agent cover.
 
-A `{"type": "self"}` entry in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`) has no web settings of its own and follows the current settings of the session's agent.
+A `{"type": "self"}` entry in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`) has no web settings of its own and follows the current settings of the session's agent.
 
 If the combined `allowed_domains` lists have no domain in common, the tool stays available to that agent but every call fails. Each call returns a `url_not_allowed` error stating that no domain is permitted. The tool description tells the model the same. To avoid this, keep each listed agent's `allowed_domains` inside the `allowed_domains` of the session's agent.
 
@@ -492,7 +492,7 @@ The grader in [outcome-driven sessions](https://platform.claude.com/docs/en/mana
 
 You can change the lists on an idle session by [updating its tools](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-agent-configuration). The new lists apply to the rest of the session.
 
-In a multiagent session, every thread applies the new lists from its next turn. For an agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (java, php; csharp, go: `Subagents`), the update does not change the agent's own lists. Those stay as the agent's definition set them when the session was created.
+In a multiagent session, every thread applies the new lists from its next turn. For an agent listed in the `predefined_agents` (java, php: `predefinedAgents`; csharp, go: `PredefinedAgents`) list of `subagents` (csharp, go: `Subagents`), the update does not change the agent's own lists. Those stay as the agent's definition set them when the session was created.
 
 ## Differences from the Messages API tools
 
@@ -501,7 +501,7 @@ These settings use the same `allowed_domains` (java, php: `allowedDomains`; csha
 * Each list is [capped at 64 domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#domain-list-rules).
 * Domains listed for `web_fetch` [cannot include a path](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#domain-format).
 * Domains [must be ASCII](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#domain-format). The Messages API accepts Unicode entries, though it recommends against them.
-* `max_uses` (java, php: `maxUses`; csharp, go: `MaxUses`), `citations` (java, php; csharp, go: `Citations`), and `cache_control` (java, php: `cacheControl`; csharp, go: `CacheControl`) are not available on the toolset.
+* `max_uses` (java, php: `maxUses`; csharp, go: `MaxUses`), `citations` (csharp, go: `Citations`), and `cache_control` (java, php: `cacheControl`; csharp, go: `CacheControl`) are not available on the toolset.
 
 ## Next steps
 

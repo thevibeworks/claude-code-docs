@@ -122,7 +122,7 @@ A tampered or undecryptable signature is a different failure. It always returns 
 
 #### Output-token cost of `"drop_block"`
 
-In Anthropic's testing on a multi-turn coding benchmark, dropping thinking blocks once per session increased output tokens by 2.5% at low effort, 3.9% at medium, 4.5% at high, and 20.1% at max. Dropping them on every turn after the first increased output tokens by 4.6% at low effort, 9.7% at medium, 10.3% at high, and 67.1% at max. The exact impact depends on your harness.
+In Anthropic's testing on a multi-turn coding benchmark, dropping thinking blocks once per session increased output tokens by 2.5% at low effort, 3.9% at medium, 4.5% at high, and 20.1% at max. Dropping them on every turn after the first increased output tokens by 4.6% at low effort, 9.7% at medium, 10.3% at high, and 67.1% at max. These figures are estimates with wide error bars, and the impact on your workload depends on your harness.
 
 When Claude can no longer read reasoning from earlier turns, it re-creates that reasoning, so requests that drop thinking blocks generate more output tokens and can take longer to respond. A drop on every turn costs more than an occasional drop, and how much more depends on your harness: how often it edits the prefix and how much each turn builds on earlier reasoning.
 

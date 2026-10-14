@@ -242,13 +242,13 @@ For authentication options including Workload Identity Federation, see [Authenti
 
 ## Request fields
 
-The anthropic library uses the [`omitzero`](https://tip.golang.org/doc/go1.24#encodingjsonpkgencodingjson) semantics from the Go 1.24+ `encoding/json` release for request fields.
+The Anthropic library uses the [`omitzero`](https://tip.golang.org/doc/go1.24#encodingjsonpkgencodingjson) semantics from the Go 1.24+ `encoding/json` release for request fields.
 
 Required primitive fields (such as `int64` or `string`) feature the tag `` `json:"...,required"` ``. These fields are always serialized, even their zero values.
 
 Optional primitive types are wrapped in a `param.Opt[T]`. These fields can be set with the provided constructors, such as `anthropic.String(string)` or `anthropic.Int(int64)`.
 
-Any `param.Opt[T]`, map, slice, struct or string enum uses the tag `` `json:"...,omitzero"` ``. Its zero value is considered omitted.
+Any `param.Opt[T]`, map, slice, struct, or string enum uses the tag `` `json:"...,omitzero"` ``. Its zero value is considered omitted.
 
 The `param.IsOmitted(any)` function can confirm the presence of any `omitzero` field.
 
@@ -298,7 +298,7 @@ custom := param.Override[anthropic.FooParams](12)
 
 ### Request unions
 
-Unions are represented as a struct with fields prefixed by "Of" for each of its variants, only one field can be non-zero. The non-zero field will be serialized.
+Unions are represented as a struct with fields prefixed by "Of" for each of its variants. Only one field can be non-zero. The non-zero field will be serialized.
 
 Subproperties of the union can be accessed through methods on the union struct. These methods return a mutable pointer to the underlying data, if present.
 
@@ -407,7 +407,7 @@ res.JSON.Age.Raw() == ""               // true
 res.JSON.Age.Raw() == respjson.Omitted // true
 ```
 
-These `.JSON` structs also include an `ExtraFields` map containing any properties in the json response that were not specified in the struct. This can be useful for API features not yet present in the SDK.
+These `.JSON` structs also include an `ExtraFields` map containing any properties in the JSON response that were not specified in the struct. This can be useful for API features not yet present in the SDK.
 
 ```go
 body := res.JSON.ExtraFields["my_unexpected_field"].Raw()
@@ -555,7 +555,7 @@ This SDK will also return an error if a non-streaming request is expected to be 
 
 ## File uploads
 
-Request parameters that correspond to file uploads in multipart requests are typed as `io.Reader`. The contents of the `io.Reader` will by default be sent as a multipart form part with the file name of "anonymous\_file" and content-type of "application/octet-stream", so the recommended approach is to specify a custom content-type with the `anthropic.File(reader io.Reader, filename string, contentType string)` helper, which wraps any `io.Reader` with the appropriate file name and content type.
+Request parameters that correspond to file uploads in multipart requests are typed as `io.Reader`. The contents of the `io.Reader` will by default be sent as a multipart form part with the file name of `anonymous_file` and content type of `application/octet-stream`, so the recommended approach is to specify a custom content type with the `anthropic.File(reader io.Reader, filename string, contentType string)` helper, which wraps any `io.Reader` with the appropriate file name and content type.
 
 ```go
 // A file from the file system
@@ -570,7 +570,7 @@ anthropic.FileUploadParams{
 }
 ```
 
-The file name and content-type can also be customized by implementing `Name() string` or `ContentType() string` on the run-time type of `io.Reader`. Note that `os.File` implements `Name() string`, so a file returned by `os.Open` will be sent with the file name on disk.
+The file name and content type can also be customized by implementing `Name() string` or `ContentType() string` on the run-time type of `io.Reader`. Note that `os.File` implements `Name() string`, so a file returned by `os.Open` will be sent with the file name on disk.
 
 ## Pagination
 
@@ -741,7 +741,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 1. Changes to library internals that are technically public but not intended or documented for external use.
 2. Changes that aren't expected to impact the vast majority of users in practice.
 
-Backward-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
+Backward compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 
 Your feedback is welcome; open an [issue](https://github.com/anthropics/anthropic-sdk-go/issues) with questions, bugs, or suggestions.
 

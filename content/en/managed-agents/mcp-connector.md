@@ -21,9 +21,9 @@ This separation keeps secrets out of reusable agent definitions while letting ea
 
 ## Declare MCP servers on the agent
 
-Specify MCP servers in the `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) array when creating an agent. Each server needs a `type` (java, php; csharp, go: `Type`), a unique `name` (java, php; csharp, go: `Name`), and a `url` (java, php; csharp: `Url`; go: `URL`). No authentication tokens are provided at this stage.
+Specify MCP servers in the `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) array when creating an agent. Each server needs a `type` (csharp, go: `Type`), a unique `name` (csharp, go: `Name`), and a `url` (csharp: `Url`; go: `URL`). No authentication tokens are provided at this stage.
 
-Each declared server also needs a matching `mcp_toolset` entry in the `tools` (java, php; csharp, go: `Tools`) array. The toolset's `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) must match the server's `name` (java, php; csharp, go: `Name`).
+Each declared server also needs a matching `mcp_toolset` entry in the `tools` (csharp, go: `Tools`) array. The toolset's `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) must match the server's `name` (csharp, go: `Name`).
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
@@ -239,20 +239,20 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (j
 
 Each entry in the `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) array defines one connection.
 
-| Field                                       | Description                                                                                                                                                                                                                                                                                                                                                                         |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type` (java, php; csharp, go: `Type`)      | Required. Must be `"url"`.                                                                                                                                                                                                                                                                                                                                                          |
-| `name` (java, php; csharp, go: `Name`)      | Required. A unique name for this server within the agent (1–255 characters). Used as the `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) in the `tools` (java, php; csharp, go: `Tools`) array and surfaced on MCP tool events in the [session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming). |
-| `url` (java, php; csharp: `Url`; go: `URL`) | Required. The endpoint of the remote MCP server (up to 2,048 characters). See [Supported MCP server types](https://platform.claude.com/docs/en/managed-agents/reference#supported-mcp-server-types) for transport requirements.                                                                                                                                                     |
+| Field                            | Description                                                                                                                                                                                                                                                                                                                                                              |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type` (csharp, go: `Type`)      | Required. Must be `"url"`.                                                                                                                                                                                                                                                                                                                                               |
+| `name` (csharp, go: `Name`)      | Required. A unique name for this server within the agent (1–255 characters). Used as the `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) in the `tools` (csharp, go: `Tools`) array and surfaced on MCP tool events in the [session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming). |
+| `url` (csharp: `Url`; go: `URL`) | Required. The endpoint of the remote MCP server (up to 2,048 characters). See [Supported MCP server types](https://platform.claude.com/docs/en/managed-agents/reference#supported-mcp-server-types) for transport requirements.                                                                                                                                          |
 
 Constraints:
 
 * An agent can declare up to 20 MCP servers. Server names must be unique within the array.
-* Every `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) entry must be referenced by an `mcp_toolset` in the `tools` (java, php; csharp, go: `Tools`) array, and every `mcp_toolset` must reference a declared server. The API rejects agent definitions with unreferenced servers or dangling toolsets.
+* Every `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) entry must be referenced by an `mcp_toolset` in the `tools` (csharp, go: `Tools`) array, and every `mcp_toolset` must reference a declared server. The API rejects agent definitions with unreferenced servers or dangling toolsets.
 
 ## Configure which MCP tools are available
 
-The `mcp_toolset` entry supports a `default_config` (java, php: `defaultConfig`; csharp, go: `DefaultConfig`) object and a `configs` (java, php; csharp, go: `Configs`) array, applied to the tools the MCP server exposes. Each `configs` (java, php; csharp, go: `Configs`) entry accepts only `name` (java, php; csharp, go: `Name`), `enabled` (java, php; csharp, go: `Enabled`), and `permission_policy` (java, php: `permissionPolicy`; csharp, go: `PermissionPolicy`). Unlike entries in the built-in agent toolset, MCP tool entries do not take a `type` (java, php; csharp, go: `Type`) field, and the [web settings](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#settings) available on `web_search` and `web_fetch` do not apply to MCP tools. The `name` (java, php; csharp, go: `Name`) in each `configs` (java, php; csharp, go: `Configs`) entry is the bare tool name as reported by the server.
+The `mcp_toolset` entry supports a `default_config` (java, php: `defaultConfig`; csharp, go: `DefaultConfig`) object and a `configs` (csharp, go: `Configs`) array, applied to the tools the MCP server exposes. Each `configs` (csharp, go: `Configs`) entry accepts only `name` (csharp, go: `Name`), `enabled` (csharp, go: `Enabled`), and `permission_policy` (java, php: `permissionPolicy`; csharp, go: `PermissionPolicy`). Unlike entries in the built-in agent toolset, MCP tool entries do not take a `type` (csharp, go: `Type`) field, and the [web settings](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#settings) available on `web_search` and `web_fetch` do not apply to MCP tools. The `name` (csharp, go: `Name`) in each `configs` (csharp, go: `Configs`) entry is the bare tool name as reported by the server.
 
 By default all tools exposed by the MCP server are enabled. To enable only specific tools, set `default_config.enabled` to `false` and explicitly enable the tools you want:
 
@@ -281,7 +281,7 @@ To disable specific tools while keeping the rest enabled, omit `default_config` 
 }
 ```
 
-See [configuring the toolset](https://platform.claude.com/docs/en/managed-agents/tools#configuring-the-toolset) for the general `default_config` (java, php: `defaultConfig`; csharp, go: `DefaultConfig`) / `configs` (java, php; csharp, go: `Configs`) pattern, and [MCP toolset permissions](https://platform.claude.com/docs/en/managed-agents/permission-policies#mcp-toolset-permissions) for setting `permission_policy` (java, php: `permissionPolicy`; csharp, go: `PermissionPolicy`) on MCP tools and handling confirmation requests.
+See [configuring the toolset](https://platform.claude.com/docs/en/managed-agents/tools#configuring-the-toolset) for the general `default_config` (java, php: `defaultConfig`; csharp, go: `DefaultConfig`) / `configs` (csharp, go: `Configs`) pattern, and [MCP toolset permissions](https://platform.claude.com/docs/en/managed-agents/permission-policies#mcp-toolset-permissions) for setting `permission_policy` (java, php: `permissionPolicy`; csharp, go: `PermissionPolicy`) on MCP tools and handling confirmation requests.
 
 ### MCP tool output handling
 
@@ -382,7 +382,7 @@ With a `limited` [environment](https://platform.claude.com/docs/en/managed-agent
   ```
 </CodeGroup>
 
-Credentials are matched by URL, so the vault must contain a credential whose `mcp_server_url` (java: `mcpServerUrl`; php: `mcpServerURL`; csharp: `McpServerUrl`; go: `MCPServerURL`) refers to the same server as the `url` (java, php; csharp: `Url`; go: `URL`) declared in `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`). Both URLs are normalized before matching (scheme and host lowercased, default ports and trailing slashes stripped), so differences in host casing, a default port, or a trailing slash don't prevent a match; a different path, subdomain, or non-default port does. If none matches, the connection is attempted unauthenticated. See [Add a credential](https://platform.claude.com/docs/en/managed-agents/vaults#add-a-credential) for the `static_bearer` and `mcp_oauth` credential types.
+Credentials are matched by URL, so the vault must contain a credential whose `mcp_server_url` (java: `mcpServerUrl`; php: `mcpServerURL`; csharp: `McpServerUrl`; go: `MCPServerURL`) refers to the same server as the `url` (csharp: `Url`; go: `URL`) declared in `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`). Both URLs are normalized before matching (scheme and host lowercased, default ports and trailing slashes stripped), so differences in host casing, a default port, or a trailing slash don't prevent a match; a different path, subdomain, or non-default port does. If none matches, the connection is attempted unauthenticated. See [Add a credential](https://platform.claude.com/docs/en/managed-agents/vaults#add-a-credential) for the `static_bearer` and `mcp_oauth` credential types.
 
 ### Handle connection and authentication failures
 

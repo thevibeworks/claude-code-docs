@@ -385,7 +385,7 @@ Each guide covers where the JWT comes from on that platform, what its claims loo
   </Card>
 
   <Card title="Kubernetes" icon="cube" href="https://platform.claude.com/docs/en/manage-claude/wif-providers/kubernetes">
-    Self-managed and on-premises clusters using projected service-account tokens.
+    Self-managed and on-premise clusters using projected service-account tokens.
   </Card>
 
   <Card title="SPIFFE" icon="fingerprint" href="https://platform.claude.com/docs/en/manage-claude/wif-providers/spiffe">

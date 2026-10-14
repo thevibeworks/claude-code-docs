@@ -490,7 +490,7 @@ A poller on the host claims work and calls your script once per work item. The s
 
 ### Forward the work item's secret
 
-Each claimed work item can carry a per-session `secret` (java, php; csharp, go: `Secret`), which Anthropic issues. The worker that runs the session needs it to mount [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory).
+Each claimed work item can carry a per-session `secret` (csharp, go: `Secret`), which Anthropic issues. The worker that runs the session needs it to mount [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory).
 
 A worker that claims and runs sessions in one process (`ant beta:worker poll` without `--on-work`, or `EnvironmentWorker` with `run()` (go: `Run()`)) passes the secret along itself. When your own code sits between the claim and the worker, you forward it:
 
