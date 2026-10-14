@@ -50,7 +50,7 @@ From 1 to 25 seats per group.
 
 ### I’m already on the discounted Team plan. What changes?
 
-Your plan moves to the new pricing automatically for billing charges after August 27, 2026—no action needed. Prior charges, including prepaid annual seats, aren’t refunded or prorated. Any seats you add to your plan after August 27, 2026 will be billed at the new pricing. Your workspace admin will get an email with the details.
+This applies only to workspaces that were already on the discounted Team plan before August 27, 2026. If you’re applying the discount to a standard Team plan for the first time, see **[Can I apply the discounted Team plan pricing to my existing Team plan?](#h_80d427d957)** below. Your plan moves to the new pricing automatically for billing charges after August 27, 2026—no action needed. Any seats you add to your plan after August 27, 2026 will be billed at the new pricing. Your workspace admin will get an email with the details.
 
 ### My university already has a Claude Enterprise agreement. Should I use this?
 
@@ -71,3 +71,7 @@ By default, Anthropic doesn’t train its models on user data from Team and Ente
 ### Can I apply the discounted Team plan pricing to my existing Team plan?
 
 First, you must complete the **[application flow](https://claude.ai/labs-verification/attestation)** to verify your eligibility for the discounted plan. Once you are verified, you can apply the discounted pricing to an existing plan that you manage in **Settings > Account** under **Program verifications**.
+
+If your existing Team plan is billed annually and you apply the discounted pricing partway through your annual term, your plan switches to monthly billing at the discounted rate. The unused portion of your prepaid annual term becomes a credit on your workspace’s billing account, and it’s applied automatically to your future monthly invoices until it’s used up. This is an account credit, not a refund to your original payment method.
+
+**Note:** If all your seats are Standard seats ($0 per user per month), your monthly invoices will be $0. The credit stays on your account until a charge is generated, for example when you add Premium seats.

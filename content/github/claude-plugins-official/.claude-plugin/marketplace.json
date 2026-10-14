@@ -2976,7 +2976,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/postmanlabs/postman-plugin.git",
-        "sha": "67cff8f385d88608f427af01e152969065ddb1d8"
+        "sha": "0128d24704cfa71170d9df3b9fdc81959238be12"
       },
       "homepage": "https://github.com/postmanlabs/postman-plugin"
     },

@@ -201,7 +201,7 @@ A few ways you can use organization instructions to manage consumption and usage
 
 ---
 
-## Tracking usage and spend
+## Track usage and spend
 
 ### Analytics page
 
@@ -235,7 +235,7 @@ Use this when you have a specific question and don't want to navigate the dashbo
 
 For programmatic access, use the Claude Enterprise Analytics API. Pull a ranked list of users by tokens used or dollars spent, or look at usage and cost trends over time broken down by product, model, RBAC group, context window, region, or service tier (standard vs. fast). Grouping the cost report by RBAC group gives per-department spend for chargeback without exporting per-user rows. Each request is capped at 31 days wide, starting within the last 365 days, and no earlier than January 1, 2026.
 
-Your Primary Owner can create a key with the read:analytics scope under Organization settings > API. Cost and usage data typically lands within about four hours (occasionally up to 24) and can be revised for up to 30 days, so query dates 30+ days in the past for invoicing-grade totals. Engagement endpoints such as users, skills, plugins, and connectors update daily with roughly a one-day lag. **[Learn more](https://platform.claude.com/docs/en/manage-claude/analytics-api)** and review the **[API reference guide](https://platform.claude.com/docs/en/api/admin/analytics)**.
+Your Primary Owner can create a key with the read:analytics scope under **Organization settings > API**. Cost and usage data typically lands within about four hours (occasionally up to 24) and can be revised until seven days after the end of the month it belongs to. For invoicing-grade totals, wait until that window closes before you query a month. Engagement endpoints such as users, skills, plugins, and connectors update daily with roughly a one-day lag. **[Learn more](https://platform.claude.com/docs/en/manage-claude/analytics-api)** and review the **[API reference guide](https://platform.claude.com/docs/en/api/admin/analytics)**.
 
 ### Per-user skills, plugin, and connector usage
 

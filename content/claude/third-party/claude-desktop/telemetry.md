@@ -14,6 +14,8 @@ This page covers what each telemetry category contains, how to turn it off, and 
 
 ## Telemetry categories
 
+To find out whether a managed profile's keys apply on a device that uses the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console), see [Which settings apply on a device with a managed profile](/docs/third-party/claude-desktop/admin-console#which-settings-apply-on-a-device-with-a-managed-profile).
+
 ### Essential telemetry
 
 Crash reports, error stack traces, and performance timings. Contains diagnostic metadata (app version, OS, error type, redacted stack frames) but **never prompt or response content**. Attributed to your organization via `deploymentOrganizationUuid` so Anthropic support can find issues you report.
@@ -36,7 +38,7 @@ Product-usage analytics: feature adoption, session counts, UI interactions. Used
 | - | - | - |
 | `disableNonessentialTelemetry` | `false` | No product analytics leave the device. |
 
-Leaving this enabled also adds `api.anthropic.com` to the [agent egress allowlist](#required-egress-paths) automatically, so Claude Code can deliver its usage telemetry from inside the sandbox. Allow that host at the perimeter too; it appears in the non-essential telemetry table below.
+Claude Code's usage telemetry is part of this category and goes to `api.anthropic.com`. While this category is on, allow that host at the perimeter, as listed under [Non-essential telemetry](#non-essential-telemetry-disablenonessentialtelemetry-false). Claude Code sends this telemetry from outside the agent's sandbox, so the host needs no entry in `coworkEgressAllowedHosts`.
 
 ### Non-essential services
 
@@ -62,7 +64,7 @@ Independently of what's sent to Anthropic, you can export session activity to yo
 
 For third-party deployments, the export includes session metadata (event names, durations, token counts, result counts, errors) by default, but not message content. It also identifies the signed-in user; see [User attribution](#user-attribution). See [Monitoring](/docs/cowork/monitoring) for the event schema and the [`otlp*` keys](/docs/third-party/claude-desktop/configuration#otlpendpoint) in the configuration reference.
 
-The export carries logs and metrics. Cowork sessions, Code sessions, and the desktop application's own events arrive under the `service.name` values `cowork`, `claude-code-desktop`, and `claude-desktop` respectively. With [Unified Claude](/docs/third-party/claude-desktop/unified-claude) on, a Cowork session started from the home screen also arrives under `cowork`. The app adds the collector host to the sandbox egress allowlist automatically, so `otlpEndpoint` does not need an entry in `coworkEgressAllowedHosts`; your perimeter firewall still needs to allow the host.
+The export carries logs and metrics. Cowork sessions, Code sessions, and the desktop application's own events arrive under the `service.name` values `cowork`, `claude-code-desktop`, and `claude-desktop` respectively. With [Unified Claude](/docs/third-party/claude-desktop/unified-claude) on, a Cowork session started from the home screen also arrives under `cowork`. The export isn't checked against the [agent egress allowlist](#required-egress-paths), so `otlpEndpoint` doesn't need an entry in `coworkEgressAllowedHosts`; your perimeter firewall still needs to allow the host.
 
 For collector authentication headers, extra resource attributes, and the log level of the desktop application's own event stream, see [`otlpHeaders`, `otlpResourceAttributes`, and `otlpDesktopLogLevel`](/docs/third-party/claude-desktop/configuration#otlpheaders) in the configuration reference. Events on the `claude-desktop` stream include `desktop_ssh_sandbox_check_failed`, described under [Sandbox status on the remote host](/docs/third-party/claude-desktop/ssh-remote-sessions#sandbox-status-on-the-remote-host).
 
@@ -152,7 +154,7 @@ With `otlpEndpoint` set, `otlpTracesEnabled` alone decides whether Cowork and Co
 Claude Desktop on 3P has **two** independent network boundaries:
 
 1. **Perimeter firewall:** your corporate network controls what the device can reach. The hostnames below are what you allowlist here.
-2. **Agent egress allowlist:** the [`coworkEgressAllowedHosts`](/docs/third-party/claude-desktop/configuration#coworkegressallowedhosts) key controls what the agent's web-fetch and shell tools can reach. This is independent of, and stricter than, the perimeter.
+2. **Agent egress allowlist:** the [`coworkEgressAllowedHosts`](/docs/third-party/claude-desktop/configuration#coworkegressallowedhosts) key controls what the agent's web-fetch and shell tools can reach. This is independent of the perimeter. See [Web Fetch](/docs/third-party/claude-desktop/web-tools#web-fetch) for where the key applies.
 
 <Note>
   The **Egress** section of the in-app configuration window is the authoritative source for your deployment. It computes the exact allowlist from your current settings, updates as you change them, and can export the list as a text file for your firewall team. Use the tables below as a static reference; defer to the configuration window for the precise set your build requires.
@@ -257,7 +259,7 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 | Host | Purpose |
 | - | - |
 | `claude.ai` | Analytics events |
-| `api.anthropic.com` | Claude Code usage telemetry, sent from inside the agent sandbox |
+| `api.anthropic.com` | Claude Code usage telemetry |
 
 ### Non-essential services (`disableNonessentialServices: false`)
 

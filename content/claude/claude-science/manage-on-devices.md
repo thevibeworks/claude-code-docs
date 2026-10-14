@@ -51,6 +51,17 @@ Both are device-level settings. There's no per-member or per-organization teleme
 
 Claude Science runs analysis code inside a local sandbox on the member's computer. On macOS, sandboxed analysis processes run as ordinary child processes and are visible to host-level EDR tools. On Windows, they run under the member's account inside a Windows AppContainer, the operating system's built-in app isolation, started by a sandbox launcher that ships inside the app, without WSL or Hyper-V. Windows asks once, optionally, for administrator approval so that Command Prompt scripts and git can run inside cells and PowerShell cells can change folders, while Python and R cells work without it. If security software holds the sandbox launcher or quarantines files in an analysis environment, Claude Science names the affected folder in its error message so you can add an exclusion. On Linux, sandboxed processes run inside a separate PID namespace with an isolated process view, so host-level EDR won't see them as ordinary children of the app.
 
+## Windows signing certificate
+
+Claude Science for Windows is signed by Anthropic, PBC. If your security software allows apps by their signature, allow the publisher, Anthropic, PBC, rather than one exact certificate, because a renewed certificate has a new thumbprint.
+
+If you allow by SHA-1 thumbprint, keep both of these on your list until every PC runs version 0.1.61 or later:
+
+* **From version 0.1.61**: `60C2D9C51F09822FFF4F194DE9EEDB67451292D1` (valid until October 28, 2027)
+* **Through version 0.1.60**: `0D7581D2C51C59DF686C3000C70BF543F9F6C6CB`
+
+Windows still treats versions signed with the certificate used through version 0.1.60 as validly signed after that certificate expires, because each signature carries a trusted timestamp.
+
 ## Required updates
 
 Anthropic may set a minimum supported version of the app. When a member's installed version falls below that floor, the app shows a full-page notice that the installed version is no longer supported and blocks further use until the member updates. Admins don't configure this floor; it's set by Anthropic. If your organization distributes the app through its own channel with auto-update disabled, plan to push updates promptly when Anthropic raises the floor.

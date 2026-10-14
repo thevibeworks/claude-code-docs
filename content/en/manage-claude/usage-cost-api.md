@@ -1,14 +1,14 @@
 ---
 title: Usage and Cost API
 url: https://platform.claude.com/docs/en/manage-claude/usage-cost-api
-description: Programmatically access your organization's API usage and cost data with the Usage & Cost Admin API.
+description: Programmatically access your organization's API usage and cost data with the Usage and Cost Admin API.
 ---
 
 <Tip>
   **The Admin API is unavailable for individual accounts.** To collaborate with teammates and add members, set up your organization in **Console → Settings → Organization**.
 </Tip>
 
-The Usage & Cost Admin API provides programmatic and granular access to historical API usage and cost data for your organization. This data is similar to the information available in the [Usage](https://platform.claude.com/usage) and [Cost](https://platform.claude.com/cost) pages of the Claude Console.
+The Usage and Cost Admin API provides programmatic and granular access to historical API usage and cost data for your organization. This data is similar to the information available in the [Usage](https://platform.claude.com/usage) and [Cost](https://platform.claude.com/cost) pages of the Claude Console.
 
 This API enables you to better monitor, analyze, and optimize your Claude implementations:
 

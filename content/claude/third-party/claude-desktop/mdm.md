@@ -28,7 +28,7 @@ Roll out in this order; the numbered sections on this page cover each step in de
   </Step>
 
   <Step title="Deploy the configuration, then the app">
-    Distribute the profile through your MDM, then push the installer. Deploying the configuration first means users open Claude for the first time and land directly in the third-party deployment, with no opportunity to sign in to claude.ai by mistake.
+    Distribute the profile through your MDM, then push the installer. Deploying the configuration first means users open Claude for the first time and land directly in the third-party deployment.
   </Step>
 </Steps>
 
@@ -135,7 +135,9 @@ Push the exported configuration through your MDM. The app reads from these locat
   </Tab>
 </Tabs>
 
-When a managed source sets any key other than the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration owns the device: it takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
+When a managed source sets any key other than the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
+
+A user who signs in to any organization that uses the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) can move the device to that organization's configuration. To prevent that, set [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) to `true`, as described under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile).
 
 ### Update keys and managed precedence
 

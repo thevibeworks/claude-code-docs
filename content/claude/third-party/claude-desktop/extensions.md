@@ -165,7 +165,7 @@ A marketplace repository contains a `.claude-plugin/marketplace.json` file at it
 }
 ```
 
-Put plugin content directly in the marketplace repository with a relative `source` path. Plugins whose `source` points at a different repository are listed in the Organization tab but are not fetched or auto-installed.
+Put plugin content directly in the marketplace repository with a relative `source` path. When Claude Desktop syncs the marketplace, it doesn't fetch or auto-install a plugin whose `source` points at a different repository, and that plugin doesn't appear in the [**Organization** tab](#plugin-marketplaces-admin). Git submodules aren't fetched either, so a plugin folder added as a submodule is empty on users' devices.
 
 The marketplace `name` must match `^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$` and must not be one of the reserved values `unknown`, `org`, or `org-provisioned`.
 
@@ -195,7 +195,7 @@ Serve a `marketplace.json` file at any HTTPS path and package each plugin as a z
 
 Then add a `"source": "url"` entry to `allowedPluginMarketplaces` whose `url` points at this manifest (see the [field table](#configure-the-marketplace) below). Claude Desktop verifies each archive's `sha256` before unpacking it. The zip must contain the plugin at its root (a single wrapping folder is tolerated), including `.claude-plugin/plugin.json`.
 
-Archive URLs must share the manifest's origin. That origin is the only host you need to allow through your perimeter firewall, and the only host the [marketplace credential](#marketplace-credentials) is sent to. Plugins in the manifest with any other `source` kind, or an archive on a different origin, are listed for users but never fetched.
+Archive URLs must share the manifest's origin. That origin is the only host you need to allow through your perimeter firewall, and the only host the [marketplace credential](#marketplace-credentials) is sent to. When Claude Desktop syncs the marketplace, it doesn't fetch a plugin with a `source` kind other than `archive`, or with an archive on a different origin. That plugin doesn't appear in the [**Organization** tab](#plugin-marketplaces-admin).
 
 If any archive in a fetch fails to download or fails its digest check, Claude Desktop installs nothing from that fetch and retries on the next sync.
 

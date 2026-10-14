@@ -2,11 +2,21 @@
 
 This article explains what happens to projects, chats, and skills when a member is removed from your Team or Enterprise plan organization.
 
-## Deleting individual accounts within an organization
+## Delete individual accounts within an organization
 
 If you are a non-Owner member of a Team or Enterprise plan, you will need to contact an organization Owner to have your account removed.
 
-## Deleting organization-level accounts
+Removing a user from your organization doesn’t delete their account or data. If you’re an Owner or Primary Owner, you can ask Support to permanently delete a removed user’s account and data:
+
+1. If you need a copy of the user’s data, run an organization **[data export](https://support.claude.com/en/articles/13346720)** from the Primary Owner’s account first. The export still includes a removed user’s data.
+
+2. If your organization provisions users through SCIM, remove the user in your identity provider (IdP). Otherwise, they may be provisioned again.
+
+3. **[Contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support)** from your own email address. Include the user’s email address, and confirm in writing that their account and data should be deleted.
+
+**Important:** Deletion is permanent and can’t be undone.
+
+## Delete organization-level accounts
 
 For help with deleting your organization’s Team or Enterprise plan, please **[reach out to our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**. Note that organization level account deletion requests must be made by your account's Primary Owner.
 

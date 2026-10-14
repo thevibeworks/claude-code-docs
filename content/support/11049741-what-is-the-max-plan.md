@@ -52,9 +52,11 @@ Price and plans are subject to change at Anthropic's discretion.
 
 ### How can I get a free or discounted Max plan?
 
-We do not offer standard discounted pricing any of our paid plans, including Max 5x and 20x plans. With that said, anyone in a supported location can access the free version of Claude by navigating to claude.ai and signing up using an email address.
+We don’t offer standard discounted pricing for individual plans (Pro and Max), including Max 5x and Max 20x. With that said, anyone in a supported location can access the free version of Claude by navigating to **[claude.ai](https://claude.ai/)** and signing up using an email address.
 
 We occasionally run limited-time promotions, but we don't have any standing discounts available upon request. These promotional offers are typically announced through our official channels when available. If you're interested in potential future promotions, we recommend following our official social media accounts or signing up for our newsletter to be notified of any special offers. Our Support team cannot issue one-off discounts or coupons.
+
+Eligible nonprofit organizations can get discounted pricing on Team and Enterprise plans. Learn more about **[Claude for Nonprofits](https://claude.com/solutions/nonprofits)**.
 
 ---
 

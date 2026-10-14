@@ -14,7 +14,7 @@ Claude Desktop is available on macOS, Windows, and Linux (beta). What you can do
 
 ## System Requirements
 
-- macOS: macOS 11 (Big Sur) or higher
+- macOS: macOS 13 (Ventura) or higher
 
 - Windows: Windows 10 or higher
 

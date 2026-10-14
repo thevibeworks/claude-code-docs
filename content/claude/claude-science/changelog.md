@@ -6,6 +6,23 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.62" description="October 13, 2026">
+  * Linux: if Claude Science won't start after updating to 0.1.61, run `claude-science update` in a terminal to get 0.1.62 or later, then start it again. If it's still running and the "Update available" notice shows "restart aborted", select "Check for updates" in **Settings > General > About** so it finds the newer version, then "Restart to update"
+  * Linux: Claude Science starts again when bubblewrap or socat comes from conda, Homebrew, or a folder in your home directory. 0.1.61's requirement that both be installed for the whole system is withdrawn for now, though installing them that way is still recommended
+  * Fixed the app sometimes becoming unresponsive after Claude saves results from an analysis that read large files
+  * Various bug fixes and security improvements
+</Update>
+
+<Update label="0.1.61" description="October 13, 2026">
+  * Sessions you start in the Example project now show on the home screen
+  * A GitHub token you paste in **Settings > Credentials** now stays after a restart, instead of switching back to the token found on your computer; if yours switched back, paste it again
+  * Linux: fixed Featured connectors that run on your computer sometimes failing to start right after your first sign-in
+  * Linux: Claude Science now needs bubblewrap and socat installed for the whole system, from your distribution's packages or by an administrator. If yours came from conda, Homebrew, or a folder in your home directory, the app refuses to start and its message says what to do
+  * Windows: Claude Science is now signed with a renewed certificate from the same publisher, Anthropic, PBC. If your IT team allows the app by certificate thumbprint, add the new SHA-1 thumbprint `60C2D9C51F09822FFF4F194DE9EEDB67451292D1` and keep the previous one, both listed under [Windows signing certificate](/docs/claude-science/manage-on-devices#windows-signing-certificate)
+  * Security hardening of the analysis sandbox on Mac, Windows, and Linux
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.60" description="October 7, 2026">
   * Mac: fixed a problem introduced in 0.1.59 where Python, R, and some shell commands could fail to run when Claude Science has access to many folders
   * **Settings > Network > Package mirror** now shows a mirror credential file your organization deployed, instead of asking for a token

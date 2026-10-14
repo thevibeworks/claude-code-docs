@@ -149,7 +149,7 @@ After creating your resource, deploy a Claude model to make it available for API
 
 1. Sign in to the Foundry portal. From the portal homepage, select **Discover** in the upper-right navigation, then **Models** in the left pane to open the model catalog.
 
-2. Search for and select a Claude model (for example, claude-opus-5). Each model appears once in the catalog regardless of how many hosting options it supports.
+2. Search for and select a Claude model (for example, claude-opus-5-5). Each model appears once in the catalog regardless of how many hosting options it supports.
 
 3. On the model card, select **Deploy**, then **Custom settings** to open the deployment settings pane. If you choose **Default settings** instead, the deployment is automatically configured as Hosted on Azure for models available in both hosting options.
 
@@ -766,7 +766,7 @@ Foundry does not include Anthropic's standard rate limit headers (`anthropic-rat
 
 **Error:** `Model not found` or `Deployment not found`
 
-* **Solution:** Verify you're using the correct deployment name. If you haven't created a custom deployment, use the default model ID (for example, claude-opus-5).
+* **Solution:** Verify you're using the correct deployment name. If you haven't created a custom deployment, use the default model ID (for example, claude-opus-5-5).
 * **Solution:** Ensure the model/deployment is available in your Azure region.
 
 **Error:** `Invalid model parameter`

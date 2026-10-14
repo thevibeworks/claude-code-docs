@@ -98,7 +98,7 @@ You can access Claude through multiple platforms to suit your needs:
 
 - Download Claude for Desktop for macOS or Windows.
 
-- For macOS: Requires macOS 11 (Big Sur) or higher.
+- For macOS: Requires macOS 13 (Ventura) or higher.
 
 - For Windows: Requires Windows 10 or higher.
 

@@ -47,3 +47,5 @@ On Team and Enterprise plans, your organization's admin can turn off scientific 
 ### NVIDIA BioNeMo NIM
 
 Model endpoints are available in Claude Science on macOS and Linux. In Settings > Compute, under Model endpoints, click Connect on NVIDIA BioNeMo NIM. Import the skills from the BioNeMo Agent Toolkit, add your NVIDIA NGC API credential, and connect to NVIDIA-hosted API endpoint, or choose to run the model as a local container (On a machine with an NVIDIA GPU). Once connected, ask Claude to start a local Docker NIM container or set up a remote connection for a specific NIM skill from the BioNeMo Agent Toolkit.
+
+To run a local container, install Docker for the whole computer. If Docker is installed only in your home folder, ask Claude to call it by its full path in the endpoint's start and stop scripts.

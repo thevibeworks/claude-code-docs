@@ -68,7 +68,7 @@ Building the configuration in the app is optional. The [in-app configuration win
 
 Choose a bootstrap server when your organization doesn't use MDM, or when per-user credentials or frequently changing settings would make per-group profiles unwieldy. The tradeoff is that you operate the endpoint.
 
-The models don't combine. A device whose MDM profile or registry policy sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) uses that configuration and ignores the Enterprise Admin Console. When a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (see the Availability column in the [configuration reference](/docs/third-party/claude-desktop/configuration)).
+A device whose MDM profile or registry policy sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) uses that configuration, except as described under [Devices with a managed profile](/docs/third-party/claude-desktop/admin-console#devices-with-a-managed-profile). When a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (see the Availability column in the [configuration reference](/docs/third-party/claude-desktop/configuration)).
 
 Pick your path:
 

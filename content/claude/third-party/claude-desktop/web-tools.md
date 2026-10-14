@@ -11,7 +11,7 @@ Claude Desktop includes two built-in tools for reaching the web:
 * **Web Search** runs a search-engine query and returns ranked results.
 * **Web Fetch** retrieves the contents of a specific URL.
 
-In Claude Desktop on third-party (3P), both are subject to your configuration: search depends on your inference provider, and fetch is gated by the sandbox network allowlist.
+In Claude Desktop on third-party (3P), both are subject to your configuration: search depends on your inference provider, and fetch depends on the egress allowlist you set.
 
 ## Web Search
 
@@ -136,25 +136,35 @@ For audit, each search the model runs is recorded in the Cowork or Code session 
 
 ## Web Fetch
 
-Web Fetch runs in the Claude Desktop main process on the user's device. The model supplies only the target URL; it cannot set headers, a request body, or credentials. Every fetch, including redirect targets, is checked against `coworkEgressAllowedHosts` before the request is sent.
+In Cowork and Chat, Web Fetch runs in the Claude Desktop main process on the user's device. The model supplies only the target URL; it cannot set headers, a request body, or credentials. The app checks every fetch, including redirect targets, against `coworkEgressAllowedHosts` before it sends the request. For Code sessions, see [How the egress allowlist applies in Code sessions](#how-the-egress-allowlist-applies-in-code-sessions).
 
-By default, the sandbox can reach only your inference provider's endpoint, so Web Fetch will fail for any other host unless you've allowed it. To permit fetches:
+Cowork and Chat refuse every fetch while the key is unset or empty. To permit fetches:
 
 | Goal | Set `coworkEgressAllowedHosts` to |
 | - | - |
 | Allow specific domains | `["docs.example.com", "*.example.corp"]` |
 | Allow all hosts (no sandbox filtering) | `["*"]` |
-| Block all fetches | `[]` and add `"WebFetch"` to `disabledBuiltinTools` |
+| Block all fetches, in Code sessions too | `[]` and add `"WebFetch"` to `disabledBuiltinTools` |
 
-Wildcards match one or more leading subdomain labels (`*.example.com` matches `a.example.com` and `a.b.example.com`, but not `example.com`).
+Wildcards match one or more leading subdomain labels (`*.example.com` matches `a.example.com` and `a.b.example.com`, but not `example.com`). A listed host that many organizations share, such as a cloud provider's API endpoint, is reachable from the agent's shell with any account's credentials. A command can then send data to an account outside your organization.
 
 <Note>
-  `coworkEgressAllowedHosts` controls what the agent's tools can reach. Your perimeter firewall is a separate, outer layer, so a host allowed by this key still won't be reachable if your corporate network blocks it. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry#required-egress-paths) for the distinction.
+  Your perimeter firewall is a separate, outer layer from `coworkEgressAllowedHosts`, so a host allowed by this key still won't be reachable if your corporate network blocks it. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry#required-egress-paths) for the distinction.
 </Note>
 
-The same allowlist governs other in-sandbox network activity (for example, `curl` or `pip install` from the agent's shell), not just the Web Fetch tool.
+The same allowlist governs other in-sandbox network activity (for example, `curl` or `pip install` from the agent's shell), not just the Web Fetch tool. A command-line tool that a [plugin](/docs/third-party/claude-desktop/extensions#controlling-user-extensions) adds to the Cowork sandbox can also reach the hosts its plugin declares, whatever the list holds. Claude Desktop's own connections for inference, sign-in, model discovery, telemetry export, and MCP servers aren't checked against it and need no entry.
+
+If a shell command or a Claude Code [HTTP hook](https://code.claude.com/docs/en/hooks#http-hook-fields) calls your gateway, inference provider, OTLP collector, or `api.anthropic.com`, add that host. Earlier versions of Claude Desktop added some of these hosts automatically, so when you update, add the ones the agent calls.
 
 In [Code](/docs/third-party/claude-desktop/code) sessions, Claude Code's Web Fetch tool also asks `api.anthropic.com` whether each domain is on Anthropic's blocklist before fetching, and refuses the fetch if that lookup cannot complete. If your devices cannot reach `api.anthropic.com`, or you do not want fetched hostnames sent there, set [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) to `true`. The key requires Claude Desktop 1.37937.0 or later. Cowork sessions do not perform this lookup.
+
+### How the egress allowlist applies in Code sessions
+
+In [Code](/docs/third-party/claude-desktop/code) sessions, the key reaches Claude Code's own Web Fetch tool and shell sandbox as managed settings, unless [Claude Code managed settings that you deploy separately](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) take precedence:
+
+* **Web Fetch**: each host you list becomes a Claude Code `WebFetch` allow rule. The key doesn't block a fetch to another host. In Auto mode, which new Code sessions start in by default, and in bypass permissions mode, Claude Code doesn't ask the user before that fetch. For the other modes, see [WebFetch tool behavior](https://code.claude.com/docs/en/tools-reference#webfetch-tool-behavior).
+* **Web Fetch controls**: to have the user approve every fetch, set `WebFetch` to `"ask"` in [`builtinToolPolicy`](/docs/third-party/claude-desktop/configuration#builtintoolpolicy), which also applies in Cowork and Chat. To remove the tool, see [Disabling web tools](#disabling-web-tools).
+* **Shell commands**: commands that run in [Claude Code's sandbox](/docs/third-party/claude-desktop/code#applied-as-managed-policy) reach only the hosts you list. On Windows, and on Linux without Claude Code's sandbox dependencies, shell commands run unsandboxed and can reach any host your network allows. To keep Code off such devices, see [Disabling Code](/docs/third-party/claude-desktop/code#disabling-code). For SSH hosts, see [Sandbox status on the remote host](/docs/third-party/claude-desktop/ssh-remote-sessions#sandbox-status-on-the-remote-host).
 
 ## Disabling web tools
 
@@ -164,4 +174,6 @@ To remove web tools entirely, add them to `disabledBuiltinTools`:
 ["WebSearch", "WebFetch"]
 ```
 
-With both disabled and `coworkEgressAllowedHosts` empty, the agent has no path to the public internet from inside the sandbox. It can still read and write local files, run code against them, and call any MCP servers you've provisioned. See the [Locked down profile](/docs/third-party/claude-desktop/configuration#recommended-security-profiles).
+With the web tools removed and `coworkEgressAllowedHosts` empty, commands in the agent's sandboxed shell reach no host other than those a [plugin declares for its command-line tool](#web-fetch). In Code sessions where [Claude Code's sandbox doesn't run](#how-the-egress-allowlist-applies-in-code-sessions), shell commands can reach any host your network allows.
+
+The agent can still read and write local files, run code against them, and call any MCP servers you've provisioned. See the [Locked down profile](/docs/third-party/claude-desktop/configuration#recommended-security-profiles).

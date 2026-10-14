@@ -52,7 +52,13 @@ Team or Enterprise organizations can invite other organizations to join an exist
 
 - The organization being invited can't already belong to another parent organization.
 
-**Note:** If an organization you want to invite doesn't appear in the invite list, it may already belong to its own parent organization with separate verified domains and SSO. **[Contact support](https://support.claude.com/en/articles/9015913-how-to-get-support)** to have it detached from its current parent. Detaching clears that organization's existing domain verification and SSO/SCIM configuration, so confirm its admins are aware before you request it.
+If an organization you want to invite doesn’t appear in the invite list, check the following:
+
+- **The list shows a limited number of results at a time.** Search for a distinctive part of the organization’s name. Search matches organization names, not organization IDs.
+
+- **Every member needs a verified-domain email address.** If any member has an email address outside your parent organization’s verified domains, the organization doesn’t appear.
+
+- **The organization may already belong to another parent organization** with separate verified domains and SSO. **[Contact support](https://support.claude.com/en/articles/9015913)** to have it detached. Detaching clears that organization’s existing domain verification and SSO/SCIM configuration, so confirm its admins are aware before you request it.
 
 ### To initiate a merge proposal
 
@@ -60,7 +66,7 @@ Team or Enterprise organizations can invite other organizations to join an exist
 
 2. Click "Invite" under **Merge Organizations**.
 
-3. Select the organization you want to invite and click "Next."
+3. Search for and select the organization you want to invite, then click “Next."
 
 4. Review the member count and click "Invite."
 

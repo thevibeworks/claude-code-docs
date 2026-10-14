@@ -21,7 +21,11 @@ The two APIs use different key types, created in different places by different r
 The key types are not interchangeable: an Admin API key cannot call the Claude Enterprise Analytics API, and an Analytics API key cannot call the Admin API. Both APIs appear under the [Admin API reference](https://platform.claude.com/docs/en/api/beta/organization), but they are separate APIs with separate key types. If your organization uses both the Claude Platform and Claude Enterprise, you can provision both keys and use each API for its own data.
 
 <Note>
-  Looking for API usage and cost data rather than product analytics? See the [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api), which explains the right path for both Claude Console and Claude Enterprise organizations.
+  Looking for API usage and cost data rather than product analytics? See the 
+
+  [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api)
+
+  , which explains the right path for both Claude Console and Claude Enterprise organizations.
 </Note>
 
 <Note>
