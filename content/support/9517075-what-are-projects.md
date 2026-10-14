@@ -1,6 +1,6 @@
 # What are projects?
 
-**Note:** A new version of projects is now available in beta, rolling out in stages starting with Claude Code. Existing projects keep working as they do today. See **[The new version of projects (beta)](#h_e9fb2a161e)** below.
+**Note:** A new version of projects is now available in beta, rolling out in stages starting with Claude Code. We've started moving existing projects for some Pro and Max users to the new version. See **[The new version of projects (beta)](#h_e9fb2a161e)** below.
 
 Projects allow you to create self-contained workspaces with their own chat histories and knowledge bases. Within each project, you can upload documents, provide context, and have focused chats with Claude.
 
@@ -12,11 +12,11 @@ We're rolling out a new version of projects in stages, starting with Claude Code
 
 ### Who has it
 
-The new version is now available in beta to select Pro and Max subscribers who use Claude Code. If you have it, you'll see "Projects" in the sidebar at **[claude.ai/code](https://claude.ai/code)** and in the Code tab of the Claude desktop app. More Claude Code users on Pro and Max plans will get access as the rollout expands, and chat, Cowork, Team, and Enterprise will follow. If you're on Pro or Max and don't have access yet, you can **[join the waitlist](https://claude.com/form/projects)**.
+The new version is now available in beta to select Pro and Max subscribers who use Claude Code, and to some Pro and Max users whose existing projects we’ve moved to the new version. If you have it, you'll see "Projects" in the sidebar at **[claude.ai/code](https://claude.ai/code)** and in the Code tab of the Claude desktop app. More Claude Code users on Pro and Max plans will get access as the rollout expands, and chat, Cowork, Team, and Enterprise will follow. If you're on Pro or Max and don't have access yet, you can **[join the waitlist](https://claude.com/form/projects)**.
 
 ### Your existing projects
 
-Existing projects in chat and Cowork keep working as they do today. On Pro and Max plans, we'll upgrade them to the new version as the rollout expands to chat and Cowork.
+We’ve started moving existing projects for some Pro and Max users to the new version. Nothing is lost or deleted in the move. Everything in your project comes with it: your instructions, files, full chat history, and scheduled tasks. You’ll pick up right where you left off. If you've used an existing project within the last 30 days, we’ll email you before we move your projects. Other existing projects in chat and Cowork stay on the current version for now, and we’ll move them as the rollout expands.
 
 ### Usage
 

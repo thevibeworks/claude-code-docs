@@ -26,7 +26,7 @@ On desktop, web, and mobile, chat and Cowork share one home, so you start both f
 
 Claude Cowork uses the same agentic architecture that powers Claude Code, with no terminal required. Instead of responding to prompts one at a time, Claude can take on complex, multi-step tasks and execute them on your behalf.
 
-With Cowork, you can describe an outcome, step away, and come back to finished work—formatted documents, organized files, synthesized research, and more. Cowork runs your sessions remotely in the cloud (in beta on Team and Enterprise plans), so your sessions and files live with your Claude account and follow you across desktop, web, and mobile. Chat and Cowork now share one home, so handing Claude a task starts from the same message box as a conversation. With scheduled tasks, Claude can complete work for you automatically. With projects, you can organize related tasks into persistent, self-contained workspaces with their own files, links, instructions, and memory.
+With Cowork, you can describe an outcome, step away, and come back to finished work—formatted documents, organized files, synthesized research, and more. Cowork runs your sessions remotely in the cloud (in beta on Team and Enterprise plans), so your sessions and files live with your Claude account and follow you across desktop, web, and mobile. Chat and Cowork now share one home, so handing Claude a task starts from the same message box as a conversation. With scheduled tasks, Claude can complete work for you automatically. With projects, you can organize related tasks into persistent workspaces with their own files, links, instructions, and memory.
 
 **Important:**
 
@@ -66,7 +66,7 @@ For important limitations and considerations for Team and Enterprise organizatio
 
 - **Spreadsheets and presentations:** Cowork can produce spreadsheets and slides that can be further edited with Claude for Excel and Powerpoint.
 
-- **Projects:** Group related tasks into separate workspaces with their own files, context, instructions, and memory. See **[Organize your tasks with projects in Cowork](https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-cowork)**.
+- **Projects:** Group related tasks into workspaces with their own files, context, instructions, and memory. See **[Organize your tasks with projects in Cowork](https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-cowork)**.
 
 - **Browser actions:** For tasks that touch websites, Claude can open sites, read pages, click, type, and fill forms. On desktop, Claude uses a browser built into the Claude Desktop app by default, with nothing to install. The built-in browser is rolling out gradually this week. If you already use Claude in Chrome, Claude works in your own browser instead, and you can change your preferred browser anytime in **[Settings > Cowork](https://claude.ai/settings/cowork)**. On Max and Team plans, Pro plans as it rolls out, and Enterprise plans where an admin has enabled it, you can also run a Cowork session directly in the Chrome side panel. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)** and **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome)**.
 
@@ -182,7 +182,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1791993600&amp;signature=0ab15744adfe5be345f89ef37419ffff5145ed3142717b45a1bb029a8474d61a&amp;req=diUlE8B8m4lYXfMW1HO4zcDl69nlP1K28iWjaktE943HPA9GZu9GCEL8%2BT3x%0Aojbk8x8YzDTmTbKPr%2Bw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1792108800&amp;signature=ee5f089085db92b32ab36eaca69d8e870567a695e6525bd8db06a8d465049d67&amp;req=diUlE8B8m4lYXfMW3nq%2BgcqgxG%2BC3rfcY1mMqW%2FkK1eWDoHR0YZpW9vSdJBf%0AC4LGdeA4N2t6aRowo%2FrYPNYB6Uc%3D%0A)
 
 ### Folder instructions
 

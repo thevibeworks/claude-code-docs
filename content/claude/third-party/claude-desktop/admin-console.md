@@ -80,20 +80,9 @@ For a Windows fleet, use the JSON config export, because the console doesn't rea
 
 The console fills in the matching settings and lists anything in the file that it can't store, such as credentials, bootstrap keys, and values that are set automatically from your organization, like the display name. It then shows every change against the saved configuration, and replaces the configuration when you click **Replace configuration**. If the connection in the file can't be stored, for example because it relies on an API key or token in the file, the console keeps your saved connection instead.
 
-Before the users of an existing fleet sign in, prepare their devices:
+If the file was exported from Claude Desktop, check the **Automatically import earlier third-party sessions** switch on the **Connectors** page after the upload. The exported file can mark this switch as off even if nobody turned it off, and the console keeps the value from the file.
 
-* **MDM or bootstrap fleets:** remove the Claude Desktop configuration profile or registry policy, including a profile or policy that carries only bootstrap keys. A profile that sets only the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) can stay. For a device that keeps a profile with any other key, see [Devices with a managed profile](#devices-with-a-managed-profile).
-* **Machines configured in the app:** a device set up from the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) with **Apply Changes** stays in its local third-party configuration. Return it to standard Claude Desktop first. To do that, sign out in the app and choose the Anthropic sign-in option on the sign-in screen, as described under [Single-machine setup](/docs/third-party/claude-desktop/installation#single-machine-setup).
-
-Users then sign in as described under [Onboard users](#onboard-users).
-
-Conversations from the earlier configuration stay on the device, and Claude Desktop copies them into the app's history automatically. On each device the copy runs once, in the background, the next time the app starts with the user signed in. The earlier Cowork, Chat, and Code sessions then appear in the app's sidebar. The originals stay in place, so the copied sessions use disk space a second time.
-
-The copy also brings over each user's Cowork projects, artifacts, memory, and global instructions, and their scheduled tasks from Cowork and Code. It brings over the plugins they uploaded unless [`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled) is `false`, and the skills they saved unless [`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled) is `false`. Memory and global instructions apply right away, scheduled tasks and uploaded plugins stay on or off as they were, and new tasks use a project's instructions only after the user accepts them. See [Automatic import of earlier third-party sessions](/docs/third-party/claude-desktop/import#automatic-import-of-earlier-third-party-sessions) for each item.
-
-* **To turn the automatic copy off**, go to the **Connectors** page and, under **Claude.ai data import**, turn off the **Automatically import earlier third-party sessions** switch before users sign in. This sets `automatic3pImport` under [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) to `false`. A device that already made the copy keeps it, and the app lists it under **Settings → Import & export → Import history**, where each user can remove the copied sessions and the projects copied with them.
-* **If you import a configuration file exported from Claude Desktop**, check the **Automatically import earlier third-party sessions** switch after the upload. The exported file can mark this switch as off even if nobody turned it off, and the console keeps the value from the file.
-* **To let users also import their claude.ai conversations**, or bring over anything the automatic copy left out, turn on the **Enable import** switch under **Claude.ai data import** on the **Connectors** page. This sets `enabled` under [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) to `true`. Users then open **Settings → Import & export** in the app and click **Import…** to open the [import wizard](/docs/third-party/claude-desktop/import#open-the-import-wizard).
+To move the devices and users of an existing fleet to this configuration, see [Migrate an existing fleet to the admin console](#migrate-an-existing-fleet-to-the-admin-console).
 
 ### What you can configure
 
@@ -315,9 +304,72 @@ An app that isn't running picks up the change at its next launch. Connection and
 
 If a setting is changed that affects where users' apps connect or sign in, or what can run on their devices (including when permission policies are added, removed, or reordered), Owners receive an email alert with the identity of the administrator who made the change.
 
+## Migrate an existing fleet to the admin console
+
+If your fleet gets its Claude Desktop configuration from [MDM](/docs/third-party/claude-desktop/mdm), a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), you can move it to the admin console and keep your inference provider, unless that provider is the [Claude API](#limitations). Users' earlier work [stays on each device](#where-your-data-goes). The app copies that work on the same device so it appears under your organization. Try these steps on a test device first.
+
+<Steps>
+  <Step title="Import your configuration">
+    Upload your current configuration, as described under [Start from an existing configuration file](#start-from-an-existing-configuration-file). Put settings that differ between groups of users in [per-group permission policies](#per-group-permission-policies).
+  </Step>
+
+  <Step title="Finish the configuration before users sign in">
+    Set every setting you rely on in the console, because the console's configuration replaces the profile's. Add your [plugin marketplaces](#plugin-marketplaces) on the **Plugins** page. To migrate users' work, check that the **Automatically import earlier third-party sessions** switch under **Claude.ai data import** on the **Connectors** page is on (the default). To skip the migration, turn it off. Devices that already migrated keep their items.
+
+    <Warning>
+      The app migrates users' work once on each device, the next time it starts after the user signs in to your organization. It skips uploaded plugins, saved skills, and scheduled tasks if the console has turned that feature off, and optional plugins that your organization doesn't offer yet. Changing those settings later doesn't migrate the skipped items.
+    </Warning>
+  </Step>
+
+  <Step title="Update Claude Desktop">
+    Update devices to Claude Desktop 2.37337.1 or later. Earlier releases migrate fewer items.
+  </Step>
+
+  <Step title="Remove the managed profile">
+    Remove the Claude Desktop configuration profile or registry policy, including one that carries only bootstrap keys. You can keep a profile that sets only the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence).
+
+    * **Devices that keep a profile with any other key**: see [Devices with a managed profile](#devices-with-a-managed-profile)
+    * **Devices configured in the app**: the user signs out and chooses the Anthropic sign-in option, as described under [Single-machine setup](/docs/third-party/claude-desktop/installation#single-machine-setup)
+  </Step>
+
+  <Step title="Have users sign in">
+    Have users sign in to Claude with their work email address and restart the app when asked, as described under [Onboard users](#onboard-users).
+  </Step>
+</Steps>
+
+### What is migrated
+
+The app migrates these items in the background. The originals stay in place, so migrated sessions use disk space a second time.
+
+* Chat, Cowork, and Code sessions
+* Cowork projects
+* Artifacts
+* Memory, unless the user paused it
+* Users' global instructions and **Instructions for Claude**, unless they already set them in your organization
+* Scheduled tasks from Cowork and Code, except one-time tasks
+* Plugins that users uploaded, unless [`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled) is `false`
+* Skills that users saved, unless [`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled) is `false`
+* Optional organization plugins that users turned on, if you offer them from your plugins directory or from a marketplace that your inference gateway serves
+
+[Automatic import of earlier third-party sessions](/docs/third-party/claude-desktop/import#automatic-import-of-earlier-third-party-sessions) describes the migration for users, including how to remove migrated sessions and projects.
+
+### What is not migrated
+
+Users set up these items again:
+
+* **Organization plugins from other marketplaces, such as a git repository**: install them again from **Customize → Plugins → Discover → Organization**
+* **Plugins from marketplaces the user added**: add the marketplace and install the plugins again
+* **One-time scheduled tasks**: create them again
+* **App preferences**: set the model, per-tool permissions, and notifications again
+* **Connected folders in Cowork sessions**: connect the folders again
+* **"Always allow" choices in Cowork sessions and scheduled tasks**: approve again when a session or task asks
+* **Connector sign-ins**: sign in again to any connector that asks
+
+To let users import their claude.ai conversations, and any local sessions that the migration left out, with the [import wizard](/docs/third-party/claude-desktop/import#open-the-import-wizard), turn on the **Enable import** switch (off by default) under **Claude.ai data import** on the **Connectors** page.
+
 ## Devices with a managed profile
 
-A managed profile is a macOS configuration profile, a Windows registry policy, or the Linux `/etc/claude-desktop/managed-settings.json` file, from [MDM](/docs/third-party/claude-desktop/mdm) or [bootstrap](/docs/third-party/claude-desktop/bootstrap) delivery. A device whose profile sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) uses the profile's configuration until its user moves the device to the admin console's configuration. Where you can, remove such a profile before users sign in, as described under [Start from an existing configuration file](#start-from-an-existing-configuration-file).
+A managed profile is a macOS configuration profile, a Windows registry policy, or the Linux `/etc/claude-desktop/managed-settings.json` file, from [MDM](/docs/third-party/claude-desktop/mdm) or [bootstrap](/docs/third-party/claude-desktop/bootstrap) delivery. A device whose profile sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) uses the profile's configuration until its user moves the device to the admin console's configuration. Where you can, remove such a profile before users sign in, as described under [Migrate an existing fleet to the admin console](#migrate-an-existing-fleet-to-the-admin-console).
 
 To prevent the move, or to allow it only for your organization, see [Keep a device on its managed profile](#keep-a-device-on-its-managed-profile). Before Claude Desktop 2.37337.0, the device uses the profile and ignores the admin console.
 
@@ -374,7 +426,7 @@ To return a whole fleet to [MDM](/docs/third-party/claude-desktop/mdm) or [boots
   A device that left the admin console's configuration on an earlier release goes back too, so add `disableDeploymentModeChooser` to the profile before devices update. A key that you add later takes effect at the device's next launch.
 </Warning>
 
-Conversations created under the admin console's configuration stay on the device but no longer appear in the app's history after the device returns to the profile. Users can bring them into the app's history from **Settings → Import & export** in the app, as described at the end of [Start from an existing configuration file](#start-from-an-existing-configuration-file), after you set the [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) key with `enabled` set to `true` in the profile or policy you deploy.
+Conversations created under the admin console's configuration stay on the device but no longer appear in the app's history after the device returns to the profile. Users can bring them into the app's history from **Settings → Import & export** in the app, as described under [Open the import wizard](/docs/third-party/claude-desktop/import#open-the-import-wizard), after you set the [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) key with `enabled` set to `true` in the profile or policy you deploy.
 
 ## Manage the configuration with the Admin API
 
@@ -428,10 +480,10 @@ On an error status, curl prints the error body and exits non-zero (curl 7.76 or 
 
 Header values you save are never returned. In every `headers` or `customHeaders` map, including the request headers for your provider, OpenTelemetry export, and managed MCP servers, each stored value reads as the placeholder `[stored on server - enter a new value to replace]`. Sending the placeholder back keeps the stored value. A write that sends the placeholder is refused with `400` in two cases: nothing is stored under that header name yet (a first write, or a renamed header or server), or the same write changes where those headers are sent, for example with a new `baseUrl`. Send the actual header values in those cases.
 
-A write goes through the same checks as a save in the admin console. Users' apps pick up the change as described under [Configuration updates](#configuration-updates). Owners receive the email alert described there when a write changes where users' apps connect or sign in, what can run on their devices, or the `status`. In place of an administrator, the alert names the key by its ID (`apikey_…`).
+A write goes through the same server checks as a save in the admin console, but the console checks more before it saves, for example that the connection to your inference provider is complete. A write can therefore store a connection that users' apps can't use. Put every setting your provider requires in `config`, including [how users authenticate](#choose-how-users-authenticate-to-your-provider), so that users' apps can pick up the change as described under [Configuration updates](#configuration-updates). Owners receive the email alert described there when a write changes where users' apps connect or sign in, what can run on their devices, or the `status`. In place of an administrator, the alert names the key by its ID (`apikey_…`).
 
 <Warning>
-  Setting `status` to `disabled` stops serving the configuration to users' apps, as if none had been saved. A running app isn't interrupted. At its next launch it shows a **Restart required** prompt whose **Restart** button returns the device to standard Claude Desktop, signed out. New sign-ins also stay in standard Claude Desktop. The admin console has no control for `status`, so only another API write can set it back to `active`. After that, users who clicked **Restart** sign in again as described under [Onboard users](#onboard-users).
+  Setting `status` to `disabled` stops serving the configuration to users' apps, as if none had been saved. A running app isn't interrupted. At its next launch it shows a **Restart required** prompt whose **Restart** button returns the device to standard Claude Desktop, signed out. New sign-ins also stay in standard Claude Desktop. To serve the configuration again, set `status` back to `active` with another API write, or open **Organization settings**, go to the **Connection** page under **Desktop 3P**, and click **Turn on** in the banner at the top of the page. After that, users who clicked **Restart** sign in again as described under [Onboard users](#onboard-users).
 </Warning>
 
 ### Admin API errors

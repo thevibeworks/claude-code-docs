@@ -24,23 +24,23 @@ Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
 
 Find **Projects** in the left navigation panel and click the “+” button to see the three different ways to create a project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183720240/6f6ef438913391703598d86d606c/CleanShot+2026-03-20+at+09_11_43.png?expires=1791993600&amp;signature=9357e02d3b60281b6532df632c00d494daa4f9471fb4088fe6bb0e9e8f863cf9&amp;req=diEvFc58nYNbWfMW1HO4zcOgigSz2CtzZwSvwegvtgzi8IqTOie4r5VviVzy%0AHa1Cu9HXIDDQ6vsdBQE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183720240/6f6ef438913391703598d86d606c/CleanShot+2026-03-20+at+09_11_43.png?expires=1792108800&amp;signature=f0023cad54ffc738ecf93d2878656ce51ee54abe5585456ac8201ac2c804d8e4&amp;req=diEvFc58nYNbWfMW3nq%2BgS9JzlhU6fWMSbXmZ15UIz21kwwtZhuz%2Fw7LpJxX%0A5u3pPLyBdJ3pCFsZHA1k786R5bY%3D%0A)
 
 ### Start from scratch
 
 Selecting “Start from scratch” allows you to set up a new folder with instructions and files:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177090014/07832b50003cf7fd3b4e9c7c448b/3385d9b8-c3e7-42b9-ae3f-4d213baa53a7?expires=1791993600&amp;signature=5cbdf29f486b084e1730e25150f2d02ef2988433fbecf4f4138c311c1ec4aeff&amp;req=diEgEcl3nYFeXfMW1HO4zZCoQoxMR3aQvb0suCMAnj1Fw5YH7No6yLnlcTDm%0AqeWqyP0WLrNEAyXezKk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177090014/07832b50003cf7fd3b4e9c7c448b/3385d9b8-c3e7-42b9-ae3f-4d213baa53a7?expires=1792108800&amp;signature=daea4b84b36a0bca0e164c7f792de98cb0482061c8a176de234edf5f1aed61e9&amp;req=diEgEcl3nYFeXfMW3nq%2BgQzh0zjohibIxXN%2FmMBCSA3EAu0t6pT6SBfQFB9Y%0Ae%2FZzD3tSPsZdo0hnFA9iCHz0C%2Bc%3D%0A)
 
 ### Import from a Claude project
 
 After selecting “Import from project,” you’ll see a “Search projects in Chat…” field:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183717962/acdc11bcc825ae76a13f508365bc/CleanShot+2026-03-20+at+09_12_08.png?expires=1791993600&amp;signature=a094dd8c5c467bafecc79f223de1665e6bac929544b4d5ccc08221cb1e41bd8d&amp;req=diEvFc5%2FmohZW%2FMW1HO4zQQ7UWJUw5sZjggUT7FIJz%2By6FCloGnkl7leTMhk%0AK5NUQ54fdHaQclmrbvc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183717962/acdc11bcc825ae76a13f508365bc/CleanShot+2026-03-20+at+09_12_08.png?expires=1792108800&amp;signature=061e676ba3e4514f67e29a00e1ff0730b0e27d888d654f4a23611ea9d32c1bf0&amp;req=diEvFc5%2FmohZW%2FMW3nq%2BgTD%2BXnQPRQJnc8iJnMKe4XvQEZx55ELtX67WsRBv%0AW0z5vmK6L%2B5WTNNiBUNOW921VLU%3D%0A)
 
 Clicking into the field will display a drop-down showing your recent projects, but you can also use it to search all your projects. After you select a chat project (bulk upload is not supported), you can name the new Cowork project and choose where to save it on your computer:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183727973/7a25430123d9e13e7c3cdd411f70/CleanShot+2026-03-20+at+09_13_41.png?expires=1791993600&amp;signature=3da29a9b1fdffb653df867918dadb0383790d11407a6090e89031361ce33533c&amp;req=diEvFc58mohYWvMW1HO4zU%2FKAyJP9SDKI7f%2FdY0VL6hwlZktXx3n6%2BGZPODJ%0Ag2hyF89jFf8%2B01XC%2FnE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183727973/7a25430123d9e13e7c3cdd411f70/CleanShot+2026-03-20+at+09_13_41.png?expires=1792108800&amp;signature=5202a1ed7791b76a4e7b48e48ae8f99c61be6cfa2ae50024559cdb691cd5892a&amp;req=diEvFc58mohYWvMW3nq%2Bga1gukvj%2BMEGrwuHI3TxybNBsj35SqDC18340cew%0AA0rXg4R%2BwgjwuWYWQfuAyrN6QBY%3D%0A)
 
 Clicking “Create” will transfer the files and instructions from your existing Claude project and create a new Cowork project.
 
@@ -48,11 +48,11 @@ Clicking “Create” will transfer the files and instructions from your existin
 
 If you select “Use an existing folder,” you’ll be prompted to pick a file to use as context for the new Cowork project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087935/2f0052dae601d0b7fecdc029e1c3/2e3ca9e7-23b1-436e-bbdb-edcd31c41f15?expires=1791993600&amp;signature=95d46b61800807f644fd23a2463850ced63a226f8816c6fa372e57e8e732c370&amp;req=diEgEcl2mohcXPMW1HO4zejrnjffHCBZuv8e2Xj2xOUGzHZ7jDGKbHcH7WGE%0AEzMG0r7yeSwLE31AftI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087935/2f0052dae601d0b7fecdc029e1c3/2e3ca9e7-23b1-436e-bbdb-edcd31c41f15?expires=1792108800&amp;signature=6ab9991c9bd8f4b339a3e7cfe91138277f3e986dde8d1ac474ad5c4e831ff295&amp;req=diEgEcl2mohcXPMW3nq%2BgQekV9tTPMoSGZAJNd33oKp3sl79rYwoeCUIf%2FzD%0Amo6oiCc2SdS87km8gI6R3e%2FSI5w%3D%0A)
 
 After selecting a folder, you can name the new Cowork project, choose where to save it on your computer, add instructions, and attach any additional files. Click “Create” to start using your new project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087937/f59dbe3fc28448a9597ea097cb4d/96a59acb-4054-4b4b-a208-751f9711f535?expires=1791993600&amp;signature=4a2d107ad1dcb297c4f3095247f5f9c13f0a2784900c0b051c6b73f858b4e208&amp;req=diEgEcl2mohcXvMW1HO4zUq4VuK9iqE8MfnqHouW6MLUEC3qbNZ5R7DA6Rwl%0AR%2FGkxK07VRM0RA5qNbY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087937/f59dbe3fc28448a9597ea097cb4d/96a59acb-4054-4b4b-a208-751f9711f535?expires=1792108800&amp;signature=34d6bf5b93bb4a0ef6ed912cb60cf4c8d233f6ed01b3e884c50a28bc8125103a&amp;req=diEgEcl2mohcXvMW3nq%2BgY9ePC74qo7wpsmgV6Sj3BJAdCDI14g7MY7pnjrM%0ALczdMY9yVG2MqiC5EHNc%2Bkj8BP8%3D%0A)
 
 ---
 
@@ -72,9 +72,11 @@ Each project has its own:
 
 ## Memory in projects
 
-Memory is enabled for Cowork projects. This means Claude can remember context from tasks you've run in a project and apply it to future tasks in the same project. Memory is scoped to the project, so what Claude learns in one project doesn't carry over to others.
+Memory is enabled for Cowork projects. This means Claude can remember context from tasks you've run in a project and apply it to future tasks in the same project. What Claude learns in one project doesn’t carry over to other projects.
 
-For more information about how memory works, see **[Use Claude’s chat search and memory to build on previous context](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context)**.
+A project also shares memory with your chats outside of projects. To keep a project’s memory fully separate, turn off "Use account memory" under **Memory** on the project's page.
+
+For more information about how memory works, see **[Use Claude’s chat search and memory to build on previous context](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_4eff35bd6a)**.
 
 ---
 

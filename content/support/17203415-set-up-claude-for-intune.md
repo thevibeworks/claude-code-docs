@@ -44,73 +44,85 @@ Before employees can sign in, an admin in your Microsoft Entra tenant needs to g
 
 **Grant admin consent.** A tenant admin opens the following URL, replacing {organization} with your tenant ID or domain: `https://login.microsoftonline.com/{organization}/adminconsent?client_id=bb747f0e-002b-4882-9960-916fe00a2b90`
 
-To confirm it worked, in the Microsoft Entra admin center go to Enterprise applications, open "Claude for Intune (Public)", and select "Permissions." **Microsoft Mobile Application Management** should be listed on the "Admin consent" tab. If it isn't, select "Grant admin consent" on that page.
+To confirm it worked, in the Microsoft Entra admin center go to Enterprise applications, open "Claude for Intune (Public)", and select Permissions. "Microsoft Mobile Application Management" should be listed on the "Admin consent" tab. If it isn't, select "Grant admin consent" on that page.
 
 **Note:** Employees signing in to Claude for Intune with "Continue with Microsoft" does not grant this consent; an Entra admin has to grant it.
 
 If employees are signed out within a few seconds of signing in, this step has most likely not been completed. After granting admin consent, ask them to delete Claude for Intune, reinstall it, and sign in again.
 
-To require app protection at sign-in, target the Conditional Access rule at “All resources” with Grant = Require app protection policy. A rule that names only Office 365 or Claude SSO does not cover Claude for Intune. Microsoft Authenticator must be installed on the device.
+To require app protection at sign-in, target the Conditional Access rule at "All resources" with Grant = Require app protection policy. A rule that names only Office 365 or Claude SSO does not cover Claude for Intune. Microsoft Authenticator must be installed on the device.
 
 ## Add Claude for Intune in the Microsoft Intune admin center
 
-### 1. Add Claude for Intune to your managed apps and make it available to BYOD devices.
+### 1. Install Claude for Intune on employees’ devices
 
-1. In the Microsoft Intune admin center, select “Apps” from the left side navigation panel:
+How employees get Claude for Intune depends on how their iPhone or iPad is managed:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700192269/ce2bf95a18aba11042da50f4c1ad/dda0f9a2-d585-4b09-ae4f-a1ff70b1e010?expires=1792044000&amp;signature=19877fd7c9267bb5edb4cf7d859ecdbf90e5d24e7dd93b06b1e846d27e8c5310&amp;req=dicnFsh3n4NZUPMW3nq%2BgeEhD2I1c%2Fvi9FV9%2FRCGJ8F%2BbG70hSiisXiES26N%0AZ8jvVtb4twvevx9POKHTDAERmqQ%3D%0A)
+- **Personal devices not enrolled in Intune (app protection only):** You don’t need to add or assign the app in Intune. Employees install Claude for Intune from the App Store (it appears there as "**[Claude Intune](https://apps.apple.com/us/app/claude-intune/id6812855318)**") and sign in with "Continue with Microsoft." Your app-protection policy (step 2) applies after they sign in.
 
-2. Under Platforms, select “iOS/iPadOS”:
+  - Optional: to also list it in Company Portal, add it as an iOS store app and assign the user group as "Available with or without enrollment."
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700195036/b70c6c0bdeff5f2b72568ef4943b/67cc834c-5e91-42da-9d3b-1f32c8dd8c05?expires=1792044000&amp;signature=1aa67a4192b6e1cfa092c4400132c275a242cbb8af01ad02a6f4ba4cc72c5b85&amp;req=dicnFsh3mIFcX%2FMW3nq%2BgfGOegmD3ywb6%2F9K0uXwHwo7Olj88Gqqx1cPkSR7%0AvOWsi%2BKoBpCj5Wis7g9SxT9b7EE%3D%0A)
+- **Devices enrolled with Apple User Enrollment:** Employees install Claude for Intune from the App Store themselves. Intune can’t install an app added as an "iOS store app" on these devices, and Company Portal shows "This device needs to be managed before you can install apps."
 
-3. Click “+ Create.” For the App type, select the “iOS store app,” and click the “Select” button on the bottom:
+- **Company-owned devices enrolled in Intune:** Add Claude for Intune as an iOS store app and assign it to a user or device group using the steps below. Employees install it from Company Portal, or you can make the assignment Required to push it to their devices.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700195791/9a01290b4189e6a39c473af0a448/cfed06da-f35a-4b22-b687-286ea48864c1?expires=1792044000&amp;signature=77dcfe25617b68f0b8f22daf023be201220bdf5a860446207f008a847ad4c6a4&amp;req=dicnFsh3mIZWWPMW3nq%2BgbjlrI2ZS5IwX3Rw34L3DNb6PageVZ%2BqQoINl7Zs%0Amglet5kjrVug9YGlc%2F7iRdQUnxA%3D%0A)
+To add Claude for Intune for enrolled company-owned devices:
 
-4. Search “Claude for Intune” and click the “Select" button on the bottom.
+1. In the Microsoft Intune admin center, select "Apps" from the left side navigation panel:
 
-5. In **App Information**, set **Minimum operating system** to iOS 18, then click the “Next” button:
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700192269/ce2bf95a18aba11042da50f4c1ad/dda0f9a2-d585-4b09-ae4f-a1ff70b1e010?expires=1792108800&amp;signature=61617aa648bc2008318570a85bbbb9b4d89df681037d200f930185f8dfc3168c&amp;req=dicnFsh3n4NZUPMW3nq%2BgeEhD2I1c%2Frm%2BF19%2FRCGJ8GcmZnNxg5hvm7lrL6L%0Afg5S03%2F7U07rq6Tqkc%2BDoWfleQw%3D%0A)
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700196458/588327ab209e9524c45111a244a1/258697c2-2f82-471b-9104-2bccb1b01614?expires=1792044000&amp;signature=38d77d7e2e89794b6184bfd312ae365e70fdc278b59606dff4ba40506af057ab&amp;req=dicnFsh3m4VaUfMW3nq%2BgRCtAWs2Bzv7ON%2FLUUaTNb5lmwEUjWN2VCqZ%2Fzk1%0AGHMbadv09VmOp1pLnP5kFt4Ur4E%3D%0A)
+2. Under Platforms, select "iOS/iPadOS":
 
-6. For **Assignments**, add a group of users to make it available in their device’s Company Portal:
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700195036/b70c6c0bdeff5f2b72568ef4943b/67cc834c-5e91-42da-9d3b-1f32c8dd8c05?expires=1792108800&amp;signature=d39da3cfdc4aab4d0b651e64ad62b0402e3a5dc42c4fc012c21fff3c0f45b73b&amp;req=dicnFsh3mIFcX%2FMW3nq%2BgfGOegmD3y0f5%2FdK0uXwHwog%2FtzBdzHA0Dzceqkq%0AbnfVC%2BpDgIsZ42EdFwdqTdGXh2E%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700197715/bf5aa327b41f994fdafe04869300/f4c6c9cf-51df-4d75-bf8a-b144d11dd380?expires=1792044000&amp;signature=f557fbedf802369db81a4d7b047cf0dca987257f5c2376b6882328cee5dd2433&amp;req=dicnFsh3moZeXPMW3nq%2BgWgNNUH7GckSM%2FOW8V8G8eeWPtk1CtFqRlz5oz3h%0AxIF%2F6hIhQo%2BM4Q%2B2%2BbsEE3Ja5Ro%3D%0A)
+3. Click "+ Create." For the App type, select the "iOS store app," and click the "Select" button on the bottom:
 
-7. Click “Next,” review and create.
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700195791/9a01290b4189e6a39c473af0a448/cfed06da-f35a-4b22-b687-286ea48864c1?expires=1792108800&amp;signature=00908e345c17a05da823f9fa7b8d18b218e05f39ace0bd5ee5a2c6751720da52&amp;req=dicnFsh3mIZWWPMW3nq%2BgbjlrI2ZS5M0U3xw34L3DNbNhF4R3dYY5OEkRHOj%0AcIAd2plnPbajVa3H9eISCa5kqIo%3D%0A)
 
-8. Users have to download the app from Company Portal on their devices for access.
+4. Search "Claude for Intune" and click the "Select" button on the bottom.
 
-### 2. Apply an app-protection policy to Claude for Intune.
+5. In **App Information**, set **Minimum operating system** to iOS 18, then click the "Next" button:
 
-1. In the Microsoft Intune admin center, select “Apps” from the left side navigation panel:
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700196458/588327ab209e9524c45111a244a1/258697c2-2f82-471b-9104-2bccb1b01614?expires=1792108800&amp;signature=7634fc347b953aa5f1500a5e700b9f3b2d90bb218f35dbe3e0b6b9aca68f6697&amp;req=dicnFsh3m4VaUfMW3nq%2BgRCtAWs2Bzr%2FNNfLUUaTNb7F8NkyIFSYO5V6O95V%0As1oIVmA%2BPg%2FEvutoCGnyyeJsioY%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700190760/9f6412fe68632cffee29826f7d30/42fdeb30-64af-4089-a976-5094bb6b8292?expires=1792044000&amp;signature=00eb258f39e1c7124330be66464d2dcce971dcd30f8ddaca2c2867c982003bfb&amp;req=dicnFsh3nYZZWfMW3nq%2BgcnP38ikpzDk%2Fs1v3OwcHgzeDXlHq1SjcAcFuum3%0Ai5alWnFkPyu3pTq1b6QGkEsHf7A%3D%0A)
+6. For **Assignments**, add the groups that should get the app: under Required to install it automatically, or under Available for enrolled devices so employees can install it from Company Portal. You can use user groups or device groups.
 
-2. Under **Manage apps**, select “Protection”:
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2741107114/8f15b0d179a54c2ca4effaad8577/55bed25a-4b20-47b0-9e89-7f8adc86c04f?expires=1792108800&amp;signature=cd275c06c804fde6aa73783ef9e029da873408c4d2313f114edc7367156d2d2d&amp;req=dicjF8h%2BmoBeXfMW3nq%2Bgdj8J%2Frcjw3Lc3nhgq7DzdA2AIVaADtF62KCfl9A%0ADnUt7vMMySA1txNMD0gbU4UsSaw%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700200858/a7ddd4265aeb6d61a7a096297cd5/fc9a1fe2-3d0e-4038-9b2c-f96bd19e4020?expires=1792044000&amp;signature=88d9d7aadfbb57aaa402475c1ecb3f8805030bc9555546ce6bd4bdfddade53f0&amp;req=dicnFst%2BnYlaUfMW3nq%2BgVfUh4EkSq091YCc5VZwMOasQa4YdPzSpCPNEwWo%0AZZlEbCV6kVTPVCGOuVDJ57tKNdI%3D%0A)
+7. Click "Next," review and create.
 
-3. Click “+ Create” and then select “iOS/iPadOS”:
+8. If you assigned the app as Required, it installs automatically; if Available, employees install it from Company Portal.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700201382/6240e257b2b498b5fa5ac1111561/11ef4f59-aba1-4d2b-ac58-9aec1dd60a4d?expires=1792044000&amp;signature=592824a0987b8bf9d52843ab68efb488d3df678fbecede525172b49fcdf03c9c&amp;req=dicnFst%2BnIJXW%2FMW3nq%2Bgcl7Oct5XHUf5ZDbLzCpE1st9T7auVcE3OFJsIQI%0A%2Fo3g%2F8LT35bwuaEfaUzq%2BooUxTs%3D%0A)
+### 2. Apply an app-protection policy to Claude for Intune
 
-4. Enter Name in the **Basics** tab, then click “Next” to **Apps**. Set **Target policy to** “Selected apps.” Click “+ Select custom apps”:
+1. In the Microsoft Intune admin center, select "Apps" from the left side navigation panel:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700201929/2edf45cedc0bc03204f86d01a49e/4d96c12d-962b-43f6-8b3f-668e3247d4c1?expires=1792044000&amp;signature=49bb5fd49bc7356ac0c7fc545147dcf0684e3b57201bf600028bd2e2da9b41eb&amp;req=dicnFst%2BnIhdUPMW3nq%2BgR4ZYiD6igpEXYtJt4FTesx1pAUQfm2PjmKj3zVd%0A4OeV4aojHX6ErA6xxikOvQUBRKI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700190760/9f6412fe68632cffee29826f7d30/42fdeb30-64af-4089-a976-5094bb6b8292?expires=1792108800&amp;signature=37d734359584c6fdf8113b3abd135358e9658b70ca97d1741ec89cb4ca192627&amp;req=dicnFsh3nYZZWfMW3nq%2BgcnP38ikpzHg8sVv3OwcHgxn4sGgbGqfC2plvjw3%0Ax%2Fxi1JskJRqUGDLudZMNIogmXCI%3D%0A)
 
-5. Type in the bundle ID `com.anthropic.claudeforintune`. Select it so it appears under **Selected Apps** before clicking “Select”:
+2. Under **Manage apps**, select "Protection":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700202816/3565aea2d1b9c22a5f8d105825c5/3de6d241-6259-463e-a503-a6ca9f2095e0?expires=1792044000&amp;signature=b1359697b29145990beb82720a8980755808ef6ff035dcdec3bf0600b27c7e69&amp;req=dicnFst%2Bn4leX%2FMW3nq%2BgXDRvmM1OfrTOBlfeK8rUbrvl6owfyaCYo8aT0Lj%0ACNzA3al9HWA57991MBzDE0LUcQw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700200858/a7ddd4265aeb6d61a7a096297cd5/fc9a1fe2-3d0e-4038-9b2c-f96bd19e4020?expires=1792108800&amp;signature=f85d09221fc5eec56a76fd79ef988aa912b0a86d9e1b7283524415e817552355&amp;req=dicnFst%2BnYlaUfMW3nq%2BgVfUh4EkSqw52Yic5VZwMOZrnfrh93jZqdMW%2Fbzk%0AQyKRu9b34xZaoRxiE8qWTTzlhzk%3D%0A)
 
-6. In Apps, confirm the bundle ID now appears under **Custom apps** before clicking “Next”:
+3. Click "+ Create" and then select "iOS/iPadOS":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700203780/24ed354ef0de87bf0a0c1bc129a1/46eed662-f488-48ee-a4d1-8a9a76079884?expires=1792044000&amp;signature=b42a75e740fdab6fd7d2f6c2190d2b0bb036c026f08425620cd6b7766e629dd0&amp;req=dicnFst%2BnoZXWfMW3nq%2Bge%2BjBE5lQI1FUbHrU6V7f5MKvFsHovN1m5GQRVge%0AJFRB6GabhugcBcl00ZNOrC8PV2Y%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700201382/6240e257b2b498b5fa5ac1111561/11ef4f59-aba1-4d2b-ac58-9aec1dd60a4d?expires=1792108800&amp;signature=6e48b8352f501f8890ce2aa86268438c106de09fea24a60509307322c47121a0&amp;req=dicnFst%2BnIJXW%2FMW3nq%2Bgcl7Oct5XHQb6ZjbLzCpE1tTztPedZ6NBWxfvSwc%0ANkDG5kW7nLxuaAyX8BpD9vJRceI%3D%0A)
+
+4. Enter Name in the **Basics** tab, then click "Next" to **Apps**. Set **Target policy to** "Selected apps." Click "+ Select custom apps":
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700201929/2edf45cedc0bc03204f86d01a49e/4d96c12d-962b-43f6-8b3f-668e3247d4c1?expires=1792108800&amp;signature=7744349835d5174ae0decdbee782baece346649c3b2bd70758d1b98f648313b2&amp;req=dicnFst%2BnIhdUPMW3nq%2BgR4ZYiD6igtAUYNJt4FTesxChqaccpbvriG0EQjy%0AwlyXpbN2sgMvjHeJaPGyWDJizjM%3D%0A)
+
+5. Type in the bundle ID `com.anthropic.claudeforintune`. Select it so it appears under **Selected Apps** before clicking "Select":
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700202816/3565aea2d1b9c22a5f8d105825c5/3de6d241-6259-463e-a503-a6ca9f2095e0?expires=1792108800&amp;signature=e8d2e87c922006fc1cb0647c878ef10ac9e8e5fce0085c4a1c9cb3fd3726d610&amp;req=dicnFst%2Bn4leX%2FMW3nq%2BgXDRvmM1OfvXNBFfeK8rUbptVxub%2FjMKGbOW6ShW%0AmBIsAT2WMn9C%2FanUN7yu20sIvPY%3D%0A)
+
+6. In Apps, confirm the bundle ID now appears under **Custom apps** before clicking "Next":
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2700203780/24ed354ef0de87bf0a0c1bc129a1/46eed662-f488-48ee-a4d1-8a9a76079884?expires=1792108800&amp;signature=4e9ae85937c8fb4f6dcc53f3d49332114f55919fbcfc7edec496054a49005c3c&amp;req=dicnFst%2BnoZXWfMW3nq%2Bge%2BjBE5lQIxBXbnrU6V7f5PGTsDtb3QDUtMhUBEz%0AB4P2GkGXGWqFguf%2FbZt75vuAUCg%3D%0A)
 
 7. Configure the Data protection, Access requirements, and Conditional launch settings as needed.
 
-8. In the **Assignments** tab, add a user group to assign the policy to them.
+8. In the **Assignments** tab, assign the policy to a user group that includes everyone who will use Claude for Intune—app-protection policies can only target user groups, not device groups. Make sure it also applies to unmanaged devices: don't limit it to Intune-managed devices with the device-type setting or an assignment filter, or employees on personal phones get signed out right after signing in*.*
 
 9. Review and create.
 
@@ -128,6 +140,6 @@ Claude for Intune doesn't yet appear in Microsoft's list of protected apps, so y
 
 1. Follow the steps in **[Apply an app-protection policy to Claude for Intune](#h_5fda0300e8).**
 
-2. When you select apps, choose “Select custom apps” and enter the bundle ID `com.anthropic.claudeforintune`.
+2. When you select apps, choose "Select custom apps" and enter the bundle ID `com.anthropic.claudeforintune`.
 
-After Microsoft adds Claude for Intune to its protected apps list, you'll select it from the list of public apps instead of using “Select custom apps.”
+After Microsoft adds Claude for Intune to its protected apps list, you'll select it from the list of public apps instead of using "Select custom apps."

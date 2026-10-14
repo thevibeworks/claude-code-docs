@@ -326,7 +326,7 @@ For any feature you want to control per-group:
 
 Enabling a feature at the organization level doesn't mean everyone gets it—custom role permissions are already in place to control who can use it. Think of the organization-level toggle as making the feature "available for role-based assignment" rather than "on for everyone."
 
-**Note:** This includes the Design, Slides, and Docs settings in Organization settings > Artifacts. Members outside the roles that grant them can still open, comment on and use artifacts shared with them.
+**Note:** This includes the Design, Slides, and Docs settings in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Users without the **Artifacts** capability can still open artifacts shared with them, comment on them, and change their data, up to Contributor access. They can't create, edit, publish, or share artifacts.
 
 ---
 

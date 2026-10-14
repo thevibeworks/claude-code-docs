@@ -1,22 +1,24 @@
 # Use research on Claude
 
+With research, Claude investigates your question in depth. It runs multiple searches that build on each other and decides what to look into next based on what it finds. It explores different angles of your question and works through open questions systematically.
+
 Research is available for users with paid Claude plans (Pro, Max, Team, or Enterprise) using Claude on the web, Claude Desktop, or Claude Mobile.
 
-Research transforms how Claude finds and analyzes information. Claude operates agentically, conducting multiple searches that build on each other while determining exactly what to investigate next. It explores different angles of your question automatically and works through open questions systematically.
-
-With research, Claude delivers thorough answers in minutes, complete with easy-to-check citations so you can trust Claude's findings.
+## Enable or disable research
 
 **Important:**  You must have **[web search](https://support.claude.com/en/articles/10684626)** turned on for research to function.
-
-## How to enable or disable research
 
 Click the “+” button on the bottom left of your chat interface, then "Research." A blue indicator will appear on the bottom of the chat window. Click the indicator again to disable research.
 
 ## Use research
 
-Once research is turned on, you can ask Claude a question. Claude will kick off the research process across your internal context (such as **[Gmail, Google Calendar, and Google Docs when connected](https://support.claude.com/en/articles/10166901-use-google-workspace-connectors)**) and the web.
+Once research is turned on, you can ask Claude a question. Claude researches the web and your connected tools, including **[Google Workspace](https://support.claude.com/en/articles/10166901)** (Gmail, Google Calendar, and Google Docs) and any other connectors you’ve turned on for the chat. During research, Claude can use tools from your connectors automatically, without asking for approval each time. Learn more about **[custom connectors](https://support.claude.com/en/articles/11175166)**.
 
-To see an example of using Claude's Research feature to plan a team offsite, watch the video here: **[Using Research](https://claude.com/resources/tutorials/using-research)**.
+**Important:** When you start research in Claude Mobile, Claude only searches the web and doesn’t use your connectors. You won’t see an error or other sign that your connectors were skipped. To include your connectors, start research in Claude on the web or in Claude Desktop. Note that research can’t use tools from local MCP servers configured in Claude Desktop.
+
+To see an example of using Claude's research feature to plan a team offsite, watch the video here: **[Using research](https://claude.com/resources/tutorials/using-research)**.
+
+---
 
 ## Frequently asked questions
 
@@ -24,11 +26,9 @@ To see an example of using Claude's Research feature to plan a team offsite, wat
 
 In this case, you can steer and prompt Claude to use Research by saying “Claude, please use the research tool to…”
 
-### I have research on, which should be pulling against my internal documentation via the Google integrations I have turned on, but isn’t. What should I do?
+### Research isn’t pulling from my connectors. What should I do?
 
-In this case, you should steer and prompt Claude to “Pull relevant context from [relevant internal knowledge source].”
-
-To see an overview of Claude's research capabilities with the Google Workspace integration, watch the video here: **[Using research and Google Workspace](https://claude.com/resources/tutorials/using-research-and-google-workspace)**.
+If you started research in Claude Mobile, Claude only searches the web. Start research in Claude on the web or in Claude Desktop instead. Otherwise, steer and prompt Claude to “Pull relevant context from [relevant internal knowledge source].”
 
 ### Does research count against usage limits differently than normal conversations?
 

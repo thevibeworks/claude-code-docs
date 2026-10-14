@@ -108,6 +108,8 @@ These features remain available, but their data is not encrypted under your key.
 * Claude Managed Agents [vault credential](https://platform.claude.com/docs/en/managed-agents/vaults) values, such as OAuth tokens and client secrets. These are stored under Anthropic-managed encryption, are write-only, and are never returned in API responses.
 * [User profiles](https://platform.claude.com/docs/en/api/beta/user_profiles): the `name`, `external_id`, and `metadata` fields are stored under Anthropic-managed encryption, not your key. Do not store sensitive personal data in profile `metadata`.
 
+- [OpenTelemetry destination](https://platform.claude.com/docs/en/manage-claude/opentelemetry#add-a-destination) request headers, such as the API key header of your observability backend. These are stored under Anthropic-managed encryption. Their values are write-only and are never returned in API responses.
+
 **Claude Enterprise**
 
 * Beta and research preview features might not be covered by CMEK and can break in CMEK organizations, for example, Claude Security and the Claude Design app at claude.ai/design.
