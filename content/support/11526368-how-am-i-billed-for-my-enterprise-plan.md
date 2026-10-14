@@ -46,7 +46,7 @@ Usage is purchased **upfront in credits**. Your credits draw down as your team u
 
 - All credits are shared across your organization—any team member can draw from the same pool.
 
-**Note:** If you purchased your Enterprise plan through AWS Marketplace, billing works like sales-assisted plans. You're billed monthly in arrears based on your organization's consumption rather than purchasing credits upfront.
+**Note:** If you purchased your Enterprise plan through AWS Marketplace, billing works like sales-assisted plans, except that you pay through AWS. You're billed monthly in arrears based on your organization's consumption rather than purchasing credits upfront.
 
 **Payment methods**
 
@@ -62,7 +62,11 @@ Usage is **billed monthly in arrears** based on your organization's actual consu
 
 **Payment methods**
 
-Sales-assisted Enterprise organizations can pay by bank transfer (ACH or wire) or, for smaller invoices, by credit card. Invoices of $50,000 or more can only be paid by bank transfer (ACH or wire). The credit card option won't appear on the payment page for invoices at or above this amount.
+On sales-assisted Enterprise plans, invoices aren’t charged automatically to a saved card. Each invoice, including your seat invoice and each monthly usage invoice, is emailed to your organization’s billing contact with a secure payment link. The payment terms are shown on the invoice.
+
+You can pay by bank transfer (ACH or wire) or by credit card. Invoices of $50,000 or more can only be paid by bank transfer. The credit card option won’t appear on the payment page for invoices at or above this amount.
+
+To have future invoices charged automatically to a card, contact your Anthropic account manager, who will arrange it with our billing team. With automatic payment, your card is charged on the invoice date instead of at the end of your payment term. You can’t set this up in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)** because those payment method settings only apply to self-serve Enterprise plans.
 
 ---
 

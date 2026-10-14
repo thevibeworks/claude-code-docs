@@ -60,7 +60,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
         {
           "type": "advisor_20260301",
           "name": "advisor",
-          "model": "claude-opus-5"
+          "model": "claude-opus-5-5"
         }
       ],
       "messages": [{
@@ -77,7 +77,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
   tools:
     - type: advisor_20260301
       name: advisor
-      model: claude-opus-5
+      model: claude-opus-5-5
   messages:
     - role: user
       content: Build a concurrent worker pool in Go with graceful shutdown.
@@ -95,7 +95,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
           {
               "type": "advisor_20260301",
               "name": "advisor",
-              "model": "claude-opus-5",
+              "model": "claude-opus-5-5",
           }
       ],
       messages=[
@@ -120,7 +120,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
       {
         type: "advisor_20260301",
         name: "advisor",
-        model: "claude-opus-5"
+        model: "claude-opus-5-5"
       }
     ],
     messages: [
@@ -148,7 +148,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
       {
           new BetaAdvisorTool20260301
           {
-              Model = Messages::Model.ClaudeOpus5
+              Model = Messages::Model.ClaudeOpus5_5
           }
       },
       Messages =
@@ -174,7 +174,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
   	MaxTokens: 4096,
   	Tools: []anthropic.BetaToolUnionParam{
   		{OfAdvisorTool20260301: &anthropic.BetaAdvisorTool20260301Param{
-  			Model: anthropic.ModelClaudeOpus5,
+  			Model: anthropic.ModelClaudeOpus5_5,
   		}},
   	},
   	Messages: []anthropic.BetaMessageParam{
@@ -203,7 +203,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
           .model(Model.CLAUDE_SONNET_5)
           .maxTokens(4096L)
           .addTool(BetaAdvisorTool20260301.builder()
-              .model(Model.CLAUDE_OPUS_5)
+              .model(Model.CLAUDE_OPUS_5_5)
               .build())
           .addUserMessage("Build a concurrent worker pool in Go with graceful shutdown.")
           .addBeta("advisor-tool-2026-03-01")
@@ -230,7 +230,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
           [
               'type' => 'advisor_20260301',
               'name' => 'advisor',
-              'model' => 'claude-opus-5',
+              'model' => 'claude-opus-5-5',
           ],
       ],
       betas: ['advisor-tool-2026-03-01'],
@@ -249,7 +249,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
       {
         type: "advisor_20260301",
         name: "advisor",
-        model: "claude-opus-5"
+        model: "claude-opus-5-5"
       }
     ],
     messages: [
@@ -265,7 +265,7 @@ The advisor is a weaker fit for single-turn Q\&A (nothing to plan), pure pass-th
   ```
 </CodeGroup>
 
-The response `content` includes an `advisor_tool_result` block carrying the advisor's guidance. With `claude-opus-5` as the advisor, as in this quick start, the block's `content` field is an `advisor_redacted_result` variant (encrypted; the executor reads it server-side, but your client does not). To see the advice text directly in your response, use `claude-opus-4-8` as the advisor model instead, which returns the plaintext `advisor_result` variant. See [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants) for both shapes side by side and which advisor models return which, and [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility) for the full list of valid pairs.
+The response `content` includes an `advisor_tool_result` block carrying the advisor's guidance. With `claude-opus-5-5` as the advisor, as in this quick start, the block's `content` field is an `advisor_redacted_result` variant (encrypted; the executor reads it server-side, but your client does not). To see the advice text directly in your response, use `claude-opus-4-8` as the advisor model instead, which returns the plaintext `advisor_result` variant. See [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants) for both shapes side by side and which advisor models return which, and [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility) for the full list of valid pairs.
 
 ## How it works
 
@@ -286,7 +286,7 @@ The advisor itself runs without tools and without context management. Its thinki
 | ------------ | -------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `type`       | string         | *required*                 | Must be `"advisor_20260301"`.                                                                                                                                                                                                                                                                                                                                                                                                                            |
 | `name`       | string         | *required*                 | Must be `"advisor"`.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-| `model`      | string         | *required*                 | The advisor model ID, such as claude-opus-5. Billed at this model's rates for the sub-inference.                                                                                                                                                                                                                                                                                                                                                         |
+| `model`      | string         | *required*                 | The advisor model ID, such as claude-opus-5-5. Billed at this model's rates for the sub-inference.                                                                                                                                                                                                                                                                                                                                                       |
 | `max_uses`   | integer        | unlimited                  | Maximum number of advisor calls allowed in a single request. Once the executor reaches this cap, further advisor calls return an `advisor_tool_result_error` with `error_code: "max_uses_exceeded"` and the executor continues without further advice. This is a per-request cap, not a per-conversation cap. See [Cost control](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#cost-control) for conversation-level limits. |
 | `max_tokens` | integer        | advisor model's output cap | Caps the advisor's total output (thinking plus text) per call. Minimum 1024. See [Capping advisor output](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#capping-advisor-output).                                                                                                                                                                                                                                            |
 | `caching`    | object \| null | `null` (off)               | Enables [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for the advisor's own transcript across calls within a conversation. See [Advisor prompt caching](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#advisor-prompt-caching).                                                                                                                                                     |
@@ -299,7 +299,7 @@ The advisor tool also accepts the generic properties available on any tool defin
 
 ### Successful advisor call
 
-When the advisor is called, a `server_tool_use` block is followed by an `advisor_tool_result` block in the assistant's content. The following example shows the plaintext `advisor_result` variant returned by a Claude Opus 4.8 advisor. The [Quick start](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#quick-start) uses Claude Opus 5, which returns the encrypted `advisor_redacted_result` variant instead; see [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants) for both shapes side by side.
+When the advisor is called, a `server_tool_use` block is followed by an `advisor_tool_result` block in the assistant's content. The following example shows the plaintext `advisor_result` variant returned by a Claude Opus 4.8 advisor. The [Quick start](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#quick-start) uses Claude Opus 5.5, which returns the encrypted `advisor_redacted_result` variant instead; see [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants) for both shapes side by side.
 
 ```json
 {
@@ -361,7 +361,7 @@ With `"model": "claude-opus-4-8"`, the advice is plaintext:
 }
 ```
 
-With `"model": "claude-opus-5"`, the advice is encrypted:
+With `"model": "claude-opus-5-5"`, the advice is encrypted:
 
 ```json
 {
@@ -411,7 +411,7 @@ Advisor rate limits draw from the same per-model bucket as direct calls to the a
 
 ## Multi-turn conversations
 
-Pass the full assistant content, including `advisor_tool_result` blocks, back to the API on subsequent turns. Round-trip the result blocks verbatim: with a Claude Opus 5 advisor the result block's `content` is the encrypted `advisor_redacted_result` variant, and the server decrypts it and renders the advice into the executor's prompt on the next turn (see [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants)). The mechanics are identical for any advisor model.
+Pass the full assistant content, including `advisor_tool_result` blocks, back to the API on subsequent turns. Round-trip the result blocks verbatim: with a Claude Opus 5.5 advisor the result block's `content` is the encrypted `advisor_redacted_result` variant, and the server decrypts it and renders the advice into the executor's prompt on the next turn (see [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants)). The mechanics are identical for any advisor model.
 
 <CodeGroup exclude="shell">
   ```python Python
@@ -421,7 +421,7 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
       {
           "type": "advisor_20260301",
           "name": "advisor",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
       }
   ]
 
@@ -462,7 +462,7 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
     {
       type: "advisor_20260301",
       name: "advisor",
-      model: "claude-opus-5"
+      model: "claude-opus-5-5"
     }
   ];
 
@@ -500,11 +500,13 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
   using Anthropic.Models.Beta.Messages;
   using Messages = Anthropic.Models.Messages;
 
-  var client = new AnthropicClient();
+  // Advisor calls run a second model inside the request, so allow more than the
+  // C# SDK's default non-streaming timeout, which it sizes from max_tokens.
+  var client = new AnthropicClient { Timeout = TimeSpan.FromMinutes(5) };
 
   var tools = new BetaToolUnion[]
   {
-      new BetaAdvisorTool20260301 { Model = Messages::Model.ClaudeOpus5 }
+      new BetaAdvisorTool20260301 { Model = Messages::Model.ClaudeOpus5_5 }
   };
 
   var messages = new List<BetaMessageParam>
@@ -546,7 +548,7 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
 
   tools := []anthropic.BetaToolUnionParam{
   	{OfAdvisorTool20260301: &anthropic.BetaAdvisorTool20260301Param{
-  		Model: anthropic.ModelClaudeOpus5,
+  		Model: anthropic.ModelClaudeOpus5_5,
   	}},
   }
 
@@ -601,7 +603,7 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
 
       List<BetaToolUnion> tools = List.of(
           BetaToolUnion.ofAdvisorTool20260301(
-              BetaAdvisorTool20260301.builder().model(Model.CLAUDE_OPUS_5).build()));
+              BetaAdvisorTool20260301.builder().model(Model.CLAUDE_OPUS_5_5).build()));
 
       List<BetaMessageParam> messages = new ArrayList<>();
       messages.add(BetaMessageParam.builder()
@@ -647,7 +649,7 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
       [
           'type' => 'advisor_20260301',
           'name' => 'advisor',
-          'model' => 'claude-opus-5',
+          'model' => 'claude-opus-5-5',
       ],
   ];
 
@@ -688,7 +690,7 @@ Pass the full assistant content, including `advisor_tool_result` blocks, back to
     {
       type: "advisor_20260301",
       name: "advisor",
-      model: "claude-opus-5"
+      model: "claude-opus-5-5"
     }
   ]
 
@@ -766,7 +768,11 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
 
 
   tools = [
-      {"type": "advisor_20260301", "name": "advisor", "model": "claude-opus-5"},
+      {
+          "type": "advisor_20260301",
+          "name": "advisor",
+          "model": "claude-opus-5-5",
+      },
       # ... your other tools
   ]
   task = "Build a concurrent worker pool in Go with graceful shutdown."
@@ -823,7 +829,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
   }
 
   const tools: Anthropic.Beta.Messages.BetaToolUnion[] = [
-    { type: "advisor_20260301", name: "advisor", model: "claude-opus-5" }
+    { type: "advisor_20260301", name: "advisor", model: "claude-opus-5-5" }
     // ... your other tools
   ];
   const task = "Build a concurrent worker pool in Go with graceful shutdown.";
@@ -895,7 +901,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
 
   var tools = new BetaToolUnion[]
   {
-      new BetaAdvisorTool20260301 { Model = Messages::Model.ClaudeOpus5 }
+      new BetaAdvisorTool20260301 { Model = Messages::Model.ClaudeOpus5_5 }
       // ... your other tools
   };
   var task = "Build a concurrent worker pool in Go with graceful shutdown.";
@@ -970,7 +976,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
 
   	tools := []anthropic.BetaToolUnionParam{
   		{OfAdvisorTool20260301: &anthropic.BetaAdvisorTool20260301Param{
-  			Model: anthropic.ModelClaudeOpus5,
+  			Model: anthropic.ModelClaudeOpus5_5,
   		}},
   		// ... your other tools
   	}
@@ -1063,7 +1069,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
 
       List<BetaToolUnion> tools = List.of(
           BetaToolUnion.ofAdvisorTool20260301(
-              BetaAdvisorTool20260301.builder().model(Model.CLAUDE_OPUS_5).build())
+              BetaAdvisorTool20260301.builder().model(Model.CLAUDE_OPUS_5_5).build())
           // ... your other tools
       );
       String task = "Build a concurrent worker pool in Go with graceful shutdown.";
@@ -1143,7 +1149,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
   }
 
   $tools = [
-      ['type' => 'advisor_20260301', 'name' => 'advisor', 'model' => 'claude-opus-5'],
+      ['type' => 'advisor_20260301', 'name' => 'advisor', 'model' => 'claude-opus-5-5'],
       // ... your other tools
   ];
   $task = 'Build a concurrent worker pool in Go with graceful shutdown.';
@@ -1201,7 +1207,7 @@ With the default `NUDGE_TURN` of 2, the reminder typically arrives after the mod
   end
 
   tools = [
-    { type: "advisor_20260301", name: "advisor", model: "claude-opus-5" }
+    { type: "advisor_20260301", name: "advisor", model: "claude-opus-5-5" }
     # ... your other tools
   ]
   task = "Build a concurrent worker pool in Go with graceful shutdown."
@@ -1272,7 +1278,7 @@ Advisor calls run as a separate sub-inference billed at the advisor model's rate
       },
       {
         "type": "advisor_message",
-        "model": "claude-opus-5",
+        "model": "claude-opus-5-5",
         "input_tokens": 823,
         "cache_read_input_tokens": 0,
         "cache_creation_input_tokens": 0,
@@ -1318,7 +1324,7 @@ Set `caching` on the tool definition to enable prompt caching for the advisor's 
       {
           "type": "advisor_20260301",
           "name": "advisor",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "caching": {"type": "ephemeral", "ttl": "5m"},
       }
   ]
@@ -1329,7 +1335,7 @@ Set `caching` on the tool definition to enable prompt caching for the advisor's 
     {
       type: "advisor_20260301",
       name: "advisor",
-      model: "claude-opus-5",
+      model: "claude-opus-5-5",
       caching: { type: "ephemeral", ttl: "5m" }
     }
   ];
@@ -1343,7 +1349,7 @@ Set `caching` on the tool definition to enable prompt caching for the advisor's 
   {
       new BetaAdvisorTool20260301
       {
-          Model = Messages::Model.ClaudeOpus5,
+          Model = Messages::Model.ClaudeOpus5_5,
           Caching = new BetaCacheControlEphemeral { Ttl = Ttl.Ttl5m }
       }
   };
@@ -1352,7 +1358,7 @@ Set `caching` on the tool definition to enable prompt caching for the advisor's 
   ```go Go
   tools := []anthropic.BetaToolUnionParam{
   	{OfAdvisorTool20260301: &anthropic.BetaAdvisorTool20260301Param{
-  		Model:   anthropic.ModelClaudeOpus5,
+  		Model:   anthropic.ModelClaudeOpus5_5,
   		Caching: anthropic.BetaCacheControlEphemeralParam{TTL: anthropic.BetaCacheControlEphemeralTTLTTL5m},
   	}},
   }
@@ -1366,7 +1372,7 @@ Set `caching` on the tool definition to enable prompt caching for the advisor's 
 
   List<BetaToolUnion> tools = List.of(
       BetaToolUnion.ofAdvisorTool20260301(BetaAdvisorTool20260301.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .caching(BetaCacheControlEphemeral.builder()
               .ttl(BetaCacheControlEphemeral.Ttl.TTL_5M)
               .build())
@@ -1378,7 +1384,7 @@ Set `caching` on the tool definition to enable prompt caching for the advisor's 
       [
           'type' => 'advisor_20260301',
           'name' => 'advisor',
-          'model' => 'claude-opus-5',
+          'model' => 'claude-opus-5-5',
           'caching' => ['type' => 'ephemeral', 'ttl' => '5m'],
       ],
   ];
@@ -1389,7 +1395,7 @@ Set `caching` on the tool definition to enable prompt caching for the advisor's 
     {
       type: "advisor_20260301",
       name: "advisor",
-      model: "claude-opus-5",
+      model: "claude-opus-5-5",
       caching: { type: "ephemeral", ttl: "5m" }
     }
   ]
@@ -1421,7 +1427,7 @@ The advisor tool composes with other server-side and client-side tools. Add them
       {
           "type": "advisor_20260301",
           "name": "advisor",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
       },
       {
           "name": "run_bash",
@@ -1444,7 +1450,7 @@ The advisor tool composes with other server-side and client-side tools. Add them
     {
       type: "advisor_20260301",
       name: "advisor",
-      model: "claude-opus-5"
+      model: "claude-opus-5-5"
     },
     {
       name: "run_bash",
@@ -1465,7 +1471,7 @@ The advisor tool composes with other server-side and client-side tools. Add them
   var tools = new BetaToolUnion[]
   {
       new BetaWebSearchTool20250305 { MaxUses = 5 },
-      new BetaAdvisorTool20260301 { Model = Messages::Model.ClaudeOpus5 },
+      new BetaAdvisorTool20260301 { Model = Messages::Model.ClaudeOpus5_5 },
       new BetaTool
       {
           Name = "run_bash",
@@ -1487,7 +1493,7 @@ The advisor tool composes with other server-side and client-side tools. Add them
   		MaxUses: anthropic.Int(5),
   	}},
   	{OfAdvisorTool20260301: &anthropic.BetaAdvisorTool20260301Param{
-  		Model: anthropic.ModelClaudeOpus5,
+  		Model: anthropic.ModelClaudeOpus5_5,
   	}},
   	{OfTool: &anthropic.BetaToolParam{
   		Name:        "run_bash",
@@ -1514,7 +1520,7 @@ The advisor tool composes with other server-side and client-side tools. Add them
           .maxUses(5L)
           .build()),
       BetaToolUnion.ofAdvisorTool20260301(BetaAdvisorTool20260301.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .build()),
       BetaToolUnion.ofBetaTool(BetaTool.builder()
           .name("run_bash")
@@ -1536,7 +1542,7 @@ The advisor tool composes with other server-side and client-side tools. Add them
       [
           'type' => 'advisor_20260301',
           'name' => 'advisor',
-          'model' => 'claude-opus-5',
+          'model' => 'claude-opus-5-5',
       ],
       [
           'name' => 'run_bash',
@@ -1559,7 +1565,7 @@ The advisor tool composes with other server-side and client-side tools. Add them
     {
       type: "advisor_20260301",
       name: "advisor",
-      model: "claude-opus-5"
+      model: "claude-opus-5-5"
     },
     {
       name: "run_bash",
@@ -1691,7 +1697,7 @@ Set `max_tokens` on the tool definition to cap the advisor's total output (think
       {
           "type": "advisor_20260301",
           "name": "advisor",
-          "model": "claude-opus-5",
+          "model": "claude-opus-5-5",
           "max_tokens": 2048,
       }
   ]
@@ -1702,7 +1708,7 @@ Set `max_tokens` on the tool definition to cap the advisor's total output (think
     {
       type: "advisor_20260301",
       name: "advisor",
-      model: "claude-opus-5",
+      model: "claude-opus-5-5",
       max_tokens: 2048
     }
   ];
@@ -1716,7 +1722,7 @@ Set `max_tokens` on the tool definition to cap the advisor's total output (think
   {
       new BetaAdvisorTool20260301
       {
-          Model = Messages::Model.ClaudeOpus5,
+          Model = Messages::Model.ClaudeOpus5_5,
           MaxTokens = 2048
       }
   };
@@ -1725,7 +1731,7 @@ Set `max_tokens` on the tool definition to cap the advisor's total output (think
   ```go Go
   tools := []anthropic.BetaToolUnionParam{
   	{OfAdvisorTool20260301: &anthropic.BetaAdvisorTool20260301Param{
-  		Model:     anthropic.ModelClaudeOpus5,
+  		Model:     anthropic.ModelClaudeOpus5_5,
   		MaxTokens: anthropic.Int(2048),
   	}},
   }
@@ -1738,7 +1744,7 @@ Set `max_tokens` on the tool definition to cap the advisor's total output (think
 
   List<BetaToolUnion> tools = List.of(
       BetaToolUnion.ofAdvisorTool20260301(BetaAdvisorTool20260301.builder()
-          .model(Model.CLAUDE_OPUS_5)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(2048L)
           .build()));
   ```
@@ -1748,7 +1754,7 @@ Set `max_tokens` on the tool definition to cap the advisor's total output (think
       [
           'type' => 'advisor_20260301',
           'name' => 'advisor',
-          'model' => 'claude-opus-5',
+          'model' => 'claude-opus-5-5',
           'max_tokens' => 2048,
       ],
   ];
@@ -1759,7 +1765,7 @@ Set `max_tokens` on the tool definition to cap the advisor's total output (think
     {
       type: "advisor_20260301",
       name: "advisor",
-      model: "claude-opus-5",
+      model: "claude-opus-5-5",
       max_tokens: 2048
     }
   ]

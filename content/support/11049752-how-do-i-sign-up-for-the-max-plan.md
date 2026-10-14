@@ -42,7 +42,7 @@ This article applies to individual consumers signing up for paid Max plans. If y
 
 5. Confirm your upgrade.
 
-Your Pro plan will be upgraded to Max immediately, with billing adjusted on a prorated basis for the remainder of your current billing cycle.
+Your Pro plan is upgraded to Max immediately. Your billing cycle restarts on the day you upgrade: you're charged for a full billing cycle of Max, minus a prorated credit for the unused time left on your Pro plan. Your usage also starts fresh on the Max limits right away, so if you've reached your Pro limit, you can keep using Claude without waiting for your session to reset.
 
 If you're moving from an annual Pro plan to a Max plan and the remaining balance on your annual Pro plan is greater than your Max plan price, you will receive a credit to your account for the remaining balance. This credit will be applied to future subscription costs.
 

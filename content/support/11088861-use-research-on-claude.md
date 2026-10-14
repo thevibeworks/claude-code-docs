@@ -33,3 +33,9 @@ To see an overview of Claude's research capabilities with the Google Workspace i
 ### Does research count against usage limits differently than normal conversations?
 
 Research is subject to the same limits as standard Claude conversations. However, research sessions can use up your limits faster due to Claude retrieving multiple sources and providing comprehensive responses.
+
+### Which model does research use?
+
+Research runs on Claude Opus 5.5 and falls back to Claude Opus 4.8 when needed. It uses these models no matter which model you’ve selected for your chat.
+
+On Team and Enterprise plans, if your admin has turned off both Claude Opus 5.5 and Claude Opus 4.8 for your role, research won’t work. Ask your admin to turn on at least one of these models.

@@ -14,7 +14,7 @@ When you set or change a default model, it replaces the model currently selected
 
 **Note:** Not all models are available in every product. If the selected model is not available in the product, Anthropic’s recommendation is used as default.
 
-Users can still select a different model for any conversation. By default, Claude remembers each user's last selection, so their next conversation starts on whichever model they last used. When you update the default again, the new default replaces their selection. To have every new conversation start on the default instead, see **Always start new conversations on the default model** below.
+Users can still select a different model for any conversation. By default, Claude remembers each user's last selection, so their next conversation starts on whichever model they last used. When you update the default again, the new default replaces their selection. To have every new conversation start on the default instead, see **[Always start new chats on the default model](#h_bc399beba0)** below.
 
 For example: you set the organization default to Claude Sonnet 4.6, and every member’s new conversations start on Sonnet 4.6. A member switches a conversation to Claude Opus 4.7, so their next conversations start on Opus 4.7. When you later change the organization default, the new default replaces their selection again. If you turn on **Always start with the default model and effort level**, their next chat starts on Sonnet 4.6 no matter which model they used last.
 
@@ -50,7 +50,7 @@ The organization default applies to every member. To set it:
 
 4. Click “Save changes.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1791915300&amp;signature=f495d092b5666324b3160082970d5a72855f6718dd06dee18dc7a46aadb426fc&amp;req=diUmEs58n4BcUPMW1HO4zelOdjNJLE1EfdGVZ664dGGYWtsr%2B5pP7iXMPf46%0Axcgj2i7IVkYLoWeA%2Bb4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1792044000&amp;signature=62ad220ea1dfa6e648c3dad661855b4f4913b1ccf6bd52b6b46a4feb8f5f1757&amp;req=diUmEs58n4BcUPMW3nq%2Bga5jDn%2BZEshHfwKMkc502AU1aml8%2Fs49i1N0xTyF%0AH%2FhUZN3%2BJYWmVxhK8IyMGFbY5hY%3D%0A)
 
 ---
 
@@ -91,6 +91,16 @@ With this setting on:
 - When the default model changes, new conversations move to the new default. For example, if you use Anthropic's recommended default and the recommendation moves to a newer model, every user's next conversation starts on the newer model.
 
 This setting applies in chat, Cowork, Claude Code, Claude for Office, Claude Design, and Claude Science.
+
+### In projects
+
+Projects keep their own model selection. Claude remembers the model each user last picked in each project, and this setting doesn’t override that choice in existing chat projects. With **Always start with the default model and effort level** turned on:
+
+- New projects start on the default model.
+
+- Existing chat projects start on the model the user last selected in that project.
+
+- New Cowork tasks in a project start on the default model.
 
 ### For a custom role
 

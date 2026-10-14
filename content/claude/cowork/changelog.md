@@ -6,6 +6,68 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.37337.1" description="2026-10-13">
+  Bundled Claude Code version: 2.1.295.
+
+  **General**
+
+  * Added "Open in new window" for chats, so a conversation can stay open in its own window beside the main window.
+  * (breaking) Removed the former managed-configuration key names `isDxtEnabled`, `isDxtSignatureRequired`, and `isDxtDirectoryEnabled`. In a profile that still uses one, the name is now an unrecognized key: its setting no longer applies and the deprecation notice no longer appears, so unsigned extensions load and, on standard deployments, extensions are allowed and the extension directory shows. Set `isDesktopExtensionEnabled`, `isDesktopExtensionSignatureRequired`, and `isDesktopExtensionDirectoryEnabled` to the same values. This differs from earlier notes for third-party deployments, which said extensions would be disabled and only signed extensions would load. A macOS profile or Windows user policy that holds only former names is no longer read as managed configuration, so the device becomes unmanaged. A Windows machine policy or Linux managed settings file that holds only former names is reported as a configuration error, and local settings stay disabled.
+  * Changed the certificate that signs the Windows app and its installer to a renewed one from the same publisher. Rules that allow Claude by publisher are unaffected; rules that pin the certificate itself need the new certificate added beside the old one.
+  * Fixed a message that failed to send being lost when the page reloaded; it now stays in the chat with its Retry.
+  * Fixed chats losing access to this computer's files and apps when registering the computer took more than a few seconds.
+  * Fixed computer use in the background taking your keyboard: a dropdown menu that a click or key opens in a background app is now closed again at once instead of swallowing what you type.
+  * Fixed MCP servers and preview dev servers launched through npx or npm failing to start on Windows when Node is installed under Program Files or an argument contains a space.
+  * Fixed new Cowork tasks and Code sessions still connecting through the previous proxy after a proxy auto-config (PAC) file's answer changed, which failed with connection errors until the app was restarted.
+  * Fixed plugins loading without their skills and tools, scheduled tasks failing to load, folder reads, and "Open with Claude" failing when the Windows profile lives in an FSLogix or similar profile container.
+
+  **Code**
+
+  * Added Auto save to the Files pane editor, with an option in the pane menu to turn it off.
+  * Changed SSH on Windows to use only an `ssh.exe` found on `PATH`. A `.bat`, `.cmd` or `.ps1` wrapper named `ssh` is no longer run.
+  * Fixed Code sessions with hundreds of added folders failing to start on Windows.
+  * Fixed file edits being skipped in SSH sessions on Mac hosts that use a worktree while the app is closed or the computer is asleep.
+  * Fixed messages Claude wrote before a tool call disappearing into a collapsed group of tool calls.
+  * Fixed sessions failing to start when many sessions that each use a worktree of a large repository start at the same time.
+  * Fixed sessions that hold a very large prompt sometimes showing an error in place of the conversation.
+  * Fixed sessions with background agents not continuing on their own after the 5-hour usage limit resets.
+  * Fixed some Claude Code crashes on Windows that cut off a response showing "Session was interrupted" instead of the crash message with Try again.
+
+  **Cowork**
+
+  * Improved the "workspace disk full" prompt so cleaning up frees enough space to keep working.
+  * Fixed charts, tables, and diagrams in artifacts staying blank when offline or when the network blocked the site their libraries came from. The libraries now come with the app.
+  * Fixed Cowork tasks on a computer whose administrator turned off the local VM trying to start on that computer instead of in the cloud.
+  * Fixed messages that could not be sent sometimes appearing as sent, with no error shown.
+  * Fixed scheduled tasks on your computer that could not be edited after their first run ("Failed to update scheduled task").
+  * Fixed the first message of a new task being lost when the app reloaded while the task was starting.
+
+  **3P**
+
+  * Added `developerModeEnabled`, which lets admins turn off Developer Mode and block installing extensions from a folder. It also applies on standard deployments.
+  * Added a "Not set" or "Allow none" choice to the empty `coworkEgressAllowedHosts` and `sshHostAllowlist` (beta) lists in the Setup window. "Allow none" saves and exports an empty list.
+  * Added a configuration warning for a `disabledBuiltinTools` entry spelled with underscores or hyphens, such as `web_fetch`; the warning gives the correct name, `WebFetch`.
+  * (breaking) Removed the deprecation notices for the spellings that stopped being accepted on October 7, 2026: header maps written as a string or list, `inferenceGatewayAuthScheme: "auto"`, the `ask-session` permission value, older `managedMcpServers` entry forms, and the `orgPluginSettings` record form. Such a value is now reported like any other invalid value; the replacements are listed under v1.40609.0.
+  * (breaking) Removed the former key names `enduserAttribution`, `trustBootstrapLocalExec`, and `inferenceGatewayHeaders`. In a configuration that still uses one, the name is now an unrecognized key: its setting no longer applies and the deprecation notice no longer appears. End-user attribution is then on, except in the Windows registry, where names ignore case and `enduserAttribution` still reads as `endUserAttribution`. A `bootstrapUrl` set by device management (on Windows, machine policy only) is trusted without asking each user. No custom inference headers are sent. Use `endUserAttribution`, `trustBootstrapDelivery`, and `inferenceCustomHeaders` instead. The former extension key names are under General.
+  * Changed `disabledBuiltinTools`: a `WebFetch` or bare `Bash` entry added by device management now also applies to Cowork and Chat conversations already open.
+  * Changed `disableNonessentialServices` so that it no longer turns off Chart.js, Grid.js, and Mermaid in artifacts, which now come with the app.
+  * Changed `managedMcpServers`: an entry whose `toolPolicy` is malformed is no longer dropped. It is kept with that tool, or every tool, blocked, and a configuration error is reported.
+  * Changed `sshTransport` (beta) on every platform: a value that cannot be read, such as a misspelling, now counts as `builtin` instead of the default engine.
+  * Changed OAuth-protected MCP connectors to ask you to sign in again once after this update, and again whenever a connector's URL changes.
+  * Changed the Setup window's `.reg` export to write machine policy (`HKEY_LOCAL_MACHINE`) instead of user policy (`HKEY_CURRENT_USER`); importing the file now needs administrator rights, and deploying it as user policy means replacing `HKEY_LOCAL_MACHINE` with `HKEY_CURRENT_USER` first.
+  * Changed which hosts the agent's tools reach automatically: your inference provider's, gateway's, and OTLP collector's hosts and `api.anthropic.com` are no longer added to `coworkEgressAllowedHosts` for you. List them if your agents' shell commands, web fetches, or http hooks call them.
+  * Fixed "Save image" and "Copy image" failing in the Code tab.
+  * Fixed a connection delay when Claude started before the configuration server was reachable; Claude now retries when you wake or unlock the computer, or return to the app.
+  * Fixed Auto permission mode being greyed out as "Not available for the selected model" in the Code tab for the Claude Haiku model that supports it, which caused new Code sessions to start in Accept edits.
+  * Fixed conversations disappearing from the sidebar and not opening when `coworkTabEnabled` is `false`. This affected Cowork tasks, including conversations started from the home screen while Unified Claude (beta) was on. They now stay listed and open read-only until Cowork is re-enabled.
+  * Fixed Cowork not starting a task when the organization's model list had not loaded. Cowork now waits a short time for the list, then starts the task or shows why it cannot.
+  * Fixed file edits in an SSH worktree session on a Linux host sometimes landing in the main checkout or another session's worktree.
+  * Fixed MCP connector sign-in failing through explicit OAuth endpoints for identity providers whose issuer has a path.
+  * Fixed model pickers showing no Effort control for newer models when `modelCatalogEnabled` is `false`; picker names, descriptions, and recommended effort levels now follow the catalog bundled with the app.
+  * Fixed scheduled Cowork tasks that never started on a computer where Claude's workspace fails to start; due tasks now start without the workspace after about ten minutes, with commands that need the workspace failing in those runs.
+  * Fixed the "Strict sandbox mode" switch under Settings › Claude Code, and the /status card's Sandbox row, showing strict mode as off when your organization's configuration already enforces it.
+</Update>
+
 <Update label="v2.31226.1" description="2026-10-09">
   Bundled Claude Code version: 2.1.295.
 

@@ -79,3 +79,9 @@ When an update is ready, Claude Science shows an "Update available" notice. If i
 ### cannot reach the public release endpoint
 
 Claude Science couldn't reach the update server. Check your internet connection, then select **Restart to update** on the "Update available" notice to try again, or run `claude-science update` again. On a corporate network, see [Network requirements](/docs/claude-science/network-requirements#app-connections) for the domains Claude Science connects to.
+
+### restart aborted
+
+On the "Update available" notice, this means the new version was downloaded but didn't start. If Claude Science is still running, it's the version you had, and you can try again: select **Check for updates** under **Settings > General > About**, then select **Restart to update** there. If Claude Science has stopped, start it again.
+
+On Linux, an update to version 0.1.61 ends this way on a computer where bubblewrap or socat came from conda, Homebrew, or a folder in your home directory, because version 0.1.61 needs both installed for the whole system. Version 0.1.62 withdraws that requirement, so trying again as above now gets a version that starts. If Claude Science won't start at all, run `claude-science update` in a terminal, then start it again.

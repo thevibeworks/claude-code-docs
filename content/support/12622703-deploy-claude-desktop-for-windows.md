@@ -13,7 +13,6 @@ Administrators on Team or Enterprise plans can deploy Claude Desktop automatical
 Claude Desktop for Windows requires the **[Virtual Machine Platform](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1)** to use Cowork. You can automate installation of this feature via most endpoint management solutions, but you may also run the following command to install it manually:
 
 ```
-powershell
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
 ```
 
@@ -32,7 +31,6 @@ The Claude MSIX is packaged as a per-user application. `Add-AppxPackage` registe
 ### Install for single user
 
 ```
-powershell
 Add-AppxPackage -Path "Claude.msix"
 ```
 
@@ -41,7 +39,6 @@ For more details, see Microsoft's **[Add-AppxPackage](https://learn.microsoft.co
 ### Install for all users (provisions machine-wide)
 
 ```
-powershell
 Add-AppxProvisionedPackage -Online -PackagePath "Claude.msix" -SkipLicense -Regions "all"
 ```
 
@@ -87,13 +84,31 @@ By default, packaged apps may be restricted by AppLocker policies. Ensure your A
 
 This usually means the in-app updater and your MDM have both registered the package, leaving duplicate entries under the `Claude` package family. Pick a single update owner using the guidance in **[Manage auto-updates alongside your MDM](#h_1297fb34f3)** above.
 
-### Intune install fails for standard users, or Cowork won't start on Claude Desktop?
+### Install fails: "Administrator access is required to install Claude with full features," or error 0x80073D28
 
-Both symptoms indicate the MSIX was installed in user context rather than provisioned machine-wide:
+Claude Desktop for Windows includes a background service that runs Cowork's virtual machine, and Windows registers that service only when Claude is installed with administrator privileges.
 
-- **Install fails for standard users:** An Intune LOB deployment of the MSIX runs in user context, so standard users without admin rights can't complete it. Redeploy by running `Add-AppxProvisionedPackage` through a Win32 app, PowerShell script wrapper, or pre-staged package.
+- **Claude Setup (ClaudeSetup.exe):** if the administrator prompt is declined or the elevated install fails, Claude Setup shows "Administrator access is required to install Claude with full features" and exits. Users who can't get administrator approval are offered the choice to install Claude without Cowork instead.
 
-- **Cowork unavailable on desktop after install:** A per-user `Add-AppxPackage` install can complete without registering the Cowork virtualization service, the Windows service Cowork depends on. Claude appears installed but Cowork won't start. Redeploy using `Add-AppxProvisionedPackage` so the service registers machine-wide.
+- **MSIX deployed per user (for example, an Intune line-of-business app assigned to users, or Add-AppxPackage run without administrator rights):** Windows refuses the install with error 0x80073D28.
+
+The MSIX package never installs without its Cowork service: either it registers completely, or the install fails.
+
+To fix it, run Claude Setup with administrator approval on that device, or provision Claude machine-wide in system context with `Add-AppxProvisionedPackage`, as described in **[Deploy via MDM](#h_124a24d394)**.
+
+### “Installation failed: AddPackage failed with HRESULT 0x80073CF6”
+
+This error means a previous Claude install or update on the device didn’t finish cleanly and left the package partially registered, so Windows can’t register the new one.
+
+**Warning:** On a device in this state, the installer’s automatic repair removes the previous package’s local app data, including app settings, the saved sign-in, and any files saved only inside Cowork. Chat history and files in the user’s own folders aren’t affected.
+
+To resolve it:
+
+1. Restart the device. A pending removal often completes on restart.
+
+2. Run the current installer elevated.
+
+3. If the install fails again with the same error, **[contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support)** and include the `ClaudeSetup.log` file from the user’s Temp folder. IT needs to recover the device in system context, and Support will provide the steps.
 
 ### Cowork reports missing HCS services or virtualization errors
 
@@ -104,14 +119,12 @@ If Cowork fails to start with an error like "Missing HCS services: HNS, vmcomput
 Check whether the feature is enabled and its services exist:
 
 ```
-powershell
 Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform Get-Service vmcompute, hns
 ```
 
 If the feature shows as disabled or the services are missing, re-enable it:
 
 ```
-powershell
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All
 ```
 

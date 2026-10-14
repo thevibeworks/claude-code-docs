@@ -59,4 +59,4 @@ You can only delete a tier that nothing references. If any users are still assig
 * Changing a tier's **Sort order** affects where newly provisioned users land, but it does not move anyone who already has a seat.
 * The spend limits are per user, not per tier. Ten users on a tier with a \$20 seven-day limit can together spend up to \$200 from the billing account over seven days.
 * Moving a user between tiers does not reset their usage counters. A user who has spent \$15 in the current 5-hour window carries that spend with them, and it is measured against the new tier's limit on their next request.
-* Users choose among a tier's allowed models in the Claude Desktop model picker, described in [Models in Claude Desktop](/docs/government/desktop/models). For some models the picker also offers a **1M context window** entry, which Anthropic sets per model and which is not part of the tier.
+* Users choose among a tier's allowed models in the Claude Desktop model picker, described in [Models in Claude Desktop](/docs/government/desktop/models). Some models also offer a 1M context window, which Anthropic sets per model and which is not part of the tier.

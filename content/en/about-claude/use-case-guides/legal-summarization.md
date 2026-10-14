@@ -89,7 +89,7 @@ See the guide on [establishing success criteria](https://platform.claude.com/doc
 
 ### Select the right Claude model
 
-Model accuracy is extremely important when summarizing legal documents. Claude Opus 5 is an excellent choice for use cases such as this where high accuracy is required. If the size and quantity of your documents is large such that costs start to become a concern, you can also try using a smaller model such as Claude Haiku 5.5.
+Model accuracy is extremely important when summarizing legal documents. Claude Opus 5.5 is an excellent choice for use cases such as this where high accuracy is required. If the size and quantity of your documents is large such that costs start to become a concern, you can also try using a smaller model such as Claude Haiku 5.5.
 
 To help estimate these costs, the following is a comparison of the cost to summarize 1,000 sublease agreements using Opus and Haiku models:
 
@@ -101,21 +101,15 @@ To help estimate these costs, the following is a comparison of the cost to summa
 
 * **Estimated tokens**
 
-  * Input tokens: 108M, about 108,000 per agreement (about 1 token per 2.8 characters, the rate all three models showed on this guide's sample agreement)
-  * Output tokens per summary, including any thinking tokens, which are billed as output: about 4,800 on Claude Opus 5, 2,000 on Claude Opus 4.8, and 3,100 on Claude Haiku 5.5
-  * Total output tokens: 4.8M on Claude Opus 5, 2.0M on Claude Opus 4.8, and 3.1M on Claude Haiku 5.5
+  * Input tokens: 108M, about 108,000 per agreement (about 1 token per 2.8 characters, the rate both models showed on this guide's sample agreement)
+  * Output tokens per summary, including any thinking tokens, which are billed as output: about 6,200 on Claude Opus 5.5 and 3,100 on Claude Haiku 5.5
+  * Total output tokens: 6.2M on Claude Opus 5.5 and 3.1M on Claude Haiku 5.5
 
-* **Claude Opus 5 estimated cost**
+* **Claude Opus 5.5 estimated cost**
 
-  * Input token cost: 108 MTok \* $5.00/MTok = $540.00 USD
-  * Output token cost: 4.8 MTok \* $25.00/MTok = $120.00 USD
-  * Total cost: $540.00 + $120.00 = $660.00 USD
-
-* **Claude Opus 4.8 estimated cost**
-
-  * Input token cost: 108 MTok \* $5.00/MTok = $540.00 USD
-  * Output token cost: 2.0 MTok \* $25.00/MTok = $50.00 USD
-  * Total cost: $540.00 + $50.00 = $590.00 USD
+  * Input token cost: 108 MTok \* $4.00/MTok = $432.00 USD
+  * Output token cost: 6.2 MTok \* $20.00/MTok = $124.00 USD
+  * Total cost: $432.00 + $124.00 = $556.00 USD
 
 * **Claude Haiku 5.5 estimated cost**, at its prices for prompts over 100,000 tokens
 

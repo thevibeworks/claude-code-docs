@@ -12,7 +12,7 @@ Data retention is based on the last observed activity:
 
 - **For chats:** Retention period starts from the time of the last message in the conversation.
 
-- **For projects:**
+- **For projects:** Retention period starts from the time of the most recent action that resets it.
 
   - These actions reset the retention period:
 

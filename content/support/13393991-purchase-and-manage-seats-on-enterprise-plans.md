@@ -170,6 +170,8 @@ Some Enterprise organizations are on older seat-based plans with a different bil
 | Standard      | Core Enterprise features and usage limits        |
 | Premium       | Everything in Standard, plus higher usage limits |
 
+**Note:** Only Admins and above can see each user’s seat type, shown in the **Tier** column in **[Organization settings > Members](https://claude.ai/admin-settings/member)**. Other users can’t see their own seat type anywhere in Claude. If you need to confirm whether your seat is Standard or Premium, ask an Owner or Admin in your organization.
+
 ### Reassign users between seat types
 
 You can move users between Standard and Premium seats within your existing allocation.

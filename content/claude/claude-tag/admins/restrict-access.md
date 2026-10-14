@@ -222,34 +222,36 @@ Neither value adds private channels to workspace search. In a [channel that incl
 
 ### Slack Connect channels
 
-A Slack Connect channel is a channel your Slack workspace shares with another company. The [**How should Claude work in channels with guests**](#restrict-guest-channels) setting decides whether Claude answers in one:
+A Slack Connect channel is a channel your Slack workspace shares with another company. The [**How should Claude work in channels with guests**](#restrict-guest-channels) setting, the same one that governs channels that include guests, decides whether Claude answers in one:
 
 * **Restrict** (default): Claude doesn't answer, and posts no notice when someone mentions it.
-* **Channel only** or **Full access**: Claude answers with the [limited access it has in a Slack Connect channel](#what-access-claude-has-in-a-slack-connect-channel). **Full access** gives Claude no more access there than **Channel only**.
+* **Channel only** or **Full access**: Claude answers. Access in a Slack Connect channel is capped at channel-only access, so **Full access** gives Claude the same [limited access](#what-access-claude-has-in-a-slack-connect-channel) there as **Channel only**.
 
-To turn Claude on in Slack Connect channels, go to [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels), open the **Slack** page, a workspace's page, or one channel's page, and on its **Advanced** tab set **How should Claude work in channels with guests** to **Channel only**. An Owner or a [Claude Tag admin](#delegate-claude-tag-administration) can make this change. The same value applies to the scope's channels that include guests, so a scope already set to **Channel only** or **Full access** for guests answers in its Slack Connect channels too, except in a channel with its own value. A value on the channel's own page wins over the workspace's, and the workspace's wins over the **Slack** page.
+#### Turn Claude on in Slack Connect channels
 
-When someone who isn't a full member of your workspace adds Claude to a Slack Connect channel with no value of its own, Claude sets that channel's page to **Restrict**. That includes someone from the other company, a guest, a bot or workflow, and an [auto-join pattern](#block-or-auto-join-channels-by-name). To let Claude answer there, change the value on the channel's page.
+To turn Claude on in Slack Connect channels, go to [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels), open the **Slack** page, a workspace's page, or one channel's page, and on its **Advanced** tab set **How should Claude work in channels with guests** to **Channel only**. An Owner or a [Claude Tag admin](#delegate-claude-tag-administration) can make this change.
 
-Claude also doesn't answer in a Slack Connect channel in these cases, and posts a notice only in a thread from before the channel was shared:
+The same value applies to the scope's channels that include guests, so a scope already set to **Channel only** or **Full access** for guests answers in its Slack Connect channels too.
 
-* **Claude Tag turned off.** The [**Enable Claude Tag** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) that covers the channel is off.
-* **Blocked name.** The channel's name matches one of the [**Blocked channel patterns**](#block-or-auto-join-channels-by-name).
-* **Legacy version.** The scope's [Claude Tag version](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) is **Legacy**.
-* **Enterprise Grid organization-level installs.** Claude is installed for your whole Enterprise Grid organization rather than per workspace, and none of your own workspaces hosts the channel.
-* **Threads from before the channel was shared.** Claude doesn't continue a thread it was already working in before the channel was shared. A mention there gets the notice "This channel is now shared with another organization through Slack Connect, so this thread's earlier session can't continue here," and a new thread works.
-* **Messages from the other company's Claude.** Claude doesn't reply to the other company's Claude. If the other company also uses Claude, each company's settings decide only whether its own Claude answers.
+When someone who isn't a full member of your workspace adds Claude to a Slack Connect channel with no value of its own, Claude sets that channel's page to **Restrict**. That includes someone from the other company, a guest, a bot or workflow, and an [auto-join pattern](#block-or-auto-join-channels-by-name). To let Claude answer there, open the channel's page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and on its **Advanced** tab set **How should Claude work in channels with guests** to **Channel only**.
 
 #### What access Claude has in a Slack Connect channel
 
-When Claude answers in a Slack Connect channel, it follows the channel's own instructions and has:
+Claude answers in a Slack Connect channel where [**How should Claude work in channels with guests**](#restrict-guest-channels) is **Channel only** or **Full access**. Its access there is capped at channel-only access under either value. Claude follows the channel's own instructions, and [bundles](/docs/claude-tag/admins/attach-to-scope) apply there according to how each one is attached:
 
-* No [bundles](/docs/claude-tag/admins/attach-to-scope) or connections inherited from the workspace or the **Slack** page, and none attached by a [channel rule](/docs/claude-tag/admins/attach-to-scope#attach-a-bundle-to-channels-by-name), except a bundle attached specifically for Slack Connect channels. A bundle [attached directly to the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) still applies, whether it was attached before or after the channel was shared and whoever attached it, unless it's set to apply only in channels with guests. Claude can use the connectors in that bundle for anyone it answers there, including the other company's people.
+* **Attached directly to the channel.** The bundle applies whether it was [attached to the channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) before or after the channel was shared and whoever attached it, unless it's set to apply only in channels with guests.
+* **Inherited, or attached by a channel rule.** A bundle inherited from the workspace or the **Slack** page, or attached by a [channel rule](/docs/claude-tag/admins/attach-to-scope#attach-a-bundle-to-channels-by-name), doesn't apply, except a bundle attached specifically for Slack Connect channels.
+
+When a bundle applies there, Claude can use the bundle's connectors for anyone it answers in the channel, including the other company's people.
+
+<Warning>Treat the channel's instructions, and the connectors in its bundles, as available to the other company. Before you turn Claude on in a Slack Connect channel, or share a channel where it's already on, open the channel's page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels), check its bundles, and [remove the channel from any bundle](/docs/claude-tag/admins/attach-to-scope#choose-where-a-bundle-applies) you don't want used there.</Warning>
+
+When it answers there, Claude also has:
+
+* No connections inherited from the workspace or the **Slack** page.
 * No instructions set on the workspace or on the **Slack** page.
 * No memory, skills, or repositories.
 * No [environment set on the scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope). The session runs on the standard environment.
-
-Treat the channel's instructions, and the connectors in its bundles, as available to the other company. Before you turn Claude on in a Slack Connect channel, or share a channel where it's already on, check the bundles on the channel's page and [remove the channel from any bundle](/docs/claude-tag/admins/attach-to-scope#choose-where-a-bundle-applies) you don't want used there.
 
 In a Slack Connect channel, Claude also doesn't search your workspace, look up people or channels, read other channels, publish [artifacts](/docs/claude-tag/concepts/security-and-data#artifact-visibility), or set up [routines](/docs/claude-tag/users/proactivity). Routines set up in the channel before it was shared don't run there.
 
@@ -257,9 +259,20 @@ In a Slack Connect channel, Claude also doesn't search your workspace, look up p
 
 People from the other company can talk to Claude by mentioning `@Claude` or by replying in a thread Claude is part of, and Claude answers them. Everyone in the channel, including the other company's people, can read what Claude posts.
 
-* **Limit Claude to your organization.** Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack), open the **Advanced** tab, and turn on **Restrict to your organization** (**Restrict to roles with Claude Tag access** on Enterprise). Someone from the other company who then mentions `@Claude` to start a conversation gets a message only they can see, and in an existing thread Claude declines their request. The toggle applies to channels and DMs alike, so members of your workspace without a Claude account (on Enterprise, without a role that grants **Claude Tag in Slack**) lose access too.
+* **Limit Claude to your organization.** Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack), open the **Advanced** tab, and turn on the **Restrict to your organization** toggle (**Restrict to roles with Claude Tag access** on Enterprise). Someone from the other company who then mentions `@Claude` to start a conversation gets a message only they can see, and in an existing thread Claude declines their request. The toggle applies to channels and DMs alike, so members of your workspace without a Claude account (on Enterprise, without a role that grants **Claude Tag in Slack**) lose access too.
 * **Automatic replies.** While the channel's [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) setting is on, messages from your members that don't mention Claude reach it, and Claude may reply to some of them on its own. Outside the threads Claude is part of, messages from the other company's people that don't mention Claude reach it only as context, not as requests.
 * **Commands.** Your organization's members can send `@Claude` followed by `!help`, `!mute`, `!unmute`, `!restart`, or `!fast`. People from the other company can use only `!help`, and other [commands](/docs/claude-tag/users/commands) do nothing there.
+
+#### When Claude does not answer in a Slack Connect channel
+
+After you [turn Claude on in Slack Connect channels](#turn-claude-on-in-slack-connect-channels), Claude still doesn't answer there in these cases, and posts a notice only in a thread from before the channel was shared:
+
+* **Claude Tag turned off.** The [**Enable Claude Tag** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) that covers the channel is off.
+* **Blocked name.** The channel's name matches one of the [**Blocked channel patterns**](#block-or-auto-join-channels-by-name).
+* **Legacy version.** The scope's [Claude Tag version](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) is **Legacy**.
+* **Enterprise Grid organization-level installs.** Claude is installed for your whole Enterprise Grid organization rather than per workspace, and none of your own workspaces hosts the channel.
+* **Threads from before the channel was shared.** Claude doesn't continue a thread it was already working in before the channel was shared. A mention there gets the notice "This channel is now shared with another organization through Slack Connect, so this thread's earlier session can't continue here," and a new thread works.
+* **Messages from the other company's Claude.** Claude doesn't reply to the other company's Claude. If the other company also uses Claude, each company's settings decide only whether its own Claude answers.
 
 ### Channels shared across workspaces in your Enterprise Grid
 

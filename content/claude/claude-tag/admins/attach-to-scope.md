@@ -100,7 +100,7 @@ A channel rule grants its bundle under these conditions:
 A rule's pattern has its own constraints:
 
 * **Pattern syntax**: a rule's pattern follows the same syntax as the other [channel name patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name), lowercase with `*` matching any run of characters and `?` matching exactly one
-* **Number of rules**: each scope holds up to 20 channel rules
+* **Number of rules**: each scope holds up to 50 channel rules, and a rule with more than one bundle counts once for each bundle
 * **Organization patterns**: on a workspace's page, the **Auto-join channels** table also lists the organization's patterns, marked **Org-wide**. You can attach a bundle to an **Org-wide** pattern from the workspace's table, and that rule covers only the workspace's matching channels. You edit the pattern itself on the **Slack** page.
 
 <Warning>A channel rule grants its bundle in every matching channel Claude is in, now or in the future, and anyone who can rename a channel can move it into or out of a pattern. Keep elevated credentials out of broad patterns, and add a [blocked channel pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) for name shapes that should never carry access; a blocked channel stays off-limits whatever rules match it.</Warning>

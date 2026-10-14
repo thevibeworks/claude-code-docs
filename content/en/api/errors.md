@@ -224,7 +224,7 @@ The Python and TypeScript SDKs expose the request ID as a `_request_id` property
   client = AnthropicAWS(aws_region="us-west-2")
 
   response = client.messages.with_raw_response.create(
-      model="claude-opus-4-8",
+      model="claude-opus-5-5",
       max_tokens=1024,
       messages=[{"role": "user", "content": "Hello, Claude"}],
   )
@@ -240,7 +240,7 @@ The Python and TypeScript SDKs expose the request ID as a `_request_id` property
 
   const { response: raw, request_id } = await client.messages
     .create({
-      model: "claude-opus-4-8",
+      model: "claude-opus-5-5",
       max_tokens: 1024,
       messages: [{ role: "user", content: "Hello, Claude" }]
     })

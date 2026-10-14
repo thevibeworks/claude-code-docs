@@ -8,6 +8,45 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.37337.1" description="2026-10-13">
+  <div className="cfg-keys">
+    | MDM key | Type | Description |
+    | - | - | - |
+    | [`developerModeEnabled`](/docs/third-party/claude-desktop/configuration#developermodeenabled) | `boolean` | Allow Developer Mode |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "workspace": {
+      "developerModeEnabled": "<boolean>"
+    }
+  }
+  ```
+
+  **Changed:**
+
+  * `coworkEgressAllowedHosts`: your inference provider's, gateway's, and OTLP collector's hosts and `api.anthropic.com` are no longer added automatically. List them if tools call them.
+  * `managedMcpServers[].toolPolicy`: a value other than `allow`, `ask`, or `blocked` now blocks that tool, and a `toolPolicy` that is not a map of tool names blocks every tool. The entry is kept, with a configuration error, instead of being dropped.
+  * `sshTransport` (beta): a value that cannot be read now counts as `builtin`.
+  * `disableNonessentialServices` no longer turns off Chart.js, Grid.js, and Mermaid in artifacts, which now come with the app.
+  * `modelCatalogEnabled`: with `false`, picker names, descriptions, and effort options now come from the catalog bundled with the app.
+  * `coworkTabEnabled`: with `false`, Cowork tasks now stay listed in the sidebar and open read-only instead of disappearing.
+  * `disabledBuiltinTools`: a `WebFetch` or bare `Bash` entry added by device management now also applies to open Cowork and Chat conversations, and a tool name spelled with underscores or hyphens raises a configuration warning.
+
+  **Removed:**
+
+  The former key names below are now unrecognized keys: the setting no longer applies and the deprecation notice no longer appears. This replaces what the v1.40609.0 entry says these names do after the cut-off.
+
+  * `isDxtEnabled`: use `isDesktopExtensionEnabled` instead. Until then extensions are off on third-party deployments and allowed on standard deployments.
+  * `isDxtSignatureRequired`: use `isDesktopExtensionSignatureRequired` instead. Until then unsigned extensions load.
+  * `enduserAttribution`: use `endUserAttribution` instead. Until then end-user attribution is on. In the Windows registry, where names ignore case, the former name still reads as `endUserAttribution`.
+  * `trustBootstrapLocalExec`: use `trustBootstrapDelivery` instead. Until then a `bootstrapUrl` set by device management (on Windows, machine policy only) is trusted without asking each user, and any other `bootstrapUrl` asks each user.
+  * `inferenceGatewayHeaders`: use `inferenceCustomHeaders` instead. Until then no custom inference headers are sent.
+  * The deprecation notices for these spellings, which stopped being accepted on October 7, 2026 and are listed under v1.40609.0: header maps written as a string or list, `inferenceGatewayAuthScheme: "auto"`, `ask-session`, the older `managedMcpServers` entry forms, and the `orgPluginSettings` record form. Such a value is now reported like any other invalid value.
+</Update>
+
 <Update label="v2.31226.1" description="2026-10-09">
   No configuration changes in this release.
 </Update>

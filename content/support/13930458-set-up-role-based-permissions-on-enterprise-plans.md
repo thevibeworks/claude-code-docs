@@ -392,9 +392,19 @@ Role changes may take up to 15 minutes to take effect across the platform. Membe
 
 ---
 
-## Using SCIM with role-based capabilities
+## Use SCIM with role-based capabilities
 
 SCIM connects to your role-based capabilities through two mechanisms that work together.
+
+**Important:** Set these up in this order. Members in groups mapped to “Custom” have no permissions until their groups are assigned to custom roles.
+
+1. Save SCIM directory sync with **Enable group mappings** off and let the initial sync finish.
+
+2. In **[Organization settings > Groups](https://claude.ai/admin-settings/groups)**, click “Check for updates” and sync Groups only.
+
+3. Assign the synced groups to your custom roles, and to group spend limits if you use them.
+
+4. Turn on **Enable group mappings** and map the groups to “Custom.”
 
 ### IdP group-to-role mapping
 

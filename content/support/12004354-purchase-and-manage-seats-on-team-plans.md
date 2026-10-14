@@ -21,6 +21,8 @@ Organizations can mix and match seat types based on team needs. Assign Premium s
 
 Your plan has a total seat allocation (e.g., 30 Standard seats and 10 Premium seats). Within that allocation, you can assign and reassign users to different seat types as needed.
 
+**Note:** Only Admins and above can see each user’s seat type, shown in the **Tier** column in **[Organization settings > Members](https://claude.ai/admin-settings/member)**. Other users can’t see their own seat type anywhere in Claude. If you need to confirm whether your seat is Standard or Premium, ask an Owner or Admin in your organization.
+
 ---
 
 ## Purchase new seats
