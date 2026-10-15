@@ -6,6 +6,50 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.42304.0" description="2026-10-15">
+  Bundled Claude Code version: 2.1.299.
+
+  **General**
+
+  * Changed the certificate that signs the bundled Claude Code helper (`claude.exe`) on Windows to the renewed one that the app and its installer have used since v2.37337.1. Rules that hold the certificate itself, such as a Microsoft Defender certificate indicator, need the new certificate added beside the old one.
+  * Changed the import from Claude (third-party) where device management turned it on: after the import, Claude now adds local MCP servers and starts those that were on, installs the desktop extensions and uploaded plugins that your organization allows, and, where your organization allows skill creation, uploads skills that grant tools or declare hooks, all without asking you to confirm. Before, each local MCP server waited for you to confirm its command and settings. Organizations under the HIPAA restriction get none of these.
+  * Improved the import from Claude (third-party): copied scheduled tasks keep their attached files, and your Instructions for Claude and Cowork global instructions can be added from Settings > Import. Where device management turned it on, copied scheduled tasks also keep their folders and, while a local MCP server is unchanged, the approvals you gave for its tools.
+  * Fixed Arabic and Hebrew text reading in the wrong order in chat titles, session titles, messages, plans, search results, file views, feedback dialogs and the Code tab.
+  * Fixed some plugins never installing after being enabled on claude.ai because one of their files is very repetitive, such as a long empty table.
+  * Fixed some Update buttons planning a restart with nothing on screen while sessions were still running; they now ask first and can be cancelled.
+  * Fixed the app sometimes starting with no window open, including after restarting from the Help menu on Windows and Linux when the app had started automatically at sign-in.
+  * Fixed tool approval prompts staying hidden behind a full-screen MCP app after the chat preview was closed.
+
+  **Code**
+
+  * Changed the Git operations the app runs for you (the commit and stash around a branch switch, the in-folder branch switch, and the push behind "Continue in cloud") to no longer run repository Git hooks; push Git LFS objects from a terminal before continuing in the cloud.
+  * Removed the "Get started with Claude Code" checklist from the sidebar.
+  * Fixed "Rewind to here" failing with "Can’t rewind to this message." on any message but the latest in cloud and self-hosted sessions.
+  * Fixed deleting a session on an SSH host whose helper had not yet updated also deleting a branch holding unpushed commits.
+  * Fixed SSH sessions silently losing part of Claude's output, getting stuck reconnecting after another session on the same host failed to start, and ending the terminal on Windows computers when the host closed the connection.
+  * Fixed untracked files in a session's worktrees being deleted when the session was archived after Claude moved it to the cloud.
+
+  **Cowork**
+
+  * Changed computer use on macOS to no longer save files into hidden or protected folders, such as Homebrew's folders and shell start-up locations, or give a document a hidden or otherwise protected name.
+  * Changed Settings › Import to no longer offer the third-party app’s local MCP servers for organizations under the HIPAA restriction.
+  * Fixed computer use typing text twice into a busy web page in a background app.
+  * Fixed Enter selecting a slash menu item instead of sending the message when a "/" word, such as "/s", came after other words.
+  * Fixed the conversation sometimes jumping back to the bottom when you scroll up with Page Up, Shift+Space or the Up arrow key while Claude is responding.
+  * Fixed the workspace sometimes failing to start on Windows with a connection timeout error.
+
+  **3P**
+
+  * Added support in the macOS and Linux apps for SSH sessions carrying on across an app restart, and automatic recovery on every platform when Claude Code on the host is lost mid-task: the app restarts it and continues the task, even with nobody at the computer.
+  * Changed `claudeAiImport.automatic3pImport` to reinstall, without asking, the optional plugins that a user had switched on from any optional `allowedPluginMarketplaces` entry (GitHub, git, or a URL on any host) with the same source in the old and new organization, not only from the gateway or bootstrap origin. This includes computers that moved organizations before this version, at their first launch with it.
+  * Changed `mcpPersistentAlwaysAllowEnabled` to also apply to Code sessions on the device, in WSL and over SSH: when it is `false`, MCP tool prompts offer "Allow for this session" instead of "Always allow", and scheduled tasks offer no lasting approval unless `mcpScheduledTaskApprovalLifetimeDays` is one day or more.
+  * Changed Chat's file-analysis sandbox (`chatAdvancedFileAnalysisEnabled`) to reach the hosts in `coworkEgressAllowedHosts`, for example to install packages. As in Cowork, its commands run without an approval prompt. Before, it had no network access by default. With no list, or an empty one, it still has none.
+  * Changed session export in Settings > Import & export to cover everything by default instead of the last 30 days and to list what the file includes and leaves out; the import of a Claude Desktop export file also starts on everything.
+  * Fixed a message typed at the token limit being discarded in Cowork and Chat. The message shown at the limit now also says when the limit resets and, in Cowork and Chat, has a View usage button.
+  * Fixed Code tab SSH sessions on Windows hosts without Git for Windows refusing every shell command with "Enterprise policy requires sandboxing". The refusal stays for organizations that deny or ask on Bash commands by pattern, or whose `disabledBuiltinTools` holds `Bash` (with or without a pattern), `PowerShell` with a pattern, or a name the app does not recognize.
+  * Fixed connectors losing their saved sign-in when Claude starts while the macOS keychain is locked; the connector now says what to do.
+</Update>
+
 <Update label="v2.37337.1" description="2026-10-13">
   Bundled Claude Code version: 2.1.295.
 

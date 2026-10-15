@@ -23,12 +23,10 @@ A session requires an `agent` ID and an `environment` ID. Agents are versioned r
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": "$AGENT_ID",
-    "environment_id": "$ENVIRONMENT_ID"
-  }
-  EOF
+    -d '{
+      "agent": "'"$AGENT_ID"'",
+      "environment_id": "'"$ENVIRONMENT_ID"'"
+    }'
   ```
 
   ```bash CLI
@@ -102,12 +100,10 @@ To pin a session to a specific agent version, pass an object. This lets you cont
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": {"type": "agent", "id": "$AGENT_ID", "version": 1},
-    "environment_id": "$ENVIRONMENT_ID"
-  }
-  EOF
+    -d '{
+      "agent": {"type": "agent", "id": "'"$AGENT_ID"'", "version": 1},
+      "environment_id": "'"$ENVIRONMENT_ID"'"
+    }'
   ```
 
   ```bash CLI
@@ -202,18 +198,16 @@ The following example creates a session with a single `user.message` in `initial
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": "$AGENT_ID",
-    "environment_id": "$ENVIRONMENT_ID",
-    "initial_events": [
-      {
-        "type": "user.message",
-        "content": [{"type": "text", "text": "List the files in the working directory."}]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "agent": "'"$AGENT_ID"'",
+      "environment_id": "'"$ENVIRONMENT_ID"'",
+      "initial_events": [
+        {
+          "type": "user.message",
+          "content": [{"type": "text", "text": "List the files in the working directory."}]
+        }
+      ]
+    }'
   )
   SEEDED_SESSION_ID=$(jq -r '.id' <<< "$seeded_session")
 
@@ -485,17 +479,15 @@ The following example starts a session that overrides the model and clears the s
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": {
-      "type": "agent_with_overrides",
-      "id": "$AGENT_ID",
-      "model": {"id": "claude-sonnet-5-5"},
-      "system": null
-    },
-    "environment_id": "$ENVIRONMENT_ID"
-  }
-  EOF
+    -d '{
+      "agent": {
+        "type": "agent_with_overrides",
+        "id": "'"$AGENT_ID"'",
+        "model": {"id": "claude-sonnet-5-5"},
+        "system": null
+      },
+      "environment_id": "'"$ENVIRONMENT_ID"'"
+    }'
   ```
 
   ```bash CLI
@@ -653,16 +645,14 @@ The following example starts a session from an agent whose model has no geo pin,
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": {
-      "type": "agent_with_overrides",
-      "id": "$AGENT_ID",
-      "model": {"id": "claude-opus-5-5", "inference_geo": "us"}
-    },
-    "environment_id": "$ENVIRONMENT_ID"
-  }
-  EOF
+    -d '{
+      "agent": {
+        "type": "agent_with_overrides",
+        "id": "'"$AGENT_ID"'",
+        "model": {"id": "claude-opus-5-5", "inference_geo": "us"}
+      },
+      "environment_id": "'"$ENVIRONMENT_ID"'"
+    }'
   )
   echo "Inference geo: $(jq -r '.agent.model.inference_geo' <<< "$session")"
   ```
@@ -811,16 +801,14 @@ The following example creates a session with a $1.25 budget:
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": "$AGENT_ID",
-    "environment_id": "$ENVIRONMENT_ID",
-    "budget": {
-      "type": "limit",
-      "max_list_cost": {"amount": "125", "currency": "USD"}
-    }
-  }
-  EOF
+    -d '{
+      "agent": "'"$AGENT_ID"'",
+      "environment_id": "'"$ENVIRONMENT_ID"'",
+      "budget": {
+        "type": "limit",
+        "max_list_cost": {"amount": "125", "currency": "USD"}
+      }
+    }'
   ```
 
   ```bash CLI
@@ -942,13 +930,11 @@ If your agent uses MCP tools that require authentication, pass `vault_ids` (java
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": "$AGENT_ID",
-    "environment_id": "$ENVIRONMENT_ID",
-    "vault_ids": ["$VAULT_ID"]
-  }
-  EOF
+    -d '{
+      "agent": "'"$AGENT_ID"'",
+      "environment_id": "'"$ENVIRONMENT_ID"'",
+      "vault_ids": ["'"$VAULT_ID"'"]
+    }'
   ```
 
   ```bash CLI
@@ -1034,16 +1020,14 @@ Creating a session without `initial_events` (java, php: `initialEvents`; csharp,
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "events": [
-      {
-        "type": "user.message",
-        "content": [{"type": "text", "text": "List the files in the working directory."}]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "events": [
+        {
+          "type": "user.message",
+          "content": [{"type": "text", "text": "List the files in the working directory."}]
+        }
+      ]
+    }'
   ```
 
   ```bash CLI

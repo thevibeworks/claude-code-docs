@@ -6,7 +6,7 @@ description: This guide walks through how to harness Claude's advanced natural l
 
 ## Prerequisites
 
-* A Claude API key and the Python SDK installed
+* A Claude API key and the Claude SDK installed
 * Access to, and familiarity with, your existing support ticketing system
 * A sample set of historical support tickets for testing
 
@@ -249,62 +249,427 @@ Write a ticket classification prompt. The initial prompt should contain the cont
 
 Here's an example ticket routing classification prompt:
 
-```python
-def classify_support_request(ticket_contents):
+<CodeGroup exclude="shell">
+  <CodeGroupItem language="cURL">
+    Build the prompt in code.
+  </CodeGroupItem>
+
+  <CodeGroupItem language="CLI">
+    Build the prompt in code.
+  </CodeGroupItem>
+
+  ```python Python
+  def classify_support_request(ticket_contents):
+      # Define the prompt for the classification task
+      classification_prompt = f"""You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+
+          Here is the customer support request you need to classify:
+
+          <request>{ticket_contents}</request>
+
+          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+
+          First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+
+          Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+          <intents>
+          <intent>Support, Feedback, Complaint</intent>
+          <intent>Order Tracking</intent>
+          <intent>Refund/Exchange</intent>
+          </intents>
+
+          A request may have ONLY ONE applicable intent. Only include the intent that is most applicable to the request.
+
+          As an example, consider the following request:
+          <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
+
+          Here is an example of how your output should be formatted (for the above example request):
+          <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+
+          Here are a few more examples:
+          <examples>
+          <example 2>
+          Example 2 Input:
+          <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
+
+          Example 2 Output:
+          <reasoning>User leaves a positive review of their experience.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+          </example 2>
+          <example 3>
+
+          […]
+
+          </example 8>
+          <example 9>
+          Example 9 Input:
+          <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
+
+          Example 9 Output:
+          <reasoning>The user requests help accessing their web account information.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+          </example 9>
+
+          Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """
+  ```
+
+  ```typescript TypeScript
+  function classifySupportRequest(ticketContents: string) {
+    // Define the prompt for the classification task
+    const classificationPrompt = `You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+
+      Here is the customer support request you need to classify:
+
+      <request>${ticketContents}</request>
+
+      Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+
+      First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+
+      Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+      <intents>
+      <intent>Support, Feedback, Complaint</intent>
+      <intent>Order Tracking</intent>
+      <intent>Refund/Exchange</intent>
+      </intents>
+
+      A request may have ONLY ONE applicable intent. Only include the intent that is most applicable to the request.
+
+      As an example, consider the following request:
+      <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
+
+      Here is an example of how your output should be formatted (for the above example request):
+      <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+      <intent>Support, Feedback, Complaint</intent>
+
+      Here are a few more examples:
+      <examples>
+      <example 2>
+      Example 2 Input:
+      <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
+
+      Example 2 Output:
+      <reasoning>User leaves a positive review of their experience.</reasoning>
+      <intent>Support, Feedback, Complaint</intent>
+      </example 2>
+      <example 3>
+
+      […]
+
+      </example 8>
+      <example 9>
+      Example 9 Input:
+      <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
+
+      Example 9 Output:
+      <reasoning>The user requests help accessing their web account information.</reasoning>
+      <intent>Support, Feedback, Complaint</intent>
+      </example 9>
+
+      Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      `;
+  }
+  ```
+
+  ```csharp C#
+  void ClassifySupportRequest(string ticketContents)
+  {
+      // Define the prompt for the classification task
+      var classificationPrompt = $"""
+          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+
+          Here is the customer support request you need to classify:
+
+          <request>{ticketContents}</request>
+
+          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+
+          First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+
+          Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+          <intents>
+          <intent>Support, Feedback, Complaint</intent>
+          <intent>Order Tracking</intent>
+          <intent>Refund/Exchange</intent>
+          </intents>
+
+          A request may have ONLY ONE applicable intent. Only include the intent that is most applicable to the request.
+
+          As an example, consider the following request:
+          <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
+
+          Here is an example of how your output should be formatted (for the above example request):
+          <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+
+          Here are a few more examples:
+          <examples>
+          <example 2>
+          Example 2 Input:
+          <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
+
+          Example 2 Output:
+          <reasoning>User leaves a positive review of their experience.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+          </example 2>
+          <example 3>
+
+          […]
+
+          </example 8>
+          <example 9>
+          Example 9 Input:
+          <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
+
+          Example 9 Output:
+          <reasoning>The user requests help accessing their web account information.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+          </example 9>
+
+          Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """;
+  }
+  ```
+
+  ```go Go
+  func classifySupportRequest(ticketContents string) {
+  	// Define the prompt for the classification task
+  	classificationPrompt := `You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+
+  		Here is the customer support request you need to classify:
+
+  		<request>` + ticketContents + `</request>
+
+  		Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+
+  		First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+
+  		Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+  		<intents>
+  		<intent>Support, Feedback, Complaint</intent>
+  		<intent>Order Tracking</intent>
+  		<intent>Refund/Exchange</intent>
+  		</intents>
+
+  		A request may have ONLY ONE applicable intent. Only include the intent that is most applicable to the request.
+
+  		As an example, consider the following request:
+  		<request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
+
+  		Here is an example of how your output should be formatted (for the above example request):
+  		<reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+  		<intent>Support, Feedback, Complaint</intent>
+
+  		Here are a few more examples:
+  		<examples>
+  		<example 2>
+  		Example 2 Input:
+  		<request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
+
+  		Example 2 Output:
+  		<reasoning>User leaves a positive review of their experience.</reasoning>
+  		<intent>Support, Feedback, Complaint</intent>
+  		</example 2>
+  		<example 3>
+
+  		[…]
+
+  		</example 8>
+  		<example 9>
+  		Example 9 Input:
+  		<request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
+
+  		Example 9 Output:
+  		<reasoning>The user requests help accessing their web account information.</reasoning>
+  		<intent>Support, Feedback, Complaint</intent>
+  		</example 9>
+
+  		Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+  		`
+  // ...
+  }
+  ```
+
+  ```java Java
+  void classifySupportRequest(String ticketContents) {
+      // Define the prompt for the classification task
+      String classificationPrompt = """
+          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+
+          Here is the customer support request you need to classify:
+
+          <request>%s</request>
+
+          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+
+          First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+
+          Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+          <intents>
+          <intent>Support, Feedback, Complaint</intent>
+          <intent>Order Tracking</intent>
+          <intent>Refund/Exchange</intent>
+          </intents>
+
+          A request may have ONLY ONE applicable intent. Only include the intent that is most applicable to the request.
+
+          As an example, consider the following request:
+          <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
+
+          Here is an example of how your output should be formatted (for the above example request):
+          <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+
+          Here are a few more examples:
+          <examples>
+          <example 2>
+          Example 2 Input:
+          <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
+
+          Example 2 Output:
+          <reasoning>User leaves a positive review of their experience.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+          </example 2>
+          <example 3>
+
+          […]
+
+          </example 8>
+          <example 9>
+          Example 9 Input:
+          <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
+
+          Example 9 Output:
+          <reasoning>The user requests help accessing their web account information.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+          </example 9>
+
+          Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """.formatted(ticketContents);
+  }
+  ```
+
+  ```php PHP
+  function classifySupportRequest(string $ticketContents): void
+  {
+      // Define the prompt for the classification task
+      $classificationPrompt = <<<PROMPT
+          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+
+          Here is the customer support request you need to classify:
+
+          <request>{$ticketContents}</request>
+
+          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+
+          First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+
+          Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+          <intents>
+          <intent>Support, Feedback, Complaint</intent>
+          <intent>Order Tracking</intent>
+          <intent>Refund/Exchange</intent>
+          </intents>
+
+          A request may have ONLY ONE applicable intent. Only include the intent that is most applicable to the request.
+
+          As an example, consider the following request:
+          <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
+
+          Here is an example of how your output should be formatted (for the above example request):
+          <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+
+          Here are a few more examples:
+          <examples>
+          <example 2>
+          Example 2 Input:
+          <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
+
+          Example 2 Output:
+          <reasoning>User leaves a positive review of their experience.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+          </example 2>
+          <example 3>
+
+          […]
+
+          </example 8>
+          <example 9>
+          Example 9 Input:
+          <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
+
+          Example 9 Output:
+          <reasoning>The user requests help accessing their web account information.</reasoning>
+          <intent>Support, Feedback, Complaint</intent>
+          </example 9>
+
+          Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          PROMPT;
+  }
+  ```
+
+  ```ruby Ruby
+  def classify_support_request(ticket_contents)
     # Define the prompt for the classification task
-    classification_prompt = f"""You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+    classification_prompt = <<~PROMPT
+      You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
 
-        Here is the customer support request you need to classify:
+      Here is the customer support request you need to classify:
 
-        <request>{ticket_contents}</request>
+      <request>#{ticket_contents}</request>
 
-        Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+      Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
 
-        First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+      First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
 
-        Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
-        <intents>
-        <intent>Support, Feedback, Complaint</intent>
-        <intent>Order Tracking</intent>
-        <intent>Refund/Exchange</intent>
-        </intents>
+      Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+      <intents>
+      <intent>Support, Feedback, Complaint</intent>
+      <intent>Order Tracking</intent>
+      <intent>Refund/Exchange</intent>
+      </intents>
 
-        A request may have ONLY ONE applicable intent. Only include the intent that is most applicable to the request.
+      A request may have ONLY ONE applicable intent. Only include the intent that is most applicable to the request.
 
-        As an example, consider the following request:
-        <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
+      As an example, consider the following request:
+      <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
 
-        Here is an example of how your output should be formatted (for the above example request):
-        <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
-        <intent>Support, Feedback, Complaint</intent>
+      Here is an example of how your output should be formatted (for the above example request):
+      <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+      <intent>Support, Feedback, Complaint</intent>
 
-        Here are a few more examples:
-        <examples>
-        <example 2>
-        Example 2 Input:
-        <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
+      Here are a few more examples:
+      <examples>
+      <example 2>
+      Example 2 Input:
+      <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
 
-        Example 2 Output:
-        <reasoning>User leaves a positive review of their experience.</reasoning>
-        <intent>Support, Feedback, Complaint</intent>
-        </example 2>
-        <example 3>
+      Example 2 Output:
+      <reasoning>User leaves a positive review of their experience.</reasoning>
+      <intent>Support, Feedback, Complaint</intent>
+      </example 2>
+      <example 3>
 
-        ...
+      […]
 
-        </example 8>
-        <example 9>
-        Example 9 Input:
-        <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
+      </example 8>
+      <example 9>
+      Example 9 Input:
+      <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
 
-        Example 9 Output:
-        <reasoning>The user requests help accessing their web account information.</reasoning>
-        <intent>Support, Feedback, Complaint</intent>
-        </example 9>
+      Example 9 Output:
+      <reasoning>The user requests help accessing their web account information.</reasoning>
+      <intent>Support, Feedback, Complaint</intent>
+      </example 9>
 
-        Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
-        """
-```
+      Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+    PROMPT
+  end
+  ```
+</CodeGroup>
 
 <Note>
   This prompt is written for Claude Haiku 5.5, which runs here at `low` effort. On Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, and Claude Sonnet 5.5, ask for the intent and a one-sentence summary of the request instead. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
@@ -312,7 +677,7 @@ def classify_support_request(ticket_contents):
 
 Here are the key components of this prompt:
 
-* The prompt template is a Python f-string, allowing the `ticket_contents` to be inserted into the `<request>` tags.
+* The prompt template inserts `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) into the `<request>` tags.
 * The prompt gives Claude a clearly defined role as a classification system that carefully analyzes the ticket content to determine the customer's core intent and needs.
 * The prompt instructs Claude on proper output formatting, in this case to provide its reasoning and analysis inside `<reasoning>` tags, followed by the appropriate classification label inside `<intent>` tags.
 * The prompt specifies the valid intent categories: "Support, Feedback, Complaint", "Order Tracking", and "Refund/Exchange".
@@ -324,57 +689,336 @@ Having Claude split its response into separate XML tag sections lets you use reg
 
 It’s hard to know how well your prompt works without deploying it in a test production setting and [running evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests).
 
-Build the deployment structure. Start by defining the method signature for wrapping the call to Claude. Extend the method you began writing earlier, which takes `ticket_contents` as input, so that it now returns a tuple of `reasoning` and `intent` as output. If you have an existing automation using traditional ML, you'll want to follow that method signature instead.
+Build the deployment structure. Start by defining the method signature for wrapping the call to Claude. Extend the method you began writing earlier, which takes `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) as input, so that it now returns the reasoning and the intent as output. If you have an existing automation using traditional ML, you'll want to follow that method signature instead.
 
-```python Python
-import re
+<CodeGroup exclude="shell">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the Claude SDK to run it.
+  </CodeGroupItem>
 
-# Create an instance of the Claude API client
-client = anthropic.Anthropic()
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the Claude SDK to run it.
+  </CodeGroupItem>
 
-# Set the default model
-DEFAULT_MODEL = "claude-haiku-5-5"
+  ```python Python
+  import re
+
+  # Create an instance of the Claude API client
+  client = anthropic.Anthropic()
+
+  # Set the default model
+  DEFAULT_MODEL = "claude-haiku-5-5"
 
 
-def classify_support_request(ticket_contents):
+  def classify_support_request(ticket_contents):
+      # Define the prompt for the classification task
+      classification_prompt = f"""You will be acting as a customer support ticket classification system.
+          […]
+          ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """
+      # Send the prompt to the API to classify the support request.
+      message = client.messages.create(
+          model=DEFAULT_MODEL,
+          max_tokens=2048,
+          output_config={"effort": "low"},
+          messages=[{"role": "user", "content": classification_prompt}],
+          stream=False,
+      )
+      reasoning_and_intent = next(
+          (block.text for block in message.content if block.type == "text"), ""
+      )
+
+      # Use Python's regular expressions library to extract `reasoning`.
+      reasoning_match = re.search(
+          r"<reasoning>(.*?)</reasoning>", reasoning_and_intent, re.DOTALL
+      )
+      reasoning = reasoning_match.group(1).strip() if reasoning_match else ""
+
+      # Similarly, also extract the `intent`.
+      intent_match = re.search(r"<intent>(.*?)</intent>", reasoning_and_intent, re.DOTALL)
+      intent = intent_match.group(1).strip() if intent_match else ""
+
+      return reasoning, intent
+  ```
+
+  ```typescript TypeScript
+  // Create an instance of the Claude API client
+  const client = new Anthropic();
+
+  // Set the default model
+  const DEFAULT_MODEL = "claude-haiku-5-5";
+
+  async function classifySupportRequest(
+    ticketContents: string
+  ): Promise<{ reasoning: string; intent: string }> {
+    // Define the prompt for the classification task
+    const classificationPrompt = `You will be acting as a customer support ticket classification system.
+      […]
+      ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      `;
+    // Send the prompt to the API to classify the support request.
+    const message = await client.messages.create({
+      model: DEFAULT_MODEL,
+      max_tokens: 2048,
+      output_config: { effort: "low" },
+      messages: [{ role: "user", content: classificationPrompt }]
+    });
+    const textBlock = message.content.find(
+      (block): block is Anthropic.TextBlock => block.type === "text"
+    );
+    const reasoningAndIntent = textBlock?.text ?? "";
+
+    // Use a regular expression to extract `reasoning`.
+    const reasoningMatch = /<reasoning>(.*?)<\/reasoning>/s.exec(reasoningAndIntent);
+    const reasoning = reasoningMatch?.[1].trim() ?? "";
+
+    // Similarly, also extract the `intent`.
+    const intentMatch = /<intent>(.*?)<\/intent>/s.exec(reasoningAndIntent);
+    const intent = intentMatch?.[1].trim() ?? "";
+
+    return { reasoning, intent };
+  }
+  ```
+
+  ```csharp C#
+  using System.Text.RegularExpressions;
+  // ...
+
+  // Create an instance of the Claude API client
+  AnthropicClient client = new();
+
+  // Set the default model
+  const Model DefaultModel = Model.ClaudeHaiku5_5;
+
+  async Task<(string Reasoning, string Intent)> ClassifySupportRequest(string ticketContents)
+  {
+      // Define the prompt for the classification task
+      var classificationPrompt = """
+          You will be acting as a customer support ticket classification system.
+          […]
+          ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """;
+      // Send the prompt to the API to classify the support request.
+      var message = await client.Messages.Create(new MessageCreateParams
+      {
+          Model = DefaultModel,
+          MaxTokens = 2048,
+          OutputConfig = new OutputConfig { Effort = Effort.Low },
+          Messages = [new() { Role = Role.User, Content = classificationPrompt }],
+      });
+      var reasoningAndIntent = "";
+      foreach (var block in message.Content)
+      {
+          if (block.TryPickText(out var textBlock))
+          {
+              reasoningAndIntent = textBlock.Text;
+              break;
+          }
+      }
+
+      // Use a regular expression to extract `reasoning`.
+      var reasoningMatch = Regex.Match(reasoningAndIntent, "<reasoning>(.*?)</reasoning>", RegexOptions.Singleline);
+      var reasoning = reasoningMatch.Success ? reasoningMatch.Groups[1].Value.Trim() : "";
+
+      // Similarly, also extract the `intent`.
+      var intentMatch = Regex.Match(reasoningAndIntent, "<intent>(.*?)</intent>", RegexOptions.Singleline);
+      var intent = intentMatch.Success ? intentMatch.Groups[1].Value.Trim() : "";
+
+      return (reasoning, intent);
+  }
+  ```
+
+  ```go Go
+  import (
+  	"context"
+  	"regexp"
+  	"strings"
+  // ...
+  )
+
+  // Create an instance of the Claude API client
+  var client = anthropic.NewClient()
+
+  // Set the default model
+  const defaultModel = anthropic.ModelClaudeHaiku5_5
+
+  func classifySupportRequest(ctx context.Context, ticketContents string) (reasoning, intent string, err error) {
+  	// Define the prompt for the classification task
+  	classificationPrompt := `You will be acting as a customer support ticket classification system.
+  		[…]
+  		... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+  		`
+  	// Send the prompt to the API to classify the support request.
+  	message, err := client.Messages.New(ctx, anthropic.MessageNewParams{
+  		Model:        defaultModel,
+  		MaxTokens:    2048,
+  		OutputConfig: anthropic.OutputConfigParam{Effort: anthropic.OutputConfigEffortLow},
+  		Messages: []anthropic.MessageParam{
+  			anthropic.NewUserMessage(anthropic.NewTextBlock(classificationPrompt)),
+  		},
+  	})
+  	if err != nil {
+  		return "", "", err
+  	}
+  	var reasoningAndIntent string
+  	for _, block := range message.Content {
+  		if textBlock, ok := block.AsAny().(anthropic.TextBlock); ok {
+  			reasoningAndIntent = textBlock.Text
+  			break
+  		}
+  	}
+
+  	// Use a regular expression to extract `reasoning`.
+  	reasoningMatch := regexp.MustCompile(`(?s)<reasoning>(.*?)</reasoning>`).FindStringSubmatch(reasoningAndIntent)
+  	if reasoningMatch != nil {
+  		reasoning = strings.TrimSpace(reasoningMatch[1])
+  	}
+
+  	// Similarly, also extract the `intent`.
+  	intentMatch := regexp.MustCompile(`(?s)<intent>(.*?)</intent>`).FindStringSubmatch(reasoningAndIntent)
+  	if intentMatch != nil {
+  		intent = strings.TrimSpace(intentMatch[1])
+  	}
+
+  	return reasoning, intent, nil
+  }
+  ```
+
+  ```java Java
+  import java.util.regex.Matcher;
+  import java.util.regex.Pattern;
+
+  // Create an instance of the Claude API client
+  final AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  // Set the default model
+  static final Model DEFAULT_MODEL = Model.CLAUDE_HAIKU_5_5;
+
+  record Classification(String reasoning, String intent) {}
+
+  Classification classifySupportRequest(String ticketContents) {
+      // Define the prompt for the classification task
+      String classificationPrompt = """
+          You will be acting as a customer support ticket classification system.
+          […]
+          ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """;
+      // Send the prompt to the API to classify the support request.
+      Message message = client.messages().create(MessageCreateParams.builder()
+          .model(DEFAULT_MODEL)
+          .maxTokens(2048L)
+          .outputConfig(OutputConfig.builder().effort(OutputConfig.Effort.LOW).build())
+          .addUserMessage(classificationPrompt)
+          .build());
+      String reasoningAndIntent = message.content().stream()
+          .flatMap(block -> block.text().stream())
+          .map(textBlock -> textBlock.text())
+          .findFirst()
+          .orElse("");
+
+      // Use a regular expression to extract `reasoning`.
+      Matcher reasoningMatch = Pattern.compile("<reasoning>(.*?)</reasoning>", Pattern.DOTALL)
+          .matcher(reasoningAndIntent);
+      String reasoning = reasoningMatch.find() ? reasoningMatch.group(1).strip() : "";
+
+      // Similarly, also extract the `intent`.
+      Matcher intentMatch = Pattern.compile("<intent>(.*?)</intent>", Pattern.DOTALL)
+          .matcher(reasoningAndIntent);
+      String intent = intentMatch.find() ? intentMatch.group(1).strip() : "";
+
+      return new Classification(reasoning, intent);
+  }
+  ```
+
+  ```php PHP
+  // Create an instance of the Claude API client
+  $client = new Client();
+
+  // Set the default model
+  const DEFAULT_MODEL = Model::CLAUDE_HAIKU_5_5;
+
+  /**
+   * @return array{string, string} the reasoning and the intent
+   */
+  function classifySupportRequest(Client $client, string $ticketContents): array
+  {
+      // Define the prompt for the classification task
+      $classificationPrompt = <<<PROMPT
+          You will be acting as a customer support ticket classification system.
+          […]
+          ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          PROMPT;
+      // Send the prompt to the API to classify the support request.
+      $message = $client->messages->create(
+          model: DEFAULT_MODEL,
+          maxTokens: 2048,
+          outputConfig: ['effort' => 'low'],
+          messages: [['role' => 'user', 'content' => $classificationPrompt]],
+      );
+      $reasoningAndIntent = '';
+      foreach ($message->content as $block) {
+          if ($block instanceof \Anthropic\Messages\TextBlock) {
+              $reasoningAndIntent = $block->text;
+              break;
+          }
+      }
+
+      // Use a regular expression to extract `reasoning`.
+      $reasoning = preg_match('/<reasoning>(.*?)<\/reasoning>/s', $reasoningAndIntent, $reasoningMatch)
+          ? trim($reasoningMatch[1])
+          : '';
+
+      // Similarly, also extract the `intent`.
+      $intent = preg_match('/<intent>(.*?)<\/intent>/s', $reasoningAndIntent, $intentMatch)
+          ? trim($intentMatch[1])
+          : '';
+
+      return [$reasoning, $intent];
+  }
+  ```
+
+  ```ruby Ruby
+  # Create an instance of the Claude API client
+  client = Anthropic::Client.new
+
+  # Set the default model
+  DEFAULT_MODEL = Anthropic::Model::CLAUDE_HAIKU_5_5
+
+  def classify_support_request(client, ticket_contents)
     # Define the prompt for the classification task
-    classification_prompt = f"""You will be acting as a customer support ticket classification system.
-        ...
-        ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
-        """
+    classification_prompt = <<~PROMPT
+      You will be acting as a customer support ticket classification system.
+      […]
+      ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+    PROMPT
     # Send the prompt to the API to classify the support request.
     message = client.messages.create(
-        model=DEFAULT_MODEL,
-        max_tokens=2048,
-        output_config={"effort": "low"},
-        messages=[{"role": "user", "content": classification_prompt}],
-        stream=False,
+      model: DEFAULT_MODEL,
+      max_tokens: 2048,
+      output_config: { effort: "low" },
+      messages: [{ role: "user", content: classification_prompt }]
     )
-    reasoning_and_intent = next(
-        (block.text for block in message.content if block.type == "text"), ""
-    )
+    reasoning_and_intent = message.content.grep(Anthropic::Models::TextBlock).first&.text || ""
 
-    # Use Python's regular expressions library to extract `reasoning`.
-    reasoning_match = re.search(
-        r"<reasoning>(.*?)</reasoning>", reasoning_and_intent, re.DOTALL
-    )
-    reasoning = reasoning_match.group(1).strip() if reasoning_match else ""
+    # Use a regular expression to extract `reasoning`.
+    reasoning = reasoning_and_intent[%r{<reasoning>(.*?)</reasoning>}m, 1]&.strip || ""
 
     # Similarly, also extract the `intent`.
-    intent_match = re.search(r"<intent>(.*?)</intent>", reasoning_and_intent, re.DOTALL)
-    intent = intent_match.group(1).strip() if intent_match else ""
+    intent = reasoning_and_intent[%r{<intent>(.*?)</intent>}m, 1]&.strip || ""
 
-    return reasoning, intent
-```
+    [reasoning, intent]
+  end
+  ```
+</CodeGroup>
 
 This code:
 
 * Creates a client instance using your API key.
-* Defines a `classify_support_request` function that takes a `ticket_contents` string.
-* Sends the `ticket_contents` to Claude for classification using the `classification_prompt`.
-* Returns the model's `reasoning` and `intent` extracted from the response.
+* Defines a `classify_support_request` (typescript, go, java, php: `classifySupportRequest`; csharp: `ClassifySupportRequest`) function that takes a `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) string.
+* Sends the `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) to Claude for classification using the `classification_prompt` (typescript, csharp, go, java: `classificationPrompt`; php: `$classificationPrompt`).
+* Returns the model's reasoning and intent extracted from the response.
 
-Because the entire reasoning and intent text must be generated before parsing, the example sets `stream=False` (the default).
+Because the entire reasoning and intent text must be generated before parsing, the example does not stream the response.
 
 ***
 
@@ -395,54 +1039,369 @@ You may need to assess Claude on other axes depending on what factors that are i
 
 To assess this, first modify the script to add a function that compares the predicted intent with the actual intent and calculates the percentage of correct predictions. Then add cost calculation and time measurement functionality.
 
-```python Python
-import re
+<CodeGroup exclude="shell">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the Claude SDK to run it.
+  </CodeGroupItem>
 
-# Create an instance of the Claude API client
-client = anthropic.Anthropic()
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the Claude SDK to run it.
+  </CodeGroupItem>
 
-# Set the default model
-DEFAULT_MODEL = "claude-haiku-5-5"
+  ```python Python
+  import re
+
+  # Create an instance of the Claude API client
+  client = anthropic.Anthropic()
+
+  # Set the default model
+  DEFAULT_MODEL = "claude-haiku-5-5"
 
 
-def classify_support_request(request, actual_intent):
+  def classify_support_request(request, actual_intent):
+      # Define the prompt for the classification task
+      classification_prompt = f"""You will be acting as a customer support ticket classification system.
+          […]
+          ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """
+
+      message = client.messages.create(
+          model=DEFAULT_MODEL,
+          max_tokens=2048,
+          output_config={"effort": "low"},
+          messages=[{"role": "user", "content": classification_prompt}],
+      )
+      usage = message.usage  # Get the usage statistics for the API call for how many input and output tokens were used.
+      reasoning_and_intent = next(
+          (block.text for block in message.content if block.type == "text"), ""
+      )
+
+      # Use Python's regular expressions library to extract `reasoning`.
+      reasoning_match = re.search(
+          r"<reasoning>(.*?)</reasoning>", reasoning_and_intent, re.DOTALL
+      )
+      reasoning = reasoning_match.group(1).strip() if reasoning_match else ""
+
+      # Similarly, also extract the `intent`.
+      intent_match = re.search(r"<intent>(.*?)</intent>", reasoning_and_intent, re.DOTALL)
+      intent = intent_match.group(1).strip() if intent_match else ""
+
+      # Check if the model's prediction is correct.
+      correct = actual_intent.strip() == intent.strip()
+
+      # Return the reasoning, intent, correct, and usage.
+      return reasoning, intent, correct, usage
+  ```
+
+  ```typescript TypeScript
+  // Create an instance of the Claude API client
+  const client = new Anthropic();
+
+  // Set the default model
+  const DEFAULT_MODEL = "claude-haiku-5-5";
+
+  async function classifySupportRequest(
+    request: string,
+    actualIntent: string
+  ): Promise<{ reasoning: string; intent: string; correct: boolean; usage: Anthropic.Usage }> {
+    // Define the prompt for the classification task
+    const classificationPrompt = `You will be acting as a customer support ticket classification system.
+      […]
+      ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      `;
+
+    const message = await client.messages.create({
+      model: DEFAULT_MODEL,
+      max_tokens: 2048,
+      output_config: { effort: "low" },
+      messages: [{ role: "user", content: classificationPrompt }]
+    });
+    // Get the usage statistics for the API call for how many input and output tokens were used.
+    const usage = message.usage;
+    const textBlock = message.content.find(
+      (block): block is Anthropic.TextBlock => block.type === "text"
+    );
+    const reasoningAndIntent = textBlock?.text ?? "";
+
+    // Use a regular expression to extract `reasoning`.
+    const reasoningMatch = /<reasoning>(.*?)<\/reasoning>/s.exec(reasoningAndIntent);
+    const reasoning = reasoningMatch?.[1].trim() ?? "";
+
+    // Similarly, also extract the `intent`.
+    const intentMatch = /<intent>(.*?)<\/intent>/s.exec(reasoningAndIntent);
+    const intent = intentMatch?.[1].trim() ?? "";
+
+    // Check if the model's prediction is correct.
+    const correct = actualIntent.trim() === intent.trim();
+
+    // Return the reasoning, intent, correct, and usage.
+    return { reasoning, intent, correct, usage };
+  }
+  ```
+
+  ```csharp C#
+  using System.Text.RegularExpressions;
+  // ...
+
+  // Create an instance of the Claude API client
+  AnthropicClient client = new();
+
+  // Set the default model
+  const Model DefaultModel = Model.ClaudeHaiku5_5;
+
+  async Task<(string Reasoning, string Intent, bool Correct, Usage Usage)> ClassifySupportRequest(string request, string actualIntent)
+  {
+      // Define the prompt for the classification task
+      var classificationPrompt = """
+          You will be acting as a customer support ticket classification system.
+          […]
+          ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """;
+
+      var message = await client.Messages.Create(new MessageCreateParams
+      {
+          Model = DefaultModel,
+          MaxTokens = 2048,
+          OutputConfig = new OutputConfig { Effort = Effort.Low },
+          Messages = [new() { Role = Role.User, Content = classificationPrompt }],
+      });
+      // Get the usage statistics for the API call for how many input and output tokens were used.
+      var usage = message.Usage;
+      var reasoningAndIntent = "";
+      foreach (var block in message.Content)
+      {
+          if (block.TryPickText(out var textBlock))
+          {
+              reasoningAndIntent = textBlock.Text;
+              break;
+          }
+      }
+
+      // Use a regular expression to extract `reasoning`.
+      var reasoningMatch = Regex.Match(reasoningAndIntent, "<reasoning>(.*?)</reasoning>", RegexOptions.Singleline);
+      var reasoning = reasoningMatch.Success ? reasoningMatch.Groups[1].Value.Trim() : "";
+
+      // Similarly, also extract the `intent`.
+      var intentMatch = Regex.Match(reasoningAndIntent, "<intent>(.*?)</intent>", RegexOptions.Singleline);
+      var intent = intentMatch.Success ? intentMatch.Groups[1].Value.Trim() : "";
+
+      // Check if the model's prediction is correct.
+      var correct = actualIntent.Trim() == intent.Trim();
+
+      // Return the reasoning, intent, correct, and usage.
+      return (reasoning, intent, correct, usage);
+  }
+  ```
+
+  ```go Go
+  import (
+  	"context"
+  	"regexp"
+  	"strings"
+  // ...
+  )
+
+  // Create an instance of the Claude API client
+  var client = anthropic.NewClient()
+
+  // Set the default model
+  const defaultModel = anthropic.ModelClaudeHaiku5_5
+
+  func classifySupportRequest(ctx context.Context, request, actualIntent string) (reasoning, intent string, correct bool, usage anthropic.Usage, err error) {
+  	// Define the prompt for the classification task
+  	classificationPrompt := `You will be acting as a customer support ticket classification system.
+  		[…]
+  		...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+  		`
+  	message, err := client.Messages.New(ctx, anthropic.MessageNewParams{
+  		Model:        defaultModel,
+  		MaxTokens:    2048,
+  		OutputConfig: anthropic.OutputConfigParam{Effort: anthropic.OutputConfigEffortLow},
+  		Messages: []anthropic.MessageParam{
+  			anthropic.NewUserMessage(anthropic.NewTextBlock(classificationPrompt)),
+  		},
+  	})
+  	if err != nil {
+  		return "", "", false, anthropic.Usage{}, err
+  	}
+  	// Get the usage statistics for the API call for how many input and output tokens were used.
+  	usage = message.Usage
+  	var reasoningAndIntent string
+  	for _, block := range message.Content {
+  		if textBlock, ok := block.AsAny().(anthropic.TextBlock); ok {
+  			reasoningAndIntent = textBlock.Text
+  			break
+  		}
+  	}
+
+  	// Use a regular expression to extract `reasoning`.
+  	reasoningMatch := regexp.MustCompile(`(?s)<reasoning>(.*?)</reasoning>`).FindStringSubmatch(reasoningAndIntent)
+  	if reasoningMatch != nil {
+  		reasoning = strings.TrimSpace(reasoningMatch[1])
+  	}
+
+  	// Similarly, also extract the `intent`.
+  	intentMatch := regexp.MustCompile(`(?s)<intent>(.*?)</intent>`).FindStringSubmatch(reasoningAndIntent)
+  	if intentMatch != nil {
+  		intent = strings.TrimSpace(intentMatch[1])
+  	}
+
+  	// Check if the model's prediction is correct.
+  	correct = strings.TrimSpace(actualIntent) == strings.TrimSpace(intent)
+
+  	// Return the reasoning, intent, correct, and usage.
+  	return reasoning, intent, correct, usage, nil
+  }
+  ```
+
+  ```java Java
+  import java.util.regex.Matcher;
+  import java.util.regex.Pattern;
+
+  // Create an instance of the Claude API client
+  final AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  // Set the default model
+  static final Model DEFAULT_MODEL = Model.CLAUDE_HAIKU_5_5;
+
+  record Classification(String reasoning, String intent, boolean correct, Usage usage) {}
+
+  Classification classifySupportRequest(String request, String actualIntent) {
+      // Define the prompt for the classification task
+      String classificationPrompt = """
+          You will be acting as a customer support ticket classification system.
+          […]
+          ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          """;
+
+      Message message = client.messages().create(MessageCreateParams.builder()
+          .model(DEFAULT_MODEL)
+          .maxTokens(2048L)
+          .outputConfig(OutputConfig.builder().effort(OutputConfig.Effort.LOW).build())
+          .addUserMessage(classificationPrompt)
+          .build());
+      // Get the usage statistics for the API call for how many input and output tokens were used.
+      Usage usage = message.usage();
+      String reasoningAndIntent = message.content().stream()
+          .flatMap(block -> block.text().stream())
+          .map(textBlock -> textBlock.text())
+          .findFirst()
+          .orElse("");
+
+      // Use a regular expression to extract `reasoning`.
+      Matcher reasoningMatch = Pattern.compile("<reasoning>(.*?)</reasoning>", Pattern.DOTALL)
+          .matcher(reasoningAndIntent);
+      String reasoning = reasoningMatch.find() ? reasoningMatch.group(1).strip() : "";
+
+      // Similarly, also extract the `intent`.
+      Matcher intentMatch = Pattern.compile("<intent>(.*?)</intent>", Pattern.DOTALL)
+          .matcher(reasoningAndIntent);
+      String intent = intentMatch.find() ? intentMatch.group(1).strip() : "";
+
+      // Check if the model's prediction is correct.
+      boolean correct = actualIntent.strip().equals(intent.strip());
+
+      // Return the reasoning, intent, correct, and usage.
+      return new Classification(reasoning, intent, correct, usage);
+  }
+  ```
+
+  ```php PHP
+  // Create an instance of the Claude API client
+  $client = new Client();
+
+  // Set the default model
+  const DEFAULT_MODEL = Model::CLAUDE_HAIKU_5_5;
+
+  /**
+   * @return array{string, string, bool, Usage} the reasoning, the intent, whether the intent is correct, and the usage
+   */
+  function classifySupportRequest(Client $client, string $request, string $actualIntent): array
+  {
+      // Define the prompt for the classification task
+      $classificationPrompt = <<<PROMPT
+          You will be acting as a customer support ticket classification system.
+          […]
+          ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          PROMPT;
+
+      $message = $client->messages->create(
+          model: DEFAULT_MODEL,
+          maxTokens: 2048,
+          outputConfig: ['effort' => 'low'],
+          messages: [['role' => 'user', 'content' => $classificationPrompt]],
+      );
+      // Get the usage statistics for the API call for how many input and output tokens were used.
+      $usage = $message->usage;
+      $reasoningAndIntent = '';
+      foreach ($message->content as $block) {
+          if ($block instanceof \Anthropic\Messages\TextBlock) {
+              $reasoningAndIntent = $block->text;
+              break;
+          }
+      }
+
+      // Use a regular expression to extract `reasoning`.
+      $reasoning = preg_match('/<reasoning>(.*?)<\/reasoning>/s', $reasoningAndIntent, $reasoningMatch)
+          ? trim($reasoningMatch[1])
+          : '';
+
+      // Similarly, also extract the `intent`.
+      $intent = preg_match('/<intent>(.*?)<\/intent>/s', $reasoningAndIntent, $intentMatch)
+          ? trim($intentMatch[1])
+          : '';
+
+      // Check if the model's prediction is correct.
+      $correct = trim($actualIntent) === trim($intent);
+
+      // Return the reasoning, intent, correct, and usage.
+      return [$reasoning, $intent, $correct, $usage];
+  }
+  ```
+
+  ```ruby Ruby
+  # Create an instance of the Claude API client
+  client = Anthropic::Client.new
+
+  # Set the default model
+  DEFAULT_MODEL = Anthropic::Model::CLAUDE_HAIKU_5_5
+
+  def classify_support_request(client, request, actual_intent)
     # Define the prompt for the classification task
-    classification_prompt = f"""You will be acting as a customer support ticket classification system.
-        ...
-        ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
-        """
+    classification_prompt = <<~PROMPT
+      You will be acting as a customer support ticket classification system.
+      […]
+      ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+    PROMPT
 
     message = client.messages.create(
-        model=DEFAULT_MODEL,
-        max_tokens=2048,
-        output_config={"effort": "low"},
-        messages=[{"role": "user", "content": classification_prompt}],
+      model: DEFAULT_MODEL,
+      max_tokens: 2048,
+      output_config: { effort: "low" },
+      messages: [{ role: "user", content: classification_prompt }]
     )
-    usage = message.usage  # Get the usage statistics for the API call for how many input and output tokens were used.
-    reasoning_and_intent = next(
-        (block.text for block in message.content if block.type == "text"), ""
-    )
+    # Get the usage statistics for the API call for how many input and output tokens were used.
+    usage = message.usage
+    reasoning_and_intent = message.content.grep(Anthropic::Models::TextBlock).first&.text || ""
 
-    # Use Python's regular expressions library to extract `reasoning`.
-    reasoning_match = re.search(
-        r"<reasoning>(.*?)</reasoning>", reasoning_and_intent, re.DOTALL
-    )
-    reasoning = reasoning_match.group(1).strip() if reasoning_match else ""
+    # Use a regular expression to extract `reasoning`.
+    reasoning = reasoning_and_intent[%r{<reasoning>(.*?)</reasoning>}m, 1]&.strip || ""
 
     # Similarly, also extract the `intent`.
-    intent_match = re.search(r"<intent>(.*?)</intent>", reasoning_and_intent, re.DOTALL)
-    intent = intent_match.group(1).strip() if intent_match else ""
+    intent = reasoning_and_intent[%r{<intent>(.*?)</intent>}m, 1]&.strip || ""
 
     # Check if the model's prediction is correct.
-    correct = actual_intent.strip() == intent.strip()
+    correct = actual_intent.strip == intent.strip
 
     # Return the reasoning, intent, correct, and usage.
-    return reasoning, intent, correct, usage
-```
+    [reasoning, intent, correct, usage]
+  end
+  ```
+</CodeGroup>
 
 Here is a breakdown of the edits:
 
-* The `classify_support_request` method now takes the `actual_intent` from the test cases and compares it against Claude’s intent classification to assess whether they match.
+* The `classify_support_request` (typescript, go, java, php: `classifySupportRequest`; csharp: `ClassifySupportRequest`) method now takes the `actual_intent` (typescript, csharp, go, java: `actualIntent`; php: `$actualIntent`) from the test cases and compares it against Claude’s intent classification to assess whether they match.
 * The method extracts usage statistics for the API call to calculate cost based on input and output tokens used.
 
 ### Run your evaluation

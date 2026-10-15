@@ -129,19 +129,17 @@ Use the PowerPoint Skill to create a presentation about renewable energy. Specif
       -H "content-type: application/json" \
       -H "x-api-key: $ANTHROPIC_API_KEY" \
       -H "anthropic-version: 2023-06-01" \
-      -d @- <<'EOF'
-  {
-    "model": "claude-opus-5-5",
-    "max_tokens": 16000,
-    "container": {
-      "skills": [{"type": "anthropic", "skill_id": "pptx", "version": "latest"}]
-    },
-    "messages": [
-      {"role": "user", "content": "Create a presentation about renewable energy with 5 slides"}
-    ],
-    "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
-  }
-  EOF
+      -d '{
+        "model": "claude-opus-5-5",
+        "max_tokens": 16000,
+        "container": {
+          "skills": [{"type": "anthropic", "skill_id": "pptx", "version": "latest"}]
+        },
+        "messages": [
+          {"role": "user", "content": "Create a presentation about renewable energy with 5 slides"}
+        ],
+        "tools": [{"type": "code_execution_20260521", "name": "code_execution"}]
+      }'
   )
   ```
 

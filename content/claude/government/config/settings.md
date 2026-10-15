@@ -136,9 +136,9 @@ Shows a banner on Claude Desktop's home screen inviting members to [import their
 
 ### Product availability
 
-A group of separate switches that control which Claude products and features are available to members. Each switch appears as its own row: **Claude Desktop**, **Chat in Claude Desktop**, **Advanced file analysis in Chat**, **Cowork in Claude Desktop**, **Code in Claude Desktop**, **Claude Code**, and **Claude for Microsoft 365**. These switches are on by default, except for **Claude Code** and **Claude for Microsoft 365**.
+A group of separate switches that control which Claude products and features are available to members. Each switch appears as its own row: **Claude Desktop**, **Chat in Claude Desktop**, **Advanced file analysis in Chat**, **Cowork in Claude Desktop**, **Code in Claude Desktop**, **Scheduled tasks**, **Claude Code**, and **Claude for Microsoft 365**. These switches are on by default, except for **Claude Code** and **Claude for Microsoft 365**.
 
-Turning off **Claude Code** or **Claude for Microsoft 365** stops the members the setting applies to from using that application. Turning off **Claude Desktop** stops the app from receiving your organization's settings. These switches turn applications off, not accounts, and are not a security boundary: to cut one member off from everything at once, deactivate their account (see [Deactivated users](/docs/government/org-admin/users#deactivated-users)). Turning off one of the other four switches removes that feature from Claude Desktop, as described below.
+Turning off **Claude Code** or **Claude for Microsoft 365** stops the members the setting applies to from using that application. Turning off **Claude Desktop** stops the app from receiving your organization's settings. These switches turn applications off, not accounts, and are not a security boundary: to cut one member off from everything at once, deactivate their account (see [Deactivated users](/docs/government/org-admin/users#deactivated-users)). Turning off any of the other switches removes that feature from Claude Desktop, as described below.
 
 The **Chat in Claude Desktop**, **Cowork in Claude Desktop**, and **Code in Claude Desktop** switches each make one part of the app available to members. Chat is for simple conversations, Cowork is for longer tasks that Claude works through on its own in a local workspace folder, and Code is for software development. The **Claude Code** switch is separate and applies to the standalone Claude Code command-line tool. To set up Claude Code on agency devices, see [Connect Claude Code to Claude for Government](/docs/government/deploy-claude-code/configure).
 
@@ -156,6 +156,12 @@ The **Claude Desktop home** setting chooses what members see in Claude Desktop. 
   **Claude Desktop home** needs Claude Desktop 1.52386.0 or later. Earlier versions ignore it and follow the switches.
 </Note>
 
+The **Scheduled tasks** switch controls whether members can set up tasks that Claude runs on a schedule. With it off, Claude Desktop hides the pages for them, Claude cannot schedule anything in the app, and tasks members already set up are kept but do not run.
+
+<Note>
+  **Scheduled tasks** needs Claude Desktop 2.110.0 or later. Earlier versions ignore it.
+</Note>
+
 ### Claude Code
 
 The **Claude Code** section of the **Config** page holds your organization's settings for Claude Code. Claude for Government delivers them to the command-line tool after a member signs in, and in Claude Desktop 2.9939.2 or later they can also reach Code sessions. While Claude Code is in [early access](/docs/government/deploy-claude-code/configure), the section appears once your agency has access.
@@ -170,7 +176,7 @@ The **Claude Code** section of the **Config** page holds your organization's set
 * **Opening from the browser**: whether links in web pages and editors can open Claude Code with a prompt filled in. **Blocked** by default.
 * **Shell command sandbox**: whether members' shell commands run inside Claude Code's sandbox. The default, **Claude Code default**, leaves that to Claude Code's own settings. **Off** runs the commands without the sandbox, for workspaces where it cannot start, such as containers.
 
-Related controls sit outside this section. Under [Tool and connector cards](#tool-and-connector-cards), the **Shell commands**, **Web fetch**, and **Web search** cards turn a whole tool off for Claude Code or make it ask every time. The **Member-added connectors** setting on the **Connectors** card sets which other connectors members can use in Claude Code, beyond web search and the ones you add there: **None** (the default), **Only these**, or **Any connector**. In Claude Desktop 2.2553.0 or later it also governs connectors delivered inside plugins: a remote one connects under **Any connector** or when its address is listed under **Only these**, and a local MCP server does not start under **None** or **Only these**. [Bypass-permissions mode and Auto mode](#bypass-permissions-mode-and-auto-mode) apply to Claude Code as described there.
+Related controls sit outside this section. Under [Tool and connector cards](#tool-and-connector-cards), the **Shell commands**, **Web fetch**, and **Web search** cards turn a whole tool off for Claude Code or make it ask every time. The **Member-added connectors** setting on the **Connectors** card sets which other connectors members can use in Claude Code, beyond web search and the ones you add there: **None** (the default), **Only these**, or **Any connector**. In Claude Desktop 2.2553.0 or later it also governs connectors delivered inside plugins: a remote one connects under **Any connector** or when its address is listed under **Only these**, and a local MCP server does not start under **None** or **Only these**. [Bypass-permissions mode and Auto mode](#bypass-permissions-mode-and-auto-mode) apply to Claude Code as described there. Under [Product availability](#product-availability), **Scheduled tasks** also turns off scheduling in Claude Code, such as `/loop`.
 
 Connectors you add on the **Connectors** card reach the Claude Code command-line tool when you tick **Claude Code** under **Apply to**, as [Connectors](/docs/government/connectors/overview) describes.
 

@@ -46,20 +46,18 @@ The following example enables the toolset and disables `web_fetch`:
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "name": "Coding Assistant",
-    "model": "claude-opus-5-5",
-    "tools": [
-      {
-        "type": "agent_toolset_20260401",
-        "configs": [
-          {"name": "web_fetch", "enabled": false}
-        ]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "name": "Coding Assistant",
+      "model": "claude-opus-5-5",
+      "tools": [
+        {
+          "type": "agent_toolset_20260401",
+          "configs": [
+            {"name": "web_fetch", "enabled": false}
+          ]
+        }
+      ]
+    }'
   )
   ```
 
@@ -261,29 +259,27 @@ The following example creates an agent with the built-in toolset and one custom 
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "name": "Weather Agent",
-    "model": "claude-opus-5-5",
-    "tools": [
-      {
-        "type": "agent_toolset_20260401"
-      },
-      {
-        "type": "custom",
-        "name": "get_weather",
-        "description": "Get current weather for a location",
-        "input_schema": {
-          "type": "object",
-          "properties": {
-            "location": {"type": "string", "description": "City name"}
-          },
-          "required": ["location"]
+    -d '{
+      "name": "Weather Agent",
+      "model": "claude-opus-5-5",
+      "tools": [
+        {
+          "type": "agent_toolset_20260401"
+        },
+        {
+          "type": "custom",
+          "name": "get_weather",
+          "description": "Get current weather for a location",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "location": {"type": "string", "description": "City name"}
+            },
+            "required": ["location"]
+          }
         }
-      }
-    ]
-  }
-  EOF
+      ]
+    }'
   )
   ```
 

@@ -40,19 +40,17 @@ The session must be `idle` to update the agent. To update the agent while the se
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": {
-      "tools": [
-        {"type": "agent_toolset_20260401"},
-        {"type": "mcp_toolset", "mcp_server_name": "linear"}
-      ],
-      "mcp_servers": [
-        {"type": "url", "name": "linear", "url": "https://mcp.linear.app/sse"}
-      ]
-    }
-  }
-  EOF
+    -d '{
+      "agent": {
+        "tools": [
+          {"type": "agent_toolset_20260401"},
+          {"type": "mcp_toolset", "mcp_server_name": "linear"}
+        ],
+        "mcp_servers": [
+          {"type": "url", "name": "linear", "url": "https://mcp.linear.app/sse"}
+        ]
+      }
+    }'
   ```
 
   ```bash CLI

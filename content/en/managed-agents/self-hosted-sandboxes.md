@@ -10,13 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
 ---
 
-By default, Managed Agents executes tools and code inside [Anthropic-managed cloud sandboxes](https://platform.claude.com/docs/en/managed-agents/cloud-sandboxes-reference). Self-hosted sandboxes keep the orchestration on Anthropic's side but move tool execution into infrastructure you control. The agent's files, processes, and network traffic stay in your environment.
-
-Self-hosting is a good fit when the agent needs to:
-
-* Operate on data that cannot leave your network boundary
-* Reach internal services that are not publicly routable
-* Run under your organization's own compliance and audit controls
+Self-hosted sandboxes move the agent's tool execution from Anthropic-managed cloud sandboxes into infrastructure you control, while Anthropic keeps running the agent. To learn what that means and decide whether it fits your agent, see [Choosing an agent environment](https://platform.claude.com/docs/en/managed-agents/choosing-an-environment).
 
 ## How it works
 
@@ -313,12 +307,10 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
         -H "anthropic-version: 2023-06-01" \
         -H "anthropic-beta: managed-agents-2026-04-01" \
         -H "content-type: application/json" \
-        -d @- <<EOF | jq -er '.id'
-      {
-        "agent": "$AGENT_ID",
-        "environment_id": "$ANTHROPIC_ENVIRONMENT_ID"
-      }
-      EOF
+        -d '{
+          "agent": "'"$AGENT_ID"'",
+          "environment_id": "'"$ANTHROPIC_ENVIRONMENT_ID"'"
+        }' | jq -er '.id'
       )
 
       curl -sS --fail-with-body "https://api.anthropic.com/v1/sessions/$SESSION_ID/events" \
@@ -326,21 +318,19 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
         -H "anthropic-version: 2023-06-01" \
         -H "anthropic-beta: managed-agents-2026-04-01" \
         -H "content-type: application/json" \
-        -d @- <<'EOF'
-      {
-        "events": [
-          {
-            "type": "user.message",
-            "content": [
-              {
-                "type": "text",
-                "text": "Write the output of \"uname -a\" to hello.txt in your working directory."
-              }
-            ]
-          }
-        ]
-      }
-      EOF
+        -d '{
+          "events": [
+            {
+              "type": "user.message",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Write the output of \"uname -a\" to hello.txt in your working directory."
+                }
+              ]
+            }
+          ]
+        }'
       ```
 
       ```bash CLI
@@ -520,19 +510,7 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
   </Step>
 </Steps>
 
-## How it differs from cloud environments
-
-|                               | Cloud environment                      | Self-hosted sandbox                                   |
-| ----------------------------- | -------------------------------------- | ----------------------------------------------------- |
-| Where tools run               | Anthropic-managed sandboxes            | Your infrastructure                                   |
-| Network reach                 | Anthropic's egress controls            | Your network policy                                   |
-| File and GitHub repo mounting | Managed by Anthropic                   | Managed by you                                        |
-| Memory stores                 | Mounted by Anthropic at `/mnt/memory/` | Downloaded to `/mnt/memory/` and synced by the worker |
-| Lifecycle                     | Managed by Anthropic                   | Managed by you                                        |
-
-For Zero Data Retention and HIPAA BAA eligibility, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility).
-
-### Session resources
+## Session resources
 
 Self-hosted sandboxes support `memory_store` resources only. A session on a self-hosted environment that includes a `file` or `github_repository` resource is rejected with a 400 error:
 
@@ -546,7 +524,7 @@ Environment env_... is a self-hosted environment. `resources` are not supported 
 
 Self-hosting controls *where the agent's code executes*. [MCP tunnels](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview) control *how Anthropic reaches MCP servers in your network*. The two are independent:
 
-* A session in Anthropic's cloud sandboxes can reach private MCP servers through a tunnel.
+* A session in Anthropic's cloud sandboxes can reach private MCP servers through a tunnel. For example, a private MCP server might sit in front of a database or an internal API behind your firewall.
 * A self-hosted session can use either tunneled or public MCP servers.
 
 Use both when you want execution and tool access to stay inside your boundary. To skip the tunnel, [wrap the MCP server as custom tools](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-custom-tools#wrap-an-mcp-server-as-custom-tools) that your worker serves.

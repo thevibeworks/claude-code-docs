@@ -93,7 +93,7 @@ While memory support is enabled, a work item that arrives without a `secret` (cs
 
 For example, to sync every 10 seconds and only log the deletes the worker would have made:
 
-<CodeGroup exclude="shell">
+<CodeGroup exclude="shell, csharp, java, php, ruby">
   ```python Python
   worker = EnvironmentWorker(
       client,
@@ -116,9 +116,9 @@ For example, to sync every 10 seconds and only log the deletes the worker would 
   });
   ```
 
-  ```csharp C#
-  // EnvironmentWorker is not currently available in the C# SDK.
-  ```
+  <CodeGroupItem language="C#">
+    The C# SDK does not have `EnvironmentWorker`.
+  </CodeGroupItem>
 
   ```go Go
   worker := environments.NewEnvironmentWorker(client, environments.EnvironmentWorkerOptions{
@@ -130,17 +130,17 @@ For example, to sync every 10 seconds and only log the deletes the worker would 
   })
   ```
 
-  ```java Java
-  // EnvironmentWorker is not currently available in the Java SDK.
-  ```
+  <CodeGroupItem language="Java">
+    The Java SDK does not have `EnvironmentWorker`.
+  </CodeGroupItem>
 
-  ```php PHP
-  // EnvironmentWorker is not currently available in the PHP SDK.
-  ```
+  <CodeGroupItem language="PHP">
+    The PHP SDK does not have `EnvironmentWorker`.
+  </CodeGroupItem>
 
-  ```ruby Ruby
-  # EnvironmentWorker is not currently available in the Ruby SDK.
-  ```
+  <CodeGroupItem language="Ruby">
+    The Ruby SDK does not have `EnvironmentWorker`.
+  </CodeGroupItem>
 </CodeGroup>
 
 ## Read-only stores and conflicts

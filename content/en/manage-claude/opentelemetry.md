@@ -19,7 +19,13 @@ OpenTelemetry is a vendor-neutral standard that most observability platforms sup
 
 ## Get started
 
-You can set up SDK tracing, API tracing, or both. Set up both to see a request's SDK and API spans in one trace, as in the [example traces](https://platform.claude.com/docs/en/manage-claude/opentelemetry#example-traces-and-how-to-read-them). For requests to Claude Platform on AWS, the API spans are in their own traces instead.
+You can set up SDK tracing, API tracing, or both. Set up both to see a request's SDK and API spans in one trace, as in the [example traces](https://platform.claude.com/docs/en/manage-claude/opentelemetry#example-traces-and-how-to-read-them).
+
+Let Claude Code set up this feature for you
+
+```text
+Set up OpenTelemetry tracing with the Claude API and Claude SDK
+```
 
 <CardGroup cols={3}>
   <Card title="Set up SDK tracing" icon="code-brackets" href="https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk" layout="horizontal">

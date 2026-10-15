@@ -81,7 +81,11 @@ Documentation for each method, request parameter, and response field is availabl
 You can see the exact usage for a given request through the `usage` response property, for example:
 
 ```typescript
-const message = await client.messages.create(/* ... */);
+const message = await client.messages.create({
+  max_tokens: 1024,
+  messages: [{ role: "user", content: "Hello, Claude" }],
+  model: "claude-opus-5-5"
+});
 console.log(message.usage);
 // { input_tokens: 25, output_tokens: 13 }
 ```

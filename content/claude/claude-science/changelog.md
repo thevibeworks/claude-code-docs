@@ -6,6 +6,14 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.63" description="October 14, 2026">
+  * Tabs in the right pane are now all one width, and the tab you're viewing always shows its close button
+  * Newly saved artifacts now list more of their input files in Provenance when the code that created them read many files
+  * Linux: Claude Science now detects an NVIDIA GPU only if `nvidia-smi` can run without your `LD_LIBRARY_PATH` and is in `/usr/bin` or one of a few other fixed folders (`/usr/local/bin` isn't one). Otherwise the app finds no GPU, and the **Host GPU** switch in **Settings > Compute** is hidden unless it's already on
+  * Linux: a uv, conda, mamba, or pixi environment in a folder you've granted is now read-only to Claude when its files are shared with the tool's package cache (the usual case). Claude can still run code from it but can't add, update, or remove packages in it. The rest of the folder usually stays writable
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.62" description="October 13, 2026">
   * Linux: if Claude Science won't start after updating to 0.1.61, run `claude-science update` in a terminal to get 0.1.62 or later, then start it again. If it's still running and the "Update available" notice shows "restart aborted", select "Check for updates" in **Settings > General > About** so it finds the newer version, then "Restart to update"
   * Linux: Claude Science starts again when bubblewrap or socat comes from conda, Homebrew, or a folder in your home directory. 0.1.61's requirement that both be installed for the whole system is withdrawn for now, though installing them that way is still recommended

@@ -6,7 +6,7 @@
 
 > Install Claude Science on macOS, Windows, or Linux, sign in with your Claude account, and run your first analysis.
 
-Install Claude Science on your computer, sign in with your Claude account, and run your first analysis. You need a Claude Pro, Max, Team, or Enterprise plan, and on Team and Enterprise plans an Owner must [turn Claude Science on](/docs/claude-science/enable-claude-science) first. For what each plan includes and how usage works, see [Plans and usage](/docs/claude-science/overview#plans-and-usage).
+Install Claude Science on your computer, sign in with your Claude account, and run your first analysis. You need a Claude Pro, Max, Team, or Enterprise plan. The [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists) has Claude Science on by default. On other Team and Enterprise plans, an Owner must [turn Claude Science on](/docs/claude-science/enable-claude-science) first. For what each plan includes and how usage works, see [Plans and usage](/docs/claude-science/overview#plans-and-usage).
 
 ## Install
 

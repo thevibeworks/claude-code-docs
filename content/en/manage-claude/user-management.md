@@ -47,13 +47,104 @@ Custom roles and their group attachments are managed in [claude.ai organization 
 
 ## Quick start
 
+Set the `ANTHROPIC_API_KEY` environment variable to your Admin API key. The examples on this page read the key from it. The SDK and the `ant` CLI send the `x-api-key` and `anthropic-version` headers for you.
+
 List the organization's members, newest first:
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/users?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/users?limit=20" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant organization:users list --limit 20
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  users = client.organization.users.list(limit=20)
+
+  for user in users:
+      print(f"{user.id}: {user.email} ({user.role})")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const users = await client.organization.users.list({ limit: 20 });
+
+  for await (const user of users) {
+    console.log(`${user.id}: ${user.email} (${user.role})`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var page = await client.Organization.Users.List(new() { Limit = 20 });
+
+  await foreach (var user in page.Paginate())
+  {
+      Console.WriteLine($"{user.ID}: {user.Email} ({user.Role.Raw()})");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  users := client.Organization.Users.ListAutoPaging(context.Background(), anthropic.OrganizationUserListParams{
+  	Limit: anthropic.Int(20),
+  })
+
+  for users.Next() {
+  	user := users.Current()
+  	fmt.Printf("%s: %s (%s)\n", user.ID, user.Email, user.Role)
+  }
+  if err := users.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.organization.users.UserListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = UserListParams.builder()
+          .limit(20)
+          .build();
+      var users = client.organization().users().list(params);
+
+      for (var user : users.autoPager()) {
+          IO.println(user.id() + ": " + user.email() + " (" + user.role().asString() + ")");
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $users = $client->organization->users->list(limit: 20);
+
+  foreach ($users->pagingEachItem() as $user) {
+      echo "{$user->id}: {$user->email} ({$user->role})\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  users = client.organization.users.list(limit: 20)
+
+  users.auto_paging_each do |user|
+    puts "#{user.id}: #{user.email} (#{user.role})"
+  end
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -111,6 +202,8 @@ Admin API endpoints share a per-organization limit of **100 requests per minute*
 
 Member and invite lists use ID-based pagination: pass `limit` (default 20, max 1000) plus at most one of `before_id` or `after_id`, and page using the `first_id` and `last_id` fields of each response until `has_more` is `false`. Group and custom-role lists use an **opaque cursor** instead: the response's `next_page` value is passed unchanged as the `page` parameter on the next request, until `next_page` is `null`.
 
+When you iterate over the results, the SDK fetches more pages for you, so `limit` sets the page size, not the total. In the CLI, `--limit` sets the total number of results for member and invite lists. For group and role lists, it sets the page size.
+
 ## Error responses
 
 Error responses follow the standard shape documented in [Errors](https://platform.claude.com/docs/en/api/errors).
@@ -123,11 +216,100 @@ Error responses follow the standard shape documented in [Errors](https://platfor
 
 For complete parameter details and response schemas, see [List users](https://platform.claude.com/docs/en/api/organization/users/list) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/users?email=jane@example.com" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/users?email=jane@example.com" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant organization:users list --email jane@example.com
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  users = client.organization.users.list(email="jane@example.com")
+
+  for user in users:
+      print(f"{user.id}: {user.email} ({user.role})")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const users = await client.organization.users.list({ email: "jane@example.com" });
+
+  for await (const user of users) {
+    console.log(`${user.id}: ${user.email} (${user.role})`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var page = await client.Organization.Users.List(new() { Email = "jane@example.com" });
+
+  await foreach (var user in page.Paginate())
+  {
+      Console.WriteLine($"{user.ID}: {user.Email} ({user.Role.Raw()})");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  users := client.Organization.Users.ListAutoPaging(context.Background(), anthropic.OrganizationUserListParams{
+  	Email: anthropic.String("jane@example.com"),
+  })
+
+  for users.Next() {
+  	user := users.Current()
+  	fmt.Printf("%s: %s (%s)\n", user.ID, user.Email, user.Role)
+  }
+  if err := users.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.organization.users.UserListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = UserListParams.builder()
+          .email("jane@example.com")
+          .build();
+      var users = client.organization().users().list(params);
+
+      for (var user : users.autoPager()) {
+          IO.println(user.id() + ": " + user.email() + " (" + user.role().asString() + ")");
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $users = $client->organization->users->list(email: 'jane@example.com');
+
+  foreach ($users->pagingEachItem() as $user) {
+      echo "{$user->id}: {$user->email} ({$user->role})\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  users = client.organization.users.list(email: "jane@example.com")
+
+  users.auto_paging_each do |user|
+    puts "#{user.id}: #{user.email} (#{user.role})"
+  end
+  ```
+</CodeGroup>
 
 ### Get a member
 
@@ -135,11 +317,93 @@ curl "https://api.anthropic.com/v1/organizations/users?email=jane@example.com" \
 
 For complete parameter details and response schemas, see [Get user](https://platform.claude.com/docs/en/api/organization/users/retrieve) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant organization:users retrieve --user-id user_01AbCdEfGhIjKlMnOpQrSt
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  user = client.organization.users.retrieve("user_01AbCdEfGhIjKlMnOpQrSt")
+
+  print(f"id: {user.id}")
+  print(f"email: {user.email}")
+  print(f"role: {user.role}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const user = await client.organization.users.retrieve("user_01AbCdEfGhIjKlMnOpQrSt");
+
+  console.log(`id: ${user.id}`);
+  console.log(`email: ${user.email}`);
+  console.log(`role: ${user.role}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var user = await client.Organization.Users.Retrieve("user_01AbCdEfGhIjKlMnOpQrSt");
+
+  Console.WriteLine($"id: {user.ID}");
+  Console.WriteLine($"email: {user.Email}");
+  Console.WriteLine($"role: {user.Role.Raw()}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  user, err := client.Organization.Users.Get(context.Background(), "user_01AbCdEfGhIjKlMnOpQrSt")
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", user.ID)
+  fmt.Printf("email: %s\n", user.Email)
+  fmt.Printf("role: %s\n", user.Role)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var user = client.organization().users()
+      .retrieve("user_01AbCdEfGhIjKlMnOpQrSt");
+
+  IO.println("id: " + user.id());
+  IO.println("email: " + user.email());
+  IO.println("role: " + user.role().asString());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $user = $client->organization->users->retrieve(
+      userID: 'user_01AbCdEfGhIjKlMnOpQrSt',
+  );
+
+  echo "id: {$user->id}\n";
+  echo "email: {$user->email}\n";
+  echo "role: {$user->role}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  user = client.organization.users.retrieve("user_01AbCdEfGhIjKlMnOpQrSt")
+
+  puts "id: #{user.id}"
+  puts "email: #{user.email}"
+  puts "role: #{user.role}"
+  ```
+</CodeGroup>
 
 ### Change a member's role
 
@@ -147,13 +411,116 @@ curl "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQr
 
 For complete parameter details and response schemas, see [Update user](https://platform.claude.com/docs/en/api/organization/users/update) in the API reference.
 
-```bash cURL
-curl -X POST "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01" \
-  -d '{"role": "managed"}'
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -d '{"role": "managed"}'
+  ```
+
+  ```bash CLI
+  ant organization:users update \
+    --user-id user_01AbCdEfGhIjKlMnOpQrSt \
+    --role managed
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  user = client.organization.users.update("user_01AbCdEfGhIjKlMnOpQrSt", role="managed")
+
+  print(f"id: {user.id}")
+  print(f"role: {user.role}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const user = await client.organization.users.update("user_01AbCdEfGhIjKlMnOpQrSt", {
+    role: "managed"
+  });
+
+  console.log(`id: ${user.id}`);
+  console.log(`role: ${user.role}`);
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Organization.Users;
+  // ...
+
+  AnthropicClient client = new();
+
+  var user = await client.Organization.Users.Update(
+      "user_01AbCdEfGhIjKlMnOpQrSt",
+      new() { Role = Role.Managed }
+  );
+
+  Console.WriteLine($"id: {user.ID}");
+  Console.WriteLine($"role: {user.Role.Raw()}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  user, err := client.Organization.Users.Update(
+  	context.Background(),
+  	"user_01AbCdEfGhIjKlMnOpQrSt",
+  	anthropic.OrganizationUserUpdateParams{
+  		Role: anthropic.OrganizationUserUpdateParamsRoleManaged,
+  	},
+  )
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", user.ID)
+  fmt.Printf("role: %s\n", user.Role)
+  ```
+
+  ```java Java
+  import com.anthropic.models.organization.users.UserUpdateParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = UserUpdateParams.builder()
+          .role(UserUpdateParams.Role.MANAGED)
+          .build();
+      var user = client.organization().users()
+          .update("user_01AbCdEfGhIjKlMnOpQrSt", params);
+
+      IO.println("id: " + user.id());
+      IO.println("role: " + user.role().asString());
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Organization\Users\UserUpdateParams\Role;
+  // ...
+
+  $client = new Client();
+
+  $user = $client->organization->users->update(
+      userID: 'user_01AbCdEfGhIjKlMnOpQrSt',
+      role: Role::MANAGED,
+  );
+
+  echo "id: {$user->id}\n";
+  echo "role: {$user->role}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  user_id = "user_01AbCdEfGhIjKlMnOpQrSt"
+  user = client.organization.users.update(user_id, role: :managed)
+
+  puts "id: #{user.id}"
+  puts "role: #{user.role}"
+  ```
+</CodeGroup>
 
 ### Remove a member
 
@@ -161,11 +528,80 @@ curl -X POST "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIj
 
 For complete parameter details and response schemas, see [Remove user](https://platform.claude.com/docs/en/api/organization/users/remove) in the API reference.
 
-```bash cURL
-curl -X DELETE "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X DELETE "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGhIjKlMnOpQrSt" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant organization:users remove --user-id user_01AbCdEfGhIjKlMnOpQrSt
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  removed_user = client.organization.users.remove("user_01AbCdEfGhIjKlMnOpQrSt")
+
+  print(f"id: {removed_user.id}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const removedUser = await client.organization.users.remove("user_01AbCdEfGhIjKlMnOpQrSt");
+
+  console.log(`id: ${removedUser.id}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var removedUser = await client.Organization.Users.Remove("user_01AbCdEfGhIjKlMnOpQrSt");
+
+  Console.WriteLine($"id: {removedUser.ID}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  removedUser, err := client.Organization.Users.Remove(context.Background(), "user_01AbCdEfGhIjKlMnOpQrSt")
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", removedUser.ID)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var removedUser = client.organization().users()
+      .remove("user_01AbCdEfGhIjKlMnOpQrSt");
+
+  IO.println("id: " + removedUser.id());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $removedUser = $client->organization->users->remove(
+      userID: 'user_01AbCdEfGhIjKlMnOpQrSt',
+  );
+
+  echo "id: {$removedUser->id}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  user_id = "user_01AbCdEfGhIjKlMnOpQrSt"
+  removed_user = client.organization.users.remove(user_id)
+
+  puts "id: #{removed_user.id}"
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -180,23 +616,152 @@ curl -X DELETE "https://api.anthropic.com/v1/organizations/users/user_01AbCdEfGh
 
 `POST /v1/organizations/invites` sends an invitation email and returns the invite with a server-assigned `expires_at`. `role` must be `user` or `managed`. If a pending invite already exists for the email address, or the address already belongs to a member, the request returns 400 naming the existing resource. Organizations whose identity provider provisions users automatically (JIT or SCIM) cannot create invites through the API. Requires the `write:members` scope, plus `write:rbac_groups` when `role` is `managed`.
 
-On plans that draw members from a finite seat pool, the invite automatically takes a seat from the lowest tier that has availability; the API does not take a tier parameter. If no seat is free, the request fails with a 400 error rather than purchasing a seat. Add seats through the organization's plan management and retry.
+On plans that draw members from a finite seat pool, the invite automatically takes a seat from the lowest tier that has availability. The API does not take a tier parameter. If no seat is free, the request fails with a 400 error rather than purchasing a seat. Add seats through the organization's plan management and retry.
 
 The optional `rbac_group_ids` field lists groups (by `rbac_group_`-prefixed ID) to assign to the member when they accept. Passing a non-empty `rbac_group_ids` additionally requires the key to carry the `write:rbac_groups` scope, because group assignment can grant the permissions attached to the group's roles.
 
 For complete parameter details and response schemas, see [Create invite](https://platform.claude.com/docs/en/api/organization/invites/create) in the API reference.
 
-```bash cURL
-curl -X POST "https://api.anthropic.com/v1/organizations/invites" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01" \
-  -d '{
-    "email": "newhire@example.com",
-    "role": "managed",
-    "rbac_group_ids": ["rbac_group_01UvWxYzAbCdEfGhIjKlMn"]
-  }'
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/invites" \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -d '{
+      "email": "newhire@example.com",
+      "role": "managed",
+      "rbac_group_ids": ["rbac_group_01UvWxYzAbCdEfGhIjKlMn"]
+    }'
+  ```
+
+  ```bash CLI
+  ant organization:invites create \
+    --email newhire@example.com \
+    --role managed \
+    --rbac-group-id rbac_group_01UvWxYzAbCdEfGhIjKlMn
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  invite = client.organization.invites.create(
+      email="newhire@example.com",
+      role="managed",
+      rbac_group_ids=["rbac_group_01UvWxYzAbCdEfGhIjKlMn"],
+  )
+
+  print(f"id: {invite.id}")
+  print(f"email: {invite.email}")
+  print(f"status: {invite.status}")
+  print(f"expires_at: {invite.expires_at}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const invite = await client.organization.invites.create({
+    email: "newhire@example.com",
+    role: "managed",
+    rbac_group_ids: ["rbac_group_01UvWxYzAbCdEfGhIjKlMn"]
+  });
+
+  console.log(`id: ${invite.id}`);
+  console.log(`email: ${invite.email}`);
+  console.log(`status: ${invite.status}`);
+  console.log(`expires_at: ${invite.expires_at}`);
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Organization.Invites;
+  // ...
+
+  AnthropicClient client = new();
+
+  var invite = await client.Organization.Invites.Create(new()
+  {
+      Email = "newhire@example.com",
+      Role = Role.Managed,
+      RbacGroupIds = ["rbac_group_01UvWxYzAbCdEfGhIjKlMn"]
+  });
+
+  Console.WriteLine($"id: {invite.ID}");
+  Console.WriteLine($"email: {invite.Email}");
+  Console.WriteLine($"status: {invite.Status.Raw()}");
+  Console.WriteLine($"expires_at: {invite.ExpiresAt:O}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  invite, err := client.Organization.Invites.New(context.Background(), anthropic.OrganizationInviteNewParams{
+  	Email:        "newhire@example.com",
+  	Role:         anthropic.OrganizationInviteNewParamsRoleManaged,
+  	RBACGroupIDs: []string{"rbac_group_01UvWxYzAbCdEfGhIjKlMn"},
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", invite.ID)
+  fmt.Printf("email: %s\n", invite.Email)
+  fmt.Printf("status: %s\n", invite.Status)
+  fmt.Printf("expires_at: %s\n", invite.ExpiresAt.Format(time.RFC3339))
+  ```
+
+  ```java Java
+  import com.anthropic.models.organization.invites.InviteCreateParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = InviteCreateParams.builder()
+          .email("newhire@example.com")
+          .role(InviteCreateParams.Role.MANAGED)
+          .addRbacGroupId("rbac_group_01UvWxYzAbCdEfGhIjKlMn")
+          .build();
+      var invite = client.organization().invites().create(params);
+
+      IO.println("id: " + invite.id());
+      IO.println("email: " + invite.email());
+      IO.println("status: " + invite.status().asString());
+      IO.println("expires_at: " + invite.expiresAt());
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Organization\Invites\InviteCreateParams\Role;
+  // ...
+
+  $client = new Client();
+
+  $invite = $client->organization->invites->create(
+      email: 'newhire@example.com',
+      role: Role::MANAGED,
+      rbacGroupIDs: ['rbac_group_01UvWxYzAbCdEfGhIjKlMn'],
+  );
+
+  echo "id: {$invite->id}\n";
+  echo "email: {$invite->email}\n";
+  echo "status: {$invite->status}\n";
+  echo "expires_at: {$invite->expiresAt->format(DATE_ATOM)}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  invite = client.organization.invites.create(
+    email: "newhire@example.com",
+    role: :managed,
+    rbac_group_ids: ["rbac_group_01UvWxYzAbCdEfGhIjKlMn"]
+  )
+
+  puts "id: #{invite.id}"
+  puts "email: #{invite.email}"
+  puts "status: #{invite.status}"
+  puts "expires_at: #{invite.expires_at.iso8601}"
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -218,11 +783,100 @@ curl -X POST "https://api.anthropic.com/v1/organizations/invites" \
 
 For complete parameter details and response schemas, see [List invites](https://platform.claude.com/docs/en/api/organization/invites/list) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/invites?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/invites?limit=20" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant organization:invites list --limit 20
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  invites = client.organization.invites.list(limit=20)
+
+  for invite in invites:
+      print(f"{invite.id}: {invite.email} ({invite.status})")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const invites = await client.organization.invites.list({ limit: 20 });
+
+  for await (const invite of invites) {
+    console.log(`${invite.id}: ${invite.email} (${invite.status})`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var page = await client.Organization.Invites.List(new() { Limit = 20 });
+
+  await foreach (var invite in page.Paginate())
+  {
+      Console.WriteLine($"{invite.ID}: {invite.Email} ({invite.Status.Raw()})");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  invites := client.Organization.Invites.ListAutoPaging(context.Background(), anthropic.OrganizationInviteListParams{
+  	Limit: anthropic.Int(20),
+  })
+
+  for invites.Next() {
+  	invite := invites.Current()
+  	fmt.Printf("%s: %s (%s)\n", invite.ID, invite.Email, invite.Status)
+  }
+  if err := invites.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.organization.invites.InviteListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = InviteListParams.builder()
+          .limit(20)
+          .build();
+      var invites = client.organization().invites().list(params);
+
+      for (var invite : invites.autoPager()) {
+          IO.println(invite.id() + ": " + invite.email() + " (" + invite.status().asString() + ")");
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $invites = $client->organization->invites->list(limit: 20);
+
+  foreach ($invites->pagingEachItem() as $invite) {
+      echo "{$invite->id}: {$invite->email} ({$invite->status})\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  invites = client.organization.invites.list(limit: 20)
+
+  invites.auto_paging_each do |invite|
+    puts "#{invite.id}: #{invite.email} (#{invite.status})"
+  end
+  ```
+</CodeGroup>
 
 ### Get an invite
 
@@ -230,11 +884,93 @@ curl "https://api.anthropic.com/v1/organizations/invites?limit=20" \
 
 For complete parameter details and response schemas, see [Get invite](https://platform.claude.com/docs/en/api/organization/invites/retrieve) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/invites/invite_01QrStUvWxYzAbCdEfGhIj" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/invites/invite_01QrStUvWxYzAbCdEfGhIj" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant organization:invites retrieve --invite-id invite_01QrStUvWxYzAbCdEfGhIj
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  invite = client.organization.invites.retrieve("invite_01QrStUvWxYzAbCdEfGhIj")
+
+  print(f"id: {invite.id}")
+  print(f"email: {invite.email}")
+  print(f"status: {invite.status}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const invite = await client.organization.invites.retrieve("invite_01QrStUvWxYzAbCdEfGhIj");
+
+  console.log(`id: ${invite.id}`);
+  console.log(`email: ${invite.email}`);
+  console.log(`status: ${invite.status}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var invite = await client.Organization.Invites.Retrieve("invite_01QrStUvWxYzAbCdEfGhIj");
+
+  Console.WriteLine($"id: {invite.ID}");
+  Console.WriteLine($"email: {invite.Email}");
+  Console.WriteLine($"status: {invite.Status.Raw()}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  invite, err := client.Organization.Invites.Get(context.Background(), "invite_01QrStUvWxYzAbCdEfGhIj")
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", invite.ID)
+  fmt.Printf("email: %s\n", invite.Email)
+  fmt.Printf("status: %s\n", invite.Status)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var invite = client.organization().invites()
+      .retrieve("invite_01QrStUvWxYzAbCdEfGhIj");
+
+  IO.println("id: " + invite.id());
+  IO.println("email: " + invite.email());
+  IO.println("status: " + invite.status().asString());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $invite = $client->organization->invites->retrieve(
+      inviteID: 'invite_01QrStUvWxYzAbCdEfGhIj',
+  );
+
+  echo "id: {$invite->id}\n";
+  echo "email: {$invite->email}\n";
+  echo "status: {$invite->status}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  invite = client.organization.invites.retrieve("invite_01QrStUvWxYzAbCdEfGhIj")
+
+  puts "id: #{invite.id}"
+  puts "email: #{invite.email}"
+  puts "status: #{invite.status}"
+  ```
+</CodeGroup>
 
 ### Withdraw an invite
 
@@ -242,11 +978,82 @@ curl "https://api.anthropic.com/v1/organizations/invites/invite_01QrStUvWxYzAbCd
 
 For complete parameter details and response schemas, see [Delete invite](https://platform.claude.com/docs/en/api/organization/invites/delete) in the API reference.
 
-```bash cURL
-curl -X DELETE "https://api.anthropic.com/v1/organizations/invites/invite_01QrStUvWxYzAbCdEfGhIj" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X DELETE "https://api.anthropic.com/v1/organizations/invites/invite_01QrStUvWxYzAbCdEfGhIj" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant organization:invites delete --invite-id invite_01QrStUvWxYzAbCdEfGhIj
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  deleted_invite = client.organization.invites.delete("invite_01QrStUvWxYzAbCdEfGhIj")
+
+  print(f"id: {deleted_invite.id}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const deletedInvite = await client.organization.invites.delete(
+    "invite_01QrStUvWxYzAbCdEfGhIj"
+  );
+
+  console.log(`id: ${deletedInvite.id}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var deletedInvite = await client.Organization.Invites.Delete("invite_01QrStUvWxYzAbCdEfGhIj");
+
+  Console.WriteLine($"id: {deletedInvite.ID}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  deletedInvite, err := client.Organization.Invites.Delete(context.Background(), "invite_01QrStUvWxYzAbCdEfGhIj")
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", deletedInvite.ID)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var deletedInvite = client.organization().invites()
+      .delete("invite_01QrStUvWxYzAbCdEfGhIj");
+
+  IO.println("id: " + deletedInvite.id());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $deletedInvite = $client->organization->invites->delete(
+      inviteID: 'invite_01QrStUvWxYzAbCdEfGhIj',
+  );
+
+  echo "id: {$deletedInvite->id}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  invite_id = "invite_01QrStUvWxYzAbCdEfGhIj"
+  deleted_invite = client.organization.invites.delete(invite_id)
+
+  puts "id: #{deleted_invite.id}"
+  ```
+</CodeGroup>
 
 ## Groups
 
@@ -258,11 +1065,100 @@ Groups your enterprise creates directly, in [claude.ai organization settings](ht
 
 For complete parameter details and response schemas, see [List groups](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/list) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rbac_groups?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rbac_groups?limit=20" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-groups list --limit 20
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  groups = client.beta.organization.rbac_groups.list(limit=20)
+
+  for group in groups:
+      print(f"{group.id}: {group.name} ({group.source_type})")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const groups = await client.beta.organization.rbacGroups.list({ limit: 20 });
+
+  for await (const group of groups) {
+    console.log(`${group.id}: ${group.name} (${group.source_type})`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var page = await client.Beta.Organization.RbacGroups.List(new() { Limit = 20 });
+
+  await foreach (var group in page.Paginate())
+  {
+      Console.WriteLine($"{group.ID}: {group.Name} ({group.SourceType.Raw()})");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  groups := client.Beta.Organization.RBACGroups.ListAutoPaging(context.Background(), anthropic.BetaOrganizationRBACGroupListParams{
+  	Limit: anthropic.Int(20),
+  })
+
+  for groups.Next() {
+  	group := groups.Current()
+  	fmt.Printf("%s: %s (%s)\n", group.ID, group.Name, group.SourceType)
+  }
+  if err := groups.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.rbacgroups.RbacGroupListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = RbacGroupListParams.builder()
+          .limit(20)
+          .build();
+      var groups = client.beta().organization().rbacGroups().list(params);
+
+      for (var group : groups.autoPager()) {
+          IO.println(group.id() + ": " + group.name() + " (" + group.sourceType().asString() + ")");
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $groups = $client->beta->organization->rbacGroups->list(limit: 20);
+
+  foreach ($groups->pagingEachItem() as $group) {
+      echo "{$group->id}: {$group->name} ({$group->sourceType})\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  groups = client.beta.organization.rbac_groups.list(limit: 20)
+
+  groups.auto_paging_each do |group|
+    puts "#{group.id}: #{group.name} (#{group.source_type})"
+  end
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -289,11 +1185,99 @@ curl "https://api.anthropic.com/v1/organizations/rbac_groups?limit=20" \
 
 For complete parameter details and response schemas, see [Get group](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/retrieve) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-groups retrieve \
+    --rbac-group-id rbac_group_01UvWxYzAbCdEfGhIjKlMn
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  group = client.beta.organization.rbac_groups.retrieve(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  )
+
+  print(f"id: {group.id}")
+  print(f"name: {group.name}")
+  print(f"source_type: {group.source_type}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const group = await client.beta.organization.rbacGroups.retrieve(
+    "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  );
+
+  console.log(`id: ${group.id}`);
+  console.log(`name: ${group.name}`);
+  console.log(`source_type: ${group.source_type}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var group = await client.Beta.Organization.RbacGroups.Retrieve("rbac_group_01UvWxYzAbCdEfGhIjKlMn");
+
+  Console.WriteLine($"id: {group.ID}");
+  Console.WriteLine($"name: {group.Name}");
+  Console.WriteLine($"source_type: {group.SourceType.Raw()}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  group, err := client.Beta.Organization.RBACGroups.Get(context.Background(), "rbac_group_01UvWxYzAbCdEfGhIjKlMn")
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", group.ID)
+  fmt.Printf("name: %s\n", group.Name)
+  fmt.Printf("source_type: %s\n", group.SourceType)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var group = client.beta().organization().rbacGroups()
+      .retrieve("rbac_group_01UvWxYzAbCdEfGhIjKlMn");
+
+  IO.println("id: " + group.id());
+  IO.println("name: " + group.name());
+  IO.println("source_type: " + group.sourceType().asString());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $group = $client->beta->organization->rbacGroups->retrieve(
+      rbacGroupID: 'rbac_group_01UvWxYzAbCdEfGhIjKlMn',
+  );
+
+  echo "id: {$group->id}\n";
+  echo "name: {$group->name}\n";
+  echo "source_type: {$group->sourceType}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rbac_group_id = "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  group = client.beta.organization.rbac_groups.retrieve(rbac_group_id)
+
+  puts "id: #{group.id}"
+  puts "name: #{group.name}"
+  puts "source_type: #{group.source_type}"
+  ```
+</CodeGroup>
 
 ### Create a group
 
@@ -301,13 +1285,99 @@ curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYz
 
 For complete parameter details and response schemas, see [Create group](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/create) in the API reference.
 
-```bash cURL
-curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01" \
-  -d '{"name": "Engineering"}'
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups" \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -d '{"name": "Engineering"}'
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-groups create --name Engineering
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  group = client.beta.organization.rbac_groups.create(name="Engineering")
+
+  print(f"id: {group.id}")
+  print(f"name: {group.name}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const group = await client.beta.organization.rbacGroups.create({ name: "Engineering" });
+
+  console.log(`id: ${group.id}`);
+  console.log(`name: ${group.name}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var group = await client.Beta.Organization.RbacGroups.Create(new()
+  {
+      Name = "Engineering"
+  });
+
+  Console.WriteLine($"id: {group.ID}");
+  Console.WriteLine($"name: {group.Name}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  group, err := client.Beta.Organization.RBACGroups.New(context.Background(), anthropic.BetaOrganizationRBACGroupNewParams{
+  	Name: "Engineering",
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", group.ID)
+  fmt.Printf("name: %s\n", group.Name)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.rbacgroups.RbacGroupCreateParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = RbacGroupCreateParams.builder()
+          .name("Engineering")
+          .build();
+      var group = client.beta().organization().rbacGroups().create(params);
+
+      IO.println("id: " + group.id());
+      IO.println("name: " + group.name());
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $group = $client->beta->organization->rbacGroups->create(
+      name: 'Engineering',
+  );
+
+  echo "id: {$group->id}\n";
+  echo "name: {$group->name}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  group = client.beta.organization.rbac_groups.create(name: "Engineering")
+
+  puts "id: #{group.id}"
+  puts "name: #{group.name}"
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -328,13 +1398,113 @@ curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups" \
 
 For complete parameter details and response schemas, see [Update group](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/update) in the API reference.
 
-```bash cURL
-curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01" \
-  -d '{"name": "Platform Engineering"}'
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -d '{"name": "Platform Engineering"}'
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-groups update \
+    --rbac-group-id rbac_group_01UvWxYzAbCdEfGhIjKlMn \
+    --name "Platform Engineering"
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  group = client.beta.organization.rbac_groups.update(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn", name="Platform Engineering"
+  )
+
+  print(f"id: {group.id}")
+  print(f"name: {group.name}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const group = await client.beta.organization.rbacGroups.update(
+    "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+    { name: "Platform Engineering" }
+  );
+
+  console.log(`id: ${group.id}`);
+  console.log(`name: ${group.name}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var group = await client.Beta.Organization.RbacGroups.Update(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+      new() { Name = "Platform Engineering" }
+  );
+
+  Console.WriteLine($"id: {group.ID}");
+  Console.WriteLine($"name: {group.Name}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  group, err := client.Beta.Organization.RBACGroups.Update(
+  	context.Background(),
+  	"rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+  	anthropic.BetaOrganizationRBACGroupUpdateParams{
+  		Name: anthropic.String("Platform Engineering"),
+  	},
+  )
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", group.ID)
+  fmt.Printf("name: %s\n", group.Name)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.rbacgroups.RbacGroupUpdateParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = RbacGroupUpdateParams.builder()
+          .name("Platform Engineering")
+          .build();
+      var group = client.beta().organization().rbacGroups()
+          .update("rbac_group_01UvWxYzAbCdEfGhIjKlMn", params);
+
+      IO.println("id: " + group.id());
+      IO.println("name: " + group.name());
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $group = $client->beta->organization->rbacGroups->update(
+      rbacGroupID: 'rbac_group_01UvWxYzAbCdEfGhIjKlMn',
+      name: 'Platform Engineering',
+  );
+
+  echo "id: {$group->id}\n";
+  echo "name: {$group->name}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rbac_group_id = "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  group = client.beta.organization.rbac_groups.update(rbac_group_id, name: "Platform Engineering")
+
+  puts "id: #{group.id}"
+  puts "name: #{group.name}"
+  ```
+</CodeGroup>
 
 ### Delete a group
 
@@ -342,11 +1512,87 @@ curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_
 
 For complete parameter details and response schemas, see [Delete group](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/delete) in the API reference.
 
-```bash cURL
-curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-groups delete \
+    --rbac-group-id rbac_group_01UvWxYzAbCdEfGhIjKlMn
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  deleted_group = client.beta.organization.rbac_groups.delete(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  )
+
+  print(f"id: {deleted_group.id}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const deletedGroup = await client.beta.organization.rbacGroups.delete(
+    "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  );
+
+  console.log(`id: ${deletedGroup.id}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var deletedGroup = await client.Beta.Organization.RbacGroups.Delete(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  );
+
+  Console.WriteLine($"id: {deletedGroup.ID}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  deletedGroup, err := client.Beta.Organization.RBACGroups.Delete(context.Background(), "rbac_group_01UvWxYzAbCdEfGhIjKlMn")
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", deletedGroup.ID)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var deletedGroup = client.beta().organization().rbacGroups()
+      .delete("rbac_group_01UvWxYzAbCdEfGhIjKlMn");
+
+  IO.println("id: " + deletedGroup.id());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $deletedGroup = $client->beta->organization->rbacGroups->delete(
+      rbacGroupID: 'rbac_group_01UvWxYzAbCdEfGhIjKlMn',
+  );
+
+  echo "id: {$deletedGroup->id}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rbac_group_id = "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  deleted_group = client.beta.organization.rbac_groups.delete(rbac_group_id)
+
+  puts "id: #{deleted_group.id}"
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -361,11 +1607,119 @@ curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_grou
 
 For complete parameter details and response schemas, see [List group members](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/list) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members?limit=100" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members?limit=100" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-groups:members list \
+    --rbac-group-id rbac_group_01UvWxYzAbCdEfGhIjKlMn \
+    --limit 100
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  members = client.beta.organization.rbac_groups.members.list(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn", limit=100
+  )
+
+  for member in members:
+      print(f"{member.user_id}: {member.email}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const members = await client.beta.organization.rbacGroups.members.list(
+    "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+    { limit: 100 }
+  );
+
+  for await (const member of members) {
+    console.log(`${member.user_id}: ${member.email}`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var page = await client.Beta.Organization.RbacGroups.Members.List(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+      new() { Limit = 100 }
+  );
+
+  await foreach (var member in page.Paginate())
+  {
+      Console.WriteLine($"{member.UserID}: {member.Email}");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  members := client.Beta.Organization.RBACGroups.Members.ListAutoPaging(
+  	context.Background(),
+  	"rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+  	anthropic.BetaOrganizationRBACGroupMemberListParams{
+  		Limit: anthropic.Int(100),
+  	},
+  )
+
+  for members.Next() {
+  	member := members.Current()
+  	fmt.Printf("%s: %s\n", member.UserID, member.Email)
+  }
+  if err := members.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.rbacgroups.members.MemberListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = MemberListParams.builder()
+          .limit(100)
+          .build();
+      var members = client.beta().organization().rbacGroups().members()
+          .list("rbac_group_01UvWxYzAbCdEfGhIjKlMn", params);
+
+      for (var member : members.autoPager()) {
+          IO.println(member.userId() + ": " + member.email());
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $members = $client->beta->organization->rbacGroups->members->list(
+      rbacGroupID: 'rbac_group_01UvWxYzAbCdEfGhIjKlMn',
+      limit: 100,
+  );
+
+  foreach ($members->pagingEachItem() as $member) {
+      echo "{$member->userID}: {$member->email}\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rbac_group_id = "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  members = client.beta.organization.rbac_groups.members.list(rbac_group_id, limit: 100)
+
+  members.auto_paging_each do |member|
+    puts "#{member.user_id}: #{member.email}"
+  end
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -390,13 +1744,116 @@ curl "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYz
 
 For complete parameter details and response schemas, see [Add group member](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/add) in the API reference.
 
-```bash cURL
-curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01" \
-  -d '{"user_id": "user_01AbCdEfGhIjKlMnOpQrSt"}'
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members" \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -d '{"user_id": "user_01AbCdEfGhIjKlMnOpQrSt"}'
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-groups:members add \
+    --rbac-group-id rbac_group_01UvWxYzAbCdEfGhIjKlMn \
+    --user-id user_01AbCdEfGhIjKlMnOpQrSt
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  member = client.beta.organization.rbac_groups.members.add(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn", user_id="user_01AbCdEfGhIjKlMnOpQrSt"
+  )
+
+  print(f"user_id: {member.user_id}")
+  print(f"email: {member.email}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const member = await client.beta.organization.rbacGroups.members.add(
+    "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+    { user_id: "user_01AbCdEfGhIjKlMnOpQrSt" }
+  );
+
+  console.log(`user_id: ${member.user_id}`);
+  console.log(`email: ${member.email}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var member = await client.Beta.Organization.RbacGroups.Members.Add(
+      "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+      new() { UserID = "user_01AbCdEfGhIjKlMnOpQrSt" }
+  );
+
+  Console.WriteLine($"user_id: {member.UserID}");
+  Console.WriteLine($"email: {member.Email}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  member, err := client.Beta.Organization.RBACGroups.Members.Add(
+  	context.Background(),
+  	"rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+  	anthropic.BetaOrganizationRBACGroupMemberAddParams{
+  		UserID: "user_01AbCdEfGhIjKlMnOpQrSt",
+  	},
+  )
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("user_id: %s\n", member.UserID)
+  fmt.Printf("email: %s\n", member.Email)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.rbacgroups.members.MemberAddParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = MemberAddParams.builder()
+          .userId("user_01AbCdEfGhIjKlMnOpQrSt")
+          .build();
+      var member = client.beta().organization().rbacGroups().members()
+          .add("rbac_group_01UvWxYzAbCdEfGhIjKlMn", params);
+
+      IO.println("user_id: " + member.userId());
+      IO.println("email: " + member.email());
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $member = $client->beta->organization->rbacGroups->members->add(
+      rbacGroupID: 'rbac_group_01UvWxYzAbCdEfGhIjKlMn',
+      userID: 'user_01AbCdEfGhIjKlMnOpQrSt',
+  );
+
+  echo "user_id: {$member->userID}\n";
+  echo "email: {$member->email}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rbac_group_id = "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  member = client.beta.organization.rbac_groups.members.add(
+    rbac_group_id,
+    user_id: "user_01AbCdEfGhIjKlMnOpQrSt"
+  )
+
+  puts "user_id: #{member.user_id}"
+  puts "email: #{member.email}"
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -415,11 +1872,107 @@ curl -X POST "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_
 
 For complete parameter details and response schemas, see [Remove group member](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/remove) in the API reference.
 
-```bash cURL
-curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members/user_01AbCdEfGhIjKlMnOpQrSt" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X DELETE "https://api.anthropic.com/v1/organizations/rbac_groups/rbac_group_01UvWxYzAbCdEfGhIjKlMn/members/user_01AbCdEfGhIjKlMnOpQrSt" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-groups:members remove \
+    --rbac-group-id rbac_group_01UvWxYzAbCdEfGhIjKlMn \
+    --user-id user_01AbCdEfGhIjKlMnOpQrSt
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  removed_member = client.beta.organization.rbac_groups.members.remove(
+      "user_01AbCdEfGhIjKlMnOpQrSt", rbac_group_id="rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  )
+
+  print(f"user_id: {removed_member.user_id}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const removedMember = await client.beta.organization.rbacGroups.members.remove(
+    "user_01AbCdEfGhIjKlMnOpQrSt",
+    { rbac_group_id: "rbac_group_01UvWxYzAbCdEfGhIjKlMn" }
+  );
+
+  console.log(`user_id: ${removedMember.user_id}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var removedMember = await client.Beta.Organization.RbacGroups.Members.Remove(
+      "user_01AbCdEfGhIjKlMnOpQrSt",
+      new() { RbacGroupID = "rbac_group_01UvWxYzAbCdEfGhIjKlMn" }
+  );
+
+  Console.WriteLine($"user_id: {removedMember.UserID}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  removedMember, err := client.Beta.Organization.RBACGroups.Members.Remove(
+  	context.Background(),
+  	"user_01AbCdEfGhIjKlMnOpQrSt",
+  	anthropic.BetaOrganizationRBACGroupMemberRemoveParams{
+  		RBACGroupID: "rbac_group_01UvWxYzAbCdEfGhIjKlMn",
+  	},
+  )
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("user_id: %s\n", removedMember.UserID)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.rbacgroups.members.MemberRemoveParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = MemberRemoveParams.builder()
+          .rbacGroupId("rbac_group_01UvWxYzAbCdEfGhIjKlMn")
+          .build();
+      var removedMember = client.beta().organization().rbacGroups().members()
+          .remove("user_01AbCdEfGhIjKlMnOpQrSt", params);
+
+      IO.println("user_id: " + removedMember.userId());
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $removedMember = $client->beta->organization->rbacGroups->members->remove(
+      userID: 'user_01AbCdEfGhIjKlMnOpQrSt',
+      rbacGroupID: 'rbac_group_01UvWxYzAbCdEfGhIjKlMn',
+  );
+
+  echo "user_id: {$removedMember->userID}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rbac_group_id = "rbac_group_01UvWxYzAbCdEfGhIjKlMn"
+  removed_member = client.beta.organization.rbac_groups.members.remove(
+    "user_01AbCdEfGhIjKlMnOpQrSt",
+    rbac_group_id: rbac_group_id
+  )
+
+  puts "user_id: #{removed_member.user_id}"
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -442,11 +1995,100 @@ Read a role's name from its `display_name` field. The deprecated `name` field is
 
 For complete parameter details and response schemas, see [List roles](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/list) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rbac_roles?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rbac_roles?limit=20" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-roles list --limit 20
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  roles = client.beta.organization.rbac_roles.list(limit=20)
+
+  for role in roles:
+      print(f"{role.id}: {role.display_name}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const roles = await client.beta.organization.rbacRoles.list({ limit: 20 });
+
+  for await (const role of roles) {
+    console.log(`${role.id}: ${role.display_name}`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var page = await client.Beta.Organization.RbacRoles.List(new() { Limit = 20 });
+
+  await foreach (var role in page.Paginate())
+  {
+      Console.WriteLine($"{role.ID}: {role.DisplayName}");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  roles := client.Beta.Organization.RBACRoles.ListAutoPaging(context.Background(), anthropic.BetaOrganizationRBACRoleListParams{
+  	Limit: anthropic.Int(20),
+  })
+
+  for roles.Next() {
+  	role := roles.Current()
+  	fmt.Printf("%s: %s\n", role.ID, role.DisplayName)
+  }
+  if err := roles.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.rbacroles.RbacRoleListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = RbacRoleListParams.builder()
+          .limit(20)
+          .build();
+      var roles = client.beta().organization().rbacRoles().list(params);
+
+      for (var role : roles.autoPager()) {
+          IO.println(role.id() + ": " + role.displayName());
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $roles = $client->beta->organization->rbacRoles->list(limit: 20);
+
+  foreach ($roles->pagingEachItem() as $role) {
+      echo "{$role->id}: {$role->displayName}\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  roles = client.beta.organization.rbac_roles.list(limit: 20)
+
+  roles.auto_paging_each do |role|
+    puts "#{role.id}: #{role.display_name}"
+  end
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -471,11 +2113,90 @@ curl "https://api.anthropic.com/v1/organizations/rbac_roles?limit=20" \
 
 For complete parameter details and response schemas, see [Get role](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/retrieve) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-roles retrieve \
+    --rbac-role-id rbac_role_01CdEfGhIjKlMnOpQrStUv
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  role = client.beta.organization.rbac_roles.retrieve("rbac_role_01CdEfGhIjKlMnOpQrStUv")
+
+  print(f"id: {role.id}")
+  print(f"display_name: {role.display_name}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const role = await client.beta.organization.rbacRoles.retrieve(
+    "rbac_role_01CdEfGhIjKlMnOpQrStUv"
+  );
+
+  console.log(`id: ${role.id}`);
+  console.log(`display_name: ${role.display_name}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var role = await client.Beta.Organization.RbacRoles.Retrieve("rbac_role_01CdEfGhIjKlMnOpQrStUv");
+
+  Console.WriteLine($"id: {role.ID}");
+  Console.WriteLine($"display_name: {role.DisplayName}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  role, err := client.Beta.Organization.RBACRoles.Get(context.Background(), "rbac_role_01CdEfGhIjKlMnOpQrStUv")
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", role.ID)
+  fmt.Printf("display_name: %s\n", role.DisplayName)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var role = client.beta().organization().rbacRoles()
+      .retrieve("rbac_role_01CdEfGhIjKlMnOpQrStUv");
+
+  IO.println("id: " + role.id());
+  IO.println("display_name: " + role.displayName());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $role = $client->beta->organization->rbacRoles->retrieve(
+      rbacRoleID: 'rbac_role_01CdEfGhIjKlMnOpQrStUv',
+  );
+
+  echo "id: {$role->id}\n";
+  echo "display_name: {$role->displayName}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rbac_role_id = "rbac_role_01CdEfGhIjKlMnOpQrStUv"
+  role = client.beta.organization.rbac_roles.retrieve(rbac_role_id)
+
+  puts "id: #{role.id}"
+  puts "display_name: #{role.display_name}"
+  ```
+</CodeGroup>
 
 ### List a role's permissions
 
@@ -485,11 +2206,119 @@ Two `action` values need special care: an `organization` permission whose action
 
 For complete parameter details and response schemas, see [List role permissions](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/permissions/list) in the API reference.
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv/permissions?limit=20" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -H "anthropic-version: 2023-06-01"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIjKlMnOpQrStUv/permissions?limit=20" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rbac-roles:permissions list \
+    --rbac-role-id rbac_role_01CdEfGhIjKlMnOpQrStUv \
+    --limit 20
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  permissions = client.beta.organization.rbac_roles.permissions.list(
+      "rbac_role_01CdEfGhIjKlMnOpQrStUv", limit=20
+  )
+
+  for permission in permissions:
+      print(permission.action)
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const permissions = await client.beta.organization.rbacRoles.permissions.list(
+    "rbac_role_01CdEfGhIjKlMnOpQrStUv",
+    { limit: 20 }
+  );
+
+  for await (const permission of permissions) {
+    console.log(permission.action);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var page = await client.Beta.Organization.RbacRoles.Permissions.List(
+      "rbac_role_01CdEfGhIjKlMnOpQrStUv",
+      new() { Limit = 20 }
+  );
+
+  await foreach (var permission in page.Paginate())
+  {
+      Console.WriteLine(permission.Action);
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  permissions := client.Beta.Organization.RBACRoles.Permissions.ListAutoPaging(
+  	context.Background(),
+  	"rbac_role_01CdEfGhIjKlMnOpQrStUv",
+  	anthropic.BetaOrganizationRBACRolePermissionListParams{
+  		Limit: anthropic.Int(20),
+  	},
+  )
+
+  for permissions.Next() {
+  	permission := permissions.Current()
+  	fmt.Println(permission.Action)
+  }
+  if err := permissions.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.rbacroles.permissions.PermissionListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = PermissionListParams.builder()
+          .limit(20)
+          .build();
+      var permissions = client.beta().organization().rbacRoles().permissions()
+          .list("rbac_role_01CdEfGhIjKlMnOpQrStUv", params);
+
+      for (var permission : permissions.autoPager()) {
+          IO.println(permission.action());
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $permissions = $client->beta->organization->rbacRoles->permissions->list(
+      rbacRoleID: 'rbac_role_01CdEfGhIjKlMnOpQrStUv',
+      limit: 20,
+  );
+
+  foreach ($permissions->pagingEachItem() as $permission) {
+      echo "{$permission->action}\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rbac_role_id = "rbac_role_01CdEfGhIjKlMnOpQrStUv"
+  permissions = client.beta.organization.rbac_roles.permissions.list(rbac_role_id, limit: 20)
+
+  permissions.auto_paging_each do |permission|
+    puts permission.action
+  end
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -523,11 +2352,100 @@ curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIj
 
 1. Look up the member by email:
 
-   ```bash cURL
-   curl "https://api.anthropic.com/v1/organizations/users?email=departing@example.com" \
-     -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-     -H "anthropic-version: 2023-06-01"
-   ```
+   <CodeGroup>
+     ```bash cURL
+     curl "https://api.anthropic.com/v1/organizations/users?email=departing@example.com" \
+       -H "x-api-key: $ANTHROPIC_API_KEY" \
+       -H "anthropic-version: 2023-06-01"
+     ```
+
+     ```bash CLI
+     ant organization:users list --email departing@example.com
+     ```
+
+     ```python Python
+     client = anthropic.Anthropic()
+
+     users = client.organization.users.list(email="departing@example.com")
+
+     for user in users:
+         print(f"{user.id}: {user.email} ({user.role})")
+     ```
+
+     ```typescript TypeScript
+     const client = new Anthropic();
+
+     const users = await client.organization.users.list({ email: "departing@example.com" });
+
+     for await (const user of users) {
+       console.log(`${user.id}: ${user.email} (${user.role})`);
+     }
+     ```
+
+     ```csharp C#
+     AnthropicClient client = new();
+
+     var page = await client.Organization.Users.List(new() { Email = "departing@example.com" });
+
+     await foreach (var user in page.Paginate())
+     {
+         Console.WriteLine($"{user.ID}: {user.Email} ({user.Role.Raw()})");
+     }
+     ```
+
+     ```go Go
+     client := anthropic.NewClient()
+
+     users := client.Organization.Users.ListAutoPaging(context.Background(), anthropic.OrganizationUserListParams{
+     	Email: anthropic.String("departing@example.com"),
+     })
+
+     for users.Next() {
+     	user := users.Current()
+     	fmt.Printf("%s: %s (%s)\n", user.ID, user.Email, user.Role)
+     }
+     if err := users.Err(); err != nil {
+     	log.Fatal(err)
+     }
+     ```
+
+     ```java Java
+     import com.anthropic.models.organization.users.UserListParams;
+
+     void main() {
+         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+         var params = UserListParams.builder()
+             .email("departing@example.com")
+             .build();
+         var users = client.organization().users().list(params);
+
+         for (var user : users.autoPager()) {
+             IO.println(user.id() + ": " + user.email() + " (" + user.role().asString() + ")");
+         }
+     }
+     ```
+
+     ```php PHP
+     $client = new Client();
+
+     $users = $client->organization->users->list(email: 'departing@example.com');
+
+     foreach ($users->pagingEachItem() as $user) {
+         echo "{$user->id}: {$user->email} ({$user->role})\n";
+     }
+     ```
+
+     ```ruby Ruby
+     client = Anthropic::Client.new
+
+     users = client.organization.users.list(email: "departing@example.com")
+
+     users.auto_paging_each do |user|
+       puts "#{user.id}: #{user.email} (#{user.role})"
+     end
+     ```
+   </CodeGroup>
 
 2. Remove them with `DELETE /v1/organizations/users/{user_id}`, using the `id` from the response. Their seat, if any, returns to the pool.
 

@@ -167,7 +167,7 @@ The connector provides **read-only** access to:
 
 **Note:** “Always allow” is not supported for the following tools:
 
-- `outlook_send_email`
+- `outlook_send_mail`
 
 - `outlook_forward_mail`
 

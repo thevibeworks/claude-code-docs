@@ -27,7 +27,7 @@ These event type strings follow a `{domain}.{action}` naming convention. See [Ev
 
 Stream events from the session to receive real-time updates as the agent works. A stream delivers only the events emitted after it opens, so open the stream before you send events to avoid a race condition.
 
-<CodeGroup>
+<CodeGroup exclude="shell:CLI">
   ```bash cURL
   # Open the stream first, then send the user message
   exec {stream}< <(
@@ -46,16 +46,14 @@ Stream events from the session to receive real-time updates as the agent works. 
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- >/dev/null <<'EOF'
-  {
-    "events": [
-      {
-        "type": "user.message",
-        "content": [{"type": "text", "text": "Summarize the repo README"}]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "events": [
+        {
+          "type": "user.message",
+          "content": [{"type": "text", "text": "Summarize the repo README"}]
+        }
+      ]
+    }' >/dev/null
 
   while IFS= read -r -u "$stream" event_line; do
     [[ $event_line == data:* ]] || continue
@@ -76,10 +74,9 @@ Stream events from the session to receive real-time updates as the agent works. 
   exec {stream}<&-
   ```
 
-  ```bash CLI
-  # This workflow does not translate well to a one-off shell command.
-  # Use one of the SDK examples in this code group instead.
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   # Open the stream first, then send the user message
@@ -333,7 +330,7 @@ To reconnect to an existing session without missing events, combine a new stream
 2. [List the full event history](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#list-past-events) to seed a set of seen event IDs.
 3. Tail the live stream, skipping any events already returned by the history list.
 
-<CodeGroup>
+<CodeGroup exclude="shell:CLI">
   ```bash cURL
   exec {stream}< <(
     curl --fail-with-body -sS -N \
@@ -377,10 +374,9 @@ To reconnect to an existing session without missing events, combine a new stream
   exec {stream}<&-
   ```
 
-  ```bash CLI
-  # This workflow does not translate well to a one-off shell command.
-  # Use one of the SDK examples in this code group instead.
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   with client.beta.sessions.events.stream(session.id) as stream:
@@ -597,18 +593,16 @@ Send a `user.message` event to start or continue the agent's work:
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "events": [
-      {
-        "type": "user.message",
-        "content": [
-          {"type": "text", "text": "Analyze the performance of the sort function in utils.py"}
-        ]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "events": [
+        {
+          "type": "user.message",
+          "content": [
+            {"type": "text", "text": "Analyze the performance of the sort function in utils.py"}
+          ]
+        }
+      ]
+    }'
   ```
 
   ```bash CLI
@@ -774,7 +768,7 @@ When you [reconnect](https://platform.claude.com/docs/en/managed-agents/events-a
 
 The following example answers each call as it arrives:
 
-<CodeGroup>
+<CodeGroup exclude="shell:CLI">
   ```bash cURL
   exec {stream_fd}< <(curl --fail-with-body -sS -N \
     "https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream?beta=true" \
@@ -811,10 +805,9 @@ The following example answers each call as it arrives:
   exec {stream_fd}<&-
   ```
 
-  ```bash CLI
-  # This workflow does not translate well to a one-off shell command.
-  # Use one of the SDK examples in this code group instead.
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   with client.beta.sessions.events.stream(session.id) as stream:
@@ -1038,7 +1031,7 @@ Send a `user.tool_confirmation` event, passing the event ID in the `tool_use_id`
 
 The following example approves every pending call:
 
-<CodeGroup>
+<CodeGroup exclude="shell:CLI">
   ```bash cURL
   exec {stream_fd}< <(curl --fail-with-body -sS -N \
     "https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream?beta=true" \
@@ -1075,10 +1068,9 @@ The following example approves every pending call:
   exec {stream_fd}<&-
   ```
 
-  ```bash CLI
-  # This workflow does not translate well to a one-off shell command.
-  # Use one of the SDK examples in this code group instead.
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   with client.beta.sessions.events.stream(session.id) as stream:
@@ -1284,18 +1276,16 @@ Sessions persist between interactions. To resume a session, send a `user.message
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "events": [
-      {
-        "type": "user.message",
-        "content": [
-          {"type": "text", "text": "Now run the tests against the changes you made earlier."}
-        ]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "events": [
+        {
+          "type": "user.message",
+          "content": [
+            {"type": "text", "text": "Now run the tests against the changes you made earlier."}
+          ]
+        }
+      ]
+    }'
   ```
 
   ```bash CLI
@@ -1457,19 +1447,17 @@ Send a `user.interrupt` event to stop the agent mid-execution, then follow up wi
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "events": [
-      {"type": "user.interrupt"},
-      {
-        "type": "user.message",
-        "content": [
-          {"type": "text", "text": "Instead, focus on fixing the bug in line 42."}
-        ]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "events": [
+        {"type": "user.interrupt"},
+        {
+          "type": "user.message",
+          "content": [
+            {"type": "text", "text": "Instead, focus on fixing the bug in line 42."}
+          ]
+        }
+      ]
+    }'
   ```
 
   ```bash CLI
@@ -1820,18 +1808,16 @@ The event's `content` (csharp, go: `Content`) accepts 1–1000 text items. The c
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "events": [
-      {
-        "type": "system.message",
-        "content": [
-          {"type": "text", "text": "The user's current timezone is America/New_York."}
-        ]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "events": [
+        {
+          "type": "system.message",
+          "content": [
+            {"type": "text", "text": "The current timezone of the user is America/New_York."}
+          ]
+        }
+      ]
+    }'
   ```
 
   ```bash CLI

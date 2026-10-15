@@ -9,7 +9,7 @@ description: Enumerate organizations under your parent organization (their users
 </Note>
 
 <Check>
-  **Required scope:** `read:compliance_org_data` on the Compliance Access Key. The user and group-member endpoints require `read:compliance_user_data` instead.
+  **Required scope:** `read:compliance_org_data` on the Compliance Access Key. The user, user-preference, and group-member endpoints require `read:compliance_user_data` instead.
 
   Compliance Access Keys (`sk-ant-api01-...`) created in claude.ai are the only key type accepted; see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access) to provision one. Calls authenticated with an Admin API key (`sk-ant-admin01-...`) return [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden).
 </Check>
@@ -101,6 +101,40 @@ curl --fail-with-body -sS -G \
 The user IDs returned here are the same `user_...` identifiers accepted by the [Query the Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) `actor_ids[]` filter and the `user_ids[]` filters on [Retrieve chats and messages](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-chats-and-messages) and the [remote session list](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-remote-sessions); the [local session list](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) has no user filter, so attribute local sessions by the `user.id` on each session object. The `organization_role` field carries the user's built-in membership level within the listed organization (one of `admin`, `billing`, `claude_code_user`, `developer`, `managed`, `membership_admin`, `owner`, `primary_owner`, or `user`), an axis independent of any custom RBAC role assignments returned by [List roles](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-roles). A typical eDiscovery flow lists users for one or more organizations, filters against your own external records, and feeds the resulting IDs into chat and project queries.
 
 A user only appears here while they are an active member of the organization. Removed users are dropped from the list immediately. Their historical activity remains queryable through the Activity Feed for the full retention window, indexed by the same `user_...` ID.
+
+## List user preferences
+
+The `GET /v1/compliance/organizations/{org_uuid}/user_preferences` endpoint returns the text that current members of one organization saved as **Instructions for Claude** in claude.ai (`conversation_preferences`) and as **Global instructions** in Cowork (`cowork_global_instructions`). Both are account-level settings, so the same text is returned under every organization a member belongs to. This endpoint is in beta.
+
+This endpoint requires `read:compliance_user_data`, not `read:compliance_org_data`; a call with a key that lacks `read:compliance_user_data` returns [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden).
+
+By default, the response lists only members who have set at least one of the two values. Pass `include_unset=true` to list every current member, with `null` for each value that is not set. To return specific members only, pass up to 10 user IDs in `user_ids[]`. Results paginate with `limit` (default 20, maximum 100) and `page`. As on the [organization users endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organization-users), pass `next_page` back unchanged as `page`; also send the same `include_unset` and `user_ids[]` values with every page, or the call returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#invalid-pagination-cursor). A page can hold fewer results than `limit`, or none, and still not be the last, so keep requesting pages until `next_page` is `null`.
+
+```bash cURL
+org_uuid="91012d09-e48b-438e-a489-1bebfd8fa6f9"
+
+curl --fail-with-body -sS \
+  "https://api.anthropic.com/v1/compliance/organizations/$org_uuid/user_preferences" \
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2023-06-01"
+```
+
+```json Response
+{
+  "data": [
+    {
+      "user": {
+        "id": "user_01XyDMpzjS89pFZXqSFUBDr6",
+        "email_address": "priya@example.com"
+      },
+      "conversation_preferences": "Keep answers brief and cite sources.",
+      "cowork_global_instructions": null
+    }
+  ],
+  "has_more": false,
+  "next_page": null
+}
+```
 
 ## List roles
 

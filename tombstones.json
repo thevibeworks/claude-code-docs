@@ -1323,6 +1323,10 @@
       "since": "2026-09-16",
       "reason": "HTTP 404"
     },
+    "https://support.claude.com/en/articles/11174660-online-safety-contacts": {
+      "since": "2026-10-15",
+      "reason": "moved -> https://support.claude.com/en/articles/11174660-point-of-contact-for-authorities-and-regulators"
+    },
     "https://support.claude.com/en/articles/11503834-build-custom-connectors-via-remote-mcp-servers": {
       "since": "2026-08-25",
       "reason": "HTTP 404"

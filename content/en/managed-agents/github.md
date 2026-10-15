@@ -25,27 +25,25 @@ First, create an agent that declares the GitHub MCP server. The agent definition
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    --data @- <<JSON | jq -r '.id'
-  {
-    "name": "Code Reviewer",
-    "model": "claude-opus-5-5",
-    "system": "You are a code review assistant with access to GitHub.",
-    "mcp_servers": [
-      {
-        "type": "url",
-        "name": "github",
-        "url": "https://api.githubcopilot.com/mcp/"
-      }
-    ],
-    "tools": [
-      {"type": "agent_toolset_20260401"},
-      {
-        "type": "mcp_toolset",
-        "mcp_server_name": "github"
-      }
-    ]
-  }
-  JSON
+    --data '{
+      "name": "Code Reviewer",
+      "model": "claude-opus-5-5",
+      "system": "You are a code review assistant with access to GitHub.",
+      "mcp_servers": [
+        {
+          "type": "url",
+          "name": "github",
+          "url": "https://api.githubcopilot.com/mcp/"
+        }
+      ],
+      "tools": [
+        {"type": "agent_toolset_20260401"},
+        {
+          "type": "mcp_toolset",
+          "mcp_server_name": "github"
+        }
+      ]
+    }' | jq -r '.id'
   )
   ```
 
@@ -739,21 +737,19 @@ With the GitHub MCP server, the agent can create branches, commit changes, and p
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
     -o /dev/null \
-    --data @- <<JSON
-  {
-    "events": [
-      {
-        "type": "user.message",
-        "content": [
-          {
-            "type": "text",
-            "text": "Fix the type error in src/utils.ts, commit it to a new branch, and push it."
-          }
-        ]
-      }
-    ]
-  }
-  JSON
+    --data '{
+      "events": [
+        {
+          "type": "user.message",
+          "content": [
+            {
+              "type": "text",
+              "text": "Fix the type error in src/utils.ts, commit it to a new branch, and push it."
+            }
+          ]
+        }
+      ]
+    }'
   ```
 
   ```bash CLI

@@ -8,6 +8,14 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v2.42304.0" description="2026-10-15">
+  **Changed:**
+
+  * `chatAdvancedFileAnalysisEnabled` and `coworkEgressAllowedHosts`: commands in Chat's file-analysis sandbox can now reach the listed hosts. With no list, or an empty one, they have no network access.
+  * `mcpPersistentAlwaysAllowEnabled`: `false` now also applies to Code sessions on the device, in WSL and over SSH.
+  * `claudeAiImport.automatic3pImport` now also reinstalls, without asking, the optional plugins that a user had switched on from any optional `allowedPluginMarketplaces` entry with the same source in the old and new organization.
+</Update>
+
 <Update label="v2.37337.1" description="2026-10-13">
   <div className="cfg-keys">
     | MDM key | Type | Description |

@@ -203,7 +203,7 @@ Windows Registry Editor Version 5.00
 "disableDeploymentModeChooser"="true"
 ```
 
-The `.reg` file from the Export menu targets `HKEY_CURRENT_USER`, which is correct for single-machine testing. For fleet deployment, deliver the values under `HKEY_LOCAL_MACHINE` as shown here.
+For fleet deployment, deliver the values under `HKEY_LOCAL_MACHINE` as shown here. If the `.reg` file from the **Export** menu has `HKEY_CURRENT_USER` in the line in square brackets, change it to `HKEY_LOCAL_MACHINE` before you deploy the file.
 
 After a user signs in, Claude for Government sends the app the address to use for chat traffic, which the app shows as **Gateway base URL**. When the registry values are under `HKEY_LOCAL_MACHINE`, the app accepts that address without asking the user. When they are under `HKEY_CURRENT_USER`, the app asks each user once to allow it, as described under [Keys that require user consent](/docs/third-party/claude-desktop/bootstrap#keys-that-require-user-consent). Have each user confirm that the address is on your Claude for Government host before they click **Allow**.
 

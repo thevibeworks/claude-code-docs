@@ -37,21 +37,19 @@ When creating a deployment, you pass the [session configurations](https://platfo
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "name": "Weekly compliance scan",
-    "agent": "$AGENT_ID",
-    "environment_id": "$ENVIRONMENT_ID",
-    "initial_events": [
-      {"type": "user.message", "content": [{"type": "text", "text": "Run the weekly compliance scan."}]}
-    ],
-    "schedule": {
-      "type": "cron",
-      "expression": "0 20 * * 5",
-      "timezone": "America/New_York"
-    }
-  }
-  EOF
+    -d '{
+      "name": "Weekly compliance scan",
+      "agent": "'"$AGENT_ID"'",
+      "environment_id": "'"$ENVIRONMENT_ID"'",
+      "initial_events": [
+        {"type": "user.message", "content": [{"type": "text", "text": "Run the weekly compliance scan."}]}
+      ],
+      "schedule": {
+        "type": "cron",
+        "expression": "0 20 * * 5",
+        "timezone": "America/New_York"
+      }
+    }'
   ```
 
   <CodeGroupItem>
@@ -287,14 +285,12 @@ The following example sets a budget on an existing deployment:
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "budget": {
-      "type": "limit",
-      "max_list_cost": {"amount": "2000", "currency": "USD"}
-    }
-  }
-  EOF
+    -d '{
+      "budget": {
+        "type": "limit",
+        "max_list_cost": {"amount": "2000", "currency": "USD"}
+      }
+    }'
   ```
 
   <CodeGroupItem>

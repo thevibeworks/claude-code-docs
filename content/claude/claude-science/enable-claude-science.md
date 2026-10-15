@@ -6,7 +6,7 @@
 
 > Claude Science is a desktop app for scientific research.
 
-Claude Science is a desktop app for scientific research. It's off by default for Team and Enterprise organizations. Turning it on in **Organization settings** > **Claude Science** opens a short dialog that covers who gets access and which connectors to turn on. You can change any of it later on the same page, which also holds the other [organization settings](/docs/claude-science/admin-controls#organization-settings) for Claude Science: which connectors, skills, compute, network access, and memory members can use, and whether members can access previously saved Claude Science work.
+Claude Science is a desktop app for scientific research. It's off by default for Team and Enterprise organizations, and on by default for organizations on the [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists). Turning it on in **Organization settings** > **Claude Science** opens a short dialog that covers who gets access and which connectors to turn on. You can change any of it later on the same page, which also holds the other [organization settings](/docs/claude-science/admin-controls#organization-settings) for Claude Science: which connectors, skills, compute, network access, and memory members can use, and whether members can access previously saved Claude Science work.
 
 ## Availability
 
@@ -15,11 +15,14 @@ Claude Science is in beta.
 | Plan | Claude Science app access |
 | - | - |
 | Team | Off; turn on in **Organization settings** |
+| Claude Team plan for scientists | On; turn off in **Organization settings** |
 | Enterprise | Off; turn on in **Organization settings** |
 | Pro and Max | On; no admin action needed |
 | Free | Not available |
 
-If your organization has HIPAA compliance enabled, Claude Science app access is also off by default. You can turn it on, but usage isn't covered under your Business Associate Agreement (BAA) and the app shouldn't be used with protected health information (PHI). These organizations also start with stricter organization settings (see [HIPAA organizations](#hipaa-organizations)).
+On the Claude Team plan for scientists, members can [download Claude Science](https://claude.com/product/claude-science) and sign in with their claude.ai account without any admin action. An Owner or Primary Owner can [turn Claude Science off](#turn-off-claude-science) or change the other [organization settings](/docs/claude-science/admin-controls#organization-settings) at any time in [**Organization settings > Claude Science**](https://claude.ai/admin-settings/claude-science). The **PubMed**, **Clinical Trials**, **ChEMBL**, and **bioRxiv** connectors aren't added to your organization automatically (see [Set up connectors](#set-up-connectors)).
+
+If your organization has HIPAA compliance enabled, Claude Science app access is off by default, whatever your plan. You can turn it on, but usage isn't covered under your Business Associate Agreement (BAA) and the app shouldn't be used with protected health information (PHI). These organizations also start with stricter organization settings (see [HIPAA organizations](#hipaa-organizations)).
 
 ## Turn on Claude Science
 
@@ -42,6 +45,8 @@ Turn on the tools and data sources your team will use in Claude Science. You can
 Under **Featured connectors**, the **Claude Science local connectors** row covers the connectors that are built by Anthropic, ship with the app, and run on each member's computer. Expand it to turn individual connectors on or off for the whole organization; you can change this later under [Featured connectors and skills](/docs/claude-science/admin-controls#featured-connectors-and-skills), and members can also turn individual local connectors off for themselves in the app. The **PubMed**, **Clinical Trials**, **ChEMBL**, and **bioRxiv** rows are connectors Anthropic hosts. They start selected, and turning Claude Science on adds the selected ones to **Organization settings** > **Connectors** for your organization, which makes them available to members in Claude Science and in claude.ai.
 
 Under **From the Claude connector directory**, you can select additional life-sciences connectors, which are added to your organization the same way.
+
+On the Claude Team plan for scientists, Claude Science is on without the **Turn on Claude Science** dialog, so the **PubMed**, **Clinical Trials**, **ChEMBL**, and **bioRxiv** connectors aren't added to your organization automatically. To add them, go to [**Organization settings > Claude Science**](https://claude.ai/admin-settings/claude-science) and turn on their switches under **Featured connectors** (see [Featured connectors and skills](/docs/claude-science/admin-controls#featured-connectors-and-skills)).
 
 The **PubMed**, **Clinical Trials**, **ChEMBL**, and **bioRxiv** rows and the directory list are read-only if your organization has HIPAA compliance enabled or your role can't add connectors for the organization; add those connectors from **Organization settings** > **Connectors** after enabling. The switches for the local connectors still work, and in an organization with HIPAA compliance enabled they start off so you can turn on the ones you have reviewed.
 

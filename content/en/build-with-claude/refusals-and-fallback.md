@@ -782,18 +782,14 @@ The SDK includes a refusal-fallback middleware. You configure it once on the cli
 
 Pass `BetaRefusalFallbackMiddleware` (typescript: `betaRefusalFallbackMiddleware`; go: `betafallback.BetaRefusalFallbackMiddleware`; csharp: `BetaRefusalFallbackHandler`; java: `BetaRefusalFallbackInterceptor`; php: `RefusalFallbackMiddleware`) to the client constructor, and share one `BetaFallbackState` instance across the requests of a conversation.
 
-<CodeGroup>
-  ```bash cURL
-  # The refusal-fallback middleware is an SDK feature. See the
-  # server-side fallback section for the equivalent single-request approach,
-  # or the fallback credit page for the raw HTTP retry pattern.
-  ```
+<CodeGroup exclude="shell">
+  <CodeGroupItem language="cURL">
+    The refusal-fallback middleware is part of the Claude SDK, so a cURL request can't use it. To fall back within a single request, use [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). To write the retry yourself, see [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit).
+  </CodeGroupItem>
 
-  ```bash CLI
-  # The refusal-fallback middleware is an SDK feature. See the
-  # server-side fallback section for the equivalent single-request approach,
-  # or the fallback credit page for the raw HTTP retry pattern.
-  ```
+  <CodeGroupItem language="CLI">
+    The `ant` CLI doesn't include the refusal-fallback middleware. To fall back within a single request, use [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). To write the retry yourself, see [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit).
+  </CodeGroupItem>
 
   ```python Python
   from anthropic import Anthropic, BetaFallbackState, BetaRefusalFallbackMiddleware

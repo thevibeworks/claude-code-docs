@@ -107,7 +107,7 @@ Each SDK's helper handles the `index` (csharp, go: `Index`) bookkeeping. The Go,
 
 The following examples opt in to `agent.message` previews and reconcile them with the buffered event:
 
-<CodeGroup>
+<CodeGroup exclude="shell:CLI">
   ```bash cURL
   # Opt in to agent.message previews via event_deltas, then accumulate manually.
   exec {stream}< <(
@@ -125,16 +125,14 @@ The following examples opt in to `agent.message` previews and reconcile them wit
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- >/dev/null <<'EOF'
-  {
-    "events": [
-      {
-        "type": "user.message",
-        "content": [{"type": "text", "text": "In one short sentence, describe what an event delta is."}]
-      }
-    ]
-  }
-  EOF
+    -d '{
+      "events": [
+        {
+          "type": "user.message",
+          "content": [{"type": "text", "text": "In one short sentence, describe what an event delta is."}]
+        }
+      ]
+    }' >/dev/null
 
   # Accumulate deltas keyed by (message id, content index); the final
   # agent.message carries the full text, so it replaces every preview for that id.
@@ -175,10 +173,9 @@ The following examples opt in to `agent.message` previews and reconcile them wit
   exec {stream}<&-
   ```
 
-  ```bash CLI
-  # This workflow does not translate well to a one-off shell command.
-  # Use one of the SDK examples in this code group instead.
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   # Preview snapshots, keyed by event id. accumulate_managed_agents_event folds each

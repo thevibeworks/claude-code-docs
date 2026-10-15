@@ -225,20 +225,18 @@ You can configure `access` (csharp, go: `Access`) as well. It defaults to `read_
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    --data @- <<EOF
-  {
-    "agent": "$agent_id",
-    "environment_id": "$environment_id",
-    "resources": [
-      {
-        "type": "memory_store",
-        "memory_store_id": "$store_id",
-        "access": "read_write",
-        "instructions": "User preferences and project context. Check before starting any task."
-      }
-    ]
-  }
-  EOF
+    --data '{
+      "agent": "'"$agent_id"'",
+      "environment_id": "'"$environment_id"'",
+      "resources": [
+        {
+          "type": "memory_store",
+          "memory_store_id": "'"$store_id"'",
+          "access": "read_write",
+          "instructions": "User preferences and project context. Check before starting any task."
+        }
+      ]
+    }'
   ```
 
   ```bash CLI
@@ -749,12 +747,10 @@ To avoid clobbering a concurrent write, pass a `content_sha256` precondition. Th
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    --data @- > /dev/null <<EOF
-  {
-    "content": "CORRECTED: Always use 2-space indentation.",
-    "precondition": {"type": "content_sha256", "content_sha256": "$mem_sha"}
-  }
-  EOF
+    --data '{
+      "content": "CORRECTED: Always use 2-space indentation.",
+      "precondition": {"type": "content_sha256", "content_sha256": "'"$mem_sha"'"}
+    }' > /dev/null
   ```
 
   ```bash CLI

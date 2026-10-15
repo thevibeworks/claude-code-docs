@@ -107,6 +107,7 @@ These features remain available, but their data is not encrypted under your key.
 * Activity Feed, audit logs, and telemetry network traffic such as OTEL, so customers can maintain compliance even if a key is revoked.
 * Claude Managed Agents [vault credential](https://platform.claude.com/docs/en/managed-agents/vaults) values, such as OAuth tokens and client secrets. These are stored under Anthropic-managed encryption, are write-only, and are never returned in API responses.
 * [User profiles](https://platform.claude.com/docs/en/api/beta/user_profiles): the `name`, `external_id`, and `metadata` fields are stored under Anthropic-managed encryption, not your key. Do not store sensitive personal data in profile `metadata`.
+* Ratings and comments about the Claude Console that members send with its **Feedback** option. No setting turns these off; members send them only when they choose to.
 
 - [OpenTelemetry destination](https://platform.claude.com/docs/en/manage-claude/opentelemetry#add-a-destination) request headers, such as the API key header of your observability backend. These are stored under Anthropic-managed encryption. Their values are write-only and are never returned in API responses.
 

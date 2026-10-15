@@ -269,11 +269,10 @@ The [SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) vali
 
 If you don't need to process events incrementally, the SDK can consume the stream for you and return the complete `Message` object, identical to what a non-streaming call returns:
 
-<CodeGroup>
-  ```bash cURL
-  # Raw SSE output requires handling events; there is no single-command way
-  # to accumulate the final message with curl. Use the SDK examples instead.
-  ```
+<CodeGroup exclude="shell:cURL">
+  <CodeGroupItem language="cURL">
+    A curl request prints the raw stream events and can't combine them into the final message. To get the complete `Message` object from a stream, use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview).
+  </CodeGroupItem>
 
   ```bash CLI
   # The CLI streams events; --format jsonl emits one event per line
