@@ -97,7 +97,7 @@ There are two ways to set up HIPAA-ready API access. Most organizations can enab
 
 <Steps>
   <Step title="Open your organization's data retention settings">
-    In [Claude Console > Settings > Data retention](https://platform.claude.com/settings/privacy), organization admins with the HIPAA management permission see a **HIPAA compliance** card. If your organization is eligible but you don't see the option to enable, ask an organization admin to complete these steps.
+    In the Claude Console, go to the [Data retention](https://platform.claude.com/settings/privacy) page (`platform.claude.com/settings/privacy`). Organization admins with the HIPAA management permission see a **HIPAA compliance** card there. If you don't see the card, select **Organization** from the dropdown menu at the top of the page. If your organization is eligible but you still don't see the option to enable, ask an organization admin to complete these steps.
   </Step>
 
   <Step title="Review and execute the BAA">
@@ -139,7 +139,7 @@ The 30-day data retention requirement applies wherever Covered Models are offere
 
 ### Enable 30-day retention for a workspace
 
-Organizations with a ZDR arrangement can make these models available in a specific workspace by enabling 30-day retention for that workspace only. Other workspaces in the organization keep zero data retention.
+Organizations with a ZDR arrangement can make these models available in a specific workspace by enabling 30-day retention for that workspace only. Other workspaces in the organization keep zero data retention. The Default Workspace always follows the organization's setting, so use another workspace.
 
 <Steps>
   <Step title="Open the workspace's data retention settings">
@@ -244,7 +244,7 @@ Even with ZDR or HIPAA arrangements in place, Anthropic may retain data where re
   </Accordion>
 
   <Accordion title="How do I request HIPAA-ready API access?">
-    Eligible organizations can enable HIPAA readiness directly in [Claude Console > Settings > Data retention](https://platform.claude.com/settings/privacy) by reviewing and executing Anthropic's standard BAA; see [Getting started with HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#getting-started-with-hipaa-readiness). If your organization requires a negotiated BAA, or self-serve enablement isn't available for your organization, contact the [Anthropic sales team](https://claude.com/contact-sales).
+    Eligible organizations can enable HIPAA readiness directly on the [Data retention](https://platform.claude.com/settings/privacy) page (`platform.claude.com/settings/privacy`) in the Claude Console by reviewing and executing Anthropic's standard BAA; see [Getting started with HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#getting-started-with-hipaa-readiness). If your organization requires a negotiated BAA, or self-serve enablement isn't available for your organization, contact the [Anthropic sales team](https://claude.com/contact-sales).
   </Accordion>
 
   <Accordion title="Does this apply to Amazon Bedrock or Google Cloud?">

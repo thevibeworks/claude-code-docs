@@ -7,7 +7,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/agents
 
 ## Create Agent
 
-`$client->beta->agents->create(Model model, string name, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
+`$client->beta->agents->create(Model model, string name, ?string description, ?BetaManagedAgentsExecutionIdentityParams executionIdentity, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **POST** `/v1/agents`
 
@@ -26,6 +26,10 @@ Create Agent
 - `description?:optional string`
 
   Description of what the agent does.
+
+- `executionIdentity?:optional BetaManagedAgentsExecutionIdentityParams`
+
+  Execution principal for runs of this agent. Omitting it, sending null, or sending `{"type": "service_account"}` stores the default.
 
 - `mcpServers?:optional list<BetaManagedAgentsURLMCPServerParams>`
 
@@ -79,6 +83,10 @@ Create Agent
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -120,6 +128,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
   model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
   name: 'My First Agent',
   description: 'A general-purpose starter agent.',
+  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -165,6 +174,9 @@ var_dump($betaManagedAgentsAgent);
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -314,6 +326,10 @@ List Agents
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -374,6 +390,9 @@ var_dump($page);
       "archived_at": null,
       "created_at": "2026-03-15T10:00:00Z",
       "description": "A general-purpose starter agent.",
+      "execution_identity": {
+        "type": "service_account"
+      },
       "mcp_servers": [
         {
           "name": "example-mcp",
@@ -514,6 +533,10 @@ Get Agent
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -569,6 +592,9 @@ var_dump($betaManagedAgentsAgent);
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -662,7 +688,7 @@ var_dump($betaManagedAgentsAgent);
 
 ## Update Agent
 
-`$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
+`$client->beta->agents->update(string agentID, ?string description, ?BetaManagedAgentsExecutionIdentityParams executionIdentity, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **POST** `/v1/agents/{agent_id}`
 
@@ -677,6 +703,10 @@ Update Agent
 - `description?:optional string`
 
   Description. Omit to preserve; send empty string or null to clear.
+
+- `executionIdentity?:optional BetaManagedAgentsExecutionIdentityParams`
+
+  Execution principal for runs of this agent. Full replacement. Omit to preserve; send null or `{"type": "service_account"}` to restore the default.
 
 - `mcpServers?:optional list<BetaManagedAgentsURLMCPServerParams>`
 
@@ -742,6 +772,10 @@ Update Agent
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -782,6 +816,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsAgent = $client->beta->agents->update(
   'agent_011CZkYpogX7uDKUyvBTophP',
   description: 'updated',
+  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -835,6 +870,9 @@ var_dump($betaManagedAgentsAgent);
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -968,6 +1006,10 @@ Archive Agent
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -1022,6 +1064,9 @@ var_dump($betaManagedAgentsAgent);
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -1142,6 +1187,10 @@ var_dump($betaManagedAgentsAgent);
     A timestamp in RFC 3339 format
 
   - `?string description`
+
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
@@ -1643,6 +1692,26 @@ var_dump($betaManagedAgentsAgent);
 
   - `"auto" type`
 
+### Beta Managed Agents AWS Role Execution Identity
+
+- `class BetaManagedAgentsAWSRoleExecutionIdentity`
+
+  - `"aws_role" type`
+
+  - `string roleARN`
+
+    The IAM role's ARN.
+
+### Beta Managed Agents AWS Role Execution Identity Params
+
+- `class BetaManagedAgentsAWSRoleExecutionIdentityParams`
+
+  - `"aws_role" type`
+
+  - `string roleARN`
+
+    The IAM role's ARN, e.g. "arn:aws:iam::123456789012:role/my-agent-runner". Maximum 2048 characters.
+
 ### Beta Managed Agents Bash Tool Config
 
 - `class BetaManagedAgentsBashToolConfig`
@@ -1802,6 +1871,38 @@ var_dump($betaManagedAgentsAgent);
 - `class BetaManagedAgentsEffortXhigh`
 
   - `Type type`
+
+### Beta Managed Agents Execution Identity
+
+- `class BetaManagedAgentsExecutionIdentity`
+
+  - `class BetaManagedAgentsAWSRoleExecutionIdentity`
+
+    - `"aws_role" type`
+
+    - `string roleARN`
+
+      The IAM role's ARN.
+
+  - `class BetaManagedAgentsServiceAccountExecutionIdentity`
+
+    - `"service_account" type`
+
+### Beta Managed Agents Execution Identity Params
+
+- `class BetaManagedAgentsExecutionIdentityParams`
+
+  - `class BetaManagedAgentsAWSRoleExecutionIdentityParams`
+
+    - `"aws_role" type`
+
+    - `string roleARN`
+
+      The IAM role's ARN, e.g. "arn:aws:iam::123456789012:role/my-agent-runner". Maximum 2048 characters.
+
+  - `class BetaManagedAgentsServiceAccountExecutionIdentityParams`
+
+    - `"service_account" type`
 
 ### Beta Managed Agents Glob Tool Config
 
@@ -2465,6 +2566,18 @@ var_dump($betaManagedAgentsAgent);
 
     Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
+### Beta Managed Agents Service Account Execution Identity
+
+- `class BetaManagedAgentsServiceAccountExecutionIdentity`
+
+  - `"service_account" type`
+
+### Beta Managed Agents Service Account Execution Identity Params
+
+- `class BetaManagedAgentsServiceAccountExecutionIdentityParams`
+
+  - `"service_account" type`
+
 ### Beta Managed Agents Session Thread Agent
 
 - `class BetaManagedAgentsSessionThreadAgent`
@@ -2474,6 +2587,10 @@ var_dump($betaManagedAgentsAgent);
   - `string id`
 
   - `?string description`
+
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
@@ -2931,6 +3048,10 @@ List Agent Versions
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -2989,6 +3110,9 @@ var_dump($page);
       "archived_at": null,
       "created_at": "2026-03-15T10:00:00Z",
       "description": "A general-purpose starter agent.",
+      "execution_identity": {
+        "type": "service_account"
+      },
       "mcp_servers": [
         {
           "name": "example-mcp",

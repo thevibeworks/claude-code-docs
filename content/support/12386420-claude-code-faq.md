@@ -38,7 +38,7 @@ This indicates that you selected the wrong login method from the Claude Code set
 
 ## What data is sent to Anthropic when using Claude Code with Bedrock/Vertex API keys?
 
-When configured with Bedrock/Vertex and CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC is set, only essential telemetry is sent. All model API requests go directly to your Bedrock/Vertex endpoints. Review the [d**ata flow documentation**](https://docs.claude.com/en/docs/claude-code/security) for complete details.
+When configured with Bedrock/Vertex and CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC is set, only essential telemetry is sent. All model API requests go directly to your Bedrock/Vertex endpoints. Review the **[data flow documentation](https://docs.claude.com/en/docs/claude-code/security)** for complete details.
 
 ## Is there a way to access Claude Code via Bedrock/Vertex without exposing a secret key/access key?
 
@@ -94,4 +94,4 @@ Yes, Claude Code integrates with GitHub Actions for CI/CD, supports git operatio
 
 ## Why am I seeing "Workflow validation failed" errors in GitHub Actions?
 
-This typically occurs with reusable workflows. Check that your workflow syntax is correct and that all required parameters are passed. If the error persists, file an issue here with your workflow configuration: **[github.com/anthropics/claude-code-action](http://github.com/anthropics/claude-code-action)**.
+This typically occurs with reusable workflows. Check that your workflow syntax is correct and that all required parameters are passed. If the error persists, file an issue here with your workflow configuration: **[github.com/anthropics/claude-code-action](https://github.com/anthropics/claude-code-action)**.

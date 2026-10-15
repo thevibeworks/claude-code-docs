@@ -16,12 +16,12 @@ The Compliance API uses two key types, and which one you create depends on which
 
 ## Which key do you need?
 
-| Key type                                       | Created in                                                                                | Used for                                                                                                                                          | Works with the Compliance API? |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| **Compliance Access Key** (`sk-ant-api01-...`) | [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access)    | Activity Feed, chats, files, projects, sessions (in apps such as Cowork and Claude Code), users, organization metadata, and organization settings | Yes (all endpoints)            |
-| **Admin API key** (`sk-ant-admin01-...`)       | [Claude Console > Settings > Admin keys](https://platform.claude.com/settings/admin-keys) | The [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) and the Compliance API Activity Feed                                 | Activity Feed only             |
-| **Analytics API key**                          | [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access)    | The Claude Enterprise Analytics API (see [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api))                       | No                             |
-| **Claude API key** (`sk-ant-api03-...`)        | [Claude Console > Settings > API keys](https://platform.claude.com/settings/keys)         | Calling Claude models through the [Claude API](https://platform.claude.com/docs/en/api/overview)                                                  | No                             |
+| Key type                                       | Created in                                                                                                                           | Used for                                                                                                                                          | Works with the Compliance API? |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| **Compliance Access Key** (`sk-ant-api01-...`) | [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access)                                               | Activity Feed, chats, files, projects, sessions (in apps such as Cowork and Claude Code), users, organization metadata, and organization settings | Yes (all endpoints)            |
+| **Admin API key** (`sk-ant-admin01-...`)       | [Admin keys](https://platform.claude.com/settings/admin-keys) page (`platform.claude.com/settings/admin-keys`) in the Claude Console | The [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) and the Compliance API Activity Feed                                 | Activity Feed only             |
+| **Analytics API key**                          | [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access)                                               | The Claude Enterprise Analytics API (see [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api))                       | No                             |
+| **Claude API key** (`sk-ant-api03-...`)        | [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`) in the Claude Console               | Calling Claude models through the [Claude API](https://platform.claude.com/docs/en/api/overview)                                                  | No                             |
 
 A Claude Enterprise tenant has one **parent organization** that centralizes identity, SSO, and SCIM for every workload organization beneath it. These workload organizations are the parent's **linked organizations**.
 
@@ -42,7 +42,7 @@ Setup is one flow: enable the Compliance API for your organization, then create 
     Where you enable the Compliance API depends on how your organization is set up:
 
     * **Claude Enterprise organizations:** The primary owner enables the Compliance API at [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access). Enablement happens at the parent organization level and cascades to every linked organization, both claude.ai and Claude Console.
-    * **Standalone Claude Console organizations:** An organization admin turns on the **Compliance API** toggle at [Claude Console > Settings > Security](https://platform.claude.com/settings/security). Enablement is self-service for eligible organizations, and the change takes effect immediately. If the **Compliance API** section is not visible, you do not have the admin role, your organization is linked to a parent organization (the Compliance API is enabled from the parent organization instead), or your organization is not eligible for self-service enablement; contact your account team or [Anthropic support](https://support.claude.com) if you are not sure which applies.
+    * **Standalone Claude Console organizations:** An organization admin turns on the **Compliance API** toggle on the [Compliance](https://platform.claude.com/settings/security) page (`platform.claude.com/settings/security`) in the Claude Console. Enablement is self-service for eligible organizations, and the change takes effect immediately. If the page shows a page-not-found error, or doesn't show the **Compliance API** section, you do not have the admin role, your organization is linked to a parent organization (the Compliance API is enabled from the parent organization instead), or your organization is not eligible for self-service enablement; contact your account team or [Anthropic support](https://support.claude.com) if you are not sure which applies.
     * **Claude Console organizations linked to a parent organization:** There is nothing to turn on in Claude Console. Ask the primary owner of your parent organization to enable the Compliance API in claude.ai, or contact your account team.
 
     <Warning>
@@ -126,7 +126,7 @@ For the same key's role in managing your Claude Console organization, see [Admin
 To inspect the scopes on a key you already have, use one of the following signals.
 
 * **Key prefix.** `sk-ant-admin01-` is an Admin API key (carries `read:compliance_activities` only, subject to the enablement timing in the preceding section). `sk-ant-api01-` is a Compliance Access Key; its scopes are the subset you selected at creation.
-* **Settings UI.** Open the **Keys** section in [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access), or the **Admin keys** section in [Claude Console > Settings > Admin keys](https://platform.claude.com/settings/admin-keys), and read the **Scopes** column for the key.
+* **Settings UI.** For a Compliance Access Key, open the **Keys** section in [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access) and read the **Scopes** column for the key. Admin API keys, listed on the [Admin keys](https://platform.claude.com/settings/admin-keys) page (`platform.claude.com/settings/admin-keys`) in the Claude Console, have no selectable scopes.
 * **Error responses.** A call that exceeds the key's scopes returns a 403 with a message in the format `Missing required scopes. Got: [<scopes the key carries>] Needed one of: [<scopes the endpoint accepts>]` (`Needed: [...]` on the delete endpoints). See [Handle Compliance API errors](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden) for the full error catalog.
 
 ```json
@@ -140,7 +140,7 @@ To inspect the scopes on a key you already have, use one of the following signal
 
 ## Manage and rotate keys
 
-Delete a Compliance Access Key from the same **Keys** table where you created it: go to [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access). Delete an Admin API key from [Claude Console > Settings > Admin keys](https://platform.claude.com/settings/admin-keys).
+Delete a Compliance Access Key from the same **Keys** table where you created it: go to [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access). Delete an Admin API key from the [Admin keys](https://platform.claude.com/settings/admin-keys) page (`platform.claude.com/settings/admin-keys`) in the Claude Console.
 
 Deleting a key takes effect on the next request: there is no grace period. Compliance Access Keys do not expire on their own.
 

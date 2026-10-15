@@ -10,7 +10,7 @@ When enabled, your network proxy injects an HTTP header into requests to Claude.
 
 **Supported authentication methods:**
 
-- Web access ([claude.ai](http://claude.ai))
+- Web access ([claude.ai](https://claude.ai))
 
 - Desktop / App Access
 

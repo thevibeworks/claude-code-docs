@@ -217,6 +217,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
+    - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
+
 ## Returns
 
 - `type Completion`

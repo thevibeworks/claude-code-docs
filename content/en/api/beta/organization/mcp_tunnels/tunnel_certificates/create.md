@@ -138,6 +138,8 @@ holds at most two non-archived certificates.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Body parameters
 
 - `ca_certificate_pem: string`

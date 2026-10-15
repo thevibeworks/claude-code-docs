@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/get-api-key
 description: Find, create, and manage your API keys for the Claude API in the Claude Console.
 ---
 
-API keys for the Claude API (also called Anthropic API keys) live in the Claude Console. To view your existing keys or create a new one, go to [Settings → API keys](https://platform.claude.com/settings/keys).
+API keys for the Claude API (also called Anthropic API keys) live in the Claude Console. To view your existing keys or create a new one, go to the [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`) in the Console.
 
 ## Choose a key type
 
@@ -16,15 +16,15 @@ You can also create a **workspace key**, a legacy key without an owner: it belon
 
 <Steps>
   <Step title="Sign in to the Claude Console">
-    Go to [platform.claude.com](https://platform.claude.com/) and sign in, or create an account if you don't have one yet.
+    Go to the Claude Console at [platform.claude.com](https://platform.claude.com/) and sign in, or create an account if you don't have one yet.
   </Step>
 
   <Step title="Open the API keys page">
-    Go to [Settings → API keys](https://platform.claude.com/settings/keys).
+    In the Claude Console, go to the [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`).
   </Step>
 
   <Step title="Create a key">
-    Click **Create key**, name the key, choose an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration), and set **Linked account** to yourself or a service account. You can also choose a [workspace](https://platform.claude.com/settings/workspaces) to scope the key to.
+    Click **Create key**, name the key, choose an [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration), and set **Linked account** to yourself or a service account. You can also choose a [workspace](https://platform.claude.com/settings/workspaces) in the Console to scope the key to.
   </Step>
 
   <Step title="Copy and store the key">
@@ -51,5 +51,5 @@ To make your first request, follow the [Quickstart](https://platform.claude.com/
 The [Admin API](https://platform.claude.com/docs/en/api/organization) includes endpoints for managing your organization's API keys programmatically, such as [Retrieve API Key](https://platform.claude.com/docs/en/api/organization/api_keys/retrieve) and [List API Keys](https://platform.claude.com/docs/en/api/organization/api_keys/list). These endpoints are for organization admins automating key management. They accept an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn't scoped to a specific workspace; workspace keys don't work there. They never return a key's secret value, only a partially redacted hint.
 
 <Note>
-  The Admin API can't recover a lost key or give you a key to call the Claude API with. To get a usable API key, create one in [Settings → API keys](https://platform.claude.com/settings/keys) in the Claude Console.
+  The Admin API can't recover a lost key or give you a key to call the Claude API with. To get a usable API key, create one on the [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`) in the Claude Console.
 </Note>

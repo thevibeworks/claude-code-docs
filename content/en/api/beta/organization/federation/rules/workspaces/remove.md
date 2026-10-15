@@ -140,6 +140,8 @@ Console session.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Returns
 
 - `type: "federation_rule_workspace_deleted"`

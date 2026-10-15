@@ -49,7 +49,7 @@ Members can have different roles in each workspace, allowing fine-grained access
 * **Organization admins** automatically receive Workspace Admin access to all workspaces
 * **Organization billing members** automatically receive Workspace Billing access to all workspaces
 * **Organization users and developers** must be explicitly added to each workspace
-* **Service accounts** are added to workspaces in [Settings > Service accounts](https://platform.claude.com/settings/service-accounts): select **Add to workspace** in the account's menu or on its own page. To see the accounts in one workspace, filter the list by workspace.
+* **Service accounts** are added to workspaces on the [Service accounts](https://platform.claude.com/settings/service-accounts) page (`platform.claude.com/settings/service-accounts`) in the Claude Console: select **Add to workspace** in the account's menu or on its own page. To see the accounts in one workspace, filter the list by workspace.
 
 <Note>
   The Workspace Billing role cannot be manually assigned. It's inherited from having the organization billing role.
@@ -69,11 +69,11 @@ Create and manage workspaces in the [Claude Console](https://platform.claude.com
 
 <Steps>
   <Step title="Open workspace settings">
-    In the Claude Console, go to **Settings > Workspaces**.
+    In the Claude Console, go to the [Workspaces](https://platform.claude.com/settings/workspaces) page (`platform.claude.com/settings/workspaces`).
   </Step>
 
-  <Step title="Create a workspace">
-    Click **Create workspace**.
+  <Step title="Open the Create workspace page">
+    Click **Create workspace** to open the [Create workspace](https://platform.claude.com/settings/workspaces/new) page (`platform.claude.com/settings/workspaces/new`) in the Console.
   </Step>
 
   <Step title="Configure the workspace">
@@ -86,7 +86,7 @@ Create and manage workspaces in the [Claude Console](https://platform.claude.com
 </Steps>
 
 <Tip>
-  To switch between workspaces in the Console, leave Settings and use the workspace picker at the top of the sidebar.
+  To switch between workspaces in the Console, open a page that belongs to a workspace, such as [Files](https://platform.claude.com/files) (`platform.claude.com/files`), and use the workspace picker in the sidebar.
 </Tip>
 
 #### Edit workspace details
@@ -103,14 +103,14 @@ To modify a workspace's name or color:
 
 #### Add members to a workspace
 
-1. In the Claude Console, go to the [Members](https://platform.claude.com/settings/members) page.
+1. In the Claude Console, go to the [Members](https://platform.claude.com/settings/members) page (`platform.claude.com/settings/members`).
 2. Click **Add to workspace**.
 3. Select the workspace, the organization member to add, and their [workspace role](https://platform.claude.com/docs/en/manage-claude/workspaces#workspace-roles-and-permissions).
 4. Click **Add to workspace** to confirm.
 
 #### Remove members from a workspace
 
-1. On the [Members](https://platform.claude.com/settings/members) page, select the workspace from the **Workspace** dropdown menu. If it shows **All**, **Remove member** removes the member from your organization instead.
+1. On the [Members](https://platform.claude.com/settings/members) page in the Claude Console, select the workspace from the **Workspace** dropdown menu. If it shows **All**, **Remove member** removes the member from your organization instead.
 2. At the end of the member's row, open the **More actions** menu (three dots) and select **Remove member**.
 3. Click **Remove** to confirm.
 
@@ -122,8 +122,8 @@ To modify a workspace's name or color:
 
 You set a workspace's rate limits and spend limits in different places:
 
-* **Rate limits:** On the [Rate limits](https://platform.claude.com/usage/limits) page, select the workspace from the **Workspace** dropdown menu and click **Edit** next to a model to set limits for requests per minute, input tokens, or output tokens.
-* **Spend limits:** Select the workspace under [Settings > Workspaces](https://platform.claude.com/settings/workspaces). In the panel that opens, click **Spend limits** to cap monthly spending and configure alerts when spending reaches certain thresholds.
+* **Rate limits:** On the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, select the workspace from the **Workspace** dropdown menu and click **Edit** next to a model to set limits for requests per minute, input tokens, or output tokens.
+* **Spend limits:** On the [Workspaces](https://platform.claude.com/settings/workspaces) page in the Claude Console, select the workspace. In the panel that opens, click **Spend limits** to cap monthly spending and configure alerts when spending reaches certain thresholds.
 
 #### Archive a workspace
 
@@ -1021,7 +1021,7 @@ You can set custom spend and rate limits for each workspace to protect against o
 
 You can set workspace limits lower than (but not higher than) your organization's limits:
 
-* **Spend limits:** Cap monthly spending for a workspace. To set these, select the workspace under [Settings > Workspaces](https://platform.claude.com/settings/workspaces) in the Claude Console. In the panel that opens, click **Spend limits**.
+* **Spend limits:** Cap monthly spending for a workspace. To set these, go to the [Workspaces](https://platform.claude.com/settings/workspaces) page (`platform.claude.com/settings/workspaces`) in the Claude Console and select the workspace. In the panel that opens, click **Spend limits**.
 * **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. To set these, go to the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 <Note>

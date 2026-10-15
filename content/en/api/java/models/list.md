@@ -157,6 +157,8 @@ The Models API response can be used to determine which models are available for 
 
     - `SPEND_LIMIT_READS_2026_09_26("spend-limit-reads-2026-09-26")`
 
+    - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
+
 ## Returns
 
 - `class ModelInfo`

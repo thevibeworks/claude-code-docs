@@ -14,7 +14,7 @@ Use the session viewer in the Claude Console to inspect what an agent did in a s
 
 ## Inspect a session in the Console
 
-The session viewer is only accessible to Developers and Admins. To open it, go to the Console sidebar and select **Sessions** under **Managed Agents**. The list shows every session in the workspace with its status, agent, token usage, cost, and creation time. Select a session to open it.
+The session viewer is only accessible to Developers and Admins. To open it, go to the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`) in the Claude Console. The list shows every session in the workspace with its status, agent, token usage, cost, and creation time. Select a session to open it.
 
 The session viewer shows:
 

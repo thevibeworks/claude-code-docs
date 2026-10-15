@@ -18,7 +18,12 @@ Each entry is either a model ID string or an object. In an object, `name` holds 
 
 * `labelOverride` sets the display name for an ID the picker can't turn into a readable name, such as a gateway routing alias or an Amazon Bedrock application inference profile ARN. Claude Desktop still sends `name` to your provider.
 * `supports1m: true` adds a second entry that shows the same name with **1M context window** beneath it. Set it only when your deployment accepts 1M-token requests for that model. Otherwise, requests from the 1M entry fail at the provider.
-* `prefer1m: true`, with `supports1m: true`, shows the model as one entry. New conversations with it use the 1M context window.
+* `prefer1m: true`, with `supports1m: true`, shows the model as one entry. New conversations with it use the 1M context window. To do this for every entry that sets `supports1m`, set [`modelPrefer1mContext`](/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true`. When discovery fills the picker from a gateway, that key applies to every model the gateway [marks as supporting 1M](/docs/third-party/claude-desktop/gateway#models).
+
+On any provider, a Chat conversation, Cowork session, or Code session on an entry without `supports1m` assumes a context window from the model ID:
+
+* **An ID recognized as a model with a native 1M context window**, such as `us.anthropic.claude-opus-5`: you don't need `supports1m` or `prefer1m`. Setting them doesn't change the assumed window. For earlier Claude Desktop versions, see [Context window and compaction](/docs/third-party/claude-desktop/gateway#context-window-and-compaction) on the LLM gateway page. To check a model, see [Extended context](https://code.claude.com/docs/en/model-config#extended-context) in the Claude Code documentation, which lists the models that run with the 1M window by default.
+* **An ID for a model without a native 1M context window, or an unrecognized ID**, such as `us.anthropic.claude-opus-4-6-v1` or a gateway routing alias: the assumed window is 200K tokens. If your deployment accepts 1M-token requests for the model, set `supports1m` on its entry.
 
 ## Effort levels
 
@@ -54,12 +59,12 @@ When you turn the setting on, Claude Desktop keeps the choices users saved earli
 
 ## Example configuration
 
-The following configuration offers Claude Sonnet 5, with a 1M-context variant, and Claude Opus 5. It makes Claude Sonnet 5 the default model at medium effort, caps both models at high effort, and starts every new conversation and session from those defaults:
+The following configuration offers Claude Sonnet 5 and Claude Opus 5. It makes Claude Sonnet 5 the default model at medium effort, caps both models at high effort, and starts every new conversation and session from those defaults:
 
 ```json theme={null}
 {
   "inferenceModels": [
-    { "name": "claude-sonnet-5", "supports1m": true, "maxEffort": "high" },
+    { "name": "claude-sonnet-5", "maxEffort": "high" },
     { "name": "claude-opus-5", "maxEffort": "high" }
   ],
   "defaultModelEffort": "medium",

@@ -125,6 +125,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
+    - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
+
 ## Returns
 
 - `class BetaSelfHostedWork`

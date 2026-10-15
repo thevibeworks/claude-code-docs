@@ -170,7 +170,16 @@ For Santa, a `TEAMID` allow rule for `Q6L2SF6YDW` covers the helper across versi
 %LOCALAPPDATA%\Claude-3p\claude-code\<version>\<build-id>\claude.exe
 ```
 
-The helper is Authenticode-signed with publisher `Anthropic, PBC`. For Defender ASR or AppLocker, allowlist by publisher rather than path. Standard installs use `%APPDATA%\Claude\` with the same subpath.
+The helper is Authenticode-signed with publisher `Anthropic, PBC`. Standard installs use `%APPDATA%\Claude\` with the same subpath.
+
+For Defender ASR, a Microsoft Defender for Endpoint [certificate indicator](https://learn.microsoft.com/en-us/defender-endpoint/indicator-certificates) matches one certificate, not the publisher name. If you use certificate indicators, you need one for each of the following certificates and another whenever Anthropic renews its signing certificate:
+
+* **Issued October 2026**: `60C2D9C51F09822FFF4F194DE9EEDB67451292D1`
+* **Issued October 2025**: `0D7581D2C51C59DF686C3000C70BF543F9F6C6CB`
+
+Export the certificates from the signatures on the Claude Desktop installer and the helper your devices run. Check each certificate's SHA-1 thumbprint against the list before you add it.
+
+For AppLocker, allowlist by publisher rather than path. Publisher rules match the publisher name, and the listed certificates share the name `Anthropic, PBC`.
 
 ## Offline installation
 

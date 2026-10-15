@@ -216,6 +216,8 @@ During authentication, the integration requests the following permissions:
 
 **Teams channels**
 
+- `Team.ReadBasic.All`: Read the names and descriptions of teams
+
 - `Channel.ReadBasic.All`: Read channel names and descriptions
 
 - `ChannelMessage.Read.All`: Read channel messages
@@ -250,7 +252,7 @@ The following permissions support write tools and are included in the updated co
 
 - `Calendars.ReadWrite`: Create, update, delete, and respond to calendar events
 
-- `Files.ReadWrite.All`: Create and update files in OneDrive and SharePoint
+- `Files.ReadWrite.All`: Create, update, and delete files and folders in OneDrive and SharePoint. Deleted items go to the recycle bin.
 
 - `MailboxSettings.ReadWrite`: Manage categories, inbox rules, and automatic replies
 
@@ -295,6 +297,12 @@ For more detail, see the **[Microsoft 365 connector security guide](https://supp
 ### Members are seeing "Failed to call tool" errors
 
 A permission may have been selectively revoked in Microsoft Entra. Members can turn off the corresponding tool in their Microsoft 365 settings to suppress the error, or you can restore the permission by repeating the admin consent steps in **[Option 2: Manual setup in Microsoft Entra ID](#h_c5f095c9cf)**.
+
+### A Teams tool returns a 403 “Missing scope” error
+
+The connector’s permission set now includes `Team.ReadBasic.All`, which Claude needs to list the teams a user belongs to. If your tenant consented before this permission was added, Teams tools that rely on it return a 403 “Missing scope” error. To fix it, have a Microsoft Entra Global Administrator repeat the admin consent steps in **[Option 1: Consent through Claude](#h_3617c79be6)** or **[Option 2: Manual setup in Microsoft Entra ID](#h_c5f095c9cf)**.
+
+**Note:** Repeating admin consent grants the connector’s full current permission set, including the write permissions. If you revoked any write permissions on purpose, revoke them again afterward.
 
 ### Write tools aren't appearing for members
 

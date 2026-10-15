@@ -136,6 +136,8 @@ interactive credential (a user OAuth token or a Console session).
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Body parameters
 
 - `description: optional string or null`

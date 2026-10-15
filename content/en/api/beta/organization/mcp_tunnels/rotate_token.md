@@ -137,6 +137,8 @@ restarted after rotation must use the new value. An optional
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Body parameters
 
 - `reason: optional string or null`

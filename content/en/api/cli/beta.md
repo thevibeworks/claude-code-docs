@@ -12679,6 +12679,10 @@ Create Agent
 
   maxLength: 2048
 
+- `--execution-identity: optional BetaManagedAgentsAWSRoleExecutionIdentityParams or BetaManagedAgentsServiceAccountExecutionIdentityParams`
+
+  Execution principal for runs of this agent. Omitting it, sending null, or sending `{"type": "service_account"}` stores the default.
+
 - `--mcp-server: optional array of BetaManagedAgentsURLMCPServerParams`
 
   MCP servers this agent connects to. Maximum 20. Names must be unique within the array. Every server must be referenced by an `mcp_toolset` in `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector?sdk_languages=cli).
@@ -12738,6 +12742,26 @@ Create Agent
     format: date-time
 
   - `description: string`
+
+  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+    - `beta_managed_agents_aws_role_execution_identity: object`
+
+      An AWS IAM role principal as returned in API responses.
+
+      - `type: "aws_role"`
+
+      - `role_arn: string`
+
+        The IAM role's ARN.
+
+    - `beta_managed_agents_service_account_execution_identity: object`
+
+      The Anthropic-managed service account as returned in API responses.
+
+      - `type: "service_account"`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -13526,6 +13550,9 @@ ant beta:agents create \
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -13690,6 +13717,26 @@ List Agents
       format: date-time
 
     - `description: string`
+
+    - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+      Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+      - `beta_managed_agents_aws_role_execution_identity: object`
+
+        An AWS IAM role principal as returned in API responses.
+
+        - `type: "aws_role"`
+
+        - `role_arn: string`
+
+          The IAM role's ARN.
+
+      - `beta_managed_agents_service_account_execution_identity: object`
+
+        The Anthropic-managed service account as returned in API responses.
+
+        - `type: "service_account"`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -14482,6 +14529,9 @@ ant beta:agents list \
       "archived_at": null,
       "created_at": "2026-03-15T10:00:00Z",
       "description": "A general-purpose starter agent.",
+      "execution_identity": {
+        "type": "service_account"
+      },
       "mcp_servers": [
         {
           "name": "example-mcp",
@@ -14629,6 +14679,26 @@ Get Agent
     format: date-time
 
   - `description: string`
+
+  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+    - `beta_managed_agents_aws_role_execution_identity: object`
+
+      An AWS IAM role principal as returned in API responses.
+
+      - `type: "aws_role"`
+
+      - `role_arn: string`
+
+        The IAM role's ARN.
+
+    - `beta_managed_agents_service_account_execution_identity: object`
+
+      The Anthropic-managed service account as returned in API responses.
+
+      - `type: "service_account"`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -15416,6 +15486,9 @@ ant beta:agents retrieve \
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -15527,6 +15600,10 @@ Update Agent
 
   maxLength: 2048
 
+- `--execution-identity: optional BetaManagedAgentsAWSRoleExecutionIdentityParams or BetaManagedAgentsServiceAccountExecutionIdentityParams`
+
+  Execution principal for runs of this agent. Full replacement. Omit to preserve; send null or `{"type": "service_account"}` to restore the default.
+
 - `--mcp-server: optional array of BetaManagedAgentsURLMCPServerParams`
 
   MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector?sdk_languages=cli).
@@ -15602,6 +15679,26 @@ Update Agent
     format: date-time
 
   - `description: string`
+
+  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+    - `beta_managed_agents_aws_role_execution_identity: object`
+
+      An AWS IAM role principal as returned in API responses.
+
+      - `type: "aws_role"`
+
+      - `role_arn: string`
+
+        The IAM role's ARN.
+
+    - `beta_managed_agents_service_account_execution_identity: object`
+
+      The Anthropic-managed service account as returned in API responses.
+
+      - `type: "service_account"`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -16389,6 +16486,9 @@ ant beta:agents update \
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -16527,6 +16627,26 @@ Archive Agent
     format: date-time
 
   - `description: string`
+
+  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+    - `beta_managed_agents_aws_role_execution_identity: object`
+
+      An AWS IAM role principal as returned in API responses.
+
+      - `type: "aws_role"`
+
+      - `role_arn: string`
+
+        The IAM role's ARN.
+
+    - `beta_managed_agents_service_account_execution_identity: object`
+
+      The Anthropic-managed service account as returned in API responses.
+
+      - `type: "service_account"`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -17314,6 +17434,9 @@ ant beta:agents archive \
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -17468,6 +17591,26 @@ List Agent Versions
       format: date-time
 
     - `description: string`
+
+    - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+      Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+      - `beta_managed_agents_aws_role_execution_identity: object`
+
+        An AWS IAM role principal as returned in API responses.
+
+        - `type: "aws_role"`
+
+        - `role_arn: string`
+
+          The IAM role's ARN.
+
+      - `beta_managed_agents_service_account_execution_identity: object`
+
+        The Anthropic-managed service account as returned in API responses.
+
+        - `type: "service_account"`
 
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -18261,6 +18404,9 @@ ant beta:agents:versions list \
       "archived_at": null,
       "created_at": "2026-03-15T10:00:00Z",
       "description": "A general-purpose starter agent.",
+      "execution_identity": {
+        "type": "service_account"
+      },
       "mcp_servers": [
         {
           "name": "example-mcp",
@@ -20623,6 +20769,26 @@ Create Session
 
     - `description: string`
 
+    - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+      Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+      - `beta_managed_agents_aws_role_execution_identity: object`
+
+        An AWS IAM role principal as returned in API responses.
+
+        - `type: "aws_role"`
+
+        - `role_arn: string`
+
+          The IAM role's ARN.
+
+      - `beta_managed_agents_service_account_execution_identity: object`
+
+        The Anthropic-managed service account as returned in API responses.
+
+        - `type: "service_account"`
+
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
       - `type: "url"`
@@ -20778,6 +20944,18 @@ Create Session
             - `id: string`
 
             - `description: string`
+
+            - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+              Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+              - `beta_managed_agents_aws_role_execution_identity: object`
+
+                An AWS IAM role principal as returned in API responses.
+
+              - `beta_managed_agents_service_account_execution_identity: object`
+
+                The Anthropic-managed service account as returned in API responses.
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -21363,6 +21541,10 @@ Create Session
 
               - `description: string`
 
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
               - `model: object`
@@ -21418,6 +21600,10 @@ Create Session
               - `id: string`
 
               - `description: string`
+
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -21782,6 +21968,9 @@ ant beta:sessions create \
   "agent": {
     "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "description": "A general-purpose starter agent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -21802,6 +21991,9 @@ ant beta:sessions create \
         {
           "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
           "description": "A focused research subagent.",
+          "execution_identity": {
+            "type": "service_account"
+          },
           "mcp_servers": [
             {
               "name": "example-mcp",
@@ -22076,6 +22268,26 @@ List Sessions
 
       - `description: string`
 
+      - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `beta_managed_agents_aws_role_execution_identity: object`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `type: "aws_role"`
+
+          - `role_arn: string`
+
+            The IAM role's ARN.
+
+        - `beta_managed_agents_service_account_execution_identity: object`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `type: "service_account"`
+
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
         - `type: "url"`
@@ -22231,6 +22443,18 @@ List Sessions
               - `id: string`
 
               - `description: string`
+
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+                - `beta_managed_agents_aws_role_execution_identity: object`
+
+                  An AWS IAM role principal as returned in API responses.
+
+                - `beta_managed_agents_service_account_execution_identity: object`
+
+                  The Anthropic-managed service account as returned in API responses.
 
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -22816,6 +23040,10 @@ List Sessions
 
                 - `description: string`
 
+                - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                 - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
                 - `model: object`
@@ -22871,6 +23099,10 @@ List Sessions
                 - `id: string`
 
                 - `description: string`
+
+                - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                 - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -23243,6 +23475,9 @@ ant beta:sessions list \
       "agent": {
         "id": "agent_011CZkYpogX7uDKUyvBTophP",
         "description": "A general-purpose starter agent.",
+        "execution_identity": {
+          "type": "service_account"
+        },
         "mcp_servers": [
           {
             "name": "example-mcp",
@@ -23263,6 +23498,9 @@ ant beta:sessions list \
             {
               "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
               "description": "A focused research subagent.",
+              "execution_identity": {
+                "type": "service_account"
+              },
               "mcp_servers": [
                 {
                   "name": "example-mcp",
@@ -23475,6 +23713,26 @@ Get Session
 
     - `description: string`
 
+    - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+      Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+      - `beta_managed_agents_aws_role_execution_identity: object`
+
+        An AWS IAM role principal as returned in API responses.
+
+        - `type: "aws_role"`
+
+        - `role_arn: string`
+
+          The IAM role's ARN.
+
+      - `beta_managed_agents_service_account_execution_identity: object`
+
+        The Anthropic-managed service account as returned in API responses.
+
+        - `type: "service_account"`
+
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
       - `type: "url"`
@@ -23630,6 +23888,18 @@ Get Session
             - `id: string`
 
             - `description: string`
+
+            - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+              Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+              - `beta_managed_agents_aws_role_execution_identity: object`
+
+                An AWS IAM role principal as returned in API responses.
+
+              - `beta_managed_agents_service_account_execution_identity: object`
+
+                The Anthropic-managed service account as returned in API responses.
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -24215,6 +24485,10 @@ Get Session
 
               - `description: string`
 
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
               - `model: object`
@@ -24270,6 +24544,10 @@ Get Session
               - `id: string`
 
               - `description: string`
+
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -24633,6 +24911,9 @@ ant beta:sessions retrieve \
   "agent": {
     "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "description": "A general-purpose starter agent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -24653,6 +24934,9 @@ ant beta:sessions retrieve \
         {
           "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
           "description": "A focused research subagent.",
+          "execution_identity": {
+            "type": "service_account"
+          },
           "mcp_servers": [
             {
               "name": "example-mcp",
@@ -24883,6 +25167,26 @@ Update Session
 
     - `description: string`
 
+    - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+      Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+      - `beta_managed_agents_aws_role_execution_identity: object`
+
+        An AWS IAM role principal as returned in API responses.
+
+        - `type: "aws_role"`
+
+        - `role_arn: string`
+
+          The IAM role's ARN.
+
+      - `beta_managed_agents_service_account_execution_identity: object`
+
+        The Anthropic-managed service account as returned in API responses.
+
+        - `type: "service_account"`
+
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
       - `type: "url"`
@@ -25038,6 +25342,18 @@ Update Session
             - `id: string`
 
             - `description: string`
+
+            - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+              Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+              - `beta_managed_agents_aws_role_execution_identity: object`
+
+                An AWS IAM role principal as returned in API responses.
+
+              - `beta_managed_agents_service_account_execution_identity: object`
+
+                The Anthropic-managed service account as returned in API responses.
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -25623,6 +25939,10 @@ Update Session
 
               - `description: string`
 
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
               - `model: object`
@@ -25678,6 +25998,10 @@ Update Session
               - `id: string`
 
               - `description: string`
+
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -26041,6 +26365,9 @@ ant beta:sessions update \
   "agent": {
     "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "description": "A general-purpose starter agent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -26061,6 +26388,9 @@ ant beta:sessions update \
         {
           "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
           "description": "A focused research subagent.",
+          "execution_identity": {
+            "type": "service_account"
+          },
           "mcp_servers": [
             {
               "name": "example-mcp",
@@ -26318,6 +26648,26 @@ Archive Session
 
     - `description: string`
 
+    - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+      Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+      - `beta_managed_agents_aws_role_execution_identity: object`
+
+        An AWS IAM role principal as returned in API responses.
+
+        - `type: "aws_role"`
+
+        - `role_arn: string`
+
+          The IAM role's ARN.
+
+      - `beta_managed_agents_service_account_execution_identity: object`
+
+        The Anthropic-managed service account as returned in API responses.
+
+        - `type: "service_account"`
+
     - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
       - `type: "url"`
@@ -26473,6 +26823,18 @@ Archive Session
             - `id: string`
 
             - `description: string`
+
+            - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+              Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+              - `beta_managed_agents_aws_role_execution_identity: object`
+
+                An AWS IAM role principal as returned in API responses.
+
+              - `beta_managed_agents_service_account_execution_identity: object`
+
+                The Anthropic-managed service account as returned in API responses.
 
             - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -27058,6 +27420,10 @@ Archive Session
 
               - `description: string`
 
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
               - `model: object`
@@ -27113,6 +27479,10 @@ Archive Session
               - `id: string`
 
               - `description: string`
+
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -27476,6 +27846,9 @@ ant beta:sessions archive \
   "agent": {
     "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "description": "A general-purpose starter agent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -27496,6 +27869,9 @@ ant beta:sessions archive \
         {
           "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
           "description": "A focused research subagent.",
+          "execution_identity": {
+            "type": "service_account"
+          },
           "mcp_servers": [
             {
               "name": "example-mcp",
@@ -29482,6 +29858,26 @@ List Events
 
         - `description: string`
 
+        - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+          Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+          - `beta_managed_agents_aws_role_execution_identity: object`
+
+            An AWS IAM role principal as returned in API responses.
+
+            - `type: "aws_role"`
+
+            - `role_arn: string`
+
+              The IAM role's ARN.
+
+          - `beta_managed_agents_service_account_execution_identity: object`
+
+            The Anthropic-managed service account as returned in API responses.
+
+            - `type: "service_account"`
+
         - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
           - `type: "url"`
@@ -29637,6 +30033,18 @@ List Events
                 - `id: string`
 
                 - `description: string`
+
+                - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+                  - `beta_managed_agents_aws_role_execution_identity: object`
+
+                    An AWS IAM role principal as returned in API responses.
+
+                  - `beta_managed_agents_service_account_execution_identity: object`
+
+                    The Anthropic-managed service account as returned in API responses.
 
                 - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -30222,6 +30630,10 @@ List Events
 
                   - `description: string`
 
+                  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                    Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
                   - `model: object`
@@ -30277,6 +30689,10 @@ List Events
                   - `id: string`
 
                   - `description: string`
+
+                  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                    Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -33081,6 +33497,26 @@ Stream Events
 
       - `description: string`
 
+      - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `beta_managed_agents_aws_role_execution_identity: object`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `type: "aws_role"`
+
+          - `role_arn: string`
+
+            The IAM role's ARN.
+
+        - `beta_managed_agents_service_account_execution_identity: object`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `type: "service_account"`
+
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
         - `type: "url"`
@@ -33236,6 +33672,18 @@ Stream Events
               - `id: string`
 
               - `description: string`
+
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+                - `beta_managed_agents_aws_role_execution_identity: object`
+
+                  An AWS IAM role principal as returned in API responses.
+
+                - `beta_managed_agents_service_account_execution_identity: object`
+
+                  The Anthropic-managed service account as returned in API responses.
 
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -33821,6 +34269,10 @@ Stream Events
 
                 - `description: string`
 
+                - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                 - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
                 - `model: object`
@@ -33876,6 +34328,10 @@ Stream Events
                 - `id: string`
 
                 - `description: string`
+
+                - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                 - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -35155,6 +35611,26 @@ List Session Threads
 
         - `description: string`
 
+        - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+          Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+          - `beta_managed_agents_aws_role_execution_identity: object`
+
+            An AWS IAM role principal as returned in API responses.
+
+            - `type: "aws_role"`
+
+            - `role_arn: string`
+
+              The IAM role's ARN.
+
+          - `beta_managed_agents_service_account_execution_identity: object`
+
+            The Anthropic-managed service account as returned in API responses.
+
+            - `type: "service_account"`
+
         - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
           - `type: "url"`
@@ -35787,6 +36263,18 @@ List Session Threads
 
         - `description: string`
 
+        - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+          The session's execution principal.
+
+          - `beta_managed_agents_aws_role_execution_identity: object`
+
+            An AWS IAM role principal as returned in API responses.
+
+          - `beta_managed_agents_service_account_execution_identity: object`
+
+            The Anthropic-managed service account as returned in API responses.
+
         - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
           - `type: "url"`
@@ -36001,6 +36489,9 @@ ant beta:sessions:threads list \
       "agent": {
         "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
         "description": "A focused research subagent.",
+        "execution_identity": {
+          "type": "service_account"
+        },
         "mcp_servers": [
           {
             "name": "example-mcp",
@@ -36135,6 +36626,26 @@ Get Session Thread
       - `id: string`
 
       - `description: string`
+
+      - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `beta_managed_agents_aws_role_execution_identity: object`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `type: "aws_role"`
+
+          - `role_arn: string`
+
+            The IAM role's ARN.
+
+        - `beta_managed_agents_service_account_execution_identity: object`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `type: "service_account"`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -36767,6 +37278,18 @@ Get Session Thread
       - `type: "inline"`
 
       - `description: string`
+
+      - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+        The session's execution principal.
+
+        - `beta_managed_agents_aws_role_execution_identity: object`
+
+          An AWS IAM role principal as returned in API responses.
+
+        - `beta_managed_agents_service_account_execution_identity: object`
+
+          The Anthropic-managed service account as returned in API responses.
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -36977,6 +37500,9 @@ ant beta:sessions:threads retrieve \
   "agent": {
     "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
     "description": "A focused research subagent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -37108,6 +37634,26 @@ Archive Session Thread
       - `id: string`
 
       - `description: string`
+
+      - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `beta_managed_agents_aws_role_execution_identity: object`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `type: "aws_role"`
+
+          - `role_arn: string`
+
+            The IAM role's ARN.
+
+        - `beta_managed_agents_service_account_execution_identity: object`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `type: "service_account"`
 
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -37741,6 +38287,18 @@ Archive Session Thread
 
       - `description: string`
 
+      - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+        The session's execution principal.
+
+        - `beta_managed_agents_aws_role_execution_identity: object`
+
+          An AWS IAM role principal as returned in API responses.
+
+        - `beta_managed_agents_service_account_execution_identity: object`
+
+          The Anthropic-managed service account as returned in API responses.
+
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
         - `type: "url"`
@@ -37950,6 +38508,9 @@ ant beta:sessions:threads archive \
   "agent": {
     "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
     "description": "A focused research subagent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -39820,6 +40381,26 @@ List Session Thread Events
 
         - `description: string`
 
+        - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+          Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+          - `beta_managed_agents_aws_role_execution_identity: object`
+
+            An AWS IAM role principal as returned in API responses.
+
+            - `type: "aws_role"`
+
+            - `role_arn: string`
+
+              The IAM role's ARN.
+
+          - `beta_managed_agents_service_account_execution_identity: object`
+
+            The Anthropic-managed service account as returned in API responses.
+
+            - `type: "service_account"`
+
         - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
           - `type: "url"`
@@ -39975,6 +40556,18 @@ List Session Thread Events
                 - `id: string`
 
                 - `description: string`
+
+                - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+                  - `beta_managed_agents_aws_role_execution_identity: object`
+
+                    An AWS IAM role principal as returned in API responses.
+
+                  - `beta_managed_agents_service_account_execution_identity: object`
+
+                    The Anthropic-managed service account as returned in API responses.
 
                 - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -40560,6 +41153,10 @@ List Session Thread Events
 
                   - `description: string`
 
+                  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                    Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
                   - `model: object`
@@ -40615,6 +41212,10 @@ List Session Thread Events
                   - `id: string`
 
                   - `description: string`
+
+                  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                    Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -42921,6 +43522,26 @@ Stream Session Thread Events
 
       - `description: string`
 
+      - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `beta_managed_agents_aws_role_execution_identity: object`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `type: "aws_role"`
+
+          - `role_arn: string`
+
+            The IAM role's ARN.
+
+        - `beta_managed_agents_service_account_execution_identity: object`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `type: "service_account"`
+
       - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
         - `type: "url"`
@@ -43076,6 +43697,18 @@ Stream Session Thread Events
               - `id: string`
 
               - `description: string`
+
+              - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+                - `beta_managed_agents_aws_role_execution_identity: object`
+
+                  An AWS IAM role principal as returned in API responses.
+
+                - `beta_managed_agents_service_account_execution_identity: object`
+
+                  The Anthropic-managed service account as returned in API responses.
 
               - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -43661,6 +44294,10 @@ Stream Session Thread Events
 
                 - `description: string`
 
+                - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                 - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
                 - `model: object`
@@ -43716,6 +44353,10 @@ Stream Session Thread Events
                 - `id: string`
 
                 - `description: string`
+
+                - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                 - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -61784,7 +62425,7 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
   Role for the invited User.
 
-  The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`.
+  The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`; inviting with the `managed` role requires the `write:rbac_groups` scope in addition to `write:members`.
 
 - `--rbac-group-id: optional array of string`
 
@@ -63317,7 +63958,7 @@ Update a member's organization role.
 
   New role for the User.
 
-  The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`.
+  The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`; changing a User's role to `managed` requires the `write:rbac_groups` scope in addition to `write:members`.
 
 #### Returns
 
@@ -75126,5 +75767,1367 @@ ant beta:organization:plugin-marketplaces validate-archive \
   "total_plugin_count": 0,
   "type": "plugin_marketplace_validation_report",
   "valid": false
+}
+```
+
+## Beta › Organization › Telemetry Destinations
+
+### Create a Telemetry Destination
+
+`$ ant beta:organization:telemetry-destinations create`
+
+**POST** `/v1/organizations/telemetry_destinations`
+
+Register an OpenTelemetry destination for the organization.
+
+The destination starts in state `enabled`. An organization can have at most 10 destinations, including disabled ones.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#add-a-destination) to learn more about adding a destination.
+
+#### Parameters
+
+- `--endpoint-url: string`
+
+  The base URL of your collector's OTLP/HTTP endpoint, for example `https://gateway.example.com`.
+
+  The URL must use `https` and a hostname, not an IP address. The port, if given, must be 443. The URL must not contain a query string, a fragment, or a username and password. At most 2,048 characters.
+
+  A path prefix, such as `/otlp`, is allowed. Don't include the per-signal path (`/v1/traces`), because the API appends it on delivery. If your collector takes traces on another path, also set `traces.endpoint_url`.
+
+  minLength: 1, maxLength: 2048
+
+- `--workspaces: BetaTelemetryDestinationWorkspacesAllParams or BetaTelemetryDestinationWorkspacesIncludeParams or BetaTelemetryDestinationWorkspacesExcludeParams`
+
+  Which of the organization's workspaces the destination covers.
+
+- `--display-name: optional string`
+
+  Human-readable name for the destination. Optional. 1 to 255 characters.
+
+- `--headers: optional map[string]`
+
+  Request headers that the API sends with every delivery, typically your collector's authentication header (for example `authorization`).
+
+  The API stores the values encrypted and never returns them. Reads show only `header_names`.
+
+  At most 20 headers. Names are at most 128 characters. Two names can't differ only in case. Values are printable ASCII, at most 4,096 characters, and can't begin or end with a space. Names and values together are at most 16,384 bytes.
+
+  Reserved names are rejected, for example `host`, `cookie`, `user-agent`, and names that start with `content-`, `proxy-`, `x-forwarded-`, or `anthropic-`. For this check, `_` in a name counts as `-`.
+
+- `--traces: optional object`
+
+  The settings for the traces that the destination receives. If you leave it out, every setting takes its default.
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `beta_telemetry_destination: object`
+
+  An OpenTelemetry destination: an OTLP/HTTP endpoint, the request headers sent with every delivery to it, what the exported spans contain, and which workspaces it covers. A destination belongs to an organization. A workspace's spans go to every enabled destination that covers it.
+
+  - `type: "telemetry_destination"`
+
+  - `id: string`
+
+    The unique ID of the destination (`tdst_...`).
+
+  - `created_at: string`
+
+    Time the destination was created.
+
+    format: date-time
+
+  - `delivery_health: object`
+
+    The most recent delivery results for this destination.
+
+    - `last_error: string`
+
+      A message that describes the most recent failed delivery to the destination, or `null` if no delivery has failed yet.
+
+      Examples are `temporary DNS failure`, `TLS failure`, `timeout`, `connection failure`, `invalid address`, `HTTP error (status 503)`, and `redirect (status 301)`. The message is `invalid address` both for a hostname that doesn't exist and for an address that isn't publicly routable. It never contains the endpoint's response body, a header value, a network address, or TLS details.
+
+      `last_error` and `last_error_at` always change together. A later successful delivery doesn't clear them. If `last_success_at` is later than `last_error_at`, a delivery has succeeded since this failure.
+
+      See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#delivery-errors) to learn the likely cause of each error.
+
+    - `last_error_at: string`
+
+      Time of the failure that `last_error` describes. Changes together with `last_error`. Null until a delivery first fails.
+
+      format: date-time
+
+    - `last_success_at: string`
+
+      Time of the most recent successful delivery to the destination, or `null` if no delivery has succeeded yet.
+
+      format: date-time
+
+  - `display_name: string`
+
+    Human-readable name for the destination. Null when none was set.
+
+  - `endpoint_url: string`
+
+    The base URL of the destination's OTLP/HTTP endpoint, exactly as registered.
+
+    The API appends the per-signal path, such as `/v1/traces`, on delivery, unless `traces.endpoint_url` is set.
+
+  - `header_names: array of string`
+
+    Names of the registered request headers. Header values are write-only and are never returned.
+
+  - `state: BetaTelemetryDestinationStateEnabled or BetaTelemetryDestinationStateDisabled`
+
+    Whether the destination receives deliveries.
+
+    - `beta_telemetry_destination_state_enabled: object`
+
+      The telemetry destination receives the spans of the workspaces that it covers.
+
+      - `type: "enabled"`
+
+    - `beta_telemetry_destination_state_disabled: object`
+
+      The API doesn't deliver anything to the telemetry destination.
+
+      Spans produced while it is disabled aren't delivered later.
+
+      - `type: "disabled"`
+
+      - `reason: BetaTelemetryDestinationDisabledReasonCaller or BetaTelemetryDestinationDisabledReasonSustainedFailure or BetaTelemetryDestinationDisabledReasonInvalidAddress or BetaTelemetryDestinationDisabledReasonRedirect`
+
+        Whether a caller or the API disabled the destination and, when the API did, why. Read-only.
+
+        - `beta_telemetry_destination_disabled_reason_caller: object`
+
+          A caller disabled the destination with an update that set `state` to `disabled`.
+
+          - `type: "caller"`
+
+        - `beta_telemetry_destination_disabled_reason_sustained_failure: object`
+
+          The API disabled the destination because deliveries to it failed, with no successful delivery in between, for longer than a threshold that Anthropic configures and that is not part of this contract. The reason is `invalid_address` instead when the most recent failed delivery failed with an invalid address.
+
+          - `type: "sustained_failure"`
+
+        - `beta_telemetry_destination_disabled_reason_invalid_address: object`
+
+          The API disabled the destination because deliveries to it failed for longer than the same threshold as for `sustained_failure`, and the most recent failed delivery failed with an invalid address: the DNS answer says that the endpoint's hostname doesn't exist or doesn't have an address, or the address that the API would connect to isn't publicly routable or is reserved, for example a loopback, link-local, private-network, or cloud-metadata address. The API doesn't connect to such an address, and retries the delivery a bounded number of times as it does after a timeout. A timeout or a server failure of the DNS lookup is a temporary DNS failure instead, not an invalid address.
+
+          - `type: "invalid_address"`
+
+        - `beta_telemetry_destination_disabled_reason_redirect: object`
+
+          The API disabled the destination because the endpoint answered a delivery with a 3xx status. Redirects are never followed, and one such answer disables the destination at once.
+
+          - `type: "redirect"`
+
+  - `traces: object`
+
+    The destination's settings for the traces it receives.
+
+    - `content_mode: "metadata_only" or "content"`
+
+      What the exported spans contain.
+
+      - `"metadata_only"`
+
+        The spans contain identifiers, timing, status, token counts, and similar metadata. They don't contain prompt text, completion text, or tool inputs and outputs.
+
+      - `"content"`
+
+        The spans contain the same metadata as `metadata_only`, plus message and tool content.
+
+        An organization with a data-handling restriction, such as under HIPAA, can't choose this mode. The API exports only metadata for such an organization, even to a destination that already has `content`.
+
+    - `enabled: boolean`
+
+      Whether the destination receives traces. A destination whose `enabled` is false keeps its other settings.
+
+    - `endpoint_url: string`
+
+      The full URL that the API posts traces to, exactly as registered, or `null` if the destination doesn't have one.
+
+      When it is `null`, the API posts traces to `endpoint_url` with `/v1/traces` appended.
+
+    - `max_content_bytes: number`
+
+      The most bytes of content that one exported span can contain, or `null` if only the API's maximum applies.
+
+      Content means model prompts and responses, and tool inputs and outputs. The API shortens longer content to this size before it delivers the span. A destination whose `content_mode` is `metadata_only` keeps this value. It applies once `content_mode` is `content`.
+
+      format: int32
+
+  - `updated_at: string`
+
+    Time of the last change to the destination's configuration or state. Changes to `delivery_health` don't change it.
+
+    An update that sets a header value always changes it, even when the value is the same as before. Adding or removing a single workspace on the destination's list doesn't change it. An update that changes the list does.
+
+    format: date-time
+
+  - `workspaces: BetaTelemetryDestinationWorkspacesAll or BetaTelemetryDestinationWorkspacesInclude or BetaTelemetryDestinationWorkspacesExclude`
+
+    Which of the organization's workspaces the destination covers.
+
+    - `beta_telemetry_destination_workspaces_all: object`
+
+      The destination covers every workspace of the organization, including the default workspace, archived workspaces, and workspaces created later. It doesn't have a list.
+
+      - `type: "all"`
+
+    - `beta_telemetry_destination_workspaces_include: object`
+
+      The destination covers the workspaces on its list, and no others.
+
+      - `type: "include"`
+
+    - `beta_telemetry_destination_workspaces_exclude: object`
+
+      The destination covers every workspace of the organization except the workspaces on its list. A workspace created later is covered until it is added to the list.
+
+      - `type: "exclude"`
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations create \
+  --api-key my-anthropic-api-key \
+  --endpoint-url x \
+  --workspaces '{type: all}'
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "delivery_health": {
+    "last_error": "last_error",
+    "last_error_at": "2019-12-27T18:11:19.117Z",
+    "last_success_at": "2019-12-27T18:11:19.117Z"
+  },
+  "display_name": "display_name",
+  "endpoint_url": "endpoint_url",
+  "header_names": [
+    "string"
+  ],
+  "state": {
+    "type": "enabled"
+  },
+  "traces": {
+    "content_mode": "metadata_only",
+    "enabled": true,
+    "endpoint_url": "endpoint_url",
+    "max_content_bytes": 0
+  },
+  "type": "telemetry_destination",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "workspaces": {
+    "type": "all"
+  }
+}
+```
+
+### List Telemetry Destinations
+
+`$ ant beta:organization:telemetry-destinations list`
+
+**GET** `/v1/organizations/telemetry_destinations`
+
+List the organization's destinations, newest first, optionally only those that cover given workspaces.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#set-up-api-tracing) to learn more about destinations.
+
+#### Parameters
+
+- `--limit: optional number` (query parameter)
+
+  Number of destinations to return per page, between 1 and 1,000. Defaults to 20.
+
+  format: int32
+
+- `--page: optional string` (query parameter)
+
+  Opaque cursor from a previous response's `next_page`. Leave it out to get the first page.
+
+- `--workspace-id: optional array of string` (query parameter)
+
+  Return only the destinations that cover at least one of these workspaces (`wrkspc_...`).
+
+  Send at most 100 IDs, as `workspace_ids[]`. A destination covers a workspace when its `workspaces.type` is `all`, when its `include` list has the workspace, or when its `exclude` list doesn't have it. Destinations in either state can match. An ID that isn't the ID of one of the organization's workspaces doesn't match any destination, not even one whose type is `all`.
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `BetaListTelemetryDestinationsResponse: object`
+
+  A page of the organization's telemetry destinations, newest first.
+
+  - `data: array of BetaTelemetryDestination`
+
+    Destinations on this page, newest first.
+
+    - `type: "telemetry_destination"`
+
+    - `id: string`
+
+      The unique ID of the destination (`tdst_...`).
+
+    - `created_at: string`
+
+      Time the destination was created.
+
+      format: date-time
+
+    - `delivery_health: object`
+
+      The most recent delivery results for this destination.
+
+      - `last_error: string`
+
+        A message that describes the most recent failed delivery to the destination, or `null` if no delivery has failed yet.
+
+        Examples are `temporary DNS failure`, `TLS failure`, `timeout`, `connection failure`, `invalid address`, `HTTP error (status 503)`, and `redirect (status 301)`. The message is `invalid address` both for a hostname that doesn't exist and for an address that isn't publicly routable. It never contains the endpoint's response body, a header value, a network address, or TLS details.
+
+        `last_error` and `last_error_at` always change together. A later successful delivery doesn't clear them. If `last_success_at` is later than `last_error_at`, a delivery has succeeded since this failure.
+
+        See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#delivery-errors) to learn the likely cause of each error.
+
+      - `last_error_at: string`
+
+        Time of the failure that `last_error` describes. Changes together with `last_error`. Null until a delivery first fails.
+
+        format: date-time
+
+      - `last_success_at: string`
+
+        Time of the most recent successful delivery to the destination, or `null` if no delivery has succeeded yet.
+
+        format: date-time
+
+    - `display_name: string`
+
+      Human-readable name for the destination. Null when none was set.
+
+    - `endpoint_url: string`
+
+      The base URL of the destination's OTLP/HTTP endpoint, exactly as registered.
+
+      The API appends the per-signal path, such as `/v1/traces`, on delivery, unless `traces.endpoint_url` is set.
+
+    - `header_names: array of string`
+
+      Names of the registered request headers. Header values are write-only and are never returned.
+
+    - `state: BetaTelemetryDestinationStateEnabled or BetaTelemetryDestinationStateDisabled`
+
+      Whether the destination receives deliveries.
+
+      - `beta_telemetry_destination_state_enabled: object`
+
+        The telemetry destination receives the spans of the workspaces that it covers.
+
+        - `type: "enabled"`
+
+      - `beta_telemetry_destination_state_disabled: object`
+
+        The API doesn't deliver anything to the telemetry destination.
+
+        Spans produced while it is disabled aren't delivered later.
+
+        - `type: "disabled"`
+
+        - `reason: BetaTelemetryDestinationDisabledReasonCaller or BetaTelemetryDestinationDisabledReasonSustainedFailure or BetaTelemetryDestinationDisabledReasonInvalidAddress or BetaTelemetryDestinationDisabledReasonRedirect`
+
+          Whether a caller or the API disabled the destination and, when the API did, why. Read-only.
+
+          - `beta_telemetry_destination_disabled_reason_caller: object`
+
+            A caller disabled the destination with an update that set `state` to `disabled`.
+
+            - `type: "caller"`
+
+          - `beta_telemetry_destination_disabled_reason_sustained_failure: object`
+
+            The API disabled the destination because deliveries to it failed, with no successful delivery in between, for longer than a threshold that Anthropic configures and that is not part of this contract. The reason is `invalid_address` instead when the most recent failed delivery failed with an invalid address.
+
+            - `type: "sustained_failure"`
+
+          - `beta_telemetry_destination_disabled_reason_invalid_address: object`
+
+            The API disabled the destination because deliveries to it failed for longer than the same threshold as for `sustained_failure`, and the most recent failed delivery failed with an invalid address: the DNS answer says that the endpoint's hostname doesn't exist or doesn't have an address, or the address that the API would connect to isn't publicly routable or is reserved, for example a loopback, link-local, private-network, or cloud-metadata address. The API doesn't connect to such an address, and retries the delivery a bounded number of times as it does after a timeout. A timeout or a server failure of the DNS lookup is a temporary DNS failure instead, not an invalid address.
+
+            - `type: "invalid_address"`
+
+          - `beta_telemetry_destination_disabled_reason_redirect: object`
+
+            The API disabled the destination because the endpoint answered a delivery with a 3xx status. Redirects are never followed, and one such answer disables the destination at once.
+
+            - `type: "redirect"`
+
+    - `traces: object`
+
+      The destination's settings for the traces it receives.
+
+      - `content_mode: "metadata_only" or "content"`
+
+        What the exported spans contain.
+
+        - `"metadata_only"`
+
+          The spans contain identifiers, timing, status, token counts, and similar metadata. They don't contain prompt text, completion text, or tool inputs and outputs.
+
+        - `"content"`
+
+          The spans contain the same metadata as `metadata_only`, plus message and tool content.
+
+          An organization with a data-handling restriction, such as under HIPAA, can't choose this mode. The API exports only metadata for such an organization, even to a destination that already has `content`.
+
+      - `enabled: boolean`
+
+        Whether the destination receives traces. A destination whose `enabled` is false keeps its other settings.
+
+      - `endpoint_url: string`
+
+        The full URL that the API posts traces to, exactly as registered, or `null` if the destination doesn't have one.
+
+        When it is `null`, the API posts traces to `endpoint_url` with `/v1/traces` appended.
+
+      - `max_content_bytes: number`
+
+        The most bytes of content that one exported span can contain, or `null` if only the API's maximum applies.
+
+        Content means model prompts and responses, and tool inputs and outputs. The API shortens longer content to this size before it delivers the span. A destination whose `content_mode` is `metadata_only` keeps this value. It applies once `content_mode` is `content`.
+
+        format: int32
+
+    - `updated_at: string`
+
+      Time of the last change to the destination's configuration or state. Changes to `delivery_health` don't change it.
+
+      An update that sets a header value always changes it, even when the value is the same as before. Adding or removing a single workspace on the destination's list doesn't change it. An update that changes the list does.
+
+      format: date-time
+
+    - `workspaces: BetaTelemetryDestinationWorkspacesAll or BetaTelemetryDestinationWorkspacesInclude or BetaTelemetryDestinationWorkspacesExclude`
+
+      Which of the organization's workspaces the destination covers.
+
+      - `beta_telemetry_destination_workspaces_all: object`
+
+        The destination covers every workspace of the organization, including the default workspace, archived workspaces, and workspaces created later. It doesn't have a list.
+
+        - `type: "all"`
+
+      - `beta_telemetry_destination_workspaces_include: object`
+
+        The destination covers the workspaces on its list, and no others.
+
+        - `type: "include"`
+
+      - `beta_telemetry_destination_workspaces_exclude: object`
+
+        The destination covers every workspace of the organization except the workspaces on its list. A workspace created later is covered until it is added to the list.
+
+        - `type: "exclude"`
+
+  - `next_page: string`
+
+    Cursor for the next page. Null on the last page.
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations list \
+  --api-key my-anthropic-api-key
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "id",
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "delivery_health": {
+        "last_error": "last_error",
+        "last_error_at": "2019-12-27T18:11:19.117Z",
+        "last_success_at": "2019-12-27T18:11:19.117Z"
+      },
+      "display_name": "display_name",
+      "endpoint_url": "endpoint_url",
+      "header_names": [
+        "string"
+      ],
+      "state": {
+        "type": "enabled"
+      },
+      "traces": {
+        "content_mode": "metadata_only",
+        "enabled": true,
+        "endpoint_url": "endpoint_url",
+        "max_content_bytes": 0
+      },
+      "type": "telemetry_destination",
+      "updated_at": "2019-12-27T18:11:19.117Z",
+      "workspaces": {
+        "type": "all"
+      }
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Retrieve a Telemetry Destination
+
+`$ ant beta:organization:telemetry-destinations retrieve`
+
+**GET** `/v1/organizations/telemetry_destinations/{destination_id}`
+
+Read a destination's configuration, state, and most recent delivery results.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#delivery-and-health) to learn how the API delivers spans and when it disables a destination.
+
+#### Parameters
+
+- `--destination-id: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `beta_telemetry_destination: object`
+
+  An OpenTelemetry destination: an OTLP/HTTP endpoint, the request headers sent with every delivery to it, what the exported spans contain, and which workspaces it covers. A destination belongs to an organization. A workspace's spans go to every enabled destination that covers it.
+
+  - `type: "telemetry_destination"`
+
+  - `id: string`
+
+    The unique ID of the destination (`tdst_...`).
+
+  - `created_at: string`
+
+    Time the destination was created.
+
+    format: date-time
+
+  - `delivery_health: object`
+
+    The most recent delivery results for this destination.
+
+    - `last_error: string`
+
+      A message that describes the most recent failed delivery to the destination, or `null` if no delivery has failed yet.
+
+      Examples are `temporary DNS failure`, `TLS failure`, `timeout`, `connection failure`, `invalid address`, `HTTP error (status 503)`, and `redirect (status 301)`. The message is `invalid address` both for a hostname that doesn't exist and for an address that isn't publicly routable. It never contains the endpoint's response body, a header value, a network address, or TLS details.
+
+      `last_error` and `last_error_at` always change together. A later successful delivery doesn't clear them. If `last_success_at` is later than `last_error_at`, a delivery has succeeded since this failure.
+
+      See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#delivery-errors) to learn the likely cause of each error.
+
+    - `last_error_at: string`
+
+      Time of the failure that `last_error` describes. Changes together with `last_error`. Null until a delivery first fails.
+
+      format: date-time
+
+    - `last_success_at: string`
+
+      Time of the most recent successful delivery to the destination, or `null` if no delivery has succeeded yet.
+
+      format: date-time
+
+  - `display_name: string`
+
+    Human-readable name for the destination. Null when none was set.
+
+  - `endpoint_url: string`
+
+    The base URL of the destination's OTLP/HTTP endpoint, exactly as registered.
+
+    The API appends the per-signal path, such as `/v1/traces`, on delivery, unless `traces.endpoint_url` is set.
+
+  - `header_names: array of string`
+
+    Names of the registered request headers. Header values are write-only and are never returned.
+
+  - `state: BetaTelemetryDestinationStateEnabled or BetaTelemetryDestinationStateDisabled`
+
+    Whether the destination receives deliveries.
+
+    - `beta_telemetry_destination_state_enabled: object`
+
+      The telemetry destination receives the spans of the workspaces that it covers.
+
+      - `type: "enabled"`
+
+    - `beta_telemetry_destination_state_disabled: object`
+
+      The API doesn't deliver anything to the telemetry destination.
+
+      Spans produced while it is disabled aren't delivered later.
+
+      - `type: "disabled"`
+
+      - `reason: BetaTelemetryDestinationDisabledReasonCaller or BetaTelemetryDestinationDisabledReasonSustainedFailure or BetaTelemetryDestinationDisabledReasonInvalidAddress or BetaTelemetryDestinationDisabledReasonRedirect`
+
+        Whether a caller or the API disabled the destination and, when the API did, why. Read-only.
+
+        - `beta_telemetry_destination_disabled_reason_caller: object`
+
+          A caller disabled the destination with an update that set `state` to `disabled`.
+
+          - `type: "caller"`
+
+        - `beta_telemetry_destination_disabled_reason_sustained_failure: object`
+
+          The API disabled the destination because deliveries to it failed, with no successful delivery in between, for longer than a threshold that Anthropic configures and that is not part of this contract. The reason is `invalid_address` instead when the most recent failed delivery failed with an invalid address.
+
+          - `type: "sustained_failure"`
+
+        - `beta_telemetry_destination_disabled_reason_invalid_address: object`
+
+          The API disabled the destination because deliveries to it failed for longer than the same threshold as for `sustained_failure`, and the most recent failed delivery failed with an invalid address: the DNS answer says that the endpoint's hostname doesn't exist or doesn't have an address, or the address that the API would connect to isn't publicly routable or is reserved, for example a loopback, link-local, private-network, or cloud-metadata address. The API doesn't connect to such an address, and retries the delivery a bounded number of times as it does after a timeout. A timeout or a server failure of the DNS lookup is a temporary DNS failure instead, not an invalid address.
+
+          - `type: "invalid_address"`
+
+        - `beta_telemetry_destination_disabled_reason_redirect: object`
+
+          The API disabled the destination because the endpoint answered a delivery with a 3xx status. Redirects are never followed, and one such answer disables the destination at once.
+
+          - `type: "redirect"`
+
+  - `traces: object`
+
+    The destination's settings for the traces it receives.
+
+    - `content_mode: "metadata_only" or "content"`
+
+      What the exported spans contain.
+
+      - `"metadata_only"`
+
+        The spans contain identifiers, timing, status, token counts, and similar metadata. They don't contain prompt text, completion text, or tool inputs and outputs.
+
+      - `"content"`
+
+        The spans contain the same metadata as `metadata_only`, plus message and tool content.
+
+        An organization with a data-handling restriction, such as under HIPAA, can't choose this mode. The API exports only metadata for such an organization, even to a destination that already has `content`.
+
+    - `enabled: boolean`
+
+      Whether the destination receives traces. A destination whose `enabled` is false keeps its other settings.
+
+    - `endpoint_url: string`
+
+      The full URL that the API posts traces to, exactly as registered, or `null` if the destination doesn't have one.
+
+      When it is `null`, the API posts traces to `endpoint_url` with `/v1/traces` appended.
+
+    - `max_content_bytes: number`
+
+      The most bytes of content that one exported span can contain, or `null` if only the API's maximum applies.
+
+      Content means model prompts and responses, and tool inputs and outputs. The API shortens longer content to this size before it delivers the span. A destination whose `content_mode` is `metadata_only` keeps this value. It applies once `content_mode` is `content`.
+
+      format: int32
+
+  - `updated_at: string`
+
+    Time of the last change to the destination's configuration or state. Changes to `delivery_health` don't change it.
+
+    An update that sets a header value always changes it, even when the value is the same as before. Adding or removing a single workspace on the destination's list doesn't change it. An update that changes the list does.
+
+    format: date-time
+
+  - `workspaces: BetaTelemetryDestinationWorkspacesAll or BetaTelemetryDestinationWorkspacesInclude or BetaTelemetryDestinationWorkspacesExclude`
+
+    Which of the organization's workspaces the destination covers.
+
+    - `beta_telemetry_destination_workspaces_all: object`
+
+      The destination covers every workspace of the organization, including the default workspace, archived workspaces, and workspaces created later. It doesn't have a list.
+
+      - `type: "all"`
+
+    - `beta_telemetry_destination_workspaces_include: object`
+
+      The destination covers the workspaces on its list, and no others.
+
+      - `type: "include"`
+
+    - `beta_telemetry_destination_workspaces_exclude: object`
+
+      The destination covers every workspace of the organization except the workspaces on its list. A workspace created later is covered until it is added to the list.
+
+      - `type: "exclude"`
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations retrieve \
+  --api-key my-anthropic-api-key \
+  --destination-id destination_id
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "delivery_health": {
+    "last_error": "last_error",
+    "last_error_at": "2019-12-27T18:11:19.117Z",
+    "last_success_at": "2019-12-27T18:11:19.117Z"
+  },
+  "display_name": "display_name",
+  "endpoint_url": "endpoint_url",
+  "header_names": [
+    "string"
+  ],
+  "state": {
+    "type": "enabled"
+  },
+  "traces": {
+    "content_mode": "metadata_only",
+    "enabled": true,
+    "endpoint_url": "endpoint_url",
+    "max_content_bytes": 0
+  },
+  "type": "telemetry_destination",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "workspaces": {
+    "type": "all"
+  }
+}
+```
+
+### Update a Telemetry Destination
+
+`$ ant beta:organization:telemetry-destinations update`
+
+**POST** `/v1/organizations/telemetry_destinations/{destination_id}`
+
+Change a telemetry destination's settings, its state, or which workspaces it covers.
+
+Send at least one field. Omitted fields keep their stored values, except the registered headers, which a change of the endpoint's hostname or port removes. Only `display_name`, `traces`, `traces.endpoint_url`, `traces.content_mode`, `traces.max_content_bytes`, and individual `headers` values accept `null`.
+
+If another request changes the destination while the update runs, the API returns a 409 `conflict_error`. Read the destination again, then retry the update.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#delivery-and-health) to learn more about changing a destination.
+
+#### Parameters
+
+- `--destination-id: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `--display-name: optional string`
+
+  New human-readable name, 1 to 255 characters. Null clears it.
+
+- `--endpoint-url: optional string`
+
+  The new base URL of the destination's OTLP/HTTP endpoint. The same rules as on create apply.
+
+  A change of hostname or port first removes every registered header, so send the headers for the new endpoint in the same request. When the destination has a `traces.endpoint_url`, such a change must also set `traces.endpoint_url` to a URL with the new hostname and port, or to `null`. A change of the path alone keeps the headers.
+
+  maxLength: 2048
+
+- `--headers: optional map[string]`
+
+  Headers to set or remove. The API merges them into the destination's headers by name.
+
+  Names compare case-insensitively. A string value sets or replaces that header. A `null` value removes it. Headers that you omit don't change. The field itself can't be `null`.
+
+  A request that sets a header value must also include `endpoint_url`. The current URL is accepted.
+
+  The resulting set must stay within the same limits as on create. When the request sets a value, each stored value that it doesn't set counts as 4,096 bytes toward the 16,384-byte limit, because you can't read its real length. So to change one header of a destination that has four or more other headers, send the values of the others again in the same request.
+
+- `--state: optional BetaTelemetryDestinationStateEnabledParams or BetaTelemetryDestinationStateDisabledParams`
+
+  Whether the destination receives deliveries after the update. The field can't be `null`.
+
+- `--traces: optional object`
+
+  The traces settings to change. Omitted settings keep their stored values.
+
+  `null` sets every traces setting to its create default.
+
+- `--workspaces: optional BetaTelemetryDestinationWorkspacesAllParams or BetaTelemetryDestinationWorkspacesIncludeParams or BetaTelemetryDestinationWorkspacesExcludeParams`
+
+  The new workspace scope, in the same form as on create. The field can't be `null`.
+
+  The API refuses an update that changes the type or sends `workspace_ids` while the destination's list has more than 750 workspaces. Remove workspaces one at a time until 750 or fewer remain, then send the update again.
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `beta_telemetry_destination: object`
+
+  An OpenTelemetry destination: an OTLP/HTTP endpoint, the request headers sent with every delivery to it, what the exported spans contain, and which workspaces it covers. A destination belongs to an organization. A workspace's spans go to every enabled destination that covers it.
+
+  - `type: "telemetry_destination"`
+
+  - `id: string`
+
+    The unique ID of the destination (`tdst_...`).
+
+  - `created_at: string`
+
+    Time the destination was created.
+
+    format: date-time
+
+  - `delivery_health: object`
+
+    The most recent delivery results for this destination.
+
+    - `last_error: string`
+
+      A message that describes the most recent failed delivery to the destination, or `null` if no delivery has failed yet.
+
+      Examples are `temporary DNS failure`, `TLS failure`, `timeout`, `connection failure`, `invalid address`, `HTTP error (status 503)`, and `redirect (status 301)`. The message is `invalid address` both for a hostname that doesn't exist and for an address that isn't publicly routable. It never contains the endpoint's response body, a header value, a network address, or TLS details.
+
+      `last_error` and `last_error_at` always change together. A later successful delivery doesn't clear them. If `last_success_at` is later than `last_error_at`, a delivery has succeeded since this failure.
+
+      See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#delivery-errors) to learn the likely cause of each error.
+
+    - `last_error_at: string`
+
+      Time of the failure that `last_error` describes. Changes together with `last_error`. Null until a delivery first fails.
+
+      format: date-time
+
+    - `last_success_at: string`
+
+      Time of the most recent successful delivery to the destination, or `null` if no delivery has succeeded yet.
+
+      format: date-time
+
+  - `display_name: string`
+
+    Human-readable name for the destination. Null when none was set.
+
+  - `endpoint_url: string`
+
+    The base URL of the destination's OTLP/HTTP endpoint, exactly as registered.
+
+    The API appends the per-signal path, such as `/v1/traces`, on delivery, unless `traces.endpoint_url` is set.
+
+  - `header_names: array of string`
+
+    Names of the registered request headers. Header values are write-only and are never returned.
+
+  - `state: BetaTelemetryDestinationStateEnabled or BetaTelemetryDestinationStateDisabled`
+
+    Whether the destination receives deliveries.
+
+    - `beta_telemetry_destination_state_enabled: object`
+
+      The telemetry destination receives the spans of the workspaces that it covers.
+
+      - `type: "enabled"`
+
+    - `beta_telemetry_destination_state_disabled: object`
+
+      The API doesn't deliver anything to the telemetry destination.
+
+      Spans produced while it is disabled aren't delivered later.
+
+      - `type: "disabled"`
+
+      - `reason: BetaTelemetryDestinationDisabledReasonCaller or BetaTelemetryDestinationDisabledReasonSustainedFailure or BetaTelemetryDestinationDisabledReasonInvalidAddress or BetaTelemetryDestinationDisabledReasonRedirect`
+
+        Whether a caller or the API disabled the destination and, when the API did, why. Read-only.
+
+        - `beta_telemetry_destination_disabled_reason_caller: object`
+
+          A caller disabled the destination with an update that set `state` to `disabled`.
+
+          - `type: "caller"`
+
+        - `beta_telemetry_destination_disabled_reason_sustained_failure: object`
+
+          The API disabled the destination because deliveries to it failed, with no successful delivery in between, for longer than a threshold that Anthropic configures and that is not part of this contract. The reason is `invalid_address` instead when the most recent failed delivery failed with an invalid address.
+
+          - `type: "sustained_failure"`
+
+        - `beta_telemetry_destination_disabled_reason_invalid_address: object`
+
+          The API disabled the destination because deliveries to it failed for longer than the same threshold as for `sustained_failure`, and the most recent failed delivery failed with an invalid address: the DNS answer says that the endpoint's hostname doesn't exist or doesn't have an address, or the address that the API would connect to isn't publicly routable or is reserved, for example a loopback, link-local, private-network, or cloud-metadata address. The API doesn't connect to such an address, and retries the delivery a bounded number of times as it does after a timeout. A timeout or a server failure of the DNS lookup is a temporary DNS failure instead, not an invalid address.
+
+          - `type: "invalid_address"`
+
+        - `beta_telemetry_destination_disabled_reason_redirect: object`
+
+          The API disabled the destination because the endpoint answered a delivery with a 3xx status. Redirects are never followed, and one such answer disables the destination at once.
+
+          - `type: "redirect"`
+
+  - `traces: object`
+
+    The destination's settings for the traces it receives.
+
+    - `content_mode: "metadata_only" or "content"`
+
+      What the exported spans contain.
+
+      - `"metadata_only"`
+
+        The spans contain identifiers, timing, status, token counts, and similar metadata. They don't contain prompt text, completion text, or tool inputs and outputs.
+
+      - `"content"`
+
+        The spans contain the same metadata as `metadata_only`, plus message and tool content.
+
+        An organization with a data-handling restriction, such as under HIPAA, can't choose this mode. The API exports only metadata for such an organization, even to a destination that already has `content`.
+
+    - `enabled: boolean`
+
+      Whether the destination receives traces. A destination whose `enabled` is false keeps its other settings.
+
+    - `endpoint_url: string`
+
+      The full URL that the API posts traces to, exactly as registered, or `null` if the destination doesn't have one.
+
+      When it is `null`, the API posts traces to `endpoint_url` with `/v1/traces` appended.
+
+    - `max_content_bytes: number`
+
+      The most bytes of content that one exported span can contain, or `null` if only the API's maximum applies.
+
+      Content means model prompts and responses, and tool inputs and outputs. The API shortens longer content to this size before it delivers the span. A destination whose `content_mode` is `metadata_only` keeps this value. It applies once `content_mode` is `content`.
+
+      format: int32
+
+  - `updated_at: string`
+
+    Time of the last change to the destination's configuration or state. Changes to `delivery_health` don't change it.
+
+    An update that sets a header value always changes it, even when the value is the same as before. Adding or removing a single workspace on the destination's list doesn't change it. An update that changes the list does.
+
+    format: date-time
+
+  - `workspaces: BetaTelemetryDestinationWorkspacesAll or BetaTelemetryDestinationWorkspacesInclude or BetaTelemetryDestinationWorkspacesExclude`
+
+    Which of the organization's workspaces the destination covers.
+
+    - `beta_telemetry_destination_workspaces_all: object`
+
+      The destination covers every workspace of the organization, including the default workspace, archived workspaces, and workspaces created later. It doesn't have a list.
+
+      - `type: "all"`
+
+    - `beta_telemetry_destination_workspaces_include: object`
+
+      The destination covers the workspaces on its list, and no others.
+
+      - `type: "include"`
+
+    - `beta_telemetry_destination_workspaces_exclude: object`
+
+      The destination covers every workspace of the organization except the workspaces on its list. A workspace created later is covered until it is added to the list.
+
+      - `type: "exclude"`
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations update \
+  --api-key my-anthropic-api-key \
+  --destination-id destination_id
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "delivery_health": {
+    "last_error": "last_error",
+    "last_error_at": "2019-12-27T18:11:19.117Z",
+    "last_success_at": "2019-12-27T18:11:19.117Z"
+  },
+  "display_name": "display_name",
+  "endpoint_url": "endpoint_url",
+  "header_names": [
+    "string"
+  ],
+  "state": {
+    "type": "enabled"
+  },
+  "traces": {
+    "content_mode": "metadata_only",
+    "enabled": true,
+    "endpoint_url": "endpoint_url",
+    "max_content_bytes": 0
+  },
+  "type": "telemetry_destination",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "workspaces": {
+    "type": "all"
+  }
+}
+```
+
+### Delete a Telemetry Destination
+
+`$ ant beta:organization:telemetry-destinations delete`
+
+**DELETE** `/v1/organizations/telemetry_destinations/{destination_id}`
+
+Delete a destination and its workspace list.
+
+The API stops sending spans to the destination. The spans of the workspaces it covered still go to the other destinations that cover them. A deleted destination can't be read, listed, or restored.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#delivery-and-health) to learn more about managing a destination.
+
+#### Parameters
+
+- `--destination-id: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `beta_deleted_telemetry_destination: object`
+
+  Confirmation that a destination was deleted.
+
+  - `type: "telemetry_destination_deleted"`
+
+  - `id: string`
+
+    ID of the deleted destination (`tdst_...`).
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations delete \
+  --api-key my-anthropic-api-key \
+  --destination-id destination_id
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "type": "telemetry_destination_deleted"
+}
+```
+
+### Test a Telemetry Destination
+
+`$ ant beta:organization:telemetry-destinations test`
+
+**POST** `/v1/organizations/telemetry_destinations/{destination_id}/test`
+
+Send one test span, named `anthropic.test`, to the destination with its registered headers, once and without retries, and report the destination's answer. The response is 200 whether or not the destination answered with a 2xx status: its `result` has the type `success`, or the type `failure` and the reason in `error`. The destination's configuration, `state` and `delivery_health` do not change. A disabled destination can be tested too. Wait 10 seconds between tests of one destination; a request that comes sooner may be answered with status 429.
+
+#### Parameters
+
+- `--destination-id: string` (path parameter)
+
+  ID of the destination to test (starts with `tdst_`).
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `beta_telemetry_destination_test_response: object`
+
+  The result of one test span sent to a destination.
+
+  - `type: "telemetry_destination_test"`
+
+  - `result: BetaTelemetryDestinationTestSuccess or BetaTelemetryDestinationTestFailure`
+
+    How the test went: `success` when the destination answered with a 2xx status, else `failure` with the reason.
+
+    - `beta_telemetry_destination_test_success: object`
+
+      The destination answered the test span with a 2xx status.
+
+      - `type: "success"`
+
+    - `beta_telemetry_destination_test_failure: object`
+
+      The test span was not delivered.
+
+      - `type: "failure"`
+
+      - `error: string`
+
+        A message that describes why the test span was not delivered, including the HTTP status code when the destination returned one. Examples: `HTTP error (status 403)`, `timeout`, `TLS failure`. It has the same form as the destination's `delivery_health.last_error` and never contains the destination's response body, any header value, a network address, or TLS details.
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations test \
+  --api-key my-anthropic-api-key \
+  --destination-id destination_id
+```
+
+##### Response (200)
+
+```json
+{
+  "result": {
+    "type": "success"
+  },
+  "type": "telemetry_destination_test"
+}
+```
+
+## Beta › Organization › Telemetry Destinations › Workspaces
+
+### List Telemetry Destination Workspaces
+
+`$ ant beta:organization:telemetry-destinations:workspaces list`
+
+**GET** `/v1/organizations/telemetry_destinations/{destination_id}/workspaces`
+
+List the workspaces on a destination's workspace list, newest entry first.
+
+A destination whose `workspaces.type` is `all` doesn't have a list, so its page is empty. The list includes archived workspaces.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#choose-workspaces-for-a-destination) to learn more about choosing the workspaces of a destination.
+
+#### Parameters
+
+- `--destination-id: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `--limit: optional number` (query parameter)
+
+  Number of entries to return per page, between 1 and 1,000. Defaults to 20.
+
+  format: int32
+
+- `--page: optional string` (query parameter)
+
+  Opaque cursor from a previous response's `next_page`. Leave it out to get the first page.
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `BetaListTelemetryDestinationWorkspacesResponse: object`
+
+  A page of a telemetry destination's workspace list, newest entry first.
+
+  - `data: array of BetaTelemetryDestinationWorkspace`
+
+    Entries on this page, newest first.
+
+    - `type: "telemetry_destination_workspace"`
+
+    - `created_at: string`
+
+      Time the workspace was added to the list.
+
+      format: date-time
+
+    - `telemetry_destination_id: string`
+
+      ID of the telemetry destination (`tdst_...`).
+
+    - `workspace_id: string`
+
+      ID of the workspace (`wrkspc_...`).
+
+  - `next_page: string`
+
+    Cursor for the next page. Null on the last page.
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations:workspaces list \
+  --api-key my-anthropic-api-key \
+  --destination-id destination_id
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "telemetry_destination_id": "telemetry_destination_id",
+      "type": "telemetry_destination_workspace",
+      "workspace_id": "workspace_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Add a Telemetry Destination Workspace
+
+`$ ant beta:organization:telemetry-destinations:workspaces add`
+
+**POST** `/v1/organizations/telemetry_destinations/{destination_id}/workspaces/{workspace_id}`
+
+Add one workspace to a destination's workspace list.
+
+Under `include` the workspace's spans start going to the destination. Under `exclude` they stop. A list holds at most 1,000 workspaces.
+
+Adding a workspace that is already on the list changes nothing and returns the existing entry. An archived workspace that isn't on the list yet can't be added. A destination whose `workspaces.type` is `all` doesn't have a list, so the API returns 400. To change which workspaces such a destination covers, update its `workspaces`.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#choose-workspaces-for-a-destination) to learn more about choosing the workspaces of a destination.
+
+#### Parameters
+
+- `--destination-id: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `--workspace-id: string` (path parameter)
+
+  ID of the workspace to add (`wrkspc_...`).
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `beta_telemetry_destination_workspace: object`
+
+  A workspace on a telemetry destination's workspace list.
+
+  Under `include`, the destination covers the workspace. Under `exclude`, the destination covers every workspace except this one. The entry doesn't have an `id`. Its `telemetry_destination_id` and `workspace_id` together identify it.
+
+  - `type: "telemetry_destination_workspace"`
+
+  - `created_at: string`
+
+    Time the workspace was added to the list.
+
+    format: date-time
+
+  - `telemetry_destination_id: string`
+
+    ID of the telemetry destination (`tdst_...`).
+
+  - `workspace_id: string`
+
+    ID of the workspace (`wrkspc_...`).
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations:workspaces add \
+  --api-key my-anthropic-api-key \
+  --destination-id destination_id \
+  --workspace-id workspace_id
+```
+
+##### Response (200)
+
+```json
+{
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "telemetry_destination_id": "telemetry_destination_id",
+  "type": "telemetry_destination_workspace",
+  "workspace_id": "workspace_id"
+}
+```
+
+### Remove a Telemetry Destination Workspace
+
+`$ ant beta:organization:telemetry-destinations:workspaces remove`
+
+**DELETE** `/v1/organizations/telemetry_destinations/{destination_id}/workspaces/{workspace_id}`
+
+Remove one workspace from a destination's workspace list.
+
+Under `include` the workspace's spans stop going to the destination. Under `exclude` they start. An archived workspace can be removed too.
+
+The API returns 404 when the workspace isn't on the list. A destination whose `workspaces.type` is `all` doesn't have a list, so the API returns 400.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=cli#choose-workspaces-for-a-destination) to learn more about choosing the workspaces of a destination.
+
+#### Parameters
+
+- `--destination-id: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `--workspace-id: string` (path parameter)
+
+  ID of the workspace to remove (`wrkspc_...`).
+
+- `--beta: optional array of AnthropicBeta` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `beta_deleted_telemetry_destination_workspace: object`
+
+  Confirmation that a workspace was removed from a destination's list.
+
+  - `type: "telemetry_destination_workspace_deleted"`
+
+  - `telemetry_destination_id: string`
+
+    ID of the telemetry destination (`tdst_...`).
+
+  - `workspace_id: string`
+
+    ID of the workspace that was removed (`wrkspc_...`).
+
+#### Example
+
+```bash
+ant beta:organization:telemetry-destinations:workspaces remove \
+  --api-key my-anthropic-api-key \
+  --destination-id destination_id \
+  --workspace-id workspace_id
+```
+
+##### Response (200)
+
+```json
+{
+  "telemetry_destination_id": "telemetry_destination_id",
+  "type": "telemetry_destination_workspace_deleted",
+  "workspace_id": "workspace_id"
 }
 ```

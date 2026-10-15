@@ -12,7 +12,7 @@ Our generally available models can still be used by all users for secure code re
 
 ## Access tiers
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1792008900&amp;signature=c5503ce4fb20d9cdfcc77295870bda10388b9f44e68a8b2f206cb4419913d059&amp;req=dicmEM17moJWW%2FMW1HO4zVYZ0Nq%2BbsxOy1US26KtMzKOPP3XSEcadqpU17Hb%0AauKjtzXNqZpMZ07y9wQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2716457392/33c90f9ccfbd33fee02840fd2efa/267bc7d1-baeb-4302-a1d9-4491b4110775?expires=1792173600&amp;signature=cbe2256eb1541355cbade0a923abd40025ec9a386c75f6c180d1807cb9fb78d9&amp;req=dicmEM17moJWW%2FMW3nq%2BgVW5JBO7gnvFv53g72lEz5w%2BB%2B54SwHnBBH6%2BaKx%0AZcS48pwDFLtYBXgpNmWcxl9Y02s%3D%0A)
 
 ## How to apply
 
@@ -74,7 +74,7 @@ After your application has been approved, the steps to provision access to your 
 | Microsoft Foundry                                                                      | For Microsoft Foundry, deploy a Claude model first.<br>If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your Azure subscription (you'll need the subscription ID and directory (tenant) ID). No further action: your approved access applies to every workspace.<br>If your organization has a committed contract with Anthropic, your account team will send you a short form to link this Azure account to your contract. Complete the form, then accept the private offer in Azure Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                  |
 | Third-party platform                                                                   | Open the **Cyber Verification Program page** and, under **Access** on **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, turn on your approved access level for that platform profile.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
-## **Existing members**
+## Existing members
 
 If your organization was previously enrolled in Project Glasswing or CVP, you don't need to apply again to join the updated CVP program. Your existing access to the models you use today via Project Glasswing or CVP will keep working under your existing terms, and you'll be transitioned to the relevant new program tier for Claude Opus 5.5, Claude Sonnet 5.5, and Claude Mythos 5.1.
 
@@ -100,7 +100,7 @@ Eligibility reflects a range of factors, including one or more of the following:
 
 5. **The tier applied for.** Requirements rise with the level of access. For Specialized Access, every organization is reviewed in depth in collaboration with the US government. Existing members of Project Glasswing will transition to this tier and don't require reapproval for current models. We continue to work with the US government to expand the number of eligible organizations, both in the US and internationally.
 
-## FAQ
+## Frequently asked questions
 
 ### Can I apply as an individual?
 

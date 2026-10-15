@@ -46,7 +46,7 @@ If you see a generic error message when attempting to log in to your Claude acco
 
 - Clear your browser’s cache and cookies.
 
-If you're still seeing an error, check **[our status page](http://status.claude.com)** for active incidents.
+If you're still seeing an error, check **[our status page](https://status.claude.com)** for active incidents.
 
 ## Capacity constraints
 
@@ -60,4 +60,4 @@ Capacity issues will not appear on our status page because they represent normal
 
 Service incidents are disruptions where Claude is unavailable or significantly degraded for all or most users. These represent actual technical problems with our systems. To check for confirmed incidents, visit status.claude.com, where you'll find real-time updates on scope, impact, and resolution progress for any active incidents.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1753796247/e6a8c6ef8653b229c5758e881242/c2fc6fc0-d163-4119-93e0-394104d86bc9?expires=1792008900&amp;signature=cc515f2fbd9570898db23e00b71d1a483b362a8f8f1b9f2684f81537f91035ba&amp;req=dSciFc53m4NbXvMW1HO4za4BX60j0rrN7y68oYp%2BYg8dvHx01OhLNaaaKqij%0AfssA9laGT5j4R%2F5%2FDBI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1753796247/e6a8c6ef8653b229c5758e881242/c2fc6fc0-d163-4119-93e0-394104d86bc9?expires=1792044000&amp;signature=f55771a63a96a75ed73a229aa2d3d513e8232b94ef2a0a0a5cef73d2f8664232&amp;req=dSciFc53m4NbXvMW1HO4za4BX60j1rbE7y68oYp%2BYg8GCqjnmvW22mjxmvHd%0A%2FsMTOLOsPLfZXGDM1JM%3D%0A)

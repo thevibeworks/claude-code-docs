@@ -163,6 +163,8 @@ The Models API response can be used to determine which models are available for 
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Returns
 
 - `data: array of ModelInfo`

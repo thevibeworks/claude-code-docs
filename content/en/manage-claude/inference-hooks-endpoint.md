@@ -279,6 +279,24 @@ An application tool is one that the Anthropic application making the request pro
 | `type`         | Always   | `"application"`                   |
 | `toolset_name` | Optional | The group of tools it belongs to. |
 
+A `tool_use` block for a web search tool that claude.ai provides itself:
+
+```json
+{
+  "type": "tool_use",
+  "id": "toolu_01LmNoPqRsTuVwXyZaBcDeFg",
+  "tool_name": "web_search",
+  "input": {
+    "query": "comparable deals for unannounced 4.2B USD Acme Corp acquisition"
+  },
+  "tool_info": {
+    "type": "application"
+  }
+}
+```
+
+claude.ai doesn't always name this tool `web_search`, so don't match on the name alone. `input` always includes the search query and can hold other fields.
+
 ### Third-party tools
 
 A third-party tool is one on a server that Anthropic knows of, such as a claude.ai connector or an MCP server that the request names in `mcp_servers`. This doesn't mean Anthropic has vetted the server.

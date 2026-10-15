@@ -129,7 +129,7 @@ In both cases, the tunnel carries encrypted traffic to your MCP server but does 
 
 ### Managed Agents (Console)
 
-1. In **Managed Agents > Sessions**, create a session and choose **Create new agent** so you can edit the MCP server list.
+1. On the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`) in the Claude Console, create a session and choose **Create new agent** so you can edit the MCP server list.
 2. Click **+ MCP Server** and open the dropdown. Tunnels in the session's workspace that have at least one active certificate appear at the top of the list, above the public connector catalog.
 3. Select the tunnel and supply the **Subdomain** that your proxy routes to a specific MCP server, and the **Path** the upstream MCP server expects. The **Resolves to** line shows the exact URL.
 

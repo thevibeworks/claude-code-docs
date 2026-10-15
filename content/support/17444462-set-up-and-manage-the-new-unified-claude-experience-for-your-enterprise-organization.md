@@ -160,11 +160,11 @@ The new unified Claude experience gets its own line in your reports. When a memb
 
 - **A page of its own.** Admins who can view analytics will find a Chat and Cowork unified page under Apps, marked Beta. It shows daily active users.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719814921/59cd7abb6c99192d741223dd2016/f2fadd45-8cb0-49db-a9a2-c8f367f29c91?expires=1792008900&amp;signature=cf9c0a2ac04afad6c3acfb5c018dcf3ddf97417d9dce04899951828b4be0d886&amp;req=dicmH8F%2FmYhdWPMW1HO4zdLa5Q1oYKaJf83E9koMvr8oBV3L1xPbN%2BrfxsP5%0Ah5wO%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719814921/59cd7abb6c99192d741223dd2016/f2fadd45-8cb0-49db-a9a2-c8f367f29c91?expires=1792044000&amp;signature=2cad017344f80d5b318db89bcc9a63757f3f52b2a0d25005b7eaa572bdf83d48&amp;req=dicmH8F%2FmYhdWPMW1HO4zdLa5Q1oZKqAf83E9koMvr827KXL7IAKoy5pd9pN%0ArhS1%0A)
 
 - **Across the dashboard.** You can pick "Chat and Cowork unified (beta)" in the Active users, Active members, Total spend, and Spend by model charts. The See all members table on the Overview page has a "Messages in Chat and Cowork unified (beta)" column. The Top connectors and Top skills cards don't include it yet.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719816289/17e3ba22d470c32e8df9b3c20251/385c6be9-7019-451d-85f8-025a6e12a34c?expires=1792008900&amp;signature=f051dc72efd7e054fc3493145b5d75ff92eb85c755d52357f01c788cca9f24b9&amp;req=dicmH8F%2Fm4NXUPMW1HO4zRXO8A0RQI2wJG9o%2B2MbcGqaiXrs5fjSl7jaTz4e%0AQ2gQ%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719816289/17e3ba22d470c32e8df9b3c20251/385c6be9-7019-451d-85f8-025a6e12a34c?expires=1792044000&amp;signature=499338c41d2e57aabbcdd0e8f2a662f5f7316ac82116bf63a2c60c40f0965468&amp;req=dicmH8F%2Fm4NXUPMW1HO4zRXO8A0RRIG5JG9o%2B2MbcGqBZn6anZwlGF%2FXA6WM%0AEch3%0A)
 
 - **Who sees it.** The page appears for every organization that can turn on the new unified Claude experience, whether or not it is on yet.
 

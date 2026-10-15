@@ -143,6 +143,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Returns
 
 - `type: "service_account_workspace_member_deleted"`
