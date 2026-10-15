@@ -1,8 +1,6 @@
 # How do I use the playground?
 
-**Workbench is now the playground**. Playground enables developers to try out Claude models and API features directly in the Claude Console, but does not support saving prompt history or evaluating prompts.
-
-If you have saved data from **Workbench (legacy)** that you wish to export, you can do so until **September 1, 2026** in **[Console settings](https://platform.claude.com/settings/privacy)**. This data will no longer be recoverable after September 1, 2026. See **[How do I export my Workbench data from Console?](#h_ce935c603b)** for more.
+Playground enables developers to try out Claude models and API features directly in the Claude Console, but doesn't support saving prompt history or evaluating prompts. The playground replaces Workbench, which was previously used to create and test prompts in the Claude Console.
 
 ## What is the playground?
 
@@ -62,33 +60,13 @@ Code examples in our documentation include an "Open in Playground" option, which
 
 ---
 
-## How do I export my Workbench data from Console?
-
-1. Go to **[Claude Console](https://platform.claude.com/settings/privacy)**.
-
-2. In the **Export Workbench data** dialog, choose what to include alongside your prompts:
-
-  1. **Model completions** — saved responses from past runs
-
-  2. **Uploaded files** — images and PDFs attached to your prompts
-​
-​**Note:** Including either may significantly increase the export size.
-
-Primary Owners or Admins also have the option to export data for their entire organization.
-
-3. Select "Export." Your data is packaged as JSON, and we'll email you a download link when it's ready.
-
-Export your data before **September 1, 2026**. It won't be accessible after this date.
-
----
-
 ## Frequently asked questions
 
-### What happened to Workbench (legacy)?
+### What happened to Workbench?
 
-**Workbench (legacy) is now retired.** The playground replaces it for trying Claude models and API features in the Console.  It does not support saving prompt history or evaluating prompts.
+**Workbench is now retired.** The playground replaces it for trying Claude models and API features in the Console.  It does not support saving prompt history or evaluating prompts.
 
-### What's the difference between Workbench (legacy) and the playground?
+### What's the difference between Workbench and the playground?
 
 The playground is a simpler, stateless way to try Claude models and API features in the Console. The main differences is that it now:
 
@@ -97,11 +75,3 @@ The playground is a simpler, stateless way to try Claude models and API features
 - It is built directly on the public Messages API and shows the full request and response, so what you see matches what your code sends and receives.
 
 - Saved prompts, prompt versions, evals, and prompt sharing aren't part of the playground. Use the export function in the legacy version to download your data.
-
-### How do I get access to my existing data from Workbench (legacy)?
-
-You can no longer access this data directly in Console. You can export it as JSON in **[Claude Console](https://platform.claude.com/settings/privacy)** until September 1, 2026. After this date, it will no longer be recoverable.
-
-### Can I import my Workbench data into the playground?
-
-No. The playground doesn't save prompts or conversations, so there's nothing to import into. The export gives you a copy of your Workbench data so you can keep it or move it into your own tools.

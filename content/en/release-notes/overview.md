@@ -12,6 +12,10 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
   For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### October 15, 2026
+
+* The [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) now returns the text each organization member saved as **Instructions for Claude** in claude.ai and as **Global instructions** in Cowork, in beta for Claude Enterprise organizations. Call `GET /v1/compliance/organizations/{org_uuid}/user_preferences` with your existing Compliance Access Key and the `read:compliance_user_data` scope. See [List user preferences](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-user-preferences).
+
 ### October 14, 2026
 
 * We've launched [OpenTelemetry export](https://platform.claude.com/docs/en/manage-claude/opentelemetry) in beta, so you can trace Messages API requests and Claude Managed Agents sessions in your observability backend. The Claude SDK emits spans in Python, TypeScript, C#, Go, Java, PHP, and Ruby. To get spans from the API, [add an OpenTelemetry destination](https://platform.claude.com/docs/en/manage-claude/opentelemetry/api#add-a-destination) in the Claude Console.

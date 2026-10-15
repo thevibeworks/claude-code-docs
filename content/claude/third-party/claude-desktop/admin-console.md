@@ -322,7 +322,7 @@ If your fleet gets its Claude Desktop configuration from [MDM](/docs/third-party
   </Step>
 
   <Step title="Update Claude Desktop">
-    Update devices to Claude Desktop 2.37337.1 or later. Earlier releases migrate fewer items.
+    Update devices to Claude Desktop 2.42304.0 or later. Earlier releases migrate fewer items.
   </Step>
 
   <Step title="Remove the managed profile">
@@ -346,10 +346,11 @@ The app migrates these items in the background. The originals stay in place, so 
 * Artifacts
 * Memory, unless the user paused it
 * Users' global instructions and **Instructions for Claude**, unless they already set them in your organization
-* Scheduled tasks from Cowork and Code, except one-time tasks
+* Scheduled tasks from Cowork and Code, except one-time tasks whose time has passed
 * Plugins that users uploaded, unless [`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled) is `false`
 * Skills that users saved, unless [`skillCreationEnabled`](/docs/third-party/claude-desktop/configuration#skillcreationenabled) is `false`
 * Optional organization plugins that users turned on, if you offer them from your plugins directory or from a marketplace that your inference gateway serves
+* Optional organization plugins that users turned on from other marketplaces, such as a git repository, if you offer the marketplace from the same repository or URL as your earlier configuration. Devices that migrated under an earlier release get these plugins the first time they start 2.42304.0 or later, if the **Automatically import earlier third-party sessions** switch is still on.
 
 [Automatic import of earlier third-party sessions](/docs/third-party/claude-desktop/import#automatic-import-of-earlier-third-party-sessions) describes the migration for users, including how to remove migrated sessions and projects.
 
@@ -357,9 +358,9 @@ The app migrates these items in the background. The originals stay in place, so 
 
 Users set up these items again:
 
-* **Organization plugins from other marketplaces, such as a git repository**: install them again from **Customize → Plugins → Discover → Organization**
+* **Optional organization plugins that the migration skipped**: install them again from **Customize → Plugins → Discover → Organization**
 * **Plugins from marketplaces the user added**: add the marketplace and install the plugins again
-* **One-time scheduled tasks**: create them again
+* **One-time scheduled tasks that the migration skipped**: create them again
 * **App preferences**: set the model, per-tool permissions, and notifications again
 * **Connected folders in Cowork sessions**: connect the folders again
 * **"Always allow" choices in Cowork sessions and scheduled tasks**: approve again when a session or task asks

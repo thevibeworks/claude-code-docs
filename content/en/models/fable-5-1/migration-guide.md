@@ -67,27 +67,25 @@ model = "claude-mythos-5-1"  # After
        -H "content-type: application/json" \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
        -H "anthropic-version: 2023-06-01" \
-       -d @- <<'EOF'
-     {
-       "model": "claude-fable-5",
-       "max_tokens": 16000,
-       "tools": [
-         {
-           "name": "record_summary",
-           "description": "Record the structured summary of the document.",
-           "input_schema": {
-             "type": "object",
-             "properties": {"summary": {"type": "string"}},
-             "required": ["summary"]
+       -d '{
+         "model": "claude-fable-5",
+         "max_tokens": 16000,
+         "tools": [
+           {
+             "name": "record_summary",
+             "description": "Record the structured summary of the document.",
+             "input_schema": {
+               "type": "object",
+               "properties": {"summary": {"type": "string"}},
+               "required": ["summary"]
+             }
            }
-         }
-       ],
-       "tool_choice": {"type": "tool", "name": "record_summary"},
-       "messages": [
-         {"role": "user", "content": "Summarize: The meeting moved to Thursday."}
-       ]
-     }
-     EOF
+         ],
+         "tool_choice": {"type": "tool", "name": "record_summary"},
+         "messages": [
+           {"role": "user", "content": "Summarize: The meeting moved to Thursday."}
+         ]
+       }'
      ```
 
      ```bash CLI
@@ -309,29 +307,27 @@ model = "claude-mythos-5-1"  # After
        -H "content-type: application/json" \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
        -H "anthropic-version: 2023-06-01" \
-       -d @- <<'EOF'
-     {
-       "model": "claude-fable-5-1",
-       "max_tokens": 16000,
-       "tools": [
-         {
-           "name": "record_summary",
-           "description": "Record the structured summary of the document.",
-           "strict": true,
-           "input_schema": {
-             "type": "object",
-             "properties": {"summary": {"type": "string"}},
-             "required": ["summary"],
-             "additionalProperties": false
+       -d '{
+         "model": "claude-fable-5-1",
+         "max_tokens": 16000,
+         "tools": [
+           {
+             "name": "record_summary",
+             "description": "Record the structured summary of the document.",
+             "strict": true,
+             "input_schema": {
+               "type": "object",
+               "properties": {"summary": {"type": "string"}},
+               "required": ["summary"],
+               "additionalProperties": false
+             }
            }
-         }
-       ],
-       "tool_choice": {"type": "auto"},
-       "messages": [
-         {"role": "user", "content": "Summarize: The meeting moved to Thursday. Call the record_summary tool with your result."}
-       ]
-     }
-     EOF
+         ],
+         "tool_choice": {"type": "auto"},
+         "messages": [
+           {"role": "user", "content": "Summarize: The meeting moved to Thursday. Call the record_summary tool with your result."}
+         ]
+       }'
      ```
 
      ```bash CLI
@@ -581,35 +577,33 @@ model = "claude-mythos-5-1"  # After
        -H "content-type: application/json" \
        -H "x-api-key: $ANTHROPIC_API_KEY" \
        -H "anthropic-version: 2023-06-01" \
-       -d @- <<'EOF'
-     {
-       "model": "claude-fable-5-1",
-       "max_tokens": 16000,
-       "system": "You are a customer support assistant for an online electronics store.",
-       "tools": [
-         {
-           "name": "search_help_center",
-           "description": "Search the help center for policy and troubleshooting articles.",
-           "strict": true,
-           "input_schema": {
-             "type": "object",
-             "properties": {"query": {"type": "string"}},
-             "required": ["query"],
-             "additionalProperties": false
+       -d '{
+         "model": "claude-fable-5-1",
+         "max_tokens": 16000,
+         "system": "You are a customer support assistant for an online electronics store.",
+         "tools": [
+           {
+             "name": "search_help_center",
+             "description": "Search the help center for policy and troubleshooting articles.",
+             "strict": true,
+             "input_schema": {
+               "type": "object",
+               "properties": {"query": {"type": "string"}},
+               "required": ["query"],
+               "additionalProperties": false
+             }
            }
-         }
-       ],
-       "messages": [
-         {"role": "user", "content": "My headphones from order A1234 arrived yesterday."},
-         {"role": "assistant", "content": "Thanks for confirming. How can I help with order A1234?"},
-         {"role": "user", "content": "I opened the box. Can I still return them?"},
-         {
-           "role": "system",
-           "content": "Tool-use requirement for the current turn: the application requires a call to the search_help_center tool in your response to the user's latest message. Begin your response with the search_help_center tool call. Do not reply with text only."
-         }
-       ]
-     }
-     EOF
+         ],
+         "messages": [
+           {"role": "user", "content": "My headphones from order A1234 arrived yesterday."},
+           {"role": "assistant", "content": "Thanks for confirming. How can I help with order A1234?"},
+           {"role": "user", "content": "I opened the box. Can I still return them?"},
+           {
+             "role": "system",
+             "content": "Tool-use requirement for the current turn: the application requires a call to the search_help_center tool in your response to the latest message from the user. Begin your response with the search_help_center tool call. Do not reply with text only."
+           }
+         ]
+       }'
      ```
 
      ```bash CLI

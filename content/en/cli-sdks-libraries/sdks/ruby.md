@@ -301,16 +301,21 @@ T.reveal_type(Anthropic::MessageCreateParams::ServiceTier::AUTO)
 Enum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:
 
 ```ruby
+anthropic = Anthropic::Client.new
 # Using the enum constants preserves the tagged type information:
 anthropic.messages.create(
-  service_tier: Anthropic::MessageCreateParams::ServiceTier::AUTO,
-  # ...
+  max_tokens: 1024,
+  messages: [{role: "user", content: "Hello, Claude"}],
+  model: Anthropic::Model::CLAUDE_OPUS_5_5,
+  service_tier: Anthropic::MessageCreateParams::ServiceTier::AUTO
 )
 
 # Literal values are also permissible:
 anthropic.messages.create(
-  service_tier: :auto,
-  # ...
+  max_tokens: 1024,
+  messages: [{role: "user", content: "Hello, Claude"}],
+  model: :"claude-opus-5-5",
+  service_tier: :auto
 )
 ```
 

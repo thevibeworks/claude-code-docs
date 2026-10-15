@@ -560,7 +560,7 @@ To get these spans:
 1. In the process that runs the worker, [set up SDK tracing](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk#install-the-sdk) as in steps 1 to 4.
 2. Allow network traffic from the sandbox to your observability platform or OpenTelemetry Collector.
 
-When the worker sends a tool result, that request's API span is nested under its SDK span. For requests that the worker sends to Claude Platform on AWS, the API spans are in their own traces instead.
+When the worker sends a tool result, that request's API span is nested under its SDK span.
 
 ## Trace context and baggage
 

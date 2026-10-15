@@ -34,11 +34,13 @@ The program can do the following:
 * **Pass results from one agent to another:** Each agent returns its result to the program. The program can pass that result on to another agent. In the diagram, the agent in the second phase works with what the first three returned. A run's agents also work with the same files, in the session's sandbox.
 * **Take the next step by itself:** An agent's result goes to the program, not to the agent that the session runs. The program determines which agents run next, and it writes their prompts.
 * **Repeat and choose:** Inside a phase, the program can repeat work and choose its next step from what an agent returned. For example, it can have a draft revised until a review passes or a set number of rounds is used up. In the diagram, the program can repeat a step inside the second phase.
-* **Handle a failed agent:** When one of its agents fails, the program can handle the failure or let it end the run.
+* **Handle a failed agent:** When one of its agents fails, the server usually runs that agent once more, on a new thread, while the run's other agents keep working. If it fails again, the program can handle the failure or let it end the run. If the program handles a failure, the run can still end `completed`, so tell the agent that the session runs to report what failed.
 
 When the run ends, the agent that the session runs gets a turn to read what the run did. It can then answer you or start another run. [Run events](https://platform.claude.com/docs/en/managed-agents/workflow-runs#run-events) lists the cases where that turn comes later or doesn't come.
 
 You can guide how a run does the work, for example how it splits the work and what it does when an agent fails. See [Tell the agent when to use a run](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#tell-the-agent-when-to-use-a-run).
+
+There's no approval step before a run starts: the agent starts a run in the same turn that it writes the workflow. To review a plan first, tell the agent to describe the run and wait for your go-ahead. As a run starts, `workflow_run.created` shows its name, description, and phases. If a run starts that you didn't approve, ask the agent to stop it (see [Interrupt a session with runs open](https://platform.claude.com/docs/en/managed-agents/workflow-runs#interrupt-a-session-with-runs-open)).
 
 ## How a run moves through its states
 
@@ -166,16 +168,14 @@ This sample follows a session from your message to the agent's answer. It opens 
 * **Answers custom tool calls** when each `agent.custom_tool_use` arrives, because a run's thread can wait on your client while the session stays `running`. If your agent's tools [ask for confirmation](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#tool-confirmation), add a branch that answers each `agent.tool_use` or `agent.mcp_tool_use` whose `evaluated_permission` (java, php: `evaluatedPermission`; csharp, go: `EvaluatedPermission`) is `ask`. The sample has none, because a branch that allows every call would turn `always_ask` into always allow.
 * **Stops** when the [work is done](https://platform.claude.com/docs/en/managed-agents/workflow-runs#know-when-the-work-is-done): no run is open, and the session goes idle with `end_turn`. It also stops if the session terminates. On an idle with any other stop reason except `requires_action`, such as `budget_reached`, `retries_exhausted`, or `refusal`, it prints the reason and stops, so handle those in your own code. It stops on `retries_exhausted` even when the server is about to start a new turn by itself. It keeps waiting on `requires_action`, and on `end_turn` while a run is open.
 
-<CodeGroup>
-  ```bash cURL
-  # This workflow does not translate well to a one-off shell command.
-  # Use one of the SDK examples in this code group instead.
-  ```
+<CodeGroup exclude="shell">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  ```bash CLI
-  # This workflow does not translate well to a one-off shell command.
-  # Use one of the SDK examples in this code group instead.
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   open_runs: dict[str, str] = {}  # workflow_run_id -> run name

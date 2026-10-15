@@ -26,7 +26,7 @@ To learn more, refer to the following articles:
 | -------------------------- | ---- | ----- | ----- | ------------- |
 | View/pay for invoices      |      |       | ✅     | ✅             |
 | Add/modify billing methods |      |       | ✅     | ✅             |
-| Provision new seats        |      |       |       | ✅             |
+| Provision new seats        |      |       | ✅     | ✅             |
 
 ## Chat controls
 

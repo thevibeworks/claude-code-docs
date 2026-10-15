@@ -32,35 +32,33 @@ The following example creates an agent that limits `web_search` to two sites and
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "name": "Research Agent",
-    "model": "claude-opus-5-5",
-    "tools": [
-      {
-        "type": "agent_toolset_20260401",
-        "configs": [
-          {
-            "type": "web_search",
-            "name": "web_search",
-            "allowed_domains": ["docs.example.com", "arxiv.org"],
-            "user_location": {
-              "type": "approximate",
-              "country": "US",
-              "timezone": "America/Los_Angeles"
+    -d '{
+      "name": "Research Agent",
+      "model": "claude-opus-5-5",
+      "tools": [
+        {
+          "type": "agent_toolset_20260401",
+          "configs": [
+            {
+              "type": "web_search",
+              "name": "web_search",
+              "allowed_domains": ["docs.example.com", "arxiv.org"],
+              "user_location": {
+                "type": "approximate",
+                "country": "US",
+                "timezone": "America/Los_Angeles"
+              }
+            },
+            {
+              "type": "web_fetch",
+              "name": "web_fetch",
+              "blocked_domains": ["ads.example.com"],
+              "max_content_tokens": 50000
             }
-          },
-          {
-            "type": "web_fetch",
-            "name": "web_fetch",
-            "blocked_domains": ["ads.example.com"],
-            "max_content_tokens": 50000
-          }
-        ]
-      }
-    ]
-  }
-  EOF
+          ]
+        }
+      ]
+    }'
   )
   jq '.tools[0].configs' <<< "$agent"
   ```

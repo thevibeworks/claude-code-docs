@@ -2872,42 +2872,40 @@ The agent appends the user's message first, then any system messages that are du
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "content-type: application/json" \
-    -d @- <<'EOF'
-  {
-    "model": "claude-opus-5-5",
-    "max_tokens": 64000,
-    "system": "You are a helpful general-purpose agent. Answer the user's request directly.",
-    "output_config": {"effort": "xhigh"},
-    "tools": [
-      {
-        "name": "Workflow",
-        "description": "Orchestrate a multiagent workflow: split a large task into independent subtasks and run them as parallel agents, then collect their results. Opt-in: only use this tool when the user explicitly asks for a workflow, or when a system message confirms that orchestration mode is on. Granularity: scope each subtask to a distinct concern rather than per line or file section; a review of a small module rarely needs more than about ten. Standing consent: while a system message confirms orchestration mode is on, author and run a workflow for every substantive task by default; work solo only on conversational turns or trivial mechanical edits.",
-        "input_schema": {
-          "type": "object",
-          "properties": {
-            "subtasks": {
-              "type": "array",
-              "items": {"type": "string"},
-              "description": "Independent subtask prompts to run as parallel agents"
-            }
-          },
-          "required": ["subtasks"]
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 64000,
+      "system": "You are a helpful general-purpose agent. Answer the request from the user directly.",
+      "output_config": {"effort": "xhigh"},
+      "tools": [
+        {
+          "name": "Workflow",
+          "description": "Orchestrate a multiagent workflow: split a large task into independent subtasks and run them as parallel agents, then collect their results. Opt-in: only use this tool when the user explicitly asks for a workflow, or when a system message confirms that orchestration mode is on. Granularity: scope each subtask to a distinct concern rather than per line or file section; a review of a small module rarely needs more than about ten. Standing consent: while a system message confirms orchestration mode is on, author and run a workflow for every substantive task by default; work solo only on conversational turns or trivial mechanical edits.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "subtasks": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "Independent subtask prompts to run as parallel agents"
+              }
+            },
+            "required": ["subtasks"]
+          }
+        },
+        {"type": "bash_20250124", "name": "bash"}
+      ],
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explore the current directory, then give a thorough review: what it does, code-quality issues, and concrete improvements."
+        },
+        {
+          "role": "system",
+          "content": "Orchestration mode is on: optimize for the most exhaustive, correct answer rather than the fastest one. Use the Workflow tool on every substantive task, sized to the natural decomposition of the problem rather than the maximum the tool allows. See the description of the Workflow tool for standing consent, granularity guidance, and quality patterns. Work solo only on conversational or trivial turns."
         }
-      },
-      {"type": "bash_20250124", "name": "bash"}
-    ],
-    "messages": [
-      {
-        "role": "user",
-        "content": "Explore the current directory, then give a thorough review: what it does, code-quality issues, and concrete improvements."
-      },
-      {
-        "role": "system",
-        "content": "Orchestration mode is on: optimize for the most exhaustive, correct answer rather than the fastest one. Use the Workflow tool on every substantive task, sized to the problem's natural decomposition rather than the maximum the tool allows. See the Workflow tool's description for standing consent, granularity guidance, and quality patterns. Work solo only on conversational or trivial turns."
-      }
-    ]
-  }
-  EOF
+      ]
+    }'
   ```
 
   ```bash CLI

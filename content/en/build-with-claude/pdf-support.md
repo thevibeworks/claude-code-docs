@@ -726,26 +726,24 @@ For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -d @- <<EOF
-  {
-    "model": "claude-opus-5-5",
-    "max_tokens": 1024,
-    "messages": [{
-      "role": "user",
-      "content": [{
-        "type": "document",
-        "source": {
-          "type": "file",
-          "file_id": "$FILE_ID"
-        }
-      },
-      {
-        "type": "text",
-        "text": "What are the key findings in this document?"
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 1024,
+      "messages": [{
+        "role": "user",
+        "content": [{
+          "type": "document",
+          "source": {
+            "type": "file",
+            "file_id": "'"$FILE_ID"'"
+          }
+        },
+        {
+          "type": "text",
+          "text": "What are the key findings in this document?"
+        }]
       }]
-    }]
-  }
-  EOF
+    }'
   ```
 
   ```bash CLI

@@ -36,7 +36,7 @@ Configure monitoring from the Cowork admin settings:
 
 ## Events
 
-Cowork exports the following events to your OTel collector. The collector settings in [Setup](#setup) apply to every Cowork session that runs on a user's computer in Claude Desktop, including Cowork tasks that [Dispatch](/docs/cowork/guide/dispatch) starts. They don't apply to Code tab sessions, including Code sessions that Dispatch starts. Whether events include user prompt text, model response text, and tool inputs depends on the [`otlpContentCapture`](/docs/third-party/claude-desktop/configuration#otlpcontentcapture) managed configuration key on each user's device.
+Cowork exports the following events to your OTel collector. The collector settings in [Setup](#setup) apply to every Cowork session that runs on a user's computer in Claude Desktop, including Cowork tasks that [Dispatch](/docs/cowork/guide/dispatch) starts. They don't apply to Code tab sessions, including Code sessions that Dispatch starts. Whether events include user prompt text, model response text, and tool inputs depends on the [`otlpContentCapture`](/docs/third-party/claude-desktop/configuration#otlpcontentcapture) managed configuration key on each user's device. When the key isn't set, current versions of Claude Desktop send metadata only, and [some older versions](#content-capture) on first-party deployments send content.
 
 ### Content capture
 
@@ -44,14 +44,15 @@ Events can carry user prompt text, model response text, and tool inputs in addit
 
 To set the key, deploy it with your device management tool to the [managed configuration location for each operating system](/docs/third-party/claude-desktop/configuration#how-keys-are-read). To export metadata only, set `otlpContentCapture` to an empty list, written as the two characters `[]`. Claude Desktop reads an empty string as if the key weren't set. The key takes effect when Claude Desktop restarts.
 
-The table shows what events carry on Claude Desktop version 1.17377 or later, for a Cowork session that runs on the user's computer.
+The table shows what events carry on current versions of Claude Desktop, for a Cowork session that runs on the user's computer.
 
 | `otlpContentCapture` on the device | Content that events carry |
 | - | - |
-| Not set, on a first-party deployment | User prompt text, model response text, and the [`toolDetails` content](#security-and-privacy) |
-| Not set, on a [third-party deployment](/docs/third-party/claude-desktop/overview) | No content. Events carry metadata only |
-| Set to a list of [categories](/docs/third-party/claude-desktop/telemetry#content-capture) | The content in the listed categories. Listing `userPrompts` also includes model response text |
+| Not set | No content. Events carry metadata only |
+| Set to a list of [categories](/docs/third-party/claude-desktop/telemetry#content-capture) | By default, the content in the listed categories, and model response text when `userPrompts` is listed |
 | Set to an empty list, `[]` | No content. Events carry metadata only |
+
+On first-party deployments, some older versions of Claude Desktop send user prompt text, model response text, and the [`toolDetails` content](#security-and-privacy) when the key isn't set. To make sure a device sends metadata only, set the key to `[]`, which works on every version that supports the key.
 
 Metadata includes `workspace.host_paths` and, on first-party deployments, `user.email`. The key doesn't control either one. See [Security and privacy](#security-and-privacy).
 
@@ -122,7 +123,7 @@ All [standard attributes](#standard-attributes), plus:
 | `response_length` | Length of the response |
 | `response` | Model response text. Includes text output only; thinking content is excluded. Truncated to 60 KB. When model response capture is disabled, the value is the literal string `<REDACTED>`. |
 
-Model responses are captured when [`otlpContentCapture`](/docs/third-party/claude-desktop/telemetry#content-capture) includes `assistantResponses`, and also whenever user prompts are captured.
+By default, model responses are captured when [`otlpContentCapture`](/docs/third-party/claude-desktop/telemetry#content-capture) includes `assistantResponses`, and also whenever user prompts are captured.
 
 ### Tool result event
 
@@ -254,8 +255,8 @@ All events are exported with the following resource attributes:
   * `userPrompts`: user prompt text
   * `assistantResponses`: model response text
   * `toolDetails`: the arguments a tool was called with, in `tool_input` and `tool_parameters`, such as shell commands, file paths, URLs, and search patterns. It also covers the text of a failed tool's error message, in `error` on the [tool result event](#tool-result-event)
-* On Claude Desktop version 1.17377 or later, events that carry user prompt text also carry model response text, even when the key doesn't list `assistantResponses`
-* On Claude Desktop version 1.17377 or later, when `otlpContentCapture` isn't set on a device in a first-party deployment, events carry user prompt text, model response text, and the `toolDetails` content. To export metadata only, set the key to an empty list, `[]`
+* On Claude Desktop version 1.17377 or later, events that carry user prompt text also carry model response text by default, even when the key doesn't list `assistantResponses`
+* When `otlpContentCapture` isn't set, current versions of Claude Desktop send metadata only. To make sure a device sends metadata only, set the key to `[]`
 * Metadata includes `workspace.host_paths`, the paths of the folders a user connects to a task. `otlpContentCapture` doesn't control this attribute, so events carry the paths even when the key is `[]`. If folder names can be sensitive, configure your telemetry backend to filter or redact it
 * On first-party deployments, `user.email` is always included in event attributes, so configure your telemetry backend to filter or redact it if this is a concern
 * On third-party deployments, `user.email` is absent; the export identifies users with the `enduser.id` resource attribute, controlled by the [`endUserAttribution`](/docs/third-party/claude-desktop/configuration#enduserattribution) setting

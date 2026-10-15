@@ -512,7 +512,13 @@ The reference below is generated from the configuration schema and grouped to ma
 
 <AccordionGroup>
   <Accordion title="chatAdvancedFileAnalysisEnabled details">
-    Also enables inline data analysis. Of the user's own files, the sandbox can read only those attached to the conversation, plus folders added to the chat's project through the app (read-only). By default it has no network access. Project folders are not available in the sandbox of a chat started while a rule on `Read`, `Grep` or `Glob` is set: in `disabledBuiltinTools`, in `builtinToolPolicy` with a value other than `allow`, or as a deny or ask rule in Claude Code's own managed settings on the device, whether or not the rule covers the folder. They are not available either where those managed settings cannot be read, or where Claude Code takes its managed settings from a gateway. Claude's file tools still read what the rules allow.
+    Also enables inline data analysis. Of the user's own files, the sandbox can read only those attached to the conversation, plus folders added to the chat's project through the app (read-only).
+
+    Commands in the sandbox can reach the hosts in `coworkEgressAllowedHosts`, and no others. If that list is unset or empty, they have no network access. With `*` in the list they can reach any host, as in Cowork. Plugin CLIs are the exception: they can always reach the hosts their plugin declares, plus the listed hosts (with `*`, only the declared hosts). Older app versions give the sandbox no network access by default.
+
+    As in Cowork, commands run without an approval prompt. So they can upload anything the sandbox can read to a listed host, and run what they download from one. To have Claude ask before each command, set `Bash` to `ask` in `builtinToolPolicy`, which also applies to Cowork and Code. To let commands install packages, list the hosts of the package manager's default index (for pip, `pypi.org` and `files.pythonhosted.org`). For a private mirror, list its host instead. Nothing points package managers at a mirror, so each command must name it (for pip, `--index-url`).
+
+    Project folders are not available in the sandbox of a chat started while a rule on `Read`, `Grep` or `Glob` is set: in `disabledBuiltinTools`, in `builtinToolPolicy` with a value other than `allow`, or as a deny or ask rule in Claude Code's own managed settings on the device, whether or not the rule covers the folder. They are not available either where those managed settings cannot be read, or where Claude Code takes its managed settings from a gateway. Claude's file tools still read what the rules allow.
   </Accordion>
 
   <Accordion title="desktopHome details">
@@ -541,7 +547,7 @@ The reference below is generated from the configuration schema and grouped to ma
   </Accordion>
 
   <Accordion title="sshClientPath details">
-    Pins which OpenSSH client the app runs wherever it starts `ssh`: evaluating the user's SSH configuration (`ssh -G`), making the SSH connection and its channels, and the Code tab's terminal. `ssh-keygen` and `ssh-add` are taken from the same directory when they exist there, otherwise from PATH. The program must be OpenSSH 7.6 or newer (on Windows, Win32-OpenSSH 9.4 or newer to carry the connection); on macOS and Linux a wrapper script that ends in one is accepted, on Windows it must be a native `.exe` (not a .cmd, .bat or .ps1 script). When this key is set and the program is missing, cannot be run, or is too old, SSH sessions fail with an error telling the user to ask their IT administrator (the configured path is in its details) — the app never falls back to another ssh. The connection itself runs through this program on the system-OpenSSH engine, which the SSH connection engine setting's `system-openssh` value selects on every platform, including Windows; when the app's built-in SSH library makes the connection instead, this key still governs configuration evaluation (`ssh -G`), host-key lookups (`ssh-keygen`) and the terminal.
+    Pins which OpenSSH client the app runs wherever it starts `ssh`: evaluating the user's SSH configuration (`ssh -G`), making the SSH connection and its channels, and the Code tab's terminal. `ssh-keygen` and `ssh-add` are taken from the same directory when they exist there, otherwise from PATH. The program must be OpenSSH 7.6 or newer (on Windows, Win32-OpenSSH 9.4 or newer to carry the connection); on macOS and Linux a wrapper script that ends in one is accepted, on Windows it must be a native `.exe` (not a .cmd, .bat or .ps1 script). When this key is set and the program is missing, cannot be run, or is too old, SSH sessions fail with an error telling the user to ask their IT administrator (the configured path is in its details) — the app never falls back to another ssh. The connection itself runs through this program on the system-OpenSSH engine, which the SSH connection engine setting's `system-openssh` value selects on every platform, including Windows; when the app's built-in SSH library makes the connection instead, this key still governs configuration evaluation (`ssh -G`), host-key lookups (`ssh-keygen`) and the terminal. On a device that a Claude.ai sign-in has moved to an admin-console organization (see `disableDeploymentModeChooser`), the device profile's value is ignored: set the key in the admin console. There, until the organization's configuration has loaded, no client is pinned.
   </Accordion>
 
   <Accordion title="sshTransport details">
@@ -551,7 +557,7 @@ The reference below is generated from the configuration schema and grouped to ma
 
     `auto` or unset: the build's default engine.
 
-    An explicit value overrides the default at each host's next connect or reconnect. An open app takes a device profile's change at its next configuration check. From a configuration server it takes only `builtin`, once two checks in a row return it (about 12 minutes by default); other values wait until it is reopened or the user signs in again. A value that cannot be read, such as a misspelling, counts as `builtin` and waits likewise. Once a server's configuration has loaded it decides, even if it omits the key; until then the device profile's value applies.
+    An explicit value overrides the default at each host's next connect or reconnect. An open app takes a device profile's change at its next configuration check. From a configuration server it takes only `builtin`, once two checks in a row return it (about 12 minutes by default); other values wait until it is reopened or the user signs in again. A value that cannot be read, such as a misspelling, counts as `builtin` and waits likewise. Once a server's configuration has loaded it decides, even if it omits the key; until then the device profile's value applies. On a device that a Claude.ai sign-in has moved to an admin-console organization (see `disableDeploymentModeChooser`), the device profile's value is ignored: set the key in the admin console. There, until the organization's configuration has loaded, the build's default engine is used.
   </Accordion>
 </AccordionGroup>
 
@@ -700,7 +706,7 @@ The reference below is generated from the configuration schema and grouped to ma
   </Accordion>
 
   <Accordion title="coworkEgressAllowedHosts details">
-    Applies only to **tool calls**, in Cowork, Code and Chat. In Cowork it covers the sandbox's web fetch, shell commands and package installs. In Chat it covers web fetch, and the file-analysis sandbox only if you open its network. In Code it's [translated into Claude Code's network sandbox allowlist](https://claude.com/docs/third-party/claude-desktop/code#applied-as-managed-policy), and by default a separately deployed Claude Code managed-settings file takes precedence. It does **not** cover Web Search (which runs at your inference provider), inference, or MCP traffic. A list other than `*` also bounds where Claude may browse in the built-in browser. When unset, Cowork and Chat refuse web fetch.
+    Applies only to **tool calls**, in Cowork, Code and Chat. In Cowork it covers the sandbox's web fetch, shell commands and package installs. In Chat it covers web fetch and commands in the file-analysis sandbox. In Code it's [translated into Claude Code's network sandbox allowlist](https://claude.com/docs/third-party/claude-desktop/code#applied-as-managed-policy), and by default a separately deployed Claude Code managed-settings file takes precedence. It does **not** cover Web Search (which runs at your inference provider), inference, or MCP traffic. A list other than `*` also bounds where Claude may browse in the built-in browser. When unset, Cowork and Chat refuse web fetch.
 
     Entries are exact hostnames (`api.github.com`), wildcards (`*.corp.com` matches subdomains at any depth, not `corp.com` itself), or `*` to allow all. IP addresses match only when listed exactly. In Cowork and Chat, web fetch always blocks `localhost` and private addresses, and shells reach only listed hosts (not your inference provider's, unless listed), or none when unset. Code's shell obeys that limit only on macOS, and with bubblewrap and socat on Linux or WSL2; elsewhere, Windows included, it reaches any host. Code's web fetch isn't limited.
 
@@ -832,13 +838,13 @@ The reference below is generated from the configuration schema and grouped to ma
   </Accordion>
 
   <Accordion title="mcpPersistentAlwaysAllowEnabled details">
-    When enabled (the default), approval prompts for tools without a `toolPolicy` entry offer a persistent grant — **Always allow**, or **Allow for all tasks** for tools that can modify data — the Tool permissions picker in Connector settings lets users pre-approve tools, and those grants persist across sessions with no expiry.
+    When enabled (the default), approval prompts for tools without a `toolPolicy` entry offer a persistent grant: **Always allow**, or **Allow for all tasks** for tools that can modify data. The Tool permissions picker in Connector settings also lets users pre-approve tools. These grants persist across sessions with no expiry.
 
-    When disabled, the persistent options are hidden from approval prompts and from the Connector settings picker, and previously stored persistent grants stop being honored. Scheduled-task runs also stop offering, recording and replaying the **Allow for all scheduled runs** approval, unless a scheduled-task approval lifetime of one day or more is set. Users can still approve each call. Outside scheduled-task runs they can also choose **Allow for this task**, except for read-only tools on servers they added themselves.
+    When disabled, the persistent options are hidden from approval prompts and from the Connector settings picker, and previously stored persistent grants stop being honored. Scheduled-task runs also stop offering, recording, and replaying the **Allow for all scheduled runs** approval (**Always allow** in Code sessions), unless a scheduled-task approval lifetime of one day or more is set. Users can still approve each call. Outside scheduled-task runs, in chat and Cowork they can also choose **Allow for this task**, except for read-only tools on servers they added themselves.
 
     A per-tool `toolPolicy` entry on `managedMcpServers` always takes precedence over this key: `blocked`, `ask`, and `allow` behave exactly as documented there whether this key is enabled or not.
 
-    This key governs the chat and Cowork surfaces. Code sessions use a separate permission path this key does not cover — govern Code tool approvals with per-tool `toolPolicy` entries, whose `blocked` and `ask` values are forwarded there.
+    This key governs chat and Cowork, and also Code sessions on the device (including WSL) or over SSH. In those Code sessions, with the key disabled, the prompt for an MCP tool offers **Allow for this session** instead of **Always allow**, except on scheduled-task runs. This approval is not saved to Claude Code's settings files. It lasts until the session is deleted, and sessions forked or started from it do not inherit it. Claude Code's own allow rules and hooks still apply. Allow rules in its settings files, including ones saved earlier with **Always allow**, and hooks in its settings or plugins keep allowing the tool until they are removed. Code sessions receive only the `blocked` and `ask` values of `toolPolicy` entries, so a tool set to `allow` still prompts there, and this key applies to it.
   </Accordion>
 
   <Accordion title="mcpScheduledTaskApprovalLifetimeDays details">
@@ -846,9 +852,13 @@ The reference below is generated from the configuration schema and grouped to ma
 
     The limit covers MCP tools only, and a `toolPolicy` entry on `managedMcpServers` still takes precedence. If a configuration server delivers the setting, then after each launch scheduled tasks ask instead of reusing stored approvals (as at `0`) until the app has fetched the configuration again.
 
-    Cowork: if `mcpPersistentAlwaysAllowEnabled` is off, this setting brings the lasting option back for scheduled tasks only, with the time limit.
+    If `mcpPersistentAlwaysAllowEnabled` is off, a limit of one day or more brings the lasting option back for scheduled tasks only.
 
-    Code tab: `mcpPersistentAlwaysAllowEnabled` has no effect. The limit covers only lasting approvals given after this setting took effect. An earlier one was usually saved as an allow rule in Claude Code's own settings: for a scheduled task, the project's `.claude/settings.local.json`, under `permissions.allow`. Any allow rule in Claude Code's settings, including one written by hand or by **Always allow** in an ordinary Code session in the same project, keeps allowing the tool without asking, even at `0`, until that entry is removed.
+    Code tab: the limit covers only lasting approvals given after this setting took effect. An earlier one was usually saved as an allow rule in Claude Code's own settings: for a scheduled task, the project's `.claude/settings.local.json`, under `permissions.allow`. Any allow rule in Claude Code's settings keeps allowing the tool without asking, even at `0`, until that entry is removed. That includes a rule written by hand, and one saved by **Always allow** in an ordinary Code session in the same project, which the app offers whenever `mcpPersistentAlwaysAllowEnabled` is on. In an ordinary Code session over SSH, if this setting has a value (even `0`), **Always allow** for a tool of a server set up on the host lasts for the session only and saves no rule there.
+  </Accordion>
+
+  <Accordion title="isLocalDevMcpEnabled details">
+    Set to `false` in a device-management profile, this key also locks down the local (`stdio`) entries of `managedMcpServers`: the app starts one only when that profile itself lists an entry of the same name, and with the profile's own command, arguments and environment. Only the profile's value engages this. A `false` from a configuration server or the admin console turns user-added servers off and does not engage it.
   </Accordion>
 
   <Accordion title="allowedPluginMcpServers details">
@@ -1067,16 +1077,20 @@ The reference below is generated from the configuration schema and grouped to ma
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencemaxtokensperwindow" />Max tokens per window<br />`inferenceMaxTokensPerWindow` | `integer` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Per-user soft cap, counted client-side over the token cap window. Not a server-enforced quota. |
-| <span id="inferencetokenwindowhours" />Token cap window<br />`inferenceTokenWindowHours` | `integer` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Tumbling window length for the token cap. Max 720 hours (30 days). Range: 1–720. |
+| <span id="inferencemaxtokensperwindow" />Max tokens per window<br />`inferenceMaxTokensPerWindow` | `integer` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Limits each person’s input and output tokens per window on each device. Cached tokens do not count, so this does not cap your provider’s bill. |
+| <span id="inferencetokenwindowhours" />Token cap window<br />`inferenceTokenWindowHours` | `integer` | MDM + Bootstrap<br />Added in 1.2581.0 | — | The count resets to zero at the end of each window. A window can last 1 to 720 hours (30 days). Range: 1–720. |
 
 <AccordionGroup>
   <Accordion title="inferenceMaxTokensPerWindow details">
     Requires `inferenceTokenWindowHours` to also be set — without a window length the cap is inert and no limit is enforced.
+
+    The app keeps each person’s count in a local file, and no server enforces it. Someone who uses two devices has a separate count on each.
   </Accordion>
 
   <Accordion title="inferenceTokenWindowHours details">
     Required when `inferenceMaxTokensPerWindow` is set — the cap only takes effect once both are configured.
+
+    Each person’s window starts the first time they use the app after their previous window ends, so 24 hours does not mean midnight to midnight.
   </Accordion>
 </AccordionGroup>
 

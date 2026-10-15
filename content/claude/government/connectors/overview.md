@@ -71,6 +71,11 @@ Enter the details of the MCP server.
 
 For **OAuth (pre-registered app)**, enter the **Client ID** your provider issued when you registered the app. A single-tenant Microsoft Entra app also needs its **Tenant ID** and the **Scope** the app requests. Enter the scope that your server's own API expects (for example, an `api://` scope for an app registered in your tenant), because Microsoft Graph scopes such as `Mail.Read` would give the connector's server access to members' Microsoft 365 data. Neither OAuth option stores a secret.
 
+**OAuth (pre-registered app)** also has two optional fields:
+
+* **Callback port**: if your sign-in provider requires the exact port in the app's registered redirect URI, enter that port
+* **Callback host**: if the app's registered redirect URI uses `localhost` rather than `127.0.0.1`, select **localhost**
+
 When you choose either OAuth option, a confirmation checkbox appears on the final step asking you to confirm that the server address is exactly the one you intend, because members are sent to a sign-in page that the server chooses. When sign-in happens somewhere other than the server itself, for example when you set a tenant ID for a Microsoft Entra app, the checkbox names both that sign-in address and the server address.
 
 ### Step 2: Discover tools

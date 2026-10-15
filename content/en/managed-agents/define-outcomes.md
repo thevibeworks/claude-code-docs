@@ -294,13 +294,11 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
-    --json @- <<EOF
-  {
-    "agent": "$AGENT_ID",
-    "environment_id": "$ENVIRONMENT_ID",
-    "title": "Financial analysis on Costco"
-  }
-  EOF
+    --json '{
+      "agent": "'"$AGENT_ID"'",
+      "environment_id": "'"$ENVIRONMENT_ID"'",
+      "title": "Financial analysis on Costco"
+    }'
   )
   SESSION_ID=$(jq -r '.id' <<<"$session")
 
@@ -309,19 +307,17 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
-    --json @- >/dev/null <<EOF
-  {
-    "events": [
-      {
-        "type": "user.define_outcome",
-        "description": "Build a DCF model for Costco in .xlsx",
-        "rubric": {"type": "text", "content": "# DCF Model Rubric\n..."},
-        "max_iterations": 5
-      }
-    ]
-  }
-  EOF
-  # or: "rubric": {"type": "file", "file_id": "$RUBRIC_ID"}
+    --json '{
+      "events": [
+        {
+          "type": "user.define_outcome",
+          "description": "Build a DCF model for Costco in .xlsx",
+          "rubric": {"type": "text", "content": "# DCF Model Rubric\n..."},
+          "max_iterations": 5
+        }
+      ]
+    }' >/dev/null
+  # or: "rubric": {"type": "file", "file_id": "'"$RUBRIC_ID"'"}
   # "max_iterations" is optional; default 3, max 20
   ```
 

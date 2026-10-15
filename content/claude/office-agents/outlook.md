@@ -53,7 +53,7 @@ Microsoft 365 is required.
 
 <Steps>
   <Step title="Open the marketplace listing">
-    Go to the [Claude for Outlook listing on Microsoft AppSource](https://appsource.microsoft.com/).
+    Go to the [Claude for Outlook listing on Microsoft AppSource](https://marketplace.microsoft.com/en-us/product/office/WA200010724?tab=Overview).
   </Step>
 
   <Step title="Install the add-in">
@@ -190,7 +190,7 @@ when Claude first tries to read mail or calendar data.
 
 The redirect to `pivot.claude.ai` after consent carries only the consent
 outcome, never a token or authorization code. See
-[Why sign-in redirects through pivot.claude.ai](/docs/office-agents/third-party-platforms#why-sign-in-redirects-through-pivotclaudeai)
+[Why sign-in redirects through pivot.claude.ai](/docs/office-agents/third-party-platforms#why-sign-in-redirects-through-pivot-claude-ai)
 for what each redirect carries and how to verify it in a network capture.
 
 #### Use your own Entra app instead
@@ -220,17 +220,36 @@ live entirely under an application your organization owns.
     Select "Grant admin consent" for your tenant.
   </Step>
 
-  <Step title="Append the client ID to the manifest URL">
-    Copy the application's client ID from the Overview page. Append
-    `?graph_client_id=YOUR_CLIENT_ID` to the manifest URL from the
+  <Step title="Add the client ID to the manifest">
+    Copy the application's client ID from the Overview page. Download the
+    manifest from the
     [Install from a manifest file](#install-from-a-manifest-file) section
-    and use that URL when downloading the manifest.
+    and open it in a text editor. Search for `https://pivot.claude.ai/?m=`.
+    At the end of every URL that starts this way, inside the quotation
+    marks, add `&amp;graph_client_id=YOUR_CLIENT_ID`. Lines that refer to a
+    URL by `resid` need no change, and neither do the icon or support
+    URLs. Save the file, then upload and deploy it as that section
+    describes.
   </Step>
 </Steps>
+
+The following example shows one edited line. The version number in your
+file can differ. Type `&amp;` exactly as shown: an XML file cannot contain
+`&` on its own.
+
+```xml theme={null}
+<bt:Url id="Taskpane.Url" DefaultValue="https://pivot.claude.ai/?m=outlook-1.0.0.5&amp;graph_client_id=YOUR_CLIENT_ID"/>
+```
 
 With this option, skip the admin consent link entirely. Users do not see a
 Microsoft permissions prompt because your tenant has already consented to
 your own application.
+
+If you deploy through a third-party platform and generate your manifests
+with the [setup wizard](/docs/office-agents/third-party-platforms#run-the-setup-wizard),
+provide the client ID to the wizard as `graph_client_id` instead of
+editing the file. See
+[Deploy to Outlook](/docs/office-agents/third-party-platforms#deploy-to-outlook).
 
 ### Deploy in a US Government or national cloud
 
@@ -246,10 +265,11 @@ and set `graph_cloud` to the matching value:
 | DoD | `us-gov-dod` |
 | 21Vianet (China) | `china` |
 
-For a DoD tenant the manifest URL ends with:
+For a DoD tenant, every URL in the manifest that starts with
+`https://pivot.claude.ai/?m=` ends with:
 
 ```
-?graph_client_id=YOUR_CLIENT_ID&graph_cloud=us-gov-dod
+&amp;graph_client_id=YOUR_CLIENT_ID&amp;graph_cloud=us-gov-dod
 ```
 
 For GCC High and 21Vianet tenants, `graph_cloud` may be omitted: the

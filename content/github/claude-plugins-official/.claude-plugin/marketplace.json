@@ -706,7 +706,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "43e49ed3c0cae18cbda4cdad94756ac85d50190b"
+        "sha": "ea7fe1d4db0f0f273799ec4b40070c3c6b00fdcc"
       },
       "homepage": "https://carta.com"
     },
@@ -722,7 +722,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "43e49ed3c0cae18cbda4cdad94756ac85d50190b"
+        "sha": "ea7fe1d4db0f0f273799ec4b40070c3c6b00fdcc"
       },
       "homepage": "https://carta.com"
     },
@@ -738,7 +738,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "6ab81016389cac69e03ed79114d75f31bc8e7bfd"
+        "sha": "ea7fe1d4db0f0f273799ec4b40070c3c6b00fdcc"
       },
       "homepage": "https://carta.com"
     },
@@ -1577,7 +1577,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/figma/mcp-server-guide.git",
-        "sha": "f0493295acf5f7cbdebcbcc483c06de814420cb1"
+        "sha": "f2789420e7e8b4e2465dfeb1e12e1fc6a31397e5"
       },
       "homepage": "https://github.com/figma/mcp-server-guide"
     },
@@ -2976,7 +2976,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/postmanlabs/postman-plugin.git",
-        "sha": "0128d24704cfa71170d9df3b9fdc81959238be12"
+        "sha": "c6352ef5605cd46d3f817e15c601eeb9a56c08f7"
       },
       "homepage": "https://github.com/postmanlabs/postman-plugin"
     },

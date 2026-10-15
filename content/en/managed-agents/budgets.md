@@ -23,16 +23,14 @@ Pass the optional `budget` (csharp, go: `Budget`) field when you create the sess
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": "$AGENT_ID",
-    "environment_id": "$ENVIRONMENT_ID",
-    "budget": {
-      "type": "limit",
-      "max_list_cost": {"amount": "125", "currency": "USD"}
-    }
-  }
-  EOF
+    -d '{
+      "agent": "'"$AGENT_ID"'",
+      "environment_id": "'"$ENVIRONMENT_ID"'",
+      "budget": {
+        "type": "limit",
+        "max_list_cost": {"amount": "125", "currency": "USD"}
+      }
+    }'
   ```
 
   ```bash CLI

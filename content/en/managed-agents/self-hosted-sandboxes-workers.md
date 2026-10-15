@@ -40,17 +40,13 @@ See [Self-hosted worker reference](https://platform.claude.com/docs/en/managed-a
 
 ## Run an always-on worker
 
-Both workers authenticate with the [environment key](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-your-first-session) from the quickstart.
+Start a worker that polls the queue continuously. It authenticates with the [environment key](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-your-first-session) from the quickstart:
 
-With the `ant` CLI:
+<CodeGroup exclude="shell:cURL, csharp, java, php, ruby">
+  ```bash CLI
+  ant beta:worker poll --workdir /workspace
+  ```
 
-```bash
-ant beta:worker poll --workdir /workspace
-```
-
-With the SDK, `EnvironmentWorker` does the same work:
-
-<CodeGroup exclude="shell">
   ```python Python
   import asyncio
   import contextlib
@@ -105,9 +101,9 @@ With the SDK, `EnvironmentWorker` does the same work:
   }).run();
   ```
 
-  ```csharp C#
-  // EnvironmentWorker is not currently available in the C# SDK. Use the ant CLI worker instead.
-  ```
+  <CodeGroupItem language="C#">
+    The C# SDK does not have `EnvironmentWorker`. Run the `ant` CLI worker instead: `ant beta:worker poll --workdir /workspace`.
+  </CodeGroupItem>
 
   ```go Go
   package main
@@ -145,17 +141,17 @@ With the SDK, `EnvironmentWorker` does the same work:
 
   ```
 
-  ```java Java
-  // EnvironmentWorker is not currently available in the Java SDK. Use the ant CLI worker instead.
-  ```
+  <CodeGroupItem language="Java">
+    The Java SDK does not have `EnvironmentWorker`. Run the `ant` CLI worker instead: `ant beta:worker poll --workdir /workspace`.
+  </CodeGroupItem>
 
-  ```php PHP
-  // EnvironmentWorker is not currently available in the PHP SDK. Use the ant CLI worker instead.
-  ```
+  <CodeGroupItem language="PHP">
+    The PHP SDK does not have `EnvironmentWorker`. Run the `ant` CLI worker instead: `ant beta:worker poll --workdir /workspace`.
+  </CodeGroupItem>
 
-  ```ruby Ruby
-  # EnvironmentWorker is not currently available in the Ruby SDK. Use the ant CLI worker instead.
-  ```
+  <CodeGroupItem language="Ruby">
+    The Ruby SDK does not have `EnvironmentWorker`. Run the `ant` CLI worker instead: `ant beta:worker poll --workdir /workspace`.
+  </CodeGroupItem>
 </CodeGroup>
 
 ## Trigger workers from webhooks
@@ -176,7 +172,7 @@ With the SDK, `EnvironmentWorker` does the same work:
   <Step title="Implement the webhook handler">
     Invoke the worker when `session.status_run_started` fires. The handler drains the queue and hands each claimed work item to `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`), which downloads skills, executes tool calls, posts results back, and returns.
 
-    <CodeGroup exclude="shell">
+    <CodeGroup exclude="shell, csharp, java, php, ruby">
       <CodeGroupItem>
         To verify webhook signatures, install the webhooks extra: `pip install "anthropic[webhooks]"`.
 
@@ -299,10 +295,9 @@ With the SDK, `EnvironmentWorker` does the same work:
       }
       ```
 
-      ```csharp C#
-      // EnvironmentWorker is not currently available in the C# SDK.
-      // To handle work items directly, see the Environments Work endpoints.
-      ```
+      <CodeGroupItem language="C#">
+        The C# SDK does not have `EnvironmentWorker`. To handle work items from your own code, call the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
+      </CodeGroupItem>
 
       ```go Go
       package main
@@ -415,20 +410,17 @@ With the SDK, `EnvironmentWorker` does the same work:
 
       ```
 
-      ```java Java
-      // EnvironmentWorker is not currently available in the Java SDK.
-      // To handle work items directly, see the Environments Work endpoints.
-      ```
+      <CodeGroupItem language="Java">
+        The Java SDK does not have `EnvironmentWorker`. To handle work items from your own code, call the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
+      </CodeGroupItem>
 
-      ```php PHP
-      // EnvironmentWorker is not currently available in the PHP SDK.
-      // To handle work items directly, see the Environments Work endpoints.
-      ```
+      <CodeGroupItem language="PHP">
+        The PHP SDK does not have `EnvironmentWorker`. To handle work items from your own code, call the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
+      </CodeGroupItem>
 
-      ```ruby Ruby
-      # EnvironmentWorker is not currently available in the Ruby SDK.
-      # To handle work items directly, see the Environments Work endpoints.
-      ```
+      <CodeGroupItem language="Ruby">
+        The Ruby SDK does not have `EnvironmentWorker`. To handle work items from your own code, call the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
+      </CodeGroupItem>
     </CodeGroup>
 
     Because the handler claims work itself, it must [forward the work item's secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#forward-the-work-items-secret), as the `work_secret` (typescript: `workSecret`; go: `WorkSecret`) argument does here.
@@ -505,16 +497,14 @@ Pass the secret only into the sandbox that serves that session, and never log it
 
 To claim work from your own code instead of `ant beta:worker poll --on-work`, use `work.poller()` (go: `environments.NewWorkPoller()`). It polls the queue and gives you each claimed session, and you launch the sandbox:
 
-<CodeGroup>
-  ```bash cURL
-  # The work poller is an SDK helper (Python, TypeScript, Go), not a raw
-  # endpoint. From the shell, use `ant beta:worker poll --on-work` instead.
-  ```
+<CodeGroup exclude="shell, csharp, java, php, ruby">
+  <CodeGroupItem language="cURL">
+    Claiming work in a loop and launching a sandbox for each session needs more logic than a single shell command. From the shell, run `ant beta:worker poll --on-work` with a spawn script, as in [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session).
+  </CodeGroupItem>
 
-  ```bash CLI
-  # The work poller is an SDK helper (Python, TypeScript, Go), not a raw
-  # endpoint. From the shell, use `ant beta:worker poll --on-work` instead.
-  ```
+  <CodeGroupItem language="CLI">
+    To claim work from the shell and launch a sandbox for each session, run `ant beta:worker poll --on-work` with a spawn script, as in [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session).
+  </CodeGroupItem>
 
   ```python Python
   import asyncio
@@ -616,10 +606,9 @@ To claim work from your own code instead of `ant beta:worker poll --on-work`, us
   }
   ```
 
-  ```csharp C#
-  // A work-polling helper is not currently available in the C# SDK.
-  // To claim work directly, see the Environments Work endpoints.
-  ```
+  <CodeGroupItem language="C#">
+    The C# SDK does not have a helper that polls for work. To claim work from your own code, call the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
+  </CodeGroupItem>
 
   ```go Go
   package main
@@ -691,27 +680,24 @@ To claim work from your own code instead of `ant beta:worker poll --on-work`, us
   }
   ```
 
-  ```java Java
-  // A work-polling helper is not currently available in the Java SDK.
-  // To claim work directly, see the Environments Work endpoints.
-  ```
+  <CodeGroupItem language="Java">
+    The Java SDK does not have a helper that polls for work. To claim work from your own code, call the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
+  </CodeGroupItem>
 
-  ```php PHP
-  // A work-polling helper is not currently available in the PHP SDK.
-  // To claim work directly, see the Environments Work endpoints.
-  ```
+  <CodeGroupItem language="PHP">
+    The PHP SDK does not have a helper that polls for work. To claim work from your own code, call the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
+  </CodeGroupItem>
 
-  ```ruby Ruby
-  # A work-polling helper is not currently available in the Ruby SDK.
-  # To claim work directly, see the Environments Work endpoints.
-  ```
+  <CodeGroupItem language="Ruby">
+    The Ruby SDK does not have a helper that polls for work. To claim work from your own code, call the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work).
+  </CodeGroupItem>
 </CodeGroup>
 
 ### Run the SDK worker inside the sandbox
 
 Replace the `ant beta:worker run` entrypoint with an SDK entrypoint when the sandbox must [serve custom tools](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-custom-tools) or use [non-default memory sync settings](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#configure-sync). The entrypoint constructs `EnvironmentWorker` and calls `handle_item()` (typescript: `handleItem()`; go: `HandleItem()`), which reads the same `ANTHROPIC_*` variables that the spawn script forwards.
 
-<CodeGroup exclude="shell">
+<CodeGroup exclude="shell, csharp, java, php, ruby">
   ```python Python
   import asyncio
   import contextlib
@@ -759,9 +745,9 @@ Replace the `ant beta:worker run` entrypoint with an SDK entrypoint when the san
   }).handleItem();
   ```
 
-  ```csharp C#
-  // EnvironmentWorker is not currently available in the C# SDK.
-  ```
+  <CodeGroupItem language="C#">
+    The C# SDK does not have `EnvironmentWorker`.
+  </CodeGroupItem>
 
   ```go Go
   package main
@@ -797,17 +783,17 @@ Replace the `ant beta:worker run` entrypoint with an SDK entrypoint when the san
 
   ```
 
-  ```java Java
-  // EnvironmentWorker is not currently available in the Java SDK.
-  ```
+  <CodeGroupItem language="Java">
+    The Java SDK does not have `EnvironmentWorker`.
+  </CodeGroupItem>
 
-  ```php PHP
-  // EnvironmentWorker is not currently available in the PHP SDK.
-  ```
+  <CodeGroupItem language="PHP">
+    The PHP SDK does not have `EnvironmentWorker`.
+  </CodeGroupItem>
 
-  ```ruby Ruby
-  # EnvironmentWorker is not currently available in the Ruby SDK.
-  ```
+  <CodeGroupItem language="Ruby">
+    The Ruby SDK does not have `EnvironmentWorker`.
+  </CodeGroupItem>
 </CodeGroup>
 
 ## Stage files for a session
@@ -825,13 +811,11 @@ Anthropic doesn't mount files or GitHub repositories into self-hosted sandboxes.
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d @- <<EOF
-  {
-    "agent": "$AGENT_ID",
-    "environment_id": "$ANTHROPIC_ENVIRONMENT_ID",
-    "metadata": {"input_file": "s3://my-bucket/data.csv"}
-  }
-  EOF
+    -d '{
+      "agent": "'"$AGENT_ID"'",
+      "environment_id": "'"$ANTHROPIC_ENVIRONMENT_ID"'",
+      "metadata": {"input_file": "s3://my-bucket/data.csv"}
+    }'
   ```
 
   ```bash CLI

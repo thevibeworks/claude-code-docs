@@ -7,7 +7,7 @@
 > Accept identity assertions from enterprise SSO so users connect to your MCP server without a separate OAuth consent step.
 
 <Note>
-  Enterprise Managed Auth is available on Claude Team and Enterprise plans. MCP server developers and identity provider vendors can [register interest](https://docs.google.com/forms/d/e/1FAIpQLSf1goHGNDVFK7rncYuh6wnRpWSy7eGOcgL1i8uw3oyKFO9UUA/viewform) in supporting this flow.
+  Enterprise Managed Auth is available on Claude Team and Enterprise plans. After your authorization server supports it, email `mcp-review@anthropic.com` to have [your directory listing](/docs/connectors/building/managing-your-listing) marked as supporting Enterprise Managed Auth.
 </Note>
 
 Enterprise Managed Auth (EMA) lets a user connect to your MCP server silently, using the single sign-on session they already have with their organization. Instead of showing each user an OAuth consent screen, Claude presents your authorization server with an identity assertion: a signed JSON Web Token (JWT), issued by the customer's identity provider, that vouches for the user's identity.

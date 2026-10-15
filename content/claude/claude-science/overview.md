@@ -30,7 +30,7 @@ Researchers in the life sciences also get specialized [Featured connectors](/doc
 
 ## Requirements
 
-* A Claude account on a Pro, Max, Team, or Enterprise plan. On Team and Enterprise plans, an Owner must [enable Claude Science for the organization](/docs/claude-science/enable-claude-science) first.
+* A Claude account on a Pro, Max, Team, or Enterprise plan. The [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists) has Claude Science on by default. On other Team and Enterprise plans, an Owner must [enable Claude Science for the organization](/docs/claude-science/enable-claude-science) first.
 * A country or region where Anthropic offers claude.ai. See [Supported countries and regions](https://www.anthropic.com/supported-countries).
 * macOS 13 or later (Apple silicon or Intel), Windows 11 (x64), or Linux x64 on a glibc-based distribution.
 * About 5 GB of free disk space for the runtime and starter environments.

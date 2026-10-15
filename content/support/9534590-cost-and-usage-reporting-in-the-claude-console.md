@@ -8,7 +8,7 @@ The Claude Console provides detailed cost and usage reporting to help you effect
 
 Users with access to these reports can click into them on the left navigation menu on the Console:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1792043100&amp;signature=571c26788c737eff26e2dec9e9a9eedd9db5016610929966b2ea8453ac1a2f25&amp;req=dSUvEs97mYNeXvMW1HO4zYCWiCYYhcWbuqqBX2puyxQ%2FNYkRVftIo1ZHaEeh%0AGkwKxPOIsc%2BPd9nVYx8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584654217/db0a977417e38e43639f060d96e0/image.png?expires=1792094400&amp;signature=672fee11bf497711b1b2a8d2726526bfa6ea7eac7292000f6ef2f89943bb89c8&amp;req=dSUvEs97mYNeXvMW1HO4zYCWiCYYiMKeuqqBX2puyxR4EV4AywAuxs44IXm%2B%0A%2FOXPN0eMz0bRj57s7aA%3D%0A)
 
 ---
 
@@ -46,9 +46,9 @@ The [Usage page](https://platform.claude.com/usage) offers a detailed breakdown 
 
 6. Use the export button to download a CSV of the displayed data.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1792043100&amp;signature=f1e11daec5c20861d02edaf9b755010a825dca9404d2d76eeaca5d7fd159aad2&amp;req=dSUvEs94mYJdWPMW1HO4zQwERnEqJYxnqMITUZbanFBmIuugiNmyezNhn9hA%0ANsCSfDbew55b9KCnm%2FI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584664321/59b50eba0b61e0789f7055fcf9f4/image+%285%29.png?expires=1792094400&amp;signature=d290e93c05f25b413529ce1185915fbb54d7a20be0cd08a04086e059c90c8d7a&amp;req=dSUvEs94mYJdWPMW1HO4zQwERnEqKItiqMITUZbanFCHH6crNWlDo6Up2Tyo%0AzbfmLYwAD95cFZTQJZM%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1792043100&amp;signature=90b486b87a831da7fc1c35dd6444acb7a29173273f0c0b1d254b79276c0998c2&amp;req=dSUvEs93noJXX%2FMW1HO4zRxEwGlN4lJt21D6pckxWMbRIbxYG9hanIWWUxD0%0A0i5zk77Gqq4J9mLEDTA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584693386/aed472efe163abcbc14fa32f3699/rate+limited+requests.png?expires=1792094400&amp;signature=20fbb961d64abe7128c2ca5b6856747caa9862be84c5aaa32cb6766bae711b82&amp;req=dSUvEs93noJXX%2FMW1HO4zRxEwGlN71Vo21D6pckxWMbDXPa486nhL3%2Ftssne%0A44i3WPoTokjGF4fcajc%3D%0A)
 
 ### Rate Limit Use
 
@@ -88,6 +88,6 @@ The [Cost page](https://platform.claude.com/cost) helps you understand your spen
 
 5. Use the export button to download a CSV of the cost data.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1792043100&amp;signature=94ff97442ad73866d699f758d3f9155f2d84ac065e5ebf3b77f767f83a2e7b01&amp;req=dSUvEs95lIVfWPMW1HO4zUR%2Bhp7DV9NgCyIF5nuUsbyOSNtCTpK4%2BwLEc5Li%0A9UucbmDOHTDbyjiNZtI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584679401/4d0bc8ed08625e1adee414e77030/CleanShot+2025-06-23+at+08_54_40%402x.png?expires=1792094400&amp;signature=72e20a4d2220e32070f0ba6643c35d0c9659f4e51dfd29a6306d67c62e0cd634&amp;req=dSUvEs95lIVfWPMW1HO4zUR%2Bhp7DWtRlCyIF5nuUsbx79%2BGG24JyiM%2BRSqlO%0AILFwbczjHSjhoTAzDiQ%3D%0A)
 
 **Note**: Currently, it's not possible to break down usage or cost by individual users.

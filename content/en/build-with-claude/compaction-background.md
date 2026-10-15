@@ -469,9 +469,7 @@ The following program is the loop from [Compact in a loop](https://platform.clau
   ```
 
   <CodeGroupItem language="PHP">
-    <Note>
-      The PHP SDK sends requests synchronously, so it can't run the compaction request in the background while the conversation goes on.
-    </Note>
+    The PHP SDK sends requests synchronously, so it can't run the compaction request in the background while the conversation goes on.
   </CodeGroupItem>
 
   ```ruby Ruby
