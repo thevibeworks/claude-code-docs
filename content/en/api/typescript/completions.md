@@ -319,6 +319,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `"spend-limit-reads-2026-09-26"`
 
+    - `"telemetry-destinations-2026-08-11"`
+
 ### Returns
 
 - `interface Completion`

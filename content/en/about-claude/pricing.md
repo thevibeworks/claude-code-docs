@@ -531,6 +531,6 @@ Batch API and prompt caching discounts can be combined. For example, using both 
 
 ### What payment methods are accepted?
 
-Major credit cards are accepted for standard accounts. Enterprise customers can arrange invoicing and other payment methods.
+Major credit cards are accepted for standard accounts. To buy credits or manage your payment methods, go to the [Billing](https://platform.claude.com/settings/billing) page (`platform.claude.com/settings/billing`) in the Claude Console. Enterprise customers can arrange invoicing and other payment methods.
 
 For additional questions about pricing, contact [support@anthropic.com](mailto:support@anthropic.com).

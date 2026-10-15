@@ -151,6 +151,8 @@ Open any imported conversation from the sidebar and keep chatting. The first tim
 
 When your administrator also sets `exportEnabled` to `true` under `claudeAiImport`, **Settings → Import & export** offers **Export…**, which writes this computer's chats, Cowork tasks, and Code sessions (not terminal Claude Code sessions) to a zip file. On the other device, open the import wizard and select that zip with **Choose file…**; the wizard lists its sessions in the [Cowork & Code step](#step-2-local-cowork-and-code-sessions). The export is a one-time snapshot, not a sync, and the zip contains full conversation content, so handle it as sensitive data.
 
+The zip includes sessions, project names, and each session's output files when they total 100 MB or less. It leaves out project instructions, memory, scheduled tasks, skills, plugins, and attached files. To move those, your administrator can [copy your data to the new device](/docs/third-party/claude-desktop/data-storage#move-a-user-to-a-new-device). Sign-ins and connector connections don't move either way.
+
 ## What is and isn't included
 
 * **Your data only.** An export contains your own conversations, projects, and memory. Other workspace members' content is not included.

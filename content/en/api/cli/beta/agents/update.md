@@ -23,6 +23,10 @@ Update Agent
 
   maxLength: 2048
 
+- `--execution-identity: optional BetaManagedAgentsAWSRoleExecutionIdentityParams or BetaManagedAgentsServiceAccountExecutionIdentityParams`
+
+  Execution principal for runs of this agent. Full replacement. Omit to preserve; send null or `{"type": "service_account"}` to restore the default.
+
 - `--mcp-server: optional array of BetaManagedAgentsURLMCPServerParams`
 
   MCP servers. Full replacement. Omit to preserve; send empty array or `null` to clear. Names must be unique. Maximum 20. Every server must be referenced by an `mcp_toolset` in the agent's resulting `tools`; unreferenced servers are rejected. See the [MCP connector guide](https://platform.claude.com/docs/en/managed-agents/mcp-connector?sdk_languages=cli).
@@ -98,6 +102,26 @@ Update Agent
     format: date-time
 
   - `description: string`
+
+  - `execution_identity: BetaManagedAgentsAWSRoleExecutionIdentity or BetaManagedAgentsServiceAccountExecutionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+    - `beta_managed_agents_aws_role_execution_identity: object`
+
+      An AWS IAM role principal as returned in API responses.
+
+      - `type: "aws_role"`
+
+      - `role_arn: string`
+
+        The IAM role's ARN.
+
+    - `beta_managed_agents_service_account_execution_identity: object`
+
+      The Anthropic-managed service account as returned in API responses.
+
+      - `type: "service_account"`
 
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
@@ -885,6 +909,9 @@ ant beta:agents update \
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",

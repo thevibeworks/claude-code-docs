@@ -100,6 +100,60 @@ With [Unified Claude](/docs/third-party/claude-desktop/unified-claude) on, a con
 
 The app deletes whole sessions in the background. A chat or Cowork task is deleted with its attached files and outputs, and a Code session with its conversation. Projects, memory, and the files in a Code session's working folder stay, and Code sessions on an SSH host are not affected. A session that is running or open on screen is skipped until a later pass. To suspend all automatic deletion for some users, for example under a legal hold, set [`sessionRetentionHold`](/docs/third-party/claude-desktop/configuration#sessionretentionhold) to `true` for them. While the hold is on, nothing is deleted, and a device that gets its configuration from a server and cannot reach that server also deletes nothing. These keys require Claude Desktop 1.52386.0 or later.
 
+## Move a user to a new device
+
+On devices that get their managed configuration from MDM, you can move a user to a new device by copying their data. The copy moves:
+
+* Chats, Cowork tasks, and Code sessions
+* Projects, project instructions, and memory
+* Scheduled tasks, skills, and plugins
+* Attached files
+
+### What the user sets up again
+
+Ask the user to:
+
+* Sign in to the inference provider, if the app asks
+* Reconnect each connector
+* Enter the environment variables for Code sessions from their original source, because the app masks saved values
+* In each project they use from Chat, add folders and file links again
+* Set command permissions for plugins
+
+### Requirements for the new device
+
+The new device needs:
+
+* The same platform (macOS, Windows, or Linux) and CPU architecture as the old device
+* The same OS user name and home-directory path. Otherwise, Code sessions, scheduled tasks, plugins, and project folders stop working.
+* The managed configuration, with the same [`deploymentOrganizationUuid`](/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid), in place before Claude Desktop launches
+* The same Claude Desktop version, or a newer one
+
+### Copy the data to the new device
+
+<Warning>
+  The copy holds full conversations. Encrypt any intermediate copy, restrict access to it, and delete it when you're done.
+</Warning>
+
+1. Quit Claude Desktop on both devices. Closing its window isn't enough.
+2. If the new device has an application-data directory (see [Where data lives](#where-data-lives)), delete it. This removes anything the user created in it.
+3. Copy these to the same paths. On Windows, use a copy tool that supports paths longer than 260 characters.
+   * The application-data directory, except these files in it, which the app creates again when it needs them:
+
+     * `host-creds-*.json`
+     * `ccd-session-secrets/`
+     * `spaces-present/*/*/link-key`
+     * `ccd-environment-config.json`
+     * `cowork-enabled-cli-ops.json`
+
+     If you copied any of them, quit Claude Desktop on the new device, then delete them.
+   * `~/Claude/`, or `~/Documents/Claude/` on legacy installs
+   * `~/.claude/` and `~/.claude.json`
+   * The folders and repositories that the user's projects, scheduled tasks, and Code sessions use
+4. Make the user the owner of the copied files, with read and write access. Give no other user account access to the application-data directory, `~/Claude/` or `~/Documents/Claude/`, `~/.claude/`, or `~/.claude.json`.
+5. Have the user launch Claude Desktop, and confirm that their chats, Cowork tasks, Code sessions, and projects appear. If they don't, check that the managed configuration has the old device's `deploymentOrganizationUuid` and that the user owns the copied files. Soon after launch, a scheduled task runs once if it recently missed a run.
+6. Have the user [set up what the copy doesn't move](#what-the-user-sets-up-again).
+7. If the old device stays in use, its enabled scheduled tasks run on both devices. Retire the old device, or turn off its scheduled tasks in Claude Desktop there. To remove the user's data from it, see [Removing data](#removing-data).
+
 ## Removing data
 
 To fully reset a device's Claude Desktop on 3P state, delete the application-data directory above and the `~/Claude/` user-files folder. Code session transcripts are in Claude Code's store at `~/.claude/projects/`, which Claude Code in the terminal also uses, so delete them there separately if you need to remove them. For [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions#host-requirements), transcripts are in `~/.claude/projects/` and attached files in `~/.claude/uploads/` in the SSH user's home directory on the remote host. Claude Desktop also copies those transcripts to the device, into folders in `~/.claude/projects/` whose names start with `ssh-`, so delete them in both places.

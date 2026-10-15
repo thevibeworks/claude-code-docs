@@ -8,7 +8,7 @@ Claude Cowork is available on paid plans (Pro, Max, Team, Enterprise). Availabil
 
 - **Claude Desktop for macOS** — Available on all paid plans. **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download.
 
-- **Claude Desktop for Windows** — Available on all paid plans. Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](http://claude.com/download)**.
+- **Claude Desktop for Windows** — Available on all paid plans. Cowork requires the latest version of Claude for Windows. Download or update at **[claude.com/download](https://claude.com/download)**.
 
 - **Web**, at claude.ai — Available on Pro, Max, and Team plans. On Enterprise plans, available where an admin has enabled it.
 
@@ -18,7 +18,7 @@ Claude Cowork is available on paid plans (Pro, Max, Team, Enterprise). Availabil
 
 On desktop, web, and mobile, chat and Cowork share one home, so you start both from the same place. Find the message box and select "Cowork," then describe your task. To go back to a regular conversation, select "Chat." In the Chrome side panel, opening the panel starts a Cowork session directly.
 
-**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that’s a quick answer or a task. This is rolling out gradually to Pro and Max plans, and it’s in beta for Enterprise plans, where an admin turns it on as **Chat and Cowork unified (beta)**. If your message box no longer shows “Chat” and “Cowork” options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**. For Enterprise owners, see **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
 
 ---
 
@@ -104,7 +104,7 @@ You maintain visibility into what Claude is planning and doing throughout the pr
 
 ## Start a Cowork session
 
-**Note:** If you're on a Pro or Max plan and your message box doesn't show "Chat" and "Cowork" options, you have the new Claude experience. Skip step 2, since every conversation can take on a Cowork task.
+**Note:** If your message box doesn’t show “Chat” and “Cowork” options, you have the new Claude experience. Skip step 2, since every conversation can take on a Cowork task.
 
 Chat and Cowork share one home. To start a session on any surface:
 
@@ -192,7 +192,7 @@ Folder instructions add project-specific context to Cowork when you select a loc
 
 ## Claude Cowork plugins
 
-Plugins customize how Claude works for your role, team, and company. Each one bundles skills, connectors, and sub-agents into a single package. A plugin you add is saved to your account, so it works in chat and Claude Code as well as Cowork. For details on finding, adding, and customizing plugins, see[**Use plugins in Claude**](https://support.claude.com/en/articles/13837440-use-plugins-in-cowork).
+Plugins customize how Claude works for your role, team, and company. Each one bundles skills, connectors, and sub-agents into a single package. A plugin you add is saved to your account, so it works in chat and Claude Code as well as Cowork. For details on finding, adding, and customizing plugins, see **[Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-cowork)**.
 
 ---
 

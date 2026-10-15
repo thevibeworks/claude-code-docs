@@ -61,6 +61,10 @@ List Agents
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -121,6 +125,9 @@ var_dump($page);
       "archived_at": null,
       "created_at": "2026-03-15T10:00:00Z",
       "description": "A general-purpose starter agent.",
+      "execution_identity": {
+        "type": "service_account"
+      },
       "mcp_servers": [
         {
           "name": "example-mcp",

@@ -73,7 +73,7 @@ Follow these steps to go from zero to a working Claude integration.
 Anthropic provides developer tools to help you build and scale applications with Claude.
 
 <CardGroup cols={3}>
-  <Card title="Developer Console" icon="computer" href="https://platform.claude.com/">
+  <Card title="Claude Console" icon="computer" href="https://platform.claude.com/">
     Explore and understand the API in your browser with playground.
   </Card>
 

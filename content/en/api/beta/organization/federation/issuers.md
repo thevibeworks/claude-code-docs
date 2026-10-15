@@ -137,6 +137,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ### Body parameters
 
 - `issuer_url: string`
@@ -535,6 +537,8 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ### Returns
 
 - `data: array of BetaFederationIssuer`
@@ -843,6 +847,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
   - `"ce-plugins-2026-09-01"`
 
   - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
 
 ### Returns
 
@@ -1155,6 +1161,8 @@ session.
   - `"ce-plugins-2026-09-01"`
 
   - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
 
 ### Body parameters
 
@@ -1545,6 +1553,8 @@ issuer cannot be changed), or recreate them against another issuer.
   - `"ce-plugins-2026-09-01"`
 
   - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
 
 ### Returns
 

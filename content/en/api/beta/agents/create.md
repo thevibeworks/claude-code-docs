@@ -119,6 +119,8 @@ Create Agent
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 - `"anthropic-workspace-id": optional string`
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -294,6 +296,28 @@ Create Agent
   Description of what the agent does.
 
   maxLength: 2048
+
+- `execution_identity: optional BetaManagedAgentsExecutionIdentityParams or null`
+
+  Execution principal for runs of this agent. Omitting it, sending null, or sending `{"type": "service_account"}` stores the default.
+
+  - `BetaManagedAgentsAWSRoleExecutionIdentityParams object`
+
+    An AWS IAM role principal.
+
+    - `type: "aws_role"`
+
+    - `role_arn: string`
+
+      The IAM role's ARN, e.g. "arn:aws:iam::123456789012:role/my-agent-runner". Maximum 2048 characters.
+
+      maxLength: 2048
+
+  - `BetaManagedAgentsServiceAccountExecutionIdentityParams object`
+
+    The Anthropic-managed service account — the default execution principal. Carries no identifier.
+
+    - `type: "service_account"`
 
 - `mcp_servers: optional array of BetaManagedAgentsURLMCPServerParams`
 
@@ -1073,6 +1097,26 @@ Create Agent
 
   - `description: string or null`
 
+  - `execution_identity: BetaManagedAgentsExecutionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+    - `BetaManagedAgentsAWSRoleExecutionIdentity object`
+
+      An AWS IAM role principal as returned in API responses.
+
+      - `type: "aws_role"`
+
+      - `role_arn: string`
+
+        The IAM role's ARN.
+
+    - `BetaManagedAgentsServiceAccountExecutionIdentity object`
+
+      The Anthropic-managed service account as returned in API responses.
+
+      - `type: "service_account"`
+
   - `mcp_servers: array of BetaManagedAgentsMCPServerURLDefinition`
 
     - `type: "url"`
@@ -1849,6 +1893,9 @@ curl https://api.anthropic.com/v1/agents \
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",

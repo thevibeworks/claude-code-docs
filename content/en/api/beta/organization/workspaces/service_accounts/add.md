@@ -140,6 +140,8 @@ accounts cannot be added and are rejected.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Body parameters
 
 - `service_account_id: string`

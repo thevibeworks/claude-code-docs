@@ -133,6 +133,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
+    - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
+
 ## Returns
 
 - `type BetaSelfHostedWorkHeartbeatResponse`

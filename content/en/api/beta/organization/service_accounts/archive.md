@@ -136,6 +136,8 @@ those rules first or change their target to another service account.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Returns
 
 - `BetaServiceAccount object`

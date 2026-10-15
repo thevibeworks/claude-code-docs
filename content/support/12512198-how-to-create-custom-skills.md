@@ -238,7 +238,7 @@ When you're iterating on a skill with Claude in chat, you can edit the skill fil
 
 **Skills can build on each other:** While skills can't explicitly reference other skills, Claude can use multiple skills together automatically. This composability is one of the most powerful parts of the skills feature.
 
-**Review the open Agent Skills specification:** Follow the guidelines at **[agentskills.io](http://agentskills.io)**, so skills you create can work across platforms that adopt the standard.
+**Review the open Agent Skills specification:** Follow the guidelines at **[agentskills.io](https://agentskills.io)**, so skills you create can work across platforms that adopt the standard.
 
 For a more in-depth guide to skill creation, refer to **[Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)** in our Claude Docs.
 

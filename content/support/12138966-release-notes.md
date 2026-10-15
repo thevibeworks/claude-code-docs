@@ -46,7 +46,7 @@ You can now ask for a design, deck, or document in any conversation with Claude,
 
 **Launching Salesforce in Claude (beta)**
 
-We've launched Salesforce in Claude, a plugin that brings a seller’s accounts, opportunities, and pipeline into Claude with 37 pre-built sales skills. Prep a call, review a deal, create a pipeline dashboard, and send your forecast all from Claude. It’s now available in beta on all paid plans for organizations Salesforce approves through its beta sign-up. For more information, see our blog post: **[Bringing Salesforce into Claude](http://claude.com/blog/salesforce-in-claude)**.
+We've launched Salesforce in Claude, a plugin that brings a seller’s accounts, opportunities, and pipeline into Claude with 37 pre-built sales skills. Prep a call, review a deal, create a pipeline dashboard, and send your forecast all from Claude. It’s now available in beta on all paid plans for organizations Salesforce approves through its beta sign-up. For more information, see our blog post: **[Bringing Salesforce into Claude](https://claude.com/blog/salesforce-in-claude)**.
 
 ### September 10, 2026
 
@@ -315,7 +315,7 @@ Previously, Enterprise plans were only available to customers working with our S
 
 **Claude Opus 4.6 launch**
 
-We’ve upgraded our smartest model and improved its coding skills. Read our blog post for more information: **[Introducing Claude Opus 4.6](http://anthropic.com/news/claude-opus-4-6)**.
+We’ve upgraded our smartest model and improved its coding skills. Read our blog post for more information: **[Introducing Claude Opus 4.6](https://anthropic.com/news/claude-opus-4-6)**.
 
 **Introducing Claude for PowerPoint**
 

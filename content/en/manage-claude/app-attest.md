@@ -27,13 +27,13 @@ Tokens are scoped to your workspace, expire after one hour, and authorize only [
 To set up App Attest, you need your Apple Developer Team ID and the admin, owner, or primary owner role in your organization. Configure your Xcode project and register your app in the [Claude Console](https://platform.claude.com/):
 
 1. In Xcode, add the **App Attest** capability to your app target under **Signing & Capabilities**.
-2. In your workspace's settings in the Claude Console, open **App integrations**.
+2. In the Claude Console, go to the [App integrations](https://platform.claude.com/settings/workspaces/default/app-integrations) page (`platform.claude.com/settings/workspaces/default/app-integrations`). Each app integration belongs to one workspace. Select the workspace you want in the workspace picker in the sidebar.
 3. Click **Create app integration** and enter a name, your Apple Developer Team ID, and one or more bundle IDs (up to 32).
 4. Copy the client ID (`clid_...`) from the integration's **Overview** tab and pass it to your app's Claude configuration.
 
 ## Revoke an app integration
 
-To stop a compromised or retired app, revoke its integration: in your workspace's settings in the Claude Console, open **App integrations**, select the integration, and click **Revoke**, then confirm. Revoking an integration revokes its outstanding tokens, and its registered devices can no longer request new ones. Revocation is permanent, so create a new app integration to restore access.
+To stop a compromised or retired app, revoke its integration. In the Claude Console, go to the [App integrations](https://platform.claude.com/settings/workspaces/default/app-integrations) page (`platform.claude.com/settings/workspaces/default/app-integrations`). Each app integration belongs to one workspace. In the workspace picker in the sidebar, select the workspace that holds the integration. Select the integration and click **Revoke**, then confirm. Revoking an integration revokes its outstanding tokens, and its registered devices can no longer request new ones. Revocation is permanent, so create a new app integration to restore access.
 
 ## Next steps
 

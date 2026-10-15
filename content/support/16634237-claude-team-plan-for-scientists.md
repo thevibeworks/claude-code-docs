@@ -36,7 +36,7 @@ If you’re at a for-profit company, contract research organization, or industry
 
 ## How do I sign up?
 
-1. Go to **[the program page](http://claude.com/programs/team-plan-for-scientists)** and start an application as the PI or lab lead.
+1. Go to **[the program page](https://claude.com/programs/team-plan-for-scientists)** and start an application as the PI or lab lead.
 
 2. Verify your eligibility. You’ll confirm your institutional affiliation. Most applications are reviewed within seven business days.
 

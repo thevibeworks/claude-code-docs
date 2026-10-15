@@ -183,6 +183,8 @@ The connector provides **read-only** access to:
 
 - `teams_reply_channel_message`
 
+**Note:** The `sharepoint_*` file tools also work in OneDrive, wherever the user already has edit access. OneDrive for Business stores files in a SharePoint library, so the same tools cover both. `sharepoint_delete_item` moves the file or folder, including its contents, to the recycle bin. It doesn’t delete it permanently.
+
 When an organization enables write tools, the connector also exposes write tools for sending and organizing email, managing drafts and calendar events, updating mailbox settings, creating and updating files in OneDrive and SharePoint, and sending Teams messages. Teams write tools are off by default and are enabled individually in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)** within “Microsoft 365”; the connector-wide "all tools" permission doesn't turn them on. Claude can send messages in Teams but can't change Teams settings, memberships, or permissions.
 
 Write tools include the following built-in safeguards:
@@ -237,6 +239,8 @@ Write tools include the following built-in safeguards:
 
 **Channel permissions**
 
+- **[Team.ReadBasic.All](https://learn.microsoft.com/en-us/graph/permissions-reference#teamreadbasicall)** - Read the names and descriptions of teams
+
 - **[Channel.ReadBasic.All](https://learn.microsoft.com/en-us/graph/permissions-reference#channelreadbasicall)** - Read the names and descriptions of channels
 
 - **[ChannelMessage.Read.All](https://learn.microsoft.com/en-us/graph/permissions-reference#channelmessagereadall)** - Read channel messages
@@ -273,7 +277,7 @@ Requested as part of the updated consent set; used only when write tools are ena
 
 - **[Calendars.ReadWrite](https://learn.microsoft.com/en-us/graph/permissions-reference#calendarsreadwrite)** - Create, update, delete, and respond to calendar events
 
-- **[Files.ReadWrite.All](https://learn.microsoft.com/en-us/graph/permissions-reference#filesreadwriteall)** - Create and update files in OneDrive and SharePoint
+- **[Files.ReadWrite.All](https://learn.microsoft.com/en-us/graph/permissions-reference#filesreadwriteall)** - Create, update, and delete files and folders in OneDrive and SharePoint
 
 - **[MailboxSettings.ReadWrite](https://learn.microsoft.com/en-us/graph/permissions-reference#mailboxsettingsreadwrite)** - Manage categories, inbox rules, and automatic replies
 

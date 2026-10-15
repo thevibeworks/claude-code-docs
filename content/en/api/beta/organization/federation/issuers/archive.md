@@ -136,6 +136,8 @@ issuer cannot be changed), or recreate them against another issuer.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Returns
 
 - `BetaFederationIssuer object`

@@ -15,7 +15,7 @@ The Claude API is a RESTful API at `https://api.anthropic.com` that provides pro
 To use the Claude API, you'll need:
 
 * A [Claude Console account](https://platform.claude.com)
-* An [API key](https://platform.claude.com/settings/keys), or a configured [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) rule
+* An [API key](https://platform.claude.com/settings/keys) from the Console, or a configured [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) rule
 
 For step-by-step setup instructions, see [Get started](https://platform.claude.com/docs/en/get-started).
 
@@ -56,7 +56,7 @@ When accessing Claude through a [cloud platform](https://platform.claude.com/doc
 
 ### Getting API keys
 
-The API is made available through the web [Console](https://platform.claude.com/). You can use [playground](https://platform.claude.com/playground) to try out the API in the browser and then generate API keys in [Account Settings](https://platform.claude.com/settings/keys) (see [Get your Claude API key](https://platform.claude.com/docs/en/get-api-key)). You choose each key's type (see [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types)) and its [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration) when you create it. Use [workspaces](https://platform.claude.com/settings/workspaces) to separate environments and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
+The API is made available through the web [Console](https://platform.claude.com/). In the Console, you can use [playground](https://platform.claude.com/playground) (`platform.claude.com/playground`) to try out the API in the browser and then generate API keys on the [API keys](https://platform.claude.com/settings/keys) page (`platform.claude.com/settings/keys`). To learn how, see [Get your Claude API key](https://platform.claude.com/docs/en/get-api-key). You choose each key's type (see [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types)) and its [expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration) when you create it. Use [workspaces](https://platform.claude.com/settings/workspaces) in the Console to separate environments and [control spend](https://platform.claude.com/docs/en/api/rate-limits) by use case.
 
 ## Client SDKs
 

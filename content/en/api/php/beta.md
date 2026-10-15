@@ -113,6 +113,8 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ### Beta API Error
 
 - `class BetaAPIError`
@@ -2546,7 +2548,7 @@ var_dump($betaMessageBatchIndividualResponse);
 
 ### Create Agent
 
-`$client->beta->agents->create(Model model, string name, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
+`$client->beta->agents->create(Model model, string name, ?string description, ?BetaManagedAgentsExecutionIdentityParams executionIdentity, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **POST** `/v1/agents`
 
@@ -2565,6 +2567,10 @@ Create Agent
 - `description?:optional string`
 
   Description of what the agent does.
+
+- `executionIdentity?:optional BetaManagedAgentsExecutionIdentityParams`
+
+  Execution principal for runs of this agent. Omitting it, sending null, or sending `{"type": "service_account"}` stores the default.
 
 - `mcpServers?:optional list<BetaManagedAgentsURLMCPServerParams>`
 
@@ -2618,6 +2624,10 @@ Create Agent
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -2659,6 +2669,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
   model: BetaManagedAgentsModel::CLAUDE_OPUS_5_5,
   name: 'My First Agent',
   description: 'A general-purpose starter agent.',
+  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -2704,6 +2715,9 @@ var_dump($betaManagedAgentsAgent);
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -2853,6 +2867,10 @@ List Agents
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -2913,6 +2931,9 @@ var_dump($page);
       "archived_at": null,
       "created_at": "2026-03-15T10:00:00Z",
       "description": "A general-purpose starter agent.",
+      "execution_identity": {
+        "type": "service_account"
+      },
       "mcp_servers": [
         {
           "name": "example-mcp",
@@ -3053,6 +3074,10 @@ Get Agent
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -3108,6 +3133,9 @@ var_dump($betaManagedAgentsAgent);
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -3201,7 +3229,7 @@ var_dump($betaManagedAgentsAgent);
 
 ### Update Agent
 
-`$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
+`$client->beta->agents->update(string agentID, ?string description, ?BetaManagedAgentsExecutionIdentityParams executionIdentity, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsAgent`
 
 **POST** `/v1/agents/{agent_id}`
 
@@ -3216,6 +3244,10 @@ Update Agent
 - `description?:optional string`
 
   Description. Omit to preserve; send empty string or null to clear.
+
+- `executionIdentity?:optional BetaManagedAgentsExecutionIdentityParams`
+
+  Execution principal for runs of this agent. Full replacement. Omit to preserve; send null or `{"type": "service_account"}` to restore the default.
 
 - `mcpServers?:optional list<BetaManagedAgentsURLMCPServerParams>`
 
@@ -3281,6 +3313,10 @@ Update Agent
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -3321,6 +3357,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsAgent = $client->beta->agents->update(
   'agent_011CZkYpogX7uDKUyvBTophP',
   description: 'updated',
+  executionIdentity: ['roleARN' => 'role_arn', 'type' => 'aws_role'],
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -3374,6 +3411,9 @@ var_dump($betaManagedAgentsAgent);
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -3507,6 +3547,10 @@ Archive Agent
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -3561,6 +3605,9 @@ var_dump($betaManagedAgentsAgent);
   "archived_at": null,
   "created_at": "2026-03-15T10:00:00Z",
   "description": "A general-purpose starter agent.",
+  "execution_identity": {
+    "type": "service_account"
+  },
   "mcp_servers": [
     {
       "name": "example-mcp",
@@ -3704,6 +3751,10 @@ List Agent Versions
 
   - `?string description`
 
+  - `BetaManagedAgentsExecutionIdentity executionIdentity`
+
+    Execution principal for runs of this agent. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
   - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
 
   - `array<string,string> metadata`
@@ -3762,6 +3813,9 @@ var_dump($page);
       "archived_at": null,
       "created_at": "2026-03-15T10:00:00Z",
       "description": "A general-purpose starter agent.",
+      "execution_identity": {
+        "type": "service_account"
+      },
       "mcp_servers": [
         {
           "name": "example-mcp",
@@ -5784,6 +5838,9 @@ var_dump($betaManagedAgentsSession);
   "agent": {
     "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "description": "A general-purpose starter agent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -5804,6 +5861,9 @@ var_dump($betaManagedAgentsSession);
         {
           "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
           "description": "A focused research subagent.",
+          "execution_identity": {
+            "type": "service_account"
+          },
           "mcp_servers": [
             {
               "name": "example-mcp",
@@ -6140,6 +6200,9 @@ var_dump($page);
       "agent": {
         "id": "agent_011CZkYpogX7uDKUyvBTophP",
         "description": "A general-purpose starter agent.",
+        "execution_identity": {
+          "type": "service_account"
+        },
         "mcp_servers": [
           {
             "name": "example-mcp",
@@ -6160,6 +6223,9 @@ var_dump($page);
             {
               "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
               "description": "A focused research subagent.",
+              "execution_identity": {
+                "type": "service_account"
+              },
               "mcp_servers": [
                 {
                   "name": "example-mcp",
@@ -6436,6 +6502,9 @@ var_dump($betaManagedAgentsSession);
   "agent": {
     "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "description": "A general-purpose starter agent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -6456,6 +6525,9 @@ var_dump($betaManagedAgentsSession);
         {
           "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
           "description": "A focused research subagent.",
+          "execution_identity": {
+            "type": "service_account"
+          },
           "mcp_servers": [
             {
               "name": "example-mcp",
@@ -6780,6 +6852,9 @@ var_dump($betaManagedAgentsSession);
   "agent": {
     "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "description": "A general-purpose starter agent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -6800,6 +6875,9 @@ var_dump($betaManagedAgentsSession);
         {
           "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
           "description": "A focused research subagent.",
+          "execution_identity": {
+            "type": "service_account"
+          },
           "mcp_servers": [
             {
               "name": "example-mcp",
@@ -7129,6 +7207,9 @@ var_dump($betaManagedAgentsSession);
   "agent": {
     "id": "agent_011CZkYpogX7uDKUyvBTophP",
     "description": "A general-purpose starter agent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -7149,6 +7230,9 @@ var_dump($betaManagedAgentsSession);
         {
           "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
           "description": "A focused research subagent.",
+          "execution_identity": {
+            "type": "service_account"
+          },
           "mcp_servers": [
             {
               "name": "example-mcp",
@@ -10048,6 +10132,9 @@ var_dump($page);
       "agent": {
         "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
         "description": "A focused research subagent.",
+        "execution_identity": {
+          "type": "service_account"
+        },
         "mcp_servers": [
           {
             "name": "example-mcp",
@@ -10234,6 +10321,9 @@ var_dump($betaManagedAgentsSessionThread);
   "agent": {
     "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
     "description": "A focused research subagent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -10417,6 +10507,9 @@ var_dump($betaManagedAgentsSessionThread);
   "agent": {
     "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
     "description": "A focused research subagent.",
+    "execution_identity": {
+      "type": "service_account"
+    },
     "mcp_servers": [
       {
         "name": "example-mcp",
@@ -23799,7 +23892,7 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
   Role for the invited User.
 
-  The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`.
+  The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`; inviting with the `managed` role requires the `write:rbac_groups` scope in addition to `write:members`.
 
 - `rbacGroupIDs?:optional list<string>`
 
@@ -25194,7 +25287,7 @@ Update a member's organization role.
 
   New role for the User.
 
-  The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`.
+  The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`; changing a User's role to `managed` requires the `write:rbac_groups` scope in addition to `write:members`.
 
 #### Returns
 
@@ -33799,5 +33892,961 @@ var_dump($betaPluginMarketplaceValidationReport);
   "total_plugin_count": 0,
   "type": "plugin_marketplace_validation_report",
   "valid": false
+}
+```
+
+## Beta › Organization › Telemetry Destinations
+
+### Create a Telemetry Destination
+
+`$client->beta->organization->telemetryDestinations->create(string endpointURL, TelemetryDestinationWorkspacesParams workspaces, ?string displayName, ?array<string,string> headers, ?TelemetryDestinationTracesParams traces, ?list<AnthropicBeta> betas): TelemetryDestination`
+
+**POST** `/v1/organizations/telemetry_destinations`
+
+Register an OpenTelemetry destination for the organization.
+
+The destination starts in state `enabled`. An organization can have at most 10 destinations, including disabled ones.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=php#add-a-destination) to learn more about adding a destination.
+
+#### Parameters
+
+- `endpointURL: string`
+
+  The base URL of your collector's OTLP/HTTP endpoint, for example `https://gateway.example.com`.
+
+  The URL must use `https` and a hostname, not an IP address. The port, if given, must be 443. The URL must not contain a query string, a fragment, or a username and password. At most 2,048 characters.
+
+  A path prefix, such as `/otlp`, is allowed. Don't include the per-signal path (`/v1/traces`), because the API appends it on delivery. If your collector takes traces on another path, also set `traces.endpoint_url`.
+
+- `workspaces: TelemetryDestinationWorkspacesParams`
+
+  Which of the organization's workspaces the destination covers.
+
+- `displayName?:optional string`
+
+  Human-readable name for the destination. Optional. 1 to 255 characters.
+
+- `headers?:optional array<string,string>`
+
+  Request headers that the API sends with every delivery, typically your collector's authentication header (for example `authorization`).
+
+  The API stores the values encrypted and never returns them. Reads show only `header_names`.
+
+  At most 20 headers. Names are at most 128 characters. Two names can't differ only in case. Values are printable ASCII, at most 4,096 characters, and can't begin or end with a space. Names and values together are at most 16,384 bytes.
+
+  Reserved names are rejected, for example `host`, `cookie`, `user-agent`, and names that start with `content-`, `proxy-`, `x-forwarded-`, or `anthropic-`. For this check, `_` in a name counts as `-`.
+
+- `traces?:optional TelemetryDestinationTracesParams`
+
+  The settings for the traces that the destination receives. If you leave it out, every setting takes its default.
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class TelemetryDestination`
+
+  - `"telemetry_destination" type`
+
+  - `string id`
+
+    The unique ID of the destination (`tdst_...`).
+
+  - `\Datetime createdAt`
+
+    Time the destination was created.
+
+  - `TelemetryDestinationDeliveryHealth deliveryHealth`
+
+    The most recent delivery results for this destination.
+
+  - `?string displayName`
+
+    Human-readable name for the destination. Null when none was set.
+
+  - `string endpointURL`
+
+    The base URL of the destination's OTLP/HTTP endpoint, exactly as registered.
+
+    The API appends the per-signal path, such as `/v1/traces`, on delivery, unless `traces.endpoint_url` is set.
+
+  - `list<string> headerNames`
+
+    Names of the registered request headers. Header values are write-only and are never returned.
+
+  - `TelemetryDestinationState state`
+
+    Whether the destination receives deliveries.
+
+  - `TelemetryDestinationTraces traces`
+
+    The destination's settings for the traces it receives.
+
+  - `\Datetime updatedAt`
+
+    Time of the last change to the destination's configuration or state. Changes to `delivery_health` don't change it.
+
+    An update that sets a header value always changes it, even when the value is the same as before. Adding or removing a single workspace on the destination's list doesn't change it. An update that changes the list does.
+
+  - `TelemetryDestinationWorkspaces workspaces`
+
+    Which of the organization's workspaces the destination covers.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaTelemetryDestination = $client
+  ->beta
+  ->organization
+  ->telemetryDestinations
+  ->create(
+  endpointURL: 'x',
+  workspaces: ['type' => 'all'],
+  displayName: 'display_name',
+  headers: ['foo' => 'string'],
+  traces: [
+    'contentMode' => TelemetryDestinationContentMode::METADATA_ONLY,
+    'enabled' => true,
+    'endpointURL' => 'endpoint_url',
+    'maxContentBytes' => 0,
+  ],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaTelemetryDestination);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "delivery_health": {
+    "last_error": "last_error",
+    "last_error_at": "2019-12-27T18:11:19.117Z",
+    "last_success_at": "2019-12-27T18:11:19.117Z"
+  },
+  "display_name": "display_name",
+  "endpoint_url": "endpoint_url",
+  "header_names": [
+    "string"
+  ],
+  "state": {
+    "type": "enabled"
+  },
+  "traces": {
+    "content_mode": "metadata_only",
+    "enabled": true,
+    "endpoint_url": "endpoint_url",
+    "max_content_bytes": 0
+  },
+  "type": "telemetry_destination",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "workspaces": {
+    "type": "all"
+  }
+}
+```
+
+### List Telemetry Destinations
+
+`$client->beta->organization->telemetryDestinations->list(?int limit, ?string page, ?list<string> workspaceIDs, ?list<AnthropicBeta> betas): PageCursor<TelemetryDestination>`
+
+**GET** `/v1/organizations/telemetry_destinations`
+
+List the organization's destinations, newest first, optionally only those that cover given workspaces.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=php#set-up-api-tracing) to learn more about destinations.
+
+#### Parameters
+
+- `limit?:optional int` (query parameter)
+
+  Number of destinations to return per page, between 1 and 1,000. Defaults to 20.
+
+- `page?:optional string` (query parameter)
+
+  Opaque cursor from a previous response's `next_page`. Leave it out to get the first page.
+
+- `workspaceIDs?:optional list<string>` (query parameter)
+
+  Return only the destinations that cover at least one of these workspaces (`wrkspc_...`).
+
+  Send at most 100 IDs, as `workspace_ids[]`. A destination covers a workspace when its `workspaces.type` is `all`, when its `include` list has the workspace, or when its `exclude` list doesn't have it. Destinations in either state can match. An ID that isn't the ID of one of the organization's workspaces doesn't match any destination, not even one whose type is `all`.
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class TelemetryDestination`
+
+  - `"telemetry_destination" type`
+
+  - `string id`
+
+    The unique ID of the destination (`tdst_...`).
+
+  - `\Datetime createdAt`
+
+    Time the destination was created.
+
+  - `TelemetryDestinationDeliveryHealth deliveryHealth`
+
+    The most recent delivery results for this destination.
+
+  - `?string displayName`
+
+    Human-readable name for the destination. Null when none was set.
+
+  - `string endpointURL`
+
+    The base URL of the destination's OTLP/HTTP endpoint, exactly as registered.
+
+    The API appends the per-signal path, such as `/v1/traces`, on delivery, unless `traces.endpoint_url` is set.
+
+  - `list<string> headerNames`
+
+    Names of the registered request headers. Header values are write-only and are never returned.
+
+  - `TelemetryDestinationState state`
+
+    Whether the destination receives deliveries.
+
+  - `TelemetryDestinationTraces traces`
+
+    The destination's settings for the traces it receives.
+
+  - `\Datetime updatedAt`
+
+    Time of the last change to the destination's configuration or state. Changes to `delivery_health` don't change it.
+
+    An update that sets a header value always changes it, even when the value is the same as before. Adding or removing a single workspace on the destination's list doesn't change it. An update that changes the list does.
+
+  - `TelemetryDestinationWorkspaces workspaces`
+
+    Which of the organization's workspaces the destination covers.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->telemetryDestinations->list(
+  limit: 0,
+  page: 'page',
+  workspaceIDs: ['string'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "id",
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "delivery_health": {
+        "last_error": "last_error",
+        "last_error_at": "2019-12-27T18:11:19.117Z",
+        "last_success_at": "2019-12-27T18:11:19.117Z"
+      },
+      "display_name": "display_name",
+      "endpoint_url": "endpoint_url",
+      "header_names": [
+        "string"
+      ],
+      "state": {
+        "type": "enabled"
+      },
+      "traces": {
+        "content_mode": "metadata_only",
+        "enabled": true,
+        "endpoint_url": "endpoint_url",
+        "max_content_bytes": 0
+      },
+      "type": "telemetry_destination",
+      "updated_at": "2019-12-27T18:11:19.117Z",
+      "workspaces": {
+        "type": "all"
+      }
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Retrieve a Telemetry Destination
+
+`$client->beta->organization->telemetryDestinations->retrieve(string destinationID, ?list<AnthropicBeta> betas): TelemetryDestination`
+
+**GET** `/v1/organizations/telemetry_destinations/{destination_id}`
+
+Read a destination's configuration, state, and most recent delivery results.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=php#delivery-and-health) to learn how the API delivers spans and when it disables a destination.
+
+#### Parameters
+
+- `destinationID: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class TelemetryDestination`
+
+  - `"telemetry_destination" type`
+
+  - `string id`
+
+    The unique ID of the destination (`tdst_...`).
+
+  - `\Datetime createdAt`
+
+    Time the destination was created.
+
+  - `TelemetryDestinationDeliveryHealth deliveryHealth`
+
+    The most recent delivery results for this destination.
+
+  - `?string displayName`
+
+    Human-readable name for the destination. Null when none was set.
+
+  - `string endpointURL`
+
+    The base URL of the destination's OTLP/HTTP endpoint, exactly as registered.
+
+    The API appends the per-signal path, such as `/v1/traces`, on delivery, unless `traces.endpoint_url` is set.
+
+  - `list<string> headerNames`
+
+    Names of the registered request headers. Header values are write-only and are never returned.
+
+  - `TelemetryDestinationState state`
+
+    Whether the destination receives deliveries.
+
+  - `TelemetryDestinationTraces traces`
+
+    The destination's settings for the traces it receives.
+
+  - `\Datetime updatedAt`
+
+    Time of the last change to the destination's configuration or state. Changes to `delivery_health` don't change it.
+
+    An update that sets a header value always changes it, even when the value is the same as before. Adding or removing a single workspace on the destination's list doesn't change it. An update that changes the list does.
+
+  - `TelemetryDestinationWorkspaces workspaces`
+
+    Which of the organization's workspaces the destination covers.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaTelemetryDestination = $client
+  ->beta
+  ->organization
+  ->telemetryDestinations
+  ->retrieve(
+  'destination_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+);
+
+var_dump($betaTelemetryDestination);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "delivery_health": {
+    "last_error": "last_error",
+    "last_error_at": "2019-12-27T18:11:19.117Z",
+    "last_success_at": "2019-12-27T18:11:19.117Z"
+  },
+  "display_name": "display_name",
+  "endpoint_url": "endpoint_url",
+  "header_names": [
+    "string"
+  ],
+  "state": {
+    "type": "enabled"
+  },
+  "traces": {
+    "content_mode": "metadata_only",
+    "enabled": true,
+    "endpoint_url": "endpoint_url",
+    "max_content_bytes": 0
+  },
+  "type": "telemetry_destination",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "workspaces": {
+    "type": "all"
+  }
+}
+```
+
+### Update a Telemetry Destination
+
+`$client->beta->organization->telemetryDestinations->update(string destinationID, ?string displayName, ?string endpointURL, ?array<string,string> headers, ?TelemetryDestinationStateParams state, ?TelemetryDestinationTracesParams traces, ?TelemetryDestinationWorkspacesParams workspaces, ?list<AnthropicBeta> betas): TelemetryDestination`
+
+**POST** `/v1/organizations/telemetry_destinations/{destination_id}`
+
+Change a telemetry destination's settings, its state, or which workspaces it covers.
+
+Send at least one field. Omitted fields keep their stored values, except the registered headers, which a change of the endpoint's hostname or port removes. Only `display_name`, `traces`, `traces.endpoint_url`, `traces.content_mode`, `traces.max_content_bytes`, and individual `headers` values accept `null`.
+
+If another request changes the destination while the update runs, the API returns a 409 `conflict_error`. Read the destination again, then retry the update.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=php#delivery-and-health) to learn more about changing a destination.
+
+#### Parameters
+
+- `destinationID: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `displayName?:optional string`
+
+  New human-readable name, 1 to 255 characters. Null clears it.
+
+- `endpointURL?:optional string`
+
+  The new base URL of the destination's OTLP/HTTP endpoint. The same rules as on create apply.
+
+  A change of hostname or port first removes every registered header, so send the headers for the new endpoint in the same request. When the destination has a `traces.endpoint_url`, such a change must also set `traces.endpoint_url` to a URL with the new hostname and port, or to `null`. A change of the path alone keeps the headers.
+
+- `headers?:optional array<string,string>`
+
+  Headers to set or remove. The API merges them into the destination's headers by name.
+
+  Names compare case-insensitively. A string value sets or replaces that header. A `null` value removes it. Headers that you omit don't change. The field itself can't be `null`.
+
+  A request that sets a header value must also include `endpoint_url`. The current URL is accepted.
+
+  The resulting set must stay within the same limits as on create. When the request sets a value, each stored value that it doesn't set counts as 4,096 bytes toward the 16,384-byte limit, because you can't read its real length. So to change one header of a destination that has four or more other headers, send the values of the others again in the same request.
+
+- `state?:optional TelemetryDestinationStateParams`
+
+  Whether the destination receives deliveries after the update. The field can't be `null`.
+
+- `traces?:optional TelemetryDestinationTracesParams`
+
+  The traces settings to change. Omitted settings keep their stored values.
+
+  `null` sets every traces setting to its create default.
+
+- `workspaces?:optional TelemetryDestinationWorkspacesParams`
+
+  The new workspace scope, in the same form as on create. The field can't be `null`.
+
+  The API refuses an update that changes the type or sends `workspace_ids` while the destination's list has more than 750 workspaces. Remove workspaces one at a time until 750 or fewer remain, then send the update again.
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class TelemetryDestination`
+
+  - `"telemetry_destination" type`
+
+  - `string id`
+
+    The unique ID of the destination (`tdst_...`).
+
+  - `\Datetime createdAt`
+
+    Time the destination was created.
+
+  - `TelemetryDestinationDeliveryHealth deliveryHealth`
+
+    The most recent delivery results for this destination.
+
+  - `?string displayName`
+
+    Human-readable name for the destination. Null when none was set.
+
+  - `string endpointURL`
+
+    The base URL of the destination's OTLP/HTTP endpoint, exactly as registered.
+
+    The API appends the per-signal path, such as `/v1/traces`, on delivery, unless `traces.endpoint_url` is set.
+
+  - `list<string> headerNames`
+
+    Names of the registered request headers. Header values are write-only and are never returned.
+
+  - `TelemetryDestinationState state`
+
+    Whether the destination receives deliveries.
+
+  - `TelemetryDestinationTraces traces`
+
+    The destination's settings for the traces it receives.
+
+  - `\Datetime updatedAt`
+
+    Time of the last change to the destination's configuration or state. Changes to `delivery_health` don't change it.
+
+    An update that sets a header value always changes it, even when the value is the same as before. Adding or removing a single workspace on the destination's list doesn't change it. An update that changes the list does.
+
+  - `TelemetryDestinationWorkspaces workspaces`
+
+    Which of the organization's workspaces the destination covers.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaTelemetryDestination = $client
+  ->beta
+  ->organization
+  ->telemetryDestinations
+  ->update(
+  'destination_id',
+  displayName: 'display_name',
+  endpointURL: 'endpoint_url',
+  headers: ['foo' => 'string'],
+  state: ['type' => 'enabled'],
+  traces: [
+    'contentMode' => TelemetryDestinationContentMode::METADATA_ONLY,
+    'enabled' => true,
+    'endpointURL' => 'endpoint_url',
+    'maxContentBytes' => 0,
+  ],
+  workspaces: ['type' => 'all'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaTelemetryDestination);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "delivery_health": {
+    "last_error": "last_error",
+    "last_error_at": "2019-12-27T18:11:19.117Z",
+    "last_success_at": "2019-12-27T18:11:19.117Z"
+  },
+  "display_name": "display_name",
+  "endpoint_url": "endpoint_url",
+  "header_names": [
+    "string"
+  ],
+  "state": {
+    "type": "enabled"
+  },
+  "traces": {
+    "content_mode": "metadata_only",
+    "enabled": true,
+    "endpoint_url": "endpoint_url",
+    "max_content_bytes": 0
+  },
+  "type": "telemetry_destination",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "workspaces": {
+    "type": "all"
+  }
+}
+```
+
+### Delete a Telemetry Destination
+
+`$client->beta->organization->telemetryDestinations->delete(string destinationID, ?list<AnthropicBeta> betas): DeletedTelemetryDestination`
+
+**DELETE** `/v1/organizations/telemetry_destinations/{destination_id}`
+
+Delete a destination and its workspace list.
+
+The API stops sending spans to the destination. The spans of the workspaces it covered still go to the other destinations that cover them. A deleted destination can't be read, listed, or restored.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=php#delivery-and-health) to learn more about managing a destination.
+
+#### Parameters
+
+- `destinationID: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class DeletedTelemetryDestination`
+
+  - `"telemetry_destination_deleted" type`
+
+  - `string id`
+
+    ID of the deleted destination (`tdst_...`).
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaDeletedTelemetryDestination = $client
+  ->beta
+  ->organization
+  ->telemetryDestinations
+  ->delete(
+  'destination_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+);
+
+var_dump($betaDeletedTelemetryDestination);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "type": "telemetry_destination_deleted"
+}
+```
+
+### Test a Telemetry Destination
+
+`$client->beta->organization->telemetryDestinations->test(string destinationID, ?list<AnthropicBeta> betas): TelemetryDestinationTestResponse`
+
+**POST** `/v1/organizations/telemetry_destinations/{destination_id}/test`
+
+Send one test span, named `anthropic.test`, to the destination with its registered headers, once and without retries, and report the destination's answer. The response is 200 whether or not the destination answered with a 2xx status: its `result` has the type `success`, or the type `failure` and the reason in `error`. The destination's configuration, `state` and `delivery_health` do not change. A disabled destination can be tested too. Wait 10 seconds between tests of one destination; a request that comes sooner may be answered with status 429.
+
+#### Parameters
+
+- `destinationID: string` (path parameter)
+
+  ID of the destination to test (starts with `tdst_`).
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class TelemetryDestinationTestResponse`
+
+  - `"telemetry_destination_test" type`
+
+  - `TelemetryDestinationTestResult result`
+
+    How the test went: `success` when the destination answered with a 2xx status, else `failure` with the reason.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaTelemetryDestinationTestResponse = $client
+  ->beta
+  ->organization
+  ->telemetryDestinations
+  ->test('destination_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]);
+
+var_dump($betaTelemetryDestinationTestResponse);
+```
+
+##### Response (200)
+
+```json
+{
+  "result": {
+    "type": "success"
+  },
+  "type": "telemetry_destination_test"
+}
+```
+
+## Beta › Organization › Telemetry Destinations › Workspaces
+
+### List Telemetry Destination Workspaces
+
+`$client->beta->organization->telemetryDestinations->workspaces->list(string destinationID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaTelemetryDestinationWorkspace>`
+
+**GET** `/v1/organizations/telemetry_destinations/{destination_id}/workspaces`
+
+List the workspaces on a destination's workspace list, newest entry first.
+
+A destination whose `workspaces.type` is `all` doesn't have a list, so its page is empty. The list includes archived workspaces.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=php#choose-workspaces-for-a-destination) to learn more about choosing the workspaces of a destination.
+
+#### Parameters
+
+- `destinationID: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `limit?:optional int` (query parameter)
+
+  Number of entries to return per page, between 1 and 1,000. Defaults to 20.
+
+- `page?:optional string` (query parameter)
+
+  Opaque cursor from a previous response's `next_page`. Leave it out to get the first page.
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class BetaTelemetryDestinationWorkspace`
+
+  - `"telemetry_destination_workspace" type`
+
+  - `\Datetime createdAt`
+
+    Time the workspace was added to the list.
+
+  - `string telemetryDestinationID`
+
+    ID of the telemetry destination (`tdst_...`).
+
+  - `string workspaceID`
+
+    ID of the workspace (`wrkspc_...`).
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$page = $client->beta->organization->telemetryDestinations->workspaces->list(
+  'destination_id',
+  limit: 0,
+  page: 'page',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($page);
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "telemetry_destination_id": "telemetry_destination_id",
+      "type": "telemetry_destination_workspace",
+      "workspace_id": "workspace_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Add a Telemetry Destination Workspace
+
+`$client->beta->organization->telemetryDestinations->workspaces->add(string workspaceID, string destinationID, ?list<AnthropicBeta> betas): BetaTelemetryDestinationWorkspace`
+
+**POST** `/v1/organizations/telemetry_destinations/{destination_id}/workspaces/{workspace_id}`
+
+Add one workspace to a destination's workspace list.
+
+Under `include` the workspace's spans start going to the destination. Under `exclude` they stop. A list holds at most 1,000 workspaces.
+
+Adding a workspace that is already on the list changes nothing and returns the existing entry. An archived workspace that isn't on the list yet can't be added. A destination whose `workspaces.type` is `all` doesn't have a list, so the API returns 400. To change which workspaces such a destination covers, update its `workspaces`.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=php#choose-workspaces-for-a-destination) to learn more about choosing the workspaces of a destination.
+
+#### Parameters
+
+- `destinationID: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `workspaceID: string` (path parameter)
+
+  ID of the workspace to add (`wrkspc_...`).
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class BetaTelemetryDestinationWorkspace`
+
+  - `"telemetry_destination_workspace" type`
+
+  - `\Datetime createdAt`
+
+    Time the workspace was added to the list.
+
+  - `string telemetryDestinationID`
+
+    ID of the telemetry destination (`tdst_...`).
+
+  - `string workspaceID`
+
+    ID of the workspace (`wrkspc_...`).
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaTelemetryDestinationWorkspace = $client
+  ->beta
+  ->organization
+  ->telemetryDestinations
+  ->workspaces
+  ->add(
+  'workspace_id',
+  destinationID: 'destination_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaTelemetryDestinationWorkspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "telemetry_destination_id": "telemetry_destination_id",
+  "type": "telemetry_destination_workspace",
+  "workspace_id": "workspace_id"
+}
+```
+
+### Remove a Telemetry Destination Workspace
+
+`$client->beta->organization->telemetryDestinations->workspaces->remove(string workspaceID, string destinationID, ?list<AnthropicBeta> betas): BetaDeletedTelemetryDestinationWorkspace`
+
+**DELETE** `/v1/organizations/telemetry_destinations/{destination_id}/workspaces/{workspace_id}`
+
+Remove one workspace from a destination's workspace list.
+
+Under `include` the workspace's spans stop going to the destination. Under `exclude` they start. An archived workspace can be removed too.
+
+The API returns 404 when the workspace isn't on the list. A destination whose `workspaces.type` is `all` doesn't have a list, so the API returns 400.
+
+See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-claude/opentelemetry?sdk_languages=php#choose-workspaces-for-a-destination) to learn more about choosing the workspaces of a destination.
+
+#### Parameters
+
+- `destinationID: string` (path parameter)
+
+  ID of the destination (`tdst_...`).
+
+- `workspaceID: string` (path parameter)
+
+  ID of the workspace to remove (`wrkspc_...`).
+
+- `betas?:optional list<AnthropicBeta>` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+#### Returns
+
+- `class BetaDeletedTelemetryDestinationWorkspace`
+
+  - `"telemetry_destination_workspace_deleted" type`
+
+  - `string telemetryDestinationID`
+
+    ID of the telemetry destination (`tdst_...`).
+
+  - `string workspaceID`
+
+    ID of the workspace that was removed (`wrkspc_...`).
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaDeletedTelemetryDestinationWorkspace = $client
+  ->beta
+  ->organization
+  ->telemetryDestinations
+  ->workspaces
+  ->remove(
+  'workspace_id',
+  destinationID: 'destination_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+);
+
+var_dump($betaDeletedTelemetryDestinationWorkspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "telemetry_destination_id": "telemetry_destination_id",
+  "type": "telemetry_destination_workspace_deleted",
+  "workspace_id": "workspace_id"
 }
 ```

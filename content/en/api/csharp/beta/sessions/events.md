@@ -249,6 +249,8 @@ List Events
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
+    - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1951,6 +1953,26 @@ List Events
 
       - `required string? Description`
 
+      - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `class BetaManagedAgentsAwsRoleExecutionIdentity`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `JsonElement Type = "aws_role"`
+
+          - `required string RoleArn`
+
+            The IAM role's ARN.
+
+        - `class BetaManagedAgentsServiceAccountExecutionIdentity`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `JsonElement Type = "service_account"`
+
       - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
         - `required Type Type`
@@ -2106,6 +2128,10 @@ List Events
               - `required string ID`
 
               - `required string? Description`
+
+              - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
               - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
@@ -2653,6 +2679,10 @@ List Events
 
                 - `required string? Description`
 
+                - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                 - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
                 - `required BetaManagedAgentsModelConfig Model`
@@ -2700,6 +2730,10 @@ List Events
                 - `required string ID`
 
                 - `required string? Description`
+
+                - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                 - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
@@ -3674,6 +3708,8 @@ Send Events
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
+    - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4299,6 +4335,8 @@ Stream Events
     - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
 
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
+    - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
   - `string workspaceID` (header parameter)
 
@@ -6002,6 +6040,26 @@ Stream Events
 
       - `required string? Description`
 
+      - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `class BetaManagedAgentsAwsRoleExecutionIdentity`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `JsonElement Type = "aws_role"`
+
+          - `required string RoleArn`
+
+            The IAM role's ARN.
+
+        - `class BetaManagedAgentsServiceAccountExecutionIdentity`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `JsonElement Type = "service_account"`
+
       - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
         - `required Type Type`
@@ -6157,6 +6215,10 @@ Stream Events
               - `required string ID`
 
               - `required string? Description`
+
+              - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
               - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
@@ -6704,6 +6766,10 @@ Stream Events
 
                 - `required string? Description`
 
+                - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                 - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
                 - `required BetaManagedAgentsModelConfig Model`
@@ -6751,6 +6817,10 @@ Stream Events
                 - `required string ID`
 
                 - `required string? Description`
+
+                - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                 - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
@@ -12294,6 +12364,26 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `required string? Description`
 
+      - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `class BetaManagedAgentsAwsRoleExecutionIdentity`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `JsonElement Type = "aws_role"`
+
+          - `required string RoleArn`
+
+            The IAM role's ARN.
+
+        - `class BetaManagedAgentsServiceAccountExecutionIdentity`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `JsonElement Type = "service_account"`
+
       - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
         - `required Type Type`
@@ -12449,6 +12539,10 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
               - `required string ID`
 
               - `required string? Description`
+
+              - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
               - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
@@ -12996,6 +13090,10 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                 - `required string? Description`
 
+                - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                 - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
                 - `required BetaManagedAgentsModelConfig Model`
@@ -13043,6 +13141,10 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
                 - `required string ID`
 
                 - `required string? Description`
+
+                - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                 - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
@@ -15978,6 +16080,26 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `required string? Description`
 
+      - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+        Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
+        - `class BetaManagedAgentsAwsRoleExecutionIdentity`
+
+          An AWS IAM role principal as returned in API responses.
+
+          - `JsonElement Type = "aws_role"`
+
+          - `required string RoleArn`
+
+            The IAM role's ARN.
+
+        - `class BetaManagedAgentsServiceAccountExecutionIdentity`
+
+          The Anthropic-managed service account as returned in API responses.
+
+          - `JsonElement Type = "service_account"`
+
       - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
         - `required Type Type`
@@ -16133,6 +16255,10 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
               - `required string ID`
 
               - `required string? Description`
+
+              - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
               - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
@@ -16680,6 +16806,10 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                 - `required string? Description`
 
+                - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
+
                 - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
                 - `required BetaManagedAgentsModelConfig Model`
@@ -16727,6 +16857,10 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
                 - `required string ID`
 
                 - `required string? Description`
+
+                - `required BetaManagedAgentsExecutionIdentity ExecutionIdentity`
+
+                  Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal.
 
                 - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 

@@ -133,6 +133,8 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 ## Returns
 
 - `class BetaSelfHostedWorkHeartbeatResponse`

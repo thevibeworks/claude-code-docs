@@ -135,6 +135,8 @@ Long poll for work items in the queue.
 
   - `"spend-limit-reads-2026-09-26"`
 
+  - `"telemetry-destinations-2026-08-11"`
+
 - `anthropic_worker_id: Optional[str]` (header parameter)
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

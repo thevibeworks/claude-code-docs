@@ -25,7 +25,7 @@ This page covers the Console side of an MCP tunnels deployment: creating a tunne
 
 <Steps>
   <Step title="Open the MCP tunnels page">
-    In the Console sidebar, go to **Manage > MCP tunnels**. Tunnels are workspace-scoped; the new tunnel belongs to the workspace currently selected in the Console, so switch workspaces first if you want it elsewhere.
+    In the Claude Console, go to the [MCP tunnels](https://platform.claude.com/settings/workspaces/default/mcp-tunnels) page (`platform.claude.com/settings/workspaces/default/mcp-tunnels`). Tunnels are workspace-scoped; the new tunnel belongs to the workspace currently selected in the Console. Select the workspace you want in the workspace picker in the sidebar.
   </Step>
 
   <Step title="Name the tunnel">
@@ -37,7 +37,7 @@ This page covers the Console side of an MCP tunnels deployment: creating a tunne
 
     Programmatic access relies on [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation); read that page first if federation issuers, rules, and service accounts are unfamiliar. To turn the toggle on you need:
 
-    1. **A registered OIDC issuer** for the identity provider your stack presents tokens from (such as a Kubernetes cluster, AWS IAM, Google Cloud, or GitHub Actions). Register one under **Settings > Workload identity > Issuers** if your organization doesn't have one.
+    1. **A registered OIDC issuer** for the identity provider your stack presents tokens from (such as a Kubernetes cluster, AWS IAM, Google Cloud, or GitHub Actions). Register one on the **Issuers** tab of the [Workload identity](https://platform.claude.com/settings/workload-identity-federation) page (`platform.claude.com/settings/workload-identity-federation`) in the Claude Console if your organization doesn't have one.
     2. **A federation rule with the `workspace:manage_tunnels` scope.** Turning on the toggle reveals a **Federation rule** picker. Choose an existing rule with that scope, or click **Create federation rule** to create one inline.
     3. **The rule's service account added to this workspace.** The Tunnels API authorizes against the service account's workspace memberships. If you're creating the tunnel in a workspace other than the organization's default, [add the service account to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#role-inheritance) and pass the workspace ID at deploy time (`api.wif.workspaceId` for Helm, `ANTHROPIC_WORKSPACE_ID` for Compose).
 
@@ -56,10 +56,10 @@ This page covers the Console side of an MCP tunnels deployment: creating a tunne
 
     What else you need depends on the [credential-provisioning mode](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#credential-provisioning):
 
-    | With programmatic access                                                                                                                                                   | Without programmatic access                                                                                                                                                                                                                         |
-    | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | The **federation rule ID** (`fdrl_...`) of the rule you selected. The rule is org-level, not stored on the tunnel; find it under **Settings > Workload identity > Rules**. | The **tunnel token**, revealed with the eye icon next to **Token** on the detail page. Treat it as a secret. See [Get the connection details](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#get-the-connection-details). |
-    | The **organization ID** (a UUID), shown under **Settings > Organization**.                                                                                                 | A **CA certificate** that you generate and [register on the tunnel](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#add-a-ca-certificate).                                                                                 |
+    | With programmatic access                                                                                                                                                                                                                                                                                                                                    | Without programmatic access                                                                                                                                                                                                                         |
+    | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | The **federation rule ID** (`fdrl_...`) of the rule you selected. The rule is org-level, not stored on the tunnel; find it on the **Rules** tab of the [Workload identity](https://platform.claude.com/settings/workload-identity-federation?tab=rules) page (`platform.claude.com/settings/workload-identity-federation?tab=rules`) in the Claude Console. | The **tunnel token**, revealed with the eye icon next to **Token** on the detail page. Treat it as a secret. See [Get the connection details](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#get-the-connection-details). |
+    | The **organization ID** (a UUID), shown on the [Organization](https://platform.claude.com/settings/organization) page (`platform.claude.com/settings/organization`) in the Claude Console.                                                                                                                                                                  | A **CA certificate** that you generate and [register on the tunnel](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#add-a-ca-certificate).                                                                                 |
 
     With programmatic access, your stack fetches the tunnel token through the Tunnels API, generates the CA and server certificate locally (the private key never leaves your environment), and registers only the CA's public certificate with Anthropic. You're still responsible for securing the private keys and renewing the server certificate before it expires.
   </Step>
@@ -123,8 +123,8 @@ Once your stack is running and has one or more MCP servers configured, attach an
 </Note>
 
 <Steps>
-  <Step title="Open the New session modal">
-    Go to **Managed Agents > Sessions** and click **New session**.
+  <Step title="Open the Create session dialog">
+    In the Claude Console, go to the [Sessions](https://platform.claude.com/sessions) page (`platform.claude.com/sessions`) and click **Create session**.
   </Step>
 
   <Step title="Define an inline agent">
@@ -148,7 +148,7 @@ Once your stack is running and has one or more MCP servers configured, attach an
 
 Archiving immediately stops the tunnel from accepting connections and is permanent.
 
-In the **MCP tunnels** list, open the row menu for the tunnel and choose **Archive**. Archived tunnels remain visible when you filter the list by **Archived** or **All**.
+In the Claude Console, go to the [MCP tunnels](https://platform.claude.com/settings/workspaces/default/mcp-tunnels) page (`platform.claude.com/settings/workspaces/default/mcp-tunnels`). In the workspace picker in the sidebar, select the workspace that holds the tunnel. Open the row menu for the tunnel and choose **Archive**. Archived tunnels remain visible when you filter the list by **Archived** or **All**.
 
 ## Next steps
 

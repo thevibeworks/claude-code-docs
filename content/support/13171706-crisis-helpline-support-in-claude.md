@@ -12,7 +12,7 @@ Claude may show a banner with connections to crisis support resources when your 
 
 These resources are there to make it easier to get help if you want it. You decide whether to use these resources, and there are no consequences for your account based on your decision to access resources.
 
-If the banner doesn't feel relevant to your situation, that's completely okay - you can simply dismiss it. We'd rather offer support when it's not needed than miss an opportunity to help someone who could use it. After you see the banner, it won't appear again for about two hours, but you can always access crisis resources at [claude.findahelpline.com](http://claude.findahelpline.com) anytime.
+If the banner doesn't feel relevant to your situation, that's completely okay - you can simply dismiss it. We'd rather offer support when it's not needed than miss an opportunity to help someone who could use it. After you see the banner, it won't appear again for about two hours, but you can always access crisis resources at [claude.findahelpline.com](https://claude.findahelpline.com) anytime.
 
 ## What is a crisis helpline?
 
@@ -78,7 +78,7 @@ Crisis helplines don't charge anything. Standard phone or texting rates from you
 
 ### Where can I find a helpline?
 
-If you're in the United States, the 988 Suicide & Crisis Lifeline is available by call or text. For other countries, a directory of services worldwide maintained by ThroughLine can be found at [claude.findahelpline.com](http://claude.findahelpline.com).
+If you're in the United States, the 988 Suicide & Crisis Lifeline is available by call or text. For other countries, a directory of services worldwide maintained by ThroughLine can be found at [claude.findahelpline.com](https://claude.findahelpline.com).
 
 ### Does talking to a helpline actually make a difference?
 
@@ -102,7 +102,7 @@ Generally, no. Conversations with support personnel are kept confidential. The m
 
 ### What about non-English speakers or people outside the United States?
 
-Helplines exist in countries around the globe, many offering support in local languages. You can locate services in your region on [claude.findahelpline.com](http://claude.findahelpline.com).
+Helplines exist in countries around the globe, many offering support in local languages. You can locate services in your region on [claude.findahelpline.com](https://claude.findahelpline.com).
 
 ### Is it okay to contact a helpline multiple times?
 
@@ -114,7 +114,7 @@ No. Your interactions with Claude remain with Anthropic. Helpline personnel have
 
 ### What if I have to wait to speak with someone?
 
-High demand sometimes means wait times. If that happens, you can stay on the line, try reaching out via a different method (chat instead of phone, for instance), or contact an alternative helpline. [claude.findahelpline.com](http://claude.findahelpline.com) lists multiple options for most locations.
+High demand sometimes means wait times. If that happens, you can stay on the line, try reaching out via a different method (chat instead of phone, for instance), or contact an alternative helpline. [claude.findahelpline.com](https://claude.findahelpline.com) lists multiple options for most locations.
 
 ### I feel nervous about reaching out.
 

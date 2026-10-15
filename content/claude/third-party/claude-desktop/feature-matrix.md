@@ -10,12 +10,14 @@ Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that r
 
 ## Key differences from Claude Enterprise
 
+The Claude Enterprise features in this table are enduring differences between Claude Enterprise and Claude Desktop on 3P. Anthropic doesn't have the technical ability to bring these features to Claude Desktop on 3P based on its local and third-party [architecture](/docs/third-party/claude-desktop/overview#architecture).
+
 <div className="feature-compare">
   | Feature | Claude Enterprise | Claude Desktop on 3P |
   | - | :-: | :-: |
   | [Connect to your cloud provider for inference](/docs/third-party/claude-desktop/configuration#connection) | <Icon icon="xmark" color="#9E9E9E" /> No | <Icon icon="circle-check" iconType="solid" /> **Yes** |
-  | [Data residency in multiple regions](/docs/third-party/claude-desktop/overview#data-residency-and-international-deployment) | <Icon icon="xmark" color="#9E9E9E" /> No | <Icon icon="circle-check" iconType="solid" /> **Yes**, depending on provider |
-  | [Run inference outside Anthropic's cloud](/docs/third-party/claude-desktop/overview#data-handling-by-provider) | <Icon icon="xmark" color="#9E9E9E" /> No | <Icon icon="circle-check" iconType="solid" /> **Yes**, depending on provider |
+  | [Data residency in multiple regions](/docs/third-party/claude-desktop/overview#data-residency-and-international-deployment) | <Icon icon="xmark" color="#9E9E9E" /> No | <Icon icon="circle-check" iconType="solid" /> **Yes** |
+  | [Conversation history stored on device](/docs/third-party/claude-desktop/data-storage#where-data-lives) | <Icon icon="xmark" color="#9E9E9E" /> No | <Icon icon="circle-check" iconType="solid" /> **Yes** |
   | Mobile and claude.ai web-based access | <Icon icon="circle-check" iconType="solid" /> **Yes** | <Icon icon="xmark" color="#9E9E9E" /> No |
   | Sessions in Anthropic's cloud | <Icon icon="circle-check" iconType="solid" /> **Yes** | <Icon icon="xmark" color="#9E9E9E" /> No |
   | Sharing between users | <Icon icon="circle-check" iconType="solid" /> **Yes** | <Icon icon="xmark" color="#9E9E9E" /> No |
