@@ -32,7 +32,7 @@ The HIPAA-ready Enterprise offering includes many of the features available on *
 
 - **Before the Primary Owner applies the configuration:** Cowork is available but not covered under your BAA. Claude Code is covered only with zero data retention (ZDR) enabled, which is available on qualified accounts only. Without ZDR, Claude Code is also available but not covered. Don't use PHI with a product that isn't covered.
 
-- **After the Primary Owner applies the configuration:** Your BAA covers Claude Code (local mode) and Cowork (local mode). Cloud features such as Claude Code on the web, Claude Code Remote Control, and Cowork in the cloud aren't available. The Primary Owner can't remove the configuration.
+- **After the Primary Owner applies the configuration:** Your BAA covers Claude Code (local mode) and Cowork (local mode). Cloud features such as Claude Code cloud sessions, Claude Code Remote Control, and Cowork in the cloud aren't available. The Primary Owner can't remove the configuration.
 
 Learn how to get the configuration and how to prepare in **[Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.
 

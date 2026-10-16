@@ -26,6 +26,18 @@ Enterprise plans require a minimum of 20 seats.
 
 ---
 
+## Who can use a seat
+
+Each Enterprise seat is assigned to one named individual, and only that person may use it. This applies to every Enterprise seat type, including legacy Chat, Chat + Claude Code, Standard, and Premium seats. This means:
+
+- Only the assigned user may sign in to the account. Users can't share login credentials or let others use their account.
+
+- Users can't use another user's account to get around their own spend limits or usage limits.
+
+Reassigning a seat is meant for normal team changes, such as a user joining, leaving, or changing roles. It isn't designed for rotating one seat among several active users. To give someone else access, assign them their own seat.
+
+---
+
 ## Purchase new seats
 
 You can add seats to your Enterprise plan at any time during your annual term. New seats are prorated for the remainder of your billing cycle and charged immediately.

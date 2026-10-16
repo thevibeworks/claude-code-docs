@@ -19,20 +19,81 @@ An SSH remote session is a [Code](/docs/third-party/claude-desktop/code) session
 3. **Run.** The remote server starts the engine on the host with the inference credential and policy from your managed configuration. Every file read, edit, shell command, and git operation runs on the host, in the working directory the user chose there. Claude Desktop connects to [managed MCP servers](/docs/third-party/claude-desktop/extensions#managed-mcp-servers-admin) from the device and exposes them to the engine as tools.
 4. **Stream.** Claude's responses and tool output stream back to Claude Desktop. Permission prompts appear in Claude Desktop, and the engine waits on the host until the user answers.
 
-The engine keeps running on the host through a dropped SSH link, device sleep, or the user quitting Claude Desktop. It finishes the current turn, or stops at a permission prompt, then idles until the user reopens the session. Reopening starts a fresh engine from the transcript stored on the host, so a turn that finished while the app was closed is shown in full; a turn still running at that moment is cut short and not continued automatically. While Claude Desktop is closed, no new turns run and the inference credential is not refreshed, so a turn that outlives the credential fails with an authentication error.
+The engine keeps running on the host through a dropped SSH link, device sleep, or the user quitting Claude Desktop. It finishes the current turn, or stops at a permission prompt, then idles until the user reopens the session. While Claude Desktop is closed, no new turns run and the inference credential is not refreshed, so a turn that outlives the credential fails with an authentication error. A restart of the app for an update counts as a quit.
+
+When the user reopens the session after a quit, Claude Desktop rejoins the engine or replaces it, unless it refuses to start the session:
+
+* **Rejoins**: on a macOS or Linux device, Claude Desktop 2.42304.0 or later tries to rejoin an engine that 2.42304.0 or later started. If it rejoins, a turn still running goes on. It can fail to rejoin, for example after some Claude Desktop updates or after a change to the managed configuration since the engine started. After a quit it never rejoins on a Windows device, and never rejoins an engine that an earlier version started.
+* **Replaces**: otherwise, Claude Desktop ends the engine and starts a fresh one from the transcript stored on the host. A turn that finished while the app was closed is shown in full, and a turn that still runs is cut short. If the turn stays stopped, the user sends a message to continue it.
 
 On a host that ends a user's processes at logout, the remote server and the engine end with the SSH connection that started them, so a turn in progress doesn't survive a disconnect. Linux hosts where systemd-logind's `KillUserProcesses` setting is `yes` and applies to the SSH user behave this way. To keep remote sessions running through a disconnect on such a host, ask the host's administrator to exempt the SSH user, for example by listing the user under `KillExcludeUsers` in the systemd-logind configuration.
 
 An idle engine stays on the host, with the credential in its environment, until one of these happens:
 
-* The user reopens, archives, or deletes the session.
+* The user archives or deletes the session.
+* The user reopens the session and Claude Desktop ends the engine to start a fresh one.
 * The host restarts.
-* A Claude Desktop update replaces the remote server on the host (deferred while a session on that host was active in the last 24 hours, for up to 7 days).
+* After an update that includes a new remote server, Claude Desktop replaces the host's remote server at a later connection. This ends the engines under the old server. Claude Desktop can put the replacement off while it believes that work is running on that host.
 * On a Linux or macOS host, 30 days pass without a connection from Claude Desktop to the remote server. The remote server then stops and ends its engines. Requires Claude Desktop 1.52386.0 or later.
 
 While Claude Desktop is disconnected, the remote server keeps the most recent output of each running engine in a 16 MiB buffer. It drops older output, and the engine keeps running.
 
 On a Linux or macOS host, if Claude Desktop stayed open, it rejoins the running engine when it reconnects after device sleep or a dropped SSH link. It catches up from the buffer, and loads the part of the conversation that the buffer has dropped from the transcript stored on the host. If it can't load all of it, the session shows "Some output produced while you were disconnected may be missing here."
+
+Some tool calls wait for an answer from Claude Desktop, and fail while it is disconnected:
+
+* **File tools under a folder restriction**: if you set [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders), Claude Desktop checks each file read, search, and edit before it happens. While Claude Desktop is disconnected, each of these calls waits up to 10 minutes and then fails.
+* **Tools that your policy sets to ask**: if [`builtinToolPolicy`](/docs/third-party/claude-desktop/configuration#builtintoolpolicy) sets a bare tool name, such as `Bash`, to `ask`, Claude Desktop is consulted before each call to that tool. While Claude Desktop is disconnected, each call waits up to 10 minutes and then fails.
+* **Tools from MCP servers that run on the device**: these include your managed MCP servers (see [Where MCP servers run in a remote session](#where-mcp-servers-run-in-a-remote-session)). While Claude Desktop is disconnected, each call to one of their tools fails after about 30 seconds. The 30-second limit requires Claude Desktop 2.2553.0 or later.
+
+For a task that uses these tools, have the user keep the device awake and connected. For other limits, see [Limits while Desktop is disconnected](https://code.claude.com/docs/en/desktop#limits-while-desktop-is-disconnected).
+
+### Alert the user with hooks on the host
+
+A [hook](https://code.claude.com/docs/en/hooks) is a command of yours that the engine runs on the host at a set point in a session. With hooks, the host can tell the user that a turn is waiting at a permission prompt, has finished, or has failed with an API error, including while Claude Desktop is disconnected. To set them up, add this `hooks` key to `~/.claude/settings.json` in the SSH user's home directory on the host before the user starts the session.
+
+```json ~/.claude/settings.json theme={null}
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [{ "type": "command", "command": "/path/to/alert-user.sh" }]
+      }
+    ],
+    "Stop": [
+      { "hooks": [{ "type": "command", "command": "/path/to/alert-user.sh" }] }
+    ],
+    "StopFailure": [
+      { "hooks": [{ "type": "command", "command": "/path/to/alert-user.sh" }] }
+    ]
+  }
+}
+```
+
+Replace `/path/to/alert-user.sh` with a script that you write and place on the host, for example one that posts to a messaging service that the host can reach. The engine runs the script as the SSH user and passes it the event as JSON on standard input, with fields such as `hook_event_name`, `session_id`, and `cwd`. The `Stop` event also carries Claude's last message, so forward only the fields that the alert needs.
+
+Have the script print nothing and exit with code 0, because a `Stop` hook's output and exit code can keep the turn going (see [Stop decision control](https://code.claude.com/docs/en/hooks#stop-decision-control)). To confirm the setup, have the user start a remote session on the host and send a message. The script runs when Claude finishes responding.
+
+The hooks run in these cases:
+
+* **A permission prompt waits for the user's answer**: the [`Notification`](https://code.claude.com/docs/en/hooks#notification) hook runs once the prompt has waited about six seconds
+* **Claude finishes responding**: the [`Stop`](https://code.claude.com/docs/en/hooks#stop) hook runs
+* **An API error, such as an authentication error, ends the turn**: the [`StopFailure`](https://code.claude.com/docs/en/hooks#stopfailure) hook runs in place of `Stop`
+
+The `Notification` hook doesn't run for a tool call that is waiting for Claude Desktop's own check. That check comes before any permission prompt for the call. Calls that wait for that check include these:
+
+* Each file read, search, and edit, if you set [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders)
+* Each call to a tool that [`builtinToolPolicy`](/docs/third-party/claude-desktop/configuration#builtintoolpolicy) sets to `ask` by its bare name, such as `Bash`
+* Each call to a tool from an MCP server that runs on the device
+
+While Claude Desktop is disconnected, each of these calls waits and then fails, after up to 10 minutes for file tools and tools set to `ask` (for each limit, see [How a remote session works](#how-a-remote-session-works)). Claude receives the failure as the call's result, and a further call of the same kind waits again, which delays the `Stop` hook. For a task that makes these calls, have the user keep the device awake and connected.
+
+To cover every user of a host, put the hooks in [Claude Code managed settings](https://code.claude.com/docs/en/settings#settings-files) on the host instead, which on a Linux host is the file `/etc/claude-code/managed-settings.json`. If the host already has Claude Code managed settings, add the hooks to those and leave [`parentSettingsBehavior`](https://code.claude.com/docs/en/settings-reference#parentsettingsbehavior) as it is, set or unset. Changing it changes how those settings combine with the policy that Claude Desktop supplies. If the host has none yet, also set `parentSettingsBehavior` to `"merge"` in the managed settings that you create.
+
+<Warning>
+  By default, Claude Code managed settings on the host replace the policy that Claude Desktop supplies, even if they hold only hooks (see [Managed configuration on the remote host](#managed-configuration-on-the-remote-host)). With `parentSettingsBehavior` set to `"merge"`, the policy that Claude Desktop supplies still applies, layered under the host's own policy.
+</Warning>
 
 ### Where MCP servers run in a remote session
 
@@ -90,6 +151,10 @@ Claude Code has its own `sshHostAllowlist` setting, which you can deploy on the 
 4. Off.
 
 On devices where users applied the configuration locally, deploy `sshHostAllowlist` in Claude Code's managed settings. That restricts SSH without an MDM profile taking ownership of the whole configuration (see [Update keys and managed precedence](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence)).
+
+To turn off Code sessions that run on the device, so that users work in SSH remote sessions, set [`disableDesktopLocalSessions`](https://code.claude.com/docs/en/settings-reference#disabledesktoplocalsessions) to `true` in a [Claude Code managed-settings file](https://code.claude.com/docs/en/settings#settings-files) or OS policy on the device. Claude Desktop then refuses to start or resume a Code session that runs on the device. If the device already has Claude Code managed settings, add the key to those and leave `parentSettingsBehavior` as it is, set or unset. Changing it changes how those settings combine with the policy that Claude Desktop supplies. If the device has none yet, also set `parentSettingsBehavior` to `"merge"` in the managed settings that you create. Without `"merge"`, the new managed settings replace the policy that Claude Desktop supplies to Claude Code on the device (see [Interaction with Claude Code's own managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) on the Code page).
+
+Before you deploy `disableDesktopLocalSessions`, make sure that the `sshHostAllowlist` that applies on the device, by [the order of its sources](#interaction-with-claude-code-managed-settings-on-the-device), allows the hosts that users need. While SSH remote sessions are off, a device that has `disableDesktopLocalSessions` set can start neither a local Code session nor an SSH remote session.
 
 ### Devices that move to an admin console organization
 
@@ -158,9 +223,9 @@ A remote session doesn't enforce `mode` in these cases:
 Where the rules apply, they cover the following:
 
 * **Claude's file tools**: they refuse to create or change a file under the path, even in bypass permissions mode. A writable entry listed inside a read-only one is read-only for them too.
-* **Shell commands that Claude runs**: Claude Code's sandbox keeps them from writing under the path on a host where it runs, which on Linux needs Claude Code's [sandbox dependencies](https://code.claude.com/docs/en/sandboxing). The sandbox doesn't cover commands listed in Claude Code's `sandbox.excludedCommands`, or a path that contains one of `* ? [ ] ( ) { } | +` or a double quote. It may not stop commands in a folder that is listed through a symbolic link, so list each read-only folder by its real path, and keep it outside writable entries. On a host where the sandbox doesn't run, shell commands can still change the folder. For how the app reports that, see [Sandbox status on the remote host](#sandbox-status-on-the-remote-host).
+* **Shell commands that Claude runs with its Bash tool**: Claude Code's sandbox keeps them from writing under the path on a host where it runs, which on Linux needs Claude Code's [sandbox dependencies](https://code.claude.com/docs/en/sandboxing). The sandbox doesn't cover commands listed in Claude Code's `sandbox.excludedCommands`, or a path that contains one of `* ? [ ] ( ) { } | +` or a double quote. It may not stop commands in a folder that is listed through a symbolic link, so list each read-only folder by its real path, and keep it outside writable entries. On a host where the sandbox doesn't run, shell commands can still change the folder. For how the app reports that, see [Sandbox status on the remote host](#sandbox-status-on-the-remote-host).
 
-The rules don't bind the SSH user, or other programs that run under that account. MCP servers on the host, hooks from Claude Code's configuration on the host, and the session's terminal can change the folder, and Claude Desktop and Claude Code can create git worktrees inside it.
+The rules don't bind the SSH user, or other programs that run under that account. MCP servers on the host, hooks from Claude Code's configuration on the host, and the session's terminal (including commands that Claude runs there) can change the folder, and Claude Desktop and Claude Code can create git worktrees inside it.
 
 ### Sandbox status on the remote host
 
@@ -176,6 +241,16 @@ Find the message, or the `reason` your collector received, for the cause and the
 | Your organization's sandbox isn't running on `<host>`. Claude Code has no sandbox for that operating system | `unsupported` | The host runs an operating system that Claude Code reports no sandbox for, such as Windows | Use a macOS or Linux host |
 | Your organization's sandbox policy isn't fully applied on `<host>`, so shell commands there may run outside it | `overridden` | Claude Code managed settings on the host replace your policy, even when they say nothing about the sandbox, or they turn the sandbox off or loosen it | Set `parentSettingsBehavior` to `"merge"` in the host's managed settings, and remove `sandbox` values there that conflict with your policy |
 | No message | `unknown` | Claude Code gives no answer that Claude Desktop can read | In a session on that host, ask Claude to run the two commands under [Confirm commands run inside the sandbox](https://code.claude.com/docs/en/sandboxing#confirm-commands-run-inside-the-sandbox) |
+
+To check one session, have the user open it, wait until Claude has finished replying, and enter `/status` in the message box. Where your policy includes the sandbox, the **Session info** card shows what Claude Desktop last learned in a **Sandbox** row. Requires Claude Desktop 2.31226.0 or later. Find the value's `reason` in the table of messages and reasons for the cause and the fix:
+
+* **On · Strict**: no reason. Claude Code reports the sandbox from your policy turned on and running.
+* **Off · can't start**: `cannot_start` or `unsupported`
+* **Off**: `overridden`, and Claude Code reports no sandbox running
+* **On · not fully applied**: `overridden`, and Claude Code reports a sandbox that Claude Desktop can't match to your policy
+* **Couldn't check**: `unknown`
+
+If the card has no **Sandbox** row, have the user send a message, and enter `/status` again after Claude's reply.
 
 With [`otlpEndpoint`](/docs/third-party/claude-desktop/configuration#otlpendpoint) set, your collector receives a `desktop_ssh_sandbox_check_failed` event under the `service.name` value `claude-desktop`, unless [`otlpDesktopLogLevel`](/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `off`. A session can send the event more than once, for example when the reason changes or after Claude Desktop restarts, so count distinct `session_id` values rather than events. The event carries these attributes:
 
@@ -229,6 +304,7 @@ Claude Desktop applies the host's entry in the user's `~/.ssh/config`. With the 
 
 * For hosts behind a bastion, configure a `ProxyJump` or `ProxyCommand`. `ProxyJump` works only when the device's OpenSSH client carries the connection (the default on macOS and Linux). The built-in client refuses it. For the card that the user sees, see [Ask your IT administrator to set sshTransport to system-openssh](#ask-your-it-administrator-to-set-sshtransport-to-system-openssh).
 * With the device's OpenSSH client, OpenSSH's own host key checking applies. For a host whose key isn't on record yet, where the app can show a prompt, it shows the key's fingerprint, asks the user whether to trust it, and records a trusted key in the user's `known_hosts` file, unless the user's own SSH configuration accepts new keys without asking. The app can't show a prompt on every connection, for example when it reconnects in the background. Distribute the host keys or a host certificate authority to the devices, so that each host's key is on record before users connect. `@cert-authority` entries are honored. A key that differs from the one on record for the host is refused, whatever the entry's `StrictHostKeyChecking` says, unless another setting in the SSH configuration that applies to the host takes that check away, such as `NoHostAuthenticationForLocalhost yes` for a host on a loopback address.
+* With the device's OpenSSH client, you can keep the app from asking users to trust the key of a host that isn't on record yet. Distribute the host keys in the client's system-wide `known_hosts` file, such as `/etc/ssh/ssh_known_hosts`, or distribute a host certificate authority. Then set `StrictHostKeyChecking yes`, for example under `Host *`, in the client's system-wide configuration file, such as `/etc/ssh/ssh_config`, which also governs other uses of that client, such as `git` over SSH. Where the SSH configuration that applies to a host has `StrictHostKeyChecking yes`, Claude Desktop doesn't ask the user to trust such a key, and `ssh` refuses the host if it can't verify the key. A key that differs from the one on record is handled the same way with or without this setting. The setting doesn't bind the user. By OpenSSH's own rules, `ssh` reads the user's `~/.ssh/config` before the system-wide file and keeps the first value it finds for a setting, so a `StrictHostKeyChecking` line there applies in place of yours. `ssh` also accepts a key that the user adds to their own `known_hosts` file, but under `yes` a connection from a terminal doesn't record the key.
 * With the built-in client, the host's key must already be in the device's `~/.ssh/known_hosts` as a plain entry. The app does not prompt to accept a new key and does not evaluate `@cert-authority` entries, so have users connect once from a terminal before adding the host in the app.
 * With the built-in client, an identity file protected by a passphrase is skipped, not prompted for. Load it into the SSH agent, or use an unencrypted key. With the device's OpenSSH client, the app asks for the passphrase once the host's key is verified, and skips the key if the user cancels.
 * With the built-in client, a host reached through a `ProxyCommand` gets the same host key check as a host reached directly. Before Claude Desktop 2.9939.0, the built-in client skipped host key verification for such a host.

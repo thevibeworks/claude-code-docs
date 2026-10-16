@@ -69,12 +69,13 @@ Until Claude has joined a channel, you see "@-mention Claude in this channel to 
 
 Claude reads a message that another Slack app or bot posts as channel context, and replies to it only when the message includes `@Claude`. Claude treats alerts an integration posts, messages a Slack workflow posts, and messages from any other bot the same way.
 
-A bot's `@Claude` at the channel's top level gets a reply in a thread under that message, unless either of these is true:
+A bot's `@Claude` at the channel's top level gets a reply in a thread under that message, unless any of these is true:
 
 * The channel's [**Respond automatically**](#turn-automatic-replies-on-or-off) setting is off.
 * Claude has [stopped reading the channel](#when-claude-stops-reading-a-channel) because of message volume.
+* The channel is a [Slack Connect channel](/docs/claude-tag/admins/restrict-access#when-claude-does-not-answer-in-a-slack-connect-channel), shared with another company. Claude reads what apps, bots, and workflows post there as context but doesn't reply to them.
 
-A person's mention reaches Claude in both cases.
+A person's mention reaches Claude in each of these cases.
 
 Because Claude reads those messages, when a person asks about an alert a bot posted, Claude can answer from it. To have Claude act on what an integration posts, mention it in the channel or in the message's thread. For example, reply to a bot-posted alert with `@Claude triage this`. To have Claude check the channel on a schedule and post what needs attention, set up a [routine](/docs/claude-tag/users/proactivity).
 

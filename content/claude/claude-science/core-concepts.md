@@ -38,6 +38,8 @@ A permission card appears in the conversation each time Claude needs a new kind 
 
 All standing grants are listed in Settings > Permissions and can be revoked there.
 
+On Linux, a uv, conda, mamba, or pixi environment in a folder you've granted **Read & write** can still be read-only to Claude. See [Environments in granted folders](/docs/claude-science/tools-and-environments#environments-in-granted-folders).
+
 ## Plans
 
 Claude might choose to propose a plan before starting multi-step work. You approve the plan or iterate with Claude on refining it; plan text can't be edited directly. Approved plan steps appear in the conversation and are marked complete as work finishes.

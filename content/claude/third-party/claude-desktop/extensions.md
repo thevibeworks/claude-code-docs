@@ -396,6 +396,19 @@ A `UserPromptSubmit` hook that blocks a prompt stops that turn and shows the hoo
 
 Claude Code [managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) deployed on the device govern these hooks as they do in the Claude Code CLI: `disableAllHooks` turns them off, and `allowManagedHooksOnly` keeps only the hooks those managed settings define.
 
+### Hooks on Windows devices without Git for Windows
+
+On a Windows device without Git for Windows, Claude Code runs a [hook](https://code.claude.com/docs/en/hooks) in PowerShell when the hook sets neither `shell` nor `args`. Hooks in Cowork sessions run the same way, on the device itself and not in Cowork's virtual machine. PowerShell rejects some commands that Bash accepts, such as a quoted program path followed by arguments.
+
+A [`PreToolUse`](https://code.claude.com/docs/en/hooks#pretooluse) hook that runs this way and has no `onFailure` field blocks the tool call when it fails or times out. The hook error that Claude receives includes `blocking because Git Bash wasn't found`.
+
+If your Windows devices have hooks, in a plugin or in Claude Code [managed settings](/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings), make one of these changes:
+
+* **Keep a hook written for Bash**: install Git for Windows in its default location (`C:\Program Files\Git`) on each device, then quit and reopen Claude Desktop
+* **Run the hook without a shell**: write the hook in [exec form](https://code.claude.com/docs/en/hooks#exec-form-and-shell-form), with the program in `command` and its arguments in `args`
+
+After either change, a hook that fails or times out lets the tool call go ahead. To stop the tool call instead, add [`"onFailure": "block"`](https://code.claude.com/docs/en/hooks#block-the-action-when-a-hook-fails) to the hook.
+
 ## User extensions
 
 Unless restricted by an admin, end users can add their own extensions through the in-app UI:

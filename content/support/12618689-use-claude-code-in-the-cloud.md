@@ -1,0 +1,138 @@
+# Use Claude Code in the cloud
+
+A cloud session is a Claude Code session that runs on cloud infrastructure instead of on your machine, working with code from your GitHub repositories. You can start one from Claude Code on the web at claude.ai/code, from Claude Mobile, from Claude Desktop, or from your terminal with `claude --cloud`. This article explains how cloud sessions work, when to use them instead of a local session in your terminal or IDE, and what workflows they enable.
+
+## What cloud sessions provide
+
+Cloud sessions let you delegate tasks to Claude that run without your active supervision. You select a GitHub repository, describe what you want done, and Claude works on the task in the cloud. Once Claude Code has started working on a task, you can leave the page completely; Claude will continue its work. When finished, Claude will automatically create a pull request with changes for you to review.
+
+This feature works with repositories you may not have on your local machine. You can kick off tasks on any GitHub repository you have access to without needing to clone it locally or set up a development environment. This makes it useful for projects you contribute to occasionally or for exploring codebases you're still learning about.
+
+Cloud sessions enable asynchronous development workflows. In a local session in your terminal or editor, you typically work synchronously: you make a request, wait for Claude to respond, review the changes, then make another request. Synchronous work like this gives you fine-grained control but requires your attention throughout the process. A cloud session handles this differently: you can assign a larger task, let Claude work independently, and return later to review the completed work.
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446157/07ec74cd46317f8278083a317841/6448f3ee-c6df-4417-8a13-90d8c2ca3d55?expires=1792303200&amp;signature=650a3dc420f458ae036a5342b230b8c8f5eb82e6113fd476a2bf77e180084a1a&amp;req=dScvEM16m4BaXvMW3nq%2BgYyK99IbpcegZ0BgpJqSJo0I7qcWlxAuYLcuKbx5%0AGY2Mzgy3qwGxM5u%2BNbf79xV98Dk%3D%0A)
+
+You can also run multiple tasks in parallel. Since each task runs in its own isolated environment, you can have Claude working on several different issues or repositories simultaneously. Each task proceeds independently and creates its own pull request when complete. More than one task can work on the same repository at the same time.
+
+---
+
+## How it works
+
+When you start a cloud session, Claude Code creates an isolated virtual machine for your work. Your GitHub repository is cloned into this environment, which comes pre-configured with common development tools and language ecosystems.
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446158/c092f1383826cb871493f74169d4/97b7cb98-5da2-438e-a920-e170b8b9790e?expires=1792303200&amp;signature=96b61c7b8e4fca5b30aa2d4210d19ee41478c9eac81c60e223930faaff0c3c2c&amp;req=dScvEM16m4BaUfMW3nq%2BgVE8q4LvBzxG6ET1C7QUDOBKJ1EMhwBQ9fzOtgNq%0AP7xUGGPeNVGnN4Z5LhnHuzG616o%3D%0A)
+
+Claude prepares the environment by running any setup commands you've defined in your repository's configuration. This includes installing dependencies, setting up databases, or running other initialization steps your project needs. If your task requires network access, maybe to install packages or fetch data, you can configure the level of internet access the environment has.
+
+Once the environment is ready, Claude begins working on your task. Claude reads your code, makes changes, writes tests, and runs commands to verify the work. You can monitor progress and provide guidance through the web interface if needed.
+
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1786446156/83ecf0a5b98eddc9ffc9694c50f7/353589ce-b678-441d-8909-71b45fa2d065?expires=1792303200&amp;signature=a12453675401d3a082f32acadb4bbc20cd57f9ae4a064d10643f4e5f56cfeb2d&amp;req=dScvEM16m4BaX%2FMW3nq%2BgX3AMSSW5fFeMxJo46my19Ucy8IG6g6UOt%2FpkW7v%0AU1aZywj1V%2Be6%2F58Du11HBB7Ji8I%3D%0A)
+
+When Claude completes the task, it pushes the changes to a new branch in your GitHub repository. You receive a notification and can review the changes, then create a pull request directly from the interface. The pull request includes all of Claude's work, ready for your review and any additional changes you want to make.
+
+Each task runs in complete isolation. The virtual machine exists only for that specific task and includes security controls like restricted network access and protected credential handling. Your GitHub authentication is managed through a secure proxy, so credentials never exist directly in the environment where Claude is working.
+
+---
+
+## When to use cloud sessions vs. local sessions
+
+Some tasks are well suited to running asynchronously in the cloud, while others are best run locally in your terminal or IDE.
+
+### Use cloud sessions for:
+
+- **Well-defined tasks with clear requirements:** When you can describe exactly what needs to be done and don't expect to need to steer Claude mid-task, a cloud session lets you start the work and return when it's complete.
+
+- **Background work on bug backlogs:** You can assign Claude multiple issues from your backlog and let them run in parallel. Each task proceeds independently, allowing you to tackle several fixes at once without monitoring each one individually.
+
+- **Repositories you don't have locally:** If you need to make changes to a repository you haven't cloned or don't want to set up on your machine, a cloud session handles the environment setup for you.
+
+- **Tasks you want to queue up:** When you have a list of changes to make but don't want to work on them right now, you can start them in the cloud and review the results later. This lets you batch similar work or delegate tasks during times when you're focused on something else.
+
+### Use local sessions in your terminal or IDE for:
+
+- **Tasks needing frequent course correction:** When you're not sure exactly what the right approach is or expect you'll need to redirect Claude based on what you see, working in your terminal gives you immediate feedback. You can adjust direction as Claude works rather than waiting for a complete result.
+
+- **Exploratory work with unclear requirements:** If you're figuring out how to solve a problem or investigating different approaches, the terminal lets you refine your request as you learn. The back-and-forth helps clarify requirements that weren't obvious at the start.
+
+- **Local development with uncommitted changes:** When you're actively developing and have uncommitted work in your local repository, using Claude Code in your terminal keeps everything in one place. You can iterate quickly on changes without needing to commit or push work that isn't ready yet.
+
+- **Tasks requiring immediate feedback:** If you need to see results quickly and want to iterate rapidly, the terminal provides lower latency. You can watch Claude work in real-time and stop or redirect if something goes wrong early in the process.
+
+---
+
+## Example use cases
+
+### Backend changes with test-driven development
+
+Let Claude write tests that define the expected behavior, then implement the code to make those tests pass. This works particularly well for backend changes where behavior can be validated through automated testing.
+
+**Example prompt:**
+
+```
+Add rate limiting to the /api/search endpoint.
+
+The rate limiter should:
+- Allow 100 requests per minute per API key
+- Return 429 status when limit exceeded
+- Reset limits after 60 seconds
+- Track different API keys independently
+
+Use a TDD approach: write comprehensive tests first, then implement the rate limiting logic to pass them.
+```
+
+**When to use this approach:** This works well in a cloud session because the tests give Claude clear validation criteria to work towards. You don't need to monitor Claude's progress since the tests will catch issues and guide iteration toward a working solution. The self-contained nature of the task, where Claude writes tests then makes them pass, doesn't require your input once started.
+
+**What makes this effective:** Claude can iterate on the implementation without your supervision, using test failures to identify and fix problems. The task runs longer than a simple code change, but you can let it complete in the background. When you review the pull request, both the tests and implementation are ready, and you have confidence the solution works because the tests pass.
+
+### Documentation updates
+
+Generate or update technical documentation such as README files, API documentation, code comments, or user guides.
+
+**Example prompt:**
+
+```
+Update CHANGELOG.md with all changes since the v2.3.0 release:
+  - Review commits on main branch since that tag.
+  - Categorize changes into "Added, "Changed, "Fixed", and "Removed" sections.
+  - Include the commit hash for each entry.
+```
+
+**When to use this approach:** Changelog updates are well suited to a cloud session because Claude can review commit history independently and format entries without guidance. The task is tedious to do manually but straightforward enough that Claude can complete it without questions about which commits to include or how to categorize them.
+
+**What makes this effective:** You can delegate the entire changelog update and review the result when complete. Claude reads through commits, extracts meaningful changes, and follows your existing changelog format.
+
+### Refactoring with clear scope
+
+Restructure code to improve organization or readability when you can define clear boundaries for the change. This includes extracting code, splitting up large files, or organizing module structure.
+
+**Example prompt:**
+
+```
+The UserService class in /src/services/user.go has 800 lines long.
+Split it into three focused services:
+  - UserAuthService (login/logout/sessions)
+  - UserProfileService (profile CRUD operations)
+  - UserPreferencesService (settings/preferences)
+
+Ensure all tests still pass.
+```
+
+**When to use this approach:** Refactoring with clear constraints works well in a cloud session because you can set clear boundaries for Claude to follow. Test suites can provide validation, allowing Claude to verify the refactor didn't break any existing functionality.
+
+**What makes this effective:** The task takes time, but doesn't need your active input once the structure is defined. You can start the refactor and review the organized result later, rather than monitoring Claude as it works through the task. The clear scope means Claude is unlikely to need guidance mid-task.
+
+---
+
+## Tips for effective use
+
+- Consider adding a test suite to your repository so Claude more easily verify that it has successfully completed a task
+
+- Specify success criteria rather than vague goals like "improve" or "fix"
+
+- Define what should change and what should stay the same in your prompt
+
+- Scope tasks with clear boundaries so Claude doesn't need guidance mid-task
+
+- If you're thinking "I'll need to see how this goes first," consider using your terminal instead
+
+- Use "Open in CLI" if you realize mid-task that you need to provide guidance

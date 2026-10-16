@@ -1355,6 +1355,10 @@
       "since": "2026-08-25",
       "reason": "moved -> https://support.claude.com/en/articles/12386328-request-a-refund-for-a-paid-claude-plan"
     },
+    "https://support.claude.com/en/articles/12618689-claude-code-on-the-web": {
+      "since": "2026-10-16",
+      "reason": "moved -> https://support.claude.com/en/articles/12618689-use-claude-code-in-the-cloud"
+    },
     "https://support.claude.com/en/articles/12650343-use-claude-for-excel": {
       "since": "2026-08-25",
       "reason": "soft-404 (HTML shell)"
@@ -1478,6 +1482,10 @@
     "https://support.claude.com/en/articles/16989529-invite-people-outside-your-organization-to-an-artifact": {
       "since": "2026-09-24",
       "reason": "moved -> https://support.claude.com/en/articles/9547008-share-artifacts"
+    },
+    "https://support.claude.com/en/articles/17274727-artifact-usage-promotion": {
+      "since": "2026-10-16",
+      "reason": "HTTP 404"
     },
     "https://support.claude.com/en/articles/7996906-reporting-blocking-and-removing-content-from-claude": {
       "since": "2026-08-25",

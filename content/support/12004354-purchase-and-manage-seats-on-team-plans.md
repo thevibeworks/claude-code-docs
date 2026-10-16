@@ -25,6 +25,22 @@ Your plan has a total seat allocation (e.g., 30 Standard seats and 10 Premium se
 
 ---
 
+## Who can use a seat
+
+Each seat on a Team plan is assigned to one named individual, and only that person may use it. This means:
+
+- Only the assigned user may sign in to the account. Users can't share login credentials or let others use their account.
+
+- Users can't route their work through another user's account to use that user's remaining usage.
+
+- Unused usage on one seat can't be transferred to another user.
+
+If a user regularly needs more capacity, an owner can move them to a Premium seat or turn on usage credits. Learn more about **[managing usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970)**.
+
+Reassigning a seat is meant for normal team changes, such as a user joining, leaving, or changing roles. It isn't designed for rotating one seat among several active users.
+
+---
+
 ## Purchase new seats
 
 **Important:** If you want to upgrade an existing member from Standard to Premium and already have Premium seats available, you don't need to purchase a new seat. Use the seat tier reassignment in **[Organization settings > Members](https://claude.ai/admin-settings/members)** instead. See **[Upgrade a Standard seat to Premium](#h_e7a7f4f396)** below.

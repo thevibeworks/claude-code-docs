@@ -68,7 +68,7 @@ Claude loads a skill automatically when the work calls for it. Type **/** in the
 
 **Import from GitHub** works with private repositories too, once you add a GitHub token under **Settings > Credentials**. An import has two 100 MB limits, one on the repository's download from GitHub and one on the combined size of its skill folders.
 
-Your admin can also add skills for everyone in your organization from claude.ai. See [Organization skills](/docs/claude-science/admin-controls#organization-skills).
+Your admin can also add skills for your organization from claude.ai. See [Organization skills](/docs/claude-science/admin-controls#organization-skills).
 
 ### Update skills imported from GitHub
 

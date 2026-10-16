@@ -4,7 +4,7 @@ Code Review analyzes your GitHub pull requests and posts findings as inline comm
 
 This article covers how to enable Code Review, configure review triggers, customize what gets flagged, and troubleshoot common setup issues.
 
-**Note:** Code Review is in research preview and available on Team and Enterprise plans. It isn’t available for organizations with zero data retention enabled. Code Review usage is billed separately through usage credits and doesn’t count against your plan’s included usage.
+**Note:** Code Review is available on Team and Enterprise plans. It isn’t available for organizations with zero data retention enabled. Code Review usage is billed separately through usage credits and doesn’t count against your plan’s included usage.
 
 ---
 
