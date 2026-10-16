@@ -49,7 +49,7 @@ Files in this directory are written with owner-only permissions so other OS acco
 
 The logs directory contains `main.log` (application and configuration-validation events), `cowork_vm_node.log` (sandbox VM activity), `claude.ai-web.log` (renderer events), and `mcp.log` / `mcp-server-<name>.log` (MCP connection events).
 
-Separately from the application-data directory, Claude Desktop writes user-visible outputs (Artifacts and scheduled-task results) to `~/Claude/` in your home directory, or `~/Documents/Claude/` on legacy installs. This folder is intended for you to browse directly and is not removed when you delete the application-data directory.
+Separately from the application-data directory, Claude Desktop writes user-visible outputs (Artifacts and scheduled-task results) to `~/Claude/` in your home directory, or `~/Documents/Claude/` on legacy installs. This folder is intended for you to browse directly and is not removed when you delete the application-data directory. To back up a user's data, copy every location listed under [Copy the data to the new device](#copy-the-data-to-the-new-device).
 
 ## Memory
 
@@ -57,7 +57,7 @@ During Cowork sessions, Claude writes short Markdown files recording what it has
 
 Users can review and delete individual entries, or pause memory for new sessions and conversations (existing files are kept but not read or updated), under **Settings → Cowork → Memory**. The same page exposes a **Global instructions** editor for the `CLAUDE.md` file that is included in every session.
 
-Each [project](/docs/cowork/guide/projects) also keeps its own memory under `local-agent-mode-sessions/.../spaces/<projectId>/memory/`. Cowork sessions inside a project read and update the project's memory rather than the files under `local-agent-mode-sessions/.../memory/memory/`. A Chat conversation inside a project can read the project's memory but cannot change it, as described under [Chat conversations](#chat-conversations).
+Each [project](/docs/cowork/guide/projects) also keeps its own memory under `local-agent-mode-sessions/.../spaces/<projectId>/memory/`. Cowork sessions inside a project read and update the project's memory rather than the files under `local-agent-mode-sessions/.../memory/memory/`. A Chat conversation inside a project can also read and update the project's memory, as described under [Chat conversations](#chat-conversations).
 
 ## Chat conversations
 
@@ -65,7 +65,7 @@ Each [project](/docs/cowork/guide/projects) also keeps its own memory under `loc
 
 For the questions security reviews most often ask about Chat:
 
-* **Memory is read-only and applies only inside projects.** A Chat conversation inside a project can read that project's memory unless memory was paused when the conversation started, but cannot add to or change it. Chat conversations outside a project do not read or update memory.
+* **Chat reads and updates memory only inside projects.** A Chat conversation inside a project can read and update that project's memory unless memory was paused when the conversation started. Chat conversations outside a project don't read or update memory.
 * **Project folders are read-only.** A Chat conversation inside a project can read files in folders added to the project in Claude Desktop, under the conditions in [Project folders in Chat](/docs/third-party/claude-desktop/chat#project-folders-in-chat), and cannot change them.
 * **Claude cannot search past chats.** Users can search their own conversations in the app, which scans the per-session files on the device on demand, but there is no index of conversation content, server-side or local (history exists only as the per-session files above), and a Chat conversation has no tools for listing or reading other sessions' transcripts. Each conversation is isolated to its own directory.
 * **The advanced file analysis sandbox writes only inside the session directory.** When [advanced file analysis](/docs/third-party/claude-desktop/chat#advanced-file-analysis) is enabled, code runs in a local sandbox. Commands in it can reach the hosts in `coworkEgressAllowedHosts`, as described under [Sandbox network access](/docs/third-party/claude-desktop/chat#sandbox-network-access). The sandbox writes only to the conversation's `outputs/` directory, and reads its `uploads/` directory, its transcript, and its saved tool results plus, for a conversation inside a project, that project's memory. For a conversation inside a project, the sandbox can also read the folders added to the project in Claude Desktop, under the conditions in [Advanced file analysis](/docs/third-party/claude-desktop/chat#advanced-file-analysis).

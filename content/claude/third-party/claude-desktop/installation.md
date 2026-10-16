@@ -101,11 +101,12 @@ Also confirm that the [in-app configuration window](/docs/third-party/claude-des
 
 If the app shows the standard claude.ai sign-in screen instead of Cowork, the configuration was not read. Common causes:
 
-* `inferenceProvider` is missing, misspelled, or set to an unrecognized value
+* `inferenceProvider` is missing or its name is misspelled, or its value in the local configuration file or in Windows policy under `HKCU` isn't one the app recognizes
 * The configuration was applied while the app was running (fully quit and relaunch)
 * The configuration was written to the local config file but you're checking the managed location (or vice versa)
-* A required key for the chosen provider is missing; check **Help → Troubleshooting** or the application log at `~/Library/Logs/Claude-3p/main.log` (macOS) / `%LOCALAPPDATA%\Claude-3p\Logs\main.log` (Windows)
 * On Windows (v1.19367.0 and later), the configuration is in `HKCU\SOFTWARE\Policies\Claude` but machine policy is also present: any `REG_SZ`, `REG_EXPAND_SZ`, or `REG_DWORD` value directly under `HKLM\SOFTWARE\Policies\Claude` causes the app to ignore user policy entirely. In the diagnostic report (**Help → Troubleshooting → Generate Diagnostic Report**, then **Export to file**), `managed-config.txt` shows which keys the app read and lists under `Parse errors` any machine-policy values it could not use. A `REG_EXPAND_SZ` value shows as present in `reg query` output while the app reports the managed configuration as invalid or absent, because the app counts the value as machine policy but cannot read its contents
+
+If the app shows a configuration error instead, it read the configuration but can't use it. For example, a required key for the chosen provider is missing or invalid, or a macOS configuration profile, Windows policy under `HKLM`, or the root-owned policy file on Linux sets [`inferenceProvider`](/docs/third-party/claude-desktop/configuration#inferenceprovider) to a value the app doesn't recognize. Check **Help → Troubleshooting** or the application log at `~/Library/Logs/Claude-3p/main.log` (macOS) / `%LOCALAPPDATA%\Claude-3p\Logs\main.log` (Windows).
 
 ## Troubleshooting
 
@@ -115,7 +116,7 @@ The report contains the configuration state, application logs, and environment d
 
 ### Cowork workspace or Claude CLI fails to download
 
-Claude Desktop downloads the VM workspace bundle that Cowork uses and the Claude CLI binary (the agent helper described under [Endpoint security software](#endpoint-security-software)) from `downloads.claude.ai` whenever a device does not have the versions the app needs. When the workspace download fails or the downloaded file does not pass verification, the app shows **Failed to start Claude's workspace** with the download error under it, for example a message that begins "Checksum/decompress failed", "Download failed", or "Request error". When the Claude CLI download fails on a device that has no earlier copy, Chat conversations and Cowork tasks fail to start with "Host Claude Code binary not available. Check that the download completed."
+Claude Desktop downloads the VM workspace bundle that Cowork uses and the Claude CLI binary (the agent helper described under [Endpoint security software](#endpoint-security-software)) from `downloads.claude.ai` whenever a device does not have the versions the app needs. When the workspace download fails or the downloaded file does not pass verification, the app shows **Failed to start Claude's workspace** with the download error under it, for example a message that begins "Claude's workspace download was not the expected file", "Claude's workspace download could not be unpacked on this computer", "Checksum mismatch", "Download failed", or "Request error". When the Claude CLI download fails on a device that has no earlier copy, Chat conversations and Cowork tasks fail to start with "Host Claude Code binary not available. Check that the download completed."
 
 Restarting the app tries the download again, which is enough when an earlier attempt was only interrupted. When the same message returns on every attempt, the usual cause is a proxy, secure web gateway, or web filter between the device and `downloads.claude.ai`. Such equipment can block the app's requests, cut off the transfer partway (the workspace bundle is more than 1 GB), or return its own page in place of the file. Less often, security software on the device locks or quarantines the downloaded files.
 
@@ -183,7 +184,7 @@ For AppLocker, allowlist by publisher rather than path. Publisher rules match th
 
 ## Offline installation
 
-Standard installs fetch two large runtime components from `downloads.claude.ai` at session start: the VM workspace bundle that Cowork sessions run in, and the Claude CLI binary. For networks that cannot reach `downloads.claude.ai`, Anthropic publishes an offline installer variant with both components built into the installer package and verified against checksums compiled into the application, so sessions can start without any connection to Anthropic. The offline installers are several gigabytes larger than the standard ones.
+Standard installs fetch two large runtime components from `downloads.claude.ai`: the VM workspace bundle that Cowork sessions run in, and the Claude CLI binary. For networks that cannot reach `downloads.claude.ai`, Anthropic publishes an offline installer variant with both components built into the installer package and verified against checksums compiled into the application, so sessions can start without any connection to Anthropic. The offline installers are several gigabytes larger than the standard ones.
 
 Each supported platform and architecture has a fixed download URL that serves the current offline installer:
 

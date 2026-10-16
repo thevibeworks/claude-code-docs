@@ -196,7 +196,7 @@ The bootstrap request is always authenticated: either each user signs in and the
     | Bootstrap OIDC parameters → Scopes | `openid offline_access YOUR_CLIENT_ID/.default` |
     | Bootstrap OIDC parameters → Redirect port | leave empty for Entra; set for Okta |
 
-    Click **Sign in** to test against your typed values. Once authenticated, the card shows the keys your server supplied. Click **Export** and choose the template format your MDM expects (`.mobileconfig`, ADMX, Intune OMA-URI JSON, or `.reg`). See [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration) for per-platform instructions.
+    Click **Sign in** to test against your typed values. Once authenticated, the card shows the keys your server supplied. Click **Export** and choose the template format your MDM expects (such as `.mobileconfig`, ADMX, or `.reg`). See [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration) for per-platform instructions.
   </Step>
 </Steps>
 

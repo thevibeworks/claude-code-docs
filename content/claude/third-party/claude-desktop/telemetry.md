@@ -32,7 +32,7 @@ On Claude Desktop 2.7032.0 and later, the [**Keep only your organization ID and 
 
 ### Non-essential telemetry
 
-Product-usage analytics: feature adoption, session counts, UI interactions. Used to understand how Claude Desktop is used in aggregate. Contains no prompt or response content. Also gates the **Send** button in Help → Generate Diagnostic Report; with this disabled, diagnostic bundles can only be saved locally.
+Product-usage analytics: feature adoption, session counts, UI interactions. Used to understand how Claude Desktop is used in aggregate. Contains no prompt or response content. Also gates the **Send to Anthropic** button in **Help → Troubleshooting → Generate Diagnostic Report**; with this disabled, diagnostic bundles can only be saved locally.
 
 | Setting | Default | Effect when `true` |
 | - | - | - |
@@ -71,6 +71,10 @@ For collector authentication headers, extra resource attributes, and the log lev
 ### Collector endpoint and headers
 
 Set [`otlpEndpoint`](/docs/third-party/claude-desktop/configuration#otlpendpoint) to the base address of your collector's OTLP/HTTP receiver, for example `https://otel-collector.example.com:4318`. The app appends the OpenTelemetry request paths itself (`/v1/logs`, `/v1/metrics`, and `/v1/traces` when [traces](#traces-beta) are enabled), so enter the address without those suffixes. A path prefix in front of them, such as `https://observability.example.com/otlp`, is kept.
+
+<Note>
+  With `otlpEndpoint` set, all signals go to this one address. Claude Desktop sets Claude Code's per-signal endpoint variables (`OTEL_EXPORTER_OTLP_LOGS_ENDPOINT`, `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`, and `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`) itself. Chat, Cowork, and Code sessions ignore the same variables in Claude Code's own settings on the device, including managed settings. To send signals to different places, route them in your collector.
+</Note>
 
 The receiver must implement the OpenTelemetry protocol (OTLP) over HTTP in both its protobuf and JSON encodings, as an OpenTelemetry Collector does by default. If your logging or SIEM platform accepts only its own HTTP ingestion format, run an OpenTelemetry Collector that receives OTLP and forwards to that platform, and set `otlpEndpoint` to the collector's address. Each device opens its own connection to the collector, so the collector must present a TLS certificate the operating system trusts. See [TLS-intercepting proxies](/docs/third-party/claude-desktop/network-proxy#tls-intercepting-proxies) if a TLS-intercepting proxy sits in between.
 

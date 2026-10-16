@@ -20,8 +20,8 @@ The migration never changes or deletes the Claude (third-party) data.
 
 * Chats, which appear in Cowork
 * Cowork sessions and projects, with their folders, except a few broad or network folders
-* Code tab sessions in folders Claude Code trusts
-* Scheduled tasks, on or off as before, except Code tab tasks in untrusted folders
+* Code sessions in folders Claude Code trusts
+* Scheduled tasks, on or off as before, except Code tasks in untrusted folders
 * Local MCP servers and most desktop extensions, as before
 * App preferences
 
@@ -29,13 +29,13 @@ The migration never changes or deletes the Claude (third-party) data.
 
 * Skills, and plugins users uploaded, after the [skills settings](#before-you-begin)
 * Personal instructions the account doesn't have yet, after **Add instructions** in **Settings > Import**
-* Code tab sessions in untrusted folders, after the user trusts the folder and adds them in **Settings > Import**
+* Code sessions in untrusted folders, after the user trusts the folder and adds them in **Settings > Import**
 
 **Not migrated:**
 
 * Remote connectors, and plugins users didn't upload. Set them up again.
 * Skills with plugin components or an unreadable header, or over about 10 MB or 200 files
-* Code tab scheduled tasks in folders Claude Code doesn't trust
+* Scheduled Code tasks in folders Claude Code doesn't trust
 * A few broad or network folders, such as the home folder. The user attaches them again.
 
 Migrated sessions stay on the computer and don't sync to claude.ai. Continuing one sends its content to Anthropic, and uploaded skills, added instructions, and MCP tool on/off settings go to the user's account. Claude also sends standard usage data.
@@ -57,10 +57,10 @@ Special cases:
 After the change, most of your cloud provider settings in the [configuration reference](/docs/third-party/claude-desktop/configuration) stop working without warning, even if their keys stay deployed, including permission, plugin, and browser limits. Set up replacements first:
 
 * Cowork's telemetry and network egress: your organization settings.
-* The Code tab's telemetry, SSH host limits (any host is allowed until you set a list), and session retention (`cleanupPeriodDays`): Claude Code's managed settings.
+* Code sessions' telemetry, SSH host limits (any host is allowed until you set a list), and session retention (`cleanupPeriodDays`): Claude Code's managed settings.
 * Remote [managed MCP servers](/docs/third-party/claude-desktop/configuration#managedmcpservers): add them as connectors. The Microsoft 365 connector keeps working.
 
-Telemetry opt-outs, the Code tab's egress list, Cowork's session retention, and locally run managed MCP servers have no replacement. The Code tab's command sandbox stays on only where [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) is set. Migrated plugins aren't scanned. Migrated skills and plugins arrive on or off as before, with their hooks and tool permissions.
+Telemetry opt-outs, the egress list for Code sessions, Cowork's session retention, and locally run managed MCP servers have no replacement. The command sandbox in Code sessions stays on only where [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) is set. Migrated plugins aren't scanned. Migrated skills and plugins arrive on or off as before, with their hooks and tool permissions.
 
 ## Migrate your fleet
 

@@ -115,7 +115,7 @@ The following example enables the toolset and disables `web_fetch`:
   var agent = await client.Beta.Agents.Create(new()
   {
       Name = "Coding Assistant",
-      Model = new("claude-opus-5-5"),
+      Model = BetaManagedAgentsModel.ClaudeOpus5_5,
       Tools =
       [
           new BetaManagedAgentsAgentToolset20260401Params
@@ -134,7 +134,7 @@ The following example enables the toolset and disables `web_fetch`:
   agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
   	Name: "Coding Assistant",
   	Model: anthropic.BetaManagedAgentsModelConfigParams{
-  		ID: "claude-opus-5-5",
+  		ID: anthropic.BetaManagedAgentsModelClaudeOpus5_5,
   	},
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
   		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{
@@ -362,7 +362,7 @@ The following example creates an agent with the built-in toolset and one custom 
   var agent = await client.Beta.Agents.Create(new()
   {
       Name = "Weather Agent",
-      Model = new("claude-opus-5-5"),
+      Model = BetaManagedAgentsModel.ClaudeOpus5_5,
       Tools =
       [
           new BetaManagedAgentsAgentToolset20260401Params
@@ -393,7 +393,7 @@ The following example creates an agent with the built-in toolset and one custom 
   agent, err := client.Beta.Agents.New(ctx, anthropic.BetaAgentNewParams{
   	Name: "Weather Agent",
   	Model: anthropic.BetaManagedAgentsModelConfigParams{
-  		ID: "claude-opus-5-5",
+  		ID: anthropic.BetaManagedAgentsModelClaudeOpus5_5,
   	},
   	Tools: []anthropic.BetaAgentNewParamsToolUnion{{
   		OfAgentToolset20260401: &anthropic.BetaManagedAgentsAgentToolset20260401Params{

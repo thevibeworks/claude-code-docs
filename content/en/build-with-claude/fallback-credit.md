@@ -247,21 +247,21 @@ The following example makes a request that may be refused and redeems the credit
   [
       new() { Role = Role.User, Content = "Hello, Claude" },
   ];
-  MessageCreateParams Request(string model) => new()
+  MessageCreateParams Request(Model model) => new()
   {
       Model = model,
       MaxTokens = 1024,
       Messages = requestMessages,
       Betas = [beta],
   };
-  var response = await client.Beta.Messages.Create(Request("claude-fable-5"));
+  var response = await client.Beta.Messages.Create(Request(Model.ClaudeFable5));
 
   if (
       response.StopReason == BetaStopReason.Refusal
       && response.StopDetails is { FallbackCreditToken: string token } details
   )
   {
-      var exactBody = Request("claude-opus-4-8") with { FallbackCreditToken = token };
+      var exactBody = Request(Model.ClaudeOpus4_8) with { FallbackCreditToken = token };
       var attempt = exactBody;
       // Prefer the continuation shape unless the claim is false
       if (details.FallbackHasPrefillClaim is not false)
@@ -308,7 +308,7 @@ The following example makes a request that may be refused and redeems the credit
               when (!retryError.Message.Contains("redemption temporarily unavailable"))
           {
               // The token itself was rejected: forfeit it and retry without.
-              response = await client.Beta.Messages.Create(Request("claude-opus-4-8"));
+              response = await client.Beta.Messages.Create(Request(Model.ClaudeOpus4_8));
           }
       }
   }

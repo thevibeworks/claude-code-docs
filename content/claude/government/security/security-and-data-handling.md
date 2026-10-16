@@ -32,7 +32,7 @@ In Cowork, and for the file-analysis steps in Chat, the Claude Desktop applicati
   </Accordion>
 
   <Accordion title="Which file types need the sandbox in Chat?">
-    Some attachment types, such as Excel and PowerPoint, need a conversion step that runs inside the sandbox. Enabling **Advanced file analysis in Chat** under **Product availability** on the [Config](/docs/government/config/settings#product-availability) page lets Claude run code against attachments in an offline sandbox, including that conversion. You do not need to make Cowork available to get this capability. See [Chat in Claude Desktop](/docs/third-party/claude-desktop/chat) for how Chat handles file attachments.
+    Some attachment types, such as Excel and PowerPoint, need a conversion step that runs inside the sandbox. Enabling **Advanced file analysis in Chat** under **Product availability** on the [Config](/docs/government/config/settings#product-availability) page lets Claude run code against attachments in a sandbox, including that conversion. You do not need to make Cowork available to get this capability. See [Chat in Claude Desktop](/docs/third-party/claude-desktop/chat) for how Chat handles file attachments.
   </Accordion>
 </AccordionGroup>
 

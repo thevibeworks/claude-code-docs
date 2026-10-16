@@ -975,7 +975,7 @@ Before (Claude Sonnet 4.6):
 
   var parameters = new MessageCreateParams
   {
-      Model = "claude-sonnet-4-6",
+      Model = Model.ClaudeSonnet4_6,
       MaxTokens = 16000,
       Thinking = new ThinkingConfigEnabled(budgetTokens: 10000),
       Messages = [new() { Role = Role.User, Content = "..." }]
@@ -989,7 +989,7 @@ Before (Claude Sonnet 4.6):
   client := anthropic.NewClient()
 
   response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-  	Model:     "claude-sonnet-4-6",
+  	Model:     anthropic.ModelClaudeSonnet4_6,
   	MaxTokens: 16000,
   	Thinking:  anthropic.ThinkingConfigParamOfEnabled(10000),
   	Messages: []anthropic.MessageParam{
@@ -1006,7 +1006,7 @@ Before (Claude Sonnet 4.6):
   AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
   MessageCreateParams params = MessageCreateParams.builder()
-      .model("claude-sonnet-4-6")
+      .model(Model.CLAUDE_SONNET_4_6)
       .maxTokens(16000L)
       .enabledThinking(10000L)
       .addUserMessage("...")
@@ -1112,7 +1112,7 @@ After (Claude Sonnet 5.5):
 
   var parameters = new MessageCreateParams
   {
-      Model = "claude-sonnet-5-5",
+      Model = Model.ClaudeSonnet5_5,
       MaxTokens = 16000,
       Thinking = new ThinkingConfigAdaptive(),
       OutputConfig = new OutputConfig { Effort = Effort.High }, // or Max, Xhigh, Medium, Low
@@ -1127,7 +1127,7 @@ After (Claude Sonnet 5.5):
   client := anthropic.NewClient()
 
   response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-  	Model:     "claude-sonnet-5-5",
+  	Model:     anthropic.ModelClaudeSonnet5_5,
   	MaxTokens: 16000,
   	Thinking: anthropic.ThinkingConfigParamUnion{
   		OfAdaptive: &anthropic.ThinkingConfigAdaptiveParam{},
@@ -1149,7 +1149,7 @@ After (Claude Sonnet 5.5):
   AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
   MessageCreateParams params = MessageCreateParams.builder()
-      .model("claude-sonnet-5-5")
+      .model(Model.CLAUDE_SONNET_5_5)
       .maxTokens(16000L)
       .thinking(ThinkingConfigAdaptive.builder().build())
       .outputConfig(OutputConfig.builder()
