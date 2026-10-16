@@ -239,7 +239,7 @@ The following request opts into dropping rather than rejecting. On a first turn 
   var response = await client.Beta.Messages.Create(
       new()
       {
-          Model = "claude-fable-5-1",
+          Model = Model.ClaudeFable5_1,
           MaxTokens = 16000,
           Thinking = new BetaThinkingConfigAdaptive
           {
@@ -275,7 +275,7 @@ The following request opts into dropping rather than rejecting. On a first turn 
   client := anthropic.NewClient()
 
   response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
-  	Model:     "claude-fable-5-1",
+  	Model:     anthropic.ModelClaudeFable5_1,
   	MaxTokens: 16000,
   	Thinking: anthropic.BetaThinkingConfigParamUnion{
   		OfAdaptive: &anthropic.BetaThinkingConfigAdaptiveParam{
@@ -308,12 +308,13 @@ The following request opts into dropping rather than rejecting. On a first turn 
   import com.anthropic.models.beta.messages.BetaThinkingConfigAdaptive;
   import com.anthropic.models.beta.messages.BetaThinkingPrefixMismatchBehavior;
   import com.anthropic.models.beta.messages.MessageCreateParams;
+  import com.anthropic.models.messages.Model;
 
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model("claude-fable-5-1")
+          .model(Model.CLAUDE_FABLE_5_1)
           .maxTokens(16000L)
           .addBeta(AnthropicBeta.THINKING_BINDING_CONTROLS_2026_08_01)
           .thinking(BetaThinkingConfigAdaptive.builder()
@@ -622,7 +623,7 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
       var response = await client.Beta.Messages.Create(
           new()
           {
-              Model = "claude-fable-5-1",
+              Model = Model.ClaudeFable5_1,
               MaxTokens = 16000,
               Thinking = new BetaThinkingConfigAdaptive
               {
@@ -659,7 +660,7 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
   for _, userTurn := range userTurns {
   	messages = append(messages, anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock(userTurn)))
   	response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
-  		Model:     "claude-fable-5-1",
+  		Model:     anthropic.ModelClaudeFable5_1,
   		MaxTokens: 16000,
   		Thinking: anthropic.BetaThinkingConfigParamUnion{
   			OfAdaptive: &anthropic.BetaThinkingConfigAdaptiveParam{
@@ -693,6 +694,7 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
   import com.anthropic.models.beta.messages.BetaThinkingConfigAdaptive;
   import com.anthropic.models.beta.messages.BetaThinkingPrefixMismatchBehavior;
   import com.anthropic.models.beta.messages.MessageCreateParams;
+  import com.anthropic.models.messages.Model;
 
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
@@ -703,7 +705,7 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
 
       // The builder's message list grows across turns: each assistant turn goes back exactly as returned
       MessageCreateParams.Builder conversation = MessageCreateParams.builder()
-          .model("claude-fable-5-1")
+          .model(Model.CLAUDE_FABLE_5_1)
           .maxTokens(16000L)
           .thinking(BetaThinkingConfigAdaptive.builder()
               .blockBinding(BetaThinkingBlockBinding.builder()
@@ -1049,7 +1051,7 @@ Run the following example from an [older account](https://platform.claude.com/do
       var response = await client.Beta.Messages.Create(
           new()
           {
-              Model = "claude-fable-5-1",
+              Model = Model.ClaudeFable5_1,
               MaxTokens = 16000,
               Thinking = new BetaThinkingConfigAdaptive(),
               // Only the last request adds a system prompt, which changes the prefix on purpose
@@ -1090,7 +1092,7 @@ Run the following example from an [older account](https://platform.claude.com/do
   		system = []anthropic.BetaTextBlockParam{{Text: "Answer briefly."}}
   	}
   	response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
-  		Model:     "claude-fable-5-1",
+  		Model:     anthropic.ModelClaudeFable5_1,
   		MaxTokens: 16000,
   		Thinking: anthropic.BetaThinkingConfigParamUnion{
   			OfAdaptive: &anthropic.BetaThinkingConfigAdaptiveParam{},
@@ -1126,6 +1128,7 @@ Run the following example from an [older account](https://platform.claude.com/do
   import com.anthropic.models.beta.messages.BetaMessage;
   import com.anthropic.models.beta.messages.BetaThinkingConfigAdaptive;
   import com.anthropic.models.beta.messages.MessageCreateParams;
+  import com.anthropic.models.messages.Model;
 
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
@@ -1137,7 +1140,7 @@ Run the following example from an [older account](https://platform.claude.com/do
 
       // The builder's message list grows across turns: each assistant turn goes back exactly as returned
       MessageCreateParams.Builder conversation = MessageCreateParams.builder()
-          .model("claude-fable-5-1")
+          .model(Model.CLAUDE_FABLE_5_1)
           .maxTokens(16000L)
           .thinking(BetaThinkingConfigAdaptive.builder().build())
           .addBeta(AnthropicBeta.THINKING_BINDING_CONTROLS_2026_08_01);
@@ -1557,7 +1560,7 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
   var response = await client.Beta.Messages.Create(
       new()
       {
-          Model = "claude-fable-5-1",
+          Model = Model.ClaudeFable5_1,
           MaxTokens = 16000,
           Thinking = new BetaThinkingConfigAdaptive
           {
@@ -1579,7 +1582,7 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
 
   // compactedMessages: the summary message, then the kept turns as returned
   response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
-  	Model:     "claude-fable-5-1",
+  	Model:     anthropic.ModelClaudeFable5_1,
   	MaxTokens: 16000,
   	Thinking: anthropic.BetaThinkingConfigParamUnion{
   		OfAdaptive: &anthropic.BetaThinkingConfigAdaptiveParam{
@@ -1605,13 +1608,14 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
   import com.anthropic.models.beta.messages.BetaThinkingConfigAdaptive;
   import com.anthropic.models.beta.messages.BetaThinkingPrefixMismatchBehavior;
   import com.anthropic.models.beta.messages.MessageCreateParams;
+  import com.anthropic.models.messages.Model;
 
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       // compactedMessages: the summary message, then the kept turns as returned
       MessageCreateParams params = MessageCreateParams.builder()
-          .model("claude-fable-5-1")
+          .model(Model.CLAUDE_FABLE_5_1)
           .maxTokens(16000L)
           .thinking(BetaThinkingConfigAdaptive.builder()
               .blockBinding(BetaThinkingBlockBinding.builder()

@@ -112,7 +112,7 @@ Models in research preview also need the `fast-mode-2026-02-01` [beta header](ht
 
   var response = await client.Messages.Create(new MessageCreateParams
   {
-      Model = "claude-opus-5-5",
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
       Speed = Speed.Fast,
       Messages = [
@@ -298,7 +298,7 @@ The response `usage` object includes a `speed` field that indicates which speed 
 
   var response = await client.Messages.Create(new MessageCreateParams
   {
-      Model = "claude-opus-5-5",
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 1024,
       Speed = Speed.Fast,
       Messages = [new() { Role = Role.User, Content = "Hello" }],
@@ -547,7 +547,7 @@ Because setting `max_retries` (typescript, java, php: `maxRetries`; csharp: `Max
   var message = await CreateMessageWithFastFallback(
       new MessageCreateParams
       {
-          Model = "claude-opus-5-5",
+          Model = Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           Messages = [new() { Role = Role.User, Content = "Hello" }],
           Speed = Speed.Fast,

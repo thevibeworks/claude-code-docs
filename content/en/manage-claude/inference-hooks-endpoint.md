@@ -299,7 +299,7 @@ claude.ai doesn't always name this tool `web_search`, so don't match on the name
 
 ### Third-party tools
 
-A third-party tool is one on a server that Anthropic knows of, such as a claude.ai connector or an MCP server that the request names in `mcp_servers`. This doesn't mean Anthropic has vetted the server.
+A third-party tool is one on a server that Anthropic knows of, such as a claude.ai connector or an MCP server that the request names in `mcp_servers`. This doesn't mean Anthropic has vetted the server. In voice mode, a call to a claude.ai connector's tool is `"client"` instead.
 
 | Field             | Present              | Description                                                                                                                                                         |
 | ----------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

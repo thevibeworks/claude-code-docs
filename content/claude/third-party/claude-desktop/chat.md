@@ -10,7 +10,7 @@
   When [Unified Claude](/docs/third-party/claude-desktop/unified-claude) is on, a message sent from the home screen starts a Cowork session on a device that can run Cowork.
 </Note>
 
-Chat in Claude Desktop on third-party (3P) is a conversational surface for quick questions and drafting. Unlike [Cowork](/docs/cowork/overview) and [Code](/docs/third-party/claude-desktop/code), which run agentic sessions with access to folders you grant and a code-execution environment, a Chat conversation runs with a deliberately small tool surface: it can search and fetch the web under your admin configuration, read files attached to the conversation, read the project's memory and the files in the project's folders when the conversation is inside a project, write files into a scratch space of its own, and use skills from the plugins you provision, and nothing else on the machine. Chat is off by default and is enabled with a single configuration key.
+Chat in Claude Desktop on third-party (3P) is a conversational surface for quick questions and drafting. Unlike [Cowork](/docs/cowork/overview) and [Code](/docs/third-party/claude-desktop/code), which run agentic sessions with access to folders you grant and a code-execution environment, a Chat conversation runs with a deliberately small tool surface: it can search and fetch the web under your admin configuration, read files attached to the conversation, read and update the project's memory and read the files in the project's folders when the conversation is inside a project, write files into a scratch space of its own, and use skills from the plugins you provision, and nothing else on the machine. Chat is off by default and is enabled with a single configuration key.
 
 Chat conversations run against your configured inference provider, and their history is stored on the user's device. See [User identity and local data](/docs/third-party/claude-desktop/data-storage#chat-conversations) for exactly what is written where and what can leave the device.
 
@@ -21,7 +21,7 @@ Chat conversations run against your configured inference provider, and their his
 | Web search | Same options and rules as Cowork and Code sessions; depends on your provider or a configured search server. See [Web search](/docs/third-party/claude-desktop/web-tools#web-search). |
 | Web fetch | Runs in the app on the device, never inside a sandbox. Every fetch is checked against `coworkEgressAllowedHosts`; with no allowlist configured, fetch is disabled. See [Web fetch](/docs/third-party/claude-desktop/web-tools#web-fetch). |
 | Attached files | Read-only access to files the user attaches to the conversation. Each attachment is copied or hard-linked into the conversation's local uploads directory. |
-| Project memory | For a conversation inside a project, read-only access to that project's [memory](/docs/third-party/claude-desktop/data-storage#memory): the notes written during Cowork sessions in that project. Not used if memory was paused when the conversation started, or for conversations outside a project. |
+| Project memory | For a conversation inside a project, that project's [memory](/docs/third-party/claude-desktop/data-storage#memory): Claude can read, add to, and update the notes that Chat conversations and Cowork sessions in that project share. Not used if memory was paused when the conversation started, or for conversations outside a project. |
 | Project folders | For a conversation inside a project, read-only access to folders added to the project in Claude Desktop. Claude can list and read files in them. See [Project folders in Chat](#project-folders-in-chat). |
 | Scratch directory | A per-conversation working directory where Claude can create and edit files (documents, data files, HTML artifacts) and offer them to the user for download or preview. |
 | Managed MCP servers | The servers you provision via [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) are available in Chat with the same approval model as Cowork sessions: a tool's `toolPolicy` of `"allow"` pre-approves it, `"blocked"` blocks it, and `"ask"` requires user approval on every call. A tool with no policy asks the user, who can allow it once or grant standing approval, as in Cowork. |
@@ -35,20 +35,19 @@ Chat conversations run against your configured inference provider, and their his
 
 For a conversation inside a project, Claude can list and read files in folders added to the project in Claude Desktop, and can't change them.
 
-* **Folders the user adds.** To have Claude read a folder, the user adds it to the project in Claude Desktop and starts a new conversation. For a folder that was on the project before Chat could read folders, the user adds it to the project again.
+* **Folders the user adds.** To have Claude read a folder, the user adds it to the project in Claude Desktop and starts a new conversation. For a folder that an [import](/docs/third-party/claude-desktop/import) put on the project, or that was on the project before Chat could read folders, the user adds it to the project again.
 * **Folders you allow.** If you set [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders), the list also limits which of a project's folders Claude reads.
 
 ## What a Chat conversation cannot do
 
 Apart from reading [the folders added to a project](#project-folders-in-chat), in a Chat conversation Claude cannot:
 
-* **Read or write the filesystem** beyond the conversation's own uploads and scratch directories, its own transcript and saved tool results (read-only), and, inside a project, the project's memory (read-only). The tool for requesting folder access is removed, and the app refuses folder grants to a Chat conversation even when requested through internal interfaces.
+* **Read or write the filesystem** beyond the conversation's own uploads and scratch directories, its own transcript and saved tool results (read-only), and, inside a project, the project's memory. The tool for requesting folder access is removed, and the app refuses folder grants to a Chat conversation even when requested through internal interfaces.
 * **Run code on the host.** There is no shell access. With advanced file analysis off (the default), the sandbox VM is never started for Chat; with it on, code runs only inside the sandbox described under [Advanced file analysis](#advanced-file-analysis), never on the host itself.
 * **Run in auto mode.** Chat conversations always run in the default permission mode. Auto mode and other reduced-supervision modes are rejected for Chat regardless of `autoModeEnabled`.
 * **Create or run scheduled tasks**, or list the ones that exist.
 * **Escalate into an agentic session.** The tools that launch Code sessions or dispatch background agent tasks are removed. When a request needs capabilities Chat doesn't have, Claude says so and suggests starting the task in Cowork instead.
 * **Read other conversations.** The tools that list sessions or read other sessions' transcripts are removed, so a Chat conversation cannot search or quote your other chats, Cowork sessions, or Code sessions.
-* **Write memory.** Chat conversations cannot add to or change [memory](/docs/third-party/claude-desktop/data-storage#memory); inside a project they read the project's memory as described above, and outside a project they use no memory.
 
 These restrictions are enforced in the app's main process, not just hidden in the UI.
 

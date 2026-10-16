@@ -2210,12 +2210,13 @@ Through the SDK, set `clear_at` (csharp, go: `ClearAt`; java: `.clearAt()`; php:
   ```csharp C#
   using Anthropic.Models.Beta;
   using Anthropic.Models.Beta.Messages;
+  using Messages = Anthropic.Models.Messages;
 
   AnthropicClient client = new();
 
   var response = await client.Beta.Messages.Create(new MessageCreateParams
   {
-      Model = "claude-fable-5-1",
+      Model = Messages::Model.ClaudeFable5_1,
       MaxTokens = 4096,
       Messages =
       [
@@ -2244,7 +2245,7 @@ Through the SDK, set `clear_at` (csharp, go: `ClearAt`; java: `.clearAt()`; php:
   client := anthropic.NewClient()
 
   response, err := client.Beta.Messages.New(context.Background(), anthropic.BetaMessageNewParams{
-  	Model:     "claude-fable-5-1",
+  	Model:     anthropic.ModelClaudeFable5_1,
   	MaxTokens: 4096,
   	Messages: []anthropic.BetaMessageParam{
   		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Draft a short status update on the database migration for the team channel.")),
@@ -2273,12 +2274,13 @@ Through the SDK, set `clear_at` (csharp, go: `ClearAt`; java: `.clearAt()`; php:
   import com.anthropic.models.beta.messages.BetaMessage;
   import com.anthropic.models.beta.messages.BetaMessageParam;
   import com.anthropic.models.beta.messages.MessageCreateParams;
+  import com.anthropic.models.messages.Model;
 
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model("claude-fable-5-1")
+          .model(Model.CLAUDE_FABLE_5_1)
           .maxTokens(4096L)
           .addBeta(AnthropicBeta.MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21)
           .addUserMessage("Draft a short status update on the database migration for the team channel.")

@@ -44,8 +44,6 @@ Claude Desktop includes a built-in copy of github-mcp-server and runs it as a lo
 
 Users sign in to GitHub from the app through the OAuth device flow, so there are no personal access tokens to issue, distribute, or rotate. You register one OAuth app in your GitHub organization and ship its client ID in the entry; each user then authorizes their own sign-in.
 
-The local connector is in beta, and the in-app configuration window marks it with a **Beta** pill.
-
 ### Set up the local connector
 
 <Steps>

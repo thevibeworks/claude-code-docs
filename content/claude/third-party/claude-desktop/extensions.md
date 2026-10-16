@@ -49,6 +49,10 @@ In the exported configuration, each server is one entry in the `managedMcpServer
 ]
 ```
 
+<Note>
+  Every entry other than a [built-in server](/docs/third-party/claude-desktop/built-in-connectors) needs a `transport`. Claude Desktop doesn't read `type`, the field name that a plugin's `.mcp.json` file uses. It drops an entry that has no `transport` and reports a configuration error.
+</Note>
+
 See the [`managedMcpServers` schema](/docs/third-party/claude-desktop/configuration#managedmcpservers) in the configuration reference for every field, including static headers, OAuth, and the headers-helper executable for short-lived tokens.
 
 In the in-app configuration window, each server you add under **Connectors** has a **Test this connection** button that runs a live MCP `initialize` and `tools/list` against the server using the headers or OAuth settings you've entered, then shows the round-trip latency, the discovered tool list, or the error returned. Use it to validate reachability and credentials before exporting the configuration.
@@ -85,7 +89,7 @@ When the user selects **Connect**, Claude Desktop:
 
 To name the authorization server yourself instead of discovering it, set `oauth.clientId` together with one of `oauth.tenantId` plus `oauth.scope` (Microsoft Entra ID), a single `oauth.authorizationServer` entry (the issuer URL exactly as that server's metadata states it), or `oauth.authorizationUrl` and `oauth.tokenUrl` for a provider that serves no discovery document. With several `oauth.authorizationServer` entries, discovery runs as in step 2 and the discovered authorization server must match one of them.
 
-Tokens are stored on the device, encrypted with the operating system's secure storage (see [Credentials](/docs/third-party/claude-desktop/data-storage#credentials)), and refreshed in the background before they expire. When the authorization request carries a scope and the authorization server's metadata lists `offline_access`, Claude Desktop adds `offline_access` so that a refresh token is issued; see `oauth.scope` and `oauth.appendOfflineAccess` in the [configuration reference](/docs/third-party/claude-desktop/configuration#managedmcpservers) to change the requested scopes. If the authorization server rejects a refresh, or issued no refresh token and the access token expires, the server returns to the **Connect** state and the user signs in again.
+Tokens are stored on the device, encrypted with the operating system's secure storage (see [Credentials](/docs/third-party/claude-desktop/data-storage#credentials)), and refreshed in the background before they expire. When the authorization request carries a scope and the authorization server's metadata lists `offline_access`, Claude Desktop adds `offline_access` so that a refresh token is issued; see `oauth.scope` and `oauth.appendOfflineAccess` in the [configuration reference](/docs/third-party/claude-desktop/configuration#managedmcpservers) to change the requested scopes. If the authorization server rejects a refresh, or issued no refresh token and the access token expires, the server returns to the **Connect** state and the user signs in again. A stored sign-in belongs to the server's `url`, so after you change the `url`, each user signs in again.
 
 If sign-in fails (the callback does not arrive within 120 seconds, the authorization server rejects the registration or the redirect URI, or the identity provider completes sign-in from a host other than the authorization endpoint's), the user sees a connection error, the server keeps its **Connect** button, and `main.log` in the [logs directory](/docs/third-party/claude-desktop/data-storage#where-data-lives) records the reason. For an identity provider that completes sign-in from a different host than its authorization endpoint, list that host in `oauth.additionalRedirectReferrerHosts`. The log names the rejected host.
 
@@ -142,10 +146,6 @@ Google Workspace and Microsoft 365 each have a dedicated setup path:
 A **plugin marketplace** is a catalog file (`marketplace.json`) that lists one or more Claude plugins. You host it either as a git repository or as a plain file over HTTPS. Claude Desktop fetches it on each device, lists its plugins under **Customize → Plugins → Discover → Organization** in both **Cowork** and [**Code**](/docs/third-party/claude-desktop/code), and keeps them in sync with the revision you pin. You control which plugins are available, which install automatically, and which are required.
 
 This is the recommended way to distribute organization plugins. For a git-hosted marketplace, Claude Desktop clones with the git already installed on each device, so include git in your device baseline (Git for Windows on Windows; the Xcode Command Line Tools provide it on macOS); devices without git can use a [marketplace hosted over HTTPS](#host-the-marketplace-over-https-instead-of-git) instead. Use the [system-wide directory](#organization-plugins-admin) path when end-user devices cannot reach a git server or an HTTPS file host.
-
-<Note>
-  Plugin marketplaces are in beta and require Claude Desktop 1.17377.1 or later.
-</Note>
 
 ### Create the marketplace repository
 
@@ -207,7 +207,7 @@ You can add marketplaces directly in the [in-app configuration window](/docs/thi
   <img src="https://mintcdn.com/claude-ai/JnLDSb03Rtghdgpj/images/third-party/config-window-plugin-marketplaces.png?fit=max&auto=format&n=JnLDSb03Rtghdgpj&q=85&s=a9bdd6d5bdbf22716340aedf1cc2d16b" alt="In-app configuration window Plugins section showing the plugin marketplaces card with an open Add marketplace menu offering Blank, GitHub repo, and Git URL, above the organization plugins folder path with two loaded plugins." width="1792" height="1238" data-path="images/third-party/config-window-plugin-marketplaces.png" />
 </Frame>
 
-To write the configuration by hand instead, add the repository to the [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration) configuration key. The key is read from an MDM profile, local configuration, or the [bootstrap server](/docs/third-party/claude-desktop/bootstrap) response. In an MDM profile the value is a JSON array encoded as a string (see [Value types](/docs/third-party/claude-desktop/configuration#value-types)). In a local configuration file or the bootstrap response the value is a native JSON array.
+To write the configuration yourself instead, add the repository to the [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) configuration key. The key is read from an MDM profile, local configuration, or the [bootstrap server](/docs/third-party/claude-desktop/bootstrap) response. In an MDM profile the value is a JSON array encoded as a string (see [Value types](/docs/third-party/claude-desktop/configuration#value-types)). In a local configuration file or the bootstrap response the value is a native JSON array.
 
 ```xml .mobileconfig (macOS) theme={null}
 <key>allowedPluginMarketplaces</key>
@@ -407,6 +407,8 @@ Unless restricted by an admin, end users can add their own extensions through th
 End users cannot add remote MCP servers from the app's settings or install desktop extension files (`.mcpb`) themselves. Remote servers come from admin-provisioned `managedMcpServers`, from organization plugins, and from other plugins that bundle them, including plugins users install. A Code session can also load the servers a user defines in Claude Code's own configuration (`~/.claude.json`, a project's `.mcp.json`, or `claude mcp add`). To limit plugin-bundled servers, see [Controlling user extensions](#controlling-user-extensions). To limit the servers a Code session loads, see [Applied as managed policy](/docs/third-party/claude-desktop/code#applied-as-managed-policy).
 
 User-added extensions are stored in the user's [local data directory](/docs/third-party/claude-desktop/data-storage) and apply only to that device.
+
+Claude Desktop keeps its own record of the skills each user creates or uploads, and it removes a skill folder that the record doesn't list. To deliver skills to users, use [organization plugins](#organization-plugins-admin) or a [plugin marketplace](#plugin-marketplaces-admin).
 
 ## Controlling user extensions
 

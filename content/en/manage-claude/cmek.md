@@ -20,7 +20,7 @@ The use of CMEK is optional. Eligible organizations can **opt in** to use custom
   Enabling CMEK is permanent. Anthropic keeps no copy of your key, so misconfiguration or key loss can permanently destroy your CMEK-protected data. If you are uncertain about any step, contact your Anthropic representative before applying changes.
 
   * **Permanent data loss:** If your encryption key is deleted, scheduled for deletion, or has its key material destroyed, Anthropic cannot recover your data.
-  * **Identifier verification is mandatory:** Granting key access to an incorrect or spoofed principal can expose your data to an unauthorized party. Always verify the Anthropic identifier against the published production identities in each configuration guide. On Claude Platform on AWS, that identity is the AWS service principal published in the [AWS KMS guide](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms#claude-platform-on-aws). Never trust an identifier provided over email, chat, or any onboarding channel.
+  * **Identifier verification is mandatory:** Granting key access to an incorrect or spoofed principal can expose your data to an unauthorized party. Always verify the Anthropic identifier against the published production identities in each configuration guide. On Claude Platform on AWS, that identity is the AWS service principal published in [Set up CMEK on Claude Platform on AWS](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws). Never trust an identifier provided over email, chat, or any onboarding channel.
 </Warning>
 
 ## How it works
@@ -31,7 +31,7 @@ On Claude Platform, Anthropic recommends attaching your key to a new workspace b
 
 CMEK configuration events appear in the [Compliance API Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed). The key operations Anthropic performs against your key (such as wrapping and unwrapping data keys) do not appear in the Compliance API; they appear in your cloud provider's audit logs.
 
-Anthropic calls your key management service from its standard public IP range. If you restrict access to your key management service by IP, allow the addresses listed in [IP addresses](https://platform.claude.com/docs/en/api/ip-addresses). On Claude Platform on AWS, don't rely on IP-based restrictions for your key; scope access with the key policy described in the [AWS KMS guide](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms#claude-platform-on-aws) instead.
+Anthropic calls your key management service from its standard public IP range. If you restrict access to your key management service by IP, allow the addresses listed in [IP addresses](https://platform.claude.com/docs/en/api/ip-addresses). On Claude Platform on AWS, don't rely on IP-based restrictions for your key; scope access with the key policy described in [Set up CMEK on Claude Platform on AWS](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws) instead.
 
 ## Prerequisites
 
@@ -49,7 +49,7 @@ Except on Claude Platform on AWS (covered at the end of this section), CMEK is c
 | Google Cloud | `us-central1`, `us-east5`   |
 | Azure        | `northcentralus`, `eastus2` |
 
-On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), CMEK is available with AWS KMS keys only; Google Cloud KMS and Azure Key Vault keys cannot be registered. These region recommendations do not apply there: the key must be a single-region KMS key in the same AWS account and region as the workspace it is attached to, and its key policy must grant access to an AWS service principal rather than Anthropic's IAM role; see [Set up CMEK on Claude Platform on AWS](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms#claude-platform-on-aws). Register and attach keys in the Claude Console; the external key endpoints are also available on Claude Platform on AWS, authorized through [IAM actions](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#encryption-keys). There is no separate validation step: the key is implicitly validated when you attach it to a workspace (the attach call performs an encrypt/decrypt round), so a key policy problem surfaces at attach time rather than at registration.
+On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), CMEK is available with AWS KMS keys only; Google Cloud KMS and Azure Key Vault keys cannot be registered. These region recommendations do not apply there: the key must be a single-region KMS key in the same AWS account and region as the workspace it is attached to, and its key policy must grant access to an AWS service principal rather than Anthropic's IAM role; see [Set up CMEK on Claude Platform on AWS](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws). Register and attach keys in the Claude Console; the external key endpoints are also available on Claude Platform on AWS, authorized through [IAM actions](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#encryption-keys). There is no separate validation step: the key is implicitly validated when you attach it to a workspace (the attach call performs an encrypt/decrypt round), so a key policy problem surfaces at attach time rather than at registration.
 
 ## What CMEK protects
 
@@ -141,7 +141,7 @@ Outside of [CSAM screening](https://support.claude.com/en/articles/9020328-csam-
 
 ## Configure your provider
 
-Follow the guide for the key management service you use.
+Follow the guide for the key management service you use. On Claude Platform on AWS, follow [Set up CMEK on Claude Platform on AWS](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws) instead.
 
 <CardGroup cols={3}>
   <Card href="https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms" title="AWS KMS">

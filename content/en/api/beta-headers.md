@@ -82,7 +82,7 @@ The following examples show the same request with cURL, the `ant` CLI, and the S
   var message = await client.Beta.Messages.Create(
       new MessageCreateParams
       {
-          Model = "claude-opus-5-5",
+          Model = Model.ClaudeOpus5_5,
           MaxTokens = 1024,
           Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
           Betas = ["context-management-2025-06-27"],
