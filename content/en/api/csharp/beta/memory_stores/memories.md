@@ -37,7 +37,7 @@ Create a memory
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -271,7 +271,7 @@ List memories
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -505,7 +505,7 @@ Retrieve a memory
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -736,7 +736,7 @@ Update a memory
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -955,7 +955,7 @@ Delete a memory
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

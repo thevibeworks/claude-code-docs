@@ -1259,6 +1259,16 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `:standard_only`
 
+- `speed: :standard | :fast`
+
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+  Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=ruby) for which models.
+
+  - `:standard`
+
+  - `:fast`
+
 - `stop_sequences: Array[String]`
 
   Custom text sequences that will cause the model to stop generating.
@@ -4092,6 +4102,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:batch`
 
+    - `speed: :standard | :fast`
+
+      The inference speed mode used for this request.
+
+      - `:standard`
+
+      - `:fast`
+
 - `type RawMessageStreamEvent = RawMessageStartEvent | RawMessageDeltaEvent | RawMessageStopEvent | 3 more`
 
   - `class RawMessageStartEvent`
@@ -4347,7 +4365,8 @@ puts(message)
       "web_fetch_requests": 2,
       "web_search_requests": 0
     },
-    "service_tier": "standard"
+    "service_tier": "standard",
+    "speed": "standard"
   }
 }
 ```
@@ -5517,6 +5536,16 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `schema: Hash[Symbol, untyped]`
 
       The JSON schema of the format
+
+- `speed: :standard | :fast`
+
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+  Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=ruby) for which models.
+
+  - `:standard`
+
+  - `:fast`
 
 - `system_: String | Array[TextBlockParam]`
 
@@ -20343,6 +20372,14 @@ puts(message_tokens_count)
 
       - `:batch`
 
+    - `speed: :standard | :fast`
+
+      The inference speed mode used for this request.
+
+      - `:standard`
+
+      - `:fast`
+
 ### Message Count Tokens Tool
 
 - `type MessageCountTokensTool = Tool | ToolBash20250124 | CodeExecutionTool20250522 | 18 more`
@@ -25329,6 +25366,14 @@ puts(message_tokens_count)
 
         - `:batch`
 
+      - `speed: :standard | :fast`
+
+        The inference speed mode used for this request.
+
+        - `:standard`
+
+        - `:fast`
+
 ### Raw Message Stop Event
 
 - `class RawMessageStopEvent`
@@ -26351,6 +26396,14 @@ puts(message_tokens_count)
           - `:priority`
 
           - `:batch`
+
+        - `speed: :standard | :fast`
+
+          The inference speed mode used for this request.
+
+          - `:standard`
+
+          - `:fast`
 
   - `class RawMessageDeltaEvent`
 
@@ -32594,6 +32647,14 @@ puts(message_tokens_count)
 
     - `:batch`
 
+  - `speed: :standard | :fast`
+
+    The inference speed mode used for this request.
+
+    - `:standard`
+
+    - `:fast`
+
 ### User Location
 
 - `class UserLocation`
@@ -36186,6 +36247,16 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `:standard_only`
 
+    - `speed: :standard | :fast`
+
+      The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+      Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=ruby) for which models.
+
+      - `:standard`
+
+      - `:fast`
+
     - `stop_sequences: Array[String]`
 
       Custom text sequences that will cause the model to stop generating.
@@ -39747,6 +39818,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `:priority`
 
             - `:batch`
+
+          - `speed: :standard | :fast`
+
+            The inference speed mode used for this request.
+
+            - `:standard`
+
+            - `:fast`
 
     - `class MessageBatchErroredResult`
 

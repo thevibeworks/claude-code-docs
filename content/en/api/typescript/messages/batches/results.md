@@ -1164,6 +1164,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"batch"`
 
+          - `speed: "standard" | "fast" | null`
+
+            The inference speed mode used for this request.
+
+            - `"standard"`
+
+            - `"fast"`
+
     - `interface MessageBatchErroredResult`
 
       - `type: "errored"`

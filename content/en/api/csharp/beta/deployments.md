@@ -391,7 +391,7 @@ Create Deployment
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1166,7 +1166,7 @@ List Deployments
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1898,7 +1898,7 @@ Get Deployment
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -2998,7 +2998,7 @@ Update Deployment
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -3726,7 +3726,7 @@ Archive Deployment
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -4454,7 +4454,7 @@ Run Deployment Now
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -4844,7 +4844,7 @@ Pause Deployment
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -5572,7 +5572,7 @@ Unpause Deployment
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

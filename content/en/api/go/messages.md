@@ -1097,6 +1097,16 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `const MessageNewParamsServiceTierStandardOnly MessageNewParamsServiceTier = "standard_only"`
 
+  - `Speed MessageNewParamsSpeed Optional`
+
+    The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+    Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=go) for which models.
+
+    - `const MessageNewParamsSpeedStandard MessageNewParamsSpeed = "standard"`
+
+    - `const MessageNewParamsSpeedFast MessageNewParamsSpeed = "fast"`
+
   - `StopSequences []string Optional`
 
     Custom text sequences that will cause the model to stop generating.
@@ -3934,6 +3944,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `const UsageServiceTierBatch UsageServiceTier = "batch"`
 
+    - `Speed UsageSpeed`
+
+      The inference speed mode used for this request.
+
+      - `const UsageSpeedStandard UsageSpeed = "standard"`
+
+      - `const UsageSpeedFast UsageSpeed = "fast"`
+
 - `type MessageStreamEventUnion interface{…}`
 
   - `type MessageStartEvent`
@@ -4231,7 +4249,8 @@ func main() {
       "web_fetch_requests": 2,
       "web_search_requests": 0
     },
-    "service_tier": "standard"
+    "service_tier": "standard",
+    "speed": "standard"
   }
 }
 ```
@@ -5289,6 +5308,16 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `OutputConfig OutputConfigParam Optional`
 
     Configuration options for the model's output, such as the output format.
+
+  - `Speed MessageCountTokensParamsSpeed Optional`
+
+    The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+    Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=go) for which models.
+
+    - `const MessageCountTokensParamsSpeedStandard MessageCountTokensParamsSpeed = "standard"`
+
+    - `const MessageCountTokensParamsSpeedFast MessageCountTokensParamsSpeed = "fast"`
 
   - `System MessageCountTokensParamsSystemUnion Optional`
 
@@ -20539,6 +20568,14 @@ func main() {
 
       - `const UsageServiceTierBatch UsageServiceTier = "batch"`
 
+    - `Speed UsageSpeed`
+
+      The inference speed mode used for this request.
+
+      - `const UsageSpeedStandard UsageSpeed = "standard"`
+
+      - `const UsageSpeedFast UsageSpeed = "fast"`
+
 ### Message Count Tokens Tool
 
 - `type MessageCountTokensToolUnionParam interface{…}`
@@ -25755,6 +25792,14 @@ func main() {
 
         - `const UsageServiceTierBatch UsageServiceTier = "batch"`
 
+      - `Speed UsageSpeed`
+
+        The inference speed mode used for this request.
+
+        - `const UsageSpeedStandard UsageSpeed = "standard"`
+
+        - `const UsageSpeedFast UsageSpeed = "fast"`
+
 ### Raw Message Stop Event
 
 - `type MessageStopEvent`
@@ -26881,6 +26926,14 @@ func main() {
           - `const UsageServiceTierPriority UsageServiceTier = "priority"`
 
           - `const UsageServiceTierBatch UsageServiceTier = "batch"`
+
+        - `Speed UsageSpeed`
+
+          The inference speed mode used for this request.
+
+          - `const UsageSpeedStandard UsageSpeed = "standard"`
+
+          - `const UsageSpeedFast UsageSpeed = "fast"`
 
   - `type MessageDeltaEvent`
 
@@ -33318,6 +33371,14 @@ func main() {
 
     - `const UsageServiceTierBatch UsageServiceTier = "batch"`
 
+  - `Speed UsageSpeed`
+
+    The inference speed mode used for this request.
+
+    - `const UsageSpeedStandard UsageSpeed = "standard"`
+
+    - `const UsageSpeedFast UsageSpeed = "fast"`
+
 ### User Location
 
 - `type UserLocationParam`
@@ -36941,6 +37002,16 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `const MessageBatchNewParamsRequestParamsServiceTierAuto MessageBatchNewParamsRequestParamsServiceTier = "auto"`
 
         - `const MessageBatchNewParamsRequestParamsServiceTierStandardOnly MessageBatchNewParamsRequestParamsServiceTier = "standard_only"`
+
+      - `Speed string Optional`
+
+        The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+        Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=go) for which models.
+
+        - `const MessageBatchNewParamsRequestParamsSpeedStandard MessageBatchNewParamsRequestParamsSpeed = "standard"`
+
+        - `const MessageBatchNewParamsRequestParamsSpeedFast MessageBatchNewParamsRequestParamsSpeed = "fast"`
 
       - `StopSequences []string Optional`
 
@@ -40749,6 +40820,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `const UsageServiceTierPriority UsageServiceTier = "priority"`
 
             - `const UsageServiceTierBatch UsageServiceTier = "batch"`
+
+          - `Speed UsageSpeed`
+
+            The inference speed mode used for this request.
+
+            - `const UsageSpeedStandard UsageSpeed = "standard"`
+
+            - `const UsageSpeedFast UsageSpeed = "fast"`
 
     - `type MessageBatchErroredResult`
 

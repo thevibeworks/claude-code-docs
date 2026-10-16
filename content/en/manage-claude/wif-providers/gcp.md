@@ -126,7 +126,7 @@ The wizard creates these resources for you. Use the following values whether you
 
 ## Acquire and use the token
 
-Inside your Google Cloud workload, fetch the identity token from the metadata server, exchange it at `POST /v1/oauth/token`, and use the returned bearer token to call the Claude API. The Claude SDK handles the exchange and refresh loop for you when you pass a callable that returns a fresh identity token from the metadata server to `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`), as shown in the following examples.
+Inside your Google Cloud workload, fetch the identity token from the metadata server, exchange it at `POST /v1/oauth/token`, and use the returned bearer token to call the Claude API. The Claude SDK handles the exchange and refresh loop for you when you supply `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`), as shown in the following examples. Except in Java (see the comment in that example), that option takes a token provider that returns a fresh identity token from the metadata server.
 
 <CodeGroup>
   ```bash cURL
@@ -276,35 +276,56 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
   ```
 
   ```java Java
-  HttpClient http = HttpClient.newHttpClient();
-  HttpRequest metadataRequest = HttpRequest.newBuilder()
-          .uri(URI.create("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://api.anthropic.com&format=full"))
-          .header("Metadata-Flavor", "Google")
-          .build();
+  import com.anthropic.config.AuthenticationConfig;
+  import com.anthropic.config.AuthenticationType;
+  import com.anthropic.config.IdentityTokenConfig;
+  import com.anthropic.config.InMemoryProfileConfigProvider;
+  import com.anthropic.config.ProfileConfig;
+  // ...
+  import java.net.URI;
+  import java.net.http.HttpClient;
+  import java.net.http.HttpRequest;
+  import java.net.http.HttpResponse;
 
-  IdentityTokenProvider fetchGoogleIdentityToken = () -> {
-      try {
-          return http.send(metadataRequest, HttpResponse.BodyHandlers.ofString()).body();
-      } catch (Exception e) {
-          throw new RuntimeException(e);
-      }
-  };
+  void main() throws Exception {
+      HttpClient http = HttpClient.newHttpClient();
+      HttpRequest metadataRequest = HttpRequest.newBuilder()
+              .uri(URI.create("http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://api.anthropic.com&format=full"))
+              .header("Metadata-Flavor", "Google")
+              .build();
 
-  AnthropicClient client = AnthropicOkHttpClient.builder()
-          .federationTokenProvider(
-                  fetchGoogleIdentityToken,
-                  System.getenv("ANTHROPIC_FEDERATION_RULE_ID"),
-                  System.getenv("ANTHROPIC_ORGANIZATION_ID"),
-                  System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
-          .build();
+      // The Java SDK takes the token itself or a file path, not a function; with
+      // source("value"), path(...) holds the token. The SDK sends that same token
+      // at every refresh of the Anthropic access token, which fails once it has
+      // expired or, if it has a jti claim, been used. For a longer-running
+      // process, pass source("file") and write a new token to the file before
+      // each refresh.
+      String googleIdentityToken = http.send(metadataRequest, HttpResponse.BodyHandlers.ofString()).body();
 
-  var message = client.messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024)
-          .addUserMessage("Hello from Cloud Run")
-          .build());
+      AnthropicClient client = AnthropicOkHttpClient.builder()
+              .configurationProvider(InMemoryProfileConfigProvider.of(ProfileConfig.builder()
+                      .organizationId(System.getenv("ANTHROPIC_ORGANIZATION_ID"))
+                      .workspaceId(System.getenv("ANTHROPIC_WORKSPACE_ID"))
+                      .authentication(AuthenticationConfig.builder()
+                              .type(AuthenticationType.OIDC_FEDERATION)
+                              .federationRuleId(System.getenv("ANTHROPIC_FEDERATION_RULE_ID"))
+                              .serviceAccountId(System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
+                              .identityToken(IdentityTokenConfig.builder()
+                                      .source("value")
+                                      .path(googleIdentityToken)
+                                      .build())
+                              .build())
+                      .build()))
+              .build();
 
-  IO.println(message.content());
+      var message = client.messages().create(MessageCreateParams.builder()
+              .model(Model.CLAUDE_OPUS_5_5)
+              .maxTokens(1024)
+              .addUserMessage("Hello from Cloud Run")
+              .build());
+
+      IO.println(message.content());
+  }
   ```
 
   ```csharp C#
@@ -370,20 +391,33 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
 
   ```php PHP
   use Anthropic\Client;
-  use Anthropic\Credentials\WorkloadIdentityCredentials;
+  use Anthropic\Lib\Credentials\CredentialResult;
+  use Anthropic\Lib\Credentials\IdentityTokenProvider;
+  use Anthropic\Lib\Credentials\TokenCache;
+  use Anthropic\Lib\Credentials\WorkloadIdentityCredentials;
 
   const METADATA_URL = 'http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://api.anthropic.com&format=full';
 
-  $context = stream_context_create([
-      'http' => ['header' => "Metadata-Flavor: Google\r\n"],
-  ]);
+  class GoogleIdentityToken implements IdentityTokenProvider
+  {
+      public function getIdentityToken(): string
+      {
+          $context = stream_context_create([
+              'http' => ['header' => "Metadata-Flavor: Google\r\n"],
+          ]);
 
-  $credentials = new WorkloadIdentityCredentials(
-      identityTokenProvider: fn() => file_get_contents(METADATA_URL, false, $context),
-      federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
-      organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
-      serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
-      workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+          return file_get_contents(METADATA_URL, false, $context);
+      }
+  }
+
+  $credentials = new CredentialResult(
+      provider: new TokenCache(new WorkloadIdentityCredentials(
+          identityProvider: new GoogleIdentityToken(),
+          federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
+          organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
+          serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
+          workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+      )),
   );
   $client = new Client(credentials: $credentials);
 
@@ -420,7 +454,7 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
   ```
 </CodeGroup>
 
-Google identity tokens expire after roughly one hour. The SDK re-invokes the token provider and re-exchanges automatically before expiry. For shell scripts that run longer than the access token's `expires_in`, refresh on a timer and repeat the exchange.
+Google identity tokens expire after roughly one hour. Except in Java (see the comment in that example), the SDK re-invokes the token provider and re-exchanges automatically before expiry. For shell scripts that run longer than the access token's `expires_in`, refresh on a timer and repeat the exchange.
 
 ## Verify the setup
 

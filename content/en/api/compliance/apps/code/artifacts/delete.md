@@ -1,0 +1,63 @@
+---
+title: Delete Code Artifact
+url: https://platform.claude.com/docs/en/api/compliance/apps/code/artifacts/delete
+---
+
+# Delete Code Artifact
+
+**DELETE** `/v1/compliance/apps/code/artifacts/{artifact_id}`
+
+Permanently deletes a Code Artifact and all its versions. This is a
+destructive operation that cannot be undone. A 200 response means the
+deletion is initiated and the Artifact is claimed; content removal
+completes asynchronously.
+
+Returns 404 for Artifacts that don't exist or belong to another parent
+organization. Returns 404 on a repeated delete of an already-deleted
+Artifact.
+
+## Path parameters
+
+- `artifact_id: string`
+
+  The Artifact ID (tagged ID, e.g., cart_abc123)
+
+## Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"x-api-key": optional string`
+
+## Returns
+
+- `type: "code_artifact_deleted"`
+
+  Constant string confirming deletion
+
+  default: code_artifact_deleted
+
+- `id: string`
+
+  The ID of the Artifact that was deleted
+
+## Example
+
+```bash
+curl https://api.anthropic.com/v1/compliance/apps/code/artifacts/$ARTIFACT_ID \
+    -X DELETE \
+    -H 'anthropic-version: 2023-06-01' \
+    -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
+```
+
+### Response (200)
+
+```json
+{
+  "id": "cart_xyz789",
+  "type": "code_artifact_deleted"
+}
+```

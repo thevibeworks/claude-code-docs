@@ -4963,6 +4963,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
+    Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=java) for which models.
+
     - `STANDARD("standard")`
 
     - `FAST("fast")`
@@ -12866,6 +12868,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
+    Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=java) for which models.
+
     - `STANDARD("standard")`
 
     - `FAST("fast")`
@@ -17070,6 +17074,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       - `Optional<Speed> speed`
 
         The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+        Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=java) for which models.
 
         - `STANDARD("standard")`
 
@@ -22473,7 +22479,7 @@ Create Agent
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -24309,7 +24315,7 @@ List Agents
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -25357,7 +25363,7 @@ Get Agent
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -26394,7 +26400,7 @@ Update Agent
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -28209,7 +28215,7 @@ Archive Agent
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -29258,7 +29264,7 @@ List Agent Versions
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -34317,7 +34323,7 @@ Create Session
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -37000,7 +37006,7 @@ List Sessions
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -38493,7 +38499,7 @@ Get Session
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -39980,7 +39986,7 @@ Update Session
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -41489,7 +41495,7 @@ Delete Session
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -41655,7 +41661,7 @@ Archive Session
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -43270,7 +43276,7 @@ List Events
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -46373,7 +46379,7 @@ Send Events
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -47366,7 +47372,7 @@ Stream Events
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -50506,7 +50512,7 @@ Add Session Resource
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -50712,7 +50718,7 @@ List Session Resources
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -50997,7 +51003,7 @@ Get Session Resource
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -51275,7 +51281,7 @@ Update Session Resource
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -51560,7 +51566,7 @@ Delete Session Resource
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -51756,7 +51762,7 @@ List Session Threads
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -52839,7 +52845,7 @@ Get Session Thread
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -53921,7 +53927,7 @@ Archive Session Thread
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -55011,7 +55017,7 @@ List Session Thread Events
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -58128,7 +58134,7 @@ Stream Session Thread Events
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -61270,7 +61276,7 @@ Create Deployment
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -62420,7 +62426,7 @@ List Deployments
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -63161,7 +63167,7 @@ Get Deployment
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -63897,7 +63903,7 @@ Update Deployment
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -65005,7 +65011,7 @@ Archive Deployment
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -65741,7 +65747,7 @@ Run Deployment Now
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -66139,7 +66145,7 @@ Pause Deployment
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -66875,7 +66881,7 @@ Unpause Deployment
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -67655,7 +67661,7 @@ List Deployment Runs
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -68058,7 +68064,7 @@ Get Deployment Run
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -68454,7 +68460,7 @@ Create Vault
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -68680,7 +68686,7 @@ List Vaults
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -68888,7 +68894,7 @@ Get Vault
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -69091,7 +69097,7 @@ Update Vault
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -69304,7 +69310,7 @@ Delete Vault
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -69474,7 +69480,7 @@ Archive Vault
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -69679,7 +69685,7 @@ Create Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -70198,7 +70204,7 @@ List Credentials
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -70531,7 +70537,7 @@ Get Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -70863,7 +70869,7 @@ Update Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -71325,7 +71331,7 @@ Delete Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -71503,7 +71509,7 @@ Archive Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -71835,7 +71841,7 @@ Validate Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -72117,7 +72123,7 @@ Create a memory store
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -72366,7 +72372,7 @@ List memory stores
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -72577,7 +72583,7 @@ Retrieve a memory store
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -72785,7 +72791,7 @@ Update a memory store
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -73009,7 +73015,7 @@ Delete a memory store
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -73179,7 +73185,7 @@ Archive a memory store
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -73393,7 +73399,7 @@ Create a memory
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -73648,7 +73654,7 @@ List memories
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -73891,7 +73897,7 @@ Retrieve a memory
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -74119,7 +74125,7 @@ Update a memory
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -74363,7 +74369,7 @@ Delete a memory
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -74587,7 +74593,7 @@ List memory versions
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -74897,7 +74903,7 @@ Retrieve a memory version
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -75202,7 +75208,7 @@ Redact a memory version
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -78460,7 +78466,7 @@ Create User Profile
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -78835,7 +78841,7 @@ List User Profiles
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -79145,7 +79151,7 @@ Get User Profile
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -79450,7 +79456,7 @@ Update User Profile
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -79793,7 +79799,7 @@ Create Enrollment URL
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -79974,7 +79980,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -80537,7 +80543,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -80963,7 +80969,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -81384,7 +81390,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -81805,7 +81811,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -82222,7 +82228,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -82424,7 +82430,7 @@ Fetches a tunnel by ID.
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -82630,7 +82636,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -82831,7 +82837,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -83027,7 +83033,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -83204,7 +83210,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -83389,7 +83395,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -83606,7 +83612,7 @@ Fetches a tunnel certificate by ID.
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -83827,7 +83833,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -84039,7 +84045,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -99648,6 +99654,18 @@ Anthropic account team.
 
         Tagged ID of the workspace the spend limit applies to.
 
+    - `class BetaSpendLimitUsageTierScope`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `JsonValue type = "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
   - `LocalDateTime updatedAt`
 
     RFC 3339 datetime at which the spend limit was last modified.
@@ -99806,6 +99824,18 @@ Retrieve a spend limit by ID.
 
         Tagged ID of the workspace the spend limit applies to.
 
+    - `class BetaSpendLimitUsageTierScope`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `JsonValue type = "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
   - `LocalDateTime updatedAt`
 
     RFC 3339 datetime at which the spend limit was last modified.
@@ -99864,7 +99894,8 @@ For a Claude Enterprise organization, this deletes a per-user override, and
 the member falls back to any inherited spend limit at that period. Its
 seat-tier, group, and organization-level rows cannot be deleted via this
 endpoint. A Claude Console organization deletes its organization and
-workspace limits. Deleting them through the API is in an early access preview.
+workspace limits, but not its `usage_tier` limit. Deleting organization and
+workspace limits through the API is in an early access preview.
 
 #### Parameters
 
@@ -100155,6 +100186,18 @@ organizations only, not for Claude Console organizations.
 
         Tagged ID of the workspace the spend limit applies to.
 
+    - `class BetaSpendLimitUsageTierScope`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `JsonValue type = "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
   - `LocalDateTime updatedAt`
 
     RFC 3339 datetime at which the spend limit was last modified.
@@ -100366,6 +100409,18 @@ organizations.
 
         Tagged ID of the workspace the spend limit applies to.
 
+    - `class BetaSpendLimitUsageTierScope`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `JsonValue type = "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
   - `Source source`
 
     - `class BetaSpendLimitUserScope`
@@ -100383,6 +100438,14 @@ organizations.
     - `class BetaSpendLimitWorkspaceScope`
 
       Scope selecting one workspace of a Claude Console organization.
+
+    - `class BetaSpendLimitUsageTierScope`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
 
   - `String spendLimitId`
 
@@ -100630,6 +100693,18 @@ Requests whose requester is no longer a member are excluded.
 
           Tagged ID of the workspace the spend limit applies to.
 
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
+
+        - `JsonValue type = "usage_tier"`
+
+          Scope type. Always `usage_tier` for this scope.
+
     - `Source source`
 
       - `class BetaSpendLimitUserScope`
@@ -100647,6 +100722,14 @@ Requests whose requester is no longer a member are excluded.
       - `class BetaSpendLimitWorkspaceScope`
 
         Scope selecting one workspace of a Claude Console organization.
+
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
 
     - `String spendLimitId`
 
@@ -100904,6 +100987,18 @@ requester at the request's period.
 
           Tagged ID of the workspace the spend limit applies to.
 
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
+
+        - `JsonValue type = "usage_tier"`
+
+          Scope type. Always `usage_tier` for this scope.
+
     - `Source source`
 
       - `class BetaSpendLimitUserScope`
@@ -100921,6 +101016,14 @@ requester at the request's period.
       - `class BetaSpendLimitWorkspaceScope`
 
         Scope selecting one workspace of a Claude Console organization.
+
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
 
     - `String spendLimitId`
 
@@ -101187,6 +101290,18 @@ the member was blocked on. Anthropic emails the requester unless
 
           Tagged ID of the workspace the spend limit applies to.
 
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
+
+        - `JsonValue type = "usage_tier"`
+
+          Scope type. Always `usage_tier` for this scope.
+
     - `LocalDateTime updatedAt`
 
       RFC 3339 datetime at which the spend limit was last modified.
@@ -101243,6 +101358,14 @@ the member was blocked on. Anthropic emails the requester unless
 
         Scope selecting one workspace of a Claude Console organization.
 
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
+
     - `Source source`
 
       - `class BetaSpendLimitUserScope`
@@ -101260,6 +101383,14 @@ the member was blocked on. Anthropic emails the requester unless
       - `class BetaSpendLimitWorkspaceScope`
 
         Scope selecting one workspace of a Claude Console organization.
+
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
 
     - `String spendLimitId`
 
@@ -101532,6 +101663,18 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
           Tagged ID of the workspace the spend limit applies to.
 
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
+
+        - `JsonValue type = "usage_tier"`
+
+          Scope type. Always `usage_tier` for this scope.
+
     - `Source source`
 
       - `class BetaSpendLimitUserScope`
@@ -101549,6 +101692,14 @@ Idempotent on `denied`; denying an already-`approved` request returns
       - `class BetaSpendLimitWorkspaceScope`
 
         Scope selecting one workspace of a Claude Console organization.
+
+      - `class BetaSpendLimitUsageTierScope`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
 
     - `String spendLimitId`
 
@@ -108201,7 +108352,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -108598,7 +108749,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -108951,7 +109102,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -109303,7 +109454,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -109691,7 +109842,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -109855,7 +110006,7 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -110053,7 +110204,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -110246,7 +110397,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -110438,7 +110589,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 

@@ -267,43 +267,70 @@ Unlike platform-native providers (AWS, Google Cloud, Kubernetes), which make a t
   ```
 
   ```java Java
-  IdentityTokenProvider fetchOktaToken = () -> {
-      try {
-          var form = Map.of(
-                          "grant_type", "client_credentials",
-                          "scope", "anthropic.access",
-                          "client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-                          // Build the RFC 7523 client_assertion JWT signed with your Okta app's private key
-                          "client_assertion", buildSignedClientAssertion())
-                  .entrySet().stream()
-                  .map(entry -> entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), UTF_8))
-                  .collect(Collectors.joining("&"));
-          var request = HttpRequest.newBuilder(URI.create(System.getenv("OKTA_ISSUER") + "/v1/token"))
-                  .header("content-type", "application/x-www-form-urlencoded")
-                  .POST(HttpRequest.BodyPublishers.ofString(form))
-                  .build();
-          var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-          return new ObjectMapper().readTree(response.body()).get("access_token").asText();
-      } catch (Exception e) {
-          throw new RuntimeException(e);
-      }
-  };
+  import com.anthropic.config.AuthenticationConfig;
+  import com.anthropic.config.AuthenticationType;
+  import com.anthropic.config.IdentityTokenConfig;
+  import com.anthropic.config.InMemoryProfileConfigProvider;
+  import com.anthropic.config.ProfileConfig;
+  // ...
+  import com.fasterxml.jackson.databind.ObjectMapper;
+  import java.net.URI;
+  import java.net.URLEncoder;
+  import java.net.http.HttpClient;
+  import java.net.http.HttpRequest;
+  import java.net.http.HttpResponse;
+  import java.util.Map;
+  import java.util.stream.Collectors;
+  import static java.nio.charset.StandardCharsets.UTF_8;
 
-  AnthropicClient client = AnthropicOkHttpClient.builder()
-          .federationTokenProvider(
-                  fetchOktaToken,
-                  System.getenv("ANTHROPIC_FEDERATION_RULE_ID"),
-                  System.getenv("ANTHROPIC_ORGANIZATION_ID"),
-                  System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
-          .build();
+  void main() throws Exception {
+      var form = Map.of(
+                      "grant_type", "client_credentials",
+                      "scope", "anthropic.access",
+                      "client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                      // Build the RFC 7523 client_assertion JWT signed with your Okta app's private key
+                      "client_assertion", buildSignedClientAssertion())
+              .entrySet().stream()
+              .map(entry -> entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), UTF_8))
+              .collect(Collectors.joining("&"));
+      var request = HttpRequest.newBuilder(URI.create(System.getenv("OKTA_ISSUER") + "/v1/token"))
+              .header("content-type", "application/x-www-form-urlencoded")
+              .POST(HttpRequest.BodyPublishers.ofString(form))
+              .build();
 
-  var message = client.messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024)
-          .addUserMessage("Hello, Claude")
-          .build());
+      // The Java SDK takes the token itself or a file path, not a function; with
+      // source("value"), path(...) holds the token. The SDK sends that same token
+      // at every refresh of the Anthropic access token, which fails once it has
+      // expired or, if it has a jti claim, been used. For a longer-running
+      // process, pass source("file") and write a new token to the file before
+      // each refresh.
+      var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+      String oktaToken = new ObjectMapper().readTree(response.body()).get("access_token").asText();
 
-  IO.println(message.content());
+      AnthropicClient client = AnthropicOkHttpClient.builder()
+              .configurationProvider(InMemoryProfileConfigProvider.of(ProfileConfig.builder()
+                      .organizationId(System.getenv("ANTHROPIC_ORGANIZATION_ID"))
+                      .workspaceId(System.getenv("ANTHROPIC_WORKSPACE_ID"))
+                      .authentication(AuthenticationConfig.builder()
+                              .type(AuthenticationType.OIDC_FEDERATION)
+                              .federationRuleId(System.getenv("ANTHROPIC_FEDERATION_RULE_ID"))
+                              .serviceAccountId(System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
+                              .identityToken(IdentityTokenConfig.builder()
+                                      .source("value")
+                                      .path(oktaToken)
+                                      .build())
+                              .build())
+                      .build()))
+              .build();
+
+      var message = client.messages().create(MessageCreateParams.builder()
+              .model(Model.CLAUDE_OPUS_5_5)
+              .maxTokens(1024)
+              .addUserMessage("Hello, Claude")
+              .build());
+
+      IO.println(message.content());
+  }
   ```
 
   ```csharp C#
@@ -380,33 +407,41 @@ Unlike platform-native providers (AWS, Google Cloud, Kubernetes), which make a t
 
   ```php PHP
   use Anthropic\Client;
-  use Anthropic\Credentials\WorkloadIdentityCredentials;
+  use Anthropic\Lib\Credentials\CredentialResult;
+  use Anthropic\Lib\Credentials\IdentityTokenProvider;
+  use Anthropic\Lib\Credentials\TokenCache;
+  use Anthropic\Lib\Credentials\WorkloadIdentityCredentials;
 
-  function fetchOktaToken(): string
+  class OktaIdentityToken implements IdentityTokenProvider
   {
-      $ch = curl_init(getenv('OKTA_ISSUER') . '/v1/token');
-      curl_setopt_array($ch, [
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_POSTFIELDS => http_build_query([
-              'grant_type' => 'client_credentials',
-              'scope' => 'anthropic.access',
-              'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-              // Build the RFC 7523 client_assertion JWT signed with your Okta app's private key
-              'client_assertion' => buildSignedClientAssertion(),
-          ]),
-      ]);
-      $body = json_decode(curl_exec($ch), true);
-      curl_close($ch);
-      return $body['access_token'];
+      public function getIdentityToken(): string
+      {
+          $ch = curl_init(getenv('OKTA_ISSUER') . '/v1/token');
+          curl_setopt_array($ch, [
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_POSTFIELDS => http_build_query([
+                  'grant_type' => 'client_credentials',
+                  'scope' => 'anthropic.access',
+                  'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                  // Build the RFC 7523 client_assertion JWT signed with your Okta app's private key
+                  'client_assertion' => buildSignedClientAssertion(),
+              ]),
+          ]);
+          $body = json_decode(curl_exec($ch), true);
+          curl_close($ch);
+          return $body['access_token'];
+      }
   }
 
   $client = new Client(
-      credentials: new WorkloadIdentityCredentials(
-          identityTokenProvider: fetchOktaToken(...),
-          federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
-          organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
-          serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
-          workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+      credentials: new CredentialResult(
+          provider: new TokenCache(new WorkloadIdentityCredentials(
+              identityProvider: new OktaIdentityToken(),
+              federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
+              organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
+              serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
+              workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+          )),
       ),
   );
 
@@ -455,7 +490,7 @@ Unlike platform-native providers (AWS, Google Cloud, Kubernetes), which make a t
   ```
 </CodeGroup>
 
-Each SDK tab shows the callable pattern: the Anthropic SDK calls the function you passed to `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`) each time the Anthropic access token approaches expiry, so your Okta fetcher should return a fresh token on each call rather than caching one indefinitely. The `ant` CLI re-reads `ANTHROPIC_IDENTITY_TOKEN_FILE` on each exchange, so refresh that file on a timer for long-running shells.
+Except in Java (see the comment in that example), the SDK example passes your Okta token fetch to `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`) as a token provider. The Claude SDK calls it each time the Anthropic access token approaches expiry, so your Okta fetcher should return a fresh token on each call rather than caching one indefinitely. The `ant` CLI re-reads `ANTHROPIC_IDENTITY_TOKEN_FILE` on each exchange, so refresh that file on a timer for long-running shells.
 
 ## Verify the setup
 

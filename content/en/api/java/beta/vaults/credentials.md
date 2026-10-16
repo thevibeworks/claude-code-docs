@@ -23,7 +23,7 @@ Create Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -542,7 +542,7 @@ List Credentials
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -875,7 +875,7 @@ Get Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -1207,7 +1207,7 @@ Update Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -1669,7 +1669,7 @@ Delete Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -1847,7 +1847,7 @@ Archive Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -2179,7 +2179,7 @@ Validate Credential
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 

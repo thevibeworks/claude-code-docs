@@ -4,8 +4,10 @@ url: https://platform.claude.com/docs/en/manage-claude/cmek
 description: Encrypt Claude workspace data at rest with a key you control.
 ---
 
-```bash Learn more with the /claude-api skill in Claude Code
-claude "/claude-api tell me about customer-managed encryption keys"
+Ask Claude Code about this feature
+
+```text
+/claude-api tell me about customer-managed encryption keys
 ```
 
 A customer-managed encryption key (CMEK) lets you provision an encryption key in your own [AWS KMS](https://aws.amazon.com/kms/), [Google Cloud KMS](https://cloud.google.com/security/products/security-key-management), or [Azure Key Vault](https://azure.microsoft.com/en-us/products/key-vault) and have Anthropic use it to encrypt certain workspace data at rest. You retain full control of the key, including rotation, audit, and revocation, and the key operations Anthropic performs against your key are recorded in your cloud provider's audit logs.

@@ -150,7 +150,7 @@ Listing and revoking existing keys in either portal remains available even when 
 
 * The Claude for Government Compliance API is served from the Claude for Government service hostname, not from `api.anthropic.com`. Use the same host you use to reach the admin portal.
 * There is no separate Splunk add-on. The polling pattern described under [Connecting to your SIEM](#connecting-to-your-siem) is the reference implementation for a Splunk HTTP Event Collector job.
-* The desktop application's OpenTelemetry export is a separate log stream configured with **Telemetry endpoint** on the [Config](/docs/government/config/settings#telemetry-endpoint) page. It carries per-session tool and telemetry events to a collector you specify, while this API carries administrative audit events. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) for what the OpenTelemetry export includes.
+* The OpenTelemetry export from the Claude applications is a separate log stream, configured with **Telemetry endpoint** on the [Config](/docs/government/config/settings#telemetry-endpoint) page. It carries per-session tool and telemetry events to a collector you specify, while this API carries administrative audit events.
 * The Compliance API returns governance and audit events only. It does not return conversation content, files, or anything your users type into Claude.
 * Each organization can hold up to 50 active keys at once, and keys created in the tenant admin portal have a separate limit of 50 active keys. Revoked keys do not count toward either limit.
 * Events are returned newest first within each page.

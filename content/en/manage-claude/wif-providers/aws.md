@@ -95,7 +95,7 @@ Be as specific as the workload allows. Match the exact role ARN, and only broade
 
 ### Acquire and use the token
 
-Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, then pass the result to the SDK's federation credentials. Because `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`) takes a callable, the SDK re-invokes STS on each refresh.
+Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, then pass the result to the SDK's federation credentials through `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`). Except in Java (see the comment in that example), that option takes a token provider, so the SDK re-invokes STS on each refresh.
 
 <Note>
   `GetWebIdentityToken` is available only on regional STS endpoints. If you receive `'STS' object has no attribute 'get_web_identity_token'` or a similar error, pin your STS client to a region (for example, `boto3.client("sts", region_name="us-east-1")`) and ensure your AWS SDK is recent enough to include the API.
@@ -263,31 +263,57 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
   ```
 
   ```java Java
-  StsClient sts = StsClient.builder().region(Region.US_EAST_1).build();
+  import com.anthropic.config.AuthenticationConfig;
+  import com.anthropic.config.AuthenticationType;
+  import com.anthropic.config.IdentityTokenConfig;
+  import com.anthropic.config.InMemoryProfileConfigProvider;
+  import com.anthropic.config.ProfileConfig;
+  // ...
+  import software.amazon.awssdk.regions.Region;
+  import software.amazon.awssdk.services.sts.StsClient;
+  import software.amazon.awssdk.services.sts.model.GetWebIdentityTokenRequest;
 
-  IdentityTokenProvider getStsToken = () -> sts.getWebIdentityToken(
-                  GetWebIdentityTokenRequest.builder()
-                          .audience("https://api.anthropic.com")
-                          .signingAlgorithm("RS256")
-                          .durationSeconds(900)
-                          .build())
-          .webIdentityToken();
+  void main() {
+      StsClient sts = StsClient.builder().region(Region.US_EAST_1).build();
 
-  AnthropicClient client = AnthropicOkHttpClient.builder()
-          .federationTokenProvider(
-                  getStsToken,
-                  System.getenv("ANTHROPIC_FEDERATION_RULE_ID"),
-                  System.getenv("ANTHROPIC_ORGANIZATION_ID"),
-                  System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
-          .build();
+      // The Java SDK takes the token itself or a file path, not a function; with
+      // source("value"), path(...) holds the token. The SDK sends that same token
+      // at every refresh of the Anthropic access token, which fails once it has
+      // expired or, if it has a jti claim, been used. For a longer-running
+      // process, pass source("file") and write a new token to the file before
+      // each refresh.
+      String stsToken = sts.getWebIdentityToken(
+                      GetWebIdentityTokenRequest.builder()
+                              .audience("https://api.anthropic.com")
+                              .signingAlgorithm("RS256")
+                              .durationSeconds(900)
+                              .build())
+              .webIdentityToken();
 
-  var message = client.messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024)
-          .addUserMessage("Hello from AWS")
-          .build());
+      AnthropicClient client = AnthropicOkHttpClient.builder()
+              .configurationProvider(InMemoryProfileConfigProvider.of(ProfileConfig.builder()
+                      .organizationId(System.getenv("ANTHROPIC_ORGANIZATION_ID"))
+                      .workspaceId(System.getenv("ANTHROPIC_WORKSPACE_ID"))
+                      .authentication(AuthenticationConfig.builder()
+                              .type(AuthenticationType.OIDC_FEDERATION)
+                              .federationRuleId(System.getenv("ANTHROPIC_FEDERATION_RULE_ID"))
+                              .serviceAccountId(System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
+                              .identityToken(IdentityTokenConfig.builder()
+                                      .source("value")
+                                      .path(stsToken)
+                                      .build())
+                              .build())
+                      .build()))
+              .build();
 
-  IO.println(message.content());
+      var message = client.messages().create(MessageCreateParams.builder()
+              .model(Model.CLAUDE_OPUS_5_5)
+              .maxTokens(1024)
+              .addUserMessage("Hello from AWS")
+              .build());
+
+      IO.println(message.content());
+  }
   ```
 
   ```csharp C#
@@ -358,20 +384,36 @@ Call `GetWebIdentityToken` with `https://api.anthropic.com` as the audience, the
 
   ```php PHP
   use Anthropic\Client;
-  use Anthropic\Credentials\WorkloadIdentityCredentials;
+  use Anthropic\Lib\Credentials\CredentialResult;
+  use Anthropic\Lib\Credentials\IdentityTokenProvider;
+  use Anthropic\Lib\Credentials\TokenCache;
+  use Anthropic\Lib\Credentials\WorkloadIdentityCredentials;
   use Aws\Sts\StsClient;
 
   $sts = new StsClient(['region' => 'us-east-1', 'version' => 'latest']);
-  $client = new Client(credentials: new WorkloadIdentityCredentials(
-      identityTokenProvider: fn() => $sts->getWebIdentityToken([
-          'Audience' => ['https://api.anthropic.com'],
-          'SigningAlgorithm' => 'RS256',
-          'DurationSeconds' => 900,
-      ])['WebIdentityToken'],
-      federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
-      organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
-      serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
-      workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+
+  class StsIdentityToken implements IdentityTokenProvider
+  {
+      public function __construct(private StsClient $sts) {}
+
+      public function getIdentityToken(): string
+      {
+          return $this->sts->getWebIdentityToken([
+              'Audience' => ['https://api.anthropic.com'],
+              'SigningAlgorithm' => 'RS256',
+              'DurationSeconds' => 900,
+          ])['WebIdentityToken'];
+      }
+  }
+
+  $client = new Client(credentials: new CredentialResult(
+      provider: new TokenCache(new WorkloadIdentityCredentials(
+          identityProvider: new StsIdentityToken($sts),
+          federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
+          organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
+          serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
+          workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+      )),
   ));
 
   $message = $client->messages->create(

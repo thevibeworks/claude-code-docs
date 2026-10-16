@@ -118,19 +118,20 @@ The table lists the three places that count as local mode, and the other ways me
 
 The table lists the features that run a session in the cloud or control a session remotely. None of them are available while the HIPAA configuration is applied.
 
-| **Feature**                                                                     | **Availability** | **Coverage under your BAA** |
-| ------------------------------------------------------------------------------- | ---------------- | --------------------------- |
-| Claude Code on the web                                                          | *Not available*  | *❌ Not available*           |
-| Cloud sessions started from Claude Desktop                                      | *Not available*  | *❌ Not available*           |
-| Claude Code in the Claude mobile app                                            | *Not available*  | *❌ Not available*           |
-| Cowork in the cloud, which members start on the web or in the Claude mobile app | *Not available*  | *❌ Not available*           |
-| Remote Control, which continues a local session from a phone or browser         | *Not available*  | *❌ Not available*           |
-| Dispatch, the Cowork agent that runs tasks in the background                    | *Not available*  | *❌ Not available*           |
-| Routines, which run on a schedule in the cloud                                  | *Not available*  | *❌ Not available*           |
-| Claude Code Review, which reviews GitHub pull requests                          | *Not available*  | *❌ Not available*           |
-| Claude Security, the managed service that monitors repositories                 | *Not available*  | *❌ Not available*           |
-| Self-hosted environments, which run cloud sessions on your own infrastructure   | *Not available*  | *❌ Not available*           |
-| Session sharing links                                                           | *Not available*  | *❌ Not available*           |
+| **Feature**                                                                                                                     | **Availability** | **Coverage under your BAA** |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | --------------------------- |
+| Claude Code on the web                                                                                                          | *Not available*  | *❌ Not available*           |
+| Cloud sessions started from Claude Desktop                                                                                      | *Not available*  | *❌ Not available*           |
+| Claude Code in the Claude mobile app                                                                                            | *Not available*  | *❌ Not available*           |
+| Cowork in the cloud, which members start on the web or in the Claude mobile app                                                 | *Not available*  | *❌ Not available*           |
+| Claude Code Remote Control, which continues a local session from a phone or browser                                             | *Not available*  | *❌ Not available*           |
+| Computer access, which lets sessions and scheduled tasks that run in the cloud use a linked computer's files, apps, and browser | *Not available*  | *❌ Not available*           |
+| Dispatch, the Cowork agent that runs tasks in the background                                                                    | *Not available*  | *❌ Not available*           |
+| Routines, which run on a schedule in the cloud                                                                                  | *Not available*  | *❌ Not available*           |
+| Claude Code Review, which reviews GitHub pull requests                                                                          | *Not available*  | *❌ Not available*           |
+| Claude Security, the managed service that monitors repositories                                                                 | *Not available*  | *❌ Not available*           |
+| Self-hosted environments, which run cloud sessions on your own infrastructure                                                   | *Not available*  | *❌ Not available*           |
+| Session sharing links                                                                                                           | *Not available*  | *❌ Not available*           |
 
 **Tools, models, and memory in a session**
 

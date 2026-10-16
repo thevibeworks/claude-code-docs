@@ -141,12 +141,12 @@ A longer accepted lifetime means a leaked Entra token stays exchangeable for lon
 
 ### Acquire and use the token
 
-At runtime your workload fetches its Entra token, exchanges it at `POST /v1/oauth/token`, and uses the returned bearer token to call Claude. The Claude SDK handles the exchange and refresh loop when you supply `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`), as shown in the following examples. The cURL tab shows the raw flow.
+At runtime your workload fetches its Entra token, exchanges it at `POST /v1/oauth/token`, and uses the returned bearer token to call Claude. The Claude SDK handles the exchange and refresh loop when you supply `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`), as shown in the following examples. Except in Java (see the comment in that example), that option takes a token provider, and the SDK calls it again for each refresh. The cURL tab shows the raw flow.
 
 The samples fetch the managed identity token from the platform's token endpoint: IMDS on VMs and VM Scale Sets, or the `IDENTITY_ENDPOINT` service on App Service, Functions, and Container Apps. Replace `<APP_ID>` in the `api://<APP_ID>` resource value with the audience app registration's client ID from [Register the token audience](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#register-the-token-audience).
 
 <Tip>
-  If your workload already uses the Azure Identity client library, pass its token acquisition (`DefaultAzureCredential` with the scope `api://<APP_ID>/.default`) to `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`) instead of calling the token endpoints directly. The library selects the correct endpoint on every Azure platform, including AKS with Entra Workload Identity.
+  If your workload already uses the Azure Identity client library, get the Entra token from it (`DefaultAzureCredential` with the scope `api://<APP_ID>/.default`) instead of calling the token endpoints directly. Supply it to `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`) the way the examples do. The library selects the correct endpoint on every Azure platform, including AKS with Entra Workload Identity.
 </Tip>
 
 <CodeGroup>
@@ -374,46 +374,67 @@ The samples fetch the managed identity token from the platform's token endpoint:
   ```
 
   ```java Java
-  HttpClient http = HttpClient.newHttpClient();
-  // The audience app registration's identifier URI (see Register the token audience).
-  String audience = "api://<APP_ID>";
-  // App Service, Functions, and Container Apps inject IDENTITY_ENDPOINT;
-  // VMs and VM Scale Sets use IMDS.
-  // With multiple user-assigned identities, append &client_id=<IDENTITY_CLIENT_ID>.
-  String identityEndpoint = System.getenv("IDENTITY_ENDPOINT");
-  HttpRequest tokenRequest = identityEndpoint != null
-          ? HttpRequest.newBuilder(URI.create(identityEndpoint + "?api-version=2019-08-01&resource=" + audience))
-                  .header("X-IDENTITY-HEADER", System.getenv("IDENTITY_HEADER"))
-                  .build()
-          : HttpRequest.newBuilder(URI.create("http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=" + audience))
-                  .header("Metadata", "true")
-                  .build();
+  import com.anthropic.config.AuthenticationConfig;
+  import com.anthropic.config.AuthenticationType;
+  import com.anthropic.config.IdentityTokenConfig;
+  import com.anthropic.config.InMemoryProfileConfigProvider;
+  import com.anthropic.config.ProfileConfig;
+  // ...
+  import com.fasterxml.jackson.databind.ObjectMapper;
+  import java.net.URI;
+  import java.net.http.HttpClient;
+  import java.net.http.HttpRequest;
+  import java.net.http.HttpResponse;
 
-  IdentityTokenProvider fetchEntraToken = () -> {
-      try {
-          var response = http.send(tokenRequest, HttpResponse.BodyHandlers.ofString());
-          return new ObjectMapper().readTree(response.body()).get("access_token").asText();
-      } catch (Exception e) {
-          throw new RuntimeException(e);
-      }
-  };
+  void main() throws Exception {
+      HttpClient http = HttpClient.newHttpClient();
+      // The audience app registration's identifier URI (see Register the token audience).
+      String audience = "api://<APP_ID>";
+      // App Service, Functions, and Container Apps inject IDENTITY_ENDPOINT;
+      // VMs and VM Scale Sets use IMDS.
+      // With multiple user-assigned identities, append &client_id=<IDENTITY_CLIENT_ID>.
+      String identityEndpoint = System.getenv("IDENTITY_ENDPOINT");
+      HttpRequest tokenRequest = identityEndpoint != null
+              ? HttpRequest.newBuilder(URI.create(identityEndpoint + "?api-version=2019-08-01&resource=" + audience))
+                      .header("X-IDENTITY-HEADER", System.getenv("IDENTITY_HEADER"))
+                      .build()
+              : HttpRequest.newBuilder(URI.create("http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=" + audience))
+                      .header("Metadata", "true")
+                      .build();
 
-  AnthropicClient client = AnthropicOkHttpClient.builder()
-          .federationTokenProvider(
-                  fetchEntraToken,
-                  System.getenv("ANTHROPIC_FEDERATION_RULE_ID"),
-                  System.getenv("ANTHROPIC_ORGANIZATION_ID"),
-                  System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"),
-                  System.getenv("ANTHROPIC_WORKSPACE_ID"))
-          .build();
+      // The Java SDK takes the token itself or a file path, not a function; with
+      // source("value"), path(...) holds the token. The SDK sends that same token
+      // at every refresh of the Anthropic access token, which fails once it has
+      // expired or, if it has a jti claim, been used. For a longer-running
+      // process, pass source("file") and write a new token to the file before
+      // each refresh.
+      var response = http.send(tokenRequest, HttpResponse.BodyHandlers.ofString());
+      String entraToken = new ObjectMapper().readTree(response.body()).get("access_token").asText();
 
-  var message = client.messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024)
-          .addUserMessage("Hello from Azure")
-          .build());
+      AnthropicClient client = AnthropicOkHttpClient.builder()
+              .configurationProvider(InMemoryProfileConfigProvider.of(ProfileConfig.builder()
+                      .organizationId(System.getenv("ANTHROPIC_ORGANIZATION_ID"))
+                      .workspaceId(System.getenv("ANTHROPIC_WORKSPACE_ID"))
+                      .authentication(AuthenticationConfig.builder()
+                              .type(AuthenticationType.OIDC_FEDERATION)
+                              .federationRuleId(System.getenv("ANTHROPIC_FEDERATION_RULE_ID"))
+                              .serviceAccountId(System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
+                              .identityToken(IdentityTokenConfig.builder()
+                                      .source("value")
+                                      .path(entraToken)
+                                      .build())
+                              .build())
+                      .build()))
+              .build();
 
-  IO.println(message.content());
+      var message = client.messages().create(MessageCreateParams.builder()
+              .model(Model.CLAUDE_OPUS_5_5)
+              .maxTokens(1024)
+              .addUserMessage("Hello from Azure")
+              .build());
+
+      IO.println(message.content());
+  }
   ```
 
   ```csharp C#
@@ -479,37 +500,45 @@ The samples fetch the managed identity token from the platform's token endpoint:
 
   ```php PHP
   use Anthropic\Client;
-  use Anthropic\Credentials\WorkloadIdentityCredentials;
+  use Anthropic\Lib\Credentials\CredentialResult;
+  use Anthropic\Lib\Credentials\IdentityTokenProvider;
+  use Anthropic\Lib\Credentials\TokenCache;
+  use Anthropic\Lib\Credentials\WorkloadIdentityCredentials;
 
   // The audience app registration's identifier URI (see Register the token audience).
   const AUDIENCE = 'api://<APP_ID>';
 
-  function fetchEntraToken(): string
+  class EntraIdentityToken implements IdentityTokenProvider
   {
-      // App Service, Functions, and Container Apps inject IDENTITY_ENDPOINT;
-      // VMs and VM Scale Sets use IMDS.
-      // With multiple user-assigned identities, append &client_id=<IDENTITY_CLIENT_ID>.
-      $identityEndpoint = getenv('IDENTITY_ENDPOINT');
-      if ($identityEndpoint !== false) {
-          $url = $identityEndpoint . '?api-version=2019-08-01&resource=' . AUDIENCE;
-          $header = 'X-IDENTITY-HEADER: ' . getenv('IDENTITY_HEADER');
-      } else {
-          $url = 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=' . AUDIENCE;
-          $header = 'Metadata: true';
+      public function getIdentityToken(): string
+      {
+          // App Service, Functions, and Container Apps inject IDENTITY_ENDPOINT;
+          // VMs and VM Scale Sets use IMDS.
+          // With multiple user-assigned identities, append &client_id=<IDENTITY_CLIENT_ID>.
+          $identityEndpoint = getenv('IDENTITY_ENDPOINT');
+          if ($identityEndpoint !== false) {
+              $url = $identityEndpoint . '?api-version=2019-08-01&resource=' . AUDIENCE;
+              $header = 'X-IDENTITY-HEADER: ' . getenv('IDENTITY_HEADER');
+          } else {
+              $url = 'http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=' . AUDIENCE;
+              $header = 'Metadata: true';
+          }
+          $context = stream_context_create([
+              'http' => ['header' => $header . "\r\n"],
+          ]);
+          $body = json_decode(file_get_contents($url, false, $context), true);
+          return $body['access_token'];
       }
-      $context = stream_context_create([
-          'http' => ['header' => $header . "\r\n"],
-      ]);
-      $body = json_decode(file_get_contents($url, false, $context), true);
-      return $body['access_token'];
   }
 
-  $credentials = new WorkloadIdentityCredentials(
-      identityTokenProvider: fetchEntraToken(...),
-      federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
-      organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
-      serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
-      workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+  $credentials = new CredentialResult(
+      provider: new TokenCache(new WorkloadIdentityCredentials(
+          identityProvider: new EntraIdentityToken(),
+          federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
+          organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
+          serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
+          workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+      )),
   );
   $client = new Client(credentials: $credentials);
 
@@ -761,12 +790,12 @@ A longer accepted lifetime means a leaked Entra token stays exchangeable for lon
 
 ### Acquire and use the token
 
-At runtime the pod performs the two-hop exchange: it sends the Kubernetes-projected token (the file at `AZURE_FEDERATED_TOKEN_FILE`) to Entra's token endpoint as a federated `client_credentials` assertion, then exchanges the resulting Entra access token at `POST /v1/oauth/token`. The Claude SDK handles the second exchange and the refresh loop when you pass the Entra fetch to `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`), as shown in the following examples. The cURL tab shows the raw flow.
+At runtime the pod performs the two-hop exchange: it sends the Kubernetes-projected token (the file at `AZURE_FEDERATED_TOKEN_FILE`) to Entra's token endpoint as a federated `client_credentials` assertion, then exchanges the resulting Entra access token at `POST /v1/oauth/token`. The Claude SDK handles the second exchange and the refresh loop when you supply `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`), as shown in the following examples. Except in Java (see the comment in that example), that option takes your Entra fetch as a token provider, and the SDK calls it again for each refresh. The cURL tab shows the raw flow.
 
 Two different client IDs appear in the samples. `<APP_ID>` is the audience app registration's client ID from [Register the token audience](https://platform.claude.com/docs/en/manage-claude/wif-providers/azure#register-the-token-audience); the scope `api://<APP_ID>/.default` asks Entra for a token addressed to that audience. `$AZURE_CLIENT_ID` is the managed identity's client ID, injected by the webhook, and identifies the caller. Do not substitute one for the other.
 
 <Tip>
-  If your workload already uses the Azure Identity client library, pass its token acquisition (`DefaultAzureCredential` with the scope `api://<APP_ID>/.default`) to `identity_token_provider` (typescript, php: `identityTokenProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `federationTokenProvider`) instead of performing the two-hop exchange yourself. The library reads the same `AZURE_FEDERATED_TOKEN_FILE`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` environment variables and handles the Entra exchange.
+  If your workload already uses the Azure Identity client library, get the Entra token from it (`DefaultAzureCredential` with the scope `api://<APP_ID>/.default`) instead of performing the two-hop exchange yourself. Supply it to `identity_token_provider` (typescript: `identityTokenProvider`; php: `identityProvider`; csharp: `IdentityTokenProvider`; go: `option.WithFederationTokenProvider`; java: `IdentityTokenConfig`) the way the examples do. The library reads the same `AZURE_FEDERATED_TOKEN_FILE`, `AZURE_CLIENT_ID`, and `AZURE_TENANT_ID` environment variables and handles the Entra exchange.
 </Tip>
 
 <CodeGroup>
@@ -978,45 +1007,73 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
   ```
 
   ```java Java
-  IdentityTokenProvider fetchEntraTokenViaFederation = () -> {
-      try {
-          var form = Map.of(
-                          "client_id", System.getenv("AZURE_CLIENT_ID"),
-                          "grant_type", "client_credentials",
-                          "scope", "api://<APP_ID>/.default",
-                          "client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
-                          "client_assertion", Files.readString(Path.of(System.getenv("AZURE_FEDERATED_TOKEN_FILE"))))
-                  .entrySet().stream()
-                  .map(entry -> entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), UTF_8))
-                  .collect(Collectors.joining("&"));
-          var request = HttpRequest.newBuilder(URI.create(
-                          "https://login.microsoftonline.com/" + System.getenv("AZURE_TENANT_ID") + "/oauth2/v2.0/token"))
-                  .header("content-type", "application/x-www-form-urlencoded")
-                  .POST(HttpRequest.BodyPublishers.ofString(form))
-                  .build();
-          var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-          return new ObjectMapper().readTree(response.body()).get("access_token").asText();
-      } catch (Exception e) {
-          throw new RuntimeException(e);
-      }
-  };
+  import com.anthropic.config.AuthenticationConfig;
+  import com.anthropic.config.AuthenticationType;
+  import com.anthropic.config.IdentityTokenConfig;
+  import com.anthropic.config.InMemoryProfileConfigProvider;
+  import com.anthropic.config.ProfileConfig;
+  // ...
+  import com.fasterxml.jackson.databind.ObjectMapper;
+  import java.net.URI;
+  import java.net.URLEncoder;
+  import java.net.http.HttpClient;
+  import java.net.http.HttpRequest;
+  import java.net.http.HttpResponse;
+  import java.nio.file.Files;
+  import java.nio.file.Path;
+  import java.util.Map;
+  import java.util.stream.Collectors;
+  import static java.nio.charset.StandardCharsets.UTF_8;
 
-  AnthropicClient client = AnthropicOkHttpClient.builder()
-          .federationTokenProvider(
-                  fetchEntraTokenViaFederation,
-                  System.getenv("ANTHROPIC_FEDERATION_RULE_ID"),
-                  System.getenv("ANTHROPIC_ORGANIZATION_ID"),
-                  System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"),
-                  System.getenv("ANTHROPIC_WORKSPACE_ID"))
-          .build();
+  void main() throws Exception {
+      var form = Map.of(
+                      "client_id", System.getenv("AZURE_CLIENT_ID"),
+                      "grant_type", "client_credentials",
+                      "scope", "api://<APP_ID>/.default",
+                      "client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+                      "client_assertion", Files.readString(Path.of(System.getenv("AZURE_FEDERATED_TOKEN_FILE"))))
+              .entrySet().stream()
+              .map(entry -> entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), UTF_8))
+              .collect(Collectors.joining("&"));
+      var request = HttpRequest.newBuilder(URI.create(
+                      "https://login.microsoftonline.com/" + System.getenv("AZURE_TENANT_ID") + "/oauth2/v2.0/token"))
+              .header("content-type", "application/x-www-form-urlencoded")
+              .POST(HttpRequest.BodyPublishers.ofString(form))
+              .build();
 
-  var message = client.messages().create(MessageCreateParams.builder()
-          .model(Model.CLAUDE_OPUS_5_5)
-          .maxTokens(1024)
-          .addUserMessage("Hello from Azure")
-          .build());
+      // The Java SDK takes the token itself or a file path, not a function; with
+      // source("value"), path(...) holds the token. The SDK sends that same token
+      // at every refresh of the Anthropic access token, which fails once it has
+      // expired or, if it has a jti claim, been used. For a longer-running
+      // process, pass source("file") and write a new token to the file before
+      // each refresh.
+      var response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+      String entraToken = new ObjectMapper().readTree(response.body()).get("access_token").asText();
 
-  IO.println(message.content());
+      AnthropicClient client = AnthropicOkHttpClient.builder()
+              .configurationProvider(InMemoryProfileConfigProvider.of(ProfileConfig.builder()
+                      .organizationId(System.getenv("ANTHROPIC_ORGANIZATION_ID"))
+                      .workspaceId(System.getenv("ANTHROPIC_WORKSPACE_ID"))
+                      .authentication(AuthenticationConfig.builder()
+                              .type(AuthenticationType.OIDC_FEDERATION)
+                              .federationRuleId(System.getenv("ANTHROPIC_FEDERATION_RULE_ID"))
+                              .serviceAccountId(System.getenv("ANTHROPIC_SERVICE_ACCOUNT_ID"))
+                              .identityToken(IdentityTokenConfig.builder()
+                                      .source("value")
+                                      .path(entraToken)
+                                      .build())
+                              .build())
+                      .build()))
+              .build();
+
+      var message = client.messages().create(MessageCreateParams.builder()
+              .model(Model.CLAUDE_OPUS_5_5)
+              .maxTokens(1024)
+              .addUserMessage("Hello from Azure")
+              .build());
+
+      IO.println(message.content());
+  }
   ```
 
   ```csharp C#
@@ -1076,33 +1133,41 @@ Two different client IDs appear in the samples. `<APP_ID>` is the audience app r
 
   ```php PHP
   use Anthropic\Client;
-  use Anthropic\Credentials\WorkloadIdentityCredentials;
+  use Anthropic\Lib\Credentials\CredentialResult;
+  use Anthropic\Lib\Credentials\IdentityTokenProvider;
+  use Anthropic\Lib\Credentials\TokenCache;
+  use Anthropic\Lib\Credentials\WorkloadIdentityCredentials;
 
-  function fetchEntraTokenViaFederation(): string
+  class EntraIdentityTokenViaFederation implements IdentityTokenProvider
   {
-      $ch = curl_init('https://login.microsoftonline.com/' . getenv('AZURE_TENANT_ID') . '/oauth2/v2.0/token');
-      curl_setopt_array($ch, [
-          CURLOPT_RETURNTRANSFER => true,
-          CURLOPT_POSTFIELDS => http_build_query([
-              'client_id' => getenv('AZURE_CLIENT_ID'),
-              'grant_type' => 'client_credentials',
-              'scope' => 'api://<APP_ID>/.default',
-              'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
-              'client_assertion' => file_get_contents(getenv('AZURE_FEDERATED_TOKEN_FILE')),
-          ]),
-      ]);
-      $body = json_decode(curl_exec($ch), true);
-      curl_close($ch);
-      return $body['access_token'];
+      public function getIdentityToken(): string
+      {
+          $ch = curl_init('https://login.microsoftonline.com/' . getenv('AZURE_TENANT_ID') . '/oauth2/v2.0/token');
+          curl_setopt_array($ch, [
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_POSTFIELDS => http_build_query([
+                  'client_id' => getenv('AZURE_CLIENT_ID'),
+                  'grant_type' => 'client_credentials',
+                  'scope' => 'api://<APP_ID>/.default',
+                  'client_assertion_type' => 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer',
+                  'client_assertion' => file_get_contents(getenv('AZURE_FEDERATED_TOKEN_FILE')),
+              ]),
+          ]);
+          $body = json_decode(curl_exec($ch), true);
+          curl_close($ch);
+          return $body['access_token'];
+      }
   }
 
   $client = new Client(
-      credentials: new WorkloadIdentityCredentials(
-          identityTokenProvider: fetchEntraTokenViaFederation(...),
-          federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
-          organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
-          serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
-          workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+      credentials: new CredentialResult(
+          provider: new TokenCache(new WorkloadIdentityCredentials(
+              identityProvider: new EntraIdentityTokenViaFederation(),
+              federationRuleId: getenv('ANTHROPIC_FEDERATION_RULE_ID'),
+              organizationId: getenv('ANTHROPIC_ORGANIZATION_ID'),
+              serviceAccountId: getenv('ANTHROPIC_SERVICE_ACCOUNT_ID'),
+              workspaceId: getenv('ANTHROPIC_WORKSPACE_ID') ?: null,
+          )),
       ),
   );
 

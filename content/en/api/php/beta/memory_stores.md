@@ -29,7 +29,7 @@ Create a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -140,7 +140,7 @@ List memory stores
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -240,7 +240,7 @@ Retrieve a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -345,7 +345,7 @@ Update a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -441,7 +441,7 @@ Delete a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -502,7 +502,7 @@ Archive a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -655,7 +655,7 @@ Create a memory
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -779,7 +779,7 @@ List memories
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -908,7 +908,7 @@ Retrieve a memory
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -1031,7 +1031,7 @@ Update a memory
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -1149,7 +1149,7 @@ Delete a memory
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -1256,7 +1256,7 @@ List memory versions
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -1401,7 +1401,7 @@ Retrieve a memory version
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -1533,7 +1533,7 @@ Redact a memory version
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 

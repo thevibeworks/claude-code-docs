@@ -35,7 +35,7 @@ Create a memory store
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -260,7 +260,7 @@ List memory stores
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -467,7 +467,7 @@ Retrieve a memory store
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -688,7 +688,7 @@ Update a memory store
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -891,7 +891,7 @@ Delete a memory store
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -1058,7 +1058,7 @@ Archive a memory store
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -1341,7 +1341,7 @@ Create a memory
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -1587,7 +1587,7 @@ List memories
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -1836,7 +1836,7 @@ Retrieve a memory
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -2085,7 +2085,7 @@ Update a memory
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -2308,7 +2308,7 @@ Delete a memory
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -2546,7 +2546,7 @@ List memory versions
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -2862,7 +2862,7 @@ Retrieve a memory version
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 
@@ -3161,7 +3161,7 @@ Redact a memory version
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
     - `(string & {})`
 

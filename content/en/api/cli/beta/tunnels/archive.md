@@ -21,7 +21,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 

@@ -96,7 +96,12 @@ For the path-style object-storage entries (`s3.amazonaws.com`, `s3.<region>.amaz
 
 ## Domains the member's browser loads
 
-Sign-in pages and interactive previews load in the member's web browser, so they are governed by your web-filtering policy rather than the outbound proxy or the sandbox allowlist. If your policy blocks these domains, sign-in pages fail to load or interactive previews render blank or broken.
+The Claude sign-in pages load in the member's web browser, so they are governed by your web-filtering policy rather than the outbound proxy or the sandbox allowlist. Interactive previews load:
+
+* **When Claude Science opens in a browser tab**: in the member's web browser, under the same web-filtering policy.
+* **When Claude Science opens in its own window, on Windows or on a Mac**: inside that window.
+
+If your policy blocks these domains, sign-in pages fail to load or interactive previews render blank or broken.
 
 | Domain | Purpose |
 | - | - |

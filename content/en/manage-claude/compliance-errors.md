@@ -86,13 +86,17 @@ activity_types[].0: Input is not one of the permitted values.
 
 **Fix:** Correct the parameter named in the message. Each list endpoint has its own `limit` range; see the parameter constraints on the corresponding [Compliance API reference](https://platform.claude.com/docs/en/api/compliance) page. Send timestamps in RFC 3339 format with an explicit UTC offset, for example, `2024-03-01T00:00:00Z` or `2024-03-01T00:00:00+00:00`; the local session list rejects a timestamp without an offset (`created_at.gte: Input should have timezone info`). For the supported `activity_types[]` values, see [Query compliance activities](https://platform.claude.com/docs/en/api/compliance/activities/list).
 
-The local session list (`GET /v1/compliance/apps/sessions/local`) also returns a 400 `invalid_request_error` when both time bounds are supplied and `created_at.lt` is not strictly after `created_at.gte`. The body reads:
+The local session list (`GET /v1/compliance/apps/sessions/local`) also returns a 400 `invalid_request_error` when you supply a lower bound (`created_at.gte` or `created_at.gt`) and an upper bound (`created_at.lt` or `created_at.lte`) and the upper bound is not after the lower bound. Equal bounds are allowed only for `created_at.gte` with `created_at.lte`. The message names the two parameters, for example:
 
 ```text wrap
 created_at.lt must be strictly after created_at.gte.
 ```
 
-Send a `created_at.lt` later than `created_at.gte`, or omit one of the bounds.
+```text wrap
+created_at.lte must be at or after created_at.gte.
+```
+
+Send an upper bound later than the lower bound, or omit one of the bounds.
 
 The session transcript endpoints (`GET /v1/compliance/apps/sessions/local/{session_id}/messages` and `GET /v1/compliance/apps/sessions/remote/{session_id}/messages`) validate their truncation parameters the same way: `tool_use_input_max_bytes` and `tool_result_max_bytes` each accept a positive byte count or `-1` (the server maximum), so a value such as `0` returns the same 400 `invalid_request_error`.
 
@@ -493,7 +497,7 @@ The local-sessions index cannot currently evaluate retention overrides for this 
 
 * For the two `Try again shortly.` bodies, retry with exponential backoff and do not advance your `page` cursor, because the failed request returned no data.
 * If the `Captured content` body keeps recurring on the messages endpoint for an organization that uses a customer-managed key, treat it as persistent: stop walking that organization's transcripts and check the key's status in your key management service. Transcripts in other linked organizations, and session metadata everywhere, are unaffected. If you retry on a later run, restart each session's walk without `page`, because messages page cursors expire 24 hours after the walk's first page.
-* For the `Try again later.` body, do not hold a walk open waiting for it to clear. On the list endpoint, either retry later by restarting without the `page` parameter (a list page token older than 24 hours is still accepted but is re-evaluated against the current retention boundary, so a parked walk can skip sessions), or narrow the `created_at.gte` and `created_at.lt` window until the request succeeds and export the skipped range separately on a later run. On the retrieve and messages endpoints, skip that session ID, continue with the rest of your export, and retry the session on a later run. Messages page cursors expire 24 hours after the walk's first page, so restart that session's walk without `page` when you return to it.
+* For the `Try again later.` body, do not hold a walk open waiting for it to clear. On the list endpoint, either retry later by restarting without the `page` parameter (a list page token older than 24 hours is still accepted but is re-evaluated against the current retention boundary, so a parked walk can skip sessions), or narrow the `created_at` window until the request succeeds and export the skipped range separately on a later run. On the retrieve and messages endpoints, skip that session ID, continue with the rest of your export, and retry the session on a later run. Messages page cursors expire 24 hours after the walk's first page, so restart that session's walk without `page` when you return to it.
 
 If any of these conditions recurs across runs, contact your Anthropic representative and include the `request-id` response header. For the customer-managed key case, do this only if the error continues while that key is usable.
 

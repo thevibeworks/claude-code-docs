@@ -961,7 +961,7 @@ compliance activities that can be filtered by various criteria.
 
   - `"inference_hooks_circuit_breaker_tripped"`
 
-    The organization's Inference hooks circuit breaker tripped automatically: calls to the organization's Inference hooks endpoint crossed a failure threshold, and inspection was suspended to protect live traffic. While tripped, requests are handled according to the organization's failure handling setting — allowed through uninspected (fail open) or rejected (fail closed) — and no per-request Inference hooks activities are recorded. The tripped state persists until an administrator re-enables Inference hooks inspection (or explicitly resets the circuit breaker).
+    The organization's Inference hooks circuit breaker tripped automatically: calls to the organization's Inference hooks endpoint crossed a failure threshold, and inspection was suspended to protect live traffic. While tripped, requests are handled according to the organization's failure handling setting — allowed through uninspected (fail open) or rejected (fail closed) — and no per-request Inference hooks activities are recorded. Inspection turns back on by itself once the organization's Inference hooks endpoint returns a valid allow or deny answer to Anthropic's test request again, at least 10 minutes after the trip. An administrator can also end the tripped state by re-enabling Inference hooks inspection. If an administrator saves the Inference hooks settings after the trip (even without changing anything) or generates a new signing secret, inspection no longer turns back on by itself and stays off until an administrator re-enables it.
 
   - `"inference_hooks_config_deleted"`
 
@@ -3132,7 +3132,7 @@ compliance activities that can be filtered by various criteria.
 
   - `"inference_hooks_circuit_breaker_tripped"`
 
-    The organization's Inference hooks circuit breaker tripped automatically: calls to the organization's Inference hooks endpoint crossed a failure threshold, and inspection was suspended to protect live traffic. While tripped, requests are handled according to the organization's failure handling setting — allowed through uninspected (fail open) or rejected (fail closed) — and no per-request Inference hooks activities are recorded. The tripped state persists until an administrator re-enables Inference hooks inspection (or explicitly resets the circuit breaker).
+    The organization's Inference hooks circuit breaker tripped automatically: calls to the organization's Inference hooks endpoint crossed a failure threshold, and inspection was suspended to protect live traffic. While tripped, requests are handled according to the organization's failure handling setting — allowed through uninspected (fail open) or rejected (fail closed) — and no per-request Inference hooks activities are recorded. Inspection turns back on by itself once the organization's Inference hooks endpoint returns a valid allow or deny answer to Anthropic's test request again, at least 10 minutes after the trip. An administrator can also end the tripped state by re-enabling Inference hooks inspection. If an administrator saves the Inference hooks settings after the trip (even without changing anything) or generates a new signing secret, inspection no longer turns back on by itself and stays off until an administrator re-enables it.
 
   - `"inference_hooks_config_deleted"`
 
@@ -54505,7 +54505,7 @@ compliance activities that can be filtered by various criteria.
 
   - `InferenceHooksCircuitBreakerTripped object`
 
-    The organization's Inference hooks circuit breaker tripped automatically: calls to the organization's Inference hooks endpoint crossed a failure threshold, and inspection was suspended to protect live traffic. While tripped, requests are handled according to the organization's failure handling setting — allowed through uninspected (fail open) or rejected (fail closed) — and no per-request Inference hooks activities are recorded. The tripped state persists until an administrator re-enables Inference hooks inspection (or explicitly resets the circuit breaker).
+    The organization's Inference hooks circuit breaker tripped automatically: calls to the organization's Inference hooks endpoint crossed a failure threshold, and inspection was suspended to protect live traffic. While tripped, requests are handled according to the organization's failure handling setting — allowed through uninspected (fail open) or rejected (fail closed) — and no per-request Inference hooks activities are recorded. Inspection turns back on by itself once the organization's Inference hooks endpoint returns a valid allow or deny answer to Anthropic's test request again, at least 10 minutes after the trip. An administrator can also end the tripped state by re-enabling Inference hooks inspection. If an administrator saves the Inference hooks settings after the trip (even without changing anything) or generates a new signing secret, inspection no longer turns back on by itself and stays off until an administrator re-enables it.
 
     - `type: optional "inference_hooks_circuit_breaker_tripped"`
 
@@ -86127,7 +86127,7 @@ compliance activities that can be filtered by various criteria.
 
         - `user_agent: optional string or null`
 
-    - `updates: array of Name or Capabilities or RedactContent or 101 more`
+    - `updates: array of Name or Capabilities or RedactContent or 104 more`
 
       - `Name object`
 
@@ -87902,6 +87902,22 @@ compliance activities that can be filtered by various criteria.
 
           Setting value immediately before this change
 
+      - `ClaudeScienceLocalWorkImportEnabled object`
+
+        The Claude Science setting that lets members access projects, sessions, and artifacts previously saved on their computer under other sign-ins, and add them to their account in the organization, was changed for the organization.
+
+        - `type: optional "claude_science_local_work_import_enabled"`
+
+          default: claude_science_local_work_import_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change
+
       - `ClaudeAIProjectSharingEnabled object`
 
         The Claude.ai project sharing setting (whether members can share projects with new recipients: people, groups, or the whole organization) was changed for the organization.
@@ -87997,6 +88013,38 @@ compliance activities that can be filtered by various criteria.
         - `previous_value: optional boolean or null`
 
           Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `ArtifactTypeDashboardsEnabled object`
+
+        The setting that lets members create Dashboards, one of Anthropic's built-in Artifact types, was changed for the organization.
+
+        - `type: optional "artifact_type_dashboards_enabled"`
+
+          default: artifact_type_dashboards_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `BuiltInBrowserDataImportEnabled object`
+
+        The setting that lets members import cookies and site data from other browsers into the Claude desktop app's built-in browser was changed for the organization.
+
+        - `type: optional "built_in_browser_data_import_enabled"`
+
+          default: built_in_browser_data_import_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting was not set, so its default applied.
 
     - `id: optional string`
 
@@ -136396,7 +136444,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
       default: boolean
 
-    - `name: "access_transparency_enabled" or "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or 60 more`
+    - `name: "access_transparency_enabled" or "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or 61 more`
 
       - `"access_transparency_enabled"`
 
@@ -136457,6 +136505,8 @@ unknown organizations and organizations outside the hierarchy return 404.
       - `"claude_science_custom_skills_enabled"`
 
       - `"claude_science_enabled"`
+
+      - `"claude_science_local_work_import_enabled"`
 
       - `"claude_science_managed_network_allowlist_enabled"`
 
@@ -139183,6 +139233,12 @@ forward-only via `next_page`; there is no reverse cursor.
 
 - `created_at: optional object`
 
+  - `gt: optional string`
+
+    Only return sessions whose first inference call is strictly after this time (RFC 3339; a UTC offset is required).
+
+    format: date-time
+
   - `gte: optional string`
 
     Only return sessions whose first inference call is at or after this time (RFC 3339; a UTC offset is required).
@@ -139192,6 +139248,12 @@ forward-only via `next_page`; there is no reverse cursor.
   - `lt: optional string`
 
     Only return sessions whose first inference call is strictly before this time (RFC 3339; a UTC offset is required).
+
+    format: date-time
+
+  - `lte: optional string`
+
+    Only return sessions whose first inference call is at or before this time (RFC 3339; a UTC offset is required).
 
     format: date-time
 
@@ -139209,7 +139271,7 @@ forward-only via `next_page`; there is no reverse cursor.
 
   - `gte: optional string`
 
-    Only return sessions whose last inference call is at or after this time (RFC 3339; a UTC offset is required). Combines with `created_at.gte` / `created_at.lt`; the ordering and pagination are unchanged. Use it to poll for sessions that have been active since a previous pass — a session that becomes active later can only enter the result, never leave it.
+    Only return sessions whose last inference call is at or after this time (RFC 3339; a UTC offset is required). Combines with the `created_at` filters and does not change the ordering or pagination. Use it to poll for sessions that have been active since a previous pass — a session that becomes active later can only enter the result, never leave it.
 
     format: date-time
 
@@ -139259,7 +139321,7 @@ forward-only via `next_page`; there is no reverse cursor.
 
   - `updated_at: string`
 
-    Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+    Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page boundary or the upper end of a `created_at` window it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
 
     format: date-time
 
@@ -139370,7 +139432,7 @@ inference call has aged out returns 404.
 
 - `updated_at: string`
 
-  Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+  Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page boundary or the upper end of a `created_at` window it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
 
   format: date-time
 
@@ -139689,7 +139751,7 @@ response header.
 
   - `updated_at: string`
 
-    Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+    Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page boundary or the upper end of a `created_at` window it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
 
     format: date-time
 
@@ -140257,7 +140319,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote/$CLAUDE_REMOTE
 }
 ```
 
-## Compliance API › Code › Artifacts
+## Compliance API › Apps › Code › Artifacts
 
 ### List Code Artifacts
 
@@ -140374,7 +140436,7 @@ returned.
 
   - `published_version_id: string or null`
 
-    Identifier of the version a non-owner viewer would render when `read_mode` permits them — the version the owner has pinned for non-owner readers if one is pinned, otherwise the owner's latest. When `read_mode` is `owner` no non-owner renders any version; the field still reports which version would be served were read_mode widened.
+    Identifier of the version a non-owner viewer would render when `read_mode` permits them — the version the owner has pinned for non-owner readers if one is pinned, otherwise the owner's latest. When `read_mode` is `owner` no non-owner renders any version; the field still reports which version would be served were read_mode widened. Null for a Claude Doc; see `versions`.
 
   - `read_mode: "org" or "owner" or "public" or "users"`
 
@@ -140408,7 +140470,7 @@ returned.
 
   - `versions: array of object`
 
-    Up to roughly 20 most-recently-published versions of this Artifact (older versions are not retained). Metadata only — use `GET /v1/compliance/apps/code/artifacts/{artifact_id}/versions/{version_id}` to download a version's content.
+    Up to roughly 20 most-recently-published versions of this Artifact (older versions are not retained). Metadata only — use `GET /v1/compliance/apps/code/artifacts/{artifact_id}/versions/{version_id}` to download a version's content. Empty for a Claude Doc, because a Doc's versions hold only the web page that displays it, not its text. Download a Doc's text with `GET /v1/compliance/apps/code/artifacts/{artifact_id}/content?multi_file_format=zip`.
 
     - `id: string`
 
@@ -140447,7 +140509,7 @@ curl https://api.anthropic.com/v1/compliance/apps/code/artifacts \
   "data": [
     {
       "id": "cart_01Tu9VwXyZaBcDeFgHiJkLmN",
-      "artifact_type": "claude_docs",
+      "artifact_type": "code",
       "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
       "owner_user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
       "published_version_id": "1741803761-9f3a",
@@ -140482,11 +140544,17 @@ Returns 404 for Artifacts that don't exist or belong to another parent
 organization. A listed version id can start returning 404 if subsequent
 publishes rotated it out of retained history — re-list on 404. Returns
 503 while the version's content upload is still in flight or was
-abandoned — retry with backoff. Returns 422 for a version that has more
-than one file, because the Compliance API returns only single-file
-versions. Do not retry a 422. The 422's `error.details.error_code` is
-`multi_file_unavailable`. Oversized
-encoded content aborts mid-stream: headers and initial bytes arrive
+abandoned — retry with backoff. Returns 422 with
+`error.details.error_code` `multi_file_unavailable` for a version that
+has more than one file, unless the request sets `multi_file_format=zip`,
+which returns those files as a ZIP archive. With `multi_file_format=zip`,
+a version with more than one file, one of them with a name the API cannot
+export, gets 422 `file_set_unavailable`. Do not retry a 422. A Claude
+Doc's versions hold only the web page that displays the Doc and never come
+back as a ZIP. That page usually has more than one file, so a Doc's version
+usually gets the 422 `multi_file_unavailable`. Download the Doc's text with
+`GET /v1/compliance/apps/code/artifacts/{artifact_id}/content?multi_file_format=zip`.
+Oversized encoded content aborts mid-stream: headers and initial bytes arrive
 but the body terminates early — an aborted chunked transfer is the
 only truncation signal for encoded content. `Content-MD5` is emitted
 only for identity-stored content; validate against it when present.
@@ -140500,6 +140568,12 @@ only for identity-stored content; validate against it when present.
 - `version_id: string`
 
   Opaque version identifier from the Artifact's `versions` list
+
+#### Query parameters
+
+- `multi_file_format: optional string`
+
+  Set to `zip`, its only value, to receive a version that has more than one file as a ZIP archive of its files with an index, `files.json`. Files the artifact copied from its type (the app that displays every artifact of that type) are listed under `omitted_files` in the index, and left out of the archive, when an organization other than the artifact's owns that type. A Claude Doc's version never comes back as a ZIP: it is answered as without this parameter, except that a version with more than one file, one of them with a name the API cannot export, gets 422 `file_set_unavailable`. A version with one file is returned as that file, as without this parameter.
 
 #### Headers
 
@@ -140515,6 +140589,61 @@ only for identity-stored content; validate against it when present.
 
 ```bash
 curl https://api.anthropic.com/v1/compliance/apps/code/artifacts/$ARTIFACT_ID/versions/$VERSION_ID \
+    -H 'anthropic-version: 2023-06-01' \
+    -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
+```
+
+### Download Code Artifact Content
+
+**GET** `/v1/compliance/apps/code/artifacts/{artifact_id}/content`
+
+Streams an Artifact's current content as the response body. For a
+Claude Doc, that is the Doc's text as a ZIP archive of Word files, one per
+text tab, and the request must set `multi_file_format=zip`. For any other
+Artifact, it is the latest version, as
+`GET /v1/compliance/apps/code/artifacts/{artifact_id}/versions/{version_id}`
+returns it.
+
+Returns 404 for Artifacts that don't exist or that the API key cannot read.
+Returns 400 with `error.details.error_code` `cmek_key_disabled` when the
+organization's customer-managed encryption key can't be used, for example
+because it is disabled or revoked. Returns 503 when the content can't be
+produced right now; wait the number of seconds in the `Retry-After`
+header, or retry with backoff when it is absent. For a Claude Doc, a 422's
+`error.details.error_code` is `multi_file_unavailable` when the request
+does not set `multi_file_format=zip`, `document_unavailable` when the Doc
+has no text to export (for example, it has no text tab or is in the trash),
+`document_too_large` when the export is over 16 MiB, or
+`cmek_org_unsupported` when the organization uses customer-managed
+encryption keys and the export can't be served for it right now. For any
+other Artifact, the 422s are the version download's.
+
+#### Path parameters
+
+- `artifact_id: string`
+
+  The Artifact ID (tagged ID, e.g., cart_abc123)
+
+#### Query parameters
+
+- `multi_file_format: optional string`
+
+  Set to `zip`, its only value. A Claude Doc downloads only this way, as a ZIP archive of Word files, one per text tab. For any other Artifact it works as on the version download: when the latest version has more than one file, it comes back as a ZIP archive of its files with an index, `files.json`.
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"x-api-key": optional string`
+
+#### Example
+
+```bash
+curl https://api.anthropic.com/v1/compliance/apps/code/artifacts/$ARTIFACT_ID/content \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```

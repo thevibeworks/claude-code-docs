@@ -89,7 +89,7 @@ List memory versions
 
 - `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
   - `str`
 
@@ -404,7 +404,7 @@ Retrieve a memory version
 
 - `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
   - `str`
 
@@ -702,7 +702,7 @@ Redact a memory version
 
 - `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
   - `str`
 

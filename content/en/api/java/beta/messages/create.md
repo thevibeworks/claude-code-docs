@@ -3688,6 +3688,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
+    Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=java) for which models.
+
     - `STANDARD("standard")`
 
     - `FAST("fast")`

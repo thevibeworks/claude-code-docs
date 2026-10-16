@@ -18,7 +18,7 @@ The new unified Claude experience is in public beta for Claude Enterprise plans.
 
 4. Work moves across devices. Members can start a task on the desktop app and pick it up on web or mobile.
 
-5. Local access stays optional. Through the Claude desktop app, members can link their computers so Claude can work with local folders, local MCP servers, and applications. Your Remote control and device policies govern this.
+5. Local access stays optional. Through the Claude desktop app, members can link their computers so Claude can work with local folders, local MCP servers, and applications. Your Computer access and device policies govern this.
 
 ---
 
@@ -82,7 +82,7 @@ To learn how to create a role, see **[Set up role-based permissions on Enterpris
 
 3. Start in your sandbox organization, if you have one, or with a pilot group through a role.
 
-4. Review your network egress, connector, sharing, and remote control settings before you turn the experience on.
+4. Review your network egress, connector, sharing, and Computer access settings before you turn the experience on.
 
 5. Monitor usage and gather feedback for two to four weeks, then expand in waves.
 
@@ -100,7 +100,7 @@ To learn how to create a role, see **[Set up role-based permissions on Enterpris
 | Allow "Skip all approvals" mode                                     | Organization settings                                 | When off, users *can’t* let Claude act without asking for approval — including using tools, editing files, and browsing websites. This specifically applies to scheduled tasks and the built-in browser in the unified experience.                                                                                             |
 | Allow “Automatically approve” mode                                  | Organization settings                                 | When off, users *can’t* let Claude approve actions on its own. The user must approve each one — including using tools, editing files, and browsing websites.                                                                                                                                                                   |
 | Share chats and Share cloud sessions                                | Organization settings                                 | A conversation that has used its sandbox can be shared only when both settings are on. The more restrictive setting applies.                                                                                                                                                                                                   |
-| Remote control                                                      | Organization settings                                 | When off, web and mobile can't use a member's linked computer.                                                                                                                                                                                                                                                                 |
+| Computer access                                                     | Organization settings                                 | When off, web, mobile, and scheduled tasks can't use a member's linked computer.                                                                                                                                                                                                                                               |
 | Require Trusted Devices                                             | Organization settings                                 | Require members to verify each new device before it can connect to Claude on their computer remotely.                                                                                                                                                                                                                          |
 | Scheduled tasks                                                     | Organization settings                                 | When off, scheduled tasks that execute remotely are disabled for your org. Users will not be able to create new scheduled tasks in the cloud.                                                                                                                                                                                  |
 | Custom data retention                                               | Organization settings                                 | Governs conversations and projects. See Data retention and deletion below.                                                                                                                                                                                                                                                     |
@@ -160,11 +160,11 @@ The new unified Claude experience gets its own line in your reports. When a memb
 
 - **A page of its own.** Admins who can view analytics will find a Chat and Cowork unified page under Apps, marked Beta. It shows daily active users.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719814921/59cd7abb6c99192d741223dd2016/f2fadd45-8cb0-49db-a9a2-c8f367f29c91?expires=1792094400&amp;signature=2b5121a41ac4d57a679a6a8efad07c98071ef4de4984e5182a03dda23bc238ec&amp;req=dicmH8F%2FmYhdWPMW1HO4zdLa5Q1oaaqEf83E9koMvr8kL7dIWTA0WypYoD71%0A%2BzjZ%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719814921/59cd7abb6c99192d741223dd2016/f2fadd45-8cb0-49db-a9a2-c8f367f29c91?expires=1792238400&amp;signature=7edf5b7f3450636cb4b31c736ad1c5d9a97dc526931d39fe629a2b47f3f5988b&amp;req=dicmH8F%2FmYhdWPMW3nq%2BgbJHOpVrn9XYEbygL%2F%2BcHiM64l%2F6t8YBRm5GgRDS%0AlDj5JBNz46tpwFLuk5zyr2BPktE%3D%0A)
 
 - **Across the dashboard.** You can pick "Chat and Cowork unified (beta)" in the Active users, Active members, Total spend, and Spend by model charts. The See all members table on the Overview page has a "Messages in Chat and Cowork unified (beta)" column. The Top connectors and Top skills cards don't include it yet.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719816289/17e3ba22d470c32e8df9b3c20251/385c6be9-7019-451d-85f8-025a6e12a34c?expires=1792094400&amp;signature=33047f5d87c66eaa45ee825b1884aeadd95963ca39581a5bdb4edb28de8eca54&amp;req=dicmH8F%2Fm4NXUPMW1HO4zRXO8A0RSYG9JG9o%2B2MbcGrehlGl4nyDcAF6KaFS%0Acm0d%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2719816289/17e3ba22d470c32e8df9b3c20251/385c6be9-7019-451d-85f8-025a6e12a34c?expires=1792238400&amp;signature=8b0820913d0314fba1a2bad678a36aff985bf42f116a2e7111324d7ba40b2abb&amp;req=dicmH8F%2Fm4NXUPMW3nq%2BgTeAtlvnIqK1Yubv3uEHtAU8pd9Dx5i941gKujKU%0A7o9Ls5IL%2BR18kU2dx4r2g2S%2F6jE%3D%0A)
 
 - **Who sees it.** The page appears for every organization that can turn on the new unified Claude experience, whether or not it is on yet.
 
@@ -200,4 +200,4 @@ When on, org members can use only Sonnet and Haiku models in the new unified Cla
 
 1. **ZDR, HIPAA, and CMEK.** The new unified Claude experience isn't available to organizations with zero data retention, the HIPAA-ready configuration, or customer-managed encryption keys. These organizations stay on their current configuration. HIPAA and CMEK support is expected after general availability.
 
-2. **Per-role access for Remote control and scheduled tasks.** These are set for the whole organization, not per role.
+2. **Per-role access for Computer access and scheduled tasks.** These are set for the whole organization, not per role.

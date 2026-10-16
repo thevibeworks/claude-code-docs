@@ -25,9 +25,13 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `string`
 

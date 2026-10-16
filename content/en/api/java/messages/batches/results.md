@@ -1058,6 +1058,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `BATCH("batch")`
 
+          - `Optional<Speed> speed`
+
+            The inference speed mode used for this request.
+
+            - `STANDARD("standard")`
+
+            - `FAST("fast")`
+
     - `class MessageBatchErroredResult`
 
       - `JsonValue type = "errored"`

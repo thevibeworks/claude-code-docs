@@ -11596,7 +11596,7 @@ Get Messages Usage Report
 
 - `group_by: optional array of "account_id" or "api_key_id" or "context_window" or 6 more`
 
-  Group by any subset of the available options. Grouping by `speed` requires the `fast-mode-2026-02-01` beta header.
+  Group by any subset of the available options.
 
   - `"account_id"`
 
@@ -11665,8 +11665,7 @@ Get Messages Usage Report
 
 - `speeds: optional array of "standard" or "fast"`
 
-  Restrict usage returned to the specified speed(s) (Claude Code research preview).
-  Requires the `fast-mode-2026-02-01` beta header.
+  Restrict usage returned to the specified speed(s).
 
   - `"standard"`
 
@@ -11893,6 +11892,14 @@ Get Messages Usage Report
 
         - `"standard"`
 
+      - `speed: "standard" or "fast" or null`
+
+        Speed of the usage. `null` if not grouping by speed.
+
+        - `"standard"`
+
+        - `"fast"`
+
       - `uncached_input_tokens: number`
 
         The number of uncached input tokens processed.
@@ -11948,6 +11955,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/messages \
           },
           "service_account_id": "svac_01Hk3R9TWxq7CfQak00OiVw4",
           "service_tier": "standard",
+          "speed": "standard",
           "uncached_input_tokens": 1500,
           "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
         }
@@ -12471,6 +12479,14 @@ Get Cost Report
 
         - `"standard"`
 
+      - `speed: "standard" or "fast" or null`
+
+        Speed used. `null` if not grouping by description, or for non-token costs.
+
+        - `"standard"`
+
+        - `"fast"`
+
       - `token_type: BetaAnalyticsTokenType or null`
 
         Type of token. `null` if not grouping by description or for non-token costs.
@@ -12528,6 +12544,7 @@ curl https://api.anthropic.com/v1/organizations/cost_report \
           "inference_geo": "global",
           "model": "claude-opus-5-5",
           "service_tier": "standard",
+          "speed": "standard",
           "token_type": "cache_creation.ephemeral_1h_input_tokens",
           "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
         }
@@ -18402,7 +18419,7 @@ Anthropic account team.
 
     - `"weekly"`
 
-  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
@@ -18463,6 +18480,20 @@ Anthropic account team.
       - `workspace_id: string`
 
         Tagged ID of the workspace the spend limit applies to.
+
+    - `BetaSpendLimitUsageTierScope object`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `type: "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
+        default: usage_tier
 
   - `updated_at: string`
 
@@ -18570,7 +18601,7 @@ Retrieve a spend limit by ID.
 
     - `"weekly"`
 
-  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
@@ -18632,6 +18663,20 @@ Retrieve a spend limit by ID.
 
         Tagged ID of the workspace the spend limit applies to.
 
+    - `BetaSpendLimitUsageTierScope object`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `type: "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
+        default: usage_tier
+
   - `updated_at: string`
 
     RFC 3339 datetime at which the spend limit was last modified.
@@ -18675,7 +18720,8 @@ For a Claude Enterprise organization, this deletes a per-user override, and
 the member falls back to any inherited spend limit at that period. Its
 seat-tier, group, and organization-level rows cannot be deleted via this
 endpoint. A Claude Console organization deletes its organization and
-workspace limits. Deleting them through the API is in an early access preview.
+workspace limits, but not its `usage_tier` limit. Deleting organization and
+workspace limits through the API is in an early access preview.
 
 #### Path parameters
 
@@ -18916,7 +18962,7 @@ organizations only, not for Claude Console organizations.
 
     - `"weekly"`
 
-  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
@@ -18977,6 +19023,20 @@ organizations only, not for Claude Console organizations.
       - `workspace_id: string`
 
         Tagged ID of the workspace the spend limit applies to.
+
+    - `BetaSpendLimitUsageTierScope object`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `type: "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
+        default: usage_tier
 
   - `updated_at: string`
 
@@ -19139,7 +19199,7 @@ organizations.
 
     The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
 
-  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
     - `BetaSpendLimitUserScope object`
 
@@ -19199,7 +19259,21 @@ organizations.
 
         Tagged ID of the workspace the spend limit applies to.
 
-  - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+    - `BetaSpendLimitUsageTierScope object`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `type: "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
+        default: usage_tier
+
+  - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
     - `BetaSpendLimitUserScope object`
 
@@ -19216,6 +19290,14 @@ organizations.
     - `BetaSpendLimitWorkspaceScope object`
 
       Scope selecting one workspace of a Claude Console organization.
+
+    - `BetaSpendLimitUsageTierScope object`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
 
   - `spend_limit_id: string`
 
@@ -19416,7 +19498,7 @@ Requests whose requester is no longer a member are excluded.
 
       The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
 
-    - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+    - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
       - `BetaSpendLimitUserScope object`
 
@@ -19476,7 +19558,21 @@ Requests whose requester is no longer a member are excluded.
 
           Tagged ID of the workspace the spend limit applies to.
 
-    - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+      - `BetaSpendLimitUsageTierScope object`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
+
+        - `type: "usage_tier"`
+
+          Scope type. Always `usage_tier` for this scope.
+
+          default: usage_tier
+
+    - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
       - `BetaSpendLimitUserScope object`
 
@@ -19493,6 +19589,14 @@ Requests whose requester is no longer a member are excluded.
       - `BetaSpendLimitWorkspaceScope object`
 
         Scope selecting one workspace of a Claude Console organization.
+
+      - `BetaSpendLimitUsageTierScope object`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
 
     - `spend_limit_id: string`
 
@@ -19703,7 +19807,7 @@ requester at the request's period.
 
       The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
 
-    - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+    - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
       - `BetaSpendLimitUserScope object`
 
@@ -19763,7 +19867,21 @@ requester at the request's period.
 
           Tagged ID of the workspace the spend limit applies to.
 
-    - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+      - `BetaSpendLimitUsageTierScope object`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
+
+        - `type: "usage_tier"`
+
+          Scope type. Always `usage_tier` for this scope.
+
+          default: usage_tier
+
+    - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
       - `BetaSpendLimitUserScope object`
 
@@ -19780,6 +19898,14 @@ requester at the request's period.
       - `BetaSpendLimitWorkspaceScope object`
 
         Scope selecting one workspace of a Claude Console organization.
+
+      - `BetaSpendLimitUsageTierScope object`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
 
     - `spend_limit_id: string`
 
@@ -20003,7 +20129,7 @@ the member was blocked on. Anthropic emails the requester unless
 
     Length of the window the limit resets over. `amount` caps spend within each period.
 
-  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
     What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
 
@@ -20065,6 +20191,20 @@ the member was blocked on. Anthropic emails the requester unless
 
         Tagged ID of the workspace the spend limit applies to.
 
+    - `BetaSpendLimitUsageTierScope object`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+      - `type: "usage_tier"`
+
+        Scope type. Always `usage_tier` for this scope.
+
+        default: usage_tier
+
   - `updated_at: string`
 
     RFC 3339 datetime at which the spend limit was last modified.
@@ -20103,7 +20243,7 @@ the member was blocked on. Anthropic emails the requester unless
 
     The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
 
-  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+  - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
     - `BetaSpendLimitUserScope object`
 
@@ -20121,7 +20261,15 @@ the member was blocked on. Anthropic emails the requester unless
 
       Scope selecting one workspace of a Claude Console organization.
 
-  - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+    - `BetaSpendLimitUsageTierScope object`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
+
+  - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
     - `BetaSpendLimitUserScope object`
 
@@ -20138,6 +20286,14 @@ the member was blocked on. Anthropic emails the requester unless
     - `BetaSpendLimitWorkspaceScope object`
 
       Scope selecting one workspace of a Claude Console organization.
+
+    - `BetaSpendLimitUsageTierScope object`
+
+      Scope of the monthly spend cap Anthropic sets for a Claude Console
+      organization from its usage tier, or a higher cap Anthropic granted the
+      organization. Read-only; its `created_at` and `updated_at` are the
+      organization's creation time, so `amount` can change while `updated_at` stays
+      the same.
 
   - `spend_limit_id: string`
 
@@ -20364,7 +20520,7 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
       The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
 
-    - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+    - `scope: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
       - `BetaSpendLimitUserScope object`
 
@@ -20424,7 +20580,21 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
           Tagged ID of the workspace the spend limit applies to.
 
-    - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 3 more`
+      - `BetaSpendLimitUsageTierScope object`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
+
+        - `type: "usage_tier"`
+
+          Scope type. Always `usage_tier` for this scope.
+
+          default: usage_tier
+
+    - `source: BetaSpendLimitUserScope or BetaSpendLimitSeatTierScope or BetaSpendLimitRBACGroupScope or 4 more`
 
       - `BetaSpendLimitUserScope object`
 
@@ -20441,6 +20611,14 @@ Idempotent on `denied`; denying an already-`approved` request returns
       - `BetaSpendLimitWorkspaceScope object`
 
         Scope selecting one workspace of a Claude Console organization.
+
+      - `BetaSpendLimitUsageTierScope object`
+
+        Scope of the monthly spend cap Anthropic sets for a Claude Console
+        organization from its usage tier, or a higher cap Anthropic granted the
+        organization. Read-only; its `created_at` and `updated_at` are the
+        organization's creation time, so `amount` can change while `updated_at` stays
+        the same.
 
     - `spend_limit_id: string`
 
@@ -27010,9 +27188,13 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 
@@ -27479,9 +27661,13 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 
@@ -27826,9 +28012,13 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 
@@ -28168,9 +28358,13 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 
@@ -28644,9 +28838,13 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 
@@ -28799,9 +28997,13 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 
@@ -28990,9 +29192,13 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 
@@ -29175,9 +29381,13 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 
@@ -29354,9 +29564,13 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `"anthropic-version": optional string`
 
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
 - `"anthropic-beta": optional array of AnthropicBeta`
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
   - `string`
 

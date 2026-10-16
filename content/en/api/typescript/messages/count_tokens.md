@@ -1171,6 +1171,16 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         The JSON schema of the format
 
+  - `speed?: "standard" | "fast" | null`
+
+    The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+    Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=typescript) for which models.
+
+    - `"standard"`
+
+    - `"fast"`
+
   - `system?: string | Array<TextBlockParam>`
 
     System prompt.

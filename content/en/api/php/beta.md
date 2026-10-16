@@ -861,6 +861,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
+  Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=php) for which models.
+
 - `stopSequences?:optional list<string>`
 
   Custom text sequences that will cause the model to stop generating.
@@ -1551,6 +1553,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 - `speed?:optional Speed`
 
   The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+  Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=php) for which models.
 
 - `system?:optional System`
 
@@ -2598,7 +2602,7 @@ Create Agent
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -2841,7 +2845,7 @@ List Agents
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -3048,7 +3052,7 @@ Get Agent
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -3287,7 +3291,7 @@ Update Agent
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -3521,7 +3525,7 @@ Archive Agent
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -3725,7 +3729,7 @@ List Agent Versions
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -5725,7 +5729,7 @@ Create Session
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -6094,7 +6098,7 @@ List Sessions
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -6410,7 +6414,7 @@ Get Session
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -6728,7 +6732,7 @@ Update Session
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -7058,7 +7062,7 @@ Delete Session
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -7115,7 +7119,7 @@ Archive Session
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -7445,7 +7449,7 @@ List Events
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -8415,7 +8419,7 @@ Send Events
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -8493,7 +8497,7 @@ Stream Events
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -9472,7 +9476,7 @@ Add Session Resource
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -9556,7 +9560,7 @@ List Session Resources
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -9700,7 +9704,7 @@ Get Session Resource
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -9834,7 +9838,7 @@ Update Session Resource
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -9965,7 +9969,7 @@ Delete Session Resource
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -10043,7 +10047,7 @@ List Session Threads
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -10236,7 +10240,7 @@ Get Session Thread
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -10422,7 +10426,7 @@ Archive Session Thread
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -10614,7 +10618,7 @@ List Session Thread Events
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -11581,7 +11585,7 @@ Stream Session Thread Events
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -12590,7 +12594,7 @@ Create Deployment
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -12820,7 +12824,7 @@ List Deployments
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -13010,7 +13014,7 @@ Get Deployment
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -13229,7 +13233,7 @@ Update Deployment
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -13436,7 +13440,7 @@ Archive Deployment
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -13615,7 +13619,7 @@ Run Deployment Now
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -13716,7 +13720,7 @@ Pause Deployment
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -13895,7 +13899,7 @@ Unpause Deployment
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14108,7 +14112,7 @@ List Deployment Runs
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14222,7 +14226,7 @@ Get Deployment Run
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14329,7 +14333,7 @@ Create Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14426,7 +14430,7 @@ List Vaults
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14521,7 +14525,7 @@ Get Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14617,7 +14621,7 @@ Update Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14707,7 +14711,7 @@ Delete Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14768,7 +14772,7 @@ Archive Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14870,7 +14874,7 @@ Create Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -14990,7 +14994,7 @@ List Credentials
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15103,7 +15107,7 @@ Get Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15221,7 +15225,7 @@ Update Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15341,7 +15345,7 @@ Delete Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15411,7 +15415,7 @@ Archive Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15517,7 +15521,7 @@ Validate Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15639,7 +15643,7 @@ Create a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15750,7 +15754,7 @@ List memory stores
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15850,7 +15854,7 @@ Retrieve a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -15955,7 +15959,7 @@ Update a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16051,7 +16055,7 @@ Delete a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16112,7 +16116,7 @@ Archive a memory store
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16219,7 +16223,7 @@ Create a memory
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16343,7 +16347,7 @@ List memories
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16472,7 +16476,7 @@ Retrieve a memory
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16595,7 +16599,7 @@ Update a memory
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16713,7 +16717,7 @@ Delete a memory
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16820,7 +16824,7 @@ List memory versions
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -16965,7 +16969,7 @@ Retrieve a memory version
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -17097,7 +17101,7 @@ Redact a memory version
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `agent-memory-2026-07-22` or `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -18574,7 +18578,7 @@ Create User Profile
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -18721,7 +18725,7 @@ List User Profiles
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -18849,7 +18853,7 @@ Get User Profile
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -18993,7 +18997,7 @@ Update User Profile
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -19127,7 +19131,7 @@ Create Enrollment URL
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -19222,7 +19226,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -19413,7 +19417,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -19587,7 +19591,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -19751,7 +19755,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -19915,7 +19919,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `dreaming-2026-04-21` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20079,7 +20083,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20162,7 +20166,7 @@ Fetches a tunnel by ID.
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20253,7 +20257,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20343,7 +20347,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20426,7 +20430,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20498,7 +20502,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20573,7 +20577,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20666,7 +20670,7 @@ Fetches a tunnel certificate by ID.
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20767,7 +20771,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -20867,7 +20871,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -29812,7 +29816,8 @@ For a Claude Enterprise organization, this deletes a per-user override, and
 the member falls back to any inherited spend limit at that period. Its
 seat-tier, group, and organization-level rows cannot be deleted via this
 endpoint. A Claude Console organization deletes its organization and
-workspace limits. Deleting them through the API is in an early access preview.
+workspace limits, but not its `usage_tier` limit. Deleting organization and
+workspace limits through the API is in an early access preview.
 
 #### Parameters
 
@@ -33943,7 +33948,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 
@@ -34086,7 +34091,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 
@@ -34213,7 +34218,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 
@@ -34376,7 +34381,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 
@@ -34513,7 +34518,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 
@@ -34570,7 +34575,7 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 
@@ -34641,7 +34646,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 
@@ -34722,7 +34727,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 
@@ -34802,7 +34807,7 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `telemetry-destinations-2026-08-11` in this header.
 
 #### Returns
 

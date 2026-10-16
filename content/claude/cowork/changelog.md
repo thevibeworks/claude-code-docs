@@ -40,7 +40,7 @@
 
   **3P**
 
-  * Added support in the macOS and Linux apps for SSH sessions carrying on across an app restart, and automatic recovery on every platform when Claude Code on the host is lost mid-task: the app restarts it and continues the task, even with nobody at the computer.
+  * Added support in the macOS and Linux apps for SSH sessions carrying on across an app restart, and automatic recovery on every platform when Claude Code on the host is lost mid-task while the app is running: the app restarts it and continues the task, even with nobody at the computer.
   * Changed `claudeAiImport.automatic3pImport` to reinstall, without asking, the optional plugins that a user had switched on from any optional `allowedPluginMarketplaces` entry (GitHub, git, or a URL on any host) with the same source in the old and new organization, not only from the gateway or bootstrap origin. This includes computers that moved organizations before this version, at their first launch with it.
   * Changed `mcpPersistentAlwaysAllowEnabled` to also apply to Code sessions on the device, in WSL and over SSH: when it is `false`, MCP tool prompts offer "Allow for this session" instead of "Always allow", and scheduled tasks offer no lasting approval unless `mcpScheduledTaskApprovalLifetimeDays` is one day or more.
   * Changed Chat's file-analysis sandbox (`chatAdvancedFileAnalysisEnabled`) to reach the hosts in `coworkEgressAllowedHosts`, for example to install packages. As in Cowork, its commands run without an approval prompt. Before, it had no network access by default. With no list, or an empty one, it still has none.

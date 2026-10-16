@@ -237,6 +237,14 @@ Get Cost Report
 
         - `"standard"`
 
+      - `speed: "standard" or "fast" or null`
+
+        Speed used. `null` if not grouping by description, or for non-token costs.
+
+        - `"standard"`
+
+        - `"fast"`
+
       - `token_type: BetaAnalyticsTokenType or null`
 
         Type of token. `null` if not grouping by description or for non-token costs.
@@ -294,6 +302,7 @@ curl https://api.anthropic.com/v1/organizations/cost_report \
           "inference_geo": "global",
           "model": "claude-opus-5-5",
           "service_tier": "standard",
+          "speed": "standard",
           "token_type": "cache_creation.ephemeral_1h_input_tokens",
           "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
         }
