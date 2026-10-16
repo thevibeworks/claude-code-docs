@@ -443,7 +443,9 @@ Each row compares two consecutive requests:
 <Tip>
   **Automate this check with the Claude API skill.** In the latest version of [Claude Code](https://code.claude.com/docs/en/overview), open the repository that builds your requests and run the bundled [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#checking-an-integration-for-preserved-thinking):
 
-  ```text wrap
+  Let Claude Code check your code for you
+
+  ```text
   /claude-api preserved-thinking-migration
   ```
 

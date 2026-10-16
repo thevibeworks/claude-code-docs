@@ -1109,6 +1109,16 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `STANDARD_ONLY("standard_only")`
 
+  - `Optional<Speed> speed`
+
+    The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+    Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=java) for which models.
+
+    - `STANDARD("standard")`
+
+    - `FAST("fast")`
+
   - `Optional<List<String>> stopSequences`
 
     Custom text sequences that will cause the model to stop generating.
@@ -3836,6 +3846,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `BATCH("batch")`
 
+    - `Optional<Speed> speed`
+
+      The inference speed mode used for this request.
+
+      - `STANDARD("standard")`
+
+      - `FAST("fast")`
+
 - `class RawMessageStreamEvent: union`
 
   - `class RawMessageStartEvent`
@@ -4102,7 +4120,8 @@ public final class Main {
       "web_fetch_requests": 2,
       "web_search_requests": 0
     },
-    "service_tier": "standard"
+    "service_tier": "standard",
+    "speed": "standard"
   }
 }
 ```

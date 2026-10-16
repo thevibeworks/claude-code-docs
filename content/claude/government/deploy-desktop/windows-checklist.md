@@ -57,7 +57,7 @@ You can deploy Claude Desktop to devices that do not yet meet the [Cowork virtua
 
 ## Configuration values
 
-* **Two registry values.** Push the two values described under [Windows](/docs/government/deploy-desktop/configure#windows) as machine policy under `HKLM\SOFTWARE\Policies\Claude`: the required `bootstrapUrl` and the recommended `disableDeploymentModeChooser`. No other values are needed to connect the app, because everything else reaches each user from Claude for Government at sign-in. If your agency distributes Claude Desktop updates itself, also add the value described under [Automatic updates](/docs/government/deploy-desktop/configure#automatic-updates).
+* **Two registry values.** Push the two values described under [Windows](/docs/government/deploy-desktop/configure#windows) as machine policy under `HKLM\SOFTWARE\Policies\Claude`: `bootstrapUrl` and `disableDeploymentModeChooser`, both required. No other values are needed to connect the app, because everything else reaches each user from Claude for Government at sign-in. If your agency distributes Claude Desktop updates itself, also add the value described under [Automatic updates](/docs/government/deploy-desktop/configure#automatic-updates).
 * **Delivery order.** Deliver the values before the app wherever you can, so that users land directly on the Claude for Government sign-in screen, as [Order of deployment](/docs/government/deploy-desktop/configure#order-of-deployment) explains.
 
 ## Network access

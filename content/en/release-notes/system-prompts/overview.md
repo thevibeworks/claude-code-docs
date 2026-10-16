@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/release-notes/system-prompts/overview
 description: See updates to the core system prompts on [claude.ai](https://claude.ai) and the [Claude iOS app](https://anthropic.com/ios) and [Claude Android app](https://anthropic.com/android).
 ---
 
-Claude's web interface ([claude.ai](https://claude.ai)) and mobile apps use a system prompt to provide up-to-date information, such as the current date, to Claude at the start of every conversation. The system prompt also encourages certain behaviors, such as always providing code snippets in Markdown. This prompt is periodically updated to improve Claude's responses. These system prompt updates do not apply to the Claude API. Some models have multiple dated entries on their pages. Starting with the Claude 4.6 generation, each model ID is a [single fixed snapshot](https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions), so those models have one entry.
+Claude's web interface ([claude.ai](https://claude.ai)) and mobile apps use a system prompt to provide up-to-date information, such as the current date, to Claude at the start of every conversation. The system prompt also encourages certain behaviors, such as always providing code snippets in Markdown. This prompt is periodically updated to improve Claude's responses. These system prompt updates do not apply to the Claude API. Some models have multiple dated entries on their pages.
 
 <CardGroup cols={3}>
   <Card id="claude-haiku-5-5" title="Claude Haiku 5.5" icon="file" href="https://platform.claude.com/docs/en/release-notes/system-prompts/claude-haiku-5-5" />

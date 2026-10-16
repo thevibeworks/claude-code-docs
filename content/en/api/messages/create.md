@@ -1273,6 +1273,16 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `"standard_only"`
 
+- `speed: optional "standard" or "fast" or null`
+
+  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+  Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=http) for which models.
+
+  - `"standard"`
+
+  - `"fast"`
+
 - `stop_sequences: optional array of string`
 
   Custom text sequences that will cause the model to stop generating.
@@ -4198,6 +4208,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"batch"`
 
+    - `speed: "standard" or "fast" or null`
+
+      The inference speed mode used for this request.
+
+      - `"standard"`
+
+      - `"fast"`
+
 - `RawMessageStreamEvent = RawMessageStartEvent or RawMessageDeltaEvent or RawMessageStopEvent or 3 more`
 
   - `RawMessageStartEvent object`
@@ -4507,7 +4525,8 @@ curl https://api.anthropic.com/v1/messages \
       "web_fetch_requests": 2,
       "web_search_requests": 0
     },
-    "service_tier": "standard"
+    "service_tier": "standard",
+    "speed": "standard"
   }
 }
 ```

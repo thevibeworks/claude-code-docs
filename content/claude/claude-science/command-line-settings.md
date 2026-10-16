@@ -19,7 +19,7 @@ claude-science serve starts Claude Science and opens the web app in your browser
 | `claude-science status` | Print whether the program is running, the version, and the port, as JSON. |
 | `claude-science logs` | Print the newest log file from the data directory. `--tail` follows it live. |
 | `claude-science stop` | Stop the program cleanly. |
-| `claude-science update` | Check for and install an update. `--check` only reports; `--to <build>` installs a specific build, which is also how you roll back (see [Roll back to an earlier build](#roll-back-to-an-earlier-build)). Updates are signature-verified and replace the binary atomically. |
+| `claude-science update` | Check for and install an update. `--check` only reports; `--to <build>` installs a specific build, which is also how you roll back (see [Roll back to an earlier build](#roll-back-to-an-earlier-build)). Updates are signature-verified and replace the binary atomically. On a Mac where Claude Science opens in its own window, update the app with **Claude Science > Check for App Updates…** in the menu bar. |
 | `claude-science import` `<path>` | Merge another data directory, or its database file, into this one. |
 | `claude-science install` | Windows only. Install the app for your user account, with a PATH entry, a Start menu shortcut, and an uninstall entry under Windows **Settings > Apps > Installed apps**. Run it again to repair them. |
 | `claude-science uninstall` | Windows only. Remove the app, its shortcuts, and its PATH entry while keeping your data; `--purge` also deletes the data directory. Quit Claude Science first. |
@@ -32,9 +32,9 @@ claude-science serve starts Claude Science and opens the web app in your browser
 
 ### Roll back to an earlier build
 
-`claude-science update --to <build>` installs one specific build. `<build>` is an 8-character build ID such as `3f9a01bc`, not a version number. `claude-science update --check` prints the ID of the installed build as `Current`.
+On a Mac where Claude Science opens in its own window, `claude-science update --to` doesn't change the app, so you can't roll the app back this way. `claude-science update --to <build>` installs one specific build. `<build>` is an 8-character build ID such as `3f9a01bc`, not a version number. `claude-science update --check` prints the ID of the installed build as `Current`.
 
-Claude Science checks for updates in the background and shows **Update available** when one is ready. Note the `Current` ID before you choose **Restart to update**, so you know which build to go back to.
+In a browser tab and in the Windows app, Claude Science checks for updates in the background and shows **Update available** when one is ready. Note the `Current` ID before you choose **Restart to update**, so you know which build to go back to.
 
 If a newer build has already changed how your data directory stores sessions, the command refuses an older build and installs nothing, because an older build can permanently lose part of every session it writes to. The refusal names a flag that overrides it, `--accept-layout-downgrade`, and says when that is safe. If you cannot tell from the message whether it is safe for you, do not add the flag.
 

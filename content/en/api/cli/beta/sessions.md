@@ -53,7 +53,7 @@ Create Session
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -1548,7 +1548,7 @@ List Sessions
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -2997,7 +2997,7 @@ Get Session
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -4451,7 +4451,7 @@ Update Session
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -5883,7 +5883,7 @@ Delete Session
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -5932,7 +5932,7 @@ Archive Session
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -18034,7 +18034,7 @@ List Events
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -21176,7 +21176,7 @@ Send Events
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -21677,7 +21677,7 @@ Stream Events
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -24865,7 +24865,7 @@ Add Session Resource
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -24944,7 +24944,7 @@ List Session Resources
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -25122,7 +25122,7 @@ Get Session Resource
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -25286,7 +25286,7 @@ Update Session Resource
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -25445,7 +25445,7 @@ Delete Session Resource
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -25513,7 +25513,7 @@ List Session Threads
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -26533,7 +26533,7 @@ Get Session Thread
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -27541,7 +27541,7 @@ Archive Session Thread
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -28557,7 +28557,7 @@ List Session Thread Events
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -31702,7 +31702,7 @@ Stream Session Thread Events
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 

@@ -1277,6 +1277,16 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `StandardOnly("standard_only")`
 
+      - `Speed? Speed`
+
+        The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+
+        Some models require the `fast-mode-2026-02-01` beta header for any `speed` value. See [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode?sdk_languages=csharp) for which models.
+
+        - `Standard("standard")`
+
+        - `Fast("fast")`
+
       - `IReadOnlyList<string> StopSequences`
 
         Custom text sequences that will cause the model to stop generating.
@@ -3254,6 +3264,7 @@ BatchCreateParams parameters = new()
                     },
                 },
                 ServiceTier = ServiceTier.Auto,
+                Speed = Speed.Standard,
                 StopSequences =
                 [
                     "string"

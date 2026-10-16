@@ -13,6 +13,11 @@ Install Claude Science on your computer, sign in with your Claude account, and r
 <Tabs>
   <Tab title="macOS">
     Download the installer from [claude.com/product/claude-science](https://claude.com/product/claude-science) and double-click to install. On first launch, the app sets up its runtime and starter Python and R environments, which takes a few minutes, then opens a new tab in your default browser. If no browser tab appears, click **Claude Science** in the Dock.
+
+    **Updates.** Installing an update from inside Claude Science can switch it from a browser tab to its own window. See [Claude Science in its own window on macOS](/docs/claude-science/mac-app-window).
+
+    * **If it opens in a browser tab**: Claude Science checks for updates in the background and shows **Update available** when one is ready. Choose **Restart to update** to install it.
+    * **If it opens in its own window**: Claude Science downloads updates by itself and installs them when you quit. To check for an update right away, choose **Claude Science > Check for App Updates…** in the menu bar.
   </Tab>
 
   <Tab title="Windows">
@@ -22,7 +27,7 @@ Install Claude Science on your computer, sign in with your Claude account, and r
 
     **Notification-area icon.** Closing the window leaves Claude Science running, with an icon in the notification area of the taskbar. Click the icon to reopen the window, or choose **Quit Claude Science** from the icon's menu to stop the app.
 
-    **Updates.** Claude Science checks for updates in the background and shows **Update available** when one is ready; choose **Restart to update** to install it. Administrators who distribute the app themselves can turn the background check off with `[update] auto_update = false` (see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices#deploy-configuration-with-device-management)). To update by hand instead, open a newer installer, which upgrades the installed copy in place and keeps your data.
+    **Updates.** Claude Science checks for updates in the background and shows **Update available** when one is ready; choose **Restart to update** to install it. Administrators who distribute the app themselves can turn the background check off with `auto_update = false` under `[update]` in `config.toml` (see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices#deploy-configuration-with-device-management)). To update Claude Science yourself instead, open a newer installer, which upgrades the installed copy in place and keeps your data.
 
     **Uninstall.** To remove the app, follow the Windows steps in [Uninstall Claude Science](#uninstall-claude-science).
 
@@ -68,14 +73,14 @@ Install Claude Science on your computer, sign in with your Claude account, and r
 </Tabs>
 
 <Note>
-  Claude Science is a local application, not a website, so there's no public URL to visit. On Windows it opens in its own window, and on macOS and Linux it opens in a browser tab. Open it from the application itself: Claude Science in Applications or the Dock on macOS, the Start menu on Windows, or the `claude-science` command on Linux. On a remote server, the sign-in link reaches your browser through an SSH tunnel; see [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server).
+  Claude Science is a local application, not a website, so there's no public URL to visit. On Windows it opens in its own window, and on Linux it opens in a browser tab. On a Mac it opens in a browser tab, or in its own window once an update has switched it over (see [Claude Science in its own window on macOS](/docs/claude-science/mac-app-window)). Open it from the application itself: Claude Science in Applications or the Dock on macOS, the Start menu on Windows, or the `claude-science` command on Linux. On a remote server, the sign-in link reaches your browser through an SSH tunnel; see [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server).
 </Note>
 
 ## Sign in and complete setup
 
-When the app opens, sign in with your Claude account. On Windows, click the **Sign in on the web** button and confirm with **Continue**; the app opens claude.ai in your default browser and continues in the app window once you approve the sign-in there. No API key is required.
+When the app opens, sign in with your Claude account. If Claude Science opens in its own window, on Windows or on a Mac, click the **Sign in on the web** button and confirm with **Continue**. Claude Science then opens claude.ai in your default browser. Once you approve the sign-in there, Claude Science continues in its own window. No API key is required.
 
-If you approve the sign-in in your browser but Claude Science doesn't continue (for example, on a remote server when the sign-in can't return through the SSH tunnel), sign in with a code instead:
+In a browser tab or in the Windows app, if you approve the sign-in in your browser but Claude Science doesn't continue (for example, on a remote server when the sign-in can't return through the SSH tunnel), sign in with a code instead:
 
 1. Go back to the Claude Science sign-in screen and select **Paste code instead**, then **Open on web**.
 2. Approve access in the browser, then copy the whole code the page shows.
@@ -126,7 +131,7 @@ Uninstalling removes the application and keeps your data folder. Your projects, 
       </Step>
     </Steps>
 
-    To remove your data as well, delete the `~/.claude-science` folder.
+    To remove your data as well, delete the `~/.claude-science` folder. If Claude Science opened in its own window, also delete `~/Library/Application Support/Claude Science`, which holds that window's own settings and stored data.
   </Tab>
 
   <Tab title="Windows">
@@ -173,7 +178,7 @@ To reinstall, follow [Install](#install) again. Installing doesn't replace an ex
 ## Troubleshooting first launch
 
 * macOS says the application isn't supported, or the app icon appears crossed out: the download page picked the build for the wrong processor. Return to the download page and choose Mac (Intel) or Mac (Apple Silicon) to match your Mac. To check which you have, open the Apple menu, choose About This Mac, and look at the Chip or Processor line.
-* No browser tab appeared on macOS or Linux: on macOS, click **Claude Science** in the Dock. On Linux, copy the printed URL into a browser on the same machine, or run `claude-science url` to print a fresh one.
+* Nothing opened on macOS, or no browser tab appeared on Linux: on macOS, click **Claude Science** in the Dock, or open it from the **Applications** folder. On Linux, copy the printed URL into a browser on the same machine, or run `claude-science url` to print a fresh one.
 * On macOS, some of Claude's tools can't start and the error mentions the Xcode license, usually right after an Xcode update: macOS won't run the Python that comes with Apple's developer tools until the license is accepted. Open Xcode and agree to the license with an administrator account, or run `sudo xcodebuild -license accept` in Terminal, then ask Claude to try again.
 * A Claude Science message on Windows says the app was not installed because the file could not be confirmed: the copy you opened still runs but isn't installed. Download the installer again from [claude.com/product/claude-science](https://claude.com/product/claude-science) and open the new file. If the message persists, the PC could not verify the publisher's signature, so ask your IT team.
 * The Windows app reports that it couldn't set up the app window engine: the first launch downloads that engine from `downloads.claude.ai`, and this usually means the app couldn't reach it. Check the internet connection, and on a corporate network ask IT to allow that domain (see [Network requirements](/docs/claude-science/network-requirements)).
@@ -187,5 +192,5 @@ To reinstall, follow [Install](#install) again. Installing doesn't replace an ex
 * On Linux, a line starting `[sandbox]` says `no usable socat command was found on this computer`, in the terminal where `claude-science serve` runs or in the output of `claude-science logs`: Claude Science started, but the sandbox has no network access. The sandbox runs socat only from system folders such as `/usr/bin`, and doesn't use a copy from conda, Homebrew, or a folder in your home directory. Code that Claude runs can't reach the internet, and environment setup can fail with `Package downloads are being blocked by network policy` even when your network blocks nothing. Install socat with the command for your distribution in the Linux tab of [Install](#install), or if you don't have administrator access, ask your system administrator to install it for the whole system.
 * Projects from another computer don't appear: by design, Claude Science keeps your work on the computer where it's installed, so each computer starts with its own projects. Your earlier projects are still on the other computer. See [Use Claude Science on more than one computer](/docs/claude-science/multiple-computers).
 * Projects you created under another sign-in on this computer don't appear automatically, for example, after you move from a personal plan to your organization's Team plan: your earlier projects are still in that sign-in's folder. Select the **Review** button on the banner at the top of the home screen, or select **Review** next to **Access previously saved Claude Science work on this computer** under **Settings** > **General** > **Account**, to access them. On Team and Enterprise plans, if there's no banner and the setting is grayed out, your admin controls it. See [Access work from another sign-in on your computer](/docs/claude-science/multiple-computers#access-work-from-another-sign-in-on-your-computer).
-* Sign-in stops at claude.ai: your account is on the Free plan (upgrade required), the redirect couldn't return (use **Paste code instead**), or your Team or Enterprise organization hasn't [enabled Claude Science](/docs/claude-science/enable-claude-science) yet.
+* Sign-in stops at claude.ai: your account is on the Free plan (upgrade required), the redirect couldn't return (in a browser tab or in the Windows app, use **Paste code instead**), or your Team or Enterprise organization hasn't [enabled Claude Science](/docs/claude-science/enable-claude-science) yet.
 * After you paste a code, Claude Science says the code wasn't recognized or was issued for an earlier sign-in attempt: select **Open on web** again, approve access, and paste the whole new code. If it says `PKCE state missing or expired` instead, select **Back** and follow the steps in [Sign in and complete setup](#sign-in-and-complete-setup) again.

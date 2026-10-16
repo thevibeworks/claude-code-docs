@@ -58,6 +58,14 @@ SECURITY_REVIEW_MODEL=claude-opus-5-5
 | `ENABLE_STOP_REVIEW=0` | on | Disable only the Stop-hook diff review, keeping commit/push reviews. Useful for multi-agent / shared-worktree setups where another agent can move HEAD between a worker's turns |
 | `ENABLE_COMMIT_REVIEW=0` | on | Disable layer 3 (agentic commit review) |
 
+### Hook output for other hosts
+
+```bash
+SECURITY_GUIDANCE_PORTABLE_OUTPUT=1   # default: detected
+```
+
+The hooks' JSON output carries two fields that only Claude Code reads (`metrics` and `rewakeSummary`), and the SessionStart hook prints a separate `{"async": ...}` line first. A host that validates hook output against a closed schema rejects them. In portable mode they are left out, so every hook prints one JSON object with only the standard fields (`decision`, `reason`, `systemMessage`, `hookSpecificOutput`), and the SessionStart hook runs to completion before the host continues. It turns on by itself when the host passes `PLUGIN_ROOT` and does not identify itself as Claude Code; set the variable to `1` or `0` to force it either way.
+
 ### Higher-recall mode
 
 ```bash
@@ -70,7 +78,7 @@ Runs two parallel review calls and unions the findings. Catches a few percentage
 
 Drop a `claude-security-guidance.md` in any of:
 
-- `~/.claude/claude-security-guidance.md` — user-wide rules
+- `~/.claude/claude-security-guidance.md` — user-wide rules (when `CLAUDE_CONFIG_DIR` is set, the same file in that directory is read too)
 - `<project>/.claude/claude-security-guidance.md` — project rules, intended to be committed
 - `<project>/.claude/claude-security-guidance.local.md` — local overrides, intended to be `.gitignore`'d
 
@@ -99,6 +107,21 @@ Where that data goes depends on your Claude Code configuration:
 - **3rd-party providers** (Bedrock / Vertex / Foundry / Mantle): sent to your configured provider endpoint. The provider's data-handling terms apply (e.g., AWS / GCP / Azure).
 
 The plugin writes its own debug log to `~/.claude/security/log.txt` (override with `SECURITY_GUIDANCE_DEBUG_LOG`). The log contains diffstate metadata, finding categories, the Agent SDK's own warnings and errors, and up to 20 lines per review that the agentic reviewer's inner Claude Code prints to stderr — no full file contents or model prompts — and rotates at 1 MB. Nothing is uploaded.
+
+### Review usage and cost
+
+The LLM reviews use your API path, so they cost tokens (or subscription usage) on top of your own session. The default reviewer is the newest Opus model. On the Anthropic API path the diff review on Stop calls the API directly, so it does not appear in Claude Code's own cost figures or transcripts. After each review the plugin writes one line to its debug log:
+
+```
+Review usage: review=stop session=<session id> model=claude-opus-5-5 calls=1 in=31994 out=3250 cache_read=0 cache_write=0 est_cost_usd=0.1930
+```
+
+- `review` is `stop`, `commit` or `push`; `session` is the Claude Code session that triggered it.
+- `calls` counts API requests for the diff review and reviewer runs for the agentic commit/push review, where `model` is the model that was asked for (`opus` by default).
+- `est_cost_usd` is an estimate at list prices, not a bill: on a subscription the review counts against your usage limits instead. A trailing `~` means the model had no entry in the plugin's price table and a default rate was used. A review cut short (timeout, session exit) may not be counted.
+- The log rotates at 1 MB, so copy these lines out if you need a longer history.
+
+To spend less, set `SECURITY_REVIEW_MODEL` (diff review) and `SG_AGENTIC_MODEL` (commit/push review) to a cheaper model, or turn reviews off (see [Enabling/disabling layers](#enablingdisabling-layers)).
 
 ## Limitations
 

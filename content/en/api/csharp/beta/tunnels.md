@@ -27,7 +27,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -212,7 +212,7 @@ Fetches a tunnel by ID.
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -407,7 +407,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -599,7 +599,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -784,7 +784,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -956,7 +956,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1180,7 +1180,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1380,7 +1380,7 @@ Fetches a tunnel certificate by ID.
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1590,7 +1590,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1793,7 +1793,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

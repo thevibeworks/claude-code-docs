@@ -25,7 +25,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    Optional header to specify the beta version(s) you want to use.
+    This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

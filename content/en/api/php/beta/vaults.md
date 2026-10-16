@@ -25,7 +25,7 @@ Create Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -122,7 +122,7 @@ List Vaults
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -217,7 +217,7 @@ Get Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -313,7 +313,7 @@ Update Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -403,7 +403,7 @@ Delete Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -464,7 +464,7 @@ Archive Vault
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -608,7 +608,7 @@ Create Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -728,7 +728,7 @@ List Credentials
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -841,7 +841,7 @@ Get Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -959,7 +959,7 @@ Update Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -1079,7 +1079,7 @@ Delete Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -1149,7 +1149,7 @@ Archive Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 
@@ -1255,7 +1255,7 @@ Validate Credential
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
 
 - `workspaceID?:optional string` (header parameter)
 

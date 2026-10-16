@@ -117,6 +117,7 @@ $messageBatch = $client->messages->batches->create(
           'format' => ['schema' => ['foo' => 'bar'], 'type' => 'json_schema'],
         ],
         'serviceTier' => 'auto',
+        'speed' => 'standard',
         'stopSequences' => ['string'],
         'stream' => false,
         'system' => [

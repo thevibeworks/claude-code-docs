@@ -60,9 +60,9 @@ The value must begin with `https://` and may include a port and a path prefix. I
 
 Point this address at a receiver that accepts OTLP over HTTP in both its protobuf and JSON encodings. An [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) does this by default and conventionally listens for OTLP over HTTP on port 4318. If your logging or SIEM platform accepts only its own HTTP ingestion format, run an OpenTelemetry Collector that receives OTLP and forwards to that platform, and enter the collector's address here.
 
-Claude Desktop on each member's device connects to this address itself rather than through the Claude for Government service. The collector must therefore be reachable from your members' networks and must present a TLS certificate that their operating system trusts.
+Each application connects to this address from the member's device rather than through the Claude for Government service. The collector must therefore be reachable from your members' networks and must present a TLS certificate that their operating system trusts.
 
-Members pick up a new or changed endpoint the next time they start Claude Desktop. Once a member has signed in and the app has loaded their configuration from Claude for Government, it takes its telemetry settings from that configuration alone and ignores telemetry keys set on the device itself, such as the `otlp*` keys in the Claude Desktop [configuration reference](/docs/third-party/claude-desktop/configuration). From then on your collector receives OpenTelemetry logs and metrics for each member's activity under three `service.name` values:
+Members pick up a new or changed endpoint the next time they start Claude Desktop. Once a member has signed in and the app has loaded their configuration from Claude for Government, it takes its telemetry settings from that configuration alone and ignores telemetry keys set on the device itself, such as the `otlp*` keys in the Claude Desktop [configuration reference](/docs/third-party/claude-desktop/configuration). From then on your collector receives OpenTelemetry logs and metrics for each member's Claude Desktop activity under three `service.name` values:
 
 * `cowork` for Chat and Cowork activity
 * `claude-code-desktop` for Code sessions
@@ -71,6 +71,11 @@ Members pick up a new or changed endpoint the next time they start Claude Deskto
 Each conversation turn produces events such as `user_prompt`, `api_request`, and `tool_result` that record the model, token counts, durations, and tool names. Every record also carries the member's operating-system login name as the `enduser.id` and `process.owner` resource attributes. Message text, file contents, and tool output are included only for the categories you select in **Telemetry content capture**. See the [event reference in Monitoring](/docs/cowork/monitoring#events) for each event's attributes.
 
 Claude Desktop keeps working when the collector refuses requests or cannot be reached, and members see no error. To confirm telemetry is arriving, check your collector's own request logs or metrics for requests to `/v1/logs` after a member has restarted Claude Desktop and sent a message.
+
+Claude for Microsoft 365 and the Claude Code command-line tool send their records to the same collector, each under its own `service.name`, and identify the member by their sign-in email address as `user.email`:
+
+* `office-agent` for Claude for Microsoft 365. The add-in sends its telemetry from the add-in pane, a web page loaded from your Claude for Government host, so the collector must also accept [cross-origin requests from that host](/docs/government/deploy-microsoft-365/configure#before-you-begin). See [What the collector receives](/docs/office-agents/opentelemetry#what-the-collector-receives) for the add-in's records and their attributes.
+* `claude-code` for the Claude Code command-line tool. See [Monitoring](https://code.claude.com/docs/en/monitoring-usage) in the Claude Code documentation for its records and their attributes.
 
 ### Telemetry headers
 
@@ -94,10 +99,10 @@ Labels added to every telemetry record sent to your collector, such as your agen
 
 ### Telemetry traces
 
-Sends a trace for each request in Cowork and Code sessions to the `/v1/traces` path of the address in **Telemetry endpoint**, so your monitoring tools can follow the events of one request together. The setting is off by default and is in beta. Traces carry message and tool content only for the categories selected in **Telemetry content capture**. [Traces](/docs/third-party/claude-desktop/telemetry#traces-beta) in the Claude Desktop telemetry reference describes what a trace contains.
+When on, each application also sends traces to the `/v1/traces` path of the address in **Telemetry endpoint**, so your monitoring tools can follow the events of one request together. The setting is off by default and is in beta. Traces carry message and tool content only for the categories selected in **Telemetry content capture**. For what a trace contains, see [Traces](/docs/third-party/claude-desktop/telemetry#traces-beta) for Claude Desktop and the [span reference](/docs/office-agents/opentelemetry#span-reference) for Claude for Microsoft 365.
 
 <Note>
-  **Telemetry traces** applies to Claude Desktop 1.22209.0 and later. Earlier versions ignore the setting.
+  In Claude Desktop, **Telemetry traces** requires version 1.22209.0 or later. Earlier versions ignore the setting.
 </Note>
 
 ### Block automatic updates

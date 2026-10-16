@@ -4,8 +4,10 @@ url: https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms
 description: Use AWS KMS to provide an encryption key for your organization.
 ---
 
-```bash Configure with the /claude-api skill in Claude Code
-claude "/claude-api help me configure a customer-managed encryption key with AWS KMS"
+Let Claude Code set up this feature for you
+
+```text
+/claude-api help me configure a customer-managed encryption key with AWS KMS
 ```
 
 This guide walks through configuring an [AWS KMS](https://aws.amazon.com/kms/) key as a [customer-managed encryption key (CMEK)](https://platform.claude.com/docs/en/manage-claude/cmek) for your Anthropic organization.

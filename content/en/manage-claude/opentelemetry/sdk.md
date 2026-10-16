@@ -1,5 +1,5 @@
 ---
-title: Use OpenTelemetry with the Claude SDK
+title: Set up OpenTelemetry with the Claude SDK
 url: https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk
 description: Trace each request that the Claude SDK sends and each tool that its tool runner runs, and send the spans to your observability platform.
 featureMetadata:
@@ -84,14 +84,14 @@ Install or upgrade to the latest version of the Claude SDK:
 
     <CodeGroup exclude="shell, python, typescript, csharp, go, php, ruby">
       ```kotlin Gradle
-      implementation("com.anthropic:anthropic-java:2.72.0")
+      implementation("com.anthropic:anthropic-java:2.73.0")
       ```
 
       ```xml Maven
       <dependency>
           <groupId>com.anthropic</groupId>
           <artifactId>anthropic-java</artifactId>
-          <version>2.72.0</version>
+          <version>2.73.0</version>
       </dependency>
       ```
     </CodeGroup>

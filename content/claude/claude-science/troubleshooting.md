@@ -54,7 +54,11 @@ A notice such as "2 environments failed" means Claude Science couldn't set up on
 * If setup failed because of your organization's network, the dialog that **Details** opens links to settings for a package mirror, a CA bundle, or mirror credentials. When you save any of these settings, Claude Science retries the failed setups automatically. See also [Troubleshooting corporate network errors](/docs/claude-science/corporate-networks#troubleshooting-corporate-network-errors).
 * To retry the environments that failed, select **Retry builds**.
 
-If the notice reads "Analysis is unavailable" instead, no Python or R code can run until Claude Science restarts. Fix the cause the notice names, then quit and reopen Claude Science. On Windows, closing the window leaves Claude Science running, so right-click its icon in the notification area of the taskbar and choose **Quit Claude Science**.
+If the notice reads "Analysis is unavailable" instead, no Python or R code can run until Claude Science restarts. Fix the cause the notice names, then quit and reopen Claude Science. Closing the window or browser tab leaves Claude Science running, so quit it this way:
+
+* **macOS**: Control-click **Claude Science** in the Dock and choose **Quit**.
+* **Windows**: right-click its icon in the notification area of the taskbar and choose **Quit Claude Science**.
+* **Started from a terminal with `claude-science serve`**: run `claude-science stop` in a terminal.
 
 ### failed to load 5 times in a row — automatic retries are paused
 
@@ -74,7 +78,10 @@ If holding the pointer over the microphone button shows "No microphone was found
 
 ## Updates
 
-When an update is ready, Claude Science shows an "Update available" notice. If installing the update fails, that notice shows the error.
+Claude Science shows updates and their errors in these places:
+
+* **In a browser tab and in the Windows app**: an "Update available" notice appears when an update is ready. If installing the update fails, that notice shows the error.
+* **In its own window on a Mac**: the **Updates** window shows the update and any error. Open it with **Claude Science > Check for App Updates…** in the menu bar.
 
 ### cannot reach the public release endpoint
 
@@ -85,3 +92,12 @@ Claude Science couldn't reach the update server. Check your internet connection,
 On the "Update available" notice, this means the new version was downloaded but didn't start. If Claude Science is still running, it's the version you had, and you can try again: select **Check for updates** under **Settings > General > About**, then select **Restart to update** there. If Claude Science has stopped, start it again.
 
 On Linux, an update to version 0.1.61 ends this way on a computer where bubblewrap or socat came from conda, Homebrew, or a folder in your home directory, because version 0.1.61 needs both installed for the whole system. Version 0.1.62 withdraws that requirement, so trying again as above now gets a version that starts. If Claude Science won't start at all, run `claude-science update` in a terminal, then start it again.
+
+### Couldn't check for updates
+
+On a Mac where Claude Science opens in its own window, the **Updates** window shows this message when Claude Science couldn't get update information from Anthropic's update server. The same steps apply when it says "Couldn't download the update":
+
+* If the window says to check your internet connection, check it, then select **Try again**.
+* If you cancelled a request from macOS for an administrator's password, select **Try again**.
+* Otherwise, such as when it says "Updates aren't available right now", wait a few minutes, then select **Try again**.
+* On a corporate network, ask your IT team to allow `storage.googleapis.com` (see [Proxy and certificates for updates in the Mac app window](/docs/claude-science/corporate-networks#proxy-and-certificates-for-updates-in-the-mac-app-window)).

@@ -25,7 +25,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -212,7 +212,7 @@ Fetches a tunnel by ID.
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -409,7 +409,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -601,7 +601,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -788,7 +788,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -962,7 +962,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -1188,7 +1188,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -1386,7 +1386,7 @@ Fetches a tunnel certificate by ID.
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -1594,7 +1594,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 
@@ -1797,7 +1797,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `betas: Array[AnthropicBeta]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
   - `String = String`
 

@@ -11,7 +11,9 @@ description: Switch to Claude Opus 5.5 from earlier Opus models or Claude Sonnet
 <Tip>
   **Automate your migration with the Claude API skill.** In Claude Code, run `/claude-api migrate` to invoke the bundled [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model). It works for any current Claude model as the target:
 
-  ```text wrap
+  Let Claude Code migrate your code for you
+
+  ```text
   /claude-api migrate this project to claude-opus-5-5
   ```
 
@@ -309,7 +311,7 @@ Work down the groups and stop after the one that names your current model: every
 * Remove any context-window beta header.
 * If you rebuild conversation history to update instructions, consider switching to a mid-conversation system message to preserve prompt cache hits.
 * Verify your stop-reason handling reads `stop_details` on refusals.
-* If you want fast mode, which Claude Opus 4.7 rejects, set `speed: "fast"` with the `fast-mode-2026-02-01` beta header on the Claude API.
+* If you want fast mode, which Claude Opus 4.7 rejects, set `speed: "fast"` on your Claude API requests. Claude Opus 5.5 doesn't need a beta header.
 
 ### Claude Opus 4.6 or earlier
 
@@ -1204,7 +1206,7 @@ None of these items adds a breaking change to those in the earlier sections; the
 
 4. **Refusal stop details:** When the model declines a request, Claude Opus 5.5 returns a `stop_details` object that names the category of refusal, alongside the `refusal` stop reason. Claude Opus 4.7 returns the same object, so this matters only if your stop-reason handling does not read it yet. No beta header is required, and there is no opt-out. If your stop-reason handling doesn't read it yet, see [Handling stop reasons](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons). Claude Opus 5.5 declines in more categories; see [Safety classifiers and fallback](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#safety-classifiers-and-fallback).
 
-5. **Fast mode:** Claude Opus 5.5 supports [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) (research preview) on the Claude API. Fast mode is not available on Claude Opus 4.7, where requests with `speed: "fast"` return an error. Set `speed: "fast"` with the `fast-mode-2026-02-01` beta header.
+5. **Fast mode:** Claude Opus 5.5 supports [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) on the Claude API. Fast mode is not available on Claude Opus 4.7, where requests with `speed: "fast"` return an error. Set `speed: "fast"` on your requests. Claude Opus 5.5 doesn't need a beta header.
 
 6. **Computer use toolset and browser use tool:** On the Claude API and Google Cloud, Claude Opus 5.5 supports [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) as the `computer_toolset_20260801` toolset and the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) for tasks inside webpages. Claude Opus 4.7 supports neither. On those platforms Claude Opus 5.5 doesn't accept the earlier `computer_20251124` tool; see the [computer use breaking change](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#computer-use-toolset).
 

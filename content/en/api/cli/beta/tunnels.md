@@ -25,7 +25,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -103,7 +103,7 @@ Fetches a tunnel by ID.
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -192,7 +192,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -283,7 +283,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -362,7 +362,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -428,7 +428,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -546,7 +546,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -637,7 +637,7 @@ Fetches a tunnel certificate by ID.
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -738,7 +738,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -841,7 +841,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  This endpoint is in beta: requests must send `mcp-tunnels-2026-06-22` in this header.
 
 - `--workspace-id: optional string` (header parameter)
 

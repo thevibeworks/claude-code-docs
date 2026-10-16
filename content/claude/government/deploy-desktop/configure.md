@@ -21,7 +21,7 @@ There are two ways to get Claude Desktop installed and connected to Claude for G
 | Administrator rights to install | Needed by the person doing each install | Not needed by end users; the management system installs with elevated rights |
 | How the address is set | Entered in the app's built-in configuration window | Pushed as a configuration profile alongside the app |
 
-For a production rollout, use your device management system so end users never need administrator rights. The single-machine path is for testing first or for a small group you set up by hand, with an administrator doing each install. That path can also export a ready-made profile for your management system, so it is a useful starting point even when the fleet path is your destination.
+For a production rollout, use your device management system so end users never need administrator rights. The single-machine path is for testing first or for a small group of devices, with an administrator doing each install. That path can also export a profile for your management system, so it is a useful starting point even when the fleet path is your destination.
 
 ## Before you begin
 
@@ -139,7 +139,7 @@ Claude Desktop has a built-in configuration window that is hidden until you enab
   </Step>
 </Steps>
 
-After the test, the same configuration window has an **Export** menu that produces files ready for your management system: a `.mobileconfig` profile for macOS, a `.reg` file for Windows, an ADMX template for Intune or Group Policy, and a Profile Manifest for Jamf. Before exporting, turn on **Disable Claude.ai sign-in** in the window's **Workspace** section so the exported profile hides the claude.ai option on managed devices, and make sure **Trust bootstrap-delivered settings** in the **Source** section is off so the exported files do not carry it.
+After the test, the same configuration window has an **Export** menu that produces files for your management system: a `.mobileconfig` profile for macOS, a `.reg` file for Windows, an ADMX template for Intune or Group Policy, and a Profile Manifest for Jamf. Before exporting, make sure **Trust bootstrap-delivered settings** in the **Source** section is off so the exported files do not carry it. Before you deploy a profile made from these files, check that it sets `disableDeploymentModeChooser`, the key that hides the claude.ai sign-in option, to true, as the profiles under [Deploy to your fleet](#deploy-to-your-fleet) do. If `disableDeploymentModeChooser` is missing or false, set it to true.
 
 ## Deploy to your fleet
 
@@ -168,7 +168,7 @@ The recommended profile contains two keys. In the macOS and Windows profiles bel
 | Key | Value | Purpose |
 | - | - | - |
 | `bootstrapUrl` | `https://<claude-for-government-host>/gateway-api/user/bootstrap` | Required. Points the app at Claude for Government. |
-| `disableDeploymentModeChooser` | `"true"` | Recommended. Hides the claude.ai sign-in option so users can only sign in to Claude for Government. Like any recognized key other than the automatic update settings, it also marks the device as managed (see [Order of deployment](#order-of-deployment)). |
+| `disableDeploymentModeChooser` | `"true"` | Required. Hides the claude.ai sign-in option, so the sign-in screen offers only Claude for Government. Claude for Government also sends this setting, but the profile must set it too (see [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) in the Claude Desktop configuration reference). Like any recognized key other than the automatic update settings, it also marks the device as managed (see [Order of deployment](#order-of-deployment)). |
 
 No other keys are needed to connect the app; Claude for Government supplies everything else per user after sign-in. If your agency distributes Claude Desktop updates itself, [Automatic updates](#automatic-updates) below describes one more key to add. The profile contains no secrets, only a host.
 
@@ -188,7 +188,7 @@ Claude Desktop reads managed preferences in the `com.anthropic.claudefordesktop`
 <string>true</string>
 ```
 
-Most device management consoles, including Jamf and Intune, build the profile around these keys for you. For a complete `.mobileconfig` ready to upload, use the Export menu described in the single-machine path.
+Most device management consoles, including Jamf and Intune, build the profile around these keys for you. For a `.mobileconfig` to start from, use the Export menu described under [Configure a single machine](#configure-a-single-machine), and check it as that section says before you upload it.
 
 ### Windows
 
