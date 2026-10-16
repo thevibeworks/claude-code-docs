@@ -1,6 +1,6 @@
 # Use Claude Code \(local mode\) and Claude Cowork \(local mode\) on a HIPAA-ready Enterprise plan
 
-The HIPAA configuration is an organization setting on Enterprise plans. It brings local Claude Code and Claude Cowork sessions, as opposed to cloud sessions such as Claude Code on the web, under your Business Associate Agreement (BAA) with Anthropic. This article calls them Claude Code (local mode) and Cowork (local mode). They run in one of these places:
+The HIPAA configuration is an organization setting on Enterprise plans. It brings local Claude Code and Claude Cowork sessions under your Business Associate Agreement (BAA) with Anthropic. Cloud sessions, including Claude Code sessions in the cloud and Cowork in the cloud, aren't covered. This article calls them Claude Code (local mode) and Cowork (local mode). They run in one of these places:
 
 - Claude Code in the terminal
 
@@ -50,7 +50,7 @@ Keep PHI out of these products and features. Your BAA doesn't cover them, even w
 
 - Connectors, MCP servers, plugins, desktop extensions, Claude in Chrome, and skills, including after an Owner turns them on
 
-- Cloud and remote features such as Claude Code on the web, which the configuration makes unavailable
+- Cloud and remote features such as Claude Code cloud sessions, which the configuration makes unavailable
 
 Ask your IT team to **[deploy managed settings](https://code.claude.com/docs/en/hipaa-setup#deploy-managed-settings)**, a policy file on each computer that directs members to sign in with a Claude Enterprise account and refuses cloud providers and gateways. For a full list of Eligible Services, please review the **[Implementation Guide](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)**.
 
@@ -86,17 +86,17 @@ Complete these tasks before you apply the configuration.
 
 The table shows the changes members are most likely to notice, and what to do about each one before you apply the configuration. The **[Implementation Guide for HIPAA Entities](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)** list the Eligible Services under your BAA.
 
-| **What changes**                                                                                                                                                         | **What to do before you apply**                                                                                                     |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Cowork, the Code section of Claude Desktop, skills, and Claude in Chrome turn off, even if an Owner had turned them on                                                   | List the ones you want back and who approves each one                                                                               |
-| Every other setting that enabling HIPAA turns off by default turns off again, including chat settings                                                                    | List the settings an Owner has turned on since you enabled HIPAA                                                                    |
-| Each connector turns off, and its tool permissions change to **Blocked**, unless an Owner accepted the terms when they added or enabled it                               | Record each connector's tool permissions, because turning the connector back on doesn't restore them                                |
-| The built-in GitHub integration turns off                                                                                                                                | Note whether you want it back                                                                                                       |
-| Each desktop extension is removed from your organization's allowlist, unless an Owner accepted the terms when they added it                                              | List the extensions you want to add again                                                                                           |
-| Within minutes, members can't start sessions in Claude Code on the web or Cowork in the cloud. Sessions that are already running stop. Members will lose access to them. | Ask members to finish that work and save what they need                                                                             |
-| Claude Code Remote Control and Claude Tag aren't available. Claude Design turns off until an Owner turns it on                                                           | Ask members who use them to finish that work                                                                                        |
-| Computer access in Claude Cowork isn't available for sessions and scheduled tasks that run in the cloud                                                                  | Ask members who use them to finish that work, and tell them that scheduled tasks in Cowork (local mode) still run on their computer |
-| Approvals that members gave to scheduled tasks in Cowork and the Code section of Claude Desktop expire                                                                   | Tell members to expect to approve their scheduled tasks again                                                                       |
+| **What changes**                                                                                                                                                     | **What to do before you apply**                                                                                                     |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Cowork, the Code section of Claude Desktop, skills, and Claude in Chrome turn off, even if an Owner had turned them on                                               | List the ones you want back and who approves each one                                                                               |
+| Every other setting that enabling HIPAA turns off by default turns off again, including chat settings                                                                | List the settings an Owner has turned on since you enabled HIPAA                                                                    |
+| Each connector turns off, and its tool permissions change to **Blocked**, unless an Owner accepted the terms when they added or enabled it                           | Record each connector's tool permissions, because turning the connector back on doesn't restore them                                |
+| The built-in GitHub integration turns off                                                                                                                            | Note whether you want it back                                                                                                       |
+| Each desktop extension is removed from your organization's allowlist, unless an Owner accepted the terms when they added it                                          | List the extensions you want to add again                                                                                           |
+| Within minutes, members can't start Claude Code cloud sessions or use Cowork in the cloud. Sessions that are already running stop. Members will lose access to them. | Ask members to finish that work and save what they need                                                                             |
+| Claude Code Remote Control and Claude Tag aren't available. Claude Design turns off until an Owner turns it on                                                       | Ask members who use them to finish that work                                                                                        |
+| Computer access in Claude Cowork isn't available for sessions and scheduled tasks that run in the cloud                                                              | Ask members who use them to finish that work, and tell them that scheduled tasks in Cowork (local mode) still run on their computer |
+| Approvals that members gave to scheduled tasks in Cowork and the Code section of Claude Desktop expire                                                               | Tell members to expect to approve their scheduled tasks again                                                                       |
 
 Chat uses the same connectors, skills, and Claude in Chrome settings, so when these turn off, they turn off in chat too.
 
@@ -122,7 +122,7 @@ To apply the configuration, you must be the Primary Owner and have a verified em
 
 The configuration applies to your existing Claude Enterprise organization, the same one your members use for chat, not to a separate account. It applies to Claude Code and Cowork together, and to every member.
 
-**Warning:** When you apply the HIPAA configuration, certain features start turning off across your organization as soon as you confirm. An Owner can turn some features back on, but cloud features such as Claude Code on the web stay unavailable.
+**Warning:** When you apply the HIPAA configuration, certain features start turning off across your organization as soon as you confirm. An Owner can turn some features back on, but cloud features such as Claude Code cloud sessions stay unavailable.
 
 To apply the configuration:
 

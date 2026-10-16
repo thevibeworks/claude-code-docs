@@ -273,6 +273,7 @@ After you [turn Claude on in Slack Connect channels](#turn-claude-on-in-slack-co
 * **Enterprise Grid organization-level installs.** Claude is installed for your whole Enterprise Grid organization rather than per workspace, and none of your own workspaces hosts the channel.
 * **Threads from before the channel was shared.** Claude doesn't continue a thread it was already working in before the channel was shared. A mention there gets the notice "This channel is now shared with another organization through Slack Connect, so this thread's earlier session can't continue here," and a new thread works.
 * **Messages from the other company's Claude.** Claude doesn't reply to the other company's Claude. If the other company also uses Claude, each company's settings decide only whether its own Claude answers.
+* **Messages from other apps, bots, and workflows.** Claude doesn't reply to a message another app, bot, or Slack workflow posts in a Slack Connect channel, even one that mentions `@Claude`. Claude still reads the message as context, so a person who replies to it with `@Claude` gets an answer.
 
 ### Channels shared across workspaces in your Enterprise Grid
 

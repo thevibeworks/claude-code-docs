@@ -72,7 +72,7 @@ When data reaches the end of its retention period:
 
 4. Save your changes.
 
-**Important:** Custom retention periods apply to content in chats and projects. They do not apply to **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)**, **[Claude Tag](https://support.claude.com/en/articles/15594475-what-is-claude-tag)**, **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other features built on **[Claude Code on the web](https://support.claude.com/en/articles/12618689-claude-code-on-the-web)**.
+**Important:** Custom retention periods apply to content in chats and projects. They do not apply to **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)**, **[Claude Tag](https://support.claude.com/en/articles/15594475-what-is-claude-tag)**, **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other feature that runs **[Claude Code in the cloud](https://support.claude.com/en/articles/12618689)**.
 
 ## Example retention calculation
 

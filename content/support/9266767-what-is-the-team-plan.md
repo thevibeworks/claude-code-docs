@@ -114,6 +114,8 @@ This means:
 
 - Other team members can continue to use the service even if one member has reached their seat's included limit.
 
+- Usage limits can't be transferred or shared between team members. Each seat is for one named individual. Learn more about **[who can use a seat](https://support.claude.com/en/articles/12004354-purchase-and-manage-seats-on-team-plans#h_b8a7d07129)**.
+
 ### How do I increase my Team plan usage limits?
 
 Your Team plan organization can enable usage credits to allow team members on all seat types to continue working with Claude, Cowork, and Claude Code after reaching their included usage limits. For more information, see **[Manage usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970-)**.

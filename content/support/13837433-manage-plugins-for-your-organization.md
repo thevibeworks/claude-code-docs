@@ -34,6 +34,8 @@ To act on an item, click the menu button at the end of its row. You can view det
 
 For skills and plugins that users created, the Inventory tab shows metadata and sharing status. It doesn't show the files themselves.
 
+---
+
 ## Use Anthropic-built marketplaces
 
 Anthropic provides built-in marketplaces of plugins for different functions, such as legal and finance. A Knowledge Work marketplace is added to your organization by default.
@@ -158,7 +160,7 @@ During a sync, Cowork compares the latest commit in your repo against the last-s
 
 You can sync an organization marketplace from a repository on gitlab.com or on a self-managed GitLab instance. For supported plugin source types and which sources can be private, see **Prepare your repository** above.
 
-GitLab support is in beta and applies to plugin marketplace sync only. Claude Code on the web doesn't support GitLab repositories yet.
+GitLab support is in beta and applies to plugin marketplace sync only. Claude Code cloud sessions don't support GitLab repositories yet.
 
 **Before you start**
 

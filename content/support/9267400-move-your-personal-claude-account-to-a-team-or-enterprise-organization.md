@@ -132,7 +132,7 @@ For the full walkthrough of your options, deadlines, and what happens to your su
 
 You may have both a personal account and an organization account tied to the same email address. You can switch between them by clicking your initials or name in the lower left corner of the screen.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1792164600&amp;signature=30b21cb085f882f64e386c9710426bd398ccd02af6faa3b9f12baadc14be51a8&amp;req=diMmFMh3noJbXvMW1HO4zXhPnNI3zhtnufhmlOXMdYaJ43q0QMOH3MAQ60Lw%0AmEgJ35E0e7sGT%2BG2f8g%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1792179000&amp;signature=7cc9dddaa60f1772822986b8c086d366c707098719804c7087d199dc80827ea0&amp;req=diMmFMh3noJbXvMW1HO4zXhPnNI3zxZhufhmlOXMdYYOsHQOFoF0IxDOvqzE%0ADaEzHJqJoA4MmdWQg00%3D%0A)
 
 A blue checkmark shows which account you're currently using. Click the other account to switch to it and access its separate conversations and projects.
 

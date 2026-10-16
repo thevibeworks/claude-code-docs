@@ -20,7 +20,10 @@ Cowork, the agent workspace at the center of Claude Desktop on 3P, has the follo
 
 On Windows, Cowork requires the `.msix` package: fleets provisioned with the legacy `.exe` installer get Claude Desktop without Cowork, and migrating them to `.msix` enables it. Cowork also requires working hardware virtualization and, on Windows, the Virtual Machine Platform optional feature. The [readiness check](#check-device-readiness) verifies both along with the requirements above.
 
-On Windows, Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace) before rollout.
+Check these on Windows devices before rollout:
+
+* **Log on as a service**: Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace).
+* **Hooks**: a [hook](https://code.claude.com/docs/en/hooks) command written for Bash needs Git for Windows on the device. If your Windows devices have hooks in plugins or in Claude Code managed settings, see [Hooks on Windows devices without Git for Windows](/docs/third-party/claude-desktop/extensions#hooks-on-windows-devices-without-git-for-windows).
 
 With [Unified Claude](/docs/third-party/claude-desktop/unified-claude) on, a message sent from the home screen starts a Cowork session on a device that can run Cowork, and a Chat conversation on a device that can't.
 

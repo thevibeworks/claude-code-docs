@@ -42,9 +42,9 @@ The organization setting is the ceiling. A role can't grant access to a model th
 
 If any custom role uses the model you’re disabling as its default, you’ll be prompted to change that role’s default before the change can be saved.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693921/02ea72756f5163f14e5d158516dc/69102088-cd86-498e-97aa-c8a6e0004419?expires=1792164600&amp;signature=2b37cbcef9f02171681c8766efb4fc2c0ecdc71feea94a858ff75203ce7465bd&amp;req=diUmEs93nohdWPMW1HO4zXlxE%2BW4UdVRQf5Pb7M2Q0t4GwkxkaY4grVKVJGL%0AmVsa4mucO1Waje9%2F3rk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693921/02ea72756f5163f14e5d158516dc/69102088-cd86-498e-97aa-c8a6e0004419?expires=1792303200&amp;signature=2bbff8e0261c3b0b657cc28f92a7d86adc2a635296057a157aa0699a44b376d2&amp;req=diUmEs93nohdWPMW3nq%2BgbIU8QSvhMsXx8M%2BDYxHAZLwzTwKuLH0wShNyWSc%0AFfYDJCYXG0csClkzgLvE1WUK6tI%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693922/bfc5de6626eb19dca1d7caf818ca/c3cd8bb6-f86c-4d01-92da-6ae4ca966662?expires=1792164600&amp;signature=c005c9bf122c28657a0602743454947bd65d73692e1acb377c86f1d85d635876&amp;req=diUmEs93nohdW%2FMW1HO4zTqNsIvEQFxRAod9uc510lwrPSrHKhVLqJ5fgJoH%0ABN2kMIdH2NVi8EMHWuc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693922/bfc5de6626eb19dca1d7caf818ca/c3cd8bb6-f86c-4d01-92da-6ae4ca966662?expires=1792303200&amp;signature=c78e0d711c8f18d798c2ec0a23500b7da23288aff6f140152403e949344b88e9&amp;req=diUmEs93nohdW%2FMW3nq%2BgdxbSC3F2%2FtK5HjNVA%2FChTTRyFOq3jB8QKCvMyco%0Aj7%2BVvtXsBRGzSb1UxUlGJ6HRGRE%3D%0A)
 
 ---
 
@@ -78,7 +78,7 @@ If any custom role has an effort cap higher than the new organization cap for th
 
 Only models the role grants access to can be selected as that role’s default model.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693923/880665a87dbd4776cf19d6063a37/29d30c6d-f9fc-408c-8c72-4320c6d88d14?expires=1792164600&amp;signature=081b9979c8d46195ed23b46c287359a25b3f454e63ffc97b4e5a735a34f7e069&amp;req=diUmEs93nohdWvMW1HO4zYj9SPcC64W7XsqpNqvyFRKZxyP8tYZ3Nv%2Bt0pnh%0AVFux6bjcqK90MzzREO8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693923/880665a87dbd4776cf19d6063a37/29d30c6d-f9fc-408c-8c72-4320c6d88d14?expires=1792303200&amp;signature=73a16da665c8410f2b6e9e873fc8d3aaea659bd9310fb88061b0db3c8680ec68&amp;req=diUmEs93nohdWvMW3nq%2BgXC%2FpuFSXF4u%2F7njFSFH8bEPdyLVWW%2FeQt1Cy3kR%0AfmEnyAWAkSZFu27zQs4mmg03Vy0%3D%0A)
 
 ---
 
@@ -96,7 +96,7 @@ Effort limits determine how much computation members on a role can apply per res
 
 5. Click "Save" to save your changes.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693927/7a25673b3b075d72adb3cdc371e3/d2d7cd8d-a713-4e91-a706-f589ac46a9fe?expires=1792164600&amp;signature=ba593caabe645e21791fa47f47c2a4d73d4edc028be07a1d1d2a9106e087defb&amp;req=diUmEs93nohdXvMW1HO4ze1xBzG9db0fDeA1RkowXUGpB5VfYd4fIYgYZYFo%0AW8LTQXsHtnlxn6HEMHQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693927/7a25673b3b075d72adb3cdc371e3/d2d7cd8d-a713-4e91-a706-f589ac46a9fe?expires=1792303200&amp;signature=707d1bca1519dc38a5326b03ae91729967c9060631bc3f39bd88259a66f1a12a&amp;req=diUmEs93nohdXvMW3nq%2BgebDzDuQgPHX%2FHVtKcQFB8prXQlGbVpPImXhKK4L%0Axh3Gj%2FEFIFT8K1xtMwX4C698dzM%3D%0A)
 
 Members on the role see only effort levels at or below the cap in their model menu. Note that available effort levels differ depending on the model, and some models don’t support effort level settings at all. For an explanation of each level, see **[Change the model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
 
@@ -130,16 +130,16 @@ If you disable a model a member is using in an open conversation or session, tha
 
 Model access settings are enforced across these products:
 
-| **Product**                        | **Model access settings apply** |
-| ---------------------------------- | ------------------------------- |
-| Chat (web, desktop, mobile)        | ✅                               |
-| Claude Cowork                      | ✅                               |
-| Claude Code (CLI, remote, desktop) | ✅ CLI version 2.1.199 or later  |
-| Claude for Microsoft 365           | ✅                               |
-| Claude Tag                         | ✅                               |
-| Claude Design                      | ✅                               |
-| Claude in Chrome                   | Not yet supported               |
-| Claude Security                    | Not yet supported               |
+| **Product**                                     | **Model access settings apply** |
+| ----------------------------------------------- | ------------------------------- |
+| Chat (web, desktop, mobile)                     | ✅                               |
+| Claude Cowork                                   | ✅                               |
+| Claude Code (terminal, cloud sessions, desktop) | ✅ CLI version 2.1.199 or later  |
+| Claude for Microsoft 365                        | ✅                               |
+| Claude Tag                                      | ✅                               |
+| Claude Design                                   | ✅                               |
+| Claude in Chrome                                | Not yet supported               |
+| Claude Security                                 | Not yet supported               |
 
 **Note:** Members on Claude Code CLI versions earlier than 2.1.199 still see disabled models and effort levels in the picker, but requests using them are rejected.
 
@@ -147,4 +147,4 @@ Model access settings are enforced across these products:
 
 If your organization also configures Claude Code through `managed-settings.json`, the `availableModels` setting and model access work together. In Claude Code CLI and IDE, members see only models that appear in `availableModels` *and* are enabled by their model access settings—a model removed by either one is unavailable.
 
-Managed settings for models apply only to Claude Code CLI and IDE, not to Claude Code on web or desktop. For consistent behavior across all Claude Code surfaces, we recommend using model access settings alone. For more on managed settings, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.
+Managed settings for models apply only to local Claude Code sessions in your terminal or IDE, not to cloud sessions or to Claude Code in Claude Desktop. For consistent behavior across all Claude Code surfaces, we recommend using model access settings alone. For more on managed settings, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.

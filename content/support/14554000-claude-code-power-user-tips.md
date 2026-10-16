@@ -396,9 +396,9 @@ Voice mode is available to all users, including Claude Code Desktop and Cowork. 
 
 - **macOS native:** hit fn×2 for system dictation in any terminal
 
-### Web sessions
+### Cloud sessions
 
-Beyond the terminal, run additional sessions on [claude.ai/code](https://claude.ai/code). Use the `&` command to background a session, or the `--teleport` flag to switch contexts between local and web.
+Beyond the terminal, run additional sessions in the cloud from claude.ai/code. Use the `&` command to send a session to the cloud, or the `--teleport` flag to switch contexts between local and cloud sessions.
 
 ### Output styles
 
@@ -441,7 +441,7 @@ To branch off an existing session, run `/branch` from inside it, or `claude --re
 
 ### Setup scripts for cloud environments
 
-In Claude Code on web and desktop, add a **setup script** that runs before each new cloud session—install dependencies, configure settings, set environment variables. The script is skipped on resume.
+In Claude Code cloud sessions and Claude Desktop, add a setup script that runs before each new cloud session—install dependencies, configure settings, set environment variables. The script is skipped on resume.
 
 ---
 
