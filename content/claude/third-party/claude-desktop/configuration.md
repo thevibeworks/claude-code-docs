@@ -165,7 +165,7 @@ The reference below is generated from the configuration schema and grouped to ma
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferenceanthropicapikey" />Claude API key<br />`inferenceAnthropicApiKey` | `string` | MDM + Bootstrap<br />Added in 1.8089.0 | — | Leave blank to fetch a key via browser sign-in, or to supply the key via a credential helper. |
+| <span id="inferenceanthropicapikey" />Claude API key<br />`inferenceAnthropicApiKey` | `string` | MDM + Bootstrap<br />Added in 1.8089.0 | — | Leave blank to sign in with your browser, or to supply the key via a credential helper. |
 
 ### Bedrock
 

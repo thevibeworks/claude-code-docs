@@ -1,6 +1,6 @@
 # Import and export your memory from Claude
 
-Memory imports are available for Free, Pro, Max, and Team plans on the web and Claude Desktop.
+Memory imports are available for Free, Pro, Max, Team, and Enterprise plans on the web and Claude Desktop.
 
 You can transfer your memory between Claude and other AI providers. This lets you import memories from other AI providers into Claude, or export your Claude memory for backup or migration.
 

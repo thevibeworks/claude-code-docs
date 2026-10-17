@@ -185,8 +185,8 @@ A sandboxed command that connects to a host you haven't allowed stays in the san
 
 Even in auto-allow mode, the following still apply:
 
-* Explicit [deny rules](/docs/en/permissions) are always respected
-* `rm` or `rmdir` commands that target a [critical path](/docs/en/permission-modes#critical-paths) still go through the regular permission flow
+* A command in a [form that a `Bash` deny rule matches](/docs/en/permissions#bash-rule-limits) is still blocked
+* `rm` or `rmdir` commands recognized as targeting a [critical path](/docs/en/permission-modes#which-paths-are-critical) still go through the regular permission flow
 * Content-scoped [ask rules](/docs/en/permissions) like `Bash(git push *)` still force a prompt even for sandboxed commands
 * A bare `Bash` ask rule, or the equivalent `Bash(*)` form, is skipped for commands that run sandboxed; it still applies to commands that run outside the sandbox. In [plan mode](/docs/en/permission-modes#analyze-before-you-edit-with-plan-mode), the rule isn't skipped: it prompts for sandboxed commands too, including read-only ones
 * [Monitor tool](/docs/en/tools-reference#monitor-tool) commands aren't approved automatically, though they still run in the sandbox. To skip the prompt, add an [allow rule](/docs/en/permissions#bash) that matches the command, such as `Bash(npm run *)`
@@ -971,6 +971,18 @@ Managed settings and `--settings` rank above local settings. To see which of the
 
 * **`Command line arguments`**: if you started Claude Code with [`--settings`](/docs/en/settings#change-a-setting-for-one-session), check whether the file or JSON you passed sets one of those keys. If it does, change the value there, or start Claude Code again without those keys.
 * **`Enterprise managed settings`**: your organization's managed settings are loaded. If they set one of those keys, you can't change that key from `/sandbox` or from any settings file you control, so ask your administrator.
+
+### `/sandbox` prints `Sandbox settings not changed`
+
+This line means `/sandbox` couldn't save the choice you made in its panel to your project's `.claude/settings.local.json`:
+
+```text theme={null}
+✗ Sandbox settings not changed: /home/you/project/.claude/settings.local.json couldn't be updated (EACCES). Start Claude Code in a project folder you can write to.
+```
+
+If the reason in parentheses is `EACCES`, `EPERM`, or `EROFS`, start Claude Code in a project folder you can write to, then run `/sandbox` again in that session.
+
+If the reason begins with `Invalid JSON syntax in settings file`, correct the JSON in your project's `.claude/settings.local.json`, then run `/sandbox` again.
 
 ## Limitations
 

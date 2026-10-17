@@ -12,13 +12,13 @@ OpenTelemetry monitoring for Claude Cowork is available on Team and Enterprise p
 
 When you connect Claude Cowork to an OpenTelemetry collector, Cowork streams events covering:
 
-- **User prompts.** The full text of prompts users submit to Cowork.
+- **User prompts.** When content capture includes user prompts, the full text of prompts users submit to Cowork. Otherwise, each prompt is recorded without its text.
 
-- **Tool and MCP invocations.** Every tool call Claude makes during a session, including MCP server name, tool name, parameters, success or failure, and execution time.
+- **Tool and MCP invocations.** Every tool call Claude makes during a session, including the tool name, success or failure, and execution time. When content capture includes tool details, events also carry the tool's parameters (for MCP tools, including the MCP server and tool names) and the error message when a tool fails.
 
-- **File access.** File paths Claude reads, modifies, or otherwise touches during a session, including files accessed through MCPs and folder-scoped local files.
+- **File access.** The folders users connect to a session. When content capture includes tool details, events also carry the file paths Claude reads, modifies, or otherwise touches, including files accessed through MCPs.
 
-- **Skills and plugins.** Which skills and plugins Claude invokes within a session.
+- **Skills and plugins.** Which skills and plugins Claude uses within a session. Unless content capture includes tool details, skills and plugins that don't come from Anthropic appear under a placeholder name.
 
 - **Human approval decisions.** Whether each tool action was approved by the user, rejected by the user, or initiated automatically based on existing permissions.
 
@@ -72,11 +72,15 @@ Events begin flowing to your collector immediately. Authentication headers are e
 
 A few things to be aware of before you turn on OpenTelemetry export:
 
-- **User prompt content is included in events by default.** If your organization has policies against logging prompt content to your SIEM, configure filtering or redaction in your collector before routing events downstream.
+- **Prompt text, Claude's responses, and tool inputs are off by default in current versions of Claude Desktop.** Events only carry metadata unless you turn on content capture with the `otlpContentCapture` device policy, which you deploy with your device management tool. If you turn it on, route events through a collector that meets your organization's policies for logging that content. Learn more about **[content capture in the Cowork monitoring reference](https://claude.com/docs/cowork/monitoring#content-capture)**.
 
-- **Tool parameters may include sensitive values.** File paths, command arguments, and other tool inputs are exported in the tool_parameters field. Plan your retention and access policies accordingly.
+- **Some older versions of Claude Desktop send content when the policy isn't set.** That content can include prompt text, Claude’s responses, and tool inputs. These versions switch to metadata only once they update. On versions that support the policy, you can turn content off before then by setting `otlpContentCapture` to an empty list, written as the two characters `[]`.
 
-- **User email addresses are included in event attributes.** If this is a concern, filter or redact at the collector.
+- **The policy applies to Cowork sessions started from Claude Desktop, whether they run on the user's computer or in the cloud.** It doesn't apply to scheduled tasks that run in the cloud, or, where chat and Cowork are unified, to chats that Claude moves into the cloud. Those sessions carry metadata only. Cowork sessions started on the web or in the mobile app carry metadata only, and the policy doesn’t change that.
+
+- **Tool parameters may include sensitive values.** When content capture includes tool details, file paths, command arguments, and other tool inputs are exported in the `tool_input` and `tool_parameters` fields. Plan your retention and access policies accordingly.
+
+- **User email addresses, the paths of connected folders, and API error messages are included whatever the content capture setting.** An API error message can sometimes repeat part of the request that caused it, so filter or redact at your collector if that's a concern.
 
 - **Events are only exported when an admin configures an OTLP endpoint.** No data flows by default.
 
