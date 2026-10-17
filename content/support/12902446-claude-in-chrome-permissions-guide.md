@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792215900&amp;signature=5335677de63ecc4448ec7990e8087d51407d709fa6e6cbae552e0f59128f7947&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBP%2FYe%2BgN0ADj5oqFCBm2icBgg4x%2BLvKE8Y%0AC679sExid1DU8Kb0oSc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792232100&amp;signature=433dd2840e1d39a2a0c9d55047865a951b5079e109c421292b2d32ebdcf52ae3&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBP%2F4C2gN0ADj5oqFCVb6Dc82GyCzikBB5N%0A5SRK06VvINMqzvboVhk%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792215900&amp;signature=cdc50b2a1b0ffe9ed6b2d3559da0454722e10ae86386ab7dfef7c8454d436b09&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2RyiSnl7A4lHPBihAU9GusNPYJz1lBb9nRK%0A41OLKCeemDCAyKZljt8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792232100&amp;signature=53c8212c124801df807631f80f1a1326a45235ec6a3d8f5d4b4ff38934eabab4&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2Ryiy7t7A4lHPBihAXJmBXQbc09vqy4MWhF%0Ac3e2dEu9duhe9zri7pw%3D%0A)
 
 ### Permission options
 
