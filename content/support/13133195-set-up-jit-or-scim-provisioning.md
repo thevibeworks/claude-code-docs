@@ -40,7 +40,7 @@ Use this table to help decide which provisioning mode is right for your organiza
 
 Both JIT and SCIM can be combined with **Enable group mappings** to control role or seat tier assignment based on IdP group membership. If you select either of these options for your provisioning mode, **Enable group mappings** will appear within the **User provisioning** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1792232100&amp;signature=ab8fc4cf3942024d4bbfdd3647f818ffb5f503bd6cfbb75fd274bfbe77fbb615&amp;req=diMmFM5%2Bm4FWUPMW1HO4zXBDQqlWDlh3xFMG%2BIEvQSc7bImLYCS2yz8jYlZE%0AWYS6BDIj2ZRB5ZC8sy4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1792247400&amp;signature=b4b79a7fe46069276dbcf7e108c0d16d2b28143f09123f3162bc194f75474705&amp;req=diMmFM5%2Bm4FWUPMW1HO4zXBDQqlWCV1yxFMG%2BIEvQSeBTBRPgDbHGS5nKV%2Fb%0APCEPqbTfi0%2BHI8gpZBQ%3D%0A)
 
 **Important:** Group mappings set a user’s role type and seat tier only. Users with the Custom role get their permissions from groups in Claude, and those groups sync from your IdP only when your provisioning mode is SCIM directory sync. With JIT, you need to create groups and add users to them manually in **[Organization settings > Groups](https://claude.ai/admin-settings/groups)**. If you map an IdP group to the Custom role under JIT without doing this, those users have no permissions when they log in. Learn more about **[managing groups on Enterprise plans](https://support.claude.com/en/articles/13799932)**.
 
@@ -136,7 +136,7 @@ Learn more about **[setting up role-based permissions on Enterprise plans](https
 
 4. Toggle **Enable group mappings** on (if it’s not already):
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1792232100&amp;signature=dbda8390a6e554bf2b1eefb64121204dcfd15d3c76f810fb054a241b4cc93688&amp;req=diMmFM5%2FmYdcXPMW1HO4zeBEb8falPhJyb72rapuHpMo2QXjZRmtB88KHo%2BY%0Awhzo%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1792247400&amp;signature=eec058d9aa3e37406abdf105d536f59e33514c79dcabbe1c7ffe4f183b60d552&amp;req=diMmFM5%2FmYdcXPMW1HO4zeBEb8fak%2F1Myb72rapuHpNPSiKheNE7e%2B3Av9KD%0ARgCL%0A)
 
 5. In the **Enable group mappings** section, click “Add” next to each role and select the corresponding group from your IdP in the dropdown.
 
@@ -188,7 +188,7 @@ Verify you have enough seats purchased and available to add members to your org.
 
 4. **For SCIM:** Click "Sync" to prompt an immediate sync, or wait for the automatic sync cycle:
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1792232100&amp;signature=6c7b4c67c8641c4d8c82f99dd4f8a33574de59fae08ef310193403e34f2d0ee3&amp;req=diMmFM5%2FmoVdWPMW1HO4zZ9Lal%2BvGsjD5hujYvMis4co7KCaVBLR2E%2FA1aix%0Abx7t%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1792247400&amp;signature=cab2cf04e21414faf73fc6675f20a578b329c5c40194dd96fa1deb9bb770c1ce&amp;req=diMmFM5%2FmoVdWPMW1HO4zZ9Lal%2BvHc3G5hujYvMis4c1h86plFAYu9SyDVxa%0A6bas%0A)
 
 ### Users mapped to the Custom role can't access anything after logging in
 
