@@ -180,7 +180,7 @@ These tools show what happens in Claude Code (local mode) and Cowork (local mode
 
 - **OpenTelemetry:** You can send events from both products to your own monitoring tools. The data you export is your organization's responsibility. Set the destination for Cowork in **Organization settings > Data and privacy > Monitoring**. Your IT team sets the destination for Claude Code in **[managed settings](https://code.claude.com/docs/en/monitoring-usage#administrator-configuration)**.
 
-**Important:** By default, Cowork's OpenTelemetry events include prompt text, Claude's responses, and tool inputs, so PHI in a session may reach your monitoring tools. No organization setting turns that content off. Your IT team turns it off on each computer, as described in **[Content capture](https://claude.com/docs/cowork/monitoring#content-capture)**.
+**Important:** Cowork's OpenTelemetry events can include prompt text, Claude's responses, and tool inputs, so PHI in a session may reach your monitoring tools. Current versions of Claude Desktop only send metadata unless content capture is turned on, but some older versions send content such as prompt text and tool inputs by default. No organization setting turns that content off. Ask your IT team to set `otlpContentCapture` to `[]` so that every version that supports the policy sends metadata only, as described in **[Content capture](https://claude.com/docs/cowork/monitoring#content-capture)**. Metadata still includes the paths of connected folders, user email addresses, and API error messages, and an API error message can sometimes repeat part of the request. If these can contain PHI, filter or redact them at your collector.
 
 ## Get help
 

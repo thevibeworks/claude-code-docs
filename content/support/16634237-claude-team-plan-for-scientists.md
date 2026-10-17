@@ -16,6 +16,8 @@ Every seat includes everything in Claude Team:
 
 - Single sign-on (SSO)
 
+This plan has Claude Science on by default. An Owner or Primary Owner can turn it off at any time in **[Organization settings > Claude Science](https://claude.ai/admin-settings/claude-science)**.
+
 Premium seats add five times more usage and higher limits for long-running analyses.
 
 Claude Max and Team plans include monthly credits for the Claude API. On the Team plan for scientists, you’ll receive $20 USD per Standard seat and $100 USD per Premium seat. Credits for all seats are pooled into one monthly balance, capped at $500. Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.

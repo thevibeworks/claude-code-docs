@@ -62,6 +62,8 @@ To connect a service from the directory:
 
 **Important:** When connecting to a service, you're granting Claude permission to access and potentially modify data within that service based on your account permissions. Only connect services you trust and need for your workflows.
 
+---
+
 ## Connect a service on Team and Enterprise plans
 
 Before members of Team and Enterprise plans can use connectors, an Owner or Primary Owner needs to enable them for the organization. Enabling a connector makes it available to your team, but it doesn't automatically grant anyone access. Each person still needs to authenticate individually before they can use it.
@@ -79,6 +81,26 @@ Before members of Team and Enterprise plans can use connectors, an Owner or Prim
 Once enabled at the org level, individual users follow the same steps described above to connect and authenticate.
 
 **Note:** On Enterprise plans, Owners and Primary Owners can prevent services on their verified domains from being connected to Claude accounts outside the organization. Learn more about **[restricting verified-domain connectors to your enterprise](https://support.claude.com/en/articles/15402193-restrict-verified-domain-connectors-to-your-enterprise)**.
+
+### Let users request connectors
+
+Users who can’t add connectors themselves can ask an owner to add one. They select "Request" on the connector’s page in the Connectors Directory.
+
+On Team plans, connector requests are on by default. On Enterprise plans, they’re off by default, and nothing changes until an Owner turns them on:
+
+1. Navigate to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**.
+
+2. Turn on **Let members request connectors**.
+
+Only Owners and Primary Owners can change this setting. Other admins can see it but can’t change it.
+
+Requests appear on the **Requests** tab in **[Organization settings > Notifications](https://claude.ai/admin-settings/notifications)**. For each request, an Owner or Primary Owner can:
+
+- Approve it, which adds the connector for your organization
+
+- Decline it
+
+- Decline it and block the connector, so no one else can request it until an owner adds it
 
 ### Restrict actions within connected services
 

@@ -35,6 +35,7 @@ An idle engine stays on the host, with the credential in its environment, until 
 * The host restarts.
 * After an update that includes a new remote server, Claude Desktop replaces the host's remote server at a later connection. This ends the engines under the old server. Claude Desktop can put the replacement off while it believes that work is running on that host.
 * On a Linux or macOS host, 30 days pass without a connection from Claude Desktop to the remote server. The remote server then stops and ends its engines. Requires Claude Desktop 1.52386.0 or later.
+* Someone ends the engine's process on the host. To list or end the engines and the remote server yourself on a Linux or macOS host, see [Files and processes on the remote machine](https://code.claude.com/docs/en/desktop#files-and-processes-on-the-remote-machine). There the engine is called Claude Code, and the remote server the helper.
 
 While Claude Desktop is disconnected, the remote server keeps the most recent output of each running engine in a 16 MiB buffer. It drops older output, and the engine keeps running.
 
@@ -47,6 +48,10 @@ Some tool calls wait for an answer from Claude Desktop, and fail while it is dis
 * **Tools from MCP servers that run on the device**: these include your managed MCP servers (see [Where MCP servers run in a remote session](#where-mcp-servers-run-in-a-remote-session)). While Claude Desktop is disconnected, each call to one of their tools fails after about 30 seconds. The 30-second limit requires Claude Desktop 2.2553.0 or later.
 
 For a task that uses these tools, have the user keep the device awake and connected. For other limits, see [Limits while Desktop is disconnected](https://code.claude.com/docs/en/desktop#limits-while-desktop-is-disconnected).
+
+### Account that a remote session runs under
+
+On a Linux or macOS host, the remote server and the engine run as the SSH user. Installing and starting them takes no `sudo`. The shell commands and [MCP servers](#where-mcp-servers-run-in-a-remote-session) that the engine starts there also start as the SSH user. Review the SSH user's rights on the host, `sudo` rules included, as you would for a person who runs commands there.
 
 ### Alert the user with hooks on the host
 
@@ -304,7 +309,7 @@ Claude Desktop applies the host's entry in the user's `~/.ssh/config`. With the 
 
 * For hosts behind a bastion, configure a `ProxyJump` or `ProxyCommand`. `ProxyJump` works only when the device's OpenSSH client carries the connection (the default on macOS and Linux). The built-in client refuses it. For the card that the user sees, see [Ask your IT administrator to set sshTransport to system-openssh](#ask-your-it-administrator-to-set-sshtransport-to-system-openssh).
 * With the device's OpenSSH client, OpenSSH's own host key checking applies. For a host whose key isn't on record yet, where the app can show a prompt, it shows the key's fingerprint, asks the user whether to trust it, and records a trusted key in the user's `known_hosts` file, unless the user's own SSH configuration accepts new keys without asking. The app can't show a prompt on every connection, for example when it reconnects in the background. Distribute the host keys or a host certificate authority to the devices, so that each host's key is on record before users connect. `@cert-authority` entries are honored. A key that differs from the one on record for the host is refused, whatever the entry's `StrictHostKeyChecking` says, unless another setting in the SSH configuration that applies to the host takes that check away, such as `NoHostAuthenticationForLocalhost yes` for a host on a loopback address.
-* With the device's OpenSSH client, you can keep the app from asking users to trust the key of a host that isn't on record yet. Distribute the host keys in the client's system-wide `known_hosts` file, such as `/etc/ssh/ssh_known_hosts`, or distribute a host certificate authority. Then set `StrictHostKeyChecking yes`, for example under `Host *`, in the client's system-wide configuration file, such as `/etc/ssh/ssh_config`, which also governs other uses of that client, such as `git` over SSH. Where the SSH configuration that applies to a host has `StrictHostKeyChecking yes`, Claude Desktop doesn't ask the user to trust such a key, and `ssh` refuses the host if it can't verify the key. A key that differs from the one on record is handled the same way with or without this setting. The setting doesn't bind the user. By OpenSSH's own rules, `ssh` reads the user's `~/.ssh/config` before the system-wide file and keeps the first value it finds for a setting, so a `StrictHostKeyChecking` line there applies in place of yours. `ssh` also accepts a key that the user adds to their own `known_hosts` file, but under `yes` a connection from a terminal doesn't record the key.
+* With the device's OpenSSH client, you can keep the app from asking users to trust the key of a host that isn't on record yet. Distribute the host keys in the client's system-wide `known_hosts` file, such as `/etc/ssh/ssh_known_hosts`, or distribute a host certificate authority. Then set `StrictHostKeyChecking yes`, for example under `Host *`, in the client's system-wide configuration file, such as `/etc/ssh/ssh_config`, which also governs other uses of that client, such as `git` over SSH. Where the SSH configuration that applies to a host has `StrictHostKeyChecking yes`, Claude Desktop doesn't ask the user to trust such a key, and `ssh` refuses the host if it can't verify the key. A key that differs from the one on record is handled the same way with or without this setting. The setting doesn't bind the user. By OpenSSH's own rules, `ssh` reads the user's `~/.ssh/config` before the system-wide file and keeps the first value it finds for a setting, so a `StrictHostKeyChecking` line there applies in place of yours. `ssh` also accepts a key that the user adds to their own `known_hosts` file, but under `yes` a connection from a terminal doesn't record the key. A user who picks a host that `ssh` refuses sees "Couldn't connect to" followed by the host, with [SSH host key verification failed](#ssh-host-key-verification-failed) under **View details**.
 * With the built-in client, the host's key must already be in the device's `~/.ssh/known_hosts` as a plain entry. The app does not prompt to accept a new key and does not evaluate `@cert-authority` entries, so have users connect once from a terminal before adding the host in the app.
 * With the built-in client, an identity file protected by a passphrase is skipped, not prompted for. Load it into the SSH agent, or use an unencrypted key. With the device's OpenSSH client, the app asks for the passphrase once the host's key is verified, and skips the key if the user cancels.
 * With the built-in client, a host reached through a `ProxyCommand` gets the same host key check as a host reached directly. Before Claude Desktop 2.9939.0, the built-in client skipped host key verification for such a host.
@@ -336,6 +341,8 @@ The configured inference credential is one of the kinds listed as refused under 
 ### SSH host key verification failed
 
 The host's key has changed, or it is not in the device's `~/.ssh/known_hosts` and was not trusted in the app (the built-in client never asks). Connect to the host from a terminal on the device to check and record the current key, then retry.
+
+With the device's OpenSSH client (the default on macOS and Linux), if `StrictHostKeyChecking yes` applies to the host, connecting from a terminal doesn't record its key. Instead, check the key and add it to the system-wide `known_hosts` file, or give the host a certificate from your host certificate authority (see [SSH configuration on the device](#ssh-configuration-on-the-device)).
 
 ### Ask your IT administrator to set sshTransport to system-openssh
 
@@ -382,6 +389,20 @@ SSH connected, but Claude Desktop couldn't place or start the remote server or t
 `[SESSION_LIMIT]` and `[SFTP_NOT_STARTED]` require Claude Desktop 2.31226.0 or later, and appear only when the device's OpenSSH client makes the connection. `[SESSION_LIMIT]` appears only on macOS and Linux devices. Their cards are titled `<host> allows too few SSH sessions per connection` and `SFTP doesn't start on <host>`.
 
 `[CLI_NOT_RUNNABLE]` and `[EXEC_NO_INPUT]` require Claude Desktop 2.37337.0 or later. `[EXEC_NO_INPUT]` appears only on Windows devices where the device's OpenSSH client makes the connection. Their cards are titled `Claude Code didn't run on <host>` and `<host> doesn't pass input to commands run over SSH`. From the same version, the card is titled `Couldn't copy Claude Code to <host>` where the app couldn't put its files on the host, and `Couldn't install Claude Code on <host>` where the engine's install failed, each for a cause with no card of its own.
+
+### Git commands fail with Read-only file system
+
+Git commands fail with this error when the user opens the session in a subfolder of a Git repository, on a Linux host where the sandbox from your policy runs. Git's message then reads, for example, `Unable to create '<path>/.git/index.lock': Read-only file system`. To find out whether the sandbox runs there, see [Sandbox status on the remote host](#sandbox-status-on-the-remote-host).
+
+The sandbox lets shell commands that Claude runs with its Bash tool write in the folder the session was opened in, and the repository's `.git` folder is outside that folder. Of these commands, the ones that write to the `.git` folder fail, such as `git add` and `git commit`. Have the user start a new session at the top of the repository.
+
+<Note>
+  These cases are covered elsewhere:
+
+  * **An `allowedWorkspaceFolders` entry with `mode` set to `ro`**: see [Read-only folders on the remote host](#read-only-folders-on-the-remote-host)
+  * **A message with `unable to unlink old`**: see [A git command fails with `unable to unlink old`](https://code.claude.com/docs/en/sandboxing#a-git-command-fails-with-unable-to-unlink-old)
+  * **The other places that the sandbox lets these commands write to**: see [Filesystem isolation](https://code.claude.com/docs/en/sandboxing#filesystem-isolation) and the `allowedWorkspaceFolders` row under [Applied as managed policy](/docs/third-party/claude-desktop/code#applied-as-managed-policy)
+</Note>
 
 ## Related
 
