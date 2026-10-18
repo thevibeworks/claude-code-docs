@@ -58,7 +58,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself. On Team and Enterprise plans, a colleague can share a plugin with you directly instead of sending you the file. See **[Use a plugin shared with you](#h_ef985546b4)** below. Plugins you add in Claude on the web or in Claude Desktop are saved to your account, not to your computer, so they follow you to chat, Cowork, and Claude Code.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1792334700&amp;signature=d112b8d4f51115ee408fa32002c93a4587dff27e1d6f3c9ef328b245a64d6f61&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IxfeMPFSxakFVfq5WwxGNtef%2FlNdWOwEGUz1%0AwNDH2tvB3FZFBZJ0Xbc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1792349100&amp;signature=e4b636f17a92fc3435de559c088f673b803df78960ae183afd06024c1874e32c&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IxfeN%2FxUxakFVfq5WwywJVCdy7r%2B8n2ArNcQ%0A6KTLIQjSsTXPEUY0JvY%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -68,7 +68,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you add brings skills and commands you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your plugins, in chat and in Cowork. In Cowork, you can also run a plugin's command by typing `/plugin-name:command`. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1792334700&amp;signature=427291ad03497bebeac635af99767ac77e2a211051296c5f92c1710e884e4276&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBfT%2FgESTmKUxugP2BQucQXEnjNtpduXIbHLa%0AgBLSGyW930ZMwpCLW8o%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1792349100&amp;signature=91a11b1b55498b796412083a1221eebe66eb0eed21f83369d17d1b2f07bb8175&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBfT%2Fh0mVmKUxugP2BQtSZlKQmxbEndK1%2BYT3%0A86t%2FWN5sNb2%2F8HdhWJQ%3D%0A)
 
 ---
 
