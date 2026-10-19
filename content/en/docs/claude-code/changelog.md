@@ -10,6 +10,10 @@ This page is generated from the [CHANGELOG.md on GitHub](https://github.com/anth
 
 Run `claude --version` to check your installed version.
 
+<Update label="2.1.303" description="October 18, 2026">
+  * Bug fixes and reliability improvements
+</Update>
+
 <Update label="2.1.302" description="October 16, 2026">
   **Added**
 
