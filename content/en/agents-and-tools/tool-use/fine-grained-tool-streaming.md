@@ -63,7 +63,7 @@ The following example turns on fine-grained streaming for a `make_file` tool and
   ```
 
   ```bash CLI
-  ant messages create --stream --format jsonl <<'YAML' |
+  ant messages create --stream <<'YAML'
   model: claude-opus-5-5
   max_tokens: 65536
   tools:
@@ -86,7 +86,6 @@ The following example turns on fine-grained streaming for a `make_file` tool and
     - role: user
       content: Can you write a long poem and make a file called poem.txt?
   YAML
-    jq -rj 'select(.delta.type == "input_json_delta") | .delta.partial_json'
   ```
 
   ```python Python
@@ -469,7 +468,7 @@ The following example turns on fine-grained streaming for a `make_file` tool and
   ```
 </CodeGroup>
 
-Every tab turns on fine-grained streaming for the `make_file` tool. The SDK tabs print each input fragment the moment it arrives, then print the complete accumulated input once the stream ends. The cURL tab shows the raw event stream, and the CLI tab uses `jq` to print just the fragments. Because the printed fragments join into the full tool input, the poem fills your terminal as Claude writes it:
+Each input fragment arrives the moment Claude writes it, and the fragments join into the full tool input, so the poem arrives piece by piece:
 
 ```text wrap
 {"filename": "poem.txt", "lines_of_text": ["The Wanderer's Journey", "", "I.", "", "Beneath the vast and star-strewn sky,", "Where silver moonbeams softly lie,", ...

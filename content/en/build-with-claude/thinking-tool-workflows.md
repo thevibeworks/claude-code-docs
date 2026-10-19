@@ -55,7 +55,7 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
       ```
 
       ```bash CLI
-      ant messages create --transform content <<'YAML'
+      ant messages create <<'YAML'
       model: claude-opus-5-5
       max_tokens: 16000
       thinking:
@@ -313,72 +313,14 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
 
     Each sample is a self-contained script: it repeats the first request, then immediately sends the follow-up using the response it just received.
 
-    <CodeGroup exclude="shell:cURL">
+    <CodeGroup exclude="shell:cURL, shell:CLI">
       <CodeGroupItem language="cURL">
-        This workflow needs more logic than a single shell command. Use the Claude SDK to run it.
+        This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
       </CodeGroupItem>
 
-      ```bash CLI
-      # First turn: write the assistant content array (thinking and tool_use
-      # blocks, signatures intact) to a file. Routing model-generated text
-      # through a file keeps it out of shell-expansion position later.
-      ant messages create --transform content --format jsonl \
-        > assistant_content.json <<'YAML'
-      model: claude-opus-5-5
-      max_tokens: 16000
-      thinking:
-        type: adaptive
-      tools:
-        - name: get_weather
-          description: Get current weather for a location
-          input_schema:
-            type: object
-            properties:
-              location:
-                type: string
-                description: City name
-            required: [location]
-      messages:
-        - role: user
-          content: What's the weather in Paris?
-      YAML
-
-      # Second turn: jq fills the two null placeholders from the captured file,
-      # so the blocks return verbatim as the assistant message. The thinking
-      # block MUST accompany the tool_use block. The quoted delimiter keeps the
-      # shell from expanding anything in the body.
-      jq --slurpfile blocks assistant_content.json '
-        .messages[1].content = $blocks[0] |
-        .messages[2].content[0].tool_use_id =
-          ($blocks[0][] | select(.type == "tool_use") | .id)
-      ' <<'JSON' | ant messages create
-      {
-        "model": "claude-opus-5-5",
-        "max_tokens": 16000,
-        "thinking": {"type": "adaptive"},
-        "tools": [{
-          "name": "get_weather",
-          "description": "Get current weather for a location",
-          "input_schema": {
-            "type": "object",
-            "properties": {
-              "location": {"type": "string", "description": "City name"}
-            },
-            "required": ["location"]
-          }
-        }],
-        "messages": [
-          {"role": "user", "content": "What's the weather in Paris?"},
-          {"role": "assistant", "content": null},
-          {"role": "user", "content": [{
-            "type": "tool_result",
-            "tool_use_id": null,
-            "content": "Current temperature: 88°F"
-          }]}
-        ]
-      }
-      JSON
-      ```
+      <CodeGroupItem language="CLI">
+        This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+      </CodeGroupItem>
 
       ```python Python
 

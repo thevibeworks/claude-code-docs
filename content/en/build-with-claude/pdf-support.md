@@ -133,7 +133,7 @@ The simplest approach is to reference a PDF directly from a URL:
   ```
 
   ```bash CLI
-  ant messages create --transform content --format yaml <<'YAML'
+  ant messages create <<'YAML'
   model: claude-opus-5-5
   max_tokens: 1024
   messages:
@@ -414,9 +414,7 @@ If you need to send PDFs from your local system or when a URL isn't available:
   ```bash CLI
   ant messages create \
     --model claude-opus-5-5 \
-    --max-tokens 1024 \
-    --transform content \
-    --format yaml <<'YAML'
+    --max-tokens 1024 <<'YAML'
   messages:
     - role: user
       content:
@@ -716,12 +714,12 @@ For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use
 <CodeGroup>
   ```bash cURL
   # First, upload your PDF to the Files API
-  FILE_ID=$(curl -sS -X POST https://api.anthropic.com/v1/files \
+  curl -sS -X POST https://api.anthropic.com/v1/files \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -F "file=@document.pdf" | jq -r '.id')
+    -F "file=@document.pdf"
 
-  # Then use the returned file_id in your message
+  # Then use the file_id from the upload response in your message
   curl https://api.anthropic.com/v1/messages \
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -748,15 +746,11 @@ For PDFs you'll use repeatedly, or when you want to avoid encoding overhead, use
 
   ```bash CLI
   # First, upload your PDF to the Files API
-  FILE_ID=$(ant files upload \
-    --file ./document.pdf \
-    --transform id \
-    --raw-output)
+  ant files upload \
+    --file ./document.pdf
 
-  # Then use the returned file_id in your message
-  ant messages create \
-    --transform content \
-    --format yaml <<YAML
+  # Then use the file_id from the upload response in your message
+  ant messages create <<YAML
   model: claude-opus-5-5
   max_tokens: 1024
   messages:
@@ -1071,41 +1065,32 @@ Cache PDFs with [prompt caching](https://platform.claude.com/docs/en/build-with-
 
 <CodeGroup>
   ```bash cURL
-  curl -sL "https://assets.anthropic.com/m/1cd9d098ac3e6467/original/Claude-3-Model-Card-October-Addendum.pdf" | base64 | tr -d '\n' > pdf_base64.txt
-  # Create a JSON request file using the pdf_base64.txt content
-  jq -n --rawfile PDF_BASE64 pdf_base64.txt '{
-      "model": "claude-opus-5-5",
-      "max_tokens": 1024,
-      "messages": [{
-          "role": "user",
-          "content": [{
-              "type": "document",
-              "source": {
-                  "type": "base64",
-                  "media_type": "application/pdf",
-                  "data": $PDF_BASE64
-              },
-              "cache_control": {
-                  "type": "ephemeral"
-              }
-          },
+  curl -sL "https://assets.anthropic.com/m/1cd9d098ac3e6467/original/Claude-3-Model-Card-October-Addendum.pdf" |
+    base64 | tr -d '\n' |
+    jq -Rs '{
+      model: "claude-opus-5-5",
+      max_tokens: 1024,
+      messages: [{
+        role: "user",
+        content: [
           {
-              "type": "text",
-              "text": "Which model has the highest human preference win rates across each use-case?"
-          }]
+            type: "document",
+            source: {type: "base64", media_type: "application/pdf", data: .},
+            cache_control: {type: "ephemeral"}
+          },
+          {type: "text", text: "Which model has the highest human preference win rates across each use-case?"}
+        ]
       }]
-  }' > request.json
-
-  # Then make the API call using the JSON file
-  curl https://api.anthropic.com/v1/messages \
-    -H "content-type: application/json" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -d @request.json
+    }' |
+    curl https://api.anthropic.com/v1/messages \
+      -H "content-type: application/json" \
+      -H "x-api-key: $ANTHROPIC_API_KEY" \
+      -H "anthropic-version: 2023-06-01" \
+      -d @-
   ```
 
   ```bash CLI
-  ant messages create --transform content --format yaml <<'YAML'
+  ant messages create <<'YAML'
   model: claude-opus-5-5
   max_tokens: 1024
   messages:

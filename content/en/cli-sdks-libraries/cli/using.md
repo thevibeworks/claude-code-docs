@@ -89,12 +89,6 @@ AGENT_ID=$(ant beta:agents create \
   --name "My Agent" \
   --model '{id: claude-opus-5-5}' \
   --transform id --raw-output)
-
-printf '%s\n' "$AGENT_ID"
-```
-
-```text Output wrap
-agent_011CYm1BLqPXpQRk5khsSXrs
 ```
 
 <Note>
@@ -173,8 +167,7 @@ ant messages create \
   --message '{role: user, content: [
     {type: document, source: {type: base64, media_type: application/pdf, data: "@./scan.pdf"}},
     {type: text, text: "Extract the text from this scanned document."}
-  ]}' \
-  --transform 'content.#(type=="text").text' --raw-output
+  ]}'
 ```
 
 The CLI detects the file type and encodes binary files as base64 automatically. To force a specific encoding use `@file://` for plain text or `@data://` for base64. Escape a literal leading `@` with a backslash (`\@username`).

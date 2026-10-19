@@ -14,7 +14,7 @@ Available on Max and Team plans, including discounted Team plans. Free, Pro, and
 | Team (Premium seats)                          | $100 per seat\*                                           |
 | Discounted Team plans (Nonprofit, Scientists) | $20 USD per Standard seat and $100 USD per Premium seat\* |
 
-* On Team plans, credits for all seats are pooled into one monthly balance, capped at $500. For example, a team with three Standard seats and two Premium seats receives $260 a month. The pool is calculated from the seats on the plan when the credits are granted.
+*On Team plans, credits for all seats are pooled into one monthly balance, capped at $500. For example, a team with three Standard seats and two Premium seats receives $260 a month. The pool is calculated from the seats on the plan when the credits are granted.
 
 ## Eligibility
 
@@ -84,7 +84,7 @@ The credits don’t apply to:
 
 - **Separate from your plan limits.** The credits don’t change your usage limits in Claude, Claude Code, or Claude Cowork.
 
-- **Visible in the Console.** All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in Claude Console with their amount and expiry date.
+- **Visible in the Console.** All credits appear on the **Billing** page (platform.claude.com/settings/billing) in the Claude Console with their amount and expiry date.
 
 ## What happens when your credits run out
 
@@ -109,6 +109,8 @@ The credits don’t apply to:
 **The pool follows your seat count.** It's calculated from the seats on your plan each time credits are deposited. For example, a team with three Standard seats and two Premium seats receives $260 a month. Adding another Premium seat would increase the next cycle’s credits to $360.
 
 **Control who spends it.** Everyone with an API key in the linked organization can use the balance. To limit usage by project or teammate, set **[workspace spend limits](https://platform.claude.com/docs/en/api/rate-limits#setting-lower-limits-for-workspaces)** in the Console.
+
+---
 
 ## Frequently asked questions
 

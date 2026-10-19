@@ -278,48 +278,23 @@ A `page` cursor is opaque and encodes the `order` of the request that produced i
 
 <CodeGroup>
   ```bash cURL
-  first_page=$(curl -sS --fail-with-body \
+  curl -sS --fail-with-body \
     "https://api.anthropic.com/v1/sessions?agent_id=$AGENT_ID&limit=1" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: managed-agents-2026-04-01")
-  jq '{prev_page, next_page}' <<< "$first_page"  # prev_page is null on the first page
-
-  next_cursor=$(jq -r '.next_page' <<< "$first_page")
-  second_page=$(curl -sS --fail-with-body \
-    "https://api.anthropic.com/v1/sessions?agent_id=$AGENT_ID&limit=1&page=$next_cursor" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: managed-agents-2026-04-01")
-
-  prev_cursor=$(jq -r '.prev_page' <<< "$second_page")
-  curl -sS --fail-with-body \
-    "https://api.anthropic.com/v1/sessions?agent_id=$AGENT_ID&limit=1&page=$prev_cursor" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: managed-agents-2026-04-01" \
-    | jq '{prev_page, next_page}'
+    -H "anthropic-beta: managed-agents-2026-04-01"
+  # Pass next_page back as the page query parameter to fetch the next page,
+  # or prev_page to go back.
   ```
 
   ```bash CLI
   # --format raw returns one page envelope with its prev_page and next_page
   # cursors; the default output auto-paginates and emits only the sessions.
-  cursors=$(ant beta:sessions list \
-    --agent-id "$AGENT_ID" \
-    --limit 1 \
-    --format raw \
-    --transform '{prev_page,next_page}')
-  printf '%s\n' "$cursors"
-
-  # Pass the next_page cursor back as --page to fetch the next page.
-  NEXT_PAGE=$(jq -r '.next_page' <<< "$cursors")
   ant beta:sessions list \
     --agent-id "$AGENT_ID" \
     --limit 1 \
-    --page "$NEXT_PAGE" \
-    --format raw \
-    --transform '{prev_page,next_page}'
-  # Pass that response's prev_page as --page to go back the same way.
+    --format raw
+  # Pass next_page back as --page to fetch the next page, or prev_page to go back.
   ```
 
   ```python Python

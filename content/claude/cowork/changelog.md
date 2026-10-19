@@ -6,6 +6,26 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v2.42304.2" description="2026-10-19">
+  Bundled Claude Code version: 2.1.299.
+
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v2.42304.0" description="2026-10-15">
   Bundled Claude Code version: 2.1.299.
 

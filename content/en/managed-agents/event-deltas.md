@@ -107,71 +107,10 @@ Each SDK's helper handles the `index` (csharp, go: `Index`) bookkeeping. The Go,
 
 The following examples opt in to `agent.message` previews and reconcile them with the buffered event:
 
-<CodeGroup exclude="shell:CLI">
-  ```bash cURL
-  # Opt in to agent.message previews via event_deltas, then accumulate manually.
-  exec {stream}< <(
-    curl --fail-with-body -sS -N \
-      "https://api.anthropic.com/v1/sessions/$SESSION_ID/events/stream?beta=true&event_deltas%5B%5D=agent.message" \
-      -H "x-api-key: $ANTHROPIC_API_KEY" \
-      -H "anthropic-version: 2023-06-01" \
-      -H "anthropic-beta: managed-agents-2026-04-01" \
-      -H "accept: text/event-stream"
-  )
-
-  curl --fail-with-body -sS \
-    "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: managed-agents-2026-04-01" \
-    -H "content-type: application/json" \
-    -d '{
-      "events": [
-        {
-          "type": "user.message",
-          "content": [{"type": "text", "text": "In one short sentence, describe what an event delta is."}]
-        }
-      ]
-    }' >/dev/null
-
-  # Accumulate deltas keyed by (message id, content index); the final
-  # agent.message carries the full text, so it replaces every preview for that id.
-  declare -A preview
-  while IFS= read -r -u "$stream" event_line; do
-    [[ $event_line == data:* ]] || continue
-    event_json=${event_line#data: }
-    case $(jq -r '.type' <<<"$event_json") in
-      event_start)
-        preview_id=$(jq -r '.event.id' <<<"$event_json")
-        printf '[event_start id=%s]\n' "$preview_id"
-        ;;
-      event_delta)
-        preview_key=$(jq -r '.event_id + ":" + (.delta.index | tostring)' <<<"$event_json")
-        preview[$preview_key]+=$(jq -r '.delta.content.text' <<<"$event_json")
-        printf '[event_delta] %s\n' "${preview[$preview_key]}"
-        ;;
-      agent.message)
-        msg_id=$(jq -r '.id' <<<"$event_json")
-        for preview_key in "${!preview[@]}"; do
-          [[ $preview_key == "$msg_id":* ]] && unset "preview[$preview_key]"
-        done
-        printf '[agent.message id=%s] ' "$msg_id"
-        jq -j '.content[] | select(.type == "text") | .text' <<<"$event_json"
-        printf '\n'
-        ;;
-      span.model_request_end)
-        for preview_key in "${!preview[@]}"; do
-          printf '[closing unreconciled preview for %s]\n' "${preview_key%%:*}"
-        done
-        preview=()
-        ;;
-      session.status_idle)
-        break
-        ;;
-    esac
-  done
-  exec {stream}<&-
-  ```
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   <CodeGroupItem language="CLI">
     This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
@@ -629,85 +568,23 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
 
 <CodeGroup>
   ```bash cURL
-  # List the session's threads and pick a child: child threads carry a non-null
-  # parent_thread_id, and the primary thread's parent_thread_id is null.
-  THREAD_ID=$(
-    curl --fail-with-body -sS \
-      "https://api.anthropic.com/v1/sessions/$SESSION_ID/threads?beta=true" \
-      -H "x-api-key: $ANTHROPIC_API_KEY" \
-      -H "anthropic-version: 2023-06-01" \
-      -H "anthropic-beta: managed-agents-2026-04-01" |
-      jq -er 'first(.data[] | select(.parent_thread_id != null)).id'
-  )
-
-  # The child thread's stream takes the same event_deltas[] parameter as the
-  # session stream. Percent-encode the brackets (%5B%5D) and quote the URL.
-  exec {stream}< <(
-    curl --fail-with-body -sS -N \
-      "https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/stream?beta=true&event_deltas%5B%5D=agent.message" \
-      -H "x-api-key: $ANTHROPIC_API_KEY" \
-      -H "anthropic-version: 2023-06-01" \
-      -H "anthropic-beta: managed-agents-2026-04-01" \
-      -H "accept: text/event-stream"
-  )
-
-  while IFS= read -r -u "$stream" event_line; do
-    [[ $event_line == data:* ]] || continue
-    event_json=${event_line#data: }
-    case $(jq -r '.type' <<<"$event_json") in
-      event_delta)
-        jq -j '.delta.content.text' <<<"$event_json"
-        ;;
-      agent.message)
-        # The buffered event is the authoritative record; render its content.
-        printf '\n'
-        jq -j '.content[] | select(.type == "text") | .text' <<<"$event_json"
-        printf '\n'
-        ;;
-      session.thread_status_idle)
-        break
-        ;;
-    esac
-  done
-  exec {stream}<&-
+  # The thread stream takes the same event_deltas[] parameter as the session stream.
+  # Percent-encode the brackets (%5B%5D) and quote the URL.
+  curl --fail-with-body -sS -N \
+    "https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/stream?beta=true&event_deltas%5B%5D=agent.message" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: managed-agents-2026-04-01" \
+    -H "accept: text/event-stream"
   ```
 
   ```bash CLI
-  # List the session's threads and pick a child: child threads carry a non-null
-  # parent_thread_id, and the primary thread's parent_thread_id is null
-  # (--transform's #(parent_thread_id!=~null) query matches non-null values).
-  THREAD_ID=$(ant beta:sessions:threads list \
-    --session-id "$SESSION_ID" \
-    --format raw --transform 'data.#(parent_thread_id!=~null).id' --raw-output)
-
-  # The child thread's stream takes the same event_deltas parameter as the
-  # session stream, one --event-delta flag per event type to preview. @tostr
-  # re-encodes each text field as a JSON string, so every value stays on one
-  # YAML line and jq's fromjson recovers the original text.
-  transform='{type,frag:delta.content.text|@tostr,text:content.#(type=="text").text|@tostr}'
-  exec {stream}< <(ant beta:sessions:threads:events stream \
+  # The thread stream takes the same event_deltas parameter as the session stream,
+  # one --event-delta flag per event type to preview.
+  ant beta:sessions:threads:events stream \
     --session-id "$SESSION_ID" \
     --thread-id "$THREAD_ID" \
-    --event-delta agent.message \
-    --transform "$transform" \
-    --format yaml)
-
-  type=
-  while IFS= read -r -u "$stream" line; do
-    case "$line" in
-      type:\ session.thread_status_idle) break ;;
-      type:\ *) type=${line#type: } ;;
-      frag:*)
-        [[ $type == event_delta ]] || continue
-        jq -j fromjson <<<"${line#frag: }" ;;
-      text:*)
-        [[ $type == agent.message ]] || continue
-        # The buffered event is the authoritative record; render its content.
-        printf '\n'
-        jq -r fromjson <<<"${line#text: }" ;;
-    esac
-  done
-  exec {stream}<&-
+    --event-delta agent.message
   ```
 
   ```python Python

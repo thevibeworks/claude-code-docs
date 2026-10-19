@@ -249,93 +249,13 @@ If you built an agent by calling `client.messages.create()` (csharp: `client.Mes
 
 **After** (Claude Managed Agents):
 
-<CodeGroup>
-  ```bash cURL
-  agent=$(
-    curl --fail-with-body -sS "https://api.anthropic.com/v1/agents?beta=true" \
-      -H "x-api-key: ${ANTHROPIC_API_KEY}" \
-      -H "anthropic-version: 2023-06-01" \
-      -H "anthropic-beta: managed-agents-2026-04-01" \
-      --json '{
-        "name": "Task Runner",
-        "model": "claude-opus-5-5",
-        "tools": [{"type": "agent_toolset_20260401"}]
-      }'
-  )
-  agent_id=$(jq -r '.id' <<< "${agent}")
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  session_id=$(
-    curl --fail-with-body -sS "https://api.anthropic.com/v1/sessions?beta=true" \
-      -H "x-api-key: ${ANTHROPIC_API_KEY}" \
-      -H "anthropic-version: 2023-06-01" \
-      -H "anthropic-beta: managed-agents-2026-04-01" \
-      --json "$(jq -n --argjson a "${agent}" --arg env "${environment_id}" \
-        '{agent: {type: "agent", id: $a.id, version: $a.version}, environment_id: $env}')" \
-    | jq -r '.id'
-  )
-
-  # Open the SSE stream in the background, then send the user message.
-  stream_log=$(mktemp)
-  curl --fail-with-body -sS -N \
-    "https://api.anthropic.com/v1/sessions/${session_id}/events/stream?beta=true" \
-    -H "x-api-key: ${ANTHROPIC_API_KEY}" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: managed-agents-2026-04-01" \
-    > "${stream_log}" &
-  stream_pid=$!
-
-  curl --fail-with-body -sS \
-    "https://api.anthropic.com/v1/sessions/${session_id}/events?beta=true" \
-    -H "x-api-key: ${ANTHROPIC_API_KEY}" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: managed-agents-2026-04-01" \
-    --json "$(jq -n --arg text "${task}" \
-      '{events: [{type: "user.message", content: [{type: "text", text: $text}]}]}')" \
-    > /dev/null
-
-  # Wait for the session to go idle. grep exits at the first match, and
-  # reading via process substitution means the shell doesn't wait for
-  # tail (a foreground `tail -f | grep -m1` pipeline would hang: tail
-  # only dies on its next write, which never comes once the stream is idle).
-  grep -m1 '"session.status_idle"' <(tail -f -n +1 "${stream_log}") > /dev/null
-
-  kill "${stream_pid}" 2>/dev/null || true
-  ```
-
-  <CodeGroupItem>
-    ```bash CLI
-    ant apply agent.md
-
-    session_id=$(ant beta:sessions create \
-      --agent "{type: agent, id: $agent_id, version: $agent_version}" \
-      --environment-id "$environment_id" \
-      --transform id --raw-output)
-
-    # Open the stream first, then send the user message
-    exec {stream}< <(ant beta:sessions:events stream \
-      --session-id "$session_id" \
-      --transform type --raw-output)
-
-    ant beta:sessions:events send \
-      --session-id "$session_id" \
-      --event "{type: user.message, content: [{type: text, text: \"$task\"}]}" \
-      > /dev/null
-
-    # Wait for the session to go idle (grep exits at the first match)
-    grep -m1 -x 'session.status_idle' <&"$stream" > /dev/null
-    exec {stream}<&-
-    ```
-
-    <File filename="agent.md">
-      ```markdown
-      ---
-      name: Task Runner
-      model: claude-opus-5-5
-      tools:
-        - type: agent_toolset_20260401
-      ---
-      ```
-    </File>
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
   </CodeGroupItem>
 
   ```python Python
@@ -1371,7 +1291,11 @@ When a new Claude model is released, migrating a Claude Managed Agents integrati
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
-    --json "$(jq -n --argjson version "$AGENT_VERSION" '{version: $version, model: "claude-opus-5-5"}')"
+    -H "content-type: application/json" \
+    -d '{
+      "version": '"$AGENT_VERSION"',
+      "model": "claude-opus-5-5"
+    }'
   ```
 
   <CodeGroupItem>

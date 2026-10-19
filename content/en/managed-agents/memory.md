@@ -135,15 +135,14 @@ Pre-load a store with reference material before any agent runs:
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    -d '{"path": "/formatting_standards.md", "content": "All reports use GAAP formatting. Dates are ISO-8601..."}' > /dev/null
+    -d '{"path": "/formatting_standards.md", "content": "All reports use GAAP formatting. Dates are ISO-8601..."}'
   ```
 
   ```bash CLI
   ant beta:memory-stores:memories create \
     --memory-store-id "$store_id" \
     --path "/formatting_standards.md" \
-    --content "All reports use GAAP formatting. Dates are ISO-8601..." \
-    > /dev/null
+    --content "All reports use GAAP formatting. Dates are ISO-8601..."
   ```
 
   ```python Python
@@ -663,15 +662,14 @@ See the [Create a memory reference](https://platform.claude.com/docs/en/api/beta
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    -d '{"path": "/archive/2026_q1_formatting.md"}' > /dev/null
+    -d '{"path": "/archive/2026_q1_formatting.md"}'
   ```
 
   ```bash CLI
   ant beta:memory-stores:memories update \
     --memory-store-id "$store_id" \
     --memory-id "$mem_id" \
-    --path "/archive/2026_q1_formatting.md" \
-    > /dev/null
+    --path "/archive/2026_q1_formatting.md"
   ```
 
   ```python Python
@@ -747,10 +745,10 @@ To avoid clobbering a concurrent write, pass a `content_sha256` precondition. Th
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: agent-memory-2026-07-22" \
     -H "content-type: application/json" \
-    --data '{
+    -d '{
       "content": "CORRECTED: Always use 2-space indentation.",
       "precondition": {"type": "content_sha256", "content_sha256": "'"$mem_sha"'"}
-    }' > /dev/null
+    }'
   ```
 
   ```bash CLI
@@ -758,8 +756,7 @@ To avoid clobbering a concurrent write, pass a `content_sha256` precondition. Th
     --memory-store-id "$store_id" \
     --memory-id "$mem_id" \
     --content "CORRECTED: Always use 2-space indentation." \
-    --precondition "{type: content_sha256, content_sha256: $mem_sha}" \
-    > /dev/null
+    --precondition "{type: content_sha256, content_sha256: $mem_sha}"
   ```
 
   ```python Python
@@ -848,14 +845,13 @@ To avoid clobbering a concurrent write, pass a `content_sha256` precondition. Th
   curl -s -X DELETE "https://api.anthropic.com/v1/memory_stores/$store_id/memories/$mem_id" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: agent-memory-2026-07-22" > /dev/null
+    -H "anthropic-beta: agent-memory-2026-07-22"
   ```
 
   ```bash CLI
   ant beta:memory-stores:memories delete \
     --memory-store-id "$store_id" \
-    --memory-id "$mem_id" \
-    > /dev/null
+    --memory-id "$mem_id"
   ```
 
   ```python Python
@@ -1273,7 +1269,7 @@ Archiving makes a store read-only and prevents it from being attached to new ses
   curl -s -X POST "https://api.anthropic.com/v1/memory_stores/$store_id/archive" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: agent-memory-2026-07-22" > /dev/null
+    -H "anthropic-beta: agent-memory-2026-07-22"
   ```
 
   ```bash CLI

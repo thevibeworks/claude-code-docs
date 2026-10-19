@@ -316,81 +316,14 @@ To provide input files for Skills to work on, [upload them with the Files API](h
 
 **Example: creating and downloading an Excel file**
 
-<CodeGroup>
-  ```bash cURL
-  # Step 1: Use a Skill to create a file
-  RESPONSE=$(curl https://api.anthropic.com/v1/messages \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "content-type: application/json" \
-    -d '{
-      "model": "claude-opus-5-5",
-      "max_tokens": 4096,
-      "container": {
-        "skills": [
-          {"type": "anthropic", "skill_id": "xlsx", "version": "latest"}
-        ]
-      },
-      "messages": [{
-        "role": "user",
-        "content": "Create an Excel file with a simple budget spreadsheet"
-      }],
-      "tools": [{
-        "type": "code_execution_20250825",
-        "name": "code_execution"
-      }]
-    }')
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  # Step 2: Extract file_id from response (using jq)
-  FILE_ID=$(echo "$RESPONSE" | jq -r '.content[] | select(.type=="bash_code_execution_tool_result") | .content | select(.type=="bash_code_execution_result") | .content[] | select(.file_id) | .file_id')
-
-  # Step 3: Get filename from metadata
-  FILENAME=$(curl "https://api.anthropic.com/v1/files/$FILE_ID" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" | jq -r '.filename')
-
-  # Step 4: Download the file using Files API
-  curl "https://api.anthropic.com/v1/files/$FILE_ID/content" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    --output "$FILENAME"
-
-  echo "Downloaded: $FILENAME"
-  ```
-
-  ```bash CLI
-  # Step 1: Use the xlsx Skill to create a file
-  # Step 2: Extract file_id from the response with --transform (GJSON path)
-  FILE_ID=$(ant messages create \
-    --transform 'content.#.content.content.#.file_id|@flatten|0' \
-    --raw-output <<'YAML'
-  model: claude-opus-5-5
-  max_tokens: 4096
-  container:
-    skills:
-      - type: anthropic
-        skill_id: xlsx
-        version: latest
-  messages:
-    - role: user
-      content: Create an Excel file with a simple budget spreadsheet
-  tools:
-    - type: code_execution_20250825
-      name: code_execution
-  YAML
-  )
-
-  # Step 3: Get the filename from file metadata
-  FILENAME=$(ant files retrieve-metadata \
-    --file-id "$FILE_ID" \
-    --transform filename \
-    --raw-output)
-
-  # Step 4: Download the file using Files API
-  ant files download --file-id "$FILE_ID" --output "$FILENAME" > /dev/null
-
-  printf 'Downloaded: %s\n' "$FILENAME"
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   client = anthropic.Anthropic()
@@ -780,15 +713,13 @@ To provide input files for Skills to work on, [upload them with the Files API](h
   ```bash CLI
   # Get file metadata
   ant files retrieve-metadata \
-    --file-id "$FILE_ID" \
-    --transform '{filename,size_bytes}' \
-    --format yaml
+    --file-id "$FILE_ID"
 
   # List all files
-  ant files list --transform '{filename,created_at}' --format yaml
+  ant files list
 
   # Delete a file
-  ant files delete --file-id "$FILE_ID" >/dev/null
+  ant files delete --file-id "$FILE_ID"
   ```
 
   ```python Python
@@ -936,48 +867,14 @@ To provide input files for Skills to work on, [upload them with the Files API](h
 
 The response's `container` object carries the container's `id` and `expires_at` timestamp (see [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse) for lifetime details). Reuse the same container across multiple messages by specifying the container ID:
 
-<CodeGroup exclude="shell:cURL">
+<CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
     Multi-turn container reuse needs more logic than a single shell command, so use the Claude SDK for it. To build the requests yourself, capture `container.id` from the first response. Then pass it in the next request as `"container": {"id": "...", "skills": [...]}`, together with the conversation history.
   </CodeGroupItem>
 
-  ```bash CLI
-  # First request creates container
-  CONTAINER_ID=$(ant messages create \
-    --transform container.id \
-    --raw-output <<'YAML'
-  model: claude-opus-5-5
-  max_tokens: 4096
-  container:
-    skills:
-      - {type: anthropic, skill_id: xlsx, version: latest}
-  messages:
-    - role: user
-      content: Create a sample sales dataset and analyze it
-  tools:
-    - {type: code_execution_20250825, name: code_execution}
-  YAML
-  )
-
-  # Continue conversation with same container
-  ant messages create <<YAML
-  model: claude-opus-5-5
-  max_tokens: 4096
-  container:
-    id: $CONTAINER_ID  # Reuse container
-    skills:
-      - {type: anthropic, skill_id: xlsx, version: latest}
-  messages:
-    - role: user
-      content: Create a sample sales dataset and analyze it
-    - role: assistant
-      content: []  # the assistant's text from the first response
-    - role: user
-      content: What was the total revenue?
-  tools:
-    - {type: code_execution_20250825, name: code_execution}
-  YAML
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   client = anthropic.Anthropic()
@@ -1342,104 +1239,14 @@ The response's `container` object carries the container's `id` and `expires_at` 
 
 Skills may perform operations that require multiple turns. Handle `pause_turn` stop reasons:
 
-<CodeGroup>
-  ```bash cURL
-  # Initial request
-  RESPONSE=$(curl https://api.anthropic.com/v1/messages \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "content-type: application/json" \
-    -d '{
-      "model": "claude-opus-5-5",
-      "max_tokens": 4096,
-      "container": {
-        "skills": [
-          {
-            "type": "custom",
-            "skill_id": "skill_01AbCdEfGhIjKlMnOpQrStUv",
-            "version": "latest"
-          }
-        ]
-      },
-      "messages": [{
-        "role": "user",
-        "content": "Generate and process a large sample dataset"
-      }],
-      "tools": [{
-        "type": "code_execution_20250825",
-        "name": "code_execution"
-      }]
-    }')
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  # If stop_reason is "pause_turn", continue in the same container, appending
-  # the prior response's content array to messages as the assistant turn.
-  # Repeat this continuation request until stop_reason is no longer "pause_turn".
-  STOP_REASON=$(echo "$RESPONSE" | jq -r '.stop_reason')
-  CONTAINER_ID=$(echo "$RESPONSE" | jq -r '.container.id')
-
-  RESPONSE=$(curl https://api.anthropic.com/v1/messages \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "content-type: application/json" \
-    -d "{
-      \"model\": \"claude-opus-5-5\",
-      \"max_tokens\": 4096,
-      \"container\": {
-        \"id\": \"$CONTAINER_ID\",
-        \"skills\": [{
-          \"type\": \"custom\",
-          \"skill_id\": \"skill_01AbCdEfGhIjKlMnOpQrStUv\",
-          \"version\": \"latest\"
-        }]
-      },
-      \"messages\": [],
-      \"tools\": [{
-        \"type\": \"code_execution_20250825\",
-        \"name\": \"code_execution\"
-      }]
-    }")
-  ```
-
-  ```bash CLI
-  RESP=$(mktemp)
-
-  # Initial request: capture the full JSON response to a temp file
-  ant messages create > "$RESP" <<'YAML'
-  model: claude-opus-5-5
-  max_tokens: 4096
-  container:
-    skills:
-      - type: custom
-        skill_id: skill_01AbCdEfGhIjKlMnOpQrStUv
-        version: latest
-  messages:
-    - role: user
-      content: Generate and process a large sample dataset
-  tools:
-    - type: code_execution_20250825
-      name: code_execution
-  YAML
-
-  # If stop_reason is "pause_turn", continue in the same container,
-  # appending the prior response's content array to messages as the
-  # assistant turn. Repeat until stop_reason is no longer "pause_turn".
-  CONTAINER_ID=$(jq -r '.container.id' "$RESP")
-
-  ant messages create > "$RESP" <<YAML
-  model: claude-opus-5-5
-  max_tokens: 4096
-  container:
-    id: $CONTAINER_ID
-    skills:
-      - type: custom
-        skill_id: skill_01AbCdEfGhIjKlMnOpQrStUv
-        version: latest
-  messages: [] # replace with conversation history + prior assistant content
-  tools:
-    - type: code_execution_20250825
-      name: code_execution
-  YAML
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   client = anthropic.Anthropic()
@@ -2718,7 +2525,7 @@ Deleting a Skill also removes all of its versions.
   ```
 
   ```bash CLI
-  ant skills delete --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv >/dev/null
+  ant skills delete --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv
   ```
 
   ```python Python
@@ -2794,32 +2601,30 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
 <CodeGroup>
   ```bash cURL
   # Create a new version
-  NEW_VERSION=$(curl -X POST "https://api.anthropic.com/v1/skills/skill_01AbCdEfGhIjKlMnOpQrStUv/versions" \
+  curl -X POST "https://api.anthropic.com/v1/skills/skill_01AbCdEfGhIjKlMnOpQrStUv/versions" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -F "files[]=@financial_skill/SKILL.md;filename=financial_skill/SKILL.md" \
-    -F "files[]=@financial_skill/analyze.py;filename=financial_skill/analyze.py")
+    -F "files[]=@financial_skill/analyze.py;filename=financial_skill/analyze.py"
 
-  VERSION_ID=$(echo "$NEW_VERSION" | jq -r '.id')
-
-  # Use specific version
+  # Use a specific version: the id from the create response
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "content-type: application/json" \
-    -d "{
-      \"model\": \"claude-opus-5-5\",
-      \"max_tokens\": 4096,
-      \"container\": {
-        \"skills\": [{
-          \"type\": \"custom\",
-          \"skill_id\": \"skill_01AbCdEfGhIjKlMnOpQrStUv\",
-          \"version\": \"$VERSION_ID\"
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 4096,
+      "container": {
+        "skills": [{
+          "type": "custom",
+          "skill_id": "skill_01AbCdEfGhIjKlMnOpQrStUv",
+          "version": "'"$VERSION_ID"'"
         }]
       },
-      \"messages\": [{\"role\": \"user\", \"content\": \"Use updated Skill\"}],
-      \"tools\": [{\"type\": \"code_execution_20250825\", \"name\": \"code_execution\"}]
-    }"
+      "messages": [{"role": "user", "content": "Use updated Skill"}],
+      "tools": [{"type": "code_execution_20250825", "name": "code_execution"}]
+    }'
 
   # Use latest version
   curl https://api.anthropic.com/v1/messages \
@@ -2843,13 +2648,11 @@ A new version is a complete snapshot, not a delta: upload the Skill's full file 
 
   ```bash CLI
   # Create a new version
-  VERSION_ID=$(ant skills:versions create \
+  ant skills:versions create \
     --skill-id skill_01AbCdEfGhIjKlMnOpQrStUv \
-    --file financial_skill.zip \
-    --transform id \
-    --raw-output)
+    --file financial_skill.zip
 
-  # Use specific version
+  # Use a specific version: the id from the create response
   ant messages create <<YAML
   model: claude-opus-5-5
   max_tokens: 4096
@@ -4466,42 +4269,14 @@ For best caching performance, keep your Skills list, including its order, consis
 
 Handle Skill-related errors gracefully:
 
-<CodeGroup exclude="shell:cURL">
+<CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
     This error-handling flow needs more logic than a single shell command, so use the Claude SDK for it. A request that fails because of a Skill problem returns HTTP 400. The `error.message` field in the JSON response body describes the problem.
   </CodeGroupItem>
 
-  ```bash CLI
-  if ! RESULT=$(ant messages create \
-    --transform-error error.message \
-    --format-error yaml 2>&1 <<'YAML'
-  model: claude-opus-5-5
-  max_tokens: 4096
-  container:
-    skills:
-      - type: custom
-        skill_id: skill_01AbCdEfGhIjKlMnOpQrStUv
-        version: latest
-  messages:
-    - role: user
-      content: Process data
-  tools:
-    - type: code_execution_20250825
-      name: code_execution
-  YAML
-  ); then
-    case "$RESULT" in
-      *skill*)
-        printf 'Skill error: %s\n' "$RESULT"
-        # Handle skill-specific errors
-        ;;
-      *)
-        printf '%s\n' "$RESULT" >&2
-        exit 1
-        ;;
-    esac
-  fi
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   client = anthropic.Anthropic()

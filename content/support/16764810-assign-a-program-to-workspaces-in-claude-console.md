@@ -14,7 +14,7 @@ Once you’ve applied and been approved for a program, Anthropic issues a “pro
 
 ## Give a Console workspace access
 
-In the Console, programs are issued to your organization and apply to workspaces. Some programs, such as the Cyber Verification Program, apply automatically to every workspace that meets their requirements. Others need workspaces assigned. A program only applies to API traffic from workspaces that meet its requirements.
+In the Console, programs are issued to your organization and apply to workspaces. You need to assign each program to the workspaces that should use it. A program only applies to API traffic from workspaces that meet its requirements.
 
 Follow these steps:
 
@@ -26,11 +26,11 @@ Follow these steps:
 
 4. Hover over the issue to see which requirement is not met.
 
-5. Open the workspace, select "Manage," then "Programs," and check the **Qualifications** panel.
+5. On the program's page, click the workspace's name in the **Workspaces** table, and check the **Qualifications** panel.
 
 Unmet requirements are flagged with remediation steps.
 
-## Assigning Programs to a workspace
+## Assign Programs to a workspace
 
 Programs apply only to the workspaces you assign them to.
 
@@ -40,13 +40,13 @@ Some programs can’t be assigned to the default workspace. If your program is o
 
 1. **[Sign in to the Console](https://platform.claude.com/)** as an organization Admin.
 
-2. Go to **[Settings > Workspaces](https://platform.claude.com/settings/workspaces)**.
+2. Go to the **Workspaces** page (platform.claude.com/settings/workspaces).
 
-3. Click "Add Workspace" (you cannot use the default workspace for accessing the model).
+3. Click "Create workspace" (you cannot use the default workspace for accessing the model). The **Create workspace** page opens.
 
-4. Enter a name for your new Workspace, and select a color assignment. This color assignment will be used to help visually identify your workspace in the Claude Console.
+4. Enter a name for your new Workspace, and select a color. The color helps you identify your workspace in the Claude Console.
 
-5. Click "Create.”
+5. Click "Create workspace."
 
 6. Add the approved users to the new Workspace.
 
@@ -54,7 +54,7 @@ Some programs can’t be assigned to the default workspace. If your program is o
 
 Learn more about **[creating and managing Workspaces in the Claude Console](https://support.claude.com/en/articles/9796807-creating-and-managing-workspaces-in-the-claude-console)**.
 
-**Note:** If support asks for your workspace ID, go to **[Settings > Workspaces](https://platform.claude.com/settings/workspaces)** and select your workspace. Workspace IDs start with `wrkspc_`. Your organization ID is under **Settings > Organization**.
+**Note:** If support asks for your workspace ID, go to the **Workspaces** page (platform.claude.com/settings/workspaces) and select your workspace. Workspace IDs start with `wrkspc_`. Your organization ID is on the **Organization** page (platform.claude.com/settings/organization).
 
 ### 2. Enable access in your organization
 
@@ -62,17 +62,15 @@ You add the grant to a workspace in your existing Anthropic organization. For AP
 
 1. **[Sign in to the Console](https://platform.claude.com/)** as an organization Admin.
 
-2. Go to **[Settings > Programs](https://platform.claude.com/settings/programs)** or **Settings > Grants**, and you’ll see the approved access Grants available for your organization and the model’s codename.
+2. Go to the **Programs** page (platform.claude.com/settings/programs), and you’ll see the approved access Grants available for your organization and the model’s codename.
 
-3. Navigate to the new workspace you set up in Step 1 above by going to **[Settings > Workspaces and clicking](https://platform.claude.com/settings/workspaces)**on the new workspace you created.
+3. On the program's page, click the name of the workspace you set up in Step 1 in the **Workspaces** table.
 
-4. In the workspace, navigate to the **Programs** or **Grants** tab in the Manage section (the label will depend on whether you have existing grants in your provisioned org).
+4. Click “Add grant.”
 
-5. Click “Add grant.”
+5. Select the program or grant to attach it to the workspace.
 
-6. Select the program or grant to attach it to the workspace.
-
-7. Make sure the grant is set to **Active**.
+6. Make sure the grant is set to **Active**.
 
 After the grant is active, you can use the program through the API with that workspace. If Anthropic sent you setup instructions for your program, follow those next.
 
@@ -82,7 +80,7 @@ After the grant is active, you can use the program through the API with that wor
 
 - **You don’t see your program, the Other grants section is empty, or the Programs tab is missing.** Your organization may not have a program yet, or you might not be an organization Admin. Contact your Anthropic account team or your organization Admin.
 
-- **The workspace shows as inactive.** Open the workspace, select "Manage," then "Programs," and check the **Qualifications** panel for an unmet requirement. Fix each unmet requirement and try again.
+- **The workspace shows as inactive.** On the program's page, click the workspace's name in the **Workspaces** table, and check the **Qualifications** panel for an unmet requirement.
 
 - **The grant is over its seat limit.** Some programs have a seat cap. Assigned workspaces lose access until your organization is back under the limit. Reduce the number of members counted toward the grant, then check again.
 

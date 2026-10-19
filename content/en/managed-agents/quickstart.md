@@ -13,7 +13,13 @@ featureMetadata:
 This guide walks you through creating an agent, setting up an environment, starting a session, and streaming agent responses.
 
 <Tip>
-  **Prefer an interactive walkthrough?** Run `/claude-api managed-agents-onboard` in the latest version of [Claude Code](https://claude.com/product/claude-code) for a guided setup and interactive question-answering.
+  **Prefer an interactive walkthrough?** The latest version of [Claude Code](https://claude.com/product/claude-code) can guide you through the setup and answer your questions:
+
+  Let Claude Code set up your agent for you
+
+  ```text
+  /claude-api managed-agents-onboard
+  ```
 </Tip>
 
 ## Core concepts
@@ -138,28 +144,19 @@ export ANTHROPIC_API_KEY="your-api-key-here"
     <CodeGroup defaultLanguage="CLI">
       <CodeGroupItem>
         ```bash cURL
-        set -euo pipefail
-
-        agent=$(
-          curl -sS --fail-with-body https://api.anthropic.com/v1/agents \
-            -H "x-api-key: $ANTHROPIC_API_KEY" \
-            -H "anthropic-version: 2023-06-01" \
-            -H "anthropic-beta: managed-agents-2026-04-01" \
-            -H "content-type: application/json" \
-            -d '{
-              "name": "Coding Assistant",
-              "model": "claude-opus-5-5",
-              "system": "You are a helpful coding assistant. Write clean, well-documented code.",
-              "tools": [
-                {"type": "agent_toolset_20260401"}
-              ]
-            }'
-        )
-
-        AGENT_ID=$(jq -er '.id' <<<"$agent")
-        AGENT_VERSION=$(jq -er '.version' <<<"$agent")
-
-        echo "Agent ID: $AGENT_ID, version: $AGENT_VERSION"
+        curl -sS --fail-with-body https://api.anthropic.com/v1/agents \
+          -H "x-api-key: $ANTHROPIC_API_KEY" \
+          -H "anthropic-version: 2023-06-01" \
+          -H "anthropic-beta: managed-agents-2026-04-01" \
+          -H "content-type: application/json" \
+          -d '{
+            "name": "Coding Assistant",
+            "model": "claude-opus-5-5",
+            "system": "You are a helpful coding assistant. Write clean, well-documented code.",
+            "tools": [
+              {"type": "agent_toolset_20260401"}
+            ]
+          }'
         ```
 
         Save the returned `agent.id`. You'll reference it in every session you create.
@@ -377,24 +374,18 @@ export ANTHROPIC_API_KEY="your-api-key-here"
     <CodeGroup defaultLanguage="CLI">
       <CodeGroupItem>
         ```bash cURL
-        environment=$(
-          curl -sS --fail-with-body https://api.anthropic.com/v1/environments \
-            -H "x-api-key: $ANTHROPIC_API_KEY" \
-            -H "anthropic-version: 2023-06-01" \
-            -H "anthropic-beta: managed-agents-2026-04-01" \
-            -H "content-type: application/json" \
-            -d '{
-              "name": "quickstart-env",
-              "config": {
-                "type": "cloud",
-                "networking": {"type": "limited", "allow_package_managers": true}
-              }
-            }'
-        )
-
-        ENVIRONMENT_ID=$(jq -er '.id' <<<"$environment")
-
-        echo "Environment ID: $ENVIRONMENT_ID"
+        curl -sS --fail-with-body https://api.anthropic.com/v1/environments \
+          -H "x-api-key: $ANTHROPIC_API_KEY" \
+          -H "anthropic-version: 2023-06-01" \
+          -H "anthropic-beta: managed-agents-2026-04-01" \
+          -H "content-type: application/json" \
+          -d '{
+            "name": "quickstart-env",
+            "config": {
+              "type": "cloud",
+              "networking": {"type": "limited", "allow_package_managers": true}
+            }
+          }'
         ```
 
         Save the returned `environment.id` too.
@@ -558,32 +549,23 @@ export ANTHROPIC_API_KEY="your-api-key-here"
 
     <CodeGroup>
       ```bash cURL
-      session=$(
-        curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
-          -H "x-api-key: $ANTHROPIC_API_KEY" \
-          -H "anthropic-version: 2023-06-01" \
-          -H "anthropic-beta: managed-agents-2026-04-01" \
-          -H "content-type: application/json" \
-          -d '{
-            "agent": "'"$AGENT_ID"'",
-            "environment_id": "'"$ENVIRONMENT_ID"'",
-            "title": "Quickstart session"
-          }'
-      )
-
-      SESSION_ID=$(jq -er '.id' <<<"$session")
-
-      echo "Session ID: $SESSION_ID"
+      curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
+        -H "x-api-key: $ANTHROPIC_API_KEY" \
+        -H "anthropic-version: 2023-06-01" \
+        -H "anthropic-beta: managed-agents-2026-04-01" \
+        -H "content-type: application/json" \
+        -d '{
+          "agent": "'"$AGENT_ID"'",
+          "environment_id": "'"$ENVIRONMENT_ID"'",
+          "title": "Quickstart session"
+        }'
       ```
 
       ```bash CLI
-      SESSION_ID=$(ant beta:sessions create \
+      ant beta:sessions create \
         --agent "$AGENT_ID" \
         --environment-id "$ENVIRONMENT_ID" \
-        --title "Quickstart session" \
-        --transform id --raw-output)
-
-      echo "Session ID: $SESSION_ID"
+        --title "Quickstart session"
       ```
 
       ```python Python

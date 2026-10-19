@@ -22,7 +22,7 @@ If your organization is invoiced through Anthropic sales, usage beyond the credi
 
 1. Log in to the Console with an Admin or Billing role.
 
-2. Navigate to **[Settings > Billing](https://platform.claude.com/settings/billing)**.
+2. Go to the **Billing** page (platform.claude.com/settings/billing).
 
 3. Click "Buy credits."
 
@@ -60,7 +60,7 @@ Some organizations are billed monthly in arrears instead of buying credits upfro
 
 On monthly invoicing, we aggregate your usage across API calls, Console usage, and any other services associated with your account, and bill it at our standard **[pay-as-you-go pricing](https://claude.com/pricing#api)**. At the end of each calendar month, you'll receive an invoice from Stripe. Enter your payment details in Stripe to pay it.
 
-You can view charges for the current billing period on the **[Billing](https://platform.claude.com/settings/billing)** page in your Console settings.
+You can view charges for the current billing period on the **Billing** page (platform.claude.com/settings/billing) in the Claude Console.
 
 If you need custom rate limits, monthly invoicing, or hands-on support, **[contact our Sales team](https://claude.com/contact-sales)**.
 
@@ -68,7 +68,7 @@ If you need custom rate limits, monthly invoicing, or hands-on support, **[conta
 
 1. Log in to the Console with an Admin or Billing role.
 
-2. Navigate to **[Settings > Billing](https://platform.claude.com/settings/billing)**.
+2. Go to the Billing page (platform.claude.com/settings/billing).
 
 3. Click the pencil icon next to your current payment method.
 

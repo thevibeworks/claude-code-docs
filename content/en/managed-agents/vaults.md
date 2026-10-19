@@ -849,7 +849,7 @@ Secret values, `display_name` (java, php: `displayName`; csharp, go: `DisplayNam
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    --data @- <<'EOF' > /dev/null
+    -d @- <<'EOF'
   {
     "auth": {
       "type": "mcp_oauth",

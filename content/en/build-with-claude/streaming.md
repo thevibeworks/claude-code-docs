@@ -12,11 +12,10 @@ The [Python SDK](https://github.com/anthropics/anthropic-sdk-python) and [TypeSc
 
 <CodeGroup exclude="shell:cURL">
   ```bash CLI
-  ant messages create --stream --format jsonl \
+  ant messages create --stream \
     --model claude-opus-5-5 \
     --max-tokens 1024 \
-    --message '{role: user, content: "Hello"}' \
-    | jq -rj 'select(.delta.type? == "text_delta") | .delta.text'
+    --message '{role: user, content: "Hello"}'
   ```
 
   ```python Python

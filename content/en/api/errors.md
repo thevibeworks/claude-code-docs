@@ -86,8 +86,8 @@ The Python and TypeScript SDKs expose the request ID as a `_request_id` property
 
 <CodeGroup>
   ```bash cURL
-  # Print the response headers (including request-id); discard the body
-  curl -sS -D - -o /dev/null https://api.anthropic.com/v1/messages \
+  # -i prints the response headers, including request-id, before the body
+  curl -sS -i https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "content-type: application/json" \

@@ -26,11 +26,7 @@ Claude Code usage analytics are available to:
 
 1. Log in to your **[Claude Console account](https://platform.claude.com)**.
 
-2. Expand the left side panel.
-
-3. Click “Claude Code” under **Analytics**.
-
-4. View Claude Code usage analytics on **[Settings > Claude Code](https://platform.claude.com/claude-code)**.
+2. Go to the **Claude Code** page (platform.claude.com/claude-code).
 
 ---
 
@@ -50,7 +46,7 @@ The **Usage** tab displays the following metrics for your organization. Data on 
 
 - **Top commands**: The Claude Code commands used most often across your organization.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1717579277/46c512f4b3ed05c359cecd78ed5c/e0ce2c19-39e2-411f-9a1f-cb1d46439a42?expires=1792411200&amp;signature=ba9e3b2acf1f82ebff9fd17ac812664c6ec30b022f750bb0b7509118e62d65f6&amp;req=dScmEcx5lINYXvMW1HO4zfiEPqRUjnjMCX9h5MbdDjNN%2BXKf2tzZ6srcXsWx%0AdIBHXT8RBimINbzeNBk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1717579277/46c512f4b3ed05c359cecd78ed5c/e0ce2c19-39e2-411f-9a1f-cb1d46439a42?expires=1792562400&amp;signature=4ebfbf85253e7077d8e6fab27a13530e1605044abb6276fafac003a37bafda99&amp;req=dScmEcx5lINYXvMW3nq%2BgSdYtUT0OzemEmLl%2FBjUoqJ3yyisO%2B25nEpdwvDU%0AxlqiLDW6DlpTJbPLl2J%2BZcJcY5Y%3D%0A)
 
 ### User-level metrics
 

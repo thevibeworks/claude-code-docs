@@ -457,97 +457,14 @@ First, diff what you send. Capture the request bodies your integration sends ove
 
 Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` beta header, set `prefix_mismatch_behavior` to `"drop_block"`, and run a normal multi-turn session through your integration on claude-fable-5-1. The following example runs two turns the way your integration should: `messages` only grows, each assistant turn goes back exactly as the API returned it, `thinking` blocks included, and `block_binding` is set on every request. After each turn it prints the number of `thinking` blocks in the response and the number of dropped blocks:
 
-<CodeGroup>
-  ```bash cURL
-  # Counts the thinking blocks in a response and the blocks the API dropped
-  COUNTS='"thinking blocks: \([.content[] | select(.type == "thinking")] | length), " +
-    "dropped: \(.input_transformations | length)"'
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  FIRST=$(curl -s https://api.anthropic.com/v1/messages \
-    -H "content-type: application/json" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
-    -d '{
-      "model": "claude-fable-5-1",
-      "max_tokens": 16000,
-      "thinking": {
-        "type": "adaptive",
-        "block_binding": { "prefix_mismatch_behavior": "drop_block" }
-      },
-      "messages": [
-        {
-          "role": "user",
-          "content": "How many positive integers below 500 have exactly 6 positive divisors?"
-        }
-      ]
-    }')
-  echo "$FIRST" | jq -r "$COUNTS"
-
-  # Turn 2: the assistant turn goes back exactly as returned, then the next user message
-  MESSAGES=$(jq -n --argjson first "$FIRST" '[
-    {
-      role: "user",
-      content: "How many positive integers below 500 have exactly 6 positive divisors?"
-    },
-    { role: "assistant", content: $first.content },
-    { role: "user", content: "How many of those are odd?" }
-  ]')
-
-  jq -n --argjson messages "$MESSAGES" '{
-    model: "claude-fable-5-1",
-    max_tokens: 16000,
-    thinking: {
-      type: "adaptive",
-      block_binding: { prefix_mismatch_behavior: "drop_block" }
-    },
-    messages: $messages
-  }' | curl -s https://api.anthropic.com/v1/messages \
-    -H "content-type: application/json" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
-    -d @- | jq -r "$COUNTS"
-  ```
-
-  ```bash CLI
-  # Counts the thinking blocks in a response and the blocks the API dropped
-  COUNTS='"thinking blocks: \([.content[] | select(.type == "thinking")] | length), " +
-    "dropped: \(.input_transformations | length)"'
-
-  FIRST=$(ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
-    --format json <<'YAML'
-  model: claude-fable-5-1
-  max_tokens: 16000
-  thinking:
-    type: adaptive
-    block_binding:
-      prefix_mismatch_behavior: drop_block
-  messages:
-    - role: user
-      content: How many positive integers below 500 have exactly 6 positive divisors?
-  YAML
-  )
-  echo "$FIRST" | jq -r "$COUNTS"
-
-  # Turn 2: the assistant turn goes back exactly as returned, then the next user message
-  ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
-    --format json <<YAML | jq -r "$COUNTS"
-  model: claude-fable-5-1
-  max_tokens: 16000
-  thinking:
-    type: adaptive
-    block_binding:
-      prefix_mismatch_behavior: drop_block
-  messages:
-    - role: user
-      content: How many positive integers below 500 have exactly 6 positive divisors?
-    - role: assistant
-      content: $(echo "$FIRST" | jq -c .content)
-    - role: user
-      content: How many of those are odd?
-  YAML
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   client = anthropic.Anthropic()
@@ -819,7 +736,7 @@ Log `input_transformations` on every turn of your own integration. When the API 
 * **`reason: "model_binding_mismatch"`:** the conversation moved to a model that can't read the earlier model's blocks. This isn't a prefix edit. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
 * **`reason: "organization_binding_mismatch"`:** the block came from another account. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
-To see a failure on purpose, send a third turn from the earlier example and add a `system` prompt to that request only, so that it differs from the first two requests, which had none. With `"drop_block"`, the dropped count is no longer 0: the response has one entry for each thinking block in the history, each with `reason: "prefix_binding_mismatch"`. With `"error"`, the request returns the 400 described in [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior), and its last sentence names the `system` prompt. In the cURL and CLI tabs, remove the `jq` filter to see the error body. If the count is still 0, there was nothing to check: confirm that the model is claude-fable-5-1, that the request sets `block_binding`, that the history you sent contains `thinking` blocks, and that the first two requests had no `system` prompt.
+To see a failure on purpose, send a third turn from the earlier example and add a `system` prompt to that request only, so that it differs from the first two requests, which had none. With `"drop_block"`, the dropped count is no longer 0: the response has one entry for each thinking block in the history, each with `reason: "prefix_binding_mismatch"`. With `"error"`, the request returns the 400 described in [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior), and its last sentence names the `system` prompt. If the count is still 0, there was nothing to check: confirm that the model is claude-fable-5-1, that the request sets `block_binding`, that the history you sent contains `thinking` blocks, and that the first two requests had no `system` prompt.
 
 Two plain turns rarely show the problem. Run a session through each of the following, with `"error"` set so that a regression fails your CI:
 
@@ -846,130 +763,14 @@ On an older account, you can also watch production traffic without opting into e
 
 Run the following example from an [older account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement), because a newer account rejects its third request with the 400. It sends the header without `block_binding` and extends the earlier session with a third request that adds a system prompt, which changes the prefix on purpose. After each turn it prints the number of `thinking` blocks and flagged blocks:
 
-<CodeGroup>
-  ```bash cURL
-  # Counts the thinking blocks in a response and the blocks that failed the prefix check
-  COUNTS='"thinking blocks: \([.content[] | select(.type == "thinking")] | length), " +
-    "flagged: \([.input_transformations[] |
-      select(.type == "thinking_mismatch_allowed")] | length)"'
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  FIRST=$(curl -s https://api.anthropic.com/v1/messages \
-    -H "content-type: application/json" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
-    -d '{
-      "model": "claude-fable-5-1",
-      "max_tokens": 16000,
-      "thinking": { "type": "adaptive" },
-      "messages": [
-        {
-          "role": "user",
-          "content": "How many positive integers below 500 have exactly 6 positive divisors?"
-        }
-      ]
-    }')
-  echo "$FIRST" | jq -r "$COUNTS"
-
-  # Turn 2: the assistant turn goes back exactly as returned, then the next user message
-  MESSAGES=$(jq -n --argjson first "$FIRST" '[
-    {
-      role: "user",
-      content: "How many positive integers below 500 have exactly 6 positive divisors?"
-    },
-    { role: "assistant", content: $first.content },
-    { role: "user", content: "How many of those are odd?" }
-  ]')
-
-  SECOND=$(jq -n --argjson messages "$MESSAGES" '{
-    model: "claude-fable-5-1",
-    max_tokens: 16000,
-    thinking: { type: "adaptive" },
-    messages: $messages
-  }' | curl -s https://api.anthropic.com/v1/messages \
-    -H "content-type: application/json" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
-    -d @-)
-  echo "$SECOND" | jq -r "$COUNTS"
-
-  # Turn 3: only this request adds a system prompt, which changes the prefix on purpose
-  jq -n --argjson messages "$MESSAGES" --argjson second "$SECOND" '{
-    model: "claude-fable-5-1",
-    max_tokens: 16000,
-    thinking: { type: "adaptive" },
-    system: "Answer briefly.",
-    messages: ($messages + [
-      { role: "assistant", content: $second.content },
-      { role: "user", content: "And how many of the odd ones are below 100?" }
-    ])
-  }' | curl -s https://api.anthropic.com/v1/messages \
-    -H "content-type: application/json" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
-    -d @- | jq -r "$COUNTS"
-  ```
-
-  ```bash CLI
-  # Counts the thinking blocks in a response and the blocks that failed the prefix check
-  COUNTS='"thinking blocks: \([.content[] | select(.type == "thinking")] | length), " +
-    "flagged: \([.input_transformations[] |
-      select(.type == "thinking_mismatch_allowed")] | length)"'
-
-  FIRST=$(ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
-    --format json <<'YAML'
-  model: claude-fable-5-1
-  max_tokens: 16000
-  thinking:
-    type: adaptive
-  messages:
-    - role: user
-      content: How many positive integers below 500 have exactly 6 positive divisors?
-  YAML
-  )
-  echo "$FIRST" | jq -r "$COUNTS"
-
-  # Turn 2: the assistant turn goes back exactly as returned, then the next user message
-  SECOND=$(ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
-    --format json <<YAML
-  model: claude-fable-5-1
-  max_tokens: 16000
-  thinking:
-    type: adaptive
-  messages:
-    - role: user
-      content: How many positive integers below 500 have exactly 6 positive divisors?
-    - role: assistant
-      content: $(echo "$FIRST" | jq -c .content)
-    - role: user
-      content: How many of those are odd?
-  YAML
-  )
-  echo "$SECOND" | jq -r "$COUNTS"
-
-  # Turn 3: only this request adds a system prompt, which changes the prefix on purpose
-  ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
-    --format json <<YAML | jq -r "$COUNTS"
-  model: claude-fable-5-1
-  max_tokens: 16000
-  thinking:
-    type: adaptive
-  system: Answer briefly.
-  messages:
-    - role: user
-      content: How many positive integers below 500 have exactly 6 positive divisors?
-    - role: assistant
-      content: $(echo "$FIRST" | jq -c .content)
-    - role: user
-      content: How many of those are odd?
-    - role: assistant
-      content: $(echo "$SECOND" | jq -c .content)
-    - role: user
-      content: And how many of the odd ones are below 100?
-  YAML
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   client = anthropic.Anthropic()
@@ -1494,15 +1295,15 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: thinking-binding-controls-2026-08-01" \
-    -d "{
-      \"model\": \"claude-fable-5-1\",
-      \"max_tokens\": 16000,
-      \"thinking\": {
-        \"type\": \"adaptive\",
-        \"block_binding\": { \"prefix_mismatch_behavior\": \"drop_block\" }
+    -d '{
+      "model": "claude-fable-5-1",
+      "max_tokens": 16000,
+      "thinking": {
+        "type": "adaptive",
+        "block_binding": { "prefix_mismatch_behavior": "drop_block" }
       },
-      \"messages\": $COMPACTED_MESSAGES
-    }"
+      "messages": '"$COMPACTED_MESSAGES"'
+    }'
   ```
 
   ```bash CLI

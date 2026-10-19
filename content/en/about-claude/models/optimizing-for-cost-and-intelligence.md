@@ -172,7 +172,15 @@ A `max_tokens: 0` request is rejected in the following cases:
 
 #### Turn on caching
 
-Setup takes little work. [Automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching) places breakpoints for you; otherwise, the [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill) that ships with Claude Code can add caching to an existing integration from one prompt, `/claude-api add prompt caching to this integration`. On the code that produced these measurements, it put one breakpoint on the system block and one on each of the two most recent user turns; [Explicit cache breakpoints](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#explicit-cache-breakpoints) explains where to place them.
+Setup takes little work. [Automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching) places breakpoints for you; otherwise, the [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill) that ships with Claude Code can add caching to an existing integration from one prompt:
+
+Let Claude Code add caching for you
+
+```text
+/claude-api add prompt caching to this integration
+```
+
+On the code that produced these measurements, the skill put one breakpoint on the system block and one on each of the two most recent user turns; [Explicit cache breakpoints](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#explicit-cache-breakpoints) explains where to place them.
 
 #### What breaks the cache
 
@@ -313,7 +321,15 @@ Audit prompts against the model you run now, and again whenever you change model
 * The usual case is over-specific instruction added to compensate for an older model: "verify twice," "be maximally thorough," a mandatory step-by-step procedure, or a hand-rolled reasoning scratchpad.
 * A newer model follows such instructions to the letter, producing extra tool rounds and extra writing, so the bill goes up with no gain in accuracy.
 
-The audit is one command. The [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill) that ships with Claude Code has a `prompt-audit` command that reads a project's prompts and request code and reports what was written for a different model. This shortened excerpt shows it run against a support-desk prompt and request code containing those patterns:
+The audit is one command. The [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill) that ships with Claude Code has a `prompt-audit` command that reads a project's prompts and request code and reports what was written for a different model:
+
+Let Claude Code audit your prompts for you
+
+```text
+/claude-api prompt-audit
+```
+
+This shortened excerpt shows the command run against a support-desk prompt and request code containing those patterns:
 
 ```text wrap
 $ claude
@@ -642,53 +658,14 @@ Measure on your own workload: the numbers on this page reflect list prices at th
 
 The following example computes one request's cost at Claude Opus 5.5's list prices. Change the three prices for another model:
 
-<CodeGroup>
-  ```bash cURL
-  INPUT_PER_MTOK=4.00 # Claude Opus 5.5
-  CACHE_READ_PER_MTOK=0.20 # 0.05x the input price on Claude Opus 5.5; the multiplier differs by model
-  OUTPUT_PER_MTOK=20.00
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This calculation needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  response=$(curl --fail-with-body -sS https://api.anthropic.com/v1/messages \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "content-type: application/json" \
-    -d '{
-      "model": "claude-opus-5-5",
-      "max_tokens": 1024,
-      "messages": [{"role": "user", "content": "Hello, Claude"}]
-    }')
-
-  cost=$(jq -r --argjson in_price "$INPUT_PER_MTOK" --argjson read_price "$CACHE_READ_PER_MTOK" --argjson out_price "$OUTPUT_PER_MTOK" '
-    .usage
-    | (.input_tokens * $in_price
-       + (.cache_creation.ephemeral_1h_input_tokens // 0) * $in_price * 2.00  # 1-hour cache write
-       + (.cache_creation.ephemeral_5m_input_tokens // 0) * $in_price * 1.25  # 5-minute cache write
-       + (.cache_read_input_tokens // 0) * $read_price                   # cache read
-       + .output_tokens * $out_price) / 1e6
-  ' <<<"$response")
-  printf 'Request cost: $%.6f\n' "$cost"
-  ```
-
-  ```bash CLI
-  INPUT_PER_MTOK=4.00 # Claude Opus 5.5
-  CACHE_READ_PER_MTOK=0.20 # 0.05x the input price on Claude Opus 5.5; the multiplier differs by model
-  OUTPUT_PER_MTOK=20.00
-
-  USAGE=$(ant messages create \
-    --model claude-opus-5-5 \
-    --max-tokens 1024 \
-    --message '{role: user, content: "Hello, Claude"}' \
-    --transform usage)
-
-  COST=$(jq -r --argjson in_price "$INPUT_PER_MTOK" --argjson read_price "$CACHE_READ_PER_MTOK" --argjson out_price "$OUTPUT_PER_MTOK" '
-    (.input_tokens * $in_price
-      + (.cache_creation.ephemeral_1h_input_tokens // 0) * $in_price * 2.00  # 1-hour cache write
-      + (.cache_creation.ephemeral_5m_input_tokens // 0) * $in_price * 1.25  # 5-minute cache write
-      + (.cache_read_input_tokens // 0) * $read_price                   # cache read
-      + .output_tokens * $out_price) / 1e6
-  ' <<<"$USAGE")
-  printf 'Request cost: $%.6f\n' "$COST"
-  ```
+  <CodeGroupItem language="CLI">
+    This calculation needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   INPUT_PER_MTOK = 4.00  # Claude Opus 5.5
@@ -893,7 +870,21 @@ The following table lists the levers in the order to try them. The figures are f
 
 ### Automate the search with the Claude API skill
 
-Run the [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill)'s `cost-optimize` command before you search for savings. It profiles where your tokens go and applies the levers in order, caching first. Then run `/claude-api hillclimb` in the directory that holds your evaluation.
+Run the [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill)'s `cost-optimize` command before you search for savings. It profiles where your tokens go and applies the levers in order, caching first:
+
+Let Claude Code find savings for you
+
+```text
+/claude-api cost-optimize
+```
+
+Then run the `hillclimb` command in the directory that holds your evaluation:
+
+Let Claude Code run the search for you
+
+```text
+/claude-api hillclimb
+```
 
 Anthropic measured the first lever of `cost-optimize` and two searches on tau2-bench retail[24](https://platform.claude.com/docs/en/about-claude/models/optimizing-for-cost-and-intelligence#refs), all on earlier models. The cache breakpoints that `cost-optimize` produced cut cost per task, and the pass rate fell by less than the spread of identical runs.
 

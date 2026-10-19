@@ -79,7 +79,7 @@ FIRST_AGENT=$(ant beta:agents list --transform id --raw-output | head -1)
 
 ant beta:agents:versions list \
   --agent-id "$FIRST_AGENT" \
-  --transform "{version,created_at}" --format jsonl
+  --format jsonl
 ```
 
 ### Inspect errors

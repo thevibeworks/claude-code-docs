@@ -42,19 +42,14 @@ Upload a file to be referenced in future API calls:
 
 <CodeGroup>
   ```bash cURL
-  FILE_ID=$(curl -X POST https://api.anthropic.com/v1/files \
+  curl -X POST https://api.anthropic.com/v1/files \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -F "file=@/path/to/document.pdf" | jq -r '.id')
-  echo "$FILE_ID"
+    -F "file=@/path/to/document.pdf"
   ```
 
   ```bash CLI
-  FILE_ID=$(ant files upload \
-    --file /path/to/document.pdf \
-    --transform id \
-    --raw-output)
-  echo "$FILE_ID"
+  ant files upload --file /path/to/document.pdf
   ```
 
   ```python Python
@@ -471,9 +466,7 @@ The following examples read a text file and send its contents as plain text:
   # The "@./path" reference inlines the file contents directly into the field.
   ant messages create \
     --model claude-opus-5-5 \
-    --max-tokens 1024 \
-    --transform 'content.#(type=="text").text' \
-    --raw-output <<'YAML'
+    --max-tokens 1024 <<'YAML'
   messages:
     - role: user
       content:

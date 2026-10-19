@@ -17,6 +17,7 @@ This guide lists the settings that limit what an agent on Claude Managed Agents 
 | [Choose where the agent runs](https://platform.claude.com/docs/en/managed-agents/secure-deployment#choose-where-the-agent-runs)                                                                        | Cloud or self-hosted sandbox                                                  | Cloud, unless tools must run on infrastructure you control                                                                                                                                                                     |
 | [Limit the network](https://platform.claude.com/docs/en/managed-agents/secure-deployment#limit-the-network)                                                                                            | Environment `networking.type`                                                 | `limited`, with only the hosts the agent needs                                                                                                                                                                                 |
 | [Keep credentials in vaults](https://platform.claude.com/docs/en/managed-agents/secure-deployment#keep-credentials-in-vaults)                                                                          | `injection_location` and `networking` on each environment variable credential | Request headers only, and `limited` networking with only the hosts the key is for                                                                                                                                              |
+| [Keep credentials in vaults](https://platform.claude.com/docs/en/managed-agents/secure-deployment#keep-credentials-in-vaults)                                                                          | How your application authenticates to the Claude API                          | Where you can, a Workload Identity Federation rule enabled in one workspace only, otherwise an API key scoped to one workspace                                                                                                 |
 | [Restrict web search and web fetch](https://platform.claude.com/docs/en/managed-agents/secure-deployment#restrict-web-search-and-web-fetch)                                                            | `allowed_domains` on each web tool                                            | An allowlist on each tool. On `web_fetch`, list only the sites the agent needs. On `web_search`, list the sites you want results from                                                                                          |
 | [Approve risky actions](https://platform.claude.com/docs/en/managed-agents/secure-deployment#approve-risky-actions)                                                                                    | `permission_policy` on each tool                                              | `auto` on `bash`, `write`, `edit`, `web_fetch`, and MCP tools that only read data. `always_ask` instead on a tool if you cannot undo its changes outside the sandbox, or if relayed end-user text alone should not make it run |
 | [Give the agent the smallest tool set](https://platform.claude.com/docs/en/managed-agents/secure-deployment#give-the-agent-the-smallest-tool-set)                                                      | `default_config.enabled` on the agent toolset                                 | `false`, then enable the tools the agent needs                                                                                                                                                                                 |
@@ -230,11 +231,11 @@ Store every secret in a vault. For each environment variable credential, set the
 
 The support agent needs no vault credential, because your application holds the API key for your order API. If your agent does hold a vault credential, see [Add a credential](https://platform.claude.com/docs/en/managed-agents/vaults#add-a-credential) for the request in every language.
 
-Keep keys out of system prompts, agent definitions, and messages. Do not give the agent a Claude API key. Even when a Claude API key is in a vault, code in the sandbox can use it to call the Claude API directly. It can do anything that key allows, such as starting or deleting sessions, or using web search and web fetch. The agent's tool settings, approvals, and budget do not apply to those calls. In a `limited` environment, code can make these calls only if `allowed_hosts` lets the sandbox reach `api.anthropic.com`.
+Keep keys out of system prompts, agent definitions, and messages. Do not give the agent a Claude API key or Claude API access token. Even when one is in a vault, code in the sandbox can use it to call the Claude API directly. It can do anything that credential allows, such as starting or deleting sessions, or using web search and web fetch. The agent's tool settings, approvals, and budget do not apply to those calls. In a `limited` environment, code can make these calls only if `allowed_hosts` lets the sandbox reach `api.anthropic.com`.
 
-Fetch tokens yourself and store them in the vault, because a token that code in the sandbox fetches with a stored secret comes back unredacted.
+Fetch third-party tokens yourself and store them in the vault. A token that code in the sandbox fetches with a stored secret comes back unredacted.
 
-Keep vaults for workloads with different trust levels in separate [workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces), because any API key with access to a workspace can reference its vaults. Use API keys scoped to one workspace.
+Keep vaults for workloads with different trust levels in separate [workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces), because whoever can start sessions in a workspace can reference its vaults. Limit each workload to one workspace: where you can, a [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) rule enabled only in it, otherwise an API key scoped to it. Workload Identity Federation gives your application short-lived Claude API access tokens, so there is no long-lived Claude API key to leak.
 
 See [Authenticate with vaults](https://platform.claude.com/docs/en/managed-agents/vaults) for MCP credentials and rotation.
 
@@ -326,37 +327,46 @@ The following sample limits `web_fetch` to `help.example.com` with `allowed_doma
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
-  tools='[
-    {
-      "type": "agent_toolset_20260401",
-      "default_config": {
-        "enabled": false,
-        "permission_policy": {"type": "always_ask"}
-      },
-      "configs": [
-        {"name": "read", "enabled": true, "permission_policy": {"type": "always_allow"}},
-        {"name": "write", "enabled": true, "permission_policy": {"type": "auto"}},
+  curl -fsSL https://api.anthropic.com/v1/agents \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: managed-agents-2026-04-01" \
+    -H "content-type: application/json" \
+    -d '{
+      "name": "Support Agent",
+      "model": "claude-opus-5-5",
+      "tools": [
         {
-          "name": "web_fetch",
-          "enabled": true,
-          "allowed_domains": ["help.example.com"],
-          "permission_policy": {"type": "auto"}
+          "type": "agent_toolset_20260401",
+          "default_config": {
+            "enabled": false,
+            "permission_policy": {"type": "always_ask"}
+          },
+          "configs": [
+            {"name": "read", "enabled": true, "permission_policy": {"type": "always_allow"}},
+            {"name": "write", "enabled": true, "permission_policy": {"type": "auto"}},
+            {
+              "name": "web_fetch",
+              "enabled": true,
+              "allowed_domains": ["help.example.com"],
+              "permission_policy": {"type": "auto"}
+            }
+          ]
+        },
+        {
+          "type": "custom",
+          "name": "lookup_order",
+          "description": "Look up one order by its ID. Returns the status, the items, and the delivery date.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "order_id": {"type": "string", "description": "The order ID from the ticket"}
+            },
+            "required": ["order_id"]
+          }
         }
       ]
-    },
-    {
-      "type": "custom",
-      "name": "lookup_order",
-      "description": "Look up one order by its ID. Returns the status, the items, and the delivery date.",
-      "input_schema": {
-        "type": "object",
-        "properties": {
-          "order_id": {"type": "string", "description": "The order ID from the ticket"}
-        },
-        "required": ["order_id"]
-      }
-    }
-  ]'
+    }'
   ```
 
   <CodeGroupItem>
@@ -835,7 +845,7 @@ A budget's `max_list_cost.amount` is a whole number of US cents written as a str
 
 You cannot add a budget to a session created without one. To change or remove a cap, see [Resume a session at its budget](https://platform.claude.com/docs/en/managed-agents/budgets#resume-a-session-at-its-budget). After you remove a session's cap, you cannot set a new one.
 
-A budget caps spending, but it does not limit what the agent does before the cap. To keep workloads with different trust levels apart, use separate [workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces). Give each workload an API key scoped to one workspace, because a key that can reach several workspaces can act in any of them.
+A budget caps spending, but it does not limit what the agent does before the cap. To keep workloads with different trust levels apart, use separate [workspaces](https://platform.claude.com/docs/en/manage-claude/workspaces). Limit each workload to one workspace: where you can, a [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) rule enabled only in it, otherwise an API key scoped to it. Access to several workspaces lets the workload act in any of them.
 
 See [Session budgets](https://platform.claude.com/docs/en/managed-agents/budgets), [Session operations](https://platform.claude.com/docs/en/managed-agents/session-operations#archiving-a-session), and [Scheduled deployments](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#managing-deployment-lifecycle).
 

@@ -2,7 +2,7 @@
 
 Inference hooks lets your compliance team inspect and enforce policy on every prompt, tool call response, and uploaded file text before it reaches Claude.
 
-Inference hooks are available in beta to Enterprise plans and cover Claude, Claude Code, Cowork, and all other Claude Enterprise products. They can be turned on and managed by Owners and Primary Owners.
+Inference hooks are generally available to Enterprise plans and cover Claude, Claude Code, Cowork, and all other Claude Enterprise products. They can be turned on and managed by Owners and Primary Owners.
 
 When you turn on inference hooks, Claude sends every prompt to a server you host before it starts generating a response. It also sends every tool call to that server before the tool runs. Your server checks the prompt against your policy, then answers **allow** or **deny**. Claude only continues once it has that answer.
 

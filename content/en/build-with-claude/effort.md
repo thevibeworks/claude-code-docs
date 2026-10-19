@@ -39,7 +39,7 @@ The effort parameter lets you control how many tokens Claude spends when respond
 
 ## Set the effort level
 
-Set `output_config.effort` on the request. The following example runs one request at `medium` effort and prints the response text.
+Set `output_config.effort` on the request. The following example runs one request at `medium` effort.
 
 <CodeGroup>
   ```bash cURL
@@ -65,9 +65,7 @@ Set `output_config.effort` on the request. The following example runs one reques
     --model claude-opus-5-5 \
     --max-tokens 4096 \
     --output-config '{effort: medium}' \
-    --message '{role: user, content: "Analyze the trade-offs between microservices and monolithic architectures"}' \
-    --transform 'content.#(type=="text").text' \
-    --raw-output
+    --message '{role: user, content: "Analyze the trade-offs between microservices and monolithic architectures"}'
   ```
 
   ```python Python
@@ -407,8 +405,7 @@ The following example starts at `high`, then drops to `low` for a routine follow
   ```
 
   ```bash CLI
-  ant beta:messages create --beta mid-conversation-output-config-2026-07-01 \
-    --transform 'content.#(type=="text").text' --raw-output <<'YAML'
+  ant beta:messages create --beta mid-conversation-output-config-2026-07-01 <<'YAML'
   model: claude-fable-5-1
   max_tokens: 4096
   output_config:

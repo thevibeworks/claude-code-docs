@@ -18,10 +18,10 @@ If you need to add or update your tax or VAT ID after you've already created a C
 
 1. Log in to your API Console account.
 
-2. Navigate to [Settings > Organization](https://platform.claude.com/settings/organization).
+2. Go to the **Organization** page (platform.claude.com/settings/organization).
 
 3. Enter or modify your tax or VAT ID as needed.
 
 4. Click "Save changes" when you're finished.
 
-**Note:** Your billing address determines your tax jurisdiction. See [Understanding your billing address and tax calculation](https://support.claude.com/en/articles/12997130-understanding-your-billing-address-and-tax-calculation) for details on how to view or update your billing address.
+**Note:** Your billing address determines your tax jurisdiction. For details on how to view or update your billing address, see **[Understanding your billing address and tax calculation](https://support.claude.com/en/articles/12997130-understanding-your-billing-address-and-tax-calculation)**.

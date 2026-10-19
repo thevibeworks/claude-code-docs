@@ -101,9 +101,7 @@ On Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, and Claude Sonnet 4.6, thi
     --model claude-opus-5-5 \
     --max-tokens 16000 \
     --thinking '{type: adaptive, display: summarized}' \
-    --message '{role: user, content: "What is the greatest common divisor of 1071 and 462?"}' \
-    --transform content \
-    --format yaml
+    --message '{role: user, content: "What is the greatest common divisor of 1071 and 462?"}'
   ```
 
   ```python Python
@@ -309,7 +307,7 @@ On Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, and Claude Sonnet 4.6, thi
   ```
 </CodeGroup>
 
-Running the example prints the summarized thinking, then the answer:
+The response carries the summarized thinking, then the answer:
 
 ```text Output wrap
 Thinking: Use Euclidean algorithm.
