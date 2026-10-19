@@ -5,7 +5,7 @@ description: List the sessions your users run in Claude apps and agents, such as
 ---
 
 <Note>
-  The endpoints on this page are available only to Claude Enterprise organizations. The local and remote session endpoints are stable for Cowork, Claude Code, and Claude for Microsoft 365 sessions. Coverage of sessions in Claude Science, Claude in Chrome, and the Claude add-ins for Google Docs, Google Sheets, and Google Slides is in beta. The endpoints work with the same Compliance Access Key and `read:compliance_user_data` scope as the [chat, file, and project endpoints](https://platform.claude.com/docs/en/manage-claude/compliance-content-data); no new key, scope, setting, or client update is required. See [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+  The endpoints on this page are available only to Claude Enterprise organizations. The local and remote session endpoints are stable for Cowork, Claude Code, and Claude for Microsoft 365 sessions. Coverage of sessions in Claude Science, the Claude add-ins for Google Docs, Google Sheets, and Google Slides, and Claude in Chrome is in beta. The endpoints work with the same Compliance Access Key and `read:compliance_user_data` scope as the [chat, file, and project endpoints](https://platform.claude.com/docs/en/manage-claude/compliance-content-data); no new key, scope, setting, or client update is required. See [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 </Note>
 
 <Check>
@@ -14,7 +14,7 @@ description: List the sessions your users run in Claude apps and agents, such as
   **Prerequisite:** None for listing sessions organization-wide. To filter the remote session list (sessions in the cloud) to specific users, you need user IDs from [List organization users](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organization-users); the local session list has no user filter.
 </Check>
 
-The endpoints on this page expose transcripts of the sessions your users run in Claude apps and agents (today: Cowork, Claude Code, Claude Science, Claude for Microsoft 365, Claude in Chrome, and the Claude add-ins for Google Docs, Google Sheets, and Google Slides) from your Claude Enterprise organizations to compliance reviewers. Each session is a single conversation with Claude; its transcript is the sequence of user prompts, assistant responses, and tool calls and results in that conversation. The endpoints support eDiscovery (electronic discovery) exports and data loss prevention (DLP) enforcement.
+The endpoints on this page expose transcripts of the sessions your users run in Claude apps and agents (today: Cowork, Claude Code, Claude Science, Claude for Microsoft 365, the Claude add-ins for Google Docs, Google Sheets, and Google Slides, and Claude in Chrome) from your Claude Enterprise organizations to compliance reviewers. Each session is a single conversation with Claude; its transcript is the sequence of user prompts, assistant responses, and tool calls and results in that conversation. The endpoints support eDiscovery (electronic discovery) exports and data loss prevention (DLP) enforcement.
 
 The Compliance API groups sessions into two endpoint families according to where they run: local session endpoints for sessions on users' machines, and remote session endpoints for sessions that run in the cloud in Anthropic-managed environments. Both families are read-only, and neither is available to Admin API keys (`sk-ant-admin01-...`): calls authenticated with an Admin API key return [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden).
 
@@ -26,8 +26,8 @@ The following table maps each product, and where it runs, to the endpoint family
 | Claude Code in the terminal, in Claude Desktop, or in an IDE extension, running on the user's machine                                    | Local session endpoints                                          | `claude_code`                                                                                       |
 | Claude Science desktop app, running on the user's machine                                                                                | Local session endpoints                                          | `claude_science`                                                                                    |
 | Claude for Microsoft 365 (the Claude add-ins for Excel, PowerPoint, Word, and Outlook), running in the Microsoft 365 desktop or web apps | Local session endpoints                                          | `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, or `office_agents/outlook` |
-| Claude in Chrome (the browser extension's built-in chat), running on the user's machine                                                  | Local session endpoints                                          | `claude_in_chrome`                                                                                  |
 | The Claude add-ins for Google Docs, Google Sheets, and Google Slides, running in those Google apps                                       | Local session endpoints                                          | `office_agents/google_docs`, `office_agents/google_sheets`, or `office_agents/google_slides`        |
+| Claude in Chrome (the browser extension's built-in chat), running on the user's machine                                                  | Local session endpoints                                          | `claude_in_chrome`                                                                                  |
 | Cowork sessions started on claude.ai web or mobile, running in the cloud in Anthropic-managed environments                               | Remote session endpoints (`/v1/compliance/apps/sessions/remote`) | `cowork_remote`                                                                                     |
 
 `office_agents` alone does not say which app the session came from, and it can come from Claude for Microsoft 365 or the Google add-ins. See the `product_surface` description under [Sessions on users' machines](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions).
@@ -58,7 +58,7 @@ Anthropic recommends the Compliance API for retrieving session content. The foll
 
 ## Sessions on users' machines (local sessions)
 
-Local sessions run on users' machines while they are signed in with their Claude Enterprise account: today, Cowork in Claude Desktop, Claude Code (in the terminal, in Claude Desktop, or in an IDE extension), the Claude Science desktop app, Claude for Microsoft 365 (in Excel, PowerPoint, Word, and Outlook), the Claude in Chrome browser extension, and the Claude add-ins for Google Docs, Google Sheets, and Google Slides.
+Local sessions run on users' machines while they are signed in with their Claude Enterprise account: today, Cowork in Claude Desktop, Claude Code (in the terminal, in Claude Desktop, or in an IDE extension), the Claude Science desktop app, Claude for Microsoft 365 (in Excel, PowerPoint, Word, and Outlook), the Claude add-ins for Google Docs, Google Sheets, and Google Slides, and the Claude in Chrome browser extension.
 
 The Compliance API exposes local sessions through three endpoints: `GET /v1/compliance/apps/sessions/local` lists session metadata, `GET /v1/compliance/apps/sessions/local/{session_id}` retrieves one session's metadata, and `GET /v1/compliance/apps/sessions/local/{session_id}/messages` returns one session's transcript. All three require the `read:compliance_user_data` scope and count only against the shared Compliance API rate limit; they are not subject to the second request budget that applies to the remote session endpoints. See [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests). If local sessions are not available to your parent organization, all three endpoints return 404 with the message `Local sessions are not available.` (see [Local session not found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-session-not-found)); while session listings or captured content are temporarily unavailable, they return 503 (see [Local sessions temporarily unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable)).
 
@@ -158,10 +158,8 @@ The messages endpoint returns the session's transcript, reconstructed from the c
 Project instruction files such as `CLAUDE.md` appear as ordinary user-role content. Skill content appears when the client sends it as message content and is not distinguished from other user text. For a coverage summary, see the [Compliance API FAQ](https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention); for a table comparing local sessions with remote sessions and OpenTelemetry logging, see this page's introduction.
 
 ```bash cURL
-session_id="clls_01HxKpLmNoPqRsTuVwXyZaBc"
-
 curl --fail-with-body -sS \
-  "https://api.anthropic.com/v1/compliance/apps/sessions/local/$session_id/messages" \
+  "https://api.anthropic.com/v1/compliance/apps/sessions/local/clls_01HxKpLmNoPqRsTuVwXyZaBc/messages" \
   --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
   --header "anthropic-version: 2023-06-01"
 ```
@@ -377,10 +375,8 @@ To retrieve a chat in the unified Claude experience, including the part that ran
 The messages endpoint returns the session's transcript: user prompts, assistant responses, and tool calls and results. Thinking blocks and images are not included. For a coverage summary, see the [Compliance API FAQ](https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention); for a table comparing remote sessions with local sessions and Cowork's OpenTelemetry logging, see this page's introduction.
 
 ```bash cURL
-session_id="cse_01WpQrStUvXyZaBcDeFgHjK6"
-
 curl --fail-with-body -sS \
-  "https://api.anthropic.com/v1/compliance/apps/sessions/remote/$session_id/messages" \
+  "https://api.anthropic.com/v1/compliance/apps/sessions/remote/cse_01WpQrStUvXyZaBcDeFgHjK6/messages" \
   --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
   --header "anthropic-version: 2023-06-01"
 ```

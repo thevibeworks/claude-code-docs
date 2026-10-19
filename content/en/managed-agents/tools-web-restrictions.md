@@ -23,11 +23,11 @@ Each tool carries its own list, so `web_search` and `web_fetch` can have differe
 
 ## Set domain lists on an agent
 
-The following example creates an agent that limits `web_search` to two sites and blocks one host for `web_fetch`. It also sets `user_location` (java, php: `userLocation`; csharp, go: `UserLocation`) and `max_content_tokens` (java, php: `maxContentTokens`; csharp, go: `MaxContentTokens`), which [Settings](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#settings) describes. The example then prints the `configs` (csharp, go: `Configs`) array from the response.
+The following example creates an agent that limits `web_search` to two sites and blocks one host for `web_fetch`. It also sets `user_location` (java, php: `userLocation`; csharp, go: `UserLocation`) and `max_content_tokens` (java, php: `maxContentTokens`; csharp, go: `MaxContentTokens`), which [Settings](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#settings) describes. The response echoes the `configs` (csharp, go: `Configs`) array.
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
-  agent=$(curl -fsSL https://api.anthropic.com/v1/agents \
+  curl -fsSL https://api.anthropic.com/v1/agents \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
@@ -59,8 +59,6 @@ The following example creates an agent that limits `web_search` to two sites and
         }
       ]
     }'
-  )
-  jq '.tools[0].configs' <<< "$agent"
   ```
 
   <CodeGroupItem>

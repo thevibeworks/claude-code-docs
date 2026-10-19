@@ -74,8 +74,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
   ```
 
   ```bash CLI
-  ant beta:messages create --beta inline-tools-2026-09-15 \
-    --transform 'content.#(type=="text").text' --raw-output <<'YAML'
+  ant beta:messages create --beta inline-tools-2026-09-15 <<'YAML'
   model: claude-opus-5-5
   max_tokens: 1024
   tools:
@@ -455,7 +454,7 @@ The following request declares `get_weather` in `tools`, then withdraws it after
 
 ### Define tools in a message (beta)
 
-With the `inline-tools-2026-09-15` beta header, a `tool_addition` block can define a tool by value, carrying its full definition, instead of naming it by reference. This lets you introduce a tool that is unknown at the start of the conversation, or whose schema changes later, by appending a `role: "system"` message. The `tools` array and every earlier message stay exactly as sent, so the prompt cache still hits and only the appended message is processed as new input. The one exception, a `tools` array with no non-deferred tool, is covered in the rules below. The header also covers adding and removing tools by reference, so you don't need to send `mid-conversation-tool-changes-2026-07-01` as well.
+With the `inline-tools-2026-09-15` beta header, a `tool_addition` block can define a tool by value, carrying its full definition, instead of naming it by reference. This lets you introduce a tool that is unknown at the start of the conversation, or whose schema changes later, by appending a `role: "system"` message. The `tools` array and every earlier message stay exactly as sent, so the prompt cache still hits and only the appended message is processed as new input. The one exception, a `tools` array with no non-deferred tool, is covered in the rules that follow. The header also covers adding and removing tools by reference, so you don't need to send `mid-conversation-tool-changes-2026-07-01` as well.
 
 Wrap the definition in a `tool` object of type `tool_definition`. The `definition` is a `tools` entry, such as a custom tool or an Anthropic-defined client or server tool, with its usual configuration, including `cache_control` and `defer_loading`. During the beta, some tool types (the computer use tool among them) can't be defined in a message yet and return a 400 error that says so; declare those in `tools` and add them by reference. For example, to define a custom tool mid-conversation:
 
@@ -1677,7 +1676,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
   ```
 
   ```bash CLI
-  ant messages create --transform 'content.#(type=="text").text' --raw-output <<'YAML'
+  ant messages create <<'YAML'
   model: claude-opus-5-5
   max_tokens: 1024
   cache_control:
@@ -2139,8 +2138,7 @@ Through the SDK, set `clear_at` (csharp, go: `ClearAt`; java: `.clearAt()`; php:
   ```
 
   ```bash CLI
-  ant beta:messages create --beta mid-conversation-system-clear-at-2026-08-21 \
-    --transform 'content.#(type=="text").text' --raw-output <<'YAML'
+  ant beta:messages create --beta mid-conversation-system-clear-at-2026-08-21 <<'YAML'
   model: claude-fable-5-1
   max_tokens: 4096
   messages:

@@ -60,7 +60,7 @@ To access Covered Models in configurations that aren't covered under the BAA:
 
 - **On a 1P API organization with zero data retention enabled, you have two options:**
 
-  - Enable standard retention in a dedicated workspace (**Workspace > Manage > Privacy Controls**). Your other workspaces keep ZDR. See **[Data retention practices for Mythos-class models](https://support.claude.com/en/articles/15425996-data-retention-practices-for-mythos-class-models#h_7008995545)** for instructions.
+  - Enable standard retention in a dedicated workspace: go to the **Data retention** page (platform.claude.com/settings/privacy) and select the workspace from the dropdown menu at the top of the page. Your other workspaces keep ZDR. See **[Data retention practices for Mythos-class models](https://support.claude.com/en/articles/15425996-data-retention-practices-for-mythos-class-models#h_7008995545)** for instructions.
 
   - Contact your Anthropic account team to remove ZDR from the organization entirely.
 

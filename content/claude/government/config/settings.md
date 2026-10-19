@@ -68,7 +68,11 @@ Members pick up a new or changed endpoint the next time they start Claude Deskto
 * `claude-code-desktop` for Code sessions
 * `claude-desktop` for events from the application itself, errors only by default
 
-Each conversation turn produces events such as `user_prompt`, `api_request`, and `tool_result` that record the model, token counts, durations, and tool names. Every record also carries the member's operating-system login name as the `enduser.id` and `process.owner` resource attributes. Message text, file contents, and tool output are included only for the categories you select in **Telemetry content capture**. See the [event reference in Monitoring](/docs/cowork/monitoring#events) for each event's attributes.
+Each conversation turn produces events such as `user_prompt`, `api_request`, and `tool_result` that record the model, token counts, durations, and tool names. Every record from Claude Desktop carries the member's sign-in email address as the `enduser.id` resource attribute and their operating-system login name as `process.owner`. Message text, file contents, and tool output are included only for the categories you select in **Telemetry content capture**. See the [event reference in Monitoring](/docs/cowork/monitoring#events) for each event's attributes.
+
+<Note>
+  On Claude Desktop versions earlier than 1.37937.0, and for a member who has not signed in again since updating to that version or later, `enduser.id` carries the operating-system login name.
+</Note>
 
 Claude Desktop keeps working when the collector refuses requests or cannot be reached, and members see no error. To confirm telemetry is arriving, check your collector's own request logs or metrics for requests to `/v1/logs` after a member has restarted Claude Desktop and sent a message.
 

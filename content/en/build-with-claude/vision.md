@@ -538,12 +538,12 @@ For images you'll use repeatedly or when you want to avoid encoding overhead, us
 <CodeGroup>
   ```bash cURL
   # First, upload your image to the Files API
-  FILE_ID=$(curl -sS -X POST https://api.anthropic.com/v1/files \
+  curl -sS -X POST https://api.anthropic.com/v1/files \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
-    -F "file=@vision-example.jpg" | jq -r '.id')
+    -F "file=@vision-example.jpg"
 
-  # Then use the returned file_id in your message
+  # Then use the file_id from the upload response in your message
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
@@ -577,13 +577,11 @@ For images you'll use repeatedly or when you want to avoid encoding overhead, us
     https://platform.claude.com/docs/images/vision-example.jpg
 
   # First, upload your image to the Files API
-  FILE_ID=$(ant files upload \
-    --file ./vision-example.jpg \
-    --transform id --raw-output)
+  ant files upload \
+    --file ./vision-example.jpg
 
-  # Then use the returned file_id in your message
-  ant messages create \
-    --transform content --format yaml <<YAML
+  # Then use the file_id from the upload response in your message
+  ant messages create <<YAML
   model: claude-opus-5-5
   max_tokens: 1024
   messages:

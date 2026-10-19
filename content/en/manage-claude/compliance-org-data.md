@@ -73,10 +73,8 @@ See [List organization users](https://platform.claude.com/docs/en/api/compliance
 Results are sorted by organization join date ascending. Unlike the Activity Feed's `before_id`/`after_id` cursors (see [Paginate results](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed#paginate-results)), the directory endpoints paginate with a `next_page` token: when `has_more` is `true`, pass `next_page` back unchanged as the `page` query parameter on the next request.
 
 ```bash cURL
-org_uuid="91012d09-e48b-438e-a489-1bebfd8fa6f9"
-
 curl --fail-with-body -sS -G \
-  "https://api.anthropic.com/v1/compliance/organizations/$org_uuid/users" \
+  "https://api.anthropic.com/v1/compliance/organizations/91012d09-e48b-438e-a489-1bebfd8fa6f9/users" \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
   -H "anthropic-version: 2023-06-01" \
   --data-urlencode "limit=500"
@@ -111,10 +109,8 @@ This endpoint requires `read:compliance_user_data`, not `read:compliance_org_dat
 By default, the response lists only members who have set at least one of the two values. Pass `include_unset=true` to list every current member, with `null` for each value that is not set. To return specific members only, pass up to 10 user IDs in `user_ids[]`. Results paginate with `limit` (default 20, maximum 100) and `page`. As on the [organization users endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organization-users), pass `next_page` back unchanged as `page`; also send the same `include_unset` and `user_ids[]` values with every page, or the call returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#invalid-pagination-cursor). A page can hold fewer results than `limit`, or none, and still not be the last, so keep requesting pages until `next_page` is `null`.
 
 ```bash cURL
-org_uuid="91012d09-e48b-438e-a489-1bebfd8fa6f9"
-
 curl --fail-with-body -sS \
-  "https://api.anthropic.com/v1/compliance/organizations/$org_uuid/user_preferences" \
+  "https://api.anthropic.com/v1/compliance/organizations/91012d09-e48b-438e-a489-1bebfd8fa6f9/user_preferences" \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
   -H "anthropic-version: 2023-06-01"
 ```
@@ -143,10 +139,8 @@ The [List Compliance Roles](https://platform.claude.com/docs/en/api/compliance/o
 Both role endpoints require `read:compliance_org_data`. The list endpoint accepts the same `limit` and `page` parameters as the [organization users endpoint](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organization-users).
 
 ```bash cURL
-org_uuid="91012d09-e48b-438e-a489-1bebfd8fa6f9"
-
 curl --fail-with-body -sS \
-  "https://api.anthropic.com/v1/compliance/organizations/${org_uuid}/roles" \
+  "https://api.anthropic.com/v1/compliance/organizations/91012d09-e48b-438e-a489-1bebfd8fa6f9/roles" \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
   -H "anthropic-version: 2023-06-01"
 ```
@@ -207,10 +201,8 @@ curl --fail-with-body -sS -G \
 For each group ID, list its members:
 
 ```bash cURL
-group_id="rbac_group_01P9qRsTuVwXyZa2BcDeFgHjK"
-
 curl --fail-with-body -sS -G \
-  "https://api.anthropic.com/v1/compliance/groups/$group_id/members" \
+  "https://api.anthropic.com/v1/compliance/groups/rbac_group_01P9qRsTuVwXyZa2BcDeFgHjK/members" \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
   -H "anthropic-version: 2023-06-01"
 ```
@@ -243,10 +235,8 @@ This endpoint requires `read:compliance_org_data`; a key without that scope retu
 </Note>
 
 ```bash cURL
-org_uuid="91012d09-e48b-438e-a489-1bebfd8fa6f9"
-
 curl --fail-with-body -sS \
-  "https://api.anthropic.com/v1/compliance/organizations/$org_uuid/settings" \
+  "https://api.anthropic.com/v1/compliance/organizations/91012d09-e48b-438e-a489-1bebfd8fa6f9/settings" \
   -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
   -H "anthropic-version: 2023-06-01"
 ```

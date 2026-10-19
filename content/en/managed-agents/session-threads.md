@@ -117,7 +117,7 @@ Send `user.interrupt` with `session_thread_id` (java: `sessionThreadId`; php: `s
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d "{\"events\": [{\"type\": \"user.interrupt\", \"session_thread_id\": \"$THREAD_ID\"}]}"
+    -d '{"events": [{"type": "user.interrupt", "session_thread_id": "'"$THREAD_ID"'"}]}'
   ```
 
   ```bash CLI
@@ -271,7 +271,7 @@ Archive only succeeds if the thread is `idle`. A thread parked on `requires_acti
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -d "{\"events\": [{\"type\": \"user.interrupt\", \"session_thread_id\": \"$THREAD_ID\"}]}"
+    -d '{"events": [{"type": "user.interrupt", "session_thread_id": "'"$THREAD_ID"'"}]}'
 
   curl -fsS -X POST "https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/archive" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -421,19 +421,7 @@ A thread's stream doesn't replay earlier events. Right after `session.thread_cre
       curl -fsSN "https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/stream?beta=true" \
         -H "x-api-key: $ANTHROPIC_API_KEY" \
         -H "anthropic-version: 2023-06-01" \
-        -H "anthropic-beta: managed-agents-2026-04-01" |
-        while IFS= read -r line; do
-          [[ $line == data:* ]] || continue
-          json=${line#data: }
-          case $(jq -r '.type' <<<"$json") in
-            agent.message)
-              printf '%s' "$(jq -j '.content[] | select(.type == "text") | .text' <<<"$json")"
-              ;;
-            session.thread_status_idle)
-              break
-              ;;
-          esac
-        done
+        -H "anthropic-beta: managed-agents-2026-04-01"
       ```
 
       ```bash CLI
@@ -587,8 +575,7 @@ A thread's stream doesn't replay earlier events. Right after `session.thread_cre
       curl -fsS "https://api.anthropic.com/v1/sessions/$SESSION_ID/threads/$THREAD_ID/events" \
         -H "x-api-key: $ANTHROPIC_API_KEY" \
         -H "anthropic-version: 2023-06-01" \
-        -H "anthropic-beta: managed-agents-2026-04-01" \
-        | jq -r '.data[] | "[\(.type)] \(.processed_at)"'
+        -H "anthropic-beta: managed-agents-2026-04-01"
       ```
 
       ```bash CLI
@@ -695,19 +682,10 @@ Under `auto`, your `user.message` events can lead the server to allow a call it 
 
 The following example goes inside the event loop of the [tool confirmation handler](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#tool-confirmation). For each ID in `stop_reason.event_ids`, it sends a `user.tool_confirmation` that allows the call. The same pattern applies to `user.custom_tool_result`, which you can also send as soon as its `agent.custom_tool_use` event arrives.
 
-<CodeGroup exclude="shell:CLI">
-  ```bash cURL
-  while IFS= read -r event_id; do
-    jq -n --arg id "$event_id" \
-      '{events: [{type: "user.tool_confirmation", tool_use_id: $id, result: "allow"}]}' |
-      curl -fsS "https://api.anthropic.com/v1/sessions/$SESSION_ID/events?beta=true" \
-        -H "x-api-key: $ANTHROPIC_API_KEY" \
-        -H "anthropic-version: 2023-06-01" \
-        -H "anthropic-beta: managed-agents-2026-04-01" \
-        -H "content-type: application/json" \
-        -d @-
-  done < <(jq -r '.stop_reason.event_ids[]' <<<"$data")
-  ```
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   <CodeGroupItem language="CLI">
     This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.

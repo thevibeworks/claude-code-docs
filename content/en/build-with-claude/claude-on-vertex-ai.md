@@ -146,7 +146,15 @@ Lifecycle terms (Deprecated, Retired) are defined in [Model deprecations](https:
 | Claude Haiku 3.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations))  | `claude-3-5-haiku@20241022`  |
 
 <Tip>
-  Upgrading to a newer Claude model? In Claude Code, run `/claude-api migrate` to apply model ID swaps and breaking parameter changes across your codebase. The skill detects which cloud platform your code targets and adjusts model ID formats and feature changes for that platform. See [Migrating to a newer Claude model](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model).
+  Upgrading to a newer Claude model? The [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model) in Claude Code applies model ID swaps and breaking parameter changes across your code base:
+
+  Let Claude Code migrate your code for you
+
+  ```text
+  /claude-api migrate this project to the latest Claude Opus model
+  ```
+
+  The skill detects which cloud platform your code targets and adjusts model ID formats and feature changes for that platform.
 </Tip>
 
 ### Making requests
@@ -157,10 +165,7 @@ The following examples show how to generate text from Claude on Agent Platform:
 
 <CodeGroup exclude="shell:CLI">
   ```bash cURL
-  MODEL_ID=claude-opus-5-5
-  PROJECT_ID=MY_PROJECT_ID
-
-  curl https://aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/global/publishers/anthropic/models/${MODEL_ID}:rawPredict \
+  curl https://aiplatform.googleapis.com/v1/projects/MY_PROJECT_ID/locations/global/publishers/anthropic/models/claude-opus-5-5:rawPredict \
     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
     -H "Content-Type: application/json" \
     -d '{
@@ -433,10 +438,7 @@ Set the `region` parameter to `"global"` when initializing the client:
 
 <CodeGroup exclude="shell:CLI">
   ```bash cURL
-  MODEL_ID=claude-opus-5-5
-  PROJECT_ID=MY_PROJECT_ID
-
-  curl https://aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/global/publishers/anthropic/models/${MODEL_ID}:rawPredict \
+  curl https://aiplatform.googleapis.com/v1/projects/MY_PROJECT_ID/locations/global/publishers/anthropic/models/claude-opus-5-5:rawPredict \
     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
     -H "Content-Type: application/json" \
     -d '{
@@ -621,11 +623,8 @@ Set the `region` parameter to a multi-region identifier: `"us"` for the United S
 
 <CodeGroup exclude="shell:CLI">
   ```bash cURL
-  MODEL_ID=claude-opus-5-5
-  LOCATION=us # Multi-region identifier: "us" or "eu"
-  PROJECT_ID=MY_PROJECT_ID
-
-  curl https://aiplatform.${LOCATION}.rep.googleapis.com/v1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/anthropic/models/${MODEL_ID}:rawPredict \
+  # The multi-region identifier, "us" or "eu", appears in the host name and in the path
+  curl https://aiplatform.us.rep.googleapis.com/v1/projects/MY_PROJECT_ID/locations/us/publishers/anthropic/models/claude-opus-5-5:rawPredict \
     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
     -H "Content-Type: application/json" \
     -d '{
@@ -811,11 +810,8 @@ Specify a specific region such as `"us-east5"` or `"europe-west1"`:
 <CodeGroup exclude="shell:CLI">
   ```bash cURL
   # Specific regional endpoints support Claude Sonnet 4.6 and earlier; newer models use the global or multi-region endpoints
-  MODEL_ID=claude-sonnet-4-6
-  LOCATION=us-east5 # Specify a specific region
-  PROJECT_ID=MY_PROJECT_ID
-
-  curl https://${LOCATION}-aiplatform.googleapis.com/v1/projects/${PROJECT_ID}/locations/${LOCATION}/publishers/anthropic/models/${MODEL_ID}:rawPredict \
+  # The region, here us-east5, appears in the host name and in the path
+  curl https://us-east5-aiplatform.googleapis.com/v1/projects/MY_PROJECT_ID/locations/us-east5/publishers/anthropic/models/claude-sonnet-4-6:rawPredict \
     -H "Authorization: Bearer $(gcloud auth print-access-token)" \
     -H "Content-Type: application/json" \
     -d '{

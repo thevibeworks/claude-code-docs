@@ -22,7 +22,7 @@ Playground doesn't store your prompts or conversations on Anthropic's servers. Y
 
 1. Log in to the **[Claude Console](https://platform.claude.com/)**.
 
-2. Select "Playground" in the navigation.
+2. Go to the playground (platform.claude.com/playground).
 
 3. If your organization uses workspaces, choose the workspace you want to work in.
 

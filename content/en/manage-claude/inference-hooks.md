@@ -10,7 +10,7 @@ description: Send each governed prompt to your organization's AI security server
 
 Inference hooks let a Claude Enterprise organization route every governed prompt through an AI security server, an HTTPS service that the organization or its security vendor operates, before inference runs. When a user submits a prompt, Anthropic sends the conversation transcript to your AI security server and waits for an allow or deny verdict; a denied request never reaches the model. Security and compliance teams use Inference hooks to enforce data policies inline, and developers build the AI security server that evaluates each request.
 
-Because the hook runs on Anthropic's servers, after the request leaves the client and before the model runs, it applies to every governed request uniformly, with nothing to install or deploy on user devices.
+Because the hook runs on Anthropic's servers, after the request leaves the client and before the model runs, it applies to every governed request uniformly, across all Claude products in your organization, with nothing to install or deploy on user devices.
 
 There are two hook events. `prompt` fires once per governed inference request, before inference begins. `tool_call` fires when Claude's response contains tool calls, before any of them runs, in organizations that have **Validate tool calls** on.
 
@@ -77,7 +77,7 @@ The steps depend on the app:
 
 Inference hooks are available to Claude Enterprise organizations. Configuring them requires the `organization:manage` permission, which only the Owner and Primary owner roles hold.
 
-One hook governs conversations across claude.ai, Cowork, Claude Code, and Claude Tag sessions in your Claude Enterprise organization, whether they run on the web, in the desktop or mobile apps, in the CLI, or in Slack. Inference hooks are not available on Amazon Bedrock or Google Cloud.
+One hook governs conversations across all Claude products in your Claude Enterprise organization, including, but not limited to, claude.ai, Cowork, Claude Code, Claude for Microsoft 365, Claude Tag, and Claude in Chrome, whether they run on the web, in the desktop or mobile apps, in the CLI, or in Slack. Inference hooks are not available on Amazon Bedrock or Google Cloud.
 
 Governed requests are the inference requests behind the user's conversation. Ancillary requests aren't sent to your endpoint. These include conversation title generation and a measurement that Anthropic runs on Claude's reply after Claude Tag has posted it in Slack. System prompts and tool definitions are never included in what is sent. In voice mode, prompts and tool calls are sent to your endpoint too, though a small share of tool calls isn't, so don't rely on inference hooks as your only control for voice. If your endpoint denies a request in voice mode, the voice call usually ends with a general error message, and your deny reason isn't shown.
 
@@ -87,7 +87,7 @@ Some features that Anthropic runs for your organization make model calls of thei
 
 * **Claude Security scans (beta).** [Claude Security](https://claude.com/product/claude-security) runs hosted scans on your connected repositories. A session a user opens to fix a finding, and the Claude Security plugin in Claude Code, are governed.
 * **Code Review (research preview).** [Code Review](https://code.claude.com/docs/en/code-review) runs reviews on your GitHub pull requests. A review a user runs locally in Claude Code with `/code-review` is governed.
-* **Smart reports (beta).** Anthropic makes model calls to build your organization's [smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports).
+* **Smart reports (beta).** Anthropic makes model calls to build your organization's [smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports). What a user types or uploads when creating a report is governed.
 
 ***
 

@@ -479,9 +479,7 @@ All [active models](https://platform.claude.com/docs/en/models/overview) support
   ```bash cURL
   #!/bin/sh
 
-  IMAGE_URL="https://platform.claude.com/docs/images/vision-example.jpg"
-  IMAGE_MEDIA_TYPE="image/jpeg"
-  IMAGE_BASE64=$(curl -s "$IMAGE_URL" | base64 | tr -d '\n')
+  IMAGE_BASE64=$(curl -s "https://platform.claude.com/docs/images/vision-example.jpg" | base64 | tr -d '\n')
 
   curl https://api.anthropic.com/v1/messages/count_tokens \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -494,7 +492,7 @@ All [active models](https://platform.claude.com/docs/en/models/overview) support
       {"role": "user", "content": [
         {"type": "image", "source": {
           "type": "base64",
-          "media_type": "$IMAGE_MEDIA_TYPE",
+          "media_type": "image/jpeg",
           "data": "$IMAGE_BASE64"
         }},
         {"type": "text", "text": "Describe this image"}
@@ -505,8 +503,7 @@ All [active models](https://platform.claude.com/docs/en/models/overview) support
   ```
 
   ```bash CLI
-  IMAGE_URL="https://platform.claude.com/docs/images/vision-example.jpg"
-  curl -s "$IMAGE_URL" -o ./vision-example.jpg
+  curl -s "https://platform.claude.com/docs/images/vision-example.jpg" -o ./vision-example.jpg
 
   ant messages count-tokens <<'YAML'
   model: claude-opus-5-5

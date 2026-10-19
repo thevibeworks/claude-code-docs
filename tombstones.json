@@ -1379,9 +1379,17 @@
       "since": "2026-09-05",
       "reason": "HTTP 404"
     },
+    "https://support.claude.com/en/articles/13346458-customizing-your-console-appearance-settings": {
+      "since": "2026-10-19",
+      "reason": "moved -> https://support.claude.com/en/articles/13346458-customize-your-console-appearance-settings"
+    },
     "https://support.claude.com/en/articles/13371040-logging-in-to-your-console-account": {
       "since": "2026-08-25",
       "reason": "moved -> https://support.claude.com/en/articles/13371040-log-in-to-your-console-account"
+    },
+    "https://support.claude.com/en/articles/13443764-inviting-members-to-the-claude-console": {
+      "since": "2026-10-19",
+      "reason": "moved -> https://support.claude.com/en/articles/13443764-invite-members-to-the-claude-console"
     },
     "https://support.claude.com/en/articles/13521390-use-claude-for-powerpoint": {
       "since": "2026-08-25",
@@ -1534,6 +1542,14 @@
     "https://support.claude.com/en/articles/9612889-how-can-i-uninstall-claude-for-android": {
       "since": "2026-08-25",
       "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/9767949-api-key-best-practices-keeping-your-keys-safe-and-secure": {
+      "since": "2026-10-19",
+      "reason": "moved -> https://support.claude.com/en/articles/9767949-api-key-best-practices-keep-your-keys-safe-and-secure"
+    },
+    "https://support.claude.com/en/articles/9796807-creating-and-managing-workspaces-in-the-claude-console": {
+      "since": "2026-10-19",
+      "reason": "moved -> https://support.claude.com/en/articles/9796807-create-and-manage-workspaces-in-the-claude-console"
     },
     "https://support.claude.com/en/articles/9876003-i-have-a-paid-claude-subscription-pro-max-team-or-enterprise-plans-why-do-i-have-to-pay-separately-to-use-the-claude-api-and-console": {
       "since": "2026-10-08",

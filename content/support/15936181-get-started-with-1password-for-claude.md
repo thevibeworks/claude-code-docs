@@ -52,7 +52,7 @@ Once the requirements are in place, you can set up 1Password from a few places i
 
 4. Toggle on **Password managers**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2546126596/ba71ca47e2df21cec62c243831f8/5b1c67e1-607d-4c73-8f61-d1ceb081082a?expires=1792411200&amp;signature=fbdd389ffbd5859e8ac0d3bc5a72b635bc6f5b71bf766f4f42aa6f7acc6f1603&amp;req=diUjEMh8m4RWX%2FMW1HO4zU5ln2lqrMRhGkiu4hEpcPUkv9pDE27jq64xGYHk%0APLLppcY9QBgjDR6nt2E%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2546126596/ba71ca47e2df21cec62c243831f8/5b1c67e1-607d-4c73-8f61-d1ceb081082a?expires=1792444500&amp;signature=57394fe983cf5abc13836c780e5bd20762d1929a5b359fada832800eb9f97f7e&amp;req=diUjEMh8m4RWX%2FMW1HO4zU5ln2lqqcFmGkiu4hEpcPWVBxUbgyvkvrL5oDZ4%0AUv6zkWAPLWLzn48Fc2Q%3D%0A)
 
 Once enabled, eligible users will see the discovery options above. Users still need to install and set up the required apps and extensions themselves.
 

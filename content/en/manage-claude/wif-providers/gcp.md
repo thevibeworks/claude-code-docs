@@ -148,7 +148,7 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
   }
   JSON
   )
-  ACCESS_TOKEN=$(echo "$RESPONSE" | jq -r .access_token)
+  ACCESS_TOKEN=$(jq -r .access_token <<<"$RESPONSE")
 
   # Call the Claude API
   curl -sS https://api.anthropic.com/v1/messages \
@@ -159,7 +159,7 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
       "model": "claude-opus-5-5",
       "max_tokens": 1024,
       "messages": [{"role": "user", "content": "Hello from Cloud Run"}]
-    }' | jq -r '.content[] | select(.type == "text") | .text'
+    }'
   ```
 
   ```python Python
@@ -375,11 +375,10 @@ Inside your Google Cloud workload, fetch the identity token from the metadata se
 
   ```bash CLI
   # Write the Google-signed identity token to a file the CLI can read
-  ANTHROPIC_IDENTITY_TOKEN_FILE=$(mktemp)
+  export ANTHROPIC_IDENTITY_TOKEN_FILE=$(mktemp)
   curl -sS -H "Metadata-Flavor: Google" \
     "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/identity?audience=https://api.anthropic.com&format=full" \
     > "$ANTHROPIC_IDENTITY_TOKEN_FILE"
-  export ANTHROPIC_IDENTITY_TOKEN_FILE
 
   # ANTHROPIC_FEDERATION_RULE_ID, ANTHROPIC_ORGANIZATION_ID, and
   # ANTHROPIC_SERVICE_ACCOUNT_ID, and ANTHROPIC_WORKSPACE_ID are read from the environment.

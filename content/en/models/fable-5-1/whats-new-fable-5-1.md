@@ -89,8 +89,7 @@ On Claude Fable 5.1 you can change the [effort](https://platform.claude.com/docs
   ```
 
   ```bash CLI
-  ant beta:messages create --beta mid-conversation-output-config-2026-07-01 \
-    --transform 'content.#(type=="text").text' --raw-output <<'YAML'
+  ant beta:messages create --beta mid-conversation-output-config-2026-07-01 <<'YAML'
   model: claude-fable-5-1
   max_tokens: 4096
   output_config:

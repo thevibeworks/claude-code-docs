@@ -253,16 +253,6 @@ Default routing never draws the up-front [oversized-image rejection](https://pla
       "max_tokens": 1024,
       "fallbacks": "default",
       "messages": [{"role": "user", "content": "Hello, Claude"}]
-    }' |
-    jq -c '{
-      stop_reason,
-      model,
-      # A fallback_message entry in usage.iterations means a fallback model ran;
-      # pair it with stop_reason to confirm the fallback served the response.
-      served_by_fallback: (
-        any(.usage.iterations[]?; .type == "fallback_message")
-        and .stop_reason != "refusal"
-      )
     }'
   ```
 
@@ -272,18 +262,7 @@ Default routing never draws the up-front [oversized-image rejection](https://pla
     --max-tokens 1024 \
     --message '{"role":"user","content":"Hello, Claude"}' \
     --fallbacks default \
-    --beta server-side-fallback-2026-07-01 \
-    --format json |
-    jq -c '{
-      stop_reason,
-      model,
-      # A fallback_message entry in usage.iterations means a fallback model ran;
-      # pair it with stop_reason to confirm the fallback served the response.
-      served_by_fallback: (
-        any(.usage.iterations[]?; .type == "fallback_message")
-        and .stop_reason != "refusal"
-      )
-    }'
+    --beta server-side-fallback-2026-07-01
   ```
 
   ```python Python

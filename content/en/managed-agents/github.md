@@ -20,12 +20,12 @@ First, create an agent that declares the GitHub MCP server. The agent definition
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
-  agent_id=$(curl -fsS https://api.anthropic.com/v1/agents \
+  curl -fsS https://api.anthropic.com/v1/agents \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    --data '{
+    -d '{
       "name": "Code Reviewer",
       "model": "claude-opus-5-5",
       "system": "You are a code review assistant with access to GitHub.",
@@ -43,8 +43,7 @@ First, create an agent that declares the GitHub MCP server. The agent definition
           "mcp_server_name": "github"
         }
       ]
-    }' | jq -r '.id'
-  )
+    }'
   ```
 
   <CodeGroupItem>
@@ -243,12 +242,12 @@ Then create a session that mounts the GitHub repository. With a `limited` [envir
 
 <CodeGroup>
   ```bash cURL
-  session_id=$(curl -fsS https://api.anthropic.com/v1/sessions \
+  curl -fsS https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    --data @- <<JSON | jq -r '.id'
+    -d @- <<JSON
   {
     "agent": "$agent_id",
     "environment_id": "$environment_id",
@@ -262,21 +261,18 @@ Then create a session that mounts the GitHub repository. With a `limited` [envir
     ]
   }
   JSON
-  )
   ```
 
   ```bash CLI
-  SESSION_ID=$(ant beta:sessions create \
+  ant beta:sessions create \
     --agent "$AGENT_ID" \
-    --environment-id "$ENVIRONMENT_ID" \
-    --transform id --raw-output <<'EOF'
+    --environment-id "$ENVIRONMENT_ID" <<'EOF'
   resources:
     - type: github_repository
       url: https://github.com/org/repo
       mount_path: /workspace/repo
       authorization_token: ghp_your_github_token
   EOF
-  )
   ```
 
   ```python Python
@@ -424,24 +420,37 @@ Mount multiple repositories by adding entries to the `resources` (csharp, go: `R
 
 <CodeGroup>
   ```bash cURL
-  resources='[
-    {
-      "type": "github_repository",
-      "url": "https://github.com/org/frontend",
-      "mount_path": "/workspace/frontend",
-      "authorization_token": "ghp_your_github_token"
-    },
-    {
-      "type": "github_repository",
-      "url": "https://github.com/org/backend",
-      "mount_path": "/workspace/backend",
-      "authorization_token": "ghp_your_github_token"
-    }
-  ]'
+  curl -fsS https://api.anthropic.com/v1/sessions \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: managed-agents-2026-04-01" \
+    -H "content-type: application/json" \
+    -d @- <<JSON
+  {
+    "agent": "$agent_id",
+    "environment_id": "$environment_id",
+    "resources": [
+      {
+        "type": "github_repository",
+        "url": "https://github.com/org/frontend",
+        "mount_path": "/workspace/frontend",
+        "authorization_token": "ghp_your_github_token"
+      },
+      {
+        "type": "github_repository",
+        "url": "https://github.com/org/backend",
+        "mount_path": "/workspace/backend",
+        "authorization_token": "ghp_your_github_token"
+      }
+    ]
+  }
+  JSON
   ```
 
   ```bash CLI
-  RESOURCES_BODY=$(cat <<'EOF'
+  ant beta:sessions create \
+    --agent "$AGENT_ID" \
+    --environment-id "$ENVIRONMENT_ID" <<'EOF'
   resources:
     - type: github_repository
       url: https://github.com/org/frontend
@@ -452,7 +461,6 @@ Mount multiple repositories by adding entries to the `resources` (csharp, go: `R
       mount_path: /workspace/backend
       authorization_token: ghp_your_github_token
   EOF
-  )
   ```
 
   ```python Python
@@ -588,18 +596,17 @@ After a session is created, you can list its repository resources and rotate the
 <CodeGroup>
   ```bash cURL
   # List resources on the session
-  repo_resource_id=$(curl -fsS "https://api.anthropic.com/v1/sessions/$session_id/resources" \
+  curl -fsS "https://api.anthropic.com/v1/sessions/$session_id/resources" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
-    -H "content-type: application/json" | jq -r '.data[0].id')
-  echo "$repo_resource_id"  # "sesrsc_01ABC..."
+    -H "content-type: application/json"
 
   # Rotate the authorization token
-  curl -fsS "https://api.anthropic.com/v1/sessions/$session_id/resources/$repo_resource_id" \
+  curl -fsS \
+    "https://api.anthropic.com/v1/sessions/$session_id/resources/$repo_resource_id" \
   # ...
-    -o /dev/null \
-    --data @- <<JSON
+    -d @- <<'JSON'
   {
     "authorization_token": "ghp_your_new_github_token"
   }
@@ -736,8 +743,7 @@ With the GitHub MCP server, the agent can create branches, commit changes, and p
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
     -H "content-type: application/json" \
-    -o /dev/null \
-    --data '{
+    -d '{
       "events": [
         {
           "type": "user.message",
@@ -753,7 +759,7 @@ With the GitHub MCP server, the agent can create branches, commit changes, and p
   ```
 
   ```bash CLI
-  ant beta:sessions:events send --session-id "$SESSION_ID" > /dev/null <<'EOF'
+  ant beta:sessions:events send --session-id "$SESSION_ID" <<'EOF'
   events:
     - type: user.message
       content:

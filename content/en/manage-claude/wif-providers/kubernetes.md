@@ -152,7 +152,7 @@ The pod spec in [Configure Kubernetes](https://platform.claude.com/docs/en/manag
       "model": "claude-opus-5-5",
       "max_tokens": 1024,
       "messages": [{"role": "user", "content": "Hello, Claude"}]
-    }' | jq -r '.content[] | select(.type == "text") | .text'
+    }'
   ```
 
   ```python Python

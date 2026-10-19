@@ -576,58 +576,87 @@ The following example sends one request with an unpinned toolset, copies the ret
 
 <CodeGroup>
   ```bash cURL
-  BODY='{
-    "model": "claude-opus-5-5",
-    "max_tokens": 1024,
-    "mcp_servers": [
-      {
-        "type": "url",
-        "url": "https://example-server.modelcontextprotocol.io/sse",
-        "name": "example-mcp",
-        "authorization_token": "YOUR_TOKEN"
-      }
-    ],
-    "tools": [
-      {
-        "type": "mcp_toolset",
-        "mcp_server_name": "example-mcp"
-      }
-    ],
-    "messages": [
-      {
-        "role": "user",
-        "content": "What tools do you have available?"
-      }
-    ]
-  }'
-
   # First request: the toolset isn't pinned, so the API asks the server for
   # its tools and the response starts with an mcp_tool_listing block.
-  # tee shows the response on stderr while the variable captures it.
-  FIRST=$(curl -sS https://api.anthropic.com/v1/messages \
-    -H "content-type: application/json" \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: mcp-client-2026-09-15" \
-    -d "$BODY" | tee /dev/stderr)
-
-  # Pin the list: copy the block's tools into the toolset. The API uses
-  # exactly these entries and doesn't ask the server again.
-  TOOLS=$(jq '.content[] | select(.type == "mcp_tool_listing") | .tools' \
-    <<<"$FIRST")
-  PINNED=$(jq --argjson tools "$TOOLS" '.tools[0].tools = $tools' <<<"$BODY")
-
-  # With a pinned toolset, the response has no mcp_tool_listing block.
   curl https://api.anthropic.com/v1/messages \
     -H "content-type: application/json" \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: mcp-client-2026-09-15" \
-    -d "$PINNED"
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 1024,
+      "mcp_servers": [
+        {
+          "type": "url",
+          "url": "https://example-server.modelcontextprotocol.io/sse",
+          "name": "example-mcp",
+          "authorization_token": "YOUR_TOKEN"
+        }
+      ],
+      "tools": [
+        {
+          "type": "mcp_toolset",
+          "mcp_server_name": "example-mcp"
+        }
+      ],
+      "messages": [
+        {
+          "role": "user",
+          "content": "What tools do you have available?"
+        }
+      ]
+    }'
+
+  # Pin the list: copy the block's tools into the toolset. The API uses
+  # exactly these entries and doesn't ask the server again, so the response
+  # has no mcp_tool_listing block.
+  curl https://api.anthropic.com/v1/messages \
+    -H "content-type: application/json" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "anthropic-beta: mcp-client-2026-09-15" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 1024,
+      "mcp_servers": [
+        {
+          "type": "url",
+          "url": "https://example-server.modelcontextprotocol.io/sse",
+          "name": "example-mcp",
+          "authorization_token": "YOUR_TOKEN"
+        }
+      ],
+      "tools": [
+        {
+          "type": "mcp_toolset",
+          "mcp_server_name": "example-mcp",
+          "tools": [
+            {
+              "name": "echo",
+              "description": "Returns the text it receives.",
+              "input_schema": {
+                "type": "object",
+                "properties": { "text": { "type": "string" } },
+                "required": ["text"]
+              }
+            }
+          ]
+        }
+      ],
+      "messages": [
+        {
+          "role": "user",
+          "content": "What tools do you have available?"
+        }
+      ]
+    }'
   ```
 
   ```bash CLI
-  request=$(cat <<'YAML'
+  # First request: the toolset isn't pinned, so the API asks the server for
+  # its tools and the response starts with an mcp_tool_listing block.
+  ant beta:messages create --beta mcp-client-2026-09-15 <<'YAML'
   model: claude-opus-5-5
   max_tokens: 1024
   mcp_servers:
@@ -642,22 +671,35 @@ The following example sends one request with an unpinned toolset, copies the ret
     - role: user
       content: What tools do you have available?
   YAML
-  )
 
-  # First request: the toolset isn't pinned, so the API asks the server for
-  # its tools and the response starts with an mcp_tool_listing block.
-  # tee shows the response on stderr while the variable captures it.
-  first=$(ant beta:messages create --beta mcp-client-2026-09-15 --format json \
-    <<<"$request" | tee /dev/stderr)
-  tools=$(jq -c '.content[] | select(.type == "mcp_tool_listing") | .tools' \
-    <<<"$first")
-
-  # Pin the list: copy the block's tools into the toolset. The --tool flag
-  # replaces the body's tools array. The API uses exactly these entries and
-  # doesn't ask the server again, so the response has no mcp_tool_listing block.
-  ant beta:messages create --beta mcp-client-2026-09-15 \
-    --tool "{type: mcp_toolset, mcp_server_name: example-mcp, tools: $tools}" \
-    <<<"$request"
+  # Pin the list: copy the block's tools into the toolset. The API uses
+  # exactly these entries and doesn't ask the server again, so the response
+  # has no mcp_tool_listing block.
+  ant beta:messages create --beta mcp-client-2026-09-15 <<'YAML'
+  model: claude-opus-5-5
+  max_tokens: 1024
+  mcp_servers:
+    - type: url
+      url: https://example-server.modelcontextprotocol.io/sse
+      name: example-mcp
+      authorization_token: YOUR_TOKEN
+  tools:
+    - type: mcp_toolset
+      mcp_server_name: example-mcp
+      tools:
+        - name: echo
+          description: Returns the text it receives.
+          input_schema:
+            type: object
+            properties:
+              text:
+                type: string
+            required:
+              - text
+  messages:
+    - role: user
+      content: What tools do you have available?
+  YAML
   ```
 
   ```python Python

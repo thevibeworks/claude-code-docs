@@ -508,9 +508,7 @@ Claude can read both text and images in requests. You can supply images using th
   #!/bin/sh
 
   # Option 1: Base64-encoded image
-  IMAGE_URL="https://platform.claude.com/docs/images/vision-example.jpg"
-  IMAGE_MEDIA_TYPE="image/jpeg"
-  IMAGE_BASE64=$(curl "$IMAGE_URL" | base64 | tr -d '\n')
+  IMAGE_BASE64=$(curl "https://platform.claude.com/docs/images/vision-example.jpg" | base64 | tr -d '\n')
 
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -524,7 +522,7 @@ Claude can read both text and images in requests. You can supply images using th
       {"role": "user", "content": [
         {"type": "image", "source": {
           "type": "base64",
-          "media_type": "$IMAGE_MEDIA_TYPE",
+          "media_type": "image/jpeg",
           "data": "$IMAGE_BASE64"
         }},
         {"type": "text", "text": "What is in the above image?"}
@@ -554,10 +552,8 @@ Claude can read both text and images in requests. You can supply images using th
   ```
 
   ```bash CLI
-  IMAGE_URL="https://platform.claude.com/docs/images/vision-example.jpg"
-
   # Option 1: Base64-encoded image (CLI auto-encodes binary @file refs)
-  curl -s "$IMAGE_URL" -o ./vision-example.jpg
+  curl -s "https://platform.claude.com/docs/images/vision-example.jpg" -o ./vision-example.jpg
 
   ant messages create <<'YAML'
   model: claude-opus-5-5
@@ -575,7 +571,7 @@ Claude can read both text and images in requests. You can supply images using th
   YAML
 
   # Option 2: URL-referenced image
-  ant messages create <<YAML
+  ant messages create <<'YAML'
   model: claude-opus-5-5
   max_tokens: 1024
   messages:
@@ -584,7 +580,7 @@ Claude can read both text and images in requests. You can supply images using th
         - type: image
           source:
             type: url
-            url: $IMAGE_URL
+            url: https://platform.claude.com/docs/images/vision-example.jpg
         - type: text
           text: What is in the above image?
   YAML

@@ -110,7 +110,7 @@ Install the claude-api plugin from the anthropics/skills plugin marketplace
 
 ## Migrating to a newer Claude model
 
-The Claude API skill can perform Claude model migrations across a code base. Invoke it directly with `/claude-api migrate`:
+The Claude API skill can perform Claude model migrations across a code base. Invoke it directly with the `migrate` subcommand:
 
 Let Claude Code migrate your code for you
 

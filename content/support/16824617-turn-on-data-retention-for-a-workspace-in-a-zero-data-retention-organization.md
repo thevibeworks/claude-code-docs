@@ -22,31 +22,23 @@ Before you start, make sure that:
 
 ## Turn on data retention for a Workspace
 
-The setting lives in each Workspace's privacy controls, at the bottom of the Workspace's left sidebar.
+The setting is on your organization's **Data retention** page, where a dropdown menu at the top of the page lets you pick the organization or a Workspace.
 
 To turn on data retention for a Workspace:
 
 1. Log in to the **[Claude Console](https://platform.claude.com/login)**.
 
-2. Click your initials (or name) in the lower left corner to open your account menu.
+2. Go to the **Data retention** page (platform.claude.com/settings/privacy).
 
-3. Navigate to **[Organization settings > Workspaces](https://platform.claude.com/settings/workspaces)**. The **Data retention** column shows the current setting for each Workspace.
+3. Select the Workspace from the dropdown menu at the top of the page.
 
-4. Click the Workspace you want to change.
+4. Select "Standard data retention (30-day retention)" and click "Save."
 
-5. In the left sidebar, click "Manage" to expand the section if it's collapsed.
-
-6. Click "Privacy controls."
-
-7. In the **Data retention** card, toggle the **This workspace** switch on or off.
-
-8. Click "Accept" in the confirmation dialog. By accepting, you acknowledge that Section F of the **[Service Specific Terms](https://www.anthropic.com/legal/service-specific-terms)** applies to this Workspace and supplements your organization's agreement with Anthropic.
-
-The **This workspace** row now shows **On · 30 days**. There's no separate confirmation message, so this label is how you know the change took effect.
+5. Review and accept the terms in the confirmation dialog. By accepting, you acknowledge that Section F of the **Service Specific Terms** applies to this Workspace and supplements your organization's agreement with Anthropic. Data retention turns on for the Workspace only after you accept.
 
 ## See which Workspaces have retention on
 
-To see which Workspaces have data retention on, navigate to **[Organization settings > Workspaces](https://platform.claude.com/settings/workspaces)** and check the **Data retention** column for each Workspace. You'll see either **Zero data retention** or **30 day retention**.
+To see which Workspaces have data retention on, navigate to the **Workspaces** page (<https://platform.claude.com/settings/workspaces>) and click the menu button to the right of the Workspace you want to check. Select "Data retention" to see if the Workspace is using either **Zero data retention** or **30 day retention**.
 
 ## What changes after you turn it on
 
@@ -64,4 +56,4 @@ To see which Workspaces have data retention on, navigate to **[Organization sett
 
 ## Turn off data retention for a Workspace
 
-You can turn retention off again from the same switch. If the Workspace uses customer-managed encryption keys, you can't turn retention off. If a program on the Workspace requires retention, turning it off removes that program.
+You can turn retention off again from the **Data retention** page (platform.claude.com/settings/privacy). If the Workspace uses customer-managed encryption keys, you can't turn retention off. If a program on the Workspace requires retention, turning it off removes that program.

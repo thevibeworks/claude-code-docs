@@ -457,22 +457,16 @@ To poll a Message Batch, you'll need its `id`, which is provided in the response
 
 <CodeGroup>
   ```bash cURL
-  #!/bin/sh
-  # ...
   # Check the status; repeat until processing_status is "ended"
-  curl -s "https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID" \
+  curl "https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID" \
     --header "x-api-key: $ANTHROPIC_API_KEY" \
-    --header "anthropic-version: 2023-06-01" \
-    | jq -r '.processing_status'
+    --header "anthropic-version: 2023-06-01"
   ```
 
   ```bash CLI
-  #!/bin/bash
-  # ...
   # Check the status; repeat until processing_status is "ended"
   ant messages:batches retrieve \
-    --message-batch-id "$MESSAGE_BATCH_ID" \
-    --transform processing_status --raw-output
+    --message-batch-id "$MESSAGE_BATCH_ID"
   ```
 
   ```python Python
@@ -611,7 +605,6 @@ You can list all Message Batches in your Workspace using the [list endpoint](htt
 
 <CodeGroup>
   ```bash cURL
-  #!/bin/sh
   # Fetches one page. While the response's has_more is true, pass its
   # last_id as after_id to fetch the next page. (The SDKs and the CLI
   # perform automatic pagination.)
@@ -727,28 +720,19 @@ Results of the batch are available for download at the `results_url` property on
 
 <CodeGroup>
   ```bash cURL
-  #!/bin/sh
-  # Fetch the batch's results_url, then stream the .jsonl results it
-  # points to. For per-result handling (retries, validation errors),
-  # use the SDK examples in the other tabs.
-  RESULTS_URL=$(curl -s "https://api.anthropic.com/v1/messages/batches/msgbatch_01HkcTjaV5uDC8jWR4ZsDV8d" \
+  # Streams the batch's .jsonl results, one result per line.
+  # For per-result handling (retries, validation errors), use the Claude SDK.
+  curl "https://api.anthropic.com/v1/messages/batches/msgbatch_01HkcTjaV5uDC8jWR4ZsDV8d/results" \
     --header "anthropic-version: 2023-06-01" \
-    --header "x-api-key: $ANTHROPIC_API_KEY" \
-    | jq -r '.results_url')
-
-  curl -s "$RESULTS_URL" \
-    --header "anthropic-version: 2023-06-01" \
-    --header "x-api-key: $ANTHROPIC_API_KEY" \
-    | jq -r '"\(.result.type): \(.custom_id)"'
+    --header "x-api-key: $ANTHROPIC_API_KEY"
   ```
 
   ```bash CLI
-  # Prints one line per result, e.g. `{"custom_id":"test-1","type":"succeeded",…}`.
+  # Prints one result per line, e.g. `{"custom_id":"test-1","result":{"type":"succeeded",…}}`.
   # For per-result handling (retries, validation errors), use the SDK
   # examples in the other tabs.
   ant messages:batches results \
     --message-batch-id msgbatch_01HkcTjaV5uDC8jWR4ZsDV8d \
-    --transform '{custom_id,"type":result.type,"error":result.error.error.type}' \
     --format jsonl
   ```
 
@@ -957,16 +941,12 @@ You can cancel a Message Batch that is currently processing using the [cancel en
 
 <CodeGroup>
   ```bash cURL
-  #!/bin/sh
-  # ...
   curl --request POST https://api.anthropic.com/v1/messages/batches/$MESSAGE_BATCH_ID/cancel \
       --header "x-api-key: $ANTHROPIC_API_KEY" \
       --header "anthropic-version: 2023-06-01"
   ```
 
   ```bash CLI
-  #!/bin/bash
-  # ...
   ant messages:batches cancel --message-batch-id "$MESSAGE_BATCH_ID"
   ```
 

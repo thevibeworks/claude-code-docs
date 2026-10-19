@@ -96,6 +96,8 @@ The connector calls Microsoft directly from each member's device, so devices nee
 | US Government GCC-High | `login.microsoftonline.us` | `graph.microsoft.us` |
 | US Government DoD | `login.microsoftonline.us` | `dod-graph.microsoft.us` |
 
+Downloads of OneDrive and SharePoint files also need access to your Microsoft tenant's SharePoint and OneDrive hosts. For Office documents, see the network hosts step of [Set up the local connector](/docs/third-party/claude-desktop/connectors-m365#set-up-the-local-connector) in the Claude Desktop documentation.
+
 No outbound access to any Anthropic host is needed for the connector's Microsoft 365 calls.
 
 ## Configure the connector on the Config page

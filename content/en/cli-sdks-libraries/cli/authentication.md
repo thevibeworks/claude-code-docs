@@ -21,7 +21,7 @@ ant auth login --workspace-id wrkspc_01...
 
 # If the named profile you pass with --profile doesn't exist,
 # a new named profile will be created with that name.
-ant auth login --profile <profile-name>
+ant auth login --profile work
 ```
 
 During the browser flow, you select an organization and then a [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces). The issued token is [scoped to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping), so the CLI can only see resources that belong to it. Pass `--workspace-id` to bind directly and skip the picker. To work in more than one workspace, see [Switch between workspaces](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#switch-between-workspaces).

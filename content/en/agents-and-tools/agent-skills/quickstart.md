@@ -374,12 +374,10 @@ The presentation was created in the code execution container and saved as a file
 
   if [[ -n "$file_id" ]]; then
     # Download the file and save it
-    output_path="${TMPDIR:-/tmp}/renewable_energy.pptx"
     curl --fail-with-body -sS "https://api.anthropic.com/v1/files/$file_id/content" \
       -H "x-api-key: $ANTHROPIC_API_KEY" \
       -H "anthropic-version: 2023-06-01" \
-      -o "$output_path"
-    echo "Presentation saved to $output_path"
+      -o "${TMPDIR:-/tmp}/renewable_energy.pptx"
   fi
   ```
 
@@ -399,9 +397,7 @@ The presentation was created in the code execution container and saved as a file
 
   if [[ -n "$file_id" ]]; then
     # Download the file and save it
-    output_path="${TMPDIR:-/tmp}/renewable_energy.pptx"
-    ant files download --file-id "$file_id" --output "$output_path"
-    echo "Presentation saved to $output_path"
+    ant files download --file-id "$file_id" --output "${TMPDIR:-/tmp}/renewable_energy.pptx"
   fi
   ```
 

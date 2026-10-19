@@ -95,9 +95,9 @@ You can construct the client with explicit credentials or with no arguments. Wit
   JWT=$(cat /var/run/secrets/anthropic.com/token)
 
   # 2. Exchange it for a short-lived Anthropic access token.
-  RESPONSE=$(curl -sS https://api.anthropic.com/v1/oauth/token \
+  ACCESS_TOKEN=$(curl -sS https://api.anthropic.com/v1/oauth/token \
     -H "content-type: application/json" \
-    -d @- <<JSON
+    -d @- <<JSON | jq -r .access_token
   {
     "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
     "assertion": "$JWT",
@@ -108,8 +108,6 @@ You can construct the client with explicit credentials or with no arguments. Wit
   }
   JSON
   )
-
-  ACCESS_TOKEN=$(jq -r .access_token <<<"$RESPONSE")
   # The response's expires_in is the token's lifetime in seconds; re-exchange before it elapses.
 
   # 3. Call the API with the access token in the Authorization: Bearer header.

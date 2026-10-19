@@ -1393,68 +1393,14 @@ A long-running conversation might result in multiple compactions. The last compa
 
 You must pass the `compaction` block back to the API on subsequent requests to continue the conversation with the shortened prompt. The simplest approach is to append the entire response content to your messages:
 
-<CodeGroup>
-  ```bash cURL
-  # The response content, including the compaction block, must go back to the
-  # API as the assistant turn of the next request. Managing that message list
-  # doesn't translate well to a one-off shell command; see the CLI and SDK
-  # tabs for the full flow. First request:
-  curl https://api.anthropic.com/v1/messages \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: compact-2026-01-12" \
-    -H "content-type: application/json" \
-    -d '{
-      "model": "claude-opus-5-5",
-      "max_tokens": 4096,
-      "messages": [
-        {
-          "role": "user",
-          "content": "Hello, Claude"
-        }
-      ],
-      "context_management": {
-        "edits": [
-          {
-            "type": "compact_20260112"
-          }
-        ]
-      }
-    }'
-  ```
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  ```bash CLI
-  ant beta:messages create \
-    --beta compact-2026-01-12 \
-    --transform content \
-    --format jsonl <<'YAML' > content.json
-  model: claude-opus-5-5
-  max_tokens: 4096
-  messages:
-    - role: user
-      content: Hello, Claude
-  context_management:
-    edits:
-      - type: compact_20260112
-  YAML
-
-  # After receiving a response with a compaction block, append it as the
-  # assistant turn and continue the conversation
-  ant beta:messages create --beta compact-2026-01-12 <<YAML
-  model: claude-opus-5-5
-  max_tokens: 4096
-  messages:
-    - role: user
-      content: Hello, Claude
-    - role: assistant
-      content: $(cat content.json)
-    - role: user
-      content: Now add error handling
-  context_management:
-    edits:
-      - type: compact_20260112
-  YAML
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   client = anthropic.Anthropic()
@@ -2384,10 +2330,8 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
   ```
 
   ```bash CLI
-  CURRENT=$(ant beta:messages count-tokens \
-    --beta compact-2026-01-12 \
-    --transform input_tokens \
-    --raw-output <<'YAML'
+  ant beta:messages count-tokens \
+    --beta compact-2026-01-12 <<'YAML'
   model: claude-opus-5-5
   messages:
     - role: user
@@ -2396,24 +2340,6 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
     edits:
       - type: compact_20260112
   YAML
-  )
-
-  ORIGINAL=$(ant beta:messages count-tokens \
-    --beta compact-2026-01-12 \
-    --transform context_management.original_input_tokens \
-    --raw-output <<'YAML'
-  model: claude-opus-5-5
-  messages:
-    - role: user
-      content: Hello, Claude
-  context_management:
-    edits:
-      - type: compact_20260112
-  YAML
-  )
-
-  printf 'Current tokens: %s\n' "$CURRENT"
-  printf 'Original tokens: %s\n' "$ORIGINAL"
   ```
 
   ```python Python
@@ -2554,60 +2480,14 @@ The token counting endpoint (`/v1/messages/count_tokens`) applies existing `comp
 
 Here's a complete example of a long-running conversation with compaction:
 
-<CodeGroup>
-  ```bash cURL
-  # curl sends individual requests; maintain the messages array in the
-  # calling script. See the SDK tabs for the full chat() loop. Single-turn
-  # request shape:
-  curl https://api.anthropic.com/v1/messages \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: compact-2026-01-12" \
-    -H "content-type: application/json" \
-    -d '{
-      "model": "claude-opus-5-5",
-      "max_tokens": 4096,
-      "messages": [
-        {
-          "role": "user",
-          "content": "Help me build a Python web scraper"
-        }
-      ],
-      "context_management": {
-        "edits": [
-          {
-            "type": "compact_20260112",
-            "trigger": {
-              "type": "input_tokens",
-              "value": 100000
-            }
-          }
-        ]
-      }
-    }'
-  ```
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  ```bash CLI
-  # The CLI handles individual turns; maintain the messages array in the
-  # calling script. See the SDK tabs for the full chat() loop. Single-turn
-  # request shape:
-  ant beta:messages create \
-    --beta compact-2026-01-12 \
-    --transform 'content.#(type=="text").text' \
-    --raw-output <<'YAML'
-  model: claude-opus-5-5
-  max_tokens: 4096
-  messages:
-    - role: user
-      content: Help me build a Python web scraper
-  context_management:
-    edits:
-      - type: compact_20260112
-        trigger:
-          type: input_tokens
-          value: 100000
-  YAML
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   client = anthropic.Anthropic()
@@ -2902,62 +2782,14 @@ On Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, r
 
 Here's an example that uses `pause_after_compaction` to preserve the prior exchange and the current user message (three messages total) instead of summarizing them. It keeps their text and tool blocks unchanged, removes the `thinking` and `redacted_thinking` blocks from the preserved assistant turn, and drops that turn if nothing else is left:
 
-<CodeGroup>
-  ```bash cURL
-  # curl sends individual requests; maintain the messages array in the
-  # calling script. See the SDK tabs for the full chat() loop with
-  # pause-and-preserve handling. Single-turn request shape:
-  curl https://api.anthropic.com/v1/messages \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2023-06-01" \
-    -H "anthropic-beta: compact-2026-01-12" \
-    -H "content-type: application/json" \
-    -d '{
-      "model": "claude-opus-5-5",
-      "max_tokens": 4096,
-      "messages": [
-        {
-          "role": "user",
-          "content": "Help me build a Python web scraper"
-        }
-      ],
-      "context_management": {
-        "edits": [
-          {
-            "type": "compact_20260112",
-            "trigger": {
-              "type": "input_tokens",
-              "value": 100000
-            },
-            "pause_after_compaction": true
-          }
-        ]
-      }
-    }'
-  ```
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
-  ```bash CLI
-  # The CLI handles individual turns; maintain the messages array in the
-  # calling script. See the SDK tabs for the full chat() loop with
-  # pause-and-preserve handling. Single-turn request shape:
-  ant beta:messages create \
-    --beta compact-2026-01-12 \
-    --transform 'content.#(type=="text").text' \
-    --raw-output <<'YAML'
-  model: claude-opus-5-5
-  max_tokens: 4096
-  messages:
-    - role: user
-      content: Help me build a Python web scraper
-  context_management:
-    edits:
-      - type: compact_20260112
-        trigger:
-          type: input_tokens
-          value: 100000
-        pause_after_compaction: true
-  YAML
-  ```
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+  </CodeGroupItem>
 
   ```python Python
   from typing import Any

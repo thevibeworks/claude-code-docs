@@ -116,7 +116,8 @@ Ask the user to:
 * Sign in to the inference provider, if the app asks
 * Reconnect each connector
 * Enter the environment variables for Code sessions from their original source, because the app masks saved values
-* In each project they use from Chat, add folders and file links again
+* In each project they use from Chat, use **Choose a folder > Choose a different folder** to select the same folders again
+* Add any keys, sign-ins, or settings that their plugins need
 * Set command permissions for plugins
 
 ### Requirements for the new device
@@ -150,7 +151,7 @@ The new device needs:
    * `~/.claude/` and `~/.claude.json`
    * The folders and repositories that the user's projects, scheduled tasks, and Code sessions use
 4. Make the user the owner of the copied files, with read and write access. Give no other user account access to the application-data directory, `~/Claude/` or `~/Documents/Claude/`, `~/.claude/`, or `~/.claude.json`.
-5. Have the user launch Claude Desktop, and confirm that their chats, Cowork tasks, Code sessions, and projects appear. If they don't, check that the managed configuration has the old device's `deploymentOrganizationUuid` and that the user owns the copied files. Soon after launch, a scheduled task runs once if it recently missed a run.
+5. Have the user launch Claude Desktop, sign in if the app asks, and confirm that their chats, Cowork tasks, Code sessions, and projects appear. If they don't, check that the managed configuration has the old device's `deploymentOrganizationUuid` and that the user owns the copied files. Soon after launch, a scheduled task runs once if it recently missed a run.
 6. Have the user [set up what the copy doesn't move](#what-the-user-sets-up-again).
 7. If the old device stays in use, its enabled scheduled tasks run on both devices. Retire the old device, or turn off its scheduled tasks in Claude Desktop there. To remove the user's data from it, see [Removing data](#removing-data).
 

@@ -27,7 +27,7 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (c
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
-  agent_response=$(curl -sS --fail-with-body https://api.anthropic.com/v1/agents \
+  curl -sS --fail-with-body https://api.anthropic.com/v1/agents \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
@@ -47,8 +47,6 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (c
         {"type": "mcp_toolset", "mcp_server_name": "github"}
       ]
     }'
-  )
-  agent_id=$(jq -r '.id' <<<"$agent_response")
   ```
 
   <CodeGroupItem>
@@ -293,7 +291,7 @@ With a `limited` [environment](https://platform.claude.com/docs/en/managed-agent
 
 <CodeGroup>
   ```bash cURL
-  session_response=$(curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
+  curl -sS --fail-with-body https://api.anthropic.com/v1/sessions \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2023-06-01" \
     -H "anthropic-beta: managed-agents-2026-04-01" \
@@ -303,16 +301,13 @@ With a `limited` [environment](https://platform.claude.com/docs/en/managed-agent
       "environment_id": "'"$environment_id"'",
       "vault_ids": ["'"$vault_id"'"]
     }'
-  )
-  session_id=$(jq -r '.id' <<<"$session_response")
   ```
 
   ```bash CLI
-  SESSION_ID=$(ant beta:sessions create \
+  ant beta:sessions create \
     --agent "$AGENT_ID" \
     --environment-id "$ENVIRONMENT_ID" \
-    --vault-id "$VAULT_ID" \
-    --transform id --raw-output)
+    --vault-id "$VAULT_ID"
   ```
 
   ```python Python
