@@ -11,10 +11,10 @@ Build decks from scratch, edit specific slides without regenerating
 everything, convert bullets into diagrams and native charts, and iterate
 on feedback while preserving template compliance.
 
-<Note>
-  Claude for PowerPoint is generally available to Pro, Max,
-  Team, and Enterprise plans.
-</Note>
+> [!NOTE]
+>
+> Claude for PowerPoint is generally available to Pro, Max,
+> Team, and Enterprise plans.
 
 ## What you can do
 
@@ -41,101 +41,95 @@ Claude for PowerPoint runs on the following PowerPoint builds.
 
 ### Install for yourself
 
-<Steps>
-  <Step title="Open the marketplace listing">
-    Go to the [Claude for Microsoft 365 listing on Microsoft AppSource](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview).
-  </Step>
+**1. Open the marketplace listing**
 
-  <Step title="Install the add-in">
-    Select "Get it now" to install.
-  </Step>
+Go to the [Claude for Microsoft 365 listing on Microsoft AppSource](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview).
 
-  <Step title="Sign in">
-    Open PowerPoint, activate the add-in, and sign in with your Claude
-    account.
-  </Step>
-</Steps>
+**2. Install the add-in**
+
+Select "Get it now" to install.
+
+**3. Sign in**
+
+Open PowerPoint, activate the add-in, and sign in with your Claude
+account.
 
 ### Deploy to your organization
 
 Organization admins can deploy Claude for PowerPoint through the
 Microsoft 365 Admin Center.
 
-<Steps>
-  <Step title="Allow Office Store access">
-    In the [Microsoft 365 Admin Center](https://admin.microsoft.com), go
-    to Settings, Org Settings, User owned apps and services, and turn on
-    ["Let users access the Office Store"](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-addins-in-the-admin-center).
-  </Step>
+**1. Allow Office Store access**
 
-  <Step title="Open Integrated apps">
-    Go to Settings, Integrated apps, Add-ins.
-  </Step>
+In the [Microsoft 365 Admin Center](https://admin.microsoft.com), go
+to Settings, Org Settings, User owned apps and services, and turn on
+["Let users access the Office Store"](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-addins-in-the-admin-center).
 
-  <Step title="Find the add-in">
-    Search for "Claude for Microsoft 365" in Microsoft AppSource.
-  </Step>
+**2. Open Integrated apps**
 
-  <Step title="Deploy">
-    Assign the add-in to your organization or to specific users or
-    groups. Share [Microsoft's deployment guide](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins)
-    with your team for activation steps.
-  </Step>
-</Steps>
+Go to Settings, Integrated apps, Add-ins.
 
-<Note>
-  If your organization uses Microsoft Entra Privileged Identity
-  Management (PIM) for admin roles, the Integrated apps page does not
-  recognize roles activated through PIM, so deployment fails. This is a
-  [known Microsoft issue](https://learn.microsoft.com/en-us/office/dev/add-ins/resources/resources-office-add-in-known-issues),
-  tracking ID 11126536. To work around it, deploy from an admin account
-  with the required role assigned as permanently active rather than
-  PIM-eligible. See
-  [Microsoft's troubleshooting guidance](https://learn.microsoft.com/en-us/troubleshoot/microsoft-365/admin/miscellaneous/cannot-deploy-add-in-integrated-apps-menu).
-  Individual users can still
-  [install the add-in themselves](#install-for-yourself).
-</Note>
+**3. Find the add-in**
+
+Search for "Claude for Microsoft 365" in Microsoft AppSource.
+
+**4. Deploy**
+
+Assign the add-in to your organization or to specific users or
+groups. Share [Microsoft's deployment guide](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins)
+with your team for activation steps.
+
+> [!NOTE]
+>
+> If your organization uses Microsoft Entra Privileged Identity
+> Management (PIM) for admin roles, the Integrated apps page does not
+> recognize roles activated through PIM, so deployment fails. This is a
+> [known Microsoft issue](https://learn.microsoft.com/en-us/office/dev/add-ins/resources/resources-office-add-in-known-issues),
+> tracking ID 11126536. To work around it, deploy from an admin account
+> with the required role assigned as permanently active rather than
+> PIM-eligible. See
+> [Microsoft's troubleshooting guidance](https://learn.microsoft.com/en-us/troubleshoot/microsoft-365/admin/miscellaneous/cannot-deploy-add-in-integrated-apps-menu).
+> Individual users can still
+> [install the add-in themselves](#install-for-yourself).
 
 After deployment, users can activate the Claude add-in from Tools,
 Add-ins on Mac or Home, Add-ins on Windows, sign in, and start working.
 
-<Warning>
-  Organizations that have disabled "Let users access the Office Store" may
-  find that admin-deployed add-ins don't appear for users. To work around
-  this, deploy using the manifest XML file described below.
-</Warning>
+> [!WARNING]
+>
+> Organizations that have disabled "Let users access the Office Store" may
+> find that admin-deployed add-ins don't appear for users. To work around
+> this, deploy using the manifest XML file described below.
 
 ### Deploy with a custom manifest
 
 For IT administrators deploying to multiple users when the Office Store
 is disabled:
 
-<Steps>
-  <Step title="Download the manifest">
-    Download the [custom manifest XML file](https://pivot.claude.ai/manifest-powerpoint.xml)
-    and save it to a secure location.
-  </Step>
+**1. Download the manifest**
 
-  <Step title="Open the Admin Center">
-    Go to [https://admin.microsoft.com](https://admin.microsoft.com),
-    sign in, and open Settings, Integrated apps.
-  </Step>
+Download the [custom manifest XML file](https://pivot.claude.ai/manifest-powerpoint.xml)
+and save it to a secure location.
 
-  <Step title="Upload the custom add-in">
-    Select "Upload custom apps", choose "Office Add-in", then
-    "I have a manifest file on this device". Upload the manifest.
-  </Step>
+**2. Open the Admin Center**
 
-  <Step title="Assign users">
-    Choose entire organization, specific users, specific groups, or just
-    yourself for admin testing.
-  </Step>
+Go to [https://admin.microsoft.com](https://admin.microsoft.com),
+sign in, and open Settings, Integrated apps.
 
-  <Step title="Deploy">
-    Review settings and select "Deploy". The add-in is available within
-    minutes. Full organization rollout can take up to 24 hours.
-  </Step>
-</Steps>
+**3. Upload the custom add-in**
+
+Select "Upload custom apps", choose "Office Add-in", then
+"I have a manifest file on this device". Upload the manifest.
+
+**4. Assign users**
+
+Choose entire organization, specific users, specific groups, or just
+yourself for admin testing.
+
+**5. Deploy**
+
+Review settings and select "Deploy". The add-in is available within
+minutes. Full organization rollout can take up to 24 hours.
 
 After deployment, users see Claude in PowerPoint's Home ribbon and sign
 in with their Claude credentials on first use.
@@ -298,11 +292,11 @@ The add-in does not run on these PowerPoint versions.
 
 ## Prompt injection risk
 
-<Warning>
-  Only use Claude for PowerPoint with trusted files. Files from external
-  sources can contain hidden instructions that manipulate the add-in into
-  extracting data, modifying records, or performing destructive actions.
-</Warning>
+> [!WARNING]
+>
+> Only use Claude for PowerPoint with trusted files. Files from external
+> sources can contain hidden instructions that manipulate the add-in into
+> extracting data, modifying records, or performing destructive actions.
 
 External files such as downloaded templates, vendor files,
 collaborative documents, and data imports can contain prompt injections that try to trick

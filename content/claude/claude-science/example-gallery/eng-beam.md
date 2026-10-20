@@ -6,13 +6,7 @@
 
 > Split a 300 mm steel ruler clamped at one end into 4 beam elements and check its bending under 1 N and its first 3 vibration modes against beam theory.
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/eng-beam-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=f7c1012ed8af806d3ec445c6973cf630" alt="Three plots: the ruler bent under 1 N, tip 0.800 mm down as theory says; its first 3 mode shapes at 27.18, 170.53, and 480.62 Hz over theory; and frequency errors falling from 2 to 16 elements." width="1600" height="883" data-path="images/claude-science/example-gallery/eng-beam-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/eng-beam-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=e0296e4f0767e1c3eaa160a9a62e67d4" alt="Three plots: the ruler bent under 1 N, tip 0.800 mm down as theory says; its first 3 mode shapes at 27.18, 170.53, and 480.62 Hz over theory; and frequency errors falling from 2 to 16 elements." width="1600" height="883" data-path="images/claude-science/example-gallery/eng-beam-full-dark.webp" />
-  </Frame>
-</div>
+![Three plots: the ruler bent under 1 N, tip 0.800 mm down as theory says; its first 3 mode shapes at 27.18, 170.53, and 480.62 Hz over theory; and frequency errors falling from 2 to 16 elements.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/eng-beam-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=f7c1012ed8af806d3ec445c6973cf630)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

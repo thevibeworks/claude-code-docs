@@ -12,9 +12,9 @@ Use this page to see the balance your organization spends from and any spend cap
 
 A **billing account** is the funding pool that pays for one or more organizations in your tenant. Your organization's usage on self-managed seat tiers draws directly from this account's balance, and Anthropic adds credit to the account. Your tenant administrator can also set a **spend cap** on your organization, which limits how much it can draw from the account in a rolling 5-hour or 7-day window.
 
-<Note>
-  The **Billing** tab appears in the navigation when the billing account is active and your own organization is active on it. If the tab is hidden, this page is still reachable from a direct link. Funding is arranged with Anthropic by your tenant administrators; contact them about credits or spend caps.
-</Note>
+> [!NOTE]
+>
+> The **Billing** tab appears in the navigation when the billing account is active and your own organization is active on it. If the tab is hidden, this page is still reachable from a direct link. Funding is arranged with Anthropic by your tenant administrators; contact them about credits or spend caps.
 
 ## Billing account
 
@@ -30,9 +30,9 @@ Your organization's usage against the account balance is shown on the [Analytics
 
 The **Seats** section shows the pool of Anthropic-managed seats funded by this account. For each tier the table shows the **Pool** total, which is the number of seats granted to the account, the **Distributed** count, which is how many of those seats have been handed out to organizations, and the **Remaining** count, which is the number still available to distribute.
 
-<Note>
-  The seat allocation editor below only appears when the account has at least one seat tier in its pool.
-</Note>
+> [!NOTE]
+>
+> The seat allocation editor below only appears when the account has at least one seat tier in its pool.
 
 An editor below the table lets you set how many seats of each tier your organization holds. Enter the number you want for each tier and click **Save**. The change takes effect immediately.
 
@@ -45,6 +45,6 @@ The editor enforces the following rules and will refuse a save that violates any
 * You can set a tier to zero seats, which removes the tier from your organization entirely, but only if no one is seated on it.
 * Each tier's seat count can be at most 100,000.
 
-<Tip>
-  Saving your organization's first seat allocation also gives seats to members who have no seat tier, Primary Owners first, as long as nobody holds a seat before the save. Saving any allocation also triggers a directory provisioning sync, so provisioned users who were left unassigned because their mapped tier was full are seated up to the new limit. Anyone else stays unassigned until an owner chooses a tier for them on the [Users](/docs/government/org-admin/users) page.
-</Tip>
+> [!TIP]
+>
+> Saving your organization's first seat allocation also gives seats to members who have no seat tier, Primary Owners first, as long as nobody holds a seat before the save. Saving any allocation also triggers a directory provisioning sync, so provisioned users who were left unassigned because their mapped tier was full are seated up to the new limit. Anyone else stays unassigned until an owner chooses a tier for them on the [Users](/docs/government/org-admin/users) page.

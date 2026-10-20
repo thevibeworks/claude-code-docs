@@ -10,10 +10,10 @@ You can distribute your organization's own plugins by syncing a Git repository t
 
 This page is for the Owner who adds the repository and for the engineer who maintains it. It covers the requirements the repository and its plugin entries must meet for the sync to accept them.
 
-<Note>
-  * If you're choosing who gets each plugin once the repository syncs, see [Manage plugins for your organization](/docs/plugins/admin#set-availability)
-  * If you're writing the `marketplace.json` file, see [Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) in the Claude Code docs
-</Note>
+> [!NOTE]
+>
+> * If you're choosing who gets each plugin once the repository syncs, see [Manage plugins for your organization](/docs/plugins/admin#set-availability)
+> * If you're writing the `marketplace.json` file, see [Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) in the Claude Code docs
 
 To get started, check [how organization sync gets access to your repository](#give-organization-sync-access-to-your-repository) for your Git host, then check your `marketplace.json` against [the plugin sources that organization sync accepts](#plugin-sources-that-organization-sync-accepts).
 
@@ -29,39 +29,37 @@ Members don't need access to the repository themselves, and their Git credential
 
 When you sync a marketplace from github.com, organization sync reads the repository through the Claude GitHub App, and you choose the availability its plugins start with as you add it. To sync a marketplace from a private or internal repository on github.com:
 
-<Steps>
-  <Step title="Open Plugins & skills">
-    Go to [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory).
-  </Step>
+**1. Open Plugins & skills**
 
-  <Step title="Select Sync from GitHub">
-    Select **Add**, then **Sync from GitHub**.
-  </Step>
+Go to [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory).
 
-  <Step title="Connect to GitHub">
-    If the dialog shows **Connect to GitHub**, select it and authorize. GitHub returns you to the dialog.
-  </Step>
+**2. Select Sync from GitHub**
 
-  <Step title="Choose the repository">
-    Search for the repository or enter it as `owner/repo`. The list shows private and internal repositories.
-  </Step>
+Select **Add**, then **Sync from GitHub**.
 
-  <Step title="Install the Claude GitHub App if needed">
-    If the repository isn't in the list, select **Install the Claude GitHub App** under **Repository missing?**, grant the app access to the repository on GitHub, and return to the dialog.
-  </Step>
+**3. Connect to GitHub**
 
-  <Step title="Leave automatic sync on">
-    Leave **Sync automatically** on to sync each time someone pushes to the default branch. Claude creates the webhook on the repository for you.
-  </Step>
+If the dialog shows **Connect to GitHub**, select it and authorize. GitHub returns you to the dialog.
 
-  <Step title="Choose the default access">
-    Choose the **Default access** for the plugins in this marketplace.
-  </Step>
+**4. Choose the repository**
 
-  <Step title="Create the marketplace">
-    Select **Create**.
-  </Step>
-</Steps>
+Search for the repository or enter it as `owner/repo`. The list shows private and internal repositories.
+
+**5. Install the Claude GitHub App if needed**
+
+If the repository isn't in the list, select **Install the Claude GitHub App** under **Repository missing?**, grant the app access to the repository on GitHub, and return to the dialog.
+
+**6. Leave automatic sync on**
+
+Leave **Sync automatically** on to sync each time someone pushes to the default branch. Claude creates the webhook on the repository for you.
+
+**7. Choose the default access**
+
+Choose the **Default access** for the plugins in this marketplace.
+
+**8. Create the marketplace**
+
+Select **Create**.
 
 The marketplace's page opens, and **Last synced** shows **Syncing...** until the first sync finishes. If the dialog says **The Claude GitHub App is not installed on** the repository, grant the Claude GitHub App access to the repository on GitHub and try again.
 
@@ -71,15 +69,13 @@ To turn on automatic sync later, open the marketplace from the [**Marketplaces**
 
 Syncing a marketplace from GitLab needs a GitLab configuration for the host first, which holds the access token that organization sync reads the repository with. To sync a marketplace from gitlab.com or a self-managed GitLab instance:
 
-<Steps>
-  <Step title="Add a GitLab configuration">
-    As an [Owner](https://code.claude.com/docs/en/server-managed-settings#access-control), add a GitLab configuration for that host at [**Organization settings > Git providers**](https://claude.ai/admin-settings/source-control#gitlab). GitLab configurations are in public beta and apply only to plugin marketplace sync.
-  </Step>
+**1. Add a GitLab configuration**
 
-  <Step title="Sync from GitLab">
-    In [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory), select **Add**, then **Sync from GitLab**, as [Add your own plugins](/docs/plugins/admin#add-your-own-plugins) describes. When you add it, enter the project's HTTPS URL, such as `https://gitlab.example.com/platform/claude-plugins`.
-  </Step>
-</Steps>
+As an [Owner](https://code.claude.com/docs/en/server-managed-settings#access-control), add a GitLab configuration for that host at [**Organization settings > Git providers**](https://claude.ai/admin-settings/source-control#gitlab). GitLab configurations are in public beta and apply only to plugin marketplace sync.
+
+**2. Sync from GitLab**
+
+In [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory), select **Add**, then **Sync from GitLab**, as [Add your own plugins](/docs/plugins/admin#add-your-own-plugins) describes. When you add it, enter the project's HTTPS URL, such as `https://gitlab.example.com/platform/claude-plugins`.
 
 Organization sync reads the project's default branch. If you turn on **Sync automatically**, only pushes to the default branch start a sync.
 

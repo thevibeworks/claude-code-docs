@@ -28,9 +28,9 @@ On the host's detail page, set **Scratch directory** (must be on a shared filesy
 
 When Claude proposes a remote job, a **Run this job on `<host>`?** card shows the command and script. Approve with **Once**, **This conversation**, **This project**, or **Global** scope. On approval, the job script and inputs are copied to a job directory under the scratch directory.
 
-<Warning>
-  Remote jobs run outside the sandbox, as your user on the host, with access to everything your account can read and write there.
-</Warning>
+> [!WARNING]
+>
+> Remote jobs run outside the sandbox, as your user on the host, with access to everything your account can read and write there.
 
 Default job timeout is 30 minutes; tell Claude before submitting longer work. When a job finishes, outputs are pulled back into the session. Files over the size threshold (about 100 MB by default) stay on the host, and Claude records their paths.
 

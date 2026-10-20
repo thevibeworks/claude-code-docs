@@ -6,13 +6,7 @@
 
 > Simulate 107 bottles of 16 fruit flies drifting by chance alone and compare them with Peter Buri's real bottles (1956).
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/bio-drift-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=2e5d4d7b916e451a8f4d3fcdbcdb7dd9" alt="Three panels: 107 simulated allele-frequency paths over 19 generations, histograms at generations 1, 5, 10, and 19, and 20,000 replays at 16 and 9 breeding flies against Buri's 58." width="1600" height="706" data-path="images/claude-science/example-gallery/bio-drift-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/bio-drift-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=781269cad496388cf0a1e54ab0d7af64" alt="Three panels: 107 simulated allele-frequency paths over 19 generations, histograms at generations 1, 5, 10, and 19, and 20,000 replays at 16 and 9 breeding flies against Buri's 58." width="1600" height="706" data-path="images/claude-science/example-gallery/bio-drift-full-dark.webp" />
-  </Frame>
-</div>
+![Three panels: 107 simulated allele-frequency paths over 19 generations, histograms at generations 1, 5, 10, and 19, and 20,000 replays at 16 and 9 breeding flies against Buri's 58.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/bio-drift-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=2e5d4d7b916e451a8f4d3fcdbcdb7dd9)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

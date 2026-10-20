@@ -6,9 +6,9 @@
 
 > Give Claude its own GitLab identity to read projects, manage issues, review merge requests, and check pipelines. Covers the account, token, and connector.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting GitLab lets Claude read repository contents, manage issues, review and comment on merge requests, and check pipeline status from any channel where the GitLab connector applies, all through the GitLab API. Unlike GitHub, there is no Claude app to install in GitLab. Instead, you give Claude its own GitLab user and add that user's personal access token as a connector.
 
@@ -44,29 +44,29 @@ Create a [personal access token](https://docs.gitlab.com/user/profile/personal_a
 
 Set an expiry that matches your rotation policy, and store the token somewhere you can retrieve it once; GitLab shows it only at creation.
 
-<Note>Group access tokens and project access tokens also work in the same field. The service-account approach is recommended because one token covers every group you add the account to, and the identity on comments and issues is yours to name. A group or project token is scoped to that single group or project and appears under a GitLab-generated bot name.</Note>
+> [!NOTE]
+>
+> Group access tokens and project access tokens also work in the same field. The service-account approach is recommended because one token covers every group you add the account to, and the identity on comments and issues is yours to name. A group or project token is scoped to that single group or project and appears under a GitLab-generated bot name.
 
 ## Add the token as a connector
 
 The first GitLab token you add from the **Connectors** tab is on in every workspace and channel as soon as you save it. To add GitLab for only the channels a bundle covers, add it from the bundle's page under **What's in it** instead; see [Create a bundle](/docs/claude-tag/admins/add-connections#create-a-bundle). To add it for one workspace or channel, [connect it from that place's page](/docs/claude-tag/admins/add-connections#connect-a-service-for-one-workspace-or-channel).
 
-<Steps>
-  <Step title="Open the Connectors tab">
-    Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and click **Add**.
-  </Step>
+**1. Open the Connectors tab**
 
-  <Step title="Connect GitLab">
-    Search for **GitLab** and select it. Paste the token into **Claude’s personal access token** and click **Connect**.
-  </Step>
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and click **Add**.
 
-  <Step title="Choose where GitLab applies">
-    If this is GitLab's first token, GitLab is now on in every workspace and channel. A later token starts off everywhere until you pick its places under **Assign access** on GitLab's page. To use GitLab in only some channels, [restrict it on GitLab's page](/docs/claude-tag/admins/add-connections#restrict-a-connector-to-some-channels).
-  </Step>
+**2. Connect GitLab**
 
-  <Step title="Add the GitLab plugin">
-    If your organization's plugin library includes a GitLab plugin, add it where GitLab applies so Claude knows how to call the GitLab API. See [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins). The connector works without the plugin, which adds ready-made workflows.
-  </Step>
-</Steps>
+Search for **GitLab** and select it. Paste the token into **Claude’s personal access token** and click **Connect**.
+
+**3. Choose where GitLab applies**
+
+If this is GitLab's first token, GitLab is now on in every workspace and channel. A later token starts off everywhere until you pick its places under **Assign access** on GitLab's page. To use GitLab in only some channels, [restrict it on GitLab's page](/docs/claude-tag/admins/add-connections#restrict-a-connector-to-some-channels).
+
+**4. Add the GitLab plugin**
+
+If your organization's plugin library includes a GitLab plugin, add it where GitLab applies so Claude knows how to call the GitLab API. See [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins). The connector works without the plugin, which adds ready-made workflows.
 
 The token is held by [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) and injected on every API request to your GitLab host. The model and the session sandbox never see it.
 

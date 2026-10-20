@@ -8,15 +8,15 @@
 
 MCP Apps are interactive interfaces that appear within Claude's conversational flow. These guidelines are for developers designing an MCP App's UI.
 
-<Note>
-  If you haven't built and connected an MCP App yet, see [Get started with MCP Apps](/docs/connectors/building/mcp-apps/getting-started).
-</Note>
+> [!NOTE]
+>
+> If you haven't built and connected an MCP App yet, see [Get started with MCP Apps](/docs/connectors/building/mcp-apps/getting-started).
 
 Use the guidelines to [pick a display mode](#display-modes), [adapt to mobile](#mobile-guidelines), match Claude's [visual design](#visual-design) with the host's [style variables](#style-variables), and decide which [interactions](#interaction-patterns) belong in your app and which belong in chat.
 
-<Tip>
-  The [Figma UI kit](https://www.figma.com/community/file/1597641111449594397/mcp-apps-for-claude) has components and patterns to start from.
-</Tip>
+> [!TIP]
+>
+> The [Figma UI kit](https://www.figma.com/community/file/1597641111449594397/mcp-apps-for-claude) has components and patterns to start from.
 
 ## Design for the conversation
 
@@ -59,9 +59,9 @@ An inline card is a compact component embedded directly in the conversation. Kee
 * Brief summaries with optional expansion
 * Quick actions that continue the conversation
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/inline-card-1.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=0c7825c89be73ad56d0a90e4c979401d" alt="Inline card example showing a compact component" width="1999" height="1423" data-path="images/mcp-apps/inline-card-1.png" />
+![Inline card example showing a compact component](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/inline-card-1.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=0c7825c89be73ad56d0a90e4c979401d)
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/inline-card-2.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=344f114b1012838b4805b48d496201c0" alt="Inline card example showing a data display" width="1999" height="1423" data-path="images/mcp-apps/inline-card-2.png" />
+![Inline card example showing a data display](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/inline-card-2.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=344f114b1012838b4805b48d496201c0)
 
 Inline cards have these constraints:
 
@@ -73,7 +73,7 @@ Inline cards have these constraints:
 
 On mobile, inline cards render full-width within the conversation. Make every tap target at least 44pt, and adapt content to narrower viewports without horizontal scrolling.
 
-<img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/inline-card-mobile.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=3d2afa48da4f1d31cce9c0bb91a18807" alt="Inline card mobile examples" width="1999" height="838" data-path="images/mcp-apps/inline-card-mobile.png" />
+![Inline card mobile examples](https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/inline-card-mobile.png?fit=max\&auto=format\&n=sLZLADaApRAVEV6C\&q=85\&s=3d2afa48da4f1d31cce9c0bb91a18807)
 
 ### Inline carousel
 
@@ -84,7 +84,7 @@ An inline carousel shows items side by side for browsing options. Users swipe or
 * Media galleries
 * Any set of comparable items
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/inline-carousel-1.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=ef6b5615726ad25708ebdedf586226ae" alt="Inline carousel example showing browsable items" width="1999" height="1423" data-path="images/mcp-apps/inline-carousel-1.png" />
+![Inline carousel example showing browsable items](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/inline-carousel-1.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=ef6b5615726ad25708ebdedf586226ae)
 
 Inline carousels have these constraints:
 
@@ -96,7 +96,7 @@ Inline carousels have these constraints:
 
 On mobile, carousel cards are optimized for horizontal swipe. Design for thumb reach by keeping primary actions in the lower portion of cards, and let the next card peek into view to signal that the row scrolls.
 
-<img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/inline-carousel-mobile.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=2bf64edd4fdefe8a37188ca4f2f32f4e" alt="Inline carousel mobile examples" width="1999" height="1022" data-path="images/mcp-apps/inline-carousel-mobile.png" />
+![Inline carousel mobile examples](https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/inline-carousel-mobile.png?fit=max\&auto=format\&n=sLZLADaApRAVEV6C\&q=85\&s=2bf64edd4fdefe8a37188ca4f2f32f4e)
 
 ### Full screen
 
@@ -108,9 +108,9 @@ Full screen mode gives complex interactions an immersive interface. The conversa
 * Content that benefits from focused attention
 * Rich tasks requiring more space than inline allows
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/fullscreen-1.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=a4b491bb475bab8ed146c1bc953516ec" alt="Full screen mode example" width="1999" height="1423" data-path="images/mcp-apps/fullscreen-1.png" />
+![Full screen mode example](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/fullscreen-1.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=a4b491bb475bab8ed146c1bc953516ec)
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/fullscreen-2.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=8523c5ae46ab7492586044ff5fabea32" alt="Full screen mode with data visualization" width="1999" height="1423" data-path="images/mcp-apps/fullscreen-2.png" />
+![Full screen mode with data visualization](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/fullscreen-2.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=8523c5ae46ab7492586044ff5fabea32)
 
 Full screen mode has these constraints:
 
@@ -121,7 +121,7 @@ Full screen mode has these constraints:
 
 On mobile, your app fills the entire screen with the chat input and navigation bar overlaid on top, so keep critical UI within the safe area. Use the full viewport width, and support both portrait and landscape where it makes sense.
 
-<img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/fullscreen-mobile.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=d2802346090fd1a7af6a1bdc1d7c3263" alt="Full screen mobile examples" width="1999" height="716" data-path="images/mcp-apps/fullscreen-mobile.png" />
+![Full screen mobile examples](https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/fullscreen-mobile.png?fit=max\&auto=format\&n=sLZLADaApRAVEV6C\&q=85\&s=d2802346090fd1a7af6a1bdc1d7c3263)
 
 ## Mobile guidelines
 
@@ -137,7 +137,7 @@ Render the interactive portion of your app inside the safe area so the mobile na
 
 Read `hostContext.safeAreaInsets.{top, right, bottom, left}`, which are pixel values, and apply them as padding on your root container, or as `scroll-padding` on scroll-snap containers so items come to rest inside the visible region. Safe areas aren't mobile-specific: on web and desktop the composer can overlay the bottom of an inline app, so avoid placing interactive controls flush against any edge.
 
-<img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/safe-area-fullscreen.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=d789bcbba50a3bff53d677478421de30" alt="Safe area insets in full screen mode on web and mobile" width="1999" height="1153" data-path="images/mcp-apps/safe-area-fullscreen.png" />
+![Safe area insets in full screen mode on web and mobile](https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/safe-area-fullscreen.png?fit=max\&auto=format\&n=sLZLADaApRAVEV6C\&q=85\&s=d789bcbba50a3bff53d677478421de30)
 
 #### Borderless inline content
 
@@ -145,7 +145,7 @@ Set `_meta.ui.prefersBorder` to `true` or `false` to control whether your conten
 
 In borderless mode your content runs edge-to-edge with no host padding, so honoring `safeAreaInsets` becomes essential. The bordered card's built-in padding otherwise absorbs most of them. Borderless works well for carousels and other horizontally scrolling content that should bleed to the screen edges while in motion: apply `safeAreaInsets.left` and `.right` as `scroll-padding-inline` on the scroll container so items at rest sit clear of the device edges but can scroll underneath them.
 
-<img src="https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/safe-area-borderless-mobile.png?fit=max&auto=format&n=sLZLADaApRAVEV6C&q=85&s=9936d8064beb2fc37e39b10ab1e727a9" alt="Safe area insets for borderless inline apps on mobile" width="1999" height="1857" data-path="images/mcp-apps/safe-area-borderless-mobile.png" />
+![Safe area insets for borderless inline apps on mobile](https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/safe-area-borderless-mobile.png?fit=max\&auto=format\&n=sLZLADaApRAVEV6C\&q=85\&s=9936d8064beb2fc37e39b10ab1e727a9)
 
 ### Declare supported display modes
 
@@ -178,7 +178,7 @@ The `frameDomains` field, for embedding third-party iframes, is restricted in Cl
 * Use full-width layouts, without side margins that waste mobile screen space
 * Let content reflow gracefully, and avoid fixed-width layouts
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-viewport-layout.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=d2244b6ff7e2d6c5e7b2c36fd2d901ed" alt="Viewport and layout do's and don'ts" width="1718" height="1238" data-path="images/mcp-apps/mobile-viewport-layout.png" />
+![Viewport and layout do's and don'ts](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-viewport-layout.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=d2244b6ff7e2d6c5e7b2c36fd2d901ed)
 
 ### Touch targets
 
@@ -187,7 +187,7 @@ The `frameDomains` field, for embedding third-party iframes, is restricted in Cl
 * Larger, thumb-friendly buttons rather than small text links
 * Primary actions within natural thumb reach, in the lower portion of the screen
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-touch-targets.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=95bd5b4393d85a67b74e894331d5f4b0" alt="Touch target do's and don'ts" width="1718" height="1238" data-path="images/mcp-apps/mobile-touch-targets.png" />
+![Touch target do's and don'ts](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-touch-targets.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=95bd5b4393d85a67b74e894331d5f4b0)
 
 ### Scrolling and gestures
 
@@ -203,19 +203,19 @@ If your app needs its own vertically scrollable viewport, request fullscreen pre
 * Provide a clear visual affordance for expansion, such as a fullscreen button or tap-to-expand
 * Closing fullscreen returns to the conversation at the same scroll position
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-transitions.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=343fe75a1428c1874568c10e02de9aa8" alt="Transition from inline card to full screen" width="1718" height="1222" data-path="images/mcp-apps/mobile-transitions.png" />
+![Transition from inline card to full screen](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-transitions.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=343fe75a1428c1874568c10e02de9aa8)
 
 ### Dark mode
 
 All views must support both light and dark themes. Use the host's style tokens, which adapt automatically, and never hardcode colors. Test both modes.
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-dark-mode.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=79df1abf42e75b052ad7c28ac71c4413" alt="Dark mode examples on mobile" width="1999" height="1315" data-path="images/mcp-apps/mobile-dark-mode.png" />
+![Dark mode examples on mobile](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-dark-mode.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=79df1abf42e75b052ad7c28ac71c4413)
 
 ### Loading states
 
 Show skeleton screens while content loads, and match the layout structure of the final content so the swap is smooth. Avoid spinners for inline content, because skeletons feel more native.
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-loading-states.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=9e7df0fa2294bbcbcc24bf079cbc5ff6" alt="Loading state examples on mobile" width="1718" height="1130" data-path="images/mcp-apps/mobile-loading-states.png" />
+![Loading state examples on mobile](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/mobile-loading-states.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=9e7df0fa2294bbcbcc24bf079cbc5ff6)
 
 ## Visual design
 
@@ -225,29 +225,29 @@ MCP Apps should feel native to their environment while maintaining consistent vi
 
 Use host tokens for all structural elements: backgrounds, text, borders, and icons. You can use your own brand colors for accents and identity, but the core UI should use the provided palette.
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/color-tokens.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=173ce1948ae87b9e72b0854b5d27f4e1" alt="Color token examples for light and dark mode" width="1999" height="1863" data-path="images/mcp-apps/color-tokens.png" />
+![Color token examples for light and dark mode](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/color-tokens.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=173ce1948ae87b9e72b0854b5d27f4e1)
 
 ### Typography
 
 Stick to the three-level size scale of heading, body, and caption, and the two weights of regular and emphasized. This creates clear hierarchy without visual noise.
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/typography.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=51ce152aab3d975ae57c5e5792dc6097" alt="Typography scale examples" width="1999" height="936" data-path="images/mcp-apps/typography.png" />
+![Typography scale examples](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/typography.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=51ce152aab3d975ae57c5e5792dc6097)
 
-<Note>
-  The Figma Community File uses Anthropic Sans and Anthropic Serif. When your app runs inside Claude, the host client provides Anthropic Sans at runtime through style variables. For local development, [download and install the fonts](https://brand.anthropic.com/typography).
-</Note>
+> [!NOTE]
+>
+> The Figma Community File uses Anthropic Sans and Anthropic Serif. When your app runs inside Claude, the host client provides Anthropic Sans at runtime through style variables. For local development, [download and install the fonts](https://brand.anthropic.com/typography).
 
 ### Borders
 
 Use a limited set of corner radii and border thicknesses to keep your app feeling native to the surrounding UI.
 
-<img src="https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/borders.png?fit=max&auto=format&n=IPtAfld1XUBVOx8m&q=85&s=1755cc995399c9d6bf25a1405ff139f4" alt="Border radius examples" width="1999" height="201" data-path="images/mcp-apps/borders.png" />
+![Border radius examples](https://mintcdn.com/claude-ai/IPtAfld1XUBVOx8m/images/mcp-apps/borders.png?fit=max\&auto=format\&n=IPtAfld1XUBVOx8m\&q=85\&s=1755cc995399c9d6bf25a1405ff139f4)
 
 ### Icons
 
 Use monochromatic, outlined icons that match the host's icon color tokens. Icons should support understanding rather than be essential to it.
 
-<img src="https://mintcdn.com/claude-ai/IXMfN0TT8kfXbN6T/images/mcp-apps/icons.png?fit=max&auto=format&n=IXMfN0TT8kfXbN6T&q=85&s=1454f1f3e5e13107cbe543e8d6d617df" alt="Icon style examples" width="1320" height="768" data-path="images/mcp-apps/icons.png" />
+![Icon style examples](https://mintcdn.com/claude-ai/IXMfN0TT8kfXbN6T/images/mcp-apps/icons.png?fit=max\&auto=format\&n=IXMfN0TT8kfXbN6T\&q=85\&s=1454f1f3e5e13107cbe543e8d6d617df)
 
 ### Spacing
 

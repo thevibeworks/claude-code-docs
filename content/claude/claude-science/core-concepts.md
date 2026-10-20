@@ -18,9 +18,9 @@ Claude reads and writes files in place, in the folders you grant. Anthropic does
 
 The one exception to working in place is **Attach files** in the composer: attached files are copied into the application's local data folder so they stay with the conversation.
 
-<Warning>
-  Don't move, rename, or delete files inside \~/.claude-science directly. Doing so can break artifact links and version history. Manage artifacts through the app.
-</Warning>
+> [!WARNING]
+>
+> Don't move, rename, or delete files inside \~/.claude-science directly. Doing so can break artifact links and version history. Manage artifacts through the app.
 
 ## Permission cards
 

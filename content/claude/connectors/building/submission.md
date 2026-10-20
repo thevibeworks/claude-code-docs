@@ -10,9 +10,9 @@ You submit a remote MCP server to the [Connectors Directory](/docs/connectors/di
 
 This page is for connector authors who are ready to submit. It starts with a [checklist](#pre-submission-checklist-for-connectors), then covers [where to submit your connector](#choose-where-to-submit-your-connector), the [requirements every submission must meet](#meet-the-submission-requirements), and [what to have ready for each step of the portal](#submit-through-the-developer-portal). [Connector review criteria](/docs/connectors/building/review-criteria) explains what reviewers look for in your tools and server, so read it alongside the checklist.
 
-<Note>
-  If you're submitting a plugin rather than a connector, see [Submit a plugin](/docs/plugins/submit) instead.
-</Note>
+> [!NOTE]
+>
+> If you're submitting a plugin rather than a connector, see [Submit a plugin](/docs/plugins/submit) instead.
 
 ## Pre-submission checklist for connectors
 
@@ -86,9 +86,9 @@ The privacy policy must cover:
 * Data retention
 * Contact information
 
-<Warning>
-  Missing or incomplete privacy policies result in immediate rejection.
-</Warning>
+> [!WARNING]
+>
+> Missing or incomplete privacy policies result in immediate rejection.
 
 ### Allowed link URIs
 
@@ -133,49 +133,47 @@ The developer portal at [claude.ai/directory/manage](https://claude.ai/directory
 
 Your progress saves automatically in your browser as you move between steps, so within a browser session you can return to earlier steps without losing work. Each step asks for the following:
 
-<Steps>
-  <Step title="Connection">
-    Connect the server you're submitting, by pasting its `https://` URL or choosing a custom connector you've already added to Claude. If your users connect to different URLs, select **Users connect to different URLs** and choose **Multiple URLs** or **URL pattern**.
-  </Step>
+**1. Connection**
 
-  <Step title="Tools">
-    Your server's tools, prompts, and resources sync automatically from the connected server, grouped by whether their annotations declare them read-only or write. If any tools are flagged for missing titles or annotations, fix them on your server before submitting.
-  </Step>
+Connect the server you're submitting, by pasting its `https://` URL or choosing a custom connector you've already added to Claude. If your users connect to different URLs, select **Users connect to different URLs** and choose **Multiple URLs** or **URL pattern**.
 
-  <Step title="Listing">
-    The public-facing listing: server name up to 100 characters, one-liner up to 200 characters, description up to 2,000 characters, one to five categories, documentation URL, privacy policy URL, support contact, icon, and the URL slug for your listing page. The slug is permanent once published.
-  </Step>
+**2. Tools**
 
-  <Step title="Use cases">
-    The primary use cases, what users need before they can connect, such as accounts, plans, or other setup, and whether the connector reads data, writes data, or both.
-  </Step>
+Your server's tools, prompts, and resources sync automatically from the connected server, grouped by whether their annotations declare them read-only or write. If any tools are flagged for missing titles or annotations, fix them on your server before submitting.
 
-  <Step title="Company">
-    Company name and website, plus a primary contact for review updates.
-  </Step>
+**3. Listing**
 
-  <Step title="Authentication">
-    How users authenticate: OAuth with dynamic client registration, client ID metadata documents, or Anthropic-held client credentials; a custom connection where users supply their own URL or credentials at connection time; or no authentication. [Authentication](/docs/connectors/building/authentication) covers which modes are supported directly and which need coordination with the review team. If your server starts without authentication and individual tools prompt for it on demand, you can flag that here.
+The public-facing listing: server name up to 100 characters, one-liner up to 200 characters, description up to 2,000 characters, one to five categories, documentation URL, privacy policy URL, support contact, icon, and the URL slug for your listing page. The slug is permanent once published.
 
-    If you chose **URL pattern** in the Connection step, Anthropic-held client credentials can't be used. If you chose **Multiple URLs**, a custom connection can't be used.
-  </Step>
+**4. Use cases**
 
-  <Step title="Data handling">
-    Whether the underlying API is your own, proxied from a partner with permission, or a third party's you don't control, and whether the connector handles personal health data or sponsored content.
-  </Step>
+The primary use cases, what users need before they can connect, such as accounts, plans, or other setup, and whether the connector reads data, writes data, or both.
 
-  <Step title="Test & launch">
-    Test-account setup and access instructions detailed enough for a reviewer to connect to your server and run its tools: every link, credential, and step, including credentials for a fully populated account where relevant. You also confirm you've run every tool yourself, either through MCP Inspector or as a custom connector in Claude.
-  </Step>
+**5. Company**
 
-  <Step title="Compliance">
-    Seven policy acknowledgments covering the directory guidelines, first-party API usage, financial transactions, AI media generation, prompt injection, conversation data collection, and public documentation. All seven are required.
-  </Step>
+Company name and website, plus a primary contact for review updates.
 
-  <Step title="Review and submit">
-    Everything you've entered, for a final check before you submit. Any quality warnings, such as very short answers, appear here and are shared with the review team alongside your submission.
-  </Step>
-</Steps>
+**6. Authentication**
+
+How users authenticate: OAuth with dynamic client registration, client ID metadata documents, or Anthropic-held client credentials; a custom connection where users supply their own URL or credentials at connection time; or no authentication. [Authentication](/docs/connectors/building/authentication) covers which modes are supported directly and which need coordination with the review team. If your server starts without authentication and individual tools prompt for it on demand, you can flag that here.
+
+If you chose **URL pattern** in the Connection step, Anthropic-held client credentials can't be used. If you chose **Multiple URLs**, a custom connection can't be used.
+
+**7. Data handling**
+
+Whether the underlying API is your own, proxied from a partner with permission, or a third party's you don't control, and whether the connector handles personal health data or sponsored content.
+
+**8. Test & launch**
+
+Test-account setup and access instructions detailed enough for a reviewer to connect to your server and run its tools: every link, credential, and step, including credentials for a fully populated account where relevant. You also confirm you've run every tool yourself, either through MCP Inspector or as a custom connector in Claude.
+
+**9. Compliance**
+
+Seven policy acknowledgments covering the directory guidelines, first-party API usage, financial transactions, AI media generation, prompt injection, conversation data collection, and public documentation. All seven are required.
+
+**10. Review and submit**
+
+Everything you've entered, for a final check before you submit. Any quality warnings, such as very short answers, appear here and are shared with the review team alongside your submission.
 
 ## After you submit
 

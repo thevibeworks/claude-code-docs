@@ -4,9 +4,9 @@
 
 # Versioning Published MCP Servers
 
-<Note>
-  The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
-</Note>
+> [!NOTE]
+>
+> The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
 
 MCP servers **MUST** define a version string in `server.json`. For example:
 
@@ -36,9 +36,9 @@ The version string **MUST** be unique for each publication of the server. Once p
 
 The MCP Registry recommends [semantic versioning](https://semver.org/), but supports any version string format. When a server is published, the MCP Registry will attempt to parse its version as a semantic version string for sorting purposes, and will mark the version as "latest" if appropriate. If parsing fails, the version will always be marked as "latest".
 
-<Warning>
-  If a server uses semantic version strings but publishes a new version that does *not* conform to semantic versioning, the new version will be marked as "latest" even if it would otherwise be sorted before the semantic version strings.
-</Warning>
+> [!WARNING]
+>
+> If a server uses semantic version strings but publishes a new version that does *not* conform to semantic versioning, the new version will be marked as "latest" even if it would otherwise be sorted before the semantic version strings.
 
 As an error prevention mechanism, the MCP Registry prohibits version strings that appear to refer to ranges of versions.
 
@@ -152,9 +152,9 @@ If you anticipate publishing a server multiple times *without* changing the unde
 }
 ```
 
-<Warning>
-  According to semantic versioning, prerelease versions such as `1.2.3-1` are sorted before regular semantic versions such as `1.2.3`. Therefore, if you publish a prerelease version *after* its corresponding regular version, the prerelease version will **not** be marked as "latest".
-</Warning>
+> [!WARNING]
+>
+> According to semantic versioning, prerelease versions such as `1.2.3-1` are sorted before regular semantic versions such as `1.2.3`. Therefore, if you publish a prerelease version *after* its corresponding regular version, the prerelease version will **not** be marked as "latest".
 
 ## Aggregator Recommendations
 

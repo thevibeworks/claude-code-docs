@@ -69,13 +69,13 @@ browser.
 See [Configure a custom OpenTelemetry collector](/docs/office-agents/opentelemetry)
 for the configuration keys, endpoint requirements, and full span reference.
 
-<Note>
-  The usage analytics and spend tracking sections below apply when users
-  sign in with their Claude accounts directly. When connecting through a
-  third-party platform such as Amazon Bedrock, Google Cloud Vertex AI,
-  Azure AI Foundry, or an LLM gateway, usage and spend are tracked through
-  your cloud provider's billing console and your gateway's logging instead.
-</Note>
+> [!NOTE]
+>
+> The usage analytics and spend tracking sections below apply when users
+> sign in with their Claude accounts directly. When connecting through a
+> third-party platform such as Amazon Bedrock, Google Cloud Vertex AI,
+> Azure AI Foundry, or an LLM gateway, usage and spend are tracked through
+> your cloud provider's billing console and your gateway's logging instead.
 
 ## Usage analytics
 

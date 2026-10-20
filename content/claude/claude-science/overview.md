@@ -12,9 +12,9 @@ You describe a research task or analysis in plain language; Claude writes and ru
 
 Your files stay on your computer, and code runs in a sandbox. You approve each new folder, network host, and remote job before Claude can use it.
 
-<Note>
-  Claude can make mistakes. The reviewer reduces, but doesn't eliminate, errors. It checks claims against the execution record and doesn't re-run analyses. Verify results before relying on them in research, publication, or downstream decisions. Claude Science is a research tool and isn't intended for clinical or diagnostic use.
-</Note>
+> [!NOTE]
+>
+> Claude can make mistakes. The reviewer reduces, but doesn't eliminate, errors. It checks claims against the execution record and doesn't re-run analyses. Verify results before relying on them in research, publication, or downstream decisions. Claude Science is a research tool and isn't intended for clinical or diagnostic use.
 
 ## Use Claude Science outside the life sciences
 

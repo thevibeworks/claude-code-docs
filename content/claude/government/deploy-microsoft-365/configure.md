@@ -62,67 +62,63 @@ Microsoft doesn't offer its **Integrated apps** page in its [government clouds](
 
 ### Deploy from the Add-ins page
 
-<Steps>
-  <Step title="Open the Microsoft 365 admin center">
-    Sign in to the Microsoft 365 admin center for your cloud with an account that can deploy add-ins.
-  </Step>
+**1. Open the Microsoft 365 admin center**
 
-  <Step title="Open the Add-ins page">
-    In the left pane, select **Show all**, then select **Settings** > **Add-ins**.
-  </Step>
+Sign in to the Microsoft 365 admin center for your cloud with an account that can deploy add-ins.
 
-  <Step title="Start a custom deployment">
-    Select **Deploy Add-in**, then select **Next**.
-  </Step>
+**2. Open the Add-ins page**
 
-  <Step title="Choose a custom upload">
-    Under **Deploy a custom add-in**, select **Upload custom apps**.
-  </Step>
+In the left pane, select **Show all**, then select **Settings** > **Add-ins**.
 
-  <Step title="Upload the manifest">
-    Choose the option to upload a manifest file from your device, browse to the `manifest-fedstart.xml` file you saved, and select **Upload**.
-  </Step>
+**3. Start a custom deployment**
 
-  <Step title="Choose users">
-    On the **Configure add-in** page, choose who gets the add-in: **Everyone**, **Specific users/groups**, or **Just me**. Deploying to yourself or a small group first lets you confirm the add-in works on a representative device before a wider rollout.
-  </Step>
+Select **Deploy Add-in**, then select **Next**.
 
-  <Step title="Deploy">
-    Select **Deploy**.
-  </Step>
-</Steps>
+**4. Choose a custom upload**
+
+Under **Deploy a custom add-in**, select **Upload custom apps**.
+
+**5. Upload the manifest**
+
+Choose the option to upload a manifest file from your device, browse to the `manifest-fedstart.xml` file you saved, and select **Upload**.
+
+**6. Choose users**
+
+On the **Configure add-in** page, choose who gets the add-in: **Everyone**, **Specific users/groups**, or **Just me**. Deploying to yourself or a small group first lets you confirm the add-in works on a representative device before a wider rollout.
+
+**7. Deploy**
+
+Select **Deploy**.
 
 ### Deploy from Integrated apps
 
-<Steps>
-  <Step title="Open the Microsoft 365 admin center">
-    Sign in to the Microsoft 365 admin center with an account that can deploy add-ins.
-  </Step>
+**1. Open the Microsoft 365 admin center**
 
-  <Step title="Open Integrated apps">
-    Select **Settings** > **Integrated apps**.
-  </Step>
+Sign in to the Microsoft 365 admin center with an account that can deploy add-ins.
 
-  <Step title="Start a custom upload">
-    Select **Upload custom apps** and choose **Office Add-in** as the app type.
-  </Step>
+**2. Open Integrated apps**
 
-  <Step title="Upload the manifest">
-    Choose the option to upload the manifest file from your device and upload `manifest-fedstart.xml`.
-  </Step>
+Select **Settings** > **Integrated apps**.
 
-  <Step title="Choose users">
-    Assign the add-in to everyone, specific users or groups, or just yourself. A small group first lets you confirm it works before a wider rollout.
-  </Step>
+**3. Start a custom upload**
 
-  <Step title="Review the summary">
-    Select **Next** through the remaining pages and review the summary.
-  </Step>
+Select **Upload custom apps** and choose **Office Add-in** as the app type.
 
-  <Step title="Finish the deployment">
-    Select **Finish deployment**.
-  </Step>
-</Steps>
+**4. Upload the manifest**
+
+Choose the option to upload the manifest file from your device and upload `manifest-fedstart.xml`.
+
+**5. Choose users**
+
+Assign the add-in to everyone, specific users or groups, or just yourself. A small group first lets you confirm it works before a wider rollout.
+
+**6. Review the summary**
+
+Select **Next** through the remaining pages and review the summary.
+
+**7. Finish the deployment**
+
+Select **Finish deployment**.
 
 A deployment can take up to 24 hours to reach every assigned user, and users may need to restart the Office application before the add-in appears.
 
@@ -143,16 +139,14 @@ When the user returns to the pane it shows **You're signed in**, and selecting *
 
 ## Confirm the deployment
 
-<Steps>
-  <Step title="Open the pane">
-    As a user you assigned the add-in to, open Excel, Word, or PowerPoint, select the **Claude** button on the **Home** tab of the ribbon, then select **Log in** in the pane.
-  </Step>
+**1. Open the pane**
 
-  <Step title="Sign in">
-    Complete sign-in in the browser as described under [What users see](#what-users-see), select **Continue** if the pane shows it, and step through the welcome screens.
-  </Step>
+As a user you assigned the add-in to, open Excel, Word, or PowerPoint, select the **Claude** button on the **Home** tab of the ribbon, then select **Log in** in the pane.
 
-  <Step title="Ask Claude about the file">
-    Ask Claude a question about the open file and confirm it answers.
-  </Step>
-</Steps>
+**2. Sign in**
+
+Complete sign-in in the browser as described under [What users see](#what-users-see), select **Continue** if the pane shows it, and step through the welcome screens.
+
+**3. Ask Claude about the file**
+
+Ask Claude a question about the open file and confirm it answers.

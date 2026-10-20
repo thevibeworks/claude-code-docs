@@ -6,13 +6,7 @@
 
 > Follow a random surfer on Wikipedia's 11-page example until the numbers settle, and reproduce all 11 published values to 0.1 point.
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/cs-pagerank-tiny-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=44bf56115d462e279420a8cfb04b1499" alt="Three panels: the 11-page web as circles sized by PageRank, the 11 shares settling to B 38.4%, C 34.3%, and E 8.1%, and bars showing that C's one link brings 32.7 points while E's six bring 6.5." width="1600" height="594" data-path="images/claude-science/example-gallery/cs-pagerank-tiny-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/cs-pagerank-tiny-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=e857b5662f0295df70aaea333313232b" alt="Three panels: the 11-page web as circles sized by PageRank, the 11 shares settling to B 38.4%, C 34.3%, and E 8.1%, and bars showing that C's one link brings 32.7 points while E's six bring 6.5." width="1600" height="594" data-path="images/claude-science/example-gallery/cs-pagerank-tiny-full-dark.webp" />
-  </Frame>
-</div>
+![Three panels: the 11-page web as circles sized by PageRank, the 11 shares settling to B 38.4%, C 34.3%, and E 8.1%, and bars showing that C's one link brings 32.7 points while E's six bring 6.5.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/cs-pagerank-tiny-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=44bf56115d462e279420a8cfb04b1499)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

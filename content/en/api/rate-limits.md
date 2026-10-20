@@ -275,7 +275,7 @@ Example: If your Organization's limit is 40,000 input tokens per minute and 8,00
 
 Note:
 
-* You can't set limits on the default Workspace.
+* You can't set spend limits on the default Workspace.
 * If not set, Workspace limits match the Organization's limit.
 * Workspace limits are set per limiter type (such as requests per minute, input tokens per minute, or output tokens per minute).
 * Organization-wide limits always apply, even if Workspace limits add up to more.

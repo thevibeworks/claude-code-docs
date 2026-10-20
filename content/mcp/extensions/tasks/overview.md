@@ -8,9 +8,9 @@
 
 The [ext-tasks repository](https://github.com/modelcontextprotocol/ext-tasks) contains the full specification and documentation for MCP Tasks.
 
-<Card title="modelcontextprotocol/ext-tasks" icon="github" href="https://github.com/modelcontextprotocol/ext-tasks">
-  Full specification and documentation for MCP Tasks.
-</Card>
+> **[modelcontextprotocol/ext-tasks](https://github.com/modelcontextprotocol/ext-tasks)**
+>
+> Full specification and documentation for MCP Tasks.
 
 Not every tool call returns instantly. Some operations — CI pipelines, batch
 processing, human approvals — take seconds, minutes, or longer. MCP Tasks let
@@ -148,110 +148,106 @@ them instead of polling.
 
 To consume task-augmented responses, your client must:
 
-<Steps>
-  <Step title="Declare support">
-    Include the extension in its per-request capabilities:
+**1. Declare support**
 
-    ```jsonc theme={null}
-    {
-      "jsonrpc": "2.0",
-      "id": 1,
-      "method": "...",
-      "params": {
-        // Other fields...
-        "_meta": {
-          // Other fields...
-          "io.modelcontextprotocol/clientCapabilities": {
-            "extensions": {
-              "io.modelcontextprotocol/tasks": {},
-            },
-          },
+Include the extension in its per-request capabilities:
+
+```jsonc theme={null}
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "...",
+  "params": {
+    // Other fields...
+    "_meta": {
+      // Other fields...
+      "io.modelcontextprotocol/clientCapabilities": {
+        "extensions": {
+          "io.modelcontextprotocol/tasks": {},
         },
       },
-    }
-    ```
-  </Step>
+    },
+  },
+}
+```
 
-  <Step title="Handle polymorphic results">
-    When issuing a supported request (e.g., `tools/call`), be prepared to receive
-    either the standard result or a `CreateTaskResult` with `resultType: "task"`.
-  </Step>
+**2. Handle polymorphic results**
 
-  <Step title="Poll for completion">
-    Call `tasks/get` with the returned `taskId`, respecting the `pollIntervalMs`
-    value. Continue polling until the task reaches a terminal status (`completed`,
-    `failed`, or `cancelled`).
-  </Step>
+When issuing a supported request (e.g., `tools/call`), be prepared to receive
+either the standard result or a `CreateTaskResult` with `resultType: "task"`.
 
-  <Step title="Handle input requests">
-    If the task status is `input_required`, read the `inputRequests` map, present
-    the requests to the user or model, and submit responses via `tasks/update`.
-  </Step>
+**3. Poll for completion**
 
-  <Step title="Persist task IDs">
-    Store task IDs durably so polling can resume after a client crash or restart.
-  </Step>
-</Steps>
+Call `tasks/get` with the returned `taskId`, respecting the `pollIntervalMs`
+value. Continue polling until the task reaches a terminal status (`completed`,
+`failed`, or `cancelled`).
+
+**4. Handle input requests**
+
+If the task status is `input_required`, read the `inputRequests` map, present
+the requests to the user or model, and submit responses via `tasks/update`.
+
+**5. Persist task IDs**
+
+Store task IDs durably so polling can resume after a client crash or restart.
 
 ### For MCP servers
 
 To return tasks from your server:
 
-<Steps>
-  <Step title="Advertise support">
-    Include the extension in your `server/discover` capabilities:
+**1. Advertise support**
 
-    ```jsonc theme={null}
-    {
-      "jsonrpc": "2.0",
-      "id": 1,
-      "result": {
-        // Other fields...
-        "capabilities": {
-          "extensions": {
-            "io.modelcontextprotocol/tasks": {},
-          },
-        },
+Include the extension in your `server/discover` capabilities:
+
+```jsonc theme={null}
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    // Other fields...
+    "capabilities": {
+      "extensions": {
+        "io.modelcontextprotocol/tasks": {},
       },
-    }
-    ```
-  </Step>
+    },
+  },
+}
+```
 
-  <Step title="Check client capabilities">
-    Before returning a `CreateTaskResult`, verify that the client included the
-    extension in its per-request capabilities. Never return a task to a client that
-    did not declare support.
-  </Step>
+**2. Check client capabilities**
 
-  <Step title="Return CreateTaskResult">
-    When a request will be long-running, respond with `resultType: "task"` and a
-    `Task` object containing a unique `taskId`, initial status, `ttlMs`, and
-    `pollIntervalMs`. The task must be durably created before sending the response.
-  </Step>
+Before returning a `CreateTaskResult`, verify that the client included the
+extension in its per-request capabilities. Never return a task to a client that
+did not declare support.
 
-  <Step title="Serve tasks/get">
-    Return the current task state on each poll. For terminal states, include the
-    `result` (on `completed`) or `error` (on `failed`) field.
-  </Step>
+**3. Return CreateTaskResult**
 
-  <Step title="Handle tasks/update">
-    Accept `inputResponses` keyed to outstanding `inputRequests`. Acknowledge with
-    an empty result. Ignore responses for unknown or already-satisfied keys.
-  </Step>
+When a request will be long-running, respond with `resultType: "task"` and a
+`Task` object containing a unique `taskId`, initial status, `ttlMs`, and
+`pollIntervalMs`. The task must be durably created before sending the response.
 
-  <Step title="Handle tasks/cancel">
-    Acknowledge cancellation requests with an empty result. Honor them when
-    possible, but cancellation is cooperative — the task may still reach a
-    non-`cancelled` terminal status.
-  </Step>
-</Steps>
+**4. Serve tasks/get**
+
+Return the current task state on each poll. For terminal states, include the
+`result` (on `completed`) or `error` (on `failed`) field.
+
+**5. Handle tasks/update**
+
+Accept `inputResponses` keyed to outstanding `inputRequests`. Acknowledge with
+an empty result. Ignore responses for unknown or already-satisfied keys.
+
+**6. Handle tasks/cancel**
+
+Acknowledge cancellation requests with an empty result. Honor them when
+possible, but cancellation is cooperative — the task may still reach a
+non-`cancelled` terminal status.
 
 ## Client support
 
-<Note>
-  MCP Tasks is an extension to the [core MCP specification](/specification/latest). Host
-  support varies by client.
-</Note>
+> [!NOTE]
+>
+> MCP Tasks is an extension to the [core MCP specification](/specification/latest). Host
+> support varies by client.
 
 See the [client matrix](/extensions/client-matrix) for extension support across
 clients. Task support requires explicit opt-in from both client and server.

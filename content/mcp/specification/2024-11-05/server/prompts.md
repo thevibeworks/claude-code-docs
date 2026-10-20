@@ -19,7 +19,7 @@ interface, which allows users to naturally discover and invoke available prompts
 
 For example, as slash commands:
 
-<img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/specification/2024-11-05/server/slash-command.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=ae78d658be66d75446ffd37a36e944c9" alt="Example of prompt exposed as slash command" width="293" height="106" data-path="specification/2024-11-05/server/slash-command.png" />
+![Example of prompt exposed as slash command](https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/specification/2024-11-05/server/slash-command.png?fit=max\&auto=format\&n=4ZXF1PrDkEaJvXpn\&q=85\&s=ae78d658be66d75446ffd37a36e944c9)
 
 However, implementors are free to expose prompts through any interface pattern that suits
 their needs—the protocol itself does not mandate any specific user interaction

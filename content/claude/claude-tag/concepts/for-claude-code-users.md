@@ -6,9 +6,9 @@
 
 > Which parts of a Claude Code setup carry into Claude Tag, which move to admin settings, and how Slack threads map to sessions.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude Tag runs the same engine as Claude Code. When you tag `@Claude` in Slack with a task, a session starts in a sandbox that your organization configures, not on your machine. That sandbox is the same infrastructure that runs [Claude Code on the web](https://code.claude.com/docs/en/web-quickstart), described in [Compute and the sandbox](/docs/claude-tag/concepts/security-and-data#compute-and-the-sandbox).
 

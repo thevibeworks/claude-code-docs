@@ -10,29 +10,27 @@
 
 A plugin is a package that adds capabilities to Claude in a single step, such as skills, slash commands, sub-agents, and hooks. Plugins work in Cowork and in Code. See the [Plugins overview](/docs/plugins/overview) for more on what a plugin can contain.
 
-<Frame caption="Video: Connectors, plugins, and skills from your agency (2 min 6 s). Narrated with an AI-generated voice, with on-screen captions.">
-  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-04-connectors-plugins-and-skills.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=953d050db0ec38bd9d0db7399e96cf40" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" data-path="images/government/videos/user-04-connectors-plugins-and-skills.mp4" />
-</Frame>
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/user-04-connectors-plugins-and-skills.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=953d050db0ec38bd9d0db7399e96cf40" aria-label="Video walkthrough: Connectors, plugins, and skills from your agency" />
 
-<Accordion title="Transcript">
-  Open Customize in the sidebar for your skills, connectors, and plugins. A connector lets Claude reach another service. The ones you can use come from your organization: here, Microsoft 365 and Web Search.
-
-  If your organization has set up Microsoft 365, select Connect and sign in with your Microsoft work account. Claude can then search your mail, calendar, files, and Teams chats, reaching only what you can already open.
-
-  In a chat, ask about your mail, and Claude asks before it searches. The card shows the search it wants to run. Allow it once, allow it for this task, or deny it.
-
-  A plugin packages skills and commands from your organization. Plugins lists the ones already installed. Some install automatically. Open one to see its skills and switch it on or off.
-
-  To find the rest, select Browse and open the Organization tab, which lists everything your organization offers you. Each plugin's plus sign installs it, and it then appears under Plugins.
-
-  A skill teaches Claude one task your way, set up once and reused. If your organization allows it, select Add under Skills. Upload skill takes a skill file you have, and Create a skill lets you write one.
-
-  The skill appears in your list, switched on. Skills you add stay on this computer. To give one to colleagues, your administrators package it in a plugin.
-
-  Back in Chat, ask for something the skill covers and Claude loads it on its own. Here it rewrites a sentence in plain language.
-
-  If Microsoft 365, web search, or a plugin you expect is missing, ask your organization's owner, who decides what is turned on for you.
-</Accordion>
+> **Transcript**
+>
+> Open Customize in the sidebar for your skills, connectors, and plugins. A connector lets Claude reach another service. The ones you can use come from your organization: here, Microsoft 365 and Web Search.
+>
+> If your organization has set up Microsoft 365, select Connect and sign in with your Microsoft work account. Claude can then search your mail, calendar, files, and Teams chats, reaching only what you can already open.
+>
+> In a chat, ask about your mail, and Claude asks before it searches. The card shows the search it wants to run. Allow it once, allow it for this task, or deny it.
+>
+> A plugin packages skills and commands from your organization. Plugins lists the ones already installed. Some install automatically. Open one to see its skills and switch it on or off.
+>
+> To find the rest, select Browse and open the Organization tab, which lists everything your organization offers you. Each plugin's plus sign installs it, and it then appears under Plugins.
+>
+> A skill teaches Claude one task your way, set up once and reused. If your organization allows it, select Add under Skills. Upload skill takes a skill file you have, and Create a skill lets you write one.
+>
+> The skill appears in your list, switched on. Skills you add stay on this computer. To give one to colleagues, your administrators package it in a plugin.
+>
+> Back in Chat, ask for something the skill covers and Claude loads it on its own. Here it rewrites a sentence in plain language.
+>
+> If Microsoft 365, web search, or a plugin you expect is missing, ask your organization's owner, who decides what is turned on for you.
 
 ## Where plugins come from
 
@@ -62,4 +60,4 @@ A plugin you upload or create is added only on the device you are using.
 
 ## What plugins add in Claude for Government
 
-A plugin adds its skills, slash commands, sub-agents, and hooks, and its hooks run on your machine at defined points during a session. The connectors your administrators provide appear under **Customize**, then **Connectors**. Connectors declared by a plugin you add yourself are not added to Claude Desktop's connectors.
+A plugin adds its skills, slash commands, sub-agents, and hooks, and its hooks run on your machine at defined points during a session. The connectors your administrators provide appear under **Customize**, then **Connectors**. A plugin can also declare connectors of its own. Whether they connect depends on the settings your administrators choose.

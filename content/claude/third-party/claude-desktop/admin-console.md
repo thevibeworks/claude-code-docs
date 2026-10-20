@@ -6,11 +6,15 @@
 
 > Manage your organization's Claude Desktop 3P configuration centrally with the Enterprise Admin Console, hosted by Anthropic
 
-<Note>
-  The Enterprise Admin Console for Desktop 3P is in beta. Contact your Anthropic representative to have an organization provisioned.
-</Note>
+> [!NOTE]
+>
+> The Enterprise Admin Console for Desktop 3P is generally available.
 
-With the Enterprise Admin Console, Anthropic hosts your organization's [Claude Desktop 3P](/docs/third-party/claude-desktop/overview) configuration, and your administrators manage it centrally instead of pushing files to each device. You sign in to the console in a browser and choose your inference provider, the app's settings, and which groups of users get which settings, rather than authoring an [MDM](/docs/third-party/claude-desktop/mdm) profile or running a [bootstrap server](/docs/third-party/claude-desktop/bootstrap). Your users sign in to Claude Desktop once with their work account, through your single sign-on if you connect it. The app then downloads the settings that apply to them and sends every model request to your provider.
+> [!NOTE]
+>
+> To use the Enterprise Admin Console, contact your Anthropic representative to have an organization provisioned.
+
+With the Enterprise Admin Console, Anthropic hosts your organization's [Claude Desktop 3P](/docs/third-party/claude-desktop/overview) configuration, and your administrators manage it centrally instead of pushing files to each device. You sign in to the console in a browser and choose your inference provider, the app's settings, and which groups of users get which settings, rather than authoring an [MDM](/docs/third-party/claude-desktop/mdm) profile or running a [bootstrap server](/docs/third-party/claude-desktop/bootstrap). Your users sign in to Claude Desktop with their work account, through your single sign-on if you connect it. The app then downloads the settings that apply to them and sends every model request to your provider.
 
 Prompts, responses, and files go to your inference provider, as they do with MDM or a bootstrap server. Anthropic holds your user list and the settings you save. If you turn on usage analytics, Anthropic also holds token and session counts from your users' apps. Anthropic never holds provider credentials such as API keys or your users' tokens. For the full list of what Anthropic stores, see [Where your data goes](#where-your-data-goes).
 
@@ -18,7 +22,7 @@ Prompts, responses, and files go to your inference provider, as they do with MDM
 
 Anthropic creates a Claude Enterprise organization for your deployment and invites a Primary Owner. Your administrators sign in to that organization at [claude.ai](https://claude.ai) and open **Organization settings**. There they add users and groups, connect single sign-on, assign administrator roles, and edit the Claude Desktop configuration for the whole organization and for individual groups.
 
-On each device, the user signs in to Claude Desktop once. The app recognizes that the account belongs to a third-party deployment, downloads the configuration that applies to that user, and asks the user to restart. After the restart, the app runs in third-party mode. It sends model requests to your inference provider, as it does with MDM or bootstrap delivery.
+On each device, the user signs in to Claude Desktop. The app recognizes that the account belongs to a third-party deployment, downloads the configuration that applies to that user, and asks the user to restart. After the restart, the app runs in third-party mode. It sends model requests to your inference provider, as it does with MDM or bootstrap delivery.
 
 While the app runs, it re-checks the configuration on a timer. When you save a change, the app downloads it at the next check and, for most settings, asks the user to relaunch, as described under [Configuration updates](#configuration-updates). You don't push an MDM profile or run a bootstrap server.
 
@@ -41,7 +45,9 @@ Anthropic stores your organization's user accounts and the configuration you sav
 | Essential telemetry (crash and error reports) and non-essential telemetry (product analytics) | **Yes**, unless you turn them off on the **Telemetry & updates** page. Neither contains prompt or response content. [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) describes what each category contains. |
 | Usage analytics: session, token, and estimated-cost counts per user, conversation, and model | **Yes**, if you turn on the **Report desktop usage to this organization** switch on the **Telemetry & updates** page. The switch is off by default. Users' apps report new counts only while the switch is on, and turning the switch off doesn't delete counts that Anthropic has already received. The counts contain no prompt, response, or file content. [Usage analytics](#usage-analytics) lists exactly what each report contains. |
 
-The app contacts `api.anthropic.com` at every launch to check the user's sign-in and download the configuration. While the app runs, it contacts `api.anthropic.com` again every 10 minutes by default to check for configuration changes. The app contacts `claude.ai` when the user signs in. Both hosts are in addition to the hosts listed on [Telemetry and egress](/docs/third-party/claude-desktop/telemetry). While usage analytics is on, the app also sends its token and session counts to `api.anthropic.com` every few minutes during use and when it quits, so usage analytics needs no additional firewall entry.
+The app contacts `api.anthropic.com` at every launch to check the user's sign-in and download the configuration. While the app runs, it contacts `api.anthropic.com` again every 10 minutes by default to check for configuration changes. The app contacts `claude.ai` when the user signs in, and the `claude.ai` sign-in and approval pages run a browser check from `hcaptcha.com` and `*.hcaptcha.com`. If those two hosts are blocked, signing in can fail with a message that the browser couldn't be verified, whichever sign-in method your organization uses.
+
+`api.anthropic.com`, `claude.ai`, `hcaptcha.com`, and `*.hcaptcha.com` are in addition to the hosts listed on [Telemetry and egress](/docs/third-party/claude-desktop/telemetry). While usage analytics is on, the app also sends its token and session counts to `api.anthropic.com` every few minutes during use and when it quits, so usage analytics needs no additional firewall entry.
 
 ## Get set up
 
@@ -57,15 +63,15 @@ A new organization starts set to **Invite only**, so only people you invite can 
 
 When the new organization shares your existing organization's single sign-on connection, as described under [Get set up](#get-set-up), you still choose, separately for each organization, how people join it and which groups from your identity provider it uses. Groups synced from your identity provider through SCIM appear among the organization's groups and can carry their own settings, as described under [Per-group permission policies](#per-group-permission-policies).
 
-The Claude sign-in is separate from the sign-in to your inference provider or gateway, and the app never sends Claude account credentials or tokens to your provider. Users sign in to Claude once to receive their settings. They then authenticate to your provider the same way they do with MDM or bootstrap delivery.
+The Claude sign-in is separate from the sign-in to your inference provider or gateway, and the app never sends Claude account credentials or tokens to your provider. Users sign in to Claude to receive their settings. They then authenticate to your provider the same way they do with MDM or bootstrap delivery.
 
 ## Configure Claude Desktop
 
 Sign in at [claude.ai](https://claude.ai), switch to the organization, and open **Organization settings**. The **Desktop 3P** section in the left navigation has one page per settings area, listed under [What you can configure](#what-you-can-configure). Each field sets one of the documented [configuration keys](/docs/third-party/claude-desktop/configuration), and the console checks values as you type and again when you click **Save changes**.
 
-<Note>
-  Save the **Connection** page, where you choose your inference provider, before the other pages. The console doesn't accept **Save changes** on any other page until a connection is saved. A user who signs in to Claude Desktop and clicks **Restart** before a connection is saved stays in standard Claude Desktop instead of switching to your configuration. After you save the connection, ask those users to quit and reopen Claude Desktop, then restart when prompted.
-</Note>
+> [!NOTE]
+>
+> Save the **Connection** page, where you choose your inference provider, before the other pages. The console doesn't accept **Save changes** on any other page until a connection is saved. A user who signs in to Claude Desktop and clicks **Restart** before a connection is saved stays in standard Claude Desktop instead of switching to your configuration. After you save the connection, ask those users to quit and reopen Claude Desktop, then restart when prompted.
 
 ### Start from an existing configuration file
 
@@ -100,13 +106,15 @@ From the console you can set the same [configuration keys](/docs/third-party/cla
 
 The console refuses API keys, tokens, and secrets anywhere in the configuration, including in request headers and MCP server settings. The one exception is the client secret of a Google Desktop-app OAuth client, for [Google sign-in to your inference provider](#choose-how-users-authenticate-to-your-provider) or a [managed MCP server that signs in with Google](/docs/third-party/claude-desktop/mcp-sign-in#where-the-client-secret-goes), which Google doesn't treat as confidential. Users authenticate to your provider on the device, as described under [Choose how users authenticate to your provider](#choose-how-users-authenticate-to-your-provider).
 
+A setting takes effect only on Claude Desktop releases that support it, so a device on an earlier release gets a new restriction only after it updates. The [configuration changelog](/docs/third-party/claude-desktop/configuration-changelog) lists the release that added each key.
+
 Most of these settings can also differ per group of users, on the **Permission policies** page under **People**, as described under [Per-group permission policies](#per-group-permission-policies).
 
 ### Choose how users authenticate to your provider
 
-<Tip>
-  Choose an interactive sign-in wherever your provider offers one. It is the recommended credential kind for a deployment managed from the console. Users sign in inside the app with their own accounts, and there is no shared credential to distribute to devices or rotate.
-</Tip>
+> [!TIP]
+>
+> Choose an interactive sign-in wherever your provider offers one. It is the recommended credential kind for a deployment managed from the console. Users sign in inside the app with their own accounts, and there is no shared credential to distribute to devices or rotate.
 
 The console never holds a provider credential. The **Credential kind** field on the **Connection** page tells Claude Desktop how each user's device obtains one, and offers the kinds your provider supports: **Interactive sign-in** in the app, **Identity provider sign-in (OIDC)** (for example, for [Amazon Bedrock behind an authenticating proxy](/docs/third-party/claude-desktop/bedrock#sign-in-with-your-identity-provider)), **Workforce Identity** (Google Cloud's Agent Platform only), **Cloud vendor profile** (an AWS profile or Google Cloud credentials file already on the device), or **Helper script** (a [credential helper](/docs/third-party/claude-desktop/credential-helper) on the device). Static API keys and bearer tokens aren't offered, because the console refuses to store them. The same **Connection** settings go to every user, so a credential kind that depends on something present on each device works only if your device management puts it there.
 
@@ -160,33 +168,31 @@ Unified Claude is in beta. In an organization with no saved configuration, the c
 
 While Unified Claude is on, it overrides the **Chat**, [**Advanced file analysis**](/docs/third-party/claude-desktop/chat#advanced-file-analysis), and **Cowork** switches, including where you turned one of them off.
 
-<Warning>
-  While Unified Claude is on for your organization, it is on for every group. That includes a group whose policy turns Chat or Cowork off. You can't return a group to separate Chat and Cowork until you turn Unified Claude off for your organization.
-
-  To keep Chat, advanced file analysis, and Cowork off for a group, turn off the **Chat and Cowork unified view** switch in the group's policy. Where Unified Claude is still off for your organization, set the group's switches before you turn Unified Claude on. Turn on the group's **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is on, turn it off. To keep a group's own **Chat** and **Cowork** switches in effect, keep Unified Claude off for your organization. Turn it on only in the policies of the groups that should have it. For a member of several groups, Unified Claude comes from the highest-ranked of their policies that sets it, even when a higher-ranked policy turns Chat or Cowork off.
-</Warning>
+> [!WARNING]
+>
+> While Unified Claude is on for your organization, it is on for every group. That includes a group whose policy turns Chat or Cowork off. You can't return a group to separate Chat and Cowork until you turn Unified Claude off for your organization.
+>
+> To keep Chat, advanced file analysis, and Cowork off for a group, turn off the **Chat and Cowork unified view** switch in the group's policy. Where Unified Claude is still off for your organization, set the group's switches before you turn Unified Claude on. Turn on the group's **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is on, turn it off. To keep a group's own **Chat** and **Cowork** switches in effect, keep Unified Claude off for your organization. Turn it on only in the policies of the groups that should have it. For a member of several groups, Unified Claude comes from the highest-ranked of their policies that sets it, even when a higher-ranked policy turns Chat or Cowork off.
 
 To turn on Unified Claude for your whole organization, open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. Under **Allowed surfaces**, turn on the **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is off, turn it on. Click **Save changes**.
 
 To turn on Unified Claude for some groups only:
 
-<Steps>
-  <Step title="Make sure Unified Claude is off for your organization">
-    Open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. If the **Opt into the new Chat and Cowork unified view** switch under **Allowed surfaces** is off, continue with the next step. If the switch is on, turn it off, set the **Chat** and **Cowork** switches that reappear, and click **Save changes**.
-  </Step>
+**1. Make sure Unified Claude is off for your organization**
 
-  <Step title="Open the group's policy">
-    Go to the **Permission policies** page under **People**. Open the group's policy, or click **Add permission policy** and pick the group, as described under [Per-group permission policies](#per-group-permission-policies).
-  </Step>
+Open **Organization settings** and go to the **Capabilities** page under **Desktop 3P**. If the **Opt into the new Chat and Cowork unified view** switch under **Allowed surfaces** is off, continue with the next step. If the switch is on, turn it off, set the **Chat** and **Cowork** switches that reappear, and click **Save changes**.
 
-  <Step title="Turn on Unified Claude for the group">
-    In the policy's **Capabilities** section, turn on the **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is off, turn it on.
-  </Step>
+**2. Open the group's policy**
 
-  <Step title="Save the policy">
-    Click **Save changes**.
-  </Step>
-</Steps>
+Go to the **Permission policies** page under **People**. Open the group's policy, or click **Add permission policy** and pick the group, as described under [Per-group permission policies](#per-group-permission-policies).
+
+**3. Turn on Unified Claude for the group**
+
+In the policy's **Capabilities** section, turn on the **Opt into the new Chat and Cowork unified view** switch. If the **Chat and Cowork unified view** switch under it is off, turn it on.
+
+**4. Save the policy**
+
+Click **Save changes**.
 
 Turn off Unified Claude for your organization or for a group:
 
@@ -218,18 +224,16 @@ When you turn on the switch, a running app trims its copy at its next configurat
 
 Usage analytics lets your administrators see how much each user uses Chat, Cowork, and Code in Claude Desktop. Usage analytics is off by default. A member with the Owner or Primary Owner role can turn it on: open **Organization settings**, go to the **Telemetry & updates** page under **Desktop 3P**, and turn on the **Report desktop usage to this organization** switch.
 
-As a beta feature, usage analytics hasn't yet been reviewed for HIPAA compliance. Anthropic will provide guidance on HIPAA compliance at general availability. For now, if your organization needs HIPAA compliance, don't turn on the switch.
-
 Claude Desktop 1.46388.1 and later report usage. While the switch is on, each user's app counts its Chat, Cowork, and Code activity. The app sends the counts to Anthropic every few minutes during use and when it quits. A running app starts or stops reporting at its next configuration check (every 10 minutes by default), without a relaunch. Anthropic stores the counts for your organization and ties each report to the user's Claude account.
 
 The counts appear on the **Desktop usage** page. To open the page, click **Analytics** in the user menu on claude.ai, or **Desktop usage** under **Desktop 3P** in **Organization settings**. The page includes the following:
 
-* Sessions and tokens for Chat, Cowork, and Code (the page labels Code **Claude Code**).
-* A daily chart.
+* Sessions and tokens for Chat, Cowork, and Code (the page labels Code **Claude Code**). Token totals leave out cached tokens, which your provider also bills. The counts are approximate. For example, an app that stops unexpectedly can lose its last few minutes of counts.
+* A daily chart. Days and months on the page are in UTC.
 * A chart of tokens by model.
 * A **Team** table with one row for each member who reported usage that month. Each row shows the member's name and email from your member list, their sessions, their tokens, and their last active day.
 
-Click a member's row in the **Team** table to show only that member's sessions and tokens. When the month's reports include cost estimates, switch the control at the top of the page from **Tokens** to **Cost** to show estimated cost in US dollars instead of tokens. Estimated cost and the chart of tokens by model cover the whole organization, and the page doesn't show them while a single member is selected.
+Click a member's row in the **Team** table to show only that member's sessions and tokens. When the month's reports include cost estimates, switch the control at the top of the page from **Tokens** to **Cost** to show estimated cost in US dollars instead of tokens. In the **Cost** view, the **Team** table shows each member's estimated cost. While a single member is selected, the page doesn't show estimated cost or the chart of tokens by model.
 
 To download a CSV file, click the **Export** button above the **Team** table. The file has one row for each member who matches the table's search, including the member's input, output, cache read, and cache write tokens and, when the month has estimates, their estimated cost.
 
@@ -262,29 +266,29 @@ Before the first user signs in, confirm the following:
 * Single sign-on is connected, if you use it, and the users you want on this deployment are invited or provisioned, as described under [Connect your identity provider](#connect-your-identity-provider)
 * Devices run the latest Claude Desktop release, installed as described in [Installation and setup](/docs/third-party/claude-desktop/installation)
 * Devices carry no MDM-delivered Claude Desktop configuration other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) (the update, configuration re-check, relaunch window, and network proxy keys). For a device that keeps a managed profile or registry policy with any other key, see [Devices with a managed profile](#devices-with-a-managed-profile).
-* Devices can reach `api.anthropic.com` at every launch and while the app runs, and `claude.ai` when users sign in, in addition to the hosts on [Telemetry and egress](/docs/third-party/claude-desktop/telemetry)
+* Devices can reach `api.anthropic.com` at every launch and while the app runs, and `claude.ai`, `hcaptcha.com`, and `*.hcaptcha.com` when users sign in, in addition to the hosts on [Telemetry and egress](/docs/third-party/claude-desktop/telemetry)
 
 A device picks up the configuration from the admin console the first time the user signs in to Claude in the app. Walk through it on a test device first.
 
-<Steps>
-  <Step title="Sign in to Claude">
-    Open Claude Desktop and sign in on the standard sign-in screen with your work email address, through your organization's single sign-on if you use it.
-  </Step>
+**1. Sign in to Claude**
 
-  <Step title="Restart when prompted">
-    The app shows a dialog titled with your organization's name that reads "Your organization's Claude settings have changed. Restart to apply them." You can't dismiss the dialog. Click **Restart**, and the app relaunches in third-party mode with your configuration. An account that also belongs to another Claude organization sees a **Switch and restart** prompt instead, as described under [Users in more than one Claude organization](#users-in-more-than-one-claude-organization).
-  </Step>
+Open Claude Desktop and sign in on the standard sign-in screen with your work email address, through your organization's single sign-on if you use it.
 
-  <Step title="Sign in to the inference provider">
-    If your connection uses an interactive sign-in, sign in to your inference provider or gateway next, as with MDM or bootstrap delivery.
-  </Step>
+**2. Restart when prompted**
 
-  <Step title="Check the result">
-    The account menu at the bottom of the sidebar shows your organization's name and an **Inference configuration** item marked **Managed by your organization**, and **Settings → Privacy** names your inference provider. On a device whose managed profile sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence), the account menu shows your organization's name without the **Inference configuration** item.
-  </Step>
-</Steps>
+The app shows a dialog titled with your organization's name that reads "Your organization's Claude settings have changed. Restart to apply them." You can't dismiss the dialog. Click **Restart**, and the app relaunches in third-party mode with your configuration. An account that also belongs to another Claude organization sees a **Switch and restart** prompt instead, as described under [Users in more than one Claude organization](#users-in-more-than-one-claude-organization).
+
+**3. Sign in to the inference provider**
+
+If your connection uses an interactive sign-in, sign in to your inference provider or gateway next, as with MDM or bootstrap delivery.
+
+**4. Check the result**
+
+The account menu at the bottom of the sidebar shows your organization's name and an **Inference configuration** item marked **Managed by your organization**, and **Settings → Privacy** names your inference provider. On a device whose managed profile sets any key other than the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence), the account menu shows your organization's name without the **Inference configuration** item.
 
 If something looks wrong, **Help → Troubleshooting → Generate Diagnostic Report** produces a report that shows where the app read its configuration from. You can share it with your Anthropic representative.
+
+Give each user their own computer login. Claude Desktop keeps conversation history for each computer login and organization, not for each Claude account, and **Sign out** doesn't delete it. Members of your organization who share a computer login see each other's conversations. If people must share a login, ask each person to choose **Sign out** from the account menu when they finish, so that the next person signs in with their own Claude account.
 
 ### Users in more than one Claude organization
 
@@ -304,38 +308,43 @@ An app that isn't running picks up the change at its next launch. Connection and
 
 If a setting is changed that affects where users' apps connect or sign in, or what can run on their devices (including when permission policies are added, removed, or reordered), Owners receive an email alert with the identity of the administrator who made the change.
 
+### When the Claude sign-in expires
+
+About once a month, a user's sign-in to Claude on a device expires.
+
+* **App not running**: the app asks the user to sign in again at its next launch.
+* **App running**: the app keeps its current settings, and conversations continue. Until the user signs in again, the app doesn't download [configuration changes](#configuration-updates) or report [usage analytics](#usage-analytics). From Claude Desktop 2.42304.0, the app shows a **Your session has expired** banner with a **Sign in again** button. The banner appears in places such as the home screen and Code, but not in an open chat or Cowork task. Earlier releases show no message, and the user quits and reopens the app to sign in again.
+
 ## Migrate an existing fleet to the admin console
 
 If your fleet gets its Claude Desktop configuration from [MDM](/docs/third-party/claude-desktop/mdm), a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), or the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), you can move it to the admin console and keep your inference provider, unless that provider is the [Claude API](#limitations). Users' earlier work [stays on each device](#where-your-data-goes). The app copies that work on the same device so it appears under your organization. Try these steps on a test device first.
 
-<Steps>
-  <Step title="Import your configuration">
-    Upload your current configuration, as described under [Start from an existing configuration file](#start-from-an-existing-configuration-file). Put settings that differ between groups of users in [per-group permission policies](#per-group-permission-policies).
-  </Step>
+**1. Import your configuration**
 
-  <Step title="Finish the configuration before users sign in">
-    Set every setting you rely on in the console, because the console's configuration replaces the profile's. Add your [plugin marketplaces](#plugin-marketplaces) on the **Plugins** page. To migrate users' work, check that the **Automatically import earlier third-party sessions** switch under **Claude.ai data import** on the **Connectors** page is on (the default). To skip the migration, turn it off. Devices that already migrated keep their items.
+Upload your current configuration, as described under [Start from an existing configuration file](#start-from-an-existing-configuration-file). Put settings that differ between groups of users in [per-group permission policies](#per-group-permission-policies).
 
-    <Warning>
-      The app migrates users' work once on each device, the next time it starts after the user signs in to your organization. It skips uploaded plugins, saved skills, and scheduled tasks if the console has turned that feature off, and optional plugins that your organization doesn't offer yet. Changing those settings later doesn't migrate the skipped items.
-    </Warning>
-  </Step>
+**2. Finish the configuration before users sign in**
 
-  <Step title="Update Claude Desktop">
-    Update devices to Claude Desktop 2.42304.0 or later. Earlier releases migrate fewer items.
-  </Step>
+Set every setting you rely on in the console, because the console's configuration replaces the profile's. Add your [plugin marketplaces](#plugin-marketplaces) on the **Plugins** page. To migrate users' work, check that the **Automatically import earlier third-party sessions** switch under **Claude.ai data import** on the **Connectors** page is on (the default). To skip the migration, turn it off. Devices that already migrated keep their items.
 
-  <Step title="Remove the managed profile">
-    Remove the Claude Desktop configuration profile or registry policy, including one that carries only bootstrap keys. You can keep a profile that sets only the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence).
+> [!WARNING]
+>
+> The app migrates users' work once on each device, the next time it starts after the user signs in to your organization. It skips uploaded plugins, saved skills, and scheduled tasks if the console has turned that feature off, and optional plugins that your organization doesn't offer yet. Changing those settings later doesn't migrate the skipped items.
 
-    * **Devices that keep a profile with any other key**: see [Devices with a managed profile](#devices-with-a-managed-profile)
-    * **Devices configured in the app**: the user signs out and chooses the Anthropic sign-in option, as described under [Single-machine setup](/docs/third-party/claude-desktop/installation#single-machine-setup)
-  </Step>
+**3. Update Claude Desktop**
 
-  <Step title="Have users sign in">
-    Have users sign in to Claude with their work email address and restart the app when asked, as described under [Onboard users](#onboard-users).
-  </Step>
-</Steps>
+Update devices to Claude Desktop 2.42304.0 or later. Earlier releases migrate fewer items.
+
+**4. Remove the managed profile**
+
+Remove the Claude Desktop configuration profile or registry policy, including one that carries only bootstrap keys. You can keep a profile that sets only the [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence).
+
+* **Devices that keep a profile with any other key**: see [Devices with a managed profile](#devices-with-a-managed-profile)
+* **Devices configured in the app**: the user signs out and chooses the Anthropic sign-in option, as described under [Single-machine setup](/docs/third-party/claude-desktop/installation#single-machine-setup)
+
+**5. Have users sign in**
+
+Have users sign in to Claude with their work email address and restart the app when asked, as described under [Onboard users](#onboard-users).
 
 ### What is migrated
 
@@ -413,9 +422,9 @@ You can use `forceLoginOrgUUID` to help prevent shadow IT, which here means peop
 
 For the macOS and Windows locations where the app reads a managed profile's keys, see [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration).
 
-<Warning>
-  On a device that uses the admin console, adding either key to a profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) changes which settings apply. See [Which settings apply on a device with a managed profile](#which-settings-apply-on-a-device-with-a-managed-profile). With `disableDeploymentModeChooser` set to `true`, the profile becomes the device's whole configuration, and the device stops using the admin console. To require members who also belong to another organization to switch to yours, leave such a profile as it is and turn on [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization).
-</Warning>
+> [!WARNING]
+>
+> On a device that uses the admin console, adding either key to a profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) changes which settings apply. See [Which settings apply on a device with a managed profile](#which-settings-apply-on-a-device-with-a-managed-profile). With `disableDeploymentModeChooser` set to `true`, the profile becomes the device's whole configuration, and the device stops using the admin console. To require members who also belong to another organization to switch to yours, leave such a profile as it is and turn on [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization).
 
 ## Remove users or return to MDM
 
@@ -423,13 +432,17 @@ A user returns a device to standard Claude Desktop by choosing **Sign out** from
 
 When you remove a user from the organization, Anthropic revokes their Claude Desktop sign-in to that organization. A running app isn't interrupted. At its next launch the app can no longer download the organization's configuration. It shows either your organization's sign-in screen, where **Return to Claude.ai sign-in** returns the device to standard Claude Desktop, or a **Restart required** prompt whose **Restart** button does the same.
 
+> [!NOTE]
+>
+> Removing a user doesn't end their access to your inference provider. To stop model requests from an app that is still running, also end their access at your provider or identity provider.
+
 To return a whole fleet to [MDM](/docs/third-party/claude-desktop/mdm) or [bootstrap](/docs/third-party/claude-desktop/bootstrap) delivery, deploy the profile again with [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) set to `true`. The device returns to the profile's configuration at the app's next launch. From Claude Desktop 1.46388.1, a running app also notices the profile or policy at its next configuration re-check and asks the user to relaunch. To move a fleet to standard Claude Desktop instead, deploy a profile of standard Claude Desktop keys that sets [`forceLoginOrgUUID`](/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does) to another organization's ID, the one your users move to.
 
-<Warning>
-  Keep `disableDeploymentModeChooser` (or, for standard Claude Desktop, `forceLoginOrgUUID`) in the profile. On Claude Desktop 2.37337.0 or later, without the key the device goes back to the admin console's configuration at its next launch, without asking the user. If the user's sign-in to your organization has expired or you removed the user, the app shows your organization's sign-in screen or a **Restart required** prompt instead.
-
-  A device that left the admin console's configuration on an earlier release goes back too, so add `disableDeploymentModeChooser` to the profile before devices update. A key that you add later takes effect at the device's next launch.
-</Warning>
+> [!WARNING]
+>
+> Keep `disableDeploymentModeChooser` (or, for standard Claude Desktop, `forceLoginOrgUUID`) in the profile. On Claude Desktop 2.37337.0 or later, without the key the device goes back to the admin console's configuration at its next launch, without asking the user. If the user's sign-in to your organization has expired or you removed the user, the app shows your organization's sign-in screen or a **Restart required** prompt instead.
+>
+> A device that left the admin console's configuration on an earlier release goes back too, so add `disableDeploymentModeChooser` to the profile before devices update. A key that you add later takes effect at the device's next launch.
 
 Conversations created under the admin console's configuration stay on the device but no longer appear in the app's history after the device returns to the profile. Users can bring them into the app's history from **Settings → Import & export** in the app, as described under [Open the import wizard](/docs/third-party/claude-desktop/import#open-the-import-wizard), after you set the [`claudeAiImport`](/docs/third-party/claude-desktop/configuration#claudeaiimport) key with `enabled` set to `true` in the profile or policy you deploy.
 
@@ -487,9 +500,9 @@ Header values you save are never returned. In every `headers` or `customHeaders`
 
 A write goes through the same server checks as a save in the admin console, but the console checks more before it saves, for example that the connection to your inference provider is complete. A write can therefore store a connection that users' apps can't use. Put every setting your provider requires in `config`, including [how users authenticate](#choose-how-users-authenticate-to-your-provider), so that users' apps can pick up the change as described under [Configuration updates](#configuration-updates). Owners receive the email alert described there when a write changes where users' apps connect or sign in, what can run on their devices, or the `status`. In place of an administrator, the alert names the key by its ID (`apikey_…`).
 
-<Warning>
-  Setting `status` to `disabled` stops serving the configuration to users' apps, as if none had been saved. A running app isn't interrupted. At its next launch it shows a **Restart required** prompt whose **Restart** button returns the device to standard Claude Desktop, signed out. New sign-ins also stay in standard Claude Desktop. To serve the configuration again, set `status` back to `active` with another API write, or open **Organization settings**, go to the **Connection** page under **Desktop 3P**, and click **Turn on** in the banner at the top of the page. After that, users who clicked **Restart** sign in again as described under [Onboard users](#onboard-users).
-</Warning>
+> [!WARNING]
+>
+> Setting `status` to `disabled` stops serving the configuration to users' apps, as if none had been saved. A running app isn't interrupted. At its next launch it shows a **Restart required** prompt whose **Restart** button returns the device to standard Claude Desktop, signed out. New sign-ins also stay in standard Claude Desktop. To serve the configuration again, set `status` back to `active` with another API write, or open **Organization settings**, go to the **Connection** page under **Desktop 3P**, and click **Turn on** in the banner at the top of the page. After that, users who clicked **Restart** sign in again as described under [Onboard users](#onboard-users).
 
 ### Admin API errors
 
@@ -507,3 +520,4 @@ A write goes through the same server checks as a save in the admin console, but 
 * The [Claude API](/docs/third-party/claude-desktop/claude-api) is not available as the inference provider with the admin console.
 * If a device can't reach `api.anthropic.com` at launch, the app opens with a **Configuration sync issue** warning and can't connect to your inference provider until it downloads the configuration. It keeps retrying in the background and loads the configuration when a retry succeeds, without a relaunch. Quitting and reopening the app retries immediately. An app that is already running keeps working if the connection to Anthropic drops.
 * Bootstrap keys and settings that only make sense on the device, such as disabling claude.ai sign-in, are not available in the console.
+* The console has no field for [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled), [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl), or [`deploymentDisplaySubtitle`](/docs/third-party/claude-desktop/configuration#deploymentdisplaysubtitle). An app managed from the console never fetches the model catalog, so it doesn't need the two catalog keys.

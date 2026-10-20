@@ -4,8 +4,6 @@
 
 # Authorization
 
-<div id="enable-section-numbers" />
-
 ## Introduction
 
 ### Purpose and Scope

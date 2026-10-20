@@ -54,17 +54,13 @@ Production `--web` serves a built bundle. In the published package that bundle a
 
 **Network** and **Console** never appear together. Legacy and modern eras are described in [Protocol eras](/docs/draft/tools/inspector/protocol-eras).
 
-<Frame caption="The tab bar on a connected server. Which tabs appear depends on the capabilities the server reported.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-tab-bar.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=04bb61c4a45ff12e8337c701e195c386" width="3840" height="2400" data-path="images/inspector/web-tab-bar.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-tab-bar.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=04bb61c4a45ff12e8337c701e195c386)
 
 ### The monitoring sidebar
 
 **Tasks**, **Logs**, **Protocol**, **Network**, and **Console** form a *monitor group*. Pin the group and they leave the tab bar and move into a resizable right-hand column, so you can watch traffic while working in Tools or Resources. Drag the column's edge to resize it, from 320 to 720 pixels wide. The column width and the selected monitor tab persist across reloads.
 
-<Frame caption="The monitoring sidebar pinned beside the Tools screen and dragged to its full width, with the tool call's request and response expanded in the Protocol stream.">
-  <img src="https://mintcdn.com/mcp/pUebPdrb6PY5_mfH/images/inspector/web-monitor-sidebar.png?fit=max&auto=format&n=pUebPdrb6PY5_mfH&q=85&s=2ced9eeefa020be53fe4fe957b7d07c6" width="3840" height="2160" data-path="images/inspector/web-monitor-sidebar.png" />
-</Frame>
+![](https://mintcdn.com/mcp/pUebPdrb6PY5_mfH/images/inspector/web-monitor-sidebar.png?fit=max\&auto=format\&n=pUebPdrb6PY5_mfH\&q=85\&s=2ced9eeefa020be53fe4fe957b7d07c6)
 
 ## Servers
 
@@ -93,9 +89,7 @@ On a first launch the web client seeds the catalog with three sample servers: a 
 
 A footer at the bottom of **Server Settings**, **Client Settings** and the **Add / Edit / Clone server** dialogs names the secret store in use, so you see it where you type a secret. It turns into a warning when secrets are memory-only (lost on restart), in an unencrypted file, in a file with loose permissions, or in a file that can't be read.
 
-<Frame caption="Server Settings with Advertised Extensions expanded. Unchecking one changes what the Inspector declares at connect.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-server-settings.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=d42be09ee8de7e45e58a8ff1a444ba52" width="3840" height="2160" data-path="images/inspector/web-server-settings.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-server-settings.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=d42be09ee8de7e45e58a8ff1a444ba52)
 
 ## Tools
 
@@ -103,25 +97,19 @@ Select a tool to see its description, its input schema rendered as a form, and i
 
 On modern-era servers this screen also shows mirrored `Mcp-Param-*` headers, excluded tools, and distinct `-32602` error panels, all covered in [Protocol eras](/docs/draft/tools/inspector/protocol-eras#tools-mirrored-headers-and-excluded-tools).
 
-<Frame caption="A tool call and its rendered result. The argument form collapses into the result panel once the call returns.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-tools.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=7ef469a969f398ac0ec70cf019c133da" width="3840" height="2160" data-path="images/inspector/web-tools.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-tools.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=7ef469a969f398ac0ec70cf019c133da)
 
 ## Resources
 
 Lists resources and resource templates with their MIME types and descriptions, reads content on selection, and offers **Subscribe** on servers that support subscriptions. The subscription mechanics differ by era; see [Resource subscriptions](/docs/draft/tools/inspector/protocol-eras#resource-subscriptions).
 
-<Frame caption="A resource read, with an active subscription listed below the resource list.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-resources.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=1a94ea452e1ef8aaf2c9f486ed810b28" width="3840" height="2160" data-path="images/inspector/web-resources.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-resources.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=1a94ea452e1ef8aaf2c9f486ed810b28)
 
 ## Prompts
 
 Lists prompt templates with their arguments, and renders the generated messages for the arguments you supply, which is the fastest way to confirm a prompt produces what you intended.
 
-<Frame caption="A prompt rendered with the arguments supplied.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-prompts.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=81b16312b1adff5601622a72444b0f92" width="3840" height="2160" data-path="images/inspector/web-prompts.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-prompts.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=81b16312b1adff5601622a72444b0f92)
 
 ## Apps
 
@@ -133,9 +121,7 @@ Lists prompt templates with their arguments, and renders the generated messages 
 
 See [Recipes](/docs/draft/tools/inspector/recipes#reviewing-an-mcp-app) for the CLI-first automated review flow.
 
-<Frame caption="An MCP App rendered in its sandboxed frame, with the app's own logs below it.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-apps.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=bd311848514f7d251640012986abfc4d" width="3840" height="2160" data-path="images/inspector/web-apps.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-apps.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=bd311848514f7d251640012986abfc4d)
 
 ## Protocol, Network, and Console
 
@@ -147,9 +133,7 @@ The three tabs show the same traffic at different levels of detail:
 
 Secrets in Network headers and bodies are masked, with a control to reveal them; Protocol and Console show traffic as sent. Entries can be cleared or exported.
 
-<Frame caption="The Protocol tab with an entry expanded, showing the full JSON-RPC exchange.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-protocol.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=f31338c83a389c5588f11c0d5b2b97ed" width="3840" height="2160" data-path="images/inspector/web-protocol.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-protocol.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=f31338c83a389c5588f11c0d5b2b97ed)
 
 ## Deep links
 

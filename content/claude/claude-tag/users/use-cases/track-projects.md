@@ -6,9 +6,9 @@
 
 > Claude Tag posts project digests no one has to compile. See standing status updates and follow-ups on contracts, design reviews, and pull requests until they close.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How project-tracking prompts work
 
@@ -61,12 +61,10 @@ Code approvals need the code connection. Scheduled follow-ups on repositories us
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    Schedules and event triggers
-  </Card>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> Schedules and event triggers
 
-  <Card title="Good habits" href="/docs/claude-tag/users/good-habits" horizontal arrow>
-    Definitions of done that close threads
-  </Card>
-</CardGroup>
+> **[Good habits](/docs/claude-tag/users/good-habits)**
+>
+> Definitions of done that close threads

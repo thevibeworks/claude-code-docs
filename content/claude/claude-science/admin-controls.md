@@ -65,9 +65,9 @@ The control on the **Claude Science** page is the upper limit, and roles narrow 
 
 Turning on the **Claude Science** capability in a role also turns on the seven under it, and you can then turn off the ones that role shouldn't have. Any capability whose control your organization can't turn on stays off. Turning the **Claude Science** capability off turns them all off. A role whose **Capability access** setting is **All capabilities** already includes all seven. A role set to **All generally available** gets them when you turn on its **Claude Science** capability (see [Who gets access after you enable](/docs/claude-science/enable-claude-science#who-gets-access-after-you-enable)).
 
-<Note>
-  Giving a custom role the **Claude Science** capability gives its members the app. For skills from claude.ai and your organization's plugins to reach those members, their custom roles also need one of the capability options listed under [Organization skills](#organization-skills).
-</Note>
+> [!NOTE]
+>
+> Giving a custom role the **Claude Science** capability gives its members the app. For skills from claude.ai and your organization's plugins to reach those members, their custom roles also need one of the capability options listed under [Organization skills](#organization-skills).
 
 For a member whose custom roles don't include a capability, the feature behaves as it does when you turn its control off (see [How changes reach members](#how-changes-reach-members)). The setting is grayed out in the Claude Science app, and what the member set up earlier is kept. To give that member the feature, turn on the capability in one of their roles. A change to a role's capabilities can take up to 15 minutes to reach members, and then applies on the member's next turn or request.
 

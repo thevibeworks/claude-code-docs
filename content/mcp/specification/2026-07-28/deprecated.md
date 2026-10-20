@@ -4,8 +4,6 @@
 
 # Deprecated Features
 
-<div id="enable-section-numbers" />
-
 This page is the registry of specification features that are currently in the
 **Deprecated** state under the
 [feature lifecycle and deprecation policy](/community/feature-lifecycle)

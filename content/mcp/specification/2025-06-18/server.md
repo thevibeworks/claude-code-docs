@@ -24,10 +24,8 @@ Each primitive can be summarized in the following control hierarchy:
 
 Explore these key primitives in more detail below:
 
-<CardGroup cols={3}>
-  <Card title="Prompts" icon="message" href="/specification/2025-06-18/server/prompts" />
+> **[Prompts](/specification/2025-06-18/server/prompts)**
 
-  <Card title="Resources" icon="file-lines" href="/specification/2025-06-18/server/resources" />
+> **[Resources](/specification/2025-06-18/server/resources)**
 
-  <Card title="Tools" icon="wrench" href="/specification/2025-06-18/server/tools" />
-</CardGroup>
+> **[Tools](/specification/2025-06-18/server/tools)**

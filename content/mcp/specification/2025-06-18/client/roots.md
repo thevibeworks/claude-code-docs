@@ -4,8 +4,6 @@
 
 # Roots
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) provides a standardized way for clients to expose
 filesystem "roots" to servers. Roots define the boundaries of where servers can operate
 within the filesystem, allowing them to understand which directories and files they have

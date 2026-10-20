@@ -6,9 +6,9 @@
 
 > Claude Tag triages a Slack request channel with two setup messages. See in-thread answers, duplicate flags, owner routing, weekly theme rollups, optional ticket filing, and runbooks of standing answers.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How triage prompts work
 
@@ -30,23 +30,21 @@ Check that the channel has the connections below. Ask `@Claude what can you acce
 
 Add Claude to the channel with `/invite @Claude` if it isn't there, then two messages set it up.
 
-<Steps>
-  <Step title="Give the channel a standing role">
-    ```text wrap theme={null}
-    @Claude remember for this channel: when someone tags you on a request, check whether it duplicates something already reported, answer it directly if the answer exists, and otherwise route it to the right owner with a one-line summary. Track recurring themes.
-    ```
+**1. Give the channel a standing role**
 
-    "Remember for this channel" saves the role to [channel memory](/docs/claude-tag/users/memory), so it applies to everyone's threads, not just yours. Tell requesters to include `@Claude` when they post; pin the convention or add it to the channel topic.
-  </Step>
+```text wrap theme={null}
+@Claude remember for this channel: when someone tags you on a request, check whether it duplicates something already reported, answer it directly if the answer exists, and otherwise route it to the right owner with a one-line summary. Track recurring themes.
+```
 
-  <Step title="Add a weekly rollup so nothing is missed">
-    ```text wrap theme={null}
-    @Claude every Friday at 3pm, post a summary of this week's requests: how many, top themes, and anything still unrouted, including posts that didn't tag you.
-    ```
+"Remember for this channel" saves the role to [channel memory](/docs/claude-tag/users/memory), so it applies to everyone's threads, not just yours. Tell requesters to include `@Claude` when they post; pin the convention or add it to the channel topic.
 
-    "Including posts that didn't tag you" turns the recap into a sweep, so requests that arrived without a mention are still caught. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
-  </Step>
-</Steps>
+**2. Add a weekly rollup so nothing is missed**
+
+```text wrap theme={null}
+@Claude every Friday at 3pm, post a summary of this week's requests: how many, top themes, and anything still unrouted, including posts that didn't tag you.
+```
+
+"Including posts that didn't tag you" turns the recap into a sweep, so requests that arrived without a mention are still caught. To list or cancel scheduled work later, see [Manage standing work](/docs/claude-tag/users/proactivity#manage-standing-work).
 
 Answers draw on what the channel has already settled, meaning its [memory](/docs/claude-tag/users/memory) and its own past threads, and routing gets more accurate as corrections land in channel memory.
 
@@ -80,12 +78,10 @@ When an answer changes, update the runbook where it lives. Edit the document, ed
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    How the weekly rollup runs on a schedule
-  </Card>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> How the weekly rollup runs on a schedule
 
-  <Card title="What Claude Tag remembers" href="/docs/claude-tag/users/memory" horizontal arrow>
-    How the standing role persists and improves
-  </Card>
-</CardGroup>
+> **[What Claude Tag remembers](/docs/claude-tag/users/memory)**
+>
+> How the standing role persists and improves

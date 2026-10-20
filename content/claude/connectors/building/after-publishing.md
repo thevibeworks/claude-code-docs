@@ -10,9 +10,9 @@ Once your connector or plugin is listed in the directory, you keep it current fr
 
 This page is for the developer who owns a published listing.
 
-<Note>
-  If your submission isn't live yet, see [Track your directory submission](/docs/directory/submission-status), which explains what each status in the portal means and who acts next.
-</Note>
+> [!NOTE]
+>
+> If your submission isn't live yet, see [Track your directory submission](/docs/directory/submission-status), which explains what each status in the portal means and who acts next.
 
 You can [update what you've published](#update-a-published-connector-or-plugin), [track how a published plugin is used](#track-published-plugin-usage), [share your listing's permanent URL](#directory-listing-urls-are-permanent), or [delist](#delist-a-connector-or-plugin).
 

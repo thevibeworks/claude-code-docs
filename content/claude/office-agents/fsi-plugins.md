@@ -34,43 +34,39 @@ Cowork.
 
 ## Add the marketplace
 
-<Steps>
-  <Step title="Open Cowork">
-    Open the Claude Desktop app and select the Cowork tab in the mode
-    selector.
-  </Step>
+**1. Open Cowork**
 
-  <Step title="Open plugin browser">
-    Select "Customize" on the left sidebar, then "Browse plugins".
-  </Step>
+Open the Claude Desktop app and select the Cowork tab in the mode
+selector.
 
-  <Step title="Add the marketplace">
-    Select "Personal", click the "+" button, then select "Add
-    marketplace from GitHub". Enter the repository URL:
-    `https://github.com/anthropics/financial-services`
-  </Step>
-</Steps>
+**2. Open plugin browser**
+
+Select "Customize" on the left sidebar, then "Browse plugins".
+
+**3. Add the marketplace**
+
+Select "Personal", click the "+" button, then select "Add
+marketplace from GitHub". Enter the repository URL:
+`https://github.com/anthropics/financial-services`
 
 Once added, you'll see the available financial services plugins in your
 marketplace.
 
 ## Install plugins
 
-<Steps>
-  <Step title="Browse the marketplace">
-    From your plugin marketplace, browse the available financial
-    services plugins.
-  </Step>
+**1. Browse the marketplace**
 
-  <Step title="Install the core first">
-    Install the financial analysis plugin first. It provides shared
-    tools and data connectors that the other plugins use.
-  </Step>
+From your plugin marketplace, browse the available financial
+services plugins.
 
-  <Step title="Install workflow add-ons">
-    Install any additional plugins that match your workflow needs.
-  </Step>
-</Steps>
+**2. Install the core first**
+
+Install the financial analysis plugin first. It provides shared
+tools and data connectors that the other plugins use.
+
+**3. Install workflow add-ons**
+
+Install any additional plugins that match your workflow needs.
 
 Once installed, plugins activate automatically. Skills are applied when
 relevant, or you can invoke them manually during your Cowork session by
@@ -80,10 +76,10 @@ typing `/` or clicking the "+" button.
 
 After installation, you can invoke Skills like the following.
 
-<Warning>
-  AI-generated financial analysis should always be reviewed by a
-  qualified professional before being used in decision-making.
-</Warning>
+> [!WARNING]
+>
+> AI-generated financial analysis should always be reviewed by a
+> qualified professional before being used in decision-making.
 
 | Skill | What it does |
 | - | - |
@@ -102,11 +98,11 @@ financial data providers including Daloopa, Morningstar, S\&P Global,
 FactSet, Moody's, MT Newswires, Aiera, LSEG, PitchBook, Chronograph, and
 Egnyte.
 
-<Note>
-  Access to these connectors may require a separate subscription or API
-  key from the respective provider. Contact your data provider for
-  details.
-</Note>
+> [!NOTE]
+>
+> Access to these connectors may require a separate subscription or API
+> key from the respective provider. Contact your data provider for
+> details.
 
 ## Customize plugins for your firm
 

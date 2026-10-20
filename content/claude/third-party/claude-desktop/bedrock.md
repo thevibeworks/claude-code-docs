@@ -28,50 +28,48 @@ When more than one credential is configured, the app uses the first one present 
 
 These steps are performed once per AWS organization, regardless of which authentication approach you chose. You need an AWS account with permission to manage Amazon Bedrock model access and IAM Identity Center.
 
-<Steps>
-  <Step title="Enable Claude models in Amazon Bedrock">
-    In the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/), open **Model access** and request access to the Claude models you intend to deploy. Access is granted per region, so enable the models in the same region you will set as `inferenceBedrockRegion`.
-  </Step>
+**1. Enable Claude models in Amazon Bedrock**
 
-  <Step title="Create an IAM Identity Center permission set">
-    Skip this step if you chose the bearer-token or identity provider sign-in approach. The named-profile and in-app AWS sign-in approaches both use IAM Identity Center to issue per-user AWS credentials.
+In the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/), open **Model access** and request access to the Claude models you intend to deploy. Access is granted per region, so enable the models in the same region you will set as `inferenceBedrockRegion`.
 
-    In the [IAM Identity Center console](https://console.aws.amazon.com/singlesignon/), create a permission set with an inline policy that allows Amazon Bedrock inference. The minimal policy is:
+**2. Create an IAM Identity Center permission set**
 
-    ```json theme={null}
-    {
-      "Version": "2012-10-17",
-      "Statement": [{
-        "Effect": "Allow",
-        "Action": [
-          "bedrock:InvokeModel",
-          "bedrock:InvokeModelWithResponseStream"
-        ],
-        "Resource": "*"
-      }]
-    }
-    ```
+Skip this step if you chose the bearer-token or identity provider sign-in approach. The named-profile and in-app AWS sign-in approaches both use IAM Identity Center to issue per-user AWS credentials.
 
-    Set the permission set's **Session duration** to between 8 and 12 hours. This value sets how long each set of temporary AWS credentials lasts before the app requests a new set from IAM Identity Center. It does not control how often users sign in. Sign-in frequency follows the access portal session duration, described under [What users experience](#what-users-experience).
-  </Step>
+In the [IAM Identity Center console](https://console.aws.amazon.com/singlesignon/), create a permission set with an inline policy that allows Amazon Bedrock inference. The minimal policy is:
 
-  <Step title="Federate Identity Center to your IdP (optional)">
-    If your organization uses Microsoft Entra ID, Okta, or another SAML identity provider, you can configure it as the identity source for IAM Identity Center so users sign in with their existing corporate credentials. The per-device steps on this page are unchanged. See [Connect to an external identity provider](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-idp.html) in the AWS documentation.
-  </Step>
+```json theme={null}
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Action": [
+      "bedrock:InvokeModel",
+      "bedrock:InvokeModelWithResponseStream"
+    ],
+    "Resource": "*"
+  }]
+}
+```
 
-  <Step title="Assign users to the permission set">
-    In IAM Identity Center, assign the permission set to the AWS account that hosts Amazon Bedrock, and add the users or groups who should have access.
-  </Step>
+Set the permission set's **Session duration** to between 8 and 12 hours. This value sets how long each set of temporary AWS credentials lasts before the app requests a new set from IAM Identity Center. It does not control how often users sign in. Sign-in frequency follows the access portal session duration, described under [What users experience](#what-users-experience).
 
-  <Step title="Record the values you need for device configuration">
-    From the IAM Identity Center **Settings** page, note:
+**3. Federate Identity Center to your IdP (optional)**
 
-    * **AWS access portal URL**: of the form `https://d-xxxxxxxxxx.awsapps.com/start` (or your custom subdomain)
-    * **Identity Center region**: the region where Identity Center is enabled, which may differ from your Amazon Bedrock region
-    * **AWS account ID**: the 12-digit ID of the account where you enabled Amazon Bedrock
-    * **Permission set name**: the name you gave the permission set above
-  </Step>
-</Steps>
+If your organization uses Microsoft Entra ID, Okta, or another SAML identity provider, you can configure it as the identity source for IAM Identity Center so users sign in with their existing corporate credentials. The per-device steps on this page are unchanged. See [Connect to an external identity provider](https://docs.aws.amazon.com/singlesignon/latest/userguide/manage-your-identity-source-idp.html) in the AWS documentation.
+
+**4. Assign users to the permission set**
+
+In IAM Identity Center, assign the permission set to the AWS account that hosts Amazon Bedrock, and add the users or groups who should have access.
+
+**5. Record the values you need for device configuration**
+
+From the IAM Identity Center **Settings** page, note:
+
+* **AWS access portal URL**: of the form `https://d-xxxxxxxxxx.awsapps.com/start` (or your custom subdomain)
+* **Identity Center region**: the region where Identity Center is enabled, which may differ from your Amazon Bedrock region
+* **AWS account ID**: the 12-digit ID of the account where you enabled Amazon Bedrock
+* **Permission set name**: the name you gave the permission set above
 
 ## Prepare devices
 
@@ -194,23 +192,21 @@ The full set of `inferenceBedrock*` keys is below. Set `inferenceProvider` to `b
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencebedrockregion" />AWS region<br />`inferenceBedrockRegion` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | AWS region for the Bedrock runtime endpoint. |
-| <span id="inferencebedrockbaseurl" />Bedrock base URL<br />`inferenceBedrockBaseUrl` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | For VPC endpoints or gateway proxies. Host origin only. |
-| <span id="inferencebedrockservicetier" />Bedrock service tier<br />`inferenceBedrockServiceTier` | `enum` | MDM + Bootstrap<br />Added in 1.5186.0 | — | Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand. One of: `flex`, `priority`. |
-| <span id="inferencebedrockbearertoken" />AWS bearer token<br />`inferenceBedrockBearerToken` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those. |
-| <span id="inferencebedrockssostarturl" />AWS SSO start URL<br />`inferenceBedrockSsoStartUrl` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | Enables in-app AWS sign-in (no AWS CLI needed). Set with the three SSO fields below. |
-| <span id="inferencebedrockssoregion" />AWS SSO region<br />`inferenceBedrockSsoRegion` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | IAM Identity Center home region. |
-| <span id="inferencebedrockssoaccountid" />AWS SSO account ID<br />`inferenceBedrockSsoAccountId` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | 12-digit AWS account ID assigned to users in IAM Identity Center. |
-| <span id="inferencebedrockssorolename" />AWS SSO role name<br />`inferenceBedrockSsoRoleName` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | IAM Identity Center permission-set name granting bedrock:InvokeModel\* on the account above. |
-| <span id="inferencebedrockprofile" />AWS profile name<br />`inferenceBedrockProfile` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | AWS named profile to use for Bedrock inference credentials. |
-| <span id="inferencebedrockawsdir" />AWS config directory<br />`inferenceBedrockAwsDir` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set. |
-| <span id="inferencebedrockawsclipath" />AWS CLI path<br />`inferenceBedrockAwsCliPath` | `string` | MDM + Bootstrap<br />Added in 1.13576.0 | — | Absolute path to the aws executable. Leave unset to find it on PATH. |
+| AWS region `inferenceBedrockRegion` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | AWS region for the Bedrock runtime endpoint. |
+| Bedrock base URL `inferenceBedrockBaseUrl` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | For VPC endpoints or gateway proxies. Host origin only. |
+| Bedrock service tier `inferenceBedrockServiceTier` | `enum` | MDM + Bootstrap Added in 1.5186.0 | — | Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand. One of: `flex`, `priority`. |
+| AWS bearer token `inferenceBedrockBearerToken` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those. |
+| AWS SSO start URL `inferenceBedrockSsoStartUrl` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | Enables in-app AWS sign-in (no AWS CLI needed). Set with the three SSO fields below. |
+| AWS SSO region `inferenceBedrockSsoRegion` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | IAM Identity Center home region. |
+| AWS SSO account ID `inferenceBedrockSsoAccountId` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | 12-digit AWS account ID assigned to users in IAM Identity Center. |
+| AWS SSO role name `inferenceBedrockSsoRoleName` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | IAM Identity Center permission-set name granting bedrock:InvokeModel\* on the account above. |
+| AWS profile name `inferenceBedrockProfile` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | AWS named profile to use for Bedrock inference credentials. |
+| AWS config directory `inferenceBedrockAwsDir` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set. |
+| AWS CLI path `inferenceBedrockAwsCliPath` | `string` | MDM + Bootstrap Added in 1.13576.0 | — | Absolute path to the aws executable. Leave unset to find it on PATH. |
 
-<AccordionGroup>
-  <Accordion title="inferenceBedrockServiceTier details">
-    Tier availability varies by model and region. Reserved capacity uses a provisioned-throughput ARN as the model ID instead of this setting. Older bundled Claude Code CLI versions ignore this key.
-  </Accordion>
-</AccordionGroup>
+> **inferenceBedrockServiceTier details**
+>
+> Tier availability varies by model and region. Reserved capacity uses a provisioned-throughput ARN as the model ID instead of this setting. Older bundled Claude Code CLI versions ignore this key.
 
 Set `inferenceModels` to a list of Amazon Bedrock inference-profile IDs, for example `us.anthropic.claude-sonnet-5`. When using a bearer token or credential helper, Claude Desktop auto-discovers available Claude models from your account if this is unset; otherwise the list is required. Application-inference-profile ARNs and provisioned-throughput ARNs are also accepted; pair them with a [`labelOverride`](/docs/third-party/claude-desktop/configuration#inferencemodels) so the picker shows a readable name instead of the raw ARN. See the [Configuration reference](/docs/third-party/claude-desktop/configuration#inferencemodels).
 

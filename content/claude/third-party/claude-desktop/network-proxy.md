@@ -41,9 +41,9 @@ On macOS and Windows, Cowork's sandboxed shell works from its own copy of the PA
 
 ## Pin a proxy from managed configuration
 
-<Note>
-  Pinning requires Claude Desktop 1.44121.1 or later. Earlier releases ignore the `egressProxyUrl` and `egressProxyPacUrl` keys and keep following the OS proxy settings.
-</Note>
+> [!NOTE]
+>
+> Pinning requires Claude Desktop 1.44121.1 or later. Earlier releases ignore the `egressProxyUrl` and `egressProxyPacUrl` keys and keep following the OS proxy settings.
 
 If you want the app, the agent, and (on macOS and Windows) Cowork's sandboxed shell to use a specific proxy regardless of what the device's OS settings say, set one of two managed configuration keys:
 
@@ -108,9 +108,9 @@ Some traffic never uses the pinned key or the proxy the app resolved, and it is 
 * **Helper scripts.** An `inferenceCredentialHelper` or MCP `headersHelper` script runs with the app's environment and no injected proxy variables, because helpers typically talk to internal vaults or identity providers that should not go through the inference proxy. If a helper needs a proxy, set it inside the script.
 * **Programs that ignore proxy variables.** The agent passes `HTTPS_PROXY`, `HTTP_PROXY`, and `NO_PROXY` to the programs it launches on the device, but a program that does not honor those variables connects directly if the network allows it. The only complete control for this case is blocking direct egress at the network layer.
 
-<Warning>
-  A proxy setting is routing, not enforcement. Nothing on this page prevents a process on the device from connecting directly if the network permits it. If you need a guarantee that traffic leaves only through your proxy, block direct egress at the firewall or secure web gateway and allow only the proxy. The inverse also holds: on an open network, a misconfigured or unreachable PAC script can quietly result in direct connections.
-</Warning>
+> [!WARNING]
+>
+> A proxy setting is routing, not enforcement. Nothing on this page prevents a process on the device from connecting directly if the network permits it. If you need a guarantee that traffic leaves only through your proxy, block direct egress at the firewall or secure web gateway and allow only the proxy. The inverse also holds: on an open network, a misconfigured or unreachable PAC script can quietly result in direct connections.
 
 ### The agent uses one proxy
 
@@ -125,9 +125,9 @@ The inverse edge case: if your PAC script returns `DIRECT` for the inference end
 
 ## Interaction with Claude Code managed settings
 
-<Note>
-  The precedence described here requires Claude Desktop 1.44121.1 or later, the same release as the pinned-proxy keys above.
-</Note>
+> [!NOTE]
+>
+> The precedence described here requires Claude Desktop 1.44121.1 or later, the same release as the pinned-proxy keys above.
 
 If you deploy Claude Code [managed settings](https://code.claude.com/docs/en/settings#settings-files) on the device (a `managed-settings.json` file or an OS-level Claude Code policy) and its `env` block sets `HTTPS_PROXY`, `HTTP_PROXY`, or `NO_PROXY`, those values apply to the agent in Chat, Cowork, and Code sessions alike and take precedence over what the app would have supplied. Precedence is per variable: a managed `HTTPS_PROXY` replaces the app's proxy while the app's loopback `NO_PROXY` entries stay in place, and a managed `NO_PROXY` replaces the app's list (the loopback entries are appended for you when the app is also supplying the proxy). See Claude Code's [network configuration](https://code.claude.com/docs/en/network-config) page for the variables themselves.
 

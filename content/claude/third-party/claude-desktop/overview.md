@@ -85,20 +85,18 @@ Anthropic's API accessed through Microsoft Foundry (Hosted on Anthropic or Hoste
 
 ## Next steps
 
-<Columns cols={2}>
-  <Card title="Installation and setup" icon="download" href="/docs/third-party/claude-desktop/installation">
-    Roll out Claude Desktop on 3P to your organization with MDM, or configure a single machine for evaluation.
-  </Card>
+> **[Installation and setup](/docs/third-party/claude-desktop/installation)**
+>
+> Roll out Claude Desktop on 3P to your organization with MDM, or configure a single machine for evaluation.
 
-  <Card title="Configuration reference" icon="sliders" href="/docs/third-party/claude-desktop/configuration">
-    Every managed-configuration key, what it does, and recommended security profiles.
-  </Card>
+> **[Configuration reference](/docs/third-party/claude-desktop/configuration)**
+>
+> Every managed-configuration key, what it does, and recommended security profiles.
 
-  <Card title="Extensions" icon="puzzle-piece" href="/docs/third-party/claude-desktop/extensions">
-    Deploy MCP servers, plugins, skills, and hooks across your fleet.
-  </Card>
+> **[Extensions](/docs/third-party/claude-desktop/extensions)**
+>
+> Deploy MCP servers, plugins, skills, and hooks across your fleet.
 
-  <Card title="Telemetry and egress" icon="shield-halved" href="/docs/third-party/claude-desktop/telemetry">
-    What the app sends to Anthropic, how to turn it off, and the firewall allowlist you'll need.
-  </Card>
-</Columns>
+> **[Telemetry and egress](/docs/third-party/claude-desktop/telemetry)**
+>
+> What the app sends to Anthropic, how to turn it off, and the firewall allowlist you'll need.

@@ -6,9 +6,9 @@
 
 > Connect Notion to Claude Tag so it can read and search your Notion workspace. Covers the dedicated account to create, the token fields, and the URL to allow.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting Notion lets Claude ground answers in your Notion workspace in any channel where the connector is on. Claude connects with its own credential, not a person's.
 

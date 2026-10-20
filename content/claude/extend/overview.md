@@ -10,31 +10,29 @@ You can customize Claude with [MCP connectors](/docs/connectors/getting-started)
 
 You add all three from the [**Customize**](https://claude.ai/customize) page in claude.ai or the Claude desktop app. [Plugin feature support across platforms](/docs/plugins/platform-support) lists which parts of a plugin work in chat, Cowork, and Claude Code.
 
-<Note>
-  If you want to make a connector or plugin for other people to install, see [Build for Claude](/docs/build/overview). Anyone on a paid Claude plan can submit one to Anthropic's directory for review without applying to a partner program first; on Team and Enterprise, an Owner submits it.
-</Note>
+> [!NOTE]
+>
+> If you want to make a connector or plugin for other people to install, see [Build for Claude](/docs/build/overview). Anyone on a paid Claude plan can submit one to Anthropic's directory for review without applying to a partner program first; on Team and Enterprise, an Owner submits it.
 
 ## Choose plugins, connectors, or skills
 
 Each card below leads to the setup page for one of the three. The last card is for Owners who manage plugins for a Team or Enterprise organization.
 
-<CardGroup cols={2}>
-  <Card title="Plugins" icon="box" href="/docs/plugins/overview" arrow>
-    Add a set of connectors, skills, and commands with one install, such as everything for one tool, or your team's standard setup.
-  </Card>
+> **[Plugins](/docs/plugins/overview)**
+>
+> Add a set of connectors, skills, and commands with one install, such as everything for one tool, or your team's standard setup.
 
-  <Card title="MCP connectors" icon="plug" href="/docs/connectors/getting-started" arrow>
-    Give Claude access to a tool or data source, such as your files, calendar, issue tracker, or an internal API.
-  </Card>
+> **[MCP connectors](/docs/connectors/getting-started)**
+>
+> Give Claude access to a tool or data source, such as your files, calendar, issue tracker, or an internal API.
 
-  <Card title="Skills" icon="book-open" href="/docs/skills/how-to" arrow>
-    Have Claude do a task a particular way, such as your release-note format, your contract checklist, or your weekly report.
-  </Card>
+> **[Skills](/docs/skills/how-to)**
+>
+> Have Claude do a task a particular way, such as your release-note format, your contract checklist, or your weekly report.
 
-  <Card title="Plugins for your organization" icon="building" href="/docs/plugins/admin" arrow>
-    If you're an Owner on a Team or Enterprise plan, choose which plugins members can add, install some for everyone, and add your organization's own.
-  </Card>
-</CardGroup>
+> **[Plugins for your organization](/docs/plugins/admin)**
+>
+> If you're an Owner on a Team or Enterprise plan, choose which plugins members can add, install some for everyone, and add your organization's own.
 
 ## Compare connectors, skills, and plugins
 
@@ -46,9 +44,7 @@ When a plugin exists for a product you use, it bundles that product's connector 
 
 The diagram shows where each of the three acts when you send one request.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/extend/how-connectors-skills-plugins-fit.svg?fit=max&auto=format&n=-njlLvrWxFCRdJVz&q=85&s=372738e15abde6a69704ebf43b5472f0" alt="Diagram read left to right. You ask in chat, Cowork, or Claude Code, and the request goes to Claude. A skill, written instructions with your steps, format, or checklist, feeds into Claude, which reads it when your request needs it. Claude calls a connector, a connection to the service's MCP server, which reads and acts in a service you use: your tools and data, such as files, calendar, chat, an issue tracker, internal APIs, and more. A dashed wrapper labeled plugin, optional, encloses the skill and the connector, captioned one package for both." width="1000" height="400" data-path="images/extend/how-connectors-skills-plugins-fit.svg" />
-
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/extend/how-connectors-skills-plugins-fit-dark.svg?fit=max&auto=format&n=-njlLvrWxFCRdJVz&q=85&s=add95697fad07587c1eda583c3023c5a" alt="Diagram read left to right. You ask in chat, Cowork, or Claude Code, and the request goes to Claude. A skill, written instructions with your steps, format, or checklist, feeds into Claude, which reads it when your request needs it. Claude calls a connector, a connection to the service's MCP server, which reads and acts in a service you use: your tools and data, such as files, calendar, chat, an issue tracker, internal APIs, and more. A dashed wrapper labeled plugin, optional, encloses the skill and the connector, captioned one package for both." width="1000" height="400" data-path="images/extend/how-connectors-skills-plugins-fit-dark.svg" />
+![Diagram read left to right. You ask in chat, Cowork, or Claude Code, and the request goes to Claude. A skill, written instructions with your steps, format, or checklist, feeds into Claude, which reads it when your request needs it. Claude calls a connector, a connection to the service's MCP server, which reads and acts in a service you use: your tools and data, such as files, calendar, chat, an issue tracker, internal APIs, and more. A dashed wrapper labeled plugin, optional, encloses the skill and the connector, captioned one package for both.](https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/extend/how-connectors-skills-plugins-fit.svg?fit=max\&auto=format\&n=-njlLvrWxFCRdJVz\&q=85\&s=372738e15abde6a69704ebf43b5472f0)
 
 ## Where your connectors, skills, and plugins are available
 

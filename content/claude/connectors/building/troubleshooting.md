@@ -100,27 +100,25 @@ If your authorization server is Microsoft Entra ID and the token request fails w
 
 **How to fix:** Register the MCP server URL on the API app registration:
 
-<Steps>
-  <Step title="Open the API app registration">
-    In the [Microsoft Entra admin center](https://entra.microsoft.com), open the app registration that represents your protected API. If you have separate registrations for the OAuth client and the API, this is the API registration, not the client.
-  </Step>
+**1. Open the API app registration**
 
-  <Step title="Add the MCP server URL as an Application ID URI">
-    Under **Expose an API**, add your MCP server URL as an additional [Application ID URI](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-configure-app-expose-web-apis). The value must match exactly, including the path, without a trailing slash.
-  </Step>
+In the [Microsoft Entra admin center](https://entra.microsoft.com), open the app registration that represents your protected API. If you have separate registrations for the OAuth client and the API, this is the API registration, not the client.
 
-  <Step title="Allow the API's token audiences">
-    If your server validates the token audience, such as through Azure App Service Authentication, add the API app's Application (client) ID and its `api://` URI to the allowed token audiences so your server accepts tokens issued for the API. This is the **Allowed token audiences** setting, not **Allowed client applications**, which is a different list.
-  </Step>
+**2. Add the MCP server URL as an Application ID URI**
 
-  <Step title="Confirm the client's API permission">
-    If the OAuth client and the API are separate app registrations, confirm the client has an admin-consented API permission for the scope your API exposes.
-  </Step>
-</Steps>
+Under **Expose an API**, add your MCP server URL as an additional [Application ID URI](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-configure-app-expose-web-apis). The value must match exactly, including the path, without a trailing slash.
 
-<Note>
-  By default, Microsoft Entra accepts a new Application ID URI only if it contains your tenant ID, your app ID, or a domain verified in your tenant, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions). If your MCP server runs on a platform hostname, such as `*.azurewebsites.net`, Entra rejects that URL when you add it under **Expose an API**, so serve the server from a custom domain that your tenant has verified and register that URL instead. A tenant administrator can also exempt your app registration from this policy so that Entra accepts a noncompliant URI. Microsoft notes that an `https://` URI can require a verified domain even then, which makes the custom domain the dependable fix.
-</Note>
+**3. Allow the API's token audiences**
+
+If your server validates the token audience, such as through Azure App Service Authentication, add the API app's Application (client) ID and its `api://` URI to the allowed token audiences so your server accepts tokens issued for the API. This is the **Allowed token audiences** setting, not **Allowed client applications**, which is a different list.
+
+**4. Confirm the client's API permission**
+
+If the OAuth client and the API are separate app registrations, confirm the client has an admin-consented API permission for the scope your API exposes.
+
+> [!NOTE]
+>
+> By default, Microsoft Entra accepts a new Application ID URI only if it contains your tenant ID, your app ID, or a domain verified in your tenant, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions). If your MCP server runs on a platform hostname, such as `*.azurewebsites.net`, Entra rejects that URL when you add it under **Expose an API**, so serve the server from a custom domain that your tenant has verified and register that URL instead. A tenant administrator can also exempt your app registration from this policy so that Entra accepts a noncompliant URI. Microsoft notes that an `https://` URI can require a verified domain even then, which makes the custom domain the dependable fix.
 
 If the OAuth flow completes successfully on your server, meaning you see the token issued in your logs, but the connection still fails, file a [GitHub issue](https://github.com/anthropics/claude-ai-mcp/issues) with the `ofid_` reference ID and the timestamps from your server's OAuth logs.
 
@@ -130,15 +128,13 @@ This error, followed by the name of the tool, appears when your connector shows 
 
 **How to check:** Compare the failing call inside and outside Claude:
 
-<Steps>
-  <Step title="Run the call in MCP Inspector">
-    Run the same tool call against your server in [MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector) and compare the result with the error Claude reports.
-  </Step>
+**1. Run the call in MCP Inspector**
 
-  <Step title="Check your server's logs">
-    Check your server's logs for the tool handler's error at the time of the failure, and whether the failure affects every user of your connector or one account.
-  </Step>
-</Steps>
+Run the same tool call against your server in [MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector) and compare the result with the error Claude reports.
+
+**2. Check your server's logs**
+
+Check your server's logs for the tool handler's error at the time of the failure, and whether the failure affects every user of your connector or one account.
 
 If none of these is the cause, [report the problem](#report-the-problem-to-anthropic) with the tool name and the time of the failure.
 
@@ -146,35 +142,33 @@ If none of these is the cause, [report the problem](#report-the-problem-to-anthr
 
 The checklist covers every cause on this page in the order Claude encounters them during a connection. Run through it before filing an issue.
 
-<Steps>
-  <Step title="Public DNS resolution">
-    From a network outside your own, confirm `dig +short your-server.example.com` returns a globally routable address.
-  </Step>
+**1. Public DNS resolution**
 
-  <Step title="Public reachability">
-    From a public network, confirm `curl -i https://your-server.example.com/your-mcp-path` returns a response. A `401` or `405` is fine, and a timeout or connection refused is not.
-  </Step>
+From a network outside your own, confirm `dig +short your-server.example.com` returns a globally routable address.
 
-  <Step title="No redirect">
-    Run `curl -sI https://your-server.example.com/your-mcp-path` and confirm the response is not a `3xx` redirect to a different host. If it is, register the redirect target instead.
-  </Step>
+**2. Public reachability**
 
-  <Step title="No WAF block">
-    Check your edge logs for `403` or `429` responses. Allowlist Anthropic's published egress range if needed. See the [IP address reference](https://platform.claude.com/docs/en/api/ip-addresses).
-  </Step>
+From a public network, confirm `curl -i https://your-server.example.com/your-mcp-path` returns a response. A `401` or `405` is fine, and a timeout or connection refused is not.
 
-  <Step title="Discovery metadata">
-    Confirm `/.well-known/oauth-protected-resource` returns `200` with valid JSON, and that one of `/.well-known/oauth-authorization-server` or `/.well-known/openid-configuration` does the same. Only one is needed. The authorization server metadata should include a `registration_endpoint` (DCR) or advertise `"client_id_metadata_document_supported": true` (CIMD), or you should be using pre-registered credentials, and it should advertise `"code_challenge_methods_supported": ["S256"]`.
-  </Step>
+**3. No redirect**
 
-  <Step title="Cross-host hint">
-    If your authorization server is on a different host than your MCP server, confirm your protected resource metadata's `authorization_servers` field points at it, and that the authorization server's host is reachable from Anthropic's egress range and answers `/.well-known/openid-configuration` or `/.well-known/oauth-authorization-server`. See [Serve discovery metadata](/docs/connectors/building/authentication#serve-discovery-metadata).
-  </Step>
+Run `curl -sI https://your-server.example.com/your-mcp-path` and confirm the response is not a `3xx` redirect to a different host. If it is, register the redirect target instead.
 
-  <Step title="Collect the reference ID">
-    Reproduce the failure and copy the `ofid_` value from the error URL, then [report the problem](#report-the-problem-to-anthropic) with it.
-  </Step>
-</Steps>
+**4. No WAF block**
+
+Check your edge logs for `403` or `429` responses. Allowlist Anthropic's published egress range if needed. See the [IP address reference](https://platform.claude.com/docs/en/api/ip-addresses).
+
+**5. Discovery metadata**
+
+Confirm `/.well-known/oauth-protected-resource` returns `200` with valid JSON, and that one of `/.well-known/oauth-authorization-server` or `/.well-known/openid-configuration` does the same. Only one is needed. The authorization server metadata should include a `registration_endpoint` (DCR) or advertise `"client_id_metadata_document_supported": true` (CIMD), or you should be using pre-registered credentials, and it should advertise `"code_challenge_methods_supported": ["S256"]`.
+
+**6. Cross-host hint**
+
+If your authorization server is on a different host than your MCP server, confirm your protected resource metadata's `authorization_servers` field points at it, and that the authorization server's host is reachable from Anthropic's egress range and answers `/.well-known/openid-configuration` or `/.well-known/oauth-authorization-server`. See [Serve discovery metadata](/docs/connectors/building/authentication#serve-discovery-metadata).
+
+**7. Collect the reference ID**
+
+Reproduce the failure and copy the `ofid_` value from the error URL, then [report the problem](#report-the-problem-to-anthropic) with it.
 
 ## Report the problem to Anthropic
 

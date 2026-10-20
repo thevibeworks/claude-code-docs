@@ -6,13 +6,7 @@
 
 > Ask for 30% same-color neighbors, end up with about 75%: the textbook computer version of Thomas Schelling's 1971 idea.
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/soc-schelling-small-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=9150fb06019e6cb83311d70c1493c396" alt="A random board of blue and orange households (49% of neighbors alike), the same board settled into one-color patches (75%), and a curve of the share alike at the end against the demand, 51.3% to 99.6%." width="1600" height="596" data-path="images/claude-science/example-gallery/soc-schelling-small-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/soc-schelling-small-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=d93cb22a2729f2eb5fb4d690c0d82206" alt="A random board of blue and orange households (49% of neighbors alike), the same board settled into one-color patches (75%), and a curve of the share alike at the end against the demand, 51.3% to 99.6%." width="1600" height="596" data-path="images/claude-science/example-gallery/soc-schelling-small-full-dark.webp" />
-  </Frame>
-</div>
+![A random board of blue and orange households (49% of neighbors alike), the same board settled into one-color patches (75%), and a curve of the share alike at the end against the demand, 51.3% to 99.6%.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/soc-schelling-small-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=9150fb06019e6cb83311d70c1493c396)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

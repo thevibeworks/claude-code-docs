@@ -6,11 +6,13 @@
 
 > Add connectors so Claude Tag acts in your tools with its own credentials. Covers service accounts, bundles, allowed websites, domain entries, and plugins.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-<BetaNote />
-
-<Tip>Claude starts delivering work before you connect anything. On Slack content alone, it can [catch a team up on a channel or thread](/docs/claude-tag/users/use-cases/catch-up), [triage a request channel](/docs/claude-tag/users/use-cases/triage-requests), [turn a discussion into a doc](/docs/claude-tag/users/use-cases/create-artifacts), and [track a project from channel history](/docs/claude-tag/users/use-cases/track-projects).</Tip>
+> [!TIP]
+>
+> Claude starts delivering work before you connect anything. On Slack content alone, it can [catch a team up on a channel or thread](/docs/claude-tag/users/use-cases/catch-up), [triage a request channel](/docs/claude-tag/users/use-cases/triage-requests), [turn a discussion into a doc](/docs/claude-tag/users/use-cases/create-artifacts), and [track a project from channel history](/docs/claude-tag/users/use-cases/track-projects).
 
 A connector gives Claude its own credential for one of your tools, like a Datadog API key or a warehouse service account, so Claude can act in that tool from Slack channels. This page is for the admins who add connectors and decide where they apply. To let Claude act as a member with that member's own claude.ai connectors, see [Personal connectors](/docs/claude-tag/concepts/personal-connectors) instead.
 
@@ -37,7 +39,9 @@ Per-service instructions, with the credential fields and allowed-websites values
 
 ### Create a dedicated account per service
 
-<Warning>The credential you connect is Claude's account in that tool, not yours. Anyone in a channel where the connector applies can use it through Claude, so connect a dedicated identity you control rather than your personal login.</Warning>
+> [!WARNING]
+>
+> The credential you connect is Claude's account in that tool, not yours. Anyone in a channel where the connector applies can use it through Claude, so connect a dedicated identity you control rather than your personal login.
 
 For each tool, create that identity specifically for the agent rather than reusing a shared bot key. The pattern depends on the service.
 
@@ -68,10 +72,6 @@ The host, path, and method restrictions on a credential control which API endpoi
 
 For a shared or external channel, put the narrowed credential in its own [bundle](#create-a-bundle) and add only that channel under the bundle's **Where it applies**, so the credential is unavailable elsewhere.
 
-<a id="add-a-connection" />
-
-<a id="where-a-new-connector-applies" />
-
 ## Add a connector
 
 The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. You can give it narrower reach:
@@ -82,23 +82,21 @@ The first credential you add for a service from the **Connectors** tab is on in 
 
 If the service, or a custom connector's host, is already on the **Connectors** tab, the new credential starts off everywhere until you choose where it applies.
 
-<Steps>
-  <Step title="Open the Connectors tab">
-    Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and click **Add**.
-  </Step>
+**1. Open the Connectors tab**
 
-  <Step title="Pick the service">
-    In the **Add a connector** dialog, search for the service and select it. A service Claude already holds a credential for shows **Connected**. For GitHub, see [Configure GitHub access](/docs/claude-tag/admins/configure-github). For a service that isn't listed, select **Custom connector** at the bottom of the list; see [Connect a service that isn't in the list](#connect-a-service-that-isn%E2%80%99t-in-the-list).
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and click **Add**.
 
-    For a service that offers a sign-in as well as a key, such as Amplitude, the dialog then shows **How Claude authenticates**. Leave **Paste an API key** selected, or select the sign-in option, such as **Sign in to Amplitude as Claude**, and click **Continue to** *service*.
-  </Step>
+**2. Pick the service**
 
-  <Step title="Enter the credential">
-    In the connect form, enter the credential from the service's [dedicated account](#create-a-dedicated-account-per-service). On the form's **Advanced** tab, check the hosts under **Allowed websites** (see [Set allowed websites](#set-allowed-websites)), then click **Connect**.
+In the **Add a connector** dialog, search for the service and select it. A service Claude already holds a credential for shows **Connected**. For GitHub, see [Configure GitHub access](/docs/claude-tag/admins/configure-github). For a service that isn't listed, select **Custom connector** at the bottom of the list; see [Connect a service that isn't in the list](#connect-a-service-that-isn%E2%80%99t-in-the-list).
 
-    If you chose the sign-in option, click the form's sign-in button, such as **Sign in with Amplitude**, and sign in with an account made for Claude.
-  </Step>
-</Steps>
+For a service that offers a sign-in as well as a key, such as Amplitude, the dialog then shows **How Claude authenticates**. Leave **Paste an API key** selected, or select the sign-in option, such as **Sign in to Amplitude as Claude**, and click **Continue to** *service*.
+
+**3. Enter the credential**
+
+In the connect form, enter the credential from the service's [dedicated account](#create-a-dedicated-account-per-service). On the form's **Advanced** tab, check the hosts under **Allowed websites** (see [Set allowed websites](#set-allowed-websites)), then click **Connect**.
+
+If you chose the sign-in option, click the form's sign-in button, such as **Sign in with Amplitude**, and sign in with an account made for Claude.
 
 After you click **Connect**, the connector's page opens. The line under the new credential's name in the **Access from** table reads **On for all of Slack.** when the credential applies everywhere, or **Not assigned yet. Choose where Claude can use it.** when it waits for you to pick its places under **Assign access**.
 
@@ -106,19 +104,17 @@ After you click **Connect**, the connector's page opens. The line under the new 
 
 To connect a service that applies in one workspace or channel only, start from that place's page instead of the **Connectors** tab.
 
-<Steps>
-  <Step title="Open the place's page">
-    Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Channels** tab and open the workspace's or channel's page.
-  </Step>
+**1. Open the place's page**
 
-  <Step title="Pick the service">
-    On that page, click **Add** under **Claude's access** and select **Connector**. On the dialog's **Connectors** tab, select the service under **Connect new**, or select **Custom connector** there for a service that isn't listed, and click **Continue**.
-  </Step>
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Channels** tab and open the workspace's or channel's page.
 
-  <Step title="Enter the credential">
-    In the connect form, enter the credential from the service's [dedicated account](#create-a-dedicated-account-per-service) and click **Connect**.
-  </Step>
-</Steps>
+**2. Pick the service**
+
+On that page, click **Add** under **Claude's access** and select **Connector**. On the dialog's **Connectors** tab, select the service under **Connect new**, or select **Custom connector** there for a service that isn't listed, and click **Continue**.
+
+**3. Enter the credential**
+
+In the connect form, enter the credential from the service's [dedicated account](#create-a-dedicated-account-per-service) and click **Connect**.
 
 The credential applies only in that workspace or channel, and a workspace's credential reaches every channel in it. To use it in more places, pick it in each place's row under **Assign access** on the connector's page, selecting **Add place** for a place that isn't listed.
 
@@ -126,7 +122,9 @@ The credential applies only in that workspace or channel, and a workspace's cred
 
 List the hosts a credential may be sent to under **Allowed websites** in the connect form. A wildcard works only as the leftmost label, like `*.example.com`; it covers subdomains at any depth but not `example.com` itself. You can't enter `*` alone here; a credential is always limited to specific hosts. To let Claude reach any host without a credential, see [Allow all hosts](#allow-all-hosts).
 
-<Note>You can't save a connector whose **Allowed websites** include an `anthropic.com`, `claude.ai`, or `claude.com` host, such as `api.anthropic.com`.</Note>
+> [!NOTE]
+>
+> You can't save a connector whose **Allowed websites** include an `anthropic.com`, `claude.ai`, or `claude.com` host, such as `api.anthropic.com`.
 
 Check the host against your account's region before saving. Some services fill a default host that may not match your account's region; a Datadog key, for example, only works against your account's Datadog site, like `api.datadoghq.com` or `api.datadoghq.eu`.
 
@@ -138,7 +136,9 @@ To change a credential's name or hosts after saving, open the **⋮** menu on it
 
 When someone else holds a service's secret, send them a setup link instead of collecting the secret yourself. In the service's connect form, click **Copy setup link for another admin**. Whoever opens the link signs in to your Claude organization and submits the credential there. They don't need an admin role.
 
-<Note>Setup links work for the Bearer and Basic credential types. For other types the button is unavailable.</Note>
+> [!NOTE]
+>
+> Setup links work for the Bearer and Basic credential types. For other types the button is unavailable.
 
 After the teammate submits the credential, it waits for your approval. Go to [**Notifications**](https://claude.ai/admin-settings/notifications) in admin settings, open the **Requests** tab, and click **Review** on the **Approval needed** row. Then click **Approve** or **Reject**. The credential becomes active only after you approve it.
 
@@ -163,23 +163,21 @@ For a connector you added from the **Connectors** tab, the **Slack** row under *
 
 When a bundle holds the connector's credential along with other access, such as other connectors, **Assign access** can't add that credential to a place or take it off one. If **Assign access** refuses a credential with "This credential was added for one place only", that credential stays where it is. To use the service in another place, connect it again there, as [Use a different credential in one workspace or channel](#use-a-different-credential-in-one-workspace-or-channel) describes.
 
-<Steps>
-  <Step title="Open the connector's page">
-    Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab, then select the connector to open its page.
-  </Step>
+**1. Open the connector's page**
 
-  <Step title="Take the credential off the Slack row">
-    Under **Assign access**, open the picker in the **Access** column of the **Slack** row and clear the credential's checkbox.
-  </Step>
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab, then select the connector to open its page.
 
-  <Step title="Add each place that keeps the connector">
-    Click **Add place** and choose the workspace or channel under **Where**. The dialog fills in one of the connector's credentials under **Credential**, which you can change if the connector holds more than one. Click **Add**, and repeat for each place that should keep the connector. A workspace you add also covers every channel in it.
-  </Step>
+**2. Take the credential off the Slack row**
 
-  <Step title="Save">
-    Click **Save changes**.
-  </Step>
-</Steps>
+Under **Assign access**, open the picker in the **Access** column of the **Slack** row and clear the credential's checkbox.
+
+**3. Add each place that keeps the connector**
+
+Click **Add place** and choose the workspace or channel under **Where**. The dialog fills in one of the connector's credentials under **Credential**, which you can change if the connector holds more than one. Click **Add**, and repeat for each place that should keep the connector. A workspace you add also covers every channel in it.
+
+**4. Save**
+
+Click **Save changes**.
 
 Each row's **Access** picker lists the connector's own credentials first, then each bundle on the **Bundles** tab that holds one of its credentials. Selecting a bundle there attaches that bundle at the place, along with everything else the bundle holds.
 
@@ -212,25 +210,21 @@ To narrow a credential before any channel can use it, add the connector to a new
 
 Agent Proxy starts applying an edit to a credential or a domain entry within about a minute after you save it, in existing threads as well as new ones. It checks the channel's credentials and domain entries first, then the workspace's, then the organization's, and within each by priority. A request that matches no credential, no domain entry, and nothing in the environment's network access is blocked. Private IP ranges and cloud metadata endpoints stay blocked regardless.
 
-<a id="your-first-access-bundle" />
-
 ## Create a bundle
 
 A [bundle](/docs/claude-tag/concepts/glossary#access-bundle) is a named set of connectors, repositories, domain entries, plugins, and instructions that Claude takes on wherever the bundle applies. Use one to give a group of channels the same access, and to add a connector to only some channels from the start.
 
-<Steps>
-  <Step title="Create the bundle">
-    Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Bundles** tab and click **Add**. In the **Create a bundle** dialog, enter a **Name** and an optional **Description**, pick a **Color** and **Icon**, and click **Create**. The bundle's page opens.
-  </Step>
+**1. Create the bundle**
 
-  <Step title="Add what's in it">
-    Under **What's in it**, click **Add** and choose **Connector**, **Repository**, **Domain**, or **Plugin**. Each item saves as soon as you add it. A connector added here applies only where the bundle applies.
-  </Step>
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Bundles** tab and click **Add**. In the **Create a bundle** dialog, enter a **Name** and an optional **Description**, pick a **Color** and **Icon**, and click **Create**. The bundle's page opens.
 
-  <Step title="Choose where it applies">
-    Under **Where it applies**, turn on the switch in the **Slack** row to apply the bundle in every workspace and channel, or in a workspace's row to apply it in that workspace. For a channel, click **Add place**, choose the channel under **Where**, and click **Add**. Then click **Save changes**. A bundle applies nowhere until you turn on a row or add a place.
-  </Step>
-</Steps>
+**2. Add what's in it**
+
+Under **What's in it**, click **Add** and choose **Connector**, **Repository**, **Domain**, or **Plugin**. Each item saves as soon as you add it. A connector added here applies only where the bundle applies.
+
+**3. Choose where it applies**
+
+Under **Where it applies**, turn on the switch in the **Slack** row to apply the bundle in every workspace and channel, or in a workspace's row to apply it in that workspace. For a channel, click **Add place**, choose the channel under **Where**, and click **Add**. Then click **Save changes**. A bundle applies nowhere until you turn on a row or add a place.
 
 To add an existing bundle from a workspace or channel instead, open that place's page from the **Channels** tab, click **Add** under **Claude's access**, and select **Bundle**. [Attach bundles to workspaces and channels](/docs/claude-tag/admins/attach-to-scope) covers channel rules and how bundles combine.
 
@@ -301,7 +295,9 @@ You don't have to predict the full list up front. When a request is blocked, Cla
 
 Typical entries are hosts the work calls without a key, such as a docs site or a public API. Common package registries are usually already reachable through the [environment's Trusted access default](#broad-web-access-through-the-environment), and a host that needs a credential belongs in a [connector](#add-a-connector) instead. Entries appear under **What's in it** with the type **Domain**, and each row's menu has **Edit** and **Remove**.
 
-<Note>[Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) carries only HTTP and HTTPS. A protocol that isn't HTTP, such as SSH, can't cross the proxy, so a domain entry doesn't make a host reachable over SSH.</Note>
+> [!NOTE]
+>
+> [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) carries only HTTP and HTTPS. A protocol that isn't HTTP, such as SSH, can't cross the proxy, so a domain entry doesn't make a host reachable over SSH.
 
 ### Broad web access through the environment
 
@@ -320,8 +316,6 @@ With `*` active:
 * Requests the entry allows, to hosts that no connector covers, go through with no credential attached.
 * A `*` entry never carries a credential, and a connector's credential still travels only to its [allowed websites](#set-allowed-websites).
 * Private and internal network addresses and cloud metadata endpoints remain blocked.
-
-<a id="web-search-vs-network-requests" />
 
 ### Web search vs. network requests
 
@@ -356,8 +350,6 @@ Claude can't publish a new skill version from inside a thread; that update happe
 Anthropic's **Security Guidance** [plugin](https://code.claude.com/docs/en/plugins) has Claude review the code it writes. With the plugin on in a channel, Claude is warned about risky patterns as it edits files, and the plugin reviews the code changes in the session's repository when Claude commits, pushes, or finishes a reply, checking for vulnerabilities such as injection, cross-site scripting, and hardcoded secrets. Claude addresses the findings or reports them in the thread.
 
 **Security Guidance** is off by default. Add it on the **Skills and plugins** tab or a bundle's page, and new threads in the channels it covers pick it up. The plugin flags problems and suggests fixes; it doesn't block a commit or a push. To require review before code merges, use your repository's branch protection and required checks.
-
-<a id="verify-the-connection-saved" />
 
 ## Verify the connector saved
 

@@ -52,7 +52,7 @@ Create roles that map to departments: "Engineering" with chat, Cowork, Claude Co
 
 ### Admin delegation roles
 
-Create roles that delegate parts of administration without granting the Owner role. A custom role with admin permissions does not need any user capabilities, and vice versa. You could create a "Finance" role that grants Billing access but no chat or Claude Code capability, or an "Engineering Lead" role that grants Claude Code plus Analytics view access. Learn more **[about admin permissions for custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_536123d968)**.
+Create roles that delegate parts of administration without granting the Owner role. A custom role with admin permissions does not need any user capabilities, and vice versa. You could create a "Finance" role that grants Billing access but no chat or Claude Code capability, or an "Engineering Lead" role that grants Claude Code plus Analytics view access. To give a role every admin permission an Owner has, turn on **Owner access** (beta). Learn more **[about admin permissions for custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_536123d968)**.
 
 ---
 
@@ -122,7 +122,9 @@ The **Permissions** tab lists each admin area: Identity & Access, Billing, Analy
 
 Within an area, you grant all of View or all of Manage. You can't grant or restrict individual pages or settings.
 
-**Note:** A role with Identity & Access set to Manage can create and edit groups and roles, including its own role definition. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
+The **Permissions** tab also includes **Owner access** (beta), which gives the role all the admin permissions of an Owner. Only Owners, Primary Owners, and custom roles with Identity & Access set to Manage can turn it on. Learn more about **Owner access**.
+
+**Note:** A role with Identity & Access set to Manage can create and edit groups and roles, including its own role definition, and can turn on **Owner access**. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
 
 ### Verify enforcement
 
@@ -264,7 +266,7 @@ Before migrating members to custom roles, confirm that every member you plan to 
 
 For custom role capabilities to take effect, members must have their role set to "Custom." Members with the User, Admin, or Owner roles get their permissions from those roles directly, not from custom roles.
 
-**Important:** Complete this step only after you’ve created your custom roles, configured admin and connector permissions if you’re using them, created your groups, and verified all members are assigned to groups. Members moved to custom roles before setup is complete will immediately lose access to all governed features and their previous role. Switching an Owner or Admin to custom roles removes their Owner or Admin access, so don't migrate Owners or Admins unless you intend to replace that access with custom role permissions.
+**Important:** Complete this step only after you’ve created your custom roles, configured admin and connector permissions if you’re using them, created your groups, and verified all members are assigned to groups. Members moved to custom roles before setup is complete will immediately lose access to all governed features and their previous role. Switching an Owner or Admin to custom roles removes their Owner or Admin access, so don't migrate Owners or Admins unless you intend to replace that access with custom role permissions. To keep an Owner's admin access, add them to a group whose role has **Owner access** turned on before you change their role.
 
 Choose the migration path based on whether your organization already enabled group mappings:
 
@@ -544,7 +546,11 @@ Only if their role includes Identity & Access set to Manage, which covers editin
 
 ### Can I give admin permissions to a member on the User, Admin, Owner, or Primary Owner role?
 
-No. Admin permissions only apply to members in a custom role. Members on a built-in role keep the access that role grants. To give someone specific admin permissions, change the member to a custom role and add them to a group assigned to a role with the permissions they need. Keep in mind this removes their previous built-in role access.
+No. Admin permissions only apply to members in a custom role. Members on a built-in role keep the access that role grants. To give someone specific admin permissions, change the member to a custom role and add them to a group assigned to a role with the permissions they need. Keep in mind this removes their previous built-in role access. To keep the full admin access of an Owner, use a role with **Owner access** turned on.
+
+### Can an Owner get capabilities or model access from custom roles?
+
+Not while their role is Owner, because Owners get their permissions from that role directly. Instead, change their role to "Custom" and add them to groups whose roles grant **Owner access** plus the capabilities and models they need. They keep an Owner's admin permissions, and their feature access follows their custom roles. Owner access doesn't cover the Primary Owner role.
 
 ### What does someone see when they don’t have permissions for a certain setting?
 

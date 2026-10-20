@@ -63,9 +63,9 @@ The following safeguards apply and the dropdown will refuse the change if any of
 * You cannot promote a deactivated user to Primary Owner. Reactivate them first.
 * You cannot add a fourth Primary Owner. Demote one of the existing Primary Owners first if you need to make room.
 
-<Warning>
-  If your organization uses directory provisioning with a group-to-role mapping, be aware that the next sync will re-apply the mapped role and may overwrite a manual change you make here. To make a permanent role change for a provisioned user, update their group membership in your identity provider instead.
-</Warning>
+> [!WARNING]
+>
+> If your organization uses directory provisioning with a group-to-role mapping, be aware that the next sync will re-apply the mapped role and may overwrite a manual change you make here. To make a permanent role change for a provisioned user, update their group membership in your identity provider instead.
 
 ## Assigning a seat tier
 
@@ -75,9 +75,9 @@ The dropdown lists Anthropic-managed tiers first, each labeled *Managed by Anthr
 
 Changing a user's tier takes effect on their very next request. If you move someone to a tier with a different set of allowed models, any model that is no longer in their tier's allowlist becomes unavailable to them immediately.
 
-<Warning>
-  If your organization uses directory provisioning with a group-to-tier mapping, the next sync will re-apply the mapped tier. For provisioned users, adjust their directory group membership rather than changing the tier here.
-</Warning>
+> [!WARNING]
+>
+> If your organization uses directory provisioning with a group-to-tier mapping, the next sync will re-apply the mapped tier. For provisioned users, adjust their directory group membership rather than changing the tier here.
 
 ## Resetting a user's limits
 
@@ -85,9 +85,9 @@ Every seat tier sets a rolling **5-hour** and **7-day** spend limit for each use
 
 If a user on a self-managed tier has hit a limit and you want them to continue working immediately, use **Reset usage limits** in the **…** menu on their card. This clears both of their current windows so their next request is admitted. The reset does not refund or alter any credits that have already been consumed, and it does not change anything shown on the [Analytics](/docs/government/org-admin/analytics) page; it only clears the per-user counter that enforces the limit.
 
-<Warning>
-  The reset button is disabled for users on Anthropic-managed tiers because those limits are set by Anthropic and are not yours to waive. Additionally, if a user moved off an Anthropic-managed tier within the last seven days, the reset button is temporarily unavailable for them and the tooltip tells you when it becomes available again.
-</Warning>
+> [!WARNING]
+>
+> The reset button is disabled for users on Anthropic-managed tiers because those limits are set by Anthropic and are not yours to waive. Additionally, if a user moved off an Anthropic-managed tier within the last seven days, the reset button is temporarily unavailable for them and the tooltip tells you when it becomes available again.
 
 ## Deactivated users
 

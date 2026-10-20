@@ -4,8 +4,6 @@
 
 # Overview
 
-<div id="enable-section-numbers" />
-
 This page defines the message patterns of the core protocol: the ways a
 client and server compose JSON-RPC
 [requests, responses, and notifications](/specification/draft/basic/index#messages)

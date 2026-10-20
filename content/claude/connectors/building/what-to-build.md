@@ -17,10 +17,10 @@ A plugin with only a connector or only skills is complete.
 
 This page is for developers deciding which of those pieces their plugin needs. Once you've decided, [Plugin structure and testing](/docs/plugins/build), [Build an MCP server for Claude](/docs/connectors/building/index), and [Publish to the directory](/docs/directory/publish) cover the work.
 
-<Note>
-  * If you're choosing what to add to your own Claude rather than what to build, see [Connectors, skills, and plugins](/docs/extend/overview), which compares the three from the user's side
-  * If you're building for your own organization and not listing publicly, the same decisions apply, and you distribute the result as a [custom connector](/docs/connectors/custom/add-unlisted#add-a-connector-by-url) and an [organization plugin](/docs/plugins/admin) instead of through the directory
-</Note>
+> [!NOTE]
+>
+> * If you're choosing what to add to your own Claude rather than what to build, see [Connectors, skills, and plugins](/docs/extend/overview), which compares the three from the user's side
+> * If you're building for your own organization and not listing publicly, the same decisions apply, and you distribute the result as a [custom connector](/docs/connectors/custom/add-unlisted#add-a-connector-by-url) and an [organization plugin](/docs/plugins/admin) instead of through the directory
 
 ## Reach your product with an MCP connector
 
@@ -54,9 +54,7 @@ When you list the plugin, submit the server too: the plugin as a plugin bundle a
 
 The diagram shows what the server and the plugin each give people. The server gives them your connector. The plugin adds your skills and points to that same server.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/extend/what-you-ship.svg?fit=max&auto=format&n=-njlLvrWxFCRdJVz&q=85&s=532adf863a7d27314b67c68b561ee94d" alt="Diagram in two columns. Left, what you ship: 1, a remote MCP server you host, with your tools; 2, a plugin holding a connector entry with your server's URL and skills that teach Claude how to use your product. Right, what people get: your connector, so Claude can reach your product, and your skills, so Claude uses it the way you intend, in Chat, Cowork, and Claude Code. Three straight arrows: from the server across to your connector, labeled people connect to it; from the plugin's connector entry up to the server, labeled points to the same server; and from the plugin's skills across to your skills, labeled people add the plugin." width="1000" height="440" data-path="images/extend/what-you-ship.svg" />
-
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/extend/what-you-ship-dark.svg?fit=max&auto=format&n=-njlLvrWxFCRdJVz&q=85&s=c68dde016b86337ca85dfa19c538d95e" alt="Diagram in two columns. Left, what you ship: 1, a remote MCP server you host, with your tools; 2, a plugin holding a connector entry with your server's URL and skills that teach Claude how to use your product. Right, what people get: your connector, so Claude can reach your product, and your skills, so Claude uses it the way you intend, in Chat, Cowork, and Claude Code. Three straight arrows: from the server across to your connector, labeled people connect to it; from the plugin's connector entry up to the server, labeled points to the same server; and from the plugin's skills across to your skills, labeled people add the plugin." width="1000" height="440" data-path="images/extend/what-you-ship-dark.svg" />
+![Diagram in two columns. Left, what you ship: 1, a remote MCP server you host, with your tools; 2, a plugin holding a connector entry with your server's URL and skills that teach Claude how to use your product. Right, what people get: your connector, so Claude can reach your product, and your skills, so Claude uses it the way you intend, in Chat, Cowork, and Claude Code. Three straight arrows: from the server across to your connector, labeled people connect to it; from the plugin's connector entry up to the server, labeled points to the same server; and from the plugin's skills across to your skills, labeled people add the plugin.](https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/extend/what-you-ship.svg?fit=max\&auto=format\&n=-njlLvrWxFCRdJVz\&q=85\&s=532adf863a7d27314b67c68b561ee94d)
 
 In a plugin, you reference a remote MCP server by URL. If a user has both your directory connector and your plugin installed, Claude sees one set of tools, because the plugin and the connector point at the same server.
 

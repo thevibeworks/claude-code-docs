@@ -10,9 +10,9 @@ The Connectors Directory is a catalog of [MCP](/docs/connectors/building/mcp) se
 
 The directory contains both verified connectors and community connectors. Verification isn't a security audit. [Connector verification](/docs/connectors/verification) explains what each label means.
 
-<Note>
-  All connectors in the directory are subject to the [Anthropic Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) and the [Anthropic Software Directory Terms](https://support.claude.com/en/articles/13145338-anthropic-software-directory-terms).
-</Note>
+> [!NOTE]
+>
+> All connectors in the directory are subject to the [Anthropic Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy) and the [Anthropic Software Directory Terms](https://support.claude.com/en/articles/13145338-anthropic-software-directory-terms).
 
 ## Understand how the directory works
 
@@ -58,19 +58,17 @@ To move to the new endpoint, remove the connector and re-add it from the directo
 
 Organizations can submit their MCP servers for review and inclusion in the directory:
 
-<Steps>
-  <Step title="Review the submission guidelines">
-    Review the [submission guidelines](/docs/connectors/building/submission).
-  </Step>
+**1. Review the submission guidelines**
 
-  <Step title="Meet the standards">
-    Ensure your server meets security and compatibility standards.
-  </Step>
+Review the [submission guidelines](/docs/connectors/building/submission).
 
-  <Step title="Submit in the developer portal">
-    Submit through the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage).
-  </Step>
-</Steps>
+**2. Meet the standards**
+
+Ensure your server meets security and compatibility standards.
+
+**3. Submit in the developer portal**
+
+Submit through the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage).
 
 Anyone on a paid Claude plan can submit, and on Team and Enterprise an Owner submits; see [who can submit to the directory](/docs/directory/publish#confirm-you-can-submit-to-the-directory) for the role and organization requirements. After publication, the same dashboard shows your server's health and usage; see [Manage your directory listing](/docs/connectors/building/managing-your-listing).
 

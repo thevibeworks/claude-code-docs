@@ -4,21 +4,19 @@
 
 # Prompts
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) provides a standardized way for servers to expose prompt
 templates to clients. Prompts allow servers to provide structured messages and
 instructions for interacting with language models. Clients can discover available
 prompts, retrieve their contents, and provide arguments to customize them.
 
-<Note>
-  For brevity, the request examples on this page omit the `_meta` request
-  metadata (`io.modelcontextprotocol/protocolVersion`,
-  `io.modelcontextprotocol/clientInfo`, and
-  `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
-  the required `_meta` fields; see
-  [`_meta`](/specification/2026-07-28/basic/index#meta).
-</Note>
+> [!NOTE]
+>
+> For brevity, the request examples on this page omit the `_meta` request
+> metadata (`io.modelcontextprotocol/protocolVersion`,
+> `io.modelcontextprotocol/clientInfo`, and
+> `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
+> the required `_meta` fields; see
+> [`_meta`](/specification/2026-07-28/basic/index#meta).
 
 ## User Interaction Model
 
@@ -32,7 +30,7 @@ interface, which allows users to naturally discover and invoke available prompts
 
 For example, as slash commands:
 
-<img src="https://mintcdn.com/mcp/UAHvrCg8SwnAZwI3/specification/2026-07-28/server/slash-command.png?fit=max&auto=format&n=UAHvrCg8SwnAZwI3&q=85&s=7ed7762fc5e3b4b32cba2a71ede48000" alt="Example of prompt exposed as slash command" width="293" height="106" data-path="specification/2026-07-28/server/slash-command.png" />
+![Example of prompt exposed as slash command](https://mintcdn.com/mcp/UAHvrCg8SwnAZwI3/specification/2026-07-28/server/slash-command.png?fit=max\&auto=format\&n=UAHvrCg8SwnAZwI3\&q=85\&s=7ed7762fc5e3b4b32cba2a71ede48000)
 
 However, implementors are free to expose prompts through any interface pattern that suits
 their needs—the protocol itself does not mandate any specific user interaction
@@ -224,11 +222,11 @@ Messages in a prompt can contain:
 * `role`: Either "user" or "assistant" to indicate the speaker
 * `content`: One of the following content types:
 
-<Note>
-  All content types in prompt messages support optional
-  [annotations](/specification/2026-07-28/server/resources#annotations) for
-  metadata about audience, priority, and modification times.
-</Note>
+> [!NOTE]
+>
+> All content types in prompt messages support optional
+> [annotations](/specification/2026-07-28/server/resources#annotations) for
+> metadata about audience, priority, and modification times.
 
 #### Text Content
 

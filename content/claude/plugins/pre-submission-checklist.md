@@ -36,27 +36,25 @@ The `claude plugin validate` command only checks that your files are well-formed
 
 The portal's **Validate** button runs every check in this page's tables against your repository and gives you a report before you submit anything.
 
-<Steps>
-  <Step title="Start a submission">
-    Open the [developer portal](https://claude.ai/directory/manage) and select **Submit new**.
-  </Step>
+**1. Start a submission**
 
-  <Step title="Choose Plugin bundle">
-    When the portal asks **What would you like to submit?**, select **Plugin bundle**.
-  </Step>
+Open the [developer portal](https://claude.ai/directory/manage) and select **Submit new**.
 
-  <Step title="Enter the repository">
-    On the **Source** step, enter the repository. [Submit your plugin](/docs/plugins/submit#submit-a-plugin) describes each field.
-  </Step>
+**2. Choose Plugin bundle**
 
-  <Step title="Validate">
-    Select **Validate**. The report lists each finding with its result and, for many findings, a fix.
-  </Step>
+When the portal asks **What would you like to submit?**, select **Plugin bundle**.
 
-  <Step title="Fix blocking findings and validate again">
-    The report covers only the commit that validation read, so it doesn't change when you push a fix. Push the fix, then select **Re-validate** on the **Source** step of the same form. When the new report has no findings with the **Blocks** result, continue through the form to submit the plugin.
-  </Step>
-</Steps>
+**3. Enter the repository**
+
+On the **Source** step, enter the repository. [Submit your plugin](/docs/plugins/submit#submit-a-plugin) describes each field.
+
+**4. Validate**
+
+Select **Validate**. The report lists each finding with its result and, for many findings, a fix.
+
+**5. Fix blocking findings and validate again**
+
+The report covers only the commit that validation read, so it doesn't change when you push a fix. Push the fix, then select **Re-validate** on the **Source** step of the same form. When the new report has no findings with the **Blocks** result, continue through the form to submit the plugin.
 
 ### Read a validation result
 
@@ -185,15 +183,13 @@ To prepare, make the plugin's behavior visible in its README and its source:
 
 Validation and the scan check how the plugin is built. They don't check whether the plugin helps the people who install it. Before you submit, test the plugin's output and how it loads on the surfaces your users will use:
 
-<Steps>
-  <Step title="Compare output with and without the plugin">
-    Run the plugin's skills on real prompts and compare the output with what Claude produces without the plugin. [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) runs that comparison for the whole plugin in Claude Code, and [Measure whether the skill improves the output](/docs/skills/how-to#measure-whether-the-skill-improves-the-output) covers one skill at a time.
-  </Step>
+**1. Compare output with and without the plugin**
 
-  <Step title="Load the plugin on each surface">
-    Load the plugin on each surface your users will use, as [Test the plugin on each surface](/docs/plugins/build#test-the-plugin-on-each-surface) describes.
-  </Step>
-</Steps>
+Run the plugin's skills on real prompts and compare the output with what Claude produces without the plugin. [`claude plugin eval`](https://code.claude.com/docs/en/plugin-evals) runs that comparison for the whole plugin in Claude Code, and [Measure whether the skill improves the output](/docs/skills/how-to#measure-whether-the-skill-improves-the-output) covers one skill at a time.
+
+**2. Load the plugin on each surface**
+
+Load the plugin on each surface your users will use, as [Test the plugin on each surface](/docs/plugins/build#test-the-plugin-on-each-surface) describes.
 
 ## Next steps
 

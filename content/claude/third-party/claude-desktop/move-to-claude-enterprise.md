@@ -8,9 +8,7 @@
 
 Move Claude Desktop from your cloud provider, where the app is named Claude (third-party), to Claude Enterprise. After one configuration change, each user's work migrates when they sign in on the same computer.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/ijOo7DTs1r-Xf3X5/images/third-party/diagrams/move-to-claude-enterprise-flow.svg?fit=max&auto=format&n=ijOo7DTs1r-Xf3X5&q=85&s=ed9723f563092b8ab40c50ee46afd172" alt="Flow diagram: IT updates Claude Desktop, turns on two skills settings, and changes the configuration. Cloud provider controls stop applying. Each user signs in to Claude Enterprise. Claude Desktop migrates earlier work (chats, sessions, projects, scheduled tasks), then adds skills, plugins, extensions, and local MCP servers. The user approves tools in scheduled tasks, adds their instructions, and checks their skills." width="1000" height="548" data-path="images/third-party/diagrams/move-to-claude-enterprise-flow.svg" />
-
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/ijOo7DTs1r-Xf3X5/images/third-party/diagrams/move-to-claude-enterprise-flow-dark.svg?fit=max&auto=format&n=ijOo7DTs1r-Xf3X5&q=85&s=a85b1f96e055e395d3ce901f425e06ec" alt="Flow diagram: IT updates Claude Desktop, turns on two skills settings, and changes the configuration. Cloud provider controls stop applying. Each user signs in to Claude Enterprise. Claude Desktop migrates earlier work (chats, sessions, projects, scheduled tasks), then adds skills, plugins, extensions, and local MCP servers. The user approves tools in scheduled tasks, adds their instructions, and checks their skills." width="1000" height="548" data-path="images/third-party/diagrams/move-to-claude-enterprise-flow-dark.svg" />
+![Flow diagram: IT updates Claude Desktop, turns on two skills settings, and changes the configuration. Cloud provider controls stop applying. Each user signs in to Claude Enterprise. Claude Desktop migrates earlier work (chats, sessions, projects, scheduled tasks), then adds skills, plugins, extensions, and local MCP servers. The user approves tools in scheduled tasks, adds their instructions, and checks their skills.](https://mintcdn.com/claude-ai/_XgJ0YMYGsATTg9L/images/third-party/diagrams/move-to-claude-enterprise-flow.svg?fit=max\&auto=format\&n=_XgJ0YMYGsATTg9L\&q=85\&s=791675b62f5ca050c920be219ed5b98e)
 
 ## What is migrated
 
@@ -19,7 +17,7 @@ The migration never changes or deletes the Claude (third-party) data.
 **Migrated automatically:**
 
 * Chats, which appear in Cowork
-* Cowork sessions and projects, with their folders, except a few broad or network folders
+* Cowork sessions and projects, with their folders, except a few system or network folders
 * Code sessions in folders Claude Code trusts
 * Scheduled tasks, on or off as before, except Code tasks in untrusted folders
 * Local MCP servers and most desktop extensions, as before
@@ -28,28 +26,29 @@ The migration never changes or deletes the Claude (third-party) data.
 **Migrated after one step:**
 
 * Skills, and plugins users uploaded, after the [skills settings](#before-you-begin)
+* Plugin marketplaces users added over HTTPS from github.com, gitlab.com, bitbucket.org, or a GitHub Enterprise host your organization connected to Claude, after the [skills settings](#before-you-begin). Claude must be able to access the repository. Users then install the plugins they want in **Customize > Plugins**.
 * Personal instructions the account doesn't have yet, after **Add instructions** in **Settings > Import**
 * Code sessions in untrusted folders, after the user trusts the folder and adds them in **Settings > Import**
 
 **Not migrated:**
 
-* Remote connectors, and plugins users didn't upload. Set them up again.
+* Remote connectors, other plugin marketplaces, and plugins users didn't upload. Set them up again.
 * Skills with plugin components or an unreadable header, or over about 10 MB or 200 files
 * Scheduled Code tasks in folders Claude Code doesn't trust
-* A few broad or network folders, such as the home folder. The user attaches them again.
+* A few system or network folders. The user can attach most of them again.
 
-Migrated sessions stay on the computer and don't sync to claude.ai. Continuing one sends its content to Anthropic, and uploaded skills, added instructions, and MCP tool on/off settings go to the user's account. Claude also sends standard usage data.
+Migrated sessions stay on the computer and don't sync to claude.ai. Continuing one sends its content to Anthropic. Uploaded skills, added instructions, plugin marketplaces, and MCP tool on/off settings go to the user's account. Claude also sends standard usage data.
 
 ## Before you begin
 
-1. **Update first.** Update every computer to Claude Desktop 2.42304.0 or later (rolling out from October 15, 2026) before the configuration change, because the migration runs on the version installed when the change arrives.
-2. **Turn on the skills settings.** In [**Organization settings > Plugins & skills > Policy**](https://claude.ai/admin-settings/skills?tab=policy), turn on **User-created skills** and **Skill and plugin security scanning**. For custom roles, also give them the skills permissions in [**Organization settings > Roles**](https://claude.ai/admin-settings/roles). Skills need both settings, and plugins need only **User-created skills**.
+1. **Update first.** Update every computer to Claude Desktop 3.1623.0 or later before the configuration change. The migration runs on the version installed when the change arrives. A computer that migrated on an earlier release adds plugin marketplaces after it updates, if `importThirdPartyHistoryIntoOrgUUID` is still deployed, but doesn't add folders to the sessions and projects it already migrated.
+2. **Turn on the skills settings.** In [**Organization settings > Plugins & skills > Policy**](https://claude.ai/admin-settings/skills?tab=policy), turn on **User-created skills** and **Skill and plugin security scanning**. For custom roles, also give them the skills permissions in [**Organization settings > Roles**](https://claude.ai/admin-settings/roles). Skills need both settings. Plugins and plugin marketplaces need only **User-created skills**.
 3. **Replace the controls** listed in [What changes for your security controls](#what-changes-for-your-security-controls).
 
 Special cases:
 
 * If Cowork runs only in its VM sandbox in your organization (for example, because [`requireCoworkFullVmSandbox`](/docs/third-party/claude-desktop/configuration#requirecoworkfullvmsandbox) is enforced), nothing is migrated. Ask your Anthropic account team.
-* If your organization needs HIPAA, make it HIPAA-ready before users first sign in. A HIPAA-ready organization migrates no skills, local MCP servers, extensions, plugins, or instructions.
+* If your organization needs HIPAA, make it HIPAA-ready before users first sign in. A HIPAA-ready organization migrates no skills, local MCP servers, extensions, plugins, plugin marketplaces, or instructions.
 * With the MSIX install on Windows 10 Enterprise LTSC 2021, or Windows 10 older than 21H1, update Claude in place. Uninstalling or resetting it deletes the Claude (third-party) data.
 
 ## What changes for your security controls
@@ -66,39 +65,37 @@ Telemetry opt-outs, the egress list for Code sessions, Cowork's session retentio
 
 Remove the old keys and set the new one in one change to the policy or profile that carries your Claude settings: an `HKEY_LOCAL_MACHINE` policy on Windows (not `HKEY_CURRENT_USER`), or a [configuration profile](/docs/third-party/claude-desktop/mdm) on macOS.
 
-<Steps>
-  <Step title="Remove the cloud provider keys">
-    Remove every key that puts the app in third-party mode, such as those that start with `inference` or `bootstrap`. Also remove [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) and [`deploymentOrganizationUuid`](/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid). Leave other keys in place. If your settings come from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), copy the keys you want to keep into the policy or profile itself.
+**1. Remove the cloud provider keys**
 
-    The desktop extensions feature is on after the change unless [`isDesktopExtensionEnabled`](/docs/third-party/claude-desktop/configuration#isdesktopextensionenabled) is set to `false`.
-  </Step>
+Remove every key that puts the app in third-party mode, such as those that start with `inference` or `bootstrap`. Also remove [`disableDeploymentModeChooser`](/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) and [`deploymentOrganizationUuid`](/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid). Leave other keys in place. If your settings come from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap), copy the keys you want to keep into the policy or profile itself.
 
-  <Step title="Set your organization ID">
-    Copy the **Organization ID** from [**Organization settings > Organization and access**](https://claude.ai/admin-settings/organization). Set `importThirdPartyHistoryIntoOrgUUID` to this ID, without braces or quotation marks. To keep Claude on these computers from using another organization or a personal account, where nothing migrates, you can also set `forceLoginOrgUUID` to the same ID. The app then blocks accounts that aren't in that organization.
+The desktop extensions feature is on after the change unless [`isDesktopExtensionEnabled`](/docs/third-party/claude-desktop/configuration#isdesktopextensionenabled) is set to `false`.
 
-    On Windows, in an elevated PowerShell window:
+**2. Set your organization ID**
 
-    ```powershell theme={null}
-    reg add "HKLM\SOFTWARE\Policies\Claude" /v importThirdPartyHistoryIntoOrgUUID /t REG_SZ /d "YOUR-ORGANIZATION-UUID" /f
-    # Optional: keeps these computers on this organization
-    reg add "HKLM\SOFTWARE\Policies\Claude" /v forceLoginOrgUUID /t REG_SZ /d "YOUR-ORGANIZATION-UUID" /f
-    ```
+Copy the **Organization ID** from [**Organization settings > Organization and access**](https://claude.ai/admin-settings/organization). Set `importThirdPartyHistoryIntoOrgUUID` to this ID, without braces or quotation marks. To keep Claude on these computers from using another organization or a personal account, where nothing migrates, you can also set `forceLoginOrgUUID` to the same ID. The app then blocks accounts that aren't in that organization.
 
-    On macOS, in a custom settings payload for the preference domain `com.anthropic.claudefordesktop`:
+On Windows, in an elevated PowerShell window:
 
-    ```xml theme={null}
-    <key>importThirdPartyHistoryIntoOrgUUID</key>
-    <string>YOUR-ORGANIZATION-UUID</string>
-    <!-- Optional: keeps these computers on this organization -->
-    <key>forceLoginOrgUUID</key>
-    <string>YOUR-ORGANIZATION-UUID</string>
-    ```
-  </Step>
+```powershell theme={null}
+reg add "HKLM\SOFTWARE\Policies\Claude" /v importThirdPartyHistoryIntoOrgUUID /t REG_SZ /d "YOUR-ORGANIZATION-UUID" /f
+# Optional: keeps these computers on this organization
+reg add "HKLM\SOFTWARE\Policies\Claude" /v forceLoginOrgUUID /t REG_SZ /d "YOUR-ORGANIZATION-UUID" /f
+```
 
-  <Step title="Roll out in stages">
-    Deploy to a few computers on each operating system, then to the rest. Send users the [steps for each user](#steps-for-each-user).
-  </Step>
-</Steps>
+On macOS, in a custom settings payload for the preference domain `com.anthropic.claudefordesktop`:
+
+```xml theme={null}
+<key>importThirdPartyHistoryIntoOrgUUID</key>
+<string>YOUR-ORGANIZATION-UUID</string>
+<!-- Optional: keeps these computers on this organization -->
+<key>forceLoginOrgUUID</key>
+<string>YOUR-ORGANIZATION-UUID</string>
+```
+
+**3. Roll out in stages**
+
+Deploy to a few computers on each operating system, then to the rest. Send users the [steps for each user](#steps-for-each-user).
 
 Afterward, keep `importThirdPartyHistoryIntoOrgUUID` deployed and keep the Claude (third-party) data. **Settings > Import** needs both. To roll back, restore your earlier configuration. Work done after the migration stays in Claude Enterprise and doesn't appear in Claude (third-party).
 
@@ -110,8 +107,8 @@ Quit Claude fully, including from the menu bar or system tray, open it again, an
 
 * If a scheduled task asks to use a tool, choose **Allow for all scheduled runs**.
 * In **Settings > Import**, click **Add instructions** for each set of instructions listed, and **Import…** if a skill is missing from **Customize > Skills**.
-* Set up remote connectors again, and add any keys or sign-ins your plugins and extensions need.
+* Set up remote connectors and any missing plugin marketplaces again, install the plugins you want in **Customize > Plugins**, and add any keys or sign-ins your plugins and extensions need.
 
-<Warning>
-  Don't click **Remove** on the home page banner or in **Settings > Import**. It deletes your migrated chats, sessions, and projects, including any work you added after the migration.
-</Warning>
+> [!WARNING]
+>
+> Don't click **Remove** on the home page banner or in **Settings > Import**. It deletes your migrated chats, sessions, and projects, including any work you added after the migration.

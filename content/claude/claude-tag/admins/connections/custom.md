@@ -6,9 +6,9 @@
 
 > Connect a tool that isn't in Claude Tag's connector list. Covers credential types, what each form field means, and how to add a custom MCP server.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 For a service that isn't in the **Add a connector** list, add a custom connector. This works for any service with an HTTP API. The [BigQuery](/docs/claude-tag/admins/connections/bigquery) guide is a worked example.
 
@@ -27,8 +27,6 @@ To open the form, go to [**Organization settings > Claude Tag**](https://claude.
 * How the API authenticates (which header or flow it expects)
 
 See [Create a dedicated account per service](/docs/claude-tag/admins/add-connections#create-a-dedicated-account-per-service) for the service-account patterns.
-
-<a id="fill-out-the-custom-tool-form" />
 
 ### Fill out the custom connector form
 
@@ -56,7 +54,9 @@ After saving, where the credential has an allow rule, you can narrow it by HTTP 
 | **OAuth 2.0 client credentials** | Machine-to-machine OAuth with a client ID and secret |
 | **MCP Connector** | OAuth sign-in to one of the providers in the picker or to a [remote MCP connector](/docs/connectors/custom/add-unlisted) your organization has added on claude.ai. Sign in once as an admin; the agent acts as that account. Other OAuth APIs can't be connected this way. |
 
-<Note>The **MCP Connector** type signs in to a connector from your organization's connector library. If you register a new connector from this form with **Add custom connector…**, that connector is added to the library on the **Connectors** page at [`claude.ai/admin-settings/connectors`](https://claude.ai/admin-settings/connectors), not only to Claude Tag. Removing the Claude Tag connector later leaves the library entry in place.</Note>
+> [!NOTE]
+>
+> The **MCP Connector** type signs in to a connector from your organization's connector library. If you register a new connector from this form with **Add custom connector…**, that connector is added to the library on the **Connectors** page at [`claude.ai/admin-settings/connectors`](https://claude.ai/admin-settings/connectors), not only to Claude Tag. Removing the Claude Tag connector later leaves the library entry in place.
 
 For GitHub repositories, use the Claude GitHub App at [Configure GitHub access](/docs/claude-tag/admins/configure-github) rather than a credential from this table.
 
@@ -115,15 +115,13 @@ The server must be a remote endpoint that Claude can reach at a URL over the int
 
 To give Claude an MCP server (one you run, or a vendor's hosted MCP endpoint), the pattern is a plugin plus a credential:
 
-<Steps>
-  <Step title="Add a plugin that declares the MCP server">
-    Add a plugin whose `.mcp.json` points at the server URL, from your organization's library or your [skills repository](/docs/claude-tag/admins/skills-repo), wherever the server should be available; see [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins). The plugin tells Claude the server exists and how to call it.
-  </Step>
+**1. Add a plugin that declares the MCP server**
 
-  <Step title="Add a credential for the server's host">
-    Add a custom connector for the MCP server's host (for example, a Bearer token with **Allowed websites** set to `your-mcp-host.example.com`), where the plugin applies. This lets the call leave the sandbox with auth attached.
-  </Step>
-</Steps>
+Add a plugin whose `.mcp.json` points at the server URL, from your organization's library or your [skills repository](/docs/claude-tag/admins/skills-repo), wherever the server should be available; see [Attach plugins](/docs/claude-tag/admins/add-connections#attach-plugins). The plugin tells Claude the server exists and how to call it.
+
+**2. Add a credential for the server's host**
+
+Add a custom connector for the MCP server's host (for example, a Bearer token with **Allowed websites** set to `your-mcp-host.example.com`), where the plugin applies. This lets the call leave the sandbox with auth attached.
 
 The plugin's `.mcp.json` is loaded because it's part of an attached plugin; an `.mcp.json` checked into a repository Claude clones is not loaded.
 

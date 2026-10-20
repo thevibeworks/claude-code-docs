@@ -6,11 +6,13 @@
 
 > Let Claude call Google Cloud through workload identity federation with a short-lived identity token instead of a service account key. Covers the pool, provider, and IAM grants to create, with or without a service account, and how to connect the identity in the console.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-<BetaNote />
-
-<Note>Google Cloud identities are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Cloud roles** section. Connecting an identity needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+> [!NOTE]
+>
+> Google Cloud identities are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Cloud roles** section. Connecting an identity needs an organization Owner, or an admin with full Claude Tag management permission.
 
 With a Google Cloud identity connection, Claude exchanges a short-lived identity token at a workload identity pool you create and calls Google Cloud APIs with the result. No service account key is stored in Claude. The token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel), and your pool's attribute condition decides which tokens to accept. If someone else manages your Google Cloud project, give them the values from Claude's admin settings and the settings below; the console steps need an organization Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration).
 
@@ -73,41 +75,39 @@ Create a dedicated service account in any project and grant it the roles Claude 
 
 ## Connect the identity in the console
 
-<Steps>
-  <Step title="Open the Connect a Google Cloud identity dialog">
-    In **Cloud roles**, click **Connect a Google Cloud identity**.
-  </Step>
+**1. Open the Connect a Google Cloud identity dialog**
 
-  <Step title="Enter the provider resource name">
-    In the **Workload identity provider** field, enter `//iam.googleapis.com/` followed by the provider's full name as Google reports it, for example `//iam.googleapis.com/projects/123456789/locations/global/workloadIdentityPools/claude/providers/agents`. Use the project number, not the project ID (find it on the project's dashboard in the Google Cloud console). The value is stored as you type it and is the token's audience.
-  </Step>
+In **Cloud roles**, click **Connect a Google Cloud identity**.
 
-  <Step title="Name the service account, or leave the field empty">
-    In the **Service account to act as (optional)** field, enter the service account's email, for example `claude@my-project.iam.gserviceaccount.com`, if you chose the form with a service account. Leave the field empty to have Claude act as the federated identity itself. The connection is named after the service account, or after the provider's ID (the last part of its resource name) when there is none.
-  </Step>
+**2. Enter the provider resource name**
 
-  <Step title="Decide whether to block credential minting">
-    The **Block requests that mint new credentials** checkbox is selected by default. With it selected:
+In the **Workload identity provider** field, enter `//iam.googleapis.com/` followed by the provider's full name as Google reports it, for example `//iam.googleapis.com/projects/123456789/locations/global/workloadIdentityPools/claude/providers/agents`. Use the project number, not the project ID (find it on the project's dashboard in the Google Cloud console). The value is stored as you type it and is the token's audience.
 
-    * Claude can't use this identity to call Google endpoints that create keys, tokens, or other credentials, even if IAM would allow the call.
-    * Requests to a list of services that deal in credentials are refused entirely. See [what the credential-minting block refuses](/docs/claude-tag/admins/federated-access/limits#what-the-credential-minting-block-refuses) on the limits page.
-    * gRPC calls are refused, so tell Claude in the custom instructions to use the REST transport of client libraries such as Spanner, Bigtable, Firestore, and Pub/Sub.
+**3. Name the service account, or leave the field empty**
 
-    If Claude needs one of the refused services, clear the checkbox and rely on your IAM grants alone. The token exchange itself, including acting as the service account, happens inside Agent Proxy and isn't affected by this checkbox or by the allowed hosts.
-  </Step>
+In the **Service account to act as (optional)** field, enter the service account's email, for example `claude@my-project.iam.gserviceaccount.com`, if you chose the form with a service account. Leave the field empty to have Claude act as the federated identity itself. The connection is named after the service account, or after the provider's ID (the last part of its resource name) when there is none.
 
-  <Step title="Narrow the allowed Google hosts">
-    Replace the prefilled `*.googleapis.com` entry in the **Allowed Google hosts** field with the hosts Claude needs, for example `storage.googleapis.com`. A wildcard as the leftmost label, such as `*.storage.googleapis.com`, matches any subdomain but not the name itself. Every host must be `googleapis.com`, a subdomain of it, or a subdomain of `clients6.google.com`. You can change the list later from the connection's [**Edit connection** dialog](/docs/claude-tag/admins/add-connections#set-allowed-websites), which you open from the connection's row on the **Connectors** tab; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
-  </Step>
+**4. Decide whether to block credential minting**
 
-  <Step title="Confirm the attribute condition">
-    Select the checkbox labeled **The provider's attribute condition requires the subject prefix shown above**. The **Connect identity** button stays disabled until you do. Select the checkbox only if the provider's attribute condition pins `assertion.sub` to one or more full subjects under your **Subject prefix**, or at minimum pins `assertion.sub` to your **Subject prefix** (or, if you mapped it, `attribute.org` to your organization ID), as described under [Create the pool and provider in Google Cloud](#create-the-pool-and-provider-in-google-cloud).
-  </Step>
+The **Block requests that mint new credentials** checkbox is selected by default. With it selected:
 
-  <Step title="Choose a bundle and connect">
-    Choose a bundle from the **Access bundle** list, or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**. Then click **Connect identity**. This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, with the hosts you entered under **Allowed hosts**. The same provider can be connected more than once, for example once with a service account and once without, as long as no two Google Cloud connections in one bundle share a host under **Allowed hosts**. Each connection applies wherever its bundle applies.
-  </Step>
-</Steps>
+* Claude can't use this identity to call Google endpoints that create keys, tokens, or other credentials, even if IAM would allow the call.
+* Requests to a list of services that deal in credentials are refused entirely. See [what the credential-minting block refuses](/docs/claude-tag/admins/federated-access/limits#what-the-credential-minting-block-refuses) on the limits page.
+* gRPC calls are refused, so tell Claude in the custom instructions to use the REST transport of client libraries such as Spanner, Bigtable, Firestore, and Pub/Sub.
+
+If Claude needs one of the refused services, clear the checkbox and rely on your IAM grants alone. The token exchange itself, including acting as the service account, happens inside Agent Proxy and isn't affected by this checkbox or by the allowed hosts.
+
+**5. Narrow the allowed Google hosts**
+
+Replace the prefilled `*.googleapis.com` entry in the **Allowed Google hosts** field with the hosts Claude needs, for example `storage.googleapis.com`. A wildcard as the leftmost label, such as `*.storage.googleapis.com`, matches any subdomain but not the name itself. Every host must be `googleapis.com`, a subdomain of it, or a subdomain of `clients6.google.com`. You can change the list later from the connection's [**Edit connection** dialog](/docs/claude-tag/admins/add-connections#set-allowed-websites), which you open from the connection's row on the **Connectors** tab; see [Manage federated connections on the Connectors tab](/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
+
+**6. Confirm the attribute condition**
+
+Select the checkbox labeled **The provider's attribute condition requires the subject prefix shown above**. The **Connect identity** button stays disabled until you do. Select the checkbox only if the provider's attribute condition pins `assertion.sub` to one or more full subjects under your **Subject prefix**, or at minimum pins `assertion.sub` to your **Subject prefix** (or, if you mapped it, `attribute.org` to your organization ID), as described under [Create the pool and provider in Google Cloud](#create-the-pool-and-provider-in-google-cloud).
+
+**7. Choose a bundle and connect**
+
+Choose a bundle from the **Access bundle** list, or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**. Then click **Connect identity**. This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, with the hosts you entered under **Allowed hosts**. The same provider can be connected more than once, for example once with a service account and once without, as long as no two Google Cloud connections in one bundle share a host under **Allowed hosts**. Each connection applies wherever its bundle applies.
 
 The **Cloud roles** table has **Role**, **Access bundle**, **Allowed hosts**, **Added**, and **Actions** columns. Each connection's name appears under **Role** with the provider and a **Google Cloud** chip beneath it, which also names the service account when the connection acts as one, and **Remove** is under **Actions**.
 

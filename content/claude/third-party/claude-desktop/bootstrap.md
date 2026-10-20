@@ -6,17 +6,17 @@
 
 > Host an HTTPS endpoint that returns each user's configuration, for organizations without MDM or with role-based configuration too complex for per-group profiles
 
-<Note>
-  Requires Claude Desktop **1.10628.0** or later. Earlier builds ignore the `bootstrapUrl` keys.
-</Note>
+> [!NOTE]
+>
+> Requires Claude Desktop **1.10628.0** or later. Earlier builds ignore the `bootstrapUrl` keys.
 
 A **bootstrap server** is an HTTPS endpoint you host that authenticates each user against your identity provider and returns that user's configuration as JSON. Use it when your organization doesn't have MDM, or when configuration varies too widely for per-group profiles: per-user gateway credentials, per-team model allowlists, or per-user OpenTelemetry attribution. When one configuration or a few group-scoped profiles cover your fleet, [deploying with MDM](/docs/third-party/claude-desktop/mdm) is simpler; most MDMs support role-based distribution.
 
 When a bootstrap response is available, it **is** the effective configuration. The MDM profile supplies the trust anchor (`bootstrapUrl`, optional `bootstrapOidc` or `bootstrapHeaders`/`bootstrapHeadersHelper`, and the `bootstrapEnabled` opt-out), and Claude Desktop does not consult MDM for any key the bootstrap server is permitted to set. A bootstrap-settable key that your response **omits** is treated as unset, not inherited from MDM, so return every key you want applied.
 
-<Warning>
-  Your bootstrap server is fully trusted. Its response can set inference credentials, the egress allowlist, MCP servers, and every other key in the [published schema](#response-schema). Treat compromise of this endpoint as credential compromise: restrict who can deploy it, log every response, and harden it as you would any secrets-issuing service.
-</Warning>
+> [!WARNING]
+>
+> Your bootstrap server is fully trusted. Its response can set inference credentials, the egress allowlist, MCP servers, and every other key in the [published schema](#response-schema). Treat compromise of this endpoint as credential compromise: restrict who can deploy it, log every response, and harden it as you would any secrets-issuing service.
 
 Before the server can take over, each device needs the bootstrap keys that point at it. There are two ways to get them onto a device:
 
@@ -149,56 +149,54 @@ The bootstrap request is always authenticated: either each user signs in and the
 
 ### Separate identity provider (PKCE)
 
-<Steps>
-  <Step title="Register a public client in your identity provider">
-    Register a native or public application with a loopback redirect URI and no client secret. The registration is identical to the one used for [gateway single sign-on](/docs/third-party/claude-desktop/gateway#set-up-single-sign-on); if you already have that, reuse it. See the [provider notes](#provider-notes) below for redirect-URI specifics.
+**1. Register a public client in your identity provider**
 
-    For Microsoft Entra ID, also set an **Application ID URI** on the registration (App registration → **Expose an API** → **Set**; accept the default `api://CLIENT_ID`). The `CLIENT_ID/.default` scope in the next step does not resolve without it.
-  </Step>
+Register a native or public application with a loopback redirect URI and no client secret. The registration is identical to the one used for [gateway single sign-on](/docs/third-party/claude-desktop/gateway#set-up-single-sign-on); if you already have that, reuse it. See the [provider notes](#provider-notes) below for redirect-URI specifics.
 
-  <Step title="Choose the scope your server will validate">
-    The app sends the OAuth **access token** as the bearer. Your server validates that token's `aud`, so the scope you request must produce a token whose audience your server accepts. This is provider-specific:
+For Microsoft Entra ID, also set an **Application ID URI** on the registration (App registration → **Expose an API** → **Set**; accept the default `api://CLIENT_ID`). The `CLIENT_ID/.default` scope in the next step does not resolve without it.
 
-    | Provider | Scope to request | Resulting `aud` |
-    | - | - | - |
-    | Microsoft Entra ID | `openid offline_access CLIENT_ID/.default` | your client ID |
-    | Okta (custom authorization server) | `openid offline_access YOUR_API_SCOPE` | your authorization server's audience |
-    | Generic OIDC | `openid offline_access` plus your API's resource scope | provider-specific |
+**2. Choose the scope your server will validate**
 
-    Include `offline_access` so the app receives a refresh token and can renew silently between launches.
+The app sends the OAuth **access token** as the bearer. Your server validates that token's `aud`, so the scope you request must produce a token whose audience your server accepts. This is provider-specific:
 
-    <Warning>
-      For Entra, use the bare-GUID form `CLIENT_ID/.default`, **not** `api://CLIENT_ID/.default`. The `api://` form works on the initial authorize but fails on the refresh grant with `AADSTS90009` when the client and resource are the same application.
-    </Warning>
-  </Step>
+| Provider | Scope to request | Resulting `aud` |
+| - | - | - |
+| Microsoft Entra ID | `openid offline_access CLIENT_ID/.default` | your client ID |
+| Okta (custom authorization server) | `openid offline_access YOUR_API_SCOPE` | your authorization server's audience |
+| Generic OIDC | `openid offline_access` plus your API's resource scope | provider-specific |
 
-  <Step title="Validate the token in your server">
-    See [Server responsibilities](#server-responsibilities). What the token's `iss` and `aud` look like depends on your provider:
+Include `offline_access` so the app receives a refresh token and can renew silently between launches.
 
-    | Provider | `iss` to expect | `aud` to expect | JWKS URL |
-    | - | - | - | - |
-    | Microsoft Entra ID (token version `2`) | `https://login.microsoftonline.com/TENANT/v2.0` | your client ID | `https://login.microsoftonline.com/TENANT/discovery/v2.0/keys` |
-    | Okta (custom authorization server) | `https://YOUR_DOMAIN.okta.com/oauth2/AUTH_SERVER_ID` | the audience configured on that authorization server | `<issuer>/v1/keys` |
+> [!WARNING]
+>
+> For Entra, use the bare-GUID form `CLIENT_ID/.default`, **not** `api://CLIENT_ID/.default`. The `api://` form works on the initial authorize but fails on the refresh grant with `AADSTS90009` when the client and resource are the same application.
 
-    **Entra token version.** A new Entra app registration emits v1-format access tokens by default, with `iss` = `https://sts.windows.net/TENANT/` and `aud` = `api://CLIENT_ID`. Set the accepted-token-version field in the registration's **Manifest** to `2` so tokens match the table above. The portal shows this field as either `accessTokenAcceptedVersion` or `api.requestedAccessTokenVersion` depending on the manifest view; set whichever you see. If you cannot change it, your server must accept both the v1 and v2 forms.
+**3. Validate the token in your server**
 
-    **Group and role claims.** Entra does not emit `groups` or `roles` in access tokens by default. Enable the groups claim under App registration → **Token configuration**, or define **App roles** and assign users via **Enterprise applications**. The `oid` claim is always present. For Okta, add a `groups` claim on your custom authorization server with a group filter.
-  </Step>
+See [Server responsibilities](#server-responsibilities). What the token's `iss` and `aud` look like depends on your provider:
 
-  <Step title="Configure and export from Claude Desktop">
-    Install Claude Desktop on an admin workstation (see [Installation](/docs/third-party/claude-desktop/installation)). From the menu bar, open **Developer → Configure Third-Party Inference…**. In the **Source** section, fill in the **Bootstrap config URL** card:
+| Provider | `iss` to expect | `aud` to expect | JWKS URL |
+| - | - | - | - |
+| Microsoft Entra ID (token version `2`) | `https://login.microsoftonline.com/TENANT/v2.0` | your client ID | `https://login.microsoftonline.com/TENANT/discovery/v2.0/keys` |
+| Okta (custom authorization server) | `https://YOUR_DOMAIN.okta.com/oauth2/AUTH_SERVER_ID` | the audience configured on that authorization server | `<issuer>/v1/keys` |
 
-    | Field | Value |
-    | - | - |
-    | Bootstrap config URL | `https://YOUR_BOOTSTRAP_HOST/user/bootstrap` |
-    | Bootstrap OIDC parameters → Client ID | `YOUR_CLIENT_ID` |
-    | Bootstrap OIDC parameters → Issuer URL | `https://login.microsoftonline.com/YOUR_TENANT_ID/v2.0` |
-    | Bootstrap OIDC parameters → Scopes | `openid offline_access YOUR_CLIENT_ID/.default` |
-    | Bootstrap OIDC parameters → Redirect port | leave empty for Entra; set for Okta |
+**Entra token version.** A new Entra app registration emits v1-format access tokens by default, with `iss` = `https://sts.windows.net/TENANT/` and `aud` = `api://CLIENT_ID`. Set the accepted-token-version field in the registration's **Manifest** to `2` so tokens match the table above. The portal shows this field as either `accessTokenAcceptedVersion` or `api.requestedAccessTokenVersion` depending on the manifest view; set whichever you see. If you cannot change it, your server must accept both the v1 and v2 forms.
 
-    Click **Sign in** to test against your typed values. Once authenticated, the card shows the keys your server supplied. Click **Export** and choose the template format your MDM expects (such as `.mobileconfig`, ADMX, or `.reg`). See [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration) for per-platform instructions.
-  </Step>
-</Steps>
+**Group and role claims.** Entra does not emit `groups` or `roles` in access tokens by default. Enable the groups claim under App registration → **Token configuration**, or define **App roles** and assign users via **Enterprise applications**. The `oid` claim is always present. For Okta, add a `groups` claim on your custom authorization server with a group filter.
+
+**4. Configure and export from Claude Desktop**
+
+Install Claude Desktop on an admin workstation (see [Installation](/docs/third-party/claude-desktop/installation)). From the menu bar, open **Developer → Configure Third-Party Inference…**. In the **Source** section, fill in the **Bootstrap config URL** card:
+
+| Field | Value |
+| - | - |
+| Bootstrap config URL | `https://YOUR_BOOTSTRAP_HOST/user/bootstrap` |
+| Bootstrap OIDC parameters → Client ID | `YOUR_CLIENT_ID` |
+| Bootstrap OIDC parameters → Issuer URL | `https://login.microsoftonline.com/YOUR_TENANT_ID/v2.0` |
+| Bootstrap OIDC parameters → Scopes | `openid offline_access YOUR_CLIENT_ID/.default` |
+| Bootstrap OIDC parameters → Redirect port | leave empty for Entra; set for Okta |
+
+Click **Sign in** to test against your typed values. Once authenticated, the card shows the keys your server supplied. Click **Export** and choose the template format your MDM expects (such as `.mobileconfig`, ADMX, or `.reg`). See [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration) for per-platform instructions.
 
 #### Provider notes
 
@@ -216,56 +214,54 @@ This page covers only the bootstrap sign-in. Authentication for inference is ind
 
 Set only `bootstrapUrl` in MDM. The app discovers your authorization endpoints via RFC 8414 and runs an RFC 8628 device-code grant. The bearer is reused for inference when `inferenceGatewayBaseUrl` shares the `bootstrapUrl` origin and `inferenceCredentialKind` is `interactive`, so the user signs in once for both.
 
-<Steps>
-  <Step title="Publish RFC 8414 discovery metadata">
-    Serve a metadata document under the `bootstrapUrl` path. If `bootstrapUrl` ends in `/bootstrap` or `/user/bootstrap`, that suffix is stripped to form the issuer base.
+**1. Publish RFC 8414 discovery metadata**
 
-    ```text theme={null}
-    GET https://YOUR_BOOTSTRAP_HOST/.well-known/oauth-authorization-server
-    ```
+Serve a metadata document under the `bootstrapUrl` path. If `bootstrapUrl` ends in `/bootstrap` or `/user/bootstrap`, that suffix is stripped to form the issuer base.
 
-    ```json theme={null}
-    {
-      "issuer": "https://YOUR_BOOTSTRAP_HOST",
-      "token_endpoint": "https://YOUR_BOOTSTRAP_HOST/oauth/token",
-      "device_authorization_endpoint": "https://YOUR_BOOTSTRAP_HOST/oauth/device"
-    }
-    ```
+```text theme={null}
+GET https://YOUR_BOOTSTRAP_HOST/.well-known/oauth-authorization-server
+```
 
-    Every endpoint URL must share the `bootstrapUrl` origin. Metadata that points off-origin is rejected.
-  </Step>
+```json theme={null}
+{
+  "issuer": "https://YOUR_BOOTSTRAP_HOST",
+  "token_endpoint": "https://YOUR_BOOTSTRAP_HOST/oauth/token",
+  "device_authorization_endpoint": "https://YOUR_BOOTSTRAP_HOST/oauth/device"
+}
+```
 
-  <Step title="Implement the device-code grant">
-    `POST` to `device_authorization_endpoint` returns:
+Every endpoint URL must share the `bootstrapUrl` origin. Metadata that points off-origin is rejected.
 
-    ```json theme={null}
-    {
-      "device_code": "EXAMPLE-DEVICE-CODE-OPAQUE-TO-CLIENT",
-      "user_code": "ABCD-EFGH",
-      "verification_uri": "https://YOUR_BOOTSTRAP_HOST/activate",
-      "verification_uri_complete": "https://YOUR_BOOTSTRAP_HOST/activate?user_code=ABCD-EFGH",
-      "interval": 5,
-      "expires_in": 600
-    }
-    ```
+**2. Implement the device-code grant**
 
-    `verification_uri` and `verification_uri_complete` must share the `bootstrapUrl` origin; federate behind your own pages rather than returning an upstream provider's URL directly. The app opens the verification URL in the user's browser and shows the user code.
+`POST` to `device_authorization_endpoint` returns:
 
-    The app polls `token_endpoint` with `grant_type=urn:ietf:params:oauth:grant-type:device_code` and the `device_code`. Return `{"error":"authorization_pending"}` until the user approves, then:
+```json theme={null}
+{
+  "device_code": "EXAMPLE-DEVICE-CODE-OPAQUE-TO-CLIENT",
+  "user_code": "ABCD-EFGH",
+  "verification_uri": "https://YOUR_BOOTSTRAP_HOST/activate",
+  "verification_uri_complete": "https://YOUR_BOOTSTRAP_HOST/activate?user_code=ABCD-EFGH",
+  "interval": 5,
+  "expires_in": 600
+}
+```
 
-    ```json theme={null}
-    { "access_token": "eyJhbGciOiJSUzI1NiIs...", "expires_in": 3600 }
-    ```
+`verification_uri` and `verification_uri_complete` must share the `bootstrapUrl` origin; federate behind your own pages rather than returning an upstream provider's URL directly. The app opens the verification URL in the user's browser and shows the user code.
 
-    The polling interval is clamped between 1 and 30 seconds; the grant times out after 5 minutes; the token lifetime you return is clamped between 5 minutes and 30 days (24 hours before 1.17377.1).
+The app polls `token_endpoint` with `grant_type=urn:ietf:params:oauth:grant-type:device_code` and the `device_code`. Return `{"error":"authorization_pending"}` until the user approves, then:
 
-    When `inferenceGatewayBaseUrl` shares the `bootstrapUrl` origin, so the same sign-in also serves inference, you may also return a `refresh_token` (optionally with `refresh_token_expires_in` in seconds): as the access token nears expiry during use, Claude Desktop 1.34493.0 and later renews it with an RFC 6749 `grant_type=refresh_token` POST to your `token_endpoint` rather than interrupting the user. The configuration fetch at launch still asks the user to sign in if the access token itself has already expired. Answer `400` with `{"error":"invalid_grant"}` to revoke the refresh token and require a fresh sign-in.
-  </Step>
+```json theme={null}
+{ "access_token": "eyJhbGciOiJSUzI1NiIs...", "expires_in": 3600 }
+```
 
-  <Step title="Serve the configuration endpoint">
-    On `GET <bootstrapUrl>` with a valid bearer, look up the user from the token claims and return their configuration (see [the HTTP contract](#the-http-contract)).
-  </Step>
-</Steps>
+The polling interval is clamped between 1 and 30 seconds; the grant times out after 5 minutes; the token lifetime you return is clamped between 5 minutes and 30 days (24 hours before 1.17377.1).
+
+When `inferenceGatewayBaseUrl` shares the `bootstrapUrl` origin, so the same sign-in also serves inference, you may also return a `refresh_token` (optionally with `refresh_token_expires_in` in seconds): as the access token nears expiry during use, Claude Desktop 1.34493.0 and later renews it with an RFC 6749 `grant_type=refresh_token` POST to your `token_endpoint` rather than interrupting the user. The configuration fetch at launch still asks the user to sign in if the access token itself has already expired. Answer `400` with `{"error":"invalid_grant"}` to revoke the refresh token and require a fresh sign-in.
+
+**3. Serve the configuration endpoint**
+
+On `GET <bootstrapUrl>` with a valid bearer, look up the user from the token claims and return their configuration (see [the HTTP contract](#the-http-contract)).
 
 ### Request headers (no per-user sign-in)
 
@@ -310,9 +306,9 @@ Return `200 OK` with `Content-Type: application/json` and a JSON object whose ke
 | `401`, `403` | Discard the cached token and prompt the user to sign in again. A `401` on a background refresh keeps the running configuration. When the same sign-in also serves inference, the app treats it as an ended session and asks the user to sign in again (1.34493.0 and later); otherwise it retries at the next check without prompting. Return `401` when the token is missing, expired, or the wrong audience; return `403` when the token is valid but the caller is not entitled. |
 | Other non-2xx, or `3xx` | Fetch error. Falls back to the last good response from this session if one exists; otherwise the app stays in the degraded sign-in state. |
 
-<Warning>
-  A `200` that is not a JSON object (an empty body, an HTML page from a captive portal or load balancer, or a JSON array) is a parse error. Make sure intermediate proxies do not rewrite the response.
-</Warning>
+> [!WARNING]
+>
+> A `200` that is not a JSON object (an empty body, an HTML page from a captive portal or load balancer, or a JSON array) is a parse error. Make sure intermediate proxies do not rewrite the response.
 
 ### Response schema
 
@@ -327,9 +323,9 @@ Each configuration key in both schemas carries an `x-availableInVersion` annotat
 
 The response can supply any key in that schema, including inference credentials, model allowlists, MCP servers, the egress allowlist, telemetry endpoints, and the organization banner.
 
-<Note>
-  Organization plugins and skills can be delivered over the network by returning `allowedPluginMarketplaces` in the bootstrap response (see [Plugin marketplaces](/docs/third-party/claude-desktop/extensions#plugin-marketplaces-admin)), or through the filesystem `org-plugins/` directory described in [Connectors and extensions](/docs/third-party/claude-desktop/extensions).
-</Note>
+> [!NOTE]
+>
+> Organization plugins and skills can be delivered over the network by returning `allowedPluginMarketplaces` in the bootstrap response (see [Plugin marketplaces](/docs/third-party/claude-desktop/extensions#plugin-marketplaces-admin)), or through the filesystem `org-plugins/` directory described in [Connectors and extensions](/docs/third-party/claude-desktop/extensions).
 
 A small set of keys are **structurally excluded** and ignored if returned:
 
@@ -365,17 +361,15 @@ Consent gates only bootstrap-delivered values. The same keys delivered through d
 | `$schemaVersion` | `integer` | Wire-format marker: `2` for the nested format (bootstrap-config-v2, what the app's own JSON export writes), `1` for the flat format (bootstrap-config-v1). Optional: the client infers the format from the document shape; set it to state the format explicitly. |
 | `expiresAt` | `number` | Unix epoch (seconds or milliseconds) after which the client should re-fetch this document. Optional; when absent the client uses its default refresh interval. |
 
-<AccordionGroup>
-  <Accordion title="$schemaVersion details">
-    Omitted → the client infers the version from the document shape (any cluster key present → 2, otherwise 1).
-  </Accordion>
+> **\$schemaVersion details**
+>
+> Omitted → the client infers the version from the document shape (any cluster key present → 2, otherwise 1).
 
-  <Accordion title="expiresAt details">
-    Omitted → cache for 1 hour. A number ≥ 10¹² is read as Unix epoch **milliseconds**; below that, **seconds**.
-
-    A failed re-fetch keeps the last good response from the current session and retries; the app only enters the degraded state when there has never been a usable response this session.
-  </Accordion>
-</AccordionGroup>
+> **expiresAt details**
+>
+> Omitted → cache for 1 hour. A number ≥ 10¹² is read as Unix epoch **milliseconds**; below that, **seconds**.
+>
+> A failed re-fetch keeps the last good response from the current session and retries; the app only enters the degraded state when there has never been a usable response this session.
 
 ### Origin pinning
 
@@ -387,39 +381,37 @@ When you supply `bootstrapOidc`, your configuration server and gateway are indep
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="bootstrapenabled" />Use bootstrap config<br />`bootstrapEnabled` | `boolean` | MDM only<br />Added in 1.10628.0 | `true` | Fetch and apply the URL above at launch. Turn off to keep the URL saved but skip the fetch. Defaults to `true`. |
-| <span id="bootstrapurl" />Bootstrap config URL<br />`bootstrapUrl` | `string` | MDM only<br />Added in 1.10628.0 | — | HTTPS endpoint that returns a per-user JSON config overlay. Values from the response override local settings and become read-only. |
-| <span id="bootstrapoidc" />Bootstrap OIDC parameters<br />`bootstrapOidc` | `object` | MDM only<br />Added in 1.10628.0 | — | When set, the bootstrap request sends a Bearer token from a browser sign-in (authorization-code-with-PKCE). |
-| <span id="bootstrapheaders" />Bootstrap request headers<br />`bootstrapHeaders` | `object` | MDM only<br />Added in 1.32885.1 | — | HTTP headers sent on every bootstrap config fetch. Use this instead of embedding user:pass@ in the URL. |
-| <span id="bootstrapheadershelper" />Bootstrap headers helper script<br />`bootstrapHeadersHelper` | `string` | MDM only<br />Added in 1.32885.1 | — | Absolute path to an executable that prints a JSON object of bootstrap request headers. Merged over the static headers; the helper wins. |
-| <span id="trustbootstrapdelivery" />Trust bootstrap-delivered settings<br />`trustBootstrapDelivery` | `boolean` | MDM only<br />Added in 1.26832.0 | `false` | Skip the per-user consent prompt for sign-in targets, inference endpoints, helper scripts, and connectors the bootstrap server delivers. Defaults to `false`. |
+| Use bootstrap config `bootstrapEnabled` | `boolean` | MDM only Added in 1.10628.0 | `true` | Fetch and apply the URL above at launch. Turn off to keep the URL saved but skip the fetch. Defaults to `true`. |
+| Bootstrap config URL `bootstrapUrl` | `string` | MDM only Added in 1.10628.0 | — | HTTPS endpoint that returns a per-user JSON config overlay. Values from the response override local settings and become read-only. |
+| Bootstrap OIDC parameters `bootstrapOidc` | `object` | MDM only Added in 1.10628.0 | — | When set, the bootstrap request sends a Bearer token from a browser sign-in (authorization-code-with-PKCE). |
+| Bootstrap request headers `bootstrapHeaders` | `object` | MDM only Added in 1.32885.1 | — | HTTP headers sent on every bootstrap config fetch. Use this instead of embedding user:pass@ in the URL. |
+| Bootstrap headers helper script `bootstrapHeadersHelper` | `string` | MDM only Added in 1.32885.1 | — | Absolute path to an executable that prints a JSON object of bootstrap request headers. Merged over the static headers; the helper wins. |
+| Trust bootstrap-delivered settings `trustBootstrapDelivery` | `boolean` | MDM only Added in 1.26832.0 | `false` | Skip the per-user consent prompt for sign-in targets, inference endpoints, helper scripts, and connectors the bootstrap server delivers. Defaults to `false`. |
 
-<AccordionGroup>
-  <Accordion title="bootstrapOidc details">
-    Set this to use a separate identity provider (Microsoft Entra ID, Okta, Ping, or any compliant OIDC provider) for the bootstrap sign-in. The app runs an authorization-code-with-PKCE flow in the system browser. Omit to use device-code mode against the bootstrap server's own origin.
+> **bootstrapOidc details**
+>
+> Set this to use a separate identity provider (Microsoft Entra ID, Okta, Ping, or any compliant OIDC provider) for the bootstrap sign-in. The app runs an authorization-code-with-PKCE flow in the system browser. Omit to use device-code mode against the bootstrap server's own origin.
+>
+> This is an **object-typed key** — in an MDM profile it is a single JSON-string value, not separate keys with dotted names like `bootstrapOidc.clientId`. Writing the sub-fields as separate registry values causes the app to silently fall through to device-code mode.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
+> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
+> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
+> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
+> | `scopes` | `string` | — | Space-separated; the token’s audience must match what your bootstrap server validates. |
+> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
+> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
+> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
-    This is an **object-typed key** — in an MDM profile it is a single JSON-string value, not separate keys with dotted names like `bootstrapOidc.clientId`. Writing the sub-fields as separate registry values causes the app to silently fall through to device-code mode.
+> **bootstrapHeaders details**
+>
+> Static headers sent on every request to the bootstrap config URL — for a service-account credential (`Authorization: Basic …`, an API key header) or a routing/tenant header. When either this or the headers helper script is set and no separate `bootstrapOidc` provider is configured, the app treats the headers as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. These headers (and the helper script's below) also accompany requests to a plugin marketplace this server hosts on its own origin (`allowedPluginMarketplaces` with `credentialKind: "inferenceCredential"`). Header values are masked in diagnostics and telemetry. For a rotating token, use the headers helper script instead.
 
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-    | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-    | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-    | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-    | `scopes` | `string` | — | Space-separated; the token’s audience must match what your bootstrap server validates. |
-    | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-    | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-    | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
-  </Accordion>
-
-  <Accordion title="bootstrapHeaders details">
-    Static headers sent on every request to the bootstrap config URL — for a service-account credential (`Authorization: Basic …`, an API key header) or a routing/tenant header. When either this or the headers helper script is set and no separate `bootstrapOidc` provider is configured, the app treats the headers as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. These headers (and the helper script's below) also accompany requests to a plugin marketplace this server hosts on its own origin (`allowedPluginMarketplaces` with `credentialKind: "inferenceCredential"`). Header values are masked in diagnostics and telemetry. For a rotating token, use the headers helper script instead.
-  </Accordion>
-
-  <Accordion title="bootstrapHeadersHelper details">
-    Absolute path to an executable that prints a single JSON object of HTTP headers on stdout, e.g. `{"Authorization": "Bearer …"}`. The app runs it (no arguments; output cached for a few minutes) before each bootstrap config fetch and merges the result over **Bootstrap request headers** (the helper wins on conflict). Use this instead of embedding `user:pass@` in the bootstrap URL, or when the bootstrap server needs a rotating token from a secrets manager. When either this or the static headers are set and no separate `bootstrapOidc` provider is configured, the app treats them as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. If a per-user sign-in also runs (`bootstrapOidc` or the server’s own device-code flow), that Bearer token wins on `Authorization`.
-  </Accordion>
-</AccordionGroup>
+> **bootstrapHeadersHelper details**
+>
+> Absolute path to an executable that prints a single JSON object of HTTP headers on stdout, e.g. `{"Authorization": "Bearer …"}`. The app runs it (no arguments; output cached for a few minutes) before each bootstrap config fetch and merges the result over **Bootstrap request headers** (the helper wins on conflict). Use this instead of embedding `user:pass@` in the bootstrap URL, or when the bootstrap server needs a rotating token from a secrets manager. When either this or the static headers are set and no separate `bootstrapOidc` provider is configured, the app treats them as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. If a per-user sign-in also runs (`bootstrapOidc` or the server’s own device-code flow), that Bearer token wins on `Authorization`.
 
 No `inferenceProvider` is needed in the MDM profile when using bootstrap; the response supplies it.
 

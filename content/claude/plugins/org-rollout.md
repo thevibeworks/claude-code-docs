@@ -13,10 +13,10 @@ You can get your organization's own plugin to every member two ways, and each re
 
 This page is for the person rolling out a plugin their organization built, on a Team or Enterprise plan.
 
-<Note>
-  * If you want to list a plugin publicly, see [Publish to the directory](/docs/directory/publish)
-  * If you haven't built the plugin yet, see [Build your first plugin](/docs/plugins/quickstart) and [Plugin structure and testing](/docs/plugins/build)
-</Note>
+> [!NOTE]
+>
+> * If you want to list a plugin publicly, see [Publish to the directory](/docs/directory/publish)
+> * If you haven't built the plugin yet, see [Build your first plugin](/docs/plugins/quickstart) and [Plugin structure and testing](/docs/plugins/build)
 
 ## Choose a rollout route
 
@@ -37,28 +37,26 @@ A plugin on a member's account reaches Claude Code as a synced plugin in Cowork 
 
 Use both routes when the plugin is for people in chat and Cowork and also for developers whose Claude Code sessions don't sync from a claude.ai account.
 
-<Steps>
-  <Step title="Lay out the repository as a marketplace">
-    Put the plugin in a Git repository with a `.claude-plugin/marketplace.json` that lists it. You use the same repository for both routes. [Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) in the Claude Code docs covers the format.
-  </Step>
+**1. Lay out the repository as a marketplace**
 
-  <Step title="Check the repository against the organization sync rules">
-    Organization sync is stricter than Claude Code about the repository's visibility and about which plugin source types it accepts, and it rejects a plugin with a top-level `bin/` directory. Check [the plugin sources that organization sync accepts](/docs/plugins/org-sync#plugin-sources-that-organization-sync-accepts) before you continue.
-  </Step>
+Put the plugin in a Git repository with a `.claude-plugin/marketplace.json` that lists it. You use the same repository for both routes. [Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace) in the Claude Code docs covers the format.
 
-  <Step title="Sync the repository from organization settings">
-    In [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory), add the repository as [Add your own plugins](/docs/plugins/admin#add-your-own-plugins) describes, then [set each plugin's availability](/docs/plugins/admin#set-availability).
-  </Step>
+**2. Check the repository against the organization sync rules**
 
-  <Step title="Register the same marketplace in managed settings">
-    Set `extraKnownMarketplaces` and `enabledPlugins` as [Pre-install and require plugins](https://code.claude.com/docs/en/plugins/org#pre-install-and-require-plugins) describes. To limit developers to your marketplace, see [Restrict what users can install](https://code.claude.com/docs/en/plugins/org#restrict-what-users-can-install).
-  </Step>
+Organization sync is stricter than Claude Code about the repository's visibility and about which plugin source types it accepts, and it rejects a plugin with a top-level `bin/` directory. Check [the plugin sources that organization sync accepts](/docs/plugins/org-sync#plugin-sources-that-organization-sync-accepts) before you continue.
 
-  <Step title="Confirm on each surface">
-    * **In claude.ai**: as a member, open [**Customize > Plugins**](https://claude.ai/customize/plugins) and check that the plugin appears there
-    * **On a developer's machine**: start Claude Code and run `/plugin`, which lists the marketplace and the plugin
-  </Step>
-</Steps>
+**3. Sync the repository from organization settings**
+
+In [**Organization settings > Plugins & skills**](https://claude.ai/admin-settings/skills?tab=inventory), add the repository as [Add your own plugins](/docs/plugins/admin#add-your-own-plugins) describes, then [set each plugin's availability](/docs/plugins/admin#set-availability).
+
+**4. Register the same marketplace in managed settings**
+
+Set `extraKnownMarketplaces` and `enabledPlugins` as [Pre-install and require plugins](https://code.claude.com/docs/en/plugins/org#pre-install-and-require-plugins) describes. To limit developers to your marketplace, see [Restrict what users can install](https://code.claude.com/docs/en/plugins/org#restrict-what-users-can-install).
+
+**5. Confirm on each surface**
+
+* **In claude.ai**: as a member, open [**Customize > Plugins**](https://claude.ai/customize/plugins) and check that the plugin appears there
+* **On a developer's machine**: start Claude Code and run `/plugin`, which lists the marketplace and the plugin
 
 ### If a developer has the plugin from both routes
 
@@ -78,19 +76,17 @@ Organization sync reads the repository's default branch, and members get the new
 
 **Re-sync** syncs the marketplace now, so members get the version on the default branch without waiting for a push. To re-sync:
 
-<Steps>
-  <Step title="Open the Marketplaces tab">
-    Go to [**Organization settings > Plugins & skills > Marketplaces**](https://claude.ai/admin-settings/skills?tab=marketplaces).
-  </Step>
+**1. Open the Marketplaces tab**
 
-  <Step title="Re-sync the marketplace">
-    Open the menu in the marketplace's row and select **Re-sync**.
-  </Step>
+Go to [**Organization settings > Plugins & skills > Marketplaces**](https://claude.ai/admin-settings/skills?tab=marketplaces).
 
-  <Step title="Retry if you synced recently">
-    If you see **You synced recently**, wait the number of seconds the message gives, then select **Re-sync** again.
-  </Step>
-</Steps>
+**2. Re-sync the marketplace**
+
+Open the menu in the marketplace's row and select **Re-sync**.
+
+**3. Retry if you synced recently**
+
+If you see **You synced recently**, wait the number of seconds the message gives, then select **Re-sync** again.
 
 ### Update through managed settings
 

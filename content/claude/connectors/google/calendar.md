@@ -10,27 +10,25 @@ The Google Calendar connector lets Claude read your calendar so it can answer qu
 
 By the end of this page you have connected your Google account and asked Claude a first question about your schedule. Claude reads your calendar only; it can't create or change events or send invitations.
 
-<Note>
-  If your organization uses Outlook or Teams calendars, see [Microsoft 365](/docs/connectors/microsoft/365) instead.
-</Note>
+> [!NOTE]
+>
+> If your organization uses Outlook or Teams calendars, see [Microsoft 365](/docs/connectors/microsoft/365) instead.
 
 ## Connect Google Calendar
 
 You connect Google Calendar once from your connector settings, and Claude can then read your calendar in any conversation where you turn the connector on.
 
-<Steps>
-  <Step title="Open your connectors">
-    Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) in claude.ai. **Customize** is the page that holds your connectors, skills, and plugins.
-  </Step>
+**1. Open your connectors**
 
-  <Step title="Connect Google Calendar">
-    Find **Google Calendar** in the list and select **Connect**.
-  </Step>
+Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) in claude.ai. **Customize** is the page that holds your connectors, skills, and plugins.
 
-  <Step title="Sign in to Google">
-    Sign in to your Google account and grant the requested permissions.
-  </Step>
-</Steps>
+**2. Connect Google Calendar**
+
+Find **Google Calendar** in the list and select **Connect**.
+
+**3. Sign in to Google**
+
+Sign in to your Google account and grant the requested permissions.
 
 When the connection succeeds, the **Connect** button on the Google Calendar connector changes to **Disconnect**.
 

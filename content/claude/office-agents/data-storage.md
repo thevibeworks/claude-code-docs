@@ -24,7 +24,7 @@ your own cloud. All of them are served from `https://pivot.claude.ai`, and
 browser storage is keyed to that address. They therefore read and write the same
 store on a given device.
 
-<img src="https://mintcdn.com/claude-ai/eVVCEXIWAP0OYny8/images/office-agents/data-storage/storage-shared.png?fit=max&auto=format&n=eVVCEXIWAP0OYny8&q=85&s=ce3348a4909a88501ddad9de36cfd151" alt="Separate Claude for M365 add-in installs, each with its own add-in ID, all served from pivot.claude.ai and sharing one store that holds the add-in's IndexedDB databases and local storage" width="2506" height="856" data-path="images/office-agents/data-storage/storage-shared.png" />
+![Separate Claude for M365 add-in installs, each with its own add-in ID, all served from pivot.claude.ai and sharing one store that holds the add-in's IndexedDB databases and local storage](https://mintcdn.com/claude-ai/eVVCEXIWAP0OYny8/images/office-agents/data-storage/storage-shared.png?fit=max\&auto=format\&n=eVVCEXIWAP0OYny8\&q=85\&s=ce3348a4909a88501ddad9de36cfd151)
 
 The reason is the ordinary web rule. Office reads the manifest, finds the
 `<SourceLocation>` URL, and opens it in an embedded browser. From that point the
@@ -148,13 +148,13 @@ the device. A gateway token
 or API key that you issue centrally is distributed to every user's device, so
 treat it as you would any other shared secret.
 
-<Warning>
-  An export of a user's add-in data contains these credentials as well as
-  conversation text, because the export copies local storage. Treat an export
-  folder as a secret. It also holds the connector tokens from
-  `claude-mcp-gateways`, so deleting only its local storage folder does not
-  remove every credential. A rebuilt machine signs in again regardless.
-</Warning>
+> [!WARNING]
+>
+> An export of a user's add-in data contains these credentials as well as
+> conversation text, because the export copies local storage. Treat an export
+> folder as a secret. It also holds the connector tokens from
+> `claude-mcp-gateways`, so deleting only its local storage folder does not
+> remove every credential. A rebuilt machine signs in again regardless.
 
 ## Where the data sits on Windows
 
@@ -162,7 +162,7 @@ On Windows the store is split by signed-in Office account. Local storage is one
 database for the whole browser profile rather than one per address, which is the
 main difference from macOS.
 
-<img src="https://mintcdn.com/claude-ai/eVVCEXIWAP0OYny8/images/office-agents/data-storage/storage-windows.png?fit=max&auto=format&n=eVVCEXIWAP0OYny8&q=85&s=f07c4d2142ac466c8b26b3520e15b8fe" alt="Windows layout: the webview2 folder contains one folder per signed-in Office account, each holding an IndexedDB folder named after the add-in address and a Local Storage folder shared by every address" width="2506" height="1148" data-path="images/office-agents/data-storage/storage-windows.png" />
+![Windows layout: the webview2 folder contains one folder per signed-in Office account, each holding an IndexedDB folder named after the add-in address and a Local Storage folder shared by every address](https://mintcdn.com/claude-ai/eVVCEXIWAP0OYny8/images/office-agents/data-storage/storage-windows.png?fit=max\&auto=format\&n=eVVCEXIWAP0OYny8\&q=85\&s=f07c4d2142ac466c8b26b3520e15b8fe)
 
 If chat history looks missing on Windows, check the signed-in Office account
 before anything else. Signing back in to the original account restores the
@@ -174,7 +174,7 @@ On macOS the store is split by Office app instead. Each app runs in its own
 sandbox container, so Excel, Word, PowerPoint, and Outlook always keep separate
 histories, and local storage sits inside the folder for a single address.
 
-<img src="https://mintcdn.com/claude-ai/eVVCEXIWAP0OYny8/images/office-agents/data-storage/storage-macos.png?fit=max&auto=format&n=eVVCEXIWAP0OYny8&q=85&s=4653f674b1a4b6466e35f4df36f7c6d9" alt="macOS layout: each Office app has its own container holding one folder per address, each with an IndexedDB SQLite file and a per-address LocalStorage SQLite file" width="2506" height="1028" data-path="images/office-agents/data-storage/storage-macos.png" />
+![macOS layout: each Office app has its own container holding one folder per address, each with an IndexedDB SQLite file and a per-address LocalStorage SQLite file](https://mintcdn.com/claude-ai/eVVCEXIWAP0OYny8/images/office-agents/data-storage/storage-macos.png?fit=max\&auto=format\&n=eVVCEXIWAP0OYny8\&q=85\&s=4653f674b1a4b6466e35f4df36f7c6d9)
 
 Office on the web behaves differently again. The add-in runs in a cross-origin
 frame, so browsers treat its storage as third-party. Tracking prevention,

@@ -1025,7 +1025,7 @@ You can set workspace limits lower than (but not higher than) your organization'
 * **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. To set these, go to the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 <Note>
-  - You cannot set limits on the Default Workspace
+  - You cannot set spend limits on the Default Workspace
   - If not set, workspace limits match the organization's limits
   - Organization-wide limits always apply, even if workspace limits add up to more
 </Note>

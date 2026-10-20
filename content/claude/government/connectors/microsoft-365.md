@@ -22,63 +22,61 @@ Open the [Config](/docs/government/org-admin/configuration) page in another tab 
 
 ## Register an application in Microsoft Entra
 
-<Steps>
-  <Step title="Create the app registration">
-    1. In the [Microsoft Entra admin center](https://entra.microsoft.com), open **App registrations** from the left navigation and select **+ New registration**.
-    2. Enter a display name, for example "Claude for Government Microsoft 365".
-    3. Under **Supported account types**, choose **Single tenant only - \{your organization}**. Older versions of the portal label this option **Accounts in this organizational directory only (Single tenant)**.
-    4. Leave **Redirect URI** blank for now, and select **Register**.
-  </Step>
+**1. Create the app registration**
 
-  <Step title="Add the redirect URIs">
-    On the new application's left navigation, go to **Manage** > **Authentication** and open the **Redirect URI configuration** tab (on older versions of the portal, select **+ Add a platform** instead).
+1. In the [Microsoft Entra admin center](https://entra.microsoft.com), open **App registrations** from the left navigation and select **+ New registration**.
+2. Enter a display name, for example "Claude for Government Microsoft 365".
+3. Under **Supported account types**, choose **Single tenant only - \{your organization}**. Older versions of the portal label this option **Accounts in this organizational directory only (Single tenant)**.
+4. Leave **Redirect URI** blank for now, and select **Register**.
 
-    1. Select **Add redirect URI**. In the sidebar, choose the **Mobile and desktop applications** card (the Windows, UWP, and Console card, not the iOS/macOS card).
-    2. Leave the suggested redirect URIs unchecked. In the **Custom redirect URIs** box, enter `http://localhost` and select **Configure**.
-    3. Close the sidebar. A **Mobile and desktop applications** section now appears on the Authentication page. Select **Edit** on that section, and in the empty box that appears under `http://localhost`, enter each of the two broker redirect URIs below (a new empty box appears after you enter each one). Replace `APPLICATION_CLIENT_ID` with the **Application (client) ID** shown on the application's Overview page, and select **Save** at the top when done.
+**2. Add the redirect URIs**
 
-    ```text theme={null}
-    ms-appx-web://Microsoft.AAD.BrokerPlugin/APPLICATION_CLIENT_ID
-    msauth.com.anthropic.claudefordesktop://auth
-    ```
+On the new application's left navigation, go to **Manage** > **Authentication** and open the **Redirect URI configuration** tab (on older versions of the portal, select **+ Add a platform** instead).
 
-    The `http://localhost` URI is the standard loopback redirect for browser sign-in. When a member signs in through their browser, Microsoft Entra sends the response to a temporary listener on the member's own machine, so it never leaves the device. The other two URIs let Claude Desktop sign in through the operating system's account broker on Windows and macOS devices that meet the [brokered sign-in requirements](#brokered-sign-in-requirements). Brokered sign-in carries the device-identity claim that Conditional Access policies such as **Require compliant device** evaluate, so register all three now even if you are not sure you need them.
+1. Select **Add redirect URI**. In the sidebar, choose the **Mobile and desktop applications** card (the Windows, UWP, and Console card, not the iOS/macOS card).
+2. Leave the suggested redirect URIs unchecked. In the **Custom redirect URIs** box, enter `http://localhost` and select **Configure**.
+3. Close the sidebar. A **Mobile and desktop applications** section now appears on the Authentication page. Select **Edit** on that section, and in the empty box that appears under `http://localhost`, enter each of the two broker redirect URIs below (a new empty box appears after you enter each one). Replace `APPLICATION_CLIENT_ID` with the **Application (client) ID** shown on the application's Overview page, and select **Save** at the top when done.
 
-    <Note>
-      All three URIs must be under **Mobile and desktop applications**, not **Web**. Registering them as **Web** causes Entra error `AADSTS50011` at sign-in. After you save, Entra may display the `msauth.com.anthropic.claudefordesktop://auth` URI under a separate **iOS/macOS** section. That's expected, since both sections are public-client platforms. To double-check, open **Manage** > **Manifest** and confirm the three URIs appear under `publicClient.redirectUris` rather than `web.redirectUris`. If the list also contains `msauth.com.anthropic.claudefordesktop.helper://auth`, remove that entry. Claude Desktop does not use it.
-    </Note>
-  </Step>
+```text theme={null}
+ms-appx-web://Microsoft.AAD.BrokerPlugin/APPLICATION_CLIENT_ID
+msauth.com.anthropic.claudefordesktop://auth
+```
 
-  <Step title="Allow public client flows">
-    Still under **Authentication**, find **Allow public client flows** (on the **Settings** tab under **Web and SPA settings**, or under **Advanced settings** on older versions of the portal), set it to **Yes**, and select **Save**.
+The `http://localhost` URI is the standard loopback redirect for browser sign-in. When a member signs in through their browser, Microsoft Entra sends the response to a temporary listener on the member's own machine, so it never leaves the device. The other two URIs let Claude Desktop sign in through the operating system's account broker on Windows and macOS devices that meet the [brokered sign-in requirements](#brokered-sign-in-requirements). Brokered sign-in carries the device-identity claim that Conditional Access policies such as **Require compliant device** evaluate, so register all three now even if you are not sure you need them.
 
-    This tells Microsoft Entra that the application runs on end-user devices and does not hold a secret. Claude Desktop signs in as a public client with no client secret, and with this setting off, brokered sign-in on managed devices fails with Entra error `AADSTS7000218`.
+> [!NOTE]
+>
+> All three URIs must be under **Mobile and desktop applications**, not **Web**. Registering them as **Web** causes Entra error `AADSTS50011` at sign-in. After you save, Entra may display the `msauth.com.anthropic.claudefordesktop://auth` URI under a separate **iOS/macOS** section. That's expected, since both sections are public-client platforms. To double-check, open **Manage** > **Manifest** and confirm the three URIs appear under `publicClient.redirectUris` rather than `web.redirectUris`. If the list also contains `msauth.com.anthropic.claudefordesktop.helper://auth`, remove that entry. Claude Desktop does not use it.
 
-    <Warning>
-      Setting **Allow public client flows** to **Yes** also permits the device-code sign-in flow, which attackers can abuse for phishing. To close that path, apply a tenant Conditional Access policy that blocks the device-code authentication flow. Scope the policy to **All resources**, not to this app registration, because Conditional Access evaluates the resource a token is requested for rather than the requesting client.
-    </Warning>
-  </Step>
+**3. Allow public client flows**
 
-  <Step title="Add and approve Microsoft Graph permissions">
-    On the application's left navigation, go to **Manage** > **API permissions**.
+Still under **Authentication**, find **Allow public client flows** (on the **Settings** tab under **Web and SPA settings**, or under **Advanced settings** on older versions of the portal), set it to **Yes**, and select **Save**.
 
-    1. Select **+ Add a permission** > **Microsoft Graph** > **Delegated permissions**.
-    2. Add `User.Read` (under **User**) and `offline_access` (under **OpenId permissions**). `User.Read` is usually already listed on a new application, so leave it in place. The connector always requests these two at sign-in, so they must be approved regardless of what you select under **Access** later.
-    3. Add every permission you plan to select under **Access** on the Config page. At minimum, add the eight Default permissions (`Mail.Read`, `Mail.Read.Shared`, `Calendars.Read`, `Calendars.Read.Shared`, `Files.Read.All`, `Sites.Read.All`, `Chat.Read`, `OnlineMeetings.Read`), since those are pre-selected on the Config page. See [Choose which Microsoft 365 permissions to allow](#choose-which-microsoft-365-permissions-to-allow) for what each one does and for the optional write permissions.
-    4. Select **Add permissions**.
-    5. Select **Grant admin consent for \{your tenant name}** and confirm.
+This tells Microsoft Entra that the application runs on end-user devices and does not hold a secret. Claude Desktop signs in as a public client with no client secret, and with this setting off, brokered sign-in on managed devices fails with Entra error `AADSTS7000218`.
 
-    The **Grant admin consent** step approves these permissions once for every member of your Microsoft tenant, so individual members are not asked to approve them again when they sign in. Until you complete this step, members see Entra error `AADSTS65001` at sign-in (or, on tenants that allow members to approve permissions themselves, a per-member consent prompt).
+> [!WARNING]
+>
+> Setting **Allow public client flows** to **Yes** also permits the device-code sign-in flow, which attackers can abuse for phishing. To close that path, apply a tenant Conditional Access policy that blocks the device-code authentication flow. Scope the policy to **All resources**, not to this app registration, because Conditional Access evaluates the resource a token is requested for rather than the requesting client.
 
-    <Note>
-      A delegated permission lets the application act on a member's behalf, limited to whatever that member can already do. It does not let Claude see content the member cannot see. For example, granting `Files.Read.All` lets Claude read files the signed-in member can open, not every file in your tenant.
-    </Note>
-  </Step>
+**4. Add and approve Microsoft Graph permissions**
 
-  <Step title="Copy the two IDs">
-    On the application's **Overview** page, copy the **Application (client) ID** and the **Directory (tenant) ID**. You'll paste both into the Config page when you [configure the connector](#configure-the-connector-on-the-config-page).
-  </Step>
-</Steps>
+On the application's left navigation, go to **Manage** > **API permissions**.
+
+1. Select **+ Add a permission** > **Microsoft Graph** > **Delegated permissions**.
+2. Add `User.Read` (under **User**) and `offline_access` (under **OpenId permissions**). `User.Read` is usually already listed on a new application, so leave it in place. The connector always requests these two at sign-in, so they must be approved regardless of what you select under **Access** later.
+3. Add every permission you plan to select under **Access** on the Config page. At minimum, add the eight Default permissions (`Mail.Read`, `Mail.Read.Shared`, `Calendars.Read`, `Calendars.Read.Shared`, `Files.Read.All`, `Sites.Read.All`, `Chat.Read`, `OnlineMeetings.Read`), since those are pre-selected on the Config page. See [Choose which Microsoft 365 permissions to allow](#choose-which-microsoft-365-permissions-to-allow) for what each one does and for the optional write permissions.
+4. Select **Add permissions**.
+5. Select **Grant admin consent for \{your tenant name}** and confirm.
+
+The **Grant admin consent** step approves these permissions once for every member of your Microsoft tenant, so individual members are not asked to approve them again when they sign in. Until you complete this step, members see Entra error `AADSTS65001` at sign-in (or, on tenants that allow members to approve permissions themselves, a per-member consent prompt).
+
+> [!NOTE]
+>
+> A delegated permission lets the application act on a member's behalf, limited to whatever that member can already do. It does not let Claude see content the member cannot see. For example, granting `Files.Read.All` lets Claude read files the signed-in member can open, not every file in your tenant.
+
+**5. Copy the two IDs**
+
+On the application's **Overview** page, copy the **Application (client) ID** and the **Directory (tenant) ID**. You'll paste both into the Config page when you [configure the connector](#configure-the-connector-on-the-config-page).
 
 ### If your Microsoft tenant is in a US Government cloud
 
@@ -158,9 +156,9 @@ Write permissions let Claude take actions in Microsoft 365 on the member's behal
 | `Chat.Create` | Start new Teams chats |
 | `MailboxSettings.ReadWrite` | Create and delete the member's mail rules, manage labels, and configure automatic replies |
 
-<Note>
-  Removing a permission from the **Access** picker changes what Claude Desktop requests the next time a member signs in, but it does not revoke permissions that Microsoft Entra has already approved for the application. To revoke a permission entirely, remove it in the Entra admin center under **Enterprise applications** > your application > **Permissions**.
-</Note>
+> [!NOTE]
+>
+> Removing a permission from the **Access** picker changes what Claude Desktop requests the next time a member signs in, but it does not revoke permissions that Microsoft Entra has already approved for the application. To revoke a permission entirely, remove it in the Entra admin center under **Enterprise applications** > your application > **Permissions**.
 
 ## What members see
 

@@ -6,9 +6,9 @@
 
 > Claude Tag pulls account and deal state into the Slack channel. See in-thread account answers, pre-call briefs, and a scheduled weekly pipeline digest.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How deal-state prompts work
 
@@ -64,12 +64,10 @@ The three lines cover what moved, what's stuck, and what's coming due, so the di
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Answer data questions" href="/docs/claude-tag/users/use-cases/answer-data-questions" horizontal arrow>
-    When the question is metrics, not accounts
-  </Card>
+> **[Answer data questions](/docs/claude-tag/users/use-cases/answer-data-questions)**
+>
+> When the question is metrics, not accounts
 
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    Scheduled digests
-  </Card>
-</CardGroup>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> Scheduled digests

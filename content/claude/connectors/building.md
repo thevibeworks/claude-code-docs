@@ -10,19 +10,19 @@ An MCP server gives Claude access to your product or data, and people who use Cl
 
 This page is for developers building a remote MCP server for other people to use in Claude. It covers the decisions you make as you build, in the order you meet them, and what Claude's MCP client supports for each one.
 
-<Note>
-  * If you're new to the protocol itself, see [Model Context Protocol (MCP)](/docs/connectors/building/mcp) for a short orientation
-  * If you want to build a minimal server first and watch Claude call it, see [Build your first MCP server for Claude](/docs/connectors/building/quickstart)
-  * If you're not sure your plugin needs an MCP server, see [Decide what to include in your plugin](/docs/connectors/building/what-to-build)
-</Note>
+> [!NOTE]
+>
+> * If you're new to the protocol itself, see [Model Context Protocol (MCP)](/docs/connectors/building/mcp) for a short orientation
+> * If you want to build a minimal server first and watch Claude call it, see [Build your first MCP server for Claude](/docs/connectors/building/quickstart)
+> * If you're not sure your plugin needs an MCP server, see [Decide what to include in your plugin](/docs/connectors/building/what-to-build)
 
 ## Plan your server
 
 Claude implements a subset of the MCP specification, with its own callback URL and its own size and timeout limits.
 
-<Tip>
-  To build with Claude's help, install the official [`mcp-server-dev` plugin](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/mcp-server-dev) in Claude Code. It walks you through building, testing, and packaging an MCP server interactively, using these docs as its reference.
-</Tip>
+> [!TIP]
+>
+> To build with Claude's help, install the official [`mcp-server-dev` plugin](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/mcp-server-dev) in Claude Code. It walks you through building, testing, and packaging an MCP server interactively, using these docs as its reference.
 
 ### Choose where the server runs
 

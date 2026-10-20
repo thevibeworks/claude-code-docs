@@ -8,9 +8,9 @@
 
 Claude Science runs on a remote Linux server (a cloud VM or a lab machine) the same way it runs on a workstation: the application and your data stay on the server, and you use the web app from your computer's browser through an SSH tunnel. Setup takes about five minutes, plus a few minutes of environment setup on first launch.
 
-<Note>
-  This page covers running all of Claude Science on a remote machine. To keep Claude Science on your own computer and have it run jobs on a machine you reach over SSH, see [Remote compute clusters](/docs/claude-science/remote-compute-clusters).
-</Note>
+> [!NOTE]
+>
+> This page covers running all of Claude Science on a remote machine. To keep Claude Science on your own computer and have it run jobs on a machine you reach over SSH, see [Remote compute clusters](/docs/claude-science/remote-compute-clusters).
 
 The server needs x64 Linux on a glibc-based distribution (arm64 and musl-based distributions such as Alpine aren't supported), about 5 GB of free disk space, and the system packages below. Your Claude account needs a Pro, Max, Team, or Enterprise plan; see [Requirements](/docs/claude-science/overview#requirements).
 
@@ -24,9 +24,9 @@ On Fedora, RHEL, or Arch, use the command for your distribution from the Linux t
 sudo apt-get update && sudo apt-get install -y curl bubblewrap socat
 ```
 
-<Note>
-  The sandbox requires bubblewrap 0.8.0 or later; check with `bwrap --version`. Ubuntu 24.04 ships a new enough version, and Ubuntu 22.04 doesn't. If Claude Science can't set up the sandbox, it refuses to start rather than run code unsandboxed.
-</Note>
+> [!NOTE]
+>
+> The sandbox requires bubblewrap 0.8.0 or later; check with `bwrap --version`. Ubuntu 24.04 ships a new enough version, and Ubuntu 22.04 doesn't. If Claude Science can't set up the sandbox, it refuses to start rather than run code unsandboxed.
 
 ## Run Claude Science without administrator access
 

@@ -4,8 +4,6 @@
 
 # Architecture
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) follows a client-host-server architecture where each
 host can run multiple client instances. This architecture enables users to integrate AI
 capabilities across applications while maintaining clear security boundaries and

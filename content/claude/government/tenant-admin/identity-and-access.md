@@ -34,9 +34,9 @@ Every user signs in through your agency's identity provider (for example, Micros
 
 You register Claude for Government as an application in your identity provider, then enter your provider's connection details here. Once connected, sign-ins are redirected to your provider. A second sign-in from the same browser within a few minutes, such as connecting Claude Desktop right after signing in on the web, may not be redirected again.
 
-<Note>
-  You need at least one verified domain before you can connect single sign-on. Until then, the Connect button is unavailable and a banner prompts you to verify a domain first. If single sign-on was already connected before your last domain was removed, the existing connection stays editable.
-</Note>
+> [!NOTE]
+>
+> You need at least one verified domain before you can connect single sign-on. Until then, the Connect button is unavailable and a banner prompts you to verify a domain first. If single sign-on was already connected before your last domain was removed, the existing connection stays editable.
 
 The card header shows a **Connected (OIDC)**, **Connected (SAML)**, or **Not configured** badge so you can see the current state at a glance. Only one protocol is active at a time. Use the **OIDC** and **SAML** tabs to switch between the two forms; saving one replaces the other.
 
@@ -73,45 +73,43 @@ Once SAML is active, the card shows the Entity ID and SSO URL extracted from you
 
 Both the OIDC and SAML sections include an **Attribute mapping** panel that's collapsed by default. Open it if the email, first-name, or last-name fields arrive under different names than the defaults. Each field offers a short list of common names for your chosen protocol; you can pick one or type your own. For OIDC the defaults are the standard `email`, `given_name`, and `family_name` claims; for SAML the defaults cover the common attribute names most providers use. Leave a field blank to use its default.
 
-<Warning>
-  Saving a new single sign-on configuration takes effect immediately and applies to everyone, including you. Before saving, confirm you can authenticate with the new provider in another browser window so that you don't lock yourself out.
-</Warning>
+> [!WARNING]
+>
+> Saving a new single sign-on configuration takes effect immediately and applies to everyone, including you. Before saving, confirm you can authenticate with the new provider in another browser window so that you don't lock yourself out.
 
 ## SCIM provisioning
 
-<Frame caption="Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.">
-  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-04-directory-sync-scim-and-group-mappings.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e254e02786c5f309b5c5c240c7752c4e" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" data-path="images/government/videos/admin-04-directory-sync-scim-and-group-mappings.mp4" />
-</Frame>
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-04-directory-sync-scim-and-group-mappings.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=e254e02786c5f309b5c5c240c7752c4e" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
 
-<Accordion title="Transcript">
-  Directory sync is optional, and without it accounts are created at first sign-in. With it, your identity provider pushes users and groups, provisioning rules place them in organizations, and each organization maps groups to seat tiers and roles.
-
-  On Identity and access, open SCIM provisioning. Copy the SCIM base URL, which your provider may call the Tenant URL, and select Generate token.
-
-  The token is shown once. Copy it for your provider's secret token field, then select Done. You can revoke a token here at any time.
-
-  In your provider's provisioning settings, paste both values, assign the groups you want to sync, and turn provisioning on.
-
-  After the first sync, your groups appear under Directory groups with member counts, and people not yet placed wait under Synced, not routed.
-
-  Under Provisioning rules, route groups to organizations. Send research-staff to Research Office, and claude-users to Operations Bureau. The first match wins, so add the narrower group first or drag it to the top.
-
-  Once a rule covers them, they are placed in its organization, and the list clears on its own.
-
-  In the organization's admin view, People now includes Group mappings. Map claude-users to a seat tier, here Standard, and claude-owners to the Owner role. Each change is applied right away.
-
-  On Users, the provisioned members now hold their mapped seat tier and role.
-
-  While sync is connected, your directory is the source of truth. Change groups in your provider, because role or seat tier edits made by hand are overwritten by the group mappings.
-</Accordion>
+> **Transcript**
+>
+> Directory sync is optional, and without it accounts are created at first sign-in. With it, your identity provider pushes users and groups, provisioning rules place them in organizations, and each organization maps groups to seat tiers and roles.
+>
+> On Identity and access, open SCIM provisioning. Copy the SCIM base URL, which your provider may call the Tenant URL, and select Generate token.
+>
+> The token is shown once. Copy it for your provider's secret token field, then select Done. You can revoke a token here at any time.
+>
+> In your provider's provisioning settings, paste both values, assign the groups you want to sync, and turn provisioning on.
+>
+> After the first sync, your groups appear under Directory groups with member counts, and people not yet placed wait under Synced, not routed.
+>
+> Under Provisioning rules, route groups to organizations. Send research-staff to Research Office, and claude-users to Operations Bureau. The first match wins, so add the narrower group first or drag it to the top.
+>
+> Once a rule covers them, they are placed in its organization, and the list clears on its own.
+>
+> In the organization's admin view, People now includes Group mappings. Map claude-users to a seat tier, here Standard, and claude-owners to the Owner role. Each change is applied right away.
+>
+> On Users, the provisioned members now hold their mapped seat tier and role.
+>
+> While sync is connected, your directory is the source of truth. Change groups in your provider, because role or seat tier edits made by hand are overwritten by the group mappings.
 
 SCIM is the standard protocol identity providers use to push users and groups to a connected service automatically, so that accounts are created, updated, and deactivated in step with your agency's directory. Connecting SCIM is optional; without it, users are created the first time they sign in. With SCIM connected, a person your directory has never sent still gets an account the first time they sign in, if a [sign-in rule](#sign-in-rules) covers them.
 
 [Provisioning rules](#provisioning-rules-scim), [group mappings](/docs/government/org-admin/provisioning), and [group-specific settings](/docs/government/config/overview#group-specific-settings) need SCIM, because they act on the [directory groups](#directory-groups) your identity provider pushes. Model access and usage limits come from each person's [seat tier](/docs/government/org-admin/seat-tiers), which an organization owner can assign on the [Users](/docs/government/org-admin/users) page without SCIM.
 
-<Note>
-  You need at least one verified domain before you can generate a SCIM token. Until then, **Generate token** is unavailable and a banner prompts you to verify a domain first.
-</Note>
+> [!NOTE]
+>
+> You need at least one verified domain before you can generate a SCIM token. Until then, **Generate token** is unavailable and a banner prompts you to verify a domain first.
 
 * **SCIM base URL** is the address your identity provider pushes user and group updates to. A copy button sits next to it. You'll paste this value into your identity provider's provisioning settings (Okta and Microsoft Entra call this the *Tenant URL*).
 
@@ -119,9 +117,9 @@ SCIM is the standard protocol identity providers use to push users and groups to
 
 Your identity provider authenticates to the SCIM address with a bearer token that you generate here. Click **Generate token** to create one, then paste the value into your identity provider's *Secret Token* (or equivalent) field.
 
-<Warning>
-  The full token value is shown **only once**, immediately after you create it. Copy it into your identity provider before clicking Done. If you lose the value, generate a new token and revoke the old one.
-</Warning>
+> [!WARNING]
+>
+> The full token value is shown **only once**, immediately after you create it. Copy it into your identity provider before clicking Done. If you lose the value, generate a new token and revoke the old one.
 
 The token table lists every token with its created date, a short hint (the last few characters) so you can tell them apart, and a status of **Active** or **Revoked**. You can keep more than one token active at a time, which lets you rotate without an outage: generate a new token, update your identity provider to use it, confirm a sync succeeds, and then revoke the old one. Revoking a token takes effect immediately.
 
@@ -133,33 +131,31 @@ Once your identity provider has pushed groups over SCIM, they appear here with t
 
 ## Routing rules
 
-<Frame caption="Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.">
-  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3b4fdf17a38f17ace0a31daff24dd678" aria-label="Video walkthrough: Organizations, seats, and routing rules" data-path="images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4" />
-</Frame>
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-03-organizations-seats-and-routing-rules.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=3b4fdf17a38f17ace0a31daff24dd678" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
 
-<Accordion title="Transcript">
-  Routing rules decide which organization each person lands in. Organizations hold users, seats, and settings, and their seats come from a billing account.
-
-  Marcus, a tenant administrator, signs in and opens the tenant view from the footer.
-
-  A new colleague, Rosa, tries to sign in. No routing rule covers Rosa yet, so the page says Almost there. The attempt is recorded for tenant administrators.
-
-  On Identity and access, Rejected sign-ins lists the attempt. Select Test in preview to check whether any rule covers Rosa.
-
-  The preview says refused at sign-in, because no rule matches Rosa yet.
-
-  Under Sign-in routing, add the first rule. Set If to Anyone with email domain, and choose example.gov. Set Then place in to Operations Bureau, and select Add rule. Rules run top to bottom, and the first match wins.
-
-  Run the preview again. Rosa would now be placed in Operations Bureau.
-
-  Rosa selects Try again and signs in once more. Rosa lands in Operations Bureau and gets a seat, because one was free.
-
-  On Organizations, expand Add organization. Enter a name and the Primary Owner's email, choose the billing account, then select Add. The owner does not automatically become a tenant administrator.
-
-  On Seats, the billing account shows its pool and the organizations it funds. Give Research Office seats and select Save. Its first seats also seat its Primary Owner, and the setup banner clears.
-
-  To send people to Research Office, add an identity provider group rule for them and drag it above the domain rule. Each person belongs to exactly one organization.
-</Accordion>
+> **Transcript**
+>
+> Routing rules decide which organization each person lands in. Organizations hold users, seats, and settings, and their seats come from a billing account.
+>
+> Marcus, a tenant administrator, signs in and opens the tenant view from the footer.
+>
+> A new colleague, Rosa, tries to sign in. No routing rule covers Rosa yet, so the page says Almost there. The attempt is recorded for tenant administrators.
+>
+> On Identity and access, Rejected sign-ins lists the attempt. Select Test in preview to check whether any rule covers Rosa.
+>
+> The preview says refused at sign-in, because no rule matches Rosa yet.
+>
+> Under Sign-in routing, add the first rule. Set If to Anyone with email domain, and choose example.gov. Set Then place in to Operations Bureau, and select Add rule. Rules run top to bottom, and the first match wins.
+>
+> Run the preview again. Rosa would now be placed in Operations Bureau.
+>
+> Rosa selects Try again and signs in once more. Rosa lands in Operations Bureau and gets a seat, because one was free.
+>
+> On Organizations, expand Add organization. Enter a name and the Primary Owner's email, choose the billing account, then select Add. The owner does not automatically become a tenant administrator.
+>
+> On Seats, the billing account shows its pool and the organizations it funds. Give Research Office seats and select Save. Its first seats also seat its Primary Owner, and the setup banner clears.
+>
+> To send people to Research Office, add an identity provider group rule for them and drag it above the domain rule. Each person belongs to exactly one organization.
 
 A **routing rule** is an instruction of the form "if a person matches this condition, place them in this organization." Routing rules are the **only** way a new person gets into your deployment; there is no default organization and no fallback.
 
@@ -180,9 +176,9 @@ Because sign-in rules run every time, a rule change has these effects on people 
 
 Because the Claude desktop app stores conversations on each person's own device, a move does not affect desktop chat history.
 
-<Tip>
-  When you add or edit a rule that would move people, a confirmation dialog shows how many existing members would be affected and a sample of their email addresses. Review that list before confirming.
-</Tip>
+> [!TIP]
+>
+> When you add or edit a rule that would move people, a confirmation dialog shows how many existing members would be affected and a sample of their email addresses. Review that list before confirming.
 
 > **For organization owners:** A member being moved out of your organization by a rule change loses their seat and role in your organization. Their account itself is kept, and they are reseated in the destination organization according to its available seats.
 
@@ -204,9 +200,9 @@ Each rule shows a status line with diagnostics:
 
 ### Provisioning rules (SCIM)
 
-<Note>
-  This section only appears when SCIM is connected (you have an active SCIM token or your directory has synced groups) or when provisioning rules already exist.
-</Note>
+> [!NOTE]
+>
+> This section only appears when SCIM is connected (you have an active SCIM token or your directory has synced groups) or when provisioning rules already exist.
 
 Provisioning rules match on **directory groups** that your identity provider has synced, and decide which organization a user is placed in when your directory provisions or updates them. You choose groups from the synced list; a group that hasn't synced yet won't appear in the picker.
 
@@ -224,15 +220,15 @@ Enter an email address (and, optionally, a comma-separated list of IdP groups) t
 
 The result shows one panel for sign-in and a separate panel for directory provisioning.
 
-<Note>
-  The directory provisioning panel only appears when SCIM is connected for your tenant.
-</Note>
+> [!NOTE]
+>
+> The directory provisioning panel only appears when SCIM is connected for your tenant.
 
 Each panel shows whether the person would be placed (and in which organization) or refused, and it lists every rule in order with the outcome for each: **matched**, **no match**, or **target deactivated**. If the email's domain isn't one of your tenant's verified domains, the preview explains that sign-in would never reach this tenant at all, and no rules are evaluated.
 
-<Tip>
-  Editing any rule clears the preview result automatically so you never read a verdict that's out of date. Re-run the preview after making changes.
-</Tip>
+> [!TIP]
+>
+> Editing any rule clears the preview result automatically so you never read a verdict that's out of date. Re-run the preview after making changes.
 
 ## Unplaced users
 
@@ -241,9 +237,9 @@ The unplaced-users lists collect people who have arrived but aren't in an organi
 * **Rejected sign-ins** are people from one of your verified domains who tried to sign in but matched no rule and were turned away. Each entry shows who tried, when they last tried, how many times, and which IdP groups their sign-in token carried. These records are kept so you can see who's trying and failing to get in.
 * **Synced, not routed** entries are people your directory has provisioned through SCIM who don't yet match any provisioning rule. They exist in the sync but have not been placed in an organization, so they cannot sign in.
 
-<Note>
-  The Rejected sign-ins list only appears when at least one sign-in has been turned away. The Synced, not routed list appears inside the provisioning-rules card and only when at least one provisioned user is waiting without a matching rule.
-</Note>
+> [!NOTE]
+>
+> The Rejected sign-ins list only appears when at least one sign-in has been turned away. The Synced, not routed list appears inside the provisioning-rules card and only when at least one provisioned user is waiting without a matching rule.
 
 For rejected sign-ins you can do the following:
 

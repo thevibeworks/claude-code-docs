@@ -14,10 +14,10 @@ Listing a bucket adds its address to the sandbox network allowlist so code can r
 
 Claude reads and writes objects with ordinary code using the provider's Python library (`boto3`, Azure SDK). **Settings > Storage** lists connected credentials and lets you browse and import objects (up to 100 GB) or export artifacts.
 
-<Note>
-  From code, reach Google Cloud Storage with an **HMAC key** via `boto3`, or use the import/export flow. `gsutil`, `gcloud storage`, and the google-cloud-storage Python library use path-style addresses that aren't reachable from the sandbox.
-</Note>
+> [!NOTE]
+>
+> From code, reach Google Cloud Storage with an **HMAC key** via `boto3`, or use the import/export flow. `gsutil`, `gcloud storage`, and the google-cloud-storage Python library use path-style addresses that aren't reachable from the sandbox.
 
-<Warning>
-  Code that Claude writes can use a credential you add here only after you approve a **Credentials** card that names it. By default the approval lasts for the conversation. If a bucket should never be reachable from an analysis session, don't add its credential.
-</Warning>
+> [!WARNING]
+>
+> Code that Claude writes can use a credential you add here only after you approve a **Credentials** card that names it. By default the approval lasts for the conversation. If a bucket should never be reachable from an analysis session, don't add its credential.

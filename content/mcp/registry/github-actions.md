@@ -4,190 +4,188 @@
 
 # How to Automate Publishing with GitHub Actions
 
-<Note>
-  The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
-</Note>
+> [!NOTE]
+>
+> The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
 
 ## Step 1: Create a Workflow File
 
 In your server project directory, create a `.github/workflows/publish-mcp.yml` file. Here is an example for npm-based local server, but the MCP Registry publishing steps are the same for all package types:
 
-<CodeGroup>
-  ```yaml OIDC authentication (recommended) theme={null}
-  name: Publish to MCP Registry
+```yaml OIDC authentication (recommended) theme={null}
+name: Publish to MCP Registry
 
-  on:
-    push:
-      tags: ["v*"] # Triggers on version tags like v1.0.0
+on:
+  push:
+    tags: ["v*"] # Triggers on version tags like v1.0.0
 
-  jobs:
-    publish:
-      runs-on: ubuntu-latest
-      permissions:
-        id-token: write # Required for OIDC authentication
-        contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Required for OIDC authentication
+      contents: read
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-        ### Publish underlying npm package:
+      ### Publish underlying npm package:
 
-        - name: Set up Node.js
-          uses: actions/setup-node@v5
-          with:
-            node-version: "lts/*"
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "lts/*"
 
-        - name: Install dependencies
-          run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-        - name: Run tests
-          run: npm run test --if-present
+      - name: Run tests
+        run: npm run test --if-present
 
-        - name: Build package
-          run: npm run build --if-present
+      - name: Build package
+        run: npm run build --if-present
 
-        - name: Publish package to npm
-          run: npm publish
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish package to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-        ### Publish MCP server:
+      ### Publish MCP server:
 
-        - name: Install mcp-publisher
-          run: |
-            curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
 
-        - name: Authenticate to MCP Registry
-          run: ./mcp-publisher login github-oidc
+      - name: Authenticate to MCP Registry
+        run: ./mcp-publisher login github-oidc
 
-        # Optional:
-        # - name: Set version in server.json
-        #   run: |
-        #     VERSION=${GITHUB_REF#refs/tags/v}
-        #     jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
+      # Optional:
+      # - name: Set version in server.json
+      #   run: |
+      #     VERSION=${GITHUB_REF#refs/tags/v}
+      #     jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
 
-        - name: Publish server to MCP Registry
-          run: ./mcp-publisher publish
-  ```
+      - name: Publish server to MCP Registry
+        run: ./mcp-publisher publish
+```
 
-  ```yaml PAT authentication theme={null}
-  name: Publish to MCP Registry
+```yaml PAT authentication theme={null}
+name: Publish to MCP Registry
 
-  on:
-    push:
-      tags: ["v*"] # Triggers on version tags like v1.0.0
+on:
+  push:
+    tags: ["v*"] # Triggers on version tags like v1.0.0
 
-  jobs:
-    publish:
-      runs-on: ubuntu-latest
-      permissions:
-        contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-        ### Publish underlying npm package:
+      ### Publish underlying npm package:
 
-        - name: Set up Node.js
-          uses: actions/setup-node@v5
-          with:
-            node-version: "lts/*"
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "lts/*"
 
-        - name: Install dependencies
-          run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-        - name: Run tests
-          run: npm run test --if-present
+      - name: Run tests
+        run: npm run test --if-present
 
-        - name: Build package
-          run: npm run build --if-present
+      - name: Build package
+        run: npm run build --if-present
 
-        - name: Publish package to npm
-          run: npm publish
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish package to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-        ### Publish MCP server:
+      ### Publish MCP server:
 
-        - name: Install mcp-publisher
-          run: |
-            curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
 
-        - name: Authenticate to MCP Registry
-          run: ./mcp-publisher login github --token ${{ secrets.MCP_GITHUB_TOKEN }}
+      - name: Authenticate to MCP Registry
+        run: ./mcp-publisher login github --token ${{ secrets.MCP_GITHUB_TOKEN }}
 
-        # Optional:
-        # - name: Set version in server.json
-        #   run: |
-        #     VERSION=${GITHUB_REF#refs/tags/v}
-        #     jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
+      # Optional:
+      # - name: Set version in server.json
+      #   run: |
+      #     VERSION=${GITHUB_REF#refs/tags/v}
+      #     jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
 
-        - name: Publish server to MCP Registry
-          run: ./mcp-publisher publish
-  ```
+      - name: Publish server to MCP Registry
+        run: ./mcp-publisher publish
+```
 
-  ```yaml DNS authentication theme={null}
-  name: Publish to MCP Registry
+```yaml DNS authentication theme={null}
+name: Publish to MCP Registry
 
-  on:
-    push:
-      tags: ["v*"] # Triggers on version tags like v1.0.0
+on:
+  push:
+    tags: ["v*"] # Triggers on version tags like v1.0.0
 
-  jobs:
-    publish:
-      runs-on: ubuntu-latest
-      permissions:
-        contents: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
 
-        ### Publish underlying npm package:
+      ### Publish underlying npm package:
 
-        - name: Set up Node.js
-          uses: actions/setup-node@v5
-          with:
-            node-version: "lts/*"
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "lts/*"
 
-        - name: Install dependencies
-          run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-        - name: Run tests
-          run: npm run test --if-present
+      - name: Run tests
+        run: npm run test --if-present
 
-        - name: Build package
-          run: npm run build --if-present
+      - name: Build package
+        run: npm run build --if-present
 
-        - name: Publish package to npm
-          run: npm publish
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish package to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-        ### Publish MCP server:
+      ### Publish MCP server:
 
-        - name: Install mcp-publisher
-          run: |
-            curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
+      - name: Install mcp-publisher
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz mcp-publisher
 
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        # TODO: Replace `example.com` with your domain name
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        - name: Authenticate to MCP Registry
-          run: ./mcp-publisher login dns --domain example.com --private-key ${{ secrets.MCP_PRIVATE_KEY }}
+      # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      # TODO: Replace `example.com` with your domain name
+      # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      - name: Authenticate to MCP Registry
+        run: ./mcp-publisher login dns --domain example.com --private-key ${{ secrets.MCP_PRIVATE_KEY }}
 
-        # Optional:
-        # - name: Set version in server.json
-        #   run: |
-        #     VERSION=${GITHUB_REF#refs/tags/v}
-        #     jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
+      # Optional:
+      # - name: Set version in server.json
+      #   run: |
+      #     VERSION=${GITHUB_REF#refs/tags/v}
+      #     jq --arg v "$VERSION" '.version = $v' server.json > server.tmp && mv server.tmp server.json
 
-        - name: Publish server to MCP Registry
-          run: ./mcp-publisher publish
-  ```
-</CodeGroup>
+      - name: Publish server to MCP Registry
+        run: ./mcp-publisher publish
+```
 
 ## Step 2: Add Secrets
 

@@ -6,9 +6,9 @@
 
 > What Chat can and cannot do in Claude Desktop on 3P, and how to configure it
 
-<Note>
-  When [Unified Claude](/docs/third-party/claude-desktop/unified-claude) is on, a message sent from the home screen starts a Cowork session on a device that can run Cowork.
-</Note>
+> [!NOTE]
+>
+> When [Unified Claude](/docs/third-party/claude-desktop/unified-claude) is on, a message sent from the home screen starts a Cowork session on a device that can run Cowork.
 
 Chat in Claude Desktop on third-party (3P) is a conversational surface for quick questions and drafting. Unlike [Cowork](/docs/cowork/overview) and [Code](/docs/third-party/claude-desktop/code), which run agentic sessions with access to folders you grant and a code-execution environment, a Chat conversation runs with a deliberately small tool surface: it can search and fetch the web under your admin configuration, read files attached to the conversation, read and update the project's memory and read the files in the project's folders when the conversation is inside a project, write files into a scratch space of its own, and use skills from the plugins you provision, and nothing else on the machine. Chat is off by default and is enabled with a single configuration key.
 
@@ -35,7 +35,7 @@ Chat conversations run against your configured inference provider, and their his
 
 For a conversation inside a project, Claude can list and read files in folders added to the project in Claude Desktop, and can't change them.
 
-* **Folders the user adds.** To have Claude read a folder, the user adds it to the project in Claude Desktop and starts a new conversation. For a folder that an [import](/docs/third-party/claude-desktop/import) put on the project, or that was on the project before Chat could read folders, the user adds it to the project again.
+* **Folders the user adds.** To have Claude read a folder, the user adds it to the project in Claude Desktop and starts a new conversation. For a folder that an [import](/docs/third-party/claude-desktop/import) put on the project, or that was on the project before Chat could read folders, the user adds it to the project again. For the steps, see [Make an imported project folder readable in Chat](/docs/third-party/claude-desktop/import#make-an-imported-project-folder-readable-in-chat).
 * **Folders you allow.** If you set [`allowedWorkspaceFolders`](/docs/third-party/claude-desktop/configuration#allowedworkspacefolders), the list also limits which of a project's folders Claude reads.
 
 ## What a Chat conversation cannot do
@@ -65,9 +65,9 @@ The execution environment is intentionally narrower than the Cowork sandbox:
 
 The data flow end to end: an attached file is copied into the conversation's local uploads directory, mounted read-only into the sandbox when analysis runs, and any outputs are written to the conversation's scratch directory on local disk. File content leaves the device only as conversation context sent to your configured inference provider, in web search queries to your configured search backend, through web fetches your egress allowlist permits, through [sandbox network access](#sandbox-network-access), in a connector tool call permitted by your `toolPolicy` configuration and the user's approvals, or, if you have enabled [content capture](/docs/third-party/claude-desktop/telemetry#content-capture), in telemetry to your own collector.
 
-<Note>
-  Advanced file analysis uses the same shell tool as Cowork's sandbox, so adding `"Bash"` to `disabledBuiltinTools` disables it even when `chatAdvancedFileAnalysisEnabled` is `true`. Running it requires the sandbox VM bundle, which the app downloads from Anthropic unless you deployed the offline installer (see [required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths)).
-</Note>
+> [!NOTE]
+>
+> Advanced file analysis uses the same shell tool as Cowork's sandbox, so adding `"Bash"` to `disabledBuiltinTools` disables it even when `chatAdvancedFileAnalysisEnabled` is `true`. Running it requires the sandbox VM bundle, which the app downloads from Anthropic unless you deployed the offline installer (see [required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths)).
 
 ### Sandbox network access
 
@@ -76,16 +76,16 @@ Commands that Claude runs in the advanced file analysis sandbox can reach the ho
 * **Other hosts.** A web request to any other host gets a `403 Forbidden` response with the header `X-Proxy-Error: blocked-by-allowlist`. `pip install` reports this as `Tunnel connection failed: 403 Forbidden`.
 * **Package installs.** Package managers contact their default index, so list its hosts. For pip, list `pypi.org` and `files.pythonhosted.org`. To install from a private mirror, list its host. The command must name the mirror, for example with pip's `--index-url`.
 
-<Warning>
-  By default, commands in the sandbox run without an approval prompt. A command can upload anything the sandbox can read to a listed host, and can run what it downloads from one. [Web fetch](/docs/third-party/claude-desktop/web-tools#web-fetch) in Chat uses the same list, so a host you list for web fetch is also open to sandbox commands. With `"*"` in the list, network filtering in the sandbox is off, so commands can reach any host.
+> [!WARNING]
+>
+> By default, commands in the sandbox run without an approval prompt. A command can upload anything the sandbox can read to a listed host, and can run what it downloads from one. [Web fetch](/docs/third-party/claude-desktop/web-tools#web-fetch) in Chat uses the same list, so a host you list for web fetch is also open to sandbox commands. With `"*"` in the list, network filtering in the sandbox is off, so commands can reach any host.
+>
+> * **To have Claude ask before each command**, set `"Bash"` to `"ask"` in [`builtinToolPolicy`](/docs/third-party/claude-desktop/configuration#builtintoolpolicy). That policy also applies to Cowork and Code sessions.
+> * **To keep web fetch but turn off sandbox commands**, set [`chatAdvancedFileAnalysisEnabled`](#configuration) to `false`.
 
-  * **To have Claude ask before each command**, set `"Bash"` to `"ask"` in [`builtinToolPolicy`](/docs/third-party/claude-desktop/configuration#builtintoolpolicy). That policy also applies to Cowork and Code sessions.
-  * **To keep web fetch but turn off sandbox commands**, set [`chatAdvancedFileAnalysisEnabled`](#configuration) to `false`.
-</Warning>
-
-<Note>
-  Sandbox network access requires Claude Desktop 2.42304.0 or later. On earlier versions, requests to listed hosts get a `403 Forbidden` response. After a device updates, commands can reach the listed hosts with no change to your configuration, in existing conversations too. If Claude says in an existing conversation that the sandbox has no network access, ask the user to start a new conversation.
-</Note>
+> [!NOTE]
+>
+> Sandbox network access requires Claude Desktop 2.42304.0 or later. On earlier versions, requests to listed hosts get a `403 Forbidden` response. After a device updates, commands can reach the listed hosts with no change to your configuration, in existing conversations too. If Claude says in an existing conversation that the sandbox has no network access, ask the user to start a new conversation.
 
 ## Configuration
 
@@ -98,9 +98,9 @@ While the `desktopHome` key for [Unified Claude](/docs/third-party/claude-deskto
 
 When `chatTabEnabled` is `true`, Claude Desktop presents Chat and Cowork together as **Home** in its sidebar, next to **Code**. From Home, the user chooses **Chat** or **Cowork** in the message box, and the sidebar lists chats and tasks together. When the key is unset or `false`, the sidebar shows **Cowork** in place of Home and the message box offers no choice. If [`coworkTabEnabled`](/docs/third-party/claude-desktop/configuration#coworktabenabled) is `false` while Chat is enabled, the message box offers Chat only.
 
-<Note>
-  This layout applies to Claude Desktop 1.26832.0 and later. Earlier versions show **Chat** (when enabled), **Cowork**, and **Code** as separate tabs, controlled by the same keys.
-</Note>
+> [!NOTE]
+>
+> This layout applies to Claude Desktop 1.26832.0 and later. Earlier versions show **Chat** (when enabled), **Cowork**, and **Code** as separate tabs, controlled by the same keys.
 
 Enforcement of `chatTabEnabled` happens in the app's main process: when the key is unset or `false`, Chat does not appear in the app, and the app additionally refuses to start or continue a Chat conversation, including conversations created before an admin turned the key off.
 

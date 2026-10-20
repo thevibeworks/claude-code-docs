@@ -6,9 +6,9 @@
 
 > Claude Tag finds answers in connected docs and replies in the thread. See policy lookups, runbook checks, prior decisions, and answers from the Slack channel alone.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How answer-finding prompts work
 
@@ -64,12 +64,10 @@ Answers come from this channel's history and [memory](/docs/claude-tag/users/mem
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Catch up" href="/docs/claude-tag/users/use-cases/catch-up" horizontal arrow>
-    The same mechanism pointed at "what did I miss"
-  </Card>
+> **[Catch up](/docs/claude-tag/users/use-cases/catch-up)**
+>
+> The same mechanism pointed at "what did I miss"
 
-  <Card title="What Claude Tag remembers" href="/docs/claude-tag/users/memory" horizontal arrow>
-    How channel knowledge accumulates
-  </Card>
-</CardGroup>
+> **[What Claude Tag remembers](/docs/claude-tag/users/memory)**
+>
+> How channel knowledge accumulates

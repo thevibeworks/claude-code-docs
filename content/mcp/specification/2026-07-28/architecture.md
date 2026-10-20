@@ -4,8 +4,6 @@
 
 # Architecture
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) follows a client-host-server architecture where each
 host can run multiple client instances. MCP is a stateless protocol: every request is
 self-contained and carries its own protocol version and capabilities.

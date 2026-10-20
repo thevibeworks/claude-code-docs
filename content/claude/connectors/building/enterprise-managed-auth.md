@@ -6,9 +6,9 @@
 
 > Accept identity assertions from enterprise SSO so users connect to your MCP server without a separate OAuth consent step.
 
-<Note>
-  Enterprise Managed Auth is available on Claude Team and Enterprise plans. After your authorization server supports it, email `mcp-review@anthropic.com` to have [your directory listing](/docs/connectors/building/managing-your-listing) marked as supporting Enterprise Managed Auth.
-</Note>
+> [!NOTE]
+>
+> Enterprise Managed Auth is available on Claude Team and Enterprise plans. After your authorization server supports it, email `mcp-review@anthropic.com` to have [your directory listing](/docs/connectors/building/managing-your-listing) marked as supporting Enterprise Managed Auth.
 
 Enterprise Managed Auth (EMA) lets a user connect to your MCP server silently, using the single sign-on session they already have with their organization. Instead of showing each user an OAuth consent screen, Claude presents your authorization server with an identity assertion: a signed JSON Web Token (JWT), issued by the customer's identity provider, that vouches for the user's identity.
 
@@ -20,9 +20,7 @@ This page is for connector developers who need their authorization server to acc
 
 When a user whose organization has Enterprise Managed Auth configured invokes your connector, Claude obtains a signed identity assertion for that user and exchanges it directly at your token endpoint for an access token. The user never sees a browser redirect or a consent screen, and your MCP server receives the same kind of bearer token it would after the interactive OAuth flow. The diagram shows the exchange between Claude, your authorization server, and your MCP server.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/connectors/enterprise-managed-auth-exchange.svg?fit=max&auto=format&n=-njlLvrWxFCRdJVz&q=85&s=2bdd0b680bda337b37632516b8dc5e84" alt="Sequence diagram with three participants: Claude, your authorization server, and your MCP server. The user is already signed in to Claude through their organization's single sign-on. 1, Claude sends POST /token to your authorization server with the jwt-bearer grant and the signed JWT assertion. 2, your authorization server fetches the issuer's JWKS and verifies the signature. 3, it validates iss, aud, exp, sub, and client_id. 4, it returns an access_token to Claude. 5, Claude sends the tool call to your MCP server with the Bearer access_token. 6, your MCP server returns the tool result to Claude. Requests are solid arrows and responses are dashed arrows." width="1000" height="560" data-path="images/connectors/enterprise-managed-auth-exchange.svg" />
-
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/connectors/enterprise-managed-auth-exchange-dark.svg?fit=max&auto=format&n=-njlLvrWxFCRdJVz&q=85&s=5b8c6c81ef448cfb08deb05f0d02b712" alt="Sequence diagram with three participants: Claude, your authorization server, and your MCP server. The user is already signed in to Claude through their organization's single sign-on. 1, Claude sends POST /token to your authorization server with the jwt-bearer grant and the signed JWT assertion. 2, your authorization server fetches the issuer's JWKS and verifies the signature. 3, it validates iss, aud, exp, sub, and client_id. 4, it returns an access_token to Claude. 5, Claude sends the tool call to your MCP server with the Bearer access_token. 6, your MCP server returns the tool result to Claude. Requests are solid arrows and responses are dashed arrows." width="1000" height="560" data-path="images/connectors/enterprise-managed-auth-exchange-dark.svg" />
+![Sequence diagram with three participants: Claude, your authorization server, and your MCP server. The user is already signed in to Claude through their organization's single sign-on. 1, Claude sends POST /token to your authorization server with the jwt-bearer grant and the signed JWT assertion. 2, your authorization server fetches the issuer's JWKS and verifies the signature. 3, it validates iss, aud, exp, sub, and client\_id. 4, it returns an access\_token to Claude. 5, Claude sends the tool call to your MCP server with the Bearer access\_token. 6, your MCP server returns the tool result to Claude. Requests are solid arrows and responses are dashed arrows.](https://mintcdn.com/claude-ai/-njlLvrWxFCRdJVz/images/connectors/enterprise-managed-auth-exchange.svg?fit=max\&auto=format\&n=-njlLvrWxFCRdJVz\&q=85\&s=2bdd0b680bda337b37632516b8dc5e84)
 
 Two parties are involved in this exchange: the customer's identity provider signs the assertion, and your authorization server verifies it and issues the access token. Both roles are often served by commercial identity platforms, so the distinction here is about which tenant plays which role rather than about product type. The identity provider publishes its signing keys as a JSON Web Key Set, and your authorization server fetches that key set to verify each assertion.
 
@@ -43,9 +41,9 @@ Before adding Enterprise Managed Auth, make sure the following are already in pl
 * Your MCP server implements [MCP authorization](https://modelcontextprotocol.io/specification/draft/basic/authorization), including Protected Resource Metadata (PRM) discovery, and follows the [MCP security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices). See the [authentication guide](/docs/connectors/building/authentication) for Claude-specific requirements
 * Your authorization server registers Claude using either [Anthropic-held client credentials](/docs/connectors/building/authentication#anthropic-held-client-credentials) or a [Client ID Metadata Document](/docs/connectors/building/authentication#dcr-and-cimd-details)
 
-<Warning>
-  Dynamic Client Registration (DCR) isn't supported with Enterprise Managed Auth. The identity provider stamps a fixed `client_id` into every assertion it issues, so your authorization server must already recognize that client before the first assertion arrives. A client created on the fly through DCR can't satisfy this requirement because its identifier never matches the value in the assertion.
-</Warning>
+> [!WARNING]
+>
+> Dynamic Client Registration (DCR) isn't supported with Enterprise Managed Auth. The identity provider stamps a fixed `client_id` into every assertion it issues, so your authorization server must already recognize that client before the first assertion arrives. A client created on the fly through DCR can't satisfy this requirement because its identifier never matches the value in the assertion.
 
 ## Authorization server requirements
 
@@ -53,59 +51,57 @@ Your authorization server must support the JWT bearer authorization grant ([RFC 
 
 If your MCP server relies on a hosted identity platform, there is typically no code to write. Confirm that the platform supports the JWT bearer authorization grant and enable it for your tenant. Support varies by product, and some commercial authorization servers and identity platforms don't support it yet, so confirm that yours does and that the customer's identity provider can be registered as a trusted issuer. If you run your own authorization server, the steps in this section describe what it needs to support.
 
-<Steps>
-  <Step title="Ensure the JWT bearer grant is supported">
-    Your authorization server must accept `urn:ietf:params:oauth:grant-type:jwt-bearer` at its token endpoint and advertise it in the `grant_types_supported` array of its [authorization server metadata (RFC 8414)](https://datatracker.ietf.org/doc/html/rfc8414). In this example metadata, the highlighted entry is the one Claude looks for:
+**1. Ensure the JWT bearer grant is supported**
 
-    ```json {7} theme={null}
-    {
-      "issuer": "https://auth.example.com",
-      "token_endpoint": "https://auth.example.com/token",
-      "grant_types_supported": [
-        "authorization_code",
-        "refresh_token",
-        "urn:ietf:params:oauth:grant-type:jwt-bearer"
-      ]
-    }
-    ```
+Your authorization server must accept `urn:ietf:params:oauth:grant-type:jwt-bearer` at its token endpoint and advertise it in the `grant_types_supported` array of its [authorization server metadata (RFC 8414)](https://datatracker.ietf.org/doc/html/rfc8414). In this example metadata, the highlighted entry is the one Claude looks for:
 
-    Claude reads this metadata to discover whether your server supports Enterprise Managed Auth. The grant type must be listed here for Claude to offer the feature to the customer, even if your token endpoint would already accept it silently.
-  </Step>
+```json {7} theme={null}
+{
+  "issuer": "https://auth.example.com",
+  "token_endpoint": "https://auth.example.com/token",
+  "grant_types_supported": [
+    "authorization_code",
+    "refresh_token",
+    "urn:ietf:params:oauth:grant-type:jwt-bearer"
+  ]
+}
+```
 
-  <Step title="Register the trusted issuer">
-    For each customer, your authorization server needs to trust that customer's identity provider as a JWT issuer. Your authorization server fetches the identity provider's JSON Web Key Set and uses it to verify the signature on every incoming assertion.
+Claude reads this metadata to discover whether your server supports Enterprise Managed Auth. The grant type must be listed here for Claude to offer the feature to the customer, even if your token endpoint would already accept it silently.
 
-    Your authorization server is responsible for maintaining an explicit allowlist of trusted issuer URLs per tenant rather than accepting any well-formed JWT. It must reject an assertion whose `iss` isn't on the tenant's allowlist with `invalid_grant`, even if the signature is valid.
+**2. Register the trusted issuer**
 
-    <Warning>
-      Never accept an identity assertion without full validation. Your authorization server must verify the signature, issuer, audience, expiry, and subject on every request. Use the JWT validation built into your authorization server product. If you need to inspect assertions in your own code, use the validation library or token introspection endpoint provided by your authorization server vendor rather than writing custom verification logic.
-    </Warning>
-  </Step>
+For each customer, your authorization server needs to trust that customer's identity provider as a JWT issuer. Your authorization server fetches the identity provider's JSON Web Key Set and uses it to verify the signature on every incoming assertion.
 
-  <Step title="Understand the token request">
-    Claude sends a form-encoded `POST` to your authorization server's token endpoint. The highlighted parameters are the JWT bearer grant type, the signed assertion, and the `client_id` your server must already recognize:
+Your authorization server is responsible for maintaining an explicit allowlist of trusted issuer URLs per tenant rather than accepting any well-formed JWT. It must reject an assertion whose `iss` isn't on the tenant's allowlist with `invalid_grant`, even if the signature is valid.
 
-    ```http {5-7} theme={null}
-    POST /token HTTP/1.1
-    Host: auth.example.com
-    Content-Type: application/x-www-form-urlencoded
+> [!WARNING]
+>
+> Never accept an identity assertion without full validation. Your authorization server must verify the signature, issuer, audience, expiry, and subject on every request. Use the JWT validation built into your authorization server product. If you need to inspect assertions in your own code, use the validation library or token introspection endpoint provided by your authorization server vendor rather than writing custom verification logic.
 
-    grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
-    &assertion=eyJhbGciOi...
-    &client_id=your-registered-client-id
-    &scope=openid profile
-    &resource=https://mcp.example.com
-    ```
+**3. Understand the token request**
 
-    The `assertion` parameter carries the signed JWT. The `client_id` is the value Claude is registered under at your authorization server. Claude also includes the `resource` parameter ([Resource Indicators, RFC 8707](https://www.rfc-editor.org/rfc/rfc8707)) set to your MCP server URL whenever the customer's identity provider supports forwarding it. Some identity provider configurations cannot pass a resource indicator through, so your authorization server should accept the request whether or not `resource` is present and use it for audience binding when it is.
+Claude sends a form-encoded `POST` to your authorization server's token endpoint. The highlighted parameters are the JWT bearer grant type, the signed assertion, and the `client_id` your server must already recognize:
 
-    Your authorization server validates the assertion according to the [JWT bearer token processing rules (RFC 7523 section 3)](https://datatracker.ietf.org/doc/html/rfc7523#section-3) and returns a standard OAuth token response. Claude then presents the returned access token as a `Bearer` credential on calls to your MCP server, exactly as it does after the interactive flow.
+```http {5-7} theme={null}
+POST /token HTTP/1.1
+Host: auth.example.com
+Content-Type: application/x-www-form-urlencoded
 
-    <Note>
-      Your authorization server sets the access token lifetime, and the customer's identity provider sets the assertion lifetime. Anthropic doesn't control either value.
-    </Note>
-  </Step>
-</Steps>
+grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer
+&assertion=eyJhbGciOi...
+&client_id=your-registered-client-id
+&scope=openid profile
+&resource=https://mcp.example.com
+```
+
+The `assertion` parameter carries the signed JWT. The `client_id` is the value Claude is registered under at your authorization server. Claude also includes the `resource` parameter ([Resource Indicators, RFC 8707](https://www.rfc-editor.org/rfc/rfc8707)) set to your MCP server URL whenever the customer's identity provider supports forwarding it. Some identity provider configurations cannot pass a resource indicator through, so your authorization server should accept the request whether or not `resource` is present and use it for audience binding when it is.
+
+Your authorization server validates the assertion according to the [JWT bearer token processing rules (RFC 7523 section 3)](https://datatracker.ietf.org/doc/html/rfc7523#section-3) and returns a standard OAuth token response. Claude then presents the returned access token as a `Bearer` credential on calls to your MCP server, exactly as it does after the interactive flow.
+
+> [!NOTE]
+>
+> Your authorization server sets the access token lifetime, and the customer's identity provider sets the assertion lifetime. Anthropic doesn't control either value.
 
 ### Access token lifetime
 

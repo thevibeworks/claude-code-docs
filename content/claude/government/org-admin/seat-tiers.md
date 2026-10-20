@@ -36,17 +36,17 @@ Click **New seat tier** and fill in the form.
 
 An organization may create up to 50 self-managed tiers.
 
-<Warning>
-  The **New seat tier** button only appears if your tenant has allowed organizations to manage their own seat tiers. This permission is controlled by the **Let organizations manage their own seat tiers** setting on the tenant's Config page. If you don't see the button, ask a tenant administrator.
-</Warning>
+> [!WARNING]
+>
+> The **New seat tier** button only appears if your tenant has allowed organizations to manage their own seat tiers. This permission is controlled by the **Let organizations manage their own seat tiers** setting on the tenant's Config page. If you don't see the button, ask a tenant administrator.
 
 ## Viewing and editing a tier
 
 A tier's detail page shows its current values along with an **Allowed models** section that groups the permitted models by family.
 
-<Note>
-  The **Edit** form and **Delete** button only appear on self-managed tiers. For an Anthropic-managed tier the page is read-only.
-</Note>
+> [!NOTE]
+>
+> The **Edit** form and **Delete** button only appear on self-managed tiers. For an Anthropic-managed tier the page is read-only.
 
 For a self-managed tier the **Edit** form lets you update any of the fields above. Changes to spend limits and allowed models take effect immediately for every user on the tier: if you lower the spend limit, a user who is already over the new limit will be blocked on their next request until their window rolls forward, and if you remove a model from the allowlist it becomes unavailable to every user on the tier straight away. Changes to **Default model** and **Always start with the default model** reach users when Claude Desktop next [refreshes its configuration](/docs/government/config/overview#when-changes-take-effect), and a new default appears the next time they start Claude Desktop.
 

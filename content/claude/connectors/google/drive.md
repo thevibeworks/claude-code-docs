@@ -10,27 +10,25 @@ The Google Drive connector lets Claude search your Google Drive, read the files 
 
 To get going, [connect Google Drive](#connect-google-drive) and then [try a first question](#try-the-connector).
 
-<Note>
-  If you want Claude to search your email or calendar rather than your files, see [Gmail](/docs/connectors/google/gmail) or [Google Calendar](/docs/connectors/google/calendar).
-</Note>
+> [!NOTE]
+>
+> If you want Claude to search your email or calendar rather than your files, see [Gmail](/docs/connectors/google/gmail) or [Google Calendar](/docs/connectors/google/calendar).
 
 ## Connect Google Drive
 
 You connect Google Drive once from your connector settings, and Claude can then use it in any conversation where you turn the connector on.
 
-<Steps>
-  <Step title="Open your connectors">
-    Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) in claude.ai. **Customize** is the page that holds your connectors, skills, and plugins.
-  </Step>
+**1. Open your connectors**
 
-  <Step title="Connect Google Drive">
-    Find **Google Drive** in the list and select **Connect**.
-  </Step>
+Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) in claude.ai. **Customize** is the page that holds your connectors, skills, and plugins.
 
-  <Step title="Sign in to Google">
-    Sign in to your Google account and grant the requested permissions.
-  </Step>
-</Steps>
+**2. Connect Google Drive**
+
+Find **Google Drive** in the list and select **Connect**.
+
+**3. Sign in to Google**
+
+Sign in to your Google account and grant the requested permissions.
 
 When the connection succeeds, the **Connect** button on the Google Drive connector changes to **Disconnect**.
 
@@ -59,47 +57,41 @@ Two limits apply to every type:
 
 Besides letting Claude search on its own, you can pick specific Drive files yourself. A file you pick is attached to the conversation, or added to a [project](https://support.claude.com/en/articles/9517075-what-are-projects)'s knowledge so every chat in that project can use it. The picker lists your Google Docs, Sheets, and Slides.
 
-<Tabs>
-  <Tab title="In a chat">
-    <Steps>
-      <Step title="Open the add menu">
-        In the conversation, select **+** at the lower left of the message box.
-      </Step>
+**In a chat**
 
-      <Step title="Choose Google Drive">
-        Select **Add from Google Drive**.
-      </Step>
+**1. Open the add menu**
 
-      <Step title="Pick a file">
-        Search for the file by name, or select it from the list.
-      </Step>
+In the conversation, select **+** at the lower left of the message box.
 
-      <Step title="Send your message">
-        Write your question and send it. Claude reads the file's current content from Drive each time you send a message, so later edits in Drive reach Claude too.
-      </Step>
-    </Steps>
-  </Tab>
+**2. Choose Google Drive**
 
-  <Tab title="In a project">
-    You can add Drive files only to a private project, one you haven't shared with other people. In a shared project, the **Google Drive** option is dimmed and shows **Only accessible from private projects**. To add a file to a private project's knowledge:
+Select **Add from Google Drive**.
 
-    <Steps>
-      <Step title="Open the add menu">
-        Open the project and, in its knowledge section, select **Add files**.
-      </Step>
+**3. Pick a file**
 
-      <Step title="Choose Google Drive">
-        Select **Google Drive**.
-      </Step>
+Search for the file by name, or select it from the list.
 
-      <Step title="Pick a file">
-        Search for the file, paste its Google Drive URL, or select it from the list.
-      </Step>
-    </Steps>
+**4. Send your message**
 
-    The file appears in the project's knowledge and is available to Claude in every chat in that project. Its content refreshes from Drive periodically when you open the project.
-  </Tab>
-</Tabs>
+Write your question and send it. Claude reads the file's current content from Drive each time you send a message, so later edits in Drive reach Claude too.
+
+**In a project**
+
+You can add Drive files only to a private project, one you haven't shared with other people. In a shared project, the **Google Drive** option is dimmed and shows **Only accessible from private projects**. To add a file to a private project's knowledge:
+
+**1. Open the add menu**
+
+Open the project and, in its knowledge section, select **Add files**.
+
+**2. Choose Google Drive**
+
+Select **Google Drive**.
+
+**3. Pick a file**
+
+Search for the file, paste its Google Drive URL, or select it from the list.
+
+The file appears in the project's knowledge and is available to Claude in every chat in that project. Its content refreshes from Drive periodically when you open the project.
 
 Claude receives a text version of each file you add this way:
 

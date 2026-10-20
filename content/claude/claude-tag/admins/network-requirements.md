@@ -6,9 +6,9 @@
 
 > Claude Tag reaches your services from a published egress range, over HTTP and HTTPS only. See the IP block to allowlist and how the allowlist relates to the allowed-websites setting on a connection.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 If a service you want to connect (a data warehouse, an internal API, a GitHub organization with an IP allow list) restricts access by source IP, add Anthropic's egress range to its allowlist. Hand this page to the team that manages it.
 
@@ -24,11 +24,15 @@ The authoritative list is [Anthropic's published IP addresses](https://platform.
 
 The range is shared across Anthropic services, and dedicated per-organization egress addresses aren't available, so the allowlist entry admits Anthropic's infrastructure as a whole. Your credential's [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) are what scope which of *your* systems Claude can call.
 
-<Note>If your Google Cloud project uses VPC Service Controls, an IP-based access level doesn't admit Claude's queries through the [BigQuery connection](/docs/claude-tag/admins/connections/bigquery). See [Allow the connection through a VPC Service Controls perimeter](/docs/claude-tag/admins/connections/bigquery#allow-the-connection-through-a-vpc-service-controls-perimeter) on the BigQuery page.</Note>
+> [!NOTE]
+>
+> If your Google Cloud project uses VPC Service Controls, an IP-based access level doesn't admit Claude's queries through the [BigQuery connection](/docs/claude-tag/admins/connections/bigquery). See [Allow the connection through a VPC Service Controls perimeter](/docs/claude-tag/admins/connections/bigquery#allow-the-connection-through-a-vpc-service-controls-perimeter) on the BigQuery page.
 
 ## Internet reachability
 
-<Warning>A connected service must accept traffic from the internet (restricted by IP allowlist if you like). A service reachable only inside your private network can't be connected; private networking such as PrivateLink or VPC peering is not supported.</Warning>
+> [!WARNING]
+>
+> A connected service must accept traffic from the internet (restricted by IP allowlist if you like). A service reachable only inside your private network can't be connected; private networking such as PrivateLink or VPC peering is not supported.
 
 In an Anthropic-hosted environment, every request from a channel's sandbox to your service passes through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy), which carries HTTP and HTTPS only. A service reachable only over another protocol, such as SSH or a database's native wire protocol, can't be connected; put an HTTP API in front of it instead.
 

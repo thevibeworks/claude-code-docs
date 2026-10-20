@@ -4,8 +4,6 @@
 
 # Authorization Security Considerations
 
-<div id="enable-section-numbers" />
-
 This document outlines security requirements that implementers **MUST** consider when
 building MCP clients and servers.
 

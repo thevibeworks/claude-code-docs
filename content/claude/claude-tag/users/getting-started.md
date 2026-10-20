@@ -6,9 +6,9 @@
 
 > Claude Tag works in your Slack channels. See how to check it's on, send your first message, what it can read, and why DMs work differently.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude Tag is Claude working in your Slack workspace. You hand it work by writing a message where Claude is, and Claude carries it out in that thread. An `@Claude` mention guarantees a response in a channel, but it isn't required everywhere. One-to-one DMs and threads Claude is already in reach it without one. There's nothing for you to install or configure; if `@Claude` is in your channel, you can use it (unless your admin has [restricted who can invoke Claude](/docs/claude-tag/admins/restrict-access#restrict-who-can-use-claude)).
 
@@ -108,7 +108,9 @@ Claude reads images and PDFs directly. It puts any other file type in its workin
 
 Claude can't read an image or PDF over its limit and answers from the rest of your message. To hand Claude a larger image or PDF, resize the image, split the PDF, or paste the text.
 
-<Note>Slack doesn't expose personal account settings (your sidebar, notification preferences, channel membership, or DMs between you and other people) to apps. If you want help organizing channels, paste or screenshot the list and Claude can propose a scheme you apply yourself.</Note>
+> [!NOTE]
+>
+> Slack doesn't expose personal account settings (your sidebar, notification preferences, channel membership, or DMs between you and other people) to apps. If you want help organizing channels, paste or screenshot the list and Claude can propose a scheme you apply yourself.
 
 ### Which messages Claude reads
 

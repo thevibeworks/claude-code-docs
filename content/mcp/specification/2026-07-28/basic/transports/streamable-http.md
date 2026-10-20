@@ -4,23 +4,21 @@
 
 # Streamable HTTP
 
-<div id="enable-section-numbers" />
+> [!NOTE]
+>
+> Streamable HTTP was introduced in protocol version 2025-03-26 as a replacement
+> for the \[HTTP+SSE transport]\[http-sse] from protocol version 2024-11-05.
 
-<Info>
-  Streamable HTTP was introduced in protocol version 2025-03-26 as a replacement
-  for the [HTTP+SSE transport][http-sse] from protocol version 2024-11-05.
-</Info>
-
-<Info>
-  Revision 2026-07-28 changed the behavior of Streamable HTTP. Clients must
-  ensure they handle backwards compatibility correctly. Changes included:
-
-  * Removal of the GET stream endpoint.
-  * Removal of protocol-level sessions.
-
-  See the [changelog](/specification/2026-07-28/changelog) and
-  [Backward Compatibility](#backward-compatibility) below.
-</Info>
+> [!NOTE]
+>
+> Revision 2026-07-28 changed the behavior of Streamable HTTP. Clients must
+> ensure they handle backwards compatibility correctly. Changes included:
+>
+> * Removal of the GET stream endpoint.
+> * Removal of protocol-level sessions.
+>
+> See the [changelog](/specification/2026-07-28/changelog) and
+> [Backward Compatibility](#backward-compatibility) below.
 
 In the **Streamable HTTP** transport, the server operates as an independent
 process that can handle multiple client connections. At a glance:
@@ -89,17 +87,17 @@ request to the MCP endpoint.
    `Content-Type: text/event-stream` (an SSE response stream). The client
    **MUST** support both.
 
-<Note>
-  This revision of the core protocol defines no client-to-server
-  *notifications* over Streamable HTTP. The only client-sent notification in
-  the core protocol, `notifications/cancelled`, is used only on the
-  [stdio](/specification/2026-07-28/basic/transports/stdio) transport; on
-  Streamable HTTP, closing the SSE response stream is itself the cancellation
-  signal and no `notifications/cancelled` message is expected (see
-  [Cancellation][cancellation]). The notification rules above describe the
-  transport mechanics for a notification POST; header requirements for
-  notification POSTs are not defined by this revision.
-</Note>
+> [!NOTE]
+>
+> This revision of the core protocol defines no client-to-server
+> *notifications* over Streamable HTTP. The only client-sent notification in
+> the core protocol, `notifications/cancelled`, is used only on the
+> [stdio](/specification/2026-07-28/basic/transports/stdio) transport; on
+> Streamable HTTP, closing the SSE response stream is itself the cancellation
+> signal and no `notifications/cancelled` message is expected (see
+> \[Cancellation]\[cancellation]). The notification rules above describe the
+> transport mechanics for a notification POST; header requirements for
+> notification POSTs are not defined by this revision.
 
 ## Receiving Messages
 
@@ -138,16 +136,16 @@ buffer. Without this header, proxies may accumulate messages before sending
 them to the client, introducing unwanted latency and potentially breaking the
 real-time nature of SSE communication.
 
-<Note>
-  For long-lived streams — in particular the
-  [`subscriptions/listen`][subscriptions-listen] response stream — servers are
-  encouraged to periodically emit an SSE comment line (a line beginning with a
-  colon, e.g. `:\r\n`) as a keep-alive. This keeps the connection from being
-  closed by intermediaries or client idle timeouts during quiet periods when no
-  notifications are flowing. Per the [SSE specification][sse], any line beginning
-  with a colon is a comment that carries no event data; clients must ignore such
-  lines and must not treat them as malformed input.
-</Note>
+> [!NOTE]
+>
+> For long-lived streams — in particular the
+> \[`subscriptions/listen`]\[subscriptions-listen] response stream — servers are
+> encouraged to periodically emit an SSE comment line (a line beginning with a
+> colon, e.g. `:\r\n`) as a keep-alive. This keeps the connection from being
+> closed by intermediaries or client idle timeouts during quiet periods when no
+> notifications are flowing. Per the \[SSE specification]\[sse], any line beginning
+> with a colon is a comment that carries no event data; clients must ignore such
+> lines and must not treat them as malformed input.
 
 Resumable SSE streams via `Last-Event-ID` are not supported.
 
@@ -587,11 +585,11 @@ different components in the network rely on different sources of truth
 (e.g., a load balancer routing on the header value while the MCP server
 executes based on the body value).
 
-<Note>
-  When validating integer parameter values, servers **SHOULD** compare the
-  header value and the body value numerically rather than as strings (e.g.,
-  `42.0` and `42` are considered equal).
-</Note>
+> [!NOTE]
+>
+> When validating integer parameter values, servers **SHOULD** compare the
+> header value and the body value numerically rather than as strings (e.g.,
+> `42.0` and `42` are considered equal).
 
 When rejecting a request due to header validation failure, servers **MUST**
 return HTTP status `400 Bad Request` and **MUST** include a JSON-RPC error
@@ -628,19 +626,19 @@ Validation failure conditions include:
   [Value Encoding](#value-encoding)) before comparing them to the body value.
 * A header value contains invalid characters.
 
-<Note>
-  Intermediaries **MUST** return an appropriate HTTP error status (e.g.,
-  `400 Bad Request`) for validation failures but are not required to return
-  a JSON-RPC error response.
-</Note>
+> [!NOTE]
+>
+> Intermediaries **MUST** return an appropriate HTTP error status (e.g.,
+> `400 Bad Request`) for validation failures but are not required to return
+> a JSON-RPC error response.
 
-<Note>
-  Intermediaries that enforce policy based on mirrored headers (e.g., routing
-  or rate-limiting by tenant) **SHOULD** verify that the `MCP-Protocol-Version`
-  header indicates a version that requires header–body validation. If the
-  version is older or the header is absent, the intermediary **SHOULD** reject
-  the request rather than trusting unvalidated header values.
-</Note>
+> [!NOTE]
+>
+> Intermediaries that enforce policy based on mirrored headers (e.g., routing
+> or rate-limiting by tenant) **SHOULD** verify that the `MCP-Protocol-Version`
+> header indicates a version that requires header–body validation. If the
+> version is older or the header is absent, the intermediary **SHOULD** reject
+> the request rather than trusting unvalidated header values.
 
 ## Backward Compatibility
 
@@ -689,18 +687,18 @@ in addition to the version-negotiation fallback described above.
 
 ### HTTP+SSE Transport (2024-11-05)
 
-<Warning>
-  **Deprecated**: The [HTTP+SSE transport][http-sse] from protocol version
-  2024-11-05 has been deprecated since protocol version `2025-03-26` and is
-  classified as Deprecated under the [feature lifecycle
-  policy](/community/feature-lifecycle#deprecating-a-feature)
-  ([SEP-2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596)).
-  New implementations **SHOULD NOT** adopt it; existing implementations
-  **SHOULD** migrate to [Streamable
-  HTTP](/specification/2026-07-28/basic/transports/streamable-http). It is
-  eligible for removal in a future revision; see the [deprecated features
-  registry](/specification/2026-07-28/deprecated).
-</Warning>
+> [!WARNING]
+>
+> **Deprecated**: The \[HTTP+SSE transport]\[http-sse] from protocol version
+> 2024-11-05 has been deprecated since protocol version `2025-03-26` and is
+> classified as Deprecated under the [feature lifecycle
+> policy](/community/feature-lifecycle#deprecating-a-feature)
+> ([SEP-2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596)).
+> New implementations **SHOULD NOT** adopt it; existing implementations
+> **SHOULD** migrate to [Streamable
+> HTTP](/specification/2026-07-28/basic/transports/streamable-http). It is
+> eligible for removal in a future revision; see the [deprecated features
+> registry](/specification/2026-07-28/deprecated).
 
 Clients and servers can maintain backward compatibility with the
 deprecated [HTTP+SSE transport][http-sse] (from

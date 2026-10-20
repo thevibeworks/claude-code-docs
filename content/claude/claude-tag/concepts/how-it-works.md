@@ -6,9 +6,9 @@
 
 > Each Claude Tag thread in Slack runs a working session in a sandbox. See how progress shows in the thread, how to steer mid-task, what survives between turns, and how memory is scoped.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude Tag is Claude, working inside your team's Slack channels. An organization Owner gives it its own accounts to the tools your team uses, so it arrives already able to act, and anyone in a channel can tag it into a problem without setting anything up.
 
@@ -27,61 +27,29 @@ This page covers:
 
 The thread below is one task end to end in Slack: Jordan tags @Claude into `#launch-week` with a question, a colleague steers mid-thread, and the answer lands in the channel.
 
-<div className="tm-slack">
-  <div className="tm-slack-head">
-    <span className="tm-slack-chan"># launch-week</span>
-    <span className="tm-slack-members">19 members</span>
-  </div>
+\# launch-week
+19 members
 
-  <div className="tm-slack-body">
-    <div className="tm-msg">
-      <span className="tm-avatar tm-avatar-user" aria-hidden="true">J</span>
 
-      <div className="tm-msg-col">
-        <div className="tm-msg-meta"><span className="tm-msg-name">Jordan</span><span className="tm-msg-time">9:02 AM</span></div>
-        <p><span className="tm-mention">@Claude</span> where are we on launch prep? Pull together what's still open from this channel.</p>
-      </div>
-    </div>
 
-    <div className="tm-msg">
-      <span className="tm-avatar tm-avatar-claude">
-        <img src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/logo/clay-spark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=032101c39ca3b1af9f72fc4af8e60d12" alt="" noZoom width="94" height="94" data-path="images/claude-tag/logo/clay-spark.svg" />
-      </span>
+Jordan9:02 AM\@Claude where are we on launch prep? Pull together what's still open from this channel.
 
-      <div className="tm-msg-col">
-        <div className="tm-msg-meta"><span className="tm-msg-name">Claude</span><span className="tm-msg-app">APP</span><span className="tm-msg-time">9:02 AM</span></div>
-        <p>On it. I'll go through this channel's open threads and the launch plan.</p>
+![](https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/logo/clay-spark.svg?fit=max\&auto=format\&n=5JFKyLlO7sHMMf5J\&q=85\&s=032101c39ca3b1af9f72fc4af8e60d12)
 
-        <div className="tm-tasklist">
-          <span className="tm-task-done"><span className="tm-sr">Done: </span>Read 14 open threads</span>
-          <span className="tm-task-done"><span className="tm-sr">Done: </span>Cross-checked the launch plan in Drive</span>
-          <span className="tm-task-done"><span className="tm-sr">Done: </span>Listed who each item is waiting on</span>
-          <span className="tm-task-done"><span className="tm-sr">Done: </span>Drafted the status summary</span>
-        </div>
-      </div>
-    </div>
+ClaudeAPP9:02 AMOn it. I'll go through this channel's open threads and the launch plan.
 
-    <div className="tm-msg">
-      <span className="tm-avatar tm-avatar-user tm-avatar-b" aria-hidden="true">S</span>
+Done: Read 14 open threads
+Done: Cross-checked the launch plan in Drive
+Done: Listed who each item is waiting on
+Done: Drafted the status summary
 
-      <div className="tm-msg-col">
-        <div className="tm-msg-meta"><span className="tm-msg-name">Sam</span><span className="tm-msg-time">9:06 AM</span></div>
-        <p>fold in the vendor quotes from last week's thread too</p>
-      </div>
-    </div>
 
-    <div className="tm-msg">
-      <span className="tm-avatar tm-avatar-claude">
-        <img src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/logo/clay-spark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=032101c39ca3b1af9f72fc4af8e60d12" alt="" noZoom width="94" height="94" data-path="images/claude-tag/logo/clay-spark.svg" />
-      </span>
 
-      <div className="tm-msg-col">
-        <div className="tm-msg-meta"><span className="tm-msg-name">Claude</span><span className="tm-msg-app">APP</span><span className="tm-msg-time">9:08 AM</span></div>
-        <p>Done. Full status below: eight items closed, three open. The venue contract is the oldest, waiting on legal since the 2nd.</p>
-      </div>
-    </div>
-  </div>
-</div>
+Sam9:06 AMfold in the vendor quotes from last week's thread too
+
+![](https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/logo/clay-spark.svg?fit=max\&auto=format\&n=5JFKyLlO7sHMMf5J\&q=85\&s=032101c39ca3b1af9f72fc4af8e60d12)
+
+ClaudeAPP9:08 AMDone. Full status below: eight items closed, three open. The venue contract is the oldest, waiting on legal since the 2nd.
 
 Each of the five moments in that thread shows a piece of how Claude Tag works:
 
@@ -161,9 +129,7 @@ Every session, in any channel, follows the same five-step loop.
 4. **The result lands in the thread.** An answer, a doc, a chart, or a pull request.
 5. **A quiet period follows.** The sandbox is released while the thread persists; a new reply rebuilds it and starts the loop again.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/session-loop.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=436dd451c4ab3ab0f0b072f85051e844" alt="Flow diagram of one session in five numbered steps. Step 1, tag Claude in with an @Claude message carrying a task. Steps 2 and 3 happen inside the sandbox. Step 2, a sandbox builds, one per thread; step 3, the working loop runs through the task's steps using the channel's access. Step 4, Claude posts the result in the thread as an answer, a doc, a chart, or a pull request. Step 5, a dashed quiet period follows, where the sandbox is released while the thread persists. A dashed return arrow from the quiet period back up into the sandbox shows that a new reply rebuilds it and the loop continues." width="1000" height="400" data-path="images/claude-tag/diagrams/session-loop.svg" />
-
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/session-loop-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=616c51832cbb9bc57fe6da5346c6ac85" alt="Flow diagram of one session in five numbered steps. Step 1, tag Claude in with an @Claude message carrying a task. Steps 2 and 3 happen inside the sandbox. Step 2, a sandbox builds, one per thread; step 3, the working loop runs through the task's steps using the channel's access. Step 4, Claude posts the result in the thread as an answer, a doc, a chart, or a pull request. Step 5, a dashed quiet period follows, where the sandbox is released while the thread persists. A dashed return arrow from the quiet period back up into the sandbox shows that a new reply rebuilds it and the loop continues." width="1000" height="400" data-path="images/claude-tag/diagrams/session-loop-dark.svg" />
+![Flow diagram of one session in five numbered steps. Step 1, tag Claude in with an @Claude message carrying a task. Steps 2 and 3 happen inside the sandbox. Step 2, a sandbox builds, one per thread; step 3, the working loop runs through the task's steps using the channel's access. Step 4, Claude posts the result in the thread as an answer, a doc, a chart, or a pull request. Step 5, a dashed quiet period follows, where the sandbox is released while the thread persists. A dashed return arrow from the quiet period back up into the sandbox shows that a new reply rebuilds it and the loop continues.](https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/session-loop.svg?fit=max\&auto=format\&n=5JFKyLlO7sHMMf5J\&q=85\&s=436dd451c4ab3ab0f0b072f85051e844)
 
 Steps 1 and 2 are [starting a session](#start-a-session): a message tags Claude in, and a sandbox builds for that thread. Step 3, the working loop, is [the checklist](#how-the-checklist-updates) below. Steps 4 and 5, the result and the quiet period that follows, are covered in [What survives between replies](#what-survives-between-replies).
 
@@ -257,9 +223,7 @@ A thread is durable, but the sandbox behind it is not. Durable means the thread 
 | Someone sends [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) | Archives the session right away and starts a fresh one that rereads the thread |
 | The session [gets stuck and fails](/docs/claude-tag/users/troubleshooting#claude-reacted-or-started-thinking-then-never-replied) | Starts the replacement when the next message arrives in the thread |
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/session-lifecycle.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=9a56231787b03f179e8d552d887778fc" alt="Timeline with two lanes. The Slack thread lane is one continuous bar that persists from the moment a task starts. The sandbox lane below it is segmented, built when the task starts, released while the thread goes quiet, and rebuilt fresh when someone replies." width="1000" height="270" data-path="images/claude-tag/diagrams/session-lifecycle.svg" />
-
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/session-lifecycle-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=0693a90b98baa729dcacfd35261f6494" alt="Timeline with two lanes. The Slack thread lane is one continuous bar that persists from the moment a task starts. The sandbox lane below it is segmented, built when the task starts, released while the thread goes quiet, and rebuilt fresh when someone replies." width="1000" height="270" data-path="images/claude-tag/diagrams/session-lifecycle-dark.svg" />
+![Timeline with two lanes. The Slack thread lane is one continuous bar that persists from the moment a task starts. The sandbox lane below it is segmented, built when the task starts, released while the thread goes quiet, and rebuilt fresh when someone replies.](https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/session-lifecycle.svg?fit=max\&auto=format\&n=5JFKyLlO7sHMMf5J\&q=85\&s=9a56231787b03f179e8d552d887778fc)
 
 | | Survives idle periods |
 | :- | :- |
@@ -288,9 +252,7 @@ To see what it holds, ask `@Claude what do you remember about this channel?`. An
 
 The whole model so far fits in one picture, with access set at the scope, memory kept per channel, work in progress per thread, and one-to-one DMs outside all of it.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/ZNX07pWnPReWiLwB/images/claude-tag/diagrams/three-levels.svg?fit=max&auto=format&n=ZNX07pWnPReWiLwB&q=85&s=78dfe70e5cf12007485d19baf47b803b" alt="Diagram showing three nested levels. A scope container holds two channels, #platform-eng and #gtm-west, and each channel holds its own threads, like 'fix checkout latency' or 'pull deal state'. The private channel is marked with a lock. Callouts mark what lives at each level (identity and access at the scope, memory at the channel plus workspace notes shared from public channels, and work in progress at the thread). A DM with Claude sits below, outside every scope, and runs on your own account." width="1000" height="648" data-path="images/claude-tag/diagrams/three-levels.svg" />
-
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/ZNX07pWnPReWiLwB/images/claude-tag/diagrams/three-levels-dark.svg?fit=max&auto=format&n=ZNX07pWnPReWiLwB&q=85&s=9b28d67feff32743e5cc2094e8fc3ec9" alt="Diagram showing three nested levels. A scope container holds two channels, #platform-eng and #gtm-west, and each channel holds its own threads, like 'fix checkout latency' or 'pull deal state'. The private channel is marked with a lock. Callouts mark what lives at each level (identity and access at the scope, memory at the channel plus workspace notes shared from public channels, and work in progress at the thread). A DM with Claude sits below, outside every scope, and runs on your own account." width="1000" height="648" data-path="images/claude-tag/diagrams/three-levels-dark.svg" />
+![Diagram showing three nested levels. A scope container holds two channels, #platform-eng and #gtm-west, and each channel holds its own threads, like 'fix checkout latency' or 'pull deal state'. The private channel is marked with a lock. Callouts mark what lives at each level (identity and access at the scope, memory at the channel plus workspace notes shared from public channels, and work in progress at the thread). A DM with Claude sits below, outside every scope, and runs on your own account.](https://mintcdn.com/claude-ai/ZNX07pWnPReWiLwB/images/claude-tag/diagrams/three-levels.svg?fit=max\&auto=format\&n=ZNX07pWnPReWiLwB\&q=85\&s=78dfe70e5cf12007485d19baf47b803b)
 
 One-to-one DMs are outside this picture; they run on your own account, as covered in [Team channels and personal DMs](#team-channels-and-personal-dms). An Owner can turn off DMs for the whole organization; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 

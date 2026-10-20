@@ -12,9 +12,7 @@ The TUI is the Inspector's terminal interface, with the same interactive explora
 npx @modelcontextprotocol/inspector --tui node build/index.js   # with an ad-hoc stdio server
 ```
 
-<Frame caption="The TUI connected to a server, on the Tools tab, showing a tool's input schema.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/tui-tools.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=5d11d64f4b98df8c26e7ac048f38576f" width="2986" height="1832" data-path="images/inspector/tui-tools.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/tui-tools.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=5d11d64f4b98df8c26e7ac048f38576f)
 
 ## Choosing servers
 
@@ -78,18 +76,16 @@ The TUI's callback listener defaults to `http://127.0.0.1:6276/oauth/callback`. 
 
 The trade-off is that only one TUI OAuth flow can hold the port at a time; a second concurrent flow fails with `EADDRINUSE`. To override it, pass `--callback-url` or set `MCP_OAUTH_CALLBACK_URL`: use a different fixed port per instance, or `http://127.0.0.1:0/oauth/callback` for an OS-assigned ephemeral port when your authorization server registers redirect URIs dynamically.
 
-<Warning>
-  Redirect URIs must match **exactly** what you registered. `localhost` and
-  `127.0.0.1` are different URIs as far as an authorization server is concerned.
-</Warning>
+> [!WARNING]
+>
+> Redirect URIs must match **exactly** what you registered. `localhost` and
+> `127.0.0.1` are different URIs as far as an authorization server is concerned.
 
 Per-server OAuth fields in the catalog (static client id/secret, scopes, the enterprise-managed flag) are applied automatically. Install-wide settings (CIMD, enterprise IdP) come from `~/.mcp-inspector/storage/client.json`, the same file the web client's **Client Settings** dialog writes. Point at a different one with `--client-config` or `MCP_CLIENT_CONFIG_PATH`.
 
 See [Authorization](/docs/2026-07-28/tools/inspector/authorization) for the full picture.
 
-<Frame caption="The Auth tab. It shows the same OAuth fields as the web client's Connection Info or, before any authorization has happened, says there is no OAuth information yet.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/tui-auth.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=2e5ef574e80e81c4b49fa2ef0eac0528" width="2986" height="1832" data-path="images/inspector/tui-auth.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/tui-auth.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=2e5ef574e80e81c4b49fa2ef0eac0528)
 
 ## Requirements
 

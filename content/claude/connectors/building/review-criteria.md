@@ -8,9 +8,9 @@
 
 This checklist covers what Anthropic checks on an MCP connector submitted to the directory, organized around the most common rejection reasons so you can correct them before you submit. It's for connector authors preparing a [directory submission](/docs/connectors/building/submission). For the full legal text behind these criteria, see the [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy).
 
-<Note>
-  If you're submitting a plugin, see the [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) instead.
-</Note>
+> [!NOTE]
+>
+> If you're submitting a plugin, see the [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) instead.
 
 Work through [tool design](#design-tools-that-pass-review), [server behavior](#server-behavior-and-scope), and [what to include with your submission](#gather-what-to-include-with-your-submission), then [test every tool](#test-before-you-submit) before you open the portal. [How Anthropic reviews connectors](#understand-how-anthropic-reviews-connectors) covers the Community and Verified labels.
 

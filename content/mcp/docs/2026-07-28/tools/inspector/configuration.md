@@ -17,11 +17,11 @@ The `mcp-inspector` binary is a launcher: it reads two flags of its own and forw
 
 Everything below belongs to a client.
 
-<Note>
-  The package also installs a second, separate bin, `mcpdo`, the experimental
-  [connection client](/docs/2026-07-28/tools/inspector/mcpdo). It is not reached
-  through the launcher and takes no mode flag.
-</Note>
+> [!NOTE]
+>
+> The package also installs a second, separate bin, `mcpdo`, the experimental
+> [connection client](/docs/2026-07-28/tools/inspector/mcpdo). It is not reached
+> through the launcher and takes no mode flag.
 
 ## Choosing servers
 
@@ -39,40 +39,40 @@ The CLI and TUI resolve `--catalog` and `--config` through the same shared code,
 
 The two are **mutually exclusive**, and neither combines with an ad-hoc target. Passing both is rejected identically by all three clients. The web client is stricter in one respect: it also rejects `--header` and `--protocol-era` alongside a file, where the CLI and TUI apply them on top of the file's settings.
 
-<Note>
-  **What a freshly seeded catalog contains depends on the client.** The web backend seeds three sample servers, so a first launch has something to connect to immediately:
+> [!NOTE]
+>
+> **What a freshly seeded catalog contains depends on the client.** The web backend seeds three sample servers, so a first launch has something to connect to immediately:
+>
+> ```json theme={null}
+> {
+>   "mcpServers": {
+>     "filesystem-server-default": {
+>       "type": "stdio",
+>       "command": "npx",
+>       "args": ["-y", "@modelcontextprotocol/server-filesystem", "/tmp"]
+>     },
+>     "everything-server-default": {
+>       "type": "stdio",
+>       "command": "npx",
+>       "args": ["-y", "@modelcontextprotocol/server-everything"]
+>     },
+>     "example-server-default": {
+>       "type": "streamable-http",
+>       "url": "https://example-server.modelcontextprotocol.io/mcp"
+>     }
+>   }
+> }
+> ```
+>
+> The CLI and TUI seed an empty `{ "mcpServers": {} }` instead: they are non-interactive or list-driven, so sample entries would be noise rather than a starting point.
+>
+> Either way, seeding happens only when the file does not exist yet, and a read-only `--config` is never seeded at all.
 
-  ```json theme={null}
-  {
-    "mcpServers": {
-      "filesystem-server-default": {
-        "type": "stdio",
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-filesystem", "/tmp"]
-      },
-      "everything-server-default": {
-        "type": "stdio",
-        "command": "npx",
-        "args": ["-y", "@modelcontextprotocol/server-everything"]
-      },
-      "example-server-default": {
-        "type": "streamable-http",
-        "url": "https://example-server.modelcontextprotocol.io/mcp"
-      }
-    }
-  }
-  ```
-
-  The CLI and TUI seed an empty `{ "mcpServers": {} }` instead: they are non-interactive or list-driven, so sample entries would be noise rather than a starting point.
-
-  Either way, seeding happens only when the file does not exist yet, and a read-only `--config` is never seeded at all.
-</Note>
-
-<Note>
-  `--config` is what you want when pointing the Inspector at a config file you
-  didn't write: a coworker's, a client application's, or one checked into a
-  repo. It guarantees the Inspector will not touch the file.
-</Note>
+> [!NOTE]
+>
+> `--config` is what you want when pointing the Inspector at a config file you
+> didn't write: a coworker's, a client application's, or one checked into a
+> repo. It guarantees the Inspector will not touch the file.
 
 ### Ad-hoc targets
 
@@ -190,11 +190,11 @@ Some of these are read by the web backend too, as the **Read by** column shows.
 | `MCP_CATALOG_PATH`, `MCP_STORAGE_DIR` | As described under [CLI and TUI](#cli-and-tui). |
 | `HTTPS_PROXY` / `HTTP_PROXY` / `NO_PROXY` | Standard proxy routing for outbound MCP connections. |
 
-<Warning>
-  Never combine `DANGEROUSLY_OMIT_AUTH` and `DANGEROUSLY_BIND_ALL_INTERFACES`.
-  The web backend spawns processes and holds OAuth tokens, so anyone who can
-  reach it can drive it.
-</Warning>
+> [!WARNING]
+>
+> Never combine `DANGEROUSLY_OMIT_AUTH` and `DANGEROUSLY_BIND_ALL_INTERFACES`.
+> The web backend spawns processes and holds OAuth tokens, so anyone who can
+> reach it can drive it.
 
 What the token does and does not protect is laid out under [The web backend and its API token](/docs/2026-07-28/tools/inspector/security#the-web-backend-and-its-api-token).
 
@@ -239,17 +239,17 @@ Each process picks one store, once, the first time it needs it: the web backend 
 | Container with **no volume** on the secrets directory | Memory | No, this session only |
 | Container **with** a volume on the secrets directory | File | Yes |
 
-<Warning>
-  **With no keychain, secrets go to a plaintext file, and you did not have to ask for it.** On a host where the keychain probe fails (Linux without libsecret or a running Secret Service, a headless server or SSH session with no D-Bus session, Android/Termux), the Inspector **automatically** stores secrets in `~/.mcp-inspector/secrets.json`. Unless you supply a key, that file is **unencrypted**. Mode `0600` keeps out other non-root users, but not root, not backups or copies of your home directory, and not any program running as you, including the stdio servers the Inspector starts.
-
-  Pick one:
-
-  * **Get a keychain back:** install libsecret and run a Secret Service (for example `gnome-keyring`), or run the Inspector inside a desktop session. On the next start the Inspector moves the file's secrets into the keychain and deletes the file.
-  * **Encrypt the file:** supply a generated key with `MCP_INSPECTOR_SECRET_KEY_FILE` (preferred) or `MCP_INSPECTOR_SECRET_KEY`.
-  * **Don't write secrets to disk at all:** `MCP_INSPECTOR_SECRET_STORE=memory`, and re-enter them each session.
-
-  Even encrypted, secrets on disk carry moderate risk. See [what the file store protects against](/docs/2026-07-28/tools/inspector/security#what-the-file-store-protects-against).
-</Warning>
+> [!WARNING]
+>
+> **With no keychain, secrets go to a plaintext file, and you did not have to ask for it.** On a host where the keychain probe fails (Linux without libsecret or a running Secret Service, a headless server or SSH session with no D-Bus session, Android/Termux), the Inspector **automatically** stores secrets in `~/.mcp-inspector/secrets.json`. Unless you supply a key, that file is **unencrypted**. Mode `0600` keeps out other non-root users, but not root, not backups or copies of your home directory, and not any program running as you, including the stdio servers the Inspector starts.
+>
+> Pick one:
+>
+> * **Get a keychain back:** install libsecret and run a Secret Service (for example `gnome-keyring`), or run the Inspector inside a desktop session. On the next start the Inspector moves the file's secrets into the keychain and deletes the file.
+> * **Encrypt the file:** supply a generated key with `MCP_INSPECTOR_SECRET_KEY_FILE` (preferred) or `MCP_INSPECTOR_SECRET_KEY`.
+> * **Don't write secrets to disk at all:** `MCP_INSPECTOR_SECRET_STORE=memory`, and re-enter them each session.
+>
+> Even encrypted, secrets on disk carry moderate risk. See [what the file store protects against](/docs/2026-07-28/tools/inspector/security#what-the-file-store-protects-against).
 
 [mcpdo](/docs/2026-07-28/tools/inspector/mcpdo) never falls back to `memory`: its commands and its daemon are separate processes, so it uses the file store instead.
 

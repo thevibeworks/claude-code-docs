@@ -6,13 +6,7 @@
 
 > Compare the share of primes per diagonal on Ulam's 1963 spiral of 1 to 40,401 against as many random odd numbers.
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/math-ulam-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=140ca573e05d853818df9ab149c1f064" alt="Primes up to 40,401 on Ulam's spiral, with primes of n² + n + 41 in orange along 2 rays; as many random odd numbers, with no streaks; and histograms of each diagonal's share, wider for the primes." width="1600" height="632" data-path="images/claude-science/example-gallery/math-ulam-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/math-ulam-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=fac8550c8919a1486851d6287563661b" alt="Primes up to 40,401 on Ulam's spiral, with primes of n² + n + 41 in orange along 2 rays; as many random odd numbers, with no streaks; and histograms of each diagonal's share, wider for the primes." width="1600" height="632" data-path="images/claude-science/example-gallery/math-ulam-full-dark.webp" />
-  </Frame>
-</div>
+![Primes up to 40,401 on Ulam's spiral, with primes of n² + n + 41 in orange along 2 rays; as many random odd numbers, with no streaks; and histograms of each diagonal's share, wider for the primes.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/math-ulam-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=140ca573e05d853818df9ab149c1f064)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

@@ -6,9 +6,9 @@
 
 > Claude Tag terms defined in one place, including agent identity, bundle, connector, personal connector, scope, Agent Proxy, routine, and session.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## Agent identity
 
@@ -17,8 +17,6 @@ The service accounts Claude acts with: the Claude app in Slack, the Claude GitHu
 ## Agent Proxy
 
 The network layer that injects credentials into Claude's outbound requests. The model and the sandbox are not given the key; Agent Proxy adds the credential at the network boundary when a request matches the rules an admin set. See [How agent identity works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
-
-<a id="access-bundle" />
 
 ## Bundle
 
@@ -48,8 +46,6 @@ Claude Tag is the second generation of the Claude app in Slack:
 | Proactive work | None | Routines and channel watching |
 
 Your admin chooses which generation answers `@Claude` in a given channel, so two channels in the same workspace can work differently. See [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope).
-
-<a id="connection" />
 
 ## Connector
 

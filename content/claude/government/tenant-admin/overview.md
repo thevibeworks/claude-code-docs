@@ -39,9 +39,9 @@ If your tenant has just been created, work through the pages in this order:
 2. **[Seats](/docs/government/tenant-admin/seats) and [Billing](/docs/government/tenant-admin/credits).** Distribute seats from your billing account to the organizations that will use them, and optionally set spend caps.
 3. **[Admins](/docs/government/tenant-admin/admins).** Add at least one more tenant administrator so that you are not the only person with tenant-level access.
 
-<Warning>
-  There is a short setup period after Anthropic first creates your tenant. During that period, a banner appears on the Identity and access page and nobody at your agency can sign in yet, including people who would normally be routed to an organization. You can still use that time to configure your single sign-on connection and routing rules, and they will start working automatically as soon as the setup period ends.
-</Warning>
+> [!WARNING]
+>
+> There is a short setup period after Anthropic first creates your tenant. During that period, a banner appears on the Identity and access page and nobody at your agency can sign in yet, including people who would normally be routed to an organization. You can still use that time to configure your single sign-on connection and routing rules, and they will start working automatically as soon as the setup period ends.
 
 ## Pages in this portal
 

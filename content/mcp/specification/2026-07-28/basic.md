@@ -4,8 +4,6 @@
 
 # Overview
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol consists of several key components that work together:
 
 * **Base Protocol**: Core JSON-RPC message types
@@ -203,22 +201,22 @@ Specifically:
   application-level handles) **MUST** be referenced by an explicit identifier
   the client passes on each request.
 
-<Note>
-  This implies that an open connection, such as a STDIO process, is not a
-  conversation or session: clients may interleave unrelated requests on the same
-  transport, and a server must not treat connection or process identity as a
-  proxy for conversation or session continuity.
-</Note>
+> [!NOTE]
+>
+> This implies that an open connection, such as a STDIO process, is not a
+> conversation or session: clients may interleave unrelated requests on the same
+> transport, and a server must not treat connection or process identity as a
+> proxy for conversation or session continuity.
 
 Long-lived requests like
 [`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions)
 remain request/response; the response is just an open stream of notifications.
 Their state is scoped to the request itself, not to the connection underneath.
 
-<Info>
-  For a walkthrough of how the per-request model maps to SDK code, see the
-  [Architecture guide](/docs/2026-07-28/learn/architecture#example).
-</Info>
+> [!NOTE]
+>
+> For a walkthrough of how the per-request model maps to SDK code, see the
+> [Architecture guide](/docs/2026-07-28/learn/architecture#example).
 
 ## Auth
 
@@ -403,13 +401,13 @@ identify themselves without relying on any prior connection state:
 | - | - | - | - |
 | `io.modelcontextprotocol/serverInfo` | `Implementation` | No | Server name and version |
 
-<Note>
-  `io.modelcontextprotocol/clientInfo` and `io.modelcontextprotocol/serverInfo`
-  are self-reported by the sender and are not verified by the protocol. They are
-  intended for display, logging, and debugging. Implementations **SHOULD NOT**
-  use them to change the behavior of the client or server, and **SHOULD NOT**
-  rely on them for security decisions.
-</Note>
+> [!NOTE]
+>
+> `io.modelcontextprotocol/clientInfo` and `io.modelcontextprotocol/serverInfo`
+> are self-reported by the sender and are not verified by the protocol. They are
+> intended for display, logging, and debugging. Implementations **SHOULD NOT**
+> use them to change the behavior of the client or server, and **SHOULD NOT**
+> rely on them for security decisions.
 
 On notifications delivered via a [`subscriptions/listen`][subscriptions-listen] stream,
 the server **MUST** include `io.modelcontextprotocol/subscriptionId` in `_meta` so the

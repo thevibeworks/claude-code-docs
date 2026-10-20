@@ -6,9 +6,9 @@
 
 > What the Claude app reads and posts in Slack, the OAuth scopes it requests, and what installing it does not grant. Written for the Slack admin approving the install.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 You're approving the Claude app install for someone who's setting up Claude Tag. This page covers what the app can do in your Slack workspace. The rest of setup happens on their side, in the Claude console; you don't need a Claude account.
 

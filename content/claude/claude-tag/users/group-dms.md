@@ -6,9 +6,9 @@
 
 > Add Claude to a Slack group DM to share a task with a few people. See whose access and billing apply, when Claude replies, and what differs from a channel.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 A group DM is a Slack direct message among several people. Claude works in a group DM it has been added to, so a few people can share a task with Claude without creating a channel.
 
@@ -57,21 +57,19 @@ Claude can't make the change in these cases:
 * **Channel-only access.** A guest is in the group DM, and Claude runs there with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works).
 * **Blocked member edits.** An admin set [**Channel member edits**](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions) to **Block** for the workspace or the organization.
 
-<Steps>
-  <Step title="Ask Claude">
-    Mention `@Claude` at the top level of the group DM and ask it to reply only to mentions.
+**1. Ask Claude**
 
-    ```text wrap theme={null}
-    @Claude only reply here when someone mentions you.
-    ```
+Mention `@Claude` at the top level of the group DM and ask it to reply only to mentions.
 
-    Claude posts a card in the thread under your message, with **Confirm** and **Cancel** buttons.
-  </Step>
+```text wrap theme={null}
+@Claude only reply here when someone mentions you.
+```
 
-  <Step title="Confirm the change">
-    Select **Confirm** within 30 minutes. The card changes to a line that names the person who confirmed and says Claude now replies only when @mentioned.
-  </Step>
-</Steps>
+Claude posts a card in the thread under your message, with **Confirm** and **Cancel** buttons.
+
+**2. Confirm the change**
+
+Select **Confirm** within 30 minutes. The card changes to a line that names the person who confirmed and says Claude now replies only when @mentioned.
 
 After the change, Claude still answers a mention, and it still reads replies in a thread that started with an `@Claude` mention.
 

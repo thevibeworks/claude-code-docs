@@ -93,6 +93,11 @@ On the "Update available" notice, this means the new version was downloaded but 
 
 On Linux, an update to version 0.1.61 ends this way on a computer where bubblewrap or socat came from conda, Homebrew, or a folder in your home directory, because version 0.1.61 needs both installed for the whole system. Version 0.1.62 withdraws that requirement, so trying again as above now gets a version that starts. If Claude Science won't start at all, run `claude-science update` in a terminal, then start it again.
 
+In version 0.1.67 and later, the notice can show one of these two sentences, with the new version's error on a **Reason** line when there is one:
+
+* "Update failed: the new version couldn't start. You're still on version …" (Linux only) means Claude Science went back to the version you had.
+* "The update is installed, but the restart failed. The next start will run the new version." means the new version is in place but didn't start; the steps for "restart aborted" still apply.
+
 ### Couldn't check for updates
 
 On a Mac where Claude Science opens in its own window, the **Updates** window shows this message when Claude Science couldn't get update information from Anthropic's update server. The same steps apply when it says "Couldn't download the update":

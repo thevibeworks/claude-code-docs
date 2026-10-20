@@ -6,11 +6,13 @@
 
 > Let Claude exchange a short-lived identity token for an access token from an OAuth 2.0 authorization server you run, then call your APIs with it. Covers what your token endpoint receives and must check, what it returns, and how to register it in the console.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-<BetaNote />
-
-<Note>Authorization servers are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Authorization servers** section. Connecting a server needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+> [!NOTE]
+>
+> Authorization servers are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Authorization servers** section. Connecting a server needs an organization Owner, or an admin with full Claude Tag management permission.
 
 With an authorization server connection, Claude presents a short-lived identity token to an OAuth 2.0 authorization server you run, receives one of your access tokens in return, and calls your APIs with it. No long-lived credential for your systems is stored in Claude, and [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) holds each access token only until it expires. The identity token names your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel), and your server decides whether to issue a token for it.
 
@@ -68,27 +70,25 @@ To refuse a grant, return a standard OAuth 2.0 error response, such as `400` wit
 
 ## Register the endpoint and connect the server
 
-<Steps>
-  <Step title="Open the Connect an authorization server dialog">
-    In **Authorization servers**, click **Connect an authorization server**.
-  </Step>
+**1. Open the Connect an authorization server dialog**
 
-  <Step title="Enter the token endpoint">
-    In the **Token endpoint** field, enter the full address starting with `https://`, for example `https://auth.example.com/oauth2/token`. In the **Issuer URL** field, enter your authorization server's issuer identifier, the `iss` value it uses, for example `https://auth.example.com`. That value is the token's audience, and it must be an HTTPS URL on the same host as the token endpoint. Leave the field empty only if your server requires the token endpoint URL as the audience. Then the **Token endpoint** address is the audience. The **Audience** row of the card shows which one will be sent.
-  </Step>
+In **Authorization servers**, click **Connect an authorization server**.
 
-  <Step title="Confirm the subject check and register">
-    Select the checkbox labeled **This authorization server checks that each token's subject belongs to your organization**. The **Register server** button stays disabled until you do. The checkbox is your confirmation that the server makes the subject check described under [Configure the authorization server](#configure-the-authorization-server), and a server that doesn't must not be connected. Then click **Register server**. The dialog notes that the automatic connection check doesn't run for token endpoints. The token's audience, your **Issuer URL** value or the token endpoint if you left that field empty, is registered as a gateway with the check marked **Skipped**, and the dialog moves to the second step.
+**2. Enter the token endpoint**
 
-    If you close the dialog at that point, the audience address stays registered and counts toward the limit. To continue later, click **Connect an authorization server** again, enter the same **Token endpoint** and **Issuer URL**, and select the checkbox again, which returns you to the second step. Don't use **Add to bundle** on that address's row in the **Gateways** table; that would connect the address as a gateway, after which the server can't be connected.
-  </Step>
+In the **Token endpoint** field, enter the full address starting with `https://`, for example `https://auth.example.com/oauth2/token`. In the **Issuer URL** field, enter your authorization server's issuer identifier, the `iss` value it uses, for example `https://auth.example.com`. That value is the token's audience, and it must be an HTTPS URL on the same host as the token endpoint. Leave the field empty only if your server requires the token endpoint URL as the audience. Then the **Token endpoint** address is the audience. The **Audience** row of the card shows which one will be sent.
 
-  <Step title="Choose the APIs and the bundle">
-    Optionally enter a **Resource**, the API the returned token should be scoped to as an absolute URI (for example `https://api.example.com`), and a **Scope**, space-separated scopes to request. In **Allowed API hosts**, add the hosts Claude may call with the returned token, for example `api.example.com`. A wildcard as the leftmost label matches any subdomain. An entry or wildcard can cover the token endpoint's host only when the endpoint's address has a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`. In that case, list the paths Claude may use, such as `/graphql`, under **Allowed API paths**. A listed path covers everything under it, and a path that overlaps the token endpoint's folder isn't allowed. Then choose a bundle from the **Access bundle** list (or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**) and click **Connect server**.
+**3. Confirm the subject check and register**
 
-    This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, with the API hosts under **Allowed hosts**. Agent Proxy attaches the access token as an `Authorization: Bearer` header to every request Claude makes to those hosts. A token endpoint can be connected once in your organization, in one bundle, and the connection applies wherever that bundle applies.
-  </Step>
-</Steps>
+Select the checkbox labeled **This authorization server checks that each token's subject belongs to your organization**. The **Register server** button stays disabled until you do. The checkbox is your confirmation that the server makes the subject check described under [Configure the authorization server](#configure-the-authorization-server), and a server that doesn't must not be connected. Then click **Register server**. The dialog notes that the automatic connection check doesn't run for token endpoints. The token's audience, your **Issuer URL** value or the token endpoint if you left that field empty, is registered as a gateway with the check marked **Skipped**, and the dialog moves to the second step.
+
+If you close the dialog at that point, the audience address stays registered and counts toward the limit. To continue later, click **Connect an authorization server** again, enter the same **Token endpoint** and **Issuer URL**, and select the checkbox again, which returns you to the second step. Don't use **Add to bundle** on that address's row in the **Gateways** table; that would connect the address as a gateway, after which the server can't be connected.
+
+**4. Choose the APIs and the bundle**
+
+Optionally enter a **Resource**, the API the returned token should be scoped to as an absolute URI (for example `https://api.example.com`), and a **Scope**, space-separated scopes to request. In **Allowed API hosts**, add the hosts Claude may call with the returned token, for example `api.example.com`. A wildcard as the leftmost label matches any subdomain. An entry or wildcard can cover the token endpoint's host only when the endpoint's address has a folder of its own, like `/oauth2` in `https://auth.example.com/oauth2/token`. In that case, list the paths Claude may use, such as `/graphql`, under **Allowed API paths**. A listed path covers everything under it, and a path that overlaps the token endpoint's folder isn't allowed. Then choose a bundle from the **Access bundle** list (or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**) and click **Connect server**.
+
+This creates a [connection](/docs/claude-tag/admins/add-connections) in that bundle, with the API hosts under **Allowed hosts**. Agent Proxy attaches the access token as an `Authorization: Bearer` header to every request Claude makes to those hosts. A token endpoint can be connected once in your organization, in one bundle, and the connection applies wherever that bundle applies.
 
 The **Authorization servers** table lists each server by its **Token endpoint**, with its **Access bundle**, its **Allowed hosts**, when it was **Added**, and a **Remove** action. The audience address also appears in the **Gateways** table with its check marked **Skipped** and a note that a connected authorization server uses it.
 

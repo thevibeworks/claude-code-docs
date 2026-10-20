@@ -50,9 +50,9 @@ To add packages, choose one of these:
 
 If your Linux machine has NVIDIA GPUs, the sandbox makes them available to code Claude runs, including on multi-GPU machines. To use them, turn on the **Host GPU** switch in **Settings > Compute**. Sessions you start after that can use the GPU. A session started while the switch was off keeps running without it, and so does a session continued from it with **Continue as a new session**.
 
-<Note>
-  Turning on the **Host GPU** switch reduces the default sandboxing configuration applied by Claude Science.
-</Note>
+> [!NOTE]
+>
+> Turning on the **Host GPU** switch reduces the default sandboxing configuration applied by Claude Science.
 
 If Claude Science finds no GPU, Claude notes this when a task needs one and can run the work on the remote compute you've connected. See [Remote compute clusters](/docs/claude-science/remote-compute-clusters) and [Compute providers](/docs/claude-science/compute-providers). If your machine has an NVIDIA GPU but the **Host GPU** switch isn't in **Settings > Compute**, or Claude says there's no GPU in a session started with the switch on, see [How Claude Science detects a GPU](#how-claude-science-detects-a-gpu).
 

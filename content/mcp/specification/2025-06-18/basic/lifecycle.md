@@ -4,8 +4,6 @@
 
 # Lifecycle
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) defines a rigorous lifecycle for client-server
 connections that ensures proper capability negotiation and state management.
 
@@ -136,11 +134,11 @@ supports. This **SHOULD** be the *latest* version supported by the server.
 If the client does not support the version in the server's response, it **SHOULD**
 disconnect.
 
-<Note>
-  If using HTTP, the client **MUST** include the `MCP-Protocol-Version: <protocol-version>` HTTP header on all subsequent requests to the MCP
-  server.
-  For details, see [the Protocol Version Header section in Transports](/specification/2025-06-18/basic/transports#protocol-version-header).
-</Note>
+> [!NOTE]
+>
+> If using HTTP, the client **MUST** include the `MCP-Protocol-Version: <protocol-version>` HTTP header on all subsequent requests to the MCP
+> server.
+> For details, see [the Protocol Version Header section in Transports](/specification/2025-06-18/basic/transports#protocol-version-header).
 
 #### Capability Negotiation
 

@@ -4,8 +4,6 @@
 
 # stdio
 
-<div id="enable-section-numbers" />
-
 In the **stdio** transport, the client launches the MCP server as a subprocess.
 The two ends communicate over the subprocess's standard streams:
 

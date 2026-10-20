@@ -10,9 +10,9 @@
 
 Use this page to see each billing account's balance and to set spend caps that limit how much any one organization can draw from it.
 
-<Note>
-  The **Billing** tab appears in the navigation only when credits apply to your tenant, which means at least one organization can use credits or there is a credit balance on any billing account in your tenant. If neither is true, the tab is hidden and **Seats** appears on its own in the navigation. This page is still reachable from a direct link and shows a short explanation. The tab appears automatically once Anthropic configures billing for your tenant.
-</Note>
+> [!NOTE]
+>
+> The **Billing** tab appears in the navigation only when credits apply to your tenant, which means at least one organization can use credits or there is a credit balance on any billing account in your tenant. If neither is true, the tab is hidden and **Seats** appears on its own in the navigation. This page is still reachable from a direct link and shows a short explanation. The tab appears automatically once Anthropic configures billing for your tenant.
 
 ## How billing works
 
@@ -26,9 +26,9 @@ Spend caps apply to usage on self-managed seat tiers. Usage on Anthropic-managed
 
 ## What the page shows
 
-<Note>
-  Billing account cards only appear once Anthropic has set up at least one billing account for your tenant. Until then, the page shows a message asking you to contact Anthropic.
-</Note>
+> [!NOTE]
+>
+> Billing account cards only appear once Anthropic has set up at least one billing account for your tenant. Until then, the page shows a message asking you to contact Anthropic.
 
 Each billing account appears as its own card showing:
 

@@ -7,7 +7,7 @@ description: Use an AWS KMS key as a customer-managed encryption key on Claude P
 This guide shows how to use an [AWS KMS](https://aws.amazon.com/kms/) key as a [customer-managed encryption key (CMEK)](https://platform.claude.com/docs/en/manage-claude/cmek) on [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws). For Claude Platform or Claude Enterprise, follow [Configure AWS KMS for CMEK](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms) instead.
 
 <Warning>
-  Enabling CMEK is permanent. If your KMS key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](https://platform.claude.com/docs/en/manage-claude/cmek) before you begin.
+  Enabling CMEK is permanent. If your key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](https://platform.claude.com/docs/en/manage-claude/cmek) before you start.
 </Warning>
 
 ## Prerequisites
@@ -107,6 +107,13 @@ Replace the placeholders:
   **Finding your compartment ID:** In the Claude Console, go to the [Data retention](https://platform.claude.com/settings/privacy) page (`platform.claude.com/settings/privacy`). Select the workspace from the dropdown menu at the top of the page. The ID is under **Encryption key**, in the **Compartment ID** field. You can also read the `compartment_id` field returned by the [Get Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/retrieve) endpoint.
 </Note>
 
+<Note>
+  **Optional:** To limit both service principal statements further, add an `aws:SourceArn` condition to each. The source ARN on every call is the [workspace's ARN](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#service-details), in the form `arn:aws:aws-external-anthropic:<REGION>:<AWS_ACCOUNT_ID>:workspace/<WORKSPACE_ID>`.
+
+  * **All workspaces in your AWS account:** `"ArnLike": {"aws:SourceArn": "arn:aws:aws-external-anthropic:*:<AWS_ACCOUNT_ID>:workspace/*"}`
+  * **Specific workspaces:** the same condition, with a list of full workspace ARNs instead of the wildcard
+</Note>
+
 ### Create the key
 
 Create the key in the AWS account that hosts your Claude Platform on AWS organization, in the same region as the workspace.
@@ -189,13 +196,6 @@ Create the key in the AWS account that hosts your Claude Platform on AWS organiz
     Copy `KeyMetadata.Arn` from the output. You need it to register the key.
   </Tab>
 </Tabs>
-
-<Note>
-  **Optional:** To limit both service principal statements further, add an `aws:SourceArn` condition to each. The source ARN on every call is the [workspace's ARN](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#service-details), in the form `arn:aws:aws-external-anthropic:<REGION>:<AWS_ACCOUNT_ID>:workspace/<WORKSPACE_ID>`.
-
-  * **All workspaces in your AWS account:** `"ArnLike": {"aws:SourceArn": "arn:aws:aws-external-anthropic:*:<AWS_ACCOUNT_ID>:workspace/*"}`
-  * **Specific workspaces:** the same condition, with a list of full workspace ARNs instead of the wildcard
-</Note>
 
 ## Register the key with Anthropic
 

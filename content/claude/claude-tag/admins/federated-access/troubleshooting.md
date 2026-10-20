@@ -6,11 +6,13 @@
 
 > Errors from Claude Tag's federated agent access and what fixes each: console dialog messages, requests Claude reports as blocked or failed, and rejections your gateway, AWS, Google Cloud, or authorization server records.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-<BetaNote />
-
-<Note>Federated connections are managed on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Changing them needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+> [!NOTE]
+>
+> Federated connections are managed on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Changing them needs an organization Owner, or an admin with full Claude Tag management permission.
 
 This page covers what goes wrong after you connect a gateway, AWS role, Google Cloud identity, or authorization server through **Federated agent access**. It's organized by where the problem shows up: a message in a console dialog, an error Claude reports in the thread, or a rejection in your own logs. The token terms used below are explained on the [identity token reference](/docs/claude-tag/admins/federated-access/token-reference).
 

@@ -27,23 +27,21 @@ Each project bundles the following, and you can change any of it after creation.
 
 Open **Projects** in the left navigation and choose the **+** button to start. You're offered three starting points.
 
-<Steps>
-  <Step title="Choose a starting point">
-    Select **Start from scratch** to create an empty project with a new folder,
-    **Import a project** to bring an existing claude.ai project into Cowork, or
-    **Use an existing folder** to point at a folder you already work from.
-  </Step>
+**1. Choose a starting point**
 
-  <Step title="Name and describe it">
-    Give the project a name and a short description so you can tell it apart in
-    the sidebar.
-  </Step>
+Select **Start from scratch** to create an empty project with a new folder,
+**Import a project** to bring an existing claude.ai project into Cowork, or
+**Use an existing folder** to point at a folder you already work from.
 
-  <Step title="Add folders and instructions">
-    Attach the local folders Claude should have access to, and write any
-    standing instructions you want applied to every session.
-  </Step>
-</Steps>
+**2. Name and describe it**
+
+Give the project a name and a short description so you can tell it apart in
+the sidebar.
+
+**3. Add folders and instructions**
+
+Attach the local folders Claude should have access to, and write any
+standing instructions you want applied to every session.
 
 You can attach more folders, links, or projects from Chat at any time from the project's settings.
 

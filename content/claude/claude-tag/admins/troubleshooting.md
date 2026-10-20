@@ -6,13 +6,15 @@
 
 > Error messages from Claude Tag setup and what fixes each. Covers permission mismatches, GitHub access gaps, session start failures, and account errors.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 This page covers errors you might hit setting up and administering Claude Tag: Slack app permissions, guest and shared channels, console errors, channels and threads where nothing responds, access and connections, and session starts.
 
-<Note>For problems people can resolve on their own in a channel, like a missing reply or a thread that lost its work, see [Troubleshoot Claude Tag in channels and DMs](/docs/claude-tag/users/troubleshooting).</Note>
+> [!NOTE]
+>
+> For problems people can resolve on their own in a channel, like a missing reply or a thread that lost its work, see [Troubleshoot Claude Tag in channels and DMs](/docs/claude-tag/users/troubleshooting).
 
 If someone reports that Claude can't reach a service you connected, check two things before anything else:
 
@@ -342,9 +344,9 @@ A Slack workspace can pair with only one Claude organization at a time, and this
 2. Have an Owner in that organization [disconnect the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing) under **Connected workspaces** on their **Slack** page.
 3. Send `@Claude connect` again for a fresh code and redeem it here.
 
-<Warning>
-  Disconnecting deletes the workspace's Claude data, including its memory, channel configurations, sessions, and the routines set up in its channels. The deletion can't be undone. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle) for the full list of what's deleted.
-</Warning>
+> [!WARNING]
+>
+> Disconnecting deletes the workspace's Claude data, including its memory, channel configurations, sessions, and the routines set up in its channels. The deletion can't be undone. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle) for the full list of what's deleted.
 
 ### This workspace is connected to a different Claude organization
 
@@ -374,8 +376,6 @@ Connect a Claude account that belongs to the organization your Slack workspace i
 2. DM `@Claude`.
 3. Select **Connect Claude account**.
 4. Sign in with an account from the paired organization.
-
-<a id="claim-code-invalid" />
 
 ### Claim code is invalid, expired, or already used
 
@@ -416,7 +416,9 @@ Without either notice, the session behind that thread is stuck: it hasn't replie
 
 Have someone in the thread send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session). The command archives the stuck session and starts a fresh one that rereads the thread, so a follow-up message in the same thread gets an answer. Starting a new thread and restating the request also works.
 
-<Warning>Restarting abandons whatever the session was midway through, and there's no way to resume it. A silent session may still be working through a long task, so treat `!restart` as a last resort.</Warning>
+> [!WARNING]
+>
+> Restarting abandons whatever the session was midway through, and there's no way to resume it. A silent session may still be working through a long task, so treat `!restart` as a last resort.
 
 If the same request stalls again on the fresh session, send [feedback](/docs/claude-tag/users/commands#send-feedback) from that thread so Anthropic can investigate.
 
@@ -542,9 +544,9 @@ If the switch can't be turned on, start at step 2. When the workspace is already
 2. If the message persists, check which Claude organization the workspace is paired to. If your company has more than one (a trial organization alongside the main one, for example), an Owner in the wrong organization can [revoke the pairing](/docs/claude-tag/admins/workspaces#revoke-a-pairing) so you can pair the workspace to the right one.
 3. If the right organization has the switch on and the message persists, contact your account team to confirm Claude Tag is enabled for it.
 
-<Warning>
-  Revoking the pairing deletes the workspace's Claude data, including its memory, channel configurations, sessions, and the routines set up in its channels. The deletion can't be undone. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle) for the full list of what's deleted.
-</Warning>
+> [!WARNING]
+>
+> Revoking the pairing deletes the workspace's Claude data, including its memory, channel configurations, sessions, and the routines set up in its channels. The deletion can't be undone. See [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle) for the full list of what's deleted.
 
 ### Claude Tag is unavailable because Routines are not enabled
 

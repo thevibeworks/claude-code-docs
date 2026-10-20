@@ -4,7 +4,7 @@ Connect your Gmail, Google Calendar, and Google Drive to Claude so you can searc
 
 Google Workspace connectors (Gmail, Google Calendar, and Google Drive) are available for all users on Claude and Claude Desktop.
 
-**Beta:** Claude can edit Google Docs, Sheets, and Slides live in a pane beside the chat, on Claude on the web and Claude Desktop. You and Claude can edit the same file at the same time. Because this is a beta, some features are limited or may not work reliably. See **[Current limitations](#h_cbd94d5da5)**.
+Claude can edit Google Docs, Sheets, and Slides live in a pane beside the chat, on Claude on the web and Claude Desktop. You and Claude can edit the same file at the same time. See **[Current limitations](#h_cbd94d5da5)** for what isn't supported.
 
 For Team and Enterprise plans, an Owner or Primary Owner must enable these connectors at the organization level before individual users can authenticate. For setup instructions, read **[Use connectors to extend Claude's capabilities](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities#h_17dd443beb)**.
 
@@ -60,7 +60,7 @@ For Team and Enterprise plans, an Owner or Primary Owner must enable these conne
 
 ### Google Docs, Sheets, and Slides
 
-- **Edit files live in a pane beside the chat (beta).** You and Claude can work in the same file at the same time.
+- **Edit files live in a pane beside the chat.** You and Claude can work in the same file at the same time.
 
 - **Create new Google Docs, Sheets, and Slides files.**
 
@@ -104,7 +104,7 @@ The Google Drive connector is only available when adding to **Files** in private
 
 Google Docs added to chats and projects sync directly from Google Drive, so you're always working with the latest version.
 
-### Edit Google Docs, Sheets, and Slides live (beta)
+### Edit Google Docs, Sheets, and Slides live
 
 1. Turn on the Docs, Sheets, and Slides connectors. Click the plus sign in the chat, hover over "Connectors," and toggle them on. If the connector isn't turned on when you ask Claude to edit a Google file, Claude prompts you to connect it, then continues with your request.
 

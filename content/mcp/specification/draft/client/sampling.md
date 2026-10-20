@@ -4,19 +4,17 @@
 
 # Sampling
 
-<div id="enable-section-numbers" />
-
-<Warning>
-  **Deprecated**: The Sampling feature is deprecated as of protocol version
-  `2026-07-28`
-  ([SEP-2577](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2577)).
-  Under the [feature lifecycle policy](/community/feature-lifecycle), it remains
-  in the specification for at least twelve months after this revision's release
-  before it becomes eligible for removal. New implementations **SHOULD NOT**
-  adopt it; existing implementations **SHOULD** migrate to integrating directly
-  with LLM provider APIs. See the [deprecated features
-  registry](/specification/draft/deprecated).
-</Warning>
+> [!WARNING]
+>
+> **Deprecated**: The Sampling feature is deprecated as of protocol version
+> `2026-07-28`
+> ([SEP-2577](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2577)).
+> Under the [feature lifecycle policy](/community/feature-lifecycle), it remains
+> in the specification for at least twelve months after this revision's release
+> before it becomes eligible for removal. New implementations **SHOULD NOT**
+> adopt it; existing implementations **SHOULD** migrate to integrating directly
+> with LLM provider APIs. See the [deprecated features
+> registry](/specification/draft/deprecated).
 
 The Model Context Protocol (MCP) provides a standardized way for servers to request LLM
 sampling ("completions" or "generations") from language models via clients. This flow
@@ -34,16 +32,16 @@ Implementations are free to expose sampling through any interface pattern that s
 their needs—the protocol itself does not mandate any specific user interaction
 model.
 
-<Warning>
-  For trust & safety and security, there **SHOULD** always
-  be a human in the loop with the ability to deny sampling requests.
-
-  Applications **SHOULD**:
-
-  * Provide UI that makes it easy and intuitive to review sampling requests
-  * Allow users to view and edit prompts before sending
-  * Present generated responses for review before delivery
-</Warning>
+> [!WARNING]
+>
+> For trust & safety and security, there **SHOULD** always
+> be a human in the loop with the ability to deny sampling requests.
+>
+> Applications **SHOULD**:
+>
+> * Provide UI that makes it easy and intuitive to review sampling requests
+> * Allow users to view and edit prompts before sending
+> * Present generated responses for review before delivery
 
 ## Tools in Sampling
 
@@ -96,17 +94,17 @@ Clients that support sampling **MUST** declare the `sampling` capability in
 }
 ```
 
-<Note>
-  The `includeContext` parameter values `"thisServer"` and `"allServers"` are
-  deprecated under the [feature lifecycle
-  policy](/community/feature-lifecycle#deprecating-a-feature)
-  ([SEP-2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596));
-  they will be removed no later than the Sampling feature itself. Servers
-  **SHOULD** avoid using these values (e.g. can just omit `includeContext` since
-  it defaults to `"none"`), and **SHOULD NOT** use them unless the client
-  declares `sampling.context` capability. See the [deprecated features
-  registry](/specification/draft/deprecated).
-</Note>
+> [!NOTE]
+>
+> The `includeContext` parameter values `"thisServer"` and `"allServers"` are
+> deprecated under the [feature lifecycle
+> policy](/community/feature-lifecycle#deprecating-a-feature)
+> ([SEP-2596](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2596));
+> they will be removed no later than the Sampling feature itself. Servers
+> **SHOULD** avoid using these values (e.g. can just omit `includeContext` since
+> it defaults to `"none"`), and **SHOULD NOT** use them unless the client
+> declares `sampling.context` capability. See the [deprecated features
+> registry](/specification/draft/deprecated).
 
 ## Protocol Messages
 

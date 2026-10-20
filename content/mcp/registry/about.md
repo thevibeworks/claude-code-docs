@@ -4,9 +4,9 @@
 
 # The MCP Registry
 
-<Note>
-  The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
-</Note>
+> [!NOTE]
+>
+> The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
 
 The MCP Registry is the official centralized metadata repository for publicly accessible MCP servers, backed by major trusted contributors to the MCP ecosystem such as Anthropic, GitHub, PulseMCP, and Microsoft.
 
@@ -28,7 +28,7 @@ Server metadata is stored in a standardized [`server.json` format](https://githu
 
 The MCP Registry is part of an ecosystem that looks something like:
 
-<img src="https://mintcdn.com/mcp/jWyXLg8iLYJ-g6Lo/registry/ecosystem-diagram.excalidraw.svg?fit=max&auto=format&n=jWyXLg8iLYJ-g6Lo&q=85&s=06fcebbf5a33d3ef1fed72279f01f321" alt="The MCP Registry ecosystem" width="2787" height="1811" data-path="registry/ecosystem-diagram.excalidraw.svg" />
+![The MCP Registry ecosystem](https://mintcdn.com/mcp/jWyXLg8iLYJ-g6Lo/registry/ecosystem-diagram.excalidraw.svg?fit=max\&auto=format\&n=jWyXLg8iLYJ-g6Lo\&q=85\&s=06fcebbf5a33d3ef1fed72279f01f321)
 
 ### Relationship with Package Registries
 

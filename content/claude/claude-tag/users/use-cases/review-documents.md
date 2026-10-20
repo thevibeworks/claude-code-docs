@@ -6,9 +6,9 @@
 
 > Claude Tag reviews documents in a connected tool against a checklist or policy and posts findings in the thread. See single-document checks, batch reviews, filing lists, comparisons with past reviews, and a scheduled weekly sweep.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How document-review prompts work
 
@@ -82,12 +82,10 @@ Keep the checklist as a document Claude can read, in the connected tool or linke
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Find answers in your docs" href="/docs/claude-tag/users/use-cases/find-answers" horizontal arrow>
-    The same connections pointed at a single question
-  </Card>
+> **[Find answers in your docs](/docs/claude-tag/users/use-cases/find-answers)**
+>
+> The same connections pointed at a single question
 
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    How the recurring review runs on a schedule
-  </Card>
-</CardGroup>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> How the recurring review runs on a schedule

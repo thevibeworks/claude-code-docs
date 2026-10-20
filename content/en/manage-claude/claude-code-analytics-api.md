@@ -113,7 +113,7 @@ Each response record contains the following metrics for a single user on a singl
 * **date:** Date in RFC 3339 format (UTC timestamp)
 * **actor:** The user or API key that performed the Claude Code actions (either `user_actor` with `email_address` or `api_actor` with `api_key_name`)
 * **organization\_id:** Organization UUID
-* **customer\_type:** Type of customer account (`api` for API customers, `subscription` for Pro/Team customers)
+* **customer\_type:** Type of customer account (`api` or `subscription`); records cover only usage authenticated against your Claude Console organization
 * **terminal\_type:** Type of terminal or environment where Claude Code was used (for example, `vscode`, `iTerm.app`, `tmux`)
 
 #### Core metrics
@@ -244,7 +244,17 @@ Users are identified through the `actor` field in two ways:
 * **`user_actor`:** Contains `email_address` for users who authenticate through OAuth (most common)
 * **`api_actor`:** Contains `api_key_name` for users who authenticate with an API key
 
-The `customer_type` field indicates whether the usage is from `api` customers (pay-as-you-go API) or `subscription` customers (Pro/Team plans).
+The `customer_type` field is either `api` or `subscription`. Every record, whichever value it has, describes usage authenticated against your Claude Console organization.
+
+### Does this API include usage from Claude subscription plans?
+
+No. When someone signs in to Claude Code with a Claude subscription plan, such as Pro, Max, Team, or Enterprise, their usage is attributed to their claude.ai organization, and this API doesn't return it.
+
+To track that usage, use one of these options:
+
+* **Claude Enterprise Analytics API:** Reports Claude Code activity for Claude Enterprise organizations and isn't available on other plans. See [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api).
+* **Analytics dashboard in claude.ai:** Available on Team and Enterprise plans. See [Track team usage with analytics](https://code.claude.com/docs/en/analytics).
+* **OpenTelemetry export:** Works on any plan. See [Monitoring usage with OpenTelemetry](https://code.claude.com/docs/en/monitoring-usage).
 
 ### What's the data retention period?
 

@@ -14,7 +14,7 @@ Two patterns address these challenges: **progressive discovery**, which controls
 
 Naive MCP host implementations pass the tool definitions of every connected server directly to the model at the start of each conversation. For a handful of tools, this is perfectly reasonable. But when a host has access to dozens of servers exposing hundreds of tools, those definitions alone can consume the majority of the context window before the model has even read the user's message.
 
-<img src="https://mintcdn.com/mcp/JXfd5cBmEUh_qPUI/images/progressive-discovery.svg?fit=max&auto=format&n=JXfd5cBmEUh_qPUI&q=85&s=db39f47006107f04af43b5eeae2d6022" alt="Comparison of loading all tools upfront versus discovering tools on demand. The upfront approach consumes ~150,000 tokens on definitions alone, while progressive discovery uses ~2,000 tokens by loading only what the task requires." width="760" height="440" data-path="images/progressive-discovery.svg" />
+![Comparison of loading all tools upfront versus discovering tools on demand. The upfront approach consumes \~150,000 tokens on definitions alone, while progressive discovery uses \~2,000 tokens by loading only what the task requires.](https://mintcdn.com/mcp/JXfd5cBmEUh_qPUI/images/progressive-discovery.svg?fit=max\&auto=format\&n=JXfd5cBmEUh_qPUI\&q=85\&s=db39f47006107f04af43b5eeae2d6022)
 
 Progressive discovery avoids this:
 
@@ -160,7 +160,7 @@ Programmatic tool calling (sometimes called "code mode") provides a way for clie
 Programmatic tool calling is powerful and allows for more efficient use of MCP tools and resources, but requires
 clients to implement a sandbox environment.
 
-<img src="https://mintcdn.com/mcp/JXfd5cBmEUh_qPUI/images/programmatic-tool-calling.svg?fit=max&auto=format&n=JXfd5cBmEUh_qPUI&q=85&s=a2be82d097bb7cd7c7fd415918b1571d" alt="Comparison of direct tool calling versus programmatic tool calling. Direct calling passes every intermediate result through the model (~100K+ tokens). Programmatic calling sends a ~200-token script to a sandbox, which executes the tool calls and returns a ~15-token summary." width="900" height="900" data-path="images/programmatic-tool-calling.svg" />
+![Comparison of direct tool calling versus programmatic tool calling. Direct calling passes every intermediate result through the model (\~100K+ tokens). Programmatic calling sends a \~200-token script to a sandbox, which executes the tool calls and returns a \~15-token summary.](https://mintcdn.com/mcp/JXfd5cBmEUh_qPUI/images/programmatic-tool-calling.svg?fit=max\&auto=format\&n=JXfd5cBmEUh_qPUI\&q=85\&s=a2be82d097bb7cd7c7fd415918b1571d)
 
 ### How It Works
 

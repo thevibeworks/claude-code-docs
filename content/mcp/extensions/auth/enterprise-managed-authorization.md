@@ -8,10 +8,10 @@
 
 The Enterprise-Managed Authorization extension (`io.modelcontextprotocol/enterprise-managed-authorization`) enables organizations to control MCP server access centrally through their existing identity provider (IdP). Instead of each employee authorizing each MCP server individually, the organization's IT or security team manages access policies in one place.
 
-<Card title="Specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization.mdx">
-  Full technical specification for the Enterprise-Managed Authorization
-  extension.
-</Card>
+> **[Specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization.mdx)**
+>
+> Full technical specification for the Enterprise-Managed Authorization
+> extension.
 
 ## What it is
 
@@ -135,28 +135,26 @@ To require enterprise-managed authorization:
 
 ## Client support
 
-<Note>
-  Support for this extension varies by client. Extensions are opt-in and never active by default.
-</Note>
+> [!NOTE]
+>
+> Support for this extension varies by client. Extensions are opt-in and never active by default.
 
 Check the [client matrix](/extensions/client-matrix) for current implementation status across MCP clients. Enterprise-Managed Authorization typically requires client-level support from the organization's IT team in addition to the MCP client application.
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="ext-auth repository" icon="github" href="https://github.com/modelcontextprotocol/ext-auth">
-    Source code and reference implementations
-  </Card>
+> **[ext-auth repository](https://github.com/modelcontextprotocol/ext-auth)**
+>
+> Source code and reference implementations
 
-  <Card title="Full specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization.mdx">
-    Technical specification with normative requirements
-  </Card>
+> **[Full specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/stable/enterprise-managed-authorization.mdx)**
+>
+> Technical specification with normative requirements
 
-  <Card title="SEP-990" icon="file-lines" href="/seps/990-enable-enterprise-idp-policy-controls-during-mcp-o">
-    Original proposal: Enable Enterprise IdP Policy Controls
-  </Card>
+> **[SEP-990](/seps/990-enable-enterprise-idp-policy-controls-during-mcp-o)**
+>
+> Original proposal: Enable Enterprise IdP Policy Controls
 
-  <Card title="MCP Authorization" icon="lock" href="/specification/latest/basic/authorization">
-    Core MCP authorization specification
-  </Card>
-</CardGroup>
+> **[MCP Authorization](/specification/latest/basic/authorization)**
+>
+> Core MCP authorization specification

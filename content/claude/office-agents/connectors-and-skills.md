@@ -9,15 +9,15 @@
 Connectors and Skills work the same way across Claude for Excel,
 PowerPoint, Word, and Outlook. Both are enabled in your Claude settings.
 
-<Note>
-  Connectors and Skills are available when you sign in with your Claude
-  account directly. When connecting through a third-party platform such
-  as Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM
-  gateway, these capabilities may not be available. See the feature
-  comparison in
-  [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms)
-  for the current status by connection mode.
-</Note>
+> [!NOTE]
+>
+> Connectors and Skills are available when you sign in with your Claude
+> account directly. When connecting through a third-party platform such
+> as Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM
+> gateway, these capabilities may not be available. See the feature
+> comparison in
+> [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms)
+> for the current status by connection mode.
 
 ## Connectors
 
@@ -29,11 +29,11 @@ Common connectors used with Claude for M365 include S\&P Global, LSEG, and
 Daloopa for financial data, plus any custom connectors your
 organization has enabled.
 
-<Warning>
-  Custom connectors can introduce security risks. Before enabling one,
-  review [Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
-  for guidance on what to consider.
-</Warning>
+> [!WARNING]
+>
+> Custom connectors can introduce security risks. Before enabling one,
+> review [Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
+> for guidance on what to consider.
 
 ## Skills
 

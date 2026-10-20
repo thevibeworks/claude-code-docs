@@ -24,9 +24,9 @@ Claude Desktop on 3P stores everything under a dedicated directory, separate fro
 | Windows | `%LOCALAPPDATA%\Claude-3p\` | (under the application-data directory) |
 | Linux | `~/.config/Claude-3p/` | (under the application-data directory) |
 
-<Note>
-  On Windows, earlier Claude Desktop releases stored this data under `%APPDATA%\Claude-3p\` (the Roaming profile). On first launch after upgrading, the app moves the existing directory to `%LOCALAPPDATA%` automatically; if Roaming is redirected to a network share, conversation history and configuration are copied and large regenerable caches are re-downloaded. Update any external tooling, backup jobs, or endpoint policies that reference the old path. macOS paths are unchanged.
-</Note>
+> [!NOTE]
+>
+> On Windows, earlier Claude Desktop releases stored this data under `%APPDATA%\Claude-3p\` (the Roaming profile). On first launch after upgrading, the app moves the existing directory to `%LOCALAPPDATA%` automatically; if Roaming is redirected to a network share, conversation history and configuration are copied and large regenerable caches are re-downloaded. Update any external tooling, backup jobs, or endpoint policies that reference the old path. macOS paths are unchanged.
 
 Within the application-data directory:
 
@@ -35,7 +35,7 @@ Within the application-data directory:
 | `ant-did` | The random device identifier described above. |
 | `configLibrary/` | Locally authored configuration (from the in-app configuration window). `_meta.json` records which saved configuration is applied; each is a `<id>.json` file alongside it. Ignored when a managed profile is present. |
 | `local-agent-mode-sessions/.../cowork_account_settings.json` | User-level preferences set in the app (display name, locale, memory toggle). |
-| `local-agent-mode-sessions/` | Cowork and Chat conversation history. One `local_<uuid>.json` file plus a working directory per session, scoped by account and organization ID. The working directory includes an `uploads/` subdirectory with copies of files attached to the conversation and an `outputs/` subdirectory for files Claude creates. |
+| `local-agent-mode-sessions/` | Cowork and Chat conversation history. One `local_<uuid>.json` file plus a working directory per session, scoped by the `ant-did` device identifier and the organization ID, not by who is signed in to the app. The working directory includes an `uploads/` subdirectory with copies of files attached to the conversation and an `outputs/` subdirectory for files Claude creates. |
 | `local-agent-mode-sessions/.../memory/` | Cowork memory: a `CLAUDE.md` instructions file plus a `memory/` subdirectory of Markdown notes Claude writes about the user's preferences, projects, and feedback. See [Memory](#memory). |
 | `local-agent-mode-sessions/.../spaces/<projectId>/memory/` | Markdown memory notes for one project, used by Cowork sessions and Chat conversations inside that project. See [Memory](#memory). |
 | `local-agent-mode-sessions/.../<sessionId>/audit.jsonl` | Append-only log of session events (tool invocations, permission decisions, file operations). Each entry is HMAC-chained to the previous one so edits or deletions are detectable; the companion `.audit-key` file holds the per-session signing key, encrypted via the OS keychain. |
@@ -131,9 +131,9 @@ The new device needs:
 
 ### Copy the data to the new device
 
-<Warning>
-  The copy holds full conversations. Encrypt any intermediate copy, restrict access to it, and delete it when you're done.
-</Warning>
+> [!WARNING]
+>
+> The copy holds full conversations. Encrypt any intermediate copy, restrict access to it, and delete it when you're done.
 
 1. Quit Claude Desktop on both devices. Closing its window isn't enough.
 2. If the new device has an application-data directory (see [Where data lives](#where-data-lives)), delete it. This removes anything the user created in it.

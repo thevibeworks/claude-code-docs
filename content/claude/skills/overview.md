@@ -10,10 +10,10 @@ Skills are directories containing instructions, scripts, and resources that Clau
 
 This page is for people who want to find, turn on, and use skills in Claude.
 
-<Note>
-  * Skills are available on Pro, Max, Team, and Enterprise plans. They run in Claude's code sandbox, so **Code execution and file creation** must be on: turn it on under [**Settings > Capabilities**](https://claude.ai/settings/capabilities), or on Team and Enterprise plans ask an Owner to turn it on under **Organization settings > Capabilities**
-  * If you want to write a skill of your own, see [Create custom skills](/docs/skills/how-to)
-</Note>
+> [!NOTE]
+>
+> * Skills are available on Pro, Max, Team, and Enterprise plans. They run in Claude's code sandbox, so **Code execution and file creation** must be on: turn it on under [**Settings > Capabilities**](https://claude.ai/settings/capabilities), or on Team and Enterprise plans ask an Owner to turn it on under **Organization settings > Capabilities**
+> * If you want to write a skill of your own, see [Create custom skills](/docs/skills/how-to)
 
 For the steps, go to [Find, turn on, and use skills](#find-turn-on-and-use-skills).
 
@@ -31,19 +31,17 @@ A skill's description matters because it's the only part Claude sees before deci
 
 All of your skills are listed at [**Customize > Skills**](https://claude.ai/customize/skills) in claude.ai and the desktop app, including skills that came inside a plugin.
 
-<Steps>
-  <Step title="Open Customize > Skills">
-    The **Your skills** tab lists the skills you have, grouped by where they came from: **Created by you**, **From your organization**, **Shared with you**, and **From Anthropic & Partners**. The **Discover** tab lists skills you can add.
-  </Step>
+**1. Open Customize > Skills**
 
-  <Step title="Turn a skill on">
-    Select **Turn on** on the skill's row, or open the skill and use the switch at the top of its page. A skill's instructions and any scripts it carries run as part of your conversation, and skills someone shares with you or that you upload yourself aren't reviewed by Anthropic, so open the skill and read its `SKILL.md` and files before you turn it on.
-  </Step>
+The **Your skills** tab lists the skills you have, grouped by where they came from: **Created by you**, **From your organization**, **Shared with you**, and **From Anthropic & Partners**. The **Discover** tab lists skills you can add.
 
-  <Step title="Use it in a conversation">
-    Describe your task, and Claude loads a skill that's turned on when the task matches the skill's description. To pick one yourself, type `/` in the message box and select the skill.
-  </Step>
-</Steps>
+**2. Turn a skill on**
+
+Select **Turn on** on the skill's row, or open the skill and use the switch at the top of its page. A skill's instructions and any scripts it carries run as part of your conversation, and skills someone shares with you or that you upload yourself aren't reviewed by Anthropic, so open the skill and read its `SKILL.md` and files before you turn it on.
+
+**3. Use it in a conversation**
+
+Describe your task, and Claude loads a skill that's turned on when the task matches the skill's description. To pick one yourself, type `/` in the message box and select the skill.
 
 A plugin's skills appear on **Your skills** too, labeled with the plugin's name. They turn on and off with the plugin, which you manage from [**Customize > Plugins**](/docs/plugins/overview#manage-installed-plugins).
 

@@ -4,8 +4,6 @@
 
 # Completion
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) provides a standardized way for servers to offer
 autocompletion suggestions for the arguments of prompts and resource templates. When
 users are filling in argument values for a specific prompt (identified by name) or

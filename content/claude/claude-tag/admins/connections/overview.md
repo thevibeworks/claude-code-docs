@@ -6,13 +6,15 @@
 
 > Step-by-step setup for each tool Claude Tag can connect to. Each guide covers the dedicated account to create, the credential to enter, and the URL to allow.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Each guide covers one service: how to create the credential as a dedicated identity, what to paste into the connect form, and the **Allowed websites** value. For the model behind connectors (credential types, Agent Proxy, allowed websites, bundles), see [Give Claude access](/docs/claude-tag/admins/add-connections).
 
-<Warning>Always connect a dedicated account for Claude (for example, `claude@yourcompany.example.com`), not your personal login. Anyone in a channel where the connector applies can use it through Claude, so whatever this account can reach is available to every member of those channels. See [Create a dedicated account per service](/docs/claude-tag/admins/add-connections#create-a-dedicated-account-per-service). Before you add a connector, see [where a new connector applies](/docs/claude-tag/admins/add-connections#where-a-new-connector-applies).</Warning>
+> [!WARNING]
+>
+> Always connect a dedicated account for Claude (for example, `claude@yourcompany.example.com`), not your personal login. Anyone in a channel where the connector applies can use it through Claude, so whatever this account can reach is available to every member of those channels. See [Create a dedicated account per service](/docs/claude-tag/admins/add-connections#create-a-dedicated-account-per-service). Before you add a connector, see [where a new connector applies](/docs/claude-tag/admins/add-connections#where-a-new-connector-applies).
 
 | Service | Category | Guide |
 | :- | :- | :- |

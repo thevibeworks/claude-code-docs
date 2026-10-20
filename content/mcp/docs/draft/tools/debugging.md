@@ -37,10 +37,10 @@ When building a server that uses the local
 logged to stderr (standard error) will be captured by the host application
 automatically.
 
-<Warning>
-  Local MCP servers should not log messages to stdout (standard out), as this
-  will interfere with protocol operation.
-</Warning>
+> [!WARNING]
+>
+> Local MCP servers should not log messages to stdout (standard out), as this
+> will interfere with protocol operation.
 
 For servers using the
 [Streamable HTTP transport](/specification/draft/basic/transports/streamable-http),
@@ -49,39 +49,37 @@ or [OpenTelemetry](https://opentelemetry.io/) for logs, and standard HTTP
 tooling (curl, browser DevTools Network panel) to inspect requests and SSE
 streams.
 
-<Warning>
-  The `notifications/message` mechanism below is deprecated as of protocol
-  version `2026-07-28`. It remains available during the deprecation window.
-</Warning>
+> [!WARNING]
+>
+> The `notifications/message` mechanism below is deprecated as of protocol
+> version `2026-07-28`. It remains available during the deprecation window.
 
 For all [transports](/specification/latest/basic/transports), record what the
 server is doing as it runs:
 
-<CodeGroup>
-  ```python Python theme={null}
-  import logging
+```python Python theme={null}
+import logging
 
-  from mcp.server import MCPServer
+from mcp.server import MCPServer
 
-  logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
-  mcp = MCPServer("reports")
+mcp = MCPServer("reports")
 
 
-  @mcp.tool()
-  async def fetch_report(report_id: str) -> str:
-      """Fetch a report by id."""
-      logger.info("Fetching report %s", report_id)
-      return f"Report {report_id} is ready."
-  ```
+@mcp.tool()
+async def fetch_report(report_id: str) -> str:
+    """Fetch a report by id."""
+    logger.info("Fetching report %s", report_id)
+    return f"Report {report_id} is ready."
+```
 
-  ```typescript TypeScript theme={null}
-  await server.sendLoggingMessage({
-    level: "info",
-    data: "Server started successfully",
-  });
-  ```
-</CodeGroup>
+```typescript TypeScript theme={null}
+await server.sendLoggingMessage({
+  level: "info",
+  data: "Server started successfully",
+});
+```
 
 MCP defines eight
 [RFC 5424 severity levels](/specification/latest/server/utilities/logging#log-levels)
@@ -215,7 +213,7 @@ Click the "Add files, connectors, and more" plus icon in the chat input, then
 hover over the **Connectors** menu to see connected servers and available
 tools.
 
-<img src="https://mintcdn.com/mcp/zNouQwo2h8cbxlDS/images/available-mcp-tools.png?fit=max&auto=format&n=zNouQwo2h8cbxlDS&q=85&s=e2ace1ac88895a5fe30ebd8d01456bc3" alt="Available MCP tools" width="437" height="244" data-path="images/available-mcp-tools.png" />
+![Available MCP tools](https://mintcdn.com/mcp/zNouQwo2h8cbxlDS/images/available-mcp-tools.png?fit=max\&auto=format\&n=zNouQwo2h8cbxlDS\&q=85\&s=e2ace1ac88895a5fe30ebd8d01456bc3)
 
 ### Viewing logs
 
@@ -224,15 +222,13 @@ Log files are written to:
 * macOS: `~/Library/Logs/Claude`
 * Windows: `%APPDATA%\Claude\logs`
 
-<CodeGroup>
-  ```bash macOS theme={null}
-  tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
-  ```
+```bash macOS theme={null}
+tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
+```
 
-  ```powershell Windows theme={null}
-  type "$env:AppData\Claude\logs\mcp*.log"
-  ```
-</CodeGroup>
+```powershell Windows theme={null}
+type "$env:AppData\Claude\logs\mcp*.log"
+```
 
 The logs capture:
 
@@ -248,15 +244,13 @@ client-side errors:
 
 1. Create a `developer_settings.json` file with `allowDevTools` set to true:
 
-<CodeGroup>
-  ```bash macOS theme={null}
-  echo '{"allowDevTools": true}' > ~/Library/Application\ Support/Claude/developer_settings.json
-  ```
+```bash macOS theme={null}
+echo '{"allowDevTools": true}' > ~/Library/Application\ Support/Claude/developer_settings.json
+```
 
-  ```powershell Windows theme={null}
-  '{"allowDevTools": true}' | Set-Content "$env:AppData\Claude\developer_settings.json"
-  ```
-</CodeGroup>
+```powershell Windows theme={null}
+'{"allowDevTools": true}' | Set-Content "$env:AppData\Claude\developer_settings.json"
+```
 
 2. Open DevTools: `Command-Option-I` (macOS) or `Ctrl+Alt+I` (Windows)
 
@@ -357,16 +351,14 @@ When encountering issues:
 
 ## Next steps
 
-<CardGroup cols={2}>
-  <Card title="MCP Inspector" icon="magnifying-glass" href="/docs/draft/tools/inspector">
-    Learn to use the MCP Inspector
-  </Card>
+> **[MCP Inspector](/docs/draft/tools/inspector)**
+>
+> Learn to use the MCP Inspector
 
-  <Card title="Build an MCP server" icon="code" href="/docs/draft/develop/build-server">
-    Walk through building a server from scratch
-  </Card>
+> **[Build an MCP server](/docs/draft/develop/build-server)**
+>
+> Walk through building a server from scratch
 
-  <Card title="Connect local servers" icon="plug" href="/docs/draft/develop/connect-local-servers">
-    Full claude\_desktop\_config.json reference and troubleshooting
-  </Card>
-</CardGroup>
+> **[Connect local servers](/docs/draft/develop/connect-local-servers)**
+>
+> Full claude\_desktop\_config.json reference and troubleshooting

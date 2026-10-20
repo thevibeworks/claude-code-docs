@@ -6,13 +6,13 @@
 
 > Charter for the MCP Enterprise-Managed Authorization Interest Group.
 
-<Note>
-  As of 2026-08-17 this Interest Group is folded into the [Authorization
-  IG](/community/interest-groups/auth). EMA interoperability and deployment
-  progress is presented as agenda slots on the Auth IG call, discussion
-  continues in `#auth-ig` threads, and `#enterprise-managed-auth-ig` is
-  archived. This page is kept for reference.
-</Note>
+> [!NOTE]
+>
+> As of 2026-08-17 this Interest Group is folded into the [Authorization
+> IG](/community/interest-groups/auth). EMA interoperability and deployment
+> progress is presented as agenda slots on the Auth IG call, discussion
+> continues in `#auth-ig` threads, and `#enterprise-managed-auth-ig` is
+> archived. This page is kept for reference.
 
 ## Group Type
 

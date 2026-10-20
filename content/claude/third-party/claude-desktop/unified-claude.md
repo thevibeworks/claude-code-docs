@@ -6,9 +6,9 @@
 
 > Unified Claude combines Chat and Cowork into one experience, with Cowork's agentic capabilities.
 
-<Note>
-  Unified Claude is in beta. It is opt-in until November 10, when it becomes enforced for all Desktop 3P deployments. New [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) organizations start with Unified Claude on.
-</Note>
+> [!NOTE]
+>
+> Unified Claude is in beta. It is opt-in until November 10, when it becomes enforced for all Desktop 3P deployments. New [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) organizations start with Unified Claude on.
 
 Unified Claude combines Chat and Cowork into one experience in Claude Desktop 3P. Users get a single Claude interface for both quick chats and longer agentic tasks. [Code](/docs/third-party/claude-desktop/code) stays separate.
 

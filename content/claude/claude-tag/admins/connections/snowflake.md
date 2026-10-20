@@ -6,9 +6,9 @@
 
 > Connect Snowflake to Claude Tag so it can run read-only queries on your warehouse. Covers the dedicated user to create, the access token field, and the host to allow.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting Snowflake lets Claude run queries against your warehouse in any channel where the connector is on. Claude connects with its own credential, not a person's.
 

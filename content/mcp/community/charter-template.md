@@ -12,9 +12,9 @@ The charter captures information specific to your group. Governance rules — le
 
 Sections marked **(WG only)** are required for Working Groups and optional for Interest Groups.
 
-<Note>
-  Copy the markdown below into `docs/community/working-groups/<group-name>.mdx` (or `interest-groups/` for an IG) and replace the placeholder text.
-</Note>
+> [!NOTE]
+>
+> Copy the markdown below into `docs/community/working-groups/<group-name>.mdx` (or `interest-groups/` for an IG) and replace the placeholder text.
 
 ***
 

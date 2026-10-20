@@ -6,9 +6,9 @@
 
 > Counts, lengths, lifetimes, and unsupported configurations for Claude Tag's federated agent access: gateways, AWS roles, Google Cloud identities, and authorization servers.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 This page collects the fixed limits of Federated agent access in one place.
 

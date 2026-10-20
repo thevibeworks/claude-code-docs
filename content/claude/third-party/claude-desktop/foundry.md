@@ -8,11 +8,11 @@
 
 This page walks an IT administrator through a Microsoft Foundry deployment: creating the Microsoft Foundry resource, choosing the authentication path that fits your organization, and pushing the managed configuration. If you only need the list of configuration keys, skip to [Configure the app](#configure-the-app).
 
-<Note>
-  Microsoft Foundry offers Claude models in two hosting options, Hosted on Azure and Hosted on Anthropic, and you choose one when you configure the model deployment in Microsoft Foundry. Under both options, Anthropic operates the Claude models and handles conversation data as an independent processor for Microsoft. Your use of Claude through Microsoft Foundry is subject to Anthropic's data use terms.
-
-  Deployments hosted on Azure run inference in an Anthropic-operated service on Azure infrastructure, not in your Azure tenant, and prompts and completions remain within Azure. The only data the service sends out of Azure to Anthropic is usage metadata and any content that Anthropic's safety systems flag. Deployments hosted on Anthropic send prompts and completions to Anthropic's own infrastructure for inference. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
-</Note>
+> [!NOTE]
+>
+> Microsoft Foundry offers Claude models in two hosting options, Hosted on Azure and Hosted on Anthropic, and you choose one when you configure the model deployment in Microsoft Foundry. Under both options, Anthropic operates the Claude models and handles conversation data as an independent processor for Microsoft. Your use of Claude through Microsoft Foundry is subject to Anthropic's data use terms.
+>
+> Deployments hosted on Azure run inference in an Anthropic-operated service on Azure infrastructure, not in your Azure tenant, and prompts and completions remain within Azure. The only data the service sends out of Azure to Anthropic is usage metadata and any content that Anthropic's safety systems flag. Deployments hosted on Anthropic send prompts and completions to Anthropic's own infrastructure for inference. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
 
 ## Choose an authentication approach
 
@@ -26,33 +26,31 @@ This page walks an IT administrator through a Microsoft Foundry deployment: crea
 
 These steps are performed once per Azure subscription. You need permission to create resources and, for in-app sign-in, to register an application in Microsoft Entra ID.
 
-<Steps>
-  <Step title="Create a Microsoft Foundry resource">
-    In the Azure portal, create a Microsoft Foundry resource in your subscription. Record the **resource name**; the app constructs the endpoint as `<resource-name>.services.ai.azure.com`. If the app should reach Microsoft Foundry through a gateway or proxy you operate instead, see [Route requests through a gateway](#route-requests-through-a-gateway). The resource name is still required in that case.
-  </Step>
+**1. Create a Microsoft Foundry resource**
 
-  <Step title="Deploy the Claude models">
-    In the Microsoft Foundry portal for your resource, deploy the Claude models you intend to serve. Record each **deployment name**; you will list these in `inferenceModels`.
-  </Step>
+In the Azure portal, create a Microsoft Foundry resource in your subscription. Record the **resource name**; the app constructs the endpoint as `<resource-name>.services.ai.azure.com`. If the app should reach Microsoft Foundry through a gateway or proxy you operate instead, see [Route requests through a gateway](#route-requests-through-a-gateway). The resource name is still required in that case.
 
-  <Step title="Obtain an API key (API-key approach only)">
-    If you chose the API-key approach, copy one of the resource's keys from the Azure portal. You will place it in the managed configuration in [Configure the app](#configure-the-app).
-  </Step>
+**2. Deploy the Claude models**
 
-  <Step title="Register an Entra ID application (in-app sign-in only)">
-    If you chose in-app Entra ID sign-in, register an application in the [Microsoft Entra admin center](https://entra.microsoft.com) under **Identity → Applications → App registrations → New registration**. On the registration:
+In the Microsoft Foundry portal for your resource, deploy the Claude models you intend to serve. Record each **deployment name**; you will list these in `inferenceModels`.
 
-    * Under **API permissions**, select **Add a permission**, find **Azure Cognitive Services** in the API picker, and add the **Delegated** permission **user\_impersonation** so the issued token is accepted by your Microsoft Foundry resource. (The app requests this permission as the scope `https://cognitiveservices.azure.com/.default`.) All three sign-in flows need it. After adding the permission, select **Grant admin consent**; in tenants that disable user consent, sign-in fails with error code `AADSTS65001` until consent is granted.
-    * Under **Authentication**, complete the setup for the sign-in flow you plan to use (see [In-app Entra ID sign-in](#in-app-entra-id-sign-in) for how the flows differ):
-      * For the device-code flow (the default), enable **Allow public client flows**. Entra ID rejects device-code sign-in without it.
-      * For the browser flow (`inferenceFoundryAuthFlow` set to `browser`), select **Add a platform → Mobile and desktop applications** and add the redirect URI `http://127.0.0.1/callback`. Use the literal address `127.0.0.1`, not `localhost`: Entra ID matches the scheme, host, and path exactly and ignores only the port. The browser flow completes sign-in without **Allow public client flows**. Conditional Access policies that block the device-code authentication flow do not apply to the browser flow.
-      * For the broker flow (`inferenceFoundryAuthFlow` set to `broker`), enable **Allow public client flows** and add the platform's broker redirect URI under **Mobile and desktop applications**. See [Register the Entra ID application](/docs/third-party/claude-desktop/entra-broker#register-the-entra-id-application) on the OS identity broker page for the redirect URI values and why the public-client setting is required.
+**3. Obtain an API key (API-key approach only)**
 
-    Record the **Directory (tenant) ID** and **Application (client) ID**.
+If you chose the API-key approach, copy one of the resource's keys from the Azure portal. You will place it in the managed configuration in [Configure the app](#configure-the-app).
 
-    Grant the users or groups who will sign in a role on the Microsoft Foundry resource that permits inference (for example, **Cognitive Services User**).
-  </Step>
-</Steps>
+**4. Register an Entra ID application (in-app sign-in only)**
+
+If you chose in-app Entra ID sign-in, register an application in the [Microsoft Entra admin center](https://entra.microsoft.com) under **Identity → Applications → App registrations → New registration**. On the registration:
+
+* Under **API permissions**, select **Add a permission**, find **Azure Cognitive Services** in the API picker, and add the **Delegated** permission **user\_impersonation** so the issued token is accepted by your Microsoft Foundry resource. (The app requests this permission as the scope `https://cognitiveservices.azure.com/.default`.) All three sign-in flows need it. After adding the permission, select **Grant admin consent**; in tenants that disable user consent, sign-in fails with error code `AADSTS65001` until consent is granted.
+* Under **Authentication**, complete the setup for the sign-in flow you plan to use (see [In-app Entra ID sign-in](#in-app-entra-id-sign-in) for how the flows differ):
+  * For the device-code flow (the default), enable **Allow public client flows**. Entra ID rejects device-code sign-in without it.
+  * For the browser flow (`inferenceFoundryAuthFlow` set to `browser`), select **Add a platform → Mobile and desktop applications** and add the redirect URI `http://127.0.0.1/callback`. Use the literal address `127.0.0.1`, not `localhost`: Entra ID matches the scheme, host, and path exactly and ignores only the port. The browser flow completes sign-in without **Allow public client flows**. Conditional Access policies that block the device-code authentication flow do not apply to the browser flow.
+  * For the broker flow (`inferenceFoundryAuthFlow` set to `broker`), enable **Allow public client flows** and add the platform's broker redirect URI under **Mobile and desktop applications**. See [Register the Entra ID application](/docs/third-party/claude-desktop/entra-broker#register-the-entra-id-application) on the OS identity broker page for the redirect URI values and why the public-client setting is required.
+
+Record the **Directory (tenant) ID** and **Application (client) ID**.
+
+Grant the users or groups who will sign in a role on the Microsoft Foundry resource that permits inference (for example, **Cognitive Services User**).
 
 ## Prepare devices
 
@@ -80,9 +78,9 @@ If the app can no longer renew the credential silently, it shows a **Sign in aga
 
 `inferenceFoundryTenantId`, `inferenceFoundryClientId`, and `inferenceFoundryAuthFlow` can be set through an MDM profile or a [bootstrap server](/docs/third-party/claude-desktop/bootstrap). When a bootstrap server delivers `inferenceFoundryResource`, `inferenceFoundryTenantId`, or `inferenceFoundryClientId`, the values are among the [keys that require user consent](/docs/third-party/claude-desktop/bootstrap#keys-that-require-user-consent), so users may see a one-time approval dialog depending on how `bootstrapUrl` reached the device.
 
-<Note>
-  In-app sign-in and a [bootstrap server](/docs/third-party/claude-desktop/bootstrap) are separate layers that work together. In-app sign-in supplies each user's inference credential, the Entra ID token that authorizes model calls. A bootstrap server supplies per-user configuration values when the app starts. A bootstrap server does not replace sign-in: a deployment with a bootstrap server still needs each user to sign in, and signing in does not deliver configuration.
-</Note>
+> [!NOTE]
+>
+> In-app sign-in and a [bootstrap server](/docs/third-party/claude-desktop/bootstrap) are separate layers that work together. In-app sign-in supplies each user's inference credential, the Entra ID token that authorizes model calls. A bootstrap server supplies per-user configuration values when the app starts. A bootstrap server does not replace sign-in: a deployment with a bootstrap server still needs each user to sign in, and signing in does not deliver configuration.
 
 #### Allow network egress
 
@@ -119,26 +117,24 @@ The full set of `inferenceFoundry*` keys is below. Set `inferenceProvider` to `f
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencefoundryresource" />Azure AI Foundry resource name<br />`inferenceFoundryResource` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Azure AI Foundry resource name used to construct the endpoint URL. |
-| <span id="inferencefoundrybaseurl" />Azure AI Foundry base URL<br />`inferenceFoundryBaseUrl` | `string` | MDM + Bootstrap<br />Added in 2.110.0 | — | Full base URL for a gateway or proxy in front of Foundry, path included (replaces [https://RESOURCE.services.ai.azure.com/anthropic](https://RESOURCE.services.ai.azure.com/anthropic)). |
-| <span id="inferencefoundryapikey" />Azure AI Foundry API key<br />`inferenceFoundryApiKey` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | API key for Azure AI Foundry inference. |
-| <span id="inferencefoundrytenantid" />Entra ID tenant ID<br />`inferenceFoundryTenantId` | `string` | MDM + Bootstrap<br />Added in 1.9255.0 | — | Directory (tenant) ID of the Entra ID app registration that has the Cognitive Services scope. |
-| <span id="inferencefoundryclientid" />Entra ID client ID<br />`inferenceFoundryClientId` | `string` | MDM + Bootstrap<br />Added in 1.9255.0 | — | Application (client) ID of the Entra ID app registration. Device-code sign-in requires the app to allow public client flows. |
-| <span id="inferencefoundryauthflow" />Entra ID sign-in flow<br />`inferenceFoundryAuthFlow` | `enum` | MDM + Bootstrap<br />Added in 1.19367.0 | — | How Entra sign-in runs: device code (default), system browser, or the OS identity broker. One of: `device-code`, `browser`, `broker`. |
+| Azure AI Foundry resource name `inferenceFoundryResource` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Azure AI Foundry resource name used to construct the endpoint URL. |
+| Azure AI Foundry base URL `inferenceFoundryBaseUrl` | `string` | MDM + Bootstrap Added in 2.110.0 | — | Full base URL for a gateway or proxy in front of Foundry, path included (replaces [https://RESOURCE.services.ai.azure.com/anthropic](https://RESOURCE.services.ai.azure.com/anthropic)). |
+| Azure AI Foundry API key `inferenceFoundryApiKey` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | API key for Azure AI Foundry inference. |
+| Entra ID tenant ID `inferenceFoundryTenantId` | `string` | MDM + Bootstrap Added in 1.9255.0 | — | Directory (tenant) ID of the Entra ID app registration that has the Cognitive Services scope. |
+| Entra ID client ID `inferenceFoundryClientId` | `string` | MDM + Bootstrap Added in 1.9255.0 | — | Application (client) ID of the Entra ID app registration. Device-code sign-in requires the app to allow public client flows. |
+| Entra ID sign-in flow `inferenceFoundryAuthFlow` | `enum` | MDM + Bootstrap Added in 1.19367.0 | — | How Entra sign-in runs: device code (default), system browser, or the OS identity broker. One of: `device-code`, `browser`, `broker`. |
 
-<AccordionGroup>
-  <Accordion title="inferenceFoundryBaseUrl details">
-    Set this only when the app reaches Foundry through a gateway or proxy you run, such as Azure API Management. Requests go to `<value>/v1/messages` instead of `https://<resource>.services.ai.azure.com/anthropic/v1/messages`, carrying the same credential and headers the app would send to Foundry: each user's Entra ID token for the Azure Cognitive Services audience as `Authorization: Bearer` with Entra sign-in, otherwise the API key or the credential helper's output. Claude Code sessions receive the value as `ANTHROPIC_FOUNDRY_BASE_URL`, so use the same value you would give Claude Code in a terminal. `inferenceFoundryResource` is still required and should name the resource behind the gateway; the app sends nothing to the resource directly while this is set. Must be https, or http to a proxy at a loopback address on the device itself (127.0.0.1, localhost or \[::1]).
-  </Accordion>
+> **inferenceFoundryBaseUrl details**
+>
+> Set this only when the app reaches Foundry through a gateway or proxy you run, such as Azure API Management. Requests go to `<value>/v1/messages` instead of `https://<resource>.services.ai.azure.com/anthropic/v1/messages`, carrying the same credential and headers the app would send to Foundry: each user's Entra ID token for the Azure Cognitive Services audience as `Authorization: Bearer` with Entra sign-in, otherwise the API key or the credential helper's output. Claude Code sessions receive the value as `ANTHROPIC_FOUNDRY_BASE_URL`, so use the same value you would give Claude Code in a terminal. `inferenceFoundryResource` is still required and should name the resource behind the gateway; the app sends nothing to the resource directly while this is set. Must be https, or http to a proxy at a loopback address on the device itself (127.0.0.1, localhost or \[::1]).
 
-  <Accordion title="inferenceFoundryAuthFlow details">
-    * **`device-code`** (default) — shows a code to enter at microsoft.com/devicelogin. The app registration must have **Allow public client flows** enabled.
-    * **`browser`** — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. The app registration must include `http://127.0.0.1/callback` under the **Mobile and desktop applications** platform (Entra ignores the loopback port, but not the path). Works with **Allow public client flows** disabled, and is unaffected by Conditional Access policies that block device-code authentication.
-    * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS), so it can satisfy Conditional Access policies that require a compliant/managed device or token protection. The app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
-
-    App versions that predate this key always use device code; versions that predate the broker option treat `broker` as unset and use device code.
-  </Accordion>
-</AccordionGroup>
+> **inferenceFoundryAuthFlow details**
+>
+> * **`device-code`** (default) — shows a code to enter at microsoft.com/devicelogin. The app registration must have **Allow public client flows** enabled.
+> * **`browser`** — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. The app registration must include `http://127.0.0.1/callback` under the **Mobile and desktop applications** platform (Entra ignores the loopback port, but not the path). Works with **Allow public client flows** disabled, and is unaffected by Conditional Access policies that block device-code authentication.
+> * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS), so it can satisfy Conditional Access policies that require a compliant/managed device or token protection. The app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+>
+> App versions that predate this key always use device code; versions that predate the broker option treat `broker` as unset and use device code.
 
 You must also set `inferenceModels` to a list of Microsoft Foundry deployment names. See the [Configuration reference](/docs/third-party/claude-desktop/configuration#inferencemodels).
 

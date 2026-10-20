@@ -10,27 +10,25 @@
 
 The organization admin portal is where you manage the people, seats, and settings for a single organization in Claude for Government. It covers the day-to-day work of administering who has access, how much they can use, and how the Claude products behave for your users.
 
-<Frame caption="Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.">
-  <video controls preload="metadata" playsInline className="w-full aspect-video" src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=d235ae566a0056c409a1b59b2a9623e7" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" data-path="images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness.mp4" />
-</Frame>
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=d235ae566a0056c409a1b59b2a9623e7" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
 
-<Accordion title="Transcript">
-  In an organization, a member's role decides what they can manage, and their seat tier decides which models they can use and how much. Readiness shows what still blocks your members.
-
-  Marcus, a Primary Owner, signs in and lands on the organization admin view.
-
-  Under Settings, Readiness lists what blocks members. Every required step is done, but one optional item remains, Assign seat tiers to members. Select Open Users.
-
-  Users lists every member with their role, seat tier, usage against the five-hour and seven-day limits, and last login.
-
-  Wen is Unassigned. Wen can sign in, but Claude Desktop offers no models. Choose a tier from the Seat tier dropdown. The change applies at once, and the models appear the next time Wen starts Claude Desktop.
-
-  Roles are User, Owner, and Primary Owner. Keep at least two Primary Owners, so one can always promote a replacement. From Priya's Role dropdown, Marcus chooses Primary Owner.
-
-  Tiers lists the seat tiers available to your organization. Anthropic-managed tiers are read-only, and your tenant can let you create your own.
-
-  Model access comes from the seat tier, never from the role. Tenant administrator is separate from these roles. If directory groups set roles or tiers, change the group in your provider, because the group mappings overwrite edits made by hand.
-</Accordion>
+> **Transcript**
+>
+> In an organization, a member's role decides what they can manage, and their seat tier decides which models they can use and how much. Readiness shows what still blocks your members.
+>
+> Marcus, a Primary Owner, signs in and lands on the organization admin view.
+>
+> Under Settings, Readiness lists what blocks members. Every required step is done, but one optional item remains, Assign seat tiers to members. Select Open Users.
+>
+> Users lists every member with their role, seat tier, usage against the five-hour and seven-day limits, and last login.
+>
+> Wen is Unassigned. Wen can sign in, but Claude Desktop offers no models. Choose a tier from the Seat tier dropdown. The change applies at once, and the models appear the next time Wen starts Claude Desktop.
+>
+> Roles are User, Owner, and Primary Owner. Keep at least two Primary Owners, so one can always promote a replacement. From Priya's Role dropdown, Marcus chooses Primary Owner.
+>
+> Tiers lists the seat tiers available to your organization. Anthropic-managed tiers are read-only, and your tenant can let you create your own.
+>
+> Model access comes from the seat tier, never from the role. Tenant administrator is separate from these roles. If directory groups set roles or tiers, change the group in your provider, because the group mappings overwrite edits made by hand.
 
 ## Key concepts
 
@@ -53,9 +51,9 @@ You can reach the organization admin portal if your role in the organization is 
 
 The portal header shows your organization's name, and a navigation bar below it gives you access to each admin page.
 
-<Note>
-  If the account your organization draws from crosses a warning threshold, a banner appears just below the navigation on every page of this portal. When your organization manages the account or is the only one using it, the banner tells you the percentage of credits used. When the account is shared with other organizations and yours does not manage it, the banner instead says credits are running low and points you to your tenant administrators. The banner stays in place until more credits are added to the account, and it escalates in color and wording if usage crosses a higher threshold. Every owner sees the banner, including when the Billing tab is hidden, so that you always know when your organization is running low.
-</Note>
+> [!NOTE]
+>
+> If the account your organization draws from crosses a warning threshold, a banner appears just below the navigation on every page of this portal. When your organization manages the account or is the only one using it, the banner tells you the percentage of credits used. When the account is shared with other organizations and yours does not manage it, the banner instead says credits are running low and points you to your tenant administrators. The banner stays in place until more credits are added to the account, and it escalates in color and wording if usage crosses a higher threshold. Every owner sees the banner, including when the Billing tab is hidden, so that you always know when your organization is running low.
 
 > **For owners and tenant administrators:** You can reach the user view from the **Switch to user view** link in the page footer. If you are also a tenant administrator, the footer additionally offers **Switch to tenant view**.
 
@@ -87,17 +85,17 @@ The navigation groups the pages into three sections.
 | [Config](/docs/government/org-admin/configuration) | Adjust product settings such as telemetry, the Claude Desktop banner, and product availability for everyone in your organization. |
 | [Readiness](/docs/government/org-admin/readiness) | See what is blocking users from using Claude and where each item is resolved. |
 
-<Warning>
-  The **Billing** tab only appears when the billing account is active and your own organization is active on it. If you don't see it, contact your tenant administrators about credits or spend caps.
-</Warning>
+> [!WARNING]
+>
+> The **Billing** tab only appears when the billing account is active and your own organization is active on it. If you don't see it, contact your tenant administrators about credits or spend caps.
 
-<Warning>
-  The **Group mappings** tab only appears if automatic directory provisioning has been set up for your tenant. If you don't see it, your tenant administrator has not connected a directory, and users are placed by the tenant's routing rules alone.
-</Warning>
+> [!WARNING]
+>
+> The **Group mappings** tab only appears if automatic directory provisioning has been set up for your tenant. If you don't see it, your tenant administrator has not connected a directory, and users are placed by the tenant's routing rules alone.
 
-<Note>
-  Single sign-on and the SCIM provisioning connection are configured at the tenant level, so they are managed on the [tenant portal's Identity and access page](/docs/government/tenant-admin/identity-and-access) rather than here.
-</Note>
+> [!NOTE]
+>
+> Single sign-on and the SCIM provisioning connection are configured at the tenant level, so they are managed on the [tenant portal's Identity and access page](/docs/government/tenant-admin/identity-and-access) rather than here.
 
 ## How changes take effect
 

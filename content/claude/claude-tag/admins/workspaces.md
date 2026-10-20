@@ -6,9 +6,9 @@
 
 > Connect more Slack workspaces or an Enterprise Grid to Claude Tag, choose which Claude Tag version each channel uses, and disconnect a workspace.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 This page covers managing Slack workspace pairings after initial setup: adding more workspaces, installing the app and pairing across a Slack Enterprise Grid, choosing which Claude Tag version each one runs, turning Claude on or off on the Team plan, and disconnecting a workspace.
 
@@ -24,23 +24,23 @@ To move a pairing to a different Claude organization, an Owner in the organizati
 
 If your company has more than one Claude organization (a subsidiary with its own, for example), agree on which one holds the pairing before connecting.
 
-<Steps>
-  <Step title="Open the pairing dialog">
-    Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack). On the **General** tab, under **Connected workspaces**, click **Connect new**.
-  </Step>
+**1. Open the pairing dialog**
 
-  <Step title="Get a pairing code from Slack">
-    In any channel of the new workspace, send `@Claude connect` with no other text, as a new top-level message or in a thread where Claude isn't already working, then paste the code Claude sends you into the dialog.
+Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack). On the **General** tab, under **Connected workspaces**, click **Connect new**.
 
-    Pick a channel that belongs to just the new workspace. Claude can decline to reply in [guest and shared channels](/docs/claude-tag/admins/troubleshooting#guest-and-shared-channels).
-  </Step>
+**2. Get a pairing code from Slack**
 
-  <Step title="Finish the dialog and launch">
-    Once the code is accepted, click **Next**, work through the dialog's remaining steps, and click **Launch Claude** on the last one.
-  </Step>
-</Steps>
+In any channel of the new workspace, send `@Claude connect` with no other text, as a new top-level message or in a thread where Claude isn't already working, then paste the code Claude sends you into the dialog.
 
-<Note>If your organization used the earlier Claude in Slack app, the new workspace is added alongside your existing one, not in place of it.</Note>
+Pick a channel that belongs to just the new workspace. Claude can decline to reply in [guest and shared channels](/docs/claude-tag/admins/troubleshooting#guest-and-shared-channels).
+
+**3. Finish the dialog and launch**
+
+Once the code is accepted, click **Next**, work through the dialog's remaining steps, and click **Launch Claude** on the last one.
+
+> [!NOTE]
+>
+> If your organization used the earlier Claude in Slack app, the new workspace is added alongside your existing one, not in place of it.
 
 **You'll see:** the new workspace in the **Connected workspaces** list with the status **Active**, and as a row on the **Channels** tab.
 
@@ -50,21 +50,19 @@ On Slack Enterprise Grid, installing the Claude app takes two Slack actions inst
 
 ### Install the app across the Grid
 
-<Steps>
-  <Step title="Sign in to a workspace in the Grid">
-    As a Slack Org Owner or Org Admin, sign in to one of the Grid's workspaces rather than the Slack organization admin dashboard. Slack offers **Install to entire organization** only when you start from inside a workspace.
-  </Step>
+**1. Sign in to a workspace in the Grid**
 
-  <Step title="Install to the entire organization">
-    On the [Claude for Slack](https://claude.com/claude-for-slack) listing, select **Add to Slack > Install to entire organization**.
+As a Slack Org Owner or Org Admin, sign in to one of the Grid's workspaces rather than the Slack organization admin dashboard. Slack offers **Install to entire organization** only when you start from inside a workspace.
 
-    If some workspaces in the Grid already installed the app on their own, leave those installations in place and choose **Install to entire organization** anyway. Don't uninstall first, because uninstalling the app from a workspace [deletes that workspace's Claude data](/docs/claude-tag/concepts/data-lifecycle#actions-in-slack).
-  </Step>
+**2. Install to the entire organization**
 
-  <Step title="Add the app to each workspace">
-    From the Slack organization admin dashboard, add the Claude app to each workspace where people will use Claude. Each workspace still needs the app added before people there can invite and mention `@Claude`.
-  </Step>
-</Steps>
+On the [Claude for Slack](https://claude.com/claude-for-slack) listing, select **Add to Slack > Install to entire organization**.
+
+If some workspaces in the Grid already installed the app on their own, leave those installations in place and choose **Install to entire organization** anyway. Don't uninstall first, because uninstalling the app from a workspace [deletes that workspace's Claude data](/docs/claude-tag/concepts/data-lifecycle#actions-in-slack).
+
+**3. Add the app to each workspace**
+
+From the Slack organization admin dashboard, add the Claude app to each workspace where people will use Claude. Each workspace still needs the app added before people there can invite and mention `@Claude`.
 
 ### Pair an Enterprise Grid
 
@@ -75,7 +73,9 @@ Paste the `enterprise_` code in one of these places:
 * **During setup:** paste the code into the **Paste the pairing code** field on the [setup page](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace)
 * **After setup:** click **Connect new** under **Connected workspaces** on the **Slack** page, as in [Pair another workspace](#pair-another-workspace), and paste the code into the dialog. If a workspace you've already paired belongs to a Grid you haven't paired, the list also has an **Enterprise Grid** row with the status **Not connected**, and **Connect** on that row opens the same dialog.
 
-<Note>Leave the workspaces you've already paired connected while you pair the Grid. They stay paired and keep their Claude data.</Note>
+> [!NOTE]
+>
+> Leave the workspaces you've already paired connected while you pair the Grid. They stay paired and keep their Claude data.
 
 **You'll see:** the Grid in the **Connected workspaces** list with **Enterprise Grid** and **Active** in the **Status** column.
 
@@ -160,17 +160,17 @@ Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/
 
 Claude stops responding in that workspace's channels immediately, and your organization is no longer billed for Claude usage there. One-to-one direct messages from members who have connected a Claude account run on the member's own account, so they keep working until the deletion below removes the member's account link. A member who reconnects their account afterward can use direct messages again while the app stays installed.
 
-<Warning>
-  When you disconnect a workspace, Anthropic deletes its Claude data:
-
-  * The workspace's sessions and their transcripts, including members' direct-message conversations with Claude in that workspace
-  * Its channel, workspace, and direct-message memory
-  * The routines set up in its channels, and the artifacts published from them
-  * Its scopes, with their instructions and bundle bindings
-  * The links between members' Slack and Claude accounts
-
-  Deletion starts as soon as you confirm and runs to completion in the background. This can't be undone. Routines a person set up in a one-to-one direct message with Claude belong to that person's account and keep running.
-</Warning>
+> [!WARNING]
+>
+> When you disconnect a workspace, Anthropic deletes its Claude data:
+>
+> * The workspace's sessions and their transcripts, including members' direct-message conversations with Claude in that workspace
+> * Its channel, workspace, and direct-message memory
+> * The routines set up in its channels, and the artifacts published from them
+> * Its scopes, with their instructions and bundle bindings
+> * The links between members' Slack and Claude accounts
+>
+> Deletion starts as soon as you confirm and runs to completion in the background. This can't be undone. Routines a person set up in a one-to-one direct message with Claude belong to that person's account and keep running.
 
 Bundles belong to your organization, not to a workspace, so they stay available to add to other workspaces and channels; only their bindings to the deleted workspace and its channels go.
 

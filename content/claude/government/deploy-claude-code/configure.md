@@ -21,7 +21,7 @@ This page covers the device side: the managed settings, where to put them on eac
 * **Claude Code is current.** This setup requires Claude Code 2.1.267 or later (`claude --version`).
 * **Claude Desktop is current.** Update Claude Desktop to [the supported version](/docs/government/deploy-desktop/configure#before-you-begin) before turning on Claude Code for the terminal.
 * **Devices can reach Claude for Government.** Claude Code must reach the gateway address over HTTPS on port 443, and the user's browser must reach the Claude for Government host, its sign-in service, and your agency's identity provider, the same hosts that [Claude Desktop sign-in](/docs/government/deploy-desktop/configure#before-you-begin) needs.
-* **You can place a system-level file or policy.** The settings are enforced only from a system-level location: a file in a system directory, a macOS configuration profile, or a machine-level Windows registry policy. Deliver them through your device management system or by hand with administrator rights.
+* **You can place a system-level file or policy.** The settings are enforced only from a system-level location: a file in a system directory, a macOS configuration profile, or a machine-level Windows registry policy. Values for the same keys in a user's own settings cannot override them. Deliver them through your device management system or by hand with administrator rights.
 
 ## The managed settings
 
@@ -39,7 +39,7 @@ As a `managed-settings.json` file:
 ```json theme={null}
 {
   "forceLoginMethod": "gateway",
-  "forceLoginGatewayUrl": "https://<claude-for-government-gateway-address>",
+  "forceLoginGatewayUrl": "https://<claude-for-government-host>/gateway-api",
   "env": {
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
     "DISABLE_TELEMETRY": "1",
@@ -54,9 +54,7 @@ As a `managed-settings.json` file:
 }
 ```
 
-Your Anthropic representative provides the gateway address. Replace `<claude-for-government-gateway-address>` with it so the value is the full address starting with a single `https://`, including any path. The address is the same for every device and contains no credentials, so one file serves your whole fleet.
-
-Claude Code requires the gateway sign-in only when the two sign-in keys come from a system-level location. Set there, they take the place of the same keys in a user's own settings file; a value in a per-user registry policy does not turn the sign-in on.
+For an agency that reaches Claude for Government on a hostname of its own, your Anthropic representative provides the address, which replaces the whole value. Otherwise, replace `<claude-for-government-host>` with the domain name you use to access Claude for Government, the host in your Claude Desktop [`bootstrapUrl`](/docs/government/deploy-desktop/configure#the-managed-setting). The address contains no credentials.
 
 ### Before sign-in
 
@@ -86,8 +84,8 @@ Place the JSON above at `C:\Program Files\ClaudeCode\managed-settings.json`, or 
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\ClaudeCode]
-; substitute the Claude for Government gateway address
-"Settings"="{\"forceLoginMethod\":\"gateway\",\"forceLoginGatewayUrl\":\"https://<claude-for-government-gateway-address>\",\"env\":{\"CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC\":\"1\",\"DISABLE_TELEMETRY\":\"1\",\"DISABLE_ERROR_REPORTING\":\"1\",\"CLAUDE_CODE_DISABLE_OFFICIAL_MARKETPLACE_AUTOINSTALL\":\"1\",\"ANTHROPIC_CUSTOM_HEADERS\":\"\",\"CLAUDE_CODE_EXTRA_BODY\":\"\",\"NODE_TLS_REJECT_UNAUTHORIZED\":\"1\",\"NODE_EXTRA_CA_CERTS\":\"\"},\"parentSettingsBehavior\":\"merge\"}"
+; substitute your Claude for Government host
+"Settings"="{\"forceLoginMethod\":\"gateway\",\"forceLoginGatewayUrl\":\"https://<claude-for-government-host>/gateway-api\",\"env\":{\"CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC\":\"1\",\"DISABLE_TELEMETRY\":\"1\",\"DISABLE_ERROR_REPORTING\":\"1\",\"CLAUDE_CODE_DISABLE_OFFICIAL_MARKETPLACE_AUTOINSTALL\":\"1\",\"ANTHROPIC_CUSTOM_HEADERS\":\"\",\"CLAUDE_CODE_EXTRA_BODY\":\"\",\"NODE_TLS_REJECT_UNAUTHORIZED\":\"1\",\"NODE_EXTRA_CA_CERTS\":\"\"},\"parentSettingsBehavior\":\"merge\"}"
 ```
 
 A value under `HKEY_CURRENT_USER` does not turn on gateway sign-in.
@@ -106,47 +104,43 @@ To try the setup before a fleet rollout, create the file at the path for the mac
 
 With the settings in place, a user's first sign-in on a device goes as follows.
 
-<Steps>
-  <Step title="Start Claude Code">
-    The user runs `claude` in a terminal. After the first-run theme choice, the **Cloud gateway** screen shows the gateway address, and the user presses **Enter** to connect.
-  </Step>
+**1. Start Claude Code**
 
-  <Step title="Confirm the gateway certificate">
-    The first time each user connects from a device, Claude Code shows the first 16 characters of the gateway's TLS certificate fingerprint (SHA-256) and asks them to trust it. Publish the expected fingerprint to your users with the rollout (they compare it ignoring colons and letter case), and again when Anthropic renews the certificate, because users are asked again after a renewal. Your Anthropic representative provides it.
-  </Step>
+The user runs `claude` in a terminal. After the first-run theme choice, the **Cloud gateway** screen shows the gateway address, and the user presses **Enter** to connect.
 
-  <Step title="Finish sign-in in the browser">
-    Claude Code opens the Claude for Government sign-in page in the default browser and shows a one-time code in the terminal. The user signs in with your identity provider, checks that the code on the page matches the terminal, and approves.
-  </Step>
+**2. Confirm the gateway certificate**
 
-  <Step title="Return to the terminal">
-    If the terminal shows **Signed in to Cloud gateway as** followed by the user's email address, the user confirms with **Yes, continue**. The terminal then shows **Connected to Cloud gateway**, and Claude Code downloads the organization's settings and restarts to apply them. If those settings include items Claude Code asks users to approve, such as a [Telemetry endpoint](/docs/government/config/settings#telemetry-endpoint), it shows a **Managed settings require approval** prompt the first time and whenever those settings change; **No** exits Claude Code. Unattended runs such as `claude -p` apply the settings without prompting.
-  </Step>
-</Steps>
+The first time each user connects from a device, Claude Code shows the first 16 characters of the gateway's TLS certificate fingerprint (SHA-256) and asks them to trust it. Publish the expected fingerprint to your users with the rollout (they compare it ignoring colons and letter case), and again when the certificate is renewed, because users are asked again after a renewal. Your Anthropic representative provides it.
 
-A sign-in lasts until the organization's [Session idle timeout](/docs/government/config/settings#session-idle-timeout) or [Maximum session length](/docs/government/config/settings#maximum-session-length) is reached, and at most 30 days. It also ends when the user's account is deactivated, or when the user signs in to Claude Code on more devices than Claude for Government allows at once (six), which ends the sign-in closest to expiring (see [Sessions](/docs/government/account/sessions#how-long-sessions-last)). Claude Code then asks the user to sign in again, which they do with `/login`.
+**3. Finish sign-in in the browser**
+
+Claude Code opens the Claude for Government sign-in page in the default browser and shows a one-time code in the terminal. The user signs in with your identity provider, checks that the code on the page matches the terminal, and approves.
+
+**4. Return to the terminal**
+
+If the terminal shows **Signed in to Cloud gateway as** followed by the user's email address, the user confirms with **Yes, continue**. The terminal then shows **Connected to Cloud gateway**, and Claude Code downloads the organization's settings and restarts to apply them. If those settings include items Claude Code asks users to approve, such as a [Telemetry endpoint](/docs/government/config/settings#telemetry-endpoint), it shows a **Managed settings require approval** prompt the first time and whenever those settings change; **No** exits Claude Code. Unattended runs such as `claude -p` apply the settings without prompting.
+
+A sign-in lasts until the organization's [Session idle timeout](/docs/government/config/settings#session-idle-timeout) or [Maximum session length](/docs/government/config/settings#maximum-session-length) is reached, and at most 30 days. It also ends when the user's account is deactivated, when an administrator signs the user out, or when the user signs in to Claude Code on more devices than Claude for Government allows at once (six), which ends the sign-in closest to expiring (see [Sessions](/docs/government/account/sessions#how-long-sessions-last)). Claude Code then asks the user to sign in again, which they do with `/login`.
 
 ## Confirm it worked
 
 Run through these checks on one configured device before the wider rollout.
 
-<Steps>
-  <Step title="Check the sign-in screen">
-    Start `claude` as a user who has not signed in. The only sign-in option is the **Cloud gateway** screen showing your gateway address. If Claude Code offers claude.ai or Claude Console sign-in instead, the managed settings did not reach it.
-  </Step>
+**1. Check the sign-in screen**
 
-  <Step title="Check the background connections are off">
-    Before signing in, run `claude doctor`. On the standard installer it reports auto-updates as disabled by `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`, which shows the `env` block reached Claude Code. (Homebrew, WinGet, and Linux package installs report updates as managed by the package manager instead.)
-  </Step>
+Start `claude` as a user who has not signed in. The only sign-in option is the **Cloud gateway** screen showing your gateway address. If Claude Code offers claude.ai or Claude Console sign-in instead, the managed settings did not reach it.
 
-  <Step title="Check the setting sources">
-    After sign-in, run `/status` inside Claude Code. The API provider reads **Cloud gateway** with your gateway address, and **Setting sources** lists **Enterprise managed settings (remote)**.
-  </Step>
+**2. Check the background connections are off**
 
-  <Step title="Check that organization settings arrived">
-    Change one visible Claude Code setting on the [Config](/docs/government/config/settings#claude-code) page for a test organization, start a new Claude Code session as a member of it, and confirm the change took effect.
-  </Step>
-</Steps>
+Before signing in, run `claude doctor`. On the standard installer it reports auto-updates as disabled by `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`, which shows the `env` block reached Claude Code. (Homebrew, WinGet, and Linux package installs report updates as managed by the package manager instead.)
+
+**3. Check the setting sources**
+
+After sign-in, run `/status` inside Claude Code. The API provider reads **Cloud gateway** with your gateway address, and **Setting sources** lists **Enterprise managed settings (remote)**.
+
+**4. Check that organization settings arrived**
+
+Change one visible Claude Code setting on the [Config](/docs/government/config/settings#claude-code) page for a test organization, start a new Claude Code session as a member of it, and confirm the change took effect.
 
 ## Troubleshooting
 
@@ -154,23 +148,23 @@ Run through these checks on one configured device before the wider rollout.
 | - | - | - |
 | Claude Code offers claude.ai and Claude Console sign-in instead of the **Cloud gateway** screen | The managed settings did not reach Claude Code: wrong path, a Windows value under `HKEY_CURRENT_USER` or with another name, a misspelled key, or Claude Code was already running | Check the location for the operating system above, then quit and restart Claude Code |
 | The **Cloud gateway** screen says to contact your IT administrator | `forceLoginGatewayUrl` is missing or empty | Add the gateway address to the same managed settings and restart Claude Code |
-| Claude Code reports that it could not resolve the gateway host, or another connection error for the address shown | The address in `forceLoginGatewayUrl` is not exactly the one your Anthropic representative provided, or the device cannot reach it | Correct the address, or restore the device's route to the gateway over HTTPS on port 443, then restart Claude Code |
+| Claude Code reports that it could not resolve the gateway host, or another connection error for the address shown | The address in `forceLoginGatewayUrl` is not exactly the gateway address described under [The managed settings](#the-managed-settings), or the device cannot reach it | Correct the address, or restore the device's route to the gateway over HTTPS on port 443, then restart Claude Code |
 | `Unable to connect to Anthropic services` at first start, before any sign-in screen | The sign-in keys did not reach Claude Code from a system-level location, or Claude Code is out of date | Update Claude Code, or check the settings location, then start it again |
 | `claude doctor`, run before sign-in on the standard installer, reports auto-updates as enabled | The `env` block did not reach Claude Code | Compare the deployed settings with the sample above, then restart Claude Code |
 | When it starts or right after sign-in, Claude Code exits with `Cloud gateway <address> refused managed settings for this account (403): Claude Code may not be enabled for your organization` | The **Claude Code** switch is off at a level that applies to the user (tenant, organization, or directory group) | Turn on the **Claude Code** switch under [Product availability](/docs/government/config/settings#product-availability) at that level (at the tenant level, **Reset to default** instead lets each organization's own switch decide), then have the user start Claude Code again. [**Compare config across levels**](/docs/government/config/overview#comparing-settings-across-levels) on the **Config** page shows which level turns it off for a user |
 | When it starts or right after sign-in, Claude Code exits with `Couldn't load settings from Cloud gateway <address>` | Claude Code could not reach the gateway while loading the organization's settings | Confirm the device reaches the gateway over HTTPS on port 443, then have the user start Claude Code again. If it persists on a connected device, contact your Anthropic representative |
-| In a session that was working, every request fails with a 403 error saying the product is not available for the organization | The **Claude Code** switch was turned off while Claude Code was running | Turn the switch back on at the level that turned it off; the next request then succeeds |
+| In a session that was working, every request fails with a 403 error saying Claude Code is not turned on for the organization | The **Claude Code** switch was turned off while Claude Code was running | Turn the switch back on at the level that turned it off; the next request then succeeds |
 | Before the user has signed in, Claude Code exits with `Administrator policy requires a Cloud gateway sign-in on this machine` | A credential from earlier use is present: `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` in the environment, an `apiKeyHelper` in the user's settings, or a saved Claude Console key | Remove the variable or the `apiKeyHelper` entry, or have the user run `claude auth logout`, then start `claude` and sign in |
 | Claude Code says the gateway's TLS certificate changed and asks the user to run `/login` | The gateway certificate was renewed | Confirm the new fingerprint with your Anthropic representative, send it to users, and have them run `/login` and accept it |
 
 ## Things to know
 
-* Only the gateway sign-in described on this page delivers the organization's settings to the Claude Code command-line tool. Once a user is signed in, those settings replace the Claude Code policy in these managed settings, hooks and permission rules included, apart from the two sign-in keys, any `env` variables the organization's settings leave unset, and the [keys Claude Code reads from every admin source](https://code.claude.com/docs/en/managed-settings#keys-read-from-every-admin-source).
+* Only a gateway sign-in delivers the organization's settings to the Claude Code command-line tool. Once a user is signed in, those settings replace the Claude Code policy in these managed settings, hooks and permission rules included, apart from the two sign-in keys, any `env` variables the organization's settings leave unset, and the [keys Claude Code reads from every admin source](https://code.claude.com/docs/en/managed-settings#keys-read-from-every-admin-source).
 * A claude.ai sign-in left on a device from earlier use is ignored once these settings are in place. A leftover `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `apiKeyHelper`, or saved Claude Console key is not: until the user has signed in through the gateway, Claude Code stops and asks for its removal, as [Troubleshooting](#troubleshooting) describes.
+* A cloud provider selected earlier in a user's environment or Claude Code settings, such as Amazon Bedrock, still applies whenever Claude Code has no gateway sign-in for the user, for example before the first sign-in or after one expires: Claude Code then uses that provider instead of requiring the gateway sign-in. Remove that provider selection from devices you set up for Claude for Government.
 * Where the Claude Code extension for VS Code is used, have users remove an earlier claude.ai sign-in with `claude auth logout` or the extension's **Claude Code: Logout** command before they sign in through the gateway, not after: both commands clear every credential Claude Code has stored, the gateway sign-in included.
 * To take a device out of this setup, have its users sign out with `claude auth logout` before you remove the settings.
 * After sign-in, the organization's settings turn off the Claude Code settings that run a helper command (`apiKeyHelper`, `proxyAuthHelper`, `awsAuthRefresh`, `awsCredentialExport`, `gcpAuthRefresh`, `otelHeadersHelper`), wherever it is set. If your devices reach the network through a proxy that needs a helper command to authenticate, raise this with your Anthropic representative before you deploy.
-* Claude Code connects to Claude for Government through a user's [sign-in](#sign-in) rather than an API key or service account. A CI pipeline or other unattended run therefore works only on a device where a user has signed in, until that sign-in ends.
 * With Claude for Government, the command-line tool has no access to Claude Code features that [require a claude.ai account](https://code.claude.com/docs/en/feature-availability#features-that-require-a-claude-subscription), such as cloud sessions, Remote Control, and routines. [Fast mode](https://code.claude.com/docs/en/fast-mode) isn't available either.
 * With these settings Claude Code does not check for or install updates in the background. Distribute new versions through your software deployment tooling, or have users run `claude update` (standard installer) or their package manager.
 * Code sessions inside Claude Desktop sign in through Claude Desktop, not through these settings, but the `env` block applies to them too. For the other settings that govern them on a device that also has these managed settings, see [Code in Claude Desktop](/docs/government/security/security-and-data-handling#code-in-claude-desktop).

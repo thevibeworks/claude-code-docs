@@ -6,11 +6,13 @@
 
 > Connect a gateway you run so Claude Tag can call your internal services with a short-lived identity token instead of a stored credential. Covers what the gateway must check, how to register it in the console, and how to verify the connection.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-<BetaNote />
-
-<Note>Gateways are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Gateways** section. Connecting a gateway needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+> [!NOTE]
+>
+> Gateways are connected on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Use its **Gateways** section. Connecting a gateway needs an organization Owner, or an admin with full Claude Tag management permission.
 
 A gateway is a service you run between Claude and your internal systems. Every request Claude sends it carries a signed identity token naming your organization and the [agent](/docs/claude-tag/concepts/agent-identity) making the request (Claude's identity in one Slack channel). The gateway checks the token, decides what that agent may do, and forwards the request with your own credentials. No long-lived credential for your systems is stored in Claude.
 
@@ -56,27 +58,25 @@ Never forward the Claude Tag token downstream; replace the `Authorization` heade
 
 ## Register the gateway in the console
 
-<Steps>
-  <Step title="Open the Connect a gateway dialog">
-    In **Gateways**, click **Connect a gateway**.
-  </Step>
+**1. Open the Connect a gateway dialog**
 
-  <Step title="Enter the gateway address">
-    In the **Gateway address** field, enter the host only, in lowercase, starting with `https://`, for example `https://gateway.example.com`. This address is the token's audience.
-  </Step>
+In **Gateways**, click **Connect a gateway**.
 
-  <Step title="Confirm the subject check">
-    Select the **This gateway checks that each token's subject belongs to your organization** checkbox. The **Run check and connect** button stays disabled until you do. Select it only if the gateway rejects every subject outside your organization, by explicit list, by prefix, or by the `tenant` claim.
-  </Step>
+**2. Enter the gateway address**
 
-  <Step title="Run the connection check">
-    Leave the **Run the check** option selected and click **Run check and connect**. The check can take up to a minute. If it fails, nothing is registered; see [Common errors](#common-errors). If the gateway can't be reached from the internet yet, select the **Skip the check** option, enter a **Reason for skipping**, and click **Connect without the check**. The reason is shown in the **Gateways** table, under the **Skipped** result's **Details**. Entering an address that is already registered runs the check again (unless you skip it) without changing the stored result, then moves to the bundle step.
-  </Step>
+In the **Gateway address** field, enter the host only, in lowercase, starting with `https://`, for example `https://gateway.example.com`. This address is the token's audience.
 
-  <Step title="Add the gateway to a bundle">
-    Choose a bundle from the **Access bundle** list, or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**. Then click **Add to bundle**. This creates a connection in that bundle, with the gateway's host as its allowed website. A gateway can be in more than one bundle, and it applies wherever those bundles apply. The **Access bundle** list offers only the bundles it isn't in yet. Click **Not now** to finish without a bundle.
-  </Step>
-</Steps>
+**3. Confirm the subject check**
+
+Select the **This gateway checks that each token's subject belongs to your organization** checkbox. The **Run check and connect** button stays disabled until you do. Select it only if the gateway rejects every subject outside your organization, by explicit list, by prefix, or by the `tenant` claim.
+
+**4. Run the connection check**
+
+Leave the **Run the check** option selected and click **Run check and connect**. The check can take up to a minute. If it fails, nothing is registered; see [Common errors](#common-errors). If the gateway can't be reached from the internet yet, select the **Skip the check** option, enter a **Reason for skipping**, and click **Connect without the check**. The reason is shown in the **Gateways** table, under the **Skipped** result's **Details**. Entering an address that is already registered runs the check again (unless you skip it) without changing the stored result, then moves to the bundle step.
+
+**5. Add the gateway to a bundle**
+
+Choose a bundle from the **Access bundle** list, or create one: click **New bundle** if the dialog shows it, enter a **Bundle name**, and click **Create bundle**. Then click **Add to bundle**. This creates a connection in that bundle, with the gateway's host as its allowed website. A gateway can be in more than one bundle, and it applies wherever those bundles apply. The **Access bundle** list offers only the bundles it isn't in yet. Click **Not now** to finish without a bundle.
 
 The **Gateways** table lists each gateway with its **Access bundles**, its **Connection check** result (**Passed**, or **Skipped**, with the reason you gave under **Details**), when it was added, and **Add to bundle** and **Remove** actions; on a row that is already in a bundle, the add action reads **Add to another bundle**. For a gateway that is already registered, skip the dialog's first step: click the add action in the gateway's row of the **Gateways** table, which opens the dialog at the bundle step. Entering the address again in **Connect a gateway** also reaches the bundle step, but unless you skip the check it runs again first, and that run counts toward the check limit.
 

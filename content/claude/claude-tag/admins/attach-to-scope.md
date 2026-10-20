@@ -6,9 +6,9 @@
 
 > Choose which Slack workspaces and channels a Claude Tag bundle applies to, attach bundles to channels by name, and see how access stacks when bundles overlap.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 A bundle applies at one of three levels, called scopes, and each has its own page on the **Channels** tab under **Claude's access** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). The **Slack** page covers every connected workspace and channel, a workspace's page covers the channels in that workspace, and a channel's page covers one channel. Bundles inherit downward through those scopes, and when credentials overlap, Claude uses the one from the narrowest scope.
 
@@ -20,9 +20,7 @@ This page assumes you have already [paired a workspace](/docs/claude-tag/admins/
 
 Bundles stack downward. A channel gets whatever applies on the **Slack** page, plus its workspace, plus anything added to the channel itself.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/RSTtvSydy0FU_pcP/images/claude-tag/diagrams/scope-inheritance.svg?fit=max&auto=format&n=RSTtvSydy0FU_pcP&q=85&s=7a225f1cefadc49cd6efaaf093f0b041" alt="Nested boxes. The outermost box is the Slack scope: a bundle attached here is the baseline every channel gets. Inside it, two examples. Outside the workspace box, a channel called another-team in a different workspace gets only the baseline. Inside the workspace box, which adds an optional bundle for channels inside it, two channel boxes: a public channel called general, with no channel bundle, gets the baseline plus the workspace bundle; a private channel, marked with a lock, with its own channel bundle, gets all three, the baseline, workspace, and channel bundles." width="1000" height="320" data-path="images/claude-tag/diagrams/scope-inheritance.svg" />
-
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/RSTtvSydy0FU_pcP/images/claude-tag/diagrams/scope-inheritance-dark.svg?fit=max&auto=format&n=RSTtvSydy0FU_pcP&q=85&s=02fd9b9128af1d3c681f3883ab47223d" alt="Nested boxes. The outermost box is the Slack scope: a bundle attached here is the baseline every channel gets. Inside it, two examples. Outside the workspace box, a channel called another-team in a different workspace gets only the baseline. Inside the workspace box, which adds an optional bundle for channels inside it, two channel boxes: a public channel called general, with no channel bundle, gets the baseline plus the workspace bundle; a private channel, marked with a lock, with its own channel bundle, gets all three, the baseline, workspace, and channel bundles." width="1000" height="320" data-path="images/claude-tag/diagrams/scope-inheritance-dark.svg" />
+![Nested boxes. The outermost box is the Slack scope: a bundle attached here is the baseline every channel gets. Inside it, two examples. Outside the workspace box, a channel called another-team in a different workspace gets only the baseline. Inside the workspace box, which adds an optional bundle for channels inside it, two channel boxes: a public channel called general, with no channel bundle, gets the baseline plus the workspace bundle; a private channel, marked with a lock, with its own channel bundle, gets all three, the baseline, workspace, and channel bundles.](https://mintcdn.com/claude-ai/RSTtvSydy0FU_pcP/images/claude-tag/diagrams/scope-inheritance.svg?fit=max\&auto=format\&n=RSTtvSydy0FU_pcP\&q=85\&s=7a225f1cefadc49cd6efaaf093f0b041)
 
 | Scope | What it covers | Access |
 | :- | :- | :- |
@@ -35,8 +33,6 @@ The same stacking applies in reverse. Removing a bundle from a channel removes o
 Memory is also scoped, but differently: there is no organization-wide memory, each channel keeps its own notes, workspace notes saved from public channels are read across the workspace, and a private channel reads the workspace notes but writes only to its own store. See [What Claude Tag remembers](/docs/claude-tag/users/memory).
 
 One-to-one DMs from members who have connected a Claude account run under the member's own claude.ai account. See [how DMs work in this model](/docs/claude-tag/concepts/agent-identity#direct-message-channels). A [DM from a member who hasn't connected a Claude account](/docs/claude-tag/admins/restrict-access#access-in-a-direct-message-from-a-member-without-a-claude-account) reaches bundles. A [group DM](/docs/claude-tag/admins/restrict-access#group-dms) gets the bundles on the workspace's page and on the **Slack** page.
-
-<a id="attach-the-bundle" />
 
 ## Choose where a bundle applies
 
@@ -66,7 +62,9 @@ Sharing a channel changes which bundles apply there:
 * **Shared across workspaces in your Enterprise Grid**: bundles on the channel or its workspace don't apply. See [Channels shared across workspaces in your Enterprise Grid](/docs/claude-tag/admins/restrict-access#channels-shared-across-workspaces-in-your-enterprise-grid) for what Claude does there instead.
 * **Shared with another company through Slack Connect**: once Claude is [turned on in the channel](/docs/claude-tag/admins/restrict-access#slack-connect-channels), bundles attached directly to the channel apply there, including ones you attached before the channel was shared. Claude can use their connectors for the other company's people in the channel too. [What access Claude has in a Slack Connect channel](/docs/claude-tag/admins/restrict-access#what-access-claude-has-in-a-slack-connect-channel) covers which bundles reach that channel and which don't.
 
-<Warning>A bundle attached to a public channel grants its access to anyone who joins that channel. In most Slack workspaces, anyone can join a public channel, so the channel's join policy becomes the effective access control for whatever the bundle grants. Keep elevated credentials in private channels.</Warning>
+> [!WARNING]
+>
+> A bundle attached to a public channel grants its access to anyone who joins that channel. In most Slack workspaces, anyone can join a public channel, so the channel's join policy becomes the effective access control for whatever the bundle grants. Keep elevated credentials in private channels.
 
 #### Set up a channel before Claude joins
 
@@ -103,7 +101,9 @@ A rule's pattern has its own constraints:
 * **Number of rules**: each scope holds up to 50 channel rules, and a rule with more than one bundle counts once for each bundle
 * **Organization patterns**: on a workspace's page, the **Auto-join channels** table also lists the organization's patterns, marked **Org-wide**. You can attach a bundle to an **Org-wide** pattern from the workspace's table, and that rule covers only the workspace's matching channels. You edit the pattern itself on the **Slack** page.
 
-<Warning>A channel rule grants its bundle in every matching channel Claude is in, now or in the future, and anyone who can rename a channel can move it into or out of a pattern. Keep elevated credentials out of broad patterns, and add a [blocked channel pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) for name shapes that should never carry access; a blocked channel stays off-limits whatever rules match it.</Warning>
+> [!WARNING]
+>
+> A channel rule grants its bundle in every matching channel Claude is in, now or in the future, and anyone who can rename a channel can move it into or out of a pattern. Keep elevated credentials out of broad patterns, and add a [blocked channel pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) for name shapes that should never carry access; a blocked channel stays off-limits whatever rules match it.
 
 ### Where rule-attached bundles appear
 

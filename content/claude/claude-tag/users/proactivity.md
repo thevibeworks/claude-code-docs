@@ -6,9 +6,9 @@
 
 > Claude Tag runs routines you set up from a channel. See scheduled jobs, channel watching, pull request subscriptions, where results post, and how to pause them.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 You can give Claude standing work from any channel it's in. This standing work is called a routine: a job that runs on a schedule, such as watching a channel, following a pull request, or posting status updates. You set a routine up in the channel where it should run, and it uses that channel's connections with the same permissions as a typed request.
 

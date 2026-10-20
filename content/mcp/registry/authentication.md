@@ -4,9 +4,9 @@
 
 # How to Authenticate When Publishing to the Official MCP Registry
 
-<Note>
-  The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
-</Note>
+> [!NOTE]
+>
+> The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
 
 You must authenticate before publishing to the official MCP Registry. The MCP Registry supports different authentication methods. Which authentication method you choose determines the namespace of your server's name.
 
@@ -54,121 +54,117 @@ DNS authentication is a domain-based authentication method that relies on a DNS 
 
 To perform DNS authentication using the `mcp-publisher` CLI tool, run the following commands in your server project directory to generate a TXT record based on a public/private key pair:
 
-<CodeGroup>
-  ```bash Ed25519 theme={null}
-  MY_DOMAIN="example.com"
+```bash Ed25519 theme={null}
+MY_DOMAIN="example.com"
 
-  # Generate public/private key pair using Ed25519
-  openssl genpkey -algorithm Ed25519 -out key.pem
+# Generate public/private key pair using Ed25519
+openssl genpkey -algorithm Ed25519 -out key.pem
 
-  # Generate TXT record
-  PUBLIC_KEY="$(openssl pkey -in key.pem -pubout -outform DER | tail -c 32 | base64)"
-  echo "${MY_DOMAIN}. IN TXT \"v=MCPv1; k=ed25519; p=${PUBLIC_KEY}\""
-  ```
+# Generate TXT record
+PUBLIC_KEY="$(openssl pkey -in key.pem -pubout -outform DER | tail -c 32 | base64)"
+echo "${MY_DOMAIN}. IN TXT \"v=MCPv1; k=ed25519; p=${PUBLIC_KEY}\""
+```
 
-  ```bash ECDSA P-384 theme={null}
-  MY_DOMAIN="example.com"
+```bash ECDSA P-384 theme={null}
+MY_DOMAIN="example.com"
 
-  # Generate public/private key pair using ECDSA P-384
-  openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out key.pem
+# Generate public/private key pair using ECDSA P-384
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out key.pem
 
-  # Generate TXT record
-  PUBLIC_KEY="$(openssl ec -in key.pem -text -noout -conv_form compressed | grep -A4 "pub:" | tail -n +2 | tr -d ' :\n' | xxd -r -p | base64)"
-  echo "${MY_DOMAIN}. IN TXT \"v=MCPv1; k=ecdsap384; p=${PUBLIC_KEY}\""
-  ```
+# Generate TXT record
+PUBLIC_KEY="$(openssl ec -in key.pem -text -noout -conv_form compressed | grep -A4 "pub:" | tail -n +2 | tr -d ' :\n' | xxd -r -p | base64)"
+echo "${MY_DOMAIN}. IN TXT \"v=MCPv1; k=ecdsap384; p=${PUBLIC_KEY}\""
+```
 
-  ```bash Google KMS theme={null}
-  MY_DOMAIN="example.com"
-  MY_PROJECT="myproject"
-  MY_KEYRING="mykeyring"
-  MY_KEY_NAME="mykey"
+```bash Google KMS theme={null}
+MY_DOMAIN="example.com"
+MY_PROJECT="myproject"
+MY_KEYRING="mykeyring"
+MY_KEY_NAME="mykey"
 
-  # Log in using gcloud CLI (https://cloud.google.com/sdk/docs/install)
-  gcloud auth login
+# Log in using gcloud CLI (https://cloud.google.com/sdk/docs/install)
+gcloud auth login
 
-  # Set default project
-  gcloud config set project "${MY_PROJECT}"
+# Set default project
+gcloud config set project "${MY_PROJECT}"
 
-  # Create a keyring in your project
-  gcloud kms keyrings create "${MY_KEYRING}" --location global
+# Create a keyring in your project
+gcloud kms keyrings create "${MY_KEYRING}" --location global
 
-  # Create an Ed25519 signing key
-  gcloud kms keys create "${MY_KEY_NAME}" --default-algorithm=ec-sign-ed25519 --purpose=asymmetric-signing --keyring="${MY_KEYRING}" --location=global
+# Create an Ed25519 signing key
+gcloud kms keys create "${MY_KEY_NAME}" --default-algorithm=ec-sign-ed25519 --purpose=asymmetric-signing --keyring="${MY_KEYRING}" --location=global
 
-  # Enable Application Default Credentials (ADC) so the publisher tool can sign
-  gcloud auth application-default login
+# Enable Application Default Credentials (ADC) so the publisher tool can sign
+gcloud auth application-default login
 
-  # Attempt login to show the public key
-  mcp-publisher login dns google-kms --domain="${MY_DOMAIN}" --resource="projects/${MY_PROJECT}/locations/global/keyRings/${MY_KEYRING}/cryptoKeys/${MY_KEY_NAME}/cryptoKeyVersions/1"
+# Attempt login to show the public key
+mcp-publisher login dns google-kms --domain="${MY_DOMAIN}" --resource="projects/${MY_PROJECT}/locations/global/keyRings/${MY_KEYRING}/cryptoKeys/${MY_KEY_NAME}/cryptoKeyVersions/1"
 
-  # Copy the "Expected proof record":
-  # ${MY_DOMAIN}. IN TXT "v=MCPv1; k=ed25519; p=${PUBLIC_KEY}"
-  ```
+# Copy the "Expected proof record":
+# ${MY_DOMAIN}. IN TXT "v=MCPv1; k=ed25519; p=${PUBLIC_KEY}"
+```
 
-  ```bash Azure Key Vault theme={null}
-  MY_DOMAIN="example.com"
-  MY_SUBSCRIPTION="subscription name or ID"
-  MY_RESOURCE_GROUP="MyResourceGroup"
-  MY_KEY_VAULT="MyKeyVault"
-  MY_KEY_NAME="MyKey"
+```bash Azure Key Vault theme={null}
+MY_DOMAIN="example.com"
+MY_SUBSCRIPTION="subscription name or ID"
+MY_RESOURCE_GROUP="MyResourceGroup"
+MY_KEY_VAULT="MyKeyVault"
+MY_KEY_NAME="MyKey"
 
-  # Log in using Azure CLI (https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
-  az login
+# Log in using Azure CLI (https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+az login
 
-  # Set default subscription
-  az account set --subscription "${MY_SUBSCRIPTION}"
+# Set default subscription
+az account set --subscription "${MY_SUBSCRIPTION}"
 
-  # Create a resource group
-  az group create --location westus --resource-group "${MY_RESOURCE_GROUP}"
+# Create a resource group
+az group create --location westus --resource-group "${MY_RESOURCE_GROUP}"
 
-  # Create a key vault
-  az keyvault create --name "${MY_KEY_VAULT}" --location westus --resource-group "${MY_RESOURCE_GROUP}"
+# Create a key vault
+az keyvault create --name "${MY_KEY_VAULT}" --location westus --resource-group "${MY_RESOURCE_GROUP}"
 
-  # Create an ECDSA P-384 signing key
-  az keyvault key create --name "${MY_KEY_NAME}" --vault-name "${MY_KEY_VAULT}" --curve P-384
+# Create an ECDSA P-384 signing key
+az keyvault key create --name "${MY_KEY_NAME}" --vault-name "${MY_KEY_VAULT}" --curve P-384
 
-  # Attempt login to show the public key
-  mcp-publisher login dns azure-key-vault --domain="${MY_DOMAIN}" --vault "${MY_KEY_VAULT}" --key "${MY_KEY_NAME}"
+# Attempt login to show the public key
+mcp-publisher login dns azure-key-vault --domain="${MY_DOMAIN}" --vault "${MY_KEY_VAULT}" --key "${MY_KEY_NAME}"
 
-  # Copy the "Expected proof record":
-  # ${MY_DOMAIN}. IN TXT "v=MCPv1; k=ecdsap384; p=${PUBLIC_KEY}"
-  ```
-</CodeGroup>
+# Copy the "Expected proof record":
+# ${MY_DOMAIN}. IN TXT "v=MCPv1; k=ecdsap384; p=${PUBLIC_KEY}"
+```
 
 Then add the TXT record using your DNS provider's control panel. It may take several minutes for the TXT record to propagate. After the TXT record has propagated, log in using the `mcp-publisher login` command:
 
-<CodeGroup>
-  ```bash Ed25519 theme={null}
-  MY_DOMAIN="example.com"
+```bash Ed25519 theme={null}
+MY_DOMAIN="example.com"
 
-  PRIVATE_KEY="$(openssl pkey -in key.pem -noout -text | grep -A3 "priv:" | tail -n +2 | tr -d ' :\n')"
-  mcp-publisher login dns --domain "${MY_DOMAIN}" --private-key "${PRIVATE_KEY}"
-  ```
+PRIVATE_KEY="$(openssl pkey -in key.pem -noout -text | grep -A3 "priv:" | tail -n +2 | tr -d ' :\n')"
+mcp-publisher login dns --domain "${MY_DOMAIN}" --private-key "${PRIVATE_KEY}"
+```
 
-  ```bash ECDSA P-384 theme={null}
-  MY_DOMAIN="example.com"
+```bash ECDSA P-384 theme={null}
+MY_DOMAIN="example.com"
 
-  PRIVATE_KEY="$(openssl ec -in key.pem -noout -text | grep -A4 "priv:" | tail -n +2 | tr -d ' :\n')"
-  mcp-publisher login dns --domain "${MY_DOMAIN}" --private-key "${PRIVATE_KEY}"
-  ```
+PRIVATE_KEY="$(openssl ec -in key.pem -noout -text | grep -A4 "priv:" | tail -n +2 | tr -d ' :\n')"
+mcp-publisher login dns --domain "${MY_DOMAIN}" --private-key "${PRIVATE_KEY}"
+```
 
-  ```bash Google KMS theme={null}
-  MY_DOMAIN="example.com"
-  MY_PROJECT="myproject"
-  MY_KEYRING="mykeyring"
-  MY_KEY_NAME="mykey"
+```bash Google KMS theme={null}
+MY_DOMAIN="example.com"
+MY_PROJECT="myproject"
+MY_KEYRING="mykeyring"
+MY_KEY_NAME="mykey"
 
-  mcp-publisher login dns google-kms --domain="${MY_DOMAIN}" --resource="projects/${MY_PROJECT}/locations/global/keyRings/${MY_KEYRING}/cryptoKeys/${MY_KEY_NAME}/cryptoKeyVersions/1"
-  ```
+mcp-publisher login dns google-kms --domain="${MY_DOMAIN}" --resource="projects/${MY_PROJECT}/locations/global/keyRings/${MY_KEYRING}/cryptoKeys/${MY_KEY_NAME}/cryptoKeyVersions/1"
+```
 
-  ```bash Azure Key Vault theme={null}
-  MY_DOMAIN="example.com"
-  MY_KEY_VAULT="MyKeyVault"
-  MY_KEY_NAME="MyKey"
+```bash Azure Key Vault theme={null}
+MY_DOMAIN="example.com"
+MY_KEY_VAULT="MyKeyVault"
+MY_KEY_NAME="MyKey"
 
-  mcp-publisher login dns azure-key-vault --domain="${MY_DOMAIN}" --vault "${MY_KEY_VAULT}" --key "${MY_KEY_NAME}"
-  ```
-</CodeGroup>
+mcp-publisher login dns azure-key-vault --domain="${MY_DOMAIN}" --vault "${MY_KEY_VAULT}" --key "${MY_KEY_NAME}"
+```
 
 ## HTTP Authentication
 
@@ -176,112 +172,108 @@ HTTP authentication is a domain-based authentication method that relies on a `/.
 
 To perform HTTP authentication using the `mcp-publisher` CLI tool, run the following commands in your server project directory to generate an `mcp-registry-auth` file based on a public/private key pair:
 
-<CodeGroup>
-  ```bash Ed25519 theme={null}
-  # Generate public/private key pair using Ed25519
-  openssl genpkey -algorithm Ed25519 -out key.pem
+```bash Ed25519 theme={null}
+# Generate public/private key pair using Ed25519
+openssl genpkey -algorithm Ed25519 -out key.pem
 
-  # Generate mcp-registry-auth file
-  PUBLIC_KEY="$(openssl pkey -in key.pem -pubout -outform DER | tail -c 32 | base64)"
-  echo "v=MCPv1; k=ed25519; p=${PUBLIC_KEY}" > mcp-registry-auth
-  ```
+# Generate mcp-registry-auth file
+PUBLIC_KEY="$(openssl pkey -in key.pem -pubout -outform DER | tail -c 32 | base64)"
+echo "v=MCPv1; k=ed25519; p=${PUBLIC_KEY}" > mcp-registry-auth
+```
 
-  ```bash ECDSA P-384 theme={null}
-  # Generate public/private key pair using ECDSA P-384
-  openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out key.pem
+```bash ECDSA P-384 theme={null}
+# Generate public/private key pair using ECDSA P-384
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:secp384r1 -out key.pem
 
-  # Generate mcp-registry-auth file
-  PUBLIC_KEY="$(openssl ec -in key.pem -text -noout -conv_form compressed | grep -A4 "pub:" | tail -n +2 | tr -d ' :\n' | xxd -r -p | base64)"
-  echo "v=MCPv1; k=ecdsap384; p=${PUBLIC_KEY}" > mcp-registry-auth
-  ```
+# Generate mcp-registry-auth file
+PUBLIC_KEY="$(openssl ec -in key.pem -text -noout -conv_form compressed | grep -A4 "pub:" | tail -n +2 | tr -d ' :\n' | xxd -r -p | base64)"
+echo "v=MCPv1; k=ecdsap384; p=${PUBLIC_KEY}" > mcp-registry-auth
+```
 
-  ```bash Google KMS theme={null}
-  MY_DOMAIN="example.com"
-  MY_PROJECT="myproject"
-  MY_KEYRING="mykeyring"
-  MY_KEY_NAME="mykey"
+```bash Google KMS theme={null}
+MY_DOMAIN="example.com"
+MY_PROJECT="myproject"
+MY_KEYRING="mykeyring"
+MY_KEY_NAME="mykey"
 
-  # Log in using gcloud CLI (https://cloud.google.com/sdk/docs/install)
-  gcloud auth login
+# Log in using gcloud CLI (https://cloud.google.com/sdk/docs/install)
+gcloud auth login
 
-  # Set default project
-  gcloud config set project "${MY_PROJECT}"
+# Set default project
+gcloud config set project "${MY_PROJECT}"
 
-  # Create a keyring in your project
-  gcloud kms keyrings create "${MY_KEYRING}" --location global
+# Create a keyring in your project
+gcloud kms keyrings create "${MY_KEYRING}" --location global
 
-  # Create an Ed25519 signing key
-  gcloud kms keys create "${MY_KEY_NAME}" --default-algorithm=ec-sign-ed25519 --purpose=asymmetric-signing --keyring="${MY_KEYRING}" --location=global
+# Create an Ed25519 signing key
+gcloud kms keys create "${MY_KEY_NAME}" --default-algorithm=ec-sign-ed25519 --purpose=asymmetric-signing --keyring="${MY_KEYRING}" --location=global
 
-  # Enable Application Default Credentials (ADC) so the publisher tool can sign
-  gcloud auth application-default login
+# Enable Application Default Credentials (ADC) so the publisher tool can sign
+gcloud auth application-default login
 
-  # Attempt login to show the public key
-  mcp-publisher login http google-kms --domain="${MY_DOMAIN}" --resource="projects/${MY_PROJECT}/locations/global/keyRings/${MY_KEYRING}/cryptoKeys/${MY_KEY_NAME}/cryptoKeyVersions/1"
+# Attempt login to show the public key
+mcp-publisher login http google-kms --domain="${MY_DOMAIN}" --resource="projects/${MY_PROJECT}/locations/global/keyRings/${MY_KEYRING}/cryptoKeys/${MY_KEY_NAME}/cryptoKeyVersions/1"
 
-  # Copy the "Expected proof record" to `./mcp-registry-auth`:
-  # v=MCPv1; k=ed25519; p=${PUBLIC_KEY}
-  ```
+# Copy the "Expected proof record" to `./mcp-registry-auth`:
+# v=MCPv1; k=ed25519; p=${PUBLIC_KEY}
+```
 
-  ```bash Azure Key Vault theme={null}
-  MY_DOMAIN="example.com"
-  MY_SUBSCRIPTION="subscription name or ID"
-  MY_RESOURCE_GROUP="MyResourceGroup"
-  MY_KEY_VAULT="MyKeyVault"
-  MY_KEY_NAME="MyKey"
+```bash Azure Key Vault theme={null}
+MY_DOMAIN="example.com"
+MY_SUBSCRIPTION="subscription name or ID"
+MY_RESOURCE_GROUP="MyResourceGroup"
+MY_KEY_VAULT="MyKeyVault"
+MY_KEY_NAME="MyKey"
 
-  # Log in using Azure CLI (https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
-  az login
+# Log in using Azure CLI (https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+az login
 
-  # Set default subscription
-  az account set --subscription "${MY_SUBSCRIPTION}"
+# Set default subscription
+az account set --subscription "${MY_SUBSCRIPTION}"
 
-  # Create a resource group
-  az group create --location westus --resource-group "${MY_RESOURCE_GROUP}"
+# Create a resource group
+az group create --location westus --resource-group "${MY_RESOURCE_GROUP}"
 
-  # Create a key vault
-  az keyvault create --name "${MY_KEY_VAULT}" --location westus --resource-group "${MY_RESOURCE_GROUP}"
+# Create a key vault
+az keyvault create --name "${MY_KEY_VAULT}" --location westus --resource-group "${MY_RESOURCE_GROUP}"
 
-  # Create an ECDSA P-384 signing key
-  az keyvault key create --name "${MY_KEY_NAME}" --vault-name "${MY_KEY_VAULT}" --curve P-384
+# Create an ECDSA P-384 signing key
+az keyvault key create --name "${MY_KEY_NAME}" --vault-name "${MY_KEY_VAULT}" --curve P-384
 
-  # Attempt login to show the public key
-  mcp-publisher login http azure-key-vault --domain="${MY_DOMAIN}" --vault "${MY_KEY_VAULT}" --key "${MY_KEY_NAME}"
+# Attempt login to show the public key
+mcp-publisher login http azure-key-vault --domain="${MY_DOMAIN}" --vault "${MY_KEY_VAULT}" --key "${MY_KEY_NAME}"
 
-  # Copy the "Expected proof record" to `./mcp-registry-auth`:
-  # v=MCPv1; k=ecdsap384; p=${PUBLIC_KEY}
-  ```
-</CodeGroup>
+# Copy the "Expected proof record" to `./mcp-registry-auth`:
+# v=MCPv1; k=ecdsap384; p=${PUBLIC_KEY}
+```
 
 Then host the `mcp-registry-auth` file at `/.well-known/mcp-registry-auth` on your domain. After the file is hosted, log in using the `mcp-publisher login` command:
 
-<CodeGroup>
-  ```bash Ed25519 theme={null}
-  MY_DOMAIN="example.com"
-  PRIVATE_KEY="$(openssl pkey -in key.pem -noout -text | grep -A3 "priv:" | tail -n +2 | tr -d ' :\n')"
-  mcp-publisher login http --domain "${MY_DOMAIN}" --private-key "${PRIVATE_KEY}"
-  ```
+```bash Ed25519 theme={null}
+MY_DOMAIN="example.com"
+PRIVATE_KEY="$(openssl pkey -in key.pem -noout -text | grep -A3 "priv:" | tail -n +2 | tr -d ' :\n')"
+mcp-publisher login http --domain "${MY_DOMAIN}" --private-key "${PRIVATE_KEY}"
+```
 
-  ```bash ECDSA P-384 theme={null}
-  MY_DOMAIN="example.com"
-  PRIVATE_KEY="$(openssl ec -in key.pem -noout -text | grep -A4 "priv:" | tail -n +2 | tr -d ' :\n')"
-  mcp-publisher login http --domain "${MY_DOMAIN}" --private-key "${PRIVATE_KEY}"
-  ```
+```bash ECDSA P-384 theme={null}
+MY_DOMAIN="example.com"
+PRIVATE_KEY="$(openssl ec -in key.pem -noout -text | grep -A4 "priv:" | tail -n +2 | tr -d ' :\n')"
+mcp-publisher login http --domain "${MY_DOMAIN}" --private-key "${PRIVATE_KEY}"
+```
 
-  ```bash Google KMS theme={null}
-  MY_DOMAIN="example.com"
-  MY_PROJECT="myproject"
-  MY_KEYRING="mykeyring"
-  MY_KEY_NAME="mykey"
+```bash Google KMS theme={null}
+MY_DOMAIN="example.com"
+MY_PROJECT="myproject"
+MY_KEYRING="mykeyring"
+MY_KEY_NAME="mykey"
 
-  mcp-publisher login http google-kms --domain="${MY_DOMAIN}" --resource="projects/${MY_PROJECT}/locations/global/keyRings/${MY_KEYRING}/cryptoKeys/${MY_KEY_NAME}/cryptoKeyVersions/1"
-  ```
+mcp-publisher login http google-kms --domain="${MY_DOMAIN}" --resource="projects/${MY_PROJECT}/locations/global/keyRings/${MY_KEYRING}/cryptoKeys/${MY_KEY_NAME}/cryptoKeyVersions/1"
+```
 
-  ```bash Azure Key Vault theme={null}
-  MY_DOMAIN="example.com"
-  MY_KEY_VAULT="MyKeyVault"
-  MY_KEY_NAME="MyKey"
+```bash Azure Key Vault theme={null}
+MY_DOMAIN="example.com"
+MY_KEY_VAULT="MyKeyVault"
+MY_KEY_NAME="MyKey"
 
-  mcp-publisher login http azure-key-vault --domain="${MY_DOMAIN}" --vault "${MY_KEY_VAULT}" --key "${MY_KEY_NAME}"
-  ```
-</CodeGroup>
+mcp-publisher login http azure-key-vault --domain="${MY_DOMAIN}" --vault "${MY_KEY_VAULT}" --key "${MY_KEY_NAME}"
+```

@@ -10,52 +10,48 @@ Remote MCP servers usually require authorization. The Inspector implements the f
 
 ## The flow, end to end
 
-<Steps>
-  <Step title="Connect, and get refused">
-    The Inspector connects to the server URL. The server answers `401`. When the
-    response carries a `WWW-Authenticate` header, it points at the
-    protected-resource metadata URL (`resource_metadata`) and, optionally, the
-    scopes the request requires.
-  </Step>
+**1. Connect, and get refused**
 
-  <Step title="Discover the authorization server">
-    The Inspector fetches the server's [protected-resource and
-    authorization-server
-    metadata](/specification/latest/basic/authorization/authorization-server-discovery)
-    to learn the endpoints and the supported grants.
-  </Step>
+The Inspector connects to the server URL. The server answers `401`. When the
+response carries a `WWW-Authenticate` header, it points at the
+protected-resource metadata URL (`resource_metadata`) and, optionally, the
+scopes the request requires.
 
-  <Step title="Register or identify the client">
-    The Inspector identifies itself to the authorization server through
-    whichever mechanism is configured: [dynamic client
-    registration](/specification/latest/basic/authorization/client-registration#dynamic-client-registration),
-    a pre-registered static client (`--client-id` / `--client-secret`), a
-    [Client ID Metadata
-    Document](/specification/latest/basic/authorization/client-registration#client-id-metadata-documents)
-    (`--client-metadata-url`), or an [enterprise-managed
-    IdP](/extensions/auth/enterprise-managed-authorization).
-  </Step>
+**2. Discover the authorization server**
 
-  <Step title="Authorize in the browser">
-    The Inspector opens the authorization URL. You sign in and consent.
-  </Step>
+The Inspector fetches the server's [protected-resource and
+authorization-server
+metadata](/specification/latest/basic/authorization/authorization-server-discovery)
+to learn the endpoints and the supported grants.
 
-  <Step title="Receive the callback">
-    The authorization server redirects to the Inspector's callback URL, carrying
-    the authorization code.
-  </Step>
+**3. Register or identify the client**
 
-  <Step title="Exchange and retry">
-    The code is exchanged for tokens, the tokens are persisted, and the original
-    connect is retried. For a [mid-session
-    challenge](#mid-session-re-authorization), the CLI retries the refused
-    request automatically, and the web client asks you to retry the action.
-  </Step>
-</Steps>
+The Inspector identifies itself to the authorization server through
+whichever mechanism is configured: [dynamic client
+registration](/specification/latest/basic/authorization/client-registration#dynamic-client-registration),
+a pre-registered static client (`--client-id` / `--client-secret`), a
+[Client ID Metadata
+Document](/specification/latest/basic/authorization/client-registration#client-id-metadata-documents)
+(`--client-metadata-url`), or an [enterprise-managed
+IdP](/extensions/auth/enterprise-managed-authorization).
 
-<Frame caption="Connection Info after a completed OAuth flow: the authorization status, the dynamically registered client, and the granted scopes.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/auth-connection-info.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=01a8d11058c2d33e0069b8dec98591b5" width="3840" height="2160" data-path="images/inspector/auth-connection-info.png" />
-</Frame>
+**4. Authorize in the browser**
+
+The Inspector opens the authorization URL. You sign in and consent.
+
+**5. Receive the callback**
+
+The authorization server redirects to the Inspector's callback URL, carrying
+the authorization code.
+
+**6. Exchange and retry**
+
+The code is exchanged for tokens, the tokens are persisted, and the original
+connect is retried. For a [mid-session
+challenge](#mid-session-re-authorization), the CLI retries the refused
+request automatically, and the web client asks you to retry the action.
+
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/auth-connection-info.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=01a8d11058c2d33e0069b8dec98591b5)
 
 ## Callback URLs
 
@@ -71,21 +67,21 @@ The web app listens for the OAuth callback on its own URL, while the CLI and TUI
 
 For the CLI and TUI, override it with `--callback-url` or `MCP_OAUTH_CALLBACK_URL`. The web callback always follows the page's origin, so `localhost` and `127.0.0.1` produce different redirect URIs there too.
 
-<Warning>
-  The callback URL **must bind a loopback host**: `localhost`, `127.0.0.0/8`, or
-  `[::1]`. The listener receives the authorization code over plaintext `http`,
-  so a non-loopback host is rejected with an error and there is no flag to
-  override that. If your browser runs on a different machine, forward the
-  callback port to it, or complete the login in a web Inspector instead:
-  `--print-handoff` (below) prints a `portForwardCmd` for the web Inspector's
-  ports.
-</Warning>
+> [!WARNING]
+>
+> The callback URL **must bind a loopback host**: `localhost`, `127.0.0.0/8`, or
+> `[::1]`. The listener receives the authorization code over plaintext `http`,
+> so a non-loopback host is rejected with an error and there is no flag to
+> override that. If your browser runs on a different machine, forward the
+> callback port to it, or complete the login in a web Inspector instead:
+> `--print-handoff` (below) prints a `portForwardCmd` for the web Inspector's
+> ports.
 
-<Note>
-  Redirect URIs must match your registration **exactly**. `http://localhost:6276/...` and `http://127.0.0.1:6276/...` are different URIs to an authorization server, even though they reach the same listener.
-
-  Only one process can hold the default port at a time; a second concurrent flow fails with `EADDRINUSE`. Use a different fixed port per instance, or `http://127.0.0.1:0/oauth/callback` for an OS-assigned ephemeral port when your authorization server supports dynamic redirect-URI registration.
-</Note>
+> [!NOTE]
+>
+> Redirect URIs must match your registration **exactly**. `http://localhost:6276/...` and `http://127.0.0.1:6276/...` are different URIs to an authorization server, even though they reach the same listener.
+>
+> Only one process can hold the default port at a time; a second concurrent flow fails with `EADDRINUSE`. Use a different fixed port per instance, or `http://127.0.0.1:0/oauth/callback` for an OS-assigned ephemeral port when your authorization server supports dynamic redirect-URI registration.
 
 ## Where credentials live
 
@@ -151,14 +147,14 @@ mcp-inspector --cli --transport http --server-url https://api.example/mcp \
 
 The `deepLink` in the handoff block navigates a browser straight to a *connected* Inspector; see [Deep links](/docs/2026-07-28/tools/inspector/web#deep-links).
 
-<Note>
-  Because the stored entry records no expiry, a stored refresh token is
-  exercised on **every** `--use-stored-auth` run. With rotating (single-use)
-  refresh tokens that opens two narrow failure windows: two concurrent
-  invocations against the same state file can race for the token, and a crash
-  between a successful refresh and the write-back leaves the rotated token
-  unsaved. Both are unlikely; re-authorize in the web client to recover.
-</Note>
+> [!NOTE]
+>
+> Because the stored entry records no expiry, a stored refresh token is
+> exercised on **every** `--use-stored-auth` run. With rotating (single-use)
+> refresh tokens that opens two narrow failure windows: two concurrent
+> invocations against the same state file can race for the token, and a crash
+> between a successful refresh and the write-back leaves the rotated token
+> unsaved. Both are unlikely; re-authorize in the web client to recover.
 
 ## Inspecting auth state
 

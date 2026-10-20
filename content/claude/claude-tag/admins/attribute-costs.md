@@ -6,9 +6,9 @@
 
 > Pull channel spend per Slack user from the Claude Enterprise Analytics API for showback or chargeback reporting, and see how Claude's work is attributed to people.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 You can pull Claude Tag channel spend broken out by the Slack user Claude did the work for. The [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api) reports your organization's spend over time, and grouping its [cost report](https://platform.claude.com/docs/en/api/admin/analytics/cost/list) by `claude_tag_user_id` returns one row per attributed Slack user. Use the rows to attribute spend to people or departments for showback and chargeback reporting.
 

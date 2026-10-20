@@ -4,8 +4,6 @@
 
 # Client Registration
 
-<div id="enable-section-numbers" />
-
 MCP supports three client registration mechanisms. Choose based on your scenario:
 
 * **[Client ID Metadata Documents](#client-id-metadata-documents)**: When client and server have no prior relationship (most common)
@@ -139,12 +137,12 @@ MCP clients **SHOULD** support an option for static client credentials such as t
 
 ## Dynamic Client Registration
 
-<Warning>
-  Dynamic Client Registration is deprecated. New implementations should use
-  [Client ID Metadata Documents](#client-id-metadata-documents) instead. This
-  option remains available for backwards compatibility with authorization
-  servers that do not support Client ID Metadata Documents.
-</Warning>
+> [!WARNING]
+>
+> Dynamic Client Registration is deprecated. New implementations should use
+> [Client ID Metadata Documents](#client-id-metadata-documents) instead. This
+> option remains available for backwards compatibility with authorization
+> servers that do not support Client ID Metadata Documents.
 
 MCP clients and authorization servers **MAY** support the
 OAuth 2.0 Dynamic Client Registration Protocol [RFC7591](https://datatracker.ietf.org/doc/html/rfc7591)

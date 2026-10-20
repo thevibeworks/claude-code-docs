@@ -6,9 +6,9 @@
 
 > Name the outcome, give every task a definition of done, and pick the right channel. See how to write tasks Claude can finish and how to keep many threads reviewable.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Tasks should have a verifiable end state. Claude runs each one in its own thread, and a thread closes when someone can confirm the work is done. A task without that end state produces an open-ended report, and the thread stays open while you decide what to do with it.
 
@@ -58,7 +58,9 @@ When a mistake would be costly to undo, give Claude more detail. Write the detai
 @Claude migrate the export config to the new schema. Hard rules: no behavior change, don't touch the billing module, and every old config key keeps working as an alias. Done means the full test suite passes, not only the export tests.
 ```
 
-<Warning>Constraints in a task steer Claude but don't restrict Claude from performing a specific action. Anything you type to Claude goes into its working context, where it can be forgotten or overridden. If there are actions Claude must not take, enforce them outside the conversation, with controls like repository permissions, branch protection rules, and required checks.</Warning>
+> [!WARNING]
+>
+> Constraints in a task steer Claude but don't restrict Claude from performing a specific action. Anything you type to Claude goes into its working context, where it can be forgotten or overridden. If there are actions Claude must not take, enforce them outside the conversation, with controls like repository permissions, branch protection rules, and required checks.
 
 ### Give every task a definition of done
 
@@ -92,7 +94,9 @@ Tell Claude which decisions it can make on its own and which ones it must bring 
 @Claude update the retry logic the way this thread decided. Handle test failures and lint yourself. Come back to me before changing any public interface, and for anything you're not sure is in scope.
 ```
 
-<Warning>These instructions steer Claude but don't restrict Claude from deciding on its own. A decision that must come back to you needs an enforced control too, such as branch protection for merges.</Warning>
+> [!WARNING]
+>
+> These instructions steer Claude but don't restrict Claude from deciding on its own. A decision that must come back to you needs an enforced control too, such as branch protection for merges.
 
 Once you've seen and verified Claude's output over several tasks, you can let it make more decisions without checking in, the same way you widen [what it closes on its own](#give-every-task-a-definition-of-done).
 

@@ -146,28 +146,26 @@ This section applies primarily to Working Groups, which make binding decisions (
 
 **WG Consensus** is achieved through the following progression. Each step is attempted before moving to the next.
 
-<Steps>
-  <Step title="Lazy Consensus (default)">
-    * Proposals announced with clear deadline (5 days minimum for minor items, 10 days for significant items)
-    * Silence is consent
-    * Any WG Member may block with documented objection
-    * Blocks must propose alternatives or clear criteria for resolution
-    * If no blocks are raised by the deadline, the proposal is accepted
-  </Step>
+**1. Lazy Consensus (default)**
 
-  <Step title="Formal Vote (when lazy consensus is blocked)">
-    A formal vote is triggered when a WG Member blocks during the lazy consensus period, or when a Lead or three or more WG Members request one.
+* Proposals announced with clear deadline (5 days minimum for minor items, 10 days for significant items)
+* Silence is consent
+* Any WG Member may block with documented objection
+* Blocks must propose alternatives or clear criteria for resolution
+* If no blocks are raised by the deadline, the proposal is accepted
 
-    * Quorum: 50% of active WG Members
-    * Passage: simple majority for routine matters; 2/3 majority for scope changes
-    * Core Maintainer feedback is advisory unless explicitly stated as binding
-    * All votes documented with rationale
-  </Step>
+**2. Formal Vote (when lazy consensus is blocked)**
 
-  <Step title="Escalation (when voting does not resolve)">
-    If a vote fails to resolve the matter (no quorum, does not pass, or the result is contested), the Lead escalates to Core Maintainers following the escalation path below.
-  </Step>
-</Steps>
+A formal vote is triggered when a WG Member blocks during the lazy consensus period, or when a Lead or three or more WG Members request one.
+
+* Quorum: 50% of active WG Members
+* Passage: simple majority for routine matters; 2/3 majority for scope changes
+* Core Maintainer feedback is advisory unless explicitly stated as binding
+* All votes documented with rationale
+
+**3. Escalation (when voting does not resolve)**
+
+If a vote fails to resolve the matter (no quorum, does not pass, or the result is contested), the Lead escalates to Core Maintainers following the escalation path below.
 
 ### Escalation Path
 

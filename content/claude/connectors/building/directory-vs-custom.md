@@ -10,9 +10,9 @@ A directory connector is an MCP server listed in Anthropic's directory after rev
 
 This page is for developers deciding whether to list a server in the directory, distribute it as a custom connector, or do both. It compares the two, shows the install link each one gets, and covers listing patterns for enterprise and multi-tenant servers.
 
-<Note>
-  If you want to know what directory and custom connectors look like to a Claude user, including the Verified and Community labels, see [connector verification](/docs/connectors/verification).
-</Note>
+> [!NOTE]
+>
+> If you want to know what directory and custom connectors look like to a Claude user, including the Verified and Community labels, see [connector verification](/docs/connectors/verification).
 
 ## Compare directory and custom connectors
 
@@ -66,9 +66,9 @@ https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=
 
 When a user follows the link, claude.ai opens the dialog with the name and URL prefilled and shows a notice that the values came from an external link. The user reviews the values and confirms before anything is added. A signed-out user is prompted to sign in first and then sees the prefilled dialog.
 
-<Note>
-  Install links only prefill the form. They don't bypass review by the user, and they don't grant your server any permissions the user hasn't confirmed.
-</Note>
+> [!NOTE]
+>
+> Install links only prefill the form. They don't bypass review by the user, and they don't grant your server any permissions the user hasn't confirmed.
 
 Organization Owners can use the same parameters on the admin path to prefill the org-wide connector dialog:
 

@@ -26,9 +26,9 @@ Crash reports, error stack traces, and performance timings. Contains diagnostic 
 
 On Claude Desktop 2.7032.0 and later, the [**Keep only your organization ID and restrictions on disk**](/docs/third-party/claude-desktop/admin-console#configuration-kept-on-devices) switch in the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) also stops the app's crash and performance reports, even while `disableEssentialTelemetry` is `false`.
 
-<Warning>
-  Disabling essential telemetry opts you into a **manual support model**. Anthropic will have zero remote visibility into failures on your fleet, so to get help with an issue your team will need to collect application logs from affected machines and send them to Anthropic directly. Leave this enabled during initial rollout.
-</Warning>
+> [!WARNING]
+>
+> Disabling essential telemetry opts you into a **manual support model**. Anthropic will have zero remote visibility into failures on your fleet, so to get help with an issue your team will need to collect application logs from affected machines and send them to Anthropic directly. Leave this enabled during initial rollout.
 
 ### Non-essential telemetry
 
@@ -72,9 +72,9 @@ For collector authentication headers, extra resource attributes, and the log lev
 
 Set [`otlpEndpoint`](/docs/third-party/claude-desktop/configuration#otlpendpoint) to the base address of your collector's OTLP/HTTP receiver, for example `https://otel-collector.example.com:4318`. The app appends the OpenTelemetry request paths itself (`/v1/logs`, `/v1/metrics`, and `/v1/traces` when [traces](#traces-beta) are enabled), so enter the address without those suffixes. A path prefix in front of them, such as `https://observability.example.com/otlp`, is kept.
 
-<Note>
-  With `otlpEndpoint` set, all signals go to this one address. Claude Desktop sets Claude Code's per-signal endpoint variables (`OTEL_EXPORTER_OTLP_LOGS_ENDPOINT`, `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`, and `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`) itself. Chat, Cowork, and Code sessions ignore the same variables in Claude Code's own settings on the device, including managed settings. To send signals to different places, route them in your collector.
-</Note>
+> [!NOTE]
+>
+> With `otlpEndpoint` set, all signals go to this one address. Claude Desktop sets Claude Code's per-signal endpoint variables (`OTEL_EXPORTER_OTLP_LOGS_ENDPOINT`, `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`, and `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`) itself. Chat, Cowork, and Code sessions ignore the same variables in Claude Code's own settings on the device, including managed settings. To send signals to different places, route them in your collector.
 
 The receiver must implement the OpenTelemetry protocol (OTLP) over HTTP in both its protobuf and JSON encodings, as an OpenTelemetry Collector does by default. If your logging or SIEM platform accepts only its own HTTP ingestion format, run an OpenTelemetry Collector that receives OTLP and forwards to that platform, and set `otlpEndpoint` to the collector's address. Each device opens its own connection to the collector, so the collector must present a TLS certificate the operating system trusts. See [TLS-intercepting proxies](/docs/third-party/claude-desktop/network-proxy#tls-intercepting-proxies) if a TLS-intercepting proxy sits in between.
 
@@ -160,9 +160,9 @@ Claude Desktop on 3P has **two** independent network boundaries:
 1. **Perimeter firewall:** your corporate network controls what the device can reach. The hostnames below are what you allowlist here.
 2. **Agent egress allowlist:** the [`coworkEgressAllowedHosts`](/docs/third-party/claude-desktop/configuration#coworkegressallowedhosts) key controls what the agent's web-fetch and shell tools can reach. This is independent of the perimeter. See [Web Fetch](/docs/third-party/claude-desktop/web-tools#web-fetch) for where the key applies.
 
-<Note>
-  The **Egress** section of the in-app configuration window is the authoritative source for your deployment. It computes the exact allowlist from your current settings, updates as you change them, and can export the list as a text file for your firewall team. Use the tables below as a static reference; defer to the configuration window for the precise set your build requires.
-</Note>
+> [!NOTE]
+>
+> The **Egress** section of the in-app configuration window is the authoritative source for your deployment. It computes the exact allowlist from your current settings, updates as you change them, and can export the list as a text file for your firewall team. Use the tables below as a static reference; defer to the configuration window for the precise set your build requires.
 
 All traffic is HTTPS on port 443. Allowlist by hostname (SNI); path-level rules aren't required.
 
@@ -177,58 +177,56 @@ Without this host reachable, Chat conversations, Cowork tasks, and Code sessions
 
 ### Inference provider
 
-The host(s) for your configured provider. These carry conversation content.
+The host(s) for your configured provider. Conversation content goes to the host whose purpose is model inference.
 
-<Tabs>
-  <Tab title="Google Cloud's Agent Platform">
-    | Host | Purpose |
-    | - | - |
-    | `<region>-aiplatform.googleapis.com` | Model inference for single regions. The `global` region uses `aiplatform.googleapis.com`, and the `eu` / `us` multi-regions use `aiplatform.eu.rep.googleapis.com` / `aiplatform.us.rep.googleapis.com`. Replaced by the host of `inferenceVertexBaseUrl` if set. |
-    | `oauth2.googleapis.com` | Google auth token exchange |
-    | `sts.googleapis.com` | Google auth token exchange |
-    | `accounts.google.com` | Google auth token exchange |
-    | `iamcredentials.googleapis.com` | Google auth token exchange |
-  </Tab>
+**Google Cloud's Agent Platform**
 
-  <Tab title="Amazon Bedrock">
-    | Host | Purpose |
-    | - | - |
-    | `bedrock-runtime.<region>.amazonaws.com` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
-    | `bedrock.<region>.amazonaws.com` | Control plane (model discovery) |
-    | `sts.amazonaws.com`, `sts.<region>.amazonaws.com` | STS token exchange (profile auth only) |
-    | `portal.sso.<sso-region>.amazonaws.com`, `oidc.<sso-region>.amazonaws.com` | IAM Identity Center sign-in and token refresh, for [in-app AWS sign-in](/docs/third-party/claude-desktop/bedrock#in-app-aws-sign-in) and for named profiles that use IAM Identity Center. `<sso-region>` is `inferenceBedrockSsoRegion` (or the profile's `sso_region`) and can differ from the inference region. |
+| Host | Purpose |
+| - | - |
+| `<region>-aiplatform.googleapis.com` | Model inference for single regions. The `global` region uses `aiplatform.googleapis.com`, and the `eu` / `us` multi-regions use `aiplatform.eu.rep.googleapis.com` / `aiplatform.us.rep.googleapis.com`. Replaced by the host of `inferenceVertexBaseUrl` if set. |
+| `oauth2.googleapis.com` | Google auth token exchange |
+| `sts.googleapis.com` | Google auth token exchange |
+| `accounts.google.com` | Google auth token exchange |
+| `iamcredentials.googleapis.com` | Google auth token exchange |
 
-    With `inferenceBedrockBearerToken` set, the runtime and control-plane hosts are required.
+**Amazon Bedrock**
 
-    For AWS GovCloud regions (`us-gov-*`), the app automatically uses the FIPS endpoints instead: `bedrock-runtime-fips.<region>.amazonaws.com` and `bedrock-fips.<region>.amazonaws.com`.
-  </Tab>
+| Host | Purpose |
+| - | - |
+| `bedrock-runtime.<region>.amazonaws.com` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
+| `bedrock.<region>.amazonaws.com` | Control plane (model discovery) |
+| `sts.amazonaws.com`, `sts.<region>.amazonaws.com` | STS token exchange (profile auth only) |
+| `portal.sso.<sso-region>.amazonaws.com`, `oidc.<sso-region>.amazonaws.com` | IAM Identity Center sign-in and token refresh, for [in-app AWS sign-in](/docs/third-party/claude-desktop/bedrock#in-app-aws-sign-in) and for named profiles that use IAM Identity Center. `<sso-region>` is `inferenceBedrockSsoRegion` (or the profile's `sso_region`) and can differ from the inference region. |
 
-  <Tab title="Amazon Bedrock Mantle">
-    | Host | Purpose |
-    | - | - |
-    | `bedrock-mantle.<region>.api.aws` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
-  </Tab>
+With `inferenceBedrockBearerToken` set, the runtime and control-plane hosts are required.
 
-  <Tab title="Microsoft Foundry">
-    | Host | Purpose |
-    | - | - |
-    | `<resource>.services.ai.azure.com` | Model inference. Replaced by the host of `inferenceFoundryBaseUrl` if set. |
-    | `login.microsoftonline.com` | Entra ID auth (interactive sign-in only) |
-  </Tab>
+For AWS GovCloud regions (`us-gov-*`), the app automatically uses the FIPS endpoints instead: `bedrock-runtime-fips.<region>.amazonaws.com` and `bedrock-fips.<region>.amazonaws.com`.
 
-  <Tab title="Gateway">
-    | Host | Purpose |
-    | - | - |
-    | Host of `inferenceGatewayBaseUrl` | Model inference |
-  </Tab>
+**Amazon Bedrock Mantle**
 
-  <Tab title="Claude API">
-    | Host | Purpose |
-    | - | - |
-    | `api.anthropic.com` | Model inference; token exchange and API-key creation during browser sign-in |
-    | `platform.claude.com` | Browser sign-in page. Dialed only when no static key or credential helper is configured; the in-app Egress list includes it for every Claude API deployment. |
-  </Tab>
-</Tabs>
+| Host | Purpose |
+| - | - |
+| `bedrock-mantle.<region>.api.aws` | Model inference. Replaced by the host of `inferenceBedrockBaseUrl` if set. |
+
+**Microsoft Foundry**
+
+| Host | Purpose |
+| - | - |
+| `<resource>.services.ai.azure.com` | Model inference. Replaced by the host of `inferenceFoundryBaseUrl` if set. |
+| `login.microsoftonline.com` | Entra ID auth (interactive sign-in only) |
+
+**Gateway**
+
+| Host | Purpose |
+| - | - |
+| Host of `inferenceGatewayBaseUrl` | Model inference |
+
+**Claude API**
+
+| Host | Purpose |
+| - | - |
+| `api.anthropic.com` | Model inference; token exchange, renewal, and revocation for browser sign-in |
+| `platform.claude.com` | Browser sign-in page. Dialed only when no static key or credential helper is configured. Browser sign-in also needs the hosts that serve the browser check on the sign-in and approval pages, listed under [Optional features](#optional-features). |
 
 ### Auto-updates (`disableAutoUpdates: false`)
 
@@ -292,7 +290,8 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 | Search provider host of a built-in `websearch` server (`api.search.brave.com`, `api.tavily.com`, `api.exa.ai`, or the host of your `customUrl`) | [Built-in web search](/docs/third-party/claude-desktop/web-tools#built-in-web-search) is configured |
 | Hosts in `coworkEgressAllowedHosts` | Sandbox web access is configured |
 | `api.anthropic.com` | [Code](/docs/third-party/claude-desktop/code) sessions can use Web Fetch and [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) is not `true` (Claude Code's Web Fetch [domain check](/docs/third-party/claude-desktop/web-tools#web-fetch)) |
-| `claude.ai`, `api.anthropic.com`, `storage.googleapis.com` | [Import from claude.ai](/docs/third-party/claude-desktop/import) is enabled (`claudeAiImport` with `enabled` set to `true`). Used only while a user signs in to claude.ai and fetches an export in the import wizard; importing a downloaded export file needs none of them |
+| `hcaptcha.com`, `*.hcaptcha.com` | Users sign in with **Sign in with Claude Console** (the [Claude API](/docs/third-party/claude-desktop/claude-api) with no static key or credential helper). The Claude Console sign-in and approval pages open in the user's default browser and run a browser check from these hosts. Allow them even when the in-app Egress list doesn't show them. If they're blocked, signing in or approving can fail with a message that the browser couldn't be verified |
+| `claude.ai`, `hcaptcha.com`, `*.hcaptcha.com`, `api.anthropic.com`, `storage.googleapis.com` | [Import from claude.ai](/docs/third-party/claude-desktop/import) is enabled (`claudeAiImport` with `enabled` set to `true`). Used only while a user signs in to claude.ai and fetches an export in the import wizard; importing a downloaded export file needs none of them. The two `hcaptcha.com` entries serve the browser check on the claude.ai sign-in and approval pages |
 | `releases.claude.com` | The [built-in browser](/docs/third-party/claude-desktop/browser) is turned on (`builtinBrowserEnabled` set to `true`), for its [site safety check](/docs/third-party/claude-desktop/browser#site-safety-check) |
 | `downloads.claude.ai` | [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) are enabled (`sshHostAllowlist` set). With the offline installer, needed only for connections to hosts other than Linux x64 and arm64, because that installer bundles the remote components for those hosts (see [Host requirements](/docs/third-party/claude-desktop/ssh-remote-sessions#host-requirements)) |
 
@@ -314,11 +313,12 @@ With all six connections turned off, the only remaining Anthropic-operated egres
 These optional features add hosts back when you turn them on:
 
 * [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) download the remote-session components from `downloads.claude.ai`. The offline installer bundles those components for Linux x64 and arm64 hosts, so devices installed with it download them only when connecting to hosts on other platforms.
-* [Import from claude.ai](/docs/third-party/claude-desktop/import) reaches `claude.ai`, `api.anthropic.com`, and `storage.googleapis.com` (for the export download) only while a user signs in to claude.ai and fetches an export in the import wizard.
+* **Sign in with Claude Console** (the [Claude API](/docs/third-party/claude-desktop/claude-api) with no static key or credential helper) loads a browser check from `hcaptcha.com` and `*.hcaptcha.com` on the Claude Console sign-in and approval pages.
+* [Import from claude.ai](/docs/third-party/claude-desktop/import) reaches `claude.ai`, `api.anthropic.com`, and `storage.googleapis.com` (for the export download) only while a user signs in to claude.ai and fetches an export in the import wizard. The claude.ai sign-in and approval pages also load a browser check from `hcaptcha.com` and `*.hcaptcha.com`.
 * The [built-in browser](/docs/third-party/claude-desktop/browser) contacts `releases.claude.com` for its [site safety check](/docs/third-party/claude-desktop/browser#site-safety-check).
 * With the [remote Microsoft 365 connector](/docs/third-party/claude-desktop/connectors-m365#remote-connector), the app connects to the connector service that Anthropic hosts, at the host in the entry's `url` (`microsoft365.mcp.claude.com` in the setup steps).
 
-An app that receives its configuration from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) still connects to Anthropic with all of these keys set. It never fetches the model catalog (its model names and options come from the console's settings), and it contacts `api.anthropic.com` at every launch and at each configuration check (every 10 minutes by default) to download its configuration. The app contacts `claude.ai` when the user signs in. While the organization's **Report desktop usage to this organization** switch is on, the app also sends [usage analytics](/docs/third-party/claude-desktop/admin-console#usage-analytics) counts to `api.anthropic.com` every few minutes during use. You turn the telemetry categories for these apps on and off on the console's **Telemetry & updates** page.
+An app that receives its configuration from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) still connects to Anthropic with all of these keys set. It never fetches the model catalog (its model names and options come from the console's settings), and it contacts `api.anthropic.com` at every launch and at each configuration check (every 10 minutes by default) to download its configuration. The app contacts `claude.ai` when the user signs in, and the `claude.ai` sign-in and approval pages load a browser check from `hcaptcha.com` and `*.hcaptcha.com`, whichever sign-in method your organization uses. While the organization's **Report desktop usage to this organization** switch is on, the app also sends [usage analytics](/docs/third-party/claude-desktop/admin-console#usage-analytics) counts to `api.anthropic.com` every few minutes during use. You turn the telemetry categories for these apps on and off on the console's **Telemetry & updates** page.
 
 These settings control only the application's telemetry, update, and non-essential service connections. They do not change how your inference provider handles conversation content at the endpoint. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content reaches Anthropic-operated infrastructure regardless of these settings. See [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider) on the Overview page.
 

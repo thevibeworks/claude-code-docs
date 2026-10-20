@@ -10,10 +10,10 @@ On a Team or Enterprise plan, you can get a [plugin](/docs/plugins/overview) you
 
 This page is for someone on a Team or Enterprise plan who created or uploaded a plugin, for example with [Create a plugin with Claude](/docs/plugins/create-with-claude).
 
-<Note>
-  * If you're an Owner reviewing what members publish, see [Manage plugins for your organization](/docs/plugins/admin)
-  * If you want a wider audience than your organization, see [Plugin structure and testing](/docs/plugins/build) and [Publish to the directory](/docs/directory/publish)
-</Note>
+> [!NOTE]
+>
+> * If you're an Owner reviewing what members publish, see [Manage plugins for your organization](/docs/plugins/admin)
+> * If you want a wider audience than your organization, see [Plugin structure and testing](/docs/plugins/build) and [Publish to the directory](/docs/directory/publish)
 
 To give the plugin to people you name, go to [Share a plugin with specific people](#share-a-plugin-with-specific-people). To reach the whole organization, go to [Publish a plugin to your organization](#publish-a-plugin-to-your-organization).
 
@@ -34,15 +34,13 @@ You can get the plugin to specific people, to your organization's library, to so
 
 Sharing gives the people you name your plugin in their **Customize > Plugins** list, turned off until they turn it on. To share with specific people:
 
-<Steps>
-  <Step title="Open the plugin and select Share">
-    Go to [**Customize > Plugins**](https://claude.ai/customize/plugins) in claude.ai or the desktop app and open the plugin. Select **Share** at the top of its page. The plugin's menu in your **Your plugins** list has the same **Share** item.
-  </Step>
+**1. Open the plugin and select Share**
 
-  <Step title="Add people">
-    Add each person by name or email address, then confirm the share.
-  </Step>
-</Steps>
+Go to [**Customize > Plugins**](https://claude.ai/customize/plugins) in claude.ai or the desktop app and open the plugin. Select **Share** at the top of its page. The plugin's menu in your **Your plugins** list has the same **Share** item.
+
+**2. Add people**
+
+Add each person by name or email address, then confirm the share.
 
 ### What the people you share with get
 

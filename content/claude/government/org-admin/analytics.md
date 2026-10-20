@@ -26,9 +26,9 @@ If your organization has only one kind of tier, the control does not appear and 
 
 ## Credits (self-managed view only)
 
-<Note>
-  The credit panel and burndown chart only appear in the **Self-managed tiers** view, and only once credit data is available for your organization. The runway estimate within the panel only appears once there has been enough recent activity to compute a burn rate.
-</Note>
+> [!NOTE]
+>
+> The credit panel and burndown chart only appear in the **Self-managed tiers** view, and only once credit data is available for your organization. The runway estimate within the panel only appears once there has been enough recent activity to compute a burn rate.
 
 When credit data is available, the credit panel shows the current position of the account your organization draws from as of right now. It displays the **Credits remaining** out of the total added to the account, with a progress bar marked at the 70 percent and 90 percent warning thresholds. It also shows a runway estimate that tells you roughly how many days remain at your trailing 7-day burn rate. A **Low balance** badge appears once 70 percent of the total has been used, and a **Depleted** badge replaces it when no credits remain.
 
@@ -36,9 +36,9 @@ The runway figure divides your remaining balance by your average daily spend ove
 
 Below the panel, the **Credit burndown** chart plots your balance, with markers on the days credits were added, and projects forward to the date you are estimated to reach \$0. The chart reaches back 30 days, or 90 days when you set the time-window selector described below to **90 days**.
 
-<Tip>
-  The credit panel always reflects the current position and is not affected by the time-window selector. The 7-day lookback used for the burn rate is also fixed and does not change when you switch the usage window.
-</Tip>
+> [!TIP]
+>
+> The credit panel always reflects the current position and is not affected by the time-window selector. The 7-day lookback used for the burn rate is also fixed and does not change when you switch the usage window.
 
 ## Active users
 

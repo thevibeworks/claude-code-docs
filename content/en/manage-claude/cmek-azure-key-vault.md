@@ -13,7 +13,7 @@ Let Claude Code set up this feature for you
 This guide shows how to use an Azure Key Vault key as a [customer-managed encryption key (CMEK)](https://platform.claude.com/docs/en/manage-claude/cmek) for your Anthropic organization.
 
 <Warning>
-  Enabling CMEK is permanent. If your Key Vault key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](https://platform.claude.com/docs/en/manage-claude/cmek) before you start.
+  Enabling CMEK is permanent. If your key is deleted or disabled, Anthropic cannot recover the data encrypted under it. Review the [warnings and limitations](https://platform.claude.com/docs/en/manage-claude/cmek) before you start.
 </Warning>
 
 ## Prerequisites
@@ -553,7 +553,8 @@ Copy these values to register the key:
               ```ruby Ruby
               client = Anthropic::Client.new
 
-              validation = client.organization.external_keys.validate("ekey_<id>")
+              external_key_id = "ekey_<id>"
+              validation = client.organization.external_keys.validate(external_key_id)
 
               puts "status: #{validation.status}"
               puts "error: #{validation.error}"
@@ -566,7 +567,7 @@ Copy these values to register the key:
             { "type": "external_key_validation", "status": "success", "error": null }
             ```
 
-            If validation fails, the `error` field describes the problem. For common causes, see [Troubleshoot validation](https://platform.claude.com/docs/en/manage-claude/cmek-azure-key-vault#troubleshoot-validation).
+            If validation fails, see [Troubleshoot validation](https://platform.claude.com/docs/en/manage-claude/cmek-azure-key-vault#troubleshoot-validation).
           </Step>
 
           <Step title="Attach the key to a workspace">
@@ -674,8 +675,9 @@ Copy these values to register the key:
               ```ruby Ruby
               client = Anthropic::Client.new
 
+              workspace_id = "<workspace-id>"
               workspace = client.organization.workspaces.update(
-                "<workspace-id>",
+                workspace_id,
                 external_key_id: "ekey_<id>"
               )
 

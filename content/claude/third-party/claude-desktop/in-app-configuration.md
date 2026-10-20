@@ -16,9 +16,7 @@ If you turn on Developer mode while the app is running a third-party configurati
 
 To turn Developer mode off again, go to **Developer → Open Developer Config File**, change `"allowDevTools": true` to `false` in the file that opens (or delete the file), save it, then quit and reopen Claude Desktop. The **Developer** menu is gone on the next launch.
 
-<Frame caption="The in-app configuration window, showing the Connection section for a gateway provider.">
-  <img src="https://mintcdn.com/claude-ai/kVj7_7KF4fI3bEAn/images/third-party/in-app-configuration-window.png?fit=max&auto=format&n=kVj7_7KF4fI3bEAn&q=85&s=c3f15a85dea85082bc6dbc9459e6a974" alt="Claude Desktop in-app configuration window with the sidebar of setting groups on the left and the Connection form on the right." width="1812" height="1462" data-path="images/third-party/in-app-configuration-window.png" />
-</Frame>
+![Claude Desktop in-app configuration window with the sidebar of setting groups on the left and the Connection form on the right.](https://mintcdn.com/claude-ai/kVj7_7KF4fI3bEAn/images/third-party/in-app-configuration-window.png?fit=max\&auto=format\&n=kVj7_7KF4fI3bEAn\&q=85\&s=c3f15a85dea85082bc6dbc9459e6a974)
 
 The sidebar groups settings the same way the [configuration reference](/docs/third-party/claude-desktop/configuration) does. Fill in **Connection** first, then work down through the sections your deployment needs.
 

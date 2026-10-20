@@ -6,9 +6,9 @@
 
 > Claude Tag channel work bills to your organization's usage balance. Set the spend limit and see what happens when it's reached.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Work Claude does in channels and group DMs bills to your **organization's usage balance**, not to individual seats. The **spend limit** is a cap you set on how much of that balance Claude Tag can use each month.
 
@@ -35,15 +35,13 @@ Slack users can work with Claude in channels [without holding a Claude seat](/do
 
 Not every organization sees this page. A trial organization that hasn't enabled usage billing, a single-seat Team plan, an organization with a hybrid desktop deployment, or an admin whose role can't view billing is redirected to personal usage settings instead. If your organization bills through a reseller, the page is not available and these steps don't apply; your organization's usage is funded through the reseller instead.
 
-<Steps>
-  <Step title="Open the usage page">
-    Go to [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag).
-  </Step>
+**1. Open the usage page**
 
-  <Step title="Enter an amount">
-    Enter an amount in your organization's billing currency. The spend limit resets at the start of each month and applies across every paired workspace. You can change it any time.
-  </Step>
-</Steps>
+Go to [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag).
+
+**2. Enter an amount**
+
+Enter an amount in your organization's billing currency. The spend limit resets at the start of each month and applies across every paired workspace. You can change it any time.
 
 There's no published per-task cost guidance. For a pilot, set a spend limit you're comfortable with for the first month, then watch the per-channel usage breakdown on the same page and adjust. If a promotional credit covers the pilot's usage, that breakdown shows \$0.00. In that case, watch the **List price** column of the **Spend by channel** table at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag) instead.
 

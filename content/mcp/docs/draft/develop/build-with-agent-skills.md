@@ -89,16 +89,14 @@ distribute.
 Once your agent scaffolds the server, iterate on tool descriptions and error
 handling, then test and ship:
 
-<CardGroup cols={2}>
-  <Card title="MCP Inspector" icon="magnifying-glass" href="/docs/draft/tools/inspector">
-    Test your server's tools, resources, and prompts interactively
-  </Card>
+> **[MCP Inspector](/docs/draft/tools/inspector)**
+>
+> Test your server's tools, resources, and prompts interactively
 
-  <Card title="Connect to a client" icon="plug" href="/docs/draft/develop/connect-local-servers">
-    Wire your server into an MCP client via local or remote configuration
-  </Card>
+> **[Connect to a client](/docs/draft/develop/connect-local-servers)**
+>
+> Wire your server into an MCP client via local or remote configuration
 
-  <Card title="Publish to the Registry" icon="box" href="/registry/quickstart">
-    Make your server discoverable in the MCP Registry
-  </Card>
-</CardGroup>
+> **[Publish to the Registry](/registry/quickstart)**
+>
+> Make your server discoverable in the MCP Registry

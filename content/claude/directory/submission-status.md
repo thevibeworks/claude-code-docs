@@ -10,9 +10,9 @@ After you submit to the directory, the developer portal at [claude.ai/directory/
 
 This page is for anyone with a submission in the portal. Review time isn't fixed.
 
-<Note>
-  If you haven't submitted yet, see [Publish to the directory](/docs/directory/publish).
-</Note>
+> [!NOTE]
+>
+> If you haven't submitted yet, see [Publish to the directory](/docs/directory/publish).
 
 Find your status in the table for your submission's kind: [plugin bundle](#plugin-bundle-statuses) or [MCP connector](#mcp-connector-statuses). If nothing is waiting on you and you still need an answer, see [Contact Anthropic about a submission](#contact-anthropic-about-a-submission).
 

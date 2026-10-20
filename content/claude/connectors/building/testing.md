@@ -30,9 +30,9 @@ If your server uses the TypeScript SDK's `createMcpExpressApp()`, as the [quicks
 const app = createMcpExpressApp({ allowedHosts: ['localhost', '127.0.0.1', 'abc123.example.com'] });
 ```
 
-<Warning>
-  A tunnel exposes your local server to the public internet. Keep authentication enabled on your server while tunneling, and shut the tunnel down when you're done testing.
-</Warning>
+> [!WARNING]
+>
+> A tunnel exposes your local server to the public internet. Keep authentication enabled on your server while tunneling, and shut the tunnel down when you're done testing.
 
 ### Validate with MCP Inspector
 

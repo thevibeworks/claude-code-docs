@@ -10,11 +10,11 @@ By the end of this quickstart, you have a working example plugin with one skill 
 
 This quickstart is for developers who have Claude Code installed and want to learn the plugin format by building one. You can follow it with a product that has a remote MCP server, or with only a skill.
 
-<Note>
-  * If you want to make a plugin from a conversation without writing files, see [Create a plugin with Claude](/docs/plugins/create-with-claude)
-  * If you want to distribute a plugin only inside your own organization, see [Roll out a plugin to your whole organization](/docs/plugins/org-rollout)
-  * If you want to look up the folder layout, the manifest fields, or what each surface loads, see [Plugin structure and testing](/docs/plugins/build)
-</Note>
+> [!NOTE]
+>
+> * If you want to make a plugin from a conversation without writing files, see [Create a plugin with Claude](/docs/plugins/create-with-claude)
+> * If you want to distribute a plugin only inside your own organization, see [Roll out a plugin to your whole organization](/docs/plugins/org-rollout)
+> * If you want to look up the folder layout, the manifest fields, or what each surface loads, see [Plugin structure and testing](/docs/plugins/build)
 
 ## Before you create the plugin
 
@@ -27,93 +27,91 @@ Check that you have each of these before you create the plugin:
 
 The steps in this section build a plugin named `expense-reports` for a fictional finance product whose MCP server is at `mcp.example.com`. Replace the names and values with your own.
 
-<Steps>
-  <Step title="Write the manifest">
-    Create a folder named `expense-reports`, and create `.claude-plugin/plugin.json` inside it. Put only the manifest inside `.claude-plugin/`. Everything else goes at the plugin's top level.
+**1. Write the manifest**
 
-    The example has the fields that every surface and the directory read:
+Create a folder named `expense-reports`, and create `.claude-plugin/plugin.json` inside it. Put only the manifest inside `.claude-plugin/`. Everything else goes at the plugin's top level.
 
-    ```json theme={null}
-    {
-      "name": "expense-reports",
-      "displayName": "Expense Reports",
-      "version": "1.0.0",
-      "description": "File, track, and approve expense reports from a conversation, using your finance system's connector and your company's approval rules.",
-      "author": { "name": "Example Corp", "url": "https://example.com" },
-      "license": "MIT"
+The example has the fields that every surface and the directory read:
+
+```json theme={null}
+{
+  "name": "expense-reports",
+  "displayName": "Expense Reports",
+  "version": "1.0.0",
+  "description": "File, track, and approve expense reports from a conversation, using your finance system's connector and your company's approval rules.",
+  "author": { "name": "Example Corp", "url": "https://example.com" },
+  "license": "MIT"
+}
+```
+
+People install and refer to the plugin by its `name`. Use lowercase words joined by hyphens, make the name specific to your product, and never change it after release. [Manifest and plugin name](/docs/plugins/pre-submission-checklist#manifest-and-plugin-name) lists the directory's checks on the name.
+
+**2. Add a skill**
+
+Create `skills/file-expense/SKILL.md`. A skill tells Claude when and how to do a task. The example calls tools from the MCP connector that you add in the next step, so leave the tool calls out of your own skill if your plugin has no connector:
+
+```markdown theme={null}
+---
+name: file-expense
+description: File an expense report. Use when the user mentions a receipt, reimbursement, or expense, or asks to submit spending for approval.
+---
+
+To file an expense:
+
+1. Ask for the receipt if the user hasn't attached one, and read the amount, date, merchant, and currency from it.
+2. Call the expenses connector's `create_report` tool with those fields. Default the category from the merchant type; ask only if it's ambiguous.
+3. If the amount is over the user's approval limit (check with `get_policy`), add their manager as approver before submitting.
+4. Reply with the report number and its approval status. Don't paste the full API response.
+```
+
+Claude decides when to load the skill from the `description` line, so write it as the situations a user would be in. [Create custom skills](/docs/skills/how-to) covers the frontmatter fields, resource files, scripts, and testing.
+
+**3. Add an MCP connector**
+
+Skip this step if your plugin has only a skill. If your product has a remote MCP server, create `.mcp.json` at the plugin root and reference the server by URL:
+
+```json theme={null}
+{
+  "mcpServers": {
+    "expenses": {
+      "type": "http",
+      "url": "https://mcp.example.com/mcp"
     }
-    ```
+  }
+}
+```
 
-    People install and refer to the plugin by its `name`. Use lowercase words joined by hyphens, make the name specific to your product, and never change it after release. [Manifest and plugin name](/docs/plugins/pre-submission-checklist#manifest-and-plugin-name) lists the directory's checks on the name.
-  </Step>
+There is no server at `mcp.example.com`, so this example connector fails to connect when you test the plugin. Replace the URL with your own server's, or leave `.mcp.json` out.
 
-  <Step title="Add a skill">
-    Create `skills/file-expense/SKILL.md`. A skill tells Claude when and how to do a task. The example calls tools from the MCP connector that you add in the next step, so leave the tool calls out of your own skill if your plugin has no connector:
+Don't put API keys or other secrets in this file, because every person who installs the plugin receives its files. On claude.ai and in Cowork, the entry is listed on the plugin's **Connectors** tab, where the user [adds or connects it](/docs/plugins/overview#bundled-connectors) and signs in through your server's OAuth flow. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
 
-    ```markdown theme={null}
-    ---
-    name: file-expense
-    description: File an expense report. Use when the user mentions a receipt, reimbursement, or expense, or asks to submit spending for approval.
-    ---
+**4. Write the README**
 
-    To file an expense:
+Create `README.md` in the plugin folder with at least 40 words. Words inside code blocks don't count. Say what the plugin does, how to use it, and what data it sends. The directory shows your README as the listing's description, and [README and license](/docs/plugins/pre-submission-checklist#readme-and-license) lists what validation checks.
 
-    1. Ask for the receipt if the user hasn't attached one, and read the amount, date, merchant, and currency from it.
-    2. Call the expenses connector's `create_report` tool with those fields. Default the category from the merchant type; ask only if it's ambiguous.
-    3. If the amount is over the user's approval limit (check with `get_policy`), add their manager as approver before submitting.
-    4. Reply with the report number and its approval status. Don't paste the full API response.
-    ```
+This README covers those three points for the example plugin:
 
-    Claude decides when to load the skill from the `description` line, so write it as the situations a user would be in. [Create custom skills](/docs/skills/how-to) covers the frontmatter fields, resource files, scripts, and testing.
-  </Step>
+```markdown theme={null}
+# Expense Reports
 
-  <Step title="Add an MCP connector">
-    Skip this step if your plugin has only a skill. If your product has a remote MCP server, create `.mcp.json` at the plugin root and reference the server by URL:
+File, track, and approve expense reports from a conversation with Claude.
 
-    ```json theme={null}
-    {
-      "mcpServers": {
-        "expenses": {
-          "type": "http",
-          "url": "https://mcp.example.com/mcp"
-        }
-      }
-    }
-    ```
+## Use it
 
-    There is no server at `mcp.example.com`, so this example connector fails to connect when you test the plugin. Replace the URL with your own server's, or leave `.mcp.json` out.
+Attach a receipt and ask Claude to file it. Claude reads the amount, date,
+and merchant, files the report through the Expense Reports connector, and
+replies with the report number. Ask what's waiting on you to list the
+reports that need your approval.
 
-    Don't put API keys or other secrets in this file, because every person who installs the plugin receives its files. On claude.ai and in Cowork, the entry is listed on the plugin's **Connectors** tab, where the user [adds or connects it](/docs/plugins/overview#bundled-connectors) and signs in through your server's OAuth flow. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
-  </Step>
+## Data
 
-  <Step title="Write the README">
-    Create `README.md` in the plugin folder with at least 40 words. Words inside code blocks don't count. Say what the plugin does, how to use it, and what data it sends. The directory shows your README as the listing's description, and [README and license](/docs/plugins/pre-submission-checklist#readme-and-license) lists what validation checks.
+The plugin sends receipt details and report fields to your Example Corp
+account through mcp.example.com. It stores nothing itself.
+```
 
-    This README covers those three points for the example plugin:
+**5. Check the license**
 
-    ```markdown theme={null}
-    # Expense Reports
-
-    File, track, and approve expense reports from a conversation with Claude.
-
-    ## Use it
-
-    Attach a receipt and ask Claude to file it. Claude reads the amount, date,
-    and merchant, files the report through the Expense Reports connector, and
-    replies with the report number. Ask what's waiting on you to list the
-    reports that need your approval.
-
-    ## Data
-
-    The plugin sends receipt details and report fields to your Example Corp
-    account through mcp.example.com. It stores nothing itself.
-    ```
-  </Step>
-
-  <Step title="Check the license">
-    The directory requires a `LICENSE` file in the plugin folder or `license` in `plugin.json`, and validation blocks a plugin that has neither. The example manifest sets `license`, which meets the requirement. If you remove that field, add a `LICENSE` file to the plugin folder instead.
-  </Step>
-</Steps>
+The directory requires a `LICENSE` file in the plugin folder or `license` in `plugin.json`, and validation blocks a plugin that has neither. The example manifest sets `license`, which meets the requirement. If you remove that field, add a `LICENSE` file to the plugin folder instead.
 
 ## Test the plugin in Claude Code
 
@@ -151,29 +149,27 @@ The [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) li
 
 The directory reads plugins from repositories on github.com, so the plugin folder goes in a GitHub repository.
 
-<Steps>
-  <Step title="Create the repository">
-    Create an empty repository on github.com for the plugin. The repository must be public before the listing goes live.
-  </Step>
+**1. Create the repository**
 
-  <Step title="Remove system files">
-    Remove `.DS_Store`, `Thumbs.db`, `desktop.ini`, and `__MACOSX` entries from the plugin folder, and add them to `.gitignore`. Validation blocks a plugin that contains them.
-  </Step>
+Create an empty repository on github.com for the plugin. The repository must be public before the listing goes live.
 
-  <Step title="Commit and push">
-    From inside the `expense-reports` folder, commit the files and push them. The example pushes to a repository named `example-corp/expense-reports`, so replace that name with your own:
+**2. Remove system files**
 
-    ```bash theme={null}
-    git init -b main
-    git add .
-    git commit -m "Add the expense-reports plugin"
-    git remote add origin https://github.com/example-corp/expense-reports.git
-    git push -u origin main
-    ```
+Remove `.DS_Store`, `Thumbs.db`, `desktop.ini`, and `__MACOSX` entries from the plugin folder, and add them to `.gitignore`. Validation blocks a plugin that contains them.
 
-    The repository's page on github.com now shows `.claude-plugin/`, `skills/`, and the other plugin files at the repository root.
-  </Step>
-</Steps>
+**3. Commit and push**
+
+From inside the `expense-reports` folder, commit the files and push them. The example pushes to a repository named `example-corp/expense-reports`, so replace that name with your own:
+
+```bash theme={null}
+git init -b main
+git add .
+git commit -m "Add the expense-reports plugin"
+git remote add origin https://github.com/example-corp/expense-reports.git
+git push -u origin main
+```
+
+The repository's page on github.com now shows `.claude-plugin/`, `skills/`, and the other plugin files at the repository root.
 
 ## Submit your own plugin
 

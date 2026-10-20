@@ -6,9 +6,9 @@
 
 > Claude Tag settings map: the admin page for access and behavior, the usage page for spend limits, the in-Slack Configure link for channel instructions, and personal connectors for DMs and your own tasks in channels. Claude Managed Agents is configured separately on the Claude Platform.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude Tag's settings live on claude.ai, split across a few pages that each own a different kind of setting. Which page you need depends on what you're changing. The table maps each surface to what it controls.
 

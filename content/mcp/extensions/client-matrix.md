@@ -6,15 +6,11 @@
 
 > Which MCP clients implement which official extensions
 
-export const CHECK = () => <span className="flex justify-center">
-    <Icon icon="check" iconType="solid" size={18} className="text-green-500" />
-  </span>;
-
 This matrix shows which MCP clients support each [official extension](/extensions/overview). Extensions are always opt-in: a client only uses an extension if both client and server declare support in the `extensions` field of their [capabilities](/extensions/overview#negotiation).
 
-<Note>
-  This list is maintained by the community. If you notice any inaccuracies or would like to add or update information, please [submit a pull request](https://github.com/modelcontextprotocol/modelcontextprotocol/pulls).
-</Note>
+> [!NOTE]
+>
+> This list is maintained by the community. If you notice any inaccuracies or would like to add or update information, please [submit a pull request](https://github.com/modelcontextprotocol/modelcontextprotocol/pulls).
 
 ## Extension overview
 
@@ -29,24 +25,24 @@ This matrix shows which MCP clients support each [official extension](/extension
 
 | Client | [MCP Apps](/extensions/apps/overview) | [OAuth Client Credentials](/extensions/auth/oauth-client-credentials) | [Enterprise Auth](/extensions/auth/enterprise-managed-authorization) | [Skills](/extensions/skills/overview) |
 | - | :-: | :-: | :-: | :-: |
-| [Claude (web)](https://claude.ai) | <CHECK /> | | | |
-| [Claude Desktop](https://claude.ai/download) | <CHECK /> | | | |
-| [VS Code GitHub Copilot](https://code.visualstudio.com/) | <CHECK /> | | | |
-| [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot) | <CHECK /> | | | |
-| [Goose](https://block.github.io/goose/) | <CHECK /> | | | |
-| [Postman](https://postman.com) | <CHECK /> | | | |
-| [MCPJam](https://www.mcpjam.com/) | <CHECK /> | | | |
-| [ChatGPT](https://chatgpt.com/) | <CHECK /> | | | [Partial](https://developers.openai.com/plugins/build/mcp-server#import-skills-from-the-mcp-server) |
-| [Cursor](https://cursor.com/) | <CHECK /> | | | |
-| [Archestra.AI](https://www.archestra.ai/) | <CHECK /> | | <CHECK /> | |
-| [PostHog Code](https://posthog.com/code/) | <CHECK /> | | | |
+| [Claude (web)](https://claude.ai) | | | | |
+| [Claude Desktop](https://claude.ai/download) | | | | |
+| [VS Code GitHub Copilot](https://code.visualstudio.com/) | | | | |
+| [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot) | | | | |
+| [Goose](https://block.github.io/goose/) | | | | |
+| [Postman](https://postman.com) | | | | |
+| [MCPJam](https://www.mcpjam.com/) | | | | |
+| [ChatGPT](https://chatgpt.com/) | | | | [Partial](https://developers.openai.com/plugins/build/mcp-server#import-skills-from-the-mcp-server) |
+| [Cursor](https://cursor.com/) | | | | |
+| [Archestra.AI](https://www.archestra.ai/) | | | | |
+| [PostHog Code](https://posthog.com/code/) | | | | |
 | [fast-agent](https://github.com/evalstate/fast-agent) | | | | [Partial](https://github.com/evalstate/fast-agent/blob/main/docs/docs/mcp/skills-over-mcp.md) |
 | [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) |
-| [mcpc MCP CLI](https://github.com/apify/mcpc) | | <CHECK /> | <CHECK /> | <CHECK /> |
+| [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | |
 
-<Note>
-  Auth extension support (OAuth Client Credentials and Enterprise-Managed Authorization) is tracked separately from the core MCP authorization features (DCR, CIMD). Check each extension's specification and the [ext-auth repository](https://github.com/modelcontextprotocol/ext-auth) for the latest implementation status.
-</Note>
+> [!NOTE]
+>
+> Auth extension support (OAuth Client Credentials and Enterprise-Managed Authorization) is tracked separately from the core MCP authorization features (DCR, CIMD). Check each extension's specification and the [ext-auth repository](https://github.com/modelcontextprotocol/ext-auth) for the latest implementation status.
 
 ## Adding extension support to your client
 

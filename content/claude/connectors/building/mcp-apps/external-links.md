@@ -59,9 +59,9 @@ Claude bypasses the modal only when the `ui/open-link` request follows a real us
 
 If your app sends `ui/open-link` without a preceding gesture, for example programmatically, on a timer, or after the browser's activation window has expired, Claude shows the modal so the user's confirmation click supplies the gesture the browser requires to open a new tab.
 
-<Note>
-  A bypassed `ui/open-link` request resolves successfully once the open is attempted. It doesn't indicate whether the browser actually opened the tab, so don't treat the response as confirmation that the user reached the destination.
-</Note>
+> [!NOTE]
+>
+> A bypassed `ui/open-link` request resolves successfully once the open is attempted. It doesn't indicate whether the browser actually opened the tab, so don't treat the response as confirmation that the user reached the destination.
 
 ## Design for the modal
 

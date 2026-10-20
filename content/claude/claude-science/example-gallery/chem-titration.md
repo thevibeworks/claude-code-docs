@@ -6,13 +6,7 @@
 
 > Solve the full equilibrium for 25.0 mL of 0.100 M acetic acid as 0.100 M NaOH is added, without the usual shortcuts.
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/chem-titration-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=37e8dfb5f136ac8d3872d9cd328d04be" alt="Left: acetic acid's titration curve, with pH 2.88 at the start, 4.76 half-way, and 8.73 at equivalence. Right: acetic acid and HCl with the methyl orange and phenolphthalein ranges shaded: for acetic acid, methyl orange turns 17.4 mL too early." width="1425" height="674" data-path="images/claude-science/example-gallery/chem-titration-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/chem-titration-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=34afada344f2f0f525f87785bab10ded" alt="Left: acetic acid's titration curve, with pH 2.88 at the start, 4.76 half-way, and 8.73 at equivalence. Right: acetic acid and HCl with the methyl orange and phenolphthalein ranges shaded: for acetic acid, methyl orange turns 17.4 mL too early." width="1425" height="674" data-path="images/claude-science/example-gallery/chem-titration-full-dark.webp" />
-  </Frame>
-</div>
+![Left: acetic acid's titration curve, with pH 2.88 at the start, 4.76 half-way, and 8.73 at equivalence. Right: acetic acid and HCl with the methyl orange and phenolphthalein ranges shaded: for acetic acid, methyl orange turns 17.4 mL too early.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/chem-titration-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=37e8dfb5f136ac8d3872d9cd328d04be)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

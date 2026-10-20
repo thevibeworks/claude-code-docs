@@ -6,9 +6,9 @@
 
 > Claude Tag actions appear under its own service accounts in each connected tool's audit log. See what the Activity page covers, how to trace an action to its source, and where each connected tool keeps logs.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Use this page to review what Claude Tag is doing across your organization: which routines are scheduled, what memory it has saved, and where to find a record of each action it took.
 

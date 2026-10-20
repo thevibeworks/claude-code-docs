@@ -6,9 +6,9 @@
 
 > What Claude Tag does with a channel message nobody tagged it in, and how to turn unprompted replies off for a thread or a channel. Read this if Claude is replying too much, or went quiet.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude replies without an @-mention in one-to-one DMs, in any thread it's already part of, and to channel and group DM messages it judges warrant a reply. In a channel, Claude reads the messages and replies to some of them on its own, so an @-mention is how you guarantee a reply, not a requirement for one. This page covers how Claude decides whether to reply to a message nobody tagged it in, how to turn those replies off for a thread or a whole channel, and which messages never get a reply. Work Claude does on a schedule rather than in reply to a message is a [routine](/docs/claude-tag/users/proactivity), which has its own controls.
 
@@ -61,9 +61,9 @@ The setting covers the channel's messages, not DMs. To quiet a single thread ins
 
 Until Claude has joined a channel, you see "@-mention Claude in this channel to activate" in place of the toggle, both on the Configure page and on the channel's page in Claude Tag admin settings. You see the same line in a channel shared across workspaces that all belong to your Claude organization, because Claude runs there with your organization's default settings only. [Messages that never get a reply](#messages-that-never-get-a-reply) covers shared channels in more detail.
 
-<Note>
-  Separately from **Respond automatically**, an Owner or a Claude Tag admin can [turn Claude off in channels](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope).
-</Note>
+> [!NOTE]
+>
+> Separately from **Respond automatically**, an Owner or a Claude Tag admin can [turn Claude off in channels](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope).
 
 ## Messages from other apps and bots
 

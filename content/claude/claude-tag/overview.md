@@ -6,63 +6,32 @@
 
 > Claude Tag puts Claude in your Slack channels with admin-governed access. See what to hand it, how setup works, and where to start as an admin or end user.
 
-<div className="tm-hero">
-  <div className="tm-hero-copy">
-    <span className="tm-pill">Public Beta</span>
-    <p className="tm-hero-title">Tag <span className="tm-hero-at">@Claude</span> in. Get results back in the thread.</p>
-    <p className="tm-hero-lede">Anyone in a Slack channel can tag Claude into a problem and hand it work: reproduce a bug and open a pull request, turn a decision thread into a doc, assemble the state of a project. It posts a checklist in the thread as it goes, and the whole exchange stays visible to the channel.</p>
+Public Beta
+Tag @Claude in. Get results back in the thread.
+Anyone in a Slack channel can tag Claude into a problem and hand it work: reproduce a bug and open a pull request, turn a decision thread into a doc, assemble the state of a project. It posts a checklist in the thread as it goes, and the whole exchange stays visible to the channel.
 
-    <div className="tm-hero-ctas">
-      <a className="tm-btn tm-btn-dark" href="/docs/claude-tag/admins/setup-overview">I'm setting it up →</a>
-      <a className="tm-btn tm-btn-light" href="#put-claude-tag-to-work">Use it in your channel ↓</a>
-    </div>
-  </div>
+[I'm setting it up →](/docs/claude-tag/admins/setup-overview)
+[Use it in your channel ↓](#put-claude-tag-to-work)
 
-  <div className="tm-slack">
-    <div className="tm-slack-head">
-      <span className="tm-slack-chan"># platform-eng</span>
-      <span className="tm-slack-members">38 members</span>
-    </div>
+\# platform-eng
+38 members
 
-    <div className="tm-slack-body">
-      <div className="tm-msg">
-        <span className="tm-avatar tm-avatar-user" aria-hidden="true">D</span>
 
-        <div className="tm-msg-col">
-          <div className="tm-msg-meta"><span className="tm-msg-name">Dana</span><span className="tm-msg-time">2:14 PM</span></div>
-          <p>checkout has felt slow all morning — anyone else seeing it?</p>
-        </div>
-      </div>
 
-      <div className="tm-msg">
-        <span className="tm-avatar tm-avatar-user tm-avatar-b" aria-hidden="true">L</span>
+Dana2:14 PMcheckout has felt slow all morning — anyone else seeing it?
 
-        <div className="tm-msg-col">
-          <div className="tm-msg-meta"><span className="tm-msg-name">Leo</span><span className="tm-msg-time">2:15 PM</span></div>
-          <p>same. <span className="tm-mention">@Claude</span> can you investigate? Compare latency against this morning's deploy and find what's causing it.</p>
-        </div>
-      </div>
 
-      <div className="tm-msg">
-        <span className="tm-avatar tm-avatar-claude">
-          <img src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/logo/clay-spark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=032101c39ca3b1af9f72fc4af8e60d12" alt="" noZoom width="94" height="94" data-path="images/claude-tag/logo/clay-spark.svg" />
-        </span>
 
-        <div className="tm-msg-col">
-          <div className="tm-msg-meta"><span className="tm-msg-name">Claude</span><span className="tm-msg-app">APP</span><span className="tm-msg-time">2:15 PM</span></div>
-          <p>On it. I'll compare latency before and after the deploy, track down the cause, and report back here.</p>
+Leo2:15 PMsame. @Claude can you investigate? Compare latency against this morning's deploy and find what's causing it.
 
-          <div className="tm-tasklist">
-            <span className="tm-task-done"><span className="tm-sr">Done: </span>Pulled p99 latency from Datadog</span>
-            <span className="tm-task-done"><span className="tm-sr">Done: </span>Diffed deploy 4f2c1 against main</span>
-            <span className="tm-task-done"><span className="tm-sr">Done: </span>Reproduced the slow query locally</span>
-            <span className="tm-task-doing"><span className="tm-sr">In progress: </span>Opening a pull request with the fix…</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+![](https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/logo/clay-spark.svg?fit=max\&auto=format\&n=5JFKyLlO7sHMMf5J\&q=85\&s=032101c39ca3b1af9f72fc4af8e60d12)
+
+ClaudeAPP2:15 PMOn it. I'll compare latency before and after the deploy, track down the cause, and report back here.
+
+Done: Pulled p99 latency from Datadog
+Done: Diffed deploy 4f2c1 against main
+Done: Reproduced the slow query locally
+In progress: Opening a pull request with the fix…
 
 ## Plans that include Claude Tag
 
@@ -86,89 +55,43 @@ When Claude works on a task, it runs in an ephemeral sandbox, not on your comput
 
 You extend what Claude can reach, like your repositories, ticketing systems, data warehouses, and custom tools, through [Claude Tag connectors](/docs/claude-tag/admins/add-connections), [plugins, and skills](/docs/claude-tag/admins/customize). An Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) configures these for all of Slack, for one workspace, or for one channel. Members' own claude.ai connectors are separate from that configuration; Claude can use them in a channel for the member's own requests, as [personal connectors in channels](/docs/claude-tag/concepts/personal-connectors) describes.
 
-<div className="tm-route-grid">
-  <div className="tm-card">
-    <a className="tm-band tm-band-admins" href="/docs/claude-tag/admins/setup-overview">
-      <span className="tm-band-text">
-        <span className="tm-band-label">For administrators</span>
-        <span className="tm-band-title">Set up Claude Tag</span>
-      </span>
+For administrators
+Set up Claude Tag
 
-      <img src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/illustrations/Hand-Key.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=1b7a9675728f971bc7a4663c7f1ea599" alt="" noZoom width="1000" height="1000" data-path="images/claude-tag/illustrations/Hand-Key.svg" />
-    </a>
+![](https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/illustrations/Hand-Key.svg?fit=max\&auto=format\&n=5JFKyLlO7sHMMf5J\&q=85\&s=1b7a9675728f971bc7a4663c7f1ea599)
 
-    <div className="tm-qrows">
-      <a className="tm-qrow" href="/docs/claude-tag/admins/setup-overview">
-        <span className="tm-qrow-text">
-          <span className="tm-qrow-q">Where do I start?</span>
-          <span className="tm-qrow-sub">Pair your Slack workspace, launch, and test that it works</span>
-        </span>
-      </a>
+[Open](/docs/claude-tag/admins/setup-overview)
 
-      <a className="tm-qrow" href="/docs/claude-tag/concepts/agent-identity">
-        <span className="tm-qrow-text">
-          <span className="tm-qrow-q">What can Claude Tag access?</span>
-          <span className="tm-qrow-sub">How admins set access per channel, and where credentials are stored</span>
-        </span>
-      </a>
+[Where do I start?
+Pair your Slack workspace, launch, and test that it works](/docs/claude-tag/admins/setup-overview)
 
-      <a className="tm-qrow" href="/docs/claude-tag/admins/add-connections">
-        <span className="tm-qrow-text">
-          <span className="tm-qrow-q">How do I connect each service?</span>
-          <span className="tm-qrow-sub">Credential types, allowed hosts, and what each connection lets Claude reach</span>
-        </span>
-      </a>
-    </div>
-  </div>
+[What can Claude Tag access?
+How admins set access per channel, and where credentials are stored](/docs/claude-tag/concepts/agent-identity)
 
-  <div className="tm-card">
-    <a className="tm-band tm-band-users" href="#put-claude-tag-to-work">
-      <span className="tm-band-text">
-        <span className="tm-band-label">For end users</span>
-        <span className="tm-band-title">Put Claude Tag to work</span>
-      </span>
+[How do I connect each service?
+Credential types, allowed hosts, and what each connection lets Claude reach](/docs/claude-tag/admins/add-connections)
 
-      <img src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/illustrations/Hand-NodePair.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=c64df4c6d27a6da752aa32c9e0622781" alt="" noZoom width="1000" height="1000" data-path="images/claude-tag/illustrations/Hand-NodePair.svg" />
-    </a>
+For end users
+Put Claude Tag to work
 
-    <div className="tm-qrows">
-      <a className="tm-qrow" href="/docs/claude-tag/users/getting-started">
-        <span className="tm-qrow-text">
-          <span className="tm-qrow-q">How do I hand Claude Tag a task?</span>
-          <span className="tm-qrow-sub">Mention Claude in any channel it's in, with nothing to install</span>
-        </span>
-      </a>
+![](https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/illustrations/Hand-NodePair.svg?fit=max\&auto=format\&n=5JFKyLlO7sHMMf5J\&q=85\&s=c64df4c6d27a6da752aa32c9e0622781)
 
-      <a className="tm-qrow" href="/docs/claude-tag/users/use-cases">
-        <span className="tm-qrow-text">
-          <span className="tm-qrow-q">What is Claude Tag good at?</span>
-          <span className="tm-qrow-sub">Use cases for coding, data, incidents, and go-to-market</span>
-        </span>
-      </a>
+[Open](#put-claude-tag-to-work)
 
-      <a className="tm-qrow" href="/docs/claude-tag/users/good-habits">
-        <span className="tm-qrow-text">
-          <span className="tm-qrow-q">How do I get good results?</span>
-          <span className="tm-qrow-sub">Good habits for scoping and reviewing work</span>
-        </span>
-      </a>
+[How do I hand Claude Tag a task?
+Mention Claude in any channel it's in, with nothing to install](/docs/claude-tag/users/getting-started)
 
-      <a className="tm-qrow" href="/docs/claude-tag/users/memory">
-        <span className="tm-qrow-text">
-          <span className="tm-qrow-q">What does Claude Tag remember?</span>
-          <span className="tm-qrow-sub">Channel memory, what's shared across the workspace, and who can see what</span>
-        </span>
-      </a>
+[What is Claude Tag good at?
+Use cases for coding, data, incidents, and go-to-market](/docs/claude-tag/users/use-cases)
 
-      <a className="tm-qrow" href="/docs/claude-tag/users/proactivity">
-        <span className="tm-qrow-text">
-          <span className="tm-qrow-q">Can Claude Tag run tasks on a schedule?</span>
-          <span className="tm-qrow-sub">Scheduled jobs, channel watching, and triggers</span>
-        </span>
-      </a>
-    </div>
-  </div>
-</div>
+[How do I get good results?
+Good habits for scoping and reviewing work](/docs/claude-tag/users/good-habits)
+
+[What does Claude Tag remember?
+Channel memory, what's shared across the workspace, and who can see what](/docs/claude-tag/users/memory)
+
+[Can Claude Tag run tasks on a schedule?
+Scheduled jobs, channel watching, and triggers](/docs/claude-tag/users/proactivity)
 
 ## Billing and spend limits
 
@@ -178,7 +101,7 @@ One-to-one direct messages from members who have connected a Claude account don'
 
 To learn what your team's usage costs, run a pilot with a spend limit set and watch the per-channel breakdown on the [usage page in your admin settings](https://claude.ai/admin-settings/usage/claude-tag). [Set a spend limit](/docs/claude-tag/admins/set-spend-limit) covers how to fund the balance on each plan, set the limit, and what happens when usage reaches it.
 
-<div className="tm-eyebrow"><span className="tm-swatch tm-swatch-users" />For end users</div>
+For end users
 
 ## Put Claude Tag to work
 
@@ -205,7 +128,7 @@ Each link opens a guide with the prompts to paste and the connections the task n
 
 [Get started](/docs/claude-tag/users/getting-started) covers your first message, what you see while Claude works, and how to shape Claude's behavior in your channel.
 
-<div className="tm-eyebrow"><span className="tm-swatch tm-swatch-admins" />For administrators</div>
+For administrators
 
 ## Set Claude Tag up once for everyone
 
@@ -220,31 +143,25 @@ Claude Tag starts with no access of its own to your external systems. After you 
 
 [Set up Claude Tag](/docs/claude-tag/admins/setup-overview) walks through setup and connecting tools, with what to have ready, what each choice means, and how to verify Claude Tag works once you launch.
 
-<div className="tm-strip">
-  <div className="tm-strip-head">
-    <p className="tm-strip-title">Security review</p>
-    <a className="tm-strip-all" href="/docs/claude-tag/concepts/security-and-data">Security and data handling</a>
-  </div>
+Security review
+[Security and data handling](/docs/claude-tag/concepts/security-and-data)
 
-  <p>The security model, what admins can and can't restrict, audit trails, and network requirements.</p>
-</div>
+The security model, what admins can and can't restrict, audit trails, and network requirements.
 
 ## Where to start with Claude Tag
 
-<CardGroup cols={2}>
-  <Card title="Set up Claude Tag" icon="gear" href="/docs/claude-tag/admins/setup-overview" horizontal arrow>
-    Admins: pair your Slack workspace and launch
-  </Card>
+> **[Set up Claude Tag](/docs/claude-tag/admins/setup-overview)**
+>
+> Admins: pair your Slack workspace and launch
 
-  <Card title="Hand Claude Tag your first task" icon="paper-plane" href="/docs/claude-tag/users/getting-started" horizontal arrow>
-    It's already in your channel: send your first message
-  </Card>
+> **[Hand Claude Tag your first task](/docs/claude-tag/users/getting-started)**
+>
+> It's already in your channel: send your first message
 
-  <Card title="How Claude Tag works" icon="diagram-project" href="/docs/claude-tag/concepts/how-it-works" horizontal arrow>
-    The session model, what it can read, and how memory follows places
-  </Card>
+> **[How Claude Tag works](/docs/claude-tag/concepts/how-it-works)**
+>
+> The session model, what it can read, and how memory follows places
 
-  <Card title="Use case library" icon="list" href="/docs/claude-tag/users/use-cases" horizontal arrow>
-    Prompts to paste, by team and connection
-  </Card>
-</CardGroup>
+> **[Use case library](/docs/claude-tag/users/use-cases)**
+>
+> Prompts to paste, by team and connection

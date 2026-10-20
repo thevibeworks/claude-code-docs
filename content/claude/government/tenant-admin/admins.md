@@ -32,9 +32,9 @@ The search covers organization owners across every organization in your tenant, 
 
 Click **Remove** next to a name to revoke their tenant admin access. The change takes effect immediately. The person keeps their account and whatever organization role they have, but loses access to this portal. Unless they are an organization's [Primary Owner](/docs/government/org-admin/users#understanding-roles), they can also no longer use an emailed sign-in link.
 
-<Warning>
-  You can't remove the last remaining tenant administrator. The button is disabled when only one is left. This protects your tenant from losing all administrative access.
-</Warning>
+> [!WARNING]
+>
+> You can't remove the last remaining tenant administrator. The button is disabled when only one is left. This protects your tenant from losing all administrative access.
 
 ## Things to know
 

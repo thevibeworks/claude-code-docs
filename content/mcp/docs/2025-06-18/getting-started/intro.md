@@ -10,9 +10,7 @@ Using MCP, AI applications like Claude or ChatGPT can connect to data sources (e
 
 Think of MCP like a USB-C port for AI applications. Just as USB-C provides a standardized way to connect electronic devices, MCP provides a standardized way to connect AI applications to external systems.
 
-<Frame>
-  <img src="https://mintcdn.com/mcp/bEUxYpZqie0DsluH/images/mcp-simple-diagram.png?fit=max&auto=format&n=bEUxYpZqie0DsluH&q=85&s=35268aa0ad50b8c385913810e7604550" width="3840" height="1500" data-path="images/mcp-simple-diagram.png" />
-</Frame>
+![](https://mintcdn.com/mcp/bEUxYpZqie0DsluH/images/mcp-simple-diagram.png?fit=max\&auto=format\&n=bEUxYpZqie0DsluH\&q=85\&s=35268aa0ad50b8c385913810e7604550)
 
 ## What can MCP enable?
 
@@ -35,36 +33,30 @@ MCP is an open protocol supported across a wide range of clients and servers. AI
 
 ## Start Building
 
-<CardGroup cols={2}>
-  <Card title="Build servers" icon="server" href="/docs/2025-06-18/develop/build-server">
-    Create MCP servers to expose your data and tools
-  </Card>
+> **[Build servers](/docs/2025-06-18/develop/build-server)**
+>
+> Create MCP servers to expose your data and tools
 
-  <Card title="Build clients" icon="computer" href="/docs/2025-06-18/develop/build-client">
-    Develop applications that connect to MCP servers
-  </Card>
+> **[Build clients](/docs/2025-06-18/develop/build-client)**
+>
+> Develop applications that connect to MCP servers
 
-  <Card title="Build MCP Apps" icon="puzzle-piece" href="/extensions/apps/overview">
-    Build interactive apps that run inside AI clients
-  </Card>
-</CardGroup>
+> **[Build MCP Apps](/extensions/apps/overview)**
+>
+> Build interactive apps that run inside AI clients
 
 ## Learn more
 
-<CardGroup cols={2}>
-  <Card title="Architecture" icon="book" href="/docs/2025-06-18/learn/architecture">
-    Learn the core concepts and architecture of MCP
-  </Card>
+> **[Architecture](/docs/2025-06-18/learn/architecture)**
+>
+> Learn the core concepts and architecture of MCP
 
-  <Card title="Security" icon="lock" href="/docs/2025-06-18/tutorials/security/security_best_practices">
-    Understand the security considerations and best practices for MCP
-  </Card>
-</CardGroup>
+> **[Security](/docs/2025-06-18/tutorials/security/security_best_practices)**
+>
+> Understand the security considerations and best practices for MCP
 
 ## Community
 
-<CardGroup cols={2}>
-  <Card title="Contributing" icon="users" href="/community/contributing">
-    Learn how to get involved and contribute to MCP
-  </Card>
-</CardGroup>
+> **[Contributing](/community/contributing)**
+>
+> Learn how to get involved and contribute to MCP

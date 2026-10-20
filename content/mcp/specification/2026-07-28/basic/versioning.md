@@ -4,8 +4,6 @@
 
 # Versioning and Compatibility
 
-<div id="enable-section-numbers" />
-
 This page defines how a client and server agree on what they are speaking:
 the protocol version, declared on every request; optional extensions,
 negotiated through capabilities; and interoperability with earlier,

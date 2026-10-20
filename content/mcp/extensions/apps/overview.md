@@ -6,17 +6,15 @@
 
 > Interactive UI applications that render inside MCP hosts like Claude Desktop
 
-<Tip>
-  For comprehensive API documentation, advanced patterns, and the full specification, visit the [official MCP Apps documentation](https://apps.extensions.modelcontextprotocol.io).
-</Tip>
+> [!TIP]
+>
+> For comprehensive API documentation, advanced patterns, and the full specification, visit the [official MCP Apps documentation](https://apps.extensions.modelcontextprotocol.io).
 
 Text responses can only go so far. Sometimes users need to interact with data, not
 just read about it. MCP Apps let servers return interactive HTML interfaces (data
 visualizations, forms, dashboards) that render directly in the chat.
 
-<Frame caption="Excalidraw MCP App, running in Claude">
-  <img src="https://mintcdn.com/mcp/jbEkS7m9mV8aY_kB/images/apps/excalidraw.gif?s=c783b088f3c687e4dd4cf05c0d20f325" alt="An Excalidraw MCP App drawing a sequence diagram inside a Claude conversation" width="620" height="510" data-path="images/apps/excalidraw.gif" />
-</Frame>
+![An Excalidraw MCP App drawing a sequence diagram inside a Claude conversation](https://mintcdn.com/mcp/jbEkS7m9mV8aY_kB/images/apps/excalidraw.gif?s=c783b088f3c687e4dd4cf05c0d20f325)
 
 ## Why not just build a web app?
 
@@ -169,9 +167,9 @@ best for your use case.
 
 ## Client support
 
-<Note>
-  MCP Apps is an extension to the [core MCP specification](/specification/latest). Host support varies by client.
-</Note>
+> [!NOTE]
+>
+> MCP Apps is an extension to the [core MCP specification](/specification/latest). Host support varies by client.
 
 MCP Apps are currently supported by [Claude](https://claude.ai),
 [Claude Desktop](https://claude.ai/download),

@@ -10,9 +10,9 @@ A credential helper is an executable on the user's machine that prints an infere
 
 Configure the helper with the `inferenceCredentialHelper` key; see the [Configuration reference](/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) for the full list of helper-related keys.
 
-<Note>
-  `inferenceCredentialHelper` supplies credentials for the inference connection only. An MCP server deployed through [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) uses the separate per-server `headersHelper` key, which follows the same execution model but prints a flat JSON header map and has its own cache and renewal settings (`headersHelperTtlSec`, default 300, versus `inferenceCredentialHelperTtlSec`, default 3600). See [Short-lived credentials with a headers helper](/docs/third-party/claude-desktop/extensions#short-lived-credentials-with-a-headers-helper).
-</Note>
+> [!NOTE]
+>
+> `inferenceCredentialHelper` supplies credentials for the inference connection only. An MCP server deployed through [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) uses the separate per-server `headersHelper` key, which follows the same execution model but prints a flat JSON header map and has its own cache and renewal settings (`headersHelperTtlSec`, default 300, versus `inferenceCredentialHelperTtlSec`, default 3600). See [Short-lived credentials with a headers helper](/docs/third-party/claude-desktop/extensions#short-lived-credentials-with-a-headers-helper).
 
 ## What the helper must do
 

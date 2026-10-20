@@ -4,9 +4,9 @@
 
 # MCP Registry Aggregators
 
-<Note>
-  The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
-</Note>
+> [!NOTE]
+>
+> The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
 
 Aggregators are downstream consumers of the MCP Registry that provide additional value. For example, a server marketplace that provides user ratings and security scanning.
 
@@ -20,9 +20,9 @@ The base URL for the MCP Registry REST API is `https://registry.modelcontextprot
 * [`GET /v0.1/servers/{serverName}/versions`](https://registry.modelcontextprotocol.io/docs#/operations/get-server-versions-v0.1) — List all versions of a server.
 * [`GET /v0.1/servers/{serverName}/versions/{version}`](https://registry.modelcontextprotocol.io/docs#/operations/get-server-version-v0.1) — Get a specific version of a server. Use the special version `latest` to get the latest version of the server.
 
-<Warning>
-  URL path parameters such as `serverName` and `version` **must** be URL-encoded. For example, `io.modelcontextprotocol/everything` must be encoded as `io.modelcontextprotocol%2Feverything`.
-</Warning>
+> [!WARNING]
+>
+> URL path parameters such as `serverName` and `version` **must** be URL-encoded. For example, `io.modelcontextprotocol/everything` must be encoded as `io.modelcontextprotocol%2Feverything`.
 
 Aggregators will most likely scrape the `GET /v0.1/servers` endpoint.
 
