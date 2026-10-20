@@ -102,16 +102,16 @@ First, create an agent that declares the GitHub MCP server. The agent definition
       {
         type: "url",
         name: "github",
-        url: "https://api.githubcopilot.com/mcp/",
-      },
+        url: "https://api.githubcopilot.com/mcp/"
+      }
     ],
     tools: [
       { type: "agent_toolset_20260401" },
       {
         type: "mcp_toolset",
-        mcp_server_name: "github",
-      },
-    ],
+        mcp_server_name: "github"
+      }
+    ]
   });
   ```
 
@@ -299,9 +299,9 @@ Then create a session that mounts the GitHub repository. With a `limited` [envir
         type: "github_repository",
         url: "https://github.com/org/repo",
         mount_path: "/workspace/repo",
-        authorization_token: "ghp_your_github_token",
-      },
-    ],
+        authorization_token: "ghp_your_github_token"
+      }
+    ]
   });
   ```
 
@@ -486,14 +486,14 @@ Mount multiple repositories by adding entries to the `resources` (csharp, go: `R
       type: "github_repository",
       url: "https://github.com/org/frontend",
       mount_path: "/workspace/frontend",
-      authorization_token: "ghp_your_github_token",
+      authorization_token: "ghp_your_github_token"
     },
     {
       type: "github_repository",
       url: "https://github.com/org/backend",
       mount_path: "/workspace/backend",
-      authorization_token: "ghp_your_github_token",
-    },
+      authorization_token: "ghp_your_github_token"
+    }
   ];
   ```
 
@@ -641,9 +641,7 @@ After a session is created, you can list its repository resources and rotate the
   ```typescript TypeScript
   // List resources on the session
   const listed = await client.beta.sessions.resources.list(session.id);
-  const repoResource = listed.data.find(
-    (entry) => entry.type === "github_repository",
-  );
+  const repoResource = listed.data.find((entry) => entry.type === "github_repository");
   if (!repoResource) {
     throw new Error("No GitHub repository resource on the session");
   }
@@ -653,7 +651,7 @@ After a session is created, you can list its repository resources and rotate the
   // Rotate the authorization token
   await client.beta.sessions.resources.update(repoResourceId, {
     session_id: session.id,
-    authorization_token: "ghp_your_new_github_token",
+    authorization_token: "ghp_your_new_github_token"
   });
   ```
 
@@ -793,11 +791,11 @@ With the GitHub MCP server, the agent can create branches, commit changes, and p
         content: [
           {
             type: "text",
-            text: "Fix the type error in src/utils.ts, commit it to a new branch, and push it.",
-          },
-        ],
-      },
-    ],
+            text: "Fix the type error in src/utils.ts, commit it to a new branch, and push it."
+          }
+        ]
+      }
+    ]
   });
   ```
 

@@ -1,15 +1,15 @@
 ---
-title: Get Credential
+title: Retrieve a Credential
 url: https://platform.claude.com/docs/en/api/ruby/beta/vaults/credentials/retrieve
 ---
 
-# Get Credential
+# Retrieve a Credential
 
 `beta.vaults.credentials.retrieve(credential_id, **kwargs) -> BetaManagedAgentsCredential`
 
 **GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
-Get Credential
+Retrieve a Credential
 
 ## Parameters
 
@@ -145,7 +145,7 @@ Get Credential
 
   - `id: String`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `archived_at: Time`
 
@@ -169,7 +169,7 @@ Get Credential
 
       - `expires_at: Time`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -179,7 +179,7 @@ Get Credential
 
         - `client_id: String`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `token_endpoint: String`
 
@@ -259,7 +259,9 @@ Get Credential
 
           - `allowed_hosts: Array[String]`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `secret_name: String`
 

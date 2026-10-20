@@ -131,7 +131,9 @@ The following examples opt in to `agent.message` previews and reconcile them wit
           events=[
               {
                   "type": "user.message",
-                  "content": [{"type": "text", "text": "Describe the repo in one sentence."}],
+                  "content": [
+                      {"type": "text", "text": "Describe the repo in one sentence."}
+                  ],
               },
           ],
       )
@@ -144,14 +146,18 @@ The following examples opt in to `agent.message` previews and reconcile them wit
                       previews[event.event.id] = snapshot
                   print(f"event_start             {event.event.type} {event.event.id}")
               case "event_delta":
-                  preview = accumulate_managed_agents_event(previews.get(event.event_id), event)
+                  preview = accumulate_managed_agents_event(
+                      previews.get(event.event_id), event
+                  )
                   if preview is not None:
                       previews[event.event_id] = preview
                       text = "".join(block.text for block in preview.content)
                       print(f"event_delta             preview: {text!r}")
               case "agent.message":
                   # The buffered event is the record: it replaces and closes the preview
-                  preview = accumulate_managed_agents_event(previews.pop(event.id, None), event)
+                  preview = accumulate_managed_agents_event(
+                      previews.pop(event.id, None), event
+                  )
                   text = "".join(block.text for block in preview.content)
                   print(f"agent.message           {event.id} {text!r}")
               case "span.model_request_end":
@@ -171,7 +177,7 @@ The following examples opt in to `agent.message` previews and reconcile them wit
 
   // Opt in to agent.message previews for this connection only
   const stream = await client.beta.sessions.events.stream(session.id, {
-    event_deltas: ["agent.message"],
+    event_deltas: ["agent.message"]
   });
   await client.beta.sessions.events.send(session.id, {
     events: [
@@ -636,7 +642,7 @@ A thread stream's path ends in `/threads/{thread_id}/stream`. `/events/stream` e
   // session stream.
   const stream = await client.beta.sessions.threads.events.stream(childThreadId, {
     session_id: session.id,
-    event_deltas: ["agent.message"],
+    event_deltas: ["agent.message"]
   });
 
   threadDeltas: for await (const event of stream) {

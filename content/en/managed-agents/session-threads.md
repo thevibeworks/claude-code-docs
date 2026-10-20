@@ -135,7 +135,7 @@ Send `user.interrupt` with `session_thread_id` (java: `sessionThreadId`; php: `s
 
   ```typescript TypeScript
   await client.beta.sessions.events.send(session.id, {
-    events: [{ type: "user.interrupt", session_thread_id: thread.id }],
+    events: [{ type: "user.interrupt", session_thread_id: thread.id }]
   });
   ```
 
@@ -221,7 +221,7 @@ Optionally archive a session thread when it has completed its work. Archiving a 
 
   ```typescript TypeScript
   const archived = await client.beta.sessions.threads.archive(thread.id, {
-    session_id: session.id,
+    session_id: session.id
   });
   console.log(archived.status, archived.archived_at);
   ```
@@ -300,10 +300,10 @@ Archive only succeeds if the thread is `idle`. A thread parked on `requires_acti
 
   ```typescript TypeScript
   await client.beta.sessions.events.send(session.id, {
-    events: [{ type: "user.interrupt", session_thread_id: thread.id }],
+    events: [{ type: "user.interrupt", session_thread_id: thread.id }]
   });
   const archived = await client.beta.sessions.threads.archive(thread.id, {
-    session_id: session.id,
+    session_id: session.id
   });
   console.log(archived.status, archived.archived_at);
   ```
@@ -447,7 +447,7 @@ A thread's stream doesn't replay earlier events. Right after `session.thread_cre
 
       ```typescript TypeScript
       const stream = await client.beta.sessions.threads.events.stream(thread.id, {
-        session_id: session.id,
+        session_id: session.id
       });
 
       loop: for await (const event of stream) {
@@ -594,7 +594,7 @@ A thread's stream doesn't replay earlier events. Right after `session.thread_cre
 
       ```typescript TypeScript
       for await (const event of client.beta.sessions.threads.events.list(thread.id, {
-        session_id: session.id,
+        session_id: session.id
       })) {
         console.log(`[${event.type}] ${event.processed_at}`);
       }
@@ -712,9 +712,9 @@ The following example goes inside the event loop of the [tool confirmation handl
         {
           type: "user.tool_confirmation",
           tool_use_id: eventId,
-          result: "allow",
-        },
-      ],
+          result: "allow"
+        }
+      ]
     });
   }
   ```

@@ -303,9 +303,13 @@ The Models API response can be used to determine which models are available for 
 
           Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
 
+        - `between_tools: BetaCapabilitySupport`
+
+          Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
+
         - `disabled: BetaCapabilitySupport`
 
-          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
+          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
 
         - `enabled: BetaCapabilitySupport`
 
@@ -465,6 +469,9 @@ print(page.id)
           "supported": true,
           "types": {
             "adaptive": {
+              "supported": true
+            },
+            "between_tools": {
               "supported": true
             },
             "disabled": {
@@ -767,9 +774,13 @@ The Models API response can be used to determine information about a specific mo
 
           Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
 
+        - `between_tools: BetaCapabilitySupport`
+
+          Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
+
         - `disabled: BetaCapabilitySupport`
 
-          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
+          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
 
         - `enabled: BetaCapabilitySupport`
 
@@ -928,6 +939,9 @@ print(beta_model_info.id)
       "supported": true,
       "types": {
         "adaptive": {
+          "supported": true
+        },
+        "between_tools": {
           "supported": true
         },
         "disabled": {
@@ -1169,9 +1183,13 @@ print(beta_model_info.id)
 
         Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
 
+      - `between_tools: BetaCapabilitySupport`
+
+        Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
+
       - `disabled: BetaCapabilitySupport`
 
-        Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
+        Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
 
       - `enabled: BetaCapabilitySupport`
 
@@ -1321,9 +1339,13 @@ print(beta_model_info.id)
 
           Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
 
+        - `between_tools: BetaCapabilitySupport`
+
+          Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
+
         - `disabled: BetaCapabilitySupport`
 
-          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
+          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
 
         - `enabled: BetaCapabilitySupport`
 
@@ -1449,9 +1471,13 @@ print(beta_model_info.id)
 
         Whether this capability is supported by the model.
 
+    - `between_tools: BetaCapabilitySupport`
+
+      Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
+
     - `disabled: BetaCapabilitySupport`
 
-      Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
+      Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
 
     - `enabled: BetaCapabilitySupport`
 
@@ -1471,9 +1497,13 @@ print(beta_model_info.id)
 
       Whether this capability is supported by the model.
 
+  - `between_tools: BetaCapabilitySupport`
+
+    Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
+
   - `disabled: BetaCapabilitySupport`
 
-    Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking.
+    Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
 
   - `enabled: BetaCapabilitySupport`
 

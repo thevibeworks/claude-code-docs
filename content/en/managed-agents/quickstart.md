@@ -34,7 +34,7 @@ This guide walks you through creating an agent, setting up an environment, start
 ## Prerequisites
 
 * A [Claude Console account](https://platform.claude.com)
-* An [API key](https://platform.claude.com/settings/keys)
+* An [API key](https://platform.claude.com/settings/keys) from the Console
 
 ## Install the CLI
 
@@ -214,9 +214,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
           name: "Coding Assistant",
           model: "claude-opus-5-5",
           system: "You are a helpful coding assistant. Write clean, well-documented code.",
-          tools: [
-            { type: "agent_toolset_20260401" },
-          ],
+          tools: [{ type: "agent_toolset_20260401" }]
         });
 
         console.log(`Agent ID: ${agent.id}, version: ${agent.version}`);
@@ -433,8 +431,8 @@ export ANTHROPIC_API_KEY="your-api-key-here"
           name: "quickstart-env",
           config: {
             type: "cloud",
-            networking: { type: "limited", allow_package_managers: true },
-          },
+            networking: { type: "limited", allow_package_managers: true }
+          }
         });
 
         console.log(`Environment ID: ${environment.id}`);
@@ -582,7 +580,7 @@ export ANTHROPIC_API_KEY="your-api-key-here"
       const session = await client.beta.sessions.create({
         agent: agent.id,
         environment_id: environment.id,
-        title: "Quickstart session",
+        title: "Quickstart session"
       });
 
       console.log(`Session ID: ${session.id}`);
@@ -699,11 +697,11 @@ export ANTHROPIC_API_KEY="your-api-key-here"
             content: [
               {
                 type: "text",
-                text: "Create a Python script that generates the first 20 Fibonacci numbers and saves them to fibonacci.txt",
-              },
-            ],
-          },
-        ],
+                text: "Create a Python script that generates the first 20 Fibonacci numbers and saves them to fibonacci.txt"
+              }
+            ]
+          }
+        ]
       });
 
       // Process streaming events

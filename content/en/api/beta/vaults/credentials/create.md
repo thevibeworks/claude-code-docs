@@ -1,13 +1,13 @@
 ---
-title: Create Credential
+title: Create a Credential
 url: https://platform.claude.com/docs/en/api/beta/vaults/credentials/create
 ---
 
-# Create Credential
+# Create a Credential
 
 **POST** `/v1/vaults/{vault_id}/credentials`
 
-Create Credential
+Create a Credential
 
 ## Path parameters
 
@@ -151,7 +151,7 @@ Create Credential
 
     - `access_token: string`
 
-      OAuth access token.
+      The OAuth access token to send to the MCP server.
 
       minLength: 1, maxLength: 8192
 
@@ -163,7 +163,9 @@ Create Credential
 
     - `expires_at: optional string or null`
 
-      A timestamp in RFC 3339 format
+      When `access_token` expires, in RFC 3339.
+
+      Must be in the future.
 
       format: date-time
 
@@ -173,13 +175,13 @@ Create Credential
 
       - `client_id: string`
 
-        OAuth client ID.
+        The OAuth client ID to use when refreshing the access token. It can't be changed after the credential is created.
 
         minLength: 1, maxLength: 1024
 
       - `refresh_token: string`
 
-        OAuth refresh token.
+        The OAuth refresh token that the API uses to get a new access token when the current one expires.
 
         minLength: 1, maxLength: 8192
 
@@ -205,7 +207,7 @@ Create Credential
 
           - `client_secret: string`
 
-            OAuth client secret.
+            The OAuth client secret, sent to `token_endpoint` with HTTP Basic authentication.
 
             minLength: 1, maxLength: 512
 
@@ -217,7 +219,7 @@ Create Credential
 
           - `client_secret: string`
 
-            OAuth client secret.
+            The OAuth client secret, sent to `token_endpoint` in the POST body.
 
             minLength: 1, maxLength: 512
 
@@ -241,7 +243,7 @@ Create Credential
 
     - `token: string`
 
-      Static bearer token value.
+      The static bearer token to send to the MCP server, such as an API key or personal access token.
 
       minLength: 1, maxLength: 8192
 
@@ -275,7 +277,9 @@ Create Credential
 
         - `allowed_hosts: array of string`
 
-          Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
+          The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+          Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries.
 
     - `secret_name: string`
 
@@ -285,7 +289,7 @@ Create Credential
 
     - `secret_value: string`
 
-      Secret value. Write-only; never returned in responses.
+      The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
       minLength: 1, maxLength: 4096
 
@@ -321,7 +325,7 @@ Create Credential
 
   - `id: string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `archived_at: string or null`
 
@@ -345,7 +349,7 @@ Create Credential
 
       - `expires_at: optional string or null`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -355,7 +359,7 @@ Create Credential
 
         - `client_id: string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `token_endpoint: string`
 
@@ -435,7 +439,9 @@ Create Credential
 
           - `allowed_hosts: array of string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `secret_name: string`
 

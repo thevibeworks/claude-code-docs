@@ -566,11 +566,11 @@ Send a `user.message` event to start or continue the agent's work:
         content: [
           {
             type: "text",
-            text: "Analyze the performance of the sort function in utils.py",
-          },
-        ],
-      },
-    ],
+            text: "Analyze the performance of the sort function in utils.py"
+          }
+        ]
+      }
+    ]
   });
   ```
 
@@ -742,9 +742,9 @@ The following example answers each call as it arrives:
             {
               type: "user.custom_tool_result",
               custom_tool_use_id: event.id,
-              content: [{ type: "text", text: result }],
-            },
-          ],
+              content: [{ type: "text", text: result }]
+            }
+          ]
         });
         break;
       }
@@ -977,9 +977,9 @@ The following example approves every pending call:
           {
             type: "user.tool_confirmation",
             tool_use_id: eventId,
-            result: "allow",
-          },
-        ],
+            result: "allow"
+          }
+        ]
       });
     }
   }
@@ -1190,11 +1190,11 @@ Sessions persist between interactions. To resume a session, send a `user.message
         content: [
           {
             type: "text",
-            text: "Now run the tests against the changes you made earlier.",
-          },
-        ],
-      },
-    ],
+            text: "Now run the tests against the changes you made earlier."
+          }
+        ]
+      }
+    ]
   });
   ```
 
@@ -1366,11 +1366,11 @@ Send a `user.interrupt` event to stop the agent mid-execution, then follow up wi
         content: [
           {
             type: "text",
-            text: "Instead, focus on fixing the bug in line 42.",
-          },
-        ],
-      },
-    ],
+            text: "Instead, focus on fixing the bug in line 42."
+          }
+        ]
+      }
+    ]
   });
   ```
 
@@ -1589,7 +1589,7 @@ Pass a `types` (curl: `types[]`; cli: `--type`; csharp, go: `Types`) filter to r
 
   ```typescript TypeScript
   const events = await client.beta.sessions.events.list(session.id, {
-    types: ["agent.tool_use", "agent.tool_result"],
+    types: ["agent.tool_use", "agent.tool_result"]
   });
   for (const event of events.data) {
     console.log(`[${event.type}] ${event.processed_at}`);
@@ -1717,11 +1717,11 @@ The event's `content` (csharp, go: `Content`) accepts 1–1000 text items. The c
         content: [
           {
             type: "text",
-            text: "The user's current timezone is America/New_York.",
-          },
-        ],
-      },
-    ],
+            text: "The user's current timezone is America/New_York."
+          }
+        ]
+      }
+    ]
   });
   ```
 

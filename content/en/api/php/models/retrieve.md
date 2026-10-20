@@ -172,6 +172,9 @@ var_dump($modelInfo);
         "adaptive": {
           "supported": true
         },
+        "between_tools": {
+          "supported": true
+        },
         "disabled": {
           "supported": true
         },

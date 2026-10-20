@@ -1,15 +1,15 @@
 ---
-title: Update Credential
+title: Update a Credential
 url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/update
 ---
 
-# Update Credential
+# Update a Credential
 
 `$client->beta->vaults->credentials->update(string credentialID, string vaultID, ?Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
-Update Credential
+Update a Credential
 
 ## Parameters
 
@@ -23,7 +23,7 @@ Update Credential
 
 - `auth?:optional Auth`
 
-  Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
+  New authentication settings for the credential. The `type` must match the credential's current type, which can't be changed.
 
 - `displayName?:optional string`
 
@@ -51,7 +51,7 @@ Update Credential
 
   - `string id`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `?\Datetime archivedAt`
 

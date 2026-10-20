@@ -400,9 +400,7 @@ The example defines a `get_weather` tool, lets Claude think and request a tool c
       });
 
       // Extract the tool use block to get its ID for the tool result
-      const toolUseBlock = response.content.find(
-        (block): block is Anthropic.ToolUseBlock => block.type === "tool_use"
-      );
+      const toolUseBlock = response.content.find((block) => block.type === "tool_use");
 
       // Call your actual weather API, here is where your actual API call would go
       // Let's pretend this is what we get back

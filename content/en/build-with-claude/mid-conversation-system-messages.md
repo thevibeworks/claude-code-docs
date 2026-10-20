@@ -1770,9 +1770,7 @@ A `role: "system"` message can also carry `output_config.effort` to change the [
     ]
   });
 
-  const textBlock = response.content.find(
-    (block): block is Anthropic.TextBlock => block.type === "text"
-  );
+  const textBlock = response.content.find((block) => block.type === "text");
   console.log(textBlock?.text);
   ```
 

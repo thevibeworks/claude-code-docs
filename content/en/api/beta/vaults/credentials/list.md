@@ -19,7 +19,7 @@ List Credentials
 
 - `include_archived: optional boolean`
 
-  Whether to include archived credentials in the results.
+  Whether to include archived credentials in the results. Defaults to `false`.
 
 - `limit: optional number`
 
@@ -29,7 +29,7 @@ List Credentials
 
 - `page: optional string`
 
-  Opaque pagination token from a previous `list_credentials` response.
+  The `next_page` value from a previous [List Credentials](https://platform.claude.com/docs/en/api/beta/vaults/credentials/list?sdk_languages=http) response, to get the next page. Leave it out to get the first page.
 
 ## Headers
 
@@ -157,13 +157,13 @@ List Credentials
 
 - `data: optional array of BetaManagedAgentsCredential`
 
-  List of credentials.
+  The credentials on this page, newest first.
 
   - `type: "vault_credential"`
 
   - `id: string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `archived_at: string or null`
 
@@ -187,7 +187,7 @@ List Credentials
 
       - `expires_at: optional string or null`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -197,7 +197,7 @@ List Credentials
 
         - `client_id: string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `token_endpoint: string`
 
@@ -277,7 +277,9 @@ List Credentials
 
           - `allowed_hosts: array of string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `secret_name: string`
 

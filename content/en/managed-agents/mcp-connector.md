@@ -98,13 +98,13 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (c
       {
         type: "url",
         name: "github",
-        url: "https://api.githubcopilot.com/mcp/",
-      },
+        url: "https://api.githubcopilot.com/mcp/"
+      }
     ],
     tools: [
       { type: "agent_toolset_20260401" },
-      { type: "mcp_toolset", mcp_server_name: "github" },
-    ],
+      { type: "mcp_toolset", mcp_server_name: "github" }
+    ]
   });
   ```
 
@@ -322,7 +322,7 @@ With a `limited` [environment](https://platform.claude.com/docs/en/managed-agent
   const session = await client.beta.sessions.create({
     agent: agent.id,
     environment_id: environment.id,
-    vault_ids: [vault.id],
+    vault_ids: [vault.id]
   });
   ```
 

@@ -14,7 +14,7 @@ Admins can manage organization discovery from identity and access settings.
 
 1. Log in as an Admin.
 
-2. Navigate to **[Organization settings > Identity and access](https://platform.claude.com/settings/identity)**.
+2. Go to the **Identity and access** page (platform.claude.com/settings/identity).
 
 3. Your organization’s domains are listed at the top of the page.
 
@@ -54,7 +54,7 @@ In addition to organization discovery, there are a few other ways to join a Cons
 
 - **Email invitation:** An Admin or existing member of the organization may send you an email invitation to join.
 
-- **Admin invitation:** An Admin can add you directly from **[Organization settings > Members](https://platform.claude.com/settings/members)**.
+- **Admin invitation:** An Admin can add you directly from the **Members** page (platform.claude.com/settings/members).
 
 ---
 

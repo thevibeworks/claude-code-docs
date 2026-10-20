@@ -247,9 +247,7 @@ Returning search results from your custom tools enables dynamic RAG applications
 
   // Handle tool use and provide results.
   // The tool_use block is not always first: find it in the content array.
-  const toolUse = response.content.find(
-    (block): block is Anthropic.ToolUseBlock => block.type === "tool_use"
-  );
+  const toolUse = response.content.find((block) => block.type === "tool_use");
   if (toolUse) {
     const input = toolUse.input as { query: string };
     const toolResult = searchKnowledgeBase(input.query);

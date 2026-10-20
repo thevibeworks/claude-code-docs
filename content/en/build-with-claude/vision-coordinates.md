@@ -276,7 +276,6 @@ First check which resolution tier your model is on (see [Resolution and token co
   	}
   	return lo, max(int(math.RoundToEven(float64(lo)/aspectRatio)), 1)
   }
-
   ```
 
   ```java Java
@@ -534,12 +533,7 @@ Screenshots and zoom images that you return to the [computer use](https://platfo
     maxEdge = 1568,
     maxTokens = 1568
   ): [number, number] {
-    const [resizedW, resizedH] = resizedSize(
-      originalWidth,
-      originalHeight,
-      maxEdge,
-      maxTokens
-    );
+    const [resizedW, resizedH] = resizedSize(originalWidth, originalHeight, maxEdge, maxTokens);
     return [x / resizedW, y / resizedH];
   }
 

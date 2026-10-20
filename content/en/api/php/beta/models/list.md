@@ -204,6 +204,9 @@ var_dump($page);
             "adaptive": {
               "supported": true
             },
+            "between_tools": {
+              "supported": true
+            },
             "disabled": {
               "supported": true
             },

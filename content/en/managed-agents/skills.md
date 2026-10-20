@@ -487,9 +487,9 @@ To load skills from a repository, create a session that mounts it. This is the s
         type: "github_repository",
         url: "https://github.com/org/repo",
         mount_path: "/workspace/repo",
-        authorization_token: "ghp_your_github_token",
-      },
-    ],
+        authorization_token: "ghp_your_github_token"
+      }
+    ]
   });
   ```
 

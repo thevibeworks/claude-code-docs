@@ -87,9 +87,7 @@ The `inference_geo` parameter controls where model inference runs for a specific
     ]
   });
 
-  const textBlock = response.content.find(
-    (block): block is Anthropic.TextBlock => block.type === "text"
-  );
+  const textBlock = response.content.find((block) => block.type === "text");
   console.log(textBlock?.text);
   // Check where inference actually ran
   console.log(`Inference geo: ${response.usage.inference_geo}`);

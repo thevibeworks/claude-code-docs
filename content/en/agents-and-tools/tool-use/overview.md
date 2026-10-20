@@ -237,9 +237,7 @@ Here's that round trip in full for a client tool. The first request defines a `g
     tool_choice: { type: "auto", disable_parallel_tool_use: true },
     messages
   });
-  const toolUse = response.content.find(
-    (block): block is Anthropic.ToolUseBlock => block.type === "tool_use"
-  )!;
+  const toolUse = response.content.find((block) => block.type === "tool_use")!;
   console.log(`Claude called ${toolUse.name} with ${JSON.stringify(toolUse.input)}`);
 
   // Run the tool, then send the result back in a tool_result block.
@@ -260,9 +258,7 @@ Here's that round trip in full for a client tool. The first request defines a `g
   });
 
   // Claude uses the result to answer the original question.
-  const finalText = followup.content.find(
-    (block): block is Anthropic.TextBlock => block.type === "text"
-  )!;
+  const finalText = followup.content.find((block) => block.type === "text")!;
   console.log(finalText.text);
   ```
 

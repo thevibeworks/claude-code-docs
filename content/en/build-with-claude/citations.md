@@ -832,15 +832,15 @@ Plain text documents are automatically chunked into sentences. You can provide t
                 source: { type: "file", file_id: uploaded.id },
                 title: "Document Title",
                 context: "Context about the document that will not be cited from",
-                citations: { enabled: true },
+                citations: { enabled: true }
               },
               {
                 type: "text",
-                text: "Summarize this document.",
-              },
-            ],
-          },
-        ],
+                text: "Summarize this document."
+              }
+            ]
+          }
+        ]
       });
       console.log(citedResponse);
       ```
@@ -1651,15 +1651,15 @@ PDF documents can be provided as base64-encoded data, a URL, or by `file_id`. PD
                 source: { type: "file", file_id: uploaded.id },
                 title: "Document Title",
                 context: "Context about the document that will not be cited from",
-                citations: { enabled: true },
+                citations: { enabled: true }
               },
               {
                 type: "text",
-                text: "Summarize this document.",
-              },
-            ],
-          },
-        ],
+                text: "Summarize this document."
+              }
+            ]
+          }
+        ]
       });
       console.log(citedResponse);
       ```

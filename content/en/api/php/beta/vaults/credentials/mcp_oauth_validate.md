@@ -1,15 +1,15 @@
 ---
-title: Validate Credential
+title: Validate an MCP OAuth Credential
 url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/mcp_oauth_validate
 ---
 
-# Validate Credential
+# Validate an MCP OAuth Credential
 
 `$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredentialValidation`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
-Validate Credential
+Validate an MCP OAuth Credential
 
 ## Parameters
 
@@ -47,7 +47,7 @@ Validate Credential
 
   - `?ManagedAgentsMCPProbe mcpProbe`
 
-    Details of the failing MCP probe step. Null when the probe succeeded.
+    Details of the MCP probe step that failed, or `null` if the probe succeeded or there was no access token to test.
 
   - `?ManagedAgentsRefreshObject refresh`
 

@@ -73,7 +73,11 @@ Create Session
 
       Replacement model. Accepts the model string, e.g. `claude-opus-5-5`, or a `model_config` object. Omit to use the agent's model.
 
-      - `Union[Literal["claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5", 14 more], str]`
+      - `type BetaManagedAgentsModel = Union[Literal["claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5", 14 more], str]`
+
+        The model that will power your agent.
+
+        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
         - `"claude-haiku-5-5"`
 
@@ -154,76 +158,6 @@ Create Session
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `"claude-haiku-5-5"`
-
-            Fastest model for high-volume, real-time tasks
-
-          - `"claude-sonnet-5-5"`
-
-            Efficient model for coding and agents
-
-          - `"claude-opus-5-5"`
-
-            Powerful intelligence for coding, knowledge work, and long-running agents
-
-          - `"claude-fable-5-1"`
-
-            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-          - `"claude-sonnet-5"`
-
-            Efficient model for coding and agents
-
-          - `"claude-fable-5"`
-
-            Next generation of intelligence for the hardest knowledge work and coding problems
-
-          - `"claude-opus-5"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-8"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-7"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-6"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-sonnet-4-6"`
-
-            Best combination of speed and intelligence
-
-          - `"claude-haiku-4-5"`
-
-          - `"claude-haiku-4-5-20251001"`
-
-          - `"claude-opus-4-5"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-5-20251101"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-sonnet-4-5"`
-
-            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-            High-performance model for agents and coding
-
-          - `"claude-sonnet-4-5-20250929"`
-
-            **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-            High-performance model for agents and coding
-
-          - `str`
 
         - `effort: Optional[Effort]`
 
@@ -589,7 +523,9 @@ Create Session
 
                 Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
-                - `Literal["all", "none"]`
+                - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
+
+                  String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
                   - `"all"`
 
@@ -659,11 +595,9 @@ Create Session
 
                 Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
-                - `Literal["all", "none"]`
+                - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
 
-                  - `"all"`
-
-                  - `"none"`
+                  String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
                 - `type BetaManagedAgentsWebFetchURLSourceUserInput = ...`
 
@@ -6031,7 +5965,9 @@ Update Session
 
               Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
-              - `Literal["all", "none"]`
+              - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
+
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
                 - `"all"`
 
@@ -6101,11 +6037,9 @@ Update Session
 
               Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
-              - `Literal["all", "none"]`
+              - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
 
-                - `"all"`
-
-                - `"none"`
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
               - `type BetaManagedAgentsWebFetchURLSourceUserInput = ...`
 
@@ -9549,7 +9483,11 @@ print(beta_managed_agents_session.id)
 
     Replacement model. Accepts the model string, e.g. `claude-opus-5-5`, or a `model_config` object. Omit to use the agent's model.
 
-    - `Union[Literal["claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5", 14 more], str]`
+    - `type BetaManagedAgentsModel = Union[Literal["claude-haiku-5-5", "claude-sonnet-5-5", "claude-opus-5-5", 14 more], str]`
+
+      The model that will power your agent.
+
+      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
       - `"claude-haiku-5-5"`
 
@@ -9630,76 +9568,6 @@ print(beta_managed_agents_session.id)
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-        - `"claude-haiku-5-5"`
-
-          Fastest model for high-volume, real-time tasks
-
-        - `"claude-sonnet-5-5"`
-
-          Efficient model for coding and agents
-
-        - `"claude-opus-5-5"`
-
-          Powerful intelligence for coding, knowledge work, and long-running agents
-
-        - `"claude-fable-5-1"`
-
-          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
-
-        - `"claude-sonnet-5"`
-
-          Efficient model for coding and agents
-
-        - `"claude-fable-5"`
-
-          Next generation of intelligence for the hardest knowledge work and coding problems
-
-        - `"claude-opus-5"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-8"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-7"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-6"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-sonnet-4-6"`
-
-          Best combination of speed and intelligence
-
-        - `"claude-haiku-4-5"`
-
-        - `"claude-haiku-4-5-20251001"`
-
-        - `"claude-opus-4-5"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-5-20251101"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-sonnet-4-5"`
-
-          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-          High-performance model for agents and coding
-
-        - `"claude-sonnet-4-5-20250929"`
-
-          **Deprecated**: Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-
-          High-performance model for agents and coding
-
-        - `str`
 
       - `effort: Optional[Effort]`
 
@@ -10065,7 +9933,9 @@ print(beta_managed_agents_session.id)
 
               Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
-              - `Literal["all", "none"]`
+              - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
+
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
                 - `"all"`
 
@@ -10135,11 +10005,9 @@ print(beta_managed_agents_session.id)
 
               Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
-              - `Literal["all", "none"]`
+              - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
 
-                - `"all"`
-
-                - `"none"`
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
               - `type BetaManagedAgentsWebFetchURLSourceUserInput = ...`
 
@@ -13243,7 +13111,9 @@ print(beta_managed_agents_session.id)
 
               Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
-              - `Literal["all", "none"]`
+              - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
+
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
                 - `"all"`
 
@@ -13313,11 +13183,9 @@ print(beta_managed_agents_session.id)
 
               Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
-              - `Literal["all", "none"]`
+              - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
 
-                - `"all"`
-
-                - `"none"`
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
               - `type BetaManagedAgentsWebFetchURLSourceUserInput = ...`
 

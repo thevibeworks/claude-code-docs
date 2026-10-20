@@ -289,7 +289,9 @@ Update Session
 
               Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array.
 
-              - `Literal["all", "none"]`
+              - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
+
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
                 - `"all"`
 
@@ -359,11 +361,9 @@ Update Session
 
               Whether URLs in the text of user messages may be fetched: "all" (the default) or "none".
 
-              - `Literal["all", "none"]`
+              - `type BetaManagedAgentsWebFetchURLSourceShorthand = Literal["all", "none"]`
 
-                - `"all"`
-
-                - `"none"`
+                String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}.
 
               - `type BetaManagedAgentsWebFetchURLSourceUserInput = ...`
 

@@ -62,11 +62,9 @@ Upload a file to be referenced in future API calls:
 
   ```typescript TypeScript
   const uploaded = await client.files.upload({
-    file: await toFile(
-      fs.createReadStream("/path/to/document.pdf"),
-      undefined,
-      { type: "application/pdf" },
-    ),
+    file: await toFile(fs.createReadStream("/path/to/document.pdf"), undefined, {
+      type: "application/pdf"
+    })
   });
   console.log(uploaded.id);
   ```
@@ -243,18 +241,18 @@ Once uploaded, reference the file by passing the `id` from the upload response a
         content: [
           {
             type: "text",
-            text: "Please summarize this document for me.",
+            text: "Please summarize this document for me."
           },
           {
             type: "document",
             source: {
               type: "file",
-              file_id: uploaded.id,
-            },
-          },
-        ],
-      },
-    ],
+              file_id: uploaded.id
+            }
+          }
+        ]
+      }
+    ]
   });
 
   console.log(response);
@@ -531,9 +529,7 @@ The following examples read a text file and send its contents as plain text:
     ]
   });
 
-  const textBlock = response.content.find(
-    (block): block is Anthropic.TextBlock => block.type === "text"
-  );
+  const textBlock = response.content.find((block) => block.type === "text");
   console.log(textBlock?.text);
   ```
 
@@ -906,7 +902,6 @@ Download files that were created by [skills](https://platform.claude.com/docs/en
   	_, err = io.Copy(out, resp.Body)
   	return err
   }
-
   ```
 
   ```java Java

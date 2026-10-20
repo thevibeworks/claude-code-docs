@@ -17,7 +17,7 @@ List Vaults
 
   - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
-    Whether to include archived vaults in the results.
+    Whether to include archived vaults in the results. Defaults to `false`.
 
   - `Limit param.Opt[int64] Optional` (query parameter)
 
@@ -27,7 +27,7 @@ List Vaults
 
   - `Page param.Opt[string] Optional` (query parameter)
 
-    Opaque pagination token from a previous `list_vaults` response.
+    The `next_page` value from a previous [List Vaults](https://platform.claude.com/docs/en/api/beta/vaults/list?sdk_languages=go) response, to get the next page. Leave it out to get the first page.
 
   - `Betas []AnthropicBeta Optional` (header parameter)
 
@@ -151,7 +151,7 @@ List Vaults
 
   - `ID string`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `ArchivedAt Time`
 

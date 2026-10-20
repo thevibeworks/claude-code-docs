@@ -1,15 +1,15 @@
 ---
-title: Archive Vault
+title: Archive a Vault
 url: https://platform.claude.com/docs/en/api/java/beta/vaults/archive
 ---
 
-# Archive Vault
+# Archive a Vault
 
 `BetaManagedAgentsVault beta().vaults().archive(params = VaultArchiveParams.none(), requestOptions = RequestOptions.none())`
 
 **POST** `/v1/vaults/{vault_id}/archive`
 
-Archive Vault
+Archive a Vault
 
 ## Parameters
 
@@ -141,7 +141,7 @@ Archive Vault
 
   - `String id`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `Optional<LocalDateTime> archivedAt`
 

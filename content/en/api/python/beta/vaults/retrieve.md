@@ -1,15 +1,15 @@
 ---
-title: Get Vault
+title: Retrieve a Vault
 url: https://platform.claude.com/docs/en/api/python/beta/vaults/retrieve
 ---
 
-# Get Vault
+# Retrieve a Vault
 
 `beta.vaults.retrieve(vault_id, **kwargs)  -> BetaManagedAgentsVault`
 
 **GET** `/v1/vaults/{vault_id}`
 
-Get Vault
+Retrieve a Vault
 
 ## Parameters
 
@@ -141,7 +141,7 @@ Get Vault
 
   - `id: str`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `archived_at: Optional[datetime]`
 

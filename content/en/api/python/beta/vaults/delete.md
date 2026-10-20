@@ -1,15 +1,15 @@
 ---
-title: Delete Vault
+title: Delete a Vault
 url: https://platform.claude.com/docs/en/api/python/beta/vaults/delete
 ---
 
-# Delete Vault
+# Delete a Vault
 
 `beta.vaults.delete(vault_id, **kwargs)  -> BetaManagedAgentsDeletedVault`
 
 **DELETE** `/v1/vaults/{vault_id}`
 
-Delete Vault
+Delete a Vault
 
 ## Parameters
 
@@ -141,7 +141,7 @@ Delete Vault
 
   - `id: str`
 
-    Unique identifier of the deleted vault.
+    The unique ID of the deleted vault (`vlt_...`).
 
 ## Example
 

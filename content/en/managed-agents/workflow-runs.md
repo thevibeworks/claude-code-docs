@@ -254,9 +254,14 @@ This sample follows a session from your message to the agent's answer. It opens 
     events: [
       {
         type: "user.message",
-        content: [{ type: "text", text: "Which contracts in /contracts have a change-of-control clause?" }],
-      },
-    ],
+        content: [
+          {
+            type: "text",
+            text: "Which contracts in /contracts have a change-of-control clause?"
+          }
+        ]
+      }
+    ]
   });
 
   events: for await (const event of stream) {
@@ -290,9 +295,9 @@ This sample follows a session from your message to the agent's answer. It opens 
               {
                 type: "user.custom_tool_result",
                 custom_tool_use_id: event.id,
-                content: [{ type: "text", text: result }],
-              },
-            ],
+                content: [{ type: "text", text: result }]
+              }
+            ]
           });
         } catch (error) {
           // The server refuses a result that comes too late, after it
@@ -439,7 +444,7 @@ This sample follows a session from your message to the agent's answer. It opens 
   ```
 
   ```go Go
-  	openRuns := map[string]string{}   // workflow_run_id -> run name
+  	openRuns := map[string]string{}      // workflow_run_id -> run name
   	phaseNames := map[[2]string]string{} // {run ID, phase ID} -> phase name
 
   	// Open the stream first, then send the user message

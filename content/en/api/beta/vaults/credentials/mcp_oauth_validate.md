@@ -1,13 +1,13 @@
 ---
-title: Validate Credential
+title: Validate an MCP OAuth Credential
 url: https://platform.claude.com/docs/en/api/beta/vaults/credentials/mcp_oauth_validate
 ---
 
-# Validate Credential
+# Validate an MCP OAuth Credential
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
-Validate Credential
+Validate an MCP OAuth Credential
 
 ## Path parameters
 
@@ -159,11 +159,11 @@ Validate Credential
 
   - `mcp_probe: BetaManagedAgentsMCPProbe or null`
 
-    Details of the failing MCP probe step. Null when the probe succeeded.
+    Details of the MCP probe step that failed, or `null` if the probe succeeded or there was no access token to test.
 
     - `http_response: BetaManagedAgentsRefreshHTTPResponse or null`
 
-      The captured HTTP error response. Null when no HTTP response was received (timeout, DNS, TLS).
+      The HTTP error response from the MCP server, or `null` if the MCP server didn't return one for the failing step, for example after a timeout or a DNS or TLS failure.
 
       - `body: string`
 
@@ -225,11 +225,11 @@ Validate Credential
 
     - `"invalid"`
 
-      The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+      The probe reached the MCP server and the server rejected the credential, or no access token is stored. A refresh, if one was tried, didn't recover it. Usually the end user needs to authorize again.
 
     - `"unknown"`
 
-      The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
+      The probe couldn't tell whether the credential works, for example because of a network error or because a refresh succeeded but the new access token wasn't tested. Validate the credential again to find out.
 
   - `validated_at: string`
 

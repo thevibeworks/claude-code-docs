@@ -105,9 +105,7 @@ Set `output_config.effort` on the request. The following example runs one reques
     }
   });
 
-  const textBlock = response.content.find(
-    (block): block is Anthropic.TextBlock => block.type === "text"
-  );
+  const textBlock = response.content.find((block) => block.type === "text");
   console.log(textBlock?.text);
   ```
 
