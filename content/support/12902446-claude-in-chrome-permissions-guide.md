@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792476000&amp;signature=092ec70b08971713278faecf54b250a4cddebaab1051ac7097fbd8119ec91abf&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBJ%2B4S3gN0ADj5oqFC8WUkdBUfUVAs%2BMpds%0ATe6ONvhrUvCCfQC5pZA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1792494000&amp;signature=aae99abf336dd12d666f36f1f418eafccdf182566d8da05e7b4109305d475903&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMBJ9Ya3gN0ADj5oqFD6Z6fCadUWmEJIEcpk%0APE5RPp1a%2Fc%2FMTePM6Qc%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792476000&amp;signature=8f0d9770dd799420ed3ab4f351ed23e2bd4c38d0f18d8a6fe468ace44c80a9ed&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2R0jyrs7A4lHPBihAVVlYNlf9e1GIw1CYZW%0A5uD6c6f5Z4AlyZjX74M%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1792494000&amp;signature=017e6139cc4cddf2652f59749120ecd496d5a9eec6e13d2a52bfffbd54d2296e&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2R0gSjs7A4lHPBihAVuHN5yBidcAMpjJ2dN%0AaASj95n3BvKbarZPONk%3D%0A)
 
 ### Permission options
 
