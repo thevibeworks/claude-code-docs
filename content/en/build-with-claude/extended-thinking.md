@@ -98,14 +98,14 @@ Here is an example of using extended thinking in the Messages API:
     max_tokens: 16000,
     thinking: {
       type: "enabled",
-      budget_tokens: 10000,
+      budget_tokens: 10000
     },
     messages: [
       {
         role: "user",
-        content: "Are there an infinite number of prime numbers such that n mod 4 == 3?",
-      },
-    ],
+        content: "Are there an infinite number of prime numbers such that n mod 4 == 3?"
+      }
+    ]
   });
 
   // The response contains summarized thinking blocks and text blocks

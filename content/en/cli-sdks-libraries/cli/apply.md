@@ -107,7 +107,7 @@ You can declaratively define the other resources as files as well. A file holds 
 
 Any resource except a skill can be written as YAML, JSON, or Markdown. In Markdown, the frontmatter is the body and the prose fills the kind's text field: an agent's `system`, an environment's or memory store's `description`, a deployment's first message. A vault has no text field, so `ant apply` refuses a vault Markdown file that has prose.
 
-Resources refer to each other by path. Wherever the API expects another resource's ID, write the relative path to that resource's file instead. In this project, the reviewer agent lists `../skills/pr-summary` under `skills`, the lead agent lists `./reviewer.md` in its roster, and the deployment names its agent, environment, and memory store by path. `ant apply` creates them in dependency order and fills in the real IDs. The project has six files:
+Resources refer to each other by path. Wherever the API expects another resource's ID, write the relative path to that resource's file instead. In this project, the reviewer agent lists `../skills/pr-summary` under `skills`, the agent in `agents/lead.md` lists `./reviewer.md` under `multiagent.subagents.predefined_agents`, and the deployment names its agent, environment, and memory store by path. `ant apply` creates them in dependency order and fills in the real IDs. A path under `multiagent.subagents.predefined_agents` or `multiagent.workflows.predefined_agents` needs CLI version 1.40.0 or later. The project has six files:
 
 <FileExplorer>
   <File filename="agents/reviewer.md">
@@ -131,9 +131,11 @@ Resources refer to each other by path. Wherever the API expects another resource
     name: Engineering lead
     model: claude-opus-5-5
     multiagent:
-      type: coordinator
-      agents:
-        - ./reviewer.md
+      type: multiagent_20261001
+      subagents:
+        type: enabled
+        predefined_agents:
+          - ./reviewer.md
     ---
 
     You coordinate engineering work. Delegate code review to the reviewer.

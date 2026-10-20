@@ -88,7 +88,7 @@ The examples use curl, the `ant` CLI, or one of the SDKs. If you haven't set one
     name: "Coding Assistant",
     model: "claude-opus-5-5",
     system: "You are a helpful coding agent.",
-    tools: [{ type: "agent_toolset_20260401" }],
+    tools: [{ type: "agent_toolset_20260401" }]
   });
   ```
 
@@ -263,7 +263,7 @@ The following example pins an agent to US inference. The response carries the `i
   const agent = await client.beta.agents.create({
     name: "Geo-pinned assistant",
     model: { id: "claude-opus-5-5", inference_geo: "us" },
-    system: "You are a helpful assistant.",
+    system: "You are a helpful assistant."
   });
 
   console.log(`Inference geo: ${agent.model.inference_geo}`);
@@ -396,7 +396,7 @@ With the CLI, edit the agent's file and run `ant apply` again; apply supplies `v
   ```typescript TypeScript
   const updatedAgent = await client.beta.agents.update(agent.id, {
     version: agent.version,
-    system: "You are a helpful coding agent. Always write tests.",
+    system: "You are a helpful coding agent. Always write tests."
   });
 
   console.log(`New version: ${updatedAgent.version}`);
@@ -488,7 +488,7 @@ The preceding example supplies `version` from the create response, so the update
 
   ```typescript TypeScript
   const unconditionalAgent = await client.beta.agents.update(agent.id, {
-    description: "Writes and reviews code.",
+    description: "Writes and reviews code."
   });
 
   console.log(`New version: ${unconditionalAgent.version}`);
@@ -619,7 +619,7 @@ The following update clears the description, deletes the `team` key from `metada
   const clearedAgent = await client.beta.agents.update(agent.id, {
     description: null,
     metadata: { team: null },
-    multiagent: { type: "multiagent_20261001", workflows: null },
+    multiagent: { type: "multiagent_20261001", workflows: null }
   });
 
   console.log(`Description: ${clearedAgent.description}`);

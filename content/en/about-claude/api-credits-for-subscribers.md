@@ -52,7 +52,7 @@ You need both of the following roles:
 | **Claude plan**                 | Max: the subscriber<br />Team: Primary Owner, Owner |
 | **Claude Console organization** | Owner, Admin, or Billing                            |
 
-If you don't have a Console organization, create one at [platform.claude.com](https://platform.claude.com/) first, or create one during the claim flow.
+If you don't have a Claude Console organization, create one in the Console at [platform.claude.com](https://platform.claude.com/) first, or create one during the claim flow.
 
 ### Steps
 
@@ -85,7 +85,7 @@ These API credits can only be used on the Claude Platform. The following table s
 | [Claude API](https://platform.claude.com/docs/en/api/overview)                       | Yes     |
 | [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) | Yes     |
 | [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview)               | Yes     |
-| [Playground](https://platform.claude.com/playground)                                 | Yes     |
+| [Playground](https://platform.claude.com/playground) in the Claude Console           | Yes     |
 | Claude Code                                                                          | No      |
 | Extra usage in the Claude apps                                                       | No      |
 | Claude Platform on AWS, Bedrock, Google Cloud, Microsoft Foundry                     | No      |

@@ -112,7 +112,7 @@ Pass the rubric as inline text on `user.define_outcome` (see [Create a session w
   await writeFile("/tmp/rubric.md", RUBRIC);
 
   const rubric = await client.files.upload({
-    file: await toFile(readFile("/tmp/rubric.md"), "/tmp/rubric.md"),
+    file: await toFile(readFile("/tmp/rubric.md"), "/tmp/rubric.md")
   });
   console.log(`Uploaded rubric: ${rubric.id}`);
   ```
@@ -367,7 +367,7 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
   const session = await client.beta.sessions.create({
     agent: agent.id,
     environment_id: environment.id,
-    title: "Financial analysis on Costco",
+    title: "Financial analysis on Costco"
   });
 
   // Define the outcome — agent starts working on receipt
@@ -378,9 +378,9 @@ The following examples create a [session](https://platform.claude.com/docs/en/ma
         description: "Build a DCF model for Costco in .xlsx",
         rubric: { type: "text", content: RUBRIC },
         // or: rubric: { type: "file", file_id: rubric.id },
-        max_iterations: 5, // optional; default 3, max 20
-      },
-    ],
+        max_iterations: 5 // optional; default 3, max 20
+      }
+    ]
   });
   ```
 
@@ -746,7 +746,7 @@ The agent writes output files to `/mnt/session/outputs/` inside the sandbox. To 
   // scope_id filtering requires the managed-agents beta on the files request
   const files = await client.beta.files.list({
     scope_id: session.id,
-    betas: ["managed-agents-2026-04-01"],
+    betas: ["managed-agents-2026-04-01"]
   });
   for (const file of files.data) {
     console.log(file.id, file.filename);

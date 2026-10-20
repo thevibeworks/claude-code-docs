@@ -178,15 +178,15 @@ The following loop shows this placement. Each assistant turn goes back exactly a
   name = "demo"
   version = "0.1.0"
   description = "Demo project for the batching example"
-  `,
+  `
     ],
     [
       "README.md",
       `# demo
 
   A small demo project. Run \`demo --help\` for usage.
-  `,
-    ],
+  `
+    ]
   ]);
   const tools: Anthropic.Beta.Messages.BetaTool[] = [
     {
@@ -195,12 +195,12 @@ The following loop shows this placement. Each assistant turn goes back exactly a
       input_schema: {
         type: "object",
         properties: { path: { type: "string" } },
-        required: ["path"],
-      },
-    },
+        required: ["path"]
+      }
+    }
   ];
   const messages: Anthropic.Beta.Messages.BetaMessageParam[] = [
-    { role: "user", content: "Summarize pyproject.toml and README.md." },
+    { role: "user", content: "Summarize pyproject.toml and README.md." }
   ];
 
   let response: Anthropic.Beta.Messages.BetaMessage;
@@ -210,7 +210,7 @@ The following loop shows this placement. Each assistant turn goes back exactly a
       max_tokens: 16000,
       betas: ["mid-conversation-system-clear-at-2026-08-21"],
       tools,
-      messages,
+      messages
     });
     // Append the assistant turn exactly as returned, thinking blocks included.
     messages.push({ role: "assistant", content: response.content });
@@ -236,14 +236,14 @@ The following loop shows this placement. Each assistant turn goes back exactly a
           type: "tool_result",
           tool_use_id: block.id,
           content: `File not found: ${path}`,
-          is_error: true,
+          is_error: true
         });
         continue;
       }
       toolResults.push({
         type: "tool_result",
         tool_use_id: block.id,
-        content: text,
+        content: text
       });
     }
     // Send the tool results as the user turn, then a fresh copy of the nudge as a
@@ -253,7 +253,7 @@ The following loop shows this placement. Each assistant turn goes back exactly a
     messages.push({
       role: "system",
       content: BATCH_NUDGE,
-      clear_at: "next_user_message",
+      clear_at: "next_user_message"
     });
   }
 

@@ -1293,9 +1293,7 @@ Fire a pre-warm request when your application starts (or on a scheduled interval
 
   // Later, when the user submits a message, the system-prompt prefix is already cached.
   const response = await respond("How do I implement a binary search tree?");
-  const textBlock = response.content.find(
-    (block): block is Anthropic.TextBlock => block.type === "text"
-  );
+  const textBlock = response.content.find((block) => block.type === "text");
   console.log(textBlock?.text);
   ```
 

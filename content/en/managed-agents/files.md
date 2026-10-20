@@ -36,7 +36,7 @@ First, upload a file using the [Files API](https://platform.claude.com/docs/en/b
 
   ```typescript TypeScript
   const file = await client.files.upload({
-    file: await toFile(readFile("data.csv"), "data.csv", { type: "text/csv" }),
+    file: await toFile(readFile("data.csv"), "data.csv", { type: "text/csv" })
   });
   console.log(`File ID: ${file.id}`);
   ```
@@ -144,9 +144,9 @@ Mount uploaded files into the sandbox by adding them to the `resources` (csharp,
       {
         type: "file",
         file_id: file.id,
-        mount_path: "/data.csv",
-      },
-    ],
+        mount_path: "/data.csv"
+      }
+    ]
   });
   ```
 
@@ -390,7 +390,7 @@ You can add or remove files from a session after creation using the session reso
   ```typescript TypeScript
   const resource = await client.beta.sessions.resources.add(session.id, {
     type: "file",
-    file_id: file.id,
+    file_id: file.id
   });
   if (resource.type !== "file") {
     throw new Error(`Unexpected resource type: ${resource.type}`);
@@ -494,7 +494,7 @@ List all resources on a session with `GET /v1/sessions/{session_id}/resources` (
   }
 
   await client.beta.sessions.resources.delete(resource.id, {
-    session_id: session.id,
+    session_id: session.id
   });
   ```
 

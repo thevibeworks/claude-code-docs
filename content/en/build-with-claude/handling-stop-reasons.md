@@ -97,9 +97,7 @@ The most common stop reason. Indicates Claude finished its response naturally.
 
   if (response.stop_reason === "end_turn") {
     // Process the complete response
-    const textBlock = response.content.find(
-      (block): block is Anthropic.TextBlock => block.type === "text"
-    );
+    const textBlock = response.content.find((block) => block.type === "text");
     console.log(textBlock?.text);
   }
   ```
@@ -2103,9 +2101,7 @@ Make it a habit to check the `stop_reason` in your response handling logic:
         return handleRefusal(response);
       default: {
         // Handle end_turn and other cases
-        const textBlock = response.content.find(
-          (block): block is Anthropic.Beta.BetaTextBlock => block.type === "text"
-        );
+        const textBlock = response.content.find((block) => block.type === "text");
         return textBlock?.text ?? "";
       }
     }
@@ -2226,9 +2222,7 @@ When a response is truncated because of token limits or the context window, appe
 
   ```typescript TypeScript
   function handleTruncatedResponse(response: Anthropic.Beta.BetaMessage): string {
-    const textBlock = response.content.find(
-      (block): block is Anthropic.Beta.BetaTextBlock => block.type === "text"
-    );
+    const textBlock = response.content.find((block) => block.type === "text");
     const text = textBlock?.text ?? "";
 
     if (
@@ -3244,9 +3238,7 @@ When using streaming, `stop_reason` is:
         messages
       });
 
-      const textBlock = response.content.find(
-        (block): block is Anthropic.TextBlock => block.type === "text"
-      );
+      const textBlock = response.content.find((block) => block.type === "text");
       fullResponse += textBlock?.text ?? "";
 
       if (response.stop_reason !== "max_tokens") {
@@ -3502,9 +3494,7 @@ With the `model_context_window_exceeded` stop reason, you can request the maximu
         console.log(`Generated ${tokens} tokens (natural completion)`);
     }
 
-    const textBlock = response.content.find(
-      (block): block is Anthropic.Beta.BetaTextBlock => block.type === "text"
-    );
+    const textBlock = response.content.find((block) => block.type === "text");
     return textBlock?.text ?? "";
   }
   ```

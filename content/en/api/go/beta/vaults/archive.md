@@ -1,15 +1,15 @@
 ---
-title: Archive Vault
+title: Archive a Vault
 url: https://platform.claude.com/docs/en/api/go/beta/vaults/archive
 ---
 
-# Archive Vault
+# Archive a Vault
 
 `client.Beta.Vaults.Archive(ctx, vaultID, body) (*BetaManagedAgentsVault, error)`
 
 **POST** `/v1/vaults/{vault_id}/archive`
 
-Archive Vault
+Archive a Vault
 
 ## Parameters
 
@@ -141,7 +141,7 @@ Archive Vault
 
   - `ID string`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `ArchivedAt Time`
 

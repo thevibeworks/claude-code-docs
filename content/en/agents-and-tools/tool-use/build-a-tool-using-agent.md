@@ -146,8 +146,7 @@ The request sends a `tools` array alongside the user message. When Claude determ
   const tools: Anthropic.Tool[] = [
     {
       name: "create_calendar_event",
-      description:
-        "Create a calendar event with attendees and optional recurrence.",
+      description: "Create a calendar event with attendees and optional recurrence.",
       input_schema: {
         type: "object",
         properties: {
@@ -156,19 +155,19 @@ The request sends a `tools` array alongside the user message. When Claude determ
           end: { type: "string", format: "date-time" },
           attendees: {
             type: "array",
-            items: { type: "string", format: "email" },
+            items: { type: "string", format: "email" }
           },
           recurrence: {
             type: "object",
             properties: {
               frequency: { enum: ["daily", "weekly", "monthly"] },
-              count: { type: "integer", minimum: 1 },
-            },
-          },
+              count: { type: "integer", minimum: 1 }
+            }
+          }
         },
-        required: ["title", "start", "end"],
-      },
-    },
+        required: ["title", "start", "end"]
+      }
+    }
   ];
 
   // Send the user's request along with the tool definition. Claude decides
@@ -182,9 +181,9 @@ The request sends a `tools` array alongside the user message. When Claude determ
       {
         role: "user",
         content:
-          "Schedule a 30-minute sync with alice@example.com and bob@example.com on Monday, March 30, 2026 at 10am.",
-      },
-    ],
+          "Schedule a 30-minute sync with alice@example.com and bob@example.com on Monday, March 30, 2026 at 10am."
+      }
+    ]
   });
 
   // When Claude calls a tool, the response has stop_reason "tool_use"
@@ -193,9 +192,7 @@ The request sends a `tools` array alongside the user message. When Claude determ
 
   // Find the tool_use block. A response may contain text blocks before the
   // tool_use block, so scan the content array rather than assuming position.
-  const toolUse = response.content.find(
-    (block): block is Anthropic.ToolUseBlock => block.type === "tool_use",
-  )!;
+  const toolUse = response.content.find((block) => block.type === "tool_use")!;
   console.log(`Tool: ${toolUse.name}`);
   console.log(`Input: ${JSON.stringify(toolUse.input)}`);
 
@@ -215,7 +212,7 @@ The request sends a `tools` array alongside the user message. When Claude determ
       {
         role: "user",
         content:
-          "Schedule a 30-minute sync with alice@example.com and bob@example.com on Monday, March 30, 2026 at 10am.",
+          "Schedule a 30-minute sync with alice@example.com and bob@example.com on Monday, March 30, 2026 at 10am."
       },
       { role: "assistant", content: response.content },
       {
@@ -224,11 +221,11 @@ The request sends a `tools` array alongside the user message. When Claude determ
           {
             type: "tool_result",
             tool_use_id: toolUse.id,
-            content: JSON.stringify(result),
-          },
-        ],
-      },
-    ],
+            content: JSON.stringify(result)
+          }
+        ]
+      }
+    ]
   });
 
   // With the tool result in hand, Claude produces a final natural-language
@@ -893,7 +890,11 @@ The other change is conversation history. Instead of rebuilding the `messages` a
 
   def run_tool(name, tool_input):
       if name == "create_calendar_event":
-          return {"event_id": "evt_123", "status": "created", "title": tool_input["title"]}
+          return {
+              "event_id": "evt_123",
+              "status": "created",
+              "title": tool_input["title"],
+          }
       return {"error": f"Unknown tool: {name}"}
 
 
@@ -955,8 +956,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
   const tools: Anthropic.Tool[] = [
     {
       name: "create_calendar_event",
-      description:
-        "Create a calendar event with attendees and optional recurrence.",
+      description: "Create a calendar event with attendees and optional recurrence.",
       input_schema: {
         type: "object",
         properties: {
@@ -965,19 +965,19 @@ The other change is conversation history. Instead of rebuilding the `messages` a
           end: { type: "string", format: "date-time" },
           attendees: {
             type: "array",
-            items: { type: "string", format: "email" },
+            items: { type: "string", format: "email" }
           },
           recurrence: {
             type: "object",
             properties: {
               frequency: { enum: ["daily", "weekly", "monthly"] },
-              count: { type: "integer", minimum: 1 },
-            },
-          },
+              count: { type: "integer", minimum: 1 }
+            }
+          }
         },
-        required: ["title", "start", "end"],
-      },
-    },
+        required: ["title", "start", "end"]
+      }
+    }
   ];
 
   function runTool(name: string, input: Record<string, unknown>) {
@@ -992,8 +992,8 @@ The other change is conversation history. Instead of rebuilding the `messages` a
     {
       role: "user",
       content:
-        "Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com.",
-    },
+        "Schedule a weekly team standup every Monday at 9am for the next 4 weeks, starting Monday, March 30, 2026. Invite the whole team: alice@example.com, bob@example.com, carol@example.com."
+    }
   ];
 
   let response = await client.messages.create({
@@ -1001,15 +1001,13 @@ The other change is conversation history. Instead of rebuilding the `messages` a
     max_tokens: 1024,
     tools,
     tool_choice: { type: "auto", disable_parallel_tool_use: true },
-    messages,
+    messages
   });
 
   // Loop until Claude stops asking for tools. Each iteration runs the requested
   // tool, appends the result to history, and asks Claude to continue.
   while (response.stop_reason === "tool_use") {
-    const toolUse = response.content.find(
-      (block): block is Anthropic.ToolUseBlock => block.type === "tool_use",
-    )!;
+    const toolUse = response.content.find((block) => block.type === "tool_use")!;
     const result = runTool(toolUse.name, toolUse.input as Record<string, unknown>);
 
     messages.push({ role: "assistant", content: response.content });
@@ -1019,9 +1017,9 @@ The other change is conversation history. Instead of rebuilding the `messages` a
         {
           type: "tool_result",
           tool_use_id: toolUse.id,
-          content: JSON.stringify(result),
-        },
-      ],
+          content: JSON.stringify(result)
+        }
+      ]
     });
 
     response = await client.messages.create({
@@ -1029,7 +1027,7 @@ The other change is conversation history. Instead of rebuilding the `messages` a
       max_tokens: 1024,
       tools,
       tool_choice: { type: "auto", disable_parallel_tool_use: true },
-      messages,
+      messages
     });
   }
 
@@ -1674,9 +1672,15 @@ When Claude has multiple independent tool calls to make, it might return several
 
   def run_tool(name, tool_input):
       if name == "create_calendar_event":
-          return {"event_id": "evt_123", "status": "created", "title": tool_input["title"]}
+          return {
+              "event_id": "evt_123",
+              "status": "created",
+              "title": tool_input["title"],
+          }
       if name == "list_calendar_events":
-          return {"events": [{"title": "Existing meeting", "start": "14:00", "end": "15:00"}]}
+          return {
+              "events": [{"title": "Existing meeting", "start": "14:00", "end": "15:00"}]
+          }
       return {"error": f"Unknown tool: {name}"}
 
 
@@ -1733,8 +1737,7 @@ When Claude has multiple independent tool calls to make, it might return several
   const tools: Anthropic.Tool[] = [
     {
       name: "create_calendar_event",
-      description:
-        "Create a calendar event with attendees and optional recurrence.",
+      description: "Create a calendar event with attendees and optional recurrence.",
       input_schema: {
         type: "object",
         properties: {
@@ -1743,18 +1746,18 @@ When Claude has multiple independent tool calls to make, it might return several
           end: { type: "string", format: "date-time" },
           attendees: {
             type: "array",
-            items: { type: "string", format: "email" },
+            items: { type: "string", format: "email" }
           },
           recurrence: {
             type: "object",
             properties: {
               frequency: { enum: ["daily", "weekly", "monthly"] },
-              count: { type: "integer", minimum: 1 },
-            },
-          },
+              count: { type: "integer", minimum: 1 }
+            }
+          }
         },
-        required: ["title", "start", "end"],
-      },
+        required: ["title", "start", "end"]
+      }
     },
     {
       name: "list_calendar_events",
@@ -1762,11 +1765,11 @@ When Claude has multiple independent tool calls to make, it might return several
       input_schema: {
         type: "object",
         properties: {
-          date: { type: "string", format: "date" },
+          date: { type: "string", format: "date" }
         },
-        required: ["date"],
-      },
-    },
+        required: ["date"]
+      }
+    }
   ];
 
   function runTool(name: string, input: Record<string, unknown>) {
@@ -1775,7 +1778,7 @@ When Claude has multiple independent tool calls to make, it might return several
     }
     if (name === "list_calendar_events") {
       return {
-        events: [{ title: "Existing meeting", start: "14:00", end: "15:00" }],
+        events: [{ title: "Existing meeting", start: "14:00", end: "15:00" }]
       };
     }
     return { error: `Unknown tool: ${name}` };
@@ -1785,15 +1788,15 @@ When Claude has multiple independent tool calls to make, it might return several
     {
       role: "user",
       content:
-        "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
-    },
+        "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts."
+    }
   ];
 
   let response = await client.messages.create({
     model: "claude-opus-5-5",
     max_tokens: 1024,
     tools,
-    messages,
+    messages
   });
 
   while (response.stop_reason === "tool_use") {
@@ -1806,7 +1809,7 @@ When Claude has multiple independent tool calls to make, it might return several
         toolResults.push({
           type: "tool_result",
           tool_use_id: block.id,
-          content: JSON.stringify(result),
+          content: JSON.stringify(result)
         });
       }
     }
@@ -1818,7 +1821,7 @@ When Claude has multiple independent tool calls to make, it might return several
       model: "claude-opus-5-5",
       max_tokens: 1024,
       tools,
-      messages,
+      messages
     });
   }
 
@@ -2488,16 +2491,23 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
       if name == "create_calendar_event":
           if "attendees" in tool_input and len(tool_input["attendees"]) > 10:
               raise ValueError("Too many attendees (max 10)")
-          return {"event_id": "evt_123", "status": "created", "title": tool_input["title"]}
+          return {
+              "event_id": "evt_123",
+              "status": "created",
+              "title": tool_input["title"],
+          }
       if name == "list_calendar_events":
-          return {"events": [{"title": "Existing meeting", "start": "14:00", "end": "15:00"}]}
+          return {
+              "events": [{"title": "Existing meeting", "start": "14:00", "end": "15:00"}]
+          }
       raise ValueError(f"Unknown tool: {name}")
 
 
   messages = [
       {
           "role": "user",
-          "content": "Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: " + ", ".join(f"user{i}@example.com" for i in range(15)),
+          "content": "Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: "
+          + ", ".join(f"user{i}@example.com" for i in range(15)),
       }
   ]
 
@@ -2515,7 +2525,11 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
               try:
                   result = run_tool(block.name, block.input)
                   tool_results.append(
-                      {"type": "tool_result", "tool_use_id": block.id, "content": json.dumps(result)}
+                      {
+                          "type": "tool_result",
+                          "tool_use_id": block.id,
+                          "content": json.dumps(result),
+                      }
                   )
               except Exception as exc:
                   # Signal failure so Claude can retry or ask for clarification.
@@ -2552,8 +2566,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
   const tools: Anthropic.Tool[] = [
     {
       name: "create_calendar_event",
-      description:
-        "Create a calendar event with attendees and optional recurrence.",
+      description: "Create a calendar event with attendees and optional recurrence.",
       input_schema: {
         type: "object",
         properties: {
@@ -2562,18 +2575,18 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
           end: { type: "string", format: "date-time" },
           attendees: {
             type: "array",
-            items: { type: "string", format: "email" },
+            items: { type: "string", format: "email" }
           },
           recurrence: {
             type: "object",
             properties: {
               frequency: { enum: ["daily", "weekly", "monthly"] },
-              count: { type: "integer", minimum: 1 },
-            },
-          },
+              count: { type: "integer", minimum: 1 }
+            }
+          }
         },
-        required: ["title", "start", "end"],
-      },
+        required: ["title", "start", "end"]
+      }
     },
     {
       name: "list_calendar_events",
@@ -2581,11 +2594,11 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
       input_schema: {
         type: "object",
         properties: {
-          date: { type: "string", format: "date" },
+          date: { type: "string", format: "date" }
         },
-        required: ["date"],
-      },
-    },
+        required: ["date"]
+      }
+    }
   ];
 
   function runTool(name: string, input: Record<string, unknown>) {
@@ -2598,25 +2611,25 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
     }
     if (name === "list_calendar_events") {
       return {
-        events: [{ title: "Existing meeting", start: "14:00", end: "15:00" }],
+        events: [{ title: "Existing meeting", start: "14:00", end: "15:00" }]
       };
     }
     throw new Error(`Unknown tool: ${name}`);
   }
 
-  const emails = Array.from({ length: 15 }, (_, i) => `user${i}@example.com`);
+  const emails = Array.from({ length: 15 }, (_, i) => `user${i}@example.com`).join(", ");
   const messages: Anthropic.MessageParam[] = [
     {
       role: "user",
-      content: `Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: ${emails.join(", ")}`,
-    },
+      content: `Schedule a one-hour all-hands on Monday, March 30, 2026 at 10am with everyone: ${emails}`
+    }
   ];
 
   let response = await client.messages.create({
     model: "claude-opus-5-5",
     max_tokens: 1024,
     tools,
-    messages,
+    messages
   });
 
   while (response.stop_reason === "tool_use") {
@@ -2628,7 +2641,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
           toolResults.push({
             type: "tool_result",
             tool_use_id: block.id,
-            content: JSON.stringify(result),
+            content: JSON.stringify(result)
           });
         } catch (err) {
           // Signal failure so Claude can retry or ask for clarification.
@@ -2636,7 +2649,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
             type: "tool_result",
             tool_use_id: block.id,
             content: String(err),
-            is_error: true,
+            is_error: true
           });
         }
       }
@@ -2649,7 +2662,7 @@ Tools fail. A calendar API might reject an event with too many attendees, or a d
       model: "claude-opus-5-5",
       max_tokens: 1024,
       tools,
-      messages,
+      messages
     });
   }
 
@@ -3374,7 +3387,9 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
       Args:
           date: Date in YYYY-MM-DD format.
       """
-      return json.dumps({"events": [{"title": "Existing meeting", "start": "14:00", "end": "15:00"}]})
+      return json.dumps(
+          {"events": [{"title": "Existing meeting", "start": "14:00", "end": "15:00"}]}
+      )
 
 
   final_message = client.beta.messages.tool_runner(
@@ -3405,8 +3420,7 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
 
   const createCalendarEvent = betaZodTool({
     name: "create_calendar_event",
-    description:
-      "Create a calendar event with attendees and optional recurrence.",
+    description: "Create a calendar event with attendees and optional recurrence.",
     inputSchema: z.object({
       title: z.string(),
       start: z.string().datetime(),
@@ -3415,9 +3429,9 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
       recurrence: z
         .object({
           frequency: z.enum(["daily", "weekly", "monthly"]),
-          count: z.number().int().min(1),
+          count: z.number().int().min(1)
         })
-        .optional(),
+        .optional()
     }),
     run: async (input) => {
       if (input.attendees && input.attendees.length > 10) {
@@ -3426,22 +3440,22 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
       return JSON.stringify({
         event_id: "evt_123",
         status: "created",
-        title: input.title,
+        title: input.title
       });
-    },
+    }
   });
 
   const listCalendarEvents = betaZodTool({
     name: "list_calendar_events",
     description: "List all calendar events on a given date.",
     inputSchema: z.object({
-      date: z.string().date(),
+      date: z.string().date()
     }),
     run: async () => {
       return JSON.stringify({
-        events: [{ title: "Existing meeting", start: "14:00", end: "15:00" }],
+        events: [{ title: "Existing meeting", start: "14:00", end: "15:00" }]
       });
-    },
+    }
   });
 
   const finalMessage = await client.beta.messages.toolRunner({
@@ -3452,9 +3466,9 @@ Each SDK provides a helper that turns an ordinary function into a runnable tool 
       {
         role: "user",
         content:
-          "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts.",
-      },
-    ],
+          "Check what I have on Monday, March 30, 2026, then schedule a one-hour planning session that day that avoids any conflicts."
+      }
+    ]
   });
 
   for (const block of finalMessage.content) {

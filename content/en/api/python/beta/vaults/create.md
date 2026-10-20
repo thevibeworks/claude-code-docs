@@ -1,15 +1,15 @@
 ---
-title: Create Vault
+title: Create a Vault
 url: https://platform.claude.com/docs/en/api/python/beta/vaults/create
 ---
 
-# Create Vault
+# Create a Vault
 
 `beta.vaults.create(**kwargs)  -> BetaManagedAgentsVault`
 
 **POST** `/v1/vaults`
 
-Create Vault
+Create a Vault
 
 ## Parameters
 
@@ -147,7 +147,7 @@ Create Vault
 
   - `id: str`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `archived_at: Optional[datetime]`
 

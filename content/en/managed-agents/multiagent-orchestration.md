@@ -221,10 +221,10 @@ When [defining your agent](https://platform.claude.com/docs/en/managed-agents/ag
         type: "enabled",
         predefined_agents: [
           { type: "agent", id: reviewerAgent.id },
-          { type: "agent", id: testWriterAgent.id },
-        ],
-      },
-    },
+          { type: "agent", id: testWriterAgent.id }
+        ]
+      }
+    }
   });
   ```
 
@@ -395,7 +395,7 @@ Create a session referencing the agent. The agent delegates to the agents you li
   ```typescript TypeScript
   const session = await client.beta.sessions.create({
     agent: leadAgent.id,
-    environment_id: environment.id,
+    environment_id: environment.id
   });
   ```
 
@@ -556,10 +556,8 @@ Create the researcher, which declares the GitHub MCP server, and the agent that 
   const researchAgent = await client.beta.agents.create({
     name: "researcher",
     model: "claude-haiku-5-5",
-    mcp_servers: [
-      { type: "url", name: "github", url: "https://api.githubcopilot.com/mcp/" },
-    ],
-    tools: [{ type: "mcp_toolset", mcp_server_name: "github" }],
+    mcp_servers: [{ type: "url", name: "github", url: "https://api.githubcopilot.com/mcp/" }],
+    tools: [{ type: "mcp_toolset", mcp_server_name: "github" }]
   });
 
   const leadAgent = await client.beta.agents.create({
@@ -570,9 +568,9 @@ Create the researcher, which declares the GitHub MCP server, and the agent that 
       type: "multiagent_20261001",
       subagents: {
         type: "enabled",
-        predefined_agents: [{ type: "agent", id: researchAgent.id }],
-      },
-    },
+        predefined_agents: [{ type: "agent", id: researchAgent.id }]
+      }
+    }
   });
   ```
 
@@ -809,7 +807,7 @@ Then create the session with the vault that holds the GitHub credential:
   const session = await client.beta.sessions.create({
     agent: leadAgent.id,
     environment_id: environment.id,
-    vault_ids: [vault.id],
+    vault_ids: [vault.id]
   });
   console.log(session.id);
   ```
@@ -946,7 +944,7 @@ Before you change an existing agent's `multiagent.type`, see [how to move an age
     system:
       "You review contracts. When you're asked to review more than a few contracts, start a workflow run that reads them in parallel and combines the findings. Review one or two contracts yourself, without a run.",
     tools: [{ type: "agent_toolset_20260401" }],
-    multiagent: { type: "multiagent_20261001", workflows: { type: "enabled" } },
+    multiagent: { type: "multiagent_20261001", workflows: { type: "enabled" } }
   });
   ```
 
@@ -1176,8 +1174,8 @@ An enabled `advisor` setting in the agent's `multiagent` (csharp, go: `Multiagen
       "You implement backend features end to end. Consult the advisor before major backend design decisions.",
     multiagent: {
       type: "multiagent_20261001",
-      advisor: { type: "enabled", model: "claude-opus-5-5" },
-    },
+      advisor: { type: "enabled", model: "claude-opus-5-5" }
+    }
   });
   console.log(agent.id);
   ```

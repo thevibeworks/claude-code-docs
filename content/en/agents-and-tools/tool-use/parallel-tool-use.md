@@ -212,7 +212,7 @@ The following script sends a request that should trigger parallel tool calls, ve
 
   // Simulate tool execution and format results correctly
   const toolResults: Anthropic.ToolResultBlockParam[] = toolUses
-    .filter((block): block is Anthropic.ToolUseBlock => block.type === "tool_use")
+    .filter((block) => block.type === "tool_use")
     .map((toolUse) => {
       const input = toolUse.input as Record<string, string>;
       let result: string;

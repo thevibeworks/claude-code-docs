@@ -172,7 +172,6 @@ The environment key authorizes posting custom tool results, so your Claude API k
       		log.Fatalf("worker: %v", err)
       	}
       }
-
       ```
 
       <CodeGroupItem language="Java">
@@ -223,6 +222,7 @@ The examples connect without authentication. To send credentials, configure the 
       from anthropic import AsyncAnthropic
       from anthropic.types.beta import BetaManagedAgentsCustomToolParams
       from mcp import ClientSession, types
+
       # Requires mcp >= 1.24, which renamed streamablehttp_client to streamable_http_client.
       from mcp.client.streamable_http import streamable_http_client
 
@@ -456,7 +456,6 @@ The examples connect without authentication. To send credentials, configure the 
       	}
       	fmt.Println(agent.ID)
       }
-
       ```
 
       ```java Java
@@ -609,6 +608,7 @@ The examples connect without authentication. To send credentials, configure the 
       from anthropic.lib.tools.agent_toolset import beta_agent_toolset_20260401
       from anthropic.lib.tools.mcp import async_mcp_tool
       from mcp import ClientSession
+
       # Requires mcp >= 1.24, which renamed streamablehttp_client to streamable_http_client.
       from mcp.client.streamable_http import streamable_http_client
 
@@ -623,7 +623,9 @@ The examples connect without authentication. To send credentials, configure the 
           # result instead of a stalled call.
           async with (
               streamable_http_client(MCP_SERVER_URL) as (read, write, _),
-              ClientSession(read, write, read_timeout_seconds=timedelta(seconds=60)) as mcp_session,
+              ClientSession(
+                  read, write, read_timeout_seconds=timedelta(seconds=60)
+              ) as mcp_session,
               AsyncAnthropic(auth_token=environment_key) as client,
           ):
               await mcp_session.initialize()
@@ -746,7 +748,6 @@ The examples connect without authentication. To send credentials, configure the 
       		log.Fatalf("worker: %v", err)
       	}
       }
-
       ```
 
       <CodeGroupItem language="Java">

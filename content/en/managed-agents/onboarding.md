@@ -14,7 +14,7 @@ featureMetadata:
 
 ## How to build an agent
 
-The [visual interface](https://platform.claude.com/workspaces/default/agent-quickstart/) walks you through each field of an agent definition:
+The [visual interface](https://platform.claude.com/workspaces/default/agent-quickstart/) in the Claude Console walks you through each field of an agent definition:
 
 * **Model and system prompt:** Pick a model and write the system prompt in a full-width editor.
 * **MCP servers:** Add remote MCP servers by URL and authenticate your agent to take action on your behalf.

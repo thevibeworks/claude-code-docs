@@ -1,15 +1,15 @@
 ---
-title: Delete Credential
+title: Delete a Credential
 url: https://platform.claude.com/docs/en/api/ruby/beta/vaults/credentials/delete
 ---
 
-# Delete Credential
+# Delete a Credential
 
 `beta.vaults.credentials.delete(credential_id, **kwargs) -> BetaManagedAgentsDeletedCredential`
 
 **DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
-Delete Credential
+Delete a Credential
 
 ## Parameters
 
@@ -145,7 +145,7 @@ Delete Credential
 
   - `id: String`
 
-    Unique identifier of the deleted credential.
+    The unique ID of the deleted credential (`vcrd_...`).
 
 ## Example
 

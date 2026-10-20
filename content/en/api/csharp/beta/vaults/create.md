@@ -1,15 +1,15 @@
 ---
-title: Create Vault
+title: Create a Vault
 url: https://platform.claude.com/docs/en/api/csharp/beta/vaults/create
 ---
 
-# Create Vault
+# Create a Vault
 
 `BetaManagedAgentsVault Beta.Vaults.Create(parameters, cancellationToken = default)`
 
 **POST** `/v1/vaults`
 
-Create Vault
+Create a Vault
 
 ## Parameters
 
@@ -147,7 +147,7 @@ Create Vault
 
   - `required string ID`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `required DateTimeOffset? ArchivedAt`
 

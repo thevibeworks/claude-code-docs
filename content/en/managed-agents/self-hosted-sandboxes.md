@@ -144,7 +144,7 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
       ```
 
       ```php PHP
-      $client = new \Anthropic\Client();
+      $client = new Client();
 
       $environment = $client->beta->environments->create(
           name: 'self-hosted',

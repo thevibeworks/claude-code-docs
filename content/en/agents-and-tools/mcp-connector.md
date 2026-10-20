@@ -1347,7 +1347,6 @@ Import the helpers for your language:
   import (
   	"github.com/anthropics/anthropic-sdk-go/mcp"
   )
-
   ```
 
   ```java Java
@@ -1530,7 +1529,6 @@ Convert MCP tools for use with the SDK's [tool runner](https://platform.claude.c
   	}
   	fmt.Println(finalMessage.RawJSON())
   }
-
   ```
 
   ```java Java

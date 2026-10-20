@@ -17,7 +17,7 @@ List Vaults
 
   - `bool includeArchived` (query parameter)
 
-    Whether to include archived vaults in the results.
+    Whether to include archived vaults in the results. Defaults to `false`.
 
   - `int limit` (query parameter)
 
@@ -27,7 +27,7 @@ List Vaults
 
   - `string page` (query parameter)
 
-    Opaque pagination token from a previous `list_vaults` response.
+    The `next_page` value from a previous [List Vaults](https://platform.claude.com/docs/en/api/beta/vaults/list?sdk_languages=csharp) response, to get the next page. Leave it out to get the first page.
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
@@ -151,7 +151,7 @@ List Vaults
 
   - `required string ID`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `required DateTimeOffset? ArchivedAt`
 

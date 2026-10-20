@@ -74,10 +74,10 @@ The dream produces another **output memory store**, separate from the input. The
   let dream = await client.beta.dreams.create({
     inputs: [
       { type: "memory_store", memory_store_id: storeId },
-      { type: "sessions", session_ids: [sessionA, sessionB] },
+      { type: "sessions", session_ids: [sessionA, sessionB] }
     ],
     model: "claude-opus-5-5",
-    instructions: "Focus on coding-style preferences; ignore one-off debugging notes.",
+    instructions: "Focus on coding-style preferences; ignore one-off debugging notes."
   });
   console.log(dream.id); // drm_01...
   ```
@@ -347,9 +347,7 @@ When `status` (csharp, go: `Status`) reaches `completed`, the `memory_store` ent
   await client.beta.sessions.create({
     agent: agentId,
     environment_id: environmentId,
-    resources: [
-      { type: "memory_store", memory_store_id: outputStoreId },
-    ],
+    resources: [{ type: "memory_store", memory_store_id: outputStoreId }]
   });
   ```
 

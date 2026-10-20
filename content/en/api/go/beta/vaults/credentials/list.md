@@ -21,7 +21,7 @@ List Credentials
 
   - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
-    Whether to include archived credentials in the results.
+    Whether to include archived credentials in the results. Defaults to `false`.
 
   - `Limit param.Opt[int64] Optional` (query parameter)
 
@@ -31,7 +31,7 @@ List Credentials
 
   - `Page param.Opt[string] Optional` (query parameter)
 
-    Opaque pagination token from a previous `list_credentials` response.
+    The `next_page` value from a previous [List Credentials](https://platform.claude.com/docs/en/api/beta/vaults/credentials/list?sdk_languages=go) response, to get the next page. Leave it out to get the first page.
 
   - `Betas []AnthropicBeta Optional` (header parameter)
 
@@ -155,7 +155,7 @@ List Credentials
 
   - `ID string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `ArchivedAt Time`
 
@@ -179,7 +179,7 @@ List Credentials
 
       - `ExpiresAt Time Optional`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -189,7 +189,7 @@ List Credentials
 
         - `ClientID string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `TokenEndpoint string`
 
@@ -269,7 +269,9 @@ List Credentials
 
           - `AllowedHosts []string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `SecretName string`
 

@@ -16,7 +16,7 @@ with Claude"
     </HomeQuickChip>
 
     <HomeQuickChip icon="Key" href="https://platform.claude.com/settings/keys">
-      Get API key
+      Get API key in Claude Console
     </HomeQuickChip>
 
     <HomeQuickChip icon="CodeBrackets" href="https://platform.claude.com/docs/en/api/overview">
@@ -251,7 +251,7 @@ with Claude"
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="lock" href="https://platform.claude.com/settings/keys">
-            Get API key
+            Get API key in Claude Console
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="settings" href="https://platform.claude.com/docs/en/models/overview">
@@ -263,7 +263,7 @@ with Claude"
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="message" href="https://platform.claude.com/playground">
-            Try the API in playground
+            Try the API in Console playground
           </HomeJourneyLink>
         </HomeJourneyStep>
 
@@ -337,7 +337,7 @@ with Claude"
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="lock" href="https://platform.claude.com/settings/keys">
-            API key management
+            API keys in Claude Console
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="chart" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-api">
@@ -357,7 +357,7 @@ with Claude"
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="lock" href="https://platform.claude.com/settings/keys">
-            Get API key
+            Get API key in Claude Console
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="message" href="https://platform.claude.com/docs/en/managed-agents/onboarding">
@@ -395,7 +395,7 @@ with Claude"
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="lock" href="https://platform.claude.com/settings/keys">
-            API key management
+            API keys in Claude Console
           </HomeJourneyLink>
 
           <HomeJourneyLink icon="chart" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-api">

@@ -5,13 +5,13 @@ url: https://platform.claude.com/docs/en/api/go/beta/vaults
 
 # Vaults
 
-## Create Vault
+## Create a Vault
 
 `client.Beta.Vaults.New(ctx, params) (*BetaManagedAgentsVault, error)`
 
 **POST** `/v1/vaults`
 
-Create Vault
+Create a Vault
 
 ### Parameters
 
@@ -149,7 +149,7 @@ Create Vault
 
   - `ID string`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `ArchivedAt Time`
 
@@ -234,7 +234,7 @@ List Vaults
 
   - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
-    Whether to include archived vaults in the results.
+    Whether to include archived vaults in the results. Defaults to `false`.
 
   - `Limit param.Opt[int64] Optional` (query parameter)
 
@@ -244,7 +244,7 @@ List Vaults
 
   - `Page param.Opt[string] Optional` (query parameter)
 
-    Opaque pagination token from a previous `list_vaults` response.
+    The `next_page` value from a previous [List Vaults](https://platform.claude.com/docs/en/api/beta/vaults/list?sdk_languages=go) response, to get the next page. Leave it out to get the first page.
 
   - `Betas []AnthropicBeta Optional` (header parameter)
 
@@ -368,7 +368,7 @@ List Vaults
 
   - `ID string`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `ArchivedAt Time`
 
@@ -442,13 +442,13 @@ func main() {
 }
 ```
 
-## Get Vault
+## Retrieve a Vault
 
 `client.Beta.Vaults.Get(ctx, vaultID, query) (*BetaManagedAgentsVault, error)`
 
 **GET** `/v1/vaults/{vault_id}`
 
-Get Vault
+Retrieve a Vault
 
 ### Parameters
 
@@ -580,7 +580,7 @@ Get Vault
 
   - `ID string`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `ArchivedAt Time`
 
@@ -653,13 +653,13 @@ func main() {
 }
 ```
 
-## Update Vault
+## Update a Vault
 
 `client.Beta.Vaults.Update(ctx, vaultID, params) (*BetaManagedAgentsVault, error)`
 
 **POST** `/v1/vaults/{vault_id}`
 
-Update Vault
+Update a Vault
 
 ### Parameters
 
@@ -801,7 +801,7 @@ Update Vault
 
   - `ID string`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `ArchivedAt Time`
 
@@ -874,13 +874,13 @@ func main() {
 }
 ```
 
-## Delete Vault
+## Delete a Vault
 
 `client.Beta.Vaults.Delete(ctx, vaultID, body) (*BetaManagedAgentsDeletedVault, error)`
 
 **DELETE** `/v1/vaults/{vault_id}`
 
-Delete Vault
+Delete a Vault
 
 ### Parameters
 
@@ -1012,7 +1012,7 @@ Delete Vault
 
   - `ID string`
 
-    Unique identifier of the deleted vault.
+    The unique ID of the deleted vault (`vlt_...`).
 
 ### Example
 
@@ -1052,13 +1052,13 @@ func main() {
 }
 ```
 
-## Archive Vault
+## Archive a Vault
 
 `client.Beta.Vaults.Archive(ctx, vaultID, body) (*BetaManagedAgentsVault, error)`
 
 **POST** `/v1/vaults/{vault_id}/archive`
 
-Archive Vault
+Archive a Vault
 
 ### Parameters
 
@@ -1190,7 +1190,7 @@ Archive Vault
 
   - `ID string`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `ArchivedAt Time`
 
@@ -1275,7 +1275,7 @@ func main() {
 
   - `ID string`
 
-    Unique identifier of the deleted vault.
+    The unique ID of the deleted vault (`vlt_...`).
 
 ### Beta Managed Agents Vault
 
@@ -1287,7 +1287,7 @@ func main() {
 
   - `ID string`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `ArchivedAt Time`
 
@@ -1317,13 +1317,13 @@ func main() {
 
 ## Vaults › Credentials
 
-### Create Credential
+### Create a Credential
 
 `client.Beta.Vaults.Credentials.New(ctx, vaultID, params) (*BetaManagedAgentsCredential, error)`
 
 **POST** `/v1/vaults/{vault_id}/credentials`
 
-Create Credential
+Create a Credential
 
 #### Parameters
 
@@ -1345,7 +1345,7 @@ Create Credential
 
       - `AccessToken string`
 
-        OAuth access token.
+        The OAuth access token to send to the MCP server.
 
         minLength: 1, maxLength: 8192
 
@@ -1357,7 +1357,9 @@ Create Credential
 
       - `ExpiresAt Time Optional`
 
-        A timestamp in RFC 3339 format
+        When `access_token` expires, in RFC 3339.
+
+        Must be in the future.
 
         format: date-time
 
@@ -1367,13 +1369,13 @@ Create Credential
 
         - `ClientID string`
 
-          OAuth client ID.
+          The OAuth client ID to use when refreshing the access token. It can't be changed after the credential is created.
 
           minLength: 1, maxLength: 1024
 
         - `RefreshToken string`
 
-          OAuth refresh token.
+          The OAuth refresh token that the API uses to get a new access token when the current one expires.
 
           minLength: 1, maxLength: 8192
 
@@ -1399,7 +1401,7 @@ Create Credential
 
             - `ClientSecret string`
 
-              OAuth client secret.
+              The OAuth client secret, sent to `token_endpoint` with HTTP Basic authentication.
 
               minLength: 1, maxLength: 512
 
@@ -1411,7 +1413,7 @@ Create Credential
 
             - `ClientSecret string`
 
-              OAuth client secret.
+              The OAuth client secret, sent to `token_endpoint` in the POST body.
 
               minLength: 1, maxLength: 512
 
@@ -1435,7 +1437,7 @@ Create Credential
 
       - `Token string`
 
-        Static bearer token value.
+        The static bearer token to send to the MCP server, such as an API key or personal access token.
 
         minLength: 1, maxLength: 8192
 
@@ -1469,7 +1471,9 @@ Create Credential
 
           - `AllowedHosts []string`
 
-            Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries.
 
       - `SecretName string`
 
@@ -1479,7 +1483,7 @@ Create Credential
 
       - `SecretValue string`
 
-        Secret value. Write-only; never returned in responses.
+        The secret to substitute into the agent's outbound requests. It's write-only and never returned in responses.
 
         minLength: 1, maxLength: 4096
 
@@ -1627,7 +1631,7 @@ Create Credential
 
   - `ID string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `ArchivedAt Time`
 
@@ -1651,7 +1655,7 @@ Create Credential
 
       - `ExpiresAt Time Optional`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -1661,7 +1665,7 @@ Create Credential
 
         - `ClientID string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `TokenEndpoint string`
 
@@ -1741,7 +1745,9 @@ Create Credential
 
           - `AllowedHosts []string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `SecretName string`
 
@@ -1847,7 +1853,7 @@ List Credentials
 
   - `IncludeArchived param.Opt[bool] Optional` (query parameter)
 
-    Whether to include archived credentials in the results.
+    Whether to include archived credentials in the results. Defaults to `false`.
 
   - `Limit param.Opt[int64] Optional` (query parameter)
 
@@ -1857,7 +1863,7 @@ List Credentials
 
   - `Page param.Opt[string] Optional` (query parameter)
 
-    Opaque pagination token from a previous `list_credentials` response.
+    The `next_page` value from a previous [List Credentials](https://platform.claude.com/docs/en/api/beta/vaults/credentials/list?sdk_languages=go) response, to get the next page. Leave it out to get the first page.
 
   - `Betas []AnthropicBeta Optional` (header parameter)
 
@@ -1981,7 +1987,7 @@ List Credentials
 
   - `ID string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `ArchivedAt Time`
 
@@ -2005,7 +2011,7 @@ List Credentials
 
       - `ExpiresAt Time Optional`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -2015,7 +2021,7 @@ List Credentials
 
         - `ClientID string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `TokenEndpoint string`
 
@@ -2095,7 +2101,9 @@ List Credentials
 
           - `AllowedHosts []string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `SecretName string`
 
@@ -2180,13 +2188,13 @@ func main() {
 }
 ```
 
-### Get Credential
+### Retrieve a Credential
 
 `client.Beta.Vaults.Credentials.Get(ctx, credentialID, params) (*BetaManagedAgentsCredential, error)`
 
 **GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
-Get Credential
+Retrieve a Credential
 
 #### Parameters
 
@@ -2322,7 +2330,7 @@ Get Credential
 
   - `ID string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `ArchivedAt Time`
 
@@ -2346,7 +2354,7 @@ Get Credential
 
       - `ExpiresAt Time Optional`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -2356,7 +2364,7 @@ Get Credential
 
         - `ClientID string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `TokenEndpoint string`
 
@@ -2436,7 +2444,9 @@ Get Credential
 
           - `AllowedHosts []string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `SecretName string`
 
@@ -2518,13 +2528,13 @@ func main() {
 }
 ```
 
-### Update Credential
+### Update a Credential
 
 `client.Beta.Vaults.Credentials.Update(ctx, credentialID, params) (*BetaManagedAgentsCredential, error)`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
-Update Credential
+Update a Credential
 
 #### Parameters
 
@@ -2540,7 +2550,7 @@ Update Credential
 
   - `Auth BetaVaultCredentialUpdateParamsAuthUnion Optional`
 
-    Updated authentication configuration. The `type` is immutable; the variant sent must match the stored credential's type.
+    New authentication settings for the credential. The `type` must match the credential's current type, which can't be changed.
 
     - `type BetaManagedAgentsMCPOAuthUpdateParams`
 
@@ -2550,13 +2560,17 @@ Update Credential
 
       - `AccessToken string Optional`
 
-        Updated OAuth access token.
+        The new OAuth access token to replace the stored one.
 
         minLength: 1, maxLength: 8192
 
       - `ExpiresAt Time Optional`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Leave it out to keep the stored expiry.
+
+        If you send a new `access_token`, send its `expires_at` too, or the new token keeps the old expiry.
+
+        Must be in the future.
 
         format: date-time
 
@@ -2566,13 +2580,13 @@ Update Credential
 
         - `RefreshToken string Optional`
 
-          Updated OAuth refresh token.
+          The new OAuth refresh token to replace the stored one.
 
           minLength: 1, maxLength: 8192
 
         - `Scope string Optional`
 
-          Updated OAuth scope for the refresh request.
+          The new OAuth scope for refresh requests. Send an empty string to clear the stored scope.
 
           maxLength: 8192
 
@@ -2586,7 +2600,9 @@ Update Credential
 
             - `ClientSecret string Optional`
 
-              Updated OAuth client secret.
+              A new OAuth client secret to replace the stored one.
+
+              The credential must already use `client_secret_basic` or `client_secret_post`. It keeps its current `token_endpoint_auth` type, even if the `type` sent with this secret is the other one.
 
               minLength: 1, maxLength: 512
 
@@ -2598,7 +2614,9 @@ Update Credential
 
             - `ClientSecret string Optional`
 
-              Updated OAuth client secret.
+              A new OAuth client secret to replace the stored one.
+
+              The credential must already use `client_secret_basic` or `client_secret_post`. It keeps its current `token_endpoint_auth` type, even if the `type` sent with this secret is the other one.
 
               minLength: 1, maxLength: 512
 
@@ -2610,7 +2628,7 @@ Update Credential
 
       - `Token string Optional`
 
-        Updated static bearer token value.
+        The new static bearer token to replace the stored one.
 
         minLength: 1, maxLength: 8192
 
@@ -2634,7 +2652,7 @@ Update Credential
 
       - `Networking BetaManagedAgentsCredentialNetworkingParamsUnion Optional`
 
-        Updated networking scope. Full replacement.
+        The new networking scope, which replaces the stored one as a whole.
 
         - `type BetaManagedAgentsUnrestrictedCredentialNetworkingParams`
 
@@ -2650,11 +2668,13 @@ Update Credential
 
           - `AllowedHosts []string`
 
-            Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries.
 
       - `SecretValue string Optional`
 
-        Updated secret value.
+        The new secret value to replace the stored one.
 
         minLength: 1, maxLength: 4096
 
@@ -2790,7 +2810,7 @@ Update Credential
 
   - `ID string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `ArchivedAt Time`
 
@@ -2814,7 +2834,7 @@ Update Credential
 
       - `ExpiresAt Time Optional`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -2824,7 +2844,7 @@ Update Credential
 
         - `ClientID string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `TokenEndpoint string`
 
@@ -2904,7 +2924,9 @@ Update Credential
 
           - `AllowedHosts []string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `SecretName string`
 
@@ -2986,13 +3008,13 @@ func main() {
 }
 ```
 
-### Delete Credential
+### Delete a Credential
 
 `client.Beta.Vaults.Credentials.Delete(ctx, credentialID, params) (*BetaManagedAgentsDeletedCredential, error)`
 
 **DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
-Delete Credential
+Delete a Credential
 
 #### Parameters
 
@@ -3128,7 +3150,7 @@ Delete Credential
 
   - `ID string`
 
-    Unique identifier of the deleted credential.
+    The unique ID of the deleted credential (`vcrd_...`).
 
 #### Example
 
@@ -3170,13 +3192,13 @@ func main() {
 }
 ```
 
-### Archive Credential
+### Archive a Credential
 
 `client.Beta.Vaults.Credentials.Archive(ctx, credentialID, params) (*BetaManagedAgentsCredential, error)`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
-Archive Credential
+Archive a Credential
 
 #### Parameters
 
@@ -3312,7 +3334,7 @@ Archive Credential
 
   - `ID string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `ArchivedAt Time`
 
@@ -3336,7 +3358,7 @@ Archive Credential
 
       - `ExpiresAt Time Optional`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -3346,7 +3368,7 @@ Archive Credential
 
         - `ClientID string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `TokenEndpoint string`
 
@@ -3426,7 +3448,9 @@ Archive Credential
 
           - `AllowedHosts []string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `SecretName string`
 
@@ -3508,13 +3532,13 @@ func main() {
 }
 ```
 
-### Validate Credential
+### Validate an MCP OAuth Credential
 
 `client.Beta.Vaults.Credentials.MCPOAuthValidate(ctx, credentialID, params) (*BetaManagedAgentsCredentialValidation, error)`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
-Validate Credential
+Validate an MCP OAuth Credential
 
 #### Parameters
 
@@ -3658,11 +3682,11 @@ Validate Credential
 
   - `MCPProbe BetaManagedAgentsMCPProbe`
 
-    Details of the failing MCP probe step. Null when the probe succeeded.
+    Details of the MCP probe step that failed, or `null` if the probe succeeded or there was no access token to test.
 
     - `HTTPResponse BetaManagedAgentsRefreshHTTPResponse`
 
-      The captured HTTP error response. Null when no HTTP response was received (timeout, DNS, TLS).
+      The HTTP error response from the MCP server, or `null` if the MCP server didn't return one for the failing step, for example after a timeout or a DNS or TLS failure.
 
       - `Body string`
 
@@ -3724,11 +3748,11 @@ Validate Credential
 
     - `const BetaManagedAgentsCredentialValidationStatusInvalid BetaManagedAgentsCredentialValidationStatus = "invalid"`
 
-      The probe reached the MCP server and was rejected, and a refresh (if attempted) did not recover it.
+      The probe reached the MCP server and the server rejected the credential, or no access token is stored. A refresh, if one was tried, didn't recover it. Usually the end user needs to authorize again.
 
     - `const BetaManagedAgentsCredentialValidationStatusUnknown BetaManagedAgentsCredentialValidationStatus = "unknown"`
 
-      The probe could not determine validity — for example, a transport error or a successful refresh that was not re-probed.
+      The probe couldn't tell whether the credential works, for example because of a network error or because a refresh succeeded but the new access token wasn't tested. Validate the credential again to find out.
 
   - `ValidatedAt Time`
 

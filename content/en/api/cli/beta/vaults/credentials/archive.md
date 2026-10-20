@@ -1,15 +1,15 @@
 ---
-title: Archive Credential
+title: Archive a Credential
 url: https://platform.claude.com/docs/en/api/cli/beta/vaults/credentials/archive
 ---
 
-# Archive Credential
+# Archive a Credential
 
 `$ ant beta:vaults:credentials archive`
 
 **POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
-Archive Credential
+Archive a Credential
 
 ## Parameters
 
@@ -41,7 +41,7 @@ Archive Credential
 
   - `id: string`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `archived_at: string`
 
@@ -65,7 +65,7 @@ Archive Credential
 
       - `expires_at: optional string`
 
-        A timestamp in RFC 3339 format
+        When the credential's access token expires, in RFC 3339. Absent if the expiry isn't known.
 
         format: date-time
 
@@ -75,7 +75,7 @@ Archive Credential
 
         - `client_id: string`
 
-          OAuth client ID.
+          The OAuth client ID used when refreshing the access token.
 
         - `token_endpoint: string`
 
@@ -155,7 +155,9 @@ Archive Credential
 
           - `allowed_hosts: array of string`
 
-            Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
+            The destination hosts of the outbound requests that the credential's secret is substituted into.
+
+            An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself.
 
       - `secret_name: string`
 

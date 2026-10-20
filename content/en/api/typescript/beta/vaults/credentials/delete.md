@@ -1,15 +1,15 @@
 ---
-title: Delete Credential
+title: Delete a Credential
 url: https://platform.claude.com/docs/en/api/typescript/beta/vaults/credentials/delete
 ---
 
-# Delete Credential
+# Delete a Credential
 
 `client.beta.vaults.credentials.delete(credentialID, params, options?): BetaManagedAgentsDeletedCredential`
 
 **DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
-Delete Credential
+Delete a Credential
 
 ## Parameters
 
@@ -147,7 +147,7 @@ Delete Credential
 
   - `id: string`
 
-    Unique identifier of the deleted credential.
+    The unique ID of the deleted credential (`vcrd_...`).
 
 ## Example
 

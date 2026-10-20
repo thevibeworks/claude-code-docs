@@ -1,15 +1,15 @@
 ---
-title: Get Credential
+title: Retrieve a Credential
 url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/retrieve
 ---
 
-# Get Credential
+# Retrieve a Credential
 
 `$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsCredential`
 
 **GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
-Get Credential
+Retrieve a Credential
 
 ## Parameters
 
@@ -39,7 +39,7 @@ Get Credential
 
   - `string id`
 
-    Unique identifier for the credential.
+    The unique ID of the credential (`vcrd_...`).
 
   - `?\Datetime archivedAt`
 

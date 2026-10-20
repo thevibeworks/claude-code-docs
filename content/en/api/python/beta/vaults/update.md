@@ -1,15 +1,15 @@
 ---
-title: Update Vault
+title: Update a Vault
 url: https://platform.claude.com/docs/en/api/python/beta/vaults/update
 ---
 
-# Update Vault
+# Update a Vault
 
 `beta.vaults.update(vault_id, **kwargs)  -> BetaManagedAgentsVault`
 
 **POST** `/v1/vaults/{vault_id}`
 
-Update Vault
+Update a Vault
 
 ## Parameters
 
@@ -151,7 +151,7 @@ Update Vault
 
   - `id: str`
 
-    Unique identifier for the vault.
+    The unique ID of the vault (`vlt_...`).
 
   - `archived_at: Optional[datetime]`
 
