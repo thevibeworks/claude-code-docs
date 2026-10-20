@@ -18,23 +18,21 @@ Dispatch requires a Pro or Max plan and the latest Claude Desktop app on macOS o
 
 The Dispatch agent appears as **Dispatch** in the left sidebar. Selecting it opens a single conversation with the agent.
 
-<Steps>
-  <Step title="Open Dispatch from the sidebar">
-    Select **Dispatch** in the left side panel.
-  </Step>
+**1. Open Dispatch from the sidebar**
 
-  <Step title="Describe the outcome">
-    Tell the agent what you want done, the same way you'd brief a colleague. For
-    example: "Summarize the open Linear issues tagged reliability and draft a
-    status update for the team channel."
-  </Step>
+Select **Dispatch** in the left side panel.
 
-  <Step title="Let Dispatch plan and run">
-    The agent decides how to split the work and starts one or more child tasks.
-    Each child task appears under the Dispatch group in the sidebar with its own
-    status.
-  </Step>
-</Steps>
+**2. Describe the outcome**
+
+Tell the agent what you want done, the same way you'd brief a colleague. For
+example: "Summarize the open Linear issues tagged reliability and draft a
+status update for the team channel."
+
+**3. Let Dispatch plan and run**
+
+The agent decides how to split the work and starts one or more child tasks.
+Each child task appears under the Dispatch group in the sidebar with its own
+status.
 
 You converse with one Dispatch agent, but it can run many child tasks beneath that conversation. Child tasks don't spawn further children of their own.
 
@@ -76,21 +74,19 @@ Select any child task in the sidebar to open its session. You can read the trans
 
 When Claude Desktop is running, your computer registers as a Dispatch host. From the Claude mobile app, you can start a Dispatch conversation that runs on your desktop, then check results from either device.
 
-<Steps>
-  <Step title="Keep your desktop ready">
-    Leave Claude Desktop open with your computer awake and online.
-  </Step>
+**1. Keep your desktop ready**
 
-  <Step title="Open Dispatch on mobile">
-    In the Claude mobile app, open Dispatch and describe the task. The work runs
-    on your desktop.
-  </Step>
+Leave Claude Desktop open with your computer awake and online.
 
-  <Step title="Review on either device">
-    Progress and results appear in the Dispatch sidebar on desktop and in the
-    mobile app.
-  </Step>
-</Steps>
+**2. Open Dispatch on mobile**
+
+In the Claude mobile app, open Dispatch and describe the task. The work runs
+on your desktop.
+
+**3. Review on either device**
+
+Progress and results appear in the Dispatch sidebar on desktop and in the
+mobile app.
 
 ## Related
 

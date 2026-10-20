@@ -20,9 +20,9 @@ A built-in entry names the bundled server in a `server` field, in place of the `
 
 Each guide covers its server in full, including how the built-in server compares with the remote alternative where one exists.
 
-<Note>
-  In the in-app configuration window, the **Add server** menu lists built-in servers separately from remote templates. A remote template (Box, or the Microsoft 365 remote connector) only pre-fills the form for a server that runs outside the app. The servers on this page are the ones bundled inside the app.
-</Note>
+> [!NOTE]
+>
+> In the in-app configuration window, the **Add server** menu lists built-in servers separately from remote templates. A remote template (Box, or the Microsoft 365 remote connector) only pre-fills the form for a server that runs outside the app. The servers on this page are the ones bundled inside the app.
 
 ## How built-in servers behave
 

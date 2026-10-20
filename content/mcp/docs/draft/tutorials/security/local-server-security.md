@@ -19,19 +19,19 @@ credentials, browser profiles, your home directory — and can open outbound
 network connections to anywhere. None of that is governed by the protocol.
 It is governed by how you run the process.
 
-<Note>
-  **Scope**: this guide is about servers running on a machine you (or your
-  organization's users) control — a laptop or workstation, typically launched
-  over stdio. Deploying and hardening remote or hosted servers is a different
-  topic with different controls.
-</Note>
+> [!NOTE]
+>
+> **Scope**: this guide is about servers running on a machine you (or your
+> organization's users) control — a laptop or workstation, typically launched
+> over stdio. Deploying and hardening remote or hosted servers is a different
+> topic with different controls.
 
-<Tip>
-  **If you do one thing after reading this**: open your client's MCP
-  configuration, remove the servers you no longer use, and make sure you know
-  where each remaining one comes from and that its version is pinned. Everything
-  else in this guide builds on knowing what you are actually running.
-</Tip>
+> [!TIP]
+>
+> **If you do one thing after reading this**: open your client's MCP
+> configuration, remove the servers you no longer use, and make sure you know
+> where each remaining one comes from and that its version is pinned. Everything
+> else in this guide builds on knowing what you are actually running.
 
 ## What a Local Server Can Touch
 
@@ -289,14 +289,14 @@ Many useful servers legitimately need file access. The question is how much.
   directory to do a narrow job is overreaching. Grant a narrower directory,
   or pick a different server.
 
-<Warning>
-  Configuration-level allowlists are **cooperative boundaries**: a well-behaved
-  server respects them, but nothing in the protocol stops a malicious or
-  compromised one from reading whatever the process can reach. Treat them as
-  guardrails for honest servers. Enforcement comes from the isolation layer
-  above — a sandbox or container where the allowed directory is the only
-  filesystem that exists.
-</Warning>
+> [!WARNING]
+>
+> Configuration-level allowlists are **cooperative boundaries**: a well-behaved
+> server respects them, but nothing in the protocol stops a malicious or
+> compromised one from reading whatever the process can reach. Treat them as
+> guardrails for honest servers. Enforcement comes from the isolation layer
+> above — a sandbox or container where the allowed directory is the only
+> filesystem that exists.
 
 **Going further**: combine allowlists with isolation, so the only filesystem
 the server can even see is the mount you chose.
@@ -320,14 +320,14 @@ loss.
   restricts them to their expected destinations and logs the attempts that
   fall outside it.
 
-<Note>
-  Egress is not the only network concern. Local MCP plumbing that listens on a
-  port — bridges to remote servers, development tools, locally hosted HTTP
-  servers — is reachable by other local processes and, through your browser, by
-  websites. Binding to 127.0.0.1 is not an authentication boundary: such
-  components need real authentication and origin validation, and they need
-  prompt updates when advisories land.
-</Note>
+> [!NOTE]
+>
+> Egress is not the only network concern. Local MCP plumbing that listens on a
+> port — bridges to remote servers, development tools, locally hosted HTTP
+> servers — is reachable by other local processes and, through your browser, by
+> websites. Binding to 127.0.0.1 is not an authentication boundary: such
+> components need real authentication and origin validation, and they need
+> prompt updates when advisories land.
 
 **Going further**: give each server its own egress allowlist via a proxy,
 and alert on destinations outside it — unexpected egress is often the first
@@ -423,21 +423,19 @@ For a fleet:
 
 ## Next Steps
 
-<CardGroup cols={2}>
-  <Card title="Security Best Practices" icon="shield" href="/docs/draft/tutorials/security/security_best_practices">
-    The protocol threat model: confused deputy, token passthrough, and session
-    hijacking
-  </Card>
+> **[Security Best Practices](/docs/draft/tutorials/security/security_best_practices)**
+>
+> The protocol threat model: confused deputy, token passthrough, and session
+> hijacking
 
-  <Card title="Authorization" icon="key" href="/docs/draft/tutorials/security/authorization">
-    How OAuth-based authorization works for remote MCP servers
-  </Card>
+> **[Authorization](/docs/draft/tutorials/security/authorization)**
+>
+> How OAuth-based authorization works for remote MCP servers
 
-  <Card title="SEP-1024" icon="file-shield" href="/seps/1024-mcp-client-security-requirements-for-local-server-">
-    Client security requirements for local server installation consent
-  </Card>
+> **[SEP-1024](/seps/1024-mcp-client-security-requirements-for-local-server-)**
+>
+> Client security requirements for local server installation consent
 
-  <Card title="Connect to local servers" icon="plug" href="/docs/draft/develop/connect-local-servers">
-    Set up local servers in your client — the workflow this guide secures
-  </Card>
-</CardGroup>
+> **[Connect to local servers](/docs/draft/develop/connect-local-servers)**
+>
+> Set up local servers in your client — the workflow this guide secures

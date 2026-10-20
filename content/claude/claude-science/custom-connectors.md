@@ -14,8 +14,8 @@ On Team and Enterprise plans, you can add and use custom connectors only if your
 
 Every tool from a custom connector starts as **Not set**, and Claude asks before using it. On the connector's page, set individual tools to **Always allow**, **Ask each time**, or **Block** under **Tools**, or turn on Skip approvals for the whole connector.
 
-<Warning>
-  Skip approvals disables the per-call card for every tool on that connector. Only use connectors from developers you trust.
-</Warning>
+> [!WARNING]
+>
+> Skip approvals disables the per-call card for every tool on that connector. Only use connectors from developers you trust.
 
 Local-command connectors run inside the sandbox with the same network limits as Claude's code and a per-connector writable directory. Environment variables for local connectors are saved unencrypted in a configuration file readable by your account only; don't put high-value secrets there. On Windows, a local-command connector starts with `npx`, `node`, `python`, or the full path of a program. Connectors launched through `npm` or a `.cmd`, `.bat`, or `.ps1` file aren't supported there.

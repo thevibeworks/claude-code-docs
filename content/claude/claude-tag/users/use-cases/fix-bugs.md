@@ -6,9 +6,9 @@
 
 > Claude Tag takes a bug report from Slack to a draft pull request. See reproducing the issue, watching a bug channel, root-cause digs, and following CI to green.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How bug-fix prompts work
 
@@ -82,12 +82,10 @@ For repository conventions that should hold across every session that touches th
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Watch monitors and alerts" href="/docs/claude-tag/users/use-cases/watch-monitors" horizontal arrow>
-    Catching the problem before the bug report
-  </Card>
+> **[Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors)**
+>
+> Catching the problem before the bug report
 
-  <Card title="Good habits" href="/docs/claude-tag/users/good-habits" horizontal arrow>
-    Definitions of done for code tasks
-  </Card>
-</CardGroup>
+> **[Good habits](/docs/claude-tag/users/good-habits)**
+>
+> Definitions of done for code tasks

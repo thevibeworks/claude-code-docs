@@ -8,16 +8,16 @@
 
 The MCP SDK Tiering System establishes clear expectations for feature completeness, protocol support, and maintenance commitments across official and community-driven SDKs. This helps developers choose the right SDK for their needs and provides SDK maintainers with a clear path to improving adoption expectations.
 
-<Note>
-  **Key dates:**
-
-  * **January 23, 2026**: Conformance tests available
-  * **February 23, 2026**: Official SDK tiering published
-
-  Between January 23 and February 23, SDK maintainers can work with the
-  Conformance Testing working group to adopt the tests and set up GitHub issue
-  tracking with the standardized labels defined below.
-</Note>
+> [!NOTE]
+>
+> **Key dates:**
+>
+> * **January 23, 2026**: Conformance tests available
+> * **February 23, 2026**: Official SDK tiering published
+>
+> Between January 23 and February 23, SDK maintainers can work with the
+> Conformance Testing working group to adopt the tests and set up GitHub issue
+> tracking with the standardized labels defined below.
 
 ## Overview
 

@@ -6,9 +6,9 @@
 
 > Claude Tag is not covered by Anthropic's Business Associate Agreement. Configure it so protected health information never reaches a channel, direct message, or tool Claude can read: limit Claude to approved channels, turn off direct messages, and connect only PHI-free tools. Also covers what to do if PHI is posted where Claude can read it.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude Tag, the Claude app that works in your Slack channels, is not covered by Anthropic's Business Associate Agreement (BAA). A healthcare organization can use it for work that doesn't involve protected health information (PHI) by configuring it so that PHI never enters a channel, direct message, or connected tool that Claude can read.
 
@@ -46,27 +46,25 @@ Ask your account team about creating a separate Claude organization without thos
 
 An Owner turns Claude off everywhere by default, turns it on only in channels approved as PHI-free, turns off direct messages, and blocks channel names that signal PHI. Every setting in these steps is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), and the workspace and channel settings are on the **Channels** tab under **Claude's access**.
 
-<Steps>
-  <Step title="Turn Claude off by default">
-    Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack) and turn off the **Respond in all channels** switch at the top of the **General** tab. [Limit Claude Tag to specific channels](/docs/claude-tag/admins/restrict-access#limit-claude-tag-to-specific-channels) has the full procedure.
-  </Step>
+**1. Turn Claude off by default**
 
-  <Step title="Reset workspaces and channels that have their own setting">
-    A workspace's or channel's own **Enable Claude Tag** setting takes precedence over the **Slack** page, so a workspace or channel switched on during an earlier pilot keeps Claude active there. On the **Channels** tab, open each workspace's and channel's page that has its own setting, and click the **Use inherited setting** link under its switch.
-  </Step>
+Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack) and turn off the **Respond in all channels** switch at the top of the **General** tab. [Limit Claude Tag to specific channels](/docs/claude-tag/admins/restrict-access#limit-claude-tag-to-specific-channels) has the full procedure.
 
-  <Step title="Turn Claude on in each approved channel">
-    On the **Channels** tab, open the approved channel's page and turn on its **Enable Claude Tag in this channel** switch. If the channel isn't listed on the **Channels** tab, [set it up](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) first.
-  </Step>
+**2. Reset workspaces and channels that have their own setting**
 
-  <Step title="Turn off direct messages">
-    On the same [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) page, select **Edit** on the **Direct messages** row and turn off the [**Allow direct messages** toggle](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages). Claude is then reachable only in channels.
-  </Step>
+A workspace's or channel's own **Enable Claude Tag** setting takes precedence over the **Slack** page, so a workspace or channel switched on during an earlier pilot keeps Claude active there. On the **Channels** tab, open each workspace's and channel's page that has its own setting, and click the **Use inherited setting** link under its switch.
 
-  <Step title="Block channel names that signal PHI">
-    Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack), open the **Advanced** tab, and under **Channels** add the naming patterns your workspace uses for clinical or patient channels to **Blocked channel patterns**, for example `*-patient-*`. Claude won't read or respond in a matching channel even if someone invites it. See [Block or auto-join channels by name](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name).
-  </Step>
-</Steps>
+**3. Turn Claude on in each approved channel**
+
+On the **Channels** tab, open the approved channel's page and turn on its **Enable Claude Tag in this channel** switch. If the channel isn't listed on the **Channels** tab, [set it up](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel) first.
+
+**4. Turn off direct messages**
+
+On the same [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) page, select **Edit** on the **Direct messages** row and turn off the [**Allow direct messages** toggle](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages). Claude is then reachable only in channels.
+
+**5. Block channel names that signal PHI**
+
+Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack), open the **Advanced** tab, and under **Channels** add the naming patterns your workspace uses for clinical or patient channels to **Blocked channel patterns**, for example `*-patient-*`. Claude won't read or respond in a matching channel even if someone invites it. See [Block or auto-join channels by name](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name).
 
 Any member of the workspace can still invite `@Claude` to a channel that isn't approved. Claude stays silent there, and an @-mention gets a notice that Claude is disabled in that channel instead of a reply.
 

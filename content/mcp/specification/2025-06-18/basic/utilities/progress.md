@@ -4,8 +4,6 @@
 
 # Progress
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) supports optional progress tracking for long-running
 operations through notification messages. Either side can send progress notifications to
 provide updates about operation status.

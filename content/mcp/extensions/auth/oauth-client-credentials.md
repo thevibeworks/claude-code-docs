@@ -8,9 +8,9 @@
 
 The OAuth Client Credentials extension (`io.modelcontextprotocol/oauth-client-credentials`) adds support for the [OAuth 2.0 client credentials flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4) to MCP. This enables automated systems to connect to MCP servers without interactive user authorization.
 
-<Card title="Specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/draft/oauth-client-credentials.mdx">
-  Full technical specification for the OAuth Client Credentials extension.
-</Card>
+> **[Specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/draft/oauth-client-credentials.mdx)**
+>
+> Full technical specification for the OAuth Client Credentials extension.
 
 ## What it is
 
@@ -71,14 +71,14 @@ sequenceDiagram
     Client->>MCP: MCP request (Bearer token)
 ```
 
-<Warning>
-  Client secrets are **long-lived credentials** that grant access without user interaction. If a secret is leaked, an attacker can silently authenticate as your application until the secret is rotated. To reduce risk:
-
-  * Store secrets in a secrets manager, never in source code or environment files checked into version control.
-  * Rotate secrets on a regular schedule and immediately after any suspected compromise.
-  * Scope credentials to the minimum permissions required.
-  * Prefer JWT assertions when possible — they are short-lived and do not require transmitting the signing key.
-</Warning>
+> [!WARNING]
+>
+> Client secrets are **long-lived credentials** that grant access without user interaction. If a secret is leaked, an attacker can silently authenticate as your application until the secret is rotated. To reduce risk:
+>
+> * Store secrets in a secrets manager, never in source code or environment files checked into version control.
+> * Rotate secrets on a regular schedule and immediately after any suspected compromise.
+> * Scope credentials to the minimum permissions required.
+> * Prefer JWT assertions when possible — they are short-lived and do not require transmitting the signing key.
 
 ## Implementation guide
 
@@ -86,338 +86,324 @@ sequenceDiagram
 
 To use the OAuth Client Credentials extension, your client must:
 
-<Steps>
-  <Step title="Declare support">
-    Include the extension in its per-request capabilities:
+**1. Declare support**
 
-    ```jsonc theme={null}
-    {
-      "jsonrpc": "2.0",
-      "id": 1,
-      "method": "...",
-      "params": {
-        // Other fields...
-        "_meta": {
-          // Other fields...
-          "io.modelcontextprotocol/clientCapabilities": {
-            "extensions": {
-              "io.modelcontextprotocol/oauth-client-credentials": {},
-            },
-          },
+Include the extension in its per-request capabilities:
+
+```jsonc theme={null}
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "...",
+  "params": {
+    // Other fields...
+    "_meta": {
+      // Other fields...
+      "io.modelcontextprotocol/clientCapabilities": {
+        "extensions": {
+          "io.modelcontextprotocol/oauth-client-credentials": {},
         },
       },
-    }
-    ```
-  </Step>
+    },
+  },
+}
+```
 
-  <Step title="Obtain an access token">
-    Request a token from the authorization server using the client credentials grant before connecting to the MCP server.
-  </Step>
+**2. Obtain an access token**
 
-  <Step title="Include the token">
-    Pass the token in the `Authorization` header of HTTP requests to the MCP server:
+Request a token from the authorization server using the client credentials grant before connecting to the MCP server.
 
-    ```
-    Authorization: Bearer <access_token>
-    ```
-  </Step>
+**3. Include the token**
 
-  <Step title="Handle token refresh">
-    Client credentials tokens typically have shorter lifetimes than user-delegated tokens. Implement token refresh logic to obtain a new token before expiry.
-  </Step>
-</Steps>
+Pass the token in the `Authorization` header of HTTP requests to the MCP server:
+
+```
+Authorization: Bearer <access_token>
+```
+
+**4. Handle token refresh**
+
+Client credentials tokens typically have shorter lifetimes than user-delegated tokens. Implement token refresh logic to obtain a new token before expiry.
 
 ### For MCP servers
 
 To accept client credentials tokens, your server must:
 
-<Steps>
-  <Step title="Validate the token">
-    On each request, verify the JWT signature and claims against your authorization server's public keys (usually via a JWKS endpoint).
-  </Step>
+**1. Validate the token**
 
-  <Step title="Check scopes">
-    Ensure the token includes the required scopes for the requested operation.
-  </Step>
+On each request, verify the JWT signature and claims against your authorization server's public keys (usually via a JWKS endpoint).
 
-  <Step title="Advertise support">
-    Optionally (but recommended for discoverability), include the extension in the `server/discover` response:
+**2. Check scopes**
 
-    ```jsonc theme={null}
-    {
-      "jsonrpc": "2.0",
-      "id": 1,
-      "result": {
-        // Other fields...
-        "capabilities": {
-          "extensions": {
-            "io.modelcontextprotocol/oauth-client-credentials": {},
-          },
-        },
+Ensure the token includes the required scopes for the requested operation.
+
+**3. Advertise support**
+
+Optionally (but recommended for discoverability), include the extension in the `server/discover` response:
+
+```jsonc theme={null}
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    // Other fields...
+    "capabilities": {
+      "extensions": {
+        "io.modelcontextprotocol/oauth-client-credentials": {},
       },
-    }
-    ```
-  </Step>
-</Steps>
+    },
+  },
+}
+```
 
 ## SDK examples
 
 The official MCP SDKs provide built-in support for client credentials authentication. Both handle token acquisition and refresh automatically.
 
-<Steps>
-  <Step title="Install the SDK">
-    <Tabs>
-      <Tab title="TypeScript">
-        ```bash theme={null}
-        npm install @modelcontextprotocol/client
-        ```
-      </Tab>
+**1. Install the SDK**
 
-      <Tab title="Python">
-        ```bash theme={null}
-        pip install mcp
-        ```
-      </Tab>
-    </Tabs>
-  </Step>
+**TypeScript**
 
-  <Step title="Create a provider and connect">
-    Choose the credential format that matches your setup:
+```bash theme={null}
+npm install @modelcontextprotocol/client
+```
 
-    #### Using a client secret
+**Python**
 
-    <Tabs>
-      <Tab title="TypeScript">
-        ```typescript theme={null}
-        import {
-          Client,
-          ClientCredentialsProvider,
-          StreamableHTTPClientTransport,
-        } from "@modelcontextprotocol/client";
+```bash theme={null}
+pip install mcp
+```
 
-        const provider = new ClientCredentialsProvider({
-          clientId: "my-service",
-          clientSecret: "s3cr3t",
-        });
+**2. Create a provider and connect**
 
-        const client = new Client(
-          { name: "my-service", version: "1.0.0" },
-          { capabilities: {} },
-        );
+Choose the credential format that matches your setup:
 
-        const transport = new StreamableHTTPClientTransport(
-          new URL("https://mcp.example.com/mcp"),
-          { authProvider: provider },
-        );
+#### Using a client secret
 
-        await client.connect(transport);
+**TypeScript**
 
-        // Use the client
-        const tools = await client.listTools();
-        console.log(
-          "Available tools:",
-          tools.tools.map((t) => t.name),
-        );
+```typescript theme={null}
+import {
+  Client,
+  ClientCredentialsProvider,
+  StreamableHTTPClientTransport,
+} from "@modelcontextprotocol/client";
 
-        await transport.close();
-        ```
-      </Tab>
+const provider = new ClientCredentialsProvider({
+  clientId: "my-service",
+  clientSecret: "s3cr3t",
+});
 
-      <Tab title="Python">
-        ```python theme={null}
-        import asyncio
+const client = new Client(
+  { name: "my-service", version: "1.0.0" },
+  { capabilities: {} },
+);
 
-        import httpx2
+const transport = new StreamableHTTPClientTransport(
+  new URL("https://mcp.example.com/mcp"),
+  { authProvider: provider },
+);
 
-        from mcp import Client
-        from mcp.client.auth.extensions.client_credentials import (
-            ClientCredentialsOAuthProvider,
+await client.connect(transport);
+
+// Use the client
+const tools = await client.listTools();
+console.log(
+  "Available tools:",
+  tools.tools.map((t) => t.name),
+);
+
+await transport.close();
+```
+
+**Python**
+
+```python theme={null}
+import asyncio
+
+import httpx2
+
+from mcp import Client
+from mcp.client.auth.extensions.client_credentials import (
+    ClientCredentialsOAuthProvider,
+)
+from mcp.client.streamable_http import streamable_http_client
+from mcp.shared.auth import OAuthClientInformationFull, OAuthToken
+
+
+class InMemoryTokenStorage:
+    def __init__(self) -> None:
+        self.tokens: OAuthToken | None = None
+        self.client_info: OAuthClientInformationFull | None = None
+
+    async def get_tokens(self) -> OAuthToken | None:
+        return self.tokens
+
+    async def set_tokens(self, tokens: OAuthToken) -> None:
+        self.tokens = tokens
+
+    async def get_client_info(self) -> OAuthClientInformationFull | None:
+        return self.client_info
+
+    async def set_client_info(self, client_info: OAuthClientInformationFull) -> None:
+        self.client_info = client_info
+
+
+provider = ClientCredentialsOAuthProvider(
+    server_url="https://mcp.example.com/mcp",
+    storage=InMemoryTokenStorage(),
+    client_id="my-service",
+    client_secret="s3cr3t",
+    scopes="read write",
+)
+
+
+async def main() -> None:
+    async with httpx2.AsyncClient(auth=provider) as http_client:
+        transport = streamable_http_client(
+            "https://mcp.example.com/mcp",
+            http_client=http_client,
         )
-        from mcp.client.streamable_http import streamable_http_client
-        from mcp.shared.auth import OAuthClientInformationFull, OAuthToken
+        async with Client(transport) as client:
+            # Use the client
+            tools = await client.list_tools()
+            print("Available tools:", [t.name for t in tools.tools])
 
 
-        class InMemoryTokenStorage:
-            def __init__(self) -> None:
-                self.tokens: OAuthToken | None = None
-                self.client_info: OAuthClientInformationFull | None = None
+if __name__ == "__main__":
+    asyncio.run(main())
+```
 
-            async def get_tokens(self) -> OAuthToken | None:
-                return self.tokens
+#### Using a JWT private key
 
-            async def set_tokens(self, tokens: OAuthToken) -> None:
-                self.tokens = tokens
+**TypeScript**
 
-            async def get_client_info(self) -> OAuthClientInformationFull | None:
-                return self.client_info
+```typescript theme={null}
+import {
+  Client,
+  PrivateKeyJwtProvider,
+  StreamableHTTPClientTransport,
+} from "@modelcontextprotocol/client";
 
-            async def set_client_info(self, client_info: OAuthClientInformationFull) -> None:
-                self.client_info = client_info
+const provider = new PrivateKeyJwtProvider({
+  clientId: "my-service",
+  privateKey: process.env.CLIENT_PRIVATE_KEY_PEM,
+  algorithm: "RS256",
+});
+
+const client = new Client(
+  { name: "my-service", version: "1.0.0" },
+  { capabilities: {} },
+);
+
+const transport = new StreamableHTTPClientTransport(
+  new URL("https://mcp.example.com/mcp"),
+  { authProvider: provider },
+);
+
+await client.connect(transport);
+
+// Use the client
+const tools = await client.listTools();
+console.log(
+  "Available tools:",
+  tools.tools.map((t) => t.name),
+);
+
+await transport.close();
+```
+
+**Python**
+
+```python theme={null}
+import asyncio
+from pathlib import Path
+
+import httpx2
+
+from mcp import Client
+from mcp.client.auth.extensions.client_credentials import (
+    PrivateKeyJWTOAuthProvider,
+    SignedJWTParameters,
+)
+from mcp.client.streamable_http import streamable_http_client
+from mcp.shared.auth import OAuthClientInformationFull, OAuthToken
 
 
-        provider = ClientCredentialsOAuthProvider(
-            server_url="https://mcp.example.com/mcp",
-            storage=InMemoryTokenStorage(),
-            client_id="my-service",
-            client_secret="s3cr3t",
-            scopes="read write",
+class InMemoryTokenStorage:
+    def __init__(self) -> None:
+        self.tokens: OAuthToken | None = None
+        self.client_info: OAuthClientInformationFull | None = None
+
+    async def get_tokens(self) -> OAuthToken | None:
+        return self.tokens
+
+    async def set_tokens(self, tokens: OAuthToken) -> None:
+        self.tokens = tokens
+
+    async def get_client_info(self) -> OAuthClientInformationFull | None:
+        return self.client_info
+
+    async def set_client_info(self, client_info: OAuthClientInformationFull) -> None:
+        self.client_info = client_info
+
+
+# Create a signed JWT assertion provider from key parameters
+jwt_params = SignedJWTParameters(
+    issuer="my-service",
+    subject="my-service",
+    signing_key=Path("private_key.pem").read_text(),
+    signing_algorithm="RS256",
+    lifetime_seconds=300,
+)
+
+provider = PrivateKeyJWTOAuthProvider(
+    server_url="https://mcp.example.com/mcp",
+    storage=InMemoryTokenStorage(),
+    client_id="my-service",
+    assertion_provider=jwt_params.create_assertion_provider(),
+    scopes="read write",
+)
+
+
+async def main() -> None:
+    async with httpx2.AsyncClient(auth=provider) as http_client:
+        transport = streamable_http_client(
+            "https://mcp.example.com/mcp",
+            http_client=http_client,
         )
+        async with Client(transport) as client:
+            # Use the client
+            tools = await client.list_tools()
+            print("Available tools:", [t.name for t in tools.tools])
 
 
-        async def main() -> None:
-            async with httpx2.AsyncClient(auth=provider) as http_client:
-                transport = streamable_http_client(
-                    "https://mcp.example.com/mcp",
-                    http_client=http_client,
-                )
-                async with Client(transport) as client:
-                    # Use the client
-                    tools = await client.list_tools()
-                    print("Available tools:", [t.name for t in tools.tools])
-
-
-        if __name__ == "__main__":
-            asyncio.run(main())
-        ```
-      </Tab>
-    </Tabs>
-
-    #### Using a JWT private key
-
-    <Tabs>
-      <Tab title="TypeScript">
-        ```typescript theme={null}
-        import {
-          Client,
-          PrivateKeyJwtProvider,
-          StreamableHTTPClientTransport,
-        } from "@modelcontextprotocol/client";
-
-        const provider = new PrivateKeyJwtProvider({
-          clientId: "my-service",
-          privateKey: process.env.CLIENT_PRIVATE_KEY_PEM,
-          algorithm: "RS256",
-        });
-
-        const client = new Client(
-          { name: "my-service", version: "1.0.0" },
-          { capabilities: {} },
-        );
-
-        const transport = new StreamableHTTPClientTransport(
-          new URL("https://mcp.example.com/mcp"),
-          { authProvider: provider },
-        );
-
-        await client.connect(transport);
-
-        // Use the client
-        const tools = await client.listTools();
-        console.log(
-          "Available tools:",
-          tools.tools.map((t) => t.name),
-        );
-
-        await transport.close();
-        ```
-      </Tab>
-
-      <Tab title="Python">
-        ```python theme={null}
-        import asyncio
-        from pathlib import Path
-
-        import httpx2
-
-        from mcp import Client
-        from mcp.client.auth.extensions.client_credentials import (
-            PrivateKeyJWTOAuthProvider,
-            SignedJWTParameters,
-        )
-        from mcp.client.streamable_http import streamable_http_client
-        from mcp.shared.auth import OAuthClientInformationFull, OAuthToken
-
-
-        class InMemoryTokenStorage:
-            def __init__(self) -> None:
-                self.tokens: OAuthToken | None = None
-                self.client_info: OAuthClientInformationFull | None = None
-
-            async def get_tokens(self) -> OAuthToken | None:
-                return self.tokens
-
-            async def set_tokens(self, tokens: OAuthToken) -> None:
-                self.tokens = tokens
-
-            async def get_client_info(self) -> OAuthClientInformationFull | None:
-                return self.client_info
-
-            async def set_client_info(self, client_info: OAuthClientInformationFull) -> None:
-                self.client_info = client_info
-
-
-        # Create a signed JWT assertion provider from key parameters
-        jwt_params = SignedJWTParameters(
-            issuer="my-service",
-            subject="my-service",
-            signing_key=Path("private_key.pem").read_text(),
-            signing_algorithm="RS256",
-            lifetime_seconds=300,
-        )
-
-        provider = PrivateKeyJWTOAuthProvider(
-            server_url="https://mcp.example.com/mcp",
-            storage=InMemoryTokenStorage(),
-            client_id="my-service",
-            assertion_provider=jwt_params.create_assertion_provider(),
-            scopes="read write",
-        )
-
-
-        async def main() -> None:
-            async with httpx2.AsyncClient(auth=provider) as http_client:
-                transport = streamable_http_client(
-                    "https://mcp.example.com/mcp",
-                    http_client=http_client,
-                )
-                async with Client(transport) as client:
-                    # Use the client
-                    tools = await client.list_tools()
-                    print("Available tools:", [t.name for t in tools.tools])
-
-
-        if __name__ == "__main__":
-            asyncio.run(main())
-        ```
-      </Tab>
-    </Tabs>
-  </Step>
-</Steps>
+if __name__ == "__main__":
+    asyncio.run(main())
+```
 
 ## Client support
 
-<Note>
-  Support for this extension varies by client. Extensions are opt-in and never active by default.
-</Note>
+> [!NOTE]
+>
+> Support for this extension varies by client. Extensions are opt-in and never active by default.
 
 Check the [client matrix](/extensions/client-matrix) for current implementation status across MCP clients.
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="ext-auth repository" icon="github" href="https://github.com/modelcontextprotocol/ext-auth">
-    Source code and reference implementations
-  </Card>
+> **[ext-auth repository](https://github.com/modelcontextprotocol/ext-auth)**
+>
+> Source code and reference implementations
 
-  <Card title="Full specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/draft/oauth-client-credentials.mdx">
-    Technical specification with normative requirements
-  </Card>
+> **[Full specification](https://github.com/modelcontextprotocol/ext-auth/blob/main/specification/draft/oauth-client-credentials.mdx)**
+>
+> Technical specification with normative requirements
 
-  <Card title="RFC 6749 — Client Credentials Grant" icon="link" href="https://datatracker.ietf.org/doc/html/rfc6749#section-4.4">
-    The underlying OAuth 2.0 specification
-  </Card>
+> **[RFC 6749 — Client Credentials Grant](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4)**
+>
+> The underlying OAuth 2.0 specification
 
-  <Card title="RFC 7523 — JWT Bearer Assertions" icon="link" href="https://datatracker.ietf.org/doc/html/rfc7523">
-    JWT assertion format specification
-  </Card>
-</CardGroup>
+> **[RFC 7523 — JWT Bearer Assertions](https://datatracker.ietf.org/doc/html/rfc7523)**
+>
+> JWT assertion format specification

@@ -6,9 +6,9 @@
 
 > Connect Google Drive, Calendar, and Gmail to Claude Tag so it can read docs, sheets, events, and email. Covers OAuth setup, the service-account option, and what each grants.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting Google Drive, Calendar, and Gmail lets Claude read documents, spreadsheets, calendar events, and email in any channel where the connector is on. Claude connects with its own credential, not a person's.
 
@@ -27,7 +27,9 @@ Both routes create a credential and an allowed-websites rule for the Google host
 
 ## Add the connector with Google sign-in
 
-<Warning>Use a dedicated Google account for this connector (for example, `claude@yourcompany.example.com`), not your own. The connector is shared: anyone in a channel where it's on can ask Claude to read whatever this account can see in Drive, Calendar, and Gmail. A dedicated account starts with no access until you share the specific folders and calendars Claude needs, and keeps its activity under a separate identity in Google's audit log.</Warning>
+> [!WARNING]
+>
+> Use a dedicated Google account for this connector (for example, `claude@yourcompany.example.com`), not your own. The connector is shared: anyone in a channel where it's on can ask Claude to read whatever this account can see in Drive, Calendar, and Gmail. A dedicated account starts with no access until you share the specific folders and calendars Claude needs, and keeps its activity under a separate identity in Google's audit log.
 
 Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Google Drive**, **Google Calendar**, or **Gmail**. The connect form lists the Google hosts the connector can reach; there are no scopes to choose. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](/docs/claude-tag/admins/add-connections#add-a-connection) before you sign in. Click **Sign in with Google Drive** (or **Sign in with Google Calendar**, or **Sign in with Gmail**), approve the Google consent screen, and the credential is saved.
 

@@ -10,11 +10,11 @@ You can connect Claude to a [Model Context Protocol (MCP)](/docs/connectors/buil
 
 This page is for people adding a connector to their own Claude and for Team and Enterprise Owners adding one for their organization.
 
-<Note>
-  * If you want a service that's already in the directory, see the [Connectors Directory](/docs/connectors/directory) and connect it from there
-  * If you're building the server yourself, see [Build an MCP server for Claude](/docs/connectors/building/index)
-  * If your server runs inside your private network, see [MCP tunnels](/docs/connectors/mcp-tunnels/overview)
-</Note>
+> [!NOTE]
+>
+> * If you want a service that's already in the directory, see the [Connectors Directory](/docs/connectors/directory) and connect it from there
+> * If you're building the server yourself, see [Build an MCP server for Claude](/docs/connectors/building/index)
+> * If your server runs inside your private network, see [MCP tunnels](/docs/connectors/mcp-tunnels/overview)
 
 If you have a server URL, go to [Add a connector by URL](#add-a-connector-by-url). If you have a desktop extension, go to [Install a local connector in the desktop app](#install-a-local-connector-in-the-desktop-app).
 
@@ -31,9 +31,9 @@ A connector by URL suits internet-hosted services and public APIs. A desktop ext
 
 You can add any third-party connector as a custom connector as long as you have the URL of its remote MCP server. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
 
-<Warning>
-  Custom connectors allow connections to unverified services. Claude can access and perform actions within these services, so review [Security and privacy](#security-and-privacy) before you add one.
-</Warning>
+> [!WARNING]
+>
+> Custom connectors allow connections to unverified services. Claude can access and perform actions within these services, so review [Security and privacy](#security-and-privacy) before you add one.
 
 ### On a Team or Enterprise plan
 
@@ -43,71 +43,65 @@ An Owner adds the connector for the organization. On Enterprise plans, a member 
 
 Adding the connector in organization settings makes it appear under [**Customize > Connectors**](https://claude.ai/customize/connectors) for members, with the **Custom** label. To add it:
 
-<Steps>
-  <Step title="Open organization connectors">
-    Go to [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors).
-  </Step>
+**1. Open organization connectors**
 
-  <Step title="Add a custom connector">
-    Select **Add**, then **Custom**. If Claude asks for the connector type, choose **Web**.
-  </Step>
+Go to [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors).
 
-  <Step title="Enter the server URL">
-    Enter the remote MCP server URL.
-  </Step>
+**2. Add a custom connector**
 
-  <Step title="Enter OAuth credentials if needed">
-    Optionally, enter an OAuth client ID and secret. See [Choose authentication settings](#choose-authentication-settings).
-  </Step>
+Select **Add**, then **Custom**. If Claude asks for the connector type, choose **Web**.
 
-  <Step title="Add the connector">
-    Click **Add**.
-  </Step>
-</Steps>
+**3. Enter the server URL**
+
+Enter the remote MCP server URL.
+
+**4. Enter OAuth credentials if needed**
+
+Optionally, enter an OAuth client ID and secret. See [Choose authentication settings](#choose-authentication-settings).
+
+**5. Add the connector**
+
+Click **Add**.
 
 #### Connect as a member
 
 Once an Owner has added the connector, each member connects to it with their own account:
 
-<Steps>
-  <Step title="Open Customize > Connectors">
-    Go to **Customize > Connectors**.
-  </Step>
+**1. Open Customize > Connectors**
 
-  <Step title="Find the custom connector">
-    Find the connector with the **Custom** label.
-  </Step>
+Go to **Customize > Connectors**.
 
-  <Step title="Connect">
-    Click **Connect** to authenticate.
-  </Step>
-</Steps>
+**2. Find the custom connector**
+
+Find the connector with the **Custom** label.
+
+**3. Connect**
+
+Click **Connect** to authenticate.
 
 ### On a Free, Pro, or Max plan
 
 You add custom connectors to your own account. On the Free plan, you can add one custom connector.
 
-<Steps>
-  <Step title="Open Customize > Connectors">
-    Go to **Customize > Connectors**.
-  </Step>
+**1. Open Customize > Connectors**
 
-  <Step title="Add a custom connector">
-    Click **Add custom connector**.
-  </Step>
+Go to **Customize > Connectors**.
 
-  <Step title="Enter the server URL">
-    Enter the remote MCP server URL.
-  </Step>
+**2. Add a custom connector**
 
-  <Step title="Enter OAuth credentials if needed">
-    Optionally, enter OAuth credentials. See [Choose authentication settings](#choose-authentication-settings).
-  </Step>
+Click **Add custom connector**.
 
-  <Step title="Add the connector">
-    Click **Add**.
-  </Step>
-</Steps>
+**3. Enter the server URL**
+
+Enter the remote MCP server URL.
+
+**4. Enter OAuth credentials if needed**
+
+Optionally, enter OAuth credentials. See [Choose authentication settings](#choose-authentication-settings).
+
+**5. Add the connector**
+
+Click **Add**.
 
 ### Choose authentication settings
 
@@ -133,9 +127,9 @@ Change **Advanced > Transport** only if the server's documentation says to. A UR
 
 ### Authenticate with request headers
 
-<Note>
-  Request header authentication is in beta and available to a limited set of organizations. If you don't see the **Request headers** section in the **Add custom connector** dialog, your organization doesn't have access yet.
-</Note>
+> [!NOTE]
+>
+> Request header authentication is in beta and available to a limited set of organizations. If you don't see the **Request headers** section in the **Add custom connector** dialog, your organization doesn't have access yet.
 
 If your MCP server authenticates with an API key, bearer token, or other fixed credential instead of OAuth, configure it in the **Request headers** section of the **Add custom connector** dialog. Claude stores each header value securely, doesn't show it again after you save, and sends it on every request to your server.
 
@@ -147,27 +141,25 @@ You can also use request headers in addition to OAuth, including OAuth with your
 
 A request header holds a fixed credential, such as an API key, that Claude stores and sends on every request to your server. To add one:
 
-<Steps>
-  <Step title="Open Request headers">
-    In the **Add custom connector** dialog, open **Request headers**.
-  </Step>
+**1. Open Request headers**
 
-  <Step title="Choose the header name">
-    Select a header name from the list, or choose **Custom header** to enter a different name. The list offers standard authentication and routing header names such as `authorization`, `x-api-key`, and `x-auth-token`, which every connector can use.
-  </Step>
+In the **Add custom connector** dialog, open **Request headers**.
 
-  <Step title="Enter the value">
-    Enter the header value exactly as your server expects to receive it.
-  </Step>
+**2. Choose the header name**
 
-  <Step title="Mark it required or optional">
-    Choose whether the header is **Required**. When a required header has no stored value at connection time, the connection fails. When an optional header has no value, Claude omits it from the request.
-  </Step>
+Select a header name from the list, or choose **Custom header** to enter a different name. The list offers standard authentication and routing header names such as `authorization`, `x-api-key`, and `x-auth-token`, which every connector can use.
 
-  <Step title="Add more headers and save">
-    Repeat for any additional headers your server needs, then click **Add**. You can add up to four headers.
-  </Step>
-</Steps>
+**3. Enter the value**
+
+Enter the header value exactly as your server expects to receive it.
+
+**4. Mark it required or optional**
+
+Choose whether the header is **Required**. When a required header has no stored value at connection time, the connection fails. When an optional header has no value, Claude omits it from the request.
+
+**5. Add more headers and save**
+
+Repeat for any additional headers your server needs, then click **Add**. You can add up to four headers.
 
 Anthropic reviews and approves each custom header name before Claude sends it to a third-party server. This review prevents connector configuration from being used to send arbitrary header names. If you enter a header name that isn't approved, Claude rejects the save with an error. To request approval for a custom header name, contact [Claude support](https://support.claude.com/en/articles/9015913-how-to-get-support).
 
@@ -190,19 +182,17 @@ You can turn each connector on or off for a single conversation. Click the **+**
 
 You can edit a connector's name or URL, or remove the connector:
 
-<Steps>
-  <Step title="Open your connectors">
-    Go to **Customize > Connectors**. If you're a Team or Enterprise Owner, go to **Organization settings > Connectors** instead.
-  </Step>
+**1. Open your connectors**
 
-  <Step title="Remove or open the menu">
-    Click **Remove**, or select the three-dot menu.
-  </Step>
+Go to **Customize > Connectors**. If you're a Team or Enterprise Owner, go to **Organization settings > Connectors** instead.
 
-  <Step title="Follow the prompts">
-    Follow the prompts.
-  </Step>
-</Steps>
+**2. Remove or open the menu**
+
+Click **Remove**, or select the three-dot menu.
+
+**3. Follow the prompts**
+
+Follow the prompts.
 
 You can't change authentication settings after you add a connector. That covers OAuth credentials and request headers. To change them, remove the connector and add it again with the new details. Members then need to reconnect.
 
@@ -214,19 +204,17 @@ You can install a desktop extension in the Claude desktop app when you're signed
 
 To install an extension you have as a `.mcpb` file:
 
-<Steps>
-  <Step title="Open Settings > Extensions">
-    In the Claude desktop app, go to **Settings > Extensions**.
-  </Step>
+**1. Open Settings > Extensions**
 
-  <Step title="Drag in the file">
-    Drag the `.mcpb` file onto the page. Claude opens a preview of the extension.
-  </Step>
+In the Claude desktop app, go to **Settings > Extensions**.
 
-  <Step title="Install">
-    Select **Install**, then confirm.
-  </Step>
-</Steps>
+**2. Drag in the file**
+
+Drag the `.mcpb` file onto the page. Claude opens a preview of the extension.
+
+**3. Install**
+
+Select **Install**, then confirm.
 
 The extension then appears in the list on the **Extensions** page.
 

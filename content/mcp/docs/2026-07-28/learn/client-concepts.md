@@ -117,12 +117,12 @@ Elicitation interactions are designed to be clear, contextual, and respectful of
 
 ### Roots
 
-<Warning>
-  Roots are [deprecated](/specification/2026-07-28/deprecated) as of protocol
-  version `2026-07-28` and scheduled for removal. New implementations should
-  pass directories or files via tool parameters, resource URIs, or server
-  configuration instead.
-</Warning>
+> [!WARNING]
+>
+> Roots are [deprecated](/specification/2026-07-28/deprecated) as of protocol
+> version `2026-07-28` and scheduled for removal. New implementations should
+> pass directories or files via tool parameters, resource URIs, or server
+> configuration instead.
 
 Roots define filesystem boundaries for server operations, allowing clients to specify which directories servers should focus on.
 
@@ -173,11 +173,11 @@ Roots are typically managed automatically by host applications based on user act
 
 ### Sampling
 
-<Warning>
-  Sampling is [deprecated](/specification/2026-07-28/deprecated) as of protocol
-  version `2026-07-28` and scheduled for removal. New implementations should
-  integrate directly with LLM provider APIs instead.
-</Warning>
+> [!WARNING]
+>
+> Sampling is [deprecated](/specification/2026-07-28/deprecated) as of protocol
+> version `2026-07-28` and scheduled for removal. New implementations should
+> integrate directly with LLM provider APIs instead.
 
 Sampling allows servers to request language model completions through the client, enabling agentic behaviors while maintaining security and user control.
 

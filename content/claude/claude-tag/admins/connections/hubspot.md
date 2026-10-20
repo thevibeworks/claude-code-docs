@@ -6,9 +6,9 @@
 
 > Connect HubSpot to Claude Tag so it can read pipeline, deal, and contact data. Covers the dedicated account to create, the token fields, and the URL to allow.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting HubSpot lets Claude pull pipeline, deal, and contact state in any channel where the connector is on. Claude connects with its own credential, not a person's.
 

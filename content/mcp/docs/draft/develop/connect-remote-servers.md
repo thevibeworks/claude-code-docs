@@ -29,70 +29,56 @@ With Custom Connectors, you can:
 
 The process of connecting Claude to a remote MCP server involves adding a Custom Connector through the [Claude interface](https://claude.ai/). This establishes a secure connection between Claude and your chosen remote server.
 
-<Steps>
-  <Step title="Navigate to Connector Settings">
-    Open Claude Desktop or Claude in your browser, then navigate to the settings page:
+**1. Navigate to Connector Settings**
 
-    * **Desktop**: Either use the keyboard shortcut `Ctrl+Comma` or click the top-left menu icon <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/claude-desktop-hamburger-menu-icon.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=66e498f668362c79f829a07b5ce863c8" style={{display: 'inline', margin: 0, height: '1.3em', width: 'auto'}} width="33" height="33" data-path="images/claude-desktop-hamburger-menu-icon.png" />, hover over "File", and select "Settings"
-    * **Browser**: Either use the keyboard shortcut `⌘⇧,` (*macOS*) or click on your profile icon, and select "Settings" from the menu
+Open Claude Desktop or Claude in your browser, then navigate to the settings page:
 
-    Once you're in the settings page, click "Connectors" in the sidebar. This displays your currently configured connectors and provides options for adding new ones.
-  </Step>
+* **Desktop**: Either use the keyboard shortcut `Ctrl+Comma` or click the top-left menu icon ![](https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/claude-desktop-hamburger-menu-icon.png?fit=max\&auto=format\&n=cpXzQjUOzyH0mCNH\&q=85\&s=66e498f668362c79f829a07b5ce863c8), hover over "File", and select "Settings"
+* **Browser**: Either use the keyboard shortcut `⌘⇧,` (*macOS*) or click on your profile icon, and select "Settings" from the menu
 
-  <Step title="Add a Custom Connector">
-    In the Connectors section, click the "Add" button at the top-right of the window, then select "Add custom connector" from the dropdown. This begins the connection process. To follow along, copy/paste the URL below:
+Once you're in the settings page, click "Connectors" in the sidebar. This displays your currently configured connectors and provides options for adding new ones.
 
-    ```text Example Remote Server theme={null}
-    https://example-server.modelcontextprotocol.io/mcp
-    ```
+**2. Add a Custom Connector**
 
-    <Frame>
-      <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/1-add-connector.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=b5ae9b23164875bbaa3aff4c178cdc64" alt="Add custom connector button in Claude settings" width="1038" height="809" data-path="images/quickstart-remote/1-add-connector.png" />
-    </Frame>
+In the Connectors section, click the "Add" button at the top-right of the window, then select "Add custom connector" from the dropdown. This begins the connection process. To follow along, copy/paste the URL below:
 
-    A dialog will appear prompting you to enter the remote MCP server URL. This URL should be provided by the server developer or administrator. Enter the complete URL, ensuring it includes the proper protocol (https\://) and any necessary path components.
+```text Example Remote Server theme={null}
+https://example-server.modelcontextprotocol.io/mcp
+```
 
-    <Frame>
-      <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/2-connect.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=0934f16d8e016cade8e560c8f89d011b" alt="Dialog for entering remote MCP server URL" width="1616" height="282" data-path="images/quickstart-remote/2-connect.png" />
-    </Frame>
+![Add custom connector button in Claude settings](https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/1-add-connector.png?fit=max\&auto=format\&n=4ZXF1PrDkEaJvXpn\&q=85\&s=b5ae9b23164875bbaa3aff4c178cdc64)
 
-    After entering the URL, click "Add" to proceed with the connection.
-  </Step>
+A dialog will appear prompting you to enter the remote MCP server URL. This URL should be provided by the server developer or administrator. Enter the complete URL, ensuring it includes the proper protocol (https\://) and any necessary path components.
 
-  <Step title="Complete Authentication">
-    Most remote MCP servers require authentication to ensure secure access to their resources. The authentication process varies depending on the server implementation but commonly involves OAuth, API keys, or username/password combinations.
+![Dialog for entering remote MCP server URL](https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/2-connect.png?fit=max\&auto=format\&n=4ZXF1PrDkEaJvXpn\&q=85\&s=0934f16d8e016cade8e560c8f89d011b)
 
-    <Frame>
-      <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/3-auth.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=89af6e1b85718637231388697cc7b015" alt="Authentication screen for remote MCP server" width="490" height="806" data-path="images/quickstart-remote/3-auth.png" />
-    </Frame>
+After entering the URL, click "Add" to proceed with the connection.
 
-    Follow the authentication prompts provided by the server. This may redirect you to a third-party authentication provider or display a form within Claude. Once authentication is complete, Claude will establish a secure connection to the remote server.
-  </Step>
+**3. Complete Authentication**
 
-  <Step title="Access Resources and Prompts">
-    After successful connection, the remote server’s resources and prompts become available in your Claude conversations. You can access these by clicking the "Add files, connectors, and more /" indicator <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/claude-add-files-connectors-and-more.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=53acf21f6807dd5323b70b84b5d98d8a" style={{display: 'inline', margin: 0, height: '1.3em', width: 'auto'}} width="33" height="33" data-path="images/claude-add-files-connectors-and-more.png" /> in the bottom-left corner of the message input area. Then hover over "Connectors", move the cursor over "Add to Example Remote Server", where hovering displays the attachment menu.
+Most remote MCP servers require authentication to ensure secure access to their resources. The authentication process varies depending on the server implementation but commonly involves OAuth, API keys, or username/password combinations.
 
-    <Frame>
-      <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/4-select-resources-menu.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=e5fa85174f8acbadbd709bac66f42d5c" alt="Attachment menu showing available resources" width="735" height="378" data-path="images/quickstart-remote/4-select-resources-menu.png" />
-    </Frame>
+![Authentication screen for remote MCP server](https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/quickstart-remote/3-auth.png?fit=max\&auto=format\&n=4ZXF1PrDkEaJvXpn\&q=85\&s=89af6e1b85718637231388697cc7b015)
 
-    The menu displays all available resources and prompts from your connected server. Select the items you want to include in your conversation. These resources provide Claude with context and information from your external tools.
+Follow the authentication prompts provided by the server. This may redirect you to a third-party authentication provider or display a form within Claude. Once authentication is complete, Claude will establish a secure connection to the remote server.
 
-    <Frame>
-      <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/5-select-prompts-resources.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=68722669d9e18252756885c703e4f221" alt="Selecting specific resources and prompts from the menu" width="648" height="529" data-path="images/quickstart-remote/5-select-prompts-resources.png" />
-    </Frame>
-  </Step>
+**4. Access Resources and Prompts**
 
-  <Step title="Configure Tool Permissions">
-    Remote MCP servers often expose multiple tools with varying capabilities. You can control which tools Claude is allowed to use by configuring permissions in the connector settings. This ensures Claude only performs actions you've explicitly authorized.
+After successful connection, the remote server’s resources and prompts become available in your Claude conversations. You can access these by clicking the "Add files, connectors, and more /" indicator ![](https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/claude-add-files-connectors-and-more.png?fit=max\&auto=format\&n=cpXzQjUOzyH0mCNH\&q=85\&s=53acf21f6807dd5323b70b84b5d98d8a) in the bottom-left corner of the message input area. Then hover over "Connectors", move the cursor over "Add to Example Remote Server", where hovering displays the attachment menu.
 
-    <Frame>
-      <img src="https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/6-configure-tools.png?fit=max&auto=format&n=cpXzQjUOzyH0mCNH&q=85&s=5cfd8b2c5d06e7e3699eac24c68d090e" alt="Tool permission configuration interface" width="604" height="745" data-path="images/quickstart-remote/6-configure-tools.png" />
-    </Frame>
+![Attachment menu showing available resources](https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/4-select-resources-menu.png?fit=max\&auto=format\&n=cpXzQjUOzyH0mCNH\&q=85\&s=e5fa85174f8acbadbd709bac66f42d5c)
 
-    Navigate back to the Connectors settings and click on your connected server. Here you can enable or disable specific tools, set usage limits, and configure other security parameters according to your needs.
-  </Step>
-</Steps>
+The menu displays all available resources and prompts from your connected server. Select the items you want to include in your conversation. These resources provide Claude with context and information from your external tools.
+
+![Selecting specific resources and prompts from the menu](https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/5-select-prompts-resources.png?fit=max\&auto=format\&n=cpXzQjUOzyH0mCNH\&q=85\&s=68722669d9e18252756885c703e4f221)
+
+**5. Configure Tool Permissions**
+
+Remote MCP servers often expose multiple tools with varying capabilities. You can control which tools Claude is allowed to use by configuring permissions in the connector settings. This ensures Claude only performs actions you've explicitly authorized.
+
+![Tool permission configuration interface](https://mintcdn.com/mcp/cpXzQjUOzyH0mCNH/images/quickstart-remote/6-configure-tools.png?fit=max\&auto=format\&n=cpXzQjUOzyH0mCNH\&q=85\&s=5cfd8b2c5d06e7e3699eac24c68d090e)
+
+Navigate back to the Connectors settings and click on your connected server. Here you can enable or disable specific tools, set usage limits, and configure other security parameters according to your needs.
 
 ## Best Practices for Using Remote MCP Servers
 
@@ -106,24 +92,22 @@ When working with remote MCP servers, consider these recommendations to ensure a
 
 Now that you've connected Claude to a remote MCP server, you can explore its capabilities in your conversations. Try using the connected tools to automate tasks, access external data, or integrate with your existing workflows.
 
-<CardGroup cols={2}>
-  <Card title="Build your own remote server" icon="cloud" href="/docs/draft/develop/build-server">
-    Create custom remote MCP servers to integrate with proprietary tools and
-    services
-  </Card>
+> **[Build your own remote server](/docs/draft/develop/build-server)**
+>
+> Create custom remote MCP servers to integrate with proprietary tools and
+> services
 
-  <Card title="Explore available servers" icon="grid" href="https://github.com/modelcontextprotocol/servers">
-    Browse our collection of official and community-created MCP servers
-  </Card>
+> **[Explore available servers](https://github.com/modelcontextprotocol/servers)**
+>
+> Browse our collection of official and community-created MCP servers
 
-  <Card title="Connect local servers" icon="computer" href="/docs/draft/develop/connect-local-servers">
-    Learn how to connect Claude Desktop to local MCP servers for direct system
-    access
-  </Card>
+> **[Connect local servers](/docs/draft/develop/connect-local-servers)**
+>
+> Learn how to connect Claude Desktop to local MCP servers for direct system
+> access
 
-  <Card title="Understand the architecture" icon="book" href="/docs/draft/learn/architecture">
-    Dive deeper into how MCP works and its architecture
-  </Card>
-</CardGroup>
+> **[Understand the architecture](/docs/draft/learn/architecture)**
+>
+> Dive deeper into how MCP works and its architecture
 
 Remote MCP servers unlock powerful possibilities for extending Claude's capabilities. As you become familiar with these integrations, you'll discover new ways to streamline your workflows and accomplish complex tasks more efficiently.

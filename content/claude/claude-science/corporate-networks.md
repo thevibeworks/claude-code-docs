@@ -49,19 +49,17 @@ The organization setting takes a conda channel URL and a Python package index (P
 
 Set both a conda channel mirror and a pip index: analysis environments are built from conda packages, so a pip index alone leaves the first build stuck trying to reach the public conda host.
 
-<Steps>
-  <Step title="Enter the conda channel mirror">
-    Open **Settings** > **Network**, select **Configure** on the **Package mirror** row, and paste the base URL of your conda mirror. For JFrog Artifactory that is the conda API root or a virtual conda repository, for example `https://yourorg.jfrog.io/artifactory/api/conda/conda-all`.
-  </Step>
+**1. Enter the conda channel mirror**
 
-  <Step title="Enter the pip index URL">
-    Paste your Python package index, including the `/simple` suffix that Artifactory and Nexus PyPI remotes use, for example `https://yourorg.jfrog.io/artifactory/api/pypi/pypi-remote/simple`.
-  </Step>
+Open **Settings** > **Network**, select **Configure** on the **Package mirror** row, and paste the base URL of your conda mirror. For JFrog Artifactory that is the conda API root or a virtual conda repository, for example `https://yourorg.jfrog.io/artifactory/api/conda/conda-all`.
 
-  <Step title="Save, then run the check">
-    Select **Save**, then **Check**: a green result confirms the mirror answered, and a `401` or `403` on an authenticated mirror is expected until a credential is saved or, on Windows, deployed as a file (see [Mirror credentials](#mirror-credentials)). The mirror takes effect for the next package operation without a restart. On a machine with an outbound proxy, confirm with a test environment build rather than the check alone (see [Mirror traffic and your other network controls](#mirror-traffic-and-your-other-network-controls)).
-  </Step>
-</Steps>
+**2. Enter the pip index URL**
+
+Paste your Python package index, including the `/simple` suffix that Artifactory and Nexus PyPI remotes use, for example `https://yourorg.jfrog.io/artifactory/api/pypi/pypi-remote/simple`.
+
+**3. Save, then run the check**
+
+Select **Save**, then **Check**: a green result confirms the mirror answered, and a `401` or `403` on an authenticated mirror is expected until a credential is saved or, on Windows, deployed as a file (see [Mirror credentials](#mirror-credentials)). The mirror takes effect for the next package operation without a restart. On a machine with an outbound proxy, confirm with a test environment build rather than the check alone (see [Mirror traffic and your other network controls](#mirror-traffic-and-your-other-network-controls)).
 
 The mirror must serve the standard conda channel layout, with one base URL, one directory per channel, and one per platform beneath it:
 
@@ -79,9 +77,9 @@ The mirror must serve the standard conda channel layout, with one base URL, one 
 
 Your mirror must serve at least `conda-forge` (every environment uses it) and `bioconda` for R and bioinformatics work; other channels a member requests (for example `pytorch` or `nvidia`) resolve under the same mirror base, so serve those too if needed. Anaconda's commercial `defaults` channel is rejected while a mirror is configured, so members should use `conda-forge` instead.
 
-<Note>
-  Do not point the conda mirror at a remote repository configured for a single channel (for example one whose upstream is `https://conda.anaconda.org/conda-forge`): it returns an empty index that the check reports green while every build then fails with `nothing provides <package>`. Use a remote that proxies the conda host root (`…/artifactory/api/conda/conda-remote`), a virtual conda repository, or the conda API root with channel-named remote repositories beneath it.
-</Note>
+> [!NOTE]
+>
+> Do not point the conda mirror at a remote repository configured for a single channel (for example one whose upstream is `https://conda.anaconda.org/conda-forge`): it returns an empty index that the check reports green while every build then fails with `nothing provides <package>`. Use a remote that proxies the conda host root (`…/artifactory/api/conda/conda-remote`), a virtual conda repository, or the conda API root with channel-named remote repositories beneath it.
 
 Mirror URLs must use `https://`, name a host by DNS name rather than IP address, and use port 443 or 8443, so an Artifactory instance on its stock port 8081 needs a 443 or 8443 listener or a reverse proxy in front of it. Credentials embedded in the URL are rejected at save time. The Settings page accepts `https://` mirrors only, while Claude Science also accepts an `http://` mirror from `config.toml` when `[conda] allow_insecure_mirror` is set. Validate mirror URLs before distributing a `config.toml`, since an invalid deployed value prevents the app from starting.
 
@@ -100,9 +98,9 @@ To manage mirror credentials centrally, deploy a `.netrc` file to each member's 
 * **macOS and Linux**: `~/.claude-science/conda/.netrc`
 * **Windows, version 0.1.56 or later**: `%USERPROFILE%\.claude-science\conda\.netrc`
 
-<Note>
-  On Windows, a deployment tool that runs as an administrator or as the system account needs the member's full path, such as `C:\Users\ada\.claude-science\conda\.netrc`.
-</Note>
+> [!NOTE]
+>
+> On Windows, a deployment tool that runs as an administrator or as the system account needs the member's full path, such as `C:\Users\ada\.claude-science\conda\.netrc`.
 
 Write one block like this for each mirror host:
 
@@ -183,9 +181,9 @@ How the variables reach the app depends on the operating system:
 
 Only Basic proxy authentication, supplied in the proxy address, is supported; NTLM, Negotiate, and Kerberos proxies aren't. Claude Science doesn't evaluate PAC files on Linux or on a Mac where it opens in a browser tab, so networks that publish only a PAC or WPAD file aren't supported there. The app window on Windows and macOS follows a PAC or WPAD file as described under [System proxy settings on macOS and Windows](#system-proxy-settings-on-macos-and-windows).
 
-<Note>
-  For a proxy that only speaks NTLM or Kerberos, a local relay such as `cntlm` or `px` works: the relay runs on the workstation, authenticates to your corporate proxy with the user's credentials, and exposes a plain HTTP proxy on the loopback interface. Point `HTTPS_PROXY` and `HTTP_PROXY` at the relay (for example `http://127.0.0.1:3128`). The loopback bypass governs which destinations skip the proxy, not whether the proxy can be reached, so a loopback relay works as a proxy address.
-</Note>
+> [!NOTE]
+>
+> For a proxy that only speaks NTLM or Kerberos, a local relay such as `cntlm` or `px` works: the relay runs on the workstation, authenticates to your corporate proxy with the user's credentials, and exposes a plain HTTP proxy on the loopback interface. Point `HTTPS_PROXY` and `HTTP_PROXY` at the relay (for example `http://127.0.0.1:3128`). The loopback bypass governs which destinations skip the proxy, not whether the proxy can be reached, so a loopback relay works as a proxy address.
 
 Environment builds reach a configured [package mirror](#point-package-installs-at-an-internal-mirror) directly, not through the proxy. Separately, on Linux, on Windows, and on a Mac where Claude Science opens in a browser tab, the `claude-science update` terminal command is its own process. It honors proxy variables exported in that shell but not the macOS `env` file, so export the variables in the terminal first. The background updater inside the running app uses the app's proxy settings, except on a Mac where Claude Science opens in its own window (see [Proxy and certificates for updates in the Mac app window](#proxy-and-certificates-for-updates-in-the-mac-app-window)).
 
@@ -216,9 +214,9 @@ ca_bundle = "/etc/claude-science/complete-bundle.pem"
 
 The same path rules apply as for `[network] ca_bundle`; the [configuration file reference](/docs/claude-science/configuration-file-reference#package-download-keys) lists them.
 
-<Warning>
-  Do not point `[conda] ca_bundle` at the single-root file you use for `[network] ca_bundle`: the package-download setting replaces the whole trust list, so a file containing only your corporate root breaks every package download (on Windows, every download made by code inside a session) on any network your proxy does not inspect, such as a laptop on home Wi-Fi. Build the `[conda]` bundle from your system's public roots plus the corporate root.
-</Warning>
+> [!WARNING]
+>
+> Do not point `[conda] ca_bundle` at the single-root file you use for `[network] ca_bundle`: the package-download setting replaces the whole trust list, so a file containing only your corporate root breaks every package download (on Windows, every download made by code inside a session) on any network your proxy does not inspect, such as a laptop on home Wi-Fi. Build the `[conda]` bundle from your system's public roots plus the corporate root.
 
 ### What the certificate settings do not cover
 

@@ -6,9 +6,9 @@
 
 > Ask Claude to switch models in a Slack thread, set a channel's default model, pick the model for your direct messages, or run a thread in fast mode. See which models you can use and how to confirm which one replied.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Every Claude Tag reply in Slack comes from one Claude model, and you choose which one by asking Claude for it in plain language, the same way you hand it any other task. The footer of each reply names the model that handled it, so you can confirm a switch took effect.
 

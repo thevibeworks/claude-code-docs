@@ -6,13 +6,15 @@
 
 > The Model Context Protocol roadmap, covering the priority areas Core Maintainers and Working Groups are driving for the next specification release and how they shape SEP review.
 
-<Info>Last updated: **2026-08-22**</Info>
+> [!NOTE]
+>
+> Last updated: **2026-08-22**
 
 This page outlines the Core Maintainers' vision for the protocol over the coming six to twelve months, highlighting objectives targeted for the next specification update and beyond. It describes our primary strategic goals and the expected deliverables from [Working and Interest Groups](/community/working-interest-groups).
 
-<Note>
-  This roadmap reflects current thinking rather than firm commitments. Priorities may shift, some items may be delivered differently than described or deferred, and work not listed here may still be included in the release.
-</Note>
+> [!NOTE]
+>
+> This roadmap reflects current thinking rather than firm commitments. Priorities may shift, some items may be delivered differently than described or deferred, and work not listed here may still be included in the release.
 
 ## SEP Prioritization
 

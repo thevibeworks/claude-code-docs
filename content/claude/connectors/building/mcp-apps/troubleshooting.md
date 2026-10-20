@@ -16,21 +16,21 @@ Claude Desktop and the Claude iOS app both let you inspect a running MCP App wit
 
 Claude Desktop's Developer Tools can help you debug MCP Apps. To use them:
 
-<Steps>
-  <Step title="Enable Developer Mode">
-    Open **Help > Troubleshooting** and click **Enable Developer Mode**. A new **Developer** menu appears in the menu bar.
-  </Step>
+**1. Enable Developer Mode**
 
-  <Step title="Open Developer Tools">
-    Open Developer Tools by pressing `Cmd+Option+I` on Mac or `Ctrl+Shift+I` on Windows.
-  </Step>
+Open **Help > Troubleshooting** and click **Enable Developer Mode**. A new **Developer** menu appears in the menu bar.
 
-  <Step title="Find your app's iframe">
-    Inspect the tool call element and look for an iframe nested inside another iframe. Your app is loaded as the content of the inner iframe.
-  </Step>
-</Steps>
+**2. Open Developer Tools**
 
-<Tip>From the **Developer** menu, select **Reload MCP Configuration** after editing your `claude_desktop_config.json` to apply changes without restarting.</Tip>
+Open Developer Tools by pressing `Cmd+Option+I` on Mac or `Ctrl+Shift+I` on Windows.
+
+**3. Find your app's iframe**
+
+Inspect the tool call element and look for an iframe nested inside another iframe. Your app is loaded as the content of the inner iframe.
+
+> [!TIP]
+>
+> From the **Developer** menu, select **Reload MCP Configuration** after editing your `claude_desktop_config.json` to apply changes without restarting.
 
 ### iOS
 
@@ -48,39 +48,39 @@ An invisible app under a visible tool call is the most common issue when develop
 
 Your app must call [`app.connect()`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#connect) in vanilla JS or [`useApp()`](https://modelcontextprotocol.github.io/ext-apps/api/functions/_modelcontextprotocol_ext-apps_react.useApp.html) in React to establish communication with Claude Desktop. Register your handlers before connecting:
 
-<CodeGroup>
-  ```javascript Vanilla JS theme={null}
-  import { App } from "@modelcontextprotocol/ext-apps";
+```javascript Vanilla JS theme={null}
+import { App } from "@modelcontextprotocol/ext-apps";
 
-  const app = new App({ name: "My App", version: "1.0.0" });
+const app = new App({ name: "My App", version: "1.0.0" });
 
-  // Register handlers before connecting
-  app.ontoolresult = (result) => {
-    // Handle tool results
-  };
+// Register handlers before connecting
+app.ontoolresult = (result) => {
+  // Handle tool results
+};
 
-  await app.connect();
-  ```
+await app.connect();
+```
 
-  ```javascript React theme={null}
-  import { useApp } from "@modelcontextprotocol/ext-apps/react";
+```javascript React theme={null}
+import { useApp } from "@modelcontextprotocol/ext-apps/react";
 
-  function MyComponent() {
-    // The useApp hook handles connection automatically
-    const { app } = useApp({
-      appInfo: { name: "My App", version: "1.0.0" },
-      capabilities: {},
-      onAppCreated: (app) => {
-        app.ontoolresult = (result) => {
-          // Handle tool results
-        };
-      }
-    });
-  }
-  ```
-</CodeGroup>
+function MyComponent() {
+  // The useApp hook handles connection automatically
+  const { app } = useApp({
+    appInfo: { name: "My App", version: "1.0.0" },
+    capabilities: {},
+    onAppCreated: (app) => {
+      app.ontoolresult = (result) => {
+        // Handle tool results
+      };
+    }
+  });
+}
+```
 
-<Warning>Event handlers like `app.ontoolinput` and `app.ontoolresult` aren't invoked until the app is connected.</Warning>
+> [!WARNING]
+>
+> Event handlers like `app.ontoolinput` and `app.ontoolresult` aren't invoked until the app is connected.
 
 #### Iframe has zero height
 
@@ -95,7 +95,9 @@ Check that your root element has explicit dimensions or content that gives it he
 
 When a tool result exceeds approximately 150,000 characters and Claude's code execution sandbox is active, Claude writes the result to the sandbox filesystem instead of passing it inline to the conversation. Your app receives a pointer to the stored file rather than the structured content it needs, so it never hydrates.
 
-<Note>This \~150,000-character threshold is specific to claude.ai and Claude Desktop. Claude Code uses a separate 25,000-token default limit, configurable through `MAX_MCP_OUTPUT_TOKENS`.</Note>
+> [!NOTE]
+>
+> This \~150,000-character threshold is specific to claude.ai and Claude Desktop. Claude Code uses a separate 25,000-token default limit, configurable through `MAX_MCP_OUTPUT_TOKENS`.
 
 To stay under the threshold, keep initial tool result payloads lean:
 
@@ -111,7 +113,9 @@ WebKit on iOS, in both Safari and the Claude iOS app, omits the `Referer` header
 
 To fix the iOS failures, allowlist on the `Origin` header instead of `Referer`, because WebKit does send `Origin`. Requests from your app carry an `Origin` of `{hash}.claudemcpcontent.com`, and [Set `ui.domain` for Claude](/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude) shows how to compute the hash for your server URL. Configure your infrastructure to allow requests whose `Origin` matches `*.claudemcpcontent.com` and return a corresponding `Access-Control-Allow-Origin` header.
 
-<Note>The missing `Referer` header affects requests your app makes directly from the user's device, such as loading bundles and images or calling your own API from client-side code. MCP tool calls are proxied through Claude's backend and egress from Anthropic's published IP ranges, not the user's device.</Note>
+> [!NOTE]
+>
+> The missing `Referer` header affects requests your app makes directly from the user's device, such as loading bundles and images or calling your own API from client-side code. MCP tool calls are proxied through Claude's backend and egress from Anthropic's published IP ranges, not the user's device.
 
 ### `ui.domain` validation fails
 

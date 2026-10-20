@@ -4,8 +4,6 @@
 
 # Authorization Server Discovery
 
-<div id="enable-section-numbers" />
-
 This document describes the mechanisms by which MCP servers advertise their associated
 authorization servers to MCP clients, as well as the discovery process through which MCP
 clients can determine authorization server endpoints and supported capabilities.

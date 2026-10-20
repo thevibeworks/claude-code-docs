@@ -6,9 +6,11 @@
 
 > Every managed-configuration key Claude Desktop on 3P supports, what it controls, and recommended security profiles
 
-<Tip>Most settings on this page are easier to configure in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration). Use this reference when you're scripting an MDM policy or bootstrap response by hand.</Tip>
+> [!TIP]
+>
+> Most settings on this page are easier to configure in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration). Use this reference when you're scripting an MDM policy or bootstrap response by hand.
 
-Claude Desktop on third-party (3P) is configured through OS-native managed preferences: a `.mobileconfig` profile on macOS, registry policy on Windows, or a root-owned JSON file on Linux (organizations in the admin console beta can instead deliver these settings from **Organization settings** on claude.ai). This page documents every supported key. For the desktop release each key first appeared in, see the [configuration changelog](/docs/third-party/claude-desktop/configuration-changelog).
+Claude Desktop on third-party (3P) is configured through OS-native managed preferences: a `.mobileconfig` profile on macOS, registry policy on Windows, or a root-owned JSON file on Linux (organizations managed from the [Enterprise Admin Console](/docs/third-party/claude-desktop/admin-console) can instead deliver these settings from **Organization settings** on claude.ai). This page documents every supported key. For the desktop release each key first appeared in, see the [configuration changelog](/docs/third-party/claude-desktop/configuration-changelog).
 
 The easiest way to author a configuration is the in-app configuration window (**Developer → Configure Third-Party Inference…**), which validates values, shows per-provider requirements, and exports directly to `.mobileconfig` or `.reg`. Use this reference when you need to author policy by hand, audit an existing profile, or understand exactly what a key does.
 
@@ -22,11 +24,11 @@ The easiest way to author a configuration is the in-app configuration window (**
 
 The local location is a directory: `_meta.json` records which saved configuration is applied, and each configuration is a `<id>.json` file alongside it. The in-app configuration window writes here.
 
-When a managed source is present, locally written values are ignored. The exception is a managed source that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) (the update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, and `updateViaUpdatesHost`, the lifecycle keys `relaunchEnforcementHours` and `configRecheckIntervalMinutes`, or the [network proxy keys](/docs/third-party/claude-desktop/network-proxy#pin-a-proxy-from-managed-configuration)): those keys are enforced from the managed source, but the rest of the configuration stays local and user-editable. Configuration takes effect **at launch**, so fully quit and reopen the app after any change. From version 1.46388.1 a running app also notices a changed managed configuration at its next re-check ([`configRecheckIntervalMinutes`](#configrecheckintervalminutes), 10 minutes by default) and, for most settings, prompts the user to restart and requires the restart after [`relaunchEnforcementHours`](#relaunchenforcementhours) (24 hours by default). On Windows, the two policy hives are not merged: when machine policy is present under `HKLM\SOFTWARE\Policies\Claude`, the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely; [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration) has the exact rule. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) for the full precedence rules.
+When a managed source is present, locally written values are ignored. The exception is a managed source that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) (the update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, `updateViaUpdatesHost`, and [`releaseChannel`](#releasechannel), the lifecycle keys `relaunchEnforcementHours` and `configRecheckIntervalMinutes`, or the [network proxy keys](/docs/third-party/claude-desktop/network-proxy#pin-a-proxy-from-managed-configuration)): those keys are enforced from the managed source, but the rest of the configuration stays local and user-editable. Configuration takes effect **at launch**, so fully quit and reopen the app after any change. From version 1.46388.1 a running app also notices a changed managed configuration at its next re-check ([`configRecheckIntervalMinutes`](#configrecheckintervalminutes), 10 minutes by default) and, for most settings, prompts the user to restart and requires the restart after [`relaunchEnforcementHours`](#relaunchenforcementhours) (24 hours by default). On Windows, the two policy hives are not merged: when machine policy is present under `HKLM\SOFTWARE\Policies\Claude`, the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely; [Deploy the configuration](/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration) has the exact rule. See [Deploy with MDM](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence) for the full precedence rules.
 
-<Note>
-  Claude Desktop on 3P reads the same managed-configuration sources as standard Claude Desktop but ignores keys scoped to standard deployments, except [`forceLoginOrgUUID`](/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does), as described under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile).
-</Note>
+> [!NOTE]
+>
+> Claude Desktop on 3P reads the same managed-configuration sources as standard Claude Desktop but ignores keys scoped to standard deployments, except [`forceLoginOrgUUID`](/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does), as described under [Keep a device on its managed profile](/docs/third-party/claude-desktop/admin-console#keep-a-device-on-its-managed-profile).
 
 ### Value types
 
@@ -41,9 +43,9 @@ Write every value as a **string** in the OS preference store, even booleans and 
 | object (JSON) | JSON object mapping name to value, as a string | `{"X-Org-Id":"team1"}` |
 | object\[] (JSON) | JSON array of objects, as a string | see [`managedMcpServers`](#managedmcpservers) |
 
-<Note>
-  Array- and object-typed keys such as `inferenceModels`, `inferenceGatewayOidc`, `managedMcpServers`, `coworkEgressAllowedHosts`, and `otlpHeaders` are single keys whose value is a whole JSON document. The portable encoding is a JSON string, which works on every platform. In a `.mobileconfig` that is a single `<string>` element containing `[...]` or `{...}`, and on Windows a `REG_SZ` value. A macOS profile may instead carry the value as a native `<array>` or `<dict>`, which the app reads as the equivalent JSON. Separate keys with dotted names, such as `inferenceGatewayOidc.clientId`, are never read.
-</Note>
+> [!NOTE]
+>
+> Array- and object-typed keys such as `inferenceModels`, `inferenceGatewayOidc`, `managedMcpServers`, `coworkEgressAllowedHosts`, and `otlpHeaders` are single keys whose value is a whole JSON document. The portable encoding is a JSON string, which works on every platform. In a `.mobileconfig` that is a single `<string>` element containing `[...]` or `{...}`, and on Windows a `REG_SZ` value. A macOS profile may instead carry the value as a native `<array>` or `<dict>`, which the app reads as the equivalent JSON. Separate keys with dotted names, such as `inferenceGatewayOidc.clientId`, are never read.
 
 On Windows, write registry values as `REG_SZ`, directly under the policy key rather than nested in a subkey (the app never reads subkeys). `REG_DWORD` is also accepted for boolean and integer keys and is read as its decimal value. Avoid `REG_EXPAND_SZ`: the app counts it toward machine policy being present but cannot read its contents. The app cannot see `REG_QWORD`, `REG_MULTI_SZ`, or `REG_BINARY` values at all.
 
@@ -79,368 +81,358 @@ The reference below is generated from the configuration schema and grouped to ma
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencecustomheaders" />Custom inference headers<br />`inferenceCustomHeaders` | `object` | MDM + Bootstrap<br />Added in 1.8089.0 | — | Extra headers on every inference request — routing and tenant headers only (org IDs, Bedrock Guardrails). No credentials; use the credential helper for tokens. |
-| <span id="inferencesessionlifetimesec" />Sign-in session lifetime<br />`inferenceSessionLifetimeSec` | `integer` | MDM + Bootstrap<br />Added in 1.14271.0 | — | How long a sign-in stays valid under your IdP’s session policy. Shows a re-authenticate banner before it expires. |
-| <span id="inferencecredentialhelper" />Helper script<br />`inferenceCredentialHelper` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Absolute path to an executable that prints the credential, optionally with per-request headers. |
-| <span id="inferencecredentialhelperwindows" />Helper script (Windows)<br />`inferenceCredentialHelperWindows` | `string` | MDM + Bootstrap<br />Added in 2.2553.0 | — | Absolute path of the helper executable on Windows devices, used there instead of Helper script. Leave unset to use Helper script on every operating system. |
-| <span id="inferencecredentialhelperargs" />Helper script arguments<br />`inferenceCredentialHelperArgs` | `string[]` | MDM + Bootstrap<br />Added in 2.110.0 | — | Arguments passed to the helper script, one per entry, in order. Leave unset to run it with none. |
-| <span id="inferencecredentialhelperttlsec" />Helper script TTL<br />`inferenceCredentialHelperTtlSec` | `integer` | MDM + Bootstrap<br />Added in 1.2581.0 | `3600` | Helper output is cached for this many seconds; once it expires the helper re-runs without a relaunch (before the next turn when set above 120). Defaults to `3600`. |
-| <span id="inferencecredentialhelpertimeoutsec" />Credential helper timeout<br />`inferenceCredentialHelperTimeoutSec` | `integer` | MDM + Bootstrap<br />Added in 1.8089.0 | `60` | Maximum wait for the helper executable to finish. Raise this if the helper opens a browser for interactive sign-in. Defaults to `60`. Range: 1–600. |
-| <span id="inferencecredentialhelpersilentrefreshenabled" />Re-run helper for silent refresh<br />`inferenceCredentialHelperSilentRefreshEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.10628.0 | `true` | On credential expiry, re-run the helper (CLAUDE\_HELPER\_CONTEXT=mid-session-refresh) to recover silently. Turn off if the helper can’t run non-interactively. Defaults to `true`. |
-| <span id="egressproxyurl" />Proxy server URL<br />`egressProxyUrl` | `string` | MDM only<br />Added in 1.44121.1 | — | Send the app’s and the agent’s traffic through this HTTP proxy instead of the operating system’s proxy settings. |
-| <span id="egressproxypacurl" />Proxy auto-config (PAC) URL<br />`egressProxyPacUrl` | `string` | MDM only<br />Added in 1.44121.1 | — | URL of a PAC file that decides the proxy per request. Wins over the proxy server URL when both are set. |
-| <span id="coworkvmipv6enabled" />Enable IPv6 in the workspace VM<br />`coworkVmIpv6Enabled` | `boolean` | MDM + Bootstrap<br />Added in 1.52386.0 | — | Give the Cowork workspace VM an IPv6 address and route so the agent’s tools can reach IPv6-only hosts through the device. macOS and Windows; off by default. |
-| <span id="usercontentrendererurl" />Artifact preview iframe origin<br />`userContentRendererUrl` | `string` | MDM + Bootstrap<br />Added in 1.24012.0 | — | HTTPS origin of the user-content-renderer deployment used for artifact and file previews. Defaults to the commercial host when unset. |
-| <span id="inferenceprovider" />Inference provider<br />`inferenceProvider` | `enum` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Selects the inference backend. Setting this key activates third-party mode. One of: `gateway`, `anthropic`, `bedrock`, `mantle`, `vertex`, `foundry`. |
-| <span id="inferencecredentialkind" />Credential kind<br />`inferenceCredentialKind` | `enum` | MDM + Bootstrap<br />Added in 1.8555.0 | — | Selects the credential source. When set, only that source is used (no fallback). One of: `static`, `helper-script`, `interactive`, `vendor-profile`, `workforce`, `external-idp`. Deprecated: `inferenceCredentialKind: "oauth" (Vertex AI)` (accepted until October 7, 2026); use "interactive" — the same Google sign-in under its new name (in hosted or nested documents, switch once every desktop is on a release that knows the Vertex "interactive" kind). If it is still present after that, "oauth" will no longer be a Vertex AI credential kind: the value will be reported as invalid and ignored — the device will then derive the kind from the credential fields present (Google sign-in when an OAuth client id is set), and the hosted editor will refuse to save the configuration until the kind is changed. Deprecated: `inferenceCredentialKind: "interactive" together with inferenceVertexWorkforceAudience (Vertex AI)` (accepted until October 7, 2026); use "workforce" — or remove inferenceVertexWorkforceAudience if Google sign-in ("interactive") is what is meant. If it is still present after that, the audience will no longer imply Workforce Identity: the kind will stay "interactive" (Google sign-in), which needs inferenceVertexOAuthClientId — without it the configuration will be reported as incomplete and inference will not start. Deprecated: `inferenceCredentialKind: "interactive" together with inferenceGatewayOidc (gateway)`; use "external-idp" once every desktop in the fleet is on a release that reads it. The original spelling will keep working ("interactive" with inferenceGatewayOidc is read as "external-idp"); no end date has been set. |
+| Custom inference headers `inferenceCustomHeaders` | `object` | MDM + Bootstrap Added in 1.8089.0 | — | Extra headers on every inference request — routing and tenant headers only (org IDs, Bedrock Guardrails). No credentials; use the credential helper for tokens. |
+| Sign-in session lifetime `inferenceSessionLifetimeSec` | `integer` | MDM + Bootstrap Added in 1.14271.0 | — | How long a sign-in stays valid under your IdP’s session policy. Shows a re-authenticate banner before it expires. |
+| Helper script `inferenceCredentialHelper` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Absolute path to an executable that prints the credential, optionally with per-request headers. |
+| Helper script (Windows) `inferenceCredentialHelperWindows` | `string` | MDM + Bootstrap Added in 2.2553.0 | — | Absolute path of the helper executable on Windows devices, used there instead of Helper script. Leave unset to use Helper script on every operating system. |
+| Helper script arguments `inferenceCredentialHelperArgs` | `string[]` | MDM + Bootstrap Added in 2.110.0 | — | Arguments passed to the helper script, one per entry, in order. Leave unset to run it with none. |
+| Helper script TTL `inferenceCredentialHelperTtlSec` | `integer` | MDM + Bootstrap Added in 1.2581.0 | `3600` | Helper output is cached for this many seconds; once it expires the helper re-runs without a relaunch (before the next turn when set above 120). Defaults to `3600`. |
+| Credential helper timeout `inferenceCredentialHelperTimeoutSec` | `integer` | MDM + Bootstrap Added in 1.8089.0 | `60` | Maximum wait for the helper executable to finish. Raise this if the helper opens a browser for interactive sign-in. Defaults to `60`. Range: 1–600. |
+| Re-run helper for silent refresh `inferenceCredentialHelperSilentRefreshEnabled` | `boolean` | MDM + Bootstrap Added in 1.10628.0 | `true` | On credential expiry, re-run the helper (CLAUDE\_HELPER\_CONTEXT=mid-session-refresh) to recover silently. Turn off if the helper can’t run non-interactively. Defaults to `true`. |
+| Proxy server URL `egressProxyUrl` | `string` | MDM only Added in 1.44121.1 | — | Send the app’s and the agent’s traffic through this HTTP proxy instead of the operating system’s proxy settings. |
+| Proxy auto-config (PAC) URL `egressProxyPacUrl` | `string` | MDM only Added in 1.44121.1 | — | URL of a PAC file that decides the proxy per request. Wins over the proxy server URL when both are set. |
+| Enable IPv6 in the workspace VM `coworkVmIpv6Enabled` | `boolean` | MDM + Bootstrap Added in 1.52386.0 | — | Give the Cowork workspace VM an IPv6 address and route so the agent’s tools can reach IPv6-only hosts through the device. macOS and Windows; off by default. |
+| Artifact preview iframe origin `userContentRendererUrl` | `string` | MDM + Bootstrap Added in 1.24012.0 | — | HTTPS origin of the user-content-renderer deployment used for artifact and file previews. Defaults to the commercial host when unset. |
+| Inference provider `inferenceProvider` | `enum` | MDM + Bootstrap Added in 1.2581.0 | — | Selects the inference backend. Setting this key activates third-party mode. One of: `gateway`, `anthropic`, `bedrock`, `mantle`, `vertex`, `foundry`. |
+| Credential kind `inferenceCredentialKind` | `enum` | MDM + Bootstrap Added in 1.8555.0 | — | Selects the credential source. When set, only that source is used (no fallback). One of: `static`, `helper-script`, `interactive`, `vendor-profile`, `workforce`, `external-idp`. Deprecated: `inferenceCredentialKind: "oauth" (Vertex AI)` (accepted until October 7, 2026); use "interactive" — the same Google sign-in under its new name (in hosted or nested documents, switch once every desktop is on a release that knows the Vertex "interactive" kind). If it is still present after that, "oauth" will no longer be a Vertex AI credential kind: the value will be reported as invalid and ignored — the device will then derive the kind from the credential fields present (Google sign-in when an OAuth client id is set), and the hosted editor will refuse to save the configuration until the kind is changed. Deprecated: `inferenceCredentialKind: "interactive" together with inferenceVertexWorkforceAudience (Vertex AI)` (accepted until October 7, 2026); use "workforce" — or remove inferenceVertexWorkforceAudience if Google sign-in ("interactive") is what is meant. If it is still present after that, the audience will no longer imply Workforce Identity: the kind will stay "interactive" (Google sign-in), which needs inferenceVertexOAuthClientId — without it the configuration will be reported as incomplete and inference will not start. Deprecated: `inferenceCredentialKind: "interactive" together with inferenceGatewayOidc (gateway)`; use "external-idp" once every desktop in the fleet is on a release that reads it. The original spelling will keep working ("interactive" with inferenceGatewayOidc is read as "external-idp"); no end date has been set. |
 
-<AccordionGroup>
-  <Accordion title="inferenceCustomHeaders details">
-    Sent on every inference and model-discovery request (joined into the CLI's `ANTHROPIC_CUSTOM_HEADERS`).
+> **inferenceCustomHeaders details**
+>
+> Sent on every inference and model-discovery request (joined into the CLI's `ANTHROPIC_CUSTOM_HEADERS`).
+>
+> Use this for fleet-wide, non-secret constants. **Do not put API keys, bearer tokens or other credentials here** — this map is stored and distributed as plain configuration. For tokens, and for per-user or per-session values, have the **credential helper script** emit JSON with a `headers` field; those are merged over these static entries (helper wins on conflict).
 
-    Use this for fleet-wide, non-secret constants. **Do not put API keys, bearer tokens or other credentials here** — this map is stored and distributed as plain configuration. For tokens, and for per-user or per-session values, have the **credential helper script** emit JSON with a `headers` field; those are merged over these static entries (helper wins on conflict).
-  </Accordion>
+> **inferenceCredentialHelper details**
+>
+> Claude runs the executable with the entries of **Helper script arguments** as its arguments (none by default) and reads **stdout** (trimmed). Exit code must be `0`; any output on **stderr** is logged but ignored. **Stdout must contain only one of the formats below** (no banners, prompts, or log lines).
+>
+> **Output format** is either:
+>
+> * a single bare token (the API key / bearer token), or
+> * a JSON object `{"token": "...", "headers": {"Name": "Value", ...}}` when per-request headers are needed (merged over **Custom inference headers**, helper wins on conflict)
+>
+> The helper receives `CLAUDE_HELPER_CONTEXT` in its environment (`interactive`, `mid-session-refresh`, `background`, `scheduled-task`, `setup-test`) so it can decide whether to prompt the user — see the credential-helper docs for the full contract.
+>
+> Result is cached for the TTL below. On TTL expiry the helper is re-invoked transparently (no user prompt, no relaunch).
+>
+> **Expiry and refresh:** the app checks the active credential's expiry before each turn and refreshes silently when possible (re-runs the helper, or uses the stored refresh token for interactive sign-in kinds). If the provider returns HTTP 401 mid-turn, the same silent refresh is attempted before surfacing an error. When silent refresh fails, a prompt appears with a provider-specific action (re-sign-in for interactive kinds; admin-contact for static credentials). Applies to all providers, and to both Cowork and Code.
+>
+> **Typical use:** a shell script that pulls from Keychain, 1Password CLI, or an internal secret broker. Example:
+>
+> `security find-generic-password -s anthropic-api -w`
+>
+> If this field is set, static credential fields (API key, bearer token) are ignored. The helper always wins.
 
-  <Accordion title="inferenceCredentialHelper details">
-    Claude runs the executable with the entries of **Helper script arguments** as its arguments (none by default) and reads **stdout** (trimmed). Exit code must be `0`; any output on **stderr** is logged but ignored. **Stdout must contain only one of the formats below** (no banners, prompts, or log lines).
+> **inferenceCredentialHelperWindows details**
+>
+> When one configuration serves both Windows and macOS or Linux devices, set **Helper script** to the macOS/Linux path and this to the Windows path (`C:\...` or `C:/...`). Windows devices run this executable with the same arguments, timeout, TTL and environment as **Helper script**; macOS and Linux devices ignore it. An invalid value here stops the connection on Windows devices only. Desktop releases that predate this setting ignore it and run **Helper script** on every operating system.
 
-    **Output format** is either:
+> **inferenceCredentialHelperArgs details**
+>
+> Each entry reaches the executable as one argument, exactly as written: `["--environment", "production"]` runs `helper --environment production`. Use it to keep one installed script and let the configuration each user receives decide what it does (which environment, tenant or vault to read), instead of packaging a script per case.
+>
+> Entries may not be empty and may not contain a double quote (`"`), a percent sign (`%`) or control characters, on any platform: a Windows `.cmd`/`.bat` helper receives its arguments through `cmd.exe`, where those characters would change the command. A `.cmd`/`.bat` script sees each argument quoted (`%1` is `"production"`, `%~1` strips the quotes); `.ps1`, `.exe` and POSIX helpers receive them bare. Arguments are visible in the diagnostic report and to other processes on the machine, so do not put secrets in them; the helper exists to fetch the secret.
+>
+> A changed list takes effect the way a changed path does.
 
-    * a single bare token (the API key / bearer token), or
-    * a JSON object `{"token": "...", "headers": {"Name": "Value", ...}}` when per-request headers are needed (merged over **Custom inference headers**, helper wins on conflict)
+> **egressProxyUrl details**
+>
+> Pins the app (sign-in, the connection test, model discovery, MCP servers, plugins), the Claude Code engine behind Chat, Cowork, and Code, and on macOS and Windows the Cowork workspace VM (the agent's shell, package-install, `git`, and plugin commands) to one HTTP proxy. Use it when your gateway or the internet is reachable only through a corporate proxy and you cannot rely on the system proxy. It is a reachability setting, not an egress control.
+>
+> The value is an `http://` or `https://` URL, usually with a port. SOCKS proxies and embedded credentials (`user:pass@`) are rejected. Give a local forwarding proxy on the device as `http://127.0.0.1:port`; an `https://` loopback address cannot be verified from inside the Cowork workspace VM. Requests to `localhost`, `127.0.0.1`, `[::1]`, and `*.local` names bypass the proxy so local MCP servers keep working; everything else goes through it, and if the proxy is unreachable requests fail rather than connect directly. The engine receives it as `HTTPS_PROXY` and `HTTP_PROXY` with a matching `NO_PROXY`; if Claude Code managed settings on the device set those variables, they win for the engine on the host. Traffic that never uses this proxy: the Cowork workspace VM on Linux, credential and header helper scripts, the update download, the Windows sign-in broker, and pages opened in the system browser.
+>
+> Read once at launch from device management (MDM) or the local configuration file only; a configuration server cannot deliver it, because the app may need the proxy to reach that server. A profile that sets only this key (or only the other app-behavior keys, such as `disableAutoUpdates`) does not take over a connection users set up in the app, but those keys are read from one source as a group, so put the proxy in the same profile as your update settings. Changes apply at the next app start. When `egressProxyPacUrl` is also set, the PAC file wins and this key is ignored.
 
-    The helper receives `CLAUDE_HELPER_CONTEXT` in its environment (`interactive`, `mid-session-refresh`, `background`, `scheduled-task`, `setup-test`) so it can decide whether to prompt the user — see the credential-helper docs for the full contract.
+> **egressProxyPacUrl details**
+>
+> At launch the app downloads the PAC script and asks it which proxy to use for each request, as a browser would, instead of following the operating system's proxy settings. Same value rules, coverage, exclusions, and delivery as `egressProxyUrl`, except that bypassing is the script's decision: `localhost`, `127.0.0.1`, and `[::1]` still never use a proxy, but `*.local` names and everything else follow whatever it returns. If the PAC file cannot be downloaded, the app connects directly rather than failing.
+>
+> On macOS and Windows the Cowork workspace VM is handed a copy of the script when it starts and evaluates it for each request itself; there `myIpAddress()` returns the VM's internal address rather than the device's, so a script that chooses by client subnet gives the VM its off-network answer (if that download fails, the VM connects directly). The Claude Code engine behind Chat, Cowork, and Code cannot evaluate a PAC file, so the app hands it one proxy (whichever the script returns for your inference endpoint) plus a bypass for loopback and `*.local` names. If the script answers `DIRECT` or only `SOCKS` for that endpoint, the engine uses no proxy at all, so have it return an HTTP `PROXY host:port` entry there; if the engine needs different rules, set `HTTPS_PROXY` and `NO_PROXY` in Claude Code managed settings, which win for the engine on the host.
 
-    Result is cached for the TTL below. On TTL expiry the helper is re-invoked transparently (no user prompt, no relaunch).
+> **coworkVmIpv6Enabled details**
+>
+> When set to `true`, the Cowork workspace VM on macOS and Windows gets a static IPv6 address (a unique local `fd…` address) and an IPv6 default route on its virtual network next to its IPv4 address, and the VM's gateway forwards that traffic over the device's own IPv6 connectivity, as it already does for IPv4. Use it when the tools the agent runs in the VM (shell commands, package installs, `git`, and plugin commands) must reach IPv6-only destinations. The VM's resolver then also returns IPv6 (AAAA) answers. A connection the VM makes over IPv6 succeeds only where the device's own IPv6 does; on a device without working IPv6, destinations that have both keep working over IPv4 and IPv6-only destinations stay unreachable. Because the VM's address is unique-local, most tools in it keep preferring IPv4 for destinations that have both, so IPv6 mostly carries traffic to IPv6-only destinations.
+>
+> This is a reachability setting, not an egress control: `coworkEgressAllowedHosts` keeps deciding which hostnames the agent's tools may reach, by name, over either protocol, and IPv6 literals are still not accepted there. Hosts your policies allow must also be reachable, and filtered the way you intend, over IPv6 on your network.
+>
+> Unset (default): the VM is IPv4-only and its resolver returns no IPv6 answers. A change takes effect the next time the workspace VM starts, typically at the next app launch. Does not apply to the Cowork workspace VM on Linux or to Code sessions, which use the device's own network stack.
 
-    **Expiry and refresh:** the app checks the active credential's expiry before each turn and refreshes silently when possible (re-runs the helper, or uses the stored refresh token for interactive sign-in kinds). If the provider returns HTTP 401 mid-turn, the same silent refresh is attempted before surfacing an error. When silent refresh fails, a prompt appears with a provider-specific action (re-sign-in for interactive kinds; admin-contact for static credentials). Applies to all providers, and to both Cowork and Code.
-
-    **Typical use:** a shell script that pulls from Keychain, 1Password CLI, or an internal secret broker. Example:
-
-    `security find-generic-password -s anthropic-api -w`
-
-    If this field is set, static credential fields (API key, bearer token) are ignored. The helper always wins.
-  </Accordion>
-
-  <Accordion title="inferenceCredentialHelperWindows details">
-    When one configuration serves both Windows and macOS or Linux devices, set **Helper script** to the macOS/Linux path and this to the Windows path (`C:\...` or `C:/...`). Windows devices run this executable with the same arguments, timeout, TTL and environment as **Helper script**; macOS and Linux devices ignore it. An invalid value here stops the connection on Windows devices only. Desktop releases that predate this setting ignore it and run **Helper script** on every operating system.
-  </Accordion>
-
-  <Accordion title="inferenceCredentialHelperArgs details">
-    Each entry reaches the executable as one argument, exactly as written: `["--environment", "production"]` runs `helper --environment production`. Use it to keep one installed script and let the configuration each user receives decide what it does (which environment, tenant or vault to read), instead of packaging a script per case.
-
-    Entries may not be empty and may not contain a double quote (`"`), a percent sign (`%`) or control characters, on any platform: a Windows `.cmd`/`.bat` helper receives its arguments through `cmd.exe`, where those characters would change the command. A `.cmd`/`.bat` script sees each argument quoted (`%1` is `"production"`, `%~1` strips the quotes); `.ps1`, `.exe` and POSIX helpers receive them bare. Arguments are visible in the diagnostic report and to other processes on the machine, so do not put secrets in them; the helper exists to fetch the secret.
-
-    A changed list takes effect the way a changed path does.
-  </Accordion>
-
-  <Accordion title="egressProxyUrl details">
-    Pins the app (sign-in, the connection test, model discovery, MCP servers, plugins), the Claude Code engine behind Chat, Cowork, and Code, and on macOS and Windows the Cowork workspace VM (the agent's shell, package-install, `git`, and plugin commands) to one HTTP proxy. Use it when your gateway or the internet is reachable only through a corporate proxy and you cannot rely on the system proxy. It is a reachability setting, not an egress control.
-
-    The value is an `http://` or `https://` URL, usually with a port. SOCKS proxies and embedded credentials (`user:pass@`) are rejected. Give a local forwarding proxy on the device as `http://127.0.0.1:port`; an `https://` loopback address cannot be verified from inside the Cowork workspace VM. Requests to `localhost`, `127.0.0.1`, `[::1]`, and `*.local` names bypass the proxy so local MCP servers keep working; everything else goes through it, and if the proxy is unreachable requests fail rather than connect directly. The engine receives it as `HTTPS_PROXY` and `HTTP_PROXY` with a matching `NO_PROXY`; if Claude Code managed settings on the device set those variables, they win for the engine on the host. Traffic that never uses this proxy: the Cowork workspace VM on Linux, credential and header helper scripts, the update download, the Windows sign-in broker, and pages opened in the system browser.
-
-    Read once at launch from device management (MDM) or the local configuration file only; a configuration server cannot deliver it, because the app may need the proxy to reach that server. A profile that sets only this key (or only the other app-behavior keys, such as `disableAutoUpdates`) does not take over a connection users set up in the app, but those keys are read from one source as a group, so put the proxy in the same profile as your update settings. Changes apply at the next app start. When `egressProxyPacUrl` is also set, the PAC file wins and this key is ignored.
-  </Accordion>
-
-  <Accordion title="egressProxyPacUrl details">
-    At launch the app downloads the PAC script and asks it which proxy to use for each request, as a browser would, instead of following the operating system's proxy settings. Same value rules, coverage, exclusions, and delivery as `egressProxyUrl`, except that bypassing is the script's decision: `localhost`, `127.0.0.1`, and `[::1]` still never use a proxy, but `*.local` names and everything else follow whatever it returns. If the PAC file cannot be downloaded, the app connects directly rather than failing.
-
-    On macOS and Windows the Cowork workspace VM is handed a copy of the script when it starts and evaluates it for each request itself; there `myIpAddress()` returns the VM's internal address rather than the device's, so a script that chooses by client subnet gives the VM its off-network answer (if that download fails, the VM connects directly). The Claude Code engine behind Chat, Cowork, and Code cannot evaluate a PAC file, so the app hands it one proxy (whichever the script returns for your inference endpoint) plus a bypass for loopback and `*.local` names. If the script answers `DIRECT` or only `SOCKS` for that endpoint, the engine uses no proxy at all, so have it return an HTTP `PROXY host:port` entry there; if the engine needs different rules, set `HTTPS_PROXY` and `NO_PROXY` in Claude Code managed settings, which win for the engine on the host.
-  </Accordion>
-
-  <Accordion title="coworkVmIpv6Enabled details">
-    When set to `true`, the Cowork workspace VM on macOS and Windows gets a static IPv6 address (a unique local `fd…` address) and an IPv6 default route on its virtual network next to its IPv4 address, and the VM's gateway forwards that traffic over the device's own IPv6 connectivity, as it already does for IPv4. Use it when the tools the agent runs in the VM (shell commands, package installs, `git`, and plugin commands) must reach IPv6-only destinations. The VM's resolver then also returns IPv6 (AAAA) answers. A connection the VM makes over IPv6 succeeds only where the device's own IPv6 does; on a device without working IPv6, destinations that have both keep working over IPv4 and IPv6-only destinations stay unreachable. Because the VM's address is unique-local, most tools in it keep preferring IPv4 for destinations that have both, so IPv6 mostly carries traffic to IPv6-only destinations.
-
-    This is a reachability setting, not an egress control: `coworkEgressAllowedHosts` keeps deciding which hostnames the agent's tools may reach, by name, over either protocol, and IPv6 literals are still not accepted there. Hosts your policies allow must also be reachable, and filtered the way you intend, over IPv6 on your network.
-
-    Unset (default): the VM is IPv4-only and its resolver returns no IPv6 answers. A change takes effect the next time the workspace VM starts, typically at the next app launch. Does not apply to the Cowork workspace VM on Linux or to Code sessions, which use the device's own network stack.
-  </Accordion>
-
-  <Accordion title="inferenceProvider details">
-    Setting this key asks for 3P mode. The app opens in 3P mode unless the user chose to sign in to Claude.ai at the login screen, a choice `disableDeploymentModeChooser` removes. In 3P mode, if the selected provider's required credential keys are missing or invalid, the app shows a configuration error. A value the app cannot read (a misspelt, wrongly cased or unknown provider, or a value of the wrong type) still counts as set when machine-wide device management sent it: a macOS configuration profile, Windows policy under `HKLM`, or the root-owned policy file on Linux. The app then asks for 3P mode and, in 3P mode, shows a configuration error whose details name this key. An unreadable `bootstrapUrl` from the same sources counts the same way unless `bootstrapEnabled` is `false`. An unreadable value does not count where the user can write it: the local configuration file, or Windows policy under `HKCU`. Neither does an empty value (a value of only spaces is unreadable, not empty), or a Windows value of type `REG_BINARY`, `REG_MULTI_SZ` or `REG_QWORD`. Each of those reads as not set. When this key is not set, the app launches in standard mode unless another setting asks for 3P mode, such as a `bootstrapUrl` that `bootstrapEnabled` has not turned off. Keys for providers other than the selected one are ignored. Each provider's required keys are documented on its dedicated page under Inference providers.
-  </Accordion>
-</AccordionGroup>
+> **inferenceProvider details**
+>
+> Setting this key asks for 3P mode. The app opens in 3P mode unless the user chose to sign in to Claude.ai at the login screen, a choice `disableDeploymentModeChooser` removes. In 3P mode, if the selected provider's required credential keys are missing or invalid, the app shows a configuration error. A value the app cannot read (a misspelt, wrongly cased or unknown provider, or a value of the wrong type) still counts as set when machine-wide device management sent it: a macOS configuration profile, Windows policy under `HKLM`, or the root-owned policy file on Linux. The app then asks for 3P mode and, in 3P mode, shows a configuration error whose details name this key. An unreadable `bootstrapUrl` from the same sources counts the same way unless `bootstrapEnabled` is `false`. An unreadable value does not count where the user can write it: the local configuration file, or Windows policy under `HKCU`. Neither does an empty value (a value of only spaces is unreadable, not empty), or a Windows value of type `REG_BINARY`, `REG_MULTI_SZ` or `REG_QWORD`. Each of those reads as not set. When this key is not set, the app launches in standard mode unless another setting asks for 3P mode, such as a `bootstrapUrl` that `bootstrapEnabled` has not turned off. Keys for providers other than the selected one are ignored. Each provider's required keys are documented on its dedicated page under Inference providers.
 
 ### Anthropic
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferenceanthropicapikey" />Claude API key<br />`inferenceAnthropicApiKey` | `string` | MDM + Bootstrap<br />Added in 1.8089.0 | — | Leave blank to fetch a key via browser sign-in, or to supply the key via a credential helper. |
+| Claude API key `inferenceAnthropicApiKey` | `string` | MDM + Bootstrap Added in 1.8089.0 | — | Leave blank to sign in with your browser, or to supply the key via a credential helper. |
 
 ### Bedrock
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencebedrockregion" />AWS region<br />`inferenceBedrockRegion` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | AWS region for the Bedrock runtime endpoint. |
-| <span id="inferencebedrockbaseurl" />Bedrock base URL<br />`inferenceBedrockBaseUrl` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | For VPC endpoints or gateway proxies. Host origin only. |
-| <span id="inferencebedrockservicetier" />Bedrock service tier<br />`inferenceBedrockServiceTier` | `enum` | MDM + Bootstrap<br />Added in 1.5186.0 | — | Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand. One of: `flex`, `priority`. |
-| <span id="inferencebedrockbearertoken" />AWS bearer token<br />`inferenceBedrockBearerToken` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those. |
-| <span id="inferencebedrockssostarturl" />AWS SSO start URL<br />`inferenceBedrockSsoStartUrl` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | Enables in-app AWS sign-in (no AWS CLI needed). Set with the three SSO fields below. |
-| <span id="inferencebedrockssoregion" />AWS SSO region<br />`inferenceBedrockSsoRegion` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | IAM Identity Center home region. |
-| <span id="inferencebedrockssoaccountid" />AWS SSO account ID<br />`inferenceBedrockSsoAccountId` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | 12-digit AWS account ID assigned to users in IAM Identity Center. |
-| <span id="inferencebedrockssorolename" />AWS SSO role name<br />`inferenceBedrockSsoRoleName` | `string` | MDM + Bootstrap<br />Added in 1.6259.0 | — | IAM Identity Center permission-set name granting bedrock:InvokeModel\* on the account above. |
-| <span id="inferencebedrockprofile" />AWS profile name<br />`inferenceBedrockProfile` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | AWS named profile to use for Bedrock inference credentials. |
-| <span id="inferencebedrockawsdir" />AWS config directory<br />`inferenceBedrockAwsDir` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set. |
-| <span id="inferencebedrockawsclipath" />AWS CLI path<br />`inferenceBedrockAwsCliPath` | `string` | MDM + Bootstrap<br />Added in 1.13576.0 | — | Absolute path to the aws executable. Leave unset to find it on PATH. |
+| AWS region `inferenceBedrockRegion` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | AWS region for the Bedrock runtime endpoint. |
+| Bedrock base URL `inferenceBedrockBaseUrl` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | For VPC endpoints or gateway proxies. Host origin only. |
+| Bedrock service tier `inferenceBedrockServiceTier` | `enum` | MDM + Bootstrap Added in 1.5186.0 | — | Sent as the X-Amzn-Bedrock-Service-Tier header. Leave unset for on-demand. One of: `flex`, `priority`. |
+| AWS bearer token `inferenceBedrockBearerToken` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Static bearer token for inference. For providers that support profile or helper-script credentials, prefer those. |
+| AWS SSO start URL `inferenceBedrockSsoStartUrl` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | Enables in-app AWS sign-in (no AWS CLI needed). Set with the three SSO fields below. |
+| AWS SSO region `inferenceBedrockSsoRegion` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | IAM Identity Center home region. |
+| AWS SSO account ID `inferenceBedrockSsoAccountId` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | 12-digit AWS account ID assigned to users in IAM Identity Center. |
+| AWS SSO role name `inferenceBedrockSsoRoleName` | `string` | MDM + Bootstrap Added in 1.6259.0 | — | IAM Identity Center permission-set name granting bedrock:InvokeModel\* on the account above. |
+| AWS profile name `inferenceBedrockProfile` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | AWS named profile to use for Bedrock inference credentials. |
+| AWS config directory `inferenceBedrockAwsDir` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set. |
+| AWS CLI path `inferenceBedrockAwsCliPath` | `string` | MDM + Bootstrap Added in 1.13576.0 | — | Absolute path to the aws executable. Leave unset to find it on PATH. |
 
-<AccordionGroup>
-  <Accordion title="inferenceBedrockServiceTier details">
-    Tier availability varies by model and region. Reserved capacity uses a provisioned-throughput ARN as the model ID instead of this setting. Older bundled Claude Code CLI versions ignore this key.
-  </Accordion>
-</AccordionGroup>
+> **inferenceBedrockServiceTier details**
+>
+> Tier availability varies by model and region. Reserved capacity uses a provisioned-throughput ARN as the model ID instead of this setting. Older bundled Claude Code CLI versions ignore this key.
 
 ### Foundry
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencefoundryresource" />Azure AI Foundry resource name<br />`inferenceFoundryResource` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Azure AI Foundry resource name used to construct the endpoint URL. |
-| <span id="inferencefoundrybaseurl" />Azure AI Foundry base URL<br />`inferenceFoundryBaseUrl` | `string` | MDM + Bootstrap<br />Added in 2.110.0 | — | Full base URL for a gateway or proxy in front of Foundry, path included (replaces [https://RESOURCE.services.ai.azure.com/anthropic](https://RESOURCE.services.ai.azure.com/anthropic)). |
-| <span id="inferencefoundryapikey" />Azure AI Foundry API key<br />`inferenceFoundryApiKey` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | API key for Azure AI Foundry inference. |
-| <span id="inferencefoundrytenantid" />Entra ID tenant ID<br />`inferenceFoundryTenantId` | `string` | MDM + Bootstrap<br />Added in 1.9255.0 | — | Directory (tenant) ID of the Entra ID app registration that has the Cognitive Services scope. |
-| <span id="inferencefoundryclientid" />Entra ID client ID<br />`inferenceFoundryClientId` | `string` | MDM + Bootstrap<br />Added in 1.9255.0 | — | Application (client) ID of the Entra ID app registration. Device-code sign-in requires the app to allow public client flows. |
-| <span id="inferencefoundryauthflow" />Entra ID sign-in flow<br />`inferenceFoundryAuthFlow` | `enum` | MDM + Bootstrap<br />Added in 1.19367.0 | — | How Entra sign-in runs: device code (default), system browser, or the OS identity broker. One of: `device-code`, `browser`, `broker`. |
+| Azure AI Foundry resource name `inferenceFoundryResource` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Azure AI Foundry resource name used to construct the endpoint URL. |
+| Azure AI Foundry base URL `inferenceFoundryBaseUrl` | `string` | MDM + Bootstrap Added in 2.110.0 | — | Full base URL for a gateway or proxy in front of Foundry, path included (replaces [https://RESOURCE.services.ai.azure.com/anthropic](https://RESOURCE.services.ai.azure.com/anthropic)). |
+| Azure AI Foundry API key `inferenceFoundryApiKey` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | API key for Azure AI Foundry inference. |
+| Entra ID tenant ID `inferenceFoundryTenantId` | `string` | MDM + Bootstrap Added in 1.9255.0 | — | Directory (tenant) ID of the Entra ID app registration that has the Cognitive Services scope. |
+| Entra ID client ID `inferenceFoundryClientId` | `string` | MDM + Bootstrap Added in 1.9255.0 | — | Application (client) ID of the Entra ID app registration. Device-code sign-in requires the app to allow public client flows. |
+| Entra ID sign-in flow `inferenceFoundryAuthFlow` | `enum` | MDM + Bootstrap Added in 1.19367.0 | — | How Entra sign-in runs: device code (default), system browser, or the OS identity broker. One of: `device-code`, `browser`, `broker`. |
 
-<AccordionGroup>
-  <Accordion title="inferenceFoundryBaseUrl details">
-    Set this only when the app reaches Foundry through a gateway or proxy you run, such as Azure API Management. Requests go to `<value>/v1/messages` instead of `https://<resource>.services.ai.azure.com/anthropic/v1/messages`, carrying the same credential and headers the app would send to Foundry: each user's Entra ID token for the Azure Cognitive Services audience as `Authorization: Bearer` with Entra sign-in, otherwise the API key or the credential helper's output. Claude Code sessions receive the value as `ANTHROPIC_FOUNDRY_BASE_URL`, so use the same value you would give Claude Code in a terminal. `inferenceFoundryResource` is still required and should name the resource behind the gateway; the app sends nothing to the resource directly while this is set. Must be https, or http to a proxy at a loopback address on the device itself (127.0.0.1, localhost or \[::1]).
-  </Accordion>
+> **inferenceFoundryBaseUrl details**
+>
+> Set this only when the app reaches Foundry through a gateway or proxy you run, such as Azure API Management. Requests go to `<value>/v1/messages` instead of `https://<resource>.services.ai.azure.com/anthropic/v1/messages`, carrying the same credential and headers the app would send to Foundry: each user's Entra ID token for the Azure Cognitive Services audience as `Authorization: Bearer` with Entra sign-in, otherwise the API key or the credential helper's output. Claude Code sessions receive the value as `ANTHROPIC_FOUNDRY_BASE_URL`, so use the same value you would give Claude Code in a terminal. `inferenceFoundryResource` is still required and should name the resource behind the gateway; the app sends nothing to the resource directly while this is set. Must be https, or http to a proxy at a loopback address on the device itself (127.0.0.1, localhost or \[::1]).
 
-  <Accordion title="inferenceFoundryAuthFlow details">
-    * **`device-code`** (default) — shows a code to enter at microsoft.com/devicelogin. The app registration must have **Allow public client flows** enabled.
-    * **`browser`** — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. The app registration must include `http://127.0.0.1/callback` under the **Mobile and desktop applications** platform (Entra ignores the loopback port, but not the path). Works with **Allow public client flows** disabled, and is unaffected by Conditional Access policies that block device-code authentication.
-    * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS), so it can satisfy Conditional Access policies that require a compliant/managed device or token protection. The app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
-
-    App versions that predate this key always use device code; versions that predate the broker option treat `broker` as unset and use device code.
-  </Accordion>
-</AccordionGroup>
+> **inferenceFoundryAuthFlow details**
+>
+> * **`device-code`** (default) — shows a code to enter at microsoft.com/devicelogin. The app registration must have **Allow public client flows** enabled.
+> * **`browser`** — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. The app registration must include `http://127.0.0.1/callback` under the **Mobile and desktop applications** platform (Entra ignores the loopback port, but not the path). Works with **Allow public client flows** disabled, and is unaffected by Conditional Access policies that block device-code authentication.
+> * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS), so it can satisfy Conditional Access policies that require a compliant/managed device or token protection. The app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+>
+> App versions that predate this key always use device code; versions that predate the broker option treat `broker` as unset and use device code.
 
 ### Gateway
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencegatewaybaseurl" />Gateway base URL<br />`inferenceGatewayBaseUrl` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Full URL of the inference gateway endpoint. |
-| <span id="inferencestreamidletimeoutsec" />Stream idle timeout<br />`inferenceStreamIdleTimeoutSec` | `integer` | MDM + Bootstrap<br />Added in 1.44121.1 | — | Extra seconds to wait for model output on a streaming response that is sending only keep-alive pings. Gateway provider only. Default 300. Range: 300–1800. |
-| <span id="inferencegatewayapikey" />Gateway API key<br />`inferenceGatewayApiKey` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | API key for the configured inference gateway. |
-| <span id="inferencegatewayauthscheme" />Gateway auth scheme<br />`inferenceGatewayAuthScheme` | `enum` | MDM + Bootstrap<br />Added in 1.3036.0 | `bearer` | How the gateway credential is sent on the wire (Authorization: Bearer vs x-api-key header). One of: `bearer`, `x-api-key`. Defaults to `bearer`. Deprecated: `inferenceGatewayAuthScheme: "sso"`; use inferenceCredentialKind: "interactive". The original spelling will keep working; no end date has been set. |
-| <span id="inferencegatewayoidcauthflow" />Gateway sign-in flow<br />`inferenceGatewayOidcAuthFlow` | `enum` | MDM + Bootstrap<br />Added in 1.25927.0 | — | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. Deprecated: `inferenceGatewayOidcAuthFlow`; use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set. |
-| <span id="inferencegatewayoidc" />Gateway SSO IdP (OIDC)<br />`inferenceGatewayOidc` | `object` | MDM + Bootstrap<br />Added in 1.6889.0 | — | External IdP for gateway sign-in. The user’s token from this issuer is sent to the gateway as the Bearer credential. Deprecated: `inferenceGatewayOidc`; use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set. |
-| <span id="inferenceidpauthflow" />Identity provider sign-in flow<br />`inferenceIdpAuthFlow` | `enum` | MDM + Bootstrap<br />Added in 2.7032.0 | — | How the identity-provider sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. |
-| <span id="inferenceidpoidc" />Identity provider (OIDC)<br />`inferenceIdpOidc` | `object` | MDM + Bootstrap<br />Added in 2.7032.0 | — | Your organization’s OpenID Connect identity provider. The user’s token is sent as the Bearer credential to the gateway or the Bedrock proxy. |
+| Gateway base URL `inferenceGatewayBaseUrl` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Full URL of the inference gateway endpoint. |
+| Stream idle timeout `inferenceStreamIdleTimeoutSec` | `integer` | MDM + Bootstrap Added in 1.44121.1 | — | Extra seconds to wait for model output on a streaming response that is sending only keep-alive pings. Gateway provider only. Default 300. Range: 300–1800. |
+| Gateway API key `inferenceGatewayApiKey` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | API key for the configured inference gateway. |
+| Gateway auth scheme `inferenceGatewayAuthScheme` | `enum` | MDM + Bootstrap Added in 1.3036.0 | `bearer` | How the gateway credential is sent on the wire (Authorization: Bearer vs x-api-key header). One of: `bearer`, `x-api-key`. Defaults to `bearer`. Deprecated: `inferenceGatewayAuthScheme: "sso"`; use inferenceCredentialKind: "interactive". The original spelling will keep working; no end date has been set. |
+| Gateway sign-in flow `inferenceGatewayOidcAuthFlow` | `enum` | MDM + Bootstrap Added in 1.25927.0 | — | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. Deprecated: `inferenceGatewayOidcAuthFlow`; use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set. |
+| Gateway SSO IdP (OIDC) `inferenceGatewayOidc` | `object` | MDM + Bootstrap Added in 1.6889.0 | — | External IdP for gateway sign-in. The user’s token from this issuer is sent to the gateway as the Bearer credential. Deprecated: `inferenceGatewayOidc`; use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set. |
+| Identity provider sign-in flow `inferenceIdpAuthFlow` | `enum` | MDM + Bootstrap Added in 2.7032.0 | — | How the identity-provider sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. |
+| Identity provider (OIDC) `inferenceIdpOidc` | `object` | MDM + Bootstrap Added in 2.7032.0 | — | Your organization’s OpenID Connect identity provider. The user’s token is sent as the Bearer credential to the gateway or the Bedrock proxy. |
 
-<AccordionGroup>
-  <Accordion title="inferenceStreamIdleTimeoutSec details">
-    Raises how long Cowork, Chat and Code sessions wait for the next model event on an open streaming response (Claude Code's `CLAUDE_STREAM_IDLE_TIMEOUT_MS`). It only helps when the gateway writes SSE keep-alive `ping` events (or `:` comment lines) into the response while the upstream model is silent — for example a LiteLLM proxy with keep-alive pings enabled in front of Amazon Bedrock. With pings arriving, Claude Code accepts at least about five minutes of keep-alives and then waits this many seconds more for real model output before abandoning the request. Gateway provider only; the other providers keep Claude Code's defaults.
+> **inferenceStreamIdleTimeoutSec details**
+>
+> Raises how long Cowork, Chat and Code sessions wait for the next model event on an open streaming response (Claude Code's `CLAUDE_STREAM_IDLE_TIMEOUT_MS`). It only helps when the gateway writes SSE keep-alive `ping` events (or `:` comment lines) into the response while the upstream model is silent — for example a LiteLLM proxy with keep-alive pings enabled in front of Amazon Bedrock. With pings arriving, Claude Code accepts at least about five minutes of keep-alives and then waits this many seconds more for real model output before abandoning the request. Gateway provider only; the other providers keep Claude Code's defaults.
+>
+> A response on which nothing at all arrives — no pings — still fails after about 5 minutes regardless of this key, because at the device a silent connection cannot be told apart from a dead one. If long generations fail behind a gateway that does not send pings, configure the gateway to send them rather than raising this value. A common case is automatic compaction, in which a session sends its whole conversation in one streaming request and waits for a long summary; when that request fails, the error reads `Prompt is too long · automatic compaction failed:` followed by the cause. While this key is set, the app's value takes precedence over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` in Claude Code's own managed settings for sessions the app starts; when it is unset, that setting still applies. Values outside 300–1800 are rejected at parse time (the error is listed in the diagnostics report) and the default applies.
 
-    A response on which nothing at all arrives — no pings — still fails after about 5 minutes regardless of this key, because at the device a silent connection cannot be told apart from a dead one. If long generations fail behind a gateway that does not send pings, configure the gateway to send them rather than raising this value. A common case is automatic compaction, in which a session sends its whole conversation in one streaming request and waits for a long summary; when that request fails, the error reads `Prompt is too long · automatic compaction failed:` followed by the cause. While this key is set, the app's value takes precedence over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` in Claude Code's own managed settings for sessions the app starts; when it is unset, that setting still applies. Values outside 300–1800 are rejected at parse time (the error is listed in the diagnostics report) and the default applies.
-  </Accordion>
+> **inferenceGatewayOidcAuthFlow details**
+>
+> * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceGatewayOidc` for redirect-URI registration.
+> * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceGatewayOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+>
+> Broker mode mints a token in the customer's own Entra tenant with the customer-configured `scopes`, and forwards it to the customer's own gateway; both endpoints of that trust relationship are inside the customer's control. A desktop that has the `external-idp` kind reads this key, together with `inferenceGatewayOidc`, as that kind's sign-in flow; it stays readable.
 
-  <Accordion title="inferenceGatewayOidcAuthFlow details">
-    * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceGatewayOidc` for redirect-URI registration.
-    * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceGatewayOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+> **inferenceGatewayOidc details**
+>
+> **External IdP mode.** The app discovers `<issuer>/.well-known/openid-configuration`, runs an OIDC authorization-code-with-PKCE sign-in in the system browser with `clientId`, and sends the resulting token as `Authorization: Bearer` on every inference request. Leave this unset for a gateway that hosts its own RFC 8414 metadata at `<baseUrl>/.well-known/oauth-authorization-server`. A desktop that has the `external-idp` kind reads this block as that kind's identity-provider key; it stays readable, so a fleet keeps this spelling until every desktop is on such a release.
+>
+> **Bearer token type.** `id_token` (the default) sends the OIDC ID token; the gateway validates signature, `iss`, and `aud` (the `clientId` configured here). `access_token` sends the OAuth access token, for gateways that validate as a resource server (Portkey, Kong, Envoy JWT filter, AWS API Gateway authorizers); `scopes` must then name the gateway's registered API scope. Either way the gateway must check `aud`, not just signature and issuer, or it accepts any token from your tenant.
+>
+> **IdP setup.** The callback is `http://127.0.0.1:<port>/callback` by default (`http://localhost:<port>/callback` with `redirectHost: "localhost"`); register exactly the one you use and include `/callback`. **Entra:** a public-client app with a *Mobile and desktop applications* redirect URI of `http://127.0.0.1/callback` (any port; omitting the path fails with `AADSTS50011`); in `access_token` mode also grant the gateway API's delegated permission, or sign-in fails with `AADSTS65001`. **Okta:** a *Native* app with the exact URI `http://127.0.0.1:<port>/callback` and that port in `redirectPort`.
+>
+> **Refresh.** With `offline_access` the app renews the token silently and prompts a browser sign-in only when refresh fails. Google never returns an `id_token` on refresh, so a Google Workspace-backed gateway in `id_token` mode re-prompts about hourly; `access_token` mode is unaffected.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
+> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
+> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
+> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
+> | `bearerTokenType` | `enum` | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`. |
+> | `scopes` | `string` | — | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below. |
+> | `appendOfflineAccess` | `boolean` | `true` | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh. |
+> | `resource` | `string` | — | Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID. |
+> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
+> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
+> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
-    Broker mode mints a token in the customer's own Entra tenant with the customer-configured `scopes`, and forwards it to the customer's own gateway; both endpoints of that trust relationship are inside the customer's control. A desktop that has the `external-idp` kind reads this key, together with `inferenceGatewayOidc`, as that kind's sign-in flow; it stays readable.
-  </Accordion>
+> **inferenceIdpAuthFlow details**
+>
+> * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceIdpOidc` for redirect-URI registration.
+> * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceIdpOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+>
+> Broker mode mints a token in the customer's own Entra tenant with the customer-configured `scopes` and forwards it to the customer's own gateway or proxy; both endpoints of that trust relationship are inside the customer's control.
 
-  <Accordion title="inferenceGatewayOidc details">
-    **External IdP mode.** The app discovers `<issuer>/.well-known/openid-configuration`, runs an OIDC authorization-code-with-PKCE sign-in in the system browser with `clientId`, and sends the resulting token as `Authorization: Bearer` on every inference request. Leave this unset for a gateway that hosts its own RFC 8414 metadata at `<baseUrl>/.well-known/oauth-authorization-server`. A desktop that has the `external-idp` kind reads this block as that kind's identity-provider key; it stays readable, so a fleet keeps this spelling until every desktop is on such a release.
-
-    **Bearer token type.** `id_token` (the default) sends the OIDC ID token; the gateway validates signature, `iss`, and `aud` (the `clientId` configured here). `access_token` sends the OAuth access token, for gateways that validate as a resource server (Portkey, Kong, Envoy JWT filter, AWS API Gateway authorizers); `scopes` must then name the gateway's registered API scope. Either way the gateway must check `aud`, not just signature and issuer, or it accepts any token from your tenant.
-
-    **IdP setup.** The callback is `http://127.0.0.1:<port>/callback` by default (`http://localhost:<port>/callback` with `redirectHost: "localhost"`); register exactly the one you use and include `/callback`. **Entra:** a public-client app with a *Mobile and desktop applications* redirect URI of `http://127.0.0.1/callback` (any port; omitting the path fails with `AADSTS50011`); in `access_token` mode also grant the gateway API's delegated permission, or sign-in fails with `AADSTS65001`. **Okta:** a *Native* app with the exact URI `http://127.0.0.1:<port>/callback` and that port in `redirectPort`.
-
-    **Refresh.** With `offline_access` the app renews the token silently and prompts a browser sign-in only when refresh fails. Google never returns an `id_token` on refresh, so a Google Workspace-backed gateway in `id_token` mode re-prompts about hourly; `access_token` mode is unaffected.
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-    | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-    | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-    | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-    | `bearerTokenType` | `enum` | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`. |
-    | `scopes` | `string` | — | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below. |
-    | `appendOfflineAccess` | `boolean` | `true` | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh. |
-    | `resource` | `string` | — | Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID. |
-    | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-    | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-    | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
-  </Accordion>
-
-  <Accordion title="inferenceIdpAuthFlow details">
-    * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceIdpOidc` for redirect-URI registration.
-    * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceIdpOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
-
-    Broker mode mints a token in the customer's own Entra tenant with the customer-configured `scopes` and forwards it to the customer's own gateway or proxy; both endpoints of that trust relationship are inside the customer's control.
-  </Accordion>
-
-  <Accordion title="inferenceIdpOidc details">
-    Used with `inferenceCredentialKind: "external-idp"`. The app discovers `<issuer>/.well-known/openid-configuration`, runs an OIDC authorization-code (PKCE) sign-in in the browser with `clientId` (or through the OS broker, see `inferenceIdpAuthFlow`) and sends the token as `Authorization: Bearer` on every inference request: to `inferenceGatewayBaseUrl` on the gateway provider, or on Bedrock to `inferenceBedrockBaseUrl`, which is then required: only a proxy that validates the token accepts it, never Amazon Bedrock itself (to sign in straight to Bedrock use `interactive`, AWS IAM Identity Center). On Bedrock this kind has no model discovery: list the models in `inferenceModels`.
-
-    **Bearer token type.** `id_token` (the default) sends the OIDC ID token; the receiver validates signature, `iss` and `aud` (the `clientId` here). `access_token` sends the OAuth access token, for gateways and proxies that validate as an OAuth resource server; `scopes` must then name the registered API scope. Either way the receiver must check `aud`, or it accepts any token from your tenant.
-
-    **IdP setup.** The callback is `http://127.0.0.1:<port>/callback` (`localhost` with `redirectHost: "localhost"`); register exactly that. **Entra:** a public-client app with a *Mobile and desktop applications* redirect URI `http://127.0.0.1/callback` (omitting the path fails with `AADSTS50011`); in `access_token` mode also grant the API's delegated permission, or sign-in fails with `AADSTS65001`. **Okta:** a *Native* app with `http://127.0.0.1:<port>/callback` and that port in `redirectPort`.
-
-    **Refresh.** With `offline_access` the app renews the token silently and asks for a browser sign-in only when refresh fails (Google returns no `id_token` on refresh, so `id_token` mode there re-prompts about hourly).
-
-    **Older names.** Gateway configurations written before this key use `inferenceGatewayOidc` / `inferenceGatewayOidcAuthFlow` with the `interactive` kind; they stay readable and mean the same sign-in.
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-    | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-    | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-    | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-    | `bearerTokenType` | `enum` | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`. |
-    | `scopes` | `string` | — | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below. |
-    | `appendOfflineAccess` | `boolean` | `true` | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh. |
-    | `resource` | `string` | — | Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID. |
-    | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-    | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-    | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
-  </Accordion>
-</AccordionGroup>
+> **inferenceIdpOidc details**
+>
+> Used with `inferenceCredentialKind: "external-idp"`. The app discovers `<issuer>/.well-known/openid-configuration`, runs an OIDC authorization-code (PKCE) sign-in in the browser with `clientId` (or through the OS broker, see `inferenceIdpAuthFlow`) and sends the token as `Authorization: Bearer` on every inference request: to `inferenceGatewayBaseUrl` on the gateway provider, or on Bedrock to `inferenceBedrockBaseUrl`, which is then required: only a proxy that validates the token accepts it, never Amazon Bedrock itself (to sign in straight to Bedrock use `interactive`, AWS IAM Identity Center). On Bedrock this kind has no model discovery: list the models in `inferenceModels`.
+>
+> **Bearer token type.** `id_token` (the default) sends the OIDC ID token; the receiver validates signature, `iss` and `aud` (the `clientId` here). `access_token` sends the OAuth access token, for gateways and proxies that validate as an OAuth resource server; `scopes` must then name the registered API scope. Either way the receiver must check `aud`, or it accepts any token from your tenant.
+>
+> **IdP setup.** The callback is `http://127.0.0.1:<port>/callback` (`localhost` with `redirectHost: "localhost"`); register exactly that. **Entra:** a public-client app with a *Mobile and desktop applications* redirect URI `http://127.0.0.1/callback` (omitting the path fails with `AADSTS50011`); in `access_token` mode also grant the API's delegated permission, or sign-in fails with `AADSTS65001`. **Okta:** a *Native* app with `http://127.0.0.1:<port>/callback` and that port in `redirectPort`.
+>
+> **Refresh.** With `offline_access` the app renews the token silently and asks for a browser sign-in only when refresh fails (Google returns no `id_token` on refresh, so `id_token` mode there re-prompts about hourly).
+>
+> **Older names.** Gateway configurations written before this key use `inferenceGatewayOidc` / `inferenceGatewayOidcAuthFlow` with the `interactive` kind; they stay readable and mean the same sign-in.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
+> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
+> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
+> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
+> | `bearerTokenType` | `enum` | `id_token` | Which token to send as the bearer. Use access token for a gateway or proxy that validates as an OAuth resource server. One of: `id_token`, `access_token`. |
+> | `scopes` | `string` | — | Space-separated scopes. Required in access-token mode: set the gateway or proxy API scope. offline\_access is appended automatically unless disabled below. |
+> | `appendOfflineAccess` | `boolean` | `true` | Automatically append offline\_access to scopes so the IdP returns a refresh token for silent refresh. |
+> | `resource` | `string` | — | Access-token audience of the gateway or proxy: an https URL or an AD FS relying-party identifier, sent as the RFC 8707 resource. Leave unset for Entra ID. |
+> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
+> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
+> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
 ### Models
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="modeldiscoveryenabled" />Model discovery<br />`modelDiscoveryEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.8089.0 | — | Auto-populate the model picker from the provider at launch. |
-| <span id="modelprefer1mcontext" />Use 1M wherever it’s available<br />`modelPrefer1mContext` | `boolean` | MDM + Bootstrap<br />Added in 1.28929.0 | — | Every model that offers 1M, in your list or from your gateway, shows one option and requests 1M. |
-| <span id="inferencemodels" />Model list<br />`inferenceModels` | `object[]` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Override the auto-discovered model list. First entry is the default. |
-| <span id="defaultmodeleffort" />Default model effort<br />`defaultModelEffort` | `enum` | MDM + Bootstrap<br />Added in 2.110.0 | — | Effort level the default model (the first listed model) starts at, instead of Anthropic’s recommended level: low, medium, high, xhigh or max. One of: `low`, `medium`, `high`, `xhigh`, `max`. |
-| <span id="alwaysstartwithdefaultmodel" />Always start with the default model<br />`alwaysStartWithDefaultModel` | `boolean` | MDM + Bootstrap<br />Added in 2.110.0 | — | When true, each new conversation or task starts on the default model, and a person’s model and effort changes are no longer saved as their default. |
-| <span id="inferencemodelpricingenabled" />Show estimated cost<br />`inferenceModelPricingEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.37937.0 | — | Show an estimated cost on the Usage page at Anthropic list price; turn on to set a multiplier or per-model rates. |
-| <span id="inferencemodelpricingmultiplier" />Price multiplier<br />`inferenceModelPricingMultiplier` | `number` | MDM + Bootstrap<br />Added in 1.37937.0 | — | Scales every estimated cost (0.85 = 85% of the price); between 0 and 1. Range: 0–1. |
-| <span id="inferencemodelpricing" />Model pricing<br />`inferenceModelPricing` | `object[]` | MDM + Bootstrap<br />Added in 1.37937.0 | — | Per-model rates replacing Anthropic list price in the Usage page’s estimate. |
-| <span id="modelcatalogenabled" />Model catalog metadata<br />`modelCatalogEnabled` | `boolean` | MDM + Bootstrap<br />Added in 2.110.0 | — | Fetch the published Claude Code model catalog to get model picker names, descriptions, and effort options. When off, the app uses only its bundled copy. |
-| <span id="modelcatalogurl" />Model catalog URL<br />`modelCatalogUrl` | `string` | MDM + Bootstrap<br />Added in 2.110.0 | — | Fetch the model catalog and its signature file from this URL (a mirror inside your network serving Anthropic’s published files) instead of downloads.claude.ai. |
+| Model discovery `modelDiscoveryEnabled` | `boolean` | MDM + Bootstrap Added in 1.8089.0 | — | Auto-populate the model picker from the provider at launch. |
+| Use 1M wherever it’s available `modelPrefer1mContext` | `boolean` | MDM + Bootstrap Added in 1.28929.0 | — | Every model that offers 1M, in your list or from your gateway, shows one option and requests 1M. |
+| Model list `inferenceModels` | `object[]` | MDM + Bootstrap Added in 1.2581.0 | — | Override the auto-discovered model list. First entry is the default. |
+| Default model effort `defaultModelEffort` | `enum` | MDM + Bootstrap Added in 2.110.0 | — | Effort level the default model (the first listed model) starts at, instead of Anthropic’s recommended level: low, medium, high, xhigh or max. One of: `low`, `medium`, `high`, `xhigh`, `max`. |
+| Always start with the default model `alwaysStartWithDefaultModel` | `boolean` | MDM + Bootstrap Added in 2.110.0 | — | When true, each new conversation or task starts on the default model, and a person’s model and effort changes are no longer saved as their default. |
+| Show estimated cost `inferenceModelPricingEnabled` | `boolean` | MDM + Bootstrap Added in 1.37937.0 | — | Show an estimated cost on the Usage page at Anthropic list price; turn on to set a multiplier or per-model rates. |
+| Price multiplier `inferenceModelPricingMultiplier` | `number` | MDM + Bootstrap Added in 1.37937.0 | — | Scales every estimated cost (0.85 = 85% of the price); between 0 and 1. Range: 0–1. |
+| Model pricing `inferenceModelPricing` | `object[]` | MDM + Bootstrap Added in 1.37937.0 | — | Per-model rates replacing Anthropic list price in the Usage page’s estimate. |
+| Model catalog metadata `modelCatalogEnabled` | `boolean` | MDM + Bootstrap Added in 2.110.0 | — | Fetch the published Claude Code model catalog to get model picker names, descriptions, and effort options. When off, the app uses only its bundled copy. |
+| Model catalog URL `modelCatalogUrl` | `string` | MDM + Bootstrap Added in 2.110.0 | — | Fetch the model catalog and its signature file from this URL (a mirror inside your network serving Anthropic’s published files) instead of downloads.claude.ai. |
 
-<AccordionGroup>
-  <Accordion title="modelDiscoveryEnabled details">
-    Auto-populate the model picker from the provider's model-list endpoint at launch. For gateway and Anthropic providers, a config that doesn't set this key skips discovery automatically when the model list below already makes it unnecessary; the toggle here only sets it explicitly on or off. Turn off if the endpoint isn't reachable from your network, or to use a fixed list. When off, the model list below is required and must use full model IDs (aliases like sonnet/opus are resolved via discovery).
-  </Accordion>
+> **modelDiscoveryEnabled details**
+>
+> Auto-populate the model picker from the provider's model-list endpoint at launch. For gateway and Anthropic providers, a config that doesn't set this key skips discovery automatically when the model list below already makes it unnecessary; the toggle here only sets it explicitly on or off. Turn off if the endpoint isn't reachable from your network, or to use a fixed list. When off, the model list below is required and must use full model IDs (aliases like sonnet/opus are resolved via discovery).
 
-  <Accordion title="modelPrefer1mContext details">
-    Every model that offers a 1M-token context window shows one option in the model picker, and sessions on it request 1M from your provider. A model offers 1M when its `inferenceModels` entry sets `supports1m` or, under discovery, when your gateway's model list marks it. Equivalent to setting `prefer1m` on each of those entries, but also applies under dynamic discovery. To leave one listed model out, remove its `supports1m`. Beside a model list in which no entry sets `supports1m`, this setting does nothing. Older Claude Desktop versions show both options and only start the default model on its 1M option.
-  </Accordion>
+> **modelPrefer1mContext details**
+>
+> Every model that offers a 1M-token context window shows one option in the model picker, and sessions on it request 1M from your provider. A model offers 1M when its `inferenceModels` entry sets `supports1m` or, under discovery, when your gateway's model list marks it. Equivalent to setting `prefer1m` on each of those entries, but also applies under dynamic discovery. To leave one listed model out, remove its `supports1m`. Beside a model list in which no entry sets `supports1m`, this setting does nothing. Older Claude Desktop versions show both options and only start the default model on its 1M option.
 
-  <Accordion title="inferenceModels details">
-    Use the **provider's exact model ID**: Vertex publisher IDs (`claude-sonnet-5`), Bedrock inference-profile IDs (`us.anthropic.claude-sonnet-5`), or Foundry deployment names. Entries may be plain ID strings or objects.
+> **inferenceModels details**
+>
+> Use the **provider's exact model ID**: Vertex publisher IDs (`claude-sonnet-5`), Bedrock inference-profile IDs (`us.anthropic.claude-sonnet-5`), or Foundry deployment names. Entries may be plain ID strings or objects.
+>
+> **Gateway:** the `name` must be the exact ID your gateway's `/v1/models` endpoint returns. If you set `supports1m` on an alias (`sonnet`) but discovery returns the full ID, the variant won't appear.
+>
+> **Extended context** (`supports1m`) is a capability assertion you make about your deployment; only set it for models you've confirmed support the 1M-token window:
+>
+> ```json theme={null} theme={null} theme={null}
+> [{"name": "claude-sonnet-5", "supports1m": true}, "claude-opus-4-8"]
+> ```
+>
+> `"claude-sonnet-5[1m]"` is shorthand for the same entry. When an ID is listed both bare and with `[1m]` (as a gateway lists it), the picker shows one model with a 1M variant; put `labelOverride` on the bare entry (a label on the `[1m]` spelling is ignored there); tier-tagged entries are not folded. `prefer1m: true` (no effect without `supports1m`) shows only the 1M variant of the model. Under dynamic discovery (no explicit list), set `modelPrefer1mContext` instead.
+>
+> **Display label** (`labelOverride`) is for IDs the picker can't derive a friendly name from (Bedrock ARNs, gateway routing aliases). Display-only; `name` is still what the app sends:
+>
+> ```json theme={null} theme={null} theme={null}
+> [{"name": "arn:aws:bedrock:us-east-1:123:application-inference-profile/abc", "labelOverride": "Claude Opus (Prod)"}]
+> ```
+>
+> **Tier mapping** (`anthropicFamilyTier`) tells the app which Claude tier (`haiku`/`sonnet`/`opus`/`fable`/`mythos`) an entry stands in for, so bare tier aliases (e.g. in Code sessions) resolve to your model. `isFamilyDefault: true` picks the winner when several entries share a tier:
+>
+> ```json theme={null} theme={null} theme={null}
+> [{"name": "us.anthropic.claude-opus-4-8", "anthropicFamilyTier": "opus"}]
+> ```
+>
+> **Auto mode on a gateway:** its safety classifier calls `claude-sonnet-5` by default, so include that exact ID in the list (see `autoModeEnabled`).
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `name` | `string` | — | Model ID exactly as the provider expects it. The first entry is the default model. |
+> | `labelOverride` | `string` | — | Shown in the model picker. Leave blank to auto-format from the ID. |
+> | `supports1m` | `boolean` | — | Adds a 1M-context variant of this model to the picker. Set only if the deployment accepts 1M-token context for it. |
+> | `prefer1m` | `boolean` | — | Shows one option for this model and requests 1M from your provider. Does nothing unless the entry offers 1M. |
+> | `anthropicFamilyTier` | `enum` | — | Which Claude tier this model stands in for. Pins the bare alias (e.g. ‘opus’) and, for opus/fable, the refusal fallback. One of: `sonnet`, `opus`, `haiku`, `fable`, `mythos`. |
+> | `isFamilyDefault` | `boolean` | — | When several models share a tier alias, marks this one as the model the alias resolves to. Otherwise the first listed wins. |
+> | `maxEffort` | `enum` | — | Highest effort level offered for this model; higher levels are hidden and never requested by Claude Desktop. An unrecognized value caps the model at low. One of: `low`, `medium`, `high`, `xhigh`, `max`. |
 
-    **Gateway:** the `name` must be the exact ID your gateway's `/v1/models` endpoint returns. If you set `supports1m` on an alias (`sonnet`) but discovery returns the full ID, the variant won't appear.
+> **defaultModelEffort details**
+>
+> The effort level the default model (the first `inferenceModels` entry, or the first model your endpoint returns under discovery) starts at in Chat, Cowork and Code, in place of Anthropic's recommended level for that model: one of `low`, `medium`, `high`, `xhigh`, `max`. It is a starting point, not a lock: a person's own effort choice for that model still applies unless `alwaysStartWithDefaultModel` is on, and other models keep their recommended level. A level the model doesn't offer falls to the nearest level it offers below it (its lowest level when none is lower), and it never exceeds that model's `maxEffort`. In Code sessions a `CLAUDE_CODE_EFFORT_LEVEL` environment variable or an `effortLevel` in Claude Code's own settings still takes precedence, as it does over any picker default.
 
-    **Extended context** (`supports1m`) is a capability assertion you make about your deployment; only set it for models you've confirmed support the 1M-token window:
+> **alwaysStartWithDefaultModel details**
+>
+> When `true`, each new conversation or task in Chat, Cowork and Code starts on the default model (the first `inferenceModels` entry), and the model and effort choices a person makes are no longer saved as their defaults. When unset or `false`, a person's last model and effort choice is remembered per tab, as before. Choices saved before the setting was turned on are kept and apply again if it is turned off.
 
-    ```json theme={null}
-    [{"name": "claude-sonnet-5", "supports1m": true}, "claude-opus-4-8"]
-    ```
+> **inferenceModelPricingEnabled details**
+>
+> Off unless set: the Usage page shows token counts only, since the app cannot know your negotiated provider rates. `true` turns on a USD estimate priced at Anthropic's published list price and is the only switch that does: `inferenceModelPricingMultiplier` and `inferenceModelPricing` refine the estimate while this is on and are ignored otherwise; turning this off hides them in the config editors without clearing them. Claude Code performs the calculation, so the same figures appear in its own cost reporting for Code sessions. Model IDs Claude Code cannot map to a Claude model (an opaque gateway alias, an inference-profile ARN it cannot resolve) are left out of the estimate until `inferenceModelPricing` gives them a rate. A machine-level Claude Code managed `modelPricing` (MDM / managed-settings.json / server-managed) takes precedence over all three keys.
 
-    `"claude-sonnet-5[1m]"` is shorthand for the same entry. When an ID is listed both bare and with `[1m]` (as a gateway lists it), the picker shows one model with a 1M variant; put `labelOverride` on the bare entry (a label on the `[1m]` spelling is ignored there); tier-tagged entries are not folded. `prefer1m: true` (no effect without `supports1m`) shows only the 1M variant of the model. Under dynamic discovery (no explicit list), set `modelPrefer1mContext` instead.
+> **inferenceModelPricingMultiplier details**
+>
+> Mirrors Claude Code's managed `modelPricing.multiplier`: a number in (0, 1] applied to every computed cost, whether the model was priced at Anthropic list price or by an `inferenceModelPricing` row; use it for a flat contracted discount. Applies only while `inferenceModelPricingEnabled` is `true`; on its own it does not turn the estimate on. Ignored when a machine-level Claude Code managed `modelPricing` is present.
 
-    **Display label** (`labelOverride`) is for IDs the picker can't derive a friendly name from (Bedrock ARNs, gateway routing aliases). Display-only; `name` is still what the app sends:
+> **inferenceModelPricing details**
+>
+> Each row replaces Anthropic list price for one model in the Usage page's estimate, in USD per million tokens (`inputPerMtok`, `outputPerMtok`, `cacheReadPerMtok`, `cacheWritePerMtok`, all four required; `cacheWritePerMtok` prices both 5-minute and 1-hour cache writes); rows apply only while `inferenceModelPricingEnabled` is `true` and do not turn the estimate on by themselves. Mirrors Claude Code's managed `modelPricing.overrides`, and `name` is matched the same way: a built-in Claude model ID (e.g. `claude-sonnet-4-6`, or its Bedrock, Vertex, or Foundry ID) covers every dated and provider spelling of that model; any other value (a gateway alias, an inference-profile ARN) matches that exact ID only (case-insensitive) and wins over a built-in row. An ID Claude Code cannot map to a Claude model at all gets no estimate until a row here prices it. `inferenceModelPricingMultiplier` still applies on top of a row.
+>
+> ```json theme={null} theme={null} theme={null}
+> {"inferenceModelPricingEnabled": true, "inferenceModelPricingMultiplier": 0.9, "inferenceModelPricing": [{"name": "claude-sonnet-4-6", "inputPerMtok": 2.4, "outputPerMtok": 12, "cacheReadPerMtok": 0.24, "cacheWritePerMtok": 3}]}
+> ```
+>
+> These are estimates for visibility, not an invoice; your provider bills at its own rates. A machine-level Claude Code managed `modelPricing` (MDM / managed-settings.json / server-managed) takes precedence over this table.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `name` | `string` | — | A model ID from the list above, or any other ID or alias your provider serves. A built-in Claude ID also covers its dated and provider forms. |
+> | `inputPerMtok` | `number` | — | USD per million input tokens. |
+> | `outputPerMtok` | `number` | — | USD per million output tokens. |
+> | `cacheReadPerMtok` | `number` | — | USD per million prompt-cache read tokens. |
+> | `cacheWritePerMtok` | `number` | — | USD per million prompt-cache write tokens (5-minute and 1-hour writes alike). |
 
-    ```json theme={null}
-    [{"name": "arn:aws:bedrock:us-east-1:123:application-inference-profile/abc", "labelOverride": "Claude Opus (Prod)"}]
-    ```
+> **modelCatalogEnabled details**
+>
+> When on (the default), the app reads the model catalog Anthropic publishes for Claude Code (a signed document fetched from `downloads.claude.ai`, or from `modelCatalogUrl` when that is set, and verified against a key built into the app; a copy bundled with the app is used until one has been fetched, or when the host is unreachable) and uses it to fill in each picker entry's display name, description, and thinking/effort options in the Chat, Cowork, and Code tabs. It never changes which models are offered, their order, or the default model (the first `inferenceModels` entry): those, 1M-context variants, and `labelOverride` still come from `inferenceModels` / discovery, and a model the catalog does not list keeps the built-in label. With `modelCatalogEnabled: false`, the app makes no catalog request and ignores any copy it fetched earlier. Picker names, descriptions, effort options, and recommended effort levels then come from the copy bundled with the installed app version, so they change only with app updates; `labelOverride`, `defaultModelEffort`, and `maxEffort` still apply. A model that copy does not list, typically one released after that version, may show no effort options until the app is updated. Applies to deployments configured on the device or by a bootstrap server; an install managed from the Claude admin console takes its model names and options from the console's settings and never fetches the catalog.
 
-    **Tier mapping** (`anthropicFamilyTier`) tells the app which Claude tier (`haiku`/`sonnet`/`opus`/`fable`/`mythos`) an entry stands in for, so bare tier aliases (e.g. in Code sessions) resolve to your model. `isFamilyDefault: true` picks the winner when several entries share a tier:
-
-    ```json theme={null}
-    [{"name": "us.anthropic.claude-opus-4-8", "anthropicFamilyTier": "opus"}]
-    ```
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `name` | `string` | — | Model ID exactly as the provider expects it. The first entry is the default model. |
-    | `labelOverride` | `string` | — | Shown in the model picker. Leave blank to auto-format from the ID. |
-    | `supports1m` | `boolean` | — | Adds a 1M-context variant of this model to the picker. Set only if the deployment accepts 1M-token context for it. |
-    | `prefer1m` | `boolean` | — | Shows one option for this model and requests 1M from your provider. Does nothing unless the entry offers 1M. |
-    | `anthropicFamilyTier` | `enum` | — | Which Claude tier this model stands in for. Pins the bare alias (e.g. ‘opus’) and, for opus/fable, the refusal fallback. One of: `sonnet`, `opus`, `haiku`, `fable`, `mythos`. |
-    | `isFamilyDefault` | `boolean` | — | When several models share a tier alias, marks this one as the model the alias resolves to. Otherwise the first listed wins. |
-    | `maxEffort` | `enum` | — | Highest effort level offered for this model; higher levels are hidden and never requested by Claude Desktop. An unrecognized value caps the model at low. One of: `low`, `medium`, `high`, `xhigh`, `max`. |
-  </Accordion>
-
-  <Accordion title="defaultModelEffort details">
-    The effort level the default model (the first `inferenceModels` entry, or the first model your endpoint returns under discovery) starts at in Chat, Cowork and Code, in place of Anthropic's recommended level for that model: one of `low`, `medium`, `high`, `xhigh`, `max`. It is a starting point, not a lock: a person's own effort choice for that model still applies unless `alwaysStartWithDefaultModel` is on, and other models keep their recommended level. A level the model doesn't offer falls to the nearest level it offers below it (its lowest level when none is lower), and it never exceeds that model's `maxEffort`. In Code sessions a `CLAUDE_CODE_EFFORT_LEVEL` environment variable or an `effortLevel` in Claude Code's own settings still takes precedence, as it does over any picker default.
-  </Accordion>
-
-  <Accordion title="alwaysStartWithDefaultModel details">
-    When `true`, each new conversation or task in Chat, Cowork and Code starts on the default model (the first `inferenceModels` entry), and the model and effort choices a person makes are no longer saved as their defaults. When unset or `false`, a person's last model and effort choice is remembered per tab, as before. Choices saved before the setting was turned on are kept and apply again if it is turned off.
-  </Accordion>
-
-  <Accordion title="inferenceModelPricingEnabled details">
-    Off unless set: the Usage page shows token counts only, since the app cannot know your negotiated provider rates. `true` turns on a USD estimate priced at Anthropic's published list price and is the only switch that does: `inferenceModelPricingMultiplier` and `inferenceModelPricing` refine the estimate while this is on and are ignored otherwise; turning this off hides them in the config editors without clearing them. Claude Code performs the calculation, so the same figures appear in its own cost reporting for Code sessions. Model IDs Claude Code cannot map to a Claude model (an opaque gateway alias, an inference-profile ARN it cannot resolve) are left out of the estimate until `inferenceModelPricing` gives them a rate. A machine-level Claude Code managed `modelPricing` (MDM / managed-settings.json / server-managed) takes precedence over all three keys.
-  </Accordion>
-
-  <Accordion title="inferenceModelPricingMultiplier details">
-    Mirrors Claude Code's managed `modelPricing.multiplier`: a number in (0, 1] applied to every computed cost, whether the model was priced at Anthropic list price or by an `inferenceModelPricing` row; use it for a flat contracted discount. Applies only while `inferenceModelPricingEnabled` is `true`; on its own it does not turn the estimate on. Ignored when a machine-level Claude Code managed `modelPricing` is present.
-  </Accordion>
-
-  <Accordion title="inferenceModelPricing details">
-    Each row replaces Anthropic list price for one model in the Usage page's estimate, in USD per million tokens (`inputPerMtok`, `outputPerMtok`, `cacheReadPerMtok`, `cacheWritePerMtok`, all four required; `cacheWritePerMtok` prices both 5-minute and 1-hour cache writes); rows apply only while `inferenceModelPricingEnabled` is `true` and do not turn the estimate on by themselves. Mirrors Claude Code's managed `modelPricing.overrides`, and `name` is matched the same way: a built-in Claude model ID (e.g. `claude-sonnet-4-6`, or its Bedrock, Vertex, or Foundry ID) covers every dated and provider spelling of that model; any other value (a gateway alias, an inference-profile ARN) matches that exact ID only (case-insensitive) and wins over a built-in row. An ID Claude Code cannot map to a Claude model at all gets no estimate until a row here prices it. `inferenceModelPricingMultiplier` still applies on top of a row.
-
-    ```json theme={null}
-    {"inferenceModelPricingEnabled": true, "inferenceModelPricingMultiplier": 0.9, "inferenceModelPricing": [{"name": "claude-sonnet-4-6", "inputPerMtok": 2.4, "outputPerMtok": 12, "cacheReadPerMtok": 0.24, "cacheWritePerMtok": 3}]}
-    ```
-
-    These are estimates for visibility, not an invoice; your provider bills at its own rates. A machine-level Claude Code managed `modelPricing` (MDM / managed-settings.json / server-managed) takes precedence over this table.
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `name` | `string` | — | A model ID from the list above, or any other ID or alias your provider serves. A built-in Claude ID also covers its dated and provider forms. |
-    | `inputPerMtok` | `number` | — | USD per million input tokens. |
-    | `outputPerMtok` | `number` | — | USD per million output tokens. |
-    | `cacheReadPerMtok` | `number` | — | USD per million prompt-cache read tokens. |
-    | `cacheWritePerMtok` | `number` | — | USD per million prompt-cache write tokens (5-minute and 1-hour writes alike). |
-  </Accordion>
-
-  <Accordion title="modelCatalogEnabled details">
-    When on (the default), the app reads the model catalog Anthropic publishes for Claude Code (a signed document fetched from `downloads.claude.ai`, or from `modelCatalogUrl` when that is set, and verified against a key built into the app; a copy bundled with the app is used until one has been fetched, or when the host is unreachable) and uses it to fill in each picker entry's display name, description, and thinking/effort options in the Chat, Cowork, and Code tabs. It never changes which models are offered, their order, or the default model (the first `inferenceModels` entry): those, 1M-context variants, and `labelOverride` still come from `inferenceModels` / discovery, and a model the catalog does not list keeps the built-in label. With `modelCatalogEnabled: false`, the app makes no catalog request and ignores any copy it fetched earlier. Picker names, descriptions, effort options, and recommended effort levels then come from the copy bundled with the installed app version, so they change only with app updates; `labelOverride`, `defaultModelEffort`, and `maxEffort` still apply. A model that copy does not list, typically one released after that version, may show no effort options until the app is updated. Applies to deployments configured on the device or by a bootstrap server; an install managed from the Claude admin console takes its model names and options from the console's settings and never fetches the catalog.
-  </Accordion>
-
-  <Accordion title="modelCatalogUrl details">
-    When set, the app fetches the catalog document and its signature file (the same URL with `.raw-sig.json` appended to the path) from this URL instead of `https://downloads.claude.ai/model-catalog/v1/catalog.json`, for a gateway or mirror inside your network serving Anthropic's two published files byte-for-byte. The document is still verified against the key built into the app, so an edited or re-signed copy is refused and the app keeps its last verified copy (or the bundled one); there is no key to configure. `https://` is required (`http://` only to a loopback address, and only when set on the device itself; a bootstrap server may not deliver a loopback or non-`https://` value); the server must answer the GET directly (redirects are not followed) and may honor `If-None-Match` with `304`, and must serve a document at least as new as the one the install last accepted (or the bundled seed) — an older one is refused and re-fetched on the retry interval until the mirror catches up. Ignored when `modelCatalogEnabled` is `false`, and on an install managed from the Claude admin console (which never fetches the catalog). A value that is not a valid URL, names a link-local or cloud-metadata host (e.g. `169.254.169.254`, `metadata.google.internal`), or is a loopback / non-`https://` value a bootstrap server delivers, turns the catalog fetch off (no fallback to `downloads.claude.ai`); the last fetched or bundled copy keeps labelling the pickers. On an install configured for a bootstrap server, the default location is not fetched until the server's configuration applies after sign-in, so a device does not poll `downloads.claude.ai` while the server may yet name a mirror; a mirror URL set on the device, cached earlier, or served in a pre-sign-in subset still fetches. Diagnostics report the location only as `hosted`, `custom`, `invalid` or `pending`; the value itself is treated like `bootstrapUrl`: host name only in telemetry, printed in full in the diagnostics bundle.
-  </Accordion>
-</AccordionGroup>
+> **modelCatalogUrl details**
+>
+> When set, the app fetches the catalog document and its signature file (the same URL with `.raw-sig.json` appended to the path) from this URL instead of `https://downloads.claude.ai/model-catalog/v1/catalog.json`, for a gateway or mirror inside your network serving Anthropic's two published files byte-for-byte. The document is still verified against the key built into the app, so an edited or re-signed copy is refused and the app keeps its last verified copy (or the bundled one); there is no key to configure. `https://` is required (`http://` only to a loopback address, and only when set on the device itself; a bootstrap server may not deliver a loopback or non-`https://` value); the server must answer the GET directly (redirects are not followed) and may honor `If-None-Match` with `304`, and must serve a document at least as new as the one the install last accepted (or the bundled seed) — an older one is refused and re-fetched on the retry interval until the mirror catches up. Ignored when `modelCatalogEnabled` is `false`, and on an install managed from the Claude admin console (which never fetches the catalog). A value that is not a valid URL, names a link-local or cloud-metadata host (e.g. `169.254.169.254`, `metadata.google.internal`), or is a loopback / non-`https://` value a bootstrap server delivers, turns the catalog fetch off (no fallback to `downloads.claude.ai`); the last fetched or bundled copy keeps labelling the pickers. On an install configured for a bootstrap server, the default location is not fetched until the server's configuration applies after sign-in, so a device does not poll `downloads.claude.ai` while the server may yet name a mirror; a mirror URL set on the device, cached earlier, or served in a pre-sign-in subset still fetches. Diagnostics report the location only as `hosted`, `custom`, `invalid` or `pending`; the value itself is treated like `bootstrapUrl`: host name only in telemetry, printed in full in the diagnostics bundle.
 
 ### Vertex
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencevertexprojectid" />GCP project ID<br />`inferenceVertexProjectId` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Google Cloud project ID for Vertex AI inference. |
-| <span id="inferencevertexregion" />GCP region<br />`inferenceVertexRegion` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | GCP region where your Vertex AI Claude models are deployed. |
-| <span id="inferencevertexbaseurl" />Vertex AI base URL<br />`inferenceVertexBaseUrl` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | PSC endpoint, if using one. |
-| <span id="inferencevertexoauthclientid" />Vertex OAuth client ID<br />`inferenceVertexOAuthClientId` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Desktop-app OAuth client ID. Enables Sign in with Google instead of a credentials file. |
-| <span id="inferencevertexoauthclientsecret" />Vertex OAuth client secret<br />`inferenceVertexOAuthClientSecret` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Secret for the Desktop-app OAuth client above. Google classifies installed-app client secrets as non-confidential, so this may be set from hosted config. |
-| <span id="inferencevertexoauthscopes" />Vertex OAuth scopes<br />`inferenceVertexOAuthScopes` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Override the Google OAuth scopes (space-separated). Leave blank for the default. |
-| <span id="inferencevertexoauthloginhint" />Vertex OAuth login hint<br />`inferenceVertexOAuthLoginHint` | `string` | MDM + Bootstrap<br />Added in 1.12603.0 | — | Pre-fill Google's account chooser and forward to your federated IdP. \{username} expands to the OS login name. |
-| <span id="inferencevertexworkforceaudience" />Workforce Identity audience<br />`inferenceVertexWorkforceAudience` | `string` | MDM + Bootstrap<br />Added in 1.10628.0 | — | Workforce-pool provider audience. When set, sign-in uses your own IdP plus a GCP STS exchange instead of a Google identity. |
-| <span id="inferencevertexworkforceuserproject" />Workforce Identity billing project<br />`inferenceVertexWorkforceUserProject` | `string` | MDM + Bootstrap<br />Added in 1.10628.0 | — | GCP project for STS billing and quota. Defaults to the Vertex project ID above. |
-| <span id="inferencevertexworkforceauthflow" />Workforce Identity sign-in flow<br />`inferenceVertexWorkforceAuthFlow` | `enum` | MDM + Bootstrap<br />Added in 1.25927.0 | — | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. |
-| <span id="inferencevertexworkforceoidc" />Workforce Identity IdP (OIDC)<br />`inferenceVertexWorkforceOidc` | `object` | MDM + Bootstrap<br />Added in 1.10628.0 | — | Your organization’s OIDC IdP. The app runs an authorization-code-with-PKCE flow against this issuer and exchanges the returned ID token at GCP STS. |
-| <span id="inferencevertexcredentialsfile" />GCP credentials file path<br />`inferenceVertexCredentialsFile` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Absolute path to service-account JSON. Leave blank to fall back to ADC. |
+| GCP project ID `inferenceVertexProjectId` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Google Cloud project ID for Vertex AI inference. |
+| GCP region `inferenceVertexRegion` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | GCP region where your Vertex AI Claude models are deployed. |
+| Vertex AI base URL `inferenceVertexBaseUrl` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | PSC endpoint, if using one. |
+| Vertex OAuth client ID `inferenceVertexOAuthClientId` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Desktop-app OAuth client ID. Enables Sign in with Google instead of a credentials file. |
+| Vertex OAuth client secret `inferenceVertexOAuthClientSecret` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Secret for the Desktop-app OAuth client above. Google classifies installed-app client secrets as non-confidential, so this may be set from hosted config. |
+| Vertex OAuth scopes `inferenceVertexOAuthScopes` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Override the Google OAuth scopes (space-separated). Leave blank for the default. |
+| Vertex OAuth login hint `inferenceVertexOAuthLoginHint` | `string` | MDM + Bootstrap Added in 1.12603.0 | — | Pre-fill Google's account chooser and forward to your federated IdP. \{username} expands to the OS login name. |
+| Workforce Identity audience `inferenceVertexWorkforceAudience` | `string` | MDM + Bootstrap Added in 1.10628.0 | — | Workforce-pool provider audience. When set, sign-in uses your own IdP plus a GCP STS exchange instead of a Google identity. |
+| Workforce Identity billing project `inferenceVertexWorkforceUserProject` | `string` | MDM + Bootstrap Added in 1.10628.0 | — | GCP project for STS billing and quota. Defaults to the Vertex project ID above. |
+| Workforce Identity sign-in flow `inferenceVertexWorkforceAuthFlow` | `enum` | MDM + Bootstrap Added in 1.25927.0 | — | How the IdP sign-in runs: system browser (default) or the OS Microsoft Entra broker. One of: `browser`, `broker`. |
+| Workforce Identity IdP (OIDC) `inferenceVertexWorkforceOidc` | `object` | MDM + Bootstrap Added in 1.10628.0 | — | Your organization’s OIDC IdP. The app runs an authorization-code-with-PKCE flow against this issuer and exchanges the returned ID token at GCP STS. |
+| GCP credentials file path `inferenceVertexCredentialsFile` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Absolute path to service-account JSON. Leave blank to fall back to ADC. |
 
-<AccordionGroup>
-  <Accordion title="inferenceVertexWorkforceAuthFlow details">
-    * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceGatewayOidc` for redirect-URI registration; the same rules apply here.
-    * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the workforce-pool IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceVertexWorkforceOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+> **inferenceVertexWorkforceAuthFlow details**
+>
+> * **`browser`** (default) — opens the system browser for an authorization-code (PKCE) sign-in on a loopback redirect URI. See the **IdP setup** notes on `inferenceGatewayOidc` for redirect-URI registration; the same rules apply here.
+> * **`broker`** — signs in through the OS identity broker (Web Account Manager on Windows, Company Portal on macOS). Requires the workforce-pool IdP to be **Microsoft Entra ID** — the `issuer` on `inferenceVertexWorkforceOidc` must be `https://login.microsoftonline.com/{tenant-id}/v2.0`. The broker satisfies Conditional Access policies that require a compliant/managed device or token protection, and needs no loopback redirect. The Entra app registration must include the broker redirect URIs `ms-appx-web://Microsoft.AAD.BrokerPlugin/{client-id}` (Windows) and `msauth.com.anthropic.claudefordesktop://auth` (macOS) under the **Mobile and desktop applications** platform. Not supported on Linux.
+>
+> The GCP STS token-exchange step is unchanged in either flow; only how the Entra id\_token is acquired differs.
 
-    The GCP STS token-exchange step is unchanged in either flow; only how the Entra id\_token is acquired differs.
-  </Accordion>
-
-  <Accordion title="inferenceVertexWorkforceOidc details">
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-    | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-    | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-    | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-    | `scopes` | `string` | — | Space-separated scopes. Defaults to openid profile email offline\_access. |
-    | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-    | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-    | `omitOfflineAccess` | `boolean` | — | Only enable if your IdP rejects the offline\_access scope on this client. Without it the app prompts for sign-in each time the token expires. |
-    | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
-  </Accordion>
-</AccordionGroup>
+> **inferenceVertexWorkforceOidc details**
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
+> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
+> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
+> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
+> | `scopes` | `string` | — | Space-separated scopes. Defaults to openid profile email offline\_access. |
+> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
+> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
+> | `omitOfflineAccess` | `boolean` | — | Only enable if your IdP rejects the offline\_access scope on this client. Without it the app prompts for sign-in each time the token expires. |
+> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
 ## Capabilities
 
@@ -448,601 +440,614 @@ The reference below is generated from the configuration schema and grouped to ma
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="disabledeploymentmodechooser" />Disable Claude.ai sign-in<br />`disableDeploymentModeChooser` | `boolean` | MDM + Bootstrap<br />Added in 1.3834.0 | `false` | Users see only this provider at the login screen. The option to sign in to Claude.ai is hidden. Defaults to `false`. |
-| <span id="disabledeeplinkregistration" />Disable claude:// deep-link handling<br />`disableDeepLinkRegistration` | `boolean` | MDM + Bootstrap<br />Added in 1.6889.0 | `false` | Stop external apps and websites from opening Claude Desktop via claude:// links. Defaults to `false`. |
+| Disable Claude.ai sign-in `disableDeploymentModeChooser` | `boolean` | MDM + Bootstrap Added in 1.3834.0 | `false` | Users see only this provider at the login screen. The option to sign in to Claude.ai is hidden. Defaults to `false`. |
+| Disable claude:// deep-link handling `disableDeepLinkRegistration` | `boolean` | MDM + Bootstrap Added in 1.6889.0 | `false` | Stop external apps and websites from opening Claude Desktop via claude:// links. Defaults to `false`. |
 
-<AccordionGroup>
-  <Accordion title="disableDeploymentModeChooser details">
-    Set in a device-management profile, this key also keeps that profile in charge. Without it, a user who signs in to Claude.ai with an organization whose Claude Desktop deployment is configured in the admin console moves the device to that organization's configuration, at later launches too. The profile then still supplies what no configuration server can deliver, such as the network proxy, and a few device safeguards, such as `sessionRetentionHold`; every other key, update keys included, comes from the organization's configuration. A profile that sets only app-behavior keys (`disableAutoUpdates`, …) and no other key, not even `forceLoginOrgUUID`, is not affected: it keeps those keys over the organization's configuration without this key, and adding this key there would make the profile the device's whole configuration. The account menu offers the way back to a profile that sets a provider or a server. `forceLoginOrgUUID` in the profile limits the move to the organizations it lists. A value served only by the profile's own `bootstrapUrl` server does not keep the device.
-  </Accordion>
-</AccordionGroup>
+> **disableDeploymentModeChooser details**
+>
+> Set in a device-management profile, this key also keeps that profile in charge. Without it, a user who signs in to Claude.ai with an organization whose Claude Desktop deployment is configured in the admin console moves the device to that organization's configuration, at later launches too. The profile then still supplies what no configuration server can deliver, such as the network proxy, and a few device safeguards, such as `sessionRetentionHold`; every other key, update keys included, comes from the organization's configuration. A profile that sets only app-behavior keys (`disableAutoUpdates`, …) and no other key, not even `forceLoginOrgUUID`, is not affected: it keeps those keys over the organization's configuration without this key, and adding this key there would make the profile the device's whole configuration. The account menu offers the way back to a profile that sets a provider or a server. `forceLoginOrgUUID` in the profile limits the move to the organizations it lists. A value served only by the profile's own `bootstrapUrl` server does not keep the device.
 
 ### Built-in browser
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="builtinbrowserenabled" />Allow the built-in browser<br />`builtinBrowserEnabled` | `boolean` | MDM + Bootstrap<br />Added in 2.2553.0 | `false` | Offer the built-in browser in Cowork and Code sessions so users and Claude can open and work with web pages. Site sign-ins stay on the device until cleared. Defaults to `false`. |
-| <span id="builtinbrowserdefaultdomainpolicy" />Default site policy in the built-in browser<br />`builtinBrowserDefaultDomainPolicy` | `enum` | MDM + Bootstrap<br />Added in 2.2553.0 | `allow` | Whether Claude may open sites in the built-in browser by default; the allowed or blocked list is the exception. Mirrors the Claude in Chrome site policy. One of: `allow`, `block`. Defaults to `allow`. |
-| <span id="builtinbrowseralloweddomains" />Allowed sites in the built-in browser<br />`builtinBrowserAllowedDomains` | `string[]` | MDM + Bootstrap<br />Added in 2.2553.0 | — | Sites Claude may open, read, and act on in the built-in browser when the default site policy is block. Users can still view other sites. |
-| <span id="builtinbrowserblockeddomains" />Blocked sites in the built-in browser<br />`builtinBrowserBlockedDomains` | `string[]` | MDM + Bootstrap<br />Added in 2.2553.0 | — | Sites Claude may not open, read, or act on in the built-in browser when the default site policy is allow. Users can still view them. |
+| Allow the built-in browser `builtinBrowserEnabled` | `boolean` | MDM + Bootstrap Added in 2.2553.0 | `false` | Offer the built-in browser in Cowork and Code sessions so users and Claude can open and work with web pages. Site sign-ins stay on the device until cleared. Defaults to `false`. |
+| Default site policy in the built-in browser `builtinBrowserDefaultDomainPolicy` | `enum` | MDM + Bootstrap Added in 2.2553.0 | `allow` | Whether Claude may open sites in the built-in browser by default; the allowed or blocked list is the exception. Mirrors the Claude in Chrome site policy. One of: `allow`, `block`. Defaults to `allow`. |
+| Allowed sites in the built-in browser `builtinBrowserAllowedDomains` | `string[]` | MDM + Bootstrap Added in 2.2553.0 | — | Sites Claude may open, read, and act on in the built-in browser when the default site policy is block. Users can still view other sites. |
+| Blocked sites in the built-in browser `builtinBrowserBlockedDomains` | `string[]` | MDM + Bootstrap Added in 2.2553.0 | — | Sites Claude may not open, read, or act on in the built-in browser when the default site policy is allow. Users can still view them. |
 
-<AccordionGroup>
-  <Accordion title="builtinBrowserEnabled details">
-    When enabled, Cowork and Code sessions get a built-in browser pane. Users can open any site in it; Claude can open, read, and act on pages with its browser tools once the user approves each site (private-network hosts ask again per action unless the user always allows the host). Pages load directly from the user's machine, so your network controls apply; the pane's sign-ins and cookies stay in the app's browser profile on the device until cleared.
+> **builtinBrowserEnabled details**
+>
+> When enabled, Cowork and Code sessions get a built-in browser pane. Users can open any site in it; Claude can open, read, and act on pages with its browser tools once the user approves each site (private-network hosts ask again per action unless the user always allows the host). Pages load directly from the user's machine, so your network controls apply; the pane's sign-ins and cookies stay in the app's browser profile on the device until cleared.
+>
+> Off (default): no browser pane; Code sessions keep the localhost-only dev-server preview. With `bootstrapUrl` set, put this key in the served configuration: a device-profile value alone leaves the browser off. On an install managed from the Claude admin console this follows the console's Built-in browser switch.
+>
+> When a public site opens or is framed in the pane, and before Claude works with it, the app checks its address (query removed) against Anthropic's site safety list on `releases.claude.com`, signed out, with no account, organization, or device identifier (Claude admin console installs: as the signed-in member on `api.anthropic.com`). A site it blocks stays blocked to Claude under every key below. Private addresses, names resolving to them, and internal-suffix or single-label names are never sent (a name under a public domain is checked even if only your VPN resolves it). Allow `releases.claude.com` through your firewall: if a check fails, users can browse but Claude's page tools stay off for that site.
+>
+> `builtinBrowserDefaultDomainPolicy` and its two site lists restrict where Claude may browse. A separately deployed Claude Code [managed-settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) file still applies: `disableBrowserExternalNavigation: true` keeps the browser off even with this key on, and `browserExternalPageTools: "disabled"` keeps the pane but turns Claude's page tools off for external sites. Takes effect after the app restarts.
 
-    Off (default): no browser pane; Code sessions keep the localhost-only dev-server preview. With `bootstrapUrl` set, put this key in the served configuration: a device-profile value alone leaves the browser off. On an install managed from the Claude admin console this follows the console's Built-in browser switch.
+> **builtinBrowserDefaultDomainPolicy details**
+>
+> Applies when `builtinBrowserEnabled` is on, in both Cowork and Code sessions, and decides which sites Claude may open, read, or act on with its browser tools; users can still view any site themselves. `allow` (default): every site except entries in `builtinBrowserBlockedDomains`. `block`: no site except entries in `builtinBrowserAllowedDomains`. Under either policy `coworkEgressAllowedHosts`, when set to anything but `*`, is an outer bound: sites outside it are refused to Claude in the browser too. A site Anthropic's site safety list blocks stays blocked to Claude under either policy (see `builtinBrowserEnabled`); for a site the list only flags for confirmation, Claude asks the user before each of its actions under `allow`, and skips that confirmation only when the site matches a `builtinBrowserAllowedDomains` entry under `block`. A value that cannot be read is treated as `block` until it is fixed.
+>
+> The policy also limits what pages load: a page in the pane, including one a user opened, cannot load frames, scripts, images, or other content from a site the policy does not admit (a blocked page a user opens still loads content from its own site). Under `block`, or with a `coworkEgressAllowedHosts` list, include the CDN and API hosts your allowed sites depend on.
+>
+> This key and the two site lists work the same way as the Claude in Chrome site policy in the admin console. They are set separately here, except on an install managed from the Claude admin console, where they follow your organization's browser site permissions there.
 
-    When a public site opens or is framed in the pane, and before Claude works with it, the app checks its address (query removed) against Anthropic's site safety list on `releases.claude.com`, signed out, with no account, organization, or device identifier (Claude admin console installs: as the signed-in member on `api.anthropic.com`). A site it blocks stays blocked to Claude under every key below. Private addresses, names resolving to them, and internal-suffix or single-label names are never sent (a name under a public domain is checked even if only your VPN resolves it). Allow `releases.claude.com` through your firewall: if a check fails, users can browse but Claude's page tools stay off for that site.
+> **builtinBrowserAllowedDomains details**
+>
+> Used when `builtinBrowserDefaultDomainPolicy` is `block`; ignored under `allow`. A site matching an entry is one Claude may open and work with using its browser tools; every other external site is treated as blocked by your organization: Claude cannot open it, cannot read or act on it, and frames, popups, and redirects into it from a page Claude is working on are refused. A user can still type its address and view it themselves. Listing a site here never unblocks a site Anthropic's site safety list blocks (see `builtinBrowserEnabled`); for a site that list only flags for confirmation, an entry here is your organization vouching for it, so Claude works with it without asking before each action.
+>
+> Entries use the same grammar as `coworkEgressAllowedHosts`, except that bare `*` is dropped: as in Claude in Chrome, no allowed-sites entry opens every site. Set the policy to `allow` for that. A wildcard whose base is a public suffix (`*.co.uk`, `*.github.io`) is likewise ignored so an entry can never open a whole shared registry. Any other entry outside that grammar is kept but matches nothing (the app log and the editor name it); a value that cannot be read at all allows nothing until it is fixed. A plain hostname entry (`example.com`) also covers its `www.` form, and a `www.` entry covers the bare name, but no other subdomain. `localhost` dev servers are always reachable, so listing them changes nothing.
+>
+> Empty or unset (default): under `block`, Claude may open no external site. On an install managed from the Claude admin console this follows your organization's browser site permissions there.
 
-    `builtinBrowserDefaultDomainPolicy` and its two site lists restrict where Claude may browse. A separately deployed Claude Code [managed-settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) file still applies: `disableBrowserExternalNavigation: true` keeps the browser off even with this key on, and `browserExternalPageTools: "disabled"` keeps the pane but turns Claude's page tools off for external sites. Takes effect after the app restarts.
-  </Accordion>
-
-  <Accordion title="builtinBrowserDefaultDomainPolicy details">
-    Applies when `builtinBrowserEnabled` is on, in both Cowork and Code sessions, and decides which sites Claude may open, read, or act on with its browser tools; users can still view any site themselves. `allow` (default): every site except entries in `builtinBrowserBlockedDomains`. `block`: no site except entries in `builtinBrowserAllowedDomains`. Under either policy `coworkEgressAllowedHosts`, when set to anything but `*`, is an outer bound: sites outside it are refused to Claude in the browser too. A site Anthropic's site safety list blocks stays blocked to Claude under either policy (see `builtinBrowserEnabled`); for a site the list only flags for confirmation, Claude asks the user before each of its actions under `allow`, and skips that confirmation only when the site matches a `builtinBrowserAllowedDomains` entry under `block`. A value that cannot be read is treated as `block` until it is fixed.
-
-    The policy also limits what pages load: a page in the pane, including one a user opened, cannot load frames, scripts, images, or other content from a site the policy does not admit (a blocked page a user opens still loads content from its own site). Under `block`, or with a `coworkEgressAllowedHosts` list, include the CDN and API hosts your allowed sites depend on.
-
-    This key and the two site lists work the same way as the Claude in Chrome site policy in the admin console. They are set separately here, except on an install managed from the Claude admin console, where they follow your organization's browser site permissions there.
-  </Accordion>
-
-  <Accordion title="builtinBrowserAllowedDomains details">
-    Used when `builtinBrowserDefaultDomainPolicy` is `block`; ignored under `allow`. A site matching an entry is one Claude may open and work with using its browser tools; every other external site is treated as blocked by your organization: Claude cannot open it, cannot read or act on it, and frames, popups, and redirects into it from a page Claude is working on are refused. A user can still type its address and view it themselves. Listing a site here never unblocks a site Anthropic's site safety list blocks (see `builtinBrowserEnabled`); for a site that list only flags for confirmation, an entry here is your organization vouching for it, so Claude works with it without asking before each action.
-
-    Entries use the same grammar as `coworkEgressAllowedHosts`, except that bare `*` is dropped: as in Claude in Chrome, no allowed-sites entry opens every site. Set the policy to `allow` for that. A wildcard whose base is a public suffix (`*.co.uk`, `*.github.io`) is likewise ignored so an entry can never open a whole shared registry. Any other entry outside that grammar is kept but matches nothing (the app log and the editor name it); a value that cannot be read at all allows nothing until it is fixed. A plain hostname entry (`example.com`) also covers its `www.` form, and a `www.` entry covers the bare name, but no other subdomain. `localhost` dev servers are always reachable, so listing them changes nothing.
-
-    Empty or unset (default): under `block`, Claude may open no external site. On an install managed from the Claude admin console this follows your organization's browser site permissions there.
-  </Accordion>
-
-  <Accordion title="builtinBrowserBlockedDomains details">
-    Used when `builtinBrowserDefaultDomainPolicy` is `allow` (the default); ignored under `block`. A site matching an entry is treated as blocked by your organization: Claude cannot open it, cannot read or act on it with its browser tools, and frames, popups, and redirects into it from a page Claude is working on are refused. A user can still type its address and view it themselves: the pane shows a "blocked by your organization's policy" banner and Claude's tools stay off there. To take the external browser away from users as well, deploy Claude Code's `disableBrowserExternalNavigation` managed setting instead. A blocked site is refused before the site safety check, so its address is never sent to Anthropic.
-
-    Entries use the same grammar as `coworkEgressAllowedHosts`; `*` blocks every external site. An entry outside that grammar is kept but matches nothing (the app log and the editor name it); a value that cannot be read at all blocks every external site until it is fixed. As in Claude in Chrome, a plain hostname entry (`example.com`) also covers its `www.` form, and a `www.` entry covers the bare name, but no other subdomain. `localhost` dev servers are never affected.
-
-    Use this key for exceptions inside an allowed egress wildcard or when egress is open. Empty or unset (default): no sites beyond the egress list are blocked. On an install managed from the Claude admin console this follows your organization's browser site permissions there.
-  </Accordion>
-</AccordionGroup>
+> **builtinBrowserBlockedDomains details**
+>
+> Used when `builtinBrowserDefaultDomainPolicy` is `allow` (the default); ignored under `block`. A site matching an entry is treated as blocked by your organization: Claude cannot open it, cannot read or act on it with its browser tools, and frames, popups, and redirects into it from a page Claude is working on are refused. A user can still type its address and view it themselves: the pane shows a "blocked by your organization's policy" banner and Claude's tools stay off there. To take the external browser away from users as well, deploy Claude Code's `disableBrowserExternalNavigation` managed setting instead. A blocked site is refused before the site safety check, so its address is never sent to Anthropic.
+>
+> Entries use the same grammar as `coworkEgressAllowedHosts`; `*` blocks every external site. An entry outside that grammar is kept but matches nothing (the app log and the editor name it); a value that cannot be read at all blocks every external site until it is fixed. As in Claude in Chrome, a plain hostname entry (`example.com`) also covers its `www.` form, and a `www.` entry covers the bare name, but no other subdomain. `localhost` dev servers are never affected.
+>
+> Use this key for exceptions inside an allowed egress wildcard or when egress is open. Empty or unset (default): no sites beyond the egress list are blocked. On an install managed from the Claude admin console this follows your organization's browser site permissions there.
 
 ### Chat surface
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="chattabenabled" />Allow Chat<br />`chatTabEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.13576.0 | — | Enable Chat. Quick questions and drafting. |
-| <span id="chatadvancedfileanalysisenabled" />Advanced file analysis<br />`chatAdvancedFileAnalysisEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.14271.0 | — | Allow Claude to run code in a local sandbox to analyze attached files it can’t read natively — like Excel and PowerPoint. Off by default. |
-| <span id="desktophome" />Desktop home<br />`desktopHome` | `enum` | MDM + Bootstrap<br />Added in 1.52386.0 | — | Unifies Chat and Cowork into one home. When set, it replaces Allow Chat, Advanced file analysis, and Allow Cowork. Leave unset to keep those. One of: `standard`, `off`. |
+| Allow Chat `chatTabEnabled` | `boolean` | MDM + Bootstrap Added in 1.13576.0 | — | Enable Chat. Quick questions and drafting. |
+| Advanced file analysis `chatAdvancedFileAnalysisEnabled` | `boolean` | MDM + Bootstrap Added in 1.14271.0 | — | Allow Claude to run code in a local sandbox to analyze attached files it can’t read natively — like Excel and PowerPoint. Off by default. |
+| Desktop home `desktopHome` | `enum` | MDM + Bootstrap Added in 1.52386.0 | — | Unifies Chat and Cowork into one home. When set, it replaces Allow Chat, Advanced file analysis, and Allow Cowork. Leave unset to keep those. One of: `standard`, `off`. |
 
-<AccordionGroup>
-  <Accordion title="chatAdvancedFileAnalysisEnabled details">
-    Also enables inline data analysis. Of the user's own files, the sandbox can read only those attached to the conversation, plus folders added to the chat's project through the app (read-only).
+> **chatAdvancedFileAnalysisEnabled details**
+>
+> Also enables inline data analysis. Of the user's own files, the sandbox can read only those attached to the conversation, plus folders added to the chat's project through the app (read-only).
+>
+> Commands in the sandbox can reach the hosts in `coworkEgressAllowedHosts`, and no others. If that list is unset or empty, they have no network access. With `*` in the list they can reach any host, as in Cowork. Plugin CLIs are the exception: they can always reach the hosts their plugin declares, plus the listed hosts (with `*`, only the declared hosts). Older app versions give the sandbox no network access by default.
+>
+> As in Cowork, commands run without an approval prompt. So they can upload anything the sandbox can read to a listed host, and run what they download from one. To have Claude ask before each command, set `Bash` to `ask` in `builtinToolPolicy`, which also applies to Cowork and Code. To let commands install packages, list the hosts of the package manager's default index (for pip, `pypi.org` and `files.pythonhosted.org`). For a private mirror, list its host instead. Nothing points package managers at a mirror, so each command must name it (for pip, `--index-url`).
+>
+> Project folders are not available in the sandbox of a chat started while a rule on `Read`, `Grep` or `Glob` is set: in `disabledBuiltinTools`, in `builtinToolPolicy` with a value other than `allow`, or as a deny or ask rule in Claude Code's own managed settings on the device, whether or not the rule covers the folder. They are not available either where those managed settings cannot be read, or where Claude Code takes its managed settings from a gateway. Claude's file tools still read what the rules allow.
 
-    Commands in the sandbox can reach the hosts in `coworkEgressAllowedHosts`, and no others. If that list is unset or empty, they have no network access. With `*` in the list they can reach any host, as in Cowork. Plugin CLIs are the exception: they can always reach the hosts their plugin declares, plus the listed hosts (with `*`, only the declared hosts). Older app versions give the sandbox no network access by default.
-
-    As in Cowork, commands run without an approval prompt. So they can upload anything the sandbox can read to a listed host, and run what they download from one. To have Claude ask before each command, set `Bash` to `ask` in `builtinToolPolicy`, which also applies to Cowork and Code. To let commands install packages, list the hosts of the package manager's default index (for pip, `pypi.org` and `files.pythonhosted.org`). For a private mirror, list its host instead. Nothing points package managers at a mirror, so each command must name it (for pip, `--index-url`).
-
-    Project folders are not available in the sandbox of a chat started while a rule on `Read`, `Grep` or `Glob` is set: in `disabledBuiltinTools`, in `builtinToolPolicy` with a value other than `allow`, or as a deny or ask rule in Claude Code's own managed settings on the device, whether or not the rule covers the folder. They are not available either where those managed settings cannot be read, or where Claude Code takes its managed settings from a gateway. Claude's file tools still read what the rules allow.
-  </Accordion>
-
-  <Accordion title="desktopHome details">
-    `standard` turns on Unified Claude, which combines Chat and Cowork into one experience. `off` turns Chat and Cowork off entirely. `isClaudeCodeForDesktopEnabled` still decides Code. Remove the key to hand control back to `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, and `coworkTabEnabled`. Values are case-sensitive, so `Standard` is not recognized. A value that the app does not recognize is read as `off`, so update the app on devices before you deploy a value added in a later version.
-  </Accordion>
-</AccordionGroup>
+> **desktopHome details**
+>
+> `standard` turns on Unified Claude, which combines Chat and Cowork into one experience. `off` turns Chat and Cowork off entirely. `isClaudeCodeForDesktopEnabled` still decides Code. Remove the key to hand control back to `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, and `coworkTabEnabled`. Values are case-sensitive, so `Standard` is not recognized. A value that the app does not recognize is read as `off`, so update the app on devices before you deploy a value added in a later version.
 
 ### Code surface
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="isclaudecodefordesktopenabled" />Allow Code<br />`isClaudeCodeForDesktopEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `true` | Enable Code. Claude writes and runs code. Defaults to `true`. |
-| <span id="sshhostallowlist" />SSH host allowlist<br />`sshHostAllowlist` | `string[]` | MDM + Bootstrap · Beta<br />Added in 1.40609.0 | — | SSH hosts for Code sessions. Unset: off unless the device’s Claude Code managed settings list hosts. An admin’s empty list: off even then. \* allows any host. |
-| <span id="sshclientpath" />SSH client program<br />`sshClientPath` | `string` | MDM + Bootstrap · Beta<br />Added in 1.46388.1 | — | Absolute path to the OpenSSH ssh program the app runs for SSH sessions. Unset: the first ssh on the user’s PATH. |
-| <span id="sshtransport" />SSH connection engine<br />`sshTransport` | `enum` | MDM + Bootstrap · Beta<br />Added in 1.52386.0 | — | Which SSH engine carries Code sessions: the OpenSSH ssh program on the device, or the app’s built-in SSH library. Unset or auto: the build’s default. One of: `auto`, `system-openssh`, `builtin`. |
+| Allow Code `isClaudeCodeForDesktopEnabled` | `boolean` | MDM + Bootstrap Added in 1.2581.0 | `true` | Enable Code. Claude writes and runs code. Defaults to `true`. |
+| SSH host allowlist `sshHostAllowlist` | `string[]` | MDM + Bootstrap · Beta Added in 1.40609.0 | — | SSH hosts for Code sessions. Unset: off unless the device’s Claude Code managed settings list hosts. An admin’s empty list: off even then. \* allows any host. |
+| SSH client program `sshClientPath` | `string` | MDM + Bootstrap · Beta Added in 1.46388.1 | — | Absolute path to the OpenSSH ssh program the app runs for SSH sessions. Unset: the first ssh on the user’s PATH. |
+| SSH connection engine `sshTransport` | `enum` | MDM + Bootstrap · Beta Added in 1.52386.0 | — | Which SSH engine carries Code sessions: the OpenSSH ssh program on the device, or the app’s built-in SSH library. Unset or auto: the build’s default. One of: `auto`, `system-openssh`, `builtin`. |
 
-<AccordionGroup>
-  <Accordion title="sshHostAllowlist details">
-    When off, the SSH option is hidden and any connection attempt is refused.
+> **sshHostAllowlist details**
+>
+> When off, the SSH option is hidden and any connection attempt is refused.
+>
+> Entries are exact hostnames (`build01.corp.example.com`) or `*.` wildcards (`*.corp.example.com` matches the apex and subdomains at any depth); matching is case-insensitive and ignores a `user@` prefix. The list is compared with the `HostName` that the user's SSH configuration (`~/.ssh/config`) gives for the host they entered, or with the entered host itself when the configuration has no entry for it or cannot be evaluated. So an alias is allowed when the host it points to is listed, whatever the alias is called, and refused when it is not. A session's jump hosts (`ProxyJump`, or `ProxyCommand ssh -W %h:%p host`) must be listed too, by `HostName`. One the app fails to read, and any other `ProxyCommand` (`ssh -i`…), is permitted when the resolved host matches (this key governs which hosts the app offers, not network egress). The built-in SSH library refuses every `ProxyJump`.
+>
+> This is opt-in because a remote session runs Claude Code on the SSH host and the app forwards the session's inference credential to it, plus your OTLP collector endpoint and auth headers when `otlpEndpoint` is set. List only hosts you trust with those. Token-based credentials are forwarded. File-based credentials (Bedrock IAM Identity Center sign-in or AWS profile, Vertex Google sign-in or a credentials file) are never forwarded, and a session that needs one from the device is refused.
+>
+> If this key is unset, an `sshHostAllowlist` in Claude Code's own managed-settings file on the device still applies; when both are set, this key wins where the app's configuration is admin-managed (MDM, the admin console, or a device-managed bootstrap URL) and otherwise applies only while that file sets none. `allowedWorkspaceFolders` still applies on the remote host. Claude Code's managed settings on a host replace the sandbox, network, permission, and MCP rules this app sends unless they set `parentSettingsBehavior` to `"merge"`.
 
-    Entries are exact hostnames (`build01.corp.example.com`) or `*.` wildcards (`*.corp.example.com` matches the apex and subdomains at any depth); matching is case-insensitive and ignores a `user@` prefix. The list is compared with the `HostName` that the user's SSH configuration (`~/.ssh/config`) gives for the host they entered, or with the entered host itself when the configuration has no entry for it or cannot be evaluated. So an alias is allowed when the host it points to is listed, whatever the alias is called, and refused when it is not. `ProxyCommand` is permitted when the resolved host matches (this key governs which hosts the app offers, not network egress); `ProxyJump` is permitted likewise on the system-OpenSSH engine (the default on macOS and Linux; see `sshTransport`) and refused, with a message suggesting `ProxyCommand`, by the built-in SSH library.
+> **sshClientPath details**
+>
+> Pins which OpenSSH client the app runs wherever it starts `ssh`: evaluating the user's SSH configuration (`ssh -G`), making the SSH connection and its channels, and the Code tab's terminal. `ssh-keygen` and `ssh-add` are taken from the same directory when they exist there, otherwise from PATH. The program must be OpenSSH 7.6 or newer (on Windows, Win32-OpenSSH 9.4 or newer to carry the connection); on macOS and Linux a wrapper script that ends in one is accepted, on Windows it must be a native `.exe` (not a .cmd, .bat or .ps1 script). When this key is set and the program is missing, cannot be run, or is too old, SSH sessions fail with an error telling the user to ask their IT administrator (the configured path is in its details) — the app never falls back to another ssh. The connection itself runs through this program on the system-OpenSSH engine, which the SSH connection engine setting's `system-openssh` value selects on every platform, including Windows; when the app's built-in SSH library makes the connection instead, this key still governs configuration evaluation (`ssh -G`), host-key lookups (`ssh-keygen`) and the terminal. On a device that a Claude.ai sign-in has moved to an admin-console organization (see `disableDeploymentModeChooser`), the device profile's value is ignored: set the key in the admin console. There, until the organization's configuration has loaded, no client is pinned.
 
-    This is opt-in because a remote session runs Claude Code on the SSH host and the app forwards the session's inference credential to it, plus your OTLP collector endpoint and auth headers when `otlpEndpoint` is set. List only hosts you trust with those. Token-based credentials are forwarded. File-based credentials (Bedrock IAM Identity Center sign-in or AWS profile, Vertex Google sign-in or a credentials file) are never forwarded, and a session that needs one from the device is refused.
-
-    If this key is unset, an `sshHostAllowlist` in Claude Code's own managed-settings file on the device still applies; when both are set, this key wins where the app's configuration is admin-managed (MDM, the admin console, or a device-managed bootstrap URL) and otherwise applies only while that file sets none. `allowedWorkspaceFolders` still applies on the remote host. Claude Code's managed settings on a host replace the sandbox, network, permission, and MCP rules this app sends unless they set `parentSettingsBehavior` to `"merge"`.
-  </Accordion>
-
-  <Accordion title="sshClientPath details">
-    Pins which OpenSSH client the app runs wherever it starts `ssh`: evaluating the user's SSH configuration (`ssh -G`), making the SSH connection and its channels, and the Code tab's terminal. `ssh-keygen` and `ssh-add` are taken from the same directory when they exist there, otherwise from PATH. The program must be OpenSSH 7.6 or newer (on Windows, Win32-OpenSSH 9.4 or newer to carry the connection); on macOS and Linux a wrapper script that ends in one is accepted, on Windows it must be a native `.exe` (not a .cmd, .bat or .ps1 script). When this key is set and the program is missing, cannot be run, or is too old, SSH sessions fail with an error telling the user to ask their IT administrator (the configured path is in its details) — the app never falls back to another ssh. The connection itself runs through this program on the system-OpenSSH engine, which the SSH connection engine setting's `system-openssh` value selects on every platform, including Windows; when the app's built-in SSH library makes the connection instead, this key still governs configuration evaluation (`ssh -G`), host-key lookups (`ssh-keygen`) and the terminal. On a device that a Claude.ai sign-in has moved to an admin-console organization (see `disableDeploymentModeChooser`), the device profile's value is ignored: set the key in the admin console. There, until the organization's configuration has loaded, no client is pinned.
-  </Accordion>
-
-  <Accordion title="sshTransport details">
-    `system-openssh`: the app makes every SSH connection by running an OpenSSH `ssh` program — the one `sshClientPath` names, otherwise the first `ssh` on the user's PATH (on Windows, a Win32-OpenSSH `ssh.exe`: the PATH one, else the in-box or Microsoft-installed client) — so the organization's own OpenSSH build, with its Kerberos/GSSAPI, certificate and `ssh_config` support, is what authenticates. The program must be OpenSSH 7.6 or newer (Windows: Win32-OpenSSH 9.4 or newer). When `sshClientPath` is set and that program cannot be used, sessions fail with an error telling the user to ask their IT administrator rather than falling back; when it is unset and Windows has no usable client, the built-in library is used.
-
-    `builtin`: the app's built-in SSH library makes the connection, whatever the build's default.
-
-    `auto` or unset: the build's default engine.
-
-    An explicit value overrides the default at each host's next connect or reconnect. An open app takes a device profile's change at its next configuration check. From a configuration server it takes only `builtin`, once two checks in a row return it (about 12 minutes by default); other values wait until it is reopened or the user signs in again. A value that cannot be read, such as a misspelling, counts as `builtin` and waits likewise. Once a server's configuration has loaded it decides, even if it omits the key; until then the device profile's value applies. On a device that a Claude.ai sign-in has moved to an admin-console organization (see `disableDeploymentModeChooser`), the device profile's value is ignored: set the key in the admin console. There, until the organization's configuration has loaded, the build's default engine is used.
-  </Accordion>
-</AccordionGroup>
+> **sshTransport details**
+>
+> `system-openssh`: the app makes every SSH connection by running an OpenSSH `ssh` program — the one `sshClientPath` names, otherwise the first `ssh` on the user's PATH (on Windows, a Win32-OpenSSH `ssh.exe`: the PATH one, else the in-box or Microsoft-installed client) — so the organization's own OpenSSH build, with its Kerberos/GSSAPI, certificate and `ssh_config` support, is what authenticates. The program must be OpenSSH 7.6 or newer (Windows: Win32-OpenSSH 9.4 or newer). When `sshClientPath` is set and that program cannot be used, sessions fail with an error telling the user to ask their IT administrator rather than falling back; when it is unset and Windows has no usable client, the built-in library is used.
+>
+> `builtin`: the app's built-in SSH library makes the connection, whatever the build's default.
+>
+> `auto` or unset: the build's default engine.
+>
+> An explicit value overrides the default at each host's next connect or reconnect. An open app takes a device profile's change at its next configuration check. From a configuration server it takes only `builtin`, once two checks in a row return it (about 12 minutes by default); other values wait until it is reopened or the user signs in again. A value that cannot be read, such as a misspelling, counts as `builtin` and waits likewise. Once a server's configuration has loaded it decides, even if it omits the key; until then the device profile's value applies. On a device that a Claude.ai sign-in has moved to an admin-console organization (see `disableDeploymentModeChooser`), the device profile's value is ignored: set the key in the admin console. There, until the organization's configuration has loaded, the build's default engine is used.
 
 ### Cowork surface
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="coworktabenabled" />Allow Cowork<br />`coworkTabEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.9659.0 | `true` | Enable Cowork. Claude works on longer tasks like research, analysis, and documents. Defaults to `true`. |
+| Allow Cowork `coworkTabEnabled` | `boolean` | MDM + Bootstrap Added in 1.9659.0 | `true` | Enable Cowork. Claude works on longer tasks like research, analysis, and documents. Defaults to `true`. |
 
 ### Workspace
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="userpluginmarketplacesenabled" />Allow user-added plugin marketplaces<br />`userPluginMarketplacesEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.37937.0 | — | Allow users to add plugin marketplaces. When off, marketplaces your organization did not provision are hidden and the app’s sessions do not load their plugins. |
-| <span id="userpluginuploadsenabled" />Allow user-added plugins<br />`userPluginUploadsEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.37937.0 | — | Allow users to add their own plugins. When off, every in-app option for adding one is hidden and uploads that still reach the app are refused. |
-| <span id="disabledbuiltintools" />Disabled built-in tools<br />`disabledBuiltinTools` | `string[]` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Built-in tools, or argument-scoped permission rules such as Read(//\*\*/.env), denied in Cowork and Code. |
-| <span id="disablebundledskills" />Disable bundled skills and workflows<br />`disableBundledSkills` | `boolean` | MDM + Bootstrap<br />Added in 1.15962.0 | — | Disables Claude Code’s bundled skills and workflows (deep-research and similar). Use where WebFetch/WebSearch aren’t available. |
-| <span id="skillcreationenabled" />Allow user-created skills<br />`skillCreationEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.25927.0 | — | Allow users to create and upload their own skills. When off, the creation and upload surfaces are hidden and the agent’s skill-creation tools are disabled. |
-| <span id="scheduledtasksenabled" />Allow scheduled tasks<br />`scheduledTasksEnabled` | `boolean` | MDM + Bootstrap<br />Added in 2.110.0 | — | Allow scheduled tasks in Cowork and Code. When off, the Scheduled page is hidden, existing tasks stop running, and Claude cannot create new ones. |
-| <span id="keepawakeenabled" />Allow keep awake<br />`keepAwakeEnabled` | `boolean` | MDM + Bootstrap<br />Added in 2.7032.0 | — | Let Claude keep the computer awake. When off, Claude never prevents sleep and hides the keep-awake switches in Settings, the Scheduled page and the Code tab. |
-| <span id="developermodeenabled" />Allow Developer Mode<br />`developerModeEnabled` | `boolean` | MDM + Bootstrap<br />Added in 2.37337.1 | — | Let users turn on Developer Mode. When off, the app’s developer tools and the option to install an unpacked extension are unavailable. |
-| <span id="builtintoolpolicy" />Built-in tool policy<br />`builtinToolPolicy` | `object` | MDM + Bootstrap<br />Added in 1.8089.0 | — | Approval policy per built-in tool or argument-scoped rule such as Bash(curl \*). “ask” requires user approval before each matching call; “allow” is the default. |
-| <span id="automodeenabled" />Allow Auto mode<br />`autoModeEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.10628.0 | — | Offer Auto mode in the Code permission selector (on unless set to false); set to true to also offer it in Cowork. Claude decides which actions need approval. |
-| <span id="disablebypasspermissionsmode" />Disable bypass permissions mode<br />`disableBypassPermissionsMode` | `boolean` | MDM + Bootstrap<br />Added in 1.46388.1 | — | Remove the bypass permissions mode from Code sessions and Cowork tasks, so Claude always follows the permission policy. Off by default. |
-| <span id="toolsearchenabled" />Enable tool search<br />`toolSearchEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.21459.0 | `false` | Load MCP tool schemas on demand (tool search) instead of inlining every schema into context. Defaults to `false`. |
-| <span id="skipwebfetchpreflight" />Skip WebFetch domain check<br />`skipWebFetchPreflight` | `boolean` | MDM + Bootstrap<br />Added in 1.37937.0 | — | Skip Claude Code’s WebFetch domain lookup against api.anthropic.com in Code sessions. Off by default; turn on when that host is blocked. |
-| <span id="allowedworkspacefolders" />Allowed workspace folders<br />`allowedWorkspaceFolders` | `object[]` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Folders where Claude may work. Applies to Cowork and Code sessions and to the project folders a chat reads. Leave unset for unrestricted access. |
-| <span id="blockreadsoutsideworkingdirectories" />Block reads outside working directories<br />`blockReadsOutsideWorkingDirectories` | `boolean` | MDM + Bootstrap<br />Added in 1.46388.1 | — | Keep Claude from reading files outside a Code session’s working directories. File tools refuse such reads; sandboxed shell commands lose the home directory. |
-| <span id="coworkegressallowedhosts" />Allowed egress hosts<br />`coworkEgressAllowedHosts` | `string[]` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Hosts agent tools may reach in Cowork and Chat (Code: in part). An empty list acts as unset for tools, but stops Claude opening sites in the built-in browser. |
-| <span id="requirecoworkfullvmsandbox" />Require full VM sandbox<br />`requireCoworkFullVmSandbox` | `boolean` | MDM + Bootstrap · Deprecated<br />Added in 1.2581.0 | `false` | Runs tools inside an isolated VM instead of the host. Stronger isolation; slower file access and no host-process tools. Defaults to `false`. |
-| <span id="organizationinstructions" />Organization instructions<br />`organizationInstructions` | `string` | MDM + Bootstrap<br />Added in 1.37937.0 | — | Appended to Claude’s system prompt in Chat, Cowork, and Code. Guidance the model follows, not an enforced control. Up to 3,000 characters. |
+| Allow user-added plugin marketplaces `userPluginMarketplacesEnabled` | `boolean` | MDM + Bootstrap Added in 1.37937.0 | — | Allow users to add plugin marketplaces. When off, marketplaces your organization did not provision are hidden and the app’s sessions do not load their plugins. |
+| Allow user-added plugins `userPluginUploadsEnabled` | `boolean` | MDM + Bootstrap Added in 1.37937.0 | — | Allow users to add their own plugins. When off, every in-app option for adding one is hidden and uploads that still reach the app are refused. |
+| Disabled built-in tools `disabledBuiltinTools` | `string[]` | MDM + Bootstrap Added in 1.2581.0 | — | Built-in tools, or argument-scoped permission rules such as Read(//\*\*/.env), denied in Cowork and Code. |
+| Disable bundled skills and workflows `disableBundledSkills` | `boolean` | MDM + Bootstrap Added in 1.15962.0 | — | Disables Claude Code’s bundled skills and workflows (deep-research and similar). Use where WebFetch/WebSearch aren’t available. |
+| Allow user-created skills `skillCreationEnabled` | `boolean` | MDM + Bootstrap Added in 1.25927.0 | — | Allow users to create and upload their own skills. When off, the creation and upload surfaces are hidden and the agent’s skill-creation tools are disabled. |
+| Allow scheduled tasks `scheduledTasksEnabled` | `boolean` | MDM + Bootstrap Added in 2.110.0 | — | Allow scheduled tasks in Cowork and Code. When off, the Scheduled page is hidden, existing tasks stop running, and Claude cannot create new ones. |
+| Allow keep awake `keepAwakeEnabled` | `boolean` | MDM + Bootstrap Added in 2.7032.0 | — | Let Claude keep the computer awake. When off, Claude never prevents sleep and hides the keep-awake switches in Settings, the Scheduled page and the Code tab. |
+| Allow Developer Mode `developerModeEnabled` | `boolean` | MDM + Bootstrap Added in 2.37337.1 | — | Let users turn on Developer Mode. When off, the app’s developer tools and the option to install an unpacked extension are unavailable. |
+| Default Quick Entry shortcut `quickEntryDefaultShortcut` | `string` | MDM + Bootstrap Added in 3.1623.0 | — | Set the shortcut that opens Quick Entry, such as Ctrl+Alt+K, for users who haven’t set their own in Settings. Use “off” for no shortcut. |
+| Built-in tool policy `builtinToolPolicy` | `object` | MDM + Bootstrap Added in 1.8089.0 | — | Approval per tool or rule such as Bash(curl \*). “ask” prompts the user before each matching call. “allow” is the default. To block, use Disabled built-in tools. |
+| Allow Auto mode `autoModeEnabled` | `boolean` | MDM + Bootstrap Added in 1.10628.0 | — | Offer Auto mode in the Code permission selector (on unless set to false); set to true to also offer it in Cowork. Claude decides which actions need approval. |
+| Disable bypass permissions mode `disableBypassPermissionsMode` | `boolean` | MDM + Bootstrap Added in 1.46388.1 | — | Remove the bypass permissions mode from Code sessions and Cowork tasks, so Claude always follows the permission policy. Off by default. |
+| Enable tool search `toolSearchEnabled` | `boolean` | MDM + Bootstrap Added in 1.21459.0 | `false` | Load MCP tool schemas on demand (tool search) instead of inlining every schema into context. Defaults to `false`. |
+| Skip WebFetch domain check `skipWebFetchPreflight` | `boolean` | MDM + Bootstrap Added in 1.37937.0 | — | Skip Claude Code’s WebFetch domain lookup against api.anthropic.com in Code sessions. Off by default; turn on when that host is blocked. |
+| Allowed workspace folders `allowedWorkspaceFolders` | `object[]` | MDM + Bootstrap Added in 1.2581.0 | — | Folders where Claude may work. Applies to Cowork and Code sessions and to the project folders a chat reads. Leave unset for unrestricted access. |
+| Block reads outside working directories `blockReadsOutsideWorkingDirectories` | `boolean` | MDM + Bootstrap Added in 1.46388.1 | — | Keep Claude from reading files outside a Code session’s working directories. File tools refuse such reads; sandboxed shell commands lose the home directory. |
+| Allowed egress hosts `coworkEgressAllowedHosts` | `string[]` | MDM + Bootstrap Added in 1.2581.0 | — | Hosts agent tools may reach in Cowork and Chat (Code: in part). An empty list acts as unset for tools, but stops Claude opening sites in the built-in browser. |
+| Require full VM sandbox `requireCoworkFullVmSandbox` | `boolean` | MDM + Bootstrap · Deprecated Added in 1.2581.0 | `false` | Runs tools inside an isolated VM instead of the host. Stronger isolation; slower file access and no host-process tools. Defaults to `false`. |
+| Organization instructions `organizationInstructions` | `string` | MDM + Bootstrap Added in 1.37937.0 | — | Appended to Claude’s system prompt in Chat, Cowork, and Code. Guidance the model follows, not an enforced control. Up to 3,000 characters. |
 
-<AccordionGroup>
-  <Accordion title="userPluginMarketplacesEnabled details">
-    When on (default), users can add plugin marketplaces from the plugin browser. Set to `false` to restrict plugins to your organization's marketplaces: the add-marketplace surfaces are hidden, and the app refuses adds that still reach it (deep links, stale UI). Any other marketplace present on the device is then hidden in every tab, whether a user added it in the app earlier or something outside the app registered it (for example Claude Code in a terminal, under `~/.claude`): its plugins are not listed, and installs and updates from it are refused. The sessions the app starts load plugins only from your organization's marketplaces, the organization plugins directory, the app's own uploads and the user's own skills folder, enforced through Claude Code's marketplace allowlist (`strictKnownMarketplaces`, passed as the app's managed settings). Nothing is deleted: removing the key or setting it back to `true` restores them. Marketplaces provisioned by your organization (`allowedPluginMarketplaces`) and the organization plugins directory are unaffected, and plugins users uploaded are governed by `userPluginUploadsEnabled`, not this key.
+> **userPluginMarketplacesEnabled details**
+>
+> When on (default), users can add plugin marketplaces from the plugin browser. Set to `false` to restrict plugins to your organization's marketplaces: the add-marketplace surfaces are hidden, and the app refuses adds that still reach it (deep links, stale UI). Any other marketplace present on the device is then hidden in every tab, whether a user added it in the app earlier or something outside the app registered it (for example Claude Code in a terminal, under `~/.claude`): its plugins are not listed, and installs and updates from it are refused. The sessions the app starts load plugins only from your organization's marketplaces, the organization plugins directory, the app's own uploads and the user's own skills folder, enforced through Claude Code's marketplace allowlist (`strictKnownMarketplaces`, passed as the app's managed settings). Nothing is deleted: removing the key or setting it back to `true` restores them. Marketplaces provisioned by your organization (`allowedPluginMarketplaces`) and the organization plugins directory are unaffected, and plugins users uploaded are governed by `userPluginUploadsEnabled`, not this key.
+>
+> This is a feature-availability control, not a data boundary. Claude Code in a terminal reads the same `~/.claude` folder and is governed only by its own managed settings, not by this key. Claude Code may ignore this allowlist on a device that deploys its own Claude Code managed settings; restrict marketplaces in those settings as well.
+>
+> This key applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
 
-    This is a feature-availability control, not a data boundary. Claude Code in a terminal reads the same `~/.claude` folder and is governed only by its own managed settings, not by this key. Claude Code may ignore this allowlist on a device that deploys its own Claude Code managed settings; restrict marketplaces in those settings as well.
+> **userPluginUploadsEnabled details**
+>
+> When on (default), users can upload plugin files and create plugins with Claude. Set to `false` to stop users adding plugins of their own: every in-app option for doing so is hidden, and the app refuses uploads that still reach it.
+>
+> This is a feature-availability control enforced in the app, not a data boundary: plugins already installed (or placed on disk outside the app) are not removed or blocked by this key. Plugins from organization-provisioned marketplaces and the organization plugins directory are unaffected.
+>
+> This key applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
 
-    This key applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
-  </Accordion>
+> **disabledBuiltinTools details**
+>
+> Each entry is a Claude Code [tool name](https://code.claude.com/docs/en/tools-reference) such as `Bash`, `Edit`, `WebFetch` or `WebSearch`, or an argument-scoped [permission rule](https://code.claude.com/docs/en/permissions#permission-rule-syntax) such as `Bash(curl *)` or `Edit(//**/*.env)`. A bare name covers every call (a bare `Bash` entry also covers the `PowerShell` tool); a scoped rule covers matching calls in every permission mode, including Auto and bypass. Scopes are matched for `Bash(…)` and `PowerShell(…)` (a command pattern) and for file paths written as `Read(…)` (covers `Read`, `Grep`, `Glob`) or `Edit(…)` (covers `Edit`, `Write`, `NotebookEdit`); many other tools take `Tool(<field>:<pattern>)`. `WebSearch` and `WebFetch` are bare-name only: to allow specific hosts, use `coworkEgressAllowedHosts`.
+>
+> Scoped `Bash(…)` rules apply in Code sessions only; Cowork's shell follows only a bare `Bash` entry. Start absolute file paths with `//`, not `/`: a relative pattern such as `Read(**/.env)` covers only a Code session's project folder and none of Cowork's connected folders. Scoped rules need fleet-wide build support (`disableAutoUpdates` pins builds): an older build passes a scoped entry to Claude Code unchecked. An entry whose pattern contains `)` followed by a space or comma is enforced only through Claude Code's managed-settings channel, so another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) replaces it unless that source sets `parentSettingsBehavior` to `"merge"`; every other entry is enforced either way.
+>
+> An unusable entry (a tool name in the wrong letter case, an unbalanced parenthesis, a scoped `WebSearch(…)` or `WebFetch(…)`) is kept, because the deny list is served exactly as written, and raises a configuration warning.
 
-  <Accordion title="userPluginUploadsEnabled details">
-    When on (default), users can upload plugin files and create plugins with Claude. Set to `false` to stop users adding plugins of their own: every in-app option for doing so is hidden, and the app refuses uploads that still reach it.
+> **skillCreationEnabled details**
+>
+> When on (default), users can create new skills and upload skill files in the app. Set to `false` to block user skill creation: the skill-creation and upload surfaces are hidden (the `skill_creation` feature is served as blocked by the organization), and the agent's skill-creation tools (saving skills from a conversation, skill proposals) are not offered in sessions — the same effect as turning off the **User-created skills** organization setting available to claude.ai enterprise admins.
+>
+> This is a feature-availability control enforced in the app's UI, not a data boundary: skills are files on the user's machine, and files already present there (or placed there outside the app) are not removed or blocked by this key. Skills themselves remain usable; organization-distributed plugins and bundled skills are unaffected (to disable bundled skills, use `disableBundledSkills`).
 
-    This is a feature-availability control enforced in the app, not a data boundary: plugins already installed (or placed on disk outside the app) are not removed or blocked by this key. Plugins from organization-provisioned marketplaces and the organization plugins directory are unaffected.
+> **scheduledTasksEnabled details**
+>
+> When on (default), users can schedule Cowork tasks and Code sessions to run later or on a recurring schedule, and Claude can create such schedules when asked.
+>
+> Set to `false` to turn scheduled tasks off for every user. The Scheduled section in Cowork and the routines list in the Code tab are hidden, together with every other place a schedule can be created. Tasks that already exist on a device no longer run; they are kept, not deleted, and run again once the key is removed or set to `true`. Claude is not offered the tools that create, change or run these tasks, and sessions start without Claude Code's own in-session scheduling tools (the `/loop` command, its cron tools and its wake-up timer).
+>
+> It does not remove task files already on the user's machine. A change takes effect at the next app launch.
 
-    This key applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `disableDeploymentModeChooser` so the app stays in third-party mode.
-  </Accordion>
+> **keepAwakeEnabled details**
+>
+> When on (default), users can turn on **Keep computer awake** (Settings → This computer → System, also shown as **Keep awake** on the Scheduled page in Cowork and the Routines page in Code) so the computer does not idle-sleep while Claude is open and scheduled tasks keep running on an idle machine. The Code tab can also keep the computer awake while a session is working (**Keep computer awake while Claude works** in Settings → Claude Code, and a session's **Keep computer awake** menu item).
+>
+> Set to `false` to make sure Claude never prevents the computer from sleeping: those switches are hidden and no part of the app keeps the computer awake. Users' saved choices are kept but ignored, and apply again once the key is removed or set to `true`. Scheduled tasks are unaffected and still run only while the computer is awake and the app is open.
+>
+> A change takes effect on a running app.
 
-  <Accordion title="disabledBuiltinTools details">
-    Each entry is a Claude Code tool name (`Bash`, `Read`, `Write`, `Edit`, `Glob`, `Grep`, `NotebookEdit`, `WebFetch`, `WebSearch`, `Task`, `TodoWrite`, `TaskCreate`, `TaskUpdate`, `TaskGet`, `TaskList`, `TaskStop`, `Skill`, `REPL`, `JavaScript`, `AskUserQuestion`, `ToolSearch`, `SendUserMessage`) or an argument-scoped [permission rule](https://code.claude.com/docs/en/permissions#permission-rule-syntax) such as `Bash(curl *)` or `Edit(//**/*.env)`. A bare name covers every call (a bare `Bash` entry also covers the `PowerShell` tool); a scoped rule covers matching calls in every permission mode, including Auto and bypass. Scopes are matched for `Bash(…)` (a command pattern) and for file paths written as `Read(…)` (covers `Read`, `Grep`, `Glob`) or `Edit(…)` (covers `Edit`, `Write`, `NotebookEdit`); other tools take `Tool(<field>:<pattern>)`. `WebSearch` and `WebFetch` are bare-name only: to allow specific hosts, use `coworkEgressAllowedHosts`.
+> **developerModeEnabled details**
+>
+> When on (default), a user can turn on **Developer Mode** (Help → Troubleshooting → Enable Developer Mode), which adds the **Developer** menu and lets them open the developer tools (Chrome DevTools, Inspect Element) and a debugger for the app's main process.
+>
+> Set to `false` to keep Developer Mode off on every device that receives this setting: the **Developer** menu and the Help → Troubleshooting → Enable Developer Mode item are removed, the developer tools and the debugger cannot be opened (any already open are closed), a user's own `developer_settings.json` opt-in is ignored, and the app refuses to install an extension from a folder. Packaged (`.mcpb`) extensions are governed by `isDesktopExtensionEnabled`, not this key.
+>
+> This is a feature control, not a sandbox: extensions already installed from a folder stay installed and keep working, and an extension folder copied into the app's extensions folder by hand is not blocked.
+>
+> A change takes effect on a running app, except that the **Install unpacked extension** button in Settings keeps its launch-time state until the app restarts (clicking it while the key is off shows an error).
 
-    Scoped `Bash(…)` rules apply in Code sessions only; Cowork's shell follows only a bare `Bash` entry. Start absolute file paths with `//`, not `/`: a relative pattern such as `Read(**/.env)` covers only a Code session's project folder and none of Cowork's connected folders. Scoped rules need fleet-wide build support (`disableAutoUpdates` pins builds): an older build passes a scoped entry to Claude Code unchecked. An entry whose pattern contains `)` followed by a space or comma is enforced only through Claude Code's managed-settings channel, so another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) replaces it unless that source sets `parentSettingsBehavior` to `"merge"`; every other entry is enforced either way.
+> **quickEntryDefaultShortcut details**
+>
+> Sets the default shortcut for Quick Entry, the small prompt window that opens over other apps. It replaces Claude's built-in shortcut (double-tap Option on macOS, Ctrl+Alt+Space on Windows and Linux) for users who haven't chosen their own.
+>
+> This is a default, not a lock. A shortcut that a user saves in Settings → This computer → System (**Quick access shortcut** on macOS, **Quick Entry keyboard shortcut** on Windows and Linux) takes precedence, including one saved before this key was set.
+>
+> Accepted values:
+>
+> * Modifiers and one key joined by `+`, such as `Ctrl+Alt+K` or `Alt+Space`. Modifiers include `Ctrl`, `Alt`, `Shift`, `Cmd` and `Super`. `CommandOrControl` means Cmd on macOS and Ctrl elsewhere, so one value works on every platform. A combination must pair `Ctrl`, `Cmd` or `Super` with `Alt` or `Shift`, except for `Alt+Space`. Write modifier and key names exactly as shown: `ctrl` is not read as `Ctrl`.
+> * `off` (the string, not `false`): no shortcut. Users can still open Quick Entry from Claude's tray or menu bar icon and set a shortcut in Settings.
+> * `double-tap-option`: macOS only. Windows and Linux keep the built-in shortcut.
+>
+> While Claude is running, other apps don't receive this shortcut. So Claude rejects other combinations, such as `F11`, `Ctrl+C`, `Shift+K` or `Alt+Shift+K`, which typing and other apps rely on. It also rejects any combination that includes `Insert`, `Capslock` or `F5`, which screen readers use. Choose a combination that users don't need elsewhere.
+>
+> If Claude can't use the value as a shortcut, it ignores the value and keeps the built-in one. If another app already uses the shortcut, Claude on macOS uses the built-in shortcut. On Windows and Linux, Quick Entry keeps its previous shortcut, or none at start-up. Users can choose another in Settings.
+>
+> A change takes effect on a running app.
 
-    An unusable entry (a lowercase tool name, an unbalanced parenthesis, a scoped `WebSearch(…)` or `WebFetch(…)`) is kept, because the deny list is served exactly as written, and raises a configuration warning.
-  </Accordion>
+> **builtinToolPolicy details**
+>
+> Keys use the same tool names and argument-scoped rule syntax as **Disabled built-in tools** (`disabledBuiltinTools`), and scopes apply in the same sessions. A bare `Bash` key also governs Claude Code's `PowerShell` tool (its shell on Windows PCs without Git for Windows); argument-scoped `Bash(…)` keys do not. Scoped **ask** rules reach sessions only through Claude Code's managed-settings channel, so another Claude Code managed-settings source replaces them unless it sets `parentSettingsBehavior` to `"merge"` (bare names hold either way). They need the same fleet-wide build support, and an older build drops a scoped **ask** entry as a configuration error (which also blocks WSL sessions on Windows until that client updates), so the tool runs unprompted.
+>
+> An **ask** entry, bare or scoped, also turns off the app's remembered “always allow” choices for that tool, so each prompted call is confirmed individually. **ask** on a file tool (`Read`, `Write`, `Edit`, `Glob`, `Grep`) prompts in Cowork, Chat and Code sessions. Calls that Cowork and Chat always refuse are still refused without a prompt: paths outside the session's connected folders (in Chat, outside its scratch directory and its project's folders) and protected or sensitive files inside them. A scheduled task in Cowork waits at the prompt, which appears in the task's session and, when that session is not in view, as a desktop notification. Code side chats cannot prompt, so they block matching calls. An unusable entry is dropped and recorded as a configuration error; a value other than `allow` or `ask` is treated as `ask` and reported. To remove a tool or deny a rule outright, use **Disabled built-in tools** instead.
 
-  <Accordion title="skillCreationEnabled details">
-    When on (default), users can create new skills and upload skill files in the app. Set to `false` to block user skill creation: the skill-creation and upload surfaces are hidden (the `skill_creation` feature is served as blocked by the organization), and the agent's skill-creation tools (saving skills from a conversation, skill proposals) are not offered in sessions — the same effect as turning off the **User-created skills** organization setting available to claude.ai enterprise admins.
+> **autoModeEnabled details**
+>
+> Left unset, users can select **Auto mode** in Code and new Code sessions start in it; a mode the user already chose, or a Claude Code settings file's `permissions.defaultMode`, takes precedence, and Cowork does not offer it. Set to `true` to also offer **Automatically approve** in Cowork (Cowork sessions still start by asking before each action until the user picks it). Set to `false` to remove the option from both tabs. In Auto mode Claude runs a safety classifier on each action and only prompts for approval on actions it judges risky, instead of following the static per-tool policy.
+>
+> Requires a session model that supports the safety classifier — which models qualify depends on the deployment's provider and the app version. With a model that lacks support the option is greyed out and Code sessions do not start in it. `builtinToolPolicy` and this key may both be set; Auto mode is a user-selectable option alongside the default policy, not a replacement for it.
+>
+> By default on a gateway, the safety classifier sends its own requests through your gateway to Claude Sonnet 5, whatever model the session uses. Make sure your gateway accepts the exact ID `claude-sonnet-5` and the `context-1m-2025-08-07` value in the `anthropic-beta` request header. If you set `inferenceModels`, list that ID there and in any group's model list (no `supports1m` needed). Sonnet 5 then also shows in the model picker. If the gateway rejects those requests or the list omits the ID, Auto mode stays available but can block actions it would otherwise allow. In Code, users see those actions marked **Blocked**.
+>
+> In Code sessions, a separately deployed Claude Code [managed-settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) file that sets `disableAutoMode` to `"disable"` also keeps Auto mode hidden and off, whatever this key says.
 
-    This is a feature-availability control enforced in the app's UI, not a data boundary: skills are files on the user's machine, and files already present there (or placed there outside the app) are not removed or blocked by this key. Skills themselves remain usable; organization-distributed plugins and bundled skills are unaffected (to disable bundled skills, use `disableBundledSkills`).
-  </Accordion>
+> **disableBypassPermissionsMode details**
+>
+> When set to `true`, sessions cannot run in bypass permissions mode: the app stops offering the mode in Code and Cowork, and a session that requests it anyway is downgraded. This is the `disableBypassPermissionsMode` setting from the `permissions` section of Claude Code's [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings); a separately deployed Claude Code managed-settings file that sets it to `"disable"` also removes the mode, whichever source sets it.
+>
+> Unset (default): users the deployment otherwise allows can choose bypass permissions mode.
 
-  <Accordion title="scheduledTasksEnabled details">
-    When on (default), users can schedule Cowork tasks and Code sessions to run later or on a recurring schedule, and Claude can create such schedules when asked.
+> **toolSearchEnabled details**
+>
+> When enabled, Cowork, Code, and Chat sessions place only tool names in context up front, and Claude fetches a tool's full schema the first time it needs it. Use this when many MCP tools are configured and their inlined schemas crowd out the context window. If your endpoint does not accept the request shape it then receives, requests fail with HTTP 400.
+>
+> * **Claude API, Vertex AI, Bedrock, or Bedrock Mantle with no custom base URL**: not needed. The app leaves Claude Code's experimental betas on there, as terminal Claude Code does, so tool search is on by default (on Vertex AI, for Claude 4.5 and newer models). To turn it off in Code, Cowork, and Chat, set `ENABLE_TOOL_SEARCH` to `false` in the `env` block of OS-level Claude Code managed settings (with `parentSettingsBehavior: "merge"`). Earlier app versions treat these like the last case.
+> * **Gateway provider, app versions bundling Claude Code 2.1.247 or later**: requests add only the tool-search shape (the `tool-search-tool-2025-10-19` `anthropic-beta` value, deferred tool loading, `tool_reference` content blocks); every other experimental Claude Code beta stays suppressed. OS-level Claude Code managed settings that keep that suppression or turn `ENABLE_TOOL_SEARCH` off still win; set `ENABLE_TOOL_SEARCH` to `force` there instead (with `parentSettingsBehavior: "merge"`). Sessions the app runs in Claude Code's gateway mode (an opt-in for users on the gateway's own sign-in) get its gateway-safe tool-search shape instead.
+> * **Foundry, a custom base URL, and earlier app versions**: the app suppresses Claude Code's experimental betas for the session and the key lifts that, so requests carry the tool-search shape together with Claude Code's other experimental betas for that provider. On Vertex with app versions bundling Claude Code older than 2.1.221, leave this unset while any model older than Claude 4.5 is in use; those engines send the header regardless of model and Vertex's pre-4.5 stacks reject it.
 
-    Set to `false` to turn scheduled tasks off for every user. The Scheduled section in Cowork and the routines list in the Code tab are hidden, together with every other place a schedule can be created. Tasks that already exist on a device no longer run; they are kept, not deleted, and run again once the key is removed or set to `true`. Claude is not offered the tools that create, change or run these tasks, and sessions start without Claude Code's own in-session scheduling tools (the `/loop` command, its cron tools and its wake-up timer).
+> **skipWebFetchPreflight details**
+>
+> Before fetching a page, Claude Code's WebFetch tool asks `api.anthropic.com` whether the domain is on Anthropic's content blocklist, and refuses the fetch if that lookup cannot complete. Third-party deployments route inference elsewhere and often block `api.anthropic.com` at the firewall; with the lookup on, every WebFetch in Code sessions then fails with "Unable to verify if domain … is safe to fetch", and where the host is reachable, every fetched hostname is sent to Anthropic. (Cowork sessions fetch through the app's own allowlisted fetch and never run this lookup.)
+>
+> Off (default): the lookup runs as it does today, so `api.anthropic.com` must be reachable from users' machines for Code-session WebFetch to work (listed under Egress Requirements). Set to `true` when users' machines cannot reach `api.anthropic.com` (corporate firewall, government network) or you do not want fetched hostnames sent there: Code sessions then fetch without the lookup and never contact that host for it. This is the same `skipWebFetchPreflight` setting Claude Code reads from its own [managed-settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) file; the app passes it to every session it starts. This key does not restrict which domains Claude may fetch. Neither does `coworkEgressAllowedHosts` in Code sessions, where it only pre-approves its hosts; `builtinToolPolicy` can require approval for every fetch.
 
-    It does not remove task files already on the user's machine. A change takes effect at the next app launch.
-  </Accordion>
+> **allowedWorkspaceFolders details**
+>
+> Paths can reference `~` and these environment variables, expanded per user: `%OneDrive%`, `%OneDriveCommercial%`, `%OneDriveConsumer%`, `%APPDATA%`, `%LOCALAPPDATA%`, `%USERNAME%`, `%XDG_DOCUMENTS_DIR%`. The set is fixed; an entry that references any other `%VAR%`, or one that is unset on the device, is ignored.
+>
+> Each folder is interpreted on the machine the session runs on. For a Code session on an SSH host, `~` means the remote user's home, an entry that references a `%VAR%` is ignored there (environment variables belong to the machine that defines them), and the session's working directory must fall inside one of the folders as they exist on that host. One list serves every machine: `["~/work", "/srv/work"]` governs `~/work` for each user, on a managed Mac or a Linux host, and `/srv/work` on a host that has it. A folder that names nothing real on a given machine simply allows nothing there. An empty list allows no folder at all; unset leaves access unrestricted.
+>
+> A listed folder is one Claude may write as well as read, unless the entry's `mode` (Access mode in Setup) makes it read-only; that field's own description says how far read-only reaches. A Code session can reach every listed folder, not only the one it was opened in. Setting this key also turns on Claude Code's sandbox where it runs (macOS, or Linux and SSH hosts with bubblewrap): there a shell command normally writes in the listed folders without an approval prompt, and its writes to most other places, such as a package cache in the home directory, are refused. A home directory holds shell start-up files and SSH keys, so list work folders, not a whole home directory.
+>
+> The list also limits which folders of a project a chat reads.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `path` | `string` | — | Absolute folder path. May start with \~ or one of the listed %VAR% tokens, expanded per user. Subfolders are included. |
+> | `isDefaultSelected` | `boolean` | — | Shows as a folder chip on the new-task page and skips the trust prompt. Users can remove it. |
+> | `mode` | `enum` | — | Read-only folders can be viewed and searched but not modified in Cowork. In Code, applies to file tools only. Over SSH, also to Bash in its sandbox. One of: `rw`, `ro`. |
 
-  <Accordion title="keepAwakeEnabled details">
-    When on (default), users can turn on **Keep computer awake** (Settings → This computer → System, also shown as **Keep awake** on the Scheduled page in Cowork and the Routines page in Code) so the computer does not idle-sleep while Claude is open and scheduled tasks keep running on an idle machine. The Code tab can also keep the computer awake while a session is working (**Keep computer awake while Claude works** in Settings → Claude Code, and a session's **Keep computer awake** menu item).
+> **blockReadsOutsideWorkingDirectories details**
+>
+> When set to `true`, Code sessions refuse reads outside their working directories (the session folder plus any `allowedWorkspaceFolders`). The file tools (Read, Grep, Glob) refuse them in every permission mode; where Claude Code's sandbox runs (macOS, or Linux and SSH hosts with bubblewrap, once `allowedWorkspaceFolders` is set or an egress allowlist applies: in third-party deployments one applies unless `coworkEgressAllowedHosts` contains `*`, in first-party deployments none does) shell commands cannot see the home directory and other user folders (`/Users`, `/home`, mounted volumes) and a read there is refused with no prompt; elsewhere (Windows, Linux without bubblewrap, or neither folders nor an egress allowlist in effect) such shell reads prompt for approval. The app keeps the user's git configuration files (which may themselves embed credentials such as URL tokens; a symlinked one stays hidden), its own Claude Code installation, and the session's plugin and attachment folders readable (not on a Windows SSH host, where plugin files and attachments stay out of the file tools' reach under the block). An allowed folder that is or contains the home directory leaves it readable.
+>
+> Users can re-open folders (even their whole home) in their own Claude Code settings with `sandbox.filesystem.allowRead` or `permissions.additionalDirectories`; settings files tracked in a git repository cannot. The key travels on Claude Code's managed-settings channel: another Claude Code managed-settings source replaces it unless that source sets `parentSettingsBehavior` to `"merge"`, and one that sets `sandbox.filesystem.allowManagedReadPathsOnly` reduces it to approval prompts. This is `permissions.blockReadsOutsideWorkingDirectories` in Claude Code's [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings).
+>
+> Unset (default): nothing changes.
 
-    Set to `false` to make sure Claude never prevents the computer from sleeping: those switches are hidden and no part of the app keeps the computer awake. Users' saved choices are kept but ignored, and apply again once the key is removed or set to `true`. Scheduled tasks are unaffected and still run only while the computer is awake and the app is open.
+> **coworkEgressAllowedHosts details**
+>
+> Applies only to **tool calls**, in Cowork, Code and Chat. In Cowork it covers the sandbox's web fetch, shell commands and package installs. In Chat it covers web fetch and commands in the file-analysis sandbox. In Code it's [translated into Claude Code's network sandbox allowlist](https://claude.com/docs/third-party/claude-desktop/code#applied-as-managed-policy), and by default a separately deployed Claude Code managed-settings file takes precedence. It does **not** cover Web Search (which runs at your inference provider), inference, or MCP traffic. A list other than `*` also bounds where Claude may browse in the built-in browser. When unset, Cowork and Chat refuse web fetch.
+>
+> Entries are exact hostnames (`api.github.com`), wildcards (`*.corp.com` matches subdomains at any depth, not `corp.com` itself), or `*` to allow all. IP addresses match only when listed exactly. In Cowork and Chat, web fetch always blocks `localhost` and private addresses, and shells reach only listed hosts (not your inference provider's, unless listed), or none when unset. Code's shell obeys that limit only on macOS, and with bubblewrap and socat on Linux or WSL2; elsewhere, Windows included, it reaches any host. Code's web fetch isn't limited.
+>
+> Any entry except bare `*` may carry a `:port` suffix (`*.corp.com:8443`) restricting it to that port. IPv6 literals are not supported. Invalid entries are dropped with a log warning and the rest still work. An unreadable value counts as an empty list. Ports are enforced for the Cowork sandbox's web fetch, shell, and package-install egress; plugin CLIs also reach hosts their plugin declares and ignore port-scoped entries for now, and the Code translation treats them as the bare host. Only deploy port-scoped entries once your whole fleet supports them (`disableAutoUpdates` pins builds). On an older build, a single one invalidates the session's whole shell and package-install allowlist.
+>
+> Open listed hosts on your network firewall too.
 
-    A change takes effect on a running app.
-  </Accordion>
-
-  <Accordion title="developerModeEnabled details">
-    When on (default), a user can turn on **Developer Mode** (Help → Troubleshooting → Enable Developer Mode), which adds the **Developer** menu and lets them open the developer tools (Chrome DevTools, Inspect Element) and a debugger for the app's main process.
-
-    Set to `false` to keep Developer Mode off on every device that receives this setting: the **Developer** menu and the Help → Troubleshooting → Enable Developer Mode item are removed, the developer tools and the debugger cannot be opened (any already open are closed), a user's own `developer_settings.json` opt-in is ignored, and the app refuses to install an extension from a folder. Packaged (`.mcpb`) extensions are governed by `isDesktopExtensionEnabled`, not this key.
-
-    This is a feature control, not a sandbox: extensions already installed from a folder stay installed and keep working, and an extension folder copied into the app's extensions folder by hand is not blocked.
-
-    A change takes effect on a running app, except that the **Install unpacked extension** button in Settings keeps its launch-time state until the app restarts (clicking it while the key is off shows an error).
-  </Accordion>
-
-  <Accordion title="builtinToolPolicy details">
-    Keys use the same tool names and argument-scoped rule syntax as **Disabled built-in tools** (`disabledBuiltinTools`), and scopes apply in the same sessions. A bare `Bash` key also governs Claude Code's `PowerShell` tool (its shell on Windows PCs without Git for Windows); argument-scoped `Bash(…)` keys do not. Scoped **ask** rules reach sessions only through Claude Code's managed-settings channel, so another Claude Code managed-settings source replaces them unless it sets `parentSettingsBehavior` to `"merge"` (bare names hold either way). They need the same fleet-wide build support, and an older build drops a scoped **ask** entry as a configuration error (which also blocks WSL sessions on Windows until that client updates), so the tool runs unprompted.
-
-    An **ask** entry, bare or scoped, also turns off the app's remembered “always allow” choices for that tool, so each prompted call is confirmed individually. **ask** on a file tool (`Read`, `Write`, `Edit`, `Glob`, `Grep`) prompts in Cowork, Chat and Code sessions. Calls that Cowork and Chat always refuse are still refused without a prompt: paths outside the session's connected folders (in Chat, outside its scratch directory and its project's folders) and protected or sensitive files inside them. A scheduled task in Cowork waits at the prompt, which appears in the task's session and, when that session is not in view, as a desktop notification. Code side chats cannot prompt, so they block matching calls. An unusable entry is dropped and recorded as a configuration error; a value other than `allow` or `ask` is treated as `ask` and reported. To remove a tool or deny a rule outright, use **Disabled built-in tools** instead.
-  </Accordion>
-
-  <Accordion title="autoModeEnabled details">
-    Left unset, users can select **Auto mode** in Code and new Code sessions start in it; a mode the user already chose, or a Claude Code settings file's `permissions.defaultMode`, takes precedence, and Cowork does not offer it. Set to `true` to also offer **Automatically approve** in Cowork (Cowork sessions still start by asking before each action until the user picks it). Set to `false` to remove the option from both tabs. In Auto mode Claude runs a safety classifier on each action and only prompts for approval on actions it judges risky, instead of following the static per-tool policy.
-
-    Requires a model that supports the safety classifier — which models qualify depends on the deployment's provider and the app version. With a model that lacks support the option is greyed out and Code sessions do not start in it. `builtinToolPolicy` and this key may both be set; Auto mode is a user-selectable option alongside the default policy, not a replacement for it.
-
-    In Code sessions, a separately deployed Claude Code [managed-settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) file that sets `disableAutoMode` to `"disable"` also keeps Auto mode hidden and off, whatever this key says.
-  </Accordion>
-
-  <Accordion title="disableBypassPermissionsMode details">
-    When set to `true`, sessions cannot run in bypass permissions mode: the app stops offering the mode in Code and Cowork, and a session that requests it anyway is downgraded. This is the `disableBypassPermissionsMode` setting from the `permissions` section of Claude Code's [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings); a separately deployed Claude Code managed-settings file that sets it to `"disable"` also removes the mode, whichever source sets it.
-
-    Unset (default): users the deployment otherwise allows can choose bypass permissions mode.
-  </Accordion>
-
-  <Accordion title="toolSearchEnabled details">
-    When enabled, Cowork, Code, and Chat sessions place only tool names in context up front, and Claude fetches a tool's full schema the first time it needs it. Use this when many MCP tools are configured and their inlined schemas crowd out the context window. If your endpoint does not accept the request shape it then receives, requests fail with HTTP 400.
-
-    * **Claude API, Vertex AI, Bedrock, or Bedrock Mantle with no custom base URL**: not needed. The app leaves Claude Code's experimental betas on there, as terminal Claude Code does, so tool search is on by default (on Vertex AI, for Claude 4.5 and newer models). To turn it off in Code, Cowork, and Chat, set `ENABLE_TOOL_SEARCH` to `false` in the `env` block of OS-level Claude Code managed settings (with `parentSettingsBehavior: "merge"`). Earlier app versions treat these like the last case.
-    * **Gateway provider, app versions bundling Claude Code 2.1.247 or later**: requests add only the tool-search shape (the `tool-search-tool-2025-10-19` `anthropic-beta` value, deferred tool loading, `tool_reference` content blocks); every other experimental Claude Code beta stays suppressed. OS-level Claude Code managed settings that keep that suppression or turn `ENABLE_TOOL_SEARCH` off still win; set `ENABLE_TOOL_SEARCH` to `force` there instead (with `parentSettingsBehavior: "merge"`). Sessions the app runs in Claude Code's gateway mode (an opt-in for users on the gateway's own sign-in) get its gateway-safe tool-search shape instead.
-    * **Foundry, a custom base URL, and earlier app versions**: the app suppresses Claude Code's experimental betas for the session and the key lifts that, so requests carry the tool-search shape together with Claude Code's other experimental betas for that provider. On Vertex with app versions bundling Claude Code older than 2.1.221, leave this unset while any model older than Claude 4.5 is in use; those engines send the header regardless of model and Vertex's pre-4.5 stacks reject it.
-  </Accordion>
-
-  <Accordion title="skipWebFetchPreflight details">
-    Before fetching a page, Claude Code's WebFetch tool asks `api.anthropic.com` whether the domain is on Anthropic's content blocklist, and refuses the fetch if that lookup cannot complete. Third-party deployments route inference elsewhere and often block `api.anthropic.com` at the firewall; with the lookup on, every WebFetch in Code sessions then fails with "Unable to verify if domain … is safe to fetch", and where the host is reachable, every fetched hostname is sent to Anthropic. (Cowork sessions fetch through the app's own allowlisted fetch and never run this lookup.)
-
-    Off (default): the lookup runs as it does today, so `api.anthropic.com` must be reachable from users' machines for Code-session WebFetch to work (listed under Egress Requirements). Set to `true` when users' machines cannot reach `api.anthropic.com` (corporate firewall, government network) or you do not want fetched hostnames sent there: Code sessions then fetch without the lookup and never contact that host for it. This is the same `skipWebFetchPreflight` setting Claude Code reads from its own [managed-settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) file; the app passes it to every session it starts. This key does not restrict which domains Claude may fetch. Neither does `coworkEgressAllowedHosts` in Code sessions, where it only pre-approves its hosts; `builtinToolPolicy` can require approval for every fetch.
-  </Accordion>
-
-  <Accordion title="allowedWorkspaceFolders details">
-    Paths can reference `~` and these environment variables, expanded per user: `%OneDrive%`, `%OneDriveCommercial%`, `%OneDriveConsumer%`, `%APPDATA%`, `%LOCALAPPDATA%`, `%USERNAME%`, `%XDG_DOCUMENTS_DIR%`. The set is fixed; an entry that references any other `%VAR%`, or one that is unset on the device, is ignored.
-
-    Each folder is interpreted on the machine the session runs on. For a Code session on an SSH host, `~` means the remote user's home, an entry that references a `%VAR%` is ignored there (environment variables belong to the machine that defines them), and the session's working directory must fall inside one of the folders as they exist on that host. One list serves every machine: `["~/work", "/srv/work"]` governs `~/work` for each user, on a managed Mac or a Linux host, and `/srv/work` on a host that has it. A folder that names nothing real on a given machine simply allows nothing there. An empty list allows no folder at all; unset leaves access unrestricted.
-
-    A listed folder is one Claude may write as well as read, unless the entry's `mode` (Access mode in Setup) makes it read-only; that field's own description says how far read-only reaches. A Code session can reach every listed folder, not only the one it was opened in. Setting this key also turns on Claude Code's sandbox where it runs (macOS, or Linux and SSH hosts with bubblewrap): there a shell command normally writes in the listed folders without an approval prompt, and its writes to most other places, such as a package cache in the home directory, are refused. A home directory holds shell start-up files and SSH keys, so list work folders, not a whole home directory.
-
-    The list also limits which folders of a project a chat reads.
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `path` | `string` | — | Absolute folder path. May start with \~ or one of the listed %VAR% tokens, expanded per user. Subfolders are included. |
-    | `isDefaultSelected` | `boolean` | — | Shows as a folder chip on the new-task page and skips the trust prompt. Users can remove it. |
-    | `mode` | `enum` | — | Read-only folders can be viewed and searched but not modified in Cowork. In Code, applies to file tools only. Over SSH, also to Bash in its sandbox. One of: `rw`, `ro`. |
-  </Accordion>
-
-  <Accordion title="blockReadsOutsideWorkingDirectories details">
-    When set to `true`, Code sessions refuse reads outside their working directories (the session folder plus any `allowedWorkspaceFolders`). The file tools (Read, Grep, Glob) refuse them in every permission mode; where Claude Code's sandbox runs (macOS, or Linux and SSH hosts with bubblewrap, once `allowedWorkspaceFolders` is set or an egress allowlist applies: in third-party deployments one applies unless `coworkEgressAllowedHosts` contains `*`, in first-party deployments none does) shell commands cannot see the home directory and other user folders (`/Users`, `/home`, mounted volumes) and a read there is refused with no prompt; elsewhere (Windows, Linux without bubblewrap, or neither folders nor an egress allowlist in effect) such shell reads prompt for approval. The app keeps the user's git configuration files (which may themselves embed credentials such as URL tokens; a symlinked one stays hidden), its own Claude Code installation, and the session's plugin and attachment folders readable (not on a Windows SSH host, where plugin files and attachments stay out of the file tools' reach under the block). An allowed folder that is or contains the home directory leaves it readable.
-
-    Users can re-open folders (even their whole home) in their own Claude Code settings with `sandbox.filesystem.allowRead` or `permissions.additionalDirectories`; settings files tracked in a git repository cannot. The key travels on Claude Code's managed-settings channel: another Claude Code managed-settings source replaces it unless that source sets `parentSettingsBehavior` to `"merge"`, and one that sets `sandbox.filesystem.allowManagedReadPathsOnly` reduces it to approval prompts. This is `permissions.blockReadsOutsideWorkingDirectories` in Claude Code's [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings).
-
-    Unset (default): nothing changes.
-  </Accordion>
-
-  <Accordion title="coworkEgressAllowedHosts details">
-    Applies only to **tool calls**, in Cowork, Code and Chat. In Cowork it covers the sandbox's web fetch, shell commands and package installs. In Chat it covers web fetch and commands in the file-analysis sandbox. In Code it's [translated into Claude Code's network sandbox allowlist](https://claude.com/docs/third-party/claude-desktop/code#applied-as-managed-policy), and by default a separately deployed Claude Code managed-settings file takes precedence. It does **not** cover Web Search (which runs at your inference provider), inference, or MCP traffic. A list other than `*` also bounds where Claude may browse in the built-in browser. When unset, Cowork and Chat refuse web fetch.
-
-    Entries are exact hostnames (`api.github.com`), wildcards (`*.corp.com` matches subdomains at any depth, not `corp.com` itself), or `*` to allow all. IP addresses match only when listed exactly. In Cowork and Chat, web fetch always blocks `localhost` and private addresses, and shells reach only listed hosts (not your inference provider's, unless listed), or none when unset. Code's shell obeys that limit only on macOS, and with bubblewrap and socat on Linux or WSL2; elsewhere, Windows included, it reaches any host. Code's web fetch isn't limited.
-
-    Any entry except bare `*` may carry a `:port` suffix (`*.corp.com:8443`) restricting it to that port. IPv6 literals are not supported. Invalid entries are dropped with a log warning and the rest still work. An unreadable value counts as an empty list. Ports are enforced for the Cowork sandbox's web fetch, shell, and package-install egress; plugin CLIs also reach hosts their plugin declares and ignore port-scoped entries for now, and the Code translation treats them as the bare host. Only deploy port-scoped entries once your whole fleet supports them (`disableAutoUpdates` pins builds). On an older build, a single one invalidates the session's whole shell and package-install allowlist.
-
-    Open listed hosts on your network firewall too.
-  </Accordion>
-
-  <Accordion title="organizationInstructions details">
-    Free-text instructions from your organization that Claude Desktop appends, in a clearly delimited block, after its own system prompt in **Chat**, **Cowork**, and **Code** (every chat, task, and Code session, including the sub-agents they spawn): for example house style, data-handling rules, or topics to decline. The model is told these instructions come from the organization's administrator and take priority over a user's personal preferences.
-
-    This is guidance the model follows, not an enforced control: like any system-prompt text it steers the model's behavior and is usually honored, but it does not guarantee an outcome and is not a substitute for the restriction keys (tool policy, egress allowlist, folder allowlist). The app's own system prompt is never replaced or shortened by this key; in Code sessions it is added after Claude Code's own prompt and any `CLAUDE.md` instructions still apply.
-
-    Read from the app's loaded configuration when a session starts; a changed value generally takes effect for sessions started after the next app launch. Leading and trailing whitespace is trimmed; an empty string is treated as unset. Maximum 3,000 characters; a longer value is rejected (the key is ignored with a configuration error) rather than truncated. Line breaks are preserved when the value is delivered as JSON, a bootstrap response, a `.mobileconfig` profile, or a `.reg` file; the Group Policy (ADMX) and Intune text box for this setting is single-line.
-  </Accordion>
-</AccordionGroup>
+> **organizationInstructions details**
+>
+> Free-text instructions from your organization that Claude Desktop appends, in a clearly delimited block, after its own system prompt in **Chat**, **Cowork**, and **Code** (every chat, task, and Code session, including the sub-agents they spawn): for example house style, data-handling rules, or topics to decline. The model is told these instructions come from the organization's administrator and take priority over a user's personal preferences.
+>
+> This is guidance the model follows, not an enforced control: like any system-prompt text it steers the model's behavior and is usually honored, but it does not guarantee an outcome and is not a substitute for the restriction keys (tool policy, egress allowlist, folder allowlist). The app's own system prompt is never replaced or shortened by this key; in Code sessions it is added after Claude Code's own prompt and any `CLAUDE.md` instructions still apply.
+>
+> Read from the app's loaded configuration when a session starts; a changed value generally takes effect for sessions started after the next app launch. Leading and trailing whitespace is trimmed; an empty string is treated as unset. Maximum 3,000 characters; a longer value is rejected (the key is ignored with a configuration error) rather than truncated. Line breaks are preserved when the value is delivered as JSON, a bootstrap response, a `.mobileconfig` profile, or a `.reg` file; the Group Policy (ADMX) and Intune text box for this setting is single-line.
 
 ## Connectors
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="claudeaiimport" />Claude.ai data import<br />`claudeAiImport` | `object` | MDM + Bootstrap<br />Added in 1.10628.0 | — | Lets users import Claude.ai chats and projects, plus earlier Claude sessions on this computer, when `enabled` is true. `automatic3pImport` is a separate switch. |
+| Claude.ai data import `claudeAiImport` | `object` | MDM + Bootstrap Added in 1.10628.0 | — | Lets users import Claude.ai chats and projects, plus earlier Claude sessions on this computer, when `enabled` is true. `automatic3pImport` is a separate switch. |
 
-<AccordionGroup>
-  <Accordion title="claudeAiImport details">
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `enabled` | `boolean` | `false` | Lets users import a Claude.ai data export and earlier Claude sessions on this computer from Settings → Import. Doesn’t affect a provisioned sign-in import. |
-    | `allowedOrganizationUuids` | `string[]` | — | When set, users import by sign-in only, and only from the Claude.ai organizations with these IDs. |
-    | `automatic3pImport` | `boolean` | — | Copy this computer’s earlier third-party sessions into the app once, in the background. Independent of `enabled`. |
-    | `exportEnabled` | `boolean` | `false` | Lets users export this computer’s chats, Cowork tasks, and Code sessions as a zip another install can import. No effect unless `enabled` is true. |
-    | `bannerBehavior` | `enum` | — | Prompt to import on a new chat or task. Off if unset. `show`: always; needs `enabled` or a sign-in import. `detect`: if `enabled` finds earlier Claude sessions. One of: `off`, `detect`, `show`. |
-  </Accordion>
-</AccordionGroup>
+> **claudeAiImport details**
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `enabled` | `boolean` | `false` | Lets users import a Claude.ai data export and earlier Claude sessions on this computer from Settings → Import. Doesn’t affect a provisioned sign-in import. |
+> | `allowedOrganizationUuids` | `string[]` | — | When set, users import by sign-in only, and only from the Claude.ai organizations with these IDs. |
+> | `automatic3pImport` | `boolean` | — | Copy this computer’s earlier third-party sessions into the app once, in the background. Independent of `enabled`. |
+> | `exportEnabled` | `boolean` | `false` | Lets users export this computer’s chats, Cowork tasks, and Code sessions as a zip another install can import. No effect unless `enabled` is true. |
+> | `bannerBehavior` | `enum` | — | Prompt to import on a new chat or task. Off if unset. `show`: always; needs `enabled` or a sign-in import. `detect`: if `enabled` finds earlier Claude sessions. One of: `off`, `detect`, `show`. |
 
 ### Authentication
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="microsoftauthbroker" />Microsoft 365 native sign-in broker<br />`microsoftAuthBroker` | `enum` | MDM + Bootstrap<br />Added in 1.19367.0 | `auto` | “disabled” forces browser-based Microsoft 365 sign-in; “required” fails sign-in when the OS broker is unavailable, so the refresh token stays broker-held. One of: `auto`, `disabled`, `required`. Defaults to `auto`. |
-| <span id="microsoftauthdefaultaccount" />Microsoft 365 sign-in with the Windows account<br />`microsoftAuthDefaultAccount` | `enum` | MDM + Bootstrap<br />Added in 2.26454.0 | `disabled` | “enabled”: when a user clicks Connect on Windows, Microsoft 365 signs in with the work account already signed in to Windows, without the account picker. One of: `enabled`, `disabled`. Defaults to `disabled`. |
+| Microsoft 365 native sign-in broker `microsoftAuthBroker` | `enum` | MDM + Bootstrap Added in 1.19367.0 | `auto` | “disabled” forces browser-based Microsoft 365 sign-in; “required” fails sign-in when the OS broker is unavailable, so the refresh token stays broker-held. One of: `auto`, `disabled`, `required`. Defaults to `auto`. |
+| Microsoft 365 sign-in with the Windows account `microsoftAuthDefaultAccount` | `enum` | MDM + Bootstrap Added in 2.26454.0 | `disabled` | “enabled”: when a user clicks Connect on Windows, Microsoft 365 signs in with the work account already signed in to Windows, without the account picker. One of: `enabled`, `disabled`. Defaults to `disabled`. |
 
-<AccordionGroup>
-  <Accordion title="microsoftAuthBroker details">
-    `auto` (default): use the OS sign-in broker where available (WAM on Windows, the Company Portal SSO extension on macOS) and fall back to a browser sign-in otherwise. `disabled`: always use the browser sign-in. `required`: fail sign-in when the broker is unavailable rather than falling back to the browser, so the refresh token stays broker-held. Linux has no broker, so `required` is not supported there. Desktop builds older than the version that introduced `required` treat it as `disabled` (browser-only sign-in) — the opposite posture — so gate rollout on client version.
-  </Accordion>
+> **microsoftAuthBroker details**
+>
+> `auto` (default): use the OS sign-in broker where available (WAM on Windows, the Company Portal SSO extension on macOS) and fall back to a browser sign-in otherwise. `disabled`: always use the browser sign-in. `required`: fail sign-in when the broker is unavailable rather than falling back to the browser, so the refresh token stays broker-held. Linux has no broker, so `required` is not supported there. Desktop builds older than the version that introduced `required` treat it as `disabled` (browser-only sign-in) — the opposite posture — so gate rollout on client version.
 
-  <Accordion title="microsoftAuthDefaultAccount details">
-    `disabled` (default): Connect shows the account picker when no account is connected. `enabled`: on Windows, when `microsoftAuthBroker` is not `disabled`, Connect first signs in silently with the account Windows already uses. The `tenantId` on the `microsoft365` entry in managed MCP servers must be a tenant GUID. With `common`, `organizations` or `consumers`, users always get the picker. Users also get the picker for accounts from another tenant, guest accounts and personal Microsoft accounts, when the silent sign-in fails, and when the computer cannot store credentials securely. A user who already signed in to Microsoft 365 through the browser keeps that account. After a user disconnects Microsoft 365, or a different person signs in to Claude on this computer, Connect always shows the picker for that connector on this computer, including for a disconnect that happened before this setting was turned on. Turning this setting off stops new silent sign-ins and signs nobody out: users already connected keep their account until they disconnect. macOS and Linux are not affected. Third-party deployments only: first-party installs ignore this setting.
-  </Accordion>
-</AccordionGroup>
+> **microsoftAuthDefaultAccount details**
+>
+> `disabled` (default): Connect shows the account picker when no account is connected. `enabled`: on Windows, when `microsoftAuthBroker` is not `disabled`, Connect first signs in silently with the account Windows already uses. The `tenantId` on the `microsoft365` entry in managed MCP servers must be a tenant GUID. With `common`, `organizations` or `consumers`, users always get the picker. Users also get the picker for accounts from another tenant, guest accounts and personal Microsoft accounts, when the silent sign-in fails, and when the computer cannot store credentials securely. A user who already signed in to Microsoft 365 through the browser keeps that account. After a user disconnects Microsoft 365, or a different person signs in to Claude on this computer, Connect always shows the picker for that connector on this computer, including for a disconnect that happened before this setting was turned on. Turning this setting off stops new silent sign-ins and signs nobody out: users already connected keep their account until they disconnect. macOS and Linux are not affected. Third-party deployments only: first-party installs ignore this setting.
 
 ### Extensions
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="isdesktopextensionenabled" />Allow desktop extensions<br />`isDesktopExtensionEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | .dxt and .mcpb installs. Defaults to `false`. |
-| <span id="isdesktopextensionsignaturerequired" />Require signed extensions<br />`isDesktopExtensionSignatureRequired` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Reject desktop extensions that are not signed by a trusted publisher. Defaults to `false`. |
+| Allow desktop extensions `isDesktopExtensionEnabled` | `boolean` | MDM + Bootstrap Added in 1.2581.0 | `false` | .dxt and .mcpb installs. Defaults to `false`. |
+| Require signed extensions `isDesktopExtensionSignatureRequired` | `boolean` | MDM + Bootstrap Added in 1.2581.0 | `false` | Reject desktop extensions that are not signed by a trusted publisher. Defaults to `false`. |
 
-<AccordionGroup>
-  <Accordion title="isDesktopExtensionEnabled details">
-    1P builds default to enabled at runtime unless this is explicitly set. In 3P, enabling this allows loading extensions; local install additionally requires an org policy backend.
-  </Accordion>
-</AccordionGroup>
+> **isDesktopExtensionEnabled details**
+>
+> 1P builds default to enabled at runtime unless this is explicitly set. In 3P, enabling this allows loading extensions; local install additionally requires an org policy backend.
 
 ### MCP
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="managedmcpservers" />Managed MCP servers<br />`managedMcpServers` | `object[]` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Org-pushed MCP servers: remote (HTTP/SSE) or local (stdio command). May embed bearer tokens. |
-| <span id="mcppersistentalwaysallowenabled" />Allow persistent tool approvals<br />`mcpPersistentAlwaysAllowEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.24012.9 | `true` | Offer the persistent “Always allow” approval options for MCP tools. Disable to keep tool approvals per-call or session-scoped only. Defaults to `true`. |
-| <span id="mcpscheduledtaskapprovallifetimedays" />Scheduled-task tool approval lifetime<br />`mcpScheduledTaskApprovalLifetimeDays` | `integer` | MDM + Bootstrap<br />Added in 2.7032.0 | — | How many days a scheduled task may reuse a lasting MCP-tool approval before it asks again. 0 removes the lasting option. Range: 0–3650. |
-| <span id="islocaldevmcpenabled" />Allow user-added MCP servers<br />`isLocalDevMcpEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `true` | Local stdio servers added via the Developer settings. Remote servers come from the managed list above or organization plugins. Defaults to `true`. |
-| <span id="allowedpluginmcpservers" />Allowed plugin MCP servers<br />`allowedPluginMcpServers` | `object[]` | MDM + Bootstrap<br />Added in 2.2553.0 | — | Servers plugins may connect in sessions, beyond the managed list above and organization plugins. An empty list allows none; unset keeps today’s rules. |
-| <span id="deniedpluginmcpservers" />Blocked plugin MCP servers<br />`deniedPluginMcpServers` | `object[]` | MDM + Bootstrap<br />Added in 2.16120.0 | — | Remote servers plugins may not connect, even if the allowed list admits them; in Code sessions, configuration-file servers too. Unset or empty blocks none. |
-| <span id="mcptooltimeoutsec" />MCP tool call timeout<br />`mcpToolTimeoutSec` | `integer` | MDM + Bootstrap<br />Added in 1.37937.0 | — | Per-call timeout for MCP tool calls, in seconds. Default 180 (3 minutes). Range: 60–3600. |
+| Managed MCP servers `managedMcpServers` | `object[]` | MDM + Bootstrap Added in 1.2581.0 | — | Org-pushed MCP servers: remote (HTTP/SSE) or local (stdio command). May embed bearer tokens. |
+| Allow persistent tool approvals `mcpPersistentAlwaysAllowEnabled` | `boolean` | MDM + Bootstrap Added in 1.24012.9 | `true` | Offer the persistent “Always allow” approval options for MCP tools. Disable to keep tool approvals per-call or session-scoped only. Defaults to `true`. |
+| Scheduled-task tool approval lifetime `mcpScheduledTaskApprovalLifetimeDays` | `integer` | MDM + Bootstrap Added in 2.7032.0 | — | How many days a scheduled task may reuse a lasting MCP-tool approval before it asks again. 0 removes the lasting option. Range: 0–3650. |
+| Allow user-added MCP servers `isLocalDevMcpEnabled` | `boolean` | MDM + Bootstrap Added in 1.2581.0 | `true` | Local stdio servers added via the Developer settings. On third-party deployments, off also stops plugins’ local servers. Remote servers keep working. Defaults to `true`. |
+| Allowed plugin MCP servers `allowedPluginMcpServers` | `object[]` | MDM + Bootstrap Added in 2.2553.0 | — | Servers plugins may connect in sessions, beyond the managed list above and organization plugins. An empty list allows none; unset keeps today’s rules. |
+| Blocked plugin MCP servers `deniedPluginMcpServers` | `object[]` | MDM + Bootstrap Added in 2.16120.0 | — | Remote servers plugins may not connect, even if the allowed list admits them; in Code sessions, configuration-file servers too. Unset or empty blocks none. |
+| MCP tool call timeout `mcpToolTimeoutSec` | `integer` | MDM + Bootstrap Added in 1.37937.0 | — | Per-call timeout for MCP tool calls, in seconds. Default 180 (3 minutes). Range: 60–3600. |
 
-<AccordionGroup>
-  <Accordion title="managedMcpServers details">
-    For OAuth-authenticated entries, the app builds the redirect URI as `http://<callbackHost>:<callbackPort>/callback`; register that exact value with the OAuth provider. Tokens refresh automatically during a session.
+> **managedMcpServers details**
+>
+> For OAuth-authenticated entries, the app builds the redirect URI as `http://<callbackHost>:<callbackPort>/callback`; register that exact value with the OAuth provider. Tokens refresh automatically during a session.
+>
+> `toolPolicy` locks the per-tool approval state, keyed by tool name: `"blocked"` removes the tool from the session and labels it admin-blocked, `"ask"` requires approval on every call (Allow once / Deny only; no persistent always-allow; a scheduled Cowork task waits at that prompt), `"allow"` pre-approves. Tools **not listed** follow the user's choice: the prompt offers a persistent Always allow, except for tools that can modify data, which show a session-scoped **Allow for this task** alongside **Allow for all tasks** with a malicious-instruction warning. In Code sessions, `blocked` and `ask` are forwarded as Claude Code permission rules; `allow` is not.
+>
+> Keys may contain `*` wildcards (`"read_*"` matches every tool whose name starts with `read_`; anchored, and `*` is the only wildcard). When several wildcard keys match, the strictest applies (blocked > ask > allow). An exact-name key wins over matching wildcards, with two exceptions in the stricter direction: in Code sessions a wildcard `ask`, or a wildcard `blocked` other than the bare `"*"`, beats a less strict exact key (so `"*": "blocked"` plus exact `"allow"` entries still works as deny-by-default there); and in chat approval prompts and always-allow persistence a wildcard `ask` keeps every matching tool behind a per-call prompt even when a more permissive exact key matches, while direct tool invocations such as artifact or widget calls follow the exact key.
+>
+> For the bundled Microsoft 365 connector, the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`, `teams_send_chat_message`, `teams_send_channel_message`, `teams_reply_channel_message`) cannot be loosened below `ask`; an `allow` setting resolves to `ask`.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `name` | `string` | — | Unique name for this server. Shown to users and used to key tool policy and sign-in state. |
+> | `server` | `string` | — | Which bundled connector this entry turns on. Set instead of a transport; each built-in server has its own fields. One of: `microsoft365`, `websearch`, `github`. |
+> | `tenantId` | `string` | — | Your organization’s Microsoft Entra directory (tenant) ID. |
+> | `clientId` | `string` | — | OAuth app client ID for this built-in server. |
+> | `azureCloud` | `enum` | — | Microsoft cloud for sign-in and Graph. Leave as global for commercial Microsoft 365; US Government clouds require your own app registration (Client ID). One of: `global`, `us-gov-high`, `us-gov-dod`. |
+> | `continuousAccessEvaluation` | `enum` | `enabled` | Request CAE-capable Microsoft Graph tokens: long-lived (up to about 28 hours) but revocable within minutes. Set “disabled” to keep standard one-hour tokens. One of: `enabled`, `disabled`. |
+> | `scope` | `string` | — | What the server may request at sign-in. If blank, Desktop’s default read set is used. |
+> | `toolPolicy` | `object` | — | Lock the approval state for specific tools. Unlisted tools stay user-controlled. |
+> | `headers` | `object` | — | Static headers sent on every request — routing and tenant headers only. No credentials here; use the headers helper script for tokens and rotating values. |
+> | `headersHelper` | `string` | — | Script that prints the auth header as a JSON object to stdout. Runs before each request (cached for the TTL below). |
+> | `headersHelperTtlSec` | `integer` | — | How long the helper’s headers are reused before it runs again, in seconds. Defaults to 300. |
+> | `headersHelperRefreshBufferSec` | `integer` | — | Seconds before the TTL expires at which the helper re-runs mid-session. Defaults to 60. Keep it larger than the helper’s typical runtime. |
+> | `provider` | `enum` | — | Runs search from the desktop, for inference providers without native web search. Supply the provider’s API key through the headers helper script below. One of: `brave`, `tavily`, `exa`, `custom`. |
+> | `customUrl` | `string` | — | POST endpoint accepting \{q} JSON and returning a results\[] array. Only used when provider is Custom. |
+> | `host` | `string` | — | Leave blank for github.com. For GitHub Enterprise Server, your instance’s base URL. |
+> | `toolsets` | `string` | — | Comma-separated github-mcp-server toolsets to enable. If blank, the bundled server’s default toolsets are used. |
+> | `readOnly` | `boolean` | — | Offer only read tools — the server registers no write tools at all. |
+> | `transport` | `enum` | — | How the app connects: Streamable HTTP, legacy SSE, or a local command (stdio). policy-only connects to nothing; it only sets a plugin server’s tool policy. One of: `http`, `sse`, `stdio`, `policy-only`. |
+> | `url` | `string` | — | HTTPS endpoint of the remote MCP server. Use the server’s final address: HTTP redirects are not followed. |
+> | `oauth` | `object` | — | OAuth for a remote server: true to auto-register a client, a pre-registered client ID with tenant and scope, or mode “hosted” for an Anthropic-signed identity. |
+> | `oauth.clientId` | `string` | — | OAuth client ID from your IdP app registration. Leave unset to auto-register (dynamic client registration) and only narrow scopes. |
+> | `oauth.clientSecret` | `string` | — | Only for IdPs that require one (e.g. Box). Hosted config can store only a Google Desktop-app secret (GOCSPX-…); for other IdPs use the client secret helper. |
+> | `oauth.clientSecretHelper` | `string` | — | Executable that prints the client secret on stdout as a JSON object with a single clientSecret key; any other output is rejected. Overrides the inline value. |
+> | `oauth.authorizationServer` | `string[]` | — | Issuer URLs the OAuth sign-in may use, as a JSON array. Pre-filled by presets; ask your IdP admin if unsure. |
+> | `oauth.authorizationUrl` | `string` | — | Only for IdPs that don’t serve a .well-known discovery document. Set together with Token URL; requires Client ID. |
+> | `oauth.tokenUrl` | `string` | — | Only for IdPs that don’t serve a .well-known discovery document. Set together with Authorization URL; requires Client ID. |
+> | `oauth.tenantId` | `string` | — | Required for single-tenant Entra apps. Leave blank for multi-tenant or non-Microsoft IdPs. |
+> | `oauth.authFlow` | `enum` | — | How Entra sign-in runs for this server: the system browser (default) or the OS identity broker. One of: `browser`, `broker`. |
+> | `oauth.scope` | `string` | — | Space-separated scopes sent on the authorize request. Leave unset to use the scopes the server advertises. Required when Tenant ID is set. |
+> | `oauth.appendOfflineAccess` | `boolean` | — | Adds offline\_access to the authorize request so the IdP returns a refresh token for silent renewal. |
+> | `oauth.callbackHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
+> | `oauth.callbackPort` | `integer` | — | Only set if your IdP requires an exact-match redirect port. Entra accepts any. |
+> | `oauth.additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
+> | `icon` | `string` | — | Icon shown for this connector: a PNG or JPEG image as a base64 data: URI, at most 4,096 characters. |
+> | `command` | `string` | — | Absolute path to the server executable, run on the user’s machine. |
+> | `args` | `string[]` | — | Arguments passed to the command, one per entry. |
+> | `env` | `object` | — | Environment variables set for the command. |
+> | `envHelper` | `string` | — | Script that prints environment variables as a JSON object to stdout. Runs when the local server starts (cached for the TTL below). |
+> | `envHelperTtlSec` | `integer` | `300` | Maximum age of a cached helper result, in seconds (default 300). Applies when the server starts or restarts. |
+> | `startupTimeoutSec` | `integer` | `120` | Maximum wait in seconds for the server to start and list its tools. |
 
-    `toolPolicy` locks the per-tool approval state, keyed by tool name: `"blocked"` removes the tool from the session and labels it admin-blocked, `"ask"` requires approval on every call (Allow once / Deny only; no persistent always-allow; a scheduled Cowork task waits at that prompt), `"allow"` pre-approves. Tools **not listed** follow the user's choice: the prompt offers a persistent Always allow, except for tools that can modify data, which show a session-scoped **Allow for this task** alongside **Allow for all tasks** with a malicious-instruction warning. In Code sessions, `blocked` and `ask` are forwarded as Claude Code permission rules; `allow` is not.
+> **mcpPersistentAlwaysAllowEnabled details**
+>
+> When enabled (the default), approval prompts for tools without a `toolPolicy` entry offer a persistent grant: **Always allow**, or **Allow for all tasks** for tools that can modify data. The Tool permissions picker in Connector settings also lets users pre-approve tools. These grants persist across sessions with no expiry.
+>
+> When disabled, the persistent options are hidden from approval prompts and from the Connector settings picker, and previously stored persistent grants stop being honored. Scheduled-task runs also stop offering, recording, and replaying the **Allow for all scheduled runs** approval (**Always allow** in Code sessions), unless a scheduled-task approval lifetime of one day or more is set. Users can still approve each call. Outside scheduled-task runs, in chat and Cowork they can also choose **Allow for this task**, except for read-only tools on servers they added themselves.
+>
+> A per-tool `toolPolicy` entry on `managedMcpServers` always takes precedence over this key: `blocked`, `ask`, and `allow` behave exactly as documented there whether this key is enabled or not.
+>
+> This key governs chat and Cowork, and also Code sessions on the device (including WSL) or over SSH. In those Code sessions, with the key disabled, the prompt for an MCP tool offers **Allow for this session** instead of **Always allow**, except on scheduled-task runs. This approval is not saved to Claude Code's settings files. It lasts until the session is deleted, and sessions forked or started from it do not inherit it. Claude Code's own allow rules and hooks still apply. Allow rules in its settings files, including ones saved earlier with **Always allow**, and hooks in its settings or plugins keep allowing the tool until they are removed. Code sessions receive only the `blocked` and `ask` values of `toolPolicy` entries, so a tool set to `allow` still prompts there, and this key applies to it.
 
-    Keys may contain `*` wildcards (`"read_*"` matches every tool whose name starts with `read_`; anchored, and `*` is the only wildcard). When several wildcard keys match, the strictest applies (blocked > ask > allow). An exact-name key wins over matching wildcards, with two exceptions in the stricter direction: in Code sessions a wildcard `ask`, or a wildcard `blocked` other than the bare `"*"`, beats a less strict exact key (so `"*": "blocked"` plus exact `"allow"` entries still works as deny-by-default there); and in chat approval prompts and always-allow persistence a wildcard `ask` keeps every matching tool behind a per-call prompt even when a more permissive exact key matches, while direct tool invocations such as artifact or widget calls follow the exact key.
+> **mcpScheduledTaskApprovalLifetimeDays details**
+>
+> On a scheduled task, the approval prompt for an MCP tool can offer a lasting approval, so later runs use that tool without asking: **Allow for all scheduled runs** in Cowork, **Always allow** in the Code tab. This setting limits how long that approval lasts. With a limit, the button reads **Allow for N days**. Once an approval is older than that, the next run asks again, and approving again renews it. `0` removes the lasting option, and approvals already stored stop being reused. Leave it blank to change nothing. Choose a number comfortably longer than the gap between runs.
+>
+> The limit covers MCP tools only, and a `toolPolicy` entry on `managedMcpServers` still takes precedence. If a configuration server delivers the setting, then after each launch scheduled tasks ask instead of reusing stored approvals (as at `0`) until the app has fetched the configuration again.
+>
+> If `mcpPersistentAlwaysAllowEnabled` is off, a limit of one day or more brings the lasting option back for scheduled tasks only.
+>
+> Code tab: the limit covers only lasting approvals given after this setting took effect. An earlier one was usually saved as an allow rule in Claude Code's own settings: for a scheduled task, the project's `.claude/settings.local.json`, under `permissions.allow`. Any allow rule in Claude Code's settings keeps allowing the tool without asking, even at `0`, until that entry is removed. That includes a rule written by hand, and one saved by **Always allow** in an ordinary Code session in the same project, which the app offers whenever `mcpPersistentAlwaysAllowEnabled` is on. In an ordinary Code session over SSH, if this setting has a value (even `0`), **Always allow** for a tool of a server set up on the host lasts for the session only and saves no rule there.
 
-    For the bundled Microsoft 365 connector, the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`, `teams_send_chat_message`, `teams_send_channel_message`, `teams_reply_channel_message`) cannot be loosened below `ask`; an `allow` setting resolves to `ask`.
+> **isLocalDevMcpEnabled details**
+>
+> On third-party deployments, `false` from any source also stops plugins' local (`stdio`) MCP servers in Cowork, Chat and Code sessions. That covers `.mcpb` bundles and plugins from every marketplace, your organization's included. In Code it also stops the local servers in Claude Code's own configuration files (`~/.claude.json`, a project's `.mcp.json`). It also stops a local server in Claude Code's `managed-mcp.json` whose command, arguments or environment use `${VAR}`. Remote servers keep working. Plugins placed in the org-plugins directory on the computer are not affected: the desktop still runs their servers.
+>
+> Set to `false` in a device-management profile, this key also locks down the local (`stdio`) entries of `managedMcpServers`: the app starts one only when that profile itself lists an entry of the same name, and with the profile's own command, arguments and environment. Only the profile's value engages this. A `false` from a configuration server or the admin console turns user-added servers off and does not engage it.
+>
+> Claude Code's own managed settings, on the device or (for Code sessions on a Claude API key) from the Claude Console, may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings).
 
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `name` | `string` | — | Unique name for this server. Shown to users and used to key tool policy and sign-in state. |
-    | `server` | `string` | — | Which bundled connector this entry turns on. Set instead of a transport; each built-in server has its own fields. One of: `microsoft365`, `websearch`, `github`. |
-    | `tenantId` | `string` | — | Your organization’s Microsoft Entra directory (tenant) ID. |
-    | `clientId` | `string` | — | OAuth app client ID for this built-in server. |
-    | `azureCloud` | `enum` | — | Microsoft cloud for sign-in and Graph. Leave as global for commercial Microsoft 365; US Government clouds require your own app registration (Client ID). One of: `global`, `us-gov-high`, `us-gov-dod`. |
-    | `continuousAccessEvaluation` | `enum` | `enabled` | Request CAE-capable Microsoft Graph tokens: long-lived (up to about 28 hours) but revocable within minutes. Set “disabled” to keep standard one-hour tokens. One of: `enabled`, `disabled`. |
-    | `scope` | `string` | — | What the server may request at sign-in. If blank, Desktop’s default read set is used. |
-    | `toolPolicy` | `object` | — | Lock the approval state for specific tools. Unlisted tools stay user-controlled. |
-    | `headers` | `object` | — | Static headers sent on every request — routing and tenant headers only. No credentials here; use the headers helper script for tokens and rotating values. |
-    | `headersHelper` | `string` | — | Script that prints the auth header as a JSON object to stdout. Runs before each request (cached for the TTL below). |
-    | `headersHelperTtlSec` | `integer` | — | How long the helper’s headers are reused before it runs again, in seconds. Defaults to 300. |
-    | `headersHelperRefreshBufferSec` | `integer` | — | Seconds before the TTL expires at which the helper re-runs mid-session. Defaults to 60. Keep it larger than the helper’s typical runtime. |
-    | `provider` | `enum` | — | Runs search from the desktop, for inference providers without native web search. Supply the provider’s API key through the headers helper script below. One of: `brave`, `tavily`, `exa`, `custom`. |
-    | `customUrl` | `string` | — | POST endpoint accepting \{q} JSON and returning a results\[] array. Only used when provider is Custom. |
-    | `host` | `string` | — | Leave blank for github.com. For GitHub Enterprise Server, your instance’s base URL. |
-    | `toolsets` | `string` | — | Comma-separated github-mcp-server toolsets to enable. If blank, the bundled server’s default toolsets are used. |
-    | `readOnly` | `boolean` | — | Offer only read tools — the server registers no write tools at all. |
-    | `transport` | `enum` | — | How the app connects: Streamable HTTP, legacy SSE, or a local command (stdio). policy-only connects to nothing; it only sets a plugin server’s tool policy. One of: `http`, `sse`, `stdio`, `policy-only`. |
-    | `url` | `string` | — | HTTPS endpoint of the remote MCP server. |
-    | `oauth` | `object` | — | OAuth for a remote server: true to auto-register a client, a pre-registered client ID with tenant and scope, or mode “hosted” for an Anthropic-signed identity. |
-    | `oauth.clientId` | `string` | — | OAuth client ID from your IdP app registration. Leave unset to auto-register (dynamic client registration) and only narrow scopes. |
-    | `oauth.clientSecret` | `string` | — | Only for IdPs that require one (e.g. Box). Hosted config can store only a Google Desktop-app secret (GOCSPX-…); for other IdPs use the client secret helper. |
-    | `oauth.clientSecretHelper` | `string` | — | Executable that prints the client secret on stdout as a JSON object with a single clientSecret key; any other output is rejected. Overrides the inline value. |
-    | `oauth.authorizationServer` | `string[]` | — | Issuer URLs the OAuth sign-in may use, as a JSON array. Pre-filled by presets; ask your IdP admin if unsure. |
-    | `oauth.authorizationUrl` | `string` | — | Only for IdPs that don’t serve a .well-known discovery document. Set together with Token URL; requires Client ID. |
-    | `oauth.tokenUrl` | `string` | — | Only for IdPs that don’t serve a .well-known discovery document. Set together with Authorization URL; requires Client ID. |
-    | `oauth.tenantId` | `string` | — | Required for single-tenant Entra apps. Leave blank for multi-tenant or non-Microsoft IdPs. |
-    | `oauth.authFlow` | `enum` | — | How Entra sign-in runs for this server: the system browser (default) or the OS identity broker. One of: `browser`, `broker`. |
-    | `oauth.scope` | `string` | — | Space-separated scopes sent on the authorize request. Leave unset to use the scopes the server advertises. Required when Tenant ID is set. |
-    | `oauth.appendOfflineAccess` | `boolean` | — | Adds offline\_access to the authorize request so the IdP returns a refresh token for silent renewal. |
-    | `oauth.callbackHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-    | `oauth.callbackPort` | `integer` | — | Only set if your IdP requires an exact-match redirect port. Entra accepts any. |
-    | `oauth.additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
-    | `command` | `string` | — | Absolute path to the server executable, run on the user’s machine. |
-    | `args` | `string[]` | — | Arguments passed to the command, one per entry. |
-    | `env` | `object` | — | Environment variables set for the command. |
-    | `envHelper` | `string` | — | Script that prints environment variables as a JSON object to stdout. Runs when the local server starts (cached for the TTL below). |
-    | `envHelperTtlSec` | `integer` | `300` | Maximum age of a cached helper result, in seconds (default 300). Applies when the server starts or restarts. |
-    | `startupTimeoutSec` | `integer` | `120` | Maximum wait in seconds for the server to start and list its tools. |
-  </Accordion>
+> **allowedPluginMcpServers details**
+>
+> Unset (default): with managed servers listed, sessions take MCP servers only from plugins and the desktop; with no managed servers listed, this key restricts nothing. Either way, `isLocalDevMcpEnabled` set to `false` stops plugins' local servers and, in Code, those of Claude Code's own configuration files.
+>
+> When set, Cowork, Chat and Code sessions connect the managed list above and the servers the desktop serves from the administrator's org-plugins directory, plus only servers declared by other plugins (user-installed or marketplace) that match an entry. An entry in the managed list above with `transport: "policy-only"` sets a plugin server's tool permissions but does not admit it; to admit that server, list the server's own URL here. Claude Code configuration-file servers (`~/.claude.json`, a project's `.mcp.json`, `claude mcp add`) are never connected. With the key set, the desktop starts no plugin server on the computer itself, whatever the entries say. The one exception is the MCP servers it serves to sessions from the org-plugins directory. Each entry is a URL pattern in Claude Code's form, `{"serverUrl": "https://*.example.com/*"}` (`*` wildcards; a host `*` spans `a.b`): a plugin's remote server connects when its URL matches an entry. No entry admits a plugin's local (stdio) server, and an empty list admits no plugin server. Other shapes, the `serverName` and `serverCommand` forms included, are dropped and reported; a value that is not a list, or has no readable entry, locks sessions to the managed list and the org-plugins directory's servers, and stops every other desktop-started plugin server. User-added local servers and extensions keep their own keys.
+>
+> Claude Code's own managed settings, on the device or (for Code sessions on a Claude API key) from the Claude Console, may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings).
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `serverUrl` | `string` | — | URL pattern a plugin’s remote server must match, with \* wildcards. |
 
-  <Accordion title="mcpPersistentAlwaysAllowEnabled details">
-    When enabled (the default), approval prompts for tools without a `toolPolicy` entry offer a persistent grant: **Always allow**, or **Allow for all tasks** for tools that can modify data. The Tool permissions picker in Connector settings also lets users pre-approve tools. These grants persist across sessions with no expiry.
+> **deniedPluginMcpServers details**
+>
+> Unset (default) or an empty list: nothing is blocked.
+>
+> When set, Cowork, Chat and Code sessions do not connect a plugin's remote server whose URL matches an entry. The key works with or without `allowedPluginMcpServers`; a server that matches both lists stays blocked. In a Code session that reads Claude Code configuration-file servers (`~/.claude.json`, a project's `.mcp.json`, `claude mcp add`), a matching remote server from those files is refused as well. The managed list above, the servers the desktop serves from the administrator's org-plugins directory, user-added local servers and extensions are not affected: remove those at their own keys. Each entry is a URL pattern in Claude Code's form, `{"serverUrl": "https://*.example.com/*"}` (`*` wildcards; a host `*` spans `a.b`). An entry matches an address, not a server: the same server under another host name or an IP address, or behind a plugin's local (stdio) server, which has no URL, is not matched. `https://*.example.com/*` does not match `http://`, `wss://` or the bare `example.com`; a pattern such as `example.com/*`, which names no scheme, matches nothing, and a lone `*` matches every URL. To keep a plugin's servers out whatever address they use, set `allowedPluginMcpServers`, which admits only the servers it lists. The desktop reads no other shape, the `serverName` and `serverCommand` forms included: a value that is not a list, or that holds any entry the desktop cannot read, is reported and blocks every plugin's remote server (and those configuration-file remote servers), because skipping an entry of a block list would let its server connect. The servers named above as not affected still connect.
+>
+> Claude Code's own managed settings, on the device or (for Code sessions on a Claude API key) from the Claude Console, may override this key: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings).
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `serverUrl` | `string` | — | URL pattern of the remote servers to block, with \* wildcards. |
 
-    When disabled, the persistent options are hidden from approval prompts and from the Connector settings picker, and previously stored persistent grants stop being honored. Scheduled-task runs also stop offering, recording, and replaying the **Allow for all scheduled runs** approval (**Always allow** in Code sessions), unless a scheduled-task approval lifetime of one day or more is set. Users can still approve each call. Outside scheduled-task runs, in chat and Cowork they can also choose **Allow for this task**, except for read-only tools on servers they added themselves.
-
-    A per-tool `toolPolicy` entry on `managedMcpServers` always takes precedence over this key: `blocked`, `ask`, and `allow` behave exactly as documented there whether this key is enabled or not.
-
-    This key governs chat and Cowork, and also Code sessions on the device (including WSL) or over SSH. In those Code sessions, with the key disabled, the prompt for an MCP tool offers **Allow for this session** instead of **Always allow**, except on scheduled-task runs. This approval is not saved to Claude Code's settings files. It lasts until the session is deleted, and sessions forked or started from it do not inherit it. Claude Code's own allow rules and hooks still apply. Allow rules in its settings files, including ones saved earlier with **Always allow**, and hooks in its settings or plugins keep allowing the tool until they are removed. Code sessions receive only the `blocked` and `ask` values of `toolPolicy` entries, so a tool set to `allow` still prompts there, and this key applies to it.
-  </Accordion>
-
-  <Accordion title="mcpScheduledTaskApprovalLifetimeDays details">
-    On a scheduled task, the approval prompt for an MCP tool can offer a lasting approval, so later runs use that tool without asking: **Allow for all scheduled runs** in Cowork, **Always allow** in the Code tab. This setting limits how long that approval lasts. With a limit, the button reads **Allow for N days**. Once an approval is older than that, the next run asks again, and approving again renews it. `0` removes the lasting option, and approvals already stored stop being reused. Leave it blank to change nothing. Choose a number comfortably longer than the gap between runs.
-
-    The limit covers MCP tools only, and a `toolPolicy` entry on `managedMcpServers` still takes precedence. If a configuration server delivers the setting, then after each launch scheduled tasks ask instead of reusing stored approvals (as at `0`) until the app has fetched the configuration again.
-
-    If `mcpPersistentAlwaysAllowEnabled` is off, a limit of one day or more brings the lasting option back for scheduled tasks only.
-
-    Code tab: the limit covers only lasting approvals given after this setting took effect. An earlier one was usually saved as an allow rule in Claude Code's own settings: for a scheduled task, the project's `.claude/settings.local.json`, under `permissions.allow`. Any allow rule in Claude Code's settings keeps allowing the tool without asking, even at `0`, until that entry is removed. That includes a rule written by hand, and one saved by **Always allow** in an ordinary Code session in the same project, which the app offers whenever `mcpPersistentAlwaysAllowEnabled` is on. In an ordinary Code session over SSH, if this setting has a value (even `0`), **Always allow** for a tool of a server set up on the host lasts for the session only and saves no rule there.
-  </Accordion>
-
-  <Accordion title="isLocalDevMcpEnabled details">
-    Set to `false` in a device-management profile, this key also locks down the local (`stdio`) entries of `managedMcpServers`: the app starts one only when that profile itself lists an entry of the same name, and with the profile's own command, arguments and environment. Only the profile's value engages this. A `false` from a configuration server or the admin console turns user-added servers off and does not engage it.
-  </Accordion>
-
-  <Accordion title="allowedPluginMcpServers details">
-    Unset (default): with managed servers listed, sessions take MCP servers only from plugins and the desktop; with no managed servers listed, nothing is restricted.
-
-    When set, Cowork, Chat and Code sessions connect the managed list above and the servers the desktop serves from the administrator's org-plugins directory, plus only servers declared by other plugins (user-installed or marketplace) that match an entry. An entry in the managed list above with `transport: "policy-only"` sets a plugin server's tool permissions but does not admit it; to admit that server, list the server's own URL here. Claude Code configuration-file servers (`~/.claude.json`, a project's `.mcp.json`, `claude mcp add`) are never connected. With the key set, the desktop starts no plugin server on the computer itself, whatever the entries say. The one exception is the MCP servers it serves to sessions from the org-plugins directory. Each entry is a URL pattern in Claude Code's form, `{"serverUrl": "https://*.example.com/*"}` (`*` wildcards; a host `*` spans `a.b`): a plugin's remote server connects when its URL matches an entry. No entry admits a plugin's local (stdio) server, and an empty list admits no plugin server. Other shapes, the `serverName` and `serverCommand` forms included, are dropped and reported; a value that is not a list, or has no readable entry, locks sessions to the managed list and the org-plugins directory's servers, and stops every other desktop-started plugin server. User-added local servers and extensions keep their own keys.
-
-    Coexistence with another Claude Code managed-settings source on the device: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings).
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `serverUrl` | `string` | — | URL pattern a plugin’s remote server must match, with \* wildcards. |
-  </Accordion>
-
-  <Accordion title="deniedPluginMcpServers details">
-    Unset (default) or an empty list: nothing is blocked.
-
-    When set, Cowork, Chat and Code sessions do not connect a plugin's remote server whose URL matches an entry. The key works with or without `allowedPluginMcpServers`; a server that matches both lists stays blocked. In a Code session that reads Claude Code configuration-file servers (`~/.claude.json`, a project's `.mcp.json`, `claude mcp add`), a matching remote server from those files is refused as well. The managed list above, the servers the desktop serves from the administrator's org-plugins directory, user-added local servers and extensions are not affected: remove those at their own keys. Each entry is a URL pattern in Claude Code's form, `{"serverUrl": "https://*.example.com/*"}` (`*` wildcards; a host `*` spans `a.b`). An entry matches an address, not a server: the same server under another host name or an IP address, or behind a plugin's local (stdio) server, which has no URL, is not matched. `https://*.example.com/*` does not match `http://`, `wss://` or the bare `example.com`; a pattern such as `example.com/*`, which names no scheme, matches nothing, and a lone `*` matches every URL. To keep a plugin's servers out whatever address they use, set `allowedPluginMcpServers`, which admits only the servers it lists. The desktop reads no other shape, the `serverName` and `serverCommand` forms included: a value that is not a list, or that holds any entry the desktop cannot read, is reported and blocks every plugin's remote server (and those configuration-file remote servers), because skipping an entry of a block list would let its server connect. The servers named above as not affected still connect.
-
-    Coexistence with another Claude Code managed-settings source on the device: see [managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings).
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `serverUrl` | `string` | — | URL pattern of the remote servers to block, with \* wildcards. |
-  </Accordion>
-
-  <Accordion title="mcpToolTimeoutSec details">
-    Sets the per-call timeout the agent applies to every MCP tool call; a call that runs longer fails with a timeout error the model can see. Cowork and chat sessions default to 180 seconds. Code sessions have no desktop-imposed MCP tool timeout today, so setting this key introduces one there as well. The desktop's own request deadlines toward MCP servers — the managed servers above and, where `isLocalDevMcpEnabled` permits them, user-added local servers — follow this value so they never cut a call short first; while the key is unset, calls to user-added local servers are additionally limited to 60 seconds by the desktop. Values outside 60–3600 are rejected at parse time (the error is listed in the diagnostics report) and the defaults apply.
-
-    The timeout is global (there is no per-server or per-tool form), so size it for the slowest tool you need to complete: long-running tools on one server extend the window during which a stuck call on any server holds its turn. Cowork's built-in shell tool runs under the same cap: a single command's `timeout_ms` (itself limited to 600 seconds) cannot exceed this value.
-  </Accordion>
-</AccordionGroup>
+> **mcpToolTimeoutSec details**
+>
+> Sets the per-call timeout the agent applies to every MCP tool call; a call that runs longer fails with a timeout error the model can see. Cowork and chat sessions default to 180 seconds. Code sessions have no desktop-imposed MCP tool timeout today, so setting this key introduces one there as well. The desktop's own request deadlines toward MCP servers — the managed servers above and, where `isLocalDevMcpEnabled` permits them, user-added local servers — follow this value so they never cut a call short first; while the key is unset, calls to user-added local servers are additionally limited to 60 seconds by the desktop. Values outside 60–3600 are rejected at parse time (the error is listed in the diagnostics report) and the defaults apply.
+>
+> The timeout is global (there is no per-server or per-tool form), so size it for the slowest tool you need to complete: long-running tools on one server extend the window during which a stuck call on any server holds its turn. Cowork's built-in shell tool runs under the same cap: a single command's `timeout_ms` (itself limited to 600 seconds) cannot exceed this value.
 
 ## Telemetry & updates
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="deploymentorganizationuuid" />Organization UUID<br />`deploymentOrganizationUuid` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | A UUID you generate. Tags telemetry so Anthropic support can locate your fleet’s events, and namespaces each user’s local data. Not used for auth. |
-| <span id="disableessentialtelemetry" />Block essential telemetry<br />`disableEssentialTelemetry` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Crash and performance reports to Anthropic. Defaults to `false`. |
-| <span id="disablenonessentialtelemetry" />Block nonessential telemetry<br />`disableNonessentialTelemetry` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Product-usage analytics (no message content) and diagnostic-report uploads. Defaults to `false`. |
-| <span id="disablenonessentialservices" />Block nonessential services<br />`disableNonessentialServices` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Connector favicons, artifact-preview and MCP Apps iframes, and the Linux spellcheck dictionary. Connector widgets fall back to text; spellcheck is off on Linux. Defaults to `false`. |
+| Organization UUID `deploymentOrganizationUuid` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | A UUID you generate. Tags telemetry so Anthropic support can locate your fleet’s events, and namespaces each user’s local data. Not used for auth. |
+| Block essential telemetry `disableEssentialTelemetry` | `boolean` | MDM + Bootstrap Added in 1.2581.0 | `false` | Crash and performance reports to Anthropic. Defaults to `false`. |
+| Block nonessential telemetry `disableNonessentialTelemetry` | `boolean` | MDM + Bootstrap Added in 1.2581.0 | `false` | Product-usage analytics (no message content) and diagnostic-report uploads. Defaults to `false`. |
+| Block nonessential services `disableNonessentialServices` | `boolean` | MDM + Bootstrap Added in 1.2581.0 | `false` | Connector favicons, artifact-preview and MCP Apps iframes, and the Linux spellcheck dictionary. Connector widgets fall back to text; spellcheck is off on Linux. Defaults to `false`. |
 
-<AccordionGroup>
-  <Accordion title="deploymentOrganizationUuid details">
-    If unset, the app uses the organization of your Anthropic sign-in, where the connection has one. Otherwise, telemetry is tagged with a value the app derives from your connection settings. Where it cannot derive one, telemetry is tagged with a placeholder UUID shared with other unconfigured deployments. In the last two cases, local data is stored under the placeholder. **Changing this value orphans data** stored under the previous value (sessions, skills, plugins).
-  </Accordion>
+> **deploymentOrganizationUuid details**
+>
+> If unset, the app uses the organization of your Anthropic sign-in, where the connection has one. Otherwise, telemetry is tagged with a value the app derives from your connection settings. Where it cannot derive one, telemetry is tagged with a placeholder UUID shared with other unconfigured deployments. In the last two cases, local data is stored under the placeholder. **Changing this value orphans data** stored under the previous value (sessions, skills, plugins).
 
-  <Accordion title="disableEssentialTelemetry details">
-    "Essential" means the signals Anthropic needs to keep your deployment working: **crash stacks**, **startup failure reasons**, **version/OS metadata**, and **crash dumps** (each an unfiltered copy of part of the app's memory). Reports carry a random install ID and an organization ID. The organization ID is the one you set, one the app takes from your Anthropic sign-in or derives from your connection settings, or a placeholder shared with other unconfigured deployments. Reports can also include a summary of your settings, the host names of addresses you configured, text you set for display (such as the display name, subtitle, and banner text and link), and a one-way digest of a session ID.
+> **disableEssentialTelemetry details**
+>
+> "Essential" means the signals Anthropic needs to keep your deployment working: **crash stacks**, **startup failure reasons**, **version/OS metadata**, and **crash dumps** (each an unfiltered copy of part of the app's memory). Reports carry a random install ID and an organization ID. The organization ID is the one you set, one the app takes from your Anthropic sign-in or derives from your connection settings, or a placeholder shared with other unconfigured deployments. Reports can also include a summary of your settings, the host names of addresses you configured, text you set for display (such as the display name, subtitle, and banner text and link), and a one-way digest of a session ID.
+>
+> **What you lose when this is on:** when a Claude Desktop build hits a bug that only reproduces on your OS version or locale, Anthropic can't see it unless a user manually reports. Fixes ship slower.
+>
+> **Why this is discouraged, not blocked:** some air-gapped environments require zero outbound telemetry as a matter of policy. The switch exists for them. If you don't have that constraint, leave it off.
 
-    **What you lose when this is on:** when a Claude Desktop build hits a bug that only reproduces on your OS version or locale, Anthropic can't see it unless a user manually reports. Fixes ship slower.
+> **disableNonessentialTelemetry details**
+>
+> "Nonessential" covers two things: **product-usage analytics** (which features get used, navigation patterns; no prompts or completions) and the **Send** action in Help → Generate Diagnostic Report. Turning this on stops both.
+>
+> Destinations are listed under Egress Requirements → Nonessential telemetry.
 
-    **Why this is discouraged, not blocked:** some air-gapped environments require zero outbound telemetry as a matter of policy. The switch exists for them. If you don't have that constraint, leave it off.
-  </Accordion>
-
-  <Accordion title="disableNonessentialTelemetry details">
-    "Nonessential" covers two things: **product-usage analytics** (which features get used, navigation patterns; no prompts or completions) and the **Send** action in Help → Generate Diagnostic Report. Turning this on stops both.
-
-    Destinations are listed under Egress Requirements → Nonessential telemetry.
-  </Accordion>
-
-  <Accordion title="disableNonessentialServices details">
-    "Nonessential services" covers these outbound fetches the app runs without: **connector favicons** (the icon proxy), the **artifact-preview** iframe origin, the **MCP Apps widget** iframe origin (`*.claudemcpcontent.com`), and the **spellcheck dictionary** the built-in spellchecker downloads on Linux. Turning this on blocks all of them. (macOS and Windows use the system spellchecker. Windows still downloads a dictionary for a language it cannot check natively; this key does not stop that download.)
-
-    **What you lose when this is on:** connectors show without icons, the hosted artifact preview frame does not load (artifacts still render locally), connectors that return MCP Apps show the text tool result instead of the widget, Excel files in the Code tab preview only through Claude’s workspace (the local VM) instead of that frame, and spellcheck underlines are off on Linux.
-
-    Destinations are listed under Egress Requirements → Nonessential services.
-  </Accordion>
-</AccordionGroup>
+> **disableNonessentialServices details**
+>
+> "Nonessential services" covers these outbound fetches the app runs without: **connector favicons** (the icon proxy), the **artifact-preview** iframe origin, the **MCP Apps widget** iframe origin (`*.claudemcpcontent.com`), and the **spellcheck dictionary** the built-in spellchecker downloads on Linux. Turning this on blocks all of them. (macOS and Windows use the system spellchecker. Windows still downloads a dictionary for a language it cannot check natively; this key does not stop that download.)
+>
+> **What you lose when this is on:** connectors show without icons, the hosted artifact preview frame does not load (artifacts still render locally), connectors that return MCP Apps show the text tool result instead of the widget, Excel files in the Code tab preview only through Claude’s workspace (the local VM) instead of that frame, and spellcheck underlines are off on Linux.
+>
+> Destinations are listed under Egress Requirements → Nonessential services.
 
 ### Auto update
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="disableautoupdates" />Block auto-updates<br />`disableAutoUpdates` | `boolean` | MDM + Bootstrap<br />Added in 1.2581.0 | `false` | Stop Claude Desktop from fetching updates entirely (no time limit). You’ll need to push new versions yourself. Defaults to `false`. |
-| <span id="autoupdaterenforcementhours" />Auto-update enforcement window<br />`autoUpdaterEnforcementHours` | `integer` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Hours before a downloaded update force-installs. Only applies when auto-updates are enabled. Blank = 72-hour default. Range: 1–72. |
-| <span id="updateviaupdateshost" />Check for updates on releases.claude.com<br />`updateViaUpdatesHost` | `boolean` | MDM + Bootstrap<br />Added in 1.26832.0 | `false` | Read the update feed from releases.claude.com so api.anthropic.com can stay blocked. Defaults to `false`. |
+| Block auto-updates `disableAutoUpdates` | `boolean` | MDM + Bootstrap Added in 1.2581.0 | `false` | Stop Claude Desktop from fetching updates entirely (no time limit). You’ll need to push new versions yourself. Defaults to `false`. |
+| Auto-update enforcement window `autoUpdaterEnforcementHours` | `integer` | MDM + Bootstrap Added in 1.2581.0 | — | Hours before a downloaded update force-installs. Only applies when auto-updates are enabled. Blank = 72-hour default. Range: 1–72. |
+| Check for updates on releases.claude.com `updateViaUpdatesHost` | `boolean` | MDM + Bootstrap Added in 1.26832.0 | `false` | Read the update feed from releases.claude.com so api.anthropic.com can stay blocked. Defaults to `false`. |
+| Release channel `releaseChannel` | `enum` | MDM + Bootstrap Added in 3.1623.0 | `stable` | Which releases auto-update installs. Stable: each release as it rolls out. Staggered: a release only after it has been on stable for a while. One of: `stable`, `staggered`. Defaults to `stable`. |
 
-<AccordionGroup>
-  <Accordion title="disableAutoUpdates details">
-    In third-party deployments this also keeps Cowork's workspace image and tools from being fetched ahead of use; they are then fetched when a task first needs them.
-  </Accordion>
+> **disableAutoUpdates details**
+>
+> In third-party deployments this also keeps Cowork's workspace image and tools from being fetched ahead of use; they are then fetched when a task first needs them.
 
-  <Accordion title="autoUpdaterEnforcementHours details">
-    Has no effect when `disableAutoUpdates` is in place at launch: the updater never starts, so nothing is downloaded and this timer never arms. If the policy reaches an already-running app after an update has downloaded, that one staged update still installs on this timer; no further updates are fetched.
+> **autoUpdaterEnforcementHours details**
+>
+> Has no effect when `disableAutoUpdates` is in place at launch: the updater never starts, so nothing is downloaded and this timer never arms. If the policy reaches an already-running app after an update has downloaded, that one staged update still installs on this timer; no further updates are fetched.
+>
+> Leaving it blank uses the 72-hour default *and* then waits for the machine to be idle (10+ minutes without input) before restarting; setting any explicit value (including 72) restarts once the window elapses regardless of user activity. In both cases the restart holds off while Claude is mid-task, unless the task runs on an SSH host and the app expects to pick it up again after the restart.
 
-    Leaving it blank uses the 72-hour default *and* then waits for the machine to be idle (10+ minutes without input) before restarting; setting any explicit value (including 72) restarts once the window elapses regardless of user activity. In both cases the restart holds off while Claude is mid-task.
-  </Accordion>
+> **updateViaUpdatesHost details**
+>
+> By default the app asks `api.anthropic.com` which version to install. That host also serves the model APIs, so organizations that block un-approved LLM endpoints at the network edge end up blocking updates too.
+>
+> Turn this on to read the same feed from `releases.claude.com`, a hostname that carries no model API. `api.anthropic.com` can then stay blocked without breaking auto-update. Rollout behavior is unchanged; the installer download still comes from `downloads.claude.ai` as before.
 
-  <Accordion title="updateViaUpdatesHost details">
-    By default the app asks `api.anthropic.com` which version to install. That host also serves the model APIs, so organizations that block un-approved LLM endpoints at the network edge end up blocking updates too.
-
-    Turn this on to read the same feed from `releases.claude.com`, a hostname that carries no model API. `api.anthropic.com` can then stay blocked without breaking auto-update. Rollout behavior is unchanged; the installer download still comes from `downloads.claude.ai` as before.
-  </Accordion>
-</AccordionGroup>
+> **releaseChannel details**
+>
+> Third-party deployments only. `stable` (default): devices take each release as it rolls out. `staggered`: devices update only to the release Anthropic has marked for this channel, after it has fully rolled out on stable, and skip the ones in between. They stay where they are until a newer one is marked, so features and fixes, security fixes included, reach them later.
+>
+> Devices never move to an older version. One already on a newer version than the marked one, a new install included, waits until the channel passes it. After a change to `stable`, or removal of the setting, devices update to the newest release. An update downloaded before the setting reached a device can still install. A change applies at the next update check, with no restart; a served one, once two configuration checks in a row return it. At each launch, a device last served this setting, with either value, follows `staggered` until it has fetched its configuration again. An unreadable value, such as a misspelling, counts as `staggered`.
+>
+> The setting applies only while the app is set up for your organization's deployment. A device managed from the admin console follows `stable` until its user signs in, and again after sign-out. Elsewhere, a user who signs in to Claude.ai instead follows `stable` too; `disableDeploymentModeChooser` removes that choice. A version from before this setting existed follows `stable`, and on Windows or Linux may reject a machine policy that names it and turn off local settings.
+>
+> With `disableAutoUpdates` on, nothing updates and this setting has no effect. Where something else delivers updates (apt on Linux, the Microsoft Store), it has no effect either. A device-management profile that sets only app-behavior keys becomes the only source for all of them, so put this key in that profile. Where a profile names a configuration server, or the admin console manages the device, set this key there.
 
 ### Configuration updates
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="relaunchenforcementhours" />Configuration relaunch window<br />`relaunchEnforcementHours` | `integer` | MDM + Bootstrap<br />Added in 1.40609.0 | `24` | Hours a user may keep working on the old configuration after a managed-configuration change is detected. 0 = restart required at once. Blank = 24 hours. Defaults to `24`. Range: 0–336. |
-| <span id="configrecheckintervalminutes" />Configuration re-check interval<br />`configRecheckIntervalMinutes` | `integer` | MDM + Bootstrap<br />Added in 1.46388.1 | `10` | Minutes between the running app’s checks for a changed managed configuration. Blank = 10 minutes. Defaults to `10`. Range: 2–30. |
-| <span id="disablelocalconfigcache" />Keep only your organization ID and restrictions on disk<br />`disableLocalConfigCache` | `boolean` | hybrid-only<br />Added in 2.7032.0 | `false` | Don’t keep your organization’s name or any permissive setting on disk between launches; only your organization ID and the restrictions you turn on are kept. Defaults to `false`. |
+| Configuration relaunch window `relaunchEnforcementHours` | `integer` | MDM + Bootstrap Added in 1.40609.0 | `24` | Hours a user may keep working on the old configuration after a managed-configuration change is detected. 0 = restart required at once. Blank = 24 hours. Defaults to `24`. Range: 0–336. |
+| Configuration re-check interval `configRecheckIntervalMinutes` | `integer` | MDM + Bootstrap Added in 1.46388.1 | `10` | Minutes between the running app’s checks for a changed managed configuration. Blank = 10 minutes. Defaults to `10`. Range: 2–30. |
+| Keep only your organization ID and restrictions on disk `disableLocalConfigCache` | `boolean` | hybrid-only Added in 2.7032.0 | `false` | Don’t keep your organization’s name or any permissive setting on disk between launches; only your organization ID and the restrictions you turn on are kept. Defaults to `false`. |
 
-<AccordionGroup>
-  <Accordion title="relaunchEnforcementHours details">
-    Set it via MDM (plist, registry, or file) or serve it from your configuration endpoint (remote bootstrap configuration). When the running app observes a managed-configuration change it cannot apply without restarting, it shows the sidebar relaunch card and starts this window. The window starts at the running app’s next configuration re-check (the re-check interval beside it), so allow up to one re-check interval on top of this value between saving a change and the restart dialog. When the window ends the app blocks with a restart dialog and restarts on its own after 2 minutes with no activity (no running Claude task and no keyboard or pointer input); the user can also restart right away. Defaults to 24 hours. Set a larger value (up to 336 = 14 days) to give users longer; `0` shows the dialog at the first observation.
+> **relaunchEnforcementHours details**
+>
+> Set it via MDM (plist, registry, or file) or serve it from your configuration endpoint (remote bootstrap configuration). When the running app observes a managed-configuration change it cannot apply without restarting, it shows the sidebar relaunch card and starts this window. The window starts at the running app’s next configuration re-check (the re-check interval beside it), so allow up to one re-check interval on top of this value between saving a change and the restart dialog. When the window ends the app blocks with a restart dialog and restarts on its own after 2 minutes with no activity (no running Claude task and no keyboard or pointer input); the user can also restart right away. Defaults to 24 hours. Set a larger value (up to 336 = 14 days) to give users longer; `0` shows the dialog at the first observation. One case gets no window, whatever this value: when a device-management profile that sets more than app-behavior keys first applies to an app that started without one, and the app will run on that profile after restarting, the dialog shows at the re-check that confirms it, because until the restart the app stays connected the way it started.
+>
+> A served value is read from the newest served configuration, so tightening or loosening the window takes effect without a restart once two re-checks in a row have served it, and a change to this key alone never asks for one. Like the update keys beside it, a value from a device-management profile that sets only app-behavior keys applies without making the rest of the configuration device-managed, and takes precedence over a served one. Because the key is grouped with the other app-behavior keys, a profile that sets any of them claims the whole group: set this key in the same profile as the update keys you deploy, or a served value is ignored on those devices and the 24-hour default applies.
 
-    A served value is read from the newest served configuration, so tightening or loosening the window takes effect without a restart once two re-checks in a row have served it, and a change to this key alone never asks for one. Like the update keys beside it, a value from a device-management profile that sets only app-behavior keys applies without making the rest of the configuration device-managed, and takes precedence over a served one. Because the key is grouped with the other app-behavior keys, a profile that sets any of them claims the whole group: set this key in the same profile as the update keys you deploy, or a served value is ignored on those devices and the 24-hour default applies.
-  </Accordion>
+> **configRecheckIntervalMinutes details**
+>
+> How often the running app re-checks its managed configuration for changes: it re-polls your configuration endpoint with a conditional request, so an unchanged configuration costs one `304` round-trip. A detected change shows the sidebar relaunch card and starts the `relaunchEnforcementHours` window, so a saved change reaches a running app within roughly one interval. Defaults to 10 minutes; each wait is jittered by ±10% so a fleet does not poll in lockstep. Values outside 2–30 are rejected with a parse error and the default applies.
+>
+> Applied without a restart: a new served value re-arms the timer once two checks in a row have served it, and a change to this key alone never asks for a relaunch. Set it via MDM or serve it from your configuration endpoint; like the update keys beside it, a value from a device-management profile that sets only app-behavior keys applies without making the rest of the configuration device-managed, and takes precedence over a served one. Because the key is grouped with the other app-behavior keys, a profile that sets any of them claims the whole group, and every key in it is then read from that profile alone: deploy this key in the same profile as the update keys (`disableAutoUpdates`, `autoUpdaterEnforcementHours`, …). A profile that sets the update keys without it ignores a served interval and the default applies; a profile that sets only this key ignores served update settings, so a served `disableAutoUpdates` no longer holds on those devices. A profile that also manages the connection itself (sets `bootstrapUrl` or the provider keys) follows the normal tier order instead: once a served configuration is in hand it, not the profile, supplies this key.
 
-  <Accordion title="configRecheckIntervalMinutes details">
-    How often the running app re-checks its managed configuration for changes: it re-polls your configuration endpoint with a conditional request, so an unchanged configuration costs one `304` round-trip. A detected change shows the sidebar relaunch card and starts the `relaunchEnforcementHours` window, so a saved change reaches a running app within roughly one interval. Defaults to 10 minutes; each wait is jittered by ±10% so a fleet does not poll in lockstep. Values outside 2–30 are rejected with a parse error and the default applies.
-
-    Applied without a restart: a new served value re-arms the timer once two checks in a row have served it, and a change to this key alone never asks for a relaunch. Set it via MDM or serve it from your configuration endpoint; like the update keys beside it, a value from a device-management profile that sets only app-behavior keys applies without making the rest of the configuration device-managed, and takes precedence over a served one. Because the key is grouped with the other app-behavior keys, a profile that sets any of them claims the whole group, and every key in it is then read from that profile alone: deploy this key in the same profile as the update keys (`disableAutoUpdates`, `autoUpdaterEnforcementHours`, …). A profile that sets the update keys without it ignores a served interval and the default applies; a profile that sets only this key ignores served update settings, so a served `disableAutoUpdates` no longer holds on those devices. A profile that also manages the connection itself (sets `bootstrapUrl` or the provider keys) follows the normal tier order instead: once a served configuration is in hand it, not the profile, supplies this key.
-  </Accordion>
-
-  <Accordion title="disableLocalConfigCache details">
-    By default the app keeps on disk, from the last configuration the admin console served, your organization’s ID and name and the few settings a launch applies before the console answers (the telemetry switches, the Microsoft 365 sign-in broker setting, and any restriction you have turned on). When this is on, it keeps only your organization ID and those restrictions (for example telemetry blocked, or local MCP servers off), never the name or anything you have allowed, and cuts an earlier copy down at the next launch that reaches the console, or at once when a running app confirms the change; signing out deletes the kept copy too. While on: crash and performance reports to Anthropic do not start on these devices, and the sign-in screen and account switcher cannot show your organization’s name before the console answers.
-
-    A running app picks up a change to this setting once two configuration checks in a row have served it; changing it alone never asks for a relaunch. It applies only to organizations managed from the Claude admin console; the setting is ignored when a customer configuration server or a device profile sends it.
-  </Accordion>
-</AccordionGroup>
+> **disableLocalConfigCache details**
+>
+> By default the app keeps on disk, from the last configuration the admin console served, your organization’s ID and name and the few settings a launch applies before the console answers (the telemetry switches, the Microsoft 365 sign-in broker setting, and any restriction you have turned on). When this is on, it keeps only your organization ID and those restrictions (for example telemetry blocked, or local MCP servers off), never the name or anything you have allowed, and cuts an earlier copy down at the next launch that reaches the console, or at once when a running app confirms the change; signing out deletes the kept copy too. While on: crash and performance reports to Anthropic do not start on these devices, and the sign-in screen and account switcher cannot show your organization’s name before the console answers.
+>
+> A running app picks up a change to this setting once two configuration checks in a row have served it; changing it alone never asks for a relaunch. It applies only to organizations managed from the Claude admin console; the setting is ignored when a customer configuration server or a device profile sends it.
 
 ### OTLP
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="otlpendpoint" />OpenTelemetry collector endpoint<br />`otlpEndpoint` | `string` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Where OpenTelemetry logs and metrics are sent. Leave blank to disable. |
-| <span id="otlpprotocol" />OpenTelemetry exporter protocol<br />`otlpProtocol` | `enum` | MDM + Bootstrap<br />Added in 1.2581.0 | `http/protobuf` | Transport protocol for the OpenTelemetry exporters. One of: `http/protobuf`, `http/json`, `grpc`. Defaults to `http/protobuf`. |
-| <span id="otlpheaders" />OpenTelemetry exporter headers<br />`otlpHeaders` | `object` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Static collector headers — routing and tenant headers only. No credentials here; use Collector authentication or the headers helper script for tokens. |
-| <span id="otlpauthmode" />Collector authentication<br />`otlpAuthMode` | `enum` | MDM + Bootstrap<br />Added in 1.30096.1 | — | inference-credential sends the user’s inference bearer token to the collector as Authorization: Bearer. One of: `none`, `inference-credential`. |
-| <span id="otlpheadershelper" />OpenTelemetry headers helper script<br />`otlpHeadersHelper` | `string` | MDM + Bootstrap<br />Added in 1.30096.1 | — | Absolute path to an executable that prints a JSON object of collector headers. Merged over the static headers and Collector authentication; the helper wins. |
-| <span id="otlpresourceattributes" />OpenTelemetry resource attributes<br />`otlpResourceAttributes` | `object` | MDM + Bootstrap<br />Added in 1.5354.0 | — | Extra resource attributes to attach to every span/metric. A static enduser.id set here always wins over the runtime identity. |
-| <span id="otlpdesktoploglevel" />Desktop telemetry export level<br />`otlpDesktopLogLevel` | `enum` | MDM + Bootstrap<br />Added in 1.9255.0 | `error` | Controls the Claude Desktop application’s events, separate from Cowork and Code sessions. Defaults to error. One of: `off`, `error`, `warn`, `info`, `debug`. Defaults to `error`. |
-| <span id="otlpcontentcapture" />Content capture categories<br />`otlpContentCapture` | `enum[]` | MDM + Bootstrap<br />Added in 1.15962.0 | — | Content categories Claude Desktop sends unredacted to your collector. `userPrompts` also sends Claude’s responses. Leave empty to redact all content (default). One of: `userPrompts`, `assistantResponses`, `toolDetails`, `toolContent`, `rawApiBodies`. |
-| <span id="otlptracesenabled" />Export traces<br />`otlpTracesEnabled` | `boolean` | MDM + Bootstrap<br />Added in 1.22209.0 | — | Also export OpenTelemetry traces from Cowork tasks and Code sessions. Uses Claude Code’s session tracing. |
-| <span id="otlpattrmaxchars" />Telemetry attribute length limit<br />`otlpAttrMaxChars` | `integer` | MDM + Bootstrap<br />Added in 2.31226.0 | — | Maximum length, in characters, of captured content such as a raw API body (256–15,000,000). Cowork tasks and Code sessions use 61,440 when unset. Range: 256–15000000. |
+| OpenTelemetry collector endpoint `otlpEndpoint` | `string` | MDM + Bootstrap Added in 1.2581.0 | — | Where OpenTelemetry logs and metrics are sent. Leave blank to disable. |
+| OpenTelemetry exporter protocol `otlpProtocol` | `enum` | MDM + Bootstrap Added in 1.2581.0 | `http/protobuf` | Transport protocol for the OpenTelemetry exporters. One of: `http/protobuf`, `http/json`, `grpc`. Defaults to `http/protobuf`. |
+| OpenTelemetry exporter headers `otlpHeaders` | `object` | MDM + Bootstrap Added in 1.2581.0 | — | Static collector headers — routing and tenant headers only. No credentials here; use Collector authentication or the headers helper script for tokens. |
+| Collector authentication `otlpAuthMode` | `enum` | MDM + Bootstrap Added in 1.30096.1 | — | inference-credential sends the user’s inference bearer token to the collector as Authorization: Bearer. One of: `none`, `inference-credential`. |
+| OpenTelemetry headers helper script `otlpHeadersHelper` | `string` | MDM + Bootstrap Added in 1.30096.1 | — | Absolute path to an executable that prints a JSON object of collector headers. Merged over the static headers and Collector authentication; the helper wins. |
+| OpenTelemetry resource attributes `otlpResourceAttributes` | `object` | MDM + Bootstrap Added in 1.5354.0 | — | Extra resource attributes to attach to every span/metric. A static enduser.id set here always wins over the runtime identity. |
+| Desktop telemetry export level `otlpDesktopLogLevel` | `enum` | MDM + Bootstrap Added in 1.9255.0 | `error` | Controls the Claude Desktop application’s events, separate from Cowork and Code sessions. Defaults to error. One of: `off`, `error`, `warn`, `info`, `debug`. Defaults to `error`. |
+| Content capture categories `otlpContentCapture` | `enum[]` | MDM + Bootstrap Added in 1.15962.0 | — | Content categories Claude Desktop sends unredacted to your collector. `userPrompts` also sends Claude’s responses. If empty, no category is enabled (default). One of: `userPrompts`, `assistantResponses`, `toolDetails`, `toolContent`, `rawApiBodies`. |
+| Export traces `otlpTracesEnabled` | `boolean` | MDM + Bootstrap Added in 1.22209.0 | — | Also export OpenTelemetry traces from Cowork tasks and Code sessions. Uses Claude Code’s session tracing. |
+| Telemetry attribute length limit `otlpAttrMaxChars` | `integer` | MDM + Bootstrap Added in 2.31226.0 | — | Maximum length, in characters, of captured content such as a raw API body (256–15,000,000). Cowork tasks and Code sessions use 61,440 when unset. Range: 256–15000000. |
 
-<AccordionGroup>
-  <Accordion title="otlpProtocol details">
-    Code sessions export over the protocol set here. Chats and Cowork tasks export over `http/protobuf` instead of `grpc` on Windows, and on other platforms whenever the Claude Code engine is given an HTTP proxy (the operating system's proxy, `egressProxyUrl` or `egressProxyPacUrl`, or `HTTPS_PROXY` / `HTTP_PROXY` in a Claude Code settings file); the application log notes the substitution. The desktop application's own events always go over `http/json` to `<endpoint>/v1/logs`. None of this changes the endpoint, so choose `grpc` only for a collector that also serves OTLP/HTTP at the same address; otherwise keep `http/protobuf` and point `otlpEndpoint` at the collector's OTLP/HTTP receiver (conventionally port 4318).
-  </Accordion>
+> **otlpProtocol details**
+>
+> Code sessions export over the protocol set here. Chats and Cowork tasks export over `http/protobuf` instead of `grpc` on Windows, and on other platforms whenever the Claude Code engine is given an HTTP proxy (the operating system's proxy, `egressProxyUrl` or `egressProxyPacUrl`, or `HTTPS_PROXY` / `HTTP_PROXY` in a Claude Code settings file); the application log notes the substitution. The desktop application's own events always go over `http/json` to `<endpoint>/v1/logs`. None of this changes the endpoint, so choose `grpc` only for a collector that also serves OTLP/HTTP at the same address; otherwise keep `http/protobuf` and point `otlpEndpoint` at the collector's OTLP/HTTP receiver (conventionally port 4318).
 
-  <Accordion title="otlpAuthMode details">
-    `inference-credential` adds `Authorization: Bearer <token>` to every export, using the token the app currently holds for the inference provider, with no helper script to deploy. The collector must accept that token as issued: an identity-provider sign-in (`external-idp`, gateway or Bedrock proxy) forwards the identity provider’s token, which carries the audience you registered, Microsoft Entra on Foundry issues the Foundry resource’s token, and Vertex workforce identity forwards a Google Cloud access token; static gateway and Bedrock keys are forwarded as-is. Because the token can also call inference as the user, use this only for a collector you operate; for anything else, use the headers helper script with an ingest-scoped credential. Kinds that never produce a bearer (AWS SigV4 kinds on Bedrock, Google ADC / OAuth files on Vertex, API-key kinds) export without it — use the helper script instead. Cowork tasks pick up the current token each time they start; a Code session keeps the token it started with for as long as it stays open; the desktop’s own event exporter uses the current token on every flush. Before sign-in, exports go out unauthenticated. An `Authorization` header printed by the headers helper script wins over this.
-  </Accordion>
+> **otlpAuthMode details**
+>
+> `inference-credential` adds `Authorization: Bearer <token>` to every export, using the token the app currently holds for the inference provider, with no helper script to deploy. The collector must accept that token as issued: an identity-provider sign-in (`external-idp`, gateway or Bedrock proxy) forwards the identity provider’s token, which carries the audience you registered, Microsoft Entra on Foundry issues the Foundry resource’s token, and Vertex workforce identity forwards a Google Cloud access token; static gateway and Bedrock keys are forwarded as-is. Because the token can also call inference as the user, use this only for a collector you operate; for anything else, use the headers helper script with an ingest-scoped credential. Kinds that never produce a bearer (AWS SigV4 kinds on Bedrock, Google ADC / OAuth files on Vertex, API-key kinds) export without it, and so does Sign in with Claude Console, whose token is the user’s own and is never sent to a collector. Use the helper script instead. Cowork tasks pick up the current token each time they start; a Code session keeps the token it started with for as long as it stays open; the desktop’s own event exporter uses the current token on every flush. Before sign-in, exports go out unauthenticated. An `Authorization` header printed by the headers helper script wins over this.
 
-  <Accordion title="otlpHeadersHelper details">
-    Absolute path to an executable that prints a single JSON object of HTTP headers on stdout, e.g. `{"Authorization": "Bearer …"}`. The desktop runs it (no arguments; output cached for a few minutes, and a failure is not retried for 30 seconds) whenever it needs collector headers and merges the result over **OpenTelemetry exporter headers** and the **Collector authentication** header (the helper wins on conflict). Cowork tasks get the current output when they start; Code and Cowork sessions are also given the script as Claude Code’s own `otelHeadersHelper`, so an open session re-runs it as tokens rotate (on Windows this applies to `.exe`, `.cmd` and `.bat` helpers; a `.ps1` helper applies at session start only); the desktop’s own event exporter re-runs it per flush. Session start waits at most two seconds for a slow helper and otherwise proceeds without its headers until it finishes. Use this when the collector needs a credential the inference sign-in cannot provide, when the collector token rotates, or when the config comes from a hosted admin console, which cannot store header values. If the helper fails, telemetry is sent without its headers — check the app log.
-  </Accordion>
+> **otlpHeadersHelper details**
+>
+> Absolute path to an executable that prints a single JSON object of HTTP headers on stdout, e.g. `{"Authorization": "Bearer …"}`. The desktop runs it (no arguments; output cached for a few minutes, and a failure is not retried for 30 seconds) whenever it needs collector headers and merges the result over **OpenTelemetry exporter headers** and the **Collector authentication** header (the helper wins on conflict). Cowork tasks get the current output when they start; Code and Cowork sessions are also given the script as Claude Code’s own `otelHeadersHelper`, so an open session re-runs it as tokens rotate (on Windows this applies to `.exe`, `.cmd` and `.bat` helpers; a `.ps1` helper applies at session start only); the desktop’s own event exporter re-runs it per flush. Session start waits at most two seconds for a slow helper and otherwise proceeds without its headers until it finishes. Use this when the collector needs a credential the inference sign-in cannot provide, when the collector token rotates, or when the config comes from a hosted admin console, which cannot store header values. If the helper fails, telemetry is sent without its headers — check the app log.
 
-  <Accordion title="otlpResourceAttributes details">
-    Extra resource attributes to attach to every span, metric, and log sent to your collector. When End-user attribution is on and no `enduser.id` is set here, the desktop fills it with the signed-in user's runtime identity; a value you set here always wins. `process.owner` (the OS login name) is always emitted; set it here to override.
-  </Accordion>
+> **otlpResourceAttributes details**
+>
+> Extra resource attributes to attach to every span, metric, and log sent to your collector. When End-user attribution is on and no `enduser.id` is set here, the desktop fills it with the signed-in user's runtime identity; a value you set here always wins. `process.owner` (the OS login name) is always emitted; set it here to override.
 
-  <Accordion title="otlpContentCapture details">
-    Each category enables a class of raw content in OpenTelemetry events sent to your collector (this data never reaches Anthropic):
+> **otlpContentCapture details**
+>
+> Each category enables a class of raw content in OpenTelemetry events sent to your collector (this data never reaches Anthropic):
+>
+> * `userPrompts` — user-typed prompt text
+> * `assistantResponses` — assistant message text
+> * `toolDetails` — tool input arguments, e.g. the web-search query string
+> * `toolContent` — tool output content, e.g. fetched page text or command stdout
+> * `rawApiBodies` — inference API request and response bodies, each cut at 61,440 characters by default
+>
+> These mirror Claude Code's `OTEL_LOG_*` env vars; see the [Claude Code monitoring docs](https://code.claude.com/docs/en/monitoring-usage).
+>
+> In Claude Desktop, Claude's responses are included when user prompts are captured, even if `assistantResponses` is not listed. To exclude them, set `OTEL_LOG_ASSISTANT_RESPONSES` to `0` in the `env` block of Claude Code's managed settings, not in Claude Desktop's managed configuration. That `0` also wins when `assistantResponses` is listed, but `rawApiBodies` still includes responses. Claude Desktop ignores a `0` set in Claude Code's per-user Windows registry policy (`HKCU`). If a device has several managed sources, set the `0` in the highest-priority one with a policy. Excluding responses this way requires Claude Desktop 2.37337.1 or later.
+>
+> Claude Code managed settings set no policy if they are missing, empty, or hold only `wslInheritsWindowsSettings`, `managedSourcesBehavior`, or empty objects such as `"permissions": {}`. Adding `OTEL_LOG_ASSISTANT_RESPONSES` to such settings makes them a policy, so also set `parentSettingsBehavior` to `"merge"` there. Without `"merge"`, Claude Code can drop the restrictions that Claude Desktop passes to it. If the settings already set a policy, add only `OTEL_LOG_ASSISTANT_RESPONSES` to their `env` block, and read [Interaction with Claude Code's own managed settings](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) before you change `parentSettingsBehavior`.
 
-    * `userPrompts` — user-typed prompt text
-    * `assistantResponses` — assistant message text
-    * `toolDetails` — tool input arguments, e.g. the web-search query string
-    * `toolContent` — tool output content, e.g. fetched page text or command stdout
-    * `rawApiBodies` — inference API request and response bodies, each cut at 61,440 characters by default
+> **otlpTracesEnabled details**
+>
+> Enables Claude Code's session tracing (`CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1` + `OTEL_TRACES_EXPORTER=otlp`) in spawned Cowork tasks and Code sessions. Each user interaction exports a trace whose spans and events carry `trace_id`/`span_id`, enabling end-to-end correlation in your observability backend (metrics do not carry trace context; correlate those via `session.id`). Traces go to the collector endpoint and protocol configured above. When `otlpEndpoint` is set, this key alone decides whether those sessions export traces: leaving it unset or `false` keeps traces off even if Claude Code's own settings or managed settings (for example a `managed-settings.json` on the device) turn tracing on. Without `otlpEndpoint` it has no effect. The span structure may evolve between Claude Code releases; see the [Claude Code monitoring docs](https://code.claude.com/docs/en/monitoring-usage).
 
-    These mirror Claude Code's `OTEL_LOG_*` env vars; see the [Claude Code monitoring docs](https://code.claude.com/docs/en/monitoring-usage).
-
-    In Claude Desktop, Claude's responses are included when user prompts are captured, even if `assistantResponses` is not listed. To exclude them, set `OTEL_LOG_ASSISTANT_RESPONSES` to `0` in the `env` block of Claude Code's managed settings; a value in the per-user Windows registry policy (`HKCU`) is ignored. That `0` also wins when `assistantResponses` is listed, but `rawApiBodies` still includes responses. Claude Desktop versions released before this was supported ignore the variable and keep sending responses.
-  </Accordion>
-
-  <Accordion title="otlpTracesEnabled details">
-    Enables Claude Code's session tracing (`CLAUDE_CODE_ENHANCED_TELEMETRY_BETA=1` + `OTEL_TRACES_EXPORTER=otlp`) in spawned Cowork tasks and Code sessions. Each user interaction exports a trace whose spans and events carry `trace_id`/`span_id`, enabling end-to-end correlation in your observability backend (metrics do not carry trace context; correlate those via `session.id`). Traces go to the collector endpoint and protocol configured above. When `otlpEndpoint` is set, this key alone decides whether those sessions export traces: leaving it unset or `false` keeps traces off even if Claude Code's own settings or managed settings (for example a `managed-settings.json` on the device) turn tracing on. Without `otlpEndpoint` it has no effect. The span structure may evolve between Claude Code releases; see the [Claude Code monitoring docs](https://code.claude.com/docs/en/monitoring-usage).
-  </Accordion>
-
-  <Accordion title="otlpAttrMaxChars details">
-    Captured content longer than this is cut at the end and marked as truncated.
-
-    * Cowork tasks and Code sessions: 61,440 when unset. Applies to model responses, tool content and raw API bodies. User prompts are not cut, and `tool_input` keeps its own smaller limits. A cut request body keeps the oldest messages and loses the newest, so to capture whole bodies with `rawApiBodies`, set this just above your longest body, not at the maximum. Lower it to reduce volume. While this key and `otlpEndpoint` are set, Claude Code's own settings and managed settings (for example a `managed-settings.json` on the device) cannot change the limit or the export interval.
-    * Claude add-in for Microsoft 365: 4,000 when unset. Values above 32,000 count as 32,000.
-    * The desktop application's own events are not affected.
-
-    A collector refuses an export over its size limit, and every event in that export is lost. By default an OpenTelemetry Collector accepts 20 MiB per OTLP/HTTP request (`max_request_body_size`) and 4 MiB per gRPC message (`max_recv_msg_size_mib`). Keep that limit at a few times the size of your longest body: one export can carry several, and a character takes one byte in Latin text and up to three otherwise. With this key set, Code sessions export events as they happen, not every five seconds, as Cowork tasks already do, so the collector sees more, smaller requests.
-  </Accordion>
-</AccordionGroup>
+> **otlpAttrMaxChars details**
+>
+> Captured content longer than this is cut at the end and marked as truncated.
+>
+> * Cowork tasks and Code sessions: 61,440 when unset. Applies to model responses, tool content and raw API bodies. User prompts are not cut, and `tool_input` keeps its own smaller limits. A cut request body keeps the oldest messages and loses the newest, so to capture whole bodies with `rawApiBodies`, set this just above your longest body, not at the maximum. Lower it to reduce volume. While this key and `otlpEndpoint` are set, Claude Code's own settings and managed settings (for example a `managed-settings.json` on the device) cannot change the limit or the export interval.
+> * Claude add-in for Microsoft 365: 4,000 when unset. Values above 32,000 count as 32,000.
+> * The desktop application's own events are not affected.
+>
+> A collector refuses an export over its size limit, and every event in that export is lost. By default an OpenTelemetry Collector accepts 20 MiB per OTLP/HTTP request (`max_request_body_size`) and 4 MiB per gRPC message (`max_recv_msg_size_mib`). Keep that limit at a few times the size of your longest body: one export can carry several, and a character takes one byte in Latin text and up to three otherwise. With this key set, Code sessions export events as they happen, not every five seconds, as Cowork tasks already do, so the collector sees more, smaller requests.
 
 ## Limits
 
@@ -1050,148 +1055,138 @@ The reference below is generated from the configuration schema and grouped to ma
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="chatsessionretentiondays" />Chat retention period<br />`chatSessionRetentionDays` | `integer` | MDM + Bootstrap<br />Added in 1.52386.0 | — | Delete chats, with their files, after this many days without activity. Unset: kept until the user deletes them. Projects and memory stay. Range: 1–3650. |
-| <span id="coworksessionretentiondays" />Cowork retention period<br />`coworkSessionRetentionDays` | `integer` | MDM + Bootstrap<br />Added in 1.52386.0 | — | Delete Cowork tasks, with their uploads and outputs, after this many days without activity. Unset: kept until the user deletes them. Spaces and memory stay. Range: 1–3650. |
-| <span id="codesessionretentiondays" />Code retention period<br />`codeSessionRetentionDays` | `integer` | MDM + Bootstrap<br />Added in 1.52386.0 | — | Delete Code sessions, conversation included, after this many days without activity. Unset: kept until the user deletes them. Uncommitted work stays on disk. Range: 1–3650. |
-| <span id="sessionretentionhold" />Suspend session deletion<br />`sessionRetentionHold` | `boolean` | MDM + Bootstrap<br />Added in 1.52386.0 | — | Suspend all automatic session deletion for these users (legal hold). While on, the retention periods above delete nothing. |
+| Chat retention period `chatSessionRetentionDays` | `integer` | MDM + Bootstrap Added in 1.52386.0 | — | Delete chats, with their files, after this many days without activity. Unset: kept until the user deletes them. Projects and memory stay. Range: 1–3650. |
+| Cowork retention period `coworkSessionRetentionDays` | `integer` | MDM + Bootstrap Added in 1.52386.0 | — | Delete Cowork tasks, with their uploads and outputs, after this many days without activity. Unset: kept until the user deletes them. Spaces and memory stay. Range: 1–3650. |
+| Code retention period `codeSessionRetentionDays` | `integer` | MDM + Bootstrap Added in 1.52386.0 | — | Delete Code sessions, conversation included, after this many days without activity. Unset: kept until the user deletes them. Uncommitted work stays on disk. Range: 1–3650. |
+| Suspend session deletion `sessionRetentionHold` | `boolean` | MDM + Bootstrap Added in 1.52386.0 | — | Suspend all automatic session deletion for these users (legal hold). While on, the retention periods above delete nothing. |
 
-<AccordionGroup>
-  <Accordion title="chatSessionRetentionDays details">
-    The app deletes whole sessions in the background shortly after it fetches this configuration (at launch and on each re-poll), or some minutes after launch and then daily when the configuration comes from device management alone. Idle time runs from the session's last activity; viewing an old Code session counts as activity, viewing an old chat or Cowork task without continuing it does not durably. A session that is running or open on screen is skipped and checked again on the next pass, as is a chat or Cowork task whose folder changed on disk within the period. Pinned sessions are not exempt. Minimum 1 day; a value that cannot be read as a whole number of days deletes nothing. Set through the served configuration or in the device-management profile that carries the rest of the configuration. What it does not reach: another account's sessions on the device (evaluated when that account signs in), Code sessions on a remote machine (SSH/WSL), Cowork background (dispatch) tasks the sidebar does not list, a chat or Cowork task whose folder cannot be located, and Claude Code files not named by a session id (prompt history, plans, shell snapshots), which keep Claude Code's own retention. Honored only by Claude Desktop configured for a third-party model provider.
-  </Accordion>
+> **chatSessionRetentionDays details**
+>
+> The app deletes whole sessions in the background shortly after it fetches this configuration (at launch and on each re-poll), or some minutes after launch and then daily when the configuration comes from device management alone. Idle time runs from the session's last activity; viewing an old Code session counts as activity, viewing an old chat or Cowork task without continuing it does not durably. A session that is running or open on screen is skipped and checked again on the next pass, as is a chat or Cowork task whose folder changed on disk within the period. Pinned sessions are not exempt. Minimum 1 day; a value that cannot be read as a whole number of days deletes nothing. Set through the served configuration or in the device-management profile that carries the rest of the configuration. What it does not reach: another account's sessions on the device (evaluated when that account signs in), Code sessions on a remote machine (SSH/WSL), Cowork background (dispatch) tasks the sidebar does not list, a chat or Cowork task whose folder cannot be located, and Claude Code files not named by a session id (prompt history, plans, shell snapshots), which keep Claude Code's own retention. Honored only by Claude Desktop configured for a third-party model provider.
 
-  <Accordion title="coworkSessionRetentionDays details">
-    The app deletes whole sessions in the background shortly after it fetches this configuration (at launch and on each re-poll), or some minutes after launch and then daily when the configuration comes from device management alone. Idle time runs from the session's last activity; viewing an old Code session counts as activity, viewing an old chat or Cowork task without continuing it does not durably. A session that is running or open on screen is skipped and checked again on the next pass, as is a chat or Cowork task whose folder changed on disk within the period. Pinned sessions are not exempt. Minimum 1 day; a value that cannot be read as a whole number of days deletes nothing. Set through the served configuration or in the device-management profile that carries the rest of the configuration. What it does not reach: another account's sessions on the device (evaluated when that account signs in), Code sessions on a remote machine (SSH/WSL), Cowork background (dispatch) tasks the sidebar does not list, a chat or Cowork task whose folder cannot be located, and Claude Code files not named by a session id (prompt history, plans, shell snapshots), which keep Claude Code's own retention. Honored only by Claude Desktop configured for a third-party model provider.
-  </Accordion>
+> **coworkSessionRetentionDays details**
+>
+> The app deletes whole sessions in the background shortly after it fetches this configuration (at launch and on each re-poll), or some minutes after launch and then daily when the configuration comes from device management alone. Idle time runs from the session's last activity; viewing an old Code session counts as activity, viewing an old chat or Cowork task without continuing it does not durably. A session that is running or open on screen is skipped and checked again on the next pass, as is a chat or Cowork task whose folder changed on disk within the period. Pinned sessions are not exempt. Minimum 1 day; a value that cannot be read as a whole number of days deletes nothing. Set through the served configuration or in the device-management profile that carries the rest of the configuration. What it does not reach: another account's sessions on the device (evaluated when that account signs in), Code sessions on a remote machine (SSH/WSL), Cowork background (dispatch) tasks the sidebar does not list, a chat or Cowork task whose folder cannot be located, and Claude Code files not named by a session id (prompt history, plans, shell snapshots), which keep Claude Code's own retention. Honored only by Claude Desktop configured for a third-party model provider.
 
-  <Accordion title="codeSessionRetentionDays details">
-    The app deletes whole sessions in the background shortly after it fetches this configuration (at launch and on each re-poll), or some minutes after launch and then daily when the configuration comes from device management alone. Idle time runs from the session's last activity; viewing an old Code session counts as activity, viewing an old chat or Cowork task without continuing it does not durably. A session that is running or open on screen is skipped and checked again on the next pass, as is a chat or Cowork task whose folder changed on disk within the period. Pinned sessions are not exempt. Minimum 1 day; a value that cannot be read as a whole number of days deletes nothing. Set through the served configuration or in the device-management profile that carries the rest of the configuration. What it does not reach: another account's sessions on the device (evaluated when that account signs in), Code sessions on a remote machine (SSH/WSL), Cowork background (dispatch) tasks the sidebar does not list, a chat or Cowork task whose folder cannot be located, and Claude Code files not named by a session id (prompt history, plans, shell snapshots), which keep Claude Code's own retention. Honored only by Claude Desktop configured for a third-party model provider.
-  </Accordion>
+> **codeSessionRetentionDays details**
+>
+> The app deletes whole sessions in the background shortly after it fetches this configuration (at launch and on each re-poll), or some minutes after launch and then daily when the configuration comes from device management alone. Idle time runs from the session's last activity; viewing an old Code session counts as activity, viewing an old chat or Cowork task without continuing it does not durably. A session that is running or open on screen is skipped and checked again on the next pass, as is a chat or Cowork task whose folder changed on disk within the period. Pinned sessions are not exempt. Minimum 1 day; a value that cannot be read as a whole number of days deletes nothing. Set through the served configuration or in the device-management profile that carries the rest of the configuration. What it does not reach: another account's sessions on the device (evaluated when that account signs in), Code sessions on a remote machine (SSH/WSL), Cowork background (dispatch) tasks the sidebar does not list, a chat or Cowork task whose folder cannot be located, and Claude Code files not named by a session id (prompt history, plans, shell snapshots), which keep Claude Code's own retention. Honored only by Claude Desktop configured for a third-party model provider.
 
-  <Accordion title="sessionRetentionHold details">
-    Meant to be set per user or group, through the served configuration's group overrides or in the same device-management profile that carries the rest of the configuration (a profile carrying only this key makes the device profile-managed, like any policy key); a hold in the device's profile also counts when the served configuration does not restate it. Deletion stops at the first configuration fetch that carries this value, before it takes effect as configuration at the next relaunch; a device that cannot reach its configuration server deletes nothing.
-  </Accordion>
-</AccordionGroup>
+> **sessionRetentionHold details**
+>
+> Meant to be set per user or group, through the served configuration's group overrides or in the same device-management profile that carries the rest of the configuration (a profile carrying only this key makes the device profile-managed, like any policy key); a hold in the device's profile also counts when the served configuration does not restate it. Deletion stops at the first configuration fetch that carries this value, before it takes effect as configuration at the next relaunch; a device that cannot reach its configuration server deletes nothing.
 
 ### Token limits
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="inferencemaxtokensperwindow" />Max tokens per window<br />`inferenceMaxTokensPerWindow` | `integer` | MDM + Bootstrap<br />Added in 1.2581.0 | — | Limits each person’s input and output tokens per window on each device. Cached tokens do not count, so this does not cap your provider’s bill. |
-| <span id="inferencetokenwindowhours" />Token cap window<br />`inferenceTokenWindowHours` | `integer` | MDM + Bootstrap<br />Added in 1.2581.0 | — | The count resets to zero at the end of each window. A window can last 1 to 720 hours (30 days). Range: 1–720. |
+| Max tokens per window `inferenceMaxTokensPerWindow` | `integer` | MDM + Bootstrap Added in 1.2581.0 | — | Limits each person’s input and output tokens per window on each device. Cached tokens do not count, so this does not cap your provider’s bill. |
+| Token cap window `inferenceTokenWindowHours` | `integer` | MDM + Bootstrap Added in 1.2581.0 | — | The count resets to zero at the end of each window. A window can last 1 to 720 hours (30 days). Range: 1–720. |
 
-<AccordionGroup>
-  <Accordion title="inferenceMaxTokensPerWindow details">
-    Requires `inferenceTokenWindowHours` to also be set — without a window length the cap is inert and no limit is enforced.
+> **inferenceMaxTokensPerWindow details**
+>
+> Requires `inferenceTokenWindowHours` to also be set — without a window length the cap is inert and no limit is enforced.
+>
+> Where the app runs the sessions, it keeps each person’s count in a local file, so someone who uses two devices has a separate count on each.
 
-    The app keeps each person’s count in a local file, and no server enforces it. Someone who uses two devices has a separate count on each.
-  </Accordion>
-
-  <Accordion title="inferenceTokenWindowHours details">
-    Required when `inferenceMaxTokensPerWindow` is set — the cap only takes effect once both are configured.
-
-    Each person’s window starts the first time they use the app after their previous window ends, so 24 hours does not mean midnight to midnight.
-  </Accordion>
-</AccordionGroup>
+> **inferenceTokenWindowHours details**
+>
+> Required when `inferenceMaxTokensPerWindow` is set — the cap only takes effect once both are configured.
+>
+> Each person’s window starts the first time they use the app after their previous window ends, so 24 hours does not mean midnight to midnight.
 
 ## Appearance
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="enduserattribution" />End-user attribution<br />`endUserAttribution` | `boolean` | MDM + Bootstrap<br />Added in 1.25927.0 | — | Show the signed-in user’s identity-provider identity in the sidebar and account menu, and emit it as the OpenTelemetry enduser.id resource attribute. |
-| <span id="deploymentdisplayname" />Deployment display name<br />`deploymentDisplayName` | `string` | MDM + Bootstrap<br />Added in 1.24012.0 | — | Overrides the provider label shown in the sidebar footer, user-menu header, and connection-error banner. |
-| <span id="deploymentdisplaysubtitle" />Deployment display subtitle<br />`deploymentDisplaySubtitle` | `string` | MDM + Bootstrap<br />Added in 1.24012.0 | — | Optional detail shown after the deployment display name in the account-menu header. |
-| <span id="disableconfigdeprecationwarnings" />Hide configuration deprecation warnings<br />`disableConfigDeprecationWarnings` | `boolean` | MDM + Bootstrap<br />Added in 1.40609.0 | — | Don’t show users the in-app warning that this configuration uses a deprecated field. The final reminder in the 24 hours before the cut-off still appears. |
-| <span id="banner" />Organization banner<br />`banner` | `object` | MDM + Bootstrap<br />Added in 1.7196.0 | — | A persistent banner across the top of the app window after sign-in. |
+| End-user attribution `endUserAttribution` | `boolean` | MDM + Bootstrap Added in 1.25927.0 | — | Show the signed-in user’s identity-provider identity in the sidebar and account menu, and emit it as the OpenTelemetry enduser.id resource attribute. |
+| Deployment display name `deploymentDisplayName` | `string` | MDM + Bootstrap Added in 1.24012.0 | — | Overrides the provider label shown in the sidebar footer, user-menu header, and connection-error banner. |
+| Deployment display subtitle `deploymentDisplaySubtitle` | `string` | MDM + Bootstrap Added in 1.24012.0 | — | Optional detail shown after the deployment display name in the account-menu header. |
+| Hide configuration deprecation warnings `disableConfigDeprecationWarnings` | `boolean` | MDM + Bootstrap Added in 1.40609.0 | — | Don’t show users the in-app warning that this configuration uses a deprecated field. The final reminder in the 24 hours before the cut-off still appears. |
+| Organization banner `banner` | `object` | MDM + Bootstrap Added in 1.7196.0 | — | A persistent banner across the top of the app window after sign-in. |
 
-<AccordionGroup>
-  <Accordion title="endUserAttribution details">
-    When on (default), the app resolves the signed-in user's identity from the configured credential source (the identity provider claim, or the OS login name when no claim is available) and shows it in the sidebar footer, the account menu, and the Code session greeting. If an OpenTelemetry collector is configured, the same identity is also emitted as the `enduser.id` resource attribute on every span, metric, and log sent to your collector — unless you have set a static `enduser.id` under OpenTelemetry resource attributes, in which case your static value is kept and the runtime identity is not emitted. When off, no identity is shown in the app and no runtime `enduser.id` is emitted; a static `enduser.id` under OpenTelemetry resource attributes still passes through unchanged. This setting does not gate the `process.owner` resource attribute (the OS login name), which is standard OpenTelemetry process metadata and is always emitted — set a static `process.owner` under OpenTelemetry resource attributes to override it. Applies to both Cowork tasks and Code sessions.
-  </Accordion>
+> **endUserAttribution details**
+>
+> When on (default), the app resolves the signed-in user's identity from the configured credential source (the identity provider claim, or the OS login name when no claim is available) and shows it in the sidebar footer, the account menu, and the Code session greeting. If an OpenTelemetry collector is configured, the same identity is also emitted as the `enduser.id` resource attribute on every span, metric, and log sent to your collector — unless you have set a static `enduser.id` under OpenTelemetry resource attributes, in which case your static value is kept and the runtime identity is not emitted. When off, no identity is shown in the app and no runtime `enduser.id` is emitted; a static `enduser.id` under OpenTelemetry resource attributes still passes through unchanged. This setting does not gate the `process.owner` resource attribute (the OS login name), which is standard OpenTelemetry process metadata and is always emitted — set a static `process.owner` under OpenTelemetry resource attributes to override it. Applies to both Cowork tasks and Code sessions.
 
-  <Accordion title="deploymentDisplayName details">
-    Set this to the name users should see for this deployment (for example, "Claude for Government"). When unset, the desktop shows the default provider label. Maximum 60 characters.
-  </Accordion>
+> **deploymentDisplayName details**
+>
+> Set this to the name users should see for this deployment (for example, "Claude for Government"). When unset, the desktop shows the default provider label. Maximum 60 characters.
 
-  <Accordion title="deploymentDisplaySubtitle details">
-    Optional detail shown after the deployment display name in the account-menu header (for example, "Claude for Veterans Affairs · Claude for Government"). Shown only when the display name is also set. Maximum 60 characters.
-  </Accordion>
+> **deploymentDisplaySubtitle details**
+>
+> Optional detail shown after the deployment display name in the account-menu header (for example, "Claude for Veterans Affairs · Claude for Government"). Shown only when the display name is also set. Maximum 60 characters.
 
-  <Accordion title="disableConfigDeprecationWarnings details">
-    When the organization's configuration uses a field that is deprecated — a renamed key, or a legacy value or entry form — the app shows every user a dismissable warning naming the field, what to use instead, and the date support ends (each field's cut-off is listed in the configuration changelog and takes effect at 12:00 PM Pacific Time on that date). The warning shows from the field's announced warning date until dismissed, and once more in the 24 hours before the cut-off. Set this to `true` to suppress the first showing for your users while you migrate; the final 24-hour reminder is always shown, and the deprecation stays listed in the diagnostic report (Help → Troubleshooting) and the hosted configuration editor regardless.
-  </Accordion>
+> **disableConfigDeprecationWarnings details**
+>
+> When the organization's configuration uses a field that is deprecated — a renamed key, or a legacy value or entry form — the app shows every user a dismissable warning naming the field, what to use instead, and the date support ends (each field's cut-off is listed in the configuration changelog and takes effect at 12:00 PM Pacific Time on that date). The warning shows from the field's announced warning date until dismissed, and once more in the 24 hours before the cut-off. Set this to `true` to suppress the first showing for your users while you migrate; the final 24-hour reminder is always shown, and the deprecation stays listed in the diagnostic report (Help → Troubleshooting) and the hosted configuration editor regardless.
 
-  <Accordion title="banner details">
-    Use this for compliance notices, an internal-support link, or to identify the deployment. The banner is shown on every page after sign-in and cannot be dismissed by the user. Colors are six-digit hex (`#RRGGBB`); when `linkUrl` is set the banner text becomes an HTTPS link.
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `enabled` | `boolean` | — | Turns the banner on. When false or unset, the other banner fields are ignored. |
-    | `text` | `string` | — | Single line, truncated on overflow. Maximum 200 characters. |
-    | `backgroundColor` | `string` | `#F5F5F5` | Six-digit hex (#RRGGBB). Applied exactly as configured; not theme-adapted. |
-    | `textColor` | `string` | `#000000` | Six-digit hex (#RRGGBB). Applied exactly as configured; not theme-adapted. |
-    | `linkUrl` | `string` | — | Optional HTTPS URL. The banner text becomes a link when set. |
-  </Accordion>
-</AccordionGroup>
+> **banner details**
+>
+> Use this for compliance notices, an internal-support link, or to identify the deployment. The banner is shown on every page after sign-in and cannot be dismissed by the user. Colors are six-digit hex (`#RRGGBB`); when `linkUrl` is set the banner text becomes an HTTPS link.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `enabled` | `boolean` | — | Turns the banner on. When false or unset, the other banner fields are ignored. |
+> | `text` | `string` | — | Single line, truncated on overflow. Maximum 200 characters. |
+> | `backgroundColor` | `string` | `#F5F5F5` | Six-digit hex (#RRGGBB). Applied exactly as configured; not theme-adapted. |
+> | `textColor` | `string` | `#000000` | Six-digit hex (#RRGGBB). Applied exactly as configured; not theme-adapted. |
+> | `linkUrl` | `string` | — | Optional HTTPS URL. The banner text becomes a link when set. |
 
 ### Feature discovery
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="disablefeaturediscovery" />Hide feature announcements<br />`disableFeatureDiscovery` | `boolean` | MDM + Bootstrap<br />Added in 1.21459.0 | `false` | Suppress unprompted feature-announcement UI: the post-update “What’s new” nudge and new-feature tips. Users can still open release notes themselves. Defaults to `false`. |
+| Hide feature announcements `disableFeatureDiscovery` | `boolean` | MDM + Bootstrap Added in 1.21459.0 | `false` | Suppress unprompted feature-announcement UI: the post-update “What’s new” nudge and new-feature tips. Users can still open release notes themselves. Defaults to `false`. |
 
-<AccordionGroup>
-  <Accordion title="disableFeatureDiscovery details">
-    Covers the version-shipped announcement UI baked into each release: the **What's new** button that appears on its own after an update, and the one-time **New feature** tips (coach-marks) that point out newly shipped capabilities. Useful when your organization gates feature availability and doesn't want the app advertising capabilities you haven't rolled out.
-
-    User-initiated surfaces stay: the What's-new menu item and header button still open the release notes on demand. Auto-update behavior is unaffected — that is governed by `disableAutoUpdates` and `autoUpdaterEnforcementHours`.
-  </Accordion>
-</AccordionGroup>
+> **disableFeatureDiscovery details**
+>
+> Covers the version-shipped announcement UI baked into each release: the **What's new** button that appears on its own after an update, and the one-time **New feature** tips (coach-marks) that point out newly shipped capabilities. Useful when your organization gates feature availability and doesn't want the app advertising capabilities you haven't rolled out.
+>
+> User-initiated surfaces stay: the What's-new menu item and header button still open the release notes on demand. Auto-update behavior is unaffected — that is governed by `disableAutoUpdates` and `autoUpdaterEnforcementHours`.
 
 ## Plugins
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="orgpluginsettings" />Organization plugin settings<br />`orgPluginSettings` | `object[]` | MDM + Bootstrap<br />Added in 1.8089.0 | — | Admin policy applied to plugin-delivered MCP servers. |
-| <span id="allowedpluginmarketplaces" />Plugin marketplaces<br />`allowedPluginMarketplaces` | `object[]` | MDM + Bootstrap<br />Added in 1.17377.1 | — | Git repositories or hosted marketplace.json URLs to surface as plugin marketplaces in the Directory’s Organization tab. The app re-fetches each periodically. |
+| Organization plugin settings `orgPluginSettings` | `object[]` | MDM + Bootstrap Added in 1.8089.0 | — | Admin policy applied to plugin-delivered MCP servers. |
+| Plugin marketplaces `allowedPluginMarketplaces` | `object[]` | MDM + Bootstrap Added in 1.17377.1 | — | Git repositories or hosted marketplace.json URLs to surface as plugin marketplaces in the Directory’s Organization tab. The app re-fetches each periodically. |
 
-<AccordionGroup>
-  <Accordion title="orgPluginSettings details">
-    Locks per-tool permissions on MCP servers provided by any installed plugin — from the org-plugins directory or a plugin marketplace, remote or run locally — one entry per server name (compared case-insensitively):
+> **orgPluginSettings details**
+>
+> Locks per-tool permissions on MCP servers provided by any installed plugin — from the org-plugins directory or a plugin marketplace, remote or run locally — one entry per server name (compared case-insensitively):
+>
+> ```json theme={null} theme={null} theme={null}
+> [{"serverName": "internal-search", "tools": [{"toolName": "delete_document", "permission": "blocked"}]}]
+> ```
+>
+> The older record form (`{"mcpServers": {"internal-search": {"toolPolicy": {"delete_document": "blocked"}}}}`) is no longer accepted. Desktop versions before 1.15200.0 parse only the record form: on those builds an array value is ignored and plugin tool locks are **not enforced**, so update the fleet past 1.15200.0 before deploying the array form.
+>
+> If a Managed MCP servers entry is for the same server (same URL, else same name), that entry decides alone: its `toolPolicy` (if any) applies and the entry here is ignored. A value that cannot be read blocks every tool of every plugin-provided MCP server no Managed MCP servers entry covers.
+>
+> For a plugin server that Claude Code launches or connects to itself (a marketplace plugin's), the permissions travel on Claude Code's managed-settings channel: another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) on the device replaces them unless that source sets `parentSettingsBehavior` to `"merge"`. `blocked` on a server the app connects to itself holds either way.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `serverName` | `string` | — | Name of the plugin-delivered MCP server this policy applies to. |
+> | `tools` | `object[]` | — | Per-tool approval locks for this server. |
+> | `tools.toolName` | `string` | — | MCP tool name as the server reports it. |
+> | `tools.permission` | `enum` | — | Approval state locked for this tool. Unlisted tools stay user-controlled. One of: `allow`, `ask`, `blocked`. |
 
-    ```json theme={null}
-    [{"serverName": "internal-search", "tools": [{"toolName": "delete_document", "permission": "blocked"}]}]
-    ```
-
-    The older record form (`{"mcpServers": {"internal-search": {"toolPolicy": {"delete_document": "blocked"}}}}`) is no longer accepted. Desktop versions before 1.15200.0 parse only the record form: on those builds an array value is ignored and plugin tool locks are **not enforced**, so update the fleet past 1.15200.0 before deploying the array form.
-
-    If a Managed MCP servers entry is for the same server (same URL, else same name), that entry decides alone: its `toolPolicy` (if any) applies and the entry here is ignored. A value that cannot be read blocks every tool of every plugin-provided MCP server no Managed MCP servers entry covers.
-
-    For a plugin server that Claude Code launches or connects to itself (a marketplace plugin's), the permissions travel on Claude Code's managed-settings channel: another Claude Code [managed-settings source](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) on the device replaces them unless that source sets `parentSettingsBehavior` to `"merge"`. `blocked` on a server the app connects to itself holds either way.
-
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `serverName` | `string` | — | Name of the plugin-delivered MCP server this policy applies to. |
-    | `tools` | `object[]` | — | Per-tool approval locks for this server. |
-    | `tools.toolName` | `string` | — | MCP tool name as the server reports it. |
-    | `tools.permission` | `enum` | — | Approval state locked for this tool. Unlisted tools stay user-controlled. One of: `allow`, `ask`, `blocked`. |
-  </Accordion>
-
-  <Accordion title="allowedPluginMarketplaces details">
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `source` | `string` | — | Where the marketplace is fetched from: a GitHub repository (set repo), any Git remote (set url), or a hosted marketplace.json file (set url). One of: `github`, `git`, `url`. |
-    | `repo` | `string` | — | GitHub repository in owner/repo form. Case-insensitive. |
-    | `ref` | `string` | — | Commit SHA, branch, or tag. Leave empty to track the default branch; auto\_install and required need a full 40-character commit SHA. |
-    | `path` | `string` | — | Folder within the repository that contains the marketplace, when it isn’t at the root. |
-    | `expectedName` | `string` | — | Rejects the marketplace if its manifest name differs. |
-    | `installationPreference` | `enum` | — | Whether users install plugins themselves or get them automatically. One of: `available`, `auto_install`, `required`. |
-    | `credentialKind` | `enum` | — | How fetches authenticate: anonymously, with the user’s git credentials, via a helper executable, or as the app does to its gateway or bootstrap server (url). One of: `anonymous`, `userGit`, `credentialHelper`, `inferenceCredential`. |
-    | `credentialHelper` | `string` | — | Executable that prints an access token for this marketplace. |
-    | `url` | `string` | — | HTTPS Git remote of the marketplace repository (git), or direct HTTPS URL of a hosted marketplace.json file (url). |
-    | `manifestSha256` | `string` | — | SHA-256 of the exact marketplace.json to accept. Without it auto\_install and required act as available; a served manifest with any other digest is refused. |
-  </Accordion>
-</AccordionGroup>
+> **allowedPluginMarketplaces details**
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `source` | `string` | — | Where the marketplace is fetched from: a GitHub repository (set repo), any Git remote (set url), or a hosted marketplace.json file (set url). One of: `github`, `git`, `url`. |
+> | `repo` | `string` | — | GitHub repository in owner/repo form. Case-insensitive. |
+> | `ref` | `string` | — | Commit SHA, branch, or tag. Leave empty to track the default branch; auto\_install and required need a full 40-character commit SHA. |
+> | `path` | `string` | — | Folder within the repository that contains the marketplace, when it isn’t at the root. |
+> | `expectedName` | `string` | — | Rejects the marketplace if its manifest name differs. |
+> | `installationPreference` | `enum` | — | Whether users install plugins themselves or get them automatically. One of: `available`, `auto_install`, `required`. |
+> | `credentialKind` | `enum` | — | How fetches authenticate: anonymously, with the user’s git credentials, via a helper executable, or as the app does to its gateway or bootstrap server (url). One of: `anonymous`, `userGit`, `credentialHelper`, `inferenceCredential`. |
+> | `credentialHelper` | `string` | — | Executable that prints an access token for this marketplace. |
+> | `url` | `string` | — | HTTPS Git remote of the marketplace repository (git), or direct HTTPS URL of a hosted marketplace.json file (url). |
+> | `manifestSha256` | `string` | — | SHA-256 of the exact marketplace.json to accept. Without it auto\_install and required act as available; a served manifest with any other digest is refused. |
 
 ## Source
 
@@ -1199,39 +1194,37 @@ The reference below is generated from the configuration schema and grouped to ma
 
 | Setting | Type | Availability | Default | Description |
 | - | - | - | - | - |
-| <span id="bootstrapenabled" />Use bootstrap config<br />`bootstrapEnabled` | `boolean` | MDM only<br />Added in 1.10628.0 | `true` | Fetch and apply the URL above at launch. Turn off to keep the URL saved but skip the fetch. Defaults to `true`. |
-| <span id="bootstrapurl" />Bootstrap config URL<br />`bootstrapUrl` | `string` | MDM only<br />Added in 1.10628.0 | — | HTTPS endpoint that returns a per-user JSON config overlay. Values from the response override local settings and become read-only. |
-| <span id="bootstrapoidc" />Bootstrap OIDC parameters<br />`bootstrapOidc` | `object` | MDM only<br />Added in 1.10628.0 | — | When set, the bootstrap request sends a Bearer token from a browser sign-in (authorization-code-with-PKCE). |
-| <span id="bootstrapheaders" />Bootstrap request headers<br />`bootstrapHeaders` | `object` | MDM only<br />Added in 1.32885.1 | — | HTTP headers sent on every bootstrap config fetch. Use this instead of embedding user:pass@ in the URL. |
-| <span id="bootstrapheadershelper" />Bootstrap headers helper script<br />`bootstrapHeadersHelper` | `string` | MDM only<br />Added in 1.32885.1 | — | Absolute path to an executable that prints a JSON object of bootstrap request headers. Merged over the static headers; the helper wins. |
-| <span id="trustbootstrapdelivery" />Trust bootstrap-delivered settings<br />`trustBootstrapDelivery` | `boolean` | MDM only<br />Added in 1.26832.0 | `false` | Skip the per-user consent prompt for sign-in targets, inference endpoints, helper scripts, and connectors the bootstrap server delivers. Defaults to `false`. |
+| Use bootstrap config `bootstrapEnabled` | `boolean` | MDM only Added in 1.10628.0 | `true` | Fetch and apply the URL above at launch. Turn off to keep the URL saved but skip the fetch. Defaults to `true`. |
+| Bootstrap config URL `bootstrapUrl` | `string` | MDM only Added in 1.10628.0 | — | HTTPS endpoint that returns a per-user JSON config overlay. Values from the response override local settings and become read-only. |
+| Bootstrap OIDC parameters `bootstrapOidc` | `object` | MDM only Added in 1.10628.0 | — | When set, the bootstrap request sends a Bearer token from a browser sign-in (authorization-code-with-PKCE). |
+| Bootstrap request headers `bootstrapHeaders` | `object` | MDM only Added in 1.32885.1 | — | HTTP headers sent on every bootstrap config fetch. Use this instead of embedding user:pass@ in the URL. |
+| Bootstrap headers helper script `bootstrapHeadersHelper` | `string` | MDM only Added in 1.32885.1 | — | Absolute path to an executable that prints a JSON object of bootstrap request headers. Merged over the static headers; the helper wins. |
+| Trust bootstrap-delivered settings `trustBootstrapDelivery` | `boolean` | MDM only Added in 1.26832.0 | `false` | Skip the per-user consent prompt for sign-in targets, inference endpoints, helper scripts, and connectors the bootstrap server delivers. Defaults to `false`. |
 
-<AccordionGroup>
-  <Accordion title="bootstrapOidc details">
-    Set this to use a separate identity provider (Microsoft Entra ID, Okta, Ping, or any compliant OIDC provider) for the bootstrap sign-in. The app runs an authorization-code-with-PKCE flow in the system browser. Omit to use device-code mode against the bootstrap server's own origin.
+> **bootstrapOidc details**
+>
+> Set this to use a separate identity provider (Microsoft Entra ID, Okta, Ping, or any compliant OIDC provider) for the bootstrap sign-in. The app runs an authorization-code-with-PKCE flow in the system browser. Omit to use device-code mode against the bootstrap server's own origin.
+>
+> This is an **object-typed key** — in an MDM profile it is a single JSON-string value, not separate keys with dotted names like `bootstrapOidc.clientId`. Writing the sub-fields as separate registry values causes the app to silently fall through to device-code mode.
+>
+> | Field | Type | Default | Description |
+> | - | - | - | - |
+> | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
+> | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
+> | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
+> | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
+> | `scopes` | `string` | — | Space-separated; the token’s audience must match what your bootstrap server validates. |
+> | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
+> | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
+> | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
 
-    This is an **object-typed key** — in an MDM profile it is a single JSON-string value, not separate keys with dotted names like `bootstrapOidc.clientId`. Writing the sub-fields as separate registry values causes the app to silently fall through to device-code mode.
+> **bootstrapHeaders details**
+>
+> Static headers sent on every request to the bootstrap config URL — for a service-account credential (`Authorization: Basic …`, an API key header) or a routing/tenant header. When either this or the headers helper script is set and no separate `bootstrapOidc` provider is configured, the app treats the headers as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. These headers (and the helper script's below) also accompany requests to a plugin marketplace this server hosts on its own origin (`allowedPluginMarketplaces` with `credentialKind: "inferenceCredential"`). Header values are masked in diagnostics and telemetry. For a rotating token, use the headers helper script instead.
 
-    | Field | Type | Default | Description |
-    | - | - | - | - |
-    | `clientId` | `string` | — | OAuth client ID of the desktop app registration at your identity provider (public client, PKCE). |
-    | `issuer` | `string` | — | HTTPS issuer with OIDC discovery. Set this, or set the authorization and token URLs instead. |
-    | `authorizationUrl` | `string` | — | HTTPS authorization endpoint. Used with the token URL when no issuer is set. |
-    | `tokenUrl` | `string` | — | HTTPS token endpoint. Used with the authorization URL when no issuer is set. |
-    | `scopes` | `string` | — | Space-separated; the token’s audience must match what your bootstrap server validates. |
-    | `redirectPort` | `integer` | — | Fixed loopback port for the sign-in redirect. Leave unset to use a free port each time. |
-    | `redirectHost` | `enum` | — | Use localhost only if your IdP’s registered redirect URI specifies it. One of: `127.0.0.1`, `localhost`. |
-    | `additionalRedirectReferrerHosts` | `string` | — | Space-separated hostnames also accepted as the referrer of the sign-in callback. Only needed when the IdP completes sign-in from a different host. |
-  </Accordion>
-
-  <Accordion title="bootstrapHeaders details">
-    Static headers sent on every request to the bootstrap config URL — for a service-account credential (`Authorization: Basic …`, an API key header) or a routing/tenant header. When either this or the headers helper script is set and no separate `bootstrapOidc` provider is configured, the app treats the headers as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. These headers (and the helper script's below) also accompany requests to a plugin marketplace this server hosts on its own origin (`allowedPluginMarketplaces` with `credentialKind: "inferenceCredential"`). Header values are masked in diagnostics and telemetry. For a rotating token, use the headers helper script instead.
-  </Accordion>
-
-  <Accordion title="bootstrapHeadersHelper details">
-    Absolute path to an executable that prints a single JSON object of HTTP headers on stdout, e.g. `{"Authorization": "Bearer …"}`. The app runs it (no arguments; output cached for a few minutes) before each bootstrap config fetch and merges the result over **Bootstrap request headers** (the helper wins on conflict). Use this instead of embedding `user:pass@` in the bootstrap URL, or when the bootstrap server needs a rotating token from a secrets manager. When either this or the static headers are set and no separate `bootstrapOidc` provider is configured, the app treats them as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. If a per-user sign-in also runs (`bootstrapOidc` or the server’s own device-code flow), that Bearer token wins on `Authorization`.
-  </Accordion>
-</AccordionGroup>
+> **bootstrapHeadersHelper details**
+>
+> Absolute path to an executable that prints a single JSON object of HTTP headers on stdout, e.g. `{"Authorization": "Bearer …"}`. The app runs it (no arguments; output cached for a few minutes) before each bootstrap config fetch and merges the result over **Bootstrap request headers** (the helper wins on conflict). Use this instead of embedding `user:pass@` in the bootstrap URL, or when the bootstrap server needs a rotating token from a secrets manager. When either this or the static headers are set and no separate `bootstrapOidc` provider is configured, the app treats them as sufficient auth and does not require a per-user sign-in for the bootstrap fetch. If a per-user sign-in also runs (`bootstrapOidc` or the server’s own device-code flow), that Bearer token wins on `Authorization`.
 
 ## Guides
 
@@ -1239,55 +1232,53 @@ The reference below is generated from the configuration schema and grouped to ma
 
 The profiles below are illustrative examples rather than built-in presets, and the labels are descriptive only. Use them as starting points and adjust for your environment. Layer the inference-provider keys for your cloud on top of whichever profile you choose.
 
-<Tabs>
-  <Tab title="Standard">
-    Recommended for most enterprise deployments. Telemetry and auto-updates stay on so Anthropic can diagnose issues and ship fixes; users can extend Claude Desktop with their own connectors.
+**Standard**
 
-    | Key | Value |
-    | - | - |
-    | [`deploymentOrganizationUuid`](#deploymentorganizationuuid) | `<your-org-uuid>` |
-    | [`autoUpdaterEnforcementHours`](#autoupdaterenforcementhours) | `24` |
-    | [`isDesktopExtensionSignatureRequired`](#isdesktopextensionsignaturerequired) | `true` |
-    | [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
-  </Tab>
+Recommended for most enterprise deployments. Telemetry and auto-updates stay on so Anthropic can diagnose issues and ship fixes; users can extend Claude Desktop with their own connectors.
 
-  <Tab title="Restricted">
-    For regulated environments that need to control what users can connect Claude Desktop to, while keeping Anthropic supportability.
+| Key | Value |
+| - | - |
+| [`deploymentOrganizationUuid`](#deploymentorganizationuuid) | `<your-org-uuid>` |
+| [`autoUpdaterEnforcementHours`](#autoupdaterenforcementhours) | `24` |
+| [`isDesktopExtensionSignatureRequired`](#isdesktopextensionsignaturerequired) | `true` |
+| [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
 
-    | Key | Value |
-    | - | - |
-    | [`deploymentOrganizationUuid`](#deploymentorganizationuuid) | `<your-org-uuid>` |
-    | [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | `true` |
-    | [`disableNonessentialTelemetry`](#disablenonessentialtelemetry) | `true` |
-    | [`disableNonessentialServices`](#disablenonessentialservices) | `true` |
-    | [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
-    | [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
-    | [`allowedWorkspaceFolders`](#allowedworkspacefolders) | `[{"path":"~/Documents/Claude"}]` |
-    | [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `["*.example.corp"]` |
-    | [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
-  </Tab>
+**Restricted**
 
-  <Tab title="Locked down">
-    For air-gapped or maximally restricted environments. **The app's own traffic goes only to your inference endpoint and OTLP collector**, plus `downloads.claude.ai` for the VM bundle and Claude CLI binary at session start unless you deploy the [offline installer](/docs/third-party/claude-desktop/installation#offline-installation). Code sessions on Windows, and on Linux without Claude Code's sandbox dependencies, [run shell commands unsandboxed](/docs/third-party/claude-desktop/code#applied-as-managed-policy), so those commands can reach any host your network allows. To prevent that, [turn off Code](/docs/third-party/claude-desktop/code#disabling-code) on those devices. With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider).
+For regulated environments that need to control what users can connect Claude Desktop to, while keeping Anthropic supportability.
 
-    | Key | Value |
-    | - | - |
-    | [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | `true` |
-    | [`disableEssentialTelemetry`](#disableessentialtelemetry) | `true` |
-    | [`disableNonessentialTelemetry`](#disablenonessentialtelemetry) | `true` |
-    | [`disableNonessentialServices`](#disablenonessentialservices) | `true` |
-    | [`disableAutoUpdates`](#disableautoupdates) | `true` |
-    | [`modelCatalogEnabled`](#modelcatalogenabled) | `false` |
-    | [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
-    | [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
-    | [`skillCreationEnabled`](#skillcreationenabled) | `false` |
-    | [`scheduledTasksEnabled`](#scheduledtasksenabled) | `false` |
-    | [`disabledBuiltinTools`](#disabledbuiltintools) | `["WebSearch","WebFetch"]` |
-    | [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `[]` |
-    | [`allowedWorkspaceFolders`](#allowedworkspacefolders) | `[{"path":"~/Documents/Claude"}]` |
-    | [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
-  </Tab>
-</Tabs>
+| Key | Value |
+| - | - |
+| [`deploymentOrganizationUuid`](#deploymentorganizationuuid) | `<your-org-uuid>` |
+| [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | `true` |
+| [`disableNonessentialTelemetry`](#disablenonessentialtelemetry) | `true` |
+| [`disableNonessentialServices`](#disablenonessentialservices) | `true` |
+| [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
+| [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
+| [`allowedWorkspaceFolders`](#allowedworkspacefolders) | `[{"path":"~/Documents/Claude"}]` |
+| [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `["*.example.corp"]` |
+| [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
+
+**Locked down**
+
+For air-gapped or maximally restricted environments. **The app's own traffic goes only to your inference endpoint and OTLP collector**, plus `downloads.claude.ai` for the VM bundle and Claude CLI binary at session start unless you deploy the [offline installer](/docs/third-party/claude-desktop/installation#offline-installation). Code sessions on Windows, and on Linux without Claude Code's sandbox dependencies, [run shell commands unsandboxed](/docs/third-party/claude-desktop/code#applied-as-managed-policy), so those commands can reach any host your network allows. To prevent that, [turn off Code](/docs/third-party/claude-desktop/code#disabling-code) on those devices. With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider).
+
+| Key | Value |
+| - | - |
+| [`disableDeploymentModeChooser`](#disabledeploymentmodechooser) | `true` |
+| [`disableEssentialTelemetry`](#disableessentialtelemetry) | `true` |
+| [`disableNonessentialTelemetry`](#disablenonessentialtelemetry) | `true` |
+| [`disableNonessentialServices`](#disablenonessentialservices) | `true` |
+| [`disableAutoUpdates`](#disableautoupdates) | `true` |
+| [`modelCatalogEnabled`](#modelcatalogenabled) | `false` |
+| [`isLocalDevMcpEnabled`](#islocaldevmcpenabled) | `false` |
+| [`isDesktopExtensionEnabled`](#isdesktopextensionenabled) | `false` |
+| [`skillCreationEnabled`](#skillcreationenabled) | `false` |
+| [`scheduledTasksEnabled`](#scheduledtasksenabled) | `false` |
+| [`disabledBuiltinTools`](#disabledbuiltintools) | `["WebSearch","WebFetch"]` |
+| [`coworkEgressAllowedHosts`](#coworkegressallowedhosts) | `[]` |
+| [`allowedWorkspaceFolders`](#allowedworkspacefolders) | `[{"path":"~/Documents/Claude"}]` |
+| [`otlpEndpoint`](#otlpendpoint) | `<your-collector>` |
 
 ### Tool permissions for managed MCP servers
 

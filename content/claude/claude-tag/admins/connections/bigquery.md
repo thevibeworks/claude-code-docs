@@ -6,9 +6,9 @@
 
 > Connect BigQuery to Claude Tag so it can run read-only queries on your datasets, using a GCP service-account key.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting BigQuery lets Claude run queries against your datasets in any channel where the connector is on. Claude connects with its own credential, not a person's.
 

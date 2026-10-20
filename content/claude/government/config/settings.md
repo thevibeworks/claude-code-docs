@@ -28,17 +28,17 @@ When a session ends because it reached the maximum, the member signs in again, j
 
 Controls whether organization owners may create and edit self-managed seat tiers on the [Tiers](/docs/government/org-admin/seat-tiers) page, in addition to the Anthropic-managed ones. Only tenant administrators can change this setting; it is always read-only at the organization level, and organization owners cannot grant themselves the capability. When it is off, the **New seat tier** button and the edit and delete controls on the Tiers page are hidden, and the **Reset usage limits** action on the [Users](/docs/government/org-admin/users) page is also unavailable.
 
-<Note>
-  **Set at the tenant level only.** This setting is read-only for organization owners.
-</Note>
+> [!NOTE]
+>
+> **Set at the tenant level only.** This setting is read-only for organization owners.
 
 ### Compliance API
 
 Controls whether the [Compliance API](/docs/government/org-admin/compliance-api) is available. When it is off, organization owners and tenant administrators cannot create new keys and every request to the API returns an error, including requests made with keys that were valid before. Listing and revoking existing keys remains available even when this is off, so that an exposed key can still be revoked.
 
-<Note>
-  **Set at the tenant level only.** This setting is read-only for organization owners.
-</Note>
+> [!NOTE]
+>
+> **Set at the tenant level only.** This setting is read-only for organization owners.
 
 ### Organization instructions
 
@@ -48,9 +48,9 @@ A change takes effect from each member's next message, including in conversation
 
 Organization instructions guide how Claude responds, and they are not an enforced restriction. To restrict what Claude can do, for example which network hosts it can reach, use **Allowed network hosts** and the other settings on this page.
 
-<Note>
-  **Set at the tenant and organization levels only.** This setting cannot be set for a group.
-</Note>
+> [!NOTE]
+>
+> **Set at the tenant and organization levels only.** This setting cannot be set for a group.
 
 ### Telemetry endpoint
 
@@ -70,9 +70,9 @@ Members pick up a new or changed endpoint the next time they start Claude Deskto
 
 Each conversation turn produces events such as `user_prompt`, `api_request`, and `tool_result` that record the model, token counts, durations, and tool names. Every record from Claude Desktop carries the member's sign-in email address as the `enduser.id` resource attribute and their operating-system login name as `process.owner`. Message text, file contents, and tool output are included only for the categories you select in **Telemetry content capture**. See the [event reference in Monitoring](/docs/cowork/monitoring#events) for each event's attributes.
 
-<Note>
-  On Claude Desktop versions earlier than 1.37937.0, and for a member who has not signed in again since updating to that version or later, `enduser.id` carries the operating-system login name.
-</Note>
+> [!NOTE]
+>
+> On Claude Desktop versions earlier than 1.37937.0, and for a member who has not signed in again since updating to that version or later, `enduser.id` carries the operating-system login name.
 
 Claude Desktop keeps working when the collector refuses requests or cannot be reached, and members see no error. To confirm telemetry is arriving, check your collector's own request logs or metrics for requests to `/v1/logs` after a member has restarted Claude Desktop and sent a message.
 
@@ -105,9 +105,9 @@ Labels added to every telemetry record sent to your collector, such as your agen
 
 When on, each application also sends traces to the `/v1/traces` path of the address in **Telemetry endpoint**, so your monitoring tools can follow the events of one request together. The setting is off by default and is in beta. Traces carry message and tool content only for the categories selected in **Telemetry content capture**. For what a trace contains, see [Traces](/docs/third-party/claude-desktop/telemetry#traces-beta) for Claude Desktop and the [span reference](/docs/office-agents/opentelemetry#span-reference) for Claude for Microsoft 365.
 
-<Note>
-  In Claude Desktop, **Telemetry traces** requires version 1.22209.0 or later. Earlier versions ignore the setting.
-</Note>
+> [!NOTE]
+>
+> In Claude Desktop, **Telemetry traces** requires version 1.22209.0 or later. Earlier versions ignore the setting.
 
 ### Block automatic updates
 
@@ -121,9 +121,9 @@ On Linux, apt installs Claude Desktop updates, and neither **Block automatic upd
 
 How long a member can put off restarting Claude Desktop to install an update that the app has downloaded, as a whole number of hours from 1 to 72. When the deadline passes, the app restarts to install the update without waiting for the computer to be idle. Leave the value empty to allow 72 hours, after which the app restarts only once the computer is idle. While **Block automatic updates** is on, this setting has no effect, because the app downloads no updates.
 
-<Note>
-  Members who are running Claude Desktop when you change **Block automatic updates** or **Restart deadline for updates** may need to restart the app to pick up the change.
-</Note>
+> [!NOTE]
+>
+> Members who are running Claude Desktop when you change **Block automatic updates** or **Restart deadline for updates** may need to restart the app to pick up the change.
 
 ### Restart deadline for configuration changes
 
@@ -139,9 +139,9 @@ The system-use notification shown at sign-in is separate from this banner. It is
 
 Shows a banner on Claude Desktop's home screen inviting members to [import their conversations and projects from Claude for Government Web](/docs/government/desktop/import). Members see the banner only in organizations where Anthropic has enabled the import. The switch is off by default.
 
-<Note>
-  **Show the Claude for Government Web import banner** applies to Claude Desktop 2.9939.2 and later. Earlier versions ignore the setting.
-</Note>
+> [!NOTE]
+>
+> **Show the Claude for Government Web import banner** applies to Claude Desktop 2.9939.2 and later. Earlier versions ignore the setting.
 
 ### Product availability
 
@@ -155,27 +155,27 @@ When Chat and Cowork are both available, Claude Desktop presents them together a
 
 Turning a switch off also changes this layout. For example, with **Chat in Claude Desktop** off, the sidebar shows **Cowork** in place of Home and the message box offers no choice, and with **Cowork in Claude Desktop** off, the message box offers Chat only. If Chat, Cowork, and Code are all turned off, Claude Desktop keeps Cowork on.
 
-<Note>
-  This layout applies to Claude Desktop 1.26832.0 and later. Earlier versions show **Chat**, **Cowork**, and **Code** as three separate tabs, controlled by the same switches.
-</Note>
+> [!NOTE]
+>
+> This layout applies to Claude Desktop 1.26832.0 and later. Earlier versions show **Chat**, **Cowork**, and **Code** as three separate tabs, controlled by the same switches.
 
 The **Claude Desktop home** setting chooses what members see in Claude Desktop. **Standard** gives them Chat with file analysis, plus Cowork. **Simple** gives them Chat with file analysis, without Cowork. **Off** gives them neither, which leaves only Code. If you choose **Off**, keep Code turned on, or Claude Desktop has nothing to open. While the setting has a value, it overrides the separate Chat, file analysis, and Cowork switches, including a directory group's. By default it is not set, and those switches apply.
 
-<Note>
-  **Claude Desktop home** needs Claude Desktop 1.52386.0 or later. Earlier versions ignore it and follow the switches.
-</Note>
+> [!NOTE]
+>
+> **Claude Desktop home** needs Claude Desktop 1.52386.0 or later. Earlier versions ignore it and follow the switches.
 
 The **Scheduled tasks** switch controls whether members can set up tasks that Claude runs on a schedule. With it off, Claude Desktop hides the pages for them, Claude cannot schedule anything in the app, and tasks members already set up are kept but do not run.
 
-<Note>
-  **Scheduled tasks** needs Claude Desktop 2.110.0 or later. Earlier versions ignore it.
-</Note>
+> [!NOTE]
+>
+> **Scheduled tasks** needs Claude Desktop 2.110.0 or later. Earlier versions ignore it.
 
 ### Claude Code
 
 The **Claude Code** section of the **Config** page holds your organization's settings for Claude Code. Claude for Government delivers them to the command-line tool after a member signs in, and in Claude Desktop 2.9939.2 or later they can also reach Code sessions. While Claude Code is in [early access](/docs/government/deploy-claude-code/configure), the section appears once your agency has access.
 
-* **Blocked shell commands**: command names, such as `curl` or `ssh`, that Claude Code never runs. None are blocked by default.
+* **Blocked shell commands**: command names, such as `curl` or `ssh`, that Claude Code never runs with its Bash and PowerShell tools. None are blocked by default.
 * **Managed hooks**: hooks that run in every member's Claude Code sessions, such as a command that writes an audit record after each tool use. None are set by default.
 * **Member-added hooks**: whether hooks and custom status lines that members set up in their own or their projects' settings run as well. **Blocked** by default. Managed hooks still run, and in Claude Desktop so do hooks inside plugins.
 * **Plugin sources**: where members can install Claude Code plugins from, one of **None**, **Approved sources only** with an **Approved plugin sources** list, or **Any source** with a **Blocked plugin sources** list. **None** by default. The two switches under [Member-added plugins and marketplaces](#member-added-plugins-and-marketplaces) narrow **Any source**. While **Let members add plugin marketplaces** is off, members install only from the **Approved plugin sources** list. While **Let members add their own plugins** is off, they cannot add a source of their own from a file or folder on their machine.
@@ -199,13 +199,13 @@ Two switches that control whether members can add plugins of their own in Claude
 
 While a switch is off, Claude Desktop hides the corresponding controls from members. Plugins that members uploaded or created earlier keep working. Marketplaces that members added earlier are hidden while **Let members add plugin marketplaces** is off.
 
-<Note>
-  Hiding marketplaces that members added earlier needs Claude Desktop 2.16120.0 or later.
-</Note>
+> [!NOTE]
+>
+> Hiding marketplaces that members added earlier needs Claude Desktop 2.16120.0 or later.
 
 ### Let members add their own connectors
 
-Controls whether members can add connectors of their own in Claude Desktop, as local MCP servers under **Settings**, then **Developer**. The **Let members add their own connectors** switch is off by default. It sets Claude Desktop's [`isLocalDevMcpEnabled`](/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) key.
+Controls whether members can add connectors of their own in Claude Desktop, as local MCP servers under **Settings**, then **Developer**. The **Let members add their own connectors** switch is off by default. It sets Claude Desktop's [`isLocalDevMcpEnabled`](/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) key. While the switch is off, Claude Desktop ignores connectors that members already added under **Developer**.
 
 ### Let members create skills
 
@@ -231,9 +231,9 @@ If your agency redirects Desktop and Documents to OneDrive or another sync clien
 
 Turn this on to stop Claude's file tools in Claude Desktop Code sessions from reading files outside the session's project folder and any folders listed in [**Allowed workspace folders**](#allowed-workspace-folders). The setting is off by default and sets Claude Desktop's [`blockReadsOutsideWorkingDirectories`](/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories) key. Its effect on the shell commands Claude runs differs by operating system, and that key's entry describes it.
 
-<Note>
-  **Block reads outside workspace folders** needs Claude Desktop 1.46388.1 or later. Earlier versions ignore it.
-</Note>
+> [!NOTE]
+>
+> **Block reads outside workspace folders** needs Claude Desktop 1.46388.1 or later. Earlier versions ignore it.
 
 ### Microsoft 365 features
 
@@ -247,15 +247,17 @@ When a rule blocks Claude on the open file, members see a "Claude is unavailable
 
 ## Tool and connector cards
 
-Alongside the settings list, the Config page shows cards for the built-in tools (Web search, Web fetch, and Shell commands), the built-in connector (Microsoft 365), a **Connectors** card for the ones you add yourself, and a **Plugins** card for plugin packages you upload. A connector is an integration that lets Claude reach an external service on a user's behalf.
+Alongside the settings list, the Config page shows cards for the built-in tools (Web search, Web fetch, Shell commands, and Terminal panel tools), the built-in connector (Microsoft 365), a **Connectors** card for the ones you add yourself, and a **Plugins** card for plugin packages you upload. A connector is an integration that lets Claude reach an external service on a user's behalf.
 
 The **Web search** card controls whether Claude can search the web in Claude Desktop. It is off by default. When you turn it on you are shown a short description of how search works and asked to acknowledge it before the setting is saved. A **Require approval for each search** sub-setting sits below the toggle and becomes available once web search is on; it is on by default, and turning it off lets each member choose whether to approve every search or allow searches to run automatically.
 
 Once you turn web search on, each member's Claude Desktop picks it up the next time the app starts and shows it in the message box's **+** menu, under **Connectors**, as a **Web Search** switch that the member can turn off for themselves. If one member has no **Web Search** switch after restarting Claude Desktop while others do, select [**Compare config across levels**](/docs/government/config/overview#comparing-settings-across-levels) at the top of the Config page and type the member's name into the search box to check whether another level, such as a [directory group](/docs/government/config/overview#group-specific-settings), turns web search off for them. If every level shows web search on, check whether that member's network is blocking it, as described in the troubleshooting table in [Connect Claude Desktop to Claude for Government](/docs/government/deploy-desktop/configure#troubleshooting).
 
-The **Web fetch** card controls whether Claude can fetch web pages in Claude Desktop. It is on by default, and fetches are subject to the Allowed network hosts list above. A **Require approval for each fetch** sub-setting sits below the toggle. Turning it on asks the member to approve every page fetch before it runs; when it is off (the default), each member chooses whether to approve fetches or allow them automatically.
+The **Web fetch** card controls whether Claude can fetch web pages in Claude Desktop. It is on by default, and fetches are subject to the Allowed network hosts list above. A **Require approval for each fetch** sub-setting sits below the toggle. Turning it on asks the member to approve every page fetch before it runs; when it is off (the default), fetches in Chat and Cowork run without asking, and Code sessions follow [Claude Code's usual permission rules](https://code.claude.com/docs/en/permissions).
 
-The **Shell commands** card controls whether Claude can run shell commands during tasks in Claude Desktop. It is on by default, and turning it off also turns off Advanced file analysis in Chat. A **Require approval for each command** sub-setting sits below the toggle. Turning it on asks the member to approve every shell command before it runs; when it is off (the default), each member chooses whether to approve commands or allow them automatically. On Claude Desktop versions earlier than 2.110.0, Chat asks before each command regardless of this setting.
+The **Shell commands** card controls whether Claude can run shell commands during tasks in Claude Desktop. It is on by default, and turning it off also turns off Advanced file analysis in Chat. A **Require approval for each command** sub-setting sits below the toggle. Turning it on asks the member to approve every shell command before it runs; when it is off (the default), Cowork runs sandbox commands without asking, as does Chat on Claude Desktop 2.110.0 or later, and Code sessions follow [Claude Code's usual permission rules](/docs/government/security/security-and-data-handling#code-in-claude-desktop). On Claude Desktop versions earlier than 2.110.0, Chat asks before each command regardless of this setting.
+
+The **Terminal panel tools** card controls whether Claude can run commands in the Code tab's Terminal panel in Claude Desktop, and open, list, or stop its tabs. It is on by default, and turning off the **Shell commands** card turns these tools off as well. See [Code in Claude Desktop](/docs/government/security/security-and-data-handling#code-in-claude-desktop) for how those commands run.
 
 The **Microsoft 365** card lets members reach your agency's Microsoft 365 content, including SharePoint, OneDrive, Outlook, and Teams, from Claude Desktop. Each member signs in with their own Microsoft account. Enter the **Tenant ID** and **Client ID** from an application you register in Microsoft Entra, choose the **Azure cloud** your Microsoft tenant is in, and select which Microsoft Graph permissions to allow under **Access**. The connector is off while Tenant ID and Client ID are both blank. See [Set up the Microsoft 365 connector](/docs/government/connectors/microsoft-365) for the full walkthrough.
 
@@ -269,6 +271,6 @@ Each plugin you add appears as a row with an **Auto-install** or **Members choos
 
 At the organization level, plugins the tenant has added appear under a **From levels above** heading with an **Inherited from your tenant** badge. You can see them there but cannot change or remove them. Upload a plugin with the same name at your organization level to take priority over one.
 
-<Tip>
-  The Claude for Government deployment may include additional settings that are not listed above. Any extra setting follows the same chain, status badges, and edit and reset behavior.
-</Tip>
+> [!TIP]
+>
+> The Claude for Government deployment may include additional settings that are not listed above. Any extra setting follows the same chain, status badges, and edit and reset behavior.

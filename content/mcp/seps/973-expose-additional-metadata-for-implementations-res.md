@@ -6,23 +6,17 @@
 
 > Expose additional metadata for Implementations, Resources, Tools and Prompts
 
-<div className="flex items-center gap-2 mb-4">
-  <Badge color="green" shape="pill">
-    Final
-  </Badge>
+Final
 
-  <Badge color="gray" shape="pill">
-    Standards Track
-  </Badge>
-</div>
+Standards Track
 
-<Note>
-  This SEP has reached Final status and is preserved as a historical record of
-  the design as accepted. Changes made to the protocol after finalization are
-  not reflected here. Refer to the [current
-  specification](/specification/latest) and its changelog for authoritative
-  requirements.
-</Note>
+> [!NOTE]
+>
+> This SEP has reached Final status and is preserved as a historical record of
+> the design as accepted. Changes made to the protocol after finalization are
+> not reflected here. Refer to the [current
+> specification](/specification/latest) and its changelog for authoritative
+> requirements.
 
 | Field | Value |
 | - | - |
@@ -47,13 +41,13 @@ This SEP proposes adding two optional fields—`icons` and `websiteUrl`. The `ic
 
 Current implementations only expose namespaced metadata, forcing clients to display generic labels with no visual cues.
 
-<img width="606" height="242" alt="Image" src="https://github.com/user-attachments/assets/0708a467-ed16-4654-8017-47fc30df9b23" />
+![Image](https://github.com/user-attachments/assets/0708a467-ed16-4654-8017-47fc30df9b23)
 
 ### Proposed State
 
 The proposed implementation would allow us to add visual affordances and links to documentation, making it easier to visually identify which servers/clients are providing an implementation e.g. a tool in a slash command interface:
 
-<img width="1104" height="780" alt="Image" src="https://github.com/user-attachments/assets/2989b847-8a35-4c49-bb73-d27828df4df6" />
+![Image](https://github.com/user-attachments/assets/2989b847-8a35-4c49-bb73-d27828df4df6)
 
 * **Visual Affordance:** Icons make it immediately clear to users which tool or resource source is in use.
 * **Discoverability:** A link to documentation (`websiteUrl`) allows clients to direct users to more information with a single click.

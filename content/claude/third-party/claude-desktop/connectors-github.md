@@ -46,56 +46,54 @@ Users sign in to GitHub from the app through the OAuth device flow, so there are
 
 ### Set up the local connector
 
-<Steps>
-  <Step title="Register a GitHub OAuth app">
-    In your GitHub organization, open **Settings → Developer settings → OAuth Apps → New OAuth App** and register an app for Claude Desktop:
+**1. Register a GitHub OAuth app**
 
-    1. Set **Application name** and **Homepage URL** to values your users will recognize on the authorization screen.
-    2. Enter any valid URL as the **Authorization callback URL**. The device flow does not use a redirect, but GitHub requires the field.
-    3. After registering, select **Enable Device Flow** on the app's settings page and save. Sign-in fails without it.
-    4. Note the app's **Client ID**. Do not create a client secret; the device flow does not use one, and Claude Desktop never asks for it.
+In your GitHub organization, open **Settings → Developer settings → OAuth Apps → New OAuth App** and register an app for Claude Desktop:
 
-    A GitHub App works in place of an OAuth app: put its client ID in the same field. Its permissions come from the app registration itself (the entry's `scope` field is ignored), it must be installed where users need access, and its user tokens expire after about eight hours, so users sign in again more often than with an OAuth app.
-  </Step>
+1. Set **Application name** and **Homepage URL** to values your users will recognize on the authorization screen.
+2. Enter any valid URL as the **Authorization callback URL**. The device flow does not use a redirect, but GitHub requires the field.
+3. After registering, select **Enable Device Flow** on the app's settings page and save. Sign-in fails without it.
+4. Note the app's **Client ID**. Do not create a client secret; the device flow does not use one, and Claude Desktop never asks for it.
 
-  <Step title="Add the managed entry">
-    In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **GitHub** under the **Built-in** group. Enter the client ID from step 1, select **Test this connection** to verify that the bundled server starts and lists its tools, and select **Save**.
+A GitHub App works in place of an OAuth app: put its client ID in the same field. Its permissions come from the app registration itself (the entry's `scope` field is ignored), it must be installed where users need access, and its user tokens expire after about eight hours, so users sign in again more often than with an OAuth app.
 
-    If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `github`:
+**2. Add the managed entry**
 
-    ```json theme={null}
-    {
-      "name": "GitHub",
-      "server": "github",
-      "clientId": "OAUTH_APP_CLIENT_ID_FROM_STEP_1"
-    }
-    ```
+In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **GitHub** under the **Built-in** group. Enter the client ID from step 1, select **Test this connection** to verify that the bundled server starts and lists its tools, and select **Save**.
 
-    | Field | Required | Description |
-    | - | - | - |
-    | `name` | Yes | Unique display name, shown to users in connector settings. |
-    | `server` | Yes | Must be `github`. |
-    | `clientId` | Yes | The client ID of the OAuth app (or GitHub App) from step 1. |
-    | `host` | No | Base URL of your GitHub Enterprise Server instance, for example `https://github.example.com`. Leave unset for github.com. HTTPS is required. |
-    | `scope` | No | Space-separated OAuth scopes to request at sign-in, for example `repo read:org`. Defaults to `repo read:org read:user`. Ignored for GitHub Apps. |
-    | `toolsets` | No | Comma-separated [github-mcp-server toolsets](https://github.com/github/github-mcp-server) to enable, for example `context,repos,issues,pull_requests`. Defaults to the bundled server's default toolsets. |
-    | `readOnly` | No | `true` starts the server with read tools only; write tools are not registered at all. |
-    | `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers). |
+If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `github`:
 
-    In the in-app configuration window, the GitHub form offers the client ID, GitHub Enterprise Server URL, toolsets, and read-only fields; set `scope` through exported JSON or your device-management tool if you need a non-default scope set.
-  </Step>
+```json theme={null}
+{
+  "name": "GitHub",
+  "server": "github",
+  "clientId": "OAUTH_APP_CLIENT_ID_FROM_STEP_1"
+}
+```
 
-  <Step title="Allow the required network hosts">
-    The server and the sign-in flow call GitHub directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry#required-egress-paths), devices need outbound HTTPS access to:
+| Field | Required | Description |
+| - | - | - |
+| `name` | Yes | Unique display name, shown to users in connector settings. |
+| `server` | Yes | Must be `github`. |
+| `clientId` | Yes | The client ID of the OAuth app (or GitHub App) from step 1. |
+| `host` | No | Base URL of your GitHub Enterprise Server instance, for example `https://github.example.com`. Leave unset for github.com. HTTPS is required. |
+| `scope` | No | Space-separated OAuth scopes to request at sign-in, for example `repo read:org`. Defaults to `repo read:org read:user`. Ignored for GitHub Apps. |
+| `toolsets` | No | Comma-separated [github-mcp-server toolsets](https://github.com/github/github-mcp-server) to enable, for example `context,repos,issues,pull_requests`. Defaults to the bundled server's default toolsets. |
+| `readOnly` | No | `true` starts the server with read tools only; write tools are not registered at all. |
+| `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers). |
 
-    | Host | Purpose |
-    | - | - |
-    | `github.com` | OAuth device-flow sign-in |
-    | `api.github.com` | GitHub API calls |
+In the in-app configuration window, the GitHub form offers the client ID, GitHub Enterprise Server URL, toolsets, and read-only fields; set `scope` through exported JSON or your device-management tool if you need a non-default scope set.
 
-    GitHub Enterprise Server deployments need access to the instance's own host instead. No egress to any Anthropic host is needed for GitHub data.
-  </Step>
-</Steps>
+**3. Allow the required network hosts**
+
+The server and the sign-in flow call GitHub directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry#required-egress-paths), devices need outbound HTTPS access to:
+
+| Host | Purpose |
+| - | - |
+| `github.com` | OAuth device-flow sign-in |
+| `api.github.com` | GitHub API calls |
+
+GitHub Enterprise Server deployments need access to the instance's own host instead. No egress to any Anthropic host is needed for GitHub data.
 
 ### How users sign in
 

@@ -4,8 +4,6 @@
 
 # Caching
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) supports caching for some results. This allows clients to cache responses and reduce unnecessary re-fetching.
 Caching is complementary to [change notifications](#interaction-with-notifications)—both
 mechanisms can coexist.
@@ -42,8 +40,8 @@ as they depend on inputs that are not part of the cache key.
 
 Cacheable Results in MCP use two fields to provide caching hints to clients:
 
-* The <b>Time-to-live (TTL) Field</b>,`ttlMs`, is an integer value in milliseconds specifying how long the client MAY consider the result fresh.
-* The <b>Cache Scope Field</b>,`cacheScope`, indicates the intended scope of the cached response, either `"public"` or `"private"`.
+* The **Time-to-live (TTL) Field**,`ttlMs`, is an integer value in milliseconds specifying how long the client MAY consider the result fresh.
+* The **Cache Scope Field**,`cacheScope`, indicates the intended scope of the cached response, either `"public"` or `"private"`.
 
 ### Time-to-Live (TTL) Field
 
@@ -61,12 +59,12 @@ analogous to HTTP `Cache-Control: max-age`.
 
 Servers **MUST** provide a `ttlMs` value that is `>= 0`.
 
-<Note>
-  TTL is a **freshness hint**, not a guarantee. Servers MAY change the
-  underlying data before the TTL expires. The TTL tells the client how long it
-  can reasonably avoid re-fetching, not how long the data is guaranteed to
-  remain unchanged.
-</Note>
+> [!NOTE]
+>
+> TTL is a **freshness hint**, not a guarantee. Servers MAY change the
+> underlying data before the TTL expires. The TTL tells the client how long it
+> can reasonably avoid re-fetching, not how long the data is guaranteed to
+> remain unchanged.
 
 #### Freshness Calculation
 

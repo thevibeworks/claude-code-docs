@@ -12,6 +12,10 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
   For updates to Claude Code, see the [complete CHANGELOG.md](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) in the `claude-code` repository.
 </Tip>
 
+### October 20, 2026
+
+* [Inference hooks](https://platform.claude.com/docs/en/manage-claude/inference-hooks) are out of beta for Claude Enterprise organizations.
+
 ### October 15, 2026
 
 * We've added `capabilities.thinking.types.between_tools` to the [Models API](https://platform.claude.com/docs/en/api/models/list). `GET /v1/models` and `GET /v1/models/{model_id}` now report whether each model accepts `thinking: {type: "between_tools"}`, which turns off up-front thinking. See [Using the Models API](https://platform.claude.com/docs/en/models/overview#using-the-models-api).

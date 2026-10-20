@@ -12,11 +12,11 @@ This page is for anyone who wants to add a connector to their own Claude account
 
 If you already know which connector you want, open [**Customize > Connectors**](https://claude.ai/customize/connectors) and follow [Add a connector from the directory](#add-a-connector-from-the-directory).
 
-<Note>
-  * If the service you want isn't in the directory and you have its server URL, see [Add a connector that isn't in the directory](/docs/connectors/custom/add-unlisted#add-a-connector-by-url)
-  * If you're building a connector, see [Build an MCP server for Claude](/docs/connectors/building/index)
-  * If you're a Team or Enterprise Owner deciding which connectors your organization offers, see [Browse the directory](/docs/connectors/directory#browse-the-directory) to add them from organization settings and handle member requests
-</Note>
+> [!NOTE]
+>
+> * If the service you want isn't in the directory and you have its server URL, see [Add a connector that isn't in the directory](/docs/connectors/custom/add-unlisted#add-a-connector-by-url)
+> * If you're building a connector, see [Build an MCP server for Claude](/docs/connectors/building/index)
+> * If you're a Team or Enterprise Owner deciding which connectors your organization offers, see [Browse the directory](/docs/connectors/directory#browse-the-directory) to add them from organization settings and handle member requests
 
 ## Before you begin
 
@@ -31,59 +31,55 @@ On Team and Enterprise plans, an Owner adds a connector for the organization, an
 
 The Connectors directory lists the connectors that Anthropic and other providers offer. You reach it from **Customize**, the page in claude.ai and the desktop app that holds your connectors, skills, and plugins.
 
-<Steps>
-  <Step title="Open the Connectors page">
-    Go to [**Customize > Connectors**](https://claude.ai/customize/connectors). In the desktop app, select **Customize** in the sidebar, then **Connectors**.
-  </Step>
+**1. Open the Connectors page**
 
-  <Step title="Find the connector">
-    Select **Discover** to browse the directory. Enter a service name in **Search connectors**, or look through the categories, then select a connector to open its page.
+Go to [**Customize > Connectors**](https://claude.ai/customize/connectors). In the desktop app, select **Customize** in the sidebar, then **Connectors**.
 
-    Each listing carries a Verified or Community label. [Connector verification](/docs/connectors/verification) explains what each one means.
-  </Step>
+**2. Find the connector**
 
-  <Step title="Start the connection">
-    Select **Connect to Claude**. Some connectors first ask for details such as a server URL or the region your account is hosted in. Enter them and continue.
+Select **Discover** to browse the directory. Enter a service name in **Search connectors**, or look through the categories, then select a connector to open its page.
 
-    On a Team or Enterprise plan, what you see depends on whether the connector has been added for your organization:
+Each listing carries a Verified or Community label. [Connector verification](/docs/connectors/verification) explains what each one means.
 
-    * If it hasn't, you see **Request** or a note to ask an organization Owner instead of a connect button. [Request a connector on a Team plan](/docs/connectors/directory#request-a-connector-on-a-team-plan) covers what happens next
-    * If you're an Owner, the button reads **Connect for your team** and adds the connector for everyone in your organization. You then connect your own account with **Connect to Claude**. To try the connector without adding it for everyone, select the arrow next to **Connect for your team**, then **Connect just for me**
-  </Step>
+**3. Start the connection**
 
-  <Step title="Sign in to the service">
-    Claude takes you to the service's sign-in page:
+Select **Connect to Claude**. Some connectors first ask for details such as a server URL or the region your account is hosted in. Enter them and continue.
 
-    * On claude.ai, the page opens in the same browser tab
-    * In the desktop app, the page opens in your browser
+On a Team or Enterprise plan, what you see depends on whether the connector has been added for your organization:
 
-    Sign in, review the access Claude asks for, and approve it.
+* If it hasn't, you see **Request** or a note to ask an organization Owner instead of a connect button. [Request a connector on a Team plan](/docs/connectors/directory#request-a-connector-on-a-team-plan) covers what happens next
+* If you're an Owner, the button reads **Connect for your team** and adds the connector for everyone in your organization. You then connect your own account with **Connect to Claude**. To try the connector without adding it for everyone, select the arrow next to **Connect for your team**, then **Connect just for me**
 
-    A connector that doesn't use sign-in connects as soon as you select the button, with no page to visit.
-  </Step>
+**4. Sign in to the service**
 
-  <Step title="Confirm the connection">
-    When sign-in finishes and you're back on the **Connectors** page, the connector is listed under **Your connectors** with the status **Connected**.
-  </Step>
-</Steps>
+Claude takes you to the service's sign-in page:
+
+* On claude.ai, the page opens in the same browser tab
+* In the desktop app, the page opens in your browser
+
+Sign in, review the access Claude asks for, and approve it.
+
+A connector that doesn't use sign-in connects as soon as you select the button, with no page to visit.
+
+**5. Confirm the connection**
+
+When sign-in finishes and you're back on the **Connectors** page, the connector is listed under **Your connectors** with the status **Connected**.
 
 ## Use the connector in a conversation
 
 A connected connector is available in your conversations on the web, desktop, and mobile. You choose in each conversation whether Claude can use it.
 
-<Steps>
-  <Step title="Make sure the connector is on">
-    In a new or existing chat, select **+** in the message box and select **Connectors**. The connector you connected is in the list with a toggle next to it. The toggle controls whether Claude can use the connector in this conversation. If it's off, turn it on.
-  </Step>
+**1. Make sure the connector is on**
 
-  <Step title="Ask for something the service holds">
-    Send a message that needs the service, such as "What's on my calendar tomorrow afternoon?" for a calendar connector or "Summarize the open issues assigned to me" for an issue tracker.
-  </Step>
+In a new or existing chat, select **+** in the message box and select **Connectors**. The connector you connected is in the list with a toggle next to it. The toggle controls whether Claude can use the connector in this conversation. If it's off, turn it on.
 
-  <Step title="Approve the tool call">
-    Claude can ask for your approval before it uses one of the connector's tools. Select **Allow once** to continue, or **Always allow** to skip the prompt for that tool from now on. You can change this later under the connector's [tool permissions](#manage-or-disconnect-a-connector).
-  </Step>
-</Steps>
+**2. Ask for something the service holds**
+
+Send a message that needs the service, such as "What's on my calendar tomorrow afternoon?" for a calendar connector or "Summarize the open issues assigned to me" for an issue tracker.
+
+**3. Approve the tool call**
+
+Claude can ask for your approval before it uses one of the connector's tools. Select **Allow once** to continue, or **Always allow** to skip the prompt for that tool from now on. You can change this later under the connector's [tool permissions](#manage-or-disconnect-a-connector).
 
 To stop Claude from using a connector in a conversation, turn its toggle off in the same **+** menu. The connector stays connected: Claude is still signed in to the service on your account, and you can turn the toggle back on in any conversation. To sign Claude out of the service entirely, [disconnect the connector](#manage-or-disconnect-a-connector).
 

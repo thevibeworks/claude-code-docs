@@ -6,9 +6,9 @@
 
 > Connect Stripe to Claude Tag so it can answer billing and subscription questions. Covers the dedicated account to create, the key fields, and the URL to allow.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting Stripe lets Claude answer billing and subscription questions in any channel where the connector is on. Claude connects with its own credential, not a person's.
 

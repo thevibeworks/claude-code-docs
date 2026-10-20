@@ -6,9 +6,9 @@
 
 > Connect Claude to MCP servers inside your private network without opening inbound firewall ports or exposing the servers to the internet.
 
-<Note>
-  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team. The preview is provided as-is, without uptime, support, or continuity commitments, and it depends on a third-party network provider (Cloudflare) that makes no availability commitment for the underlying transport. Anthropic may modify or discontinue MCP tunnels at any time.
-</Note>
+> [!NOTE]
+>
+> MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team. The preview is provided as-is, without uptime, support, or continuity commitments, and it depends on a third-party network provider (Cloudflare) that makes no availability commitment for the underlying transport. Anthropic may modify or discontinue MCP tunnels at any time.
 
 MCP tunnels connect Claude to [Model Context Protocol (MCP)](/docs/connectors/building/mcp) servers that run inside your private network. You run a small tunnel stack on a host in your network, the stack opens an outbound-only connection to Anthropic, and Claude sends MCP requests to your servers over that connection. Your firewall needs no inbound rules and your MCP servers need no public endpoint. Members of your organization use the tunneled servers as [custom connectors](/docs/connectors/custom/add-unlisted#add-a-connector-by-url) in Claude, the same way they use any other remote MCP server.
 
@@ -80,9 +80,9 @@ The tunnel carries traffic to your MCP servers but does not authenticate to them
 | | Restricting network access for the proxy hosts and MCP servers |
 | | Notifying Anthropic if you suspect a compromise |
 
-<Warning>
-  An attacker who obtains your tunnel token and one of your TLS private keys could impersonate your proxy and read MCP request payloads, including OAuth tokens. Store both with your organization's secrets-management controls, restrict file permissions, and rotate them on a schedule and immediately after any suspected exposure. See [Rotate credentials](/docs/connectors/mcp-tunnels/setup#rotate-credentials).
-</Warning>
+> [!WARNING]
+>
+> An attacker who obtains your tunnel token and one of your TLS private keys could impersonate your proxy and read MCP request payloads, including OAuth tokens. Store both with your organization's secrets-management controls, restrict file permissions, and rotate them on a schedule and immediately after any suspected exposure. See [Rotate credentials](/docs/connectors/mcp-tunnels/setup#rotate-credentials).
 
 ## Limits
 

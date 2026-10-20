@@ -4,7 +4,9 @@ Custom roles are available for Enterprise plan organizations. Owners, Primary Ow
 
 ## What are custom roles?
 
-Custom roles let you define which features your members can access. Each custom role contains a set of permissions that grant or restrict access to specific capabilities like chat, Claude Cowork, Claude Code, and web search, plus the connectors your organization has added, such as Slack or Google Drive. Custom roles can also grant admin permissions, which give members access to specific administrative areas like billing, identity, or privacy without making them Owners.
+Custom roles let you define which features your members can access. Each custom role contains a set of permissions that grant or restrict access to specific capabilities like chat, Claude Cowork, Claude Code, and web search, plus the connectors your organization has added, such as Slack or Google Drive.
+
+Custom roles can also grant admin permissions, which give members access to specific administrative areas like billing, identity, or privacy without making them Owners. A custom role can also grant all of an Owner's admin permissions with the **Owner access** permission.
 
 Custom roles work alongside groups. The typical workflow is: create custom roles, assign them to groups, and then set members' roles to “Custom” so their access is governed entirely by the custom roles assigned to their groups.
 
@@ -50,6 +52,8 @@ Each custom role can grant or restrict access to the following capabilities:
 | Share skills and plugins with groups      | Ability to share skills and plugins with a group in your organization.                                                                                                                                                                                                                                 |
 | Skill and plugin security scanning        | Ability to run a scan on skills and plugins when they’re uploaded to catch possible security concerns.                                                                                                                                                                                                 |
 | Claude Code                               | Access to Claude Code.                                                                                                                                                                                                                                                                                 |
+| Cloud sessions                            | Ability to run Claude Code sessions in the cloud. When this is off, users also can't use Claude Code remote control or start fixes in Claude Security.                                                                                                                                                 |
+| Claude Code remote control                | Ability to control Claude Code sessions running on their own computer from claude.ai/code or Claude Mobile. Requires Cloud sessions.                                                                                                                                                                   |
 | Fast mode                                 | Access to faster model options for Claude Code.                                                                                                                                                                                                                                                        |
 | Claude Code dynamic workflows\*           | Access to dynamic workflows in Claude Code, which let Claude run large engineering tasks—migrations, audits, codebase-wide bug hunts—from start to finish in a single session. These runs can last for hours and use more tokens than a typical session.                                               |
 | Claude Security                           | Find and fix security vulnerabilities in your code with Claude.                                                                                                                                                                                                                                        |
@@ -70,9 +74,11 @@ This can be disabled organization-wide via `managed-settings.json` by adding `"d
 
 An owner can turn it off across your entire organization by going to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)** and toggling **Workflows** off.
 
-Custom roles also govern admin permissions, connectors, and model access, which are configured on separate **Permissions**, **Connectors**, and **Models** tabs in the role editor. See **[Admin permissions](#h_fde60b08bd)**, **[Connector permissions](#h_979e558d00)**, and **[Model access](#h_fca0f9a6b5)** below.
+Custom roles also govern admin permissions, connectors, and model access, which are configured on separate **Permissions**, **Connectors**, and **Models** tabs in the role editor. See **[Admin permissions](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_fde60b08bd)**, **[Connector permissions](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)**, and **[Model access](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_fca0f9a6b5)** below.
 
 **Note:** Chat is enabled by default for all custom roles, including ones created before this capability was added. If you want to restrict chat for a specific role, toggle it off when editing the role.
+
+Custom roles that already granted Claude Code have Cloud sessions and Claude Code remote control turned on, so users' access doesn't change. To restrict either one, turn it off under **Claude Code** on the role's **Capabilities** tab.
 
 ### Grant all capabilities at once
 
@@ -207,7 +213,25 @@ There are eight admin permission areas:
 | Directory management | Not available                                                                                                                                                    | Submit and manage directory listings, and view observability for listings your organization has published                            |
 | Claude Design Admin  | Not available                                                                                                                                                    | Publish design systems, set the organization's default design system, and delete design systems                                      |
 
-**Note:** A role with **Identity & Access** set to "Can manage" can create and edit groups and roles, including its own role definition. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
+**Note:** A role with **Identity & Access** set to "Can manage" can create and edit groups and roles, including its own role definition, and can turn on Owner access. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
+
+### Owner access (beta)
+
+The **Owner access** permission gives a custom role all the admin permissions of an Owner. Owners get their permissions from the Owner role directly and skip custom roles, so until now you had to choose between making someone an Owner and managing their access with custom roles. With Owner access, a user can have full admin access while their capabilities, connectors, and models are still governed by the custom roles assigned to their groups.
+
+Owners, Primary Owners, and custom roles with **Identity & Access** set to "Can manage" can turn on Owner access. It matches the Owner role, not the Primary Owner role.
+
+To give a role Owner access:
+
+1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
+
+2. Open the role you want to edit, or click "Add role" to create one.
+
+3. On the **Permissions** tab, turn on **Owner access**.
+
+4. Click "Save role."
+
+Owner access applies only to users whose role is set to "Custom" and who are in a group assigned to the role. Changing an Owner's role to "Custom" removes their built-in Owner access, so add them to the group before you change their role. If roles come from directory sync with group mappings, map the user's identity provider group to "Custom" rather than Owner.
 
 ### Available organization settings pages for each permission
 
@@ -276,7 +300,7 @@ A connector or tool passes through several layers before a member can use it, ev
 
 For members using Claude Code, one more layer applies: Managed Settings policies and connector permissions compose by most-restrictive. A tool is callable without a prompt only when both allow it. For more information, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.
 
-For members using Claude Cowork, write-capable connector tools pass through one more gate. See **[Cowork approval setting for write tools](#h_85bd7c30e9)** below.
+For members using Claude Cowork, write-capable connector tools pass through one more gate. See **[Cowork approval setting for write tools](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_85bd7c30e9)** below.
 
 This table shows how the organization-wide tool policy and a member’s role grant combine:
 
@@ -332,7 +356,7 @@ For setup steps and what members see, see **[Manage model access for your organi
 
 ## What members see when capability access is restricted
 
-When a capability is restricted, here’s what members see. For connector and tool restrictions, see **[Connector permissions](#h_979e558d00)** above.
+When a capability is restricted, here’s what members see. For connector and tool restrictions, see **[Connector permissions](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)** above.
 
 | **Reason**                                    | **What the member sees**                                                                                           |
 | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |

@@ -4,8 +4,6 @@
 
 # Elicitation
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) provides a standardized way for servers to request additional
 information from users through the client during interactions. This flow allows clients to
 maintain control over user interactions and data sharing while enabling servers to gather
@@ -25,26 +23,26 @@ Implementations are free to expose elicitation through any interface pattern tha
 their needs—the protocol itself does not mandate any specific user interaction
 model.
 
-<Warning>
-  For trust & safety and security:
-
-  * Servers **MUST NOT** use form mode elicitation to request sensitive information such as
-    passwords, API keys, access tokens, or payment credentials
-  * Servers **MUST** use [URL mode](#url-mode-elicitation-requests) for interactions involving
-    such sensitive information
-
-  "Sensitive information" in this context refers to secrets and credentials that grant access or
-  authorize transactions. General contact or profile information (such as a name, email address,
-  or username) is not categorically prohibited; whether to request such data via form mode is at
-  the discretion of the server and subject to the user's ability to review and decline.
-
-  MCP clients **MUST**:
-
-  * Provide UI that makes it clear which server is requesting information
-  * Respect user privacy and provide clear decline and cancel options
-  * For form mode, allow users to review and modify their responses before sending
-  * For URL mode, clearly display the target domain/host and gather user consent before navigation to the target URL
-</Warning>
+> [!WARNING]
+>
+> For trust & safety and security:
+>
+> * Servers **MUST NOT** use form mode elicitation to request sensitive information such as
+>   passwords, API keys, access tokens, or payment credentials
+> * Servers **MUST** use [URL mode](#url-mode-elicitation-requests) for interactions involving
+>   such sensitive information
+>
+> "Sensitive information" in this context refers to secrets and credentials that grant access or
+> authorize transactions. General contact or profile information (such as a name, email address,
+> or username) is not categorically prohibited; whether to request such data via form mode is at
+> the discretion of the server and subject to the user's ability to review and decline.
+>
+> MCP clients **MUST**:
+>
+> * Provide UI that makes it clear which server is requesting information
+> * Respect user privacy and provide clear decline and cancel options
+> * For form mode, allow users to review and modify their responses before sending
+> * For URL mode, clearly display the target domain/host and gather user consent before navigation to the target URL
 
 ## Capabilities
 
@@ -321,9 +319,9 @@ Note that complex nested structures, arrays of objects (beyond enums), and other
 
 ### URL Mode Elicitation Requests
 
-<Note>
-  **New feature:** URL mode elicitation is introduced in the `2025-11-25` version of the MCP specification. Its design and implementation may change in future protocol revisions.
-</Note>
+> [!NOTE]
+>
+> **New feature:** URL mode elicitation is introduced in the `2025-11-25` version of the MCP specification. Its design and implementation may change in future protocol revisions.
 
 URL mode elicitation enables servers to direct users to external URLs for out-of-band interactions that must not pass through the MCP client. This is essential for auth flows, payment processing, and other sensitive or secure operations.
 
@@ -335,15 +333,15 @@ URL mode elicitation requests **MUST** specify `mode: "url"`, a `message`, and i
 
 The `url` parameter **MUST** contain a valid URL.
 
-<Note>
-  **Important**: URL mode elicitation is *not* for authorizing the MCP client's
-  access to the MCP server (that's handled by [MCP
-  authorization](../basic/authorization)). Instead, it's used when the MCP
-  server needs to obtain sensitive information or third-party authorization on
-  behalf of the user. The MCP client's bearer token remains unchanged. The
-  client's only responsibility is to provide the user with context about the
-  elicitation URL the server wants them to open.
-</Note>
+> [!NOTE]
+>
+> **Important**: URL mode elicitation is *not* for authorizing the MCP client's
+> access to the MCP server (that's handled by [MCP
+> authorization](../basic/authorization)). Instead, it's used when the MCP
+> server needs to obtain sensitive information or third-party authorization on
+> behalf of the user. The MCP client's bearer token remains unchanged. The
+> client's only responsibility is to provide the user with context about the
+> elicitation URL the server wants them to open.
 
 #### Example: Request Sensitive Data
 
@@ -475,11 +473,11 @@ However, if state is stored, servers implementing elicitation **MUST** securely 
 * State storage **MUST** be protected against unauthorized access
 * For remote MCP servers, user identification **MUST** be derived from credentials acquired via [MCP authorization](../basic/authorization) when possible (e.g. `sub` claim)
 
-<Note>
-  The examples in this section are non-normative and illustrate potential uses
-  of elicitation. Implementers should adapt these patterns to their specific
-  requirements while maintaining security best practices.
-</Note>
+> [!NOTE]
+>
+> The examples in this section are non-normative and illustrate potential uses
+> of elicitation. Implementers should adapt these patterns to their specific
+> requirements while maintaining security best practices.
 
 ### URL Mode Elicitation for Sensitive Data
 
@@ -525,12 +523,12 @@ The critical security requirements are:
 
 Credentials obtained via URL mode elicitation are distinct from the MCP server credentials used by the MCP client. The MCP server **MUST NOT** transmit credentials obtained through URL mode elicitation to the MCP client.
 
-<Note>
-  For additional background, refer to the [token passthrough
-  section](/docs/2026-07-28/tutorials/security/security_best_practices#token-passthrough)
-  of the Security Best Practices document to understand why MCP servers cannot
-  act as pass-through proxies.
-</Note>
+> [!NOTE]
+>
+> For additional background, refer to the [token passthrough
+> section](/docs/2026-07-28/tutorials/security/security_best_practices#token-passthrough)
+> of the Security Best Practices document to understand why MCP servers cannot
+> act as pass-through proxies.
 
 #### Implementation Pattern
 

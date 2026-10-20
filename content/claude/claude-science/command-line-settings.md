@@ -26,9 +26,9 @@ claude-science serve starts Claude Science and opens the web app in your browser
 | `claude-science --version` | Print the version. |
 | `claude-science <command> --help` | Print help for any command. |
 
-<Note>
-  `import` has no preview and no undo. Back up the data directory before you run it; running the same import a second time is safe.
-</Note>
+> [!NOTE]
+>
+> `import` has no preview and no undo. Back up the data directory before you run it; running the same import a second time is safe.
 
 ### Roll back to an earlier build
 
@@ -38,9 +38,9 @@ In a browser tab and in the Windows app, Claude Science checks for updates in th
 
 If a newer build has already changed how your data directory stores sessions, the command refuses an older build and installs nothing, because an older build can permanently lose part of every session it writes to. The refusal names a flag that overrides it, `--accept-layout-downgrade`, and says when that is safe. If you cannot tell from the message whether it is safe for you, do not add the flag.
 
-<Note>
-  An older build that does install can still refuse to start if a newer build has already updated the database in your data directory. When it does, it stops at startup and changes nothing in your data. At a terminal, it says the data was `written by a NEWER version`. To start the app again, run `claude-science update`, which installs the latest build.
-</Note>
+> [!NOTE]
+>
+> An older build that does install can still refuse to start if a newer build has already updated the database in your data directory. When it does, it stops at startup and changes nothing in your data. At a terminal, it says the data was `written by a NEWER version`. To start the app again, run `claude-science update`, which installs the latest build.
 
 ## Global flags
 
@@ -76,12 +76,12 @@ The app listens on 127.0.0.1 unless you change `--host`, so it is reachable only
 
 `claude-science serve` accepts two flags that each turn off a protection.
 
-<Warning>
-  * `--dangerously-no-sandbox` turns the [sandbox](/docs/claude-science/core-concepts#sandbox) off. On macOS and Linux, the code Claude runs then has full read and write access to your home directory and unrestricted network access. On Windows, code cells do not run at all while the flag is set.
-  * `--dangerously-skip-approvals` approves [permission cards](/docs/claude-science/core-concepts#permission-cards) for you without showing them, until you restart without the flag. That includes Claude's requests to run code, reach network hosts, open folders, and use connector tools. Cards still show for a connector tool you set to [**Ask each time**](/docs/claude-science/custom-connectors) and for requests only you can answer, such as entering an SSH password, permanently deleting artifacts, or spending usage credits. On Linux, the card for a folder too large to check for credential files also still shows. Questions Claude asks you still appear.
-
-  These flags are acceptable only on a machine that is already isolated, such as a container or a disposable virtual machine. Never use them with data or prompts that came from someone else, because Claude may follow instructions hidden in them. Neither belongs in everyday use.
-</Warning>
+> [!WARNING]
+>
+> * `--dangerously-no-sandbox` turns the [sandbox](/docs/claude-science/core-concepts#sandbox) off. On macOS and Linux, the code Claude runs then has full read and write access to your home directory and unrestricted network access. On Windows, code cells do not run at all while the flag is set.
+> * `--dangerously-skip-approvals` approves [permission cards](/docs/claude-science/core-concepts#permission-cards) for you without showing them, until you restart without the flag. That includes Claude's requests to run code, reach network hosts, open folders, and use connector tools. Cards still show for a connector tool you set to [**Ask each time**](/docs/claude-science/custom-connectors) and for requests only you can answer, such as entering an SSH password, permanently deleting artifacts, or spending usage credits. On Linux, the card for a folder too large to check for credential files also still shows. Questions Claude asks you still appear.
+>
+> These flags are acceptable only on a machine that is already isolated, such as a container or a disposable virtual machine. Never use them with data or prompts that came from someone else, because Claude may follow instructions hidden in them. Neither belongs in everyday use.
 
 If your organization [manages the network allowlist](/docs/claude-science/admin-controls#network-allowlist), the app ignores `--dangerously-no-sandbox` and keeps the sandbox on. If the app learns of that setting only after it has started without the sandbox, it pauses new sessions and messages until you restart it.
 
@@ -98,16 +98,14 @@ See [How the environment variables reach the app](/docs/claude-science/corporate
 
 ## See also
 
-<CardGroup cols={1}>
-  <Card title="Run on a remote Linux server" href="/docs/claude-science/run-on-remote-linux-server">
-    Install Claude Science on a server and use it from your own browser through an SSH tunnel.
-  </Card>
+> **[Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server)**
+>
+> Install Claude Science on a server and use it from your own browser through an SSH tunnel.
 
-  <Card title="Configuration file reference" href="/docs/claude-science/configuration-file-reference">
-    Find the `config.toml` file and set its network-related keys.
-  </Card>
+> **[Configuration file reference](/docs/claude-science/configuration-file-reference)**
+>
+> Find the `config.toml` file and set its network-related keys.
 
-  <Card title="Remote compute clusters" href="/docs/claude-science/remote-compute-clusters">
-    Connect an SSH host and run jobs on it.
-  </Card>
-</CardGroup>
+> **[Remote compute clusters](/docs/claude-science/remote-compute-clusters)**
+>
+> Connect an SSH host and run jobs on it.

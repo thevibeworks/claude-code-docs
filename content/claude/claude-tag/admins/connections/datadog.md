@@ -6,9 +6,9 @@
 
 > Connect Datadog to Claude Tag so it can query metrics, logs, and monitors. Covers the dedicated account to create, the API key fields, and the URL to allow.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting Datadog lets Claude query metrics, logs, and monitors during debugging in any channel where the connector is on. Claude connects with its own credential, not a person's.
 

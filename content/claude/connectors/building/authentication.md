@@ -23,10 +23,10 @@ If you already know MCP authorization, these are the places where Claude's OAuth
 * Claude gives your discovery, registration, and token endpoints 10 seconds to respond and refresh requests 30 seconds, as [Endpoint latency](#endpoint-latency) describes
 * A machine-to-machine `client_credentials` grant isn't supported, and [Anthropic-held client credentials](#anthropic-held-client-credentials) are the consent-gated alternative
 
-<Note>
-  - If some of your tools work without the user's account, see [Lazy authentication](/docs/connectors/building/lazy-authentication) to let people use those right away and sign in only when Claude reaches a tool that needs their account
-  - If you want enterprise users to connect through their organization's SSO without a consent screen, see [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth)
-</Note>
+> [!NOTE]
+>
+> * If some of your tools work without the user's account, see [Lazy authentication](/docs/connectors/building/lazy-authentication) to let people use those right away and sign in only when Claude reaches a tool that needs their account
+> * If you want enterprise users to connect through their organization's SSO without a consent screen, see [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth)
 
 Use this page to [pick an authentication type](#supported-authentication-types), [register Claude as an OAuth client](#register-claude-as-an-oauth-client), [make discovery and redirects work](#oauth-discovery-and-redirect-uris), and [meet the token endpoint requirements](#token-endpoint-requirements).
 
@@ -157,15 +157,15 @@ The `401` status is required, because Claude doesn't honor a `WWW-Authenticate` 
 
 If your `401` doesn't include a `resource_metadata` pointer, Claude can still infer the metadata location by probing your MCP server's origin: `/.well-known/oauth-protected-resource/<your-mcp-path>` first, then `/.well-known/oauth-protected-resource`. Treat this as a fallback, because it works only when your platform serves `/.well-known/*` paths.
 
-<Note>
-  If your authorization server is Microsoft Entra ID, you must also register the MCP server URL as an Application ID URI on your Entra app registration, or the token request fails with `AADSTS9010010`. By default, Entra accepts that URL as an Application ID URI only when it's on a domain your tenant has verified, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions), so an MCP server on a platform hostname such as `*.azurewebsites.net` needs a custom domain first. See [the troubleshooting entry](/docs/connectors/building/troubleshooting#microsoft-entra-id-rejects-the-resource-value) for the fix.
-</Note>
+> [!NOTE]
+>
+> If your authorization server is Microsoft Entra ID, you must also register the MCP server URL as an Application ID URI on your Entra app registration, or the token request fails with `AADSTS9010010`. By default, Entra accepts that URL as an Application ID URI only when it's on a domain your tenant has verified, as described in [Microsoft's identifier URI restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/identifier-uri-restrictions), so an MCP server on a platform hostname such as `*.azurewebsites.net` needs a custom domain first. See [the troubleshooting entry](/docs/connectors/building/troubleshooting#microsoft-entra-id-rejects-the-resource-value) for the fix.
 
 If you control both hosts, an alternative is to serve the MCP endpoint and the authorization server behind a single custom domain that can route both `/.well-known/*` and your MCP path.
 
-<Tip>
-  A common symptom of a discovery failure is that your MCP server receives the initial request but your authorization server sees no traffic at all. That happens when neither path works: there's no `WWW-Authenticate: Bearer resource_metadata=…` header on your `401`, and the well-known paths on your MCP server's origin return `404`. With no metadata to read, Claude never learns where your authorization server is, and the connection fails with "Couldn't reach the MCP server." See [troubleshooting](/docs/connectors/building/troubleshooting) for the full diagnostic flow.
-</Tip>
+> [!TIP]
+>
+> A common symptom of a discovery failure is that your MCP server receives the initial request but your authorization server sees no traffic at all. That happens when neither path works: there's no `WWW-Authenticate: Bearer resource_metadata=…` header on your `401`, and the well-known paths on your MCP server's origin return `404`. With no metadata to read, Claude never learns where your authorization server is, and the connection fails with "Couldn't reach the MCP server." See [troubleshooting](/docs/connectors/building/troubleshooting) for the full diagnostic flow.
 
 ### Callback URLs
 

@@ -10,27 +10,25 @@ The Gmail connector lets Claude search your email and answer questions from what
 
 By the end of this page you have connected your Google account and asked Claude a first question about your email. Claude reads and searches email only; it can't create, send, or modify messages.
 
-<Note>
-  If your organization uses Outlook, see [Microsoft 365](/docs/connectors/microsoft/365) instead.
-</Note>
+> [!NOTE]
+>
+> If your organization uses Outlook, see [Microsoft 365](/docs/connectors/microsoft/365) instead.
 
 ## Connect Gmail
 
 You connect Gmail once from your connector settings, and Claude can then search your email in any conversation where you turn the connector on.
 
-<Steps>
-  <Step title="Open your connectors">
-    Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) in claude.ai. **Customize** is the page that holds your connectors, skills, and plugins.
-  </Step>
+**1. Open your connectors**
 
-  <Step title="Connect Gmail">
-    Find **Gmail** in the list and select **Connect**.
-  </Step>
+Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) in claude.ai. **Customize** is the page that holds your connectors, skills, and plugins.
 
-  <Step title="Sign in to Google">
-    Sign in to your Google account and grant the requested permissions.
-  </Step>
-</Steps>
+**2. Connect Gmail**
+
+Find **Gmail** in the list and select **Connect**.
+
+**3. Sign in to Google**
+
+Sign in to your Google account and grant the requested permissions.
 
 When the connection succeeds, the **Connect** button on the Gmail connector changes to **Disconnect**.
 

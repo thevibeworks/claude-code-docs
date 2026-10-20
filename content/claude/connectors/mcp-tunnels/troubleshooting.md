@@ -6,23 +6,21 @@
 
 > Fix MCP tunnel problems: cloudflared won't connect, tools don't appear, routing and IP validation errors, TLS and certificate failures, and OAuth errors.
 
-<Note>
-  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team.
-</Note>
+> [!NOTE]
+>
+> MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team.
 
 A request through an [MCP tunnel](/docs/connectors/mcp-tunnels/overview) can fail at three points, and it helps to check them in order. First the outbound connection from cloudflared to the tunnel edge, then the inner TLS handshake between Anthropic and your proxy, then the proxy's routing to your MCP server. The cloudflared and proxy logs on your side show which point a request reached. If the proxy logs nothing at all for a request, it never arrived in your network.
 
-<CodeGroup>
-  ```bash Helm theme={null}
-  kubectl -n mcp-tunnel logs deploy/mcp-tunnel -c cloudflared
-  kubectl -n mcp-tunnel logs deploy/mcp-tunnel -c mcp-proxy
-  ```
+```bash Helm theme={null}
+kubectl -n mcp-tunnel logs deploy/mcp-tunnel -c cloudflared
+kubectl -n mcp-tunnel logs deploy/mcp-tunnel -c mcp-proxy
+```
 
-  ```bash Docker Compose theme={null}
-  docker compose logs cloudflared
-  docker compose logs mcp-proxy
-  ```
-</CodeGroup>
+```bash Docker Compose theme={null}
+docker compose logs cloudflared
+docker compose logs mcp-proxy
+```
 
 For proxy configuration fields and certificate rules referenced below, see the [MCP tunnels reference](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/reference). The [platform troubleshooting guide](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/troubleshooting) covers the same stack and applies to claude.ai tunnels as well, apart from its Console-specific steps.
 
@@ -86,9 +84,9 @@ upstream:
     - 100.64.12.0/22   # example: a cluster Service range outside RFC 1918
 ```
 
-<Warning>
-  Don't set `0.0.0.0/0` or `disable_ip_validation` outside of isolated testing. IP validation is the proxy's protection against server-side request forgery.
-</Warning>
+> [!WARNING]
+>
+> Don't set `0.0.0.0/0` or `disable_ip_validation` outside of isolated testing. IP validation is the proxy's protection against server-side request forgery.
 
 ### Proxy exits with `cannot unmarshal !!seq into map[string]string`
 
@@ -108,23 +106,21 @@ Anthropic rejected the certificate the proxy presented. Check that the server ce
 
 Work through these checks in order.
 
-<Steps>
-  <Step title="Confirm the stack is connected">
-    Confirm the stack is connected, using the log checks in [Verify the connection](/docs/connectors/mcp-tunnels/setup#verify-the-connection).
-  </Step>
+**1. Confirm the stack is connected**
 
-  <Step title="Confirm the tunnel's organization">
-    Confirm the tunnel was created with a Tunnels API key from the same claude.ai organization where you are adding the connector. A tunnel created from another organization, including a Claude Console organization, is refused before any traffic reaches your network, and your proxy logs show nothing.
-  </Step>
+Confirm the stack is connected, using the log checks in [Verify the connection](/docs/connectors/mcp-tunnels/setup#verify-the-connection).
 
-  <Step title="Confirm the connector URL's path">
-    Confirm the connector URL includes the path your MCP server serves, such as `/mcp`. A request to the bare hostname reaches the proxy but the server may answer `404`.
-  </Step>
+**2. Confirm the tunnel's organization**
 
-  <Step title="Watch the proxy logs">
-    Watch the proxy logs while you retry. `no route for host` and `IP validation failed` point to the sections above. An upstream connection error means the proxy can't reach the MCP server from where it runs.
-  </Step>
-</Steps>
+Confirm the tunnel was created with a Tunnels API key from the same claude.ai organization where you are adding the connector. A tunnel created from another organization, including a Claude Console organization, is refused before any traffic reaches your network, and your proxy logs show nothing.
+
+**3. Confirm the connector URL's path**
+
+Confirm the connector URL includes the path your MCP server serves, such as `/mcp`. A request to the bare hostname reaches the proxy but the server may answer `404`.
+
+**4. Watch the proxy logs**
+
+Watch the proxy logs while you retry. `no route for host` and `IP validation failed` point to the sections above. An upstream connection error means the proxy can't reach the MCP server from where it runs.
 
 ## OAuth sign-in
 

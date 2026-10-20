@@ -24,9 +24,7 @@ Use the `managedMcpServers` configuration key to deploy MCP servers (remote HTTP
 
 The **Connectors** section of the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) provides a form for each server: name, per-tool policy, headers or a headers helper script, transport, and URL.
 
-<Frame caption="A managed MCP server in the Connectors section of the in-app configuration window.">
-  <img src="https://mintcdn.com/claude-ai/JnLDSb03Rtghdgpj/images/third-party/config-window-managed-mcp.png?fit=max&auto=format&n=JnLDSb03Rtghdgpj&q=85&s=294cce4e42a951fc5479c36676c3b3b5" alt="In-app configuration window showing a managed MCP server named sentry, with fields for name, tool policy, headers, headers helper script, Streamable HTTP transport, and URL." width="1794" height="1432" data-path="images/third-party/config-window-managed-mcp.png" />
-</Frame>
+![In-app configuration window showing a managed MCP server named sentry, with fields for name, tool policy, headers, headers helper script, Streamable HTTP transport, and URL.](https://mintcdn.com/claude-ai/JnLDSb03Rtghdgpj/images/third-party/config-window-managed-mcp.png?fit=max\&auto=format\&n=JnLDSb03Rtghdgpj\&q=85\&s=294cce4e42a951fc5479c36676c3b3b5)
 
 In the exported configuration, each server is one entry in the `managedMcpServers` array:
 
@@ -49,9 +47,9 @@ In the exported configuration, each server is one entry in the `managedMcpServer
 ]
 ```
 
-<Note>
-  Every entry other than a [built-in server](/docs/third-party/claude-desktop/built-in-connectors) needs a `transport`. Claude Desktop doesn't read `type`, the field name that a plugin's `.mcp.json` file uses. It drops an entry that has no `transport` and reports a configuration error.
-</Note>
+> [!NOTE]
+>
+> Every entry other than a [built-in server](/docs/third-party/claude-desktop/built-in-connectors) needs a `transport`. Claude Desktop doesn't read `type`, the field name that a plugin's `.mcp.json` file uses. It drops an entry that has no `transport` and reports a configuration error.
 
 See the [`managedMcpServers` schema](/docs/third-party/claude-desktop/configuration#managedmcpservers) in the configuration reference for every field, including static headers, OAuth, and the headers-helper executable for short-lived tokens.
 
@@ -109,37 +107,35 @@ The helper follows the [`inferenceCredentialHelper`](/docs/third-party/claude-de
 
 While the connection is open, the TTL schedule triggers renewal, and a request that the server rejects with HTTP 401 or 403 also re-runs the helper and, when it returns new headers, is retried once with them (Claude Desktop 1.46388.1 or later). A failed helper run does not interrupt the connection; Claude Desktop keeps the current headers and retries on its schedule. A failure while the server is connecting shows the server as needing authentication.
 
-<Note>
-  Mid-session renewal requires Claude Desktop 1.21459.0 or later. Earlier versions run the helper only when the server connects.
-</Note>
+> [!NOTE]
+>
+> Mid-session renewal requires Claude Desktop 1.21459.0 or later. Earlier versions run the helper only when the server connects.
 
 ### Supported MCP servers
 
 Any MCP server reachable from the user's device over HTTPS works with Claude Desktop on 3P, including public servers from third parties and internal servers you build and host (including on internal gateways).
 
-<Note>
-  Claude Desktop does not present a TLS client certificate when connecting to MCP servers, so a server that requires mutual TLS (mTLS) client-certificate authentication fails to connect. Terminate the client-certificate requirement before the MCP endpoint (for example, at a gateway or reverse proxy), and authenticate the connection with headers or OAuth instead.
-</Note>
+> [!NOTE]
+>
+> Claude Desktop does not present a TLS client certificate when connecting to MCP servers, so a server that requires mutual TLS (mTLS) client-certificate authentication fails to connect. Terminate the client-certificate requirement before the MCP endpoint (for example, at a gateway or reverse proxy), and authenticate the connection with headers or OAuth instead.
 
 The [Claude connector directory](https://claude.com/connectors) is the canonical catalog of vetted servers. **Every connector in the directory that is not labeled "Made by Anthropic" is accessible in Claude Desktop on 3P** and can be deployed via `managedMcpServers` or installed by users. Connectors labeled "Made by Anthropic" are hosted on Anthropic infrastructure and are available only in standard Claude Desktop.
 
-<Note>
-  Some connectors return [MCP Apps](/docs/connectors/building/mcp-apps/getting-started), interactive widgets that Claude Desktop renders in place of a plain-text tool result. Each widget loads in a sandboxed iframe on `*.claudemcpcontent.com`, and setting [`disableNonessentialServices`](/docs/third-party/claude-desktop/configuration#disablenonessentialservices) to `true` blocks that origin, so Claude Desktop shows the connector's text result instead of the widget. The same key also blocks artifact previews and connector favicons. To keep MCP Apps rendering, leave `disableNonessentialServices` unset or `false`, and allow the widget hosts listed under [Required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths) at your perimeter firewall.
-</Note>
+> [!NOTE]
+>
+> Some connectors return [MCP Apps](/docs/connectors/building/mcp-apps/getting-started), interactive widgets that Claude Desktop renders in place of a plain-text tool result. Each widget loads in a sandboxed iframe on `*.claudemcpcontent.com`, and setting [`disableNonessentialServices`](/docs/third-party/claude-desktop/configuration#disablenonessentialservices) to `true` blocks that origin, so Claude Desktop shows the connector's text result instead of the widget. The same key also blocks artifact previews and connector favicons. To keep MCP Apps rendering, leave `disableNonessentialServices` unset or `false`, and allow the widget hosts listed under [Required egress paths](/docs/third-party/claude-desktop/telemetry#required-egress-paths) at your perimeter firewall.
 
 ### Productivity suites
 
 Google Workspace and Microsoft 365 each have a dedicated setup path:
 
-<Columns cols={2}>
-  <Card title="Google Workspace" icon="google" href="https://developers.google.com/workspace/guides/configure-mcp-servers">
-    Gmail, Calendar, Drive, Docs, and more via Google's own Workspace MCP servers. See [Google's setup guide](https://developers.google.com/workspace/guides/configure-mcp-servers) to get started.
-  </Card>
+> **[Google Workspace](https://developers.google.com/workspace/guides/configure-mcp-servers)**
+>
+> Gmail, Calendar, Drive, Docs, and more via Google's own Workspace MCP servers. See [Google's setup guide](https://developers.google.com/workspace/guides/configure-mcp-servers) to get started.
 
-  <Card title="Microsoft 365" icon="microsoft" href="/docs/third-party/claude-desktop/connectors-m365">
-    Outlook, OneDrive, SharePoint, and Teams. Requires registering an app in your Entra tenant. The remote connector also needs an Anthropic allowlist step.
-  </Card>
-</Columns>
+> **[Microsoft 365](/docs/third-party/claude-desktop/connectors-m365)**
+>
+> Outlook, OneDrive, SharePoint, and Teams. Requires registering an app in your Entra tenant. The remote connector also needs an Anthropic allowlist step.
 
 ## Plugin marketplaces (admin)
 
@@ -203,9 +199,7 @@ If any archive in a fetch fails to download or fails its digest check, Claude De
 
 You can add marketplaces directly in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration): in the **Plugins** section, click **Add marketplace** and choose **Blank**, **GitHub repo**, **Git URL**, or **Marketplace URL**. The form validates the entry and exports the encoded JSON for you.
 
-<Frame caption="The Plugins section of the in-app configuration window, with the Add marketplace menu and the organization plugins folder.">
-  <img src="https://mintcdn.com/claude-ai/JnLDSb03Rtghdgpj/images/third-party/config-window-plugin-marketplaces.png?fit=max&auto=format&n=JnLDSb03Rtghdgpj&q=85&s=a9bdd6d5bdbf22716340aedf1cc2d16b" alt="In-app configuration window Plugins section showing the plugin marketplaces card with an open Add marketplace menu offering Blank, GitHub repo, and Git URL, above the organization plugins folder path with two loaded plugins." width="1792" height="1238" data-path="images/third-party/config-window-plugin-marketplaces.png" />
-</Frame>
+![In-app configuration window Plugins section showing the plugin marketplaces card with an open Add marketplace menu offering Blank, GitHub repo, and Git URL, above the organization plugins folder path with two loaded plugins.](https://mintcdn.com/claude-ai/JnLDSb03Rtghdgpj/images/third-party/config-window-plugin-marketplaces.png?fit=max\&auto=format\&n=JnLDSb03Rtghdgpj\&q=85\&s=a9bdd6d5bdbf22716340aedf1cc2d16b)
 
 To write the configuration yourself instead, add the repository to the [`allowedPluginMarketplaces`](/docs/third-party/claude-desktop/configuration#allowedpluginmarketplaces) configuration key. The key is read from an MDM profile, local configuration, or the [bootstrap server](/docs/third-party/claude-desktop/bootstrap) response. In an MDM profile the value is a JSON array encoded as a string (see [Value types](/docs/third-party/claude-desktop/configuration#value-types)). In a local configuration file or the bootstrap response the value is a native JSON array.
 
@@ -243,9 +237,9 @@ You can configure multiple marketplaces, and each appears as its own sub-tab und
 | `"auto_install"` | Every plugin is installed automatically the first time the pinned `ref` is seen. Users can uninstall individual plugins; when you later change the `ref`, each plugin is installed again at the new revision. |
 | `"required"` | Every plugin is installed automatically and re-asserted on every sync. Users cannot uninstall or disable required plugins. |
 
-<Warning>
-  `"auto_install"` and `"required"` marketplaces must carry an admin-side content pin so the exact plugin content deployed to every device is deterministic and auditable. Git sources must set `ref` to a full 40-character commit SHA; Claude Desktop refuses to auto-install from a branch or tag name. `url` sources must set `manifestSha256` to the SHA-256 of the exact `marketplace.json` bytes and give every archive a `sha256`; Claude Desktop refuses a served manifest with a different digest and skips unpinned archives.
-</Warning>
+> [!WARNING]
+>
+> `"auto_install"` and `"required"` marketplaces must carry an admin-side content pin so the exact plugin content deployed to every device is deterministic and auditable. Git sources must set `ref` to a full 40-character commit SHA; Claude Desktop refuses to auto-install from a branch or tag name. `url` sources must set `manifestSha256` to the SHA-256 of the exact `marketplace.json` bytes and give every archive a `sha256`; Claude Desktop refuses a served manifest with a different digest and skips unpinned archives.
 
 #### Per-plugin auto-install from a trusted origin
 
@@ -292,9 +286,9 @@ For a git marketplace, commit the change to the repository, update the `ref` in 
 
 ## Organization plugins (admin)
 
-<Tip>
-  For most deployments, distribute organization plugins via a [plugin marketplace](#plugin-marketplaces-admin) instead. Marketplaces let you manage plugin content in git or on any HTTPS file host and roll out updates by changing a single configuration value, rather than pushing files to every device. Use the directory path below when end-user devices cannot reach a git server or an HTTPS file host.
-</Tip>
+> [!TIP]
+>
+> For most deployments, distribute organization plugins via a [plugin marketplace](#plugin-marketplaces-admin) instead. Marketplaces let you manage plugin content in git or on any HTTPS file host and roll out updates by changing a single configuration value, rather than pushing files to every device. Use the directory path below when end-user devices cannot reach a git server or an HTTPS file host.
 
 [Plugins](/docs/plugins/overview) bundle MCP connectors, skills, slash commands, hooks, and sub-agents into a single directory. On this path, admins distribute plugins by placing them in a system-wide directory on each device, typically via the same MDM or software-distribution channel used for the app itself. Plugins distributed this way are available in Cowork sessions and Chat conversations. Code sessions do not load their skills, commands, sub-agents, or hooks, so a plugin that must reach Code sessions has to be distributed through a [plugin marketplace](#plugin-marketplaces-admin) instead.
 
@@ -337,19 +331,19 @@ org-plugins/
 | `skills/` | [Skill](/docs/skills/overview) directories. |
 | `hooks/` | Hook definitions that run on agent lifecycle events. See [Plugin hooks](#plugin-hooks) for where they run. |
 
-<Note>
-  Each entry in `org-plugins/` must carry a valid manifest: a `.claude-plugin/plugin.json`, or a top-level `SKILL.md` whose frontmatter declares `agents` or `mcpServers` (a skill folder that also acts as a plugin). A plain skill folder does not qualify on its own. To distribute a single skill, place it under `skills/<name>/SKILL.md` in a plugin that has a `plugin.json`. A directory with no valid manifest is not loaded and never appears in the user's plugin browser. The diagnostic report's plugin section shows the rejected entry and why. To distribute an MCP connector, declare it in a plugin's `.mcp.json` or use [`managedMcpServers`](#managed-mcp-servers-admin).
-</Note>
+> [!NOTE]
+>
+> Each entry in `org-plugins/` must carry a valid manifest: a `.claude-plugin/plugin.json`, or a top-level `SKILL.md` whose frontmatter declares `agents` or `mcpServers` (a skill folder that also acts as a plugin). A plain skill folder does not qualify on its own. To distribute a single skill, place it under `skills/<name>/SKILL.md` in a plugin that has a `plugin.json`. A directory with no valid manifest is not loaded and never appears in the user's plugin browser. The diagnostic report's plugin section shows the rejected entry and why. To distribute an MCP connector, declare it in a plugin's `.mcp.json` or use [`managedMcpServers`](#managed-mcp-servers-admin).
 
 See the [plugins reference](https://code.claude.com/docs/en/plugins) for the full file format of each component, including the hooks schema.
 
-<Note>
-  Symlinks inside a plugin are followed as long as the target resolves to a path inside the plugin directory. Symlinks that point outside the plugin (for example, `skills/foo/SKILL.md → /etc/hosts`) are skipped. A symlinked top-level plugin directory (for example, `org-plugins/my-plugin → /opt/shared/my-plugin`) is also followed.
-</Note>
+> [!NOTE]
+>
+> Symlinks inside a plugin are followed as long as the target resolves to a path inside the plugin directory. Symlinks that point outside the plugin (for example, `skills/foo/SKILL.md → /etc/hosts`) are skipped. A symlinked top-level plugin directory (for example, `org-plugins/my-plugin → /opt/shared/my-plugin`) is also followed.
 
-<Note>
-  MCP servers declared in a plugin's `.mcp.json` don't carry a `toolPolicy` field in the plugin file itself. To lock tools on a plugin-delivered server, set [`orgPluginSettings`](/docs/third-party/claude-desktop/configuration#orgpluginsettings) in managed configuration, keyed on the server's `name`, or add a [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) entry with `"transport": "policy-only"`, the server's `name`, and a `toolPolicy`. A `policy-only` entry connects to nothing. It only applies the permissions, and it takes precedence over `orgPluginSettings` for that server. A regular `managedMcpServers` entry that matches a plugin's server by URL or name governs that server the same way.
-</Note>
+> [!NOTE]
+>
+> MCP servers declared in a plugin's `.mcp.json` don't carry a `toolPolicy` field in the plugin file itself. To lock tools on a plugin-delivered server, set [`orgPluginSettings`](/docs/third-party/claude-desktop/configuration#orgpluginsettings) in managed configuration, keyed on the server's `name`, or add a [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) entry with `"transport": "policy-only"`, the server's `name`, and a `toolPolicy`. A `policy-only` entry connects to nothing. It only applies the permissions, and it takes precedence over `orgPluginSettings` for that server. A regular `managedMcpServers` entry that matches a plugin's server by URL or name governs that server the same way.
 
 ### Auto-installing organization plugins
 
@@ -444,20 +438,18 @@ Setting [`userPluginMarketplacesEnabled`](/docs/third-party/claude-desktop/confi
 
 ## Related topics
 
-<Columns cols={2}>
-  <Card title="Code" icon="code" href="/docs/third-party/claude-desktop/code">
-    How extensions and managed settings reach the embedded Claude Code engine.
-  </Card>
+> **[Code](/docs/third-party/claude-desktop/code)**
+>
+> How extensions and managed settings reach the embedded Claude Code engine.
 
-  <Card title="MCP in Claude Code" icon="terminal" href="https://code.claude.com/docs/en/mcp">
-    Configure MCP servers for the standalone Claude Code CLI.
-  </Card>
+> **[MCP in Claude Code](https://code.claude.com/docs/en/mcp)**
+>
+> Configure MCP servers for the standalone Claude Code CLI.
 
-  <Card title="Claude Code plugins" icon="terminal" href="https://code.claude.com/docs/en/plugins">
-    Plugin structure, marketplaces, and management for Claude Code.
-  </Card>
+> **[Claude Code plugins](https://code.claude.com/docs/en/plugins)**
+>
+> Plugin structure, marketplaces, and management for Claude Code.
 
-  <Card title="Managed MCP in Claude Code" icon="terminal" href="https://code.claude.com/docs/en/managed-mcp">
-    Restrict which MCP servers Claude Code users can add.
-  </Card>
-</Columns>
+> **[Managed MCP in Claude Code](https://code.claude.com/docs/en/managed-mcp)**
+>
+> Restrict which MCP servers Claude Code users can add.

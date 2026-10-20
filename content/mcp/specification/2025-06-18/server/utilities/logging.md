@@ -4,8 +4,6 @@
 
 # Logging
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) provides a standardized way for servers to send
 structured log messages to clients. Clients can control logging verbosity by setting
 minimum log levels, with servers sending notifications containing severity levels,

@@ -6,9 +6,9 @@
 
 > Create a Slack channel for you and Claude Tag alone and run your work from it. See scratch questions, digests of channels you don't follow, a weekly status digest, follow-ups chased until they close, and a handoff that covers your time away.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 A channel with just you and Claude in it works the same way any other channel does. This page is for anyone who wants a place for work that doesn't belong in any specific team's channel, like half-formed questions, personal digests, and the things you said you'd do.
 
@@ -112,12 +112,10 @@ The reply is one list of everything that happened here while you were away, orde
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    List, edit, or disable the standing work this page sets up
-  </Card>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> List, edit, or disable the standing work this page sets up
 
-  <Card title="Good habits" href="/docs/claude-tag/users/good-habits" horizontal arrow>
-    Pick the right surface and write tasks that close
-  </Card>
-</CardGroup>
+> **[Good habits](/docs/claude-tag/users/good-habits)**
+>
+> Pick the right surface and write tasks that close

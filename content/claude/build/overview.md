@@ -17,34 +17,32 @@ When the plugin is ready, you can [submit it](/docs/directory/publish) to Anthro
 
 ## Choose a starting page
 
-<CardGroup cols={2}>
-  <Card title="Build a plugin" icon="box" href="/docs/plugins/build" arrow>
-    Lay out the plugin folder and manifest, write the skills, reference your MCP server, and test the plugin in Claude.
-  </Card>
+> **[Build a plugin](/docs/plugins/build)**
+>
+> Lay out the plugin folder and manifest, write the skills, reference your MCP server, and test the plugin in Claude.
 
-  <Card title="Write skills" icon="book-open" href="/docs/skills/how-to" arrow>
-    Teach Claude your workflows: the SKILL.md frontmatter, the instructions, reference files, and scripts.
-  </Card>
+> **[Write skills](/docs/skills/how-to)**
+>
+> Teach Claude your workflows: the SKILL.md frontmatter, the instructions, reference files, and scripts.
 
-  <Card title="Build an MCP server" icon="server" href="/docs/connectors/building/index" arrow>
-    Give the plugin access to your product or data: implement the server, set up authentication for Claude's clients, and test it.
-  </Card>
+> **[Build an MCP server](/docs/connectors/building/index)**
+>
+> Give the plugin access to your product or data: implement the server, set up authentication for Claude's clients, and test it.
 
-  <Card title="Add interactive UI" icon="window" href="/docs/connectors/building/mcp-apps/getting-started" arrow>
-    Have your MCP server show interactive components in the conversation with MCP Apps. Optional.
-  </Card>
-</CardGroup>
+> **[Add interactive UI](/docs/connectors/building/mcp-apps/getting-started)**
+>
+> Have your MCP server show interactive components in the conversation with MCP Apps. Optional.
 
-<Card title="Submit your plugin or MCP server" icon="store" href="/docs/directory/publish" horizontal arrow>
-  List it in Anthropic's directory so anyone can add it: who can submit, what review involves, and the developer portal steps. Submit your MCP server as a connector too, even when your plugin references it.
-</Card>
+> **[Submit your plugin or MCP server](/docs/directory/publish)**
+>
+> List it in Anthropic's directory so anyone can add it: who can submit, what review involves, and the developer portal steps. Submit your MCP server as a connector too, even when your plugin references it.
 
-<Note>
-  * If you want to connect a tool or install a plugin for yourself, see the [Customize Claude](/docs/extend/overview) tab
-  * If you're not sure whether your plugin needs an MCP server at all, see [Decide what to include in your plugin](/docs/connectors/building/what-to-build)
-  * If you're distributing only inside your organization, see [Roll out a plugin to your whole organization](/docs/plugins/org-rollout)
-  * If you're building only for Claude Code's terminal and IDE users, see the [Claude Code plugin docs](https://code.claude.com/docs/en/plugins/create), which cover what that surface alone supports
-</Note>
+> [!NOTE]
+>
+> * If you want to connect a tool or install a plugin for yourself, see the [Customize Claude](/docs/extend/overview) tab
+> * If you're not sure whether your plugin needs an MCP server at all, see [Decide what to include in your plugin](/docs/connectors/building/what-to-build)
+> * If you're distributing only inside your organization, see [Roll out a plugin to your whole organization](/docs/plugins/org-rollout)
+> * If you're building only for Claude Code's terminal and IDE users, see the [Claude Code plugin docs](https://code.claude.com/docs/en/plugins/create), which cover what that surface alone supports
 
 ## Steps to build and publish a plugin
 

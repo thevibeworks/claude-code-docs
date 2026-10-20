@@ -10,9 +10,9 @@ Claude retrieves open-access full text without credentials. To reach paywalled t
 
 To add a key or proxy, open the account menu (the gear icon at the bottom of the sidebar inside a project, or the account icon at the top right of the home screen), choose **Settings**, and select **Credentials**. Then choose **Literature access (journals, etc.)** in the **Services** list.
 
-<Note>
-  These panels live in the Claude Science app's own **Settings**, separate from your claude.ai account and organization settings. If you've added custom credentials, the **Services** list appears below your **Custom** credentials.
-</Note>
+> [!NOTE]
+>
+> These panels live in the Claude Science app's own **Settings**, separate from your claude.ai account and organization settings. If you've added custom credentials, the **Services** list appears below your **Custom** credentials.
 
 Given a DOI or title, Claude tries in order: an open-access copy (Unpaywall, Semantic Scholar, PubMed Central), CrossRef full-text links, publisher routes you hold keys for, your library proxy, then the publisher page. Retrieved files (PDF, XML, or text) are saved into the session.
 

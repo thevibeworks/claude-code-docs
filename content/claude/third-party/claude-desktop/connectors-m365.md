@@ -6,9 +6,9 @@
 
 > Give Claude access to your organization's Outlook, OneDrive, SharePoint, and Teams data through a connector you register in your own Microsoft Entra tenant.
 
-<Info>
-  The remote connector is hosted by Anthropic. Data in transit passes through Anthropic's infrastructure, which is based in the United States. Anthropic does not collect or store any data that transits through the server. To keep all Microsoft 365 traffic between the user's device and Microsoft instead, use the [local connector](#local-connector).
-</Info>
+> [!NOTE]
+>
+> The remote connector is hosted by Anthropic. Data in transit passes through Anthropic's infrastructure, which is based in the United States. Anthropic does not collect or store any data that transits through the server. To keep all Microsoft 365 traffic between the user's device and Microsoft instead, use the [local connector](#local-connector).
 
 When Claude Desktop is deployed on third-party inference, Claude can read your organization's Microsoft 365 data (Outlook mail and calendar, OneDrive, SharePoint, and Teams) through a connector registered in your own Microsoft Entra tenant. Two connectors are available: a [remote connector](#remote-connector) hosted by Anthropic, and a [local connector](#local-connector) built into the desktop app.
 
@@ -58,84 +58,82 @@ Claude Desktop signs in through your desktop client app, receives a token scoped
 
 The four steps below cover tenant consent, app registration, allowlisting, and desktop configuration.
 
-<Steps>
-  <Step title="Consent the Anthropic connector app into your tenant">
-    A tenant administrator must consent to Anthropic's multi-tenant connector app once for the organization. This creates a service principal in your tenant; no secret is exchanged.
+**1. Consent the Anthropic connector app into your tenant**
 
-    Open the following URL after replacing `YOUR_TENANT_ID` with the Directory (tenant) ID shown in **Entra admin center → Overview**.
+A tenant administrator must consent to Anthropic's multi-tenant connector app once for the organization. This creates a service principal in your tenant; no secret is exchanged.
 
-    ```text theme={null}
-    https://login.microsoftonline.com/YOUR_TENANT_ID/adminconsent?client_id=07c030f6-5743-41b7-ba00-0a6e85f37c17
-    ```
+Open the following URL after replacing `YOUR_TENANT_ID` with the Directory (tenant) ID shown in **Entra admin center → Overview**.
 
-    The consent screen lists the delegated Microsoft Graph permissions the connector requests. The read permissions include:
+```text theme={null}
+https://login.microsoftonline.com/YOUR_TENANT_ID/adminconsent?client_id=07c030f6-5743-41b7-ba00-0a6e85f37c17
+```
 
-    | Scope | Purpose |
-    | - | - |
-    | `User.Read` | Read the signed-in user's profile |
-    | `Mail.Read`, `Mail.Read.Shared` | Read mail in the user's and shared mailboxes |
-    | `Calendars.Read`, `Calendars.Read.Shared` | Read events in the user's and shared calendars |
-    | `Files.Read.All` | Read files the user can access in OneDrive and SharePoint |
-    | `Sites.Read.All` | Read SharePoint site content the user can access |
-    | `Chat.Read`, `ChatMessage.Read` | Read Teams chat messages the user can access |
-    | `offline_access` | Allow the desktop to refresh its token without re-prompting |
+The consent screen lists the delegated Microsoft Graph permissions the connector requests. The read permissions include:
 
-    The screen also lists the write permissions, such as `Mail.Send` and `Files.ReadWrite.All`. Accepting approves the whole list for every user in your tenant, which makes write actions available to every remote connector user. To keep the connector read-only or limit write actions to specific users, accept, then revoke the write scopes before you deploy the configuration in step 4. See [Control write actions on the remote connector](#control-write-actions-on-the-remote-connector).
+| Scope | Purpose |
+| - | - |
+| `User.Read` | Read the signed-in user's profile |
+| `Mail.Read`, `Mail.Read.Shared` | Read mail in the user's and shared mailboxes |
+| `Calendars.Read`, `Calendars.Read.Shared` | Read events in the user's and shared calendars |
+| `Files.Read.All` | Read files the user can access in OneDrive and SharePoint |
+| `Sites.Read.All` | Read SharePoint site content the user can access |
+| `Chat.Read`, `ChatMessage.Read` | Read Teams chat messages the user can access |
+| `offline_access` | Allow the desktop to refresh its token without re-prompting |
 
-    Review the permissions and select **Accept**.
+The screen also lists the write permissions, such as `Mail.Send` and `Files.ReadWrite.All`. Accepting approves the whole list for every user in your tenant, which makes write actions available to every remote connector user. To keep the connector read-only or limit write actions to specific users, accept, then revoke the write scopes before you deploy the configuration in step 4. See [Control write actions on the remote connector](#control-write-actions-on-the-remote-connector).
 
-    <Note>
-      FedRAMP and GovCloud deployments use a different connector app ID and a
-      different connector service hostname. Contact your Anthropic representative
-      for the app ID to use in this URL and in the scope string in step 4, and for
-      the connector URL to use in step 4.
-    </Note>
-  </Step>
+Review the permissions and select **Accept**.
 
-  <Step title="Register a desktop client app in your tenant">
-    Create the public client that Claude Desktop will sign in as.
+> [!NOTE]
+>
+> FedRAMP and GovCloud deployments use a different connector app ID and a
+> different connector service hostname. Contact your Anthropic representative
+> for the app ID to use in this URL and in the scope string in step 4, and for
+> the connector URL to use in step 4.
 
-    1. In **Entra admin center → App registrations → New registration**, set **Name** to `Claude Desktop` (or your preferred name), set **Supported account types** to *Accounts in this organizational directory only*, and add a **Redirect URI** of platform *Mobile and desktop applications* with the value `http://127.0.0.1/callback`.
-    2. Select **Register**, then note the **Application (client) ID** and **Directory (tenant) ID** shown on the overview page.
-    3. Under **API permissions → Add a permission → APIs my organization uses**, search for `Anthropic` (or paste the connector app ID from step 1), select **Delegated permissions → access\_as\_user**, then **Add permissions**.
-    4. Select **Grant admin consent for \{your organization}**.
+**2. Register a desktop client app in your tenant**
 
-    No client secret is needed; this is a public client that uses PKCE.
-  </Step>
+Create the public client that Claude Desktop will sign in as.
 
-  <Step title="Send Anthropic your IDs">
-    Anthropic maintains an allowlist of tenant and client IDs that may call the connector service. Email your Anthropic representative, or open a support ticket, with your Directory (tenant) ID and the Application (client) ID from step 2. Allowlisting is typically completed within two to three business days, as it requires a connector service deployment.
+1. In **Entra admin center → App registrations → New registration**, set **Name** to `Claude Desktop` (or your preferred name), set **Supported account types** to *Accounts in this organizational directory only*, and add a **Redirect URI** of platform *Mobile and desktop applications* with the value `http://127.0.0.1/callback`.
+2. Select **Register**, then note the **Application (client) ID** and **Directory (tenant) ID** shown on the overview page.
+3. Under **API permissions → Add a permission → APIs my organization uses**, search for `Anthropic` (or paste the connector app ID from step 1), select **Delegated permissions → access\_as\_user**, then **Add permissions**.
+4. Select **Grant admin consent for \{your organization}**.
 
-    Until the allowlist is updated, sign-in will succeed but the connector returns *Client application is not authorized for this resource*.
-  </Step>
+No client secret is needed; this is a public client that uses PKCE.
 
-  <Step title="Configure Claude Desktop">
-    In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server → Microsoft 365**, and enter the values below.
+**3. Send Anthropic your IDs**
 
-    | Field | Value |
-    | - | - |
-    | Client ID | The Application (client) ID from step 2 |
-    | Tenant ID | Your Directory (tenant) ID |
-    | Scope | `api://07c030f6-5743-41b7-ba00-0a6e85f37c17/access_as_user offline_access` |
+Anthropic maintains an allowlist of tenant and client IDs that may call the connector service. Email your Anthropic representative, or open a support ticket, with your Directory (tenant) ID and the Application (client) ID from step 2. Allowlisting is typically completed within two to three business days, as it requires a connector service deployment.
 
-    Select **Save**, then deploy the configuration through your device-management tool as usual.
+Until the allowlist is updated, sign-in will succeed but the connector returns *Client application is not authorized for this resource*.
 
-    If you manage configuration through JSON or a plist directly instead of the in-app configuration window, add the following entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers).
+**4. Configure Claude Desktop**
 
-    ```json theme={null}
-    {
-      "name": "m365",
-      "url": "https://microsoft365.mcp.claude.com/mcp",
-      "transport": "http",
-      "oauth": {
-        "clientId": "APPLICATION_CLIENT_ID_FROM_STEP_2",
-        "tenantId": "DIRECTORY_TENANT_ID",
-        "scope": "api://07c030f6-5743-41b7-ba00-0a6e85f37c17/access_as_user offline_access"
-      }
-    }
-    ```
-  </Step>
-</Steps>
+In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server → Microsoft 365**, and enter the values below.
+
+| Field | Value |
+| - | - |
+| Client ID | The Application (client) ID from step 2 |
+| Tenant ID | Your Directory (tenant) ID |
+| Scope | `api://07c030f6-5743-41b7-ba00-0a6e85f37c17/access_as_user offline_access` |
+
+Select **Save**, then deploy the configuration through your device-management tool as usual.
+
+If you manage configuration through JSON or a plist directly instead of the in-app configuration window, add the following entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers).
+
+```json theme={null}
+{
+  "name": "m365",
+  "url": "https://microsoft365.mcp.claude.com/mcp",
+  "transport": "http",
+  "oauth": {
+    "clientId": "APPLICATION_CLIENT_ID_FROM_STEP_2",
+    "tenantId": "DIRECTORY_TENANT_ID",
+    "scope": "api://07c030f6-5743-41b7-ba00-0a6e85f37c17/access_as_user offline_access"
+  }
+}
+```
 
 ### Sign in as a user
 
@@ -158,9 +156,9 @@ The write scopes are `Mail.Send`, `Mail.ReadWrite`, `MailboxSettings.ReadWrite`,
 
 These controls apply to the connector service at `microsoft365.mcp.claude.com`. For write actions on a FedRAMP or GovCloud deployment, contact your Anthropic representative.
 
-<Warning>
-  The Microsoft 365 connector in claude.ai uses the same connector app. When an administrator approves the write scopes for the whole tenant, for either product, write actions become available to every remote connector user in that tenant. Both the admin consent link in [Set up the remote connector](#set-up-the-remote-connector) and **Grant admin consent for \{your organization}** on the **M365 MCP Server for Claude** app's **Permissions** page approve every permission the connector requests, including the write scopes.
-</Warning>
+> [!WARNING]
+>
+> The Microsoft 365 connector in claude.ai uses the same connector app. When an administrator approves the write scopes for the whole tenant, for either product, write actions become available to every remote connector user in that tenant. Both the admin consent link in [Set up the remote connector](#set-up-the-remote-connector) and **Grant admin consent for \{your organization}** on the **M365 MCP Server for Claude** app's **Permissions** page approve every permission the connector requests, including the write scopes.
 
 Choose a control by who should have write actions:
 
@@ -254,68 +252,66 @@ Choose the local connector when your data-residency requirements do not allow Mi
 
 ### Set up the local connector
 
-<Steps>
-  <Step title="Register a public client app for local mode">
-    <Warning>
-      Do not reuse the desktop client app you registered for the remote connector. That app is consented only for the connector's own scope, so its tokens can reach nothing but the connector service. The local-mode app needs Microsoft Graph permissions directly, and adding those to the remote connector app's client ID would let any token minted for it read Microsoft 365 data directly, tenant-wide. Register a separate app dedicated to local mode.
-    </Warning>
+**1. Register a public client app for local mode**
 
-    1. In **Entra admin center → App registrations → New registration**, set **Name** to `Claude Desktop M365 Local` (or your preferred name) and set **Supported account types** to *Accounts in this organizational directory only*.
-    2. Under **Authentication**, open the **Redirect URI configuration** tab and select **Add redirect URI** (on older versions of the portal, select **+ Add a platform** instead). Choose the **Mobile and desktop applications** card (the Windows, UWP, and Console card, not the iOS / macOS card, which takes a bundle ID rather than a redirect URI). Leave the suggested redirect URIs unchecked, enter `http://localhost` in the **Custom redirect URIs** box, and select **Configure**. This is the standard loopback redirect for desktop apps: during browser sign-in, Microsoft Entra redirects to a listener on the device itself, so the response never leaves the machine. For brokered sign-in on managed devices, also add the per-platform broker redirect URI shown under [How users sign in](#how-users-sign-in). Add it to the same platform by selecting **Edit** on the **Mobile and desktop applications** section that appears on the Authentication page, rather than adding another platform, and select **Save** at the top when you finish (on older versions of the portal, add the broker URI via the **Add URI** row inside the platform section instead). After you save, Microsoft Entra may display the `msauth` URI under a separate **iOS / macOS** section. That placement is expected because both sections map to `publicClient.redirectUris` in the app's manifest.
-    3. Under **Authentication**, set **Allow public client flows** to **Yes**, and select **Save**. The control is on the **Settings** tab under **Web and SPA settings** (on older versions of the portal, under **Advanced settings**). Brokered sign-in on managed devices issues token requests without a redirect URI, so Microsoft Entra relies on this setting to classify the app as a public client. With it set to No, brokered silent token acquisition fails with `AADSTS7000218`. To prevent device-code phishing, apply a tenant Conditional Access policy that blocks the device-code authentication flow. Conditional Access policies target the resource a token is requested for rather than the requesting client, so scope the policy to All resources, not to this registration.
-    4. Under **API permissions → Add a permission → Microsoft Graph → Delegated permissions**, add the scopes the connector will request (the default set is listed under [Configure scopes](#configure-scopes)), then select **Grant admin consent for \{your organization}**.
-    5. Note the **Application (client) ID** and **Directory (tenant) ID** from the overview page.
-  </Step>
+> [!WARNING]
+>
+> Do not reuse the desktop client app you registered for the remote connector. That app is consented only for the connector's own scope, so its tokens can reach nothing but the connector service. The local-mode app needs Microsoft Graph permissions directly, and adding those to the remote connector app's client ID would let any token minted for it read Microsoft 365 data directly, tenant-wide. Register a separate app dedicated to local mode.
 
-  <Step title="Configure Claude Desktop">
-    In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **Microsoft 365** under the **Built-in** group. Enter the values below, then select **Test this connection** to verify that the server starts and lists its tools, and select **Save**.
+1. In **Entra admin center → App registrations → New registration**, set **Name** to `Claude Desktop M365 Local` (or your preferred name) and set **Supported account types** to *Accounts in this organizational directory only*.
+2. Under **Authentication**, open the **Redirect URI configuration** tab and select **Add redirect URI** (on older versions of the portal, select **+ Add a platform** instead). Choose the **Mobile and desktop applications** card (the Windows, UWP, and Console card, not the iOS / macOS card, which takes a bundle ID rather than a redirect URI). Leave the suggested redirect URIs unchecked, enter `http://localhost` in the **Custom redirect URIs** box, and select **Configure**. This is the standard loopback redirect for desktop apps: during browser sign-in, Microsoft Entra redirects to a listener on the device itself, so the response never leaves the machine. For brokered sign-in on managed devices, also add the per-platform broker redirect URI shown under [How users sign in](#how-users-sign-in). Add it to the same platform by selecting **Edit** on the **Mobile and desktop applications** section that appears on the Authentication page, rather than adding another platform, and select **Save** at the top when you finish (on older versions of the portal, add the broker URI via the **Add URI** row inside the platform section instead). After you save, Microsoft Entra may display the `msauth` URI under a separate **iOS / macOS** section. That placement is expected because both sections map to `publicClient.redirectUris` in the app's manifest.
+3. Under **Authentication**, set **Allow public client flows** to **Yes**, and select **Save**. The control is on the **Settings** tab under **Web and SPA settings** (on older versions of the portal, under **Advanced settings**). Brokered sign-in on managed devices issues token requests without a redirect URI, so Microsoft Entra relies on this setting to classify the app as a public client. With it set to No, brokered silent token acquisition fails with `AADSTS7000218`. To prevent device-code phishing, apply a tenant Conditional Access policy that blocks the device-code authentication flow. Conditional Access policies target the resource a token is requested for rather than the requesting client, so scope the policy to All resources, not to this registration.
+4. Under **API permissions → Add a permission → Microsoft Graph → Delegated permissions**, add the scopes the connector will request (the default set is listed under [Configure scopes](#configure-scopes)), then select **Grant admin consent for \{your organization}**.
+5. Note the **Application (client) ID** and **Directory (tenant) ID** from the overview page.
 
-    | Field | Value |
-    | - | - |
-    | Tenant ID | Your Directory (tenant) ID |
-    | Client ID | The Application (client) ID from step 1 |
-    | Azure cloud | `global` (default), `us-gov-high`, or `us-gov-dod` |
-    | Access | Leave empty for standard read access, or list scopes explicitly (see [Configure scopes](#configure-scopes)) |
+**2. Configure Claude Desktop**
 
-    If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `microsoft365`:
+In the Claude Desktop [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration), open **Connectors**, select **Add server**, and choose **Microsoft 365** under the **Built-in** group. Enter the values below, then select **Test this connection** to verify that the server starts and lists its tools, and select **Save**.
 
-    ```json theme={null}
-    {
-      "name": "Microsoft 365",
-      "server": "microsoft365",
-      "tenantId": "DIRECTORY_TENANT_ID",
-      "clientId": "APPLICATION_CLIENT_ID_FROM_STEP_1"
-    }
-    ```
+| Field | Value |
+| - | - |
+| Tenant ID | Your Directory (tenant) ID |
+| Client ID | The Application (client) ID from step 1 |
+| Azure cloud | `global` (default), `us-gov-high`, or `us-gov-dod` |
+| Access | Leave empty for standard read access, or list scopes explicitly (see [Configure scopes](#configure-scopes)) |
 
-    | Field | Required | Description |
-    | - | - | - |
-    | `name` | Yes | Unique display name, shown to users in connector settings. |
-    | `server` | Yes | Must be `microsoft365`. Built-in entries use this field instead of `url`, `transport`, or `command`; an entry that mixes `server` with those fields is rejected. |
-    | `clientId` | Yes | The Application (client) ID of the local-mode app from step 1. |
-    | `tenantId` | Yes | Your Directory (tenant) ID. |
-    | `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for US Government clouds. |
-    | `continuousAccessEvaluation` | No | `enabled` (default) or `disabled`. When enabled, the connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours and stop working within minutes after an administrator revokes the user's sessions or disables the account in Entra, and, where your tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is used from outside that network. `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts, and an already-issued token stays in use until it expires (select **Disconnect**, then **Connect**, to sign in again immediately). Requires Claude Desktop 1.49585.0 or later; earlier versions ignore the field and request standard one-hour tokens. |
-    | `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. The app rejects an entry that has a `scopes` array, so write the scopes as one string. See [Configure scopes](#configure-scopes). |
-    | `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers). |
+If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `microsoft365`:
 
-    The server ships inside the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.
-  </Step>
+```json theme={null}
+{
+  "name": "Microsoft 365",
+  "server": "microsoft365",
+  "tenantId": "DIRECTORY_TENANT_ID",
+  "clientId": "APPLICATION_CLIENT_ID_FROM_STEP_1"
+}
+```
 
-  <Step title="Allow the required network hosts for local mode">
-    The local connector calls Microsoft directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry#required-egress-paths), devices need outbound HTTPS access to:
+| Field | Required | Description |
+| - | - | - |
+| `name` | Yes | Unique display name, shown to users in connector settings. |
+| `server` | Yes | Must be `microsoft365`. Built-in entries use this field instead of `url`, `transport`, or `command`; an entry that mixes `server` with those fields is rejected. |
+| `clientId` | Yes | The Application (client) ID of the local-mode app from step 1. |
+| `tenantId` | Yes | Your Directory (tenant) ID. |
+| `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for US Government clouds. |
+| `continuousAccessEvaluation` | No | `enabled` (default) or `disabled`. When enabled, the connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours and stop working within minutes after an administrator revokes the user's sessions or disables the account in Entra, and, where your tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is used from outside that network. `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts, and an already-issued token stays in use until it expires (select **Disconnect**, then **Connect**, to sign in again immediately). Requires Claude Desktop 1.49585.0 or later; earlier versions ignore the field and request standard one-hour tokens. |
+| `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. The app rejects an entry that has a `scopes` array, so write the scopes as one string. See [Configure scopes](#configure-scopes). |
+| `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers). |
 
-    | Host | Purpose |
-    | - | - |
-    | `login.microsoftonline.com` | Microsoft Entra sign-in |
-    | `graph.microsoft.com` | Microsoft Graph data APIs |
-    | Your tenant's SharePoint and OneDrive hosts | Downloads of OneDrive and SharePoint files |
+The server ships inside the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.
 
-    To read Office documents, such as Word and PowerPoint files, the connector asks Microsoft Graph for a PDF version and follows the redirect Graph returns. Microsoft chooses the host in that redirect.
+**3. Allow the required network hosts for local mode**
 
-    US Government cloud deployments use `login.microsoftonline.us` and `graph.microsoft.us` (or `dod-graph.microsoft.us` for `us-gov-dod`) instead of `login.microsoftonline.com` and `graph.microsoft.com`, matching the `azureCloud` setting. GCC High (`us-gov-high`) support has been confirmed in customer deployments. No egress to any Anthropic host is needed for Microsoft 365 data with the local connector.
-  </Step>
-</Steps>
+The local connector calls Microsoft directly from the device, so in addition to the [base egress hosts](/docs/third-party/claude-desktop/telemetry#required-egress-paths), devices need outbound HTTPS access to:
+
+| Host | Purpose |
+| - | - |
+| `login.microsoftonline.com` | Microsoft Entra sign-in |
+| `graph.microsoft.com` | Microsoft Graph data APIs |
+| Your tenant's SharePoint and OneDrive hosts | Downloads of OneDrive and SharePoint files |
+
+To read Office documents, such as Word and PowerPoint files, the connector asks Microsoft Graph for a PDF version and follows the redirect Graph returns. Microsoft chooses the host in that redirect.
+
+US Government cloud deployments use `login.microsoftonline.us` and `graph.microsoft.us` (or `dod-graph.microsoft.us` for `us-gov-dod`) instead of `login.microsoftonline.com` and `graph.microsoft.com`, matching the `azureCloud` setting. GCC High (`us-gov-high`) support has been confirmed in customer deployments. No egress to any Anthropic host is needed for Microsoft 365 data with the local connector.
 
 ### Configure scopes
 
@@ -348,9 +344,9 @@ Grant admin consent for `ChannelMessage.Read.All` or `OnlineMeetingTranscript.Re
 
 The `scope` field accepts only scopes the connector can use. An entry containing an unrecognized scope name is rejected as a whole at configuration load, with an error in the app's main log listing the valid names, and the connector does not appear.
 
-<Note>
-  Narrowing or removing `scope` shrinks what the connector requests at the next sign-in, but it does not narrow tokens already obtainable for the registration: Microsoft Entra issues tokens carrying every scope previously consented for the app, regardless of what is requested. To revoke access, remove the consent in Entra under **Enterprise applications → your app → Permissions**.
-</Note>
+> [!NOTE]
+>
+> Narrowing or removing `scope` shrinks what the connector requests at the next sign-in, but it does not narrow tokens already obtainable for the registration: Microsoft Entra issues tokens carrying every scope previously consented for the app, regardless of what is requested. To revoke access, remove the consent in Entra under **Enterprise applications → your app → Permissions**.
 
 The connector provides these read and search tools:
 
@@ -400,42 +396,40 @@ The [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#micro
 
 Browser sign-in works on tenants without device-based Conditional Access policies. It satisfies device policies only when the browser itself carries the device identity: on Windows, a browser signed in with the work account on an Entra-joined device (such as Microsoft Edge) provides this; on macOS, deploy Microsoft's Enterprise SSO browser integration, or use brokered sign-in instead.
 
-<AccordionGroup>
-  <Accordion title="Requirements for brokered sign-in on Windows">
-    Brokered sign-in on Windows requires Claude Desktop version 1.13576.0 or later.
+> **Requirements for brokered sign-in on Windows**
+>
+> Brokered sign-in on Windows requires Claude Desktop version 1.13576.0 or later.
+>
+> * Windows 10 or later (desktop editions). The broker (Web Account Manager, or WAM) is built into Windows; no separate install is needed.
+> * The device is joined or registered to Entra ID (Entra joined, Entra hybrid joined, or Entra registered). For device-based Conditional Access, the device must also be marked compliant in Intune or hybrid-joined, as your policy requires.
+> * The broker redirect URI is registered on the local-mode app under **Mobile and desktop applications**, with `APPLICATION_CLIENT_ID` replaced by the Application (client) ID from step 1:
+>
+> ```text theme={null}
+> ms-appx-web://Microsoft.AAD.BrokerPlugin/APPLICATION_CLIENT_ID
+> ```
+>
+> If a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically and stays on the browser flow until Claude Desktop restarts. A user canceling the broker dialog does not trigger the fallback. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself carries the device identity (see above); fix the broker requirement that caused the fallback and restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event.
+>
+> A missing broker redirect URI does not trigger the fallback on Windows. The broker shows Entra error `AADSTS50011` in its own sign-in dialog, and closing that dialog counts as canceling, so every sign-in attempt ends at the same error until you register the URI above. To have users sign in through the browser instead of the broker, set [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `disabled` in the managed configuration. Tokens from browser sign-in carry no device identity claim unless the browser itself provides one (see above), so device-based Conditional Access policies block them.
+>
+> To have **Connect** sign in with the work account already signed in to Windows, without the account picker, set [`microsoftAuthDefaultAccount`](/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) to `enabled`. See the key's reference entry for the requirements and the cases where users still get the picker.
 
-    * Windows 10 or later (desktop editions). The broker (Web Account Manager, or WAM) is built into Windows; no separate install is needed.
-    * The device is joined or registered to Entra ID (Entra joined, Entra hybrid joined, or Entra registered). For device-based Conditional Access, the device must also be marked compliant in Intune or hybrid-joined, as your policy requires.
-    * The broker redirect URI is registered on the local-mode app under **Mobile and desktop applications**, with `APPLICATION_CLIENT_ID` replaced by the Application (client) ID from step 1:
-
-    ```text theme={null}
-    ms-appx-web://Microsoft.AAD.BrokerPlugin/APPLICATION_CLIENT_ID
-    ```
-
-    If a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically and stays on the browser flow until Claude Desktop restarts. A user canceling the broker dialog does not trigger the fallback. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself carries the device identity (see above); fix the broker requirement that caused the fallback and restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event.
-
-    A missing broker redirect URI does not trigger the fallback on Windows. The broker shows Entra error `AADSTS50011` in its own sign-in dialog, and closing that dialog counts as canceling, so every sign-in attempt ends at the same error until you register the URI above. To have users sign in through the browser instead of the broker, set [`microsoftAuthBroker`](/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `disabled` in the managed configuration. Tokens from browser sign-in carry no device identity claim unless the browser itself provides one (see above), so device-based Conditional Access policies block them.
-
-    To have **Connect** sign in with the work account already signed in to Windows, without the account picker, set [`microsoftAuthDefaultAccount`](/docs/third-party/claude-desktop/configuration#microsoftauthdefaultaccount) to `enabled`. See the key's reference entry for the requirements and the cases where users still get the picker.
-  </Accordion>
-
-  <Accordion title="Requirements for brokered sign-in on macOS">
-    Brokered sign-in on macOS requires Claude Desktop version 1.19367.0 or later.
-
-    * The Mac is enrolled in an MDM (Intune, Jamf, or similar), registered in Entra ID, and marked compliant. For non-Intune MDMs, use the partner device-compliance integration that reports compliance to Intune and Entra.
-    * **Intune Company Portal** is installed; it provides the broker.
-    * An **Extensible SSO** configuration profile of type **Redirect**, pointed at the Microsoft Enterprise SSO plug-in, is deployed through MDM. The broker is unavailable without it.
-    * The broker redirect URI is registered on the local-mode app under **Mobile and desktop applications** (it appears under the **iOS / macOS** section after saving):
-
-    ```text theme={null}
-    msauth.com.anthropic.claudefordesktop://auth
-    ```
-
-    If the app registration also lists `msauth.com.anthropic.claudefordesktop.helper://auth`, remove that entry. Claude Desktop does not use it.
-
-    If the broker rejects the app's sign-in request, or a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically and stays on the browser flow until Claude Desktop restarts. A user canceling the broker dialog does not trigger the fallback. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself is signed in through the device's SSO integration; fix the broker requirement that caused the fallback (most often a missing broker redirect URI or SSO profile) and restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event.
-  </Accordion>
-</AccordionGroup>
+> **Requirements for brokered sign-in on macOS**
+>
+> Brokered sign-in on macOS requires Claude Desktop version 1.19367.0 or later.
+>
+> * The Mac is enrolled in an MDM (Intune, Jamf, or similar), registered in Entra ID, and marked compliant. For non-Intune MDMs, use the partner device-compliance integration that reports compliance to Intune and Entra.
+> * **Intune Company Portal** is installed; it provides the broker.
+> * An **Extensible SSO** configuration profile of type **Redirect**, pointed at the Microsoft Enterprise SSO plug-in, is deployed through MDM. The broker is unavailable without it.
+> * The broker redirect URI is registered on the local-mode app under **Mobile and desktop applications** (it appears under the **iOS / macOS** section after saving):
+>
+> ```text theme={null}
+> msauth.com.anthropic.claudefordesktop://auth
+> ```
+>
+> If the app registration also lists `msauth.com.anthropic.claudefordesktop.helper://auth`, remove that entry. Claude Desktop does not use it.
+>
+> If the broker rejects the app's sign-in request, or a brokered attempt fails with an error the broker cannot recover from, the connector falls back to the system browser automatically and stays on the browser flow until Claude Desktop restarts. A user canceling the broker dialog does not trigger the fallback. On tenants that require a compliant device, tool calls then fail with `AADSTS53003`, unless the browser itself is signed in through the device's SSO integration; fix the broker requirement that caused the fallback (most often a missing broker redirect URI or SSO profile) and restart the app. A fallback is recorded in the connector's log file as a `local_auth_broker_fallback` event.
 
 ### Token storage and sign-out
 

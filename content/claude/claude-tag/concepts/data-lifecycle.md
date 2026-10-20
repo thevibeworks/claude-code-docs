@@ -6,9 +6,9 @@
 
 > What Claude Tag stores on Anthropic's side, how long session transcripts and memory are kept, and what disconnecting a workspace, uninstalling the app, deleting a Slack channel, removing a scope, or leaving the organization does to that data.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude Tag keeps a record of its work on Anthropic's side, separate from the messages in your Slack workspace. This page is for an Owner or security reviewer who needs to know what that record contains, how long Anthropic keeps it, and which actions in Slack or in your Claude admin settings delete it. For each action, the tables below say what is deleted and whether Claude keeps responding, because the two don't always go together.
 

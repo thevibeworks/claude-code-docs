@@ -446,10 +446,10 @@ ranges as recommended by
 * Link-local: `169.254.0.0/16` (including cloud metadata endpoints)
 * Private IPv6 ranges: `fc00::/7`, `fe80::/10`
 
-<Note>
-  Avoid implementing IP validation manually. Attackers exploit encoding tricks
-  (octal, hex, IPv4-mapped IPv6) that custom parsers often miss.
-</Note>
+> [!NOTE]
+>
+> Avoid implementing IP validation manually. Attackers exploit encoding tricks
+> (octal, hex, IPv4-mapped IPv6) that custom parsers often miss.
 
 **Validate Redirect Targets**
 
@@ -950,28 +950,28 @@ end-user to determine appropriate permissions during the consent
 process, minimizing user friction while following the principle of
 least privilege.
 
-<Note>
-  Scope accumulation across operations is a client-side responsibility. Clients
-  **SHOULD** compute the union of previously requested scopes and newly
-  challenged scopes when initiating re-authorization, as described in [Step-Up
-  Authorization
-  Flow](/specification/draft/basic/authorization#step-up-authorization-flow).
-  This allows servers to remain stateless with respect to client scope sets
-  while ensuring clients do not lose previously granted permissions.
-</Note>
+> [!NOTE]
+>
+> Scope accumulation across operations is a client-side responsibility. Clients
+> **SHOULD** compute the union of previously requested scopes and newly
+> challenged scopes when initiating re-authorization, as described in [Step-Up
+> Authorization
+> Flow](/specification/draft/basic/authorization#step-up-authorization-flow).
+> This allows servers to remain stateless with respect to client scope sets
+> while ensuring clients do not lose previously granted permissions.
 
-<Note>
-  **Hierarchical scopes**: Some authorization servers define scope hierarchies
-  where a broader scope implies narrower ones (for example, an `admin` scope
-  that subsumes `read`). When accumulating scopes, the client's union may
-  contain semantically redundant entries. For example, a token previously
-  granted a broad scope may be challenged with a narrower one it already
-  implies. Clients need not deduplicate hierarchically; authorization servers
-  typically normalize such redundancy during token issuance. Servers, for their
-  part, must account for hierarchy when deciding whether a token is sufficient
-  for an operation, but this does not affect the scopes they emit in a
-  challenge.
-</Note>
+> [!NOTE]
+>
+> **Hierarchical scopes**: Some authorization servers define scope hierarchies
+> where a broader scope implies narrower ones (for example, an `admin` scope
+> that subsumes `read`). When accumulating scopes, the client's union may
+> contain semantically redundant entries. For example, a token previously
+> granted a broad scope may be challenged with a narrower one it already
+> implies. Clients need not deduplicate hierarchically; authorization servers
+> typically normalize such redundancy during token issuance. Servers, for their
+> part, must account for hierarchy when deciding whether a token is sufficient
+> for an operation, but this does not affect the scopes they emit in a
+> challenge.
 
 #### Common Mistakes
 

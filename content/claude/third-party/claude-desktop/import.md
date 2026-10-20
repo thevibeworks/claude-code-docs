@@ -39,9 +39,7 @@ Use the [import wizard](#open-the-import-wizard) for your claude.ai conversation
 
 On Team and Enterprise workspaces, member data export is off by default. A workspace owner enables it on claude.ai under **Settings → Organization → Data and privacy → Allow members to export their own data**.
 
-<Frame caption="The member data export toggle in claude.ai organization settings. Only workspace owners see this control.">
-  <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-admin-toggle.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=f1f4696a2124cd36ee9a7366cb1c4772" alt="claude.ai organization settings, Data and privacy page, with the Allow members to export their own data toggle turned on and a confirmation toast reading Member data export enabled." width="1800" height="1125" data-path="images/third-party/import/import-admin-toggle.png" />
-</Frame>
+![claude.ai organization settings, Data and privacy page, with the Allow members to export their own data toggle turned on and a confirmation toast reading Member data export enabled.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-admin-toggle.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=f1f4696a2124cd36ee9a7366cb1c4772)
 
 Members of the workspace can then export their own conversations. The toggle does not expose one member's data to another; each member can download only their own history.
 
@@ -49,9 +47,7 @@ Members of the workspace can then export their own conversations. The toggle doe
 
 In Claude Desktop, go to **Settings → Import & export** and click **Import…** to open the **Import from Claude** wizard.
 
-<Frame caption="Step 1 of the import wizard, before a source is chosen.">
-  <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-wizard-start.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=526562f1c9c0abd66e9b56d0328808db" alt="Claude Desktop settings with Import and export selected and the Import from Claude wizard open on step 1, showing Sign in to claude.ai and Choose file buttons." width="1920" height="1440" data-path="images/third-party/import/import-wizard-start.png" />
-</Frame>
+![Claude Desktop settings with Import and export selected and the Import from Claude wizard open on step 1, showing Sign in to claude.ai and Choose file buttons.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-wizard-start.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=526562f1c9c0abd66e9b56d0328808db)
 
 The wizard has three steps: **Chats** (your claude.ai export), **Cowork & Code** (local sessions on this machine), and **Review**. Skip any step you don't need. A fourth step, **Duplicates**, appears after the import only when an imported project has the same name as one you already have. See [If a project already exists](#if-a-project-already-exists).
 
@@ -59,45 +55,31 @@ The wizard has three steps: **Chats** (your claude.ai export), **Cowork & Code**
 
 You can pull your claude.ai history straight into the wizard by signing in, or download it from claude.ai yourself and choose the file.
 
-<Tabs>
-  <Tab title="Sign in to claude.ai (recommended)">
-    Click **Sign in to claude.ai…**. Your browser opens to claude.ai; sign in if prompted, choose your organization if you belong to more than one, and click **Authorize**.
+**Sign in to claude.ai (recommended)**
 
-    <Frame caption="The organization selector, shown if your claude.ai account belongs to more than one workspace.">
-      <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-consent-org.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=1657a03028a7ceb3d173e71ba27f591d" alt="claude.ai organization selector titled Select organization, listing one organization." width="1600" height="720" data-path="images/third-party/import/import-consent-org.png" />
-    </Frame>
+Click **Sign in to claude.ai…**. Your browser opens to claude.ai; sign in if prompted, choose your organization if you belong to more than one, and click **Authorize**.
 
-    <Frame caption="The authorization prompt. The only permission granted is a one-time export of your own data.">
-      <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-consent-authorize.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=55be3501d41c9e61b49154db66b71d5b" alt="claude.ai authorization card reading Claude Desktop Import would like to connect to your Claude chat account, with an Authorize button." width="1400" height="1300" data-path="images/third-party/import/import-consent-authorize.png" />
-    </Frame>
+![claude.ai organization selector titled Select organization, listing one organization.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-consent-org.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=1657a03028a7ceb3d173e71ba27f591d)
 
-    Back in Claude Desktop, click **Fetch export**. The wizard requests an export from claude.ai, downloads it, and shows what it found.
+![claude.ai authorization card reading Claude Desktop Import would like to connect to your Claude chat account, with an Authorize button.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-consent-authorize.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=55be3501d41c9e61b49154db66b71d5b)
 
-    <Frame caption="The wizard after the export finishes downloading.">
-      <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-signed-in.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=dafc4cbfffd685321442cbd72fd73993" alt="Import from Claude wizard step 1 showing a claude.ai export row with the account email and a summary of 7 chats and 1 project." width="1920" height="1440" data-path="images/third-party/import/import-signed-in.png" />
-    </Frame>
-  </Tab>
+Back in Claude Desktop, click **Fetch export**. The wizard requests an export from claude.ai, downloads it, and shows what it found.
 
-  <Tab title="Choose a downloaded file">
-    On claude.ai, go to **Settings → Privacy → Export data** and click **Export**. If you don't see **Export data**, ask a workspace owner to [enable member data export](#enable-member-data-export-admins).
+![Import from Claude wizard step 1 showing a claude.ai export row with the account email and a summary of 7 chats and 1 project.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-signed-in.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=dafc4cbfffd685321442cbd72fd73993)
 
-    <Frame caption="The Export data page in claude.ai personal settings.">
-      <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-web-export.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=1ed4aa5a08469420020d3ff83579c0de" alt="claude.ai settings Privacy page with the Export data subpage open, showing an Export button and a note that a download link will be sent by email." width="1800" height="1125" data-path="images/third-party/import/import-web-export.png" />
-    </Frame>
+**Choose a downloaded file**
 
-    claude.ai emails you a download link when the export is ready. The link expires after 24 hours.
+On claude.ai, go to **Settings → Privacy → Export data** and click **Export**. If you don't see **Export data**, ask a workspace owner to [enable member data export](#enable-member-data-export-admins).
 
-    <Frame caption="The export-ready email.">
-      <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-email.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=cf883e9c401401686568c77cb6ac45c1" alt="Email from Claude titled Your data is ready for download with a Download data button." width="1800" height="1125" data-path="images/third-party/import/import-email.png" />
-    </Frame>
+![claude.ai settings Privacy page with the Export data subpage open, showing an Export button and a note that a download link will be sent by email.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-web-export.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=1ed4aa5a08469420020d3ff83579c0de)
 
-    Download the `.zip`, then in the import wizard click **Choose file…** and select it.
+claude.ai emails you a download link when the export is ready. The link expires after 24 hours.
 
-    <Frame caption="Step 1 with a downloaded export selected.">
-      <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-choose-file.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=5cb868969ebed88801296f696796d0f1" alt="Import from Claude wizard step 1 showing a selected member-data zip file with a summary of 7 chats and 1 project." width="1920" height="1440" data-path="images/third-party/import/import-choose-file.png" />
-    </Frame>
-  </Tab>
-</Tabs>
+![Email from Claude titled Your data is ready for download with a Download data button.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-email.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=cf883e9c401401686568c77cb6ac45c1)
+
+Download the `.zip`, then in the import wizard click **Choose file…** and select it.
+
+![Import from Claude wizard step 1 showing a selected member-data zip file with a summary of 7 chats and 1 project.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-choose-file.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=5cb868969ebed88801296f696796d0f1)
 
 Click **Continue**, or **Skip this step** if you only want to bring in local sessions.
 
@@ -105,9 +87,7 @@ Click **Continue**, or **Skip this step** if you only want to bring in local ses
 
 The wizard scans this machine for Cowork and Claude Code sessions from an earlier Claude Desktop install and lists what it finds. Choose how far back to include, and add any other folder that holds sessions (for example, a backup or a folder copied from another machine).
 
-<Frame caption="Local sessions found on this machine.">
-  <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-local-sessions.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=e17511922a814b0355cb540688a5c949" alt="Import from Claude wizard step 2, Cowork and Code, listing 5 local sessions with a time-range selector and an option to add another location." width="1920" height="1440" data-path="images/third-party/import/import-local-sessions.png" />
-</Frame>
+![Import from Claude wizard step 2, Cowork and Code, listing 5 local sessions with a time-range selector and an option to add another location.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-local-sessions.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=e17511922a814b0355cb540688a5c949)
 
 Sessions are copied, not moved. Your original history stays where it is.
 
@@ -115,21 +95,15 @@ Sessions are copied, not moved. Your original history stays where it is.
 
 The **Review** step summarizes what will be added. Click **Import** to copy everything into your local session store.
 
-<Frame caption="The review summary before import.">
-  <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-review.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=c7939485c7185afbf1ef7518a94db2d6" alt="Import from Claude wizard step 3 showing a claude.ai export summary of 7 chats and 1 project alongside 5 local Cowork and Code sessions, with an Import button." width="1920" height="1440" data-path="images/third-party/import/import-review.png" />
-</Frame>
+![Import from Claude wizard step 3 showing a claude.ai export summary of 7 chats and 1 project alongside 5 local Cowork and Code sessions, with an Import button.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-review.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=c7939485c7185afbf1ef7518a94db2d6)
 
-<Frame caption="Import complete. Imported chats appear in the sidebar and imported projects appear on the Projects page.">
-  <img src="https://mintcdn.com/claude-ai/XDpDaIQ3J0Amhn8h/images/third-party/import/import-success.png?fit=max&auto=format&n=XDpDaIQ3J0Amhn8h&q=85&s=f0a01a38e52d841b66c4215f9cda2db4" alt="Import from Claude wizard success screen showing a checkmark and the number of sessions imported, with a note that re-running import will not create duplicates." width="1920" height="1440" data-path="images/third-party/import/import-success.png" />
-</Frame>
+![Import from Claude wizard success screen showing a checkmark and the number of sessions imported, with a note that re-running import will not create duplicates.](https://mintcdn.com/claude-ai/XDpDaIQ3J0Amhn8h/images/third-party/import/import-success.png?fit=max\&auto=format\&n=XDpDaIQ3J0Amhn8h\&q=85\&s=f0a01a38e52d841b66c4215f9cda2db4)
 
 ## If a project already exists
 
 When an imported project has the same name as a project already in Claude Desktop, the wizard adds a **Duplicates** step after the import finishes. This happens, for example, when you set up **Northwind** on this machine and then bring over history from another machine that also has a Northwind project. The step lists each match with two choices.
 
-<Frame caption="The Duplicates step, listing imported projects that match ones you already have.">
-  <img src="https://mintcdn.com/claude-ai/XDpDaIQ3J0Amhn8h/images/third-party/import/import-duplicates.png?fit=max&auto=format&n=XDpDaIQ3J0Amhn8h&q=85&s=798f75d5a508ebcb7082373b5cf95d84" alt="Import from Claude wizard step 4, Duplicates, headed These projects already exist, listing five Northwind projects each with Merge into existing and Keep separate buttons and a Continue button." width="1920" height="1440" data-path="images/third-party/import/import-duplicates.png" />
-</Frame>
+![Import from Claude wizard step 4, Duplicates, headed These projects already exist, listing five Northwind projects each with Merge into existing and Keep separate buttons and a Continue button.](https://mintcdn.com/claude-ai/XDpDaIQ3J0Amhn8h/images/third-party/import/import-duplicates.png?fit=max\&auto=format\&n=XDpDaIQ3J0Amhn8h\&q=85\&s=798f75d5a508ebcb7082373b5cf95d84)
 
 * **Merge into existing** moves the imported chats and sessions into your existing project and removes the duplicate. Folders you attached to the duplicate move with them. If your existing project has no instructions of its own, the imported project's instructions are shown there for you to review and accept. Later imports from the same source land in the existing project as well.
 * **Keep separate** leaves both projects in place. The imported one keeps a numbered name, such as **Northwind (1)**, and Claude Desktop stops offering to merge it.
@@ -143,9 +117,31 @@ Open any imported conversation from the sidebar and keep chatting. The first tim
 * A session from this app's earlier third-party configuration on this computer shows a **Continue this conversation?** prompt. Click **Continue** to send your message.
 * Any other imported conversation or session shows a **Resume imported session?** prompt. Click **Trust and resume** to continue.
 
-<Frame caption="The trust prompt shown the first time you resume a conversation imported from claude.ai.">
-  <img src="https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-trust-resume.png?fit=max&auto=format&n=HpR2FaaZXZXkiUcV&q=85&s=806d0d2018d7fc0f10afb71035b1f807" alt="An imported conversation open in Cowork with a yellow Resume imported session card offering Go back and Trust and resume buttons." width="1800" height="688" data-path="images/third-party/import/import-trust-resume.png" />
-</Frame>
+![An imported conversation open in Cowork with a yellow Resume imported session card offering Go back and Trust and resume buttons.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-trust-resume.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=806d0d2018d7fc0f10afb71035b1f807)
+
+## Make an imported project folder readable in Chat
+
+When an import brings over a project, it puts a folder on the project. In Chat, Claude can't read that folder until you add it to the project again. Add the folder once for each imported project.
+
+**1. Open the project**
+
+Go to the **Projects** page and open the imported project.
+
+**2. Note the folder path**
+
+Next to **Context**, click **+**, then select **Choose a folder**. Under **Recent**, find the project's folder, which is dimmed and can't be selected, and note the path shown under its name.
+
+**3. Add the folder again**
+
+Select **Choose a different folder**. In the folder dialog, go to the path you noted and select the project's folder.
+
+**4. Start a new conversation**
+
+Start a new conversation in the project. In the new conversation, Claude can read the files in the folder.
+
+Importing the project again doesn't make its folder readable. If you remove the import under **Import history** in **Settings > Import & export**, or archive the project, and then import from claude.ai again, the new project uses the same folder. Add the folder to the new project again.
+
+Your administrator can also limit which folders Claude reads. See [Project folders in Chat](/docs/third-party/claude-desktop/chat#project-folders-in-chat).
 
 ## Export sessions to move them to another device
 
@@ -156,7 +152,7 @@ The zip includes sessions, project names, and each session's output files when t
 ## What is and isn't included
 
 * **Your data only.** An export contains your own conversations, projects, and memory. Other workspace members' content is not included.
-* **Chats and projects come over.** Each imported project appears on the **Projects** page. If the project has custom instructions, Claude Desktop shows them in the project for you to review and accept before they take effect. In Chat, Claude can't read a folder that the import put on a project until you add the folder to the project again and start a new conversation. See [Project folders in Chat](/docs/third-party/claude-desktop/chat#project-folders-in-chat).
+* **Chats and projects come over.** Each imported project appears on the **Projects** page. If the project has custom instructions, Claude Desktop shows them in the project for you to review and accept before they take effect. In Chat, Claude can't read a folder that the import put on a project until you [add the folder to the project again](#make-an-imported-project-folder-readable-in-chat).
 * **Artifacts come over as files.** For artifacts Claude created in a conversation, and files Claude wrote with its file-creation tool, the import saves the final version as one of the imported conversation's output files. Earlier versions aren't kept. Past a size limit, the rest of a conversation's artifact content isn't imported, and the conversation says so.
 * **Project knowledge files and conversation attachments do not.** A member's own export never includes the contents of files uploaded to a project's knowledge or attached to a conversation. This is a security policy on claude.ai, and it applies to both the **Sign in to claude.ai** and **Choose a downloaded file** paths. Imported chats keep the messages that referenced an attachment, but not the file itself. The only export that includes file contents is an organization-level export, which only a workspace owner can request.
 * **One-time copy.** Imported history does not stay in sync with claude.ai. Run the import again to pick up newer conversations; existing imports are matched and skipped, so you won't get duplicates.

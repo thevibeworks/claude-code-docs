@@ -10,15 +10,15 @@
 
 Use this page to map the groups pushed from your identity provider to seat tiers and roles in this organization.
 
-<Note>
-  The **Group mappings** tab only appears in the navigation if automatic directory provisioning has been set up for your tenant. If you don't see the tab, your tenant administrator has not connected a directory.
-</Note>
+> [!NOTE]
+>
+> The **Group mappings** tab only appears in the navigation if automatic directory provisioning has been set up for your tenant. If you don't see the tab, your tenant administrator has not connected a directory.
 
 **SCIM** (System for Cross-domain Identity Management) is the standard protocol that identity providers such as Okta and Microsoft Entra use to push user accounts and group memberships into other applications. Once a SCIM connection is in place, your directory groups appear here and you can map each one to a **seat tier** (a named level of access that determines which Claude models and usage limits a user gets) and a **role** (which controls whether a user can access this admin portal).
 
-<Note>
-  The SCIM connection itself, including the base URL and secret token, is set up once for the whole tenant on the [tenant portal's Identity and access page](/docs/government/tenant-admin/identity-and-access). This page only covers the group mappings for your organization.
-</Note>
+> [!NOTE]
+>
+> The SCIM connection itself, including the base URL and secret token, is set up once for the whole tenant on the [tenant portal's Identity and access page](/docs/government/tenant-admin/identity-and-access). This page only covers the group mappings for your organization.
 
 ## How provisioning works
 
@@ -30,9 +30,9 @@ Reconciliation runs automatically whenever your identity provider pushes a chang
 
 To add a mapping, choose a group and a tier and click **Add**. Existing mappings are listed with a **Remove** button. Each group can be mapped to at most one tier, and you can only select tiers that are available to this organization (either an Anthropic-managed tier you have been allocated or a self-managed tier you created on the [Tiers](/docs/government/org-admin/seat-tiers) page).
 
-<Note>
-  The **Add** form only appears when at least one synced group is still unmapped. If no groups have appeared at all, assign groups to the Claude for Government application in your identity provider and run a provisioning sync first.
-</Note>
+> [!NOTE]
+>
+> The **Add** form only appears when at least one synced group is still unmapped. If no groups have appeared at all, assign groups to the Claude for Government application in your identity provider and run a provisioning sync first.
 
 ## Group to role
 

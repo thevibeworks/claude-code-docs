@@ -36,10 +36,10 @@ When building a server that uses the local
 logged to stderr (standard error) will be captured by the host application
 automatically.
 
-<Warning>
-  Local MCP servers should not log messages to stdout (standard out), as this
-  will interfere with protocol operation.
-</Warning>
+> [!WARNING]
+>
+> Local MCP servers should not log messages to stdout (standard out), as this
+> will interfere with protocol operation.
 
 For servers using the
 [HTTP with SSE transport](/specification/2024-11-05/basic/transports#http-with-sse),
@@ -50,24 +50,22 @@ DevTools Network panel) to inspect requests and SSE streams.
 For all [transports](/specification/2024-11-05/basic/transports), you can also
 provide logging to the client by sending a log message notification:
 
-<CodeGroup>
-  ```python Python theme={null}
-  @server.tool()
-  async def my_tool(ctx: Context) -> str:
-      await ctx.session.send_log_message(
-          level="info",
-          data="Server started successfully",
-      )
-      return "done"
-  ```
+```python Python theme={null}
+@server.tool()
+async def my_tool(ctx: Context) -> str:
+    await ctx.session.send_log_message(
+        level="info",
+        data="Server started successfully",
+    )
+    return "done"
+```
 
-  ```typescript TypeScript theme={null}
-  await server.sendLoggingMessage({
-    level: "info",
-    data: "Server started successfully",
-  });
-  ```
-</CodeGroup>
+```typescript TypeScript theme={null}
+await server.sendLoggingMessage({
+  level: "info",
+  data: "Server started successfully",
+});
+```
 
 MCP defines eight
 [RFC 5424 severity levels](/specification/2024-11-05/server/utilities/logging#log-levels)
@@ -192,7 +190,7 @@ Click the "Add files, connectors, and more" plus icon in the chat input, then
 hover over the **Connectors** menu to see connected servers and available
 tools.
 
-<img src="https://mintcdn.com/mcp/zNouQwo2h8cbxlDS/images/available-mcp-tools.png?fit=max&auto=format&n=zNouQwo2h8cbxlDS&q=85&s=e2ace1ac88895a5fe30ebd8d01456bc3" alt="Available MCP tools" width="437" height="244" data-path="images/available-mcp-tools.png" />
+![Available MCP tools](https://mintcdn.com/mcp/zNouQwo2h8cbxlDS/images/available-mcp-tools.png?fit=max\&auto=format\&n=zNouQwo2h8cbxlDS\&q=85\&s=e2ace1ac88895a5fe30ebd8d01456bc3)
 
 ### Viewing logs
 
@@ -201,15 +199,13 @@ Log files are written to:
 * macOS: `~/Library/Logs/Claude`
 * Windows: `%APPDATA%\Claude\logs`
 
-<CodeGroup>
-  ```bash macOS theme={null}
-  tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
-  ```
+```bash macOS theme={null}
+tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
+```
 
-  ```powershell Windows theme={null}
-  type "$env:AppData\Claude\logs\mcp*.log"
-  ```
-</CodeGroup>
+```powershell Windows theme={null}
+type "$env:AppData\Claude\logs\mcp*.log"
+```
 
 The logs capture:
 
@@ -225,15 +221,13 @@ client-side errors:
 
 1. Create a `developer_settings.json` file with `allowDevTools` set to true:
 
-<CodeGroup>
-  ```bash macOS theme={null}
-  echo '{"allowDevTools": true}' > ~/Library/Application\ Support/Claude/developer_settings.json
-  ```
+```bash macOS theme={null}
+echo '{"allowDevTools": true}' > ~/Library/Application\ Support/Claude/developer_settings.json
+```
 
-  ```powershell Windows theme={null}
-  '{"allowDevTools": true}' | Set-Content "$env:AppData\Claude\developer_settings.json"
-  ```
-</CodeGroup>
+```powershell Windows theme={null}
+'{"allowDevTools": true}' | Set-Content "$env:AppData\Claude\developer_settings.json"
+```
 
 2. Open DevTools: `Command-Option-I` (macOS) or `Ctrl+Alt+I` (Windows)
 
@@ -334,16 +328,14 @@ When encountering issues:
 
 ## Next steps
 
-<CardGroup cols={2}>
-  <Card title="MCP Inspector" icon="magnifying-glass" href="/docs/2024-11-05/tools/inspector">
-    Learn to use the MCP Inspector
-  </Card>
+> **[MCP Inspector](/docs/2024-11-05/tools/inspector)**
+>
+> Learn to use the MCP Inspector
 
-  <Card title="Build an MCP server" icon="code" href="/docs/2024-11-05/develop/build-server">
-    Walk through building a server from scratch
-  </Card>
+> **[Build an MCP server](/docs/2024-11-05/develop/build-server)**
+>
+> Walk through building a server from scratch
 
-  <Card title="Connect local servers" icon="plug" href="/docs/2024-11-05/develop/connect-local-servers">
-    Full claude\_desktop\_config.json reference and troubleshooting
-  </Card>
-</CardGroup>
+> **[Connect local servers](/docs/2024-11-05/develop/connect-local-servers)**
+>
+> Full claude\_desktop\_config.json reference and troubleshooting

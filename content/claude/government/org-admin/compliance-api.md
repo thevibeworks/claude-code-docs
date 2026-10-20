@@ -20,9 +20,9 @@ Both pages list only their own keys, showing each key's name, a hint with the la
 
 To create a key, enter a name and click **Create key**. The full value is shown once, immediately after creation. Copy it somewhere safe before clicking **Done**.
 
-<Warning>
-  The full key value is shown **only once**, at creation time. If you lose it, create a new key and revoke the old one.
-</Warning>
+> [!WARNING]
+>
+> The full key value is shown **only once**, at creation time. If you lose it, create a new key and revoke the old one.
 
 Keys never expire on their own, so rotate them on whatever schedule your agency's policy requires. You can keep more than one key active at a time, which lets you rotate without interrupting your SIEM feed: create a new key, update your collector to use it, confirm events are still arriving, and then revoke the old key. Revoking a key takes effect immediately, and the next request made with it returns a 401.
 
@@ -50,6 +50,8 @@ x-api-key: <your-compliance-api-key>
 | `limit` | Maximum events per page, from 1 to 5000. Defaults to 100. |
 
 The exclusive bounds `created_at.gt` and `created_at.lt` are also accepted if your collector needs them.
+
+The API serves the most recent 30 days of activity. A lower bound earlier than that is treated as 30 days ago.
 
 ### Response format
 
@@ -119,8 +121,6 @@ The user an event is about is not always the actor. When an owner changes someon
 }
 ```
 
-The top-level `user_id` and `user_email` fields appear on activities recorded after they were added to the API. Earlier activities are not updated, so your collector should treat these fields as optional.
-
 ### Activity types
 
 Event types use a dotted `resource.action` naming convention. The categories emitted today include:
@@ -136,7 +136,7 @@ New types may be added over time, so a collector should forward unfamiliar types
 
 ## Connecting to your SIEM
 
-Most deployments run a small scheduled worker that polls the API on a fixed interval, forwards each event to the SIEM's HTTP ingest endpoint, and records a time watermark so the next run picks up where the last one left off.
+Most deployments run a small scheduled worker that polls the API on a fixed interval, forwards each event to the SIEM's HTTP ingest endpoint, and records a time watermark so the next run picks up where the last one left off. A worker that falls more than 30 days behind cannot recover the gap.
 
 A typical run requests `since=<watermark>`, forwards every event returned, and if `has_more` is true, follows `after_id=<last_id>` for each further page until `has_more` is false. After all pages are drained, advance your watermark to the newest `created_at` you saw. Event `id` values are stable and unique, so your collector can deduplicate on `id` and safely retry a page or use an overlapping `since` without creating duplicate records in the SIEM.
 

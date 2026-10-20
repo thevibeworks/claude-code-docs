@@ -31,9 +31,9 @@ The [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) p
 
 Provider-side search runs on the provider's infrastructure, so queries and results travel over the same path as model inference and are subject to your provider's data-handling terms. It needs no additional firewall rules beyond the inference endpoint itself.
 
-<Note>
-  `coworkEgressAllowedHosts` governs client-side egress (Web Fetch and in-sandbox shell network activity). The SDK Web Search tool in the table above executes server-side at your inference provider, so the allowlist does not apply to it. The built-in `websearch` server under [Web search options](#web-search-options) runs in the desktop app itself, outside the sandbox, and `coworkEgressAllowedHosts` does not apply to it either. Its search provider's host (`api.search.brave.com`, `api.tavily.com`, `api.exa.ai`, or the host of your `customUrl`) does need to be reachable through your perimeter firewall and proxy, and the **Egress** section of the in-app configuration window lists that host. To let the agent fetch pages it finds via search, add the relevant hosts to `coworkEgressAllowedHosts` or set it to `["*"]`. Adding `"WebSearch"` to `disabledBuiltinTools` turns web search off entirely, both provider-side search and the built-in `websearch` server's tool.
-</Note>
+> [!NOTE]
+>
+> `coworkEgressAllowedHosts` governs client-side egress (Web Fetch and in-sandbox shell network activity). The SDK Web Search tool in the table above executes server-side at your inference provider, so the allowlist does not apply to it. The built-in `websearch` server under [Web search options](#web-search-options) runs in the desktop app itself, outside the sandbox, and `coworkEgressAllowedHosts` does not apply to it either. Its search provider's host (`api.search.brave.com`, `api.tavily.com`, `api.exa.ai`, or the host of your `customUrl`) does need to be reachable through your perimeter firewall and proxy, and the **Egress** section of the in-app configuration window lists that host. To let the agent fetch pages it finds via search, add the relevant hosts to `coworkEgressAllowedHosts` or set it to `["*"]`. Adding `"WebSearch"` to `disabledBuiltinTools` turns web search off entirely, both provider-side search and the built-in `websearch` server's tool.
 
 ### Web search options
 
@@ -56,9 +56,7 @@ Add the bundled `websearch` server to [`managedMcpServers`](/docs/third-party/cl
 
 You can add it from the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration): under **Connectors**, add a **Web search** server, choose the search provider, and supply the vendor key as a header or through a headers helper script.
 
-<Frame caption="The Web search server in the Connectors section of the in-app configuration window, with the search provider menu open.">
-  <img src="https://mintcdn.com/claude-ai/iVbkJluVpijKTo5a/images/third-party/config-window-web-search.png?fit=max&auto=format&n=iVbkJluVpijKTo5a&q=85&s=19cf4844972d9fd47addec8690db09c8" alt="Web search server card in the in-app configuration window with fields for name, tool policy, headers, and headers helper script, and a search provider menu offering brave, tavily, exa, and custom." width="1428" height="1330" data-path="images/third-party/config-window-web-search.png" />
-</Frame>
+![Web search server card in the in-app configuration window with fields for name, tool policy, headers, and headers helper script, and a search provider menu offering brave, tavily, exa, and custom.](https://mintcdn.com/claude-ai/iVbkJluVpijKTo5a/images/third-party/config-window-web-search.png?fit=max\&auto=format\&n=iVbkJluVpijKTo5a\&q=85\&s=19cf4844972d9fd47addec8690db09c8)
 
 In the exported configuration, set `provider` to a hosted search vendor (`brave`, `tavily`, or `exa`) for the lowest setup, or to `custom` with `customUrl` to point at a search server you run.
 
@@ -78,9 +76,9 @@ Hosted vendor:
 }
 ```
 
-<Note>
-  A hosted-vendor key configured in `headers` or returned by `headersHelper` is the same key on every device, and a local user can extract it. The exposure is limited to billing abuse on that key (it grants no data access). For regulated environments, set spend caps and rotate the key on a schedule, or have `headersHelper` fetch a per-user key: Tavily and Exa support per-user or per-team keys; see their key-management docs.
-</Note>
+> [!NOTE]
+>
+> A hosted-vendor key configured in `headers` or returned by `headersHelper` is the same key on every device, and a local user can extract it. The exposure is limited to billing abuse on that key (it grants no data access). For regulated environments, set spend caps and rotate the key on a schedule, or have `headersHelper` fetch a per-user key: Tavily and Exa support per-user or per-team keys; see their key-management docs.
 
 Your own server:
 
@@ -130,9 +128,9 @@ Search queries go to whichever backend you configure. In every option, the query
 
 For audit, each search the model runs is recorded in the Cowork or Code session telemetry sent to your [OTLP collector](/docs/third-party/claude-desktop/telemetry#sending-telemetry-to-your-own-collector) as a `tool_result` event, whichever option you choose (a `WebSearch` event for provider-side or gateway-side search, an MCP tool event for the built-in or a remote search server). Add `toolDetails` to [`otlpContentCapture`](/docs/third-party/claude-desktop/telemetry#content-capture) to include the tool input, which carries the query text (long values are truncated). The built-in `websearch` server also emits a `builtin_websearch_call` event on the desktop application's own stream with the search provider, query length, result count, duration, and status, never the query text. The app exports that event only when [`otlpDesktopLogLevel`](/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `info` or `debug`, not at the default `error` level.
 
-<Note>
-  If you previously routed inference through a LiteLLM proxy to add search, the built-in `websearch` server with `provider: "custom"` is an alternative that removes the proxy from the search path; gateway-side interception remains a valid choice if you prefer the search key to stay server-side.
-</Note>
+> [!NOTE]
+>
+> If you previously routed inference through a LiteLLM proxy to add search, the built-in `websearch` server with `provider: "custom"` is an alternative that removes the proxy from the search path; gateway-side interception remains a valid choice if you prefer the search key to stay server-side.
 
 ## Web Fetch
 
@@ -148,9 +146,9 @@ Cowork and Chat refuse every fetch while the key is unset or empty. To permit fe
 
 Wildcards match one or more leading subdomain labels (`*.example.com` matches `a.example.com` and `a.b.example.com`, but not `example.com`). A listed host that many organizations share, such as a cloud provider's API endpoint, is reachable from the agent's shell with any account's credentials. A command can then send data to an account outside your organization.
 
-<Note>
-  Your perimeter firewall is a separate, outer layer from `coworkEgressAllowedHosts`, so a host allowed by this key still won't be reachable if your corporate network blocks it. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry#required-egress-paths) for the distinction.
-</Note>
+> [!NOTE]
+>
+> Your perimeter firewall is a separate, outer layer from `coworkEgressAllowedHosts`, so a host allowed by this key still won't be reachable if your corporate network blocks it. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry#required-egress-paths) for the distinction.
 
 The same allowlist governs other in-sandbox network activity (for example, `curl` or `pip install` from the agent's shell), not just the Web Fetch tool. A command-line tool that a [plugin](/docs/third-party/claude-desktop/extensions#controlling-user-extensions) adds to the Cowork sandbox can also reach the hosts its plugin declares, whatever the list holds. Claude Desktop's own connections for inference, sign-in, model discovery, telemetry export, and MCP servers aren't checked against it and need no entry.
 

@@ -4,8 +4,6 @@
 
 # Discovery
 
-<div id="enable-section-numbers" />
-
 `server/discover` lets a client query a server's supported protocol versions,
 capabilities, and identity before sending any other requests. Servers **MUST**
 implement it.
@@ -102,9 +100,9 @@ A discovery result includes:
 * `instructions`: Optional natural-language guidance for LLMs on how to use
   this server effectively
 
-<Note>
-  `serverInfo` is self-reported by the server and is not verified by the
-  protocol. It is intended for display, logging, and debugging. Clients **SHOULD
-  NOT** use it to change their behavior, and **SHOULD NOT** rely on it for
-  security decisions.
-</Note>
+> [!NOTE]
+>
+> `serverInfo` is self-reported by the server and is not verified by the
+> protocol. It is intended for display, logging, and debugging. Clients **SHOULD
+> NOT** use it to change their behavior, and **SHOULD NOT** rely on it for
+> security decisions.

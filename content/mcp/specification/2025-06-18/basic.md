@@ -4,8 +4,6 @@
 
 # Overview
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol consists of several key components that work together:
 
 * **Base Protocol**: Core JSON-RPC message types

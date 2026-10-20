@@ -6,9 +6,9 @@
 
 > Claude can use your own claude.ai connectors, called personal connectors, for your tasks in a Slack channel. See how you approve connector use, when Claude asks you to review a result before posting it, and what other people in the channel can reach.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Personal connectors are the tools you add to your own claude.ai account, like your calendar or your email. When a task you ask for in a Slack channel needs one of your own tools, Claude can offer to use your connector for it.
 

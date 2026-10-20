@@ -4,9 +4,9 @@
 
 # Frequently Asked Questions
 
-<Note>
-  The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
-</Note>
+> [!NOTE]
+>
+> The MCP Registry is currently in preview. Breaking changes or data resets may occur before general availability. If you encounter any issues, please report them on [GitHub](https://github.com/modelcontextprotocol/registry/issues).
 
 ## General
 
@@ -29,9 +29,9 @@ Submit a new `server.json` with a unique version string. Once published, version
 
 Yes, custom metadata under `_meta.io.modelcontextprotocol.registry/publisher-provided` is preserved when publishing to the registry. This allows you to include custom metadata specific to your publishing process.
 
-<Warning>
-  There is a 4KB size limit (4096 bytes of JSON). Publishing will fail if this limit is exceeded.
-</Warning>
+> [!WARNING]
+>
+> There is a 4KB size limit (4096 bytes of JSON). Publishing will fail if this limit is exceeded.
 
 ## Reporting Issues
 

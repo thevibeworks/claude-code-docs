@@ -182,7 +182,7 @@ Common GHES setup issues:
 
 - **"Public cannot be private" error during setup:** Your GHES hostname must resolve to a publicly routable IP address. Code Review reaches your server over the internet, so internal or private network addresses won't work. Update DNS or your network configuration so the hostname resolves to a public IP, then retry.
 
-- **GitHub Enterprise Cloud with Data Residency is a different product.** Data Residency tenants (hostnames matching `*.ghe.com`) aren't supported by Code Review. Only self-hosted GitHub Enterprise Server and standard github.com repositories are supported.
+- **GitHub Enterprise Cloud with Data Residency is a different product.** GitHub Enterprise Cloud with data residency (.ghe.com) is also supported. An Owner follows the GitHub Enterprise Server admin setup and enters the `ghe.com` hostname.
 
 ---
 

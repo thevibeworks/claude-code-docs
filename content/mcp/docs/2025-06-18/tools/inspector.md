@@ -26,55 +26,49 @@ npx @modelcontextprotocol/inspector <command> <arg1> <arg2>
 
 A common way to start server packages from [npm](https://npmjs.com) or [PyPI](https://pypi.org).
 
-<Tabs>
-  <Tab title="npm package">
-    ```bash theme={null}
-    npx -y @modelcontextprotocol/inspector npx <package-name> <args>
-    # For example
-    npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem /Users/username/Desktop
-    ```
-  </Tab>
+**npm package**
 
-  <Tab title="PyPI package">
-    ```bash theme={null}
-    npx @modelcontextprotocol/inspector uvx <package-name> <args>
-    # For example
-    npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
-    ```
-  </Tab>
-</Tabs>
+```bash theme={null}
+npx -y @modelcontextprotocol/inspector npx <package-name> <args>
+# For example
+npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem /Users/username/Desktop
+```
+
+**PyPI package**
+
+```bash theme={null}
+npx @modelcontextprotocol/inspector uvx <package-name> <args>
+# For example
+npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
+```
 
 #### Inspecting locally developed servers
 
 To inspect servers locally developed or downloaded as a repository, the most common
 way is:
 
-<Tabs>
-  <Tab title="TypeScript">
-    ```bash theme={null}
-    npx @modelcontextprotocol/inspector node path/to/server/index.js args...
-    ```
-  </Tab>
+**TypeScript**
 
-  <Tab title="Python">
-    ```bash theme={null}
-    npx @modelcontextprotocol/inspector \
-      uv \
-      --directory path/to/server \
-      run \
-      package-name \
-      args...
-    ```
-  </Tab>
-</Tabs>
+```bash theme={null}
+npx @modelcontextprotocol/inspector node path/to/server/index.js args...
+```
+
+**Python**
+
+```bash theme={null}
+npx @modelcontextprotocol/inspector \
+  uv \
+  --directory path/to/server \
+  run \
+  package-name \
+  args...
+```
 
 Please carefully read any attached README for the most accurate instructions.
 
 ## Feature overview
 
-<Frame caption="The MCP Inspector interface">
-  <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/mcp-inspector.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=83b12e2a457c96ef4ad17c7357236290" width="2888" height="1761" data-path="images/mcp-inspector.png" />
-</Frame>
+![](https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/mcp-inspector.png?fit=max\&auto=format\&n=4ZXF1PrDkEaJvXpn\&q=85\&s=83b12e2a457c96ef4ad17c7357236290)
 
 The Inspector provides several features for interacting with your MCP server:
 
@@ -133,12 +127,10 @@ The Inspector provides several features for interacting with your MCP server:
 
 ## Next steps
 
-<CardGroup cols={2}>
-  <Card title="Inspector Repository" icon="github" href="https://github.com/modelcontextprotocol/inspector">
-    Check out the MCP Inspector source code
-  </Card>
+> **[Inspector Repository](https://github.com/modelcontextprotocol/inspector)**
+>
+> Check out the MCP Inspector source code
 
-  <Card title="Debugging Guide" icon="bug" href="/docs/2025-06-18/tools/debugging">
-    Learn about broader debugging strategies
-  </Card>
-</CardGroup>
+> **[Debugging Guide](/docs/2025-06-18/tools/debugging)**
+>
+> Learn about broader debugging strategies

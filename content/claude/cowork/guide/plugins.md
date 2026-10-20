@@ -29,24 +29,22 @@ After installing, open the plugin to see what it provides. Skills and agents app
 
 You browse, install, and upload plugins from the **Plugins** page. Open **Customize** in the sidebar, then select **Plugins**.
 
-<Steps>
-  <Step title="Browse the marketplace">
-    Select **Discover** to see available plugins. The default marketplace is
-    Anthropic's official catalog; you can add other marketplaces by URL.
-  </Step>
+**1. Browse the marketplace**
 
-  <Step title="Install">
-    Select a plugin and click **Install**. Installing doesn't add or sign you in
-    to any connector. If the plugin includes connectors, open its **Connectors**
-    tab afterward to add or connect each one.
-  </Step>
+Select **Discover** to see available plugins. The default marketplace is
+Anthropic's official catalog; you can add other marketplaces by URL.
 
-  <Step title="Review components">
-    Open the installed plugin to see its skills, connectors, agents, and hooks.
-    Select **Disable plugin** to turn the whole plugin off, and connect or
-    disconnect each connector on its own from the **Connectors** tab.
-  </Step>
-</Steps>
+**2. Install**
+
+Select a plugin and click **Install**. Installing doesn't add or sign you in
+to any connector. If the plugin includes connectors, open its **Connectors**
+tab afterward to add or connect each one.
+
+**3. Review components**
+
+Open the installed plugin to see its skills, connectors, agents, and hooks.
+Select **Disable plugin** to turn the whole plugin off, and connect or
+disconnect each connector on its own from the **Connectors** tab.
 
 To install from a file instead, select the upload option on the Plugins page and select the plugin package.
 
@@ -54,18 +52,16 @@ To install from a file instead, select the upload option on the Plugins page and
 
 A Git repository that contains plugin packages can serve as a marketplace, which lets you share plugins without publishing to the public catalog. For a marketplace you add yourself, repositories on GitHub, including GitHub Enterprise, are supported, and public repositories on GitLab and Bitbucket also work. To distribute plugins to everyone in a Team or Enterprise organization, an Owner syncs the repository from organization settings instead, as [Manage plugins for your organization](/docs/plugins/admin#add-your-own-plugins) describes.
 
-<Steps>
-  <Step title="Add the repository">
-    On the Plugins page, select **Add marketplace** and enter the repository's
-    URL. Cowork accepts the standard `https://github.com/owner/repo` form and
-    the `owner/repo` shorthand for GitHub.
-  </Step>
+**1. Add the repository**
 
-  <Step title="Install plugins from it">
-    Plugins defined in the repository appear alongside plugins from other
-    marketplaces. Install them the same way.
-  </Step>
-</Steps>
+On the Plugins page, select **Add marketplace** and enter the repository's
+URL. Cowork accepts the standard `https://github.com/owner/repo` form and
+the `owner/repo` shorthand for GitHub.
+
+**2. Install plugins from it**
+
+Plugins defined in the repository appear alongside plugins from other
+marketplaces. Install them the same way.
 
 Select **Check for updates** on a marketplace to pull the latest plugins from its repository, or turn on **Sync automatically**.
 

@@ -31,206 +31,188 @@ Apps.
 The `create-mcp-app` skill includes architecture guidance, best practices, and
 working examples that the agent uses to generate your project.
 
-<Steps>
-  <Step title="Install the skill">
-    If you are using Claude Code, you can install the skill directly with:
+**1. Install the skill**
 
-    ```
-    /plugin marketplace add modelcontextprotocol/ext-apps
-    /plugin install mcp-apps@modelcontextprotocol-ext-apps
-    ```
+If you are using Claude Code, you can install the skill directly with:
 
-    You can also use the [Vercel Skills CLI](https://skills.sh/) to install skills across different AI coding agents:
+```
+/plugin marketplace add modelcontextprotocol/ext-apps
+/plugin install mcp-apps@modelcontextprotocol-ext-apps
+```
 
-    ```bash theme={null}
-    npx skills add modelcontextprotocol/ext-apps
-    ```
+You can also use the [Vercel Skills CLI](https://skills.sh/) to install skills across different AI coding agents:
 
-    Alternatively, you can install the skill manually by cloning the ext-apps repository:
+```bash theme={null}
+npx skills add modelcontextprotocol/ext-apps
+```
 
-    ```bash theme={null}
-    git clone https://github.com/modelcontextprotocol/ext-apps.git
-    ```
+Alternatively, you can install the skill manually by cloning the ext-apps repository:
 
-    And then copying the skill to the appropriate location for your agent:
+```bash theme={null}
+git clone https://github.com/modelcontextprotocol/ext-apps.git
+```
 
-    | Agent | Skills directory (macOS/Linux) | Skills directory (Windows) |
-    | - | - | - |
-    | [Claude Code](https://docs.anthropic.com/en/docs/claude-code/skills) | `~/.claude/skills/` | `%USERPROFILE%\.claude\skills\` |
-    | [VS Code](https://code.visualstudio.com/docs/copilot/customization/agent-skills) and [GitHub Copilot](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) | `~/.copilot/skills/` | `%USERPROFILE%\.copilot\skills\` |
-    | [Gemini CLI](https://geminicli.com/docs/cli/skills/) | `~/.gemini/skills/` | `%USERPROFILE%\.gemini\skills\` |
-    | [Cline](https://cline.bot/blog/cline-3-48-0-skills-and-websearch-make-cline-smarter) | `~/.cline/skills/` | `%USERPROFILE%\.cline\skills\` |
-    | [Goose](https://goose-docs.ai/docs/guides/context-engineering/using-skills/) | `~/.config/goose/skills/` | `%USERPROFILE%\.config\goose\skills\` |
-    | [Codex](https://developers.openai.com/codex/skills/) | `~/.codex/skills/` | `%USERPROFILE%\.codex\skills\` |
-    | [Cursor](https://cursor.com/docs/context/skills) | `~/.cursor/skills/` | `%USERPROFILE%\.cursor\skills\` |
+And then copying the skill to the appropriate location for your agent:
 
-    <Note>
-      This list is not comprehensive. Other agents may support skills in different locations; check your agent's documentation.
-    </Note>
+| Agent | Skills directory (macOS/Linux) | Skills directory (Windows) |
+| - | - | - |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code/skills) | `~/.claude/skills/` | `%USERPROFILE%\.claude\skills\` |
+| [VS Code](https://code.visualstudio.com/docs/copilot/customization/agent-skills) and [GitHub Copilot](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills) | `~/.copilot/skills/` | `%USERPROFILE%\.copilot\skills\` |
+| [Gemini CLI](https://geminicli.com/docs/cli/skills/) | `~/.gemini/skills/` | `%USERPROFILE%\.gemini\skills\` |
+| [Cline](https://cline.bot/blog/cline-3-48-0-skills-and-websearch-make-cline-smarter) | `~/.cline/skills/` | `%USERPROFILE%\.cline\skills\` |
+| [Goose](https://goose-docs.ai/docs/guides/context-engineering/using-skills/) | `~/.config/goose/skills/` | `%USERPROFILE%\.config\goose\skills\` |
+| [Codex](https://developers.openai.com/codex/skills/) | `~/.codex/skills/` | `%USERPROFILE%\.codex\skills\` |
+| [Cursor](https://cursor.com/docs/context/skills) | `~/.cursor/skills/` | `%USERPROFILE%\.cursor\skills\` |
 
-    For example, with Claude Code you can install the skill globally (available in all projects):
+> [!NOTE]
+>
+> This list is not comprehensive. Other agents may support skills in different locations; check your agent's documentation.
 
-    <CodeGroup>
-      ```bash macOS/Linux theme={null}
-      cp -r ext-apps/plugins/mcp-apps/skills/create-mcp-app ~/.claude/skills/create-mcp-app
-      ```
+For example, with Claude Code you can install the skill globally (available in all projects):
 
-      ```powershell Windows theme={null}
-      Copy-Item -Recurse ext-apps\plugins\mcp-apps\skills\create-mcp-app $env:USERPROFILE\.claude\skills\create-mcp-app
-      ```
-    </CodeGroup>
+```bash macOS/Linux theme={null}
+cp -r ext-apps/plugins/mcp-apps/skills/create-mcp-app ~/.claude/skills/create-mcp-app
+```
 
-    Or install it for a single project only by copying to `.claude/skills/` in your project directory:
+```powershell Windows theme={null}
+Copy-Item -Recurse ext-apps\plugins\mcp-apps\skills\create-mcp-app $env:USERPROFILE\.claude\skills\create-mcp-app
+```
 
-    <CodeGroup>
-      ```bash macOS/Linux theme={null}
-      mkdir -p .claude/skills && cp -r ext-apps/plugins/mcp-apps/skills/create-mcp-app .claude/skills/create-mcp-app
-      ```
+Or install it for a single project only by copying to `.claude/skills/` in your project directory:
 
-      ```powershell Windows theme={null}
-      New-Item -ItemType Directory -Force -Path .claude\skills | Out-Null; Copy-Item -Recurse ext-apps\plugins\mcp-apps\skills\create-mcp-app .claude\skills\create-mcp-app
-      ```
-    </CodeGroup>
+```bash macOS/Linux theme={null}
+mkdir -p .claude/skills && cp -r ext-apps/plugins/mcp-apps/skills/create-mcp-app .claude/skills/create-mcp-app
+```
 
-    To verify the skill is installed, ask your agent "What skills do you have access to?" — you should see `create-mcp-app` as one of the available skills.
-  </Step>
+```powershell Windows theme={null}
+New-Item -ItemType Directory -Force -Path .claude\skills | Out-Null; Copy-Item -Recurse ext-apps\plugins\mcp-apps\skills\create-mcp-app .claude\skills\create-mcp-app
+```
 
-  <Step title="Create your app">
-    Ask your AI coding agent to build it:
+To verify the skill is installed, ask your agent "What skills do you have access to?" — you should see `create-mcp-app` as one of the available skills.
 
-    ```
-    Create an MCP App that displays a color picker
-    ```
+**2. Create your app**
 
-    The agent will recognize the `create-mcp-app` skill is relevant, load its instructions, then scaffold a complete project with server, UI, and configuration files.
+Ask your AI coding agent to build it:
 
-    <Frame caption="Creating a new MCP App with Claude Code">
-      <img src="https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/create-mcp-app-skill.gif?s=6c3a3b8a7590b5e97b5c3d8480a9ab12" alt="Creating a new MCP App with Claude Code" width="800" height="563" data-path="images/quickstart-apps/create-mcp-app-skill.gif" />
-    </Frame>
-  </Step>
+```
+Create an MCP App that displays a color picker
+```
 
-  <Step title="Run your app">
-    <CodeGroup>
-      ```bash macOS/Linux theme={null}
-      npm install && npm run build && npm run serve
-      ```
+The agent will recognize the `create-mcp-app` skill is relevant, load its instructions, then scaffold a complete project with server, UI, and configuration files.
 
-      ```powershell Windows theme={null}
-      npm install; npm run build; npm run serve
-      ```
-    </CodeGroup>
+![Creating a new MCP App with Claude Code](https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/create-mcp-app-skill.gif?s=6c3a3b8a7590b5e97b5c3d8480a9ab12)
 
-    <Tip>
-      You might need to make sure that you are first in the **app folder** before running the commands above.
-    </Tip>
-  </Step>
+**3. Run your app**
 
-  <Step title="Test your app">
-    Follow the instructions in [Testing your app](#testing-your-app) below. For the color picker example, start a new chat and ask Claude to provide you a color picker.
+```bash macOS/Linux theme={null}
+npm install && npm run build && npm run serve
+```
 
-    <Frame caption="Testing the color picker in Claude">
-      <img src="https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/test-color-picker.gif?s=09413b99bc31d7edc7f9aa22df4faa6a" alt="Testing the color picker in Claude" width="800" height="544" data-path="images/quickstart-apps/test-color-picker.gif" />
-    </Frame>
-  </Step>
-</Steps>
+```powershell Windows theme={null}
+npm install; npm run build; npm run serve
+```
+
+> [!TIP]
+>
+> You might need to make sure that you are first in the **app folder** before running the commands above.
+
+**4. Test your app**
+
+Follow the instructions in [Testing your app](#testing-your-app) below. For the color picker example, start a new chat and ask Claude to provide you a color picker.
+
+![Testing the color picker in Claude](https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/test-color-picker.gif?s=09413b99bc31d7edc7f9aa22df4faa6a)
 
 ### Manual setup
 
 If you're not using an AI coding agent, or prefer to understand the setup
 process, follow these steps.
 
-<Steps>
-  <Step title="Create the project structure">
-    A typical MCP App project separates the server code from the UI code:
+**1. Create the project structure**
 
-    <Tree>
-      <Tree.Folder name="my-mcp-app" defaultOpen>
-        <Tree.File name="package.json" />
+A typical MCP App project separates the server code from the UI code:
 
-        <Tree.File name="tsconfig.json" />
+**my-mcp-app**
 
-        <Tree.File name="vite.config.ts" />
+**package.json**
 
-        <Tree.File name="server.ts" comment="MCP server with tool + resource" />
+**tsconfig.json**
 
-        <Tree.File name="mcp-app.html" comment="UI entry point" />
+**vite.config.ts**
 
-        <Tree.Folder name="src" defaultOpen>
-          <Tree.File name="mcp-app.ts" comment="UI logic" />
-        </Tree.Folder>
-      </Tree.Folder>
-    </Tree>
+**server.ts**
 
-    The server registers the tool and serves the UI resource. The UI resource will eventually be rendered in a secure iframe with deny-by-default CSP configuration. If your app has CSS and JS assets, you will need to [configure CSP](https://apps.extensions.modelcontextprotocol.io/api/documents/Patterns.html#configuring-csp-and-cors), or you can bundle your assets into the HTML with a tool like `vite-plugin-singlefile`, which is what we will do in this tutorial.
-  </Step>
+**mcp-app.html**
 
-  <Step title="Install dependencies">
-    ```bash theme={null}
-    npm install @modelcontextprotocol/ext-apps @modelcontextprotocol/sdk
-    npm install -D typescript vite vite-plugin-singlefile express cors @types/express @types/cors tsx
-    ```
+**src**
 
-    The `ext-apps` package provides helpers for both the server side (registering tools and resources) and the client side (the `App` class for UI-to-host communication). Vite with the `vite-plugin-singlefile` plugin is used here to bundle your UI and assets into a single HTML file for convenience, but this is optional — you can use any bundler or serve unbundled files if you [configure CSP](https://apps.extensions.modelcontextprotocol.io/api/documents/Patterns.html#configuring-csp-and-cors).
-  </Step>
+**mcp-app.ts**
 
-  <Step title="Configure the project">
-    <Tabs>
-      <Tab title="package.json">
-        The `"type": "module"` setting enables ES module syntax. The `build` script uses the `INPUT` environment variable to tell Vite which HTML file to bundle. The `serve` script runs your server using `tsx` for TypeScript execution.
+The server registers the tool and serves the UI resource. The UI resource will eventually be rendered in a secure iframe with deny-by-default CSP configuration. If your app has CSS and JS assets, you will need to [configure CSP](https://apps.extensions.modelcontextprotocol.io/api/documents/Patterns.html#configuring-csp-and-cors), or you can bundle your assets into the HTML with a tool like `vite-plugin-singlefile`, which is what we will do in this tutorial.
 
-        ```json theme={null}
-        {
-          "type": "module",
-          "scripts": {
-            "build": "INPUT=mcp-app.html vite build",
-            "serve": "npx tsx server.ts"
-          }
-        }
-        ```
-      </Tab>
+**2. Install dependencies**
 
-      <Tab title="tsconfig.json">
-        The TypeScript configuration targets modern JavaScript (`ES2022`) and uses ESNext modules with bundler resolution, which works well with Vite. The `include` array covers both the server code in the root and UI code in `src/`.
+```bash theme={null}
+npm install @modelcontextprotocol/ext-apps @modelcontextprotocol/sdk
+npm install -D typescript vite vite-plugin-singlefile express cors @types/express @types/cors tsx
+```
 
-        ```json theme={null}
-        {
-          "compilerOptions": {
-            "target": "ES2022",
-            "module": "ESNext",
-            "moduleResolution": "bundler",
-            "strict": true,
-            "esModuleInterop": true,
-            "skipLibCheck": true,
-            "outDir": "dist"
-          },
-          "include": ["*.ts", "src/**/*.ts"]
-        }
-        ```
-      </Tab>
+The `ext-apps` package provides helpers for both the server side (registering tools and resources) and the client side (the `App` class for UI-to-host communication). Vite with the `vite-plugin-singlefile` plugin is used here to bundle your UI and assets into a single HTML file for convenience, but this is optional — you can use any bundler or serve unbundled files if you [configure CSP](https://apps.extensions.modelcontextprotocol.io/api/documents/Patterns.html#configuring-csp-and-cors).
 
-      <Tab title="vite.config.ts">
-        ```typescript theme={null}
-        import { defineConfig } from "vite";
-        import { viteSingleFile } from "vite-plugin-singlefile";
+**3. Configure the project**
 
-        export default defineConfig({
-          plugins: [viteSingleFile()],
-          build: {
-            outDir: "dist",
-            rollupOptions: {
-              input: process.env.INPUT,
-            },
-          },
-        });
-        ```
-      </Tab>
-    </Tabs>
-  </Step>
+**package.json**
 
-  <Step title="Build the project">
-    With the project structure and configuration in place, continue to [Building an MCP App](#building-an-mcp-app) below to implement the server and UI.
-  </Step>
-</Steps>
+The `"type": "module"` setting enables ES module syntax. The `build` script uses the `INPUT` environment variable to tell Vite which HTML file to bundle. The `serve` script runs your server using `tsx` for TypeScript execution.
+
+```json theme={null}
+{
+  "type": "module",
+  "scripts": {
+    "build": "INPUT=mcp-app.html vite build",
+    "serve": "npx tsx server.ts"
+  }
+}
+```
+
+**tsconfig.json**
+
+The TypeScript configuration targets modern JavaScript (`ES2022`) and uses ESNext modules with bundler resolution, which works well with Vite. The `include` array covers both the server code in the root and UI code in `src/`.
+
+```json theme={null}
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "outDir": "dist"
+  },
+  "include": ["*.ts", "src/**/*.ts"]
+}
+```
+
+**vite.config.ts**
+
+```typescript theme={null}
+import { defineConfig } from "vite";
+import { viteSingleFile } from "vite-plugin-singlefile";
+
+export default defineConfig({
+  plugins: [viteSingleFile()],
+  build: {
+    outDir: "dist",
+    rollupOptions: {
+      input: process.env.INPUT,
+    },
+  },
+});
+```
+
+**4. Build the project**
+
+With the project structure and configuration in place, continue to [Building an MCP App](#building-an-mcp-app) below to implement the server and UI.
 
 ## Building an MCP App
 
@@ -412,15 +394,13 @@ updating the model's context with structured data from your app. See the full
 
 To test your MCP App, build the UI and start your local server:
 
-<CodeGroup>
-  ```bash macOS/Linux theme={null}
-  npm run build && npm run serve
-  ```
+```bash macOS/Linux theme={null}
+npm run build && npm run serve
+```
 
-  ```powershell Windows theme={null}
-  npm run build; npm run serve
-  ```
-</CodeGroup>
+```powershell Windows theme={null}
+npm run build; npm run serve
+```
 
 In the default configuration, your server will be available at
 `http://localhost:3001/mcp`. However, to see your app render, you need an MCP
@@ -444,71 +424,61 @@ as a [custom connector](https://support.anthropic.com/en/articles/11175166-getti
 in Claude - click on your profile, go to **Settings**, **Connectors**, and
 finally **Add custom connector**.
 
-<Note>
-  Custom connectors are available on paid Claude plans (Pro, Max, or Team).
-</Note>
+> [!NOTE]
+>
+> Custom connectors are available on paid Claude plans (Pro, Max, or Team).
 
-<Frame caption="Adding a custom connector in Claude">
-  <img src="https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/add-custom-connector.gif?s=c4ec0750413ff7575c7f9492e2713212" alt="Adding a custom connector in Claude" width="800" height="543" data-path="images/quickstart-apps/add-custom-connector.gif" />
-</Frame>
+![Adding a custom connector in Claude](https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/add-custom-connector.gif?s=c4ec0750413ff7575c7f9492e2713212)
 
 ### Testing with the basic-host
 
 The `ext-apps` repository includes a test host for development. Clone the repo and
 install dependencies:
 
-<CodeGroup>
-  ```bash macOS/Linux theme={null}
-  git clone https://github.com/modelcontextprotocol/ext-apps.git
-  cd ext-apps/examples/basic-host
-  npm install
-  ```
+```bash macOS/Linux theme={null}
+git clone https://github.com/modelcontextprotocol/ext-apps.git
+cd ext-apps/examples/basic-host
+npm install
+```
 
-  ```powershell Windows theme={null}
-  git clone https://github.com/modelcontextprotocol/ext-apps.git
-  cd ext-apps\examples\basic-host
-  npm install
-  ```
-</CodeGroup>
+```powershell Windows theme={null}
+git clone https://github.com/modelcontextprotocol/ext-apps.git
+cd ext-apps\examples\basic-host
+npm install
+```
 
 Running `npm start` from `ext-apps/examples/basic-host/` will start the basic-host
 test interface. To connect it to a specific server (e.g., one you're developing),
 pass the `SERVERS` environment variable inline:
 
-<CodeGroup>
-  ```bash macOS/Linux theme={null}
-  SERVERS='["http://localhost:3001/mcp"]' npm start
-  ```
+```bash macOS/Linux theme={null}
+SERVERS='["http://localhost:3001/mcp"]' npm start
+```
 
-  ```powershell Windows theme={null}
-  $env:SERVERS='["http://localhost:3001/mcp"]'; npm start
-  ```
-</CodeGroup>
+```powershell Windows theme={null}
+$env:SERVERS='["http://localhost:3001/mcp"]'; npm start
+```
 
 Navigate to `http://localhost:8080`. You'll see a simple interface where you can
 select a tool and call it. When you call your tool, the host fetches the UI
 resource and renders it in a sandboxed iframe. You can then interact with your
 app and verify that tool calls work correctly.
 
-<Frame caption="Testing the QR code MCP App with the basic host">
-  <img src="https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/qr-code-server.gif?s=48a3b47239b8394017c0949162d63de9" alt="Example of the QR code MCP App running with the basic host" width="800" height="596" data-path="images/quickstart-apps/qr-code-server.gif" />
-</Frame>
+![Example of the QR code MCP App running with the basic host](https://mintcdn.com/mcp/GU_E-622SLWFdCrP/images/quickstart-apps/qr-code-server.gif?s=48a3b47239b8394017c0949162d63de9)
 
 ## Learn more
 
-<CardGroup cols={2}>
-  <Card title="API Documentation" icon="book" href="https://apps.extensions.modelcontextprotocol.io/api/">
-    Full SDK reference and API details
-  </Card>
+> **[API Documentation](https://apps.extensions.modelcontextprotocol.io/api/)**
+>
+> Full SDK reference and API details
 
-  <Card title="GitHub Repository" icon="github" href="https://github.com/modelcontextprotocol/ext-apps">
-    Source code, examples, and issue tracker
-  </Card>
+> **[GitHub Repository](https://github.com/modelcontextprotocol/ext-apps)**
+>
+> Source code, examples, and issue tracker
 
-  <Card title="Specification" icon="file-lines" href="https://github.com/modelcontextprotocol/ext-apps/blob/main/specification/draft/apps.mdx">
-    Technical specification for implementers
-  </Card>
-</CardGroup>
+> **[Specification](https://github.com/modelcontextprotocol/ext-apps/blob/main/specification/draft/apps.mdx)**
+>
+> Technical specification for implementers
 
 ## Feedback
 

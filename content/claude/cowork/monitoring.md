@@ -8,9 +8,9 @@
 
 Track Cowork usage and activity across your organization by exporting events through [OpenTelemetry](https://opentelemetry.io/) (OTel). Cowork exports events via the OTel logs/events protocol, giving you visibility into user prompts, model responses, API requests, tool usage, and errors.
 
-<Note>
-  Monitoring is available for Team and Enterprise plans. OTel monitoring requires Claude desktop app version 1.1.4173 or later.
-</Note>
+> [!NOTE]
+>
+> Monitoring is available for Team and Enterprise plans. OTel monitoring requires Claude desktop app version 1.1.4173 or later.
 
 ## Setup
 
@@ -30,9 +30,9 @@ Configure monitoring from the Cowork admin settings:
 
 4. Start a new Cowork session — settings are loaded at session start, so existing sessions won't pick up the new configuration
 
-<Note>
-  The OTel exporter runs inside the Cowork VM, so it is subject to the session's egress rules. If your organization restricts network egress, Cowork automatically adds your collector's hostname to the session's egress allowlist. You don't need to add it at **Admin settings > Capabilities > Network egress**.
-</Note>
+> [!NOTE]
+>
+> The OTel exporter runs inside the Cowork VM, so it is subject to the session's egress rules. If your organization restricts network egress, Cowork automatically adds your collector's hostname to the session's egress allowlist. You don't need to add it at **Admin settings > Capabilities > Network egress**.
 
 ## Events
 
@@ -83,9 +83,9 @@ All events include these attributes:
 | `workspace.host_paths` | Paths of the folders the user connected to the task (string array) |
 | `terminal.type` | Terminal type (`non-interactive` for Cowork) |
 
-<Note>
-  The account attributes — `organization.id`, `user.account_uuid`, `user.account_id`, and `user.email` — are populated from the user's Anthropic account, so they appear on first-party deployments only. On [third-party deployments](/docs/third-party/claude-desktop/overview) there is no Anthropic account and these attributes are absent; instead, the export carries the signed-in user's identity as the `enduser.id` resource attribute, described under [User attribution](/docs/third-party/claude-desktop/telemetry#user-attribution). The `process.owner` resource attribute (the operating-system login name) is standard OpenTelemetry process metadata and is present on all deployments.
-</Note>
+> [!NOTE]
+>
+> The account attributes — `organization.id`, `user.account_uuid`, `user.account_id`, and `user.email` — are populated from the user's Anthropic account, so they appear on first-party deployments only. On [third-party deployments](/docs/third-party/claude-desktop/overview) there is no Anthropic account and these attributes are absent; instead, the export carries the signed-in user's identity as the `enduser.id` resource attribute, described under [User attribution](/docs/third-party/claude-desktop/telemetry#user-attribution). The `process.owner` resource attribute (the operating-system login name) is standard OpenTelemetry process metadata and is present on all deployments.
 
 ### User prompt event
 
@@ -222,9 +222,9 @@ The exported events support a range of analyses:
 
 **Performance monitoring** — Track API request durations and tool execution times to identify performance bottlenecks.
 
-<Note>
-  Cost values from events are approximations. For official billing data, refer to your billing dashboard.
-</Note>
+> [!NOTE]
+>
+> Cost values from events are approximations. For official billing data, refer to your billing dashboard.
 
 ## Backend considerations
 

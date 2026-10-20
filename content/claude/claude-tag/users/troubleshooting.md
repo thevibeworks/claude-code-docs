@@ -6,9 +6,9 @@
 
 > Fixes for common Claude Tag problems in Slack. See no reply after a reaction, queued or failed sessions, lost work, missing connections, blocked links and websites, and DM or account errors.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 When something goes wrong mid-conversation, the cause is usually one of a small set. Each entry below has the same three parts: what you see, what it means, and how to resolve it. For setup and credential errors, see the [admin troubleshooting page](/docs/claude-tag/admins/troubleshooting).
 
@@ -72,7 +72,9 @@ A reaction or a working indicator without a reply usually means Claude is still 
 1. Send [`@Claude !status`](/docs/claude-tag/users/commands#check-whether-claude-is-still-working) in the same thread. Claude tells you, in a note only you can see, whether it's still working and for how long, without interrupting the work. If the note says Claude got disconnected, @-mention Claude in the thread and it picks up where it left off, with no restart needed.
 2. If the silence has stretched well past what the task should need, send [`@Claude !restart`](/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session) in the thread; it archives the session and starts a fresh one that still reads the thread. Starting a new thread and restating the request also works.
 
-<Warning>Restarting abandons whatever the session was midway through, and there's no way to resume it. A silent session may still be working through a long task, so treat `!restart` as a last resort.</Warning>
+> [!WARNING]
+>
+> Restarting abandons whatever the session was midway through, and there's no way to resume it. A silent session may still be working through a long task, so treat `!restart` as a last resort.
 
 ### Claude says my session is queued or failed to start
 
@@ -110,8 +112,6 @@ Editing a sent message to add a mention doesn't trigger a response; Claude only 
 **How to resolve**
 
 Send a new message with the mention included.
-
-<a id="claude-never-responds-in-a-channel-shared-with-another-company" />
 
 ### Claude is silent in a channel shared with another company
 

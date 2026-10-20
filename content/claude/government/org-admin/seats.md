@@ -18,9 +18,9 @@ A **seat tier** is a named level of access that defines which Claude models a pe
 
 Seats are grouped into two sections based on who controls the tier.
 
-<Note>
-  Each section below only appears when your organization has at least one tier of that kind. If you have neither, the page shows a message explaining that seats are distributed by your tenant administrators.
-</Note>
+> [!NOTE]
+>
+> Each section below only appears when your organization has at least one tier of that kind. If you have neither, the page shows a message explaining that seats are distributed by your tenant administrators.
 
 **Anthropic-managed tiers** are defined by Anthropic and allocated to your organization from your tenant's seat pool. For each one the table shows the **Assigned** count, which is how many of your users are on that tier, alongside the **Limit**, which is the number of seats your organization has been allocated. You cannot assign more users to a tier than its limit allows.
 
@@ -40,17 +40,17 @@ Automatic placement happens when a user first arrives. A user who is already **U
 * Your organization receives its first seat allocation. Members without a seat tier are seated automatically from the new seats at that moment, Primary Owners first and in the same tier order as above, provided nobody in the organization already holds a seat. Anyone still without a seat tier afterwards, for example because there were more members than seats, needs an owner to choose one for them on the Users page. Later allocation changes do not repeat this, so a user you deliberately leave unassigned stays that way.
 * The user arrived through directory provisioning and belongs to a group that is mapped to a tier. The next sync seats them once the mapped tier has a free seat, as described on the [Group mappings](/docs/government/org-admin/provisioning) page.
 
-<Tip>
-  If you see an Anthropic-managed tier whose **Assigned** count equals its **Limit**, new users cannot land on it automatically. Either increase the allocation on the [Billing](/docs/government/org-admin/billing) page, move existing users to a different tier to free seats, or ask a tenant administrator to add seats.
-</Tip>
+> [!TIP]
+>
+> If you see an Anthropic-managed tier whose **Assigned** count equals its **Limit**, new users cannot land on it automatically. Either increase the allocation on the [Billing](/docs/government/org-admin/billing) page, move existing users to a different tier to free seats, or ask a tenant administrator to add seats.
 
 ## What you can do here
 
 This page is read-only. To move a user onto a different tier, use the [Users](/docs/government/org-admin/users) page. To create or edit self-managed tiers, use the [Tiers](/docs/government/org-admin/seat-tiers) page.
 
-<Tip>
-  To change how many seats of an Anthropic-managed tier your organization holds, go to the [Billing](/docs/government/org-admin/billing) page if it is available to you, or ask a tenant administrator.
-</Tip>
+> [!TIP]
+>
+> To change how many seats of an Anthropic-managed tier your organization holds, go to the [Billing](/docs/government/org-admin/billing) page if it is available to you, or ask a tenant administrator.
 
 ## Things to know
 

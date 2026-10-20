@@ -14,56 +14,52 @@ Google's remote MCP servers don't support dynamic client registration, and Googl
 
 ## Set up the BigQuery server
 
-<Steps>
-  <Step title="Prepare the Google Cloud project">
-    In the Google Cloud project that holds your BigQuery data, enable the BigQuery MCP server and grant each user the **MCP Tool User** role (`roles/mcp.toolUser`) together with the BigQuery roles their queries need. Google's [Use the BigQuery MCP server](https://docs.cloud.google.com/bigquery/docs/use-bigquery-mcp) guide covers both.
-  </Step>
+**1. Prepare the Google Cloud project**
 
-  <Step title="Create a Desktop-app OAuth client in Google Cloud">
-    If the project has no OAuth consent screen, configure one first in the Google Cloud Console under **APIs & Services → OAuth consent screen**. Choose the **Internal** user type when all users are in your Google Workspace organization. With **External**, add every user as a test user while the app is in testing, or Google blocks their sign-in.
+In the Google Cloud project that holds your BigQuery data, enable the BigQuery MCP server and grant each user the **MCP Tool User** role (`roles/mcp.toolUser`) together with the BigQuery roles their queries need. Google's [Use the BigQuery MCP server](https://docs.cloud.google.com/bigquery/docs/use-bigquery-mcp) guide covers both.
 
-    Then open **APIs & Services → Credentials**, choose **Create credentials → OAuth client ID**, and select **Desktop app** as the application type. When Google shows the new client, copy its **Client ID** (ends in `.apps.googleusercontent.com`) and **Client secret** (begins with `GOCSPX-`). You don't add redirect URIs, because Desktop-app clients accept loopback redirects automatically.
-  </Step>
+**2. Create a Desktop-app OAuth client in Google Cloud**
 
-  <Step title="Add the server in the Enterprise Admin Console">
-    In the Enterprise Admin Console ([claude.ai](https://claude.ai) → **Organization settings**), open the **Connectors** page under **Desktop 3P**. Under **Managed MCP servers**, click **Add → Blank** and fill in the entry:
+If the project has no OAuth consent screen, configure one first in the Google Cloud Console under **APIs & Services → OAuth consent screen**. Choose the **Internal** user type when all users are in your Google Workspace organization. With **External**, add every user as a test user while the app is in testing, or Google blocks their sign-in.
 
-    | Field | Value |
-    | - | - |
-    | **Name** | `BigQuery` |
-    | **Transport** | **Streamable HTTP** |
-    | **URL** | `https://bigquery.googleapis.com/mcp` |
-    | **OAuth** | **Bring your own client** |
-    | **Client ID** | The client ID from step 2 |
-    | **Client secret** | The client secret from step 2 |
-    | **Authorization server** | `["https://accounts.google.com"]` |
+Then open **APIs & Services → Credentials**, choose **Create credentials → OAuth client ID**, and select **Desktop app** as the application type. When Google shows the new client, copy its **Client ID** (ends in `.apps.googleusercontent.com`) and **Client secret** (begins with `GOCSPX-`). You don't add redirect URIs, because Desktop-app clients accept loopback redirects automatically.
 
-    <Frame caption="A BigQuery entry on the Connectors page with OAuth set to Bring your own client.">
-      <img src="https://mintcdn.com/claude-ai/l0HgWAJ4dDJ1-I-u/images/third-party/admin-console-managed-mcp-oauth.png?fit=max&auto=format&n=l0HgWAJ4dDJ1-I-u&q=85&s=efa91a216efb8f99c1e4aefc0ed5b16a" alt="Managed MCP server entry named BigQuery in the Enterprise Admin Console, with Transport set to Streamable HTTP, the BigQuery MCP URL, OAuth set to Bring your own client, and the Client ID, Client secret, and Authorization server fields filled in." width="1952" height="1705" data-path="images/third-party/admin-console-managed-mcp-oauth.png" />
-    </Frame>
+**3. Add the server in the Enterprise Admin Console**
 
-    Click **Save changes**. Users' apps pick up the new entry as described under [Configuration updates](/docs/third-party/claude-desktop/admin-console#configuration-updates). Devices need outbound HTTPS access to `bigquery.googleapis.com`, `accounts.google.com`, and `oauth2.googleapis.com`.
+In the Enterprise Admin Console ([claude.ai](https://claude.ai) → **Organization settings**), open the **Connectors** page under **Desktop 3P**. Under **Managed MCP servers**, click **Add → Blank** and fill in the entry:
 
-    If you manage configuration through MDM or a bootstrap server instead, the equivalent [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) entry is:
+| Field | Value |
+| - | - |
+| **Name** | `BigQuery` |
+| **Transport** | **Streamable HTTP** |
+| **URL** | `https://bigquery.googleapis.com/mcp` |
+| **OAuth** | **Bring your own client** |
+| **Client ID** | The client ID from step 2 |
+| **Client secret** | The client secret from step 2 |
+| **Authorization server** | `["https://accounts.google.com"]` |
 
-    ```json theme={null}
-    {
-      "name": "BigQuery",
-      "transport": "http",
-      "url": "https://bigquery.googleapis.com/mcp",
-      "oauth": {
-        "clientId": "CLIENT_ID.apps.googleusercontent.com",
-        "clientSecret": "GOCSPX-YOUR_CLIENT_SECRET",
-        "authorizationServer": ["https://accounts.google.com"]
-      }
-    }
-    ```
-  </Step>
+![Managed MCP server entry named BigQuery in the Enterprise Admin Console, with Transport set to Streamable HTTP, the BigQuery MCP URL, OAuth set to Bring your own client, and the Client ID, Client secret, and Authorization server fields filled in.](https://mintcdn.com/claude-ai/l0HgWAJ4dDJ1-I-u/images/third-party/admin-console-managed-mcp-oauth.png?fit=max\&auto=format\&n=l0HgWAJ4dDJ1-I-u\&q=85\&s=efa91a216efb8f99c1e4aefc0ed5b16a)
 
-  <Step title="Have users connect">
-    Each user opens **Customize → Connectors** in Claude Desktop, clicks **Connect** next to **BigQuery**, and approves Google's consent screen in the browser. Claude Desktop asks Google for offline access automatically, so the token refreshes in the background without another sign-in.
-  </Step>
-</Steps>
+Click **Save changes**. Users' apps pick up the new entry as described under [Configuration updates](/docs/third-party/claude-desktop/admin-console#configuration-updates). Devices need outbound HTTPS access to `bigquery.googleapis.com`, `accounts.google.com`, and `oauth2.googleapis.com`.
+
+If you manage configuration through MDM or a bootstrap server instead, the equivalent [`managedMcpServers`](/docs/third-party/claude-desktop/configuration#managedmcpservers) entry is:
+
+```json theme={null}
+{
+  "name": "BigQuery",
+  "transport": "http",
+  "url": "https://bigquery.googleapis.com/mcp",
+  "oauth": {
+    "clientId": "CLIENT_ID.apps.googleusercontent.com",
+    "clientSecret": "GOCSPX-YOUR_CLIENT_SECRET",
+    "authorizationServer": ["https://accounts.google.com"]
+  }
+}
+```
+
+**4. Have users connect**
+
+Each user opens **Customize → Connectors** in Claude Desktop, clicks **Connect** next to **BigQuery**, and approves Google's consent screen in the browser. Claude Desktop asks Google for offline access automatically, so the token refreshes in the background without another sign-in.
 
 ## Other Google servers
 

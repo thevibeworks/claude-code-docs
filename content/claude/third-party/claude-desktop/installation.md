@@ -213,6 +213,19 @@ By default, Claude Desktop downloads updates from Anthropic's update server auto
 In 3P deployments you can:
 
 * **Leave auto-update enabled** (recommended) so fixes reach users without IT intervention. Set `autoUpdaterEnforcementHours` to shorten the enforcement window (1 to 72 hours; values above 72 are rejected). Setting the key also makes the window strict: the restart fires as soon as the window elapses, without waiting for a pause in user activity.
+* **Take releases later** by setting [`releaseChannel`](/docs/third-party/claude-desktop/configuration#releasechannel) to `staggered`, the slower channel. Devices on the default, `stable`, take each release as it rolls out. Devices on `staggered` update to the release that Anthropic has marked for that channel. On Thursdays, Anthropic marks a release that has fully rolled out on `stable`, a tested production build from at least one week prior. A device on a release newer than the marked one stays on it until Anthropic marks a release newer than its own. Features and fixes, including security fixes, reach `staggered` devices later.
 * **Disable auto-update** (`disableAutoUpdates`) and redistribute new builds through your MDM on your own cadence. This is required for [air-gapped environments](#offline-installation) but means your IT team owns the update pipeline.
+
+> [!WARNING]
+>
+> Moving a device from `staggered` to `stable` updates it to a newer release, and setting `staggered` again doesn't take it back to the older one. A device also follows `stable` if you remove `releaseChannel` or set it only where the device doesn't read it.
+
+Set `releaseChannel` in the first of these that the device has:
+
+* **An MDM profile that sets only [app-behavior keys](/docs/third-party/claude-desktop/mdm#update-keys-and-managed-precedence)**, such as an update policy, a restart window, or a network proxy: put the key in that profile
+* **A [bootstrap server](/docs/third-party/claude-desktop/bootstrap) or the [admin console](/docs/third-party/claude-desktop/admin-console)**: return the key in the server's response, or set it in the console
+* **Any other configuration**, such as an MDM profile that sets the inference provider: put the key with the rest of that configuration
+
+`releaseChannel` has no effect on devices where something else installs updates, such as Linux devices, which [update through apt](/docs/third-party/claude-desktop/telemetry#auto-updates), and devices that installed Claude Desktop from the Microsoft Store.
 
 See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry) for the network paths the updater uses.

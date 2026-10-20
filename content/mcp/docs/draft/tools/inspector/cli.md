@@ -12,12 +12,12 @@ Each CLI run connects to a server, invokes the single request you name with `--m
 npx @modelcontextprotocol/inspector --cli node build/index.js --method tools/list
 ```
 
-<Tip>
-  Running several commands against the same server, or a flow that spans one
-  session (tasks, subscriptions, elicitation)? The [mcpdo connection
-  client](/docs/draft/tools/inspector/mcpdo) connects once and keeps the
-  connection open between commands.
-</Tip>
+> [!TIP]
+>
+> Running several commands against the same server, or a flow that spans one
+> session (tasks, subscriptions, elicitation)? The [mcpdo connection
+> client](/docs/draft/tools/inspector/mcpdo) connects once and keeps the
+> connection open between commands.
 
 The examples below use the installed `mcp-inspector` binary. Without a global install, prefix each command with `npx @modelcontextprotocol/inspector` instead, as above.
 
@@ -40,14 +40,14 @@ When the server comes from a file, its per-server settings (headers, timeouts, O
 
 Later examples abbreviate whichever of these forms you use, along with its `--transport` or `--config`/`--server` flags, as `<server>`.
 
-<Note>
-  **The config file is the only durable way to give a run its
-  [roots](/specification/draft/client/roots):** there is no roots flag, and the
-  CLI has no `roots/set` method. Roots configured for a server are advertised at
-  connect, so a server that calls `roots/list` (as
-  `@modelcontextprotocol/server-filesystem` does, to learn its allowed
-  directories) gets them.
-</Note>
+> [!NOTE]
+>
+> **The config file is the only durable way to give a run its
+> [roots](/specification/draft/client/roots):** there is no roots flag, and the
+> CLI has no `roots/set` method. Roots configured for a server are advertised at
+> connect, so a server that calls `roots/list` (as
+> `@modelcontextprotocol/server-filesystem` does, to learn its allowed
+> directories) gets them.
 
 See [Configuration and flags](/docs/draft/tools/inspector/configuration) for `--catalog` vs. `--config`, the `--` separator, and the shared server-selection flags.
 
@@ -116,11 +116,11 @@ Exit codes distinguish the outcomes: a tool with an app exits `0`, one with no a
 
 The CLI can't render an App, so by default it doesn't advertise the MCP Apps extension at `initialize`. A server that exposes its App tools only to clients claiming App support will then look app-less (exit `2`). Add `--advertise-apps` to claim the extension for that run.
 
-<Note>
-  `tools/list --app-info` always emits NDJSON (one line per tool) regardless of
-  `--format`; `--format json` reshapes only the single-tool output of
-  `tools/call --app-info`.
-</Note>
+> [!NOTE]
+>
+> `tools/list --app-info` always emits NDJSON (one line per tool) regardless of
+> `--format`; `--format json` reshapes only the single-tool output of
+> `tools/call --app-info`.
 
 ## Exit codes and error envelopes
 
@@ -223,12 +223,12 @@ mcp-inspector --cli --catalog ~/.mcp-inspector/mcp.json --method servers/list
 mcp-inspector --cli --catalog ~/.mcp-inspector/mcp.json --method servers/show --server my-server
 ```
 
-<Warning>
-  `servers/show` redacts secret-bearing fields (`env` values, sensitive headers,
-  OAuth client secrets), but it does **not** scrub credentials embedded in a
-  server `url` (userinfo or query tokens) or in stdio `args`. Treat raw URL and
-  `detail` fields as sensitive before pasting them into an issue.
-</Warning>
+> [!WARNING]
+>
+> `servers/show` redacts secret-bearing fields (`env` values, sensitive headers,
+> OAuth client secrets), but it does **not** scrub credentials embedded in a
+> server `url` (userinfo or query tokens) or in stdio `args`. Treat raw URL and
+> `detail` fields as sensitive before pasting them into an issue.
 
 ### Editing the catalog
 

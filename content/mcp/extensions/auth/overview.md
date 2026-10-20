@@ -8,10 +8,10 @@
 
 The [ext-auth repository](https://github.com/modelcontextprotocol/ext-auth) contains official MCP extensions that add authorization capabilities beyond the core MCP specification. These extensions address specific real-world scenarios where the standard OAuth 2.0 authorization code flow isn't the right fit.
 
-<Card title="modelcontextprotocol/ext-auth" icon="github" href="https://github.com/modelcontextprotocol/ext-auth">
-  Source code, specifications, and reference implementations for MCP
-  authorization extensions.
-</Card>
+> **[modelcontextprotocol/ext-auth](https://github.com/modelcontextprotocol/ext-auth)**
+>
+> Source code, specifications, and reference implementations for MCP
+> authorization extensions.
 
 ## Why authorization extensions?
 
@@ -26,17 +26,15 @@ The ext-auth extensions address these gaps.
 
 ## Available extensions
 
-<CardGroup cols={2}>
-  <Card title="OAuth Client Credentials" icon="robot" href="/extensions/auth/oauth-client-credentials">
-    Machine-to-machine authentication using the OAuth 2.0 client credentials
-    flow. No user interaction required.
-  </Card>
+> **[OAuth Client Credentials](/extensions/auth/oauth-client-credentials)**
+>
+> Machine-to-machine authentication using the OAuth 2.0 client credentials
+> flow. No user interaction required.
 
-  <Card title="Enterprise-Managed Authorization" icon="building" href="/extensions/auth/enterprise-managed-authorization">
-    Centralized access control via enterprise identity providers. Employees
-    access MCP servers through their organization's IdP.
-  </Card>
-</CardGroup>
+> **[Enterprise-Managed Authorization](/extensions/auth/enterprise-managed-authorization)**
+>
+> Centralized access control via enterprise identity providers. Employees
+> access MCP servers through their organization's IdP.
 
 ## Choosing the right extension
 

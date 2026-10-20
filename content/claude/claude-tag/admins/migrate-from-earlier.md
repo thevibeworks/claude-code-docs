@@ -6,39 +6,39 @@
 
 > Claude Tag replaces the earlier per-user Claude in Slack app in place. See what changes, what stays, how the version is chosen per channel, and what existing users notice.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 If your organization already used the earlier Claude in Slack, including [Claude Code in Slack](https://code.claude.com/docs/en/slack), Claude Tag replaces it. Your existing Slack app and `@Claude` handle stay, and no data migrates. What changes is who Claude acts as and who sets it up.
 
-<Note>If your Team plan organization has the single [**Respond in channels** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan), it has no **Claude Tag version** controls and there is nothing to migrate.</Note>
+> [!NOTE]
+>
+> If your Team plan organization has the single [**Respond in channels** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan), it has no **Claude Tag version** controls and there is nothing to migrate.
 
 ## Switch your workspace to Claude Tag
 
-<Steps>
-  <Step title="Connect the workspace in the Claude console">
-    Open [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). If your workspace isn't paired, run [setup](/docs/claude-tag/admins/setup-overview); otherwise you're already on Claude Tag. Once paired, channels and linked-user DMs answer with the New version by default; no per-channel action is needed.
-  </Step>
+**1. Connect the workspace in the Claude console**
 
-  <Step title="Check for channels still on Legacy">
-    Pairing defaults every workspace and channel to **New**, so this is usually quick.
+Open [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). If your workspace isn't paired, run [setup](/docs/claude-tag/admins/setup-overview); otherwise you're already on Claude Tag. Once paired, channels and linked-user DMs answer with the New version by default; no per-channel action is needed.
 
-    1. Go to [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels). A workspace or channel set to Legacy shows **legacy Claude in Slack** in the **Changes from defaults** column.
-    2. Open each one, and on its **Advanced** tab set **Claude Tag version** to **New**.
-    3. The **Slack** row never shows that marker, so also go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack) and set **Claude Tag version** on its **Advanced** tab to **New** if it shows **Legacy**.
-  </Step>
+**2. Check for channels still on Legacy**
 
-  <Step title="Give Claude its connections">
-    The New version starts with no access of its own. GitHub repositories and other connections do not carry over from individual users' linked accounts, so code requests in a switched channel have nothing to clone until you configure them. Follow the [setup overview](/docs/claude-tag/admins/setup-overview) to add connections, and [GitHub access](/docs/claude-tag/admins/configure-github) for code work specifically.
+Pairing defaults every workspace and channel to **New**, so this is usually quick.
 
-    If your teams keep custom skills in a repository's `.claude/skills/` folder, those skills apply only in threads that have the repository. Add the repository to a [bundle](/docs/claude-tag/concepts/glossary#access-bundle) that applies to the channel, and have users name it in the first message. To give skills to every channel in a workspace or in all of Slack, add them through a [skills repository](/docs/claude-tag/admins/skills-repo).
-  </Step>
+1. Go to [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels). A workspace or channel set to Legacy shows **legacy Claude in Slack** in the **Changes from defaults** column.
+2. Open each one, and on its **Advanced** tab set **Claude Tag version** to **New**.
+3. The **Slack** row never shows that marker, so also go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack) and set **Claude Tag version** on its **Advanced** tab to **New** if it shows **Legacy**.
 
-  <Step title="Tell your users">
-    Send them [Get started](/docs/claude-tag/users/getting-started). The visible change is that work now belongs to the channel; see [What existing users notice after the switch](#what-existing-users-notice-after-the-switch) below.
-  </Step>
-</Steps>
+**3. Give Claude its connections**
+
+The New version starts with no access of its own. GitHub repositories and other connections do not carry over from individual users' linked accounts, so code requests in a switched channel have nothing to clone until you configure them. Follow the [setup overview](/docs/claude-tag/admins/setup-overview) to add connections, and [GitHub access](/docs/claude-tag/admins/configure-github) for code work specifically.
+
+If your teams keep custom skills in a repository's `.claude/skills/` folder, those skills apply only in threads that have the repository. Add the repository to a [bundle](/docs/claude-tag/concepts/glossary#access-bundle) that applies to the channel, and have users name it in the first message. To give skills to every channel in a workspace or in all of Slack, add them through a [skills repository](/docs/claude-tag/admins/skills-repo).
+
+**4. Tell your users**
+
+Send them [Get started](/docs/claude-tag/users/getting-started). The visible change is that work now belongs to the channel; see [What existing users notice after the switch](#what-existing-users-notice-after-the-switch) below.
 
 **You'll see:** the workspace under **Connected workspaces** on the **Slack** page, **New** as the **Slack** page's **Claude Tag version**, and no row on the **Channels** tab showing **legacy Claude in Slack**.
 
@@ -46,7 +46,9 @@ If your organization already used the earlier Claude in Slack, including [Claude
 
 On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. See [Claude is silent everywhere on Enterprise Grid](/docs/claude-tag/admins/troubleshooting#claude-is-silent-everywhere-on-enterprise-grid) for the reinstall that refreshes it without uninstalling, then send `@Claude connect` again in a channel of that workspace and [pair the workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) with the new code.
 
-<Warning>Since October 5, 2026, the earlier Claude in Slack app, shown as **Legacy** in admin settings, no longer answers in channels of a workspace paired with your Claude organization. A channel there that's still set to Legacy gets a notice that the legacy bot is retired, until you set **Claude Tag version** to **New** on the channel, or on its workspace if the channel inherits the setting. You also can't switch a workspace or channel to Legacy anymore. Direct messages aren't affected. In a workspace that isn't paired, Pro and Max users still get answers from the earlier app in channels, and anyone else with a connected Claude account gets the [workspace setup notice](/docs/claude-tag/admins/troubleshooting#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet) instead.</Warning>
+> [!WARNING]
+>
+> Since October 5, 2026, the earlier Claude in Slack app, shown as **Legacy** in admin settings, no longer answers in channels of a workspace paired with your Claude organization. A channel there that's still set to Legacy gets a notice that the legacy bot is retired, until you set **Claude Tag version** to **New** on the channel, or on its workspace if the channel inherits the setting. You also can't switch a workspace or channel to Legacy anymore. Direct messages aren't affected. In a workspace that isn't paired, Pro and Max users still get answers from the earlier app in channels, and anyone else with a connected Claude account gets the [workspace setup notice](/docs/claude-tag/admins/troubleshooting#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet) instead.
 
 ## What stays the same
 

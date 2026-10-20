@@ -18,86 +18,80 @@ All three are built on the same shared core, so a connection behaves identically
 
 The package also installs **`mcpdo`**, an experimental [connection client](/docs/draft/tools/inspector/mcpdo) that connects to a server once and keeps it open across many commands, on the same core.
 
-<Frame caption="The MCP Inspector web client after a tool call, with the monitoring sidebar pinned and widened so the JSON-RPC exchange stays readable while you work.">
-  <img src="https://mintcdn.com/mcp/pUebPdrb6PY5_mfH/images/inspector/web-monitor-sidebar.png?fit=max&auto=format&n=pUebPdrb6PY5_mfH&q=85&s=2ced9eeefa020be53fe4fe957b7d07c6" width="3840" height="2160" data-path="images/inspector/web-monitor-sidebar.png" />
-</Frame>
+![](https://mintcdn.com/mcp/pUebPdrb6PY5_mfH/images/inspector/web-monitor-sidebar.png?fit=max\&auto=format\&n=pUebPdrb6PY5_mfH\&q=85\&s=2ced9eeefa020be53fe4fe957b7d07c6)
 
 ## Quickstart
 
 The Inspector requires **Node 22.19.0 or newer** and runs directly through `npx`. No installation is required:
 
-<Tabs>
-  <Tab title="Web">
-    ```bash theme={null}
-    # Launch the web UI and connect to a local stdio server
-    npx @modelcontextprotocol/inspector node path/to/server/index.js
+**Web**
 
-    # Or launch with no target and add servers from the UI
-    npx @modelcontextprotocol/inspector
-    ```
+```bash theme={null}
+# Launch the web UI and connect to a local stdio server
+npx @modelcontextprotocol/inspector node path/to/server/index.js
 
-    The command prints a URL carrying a per-launch API token and opens it in your browser (set `MCP_AUTO_OPEN_ENABLED=false` to stop it opening). See [Web client](/docs/draft/tools/inspector/web).
-  </Tab>
+# Or launch with no target and add servers from the UI
+npx @modelcontextprotocol/inspector
+```
 
-  <Tab title="CLI">
-    ```bash theme={null}
-    # List a server's tools and exit
-    npx @modelcontextprotocol/inspector --cli node path/to/server/index.js --method tools/list
+The command prints a URL carrying a per-launch API token and opens it in your browser (set `MCP_AUTO_OPEN_ENABLED=false` to stop it opening). See [Web client](/docs/draft/tools/inspector/web).
 
-    # Call a tool and pipe the result into jq
-    npx @modelcontextprotocol/inspector --cli https://api.example.com/mcp --transport http \
-      --method tools/call --tool-name get_weather --tool-arg city=Boston --format json | jq .result
-    ```
+**CLI**
 
-    See [CLI client](/docs/draft/tools/inspector/cli).
-  </Tab>
+```bash theme={null}
+# List a server's tools and exit
+npx @modelcontextprotocol/inspector --cli node path/to/server/index.js --method tools/list
 
-  <Tab title="TUI">
-    ```bash theme={null}
-    npx @modelcontextprotocol/inspector --tui node path/to/server/index.js
-    ```
+# Call a tool and pipe the result into jq
+npx @modelcontextprotocol/inspector --cli https://api.example.com/mcp --transport http \
+  --method tools/call --tool-name get_weather --tool-arg city=Boston --format json | jq .result
+```
 
-    See [TUI client](/docs/draft/tools/inspector/tui).
-  </Tab>
-</Tabs>
+See [CLI client](/docs/draft/tools/inspector/cli).
+
+**TUI**
+
+```bash theme={null}
+npx @modelcontextprotocol/inspector --tui node path/to/server/index.js
+```
+
+See [TUI client](/docs/draft/tools/inspector/tui).
 
 ### Inspecting published servers
 
 Pass the command that launches the server as the Inspector's arguments, or point it at a remote server with `--server-url`:
 
-<Tabs>
-  <Tab title="npm package">
-    ```bash theme={null}
-    npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem ~/Desktop
-    ```
-  </Tab>
+**npm package**
 
-  <Tab title="PyPI package">
-    ```bash theme={null}
-    npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
-    ```
-  </Tab>
+```bash theme={null}
+npx -y @modelcontextprotocol/inspector npx @modelcontextprotocol/server-filesystem ~/Desktop
+```
 
-  <Tab title="Remote HTTP server">
-    ```bash theme={null}
-    npx @modelcontextprotocol/inspector --server-url https://api.example.com/mcp --transport http
-    ```
-  </Tab>
-</Tabs>
+**PyPI package**
+
+```bash theme={null}
+npx @modelcontextprotocol/inspector uvx mcp-server-git --repository ~/code/mcp/servers.git
+```
+
+**Remote HTTP server**
+
+```bash theme={null}
+npx @modelcontextprotocol/inspector --server-url https://api.example.com/mcp --transport http
+```
 
 Always read a server's own README first, since every server requires different commands and arguments.
 
-<Warning>
-  **The Inspector stores secrets (OAuth tokens, OAuth client secrets, and stdio
-  `env:` values) in the OS keychain when one is available.** On a machine with
-  no keychain (Linux without libsecret or a Secret Service, headless and SSH
-  sessions, Termux, and containers with a mounted volume) they are saved to
-  `~/.mcp-inspector/secrets.json` instead, **unencrypted unless you supply a
-  key**. See [Where secrets are
-  stored](/docs/draft/tools/inspector/configuration#where-secrets-are-stored)
-  for how to get a keychain back, encrypt the file, or keep secrets in memory
-  only.
-</Warning>
+> [!WARNING]
+>
+> **The Inspector stores secrets (OAuth tokens, OAuth client secrets, and stdio
+> `env:` values) in the OS keychain when one is available.** On a machine with
+> no keychain (Linux without libsecret or a Secret Service, headless and SSH
+> sessions, Termux, and containers with a mounted volume) they are saved to
+> `~/.mcp-inspector/secrets.json` instead, **unencrypted unless you supply a
+> key**. See [Where secrets are
+> stored](/docs/draft/tools/inspector/configuration#where-secrets-are-stored)
+> for how to get a keychain back, encrypt the file, or keep secrets in memory
+> only.
 
 ## Launcher flags vs. client flags
 
@@ -108,65 +102,63 @@ Always read a server's own README first, since every server requires different c
 
 Everything else (`--catalog`, `--config`, `--server-url`, `--transport`, `--method`, the OAuth flags) is defined by the *client*, not the launcher, and the clients do not all define the same set. The [Configuration and flags](/docs/draft/tools/inspector/configuration) page is organized that way, by owner.
 
-<Note>
-  Mode flags are recognized only at the front of the command line: the first token that isn't `--web` / `--cli` / `--tui` ends launcher parsing, and everything after it is forwarded to the client unchanged. That's what lets a literal `--cli` appear later as one of your server's own arguments:
+> [!NOTE]
+>
+> Mode flags are recognized only at the front of the command line: the first token that isn't `--web` / `--cli` / `--tui` ends launcher parsing, and everything after it is forwarded to the client unchanged. That's what lets a literal `--cli` appear later as one of your server's own arguments:
+>
+> ```bash theme={null}
+> mcp-inspector --cli node server.js --cli   # mode is CLI; the trailing --cli goes to server.js
+> ```
 
-  ```bash theme={null}
-  mcp-inspector --cli node server.js --cli   # mode is CLI; the trailing --cli goes to server.js
-  ```
-</Note>
-
-<Note>
-  `--help` behaves differently with and without a mode flag. Without one,
-  `-h`/`--help` anywhere on the command line (even after a server command)
-  prints the launcher's help and exits. With a mode flag it is forwarded, so
-  `mcp-inspector --cli --help` prints the CLI's full flag reference instead.
-</Note>
+> [!NOTE]
+>
+> `--help` behaves differently with and without a mode flag. Without one,
+> `-h`/`--help` anywhere on the command line (even after a server command)
+> prints the launcher's help and exits. With a mode flag it is forwarded, so
+> `mcp-inspector --cli --help` prints the CLI's full flag reference instead.
 
 ## Where to go next
 
-<CardGroup cols={2}>
-  <Card title="Web client" icon="browser" href="/docs/draft/tools/inspector/web">
-    A tab-by-tab walkthrough of the graphical inspector.
-  </Card>
+> **[Web client](/docs/draft/tools/inspector/web)**
+>
+> A tab-by-tab walkthrough of the graphical inspector.
 
-  <Card title="CLI client" icon="terminal" href="/docs/draft/tools/inspector/cli">
-    Method reference, output formats, exit codes, and CI recipes.
-  </Card>
+> **[CLI client](/docs/draft/tools/inspector/cli)**
+>
+> Method reference, output formats, exit codes, and CI recipes.
 
-  <Card title="TUI client" icon="table-columns" href="/docs/draft/tools/inspector/tui">
-    Terminal navigation and keyboard reference.
-  </Card>
+> **[TUI client](/docs/draft/tools/inspector/tui)**
+>
+> Terminal navigation and keyboard reference.
 
-  <Card title="Configuration and flags" icon="sliders" href="/docs/draft/tools/inspector/configuration">
-    Catalog vs. config files, the full per-client flag reference, and
-    environment variables.
-  </Card>
+> **[Configuration and flags](/docs/draft/tools/inspector/configuration)**
+>
+> Catalog vs. config files, the full per-client flag reference, and
+> environment variables.
 
-  <Card title="Authorization" icon="lock" href="/docs/draft/tools/inspector/authorization">
-    The OAuth flow end to end, mid-session re-authorization, and loopback
-    callbacks.
-  </Card>
+> **[Authorization](/docs/draft/tools/inspector/authorization)**
+>
+> The OAuth flow end to end, mid-session re-authorization, and loopback
+> callbacks.
 
-  <Card title="Protocol eras" icon="code-branch" href="/docs/draft/tools/inspector/protocol-eras">
-    Legacy vs. modern (2026-07-28) operation, and how every tab changes between
-    protocol eras.
-  </Card>
+> **[Protocol eras](/docs/draft/tools/inspector/protocol-eras)**
+>
+> Legacy vs. modern (2026-07-28) operation, and how every tab changes between
+> protocol eras.
 
-  <Card title="mcpdo connection client" icon="plug" href="/docs/draft/tools/inspector/mcpdo">
-    Connect once, then run many commands against a named connection.
-  </Card>
+> **[mcpdo connection client](/docs/draft/tools/inspector/mcpdo)**
+>
+> Connect once, then run many commands against a named connection.
 
-  <Card title="Security" icon="shield-halved" href="/docs/draft/tools/inspector/security">
-    The threat model: the web backend's token, Docker, secret storage, stdio
-    servers, and the mcpdo daemon.
-  </Card>
+> **[Security](/docs/draft/tools/inspector/security)**
+>
+> The threat model: the web backend's token, Docker, secret storage, stdio
+> servers, and the mcpdo daemon.
 
-  <Card title="Recipes" icon="book" href="/docs/draft/tools/inspector/recipes">
-    Importing client configs, reviewing MCP Apps, Docker, and network hosting.
-  </Card>
+> **[Recipes](/docs/draft/tools/inspector/recipes)**
+>
+> Importing client configs, reviewing MCP Apps, Docker, and network hosting.
 
-  <Card title="Debugging guide" icon="bug" href="/docs/draft/tools/debugging">
-    Broader debugging strategies beyond the Inspector.
-  </Card>
-</CardGroup>
+> **[Debugging guide](/docs/draft/tools/debugging)**
+>
+> Broader debugging strategies beyond the Inspector.

@@ -4,25 +4,23 @@
 
 # Multi Round-Trip Requests
 
-<div id="enable-section-numbers" />
+> [!NOTE]
+>
+> Multi Round-Trip Requests (MRTR) was introduced in this version of the MCP
+> specification. This replaces the previous approach of sending server-initiated
+> requests. Servers **MUST** send server-to-client requests (such as
+> `roots/list`, `sampling/createMessage`, or `elicitation/create`) using the
+> MRTR pattern. The previous pattern of server-initiated requests is no longer
+> supported. This is a breaking change.
 
-<Note>
-  Multi Round-Trip Requests (MRTR) was introduced in this version of the MCP
-  specification. This replaces the previous approach of sending server-initiated
-  requests. Servers **MUST** send server-to-client requests (such as
-  `roots/list`, `sampling/createMessage`, or `elicitation/create`) using the
-  MRTR pattern. The previous pattern of server-initiated requests is no longer
-  supported. This is a breaking change.
-</Note>
-
-<Note>
-  For brevity, the request examples on this page omit the `_meta` request
-  metadata (`io.modelcontextprotocol/protocolVersion`,
-  `io.modelcontextprotocol/clientInfo`, and
-  `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
-  the required `_meta` fields; see
-  [`_meta`](/specification/draft/basic/index#meta).
-</Note>
+> [!NOTE]
+>
+> For brevity, the request examples on this page omit the `_meta` request
+> metadata (`io.modelcontextprotocol/protocolVersion`,
+> `io.modelcontextprotocol/clientInfo`, and
+> `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
+> the required `_meta` fields; see
+> [`_meta`](/specification/draft/basic/index#meta).
 
 ## Multi Round-Trip Requests
 
@@ -240,12 +238,12 @@ what is directly present in the retry request.
    * the authenticated principal, rejecting state presented by a different principal.
    * a short expiry (TTL), rejecting state presented after it lapses;
    * an identifier for the originating request, e.g. the method name and a digest of its salient parameters, rejecting state presented on a request that does not match.
-     <Warning>
-       Note that these measures bound the replay window and prevent cross-user
-       and cross-request reuse, but do not by themselves guarantee single-use.
-       Servers for which a given `requestState` must be consumed at most once
-       (e.g., one-time redemptions) **MUST** enforce that invariant server-side.
-     </Warning>
+     > [!WARNING]
+     >
+     > Note that these measures bound the replay window and prevent cross-user
+     > and cross-request reuse, but do not by themselves guarantee single-use.
+     > Servers for which a given `requestState` must be consumed at most once
+     > (e.g., one-time redemptions) **MUST** enforce that invariant server-side.
 
 6. Servers **MUST** include at least one of `inputRequests` or `requestState` in every `InputRequiredResult` response.
 

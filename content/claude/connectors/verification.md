@@ -8,9 +8,9 @@
 
 The [Connectors Directory](/docs/connectors/directory) lists connectors from Anthropic and from third-party developers, and each one shows how much Anthropic has reviewed it. Use this page to understand what those labels mean before you connect one.
 
-<Note>
-  If you build connectors and want yours listed, see [List your own connector](#list-your-own-connector).
-</Note>
+> [!NOTE]
+>
+> If you build connectors and want yours listed, see [List your own connector](#list-your-own-connector).
 
 ## Connector labels
 

@@ -6,9 +6,9 @@
 
 > Connect Atlassian Cloud to Claude Tag so it can read and update Jira issues and search Confluence pages.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Connecting Atlassian Cloud lets Claude read and search Confluence pages and read, comment on, and update Jira issues in any channel where the connector is on. One credential covers both products on the same Atlassian site.
 
@@ -20,7 +20,9 @@ Create a dedicated Atlassian account for Claude (for example `claude@yourcompany
 
 Sign in as that account and create an API token at [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens). Atlassian shows the token once; store it somewhere you can retrieve it. Atlassian API tokens expire, with a maximum lifetime of one year, so plan to create a new token and rotate the connector's credential before the old one lapses.
 
-<Note>Create the API token without scopes. Atlassian accepts tokens with scopes, including service account tokens, only at its `api.atlassian.com` gateway, not at your site's hostname, so the **Jira & Confluence** entry can't use them.</Note>
+> [!NOTE]
+>
+> Create the API token without scopes. Atlassian accepts tokens with scopes, including service account tokens, only at its `api.atlassian.com` gateway, not at your site's hostname, so the **Jira & Confluence** entry can't use them.
 
 If your organization requires tokens with scopes, see [Connect a token with scopes through the Atlassian gateway](#connect-a-token-with-scopes-through-the-atlassian-gateway).
 
@@ -32,29 +34,29 @@ In the connect form, with **Use an API token** selected, enter the dedicated acc
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
 
-<Note>Atlassian Data Center (self-hosted) isn't covered by the **Jira & Confluence** entry because it authenticates with a personal access token sent as a Bearer header. Add a Data Center instance as a [custom connector](/docs/claude-tag/admins/connections/custom) with the **Bearer** credential type and your instance's hostname under **Allowed websites**. The instance must be reachable from the public internet.</Note>
+> [!NOTE]
+>
+> Atlassian Data Center (self-hosted) isn't covered by the **Jira & Confluence** entry because it authenticates with a personal access token sent as a Bearer header. Add a Data Center instance as a [custom connector](/docs/claude-tag/admins/connections/custom) with the **Bearer** credential type and your instance's hostname under **Allowed websites**. The instance must be reachable from the public internet.
 
 ## Connect a token with scopes through the Atlassian gateway
 
 If your organization requires tokens with scopes, connect through the gateway instead of the **Jira & Confluence** entry. Add the gateway connector inside a new bundle. A new bundle applies nowhere until you add places to it, so you can limit the token to your site's paths before any channel can use it.
 
-<Steps>
-  <Step title="Create a bundle for the gateway">
-    Go to [**Organization settings > Claude Tag > Bundles**](https://claude.ai/admin-settings/claude-tag?access=presets), click **Add**, enter a name such as `Atlassian gateway`, and click **Create**. The bundle's page opens.
-  </Step>
+**1. Create a bundle for the gateway**
 
-  <Step title="Add the gateway connector">
-    Under **What's in it**, click **Add**, select **Connector**, and select **Custom connector**. In the [custom connector](/docs/claude-tag/admins/connections/custom) form, enter a **Name**, choose the **Basic** credential type, enter the dedicated account's email as the **Username** and the API token as the **Password**, and enter `api.atlassian.com` under **Allowed websites**. Click **Connect** to save the connector.
-  </Step>
+Go to [**Organization settings > Claude Tag > Bundles**](https://claude.ai/admin-settings/claude-tag?access=presets), click **Add**, enter a name such as `Atlassian gateway`, and click **Create**. The bundle's page opens.
 
-  <Step title="Limit the credential to your site's paths">
-    Under **What's in it**, open the menu on the new connector's row and click **Edit**. In the **Edit connection** dialog, add `/ex/jira/<cloud-id>/` and `/ex/confluence/<cloud-id>/` under **Path prefixes**, then click **Save**. The cloud ID in a gateway request's path chooses which Atlassian site the request reaches.
-  </Step>
+**2. Add the gateway connector**
 
-  <Step title="Choose where the bundle applies">
-    Under **Where it applies**, click **Add place**, choose a workspace or channel under **Where**, and click **Add**. Click **Save changes** to save the places.
-  </Step>
-</Steps>
+Under **What's in it**, click **Add**, select **Connector**, and select **Custom connector**. In the [custom connector](/docs/claude-tag/admins/connections/custom) form, enter a **Name**, choose the **Basic** credential type, enter the dedicated account's email as the **Username** and the API token as the **Password**, and enter `api.atlassian.com` under **Allowed websites**. Click **Connect** to save the connector.
+
+**3. Limit the credential to your site's paths**
+
+Under **What's in it**, open the menu on the new connector's row and click **Edit**. In the **Edit connection** dialog, add `/ex/jira/<cloud-id>/` and `/ex/confluence/<cloud-id>/` under **Path prefixes**, then click **Save**. The cloud ID in a gateway request's path chooses which Atlassian site the request reaches.
+
+**4. Choose where the bundle applies**
+
+Under **Where it applies**, click **Add place**, choose a workspace or channel under **Where**, and click **Add**. Click **Save changes** to save the places.
 
 Atlassian documents [tokens with scopes](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/), [service account tokens](https://support.atlassian.com/user-management/docs/manage-api-tokens-for-service-accounts/), and [how to find your site's cloud ID](https://support.atlassian.com/jira/kb/retrieve-my-atlassian-sites-cloud-id/).
 

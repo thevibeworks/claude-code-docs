@@ -6,9 +6,9 @@
 
 > Claude Tag answers data questions in the Slack thread. See warehouse queries with charts, scheduled metric reports, and charts built from channel history alone.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How data-question prompts work
 
@@ -56,16 +56,14 @@ Anyone in the thread can ask for a different cut of the same data.
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Watch monitors and alerts" href="/docs/claude-tag/users/use-cases/watch-monitors" horizontal arrow>
-    When the question is about systems, not metrics
-  </Card>
+> **[Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors)**
+>
+> When the question is about systems, not metrics
 
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    Recurring reports
-  </Card>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> Recurring reports
 
-  <Card title="Self-service data analytics" href="https://claude.com/blog/self-service-data-analytics-in-slack-how-anthropic-deploys-claude-tag-for-ad-hoc-questions" horizontal arrow>
-    How Anthropic answers ad-hoc data questions in Slack with Claude
-  </Card>
-</CardGroup>
+> **[Self-service data analytics](https://claude.com/blog/self-service-data-analytics-in-slack-how-anthropic-deploys-claude-tag-for-ad-hoc-questions)**
+>
+> How Anthropic answers ad-hoc data questions in Slack with Claude

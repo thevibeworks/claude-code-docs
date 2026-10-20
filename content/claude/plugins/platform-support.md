@@ -10,12 +10,12 @@ You can install the same plugin folder everywhere you use Claude, but chat, Cowo
 
 This page is for anyone checking a component or behavior before relying on it, whether you're installing a plugin, building one, or submitting one to the directory.
 
-<Note>
-  * If you want to install and manage plugins, see [Plugins](/docs/plugins/overview)
-  * If you're building a plugin, see [Plugin structure and testing](/docs/plugins/build)
-  * If you run Claude Desktop on your own model provider, see its [Feature matrix](/docs/third-party/claude-desktop/feature-matrix) for feature availability
-  * If you want to know where MCP Apps render, see [Add interactive UI with MCP Apps](/docs/connectors/building/mcp-apps/getting-started)
-</Note>
+> [!NOTE]
+>
+> * If you want to install and manage plugins, see [Plugins](/docs/plugins/overview)
+> * If you're building a plugin, see [Plugin structure and testing](/docs/plugins/build)
+> * If you run Claude Desktop on your own model provider, see its [Feature matrix](/docs/third-party/claude-desktop/feature-matrix) for feature availability
+> * If you want to know where MCP Apps render, see [Add interactive UI with MCP Apps](/docs/connectors/building/mcp-apps/getting-started)
 
 ## Compare component support by app
 

@@ -4,21 +4,19 @@
 
 # Completion
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) provides a standardized way for servers to offer
 autocompletion suggestions for the arguments of prompts and resource templates. When
 users are filling in argument values for a specific prompt (identified by name) or
 resource template (identified by URI), servers can provide contextual suggestions.
 
-<Note>
-  For brevity, the request examples on this page omit the `_meta` request
-  metadata (`io.modelcontextprotocol/protocolVersion`,
-  `io.modelcontextprotocol/clientInfo`, and
-  `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
-  the required `_meta` fields; see
-  [`_meta`](/specification/draft/basic/index#meta).
-</Note>
+> [!NOTE]
+>
+> For brevity, the request examples on this page omit the `_meta` request
+> metadata (`io.modelcontextprotocol/protocolVersion`,
+> `io.modelcontextprotocol/clientInfo`, and
+> `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
+> the required `_meta` fields; see
+> [`_meta`](/specification/draft/basic/index#meta).
 
 ## User Interaction Model
 

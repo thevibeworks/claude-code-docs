@@ -4,12 +4,10 @@
 
 # Tasks
 
-<div id="enable-section-numbers" />
-
-<Note>
-  Tasks were introduced in version 2025-11-25 of the MCP specification and are currently considered **experimental**.
-  The design and behavior of tasks may evolve in future protocol versions.
-</Note>
+> [!NOTE]
+>
+> Tasks were introduced in version 2025-11-25 of the MCP specification and are currently considered **experimental**.
+> The design and behavior of tasks may evolve in future protocol versions.
 
 The Model Context Protocol (MCP) allows requestors — which can be either clients or servers, depending on the direction of communication — to augment their requests with **tasks**. Tasks are durable state machines that carry information about the underlying execution state of the request they wrap, and are intended for requestor polling and deferred result retrieval. Each task is uniquely identifiable by a receiver-generated **task ID**.
 
@@ -168,22 +166,22 @@ To create a task, requestors send a request with the `task` field included in th
 
 When a receiver accepts a task-augmented request, it returns a [`CreateTaskResult`](/specification/2025-11-25/schema#createtaskresult) containing task data. The response does not include the actual operation result. The actual result (e.g., tool result for `tools/call`) becomes available only through `tasks/result` after the task completes.
 
-<Note>
-  When a task is created in response to a `tools/call` request, host applications may wish to return control to the model while the task is executing. This allows the model to continue processing other requests or perform additional work while waiting for the task to complete.
-
-  To support this pattern, servers can provide an optional `io.modelcontextprotocol/model-immediate-response` key in the `_meta` field of the `CreateTaskResult`. The value of this key should be a string intended to be passed as an immediate tool result to the model.
-  If a server does not provide this field, the host application can fall back to its own predefined message.
-
-  This guidance is non-binding and is provisional logic intended to account for the specific use case. This behavior may be formalized or modified as part of `CreateTaskResult` in future protocol versions.
-</Note>
+> [!NOTE]
+>
+> When a task is created in response to a `tools/call` request, host applications may wish to return control to the model while the task is executing. This allows the model to continue processing other requests or perform additional work while waiting for the task to complete.
+>
+> To support this pattern, servers can provide an optional `io.modelcontextprotocol/model-immediate-response` key in the `_meta` field of the `CreateTaskResult`. The value of this key should be a string intended to be passed as an immediate tool result to the model.
+> If a server does not provide this field, the host application can fall back to its own predefined message.
+>
+> This guidance is non-binding and is provisional logic intended to account for the specific use case. This behavior may be formalized or modified as part of `CreateTaskResult` in future protocol versions.
 
 ### Getting Tasks
 
-<Note>
-  In the Streamable HTTP (SSE) transport, clients **MAY** disconnect from an SSE stream opened by the server in response to a `tasks/get` request at any time.
-
-  While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
-</Note>
+> [!NOTE]
+>
+> In the Streamable HTTP (SSE) transport, clients **MAY** disconnect from an SSE stream opened by the server in response to a `tasks/get` request at any time.
+>
+> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
 
 Requestors poll for task completion by sending [`tasks/get`](/specification/2025-11-25/schema#tasks%2Fget) requests.
 Requestors **SHOULD** respect the `pollInterval` provided in responses when determining polling frequency.
@@ -223,11 +221,11 @@ Requestors **SHOULD** continue polling until the task reaches a terminal status 
 
 ### Retrieving Task Results
 
-<Note>
-  In the Streamable HTTP (SSE) transport, clients **MAY** disconnect from an SSE stream opened by the server in response to a `tasks/result` request at any time.
-
-  While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
-</Note>
+> [!NOTE]
+>
+> In the Streamable HTTP (SSE) transport, clients **MAY** disconnect from an SSE stream opened by the server in response to a `tasks/result` request at any time.
+>
+> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
 
 After a task completes the operation result is retrieved via [`tasks/result`](/specification/2025-11-25/schema#tasks%2Fresult). This is distinct from the initial `CreateTaskResult` response, which contains only task data. The result structure matches the original request type (e.g., `CallToolResult` for `tools/call`).
 
@@ -424,17 +422,17 @@ stateDiagram-v2
 
 ### Input Required Status
 
-<Note>
-  With the Streamable HTTP (SSE) transport, servers often close SSE streams after delivering a response message, which can lead to ambiguity regarding the stream used for subsequent task messages.
-
-  Servers can handle this by enqueueing messages to the client to side-channel task-related messages alongside other responses.
-
-  Servers have flexibility in how they manage SSE streams during task polling and result retrieval, and clients **SHOULD** expect messages to be delivered on any SSE stream, including the HTTP GET stream.
-  One possible approach is maintaining an SSE stream on `tasks/result` (see notes on the `input_required` status).
-  Where possible, servers **SHOULD NOT** upgrade to an SSE stream in response to a `tasks/get` request, as the client has indicated it wishes to poll for a result.
-
-  While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
-</Note>
+> [!NOTE]
+>
+> With the Streamable HTTP (SSE) transport, servers often close SSE streams after delivering a response message, which can lead to ambiguity regarding the stream used for subsequent task messages.
+>
+> Servers can handle this by enqueueing messages to the client to side-channel task-related messages alongside other responses.
+>
+> Servers have flexibility in how they manage SSE streams during task polling and result retrieval, and clients **SHOULD** expect messages to be delivered on any SSE stream, including the HTTP GET stream.
+> One possible approach is maintaining an SSE stream on `tasks/result` (see notes on the `input_required` status).
+> Where possible, servers **SHOULD NOT** upgrade to an SSE stream in response to a `tasks/get` request, as the client has indicated it wishes to poll for a result.
+>
+> While this note is not prescriptive regarding the specific usage of SSE streams, all implementations **MUST** continue to comply with the existing [Streamable HTTP transport specification](../transports#sending-messages-to-the-server).
 
 1. When the task receiver has messages for the requestor that are necessary to complete the task, the receiver **SHOULD** move the task to the `input_required` status.
 2. The receiver **MUST** include the `io.modelcontextprotocol/related-task` metadata in the request to associate it with the task.
@@ -807,9 +805,9 @@ Receivers **SHOULD** provide informative error messages to describe the cause of
 }
 ```
 
-<Note>
-  Receivers are not required to retain tasks indefinitely. It is compliant behavior for a receiver to return an error stating the task cannot be found if it has purged an expired task.
-</Note>
+> [!NOTE]
+>
+> Receivers are not required to retain tasks indefinitely. It is compliant behavior for a receiver to return an error stating the task cannot be found if it has purged an expired task.
 
 **Example: Task cancellation rejected (already terminal)**
 

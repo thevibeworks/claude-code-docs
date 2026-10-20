@@ -4,21 +4,19 @@
 
 # Tools
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) allows servers to expose tools that can be invoked by
 language models. Tools enable models to interact with external systems, such as querying
 databases, calling APIs, or performing computations. Each tool is uniquely identified by
 a name and includes metadata describing its schema.
 
-<Note>
-  For brevity, the request examples on this page omit the `_meta` request
-  metadata (`io.modelcontextprotocol/protocolVersion`,
-  `io.modelcontextprotocol/clientInfo`, and
-  `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
-  the required `_meta` fields; see
-  [`_meta`](/specification/2026-07-28/basic/index#meta).
-</Note>
+> [!NOTE]
+>
+> For brevity, the request examples on this page omit the `_meta` request
+> metadata (`io.modelcontextprotocol/protocolVersion`,
+> `io.modelcontextprotocol/clientInfo`, and
+> `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
+> the required `_meta` fields; see
+> [`_meta`](/specification/2026-07-28/basic/index#meta).
 
 ## User Interaction Model
 
@@ -30,17 +28,17 @@ However, implementations are free to expose tools through any interface pattern 
 suits their needs—the protocol itself does not mandate any specific user
 interaction model.
 
-<Warning>
-  For trust & safety and security, there **SHOULD** always
-  be a human in the loop with the ability to deny tool invocations.
-
-  Applications **SHOULD**:
-
-  * Provide UI that makes clear which tools are being exposed to the AI model
-  * Insert clear visual indicators when tools are invoked
-  * Present confirmation prompts to the user for operations, to ensure a human is in the
-    loop
-</Warning>
+> [!WARNING]
+>
+> For trust & safety and security, there **SHOULD** always
+> be a human in the loop with the ability to deny tool invocations.
+>
+> Applications **SHOULD**:
+>
+> * Provide UI that makes clear which tools are being exposed to the AI model
+> * Insert clear visual indicators when tools are invoked
+> * Present confirmation prompts to the user for operations, to ensure a human is in the
+>   loop
 
 ## Capabilities
 
@@ -301,10 +299,10 @@ A tool definition includes:
   * Defaults to 2020-12 if no `$schema` field is present
 * `annotations`: Optional properties describing tool behavior
 
-<Warning>
-  For trust & safety and security, clients **MUST** consider tool annotations to
-  be untrusted unless they come from trusted servers.
-</Warning>
+> [!WARNING]
+>
+> For trust & safety and security, clients **MUST** consider tool annotations to
+> be untrusted unless they come from trusted servers.
 
 #### Tool Names
 
@@ -319,15 +317,15 @@ A tool definition includes:
   * `DATA_EXPORT_v2`
   * `admin.tools.list`
 
-<Note>
-  Tool name uniqueness is scoped to a single server. Clients or proxies that
-  aggregate tools from multiple servers **MAY** encounter naming collisions (for
-  example, two servers each exposing a `search` tool) and **SHOULD** implement a
-  disambiguation strategy such as prefixing tool names with a server identifier.
-
-  The server `name` (from `serverInfo`) is not guaranteed to be unique across
-  servers and **SHOULD NOT** be relied upon for disambiguation.
-</Note>
+> [!NOTE]
+>
+> Tool name uniqueness is scoped to a single server. Clients or proxies that
+> aggregate tools from multiple servers **MAY** encounter naming collisions (for
+> example, two servers each exposing a `search` tool) and **SHOULD** implement a
+> disambiguation strategy such as prefixing tool names with a server identifier.
+>
+> The server `name` (from `serverInfo`) is not guaranteed to be unique across
+> servers and **SHOULD NOT** be relied upon for disambiguation.
 
 #### x-mcp-header
 
@@ -392,10 +390,10 @@ valid tools from being used. Clients using other transports (e.g., stdio) **MAY*
 In this example, when the tool is called with `"region": "us-west1"`, the client adds
 the header `Mcp-Param-Region: us-west1` to the HTTP request.
 
-<Warning>
-  Server developers **SHOULD NOT** mark sensitive parameters (passwords, API keys, tokens,
-  PII) with `x-mcp-header`, as header values are visible to network intermediaries.
-</Warning>
+> [!WARNING]
+>
+> Server developers **SHOULD NOT** mark sensitive parameters (passwords, API keys, tokens,
+> PII) with `x-mcp-header`, as header values are visible to network intermediaries.
 
 ### Tool Result
 
@@ -403,13 +401,13 @@ Tool results may contain [**structured**](#structured-content) or **unstructured
 
 **Unstructured** content is returned in the `content` field of a result, and can contain multiple content items of different types:
 
-<Note>
-  All content types (text, image, audio, resource links, and embedded resources)
-  support optional
-  [annotations](/specification/2026-07-28/server/resources#annotations) that
-  provide metadata about audience, priority, and modification times. This is the
-  same annotation format used by resources and prompts.
-</Note>
+> [!NOTE]
+>
+> All content types (text, image, audio, resource links, and embedded resources)
+> support optional
+> [annotations](/specification/2026-07-28/server/resources#annotations) that
+> provide metadata about audience, priority, and modification times. This is the
+> same annotation format used by resources and prompts.
 
 #### Text Content
 
@@ -461,10 +459,10 @@ or data. In this case, the tool will return a URI that can be subscribed to or f
 
 Resource links support the same [Resource annotations](/specification/2026-07-28/server/resources#annotations) as regular resources to help clients understand how to use them.
 
-<Info>
-  Resource links returned by tools are not guaranteed to appear in the results
-  of a `resources/list` request.
-</Info>
+> [!NOTE]
+>
+> Resource links returned by tools are not guaranteed to appear in the results
+> of a `resources/list` request.
 
 #### Embedded Resources
 
@@ -495,10 +493,10 @@ Embedded resources support the same [Resource annotations](/specification/2026-0
 
 For backwards compatibility, a tool that returns structured content SHOULD also return the serialized JSON in a TextContent block.
 
-<Note>
-  `structuredContent` is server-produced result data and is unrelated to LLM
-  "structured outputs" (schema-constrained model generation).
-</Note>
+> [!NOTE]
+>
+> `structuredContent` is server-produced result data and is unrelated to LLM
+> "structured outputs" (schema-constrained model generation).
 
 #### Output Schema
 
@@ -676,11 +674,11 @@ Providing an output schema helps clients and LLMs understand and properly handle
 
 ## Stateful Tools
 
-<Note>
-  This section is non-normative guidance for tool design. The protocol has no
-  concept of a state handle; from the wire's perspective a handle is an ordinary
-  string in a tool result and an ordinary argument to subsequent tool calls.
-</Note>
+> [!NOTE]
+>
+> This section is non-normative guidance for tool design. The protocol has no
+> concept of a state handle; from the wire's perspective a handle is an ordinary
+> string in a tool result and an ordinary argument to subsequent tool calls.
 
 MCP has no protocol-level session, so a server cannot rely on implicit
 per-connection state to relate one tool call to the next. Servers that need to

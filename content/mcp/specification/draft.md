@@ -4,8 +4,6 @@
 
 # Specification
 
-<div id="enable-section-numbers" />
-
 [Model Context Protocol](https://modelcontextprotocol.io) (MCP) is an open protocol that
 enables seamless integration between LLM applications and external data sources and
 tools. Whether you're building an AI-powered IDE, enhancing a chat interface, or creating
@@ -129,14 +127,12 @@ implementors **SHOULD**:
 
 Explore the detailed specification for each protocol component:
 
-<CardGroup cols={5}>
-  <Card title="Architecture" icon="sitemap" href="/specification/draft/architecture" />
+> **[Architecture](/specification/draft/architecture)**
 
-  <Card title="Base Protocol" icon="code" href="/specification/draft/basic" />
+> **[Base Protocol](/specification/draft/basic)**
 
-  <Card title="Server Features" icon="server" href="/specification/draft/server" />
+> **[Server Features](/specification/draft/server)**
 
-  <Card title="Client Features" icon="user" href="/specification/draft/client" />
+> **[Client Features](/specification/draft/client)**
 
-  <Card title="Contributing" icon="pencil" href="/community/contributing" />
-</CardGroup>
+> **[Contributing](/community/contributing)**

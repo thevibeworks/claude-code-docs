@@ -10,11 +10,11 @@ A plugin packages [skills](/docs/skills/overview), [MCP connectors](/docs/connec
 
 This page is for people using plugins in claude.ai, the Claude desktop app, and Cowork.
 
-<Note>
-  * If you want to build a plugin or submit one to the directory, see [Plugin structure and testing](/docs/plugins/build) and [Publish to the directory](/docs/directory/publish)
-  * If you install and manage plugins from the Claude Code command line, see [Install plugins](https://code.claude.com/docs/en/plugins/install) in the Claude Code docs
-  * If you have a `.mcpb` file to install into the Claude desktop app, see [Install a local connector in the desktop app](/docs/connectors/custom/add-unlisted#install-a-local-connector-in-the-desktop-app)
-</Note>
+> [!NOTE]
+>
+> * If you want to build a plugin or submit one to the directory, see [Plugin structure and testing](/docs/plugins/build) and [Publish to the directory](/docs/directory/publish)
+> * If you install and manage plugins from the Claude Code command line, see [Install plugins](https://code.claude.com/docs/en/plugins/install) in the Claude Code docs
+> * If you have a `.mcpb` file to install into the Claude desktop app, see [Install a local connector in the desktop app](/docs/connectors/custom/add-unlisted#install-a-local-connector-in-the-desktop-app)
 
 To get started, [find and add a plugin](#find-and-add-a-plugin), then see [how to use it in each app](#use-a-plugin) and [where it becomes available on your account](#find-the-plugin-in-each-app).
 

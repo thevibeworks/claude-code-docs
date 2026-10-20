@@ -6,9 +6,9 @@
 
 > Claude Tag watches dashboards and alert channels so you see one line per issue. See scheduled checks, alert investigation before anyone asks, and the prompts to set both up.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How monitor-watch prompts work
 
@@ -60,20 +60,18 @@ Open the channel's [**Configure** page](/docs/claude-tag/users/good-habits#confi
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Fix bugs" href="/docs/claude-tag/users/use-cases/fix-bugs" horizontal arrow>
-    When the investigation should end in a pull request
-  </Card>
+> **[Fix bugs](/docs/claude-tag/users/use-cases/fix-bugs)**
+>
+> When the investigation should end in a pull request
 
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    Schedules and event triggers
-  </Card>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> Schedules and event triggers
 
-  <Card title="Claude on call" href="https://claude.com/blog/ai-ci-cd-on-call" horizontal arrow>
-    How Anthropic runs Claude as first responder for CI/CD failures
-  </Card>
+> **[Claude on call](https://claude.com/blog/ai-ci-cd-on-call)**
+>
+> How Anthropic runs Claude as first responder for CI/CD failures
 
-  <Card title="On-call kit" href="https://github.com/anthropics/oncall-kit" horizontal arrow>
-    Reference playbooks, templates, and guided setup for an on-call channel
-  </Card>
-</CardGroup>
+> **[On-call kit](https://github.com/anthropics/oncall-kit)**
+>
+> Reference playbooks, templates, and guided setup for an on-call channel

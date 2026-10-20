@@ -6,9 +6,9 @@
 
 > Claude Tag works with your GitHub repositories from Slack: answer questions in-thread, subscribe to pull requests, and hand back chores as draft pull requests.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How GitHub prompts work
 
@@ -18,7 +18,9 @@ Each prompt below is a Slack message. Paste it in the channel or thread where th
 
 Name the repository in the first message. A session starts with no repositories checked out and clones one when the request names it. Anything Claude opens on GitHub is authored by the Claude GitHub App, so it appears in your review queue like any other pull request.
 
-<Note>An admin [grants a repository to the channels that need it](/docs/claude-tag/admins/attach-to-scope), and questions about the code work only in those channels. By default anyone in those channels can ask, and an admin can [restrict who can use Claude](/docs/claude-tag/admins/restrict-access#control-who-can-invoke-claude-tag).</Note>
+> [!NOTE]
+>
+> An admin [grants a repository to the channels that need it](/docs/claude-tag/admins/attach-to-scope), and questions about the code work only in those channels. By default anyone in those channels can ask, and an admin can [restrict who can use Claude](/docs/claude-tag/admins/restrict-access#control-who-can-invoke-claude-tag).
 
 ## Check the channel's connections
 
@@ -100,7 +102,9 @@ Claude can watch a pull request and address CI failures, review comments, and ch
 @Claude watch your PR #562 in acme/data-pipeline. When CI fails, fix it and push. When a review comment arrives, address it and push. Post here after each push saying what changed and why. Done means CI is green and every comment is addressed. I do the approving and merging.
 ```
 
-<Warning>If you don't want Claude to merge pull requests, turn on branch protection rules that restrict who can merge. These rules apply to Claude too. Claude can't approve a pull request it opened, but the person who asked for it can; to require a second approver, see [Require a second approval on Claude's pull requests](/docs/claude-tag/admins/configure-github#require-a-second-approval-on-claude%E2%80%99s-pull-requests). Also write "I do the approving and merging" into the task, as the example does. The task wording states your intent, but it's an instruction Claude can lose track of, not a control. The branch protection rule is what enforces it.</Warning>
+> [!WARNING]
+>
+> If you don't want Claude to merge pull requests, turn on branch protection rules that restrict who can merge. These rules apply to Claude too. Claude can't approve a pull request it opened, but the person who asked for it can; to require a second approver, see [Require a second approval on Claude's pull requests](/docs/claude-tag/admins/configure-github#require-a-second-approval-on-claude%E2%80%99s-pull-requests). Also write "I do the approving and merging" into the task, as the example does. The task wording states your intent, but it's an instruction Claude can lose track of, not a control. The branch protection rule is what enforces it.
 
 Ask for a post after each push so you can follow the pull request from the thread instead of opening GitHub.
 
@@ -110,16 +114,16 @@ If your repository has conventions Claude should follow, such as file layout, pu
 
 Each session runs in an isolated sandbox with a standard set of preinstalled tools. Two threads are two sessions with two separate sandboxes. If the repository needs a tool that the standard set doesn't include, such as a language runtime or a database client, add the install commands to `CLAUDE.md`, and Claude [runs them when its work needs them](/docs/claude-tag/admins/configure-github#install-project-dependencies).
 
-<Note>A `CLAUDE.md` is guidance rather than a gate. If a pull request must carry a label or pass a check, make that a repository rule. For where `CLAUDE.md` sits among channel memory, channel instructions, and skills, see [Teach Claude something that sticks](/docs/claude-tag/users/good-habits#teach-claude-something-that-sticks).</Note>
+> [!NOTE]
+>
+> A `CLAUDE.md` is guidance rather than a gate. If a pull request must carry a label or pass a check, make that a repository rule. For where `CLAUDE.md` sits among channel memory, channel instructions, and skills, see [Teach Claude something that sticks](/docs/claude-tag/users/good-habits#teach-claude-something-that-sticks).
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Fix bugs" href="/docs/claude-tag/users/use-cases/fix-bugs" horizontal arrow>
-    The full arc from a bug report to a draft pull request and green CI
-  </Card>
+> **[Fix bugs](/docs/claude-tag/users/use-cases/fix-bugs)**
+>
+> The full arc from a bug report to a draft pull request and green CI
 
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    Pull request subscriptions and other standing work
-  </Card>
-</CardGroup>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> Pull request subscriptions and other standing work

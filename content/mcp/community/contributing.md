@@ -39,10 +39,10 @@ npm --version   # Should be 11.x or higher
 git --version   # Any recent version
 ```
 
-<Note>
-  These commands work the same on macOS, Linux, and Windows, so you're good to
-  go on any platform.
-</Note>
+> [!NOTE]
+>
+> These commands work the same on macOS, Linux, and Windows, so you're good to
+> go on any platform.
 
 ### Repository Structure
 
@@ -89,45 +89,43 @@ need guidance on your contribution.
 
 Start here if you are new to MCP and contributing to its ecosystem.
 
-<Note>
-  While we use the specification repository as an example, the key patterns are
-  applicable to other MCP repos as well.
-</Note>
+> [!NOTE]
+>
+> While we use the specification repository as an example, the key patterns are
+> applicable to other MCP repos as well.
 
 ### Step 1: Set Up Your Environment
 
 Set up your local environment so you can test and validate changes before submitting them.
 
-<Steps>
-  <Step title="Fork the repository">
-    Click the **Fork** button on the [repository page](https://github.com/modelcontextprotocol/modelcontextprotocol) to create your own copy. This gives you a personal workspace where you can make changes without affecting the main project.
-  </Step>
+**1. Fork the repository**
 
-  <Step title="Clone your fork">
-    ```bash theme={null}
-    git clone https://github.com/YOUR-USERNAME/modelcontextprotocol.git
-    cd modelcontextprotocol
-    ```
+Click the **Fork** button on the [repository page](https://github.com/modelcontextprotocol/modelcontextprotocol) to create your own copy. This gives you a personal workspace where you can make changes without affecting the main project.
 
-    Replace `YOUR-USERNAME` with your GitHub username.
-  </Step>
+**2. Clone your fork**
 
-  <Step title="Install dependencies">
-    ```bash theme={null}
-    npm install
-    ```
+```bash theme={null}
+git clone https://github.com/YOUR-USERNAME/modelcontextprotocol.git
+cd modelcontextprotocol
+```
 
-    This installs the tools needed for schema generation, documentation building, and validation.
-  </Step>
+Replace `YOUR-USERNAME` with your GitHub username.
 
-  <Step title="Verify everything works">
-    ```bash theme={null}
-    npm run check
-    ```
+**3. Install dependencies**
 
-    This runs TypeScript compilation, schema validation, example validation, documentation link checks, and formatting checks. If everything passes, your environment is good and you're ready to contribute.
-  </Step>
-</Steps>
+```bash theme={null}
+npm install
+```
+
+This installs the tools needed for schema generation, documentation building, and validation.
+
+**4. Verify everything works**
+
+```bash theme={null}
+npm run check
+```
+
+This runs TypeScript compilation, schema validation, example validation, documentation link checks, and formatting checks. If everything passes, your environment is good and you're ready to contribute.
 
 If `npm run check` fails, see [Troubleshooting](#troubleshooting) below.
 
@@ -148,70 +146,66 @@ for newcomers, there are plenty of places where you can start with your first im
 
 Create your changes in a dedicated branch.
 
-<Steps>
-  <Step title="Create a branch">
-    ```bash theme={null}
-    git checkout -b fix/your-description
-    ```
+**1. Create a branch**
 
-    Use a descriptive branch name that reflects your change, like `fix/typo-in-tools-doc` or `feat/add-example-for-resources`.
-  </Step>
+```bash theme={null}
+git checkout -b fix/your-description
+```
 
-  <Step title="Make your changes">
-    Edit the relevant files in your local copy. If you're editing schema files, remember to run `npm run generate:schema` to regenerate the JSON schema and documentation.
-  </Step>
+Use a descriptive branch name that reflects your change, like `fix/typo-in-tools-doc` or `feat/add-example-for-resources`.
 
-  <Step title="Run checks">
-    ```bash theme={null}
-    npm run check
-    ```
+**2. Make your changes**
 
-    Fix any issues before committing. If you have formatting errors, `npm run format` can auto-fix most of them.
-  </Step>
+Edit the relevant files in your local copy. If you're editing schema files, remember to run `npm run generate:schema` to regenerate the JSON schema and documentation.
 
-  <Step title="Commit with a clear message">
-    ```bash theme={null}
-    git commit -m "Fix typo in tools documentation"
-    ```
+**3. Run checks**
 
-    Write a concise message that describes what you changed and why. Reference issue numbers if applicable (e.g., `Fix typo in tools documentation (#123)`).
-  </Step>
-</Steps>
+```bash theme={null}
+npm run check
+```
+
+Fix any issues before committing. If you have formatting errors, `npm run format` can auto-fix most of them.
+
+**4. Commit with a clear message**
+
+```bash theme={null}
+git commit -m "Fix typo in tools documentation"
+```
+
+Write a concise message that describes what you changed and why. Reference issue numbers if applicable (e.g., `Fix typo in tools documentation (#123)`).
 
 ### Step 4: Submit a Pull Request
 
 When you're ready, push your branch and open a pull request.
 
-<Steps>
-  <Step title="Push your branch">
-    ```bash theme={null}
-    git push origin fix/your-description
-    ```
-  </Step>
+**1. Push your branch**
 
-  <Step title="Open a PR on GitHub">
-    You can use the [GitHub CLI](https://cli.github.com/) to make this process easier:
+```bash theme={null}
+git push origin fix/your-description
+```
 
-    ```bash theme={null}
-    gh pr create --fill
-    ```
+**2. Open a PR on GitHub**
 
-    Alternatively, navigate to your fork on GitHub and click **Compare & pull request**.
-  </Step>
+You can use the [GitHub CLI](https://cli.github.com/) to make this process easier:
 
-  <Step title="Fill in the PR template">
-    Provide a clear description of your changes and link any related issues.
-  </Step>
+```bash theme={null}
+gh pr create --fill
+```
 
-  <Step title="Wait for review">
-    Maintainers typically respond within 1-5 business days.
-  </Step>
-</Steps>
+Alternatively, navigate to your fork on GitHub and click **Compare & pull request**.
 
-<Tip>
-  That's it, **congratulations on your first contribution**! Every improvement,
-  no matter how small, helps make MCP better for everyone.
-</Tip>
+**3. Fill in the PR template**
+
+Provide a clear description of your changes and link any related issues.
+
+**4. Wait for review**
+
+Maintainers typically respond within 1-5 business days.
+
+> [!TIP]
+>
+> That's it, **congratulations on your first contribution**! Every improvement,
+> no matter how small, helps make MCP better for everyone.
 
 ### What Makes a Good Contribution
 
@@ -229,11 +223,11 @@ Help us review your contribution quickly by following these patterns:
 
 Different contributions follow different processes depending on their scope.
 
-<Tip>
-  Not sure which category your change falls into? Ask in the [MCP Contributor
-  Discord](/community/communication#discord) before starting any significant
-  work.
-</Tip>
+> [!TIP]
+>
+> Not sure which category your change falls into? Ask in the [MCP Contributor
+> Discord](/community/communication#discord) before starting any significant
+> work.
 
 ### Small Changes (Direct PR)
 
@@ -283,27 +277,25 @@ When you run `npm run generate:schema`, it generates:
 
 To modify the schema:
 
-<Steps>
-  <Step title="Edit the TypeScript schema">
-    Make your changes in `schema/draft/schema.ts`.
-  </Step>
+**1. Edit the TypeScript schema**
 
-  <Step title="Add examples (optional)">
-    Add JSON examples in `schema/draft/examples/[TypeName]/` (e.g., `Tool/my-example.json`). Reference them in the schema using `@example` + `@includeCode` JSDoc tags.
-  </Step>
+Make your changes in `schema/draft/schema.ts`.
 
-  <Step title="Generate JSON schema and docs">
-    ```bash theme={null}
-    npm run generate:schema
-    ```
-  </Step>
+**2. Add examples (optional)**
 
-  <Step title="Validate your changes">
-    ```bash theme={null}
-    npm run check
-    ```
-  </Step>
-</Steps>
+Add JSON examples in `schema/draft/examples/[TypeName]/` (e.g., `Tool/my-example.json`). Reference them in the schema using `@example` + `@includeCode` JSDoc tags.
+
+**3. Generate JSON schema and docs**
+
+```bash theme={null}
+npm run generate:schema
+```
+
+**4. Validate your changes**
+
+```bash theme={null}
+npm run check
+```
 
 ### Documentation Changes
 
@@ -315,54 +307,50 @@ Docs are written in [MDX format](https://mdxjs.com/) (Markdown with JSX componen
 
 Here is how you can contribute to our documentation:
 
-<Steps>
-  <Step title="Start the local docs server">
-    ```bash theme={null}
-    npm run serve:docs
-    ```
+**1. Start the local docs server**
 
-    This launches a live preview at `http://localhost:3000` with hot reloading.
-  </Step>
+```bash theme={null}
+npm run serve:docs
+```
 
-  <Step title="Make your changes">
-    Edit the relevant `.mdx` files. You can use [Mintlify components](https://www.mintlify.com/docs/components) like `<Note>`, `<Tip>`, `<Steps>`, and `<Card>` for richer formatting.
-  </Step>
+This launches a live preview at `http://localhost:3000` with hot reloading.
 
-  <Step title="Check for issues">
-    ```bash theme={null}
-    npm run check:docs
-    ```
+**2. Make your changes**
 
-    This validates formatting, broken links, and other common issues.
-  </Step>
-</Steps>
+Edit the relevant `.mdx` files. You can use [Mintlify components](https://www.mintlify.com/docs/components) like `<Note>`, `<Tip>`, `<Steps>`, and `<Card>` for richer formatting.
+
+**3. Check for issues**
+
+```bash theme={null}
+npm run check:docs
+```
+
+This validates formatting, broken links, and other common issues.
 
 ### Major Protocol Changes
 
 For significant changes, follow the [SEP process](/community/sep-guidelines). Prior to spending a
 lot of time on a spec proposal, make sure to follow these best practices.
 
-<Steps>
-  <Step title="Validate your idea first">
-    Discuss in an [Interest Group](/community/working-interest-groups) or on
-    [Discord](https://discord.gg/6CSzBmMkjX).
-  </Step>
+**1. Validate your idea first**
 
-  <Step title="Build a prototype">
-    Demonstrate practical application of your idea.
-  </Step>
+Discuss in an [Interest Group](/community/working-interest-groups) or on
+[Discord](https://discord.gg/6CSzBmMkjX).
 
-  <Step title="Find a sponsor">
-    A maintainer from the [maintainer
-    list](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/MAINTAINERS.md)
-    who will champion your proposal. See [Finding a Sponsor for
-    SEPs](#finding-a-sponsor-for-seps) below.
-  </Step>
+**2. Build a prototype**
 
-  <Step title="Write the SEP">
-    Follow the [SEP Guidelines](/community/sep-guidelines).
-  </Step>
-</Steps>
+Demonstrate practical application of your idea.
+
+**3. Find a sponsor**
+
+A maintainer from the [maintainer
+list](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/MAINTAINERS.md)
+who will champion your proposal. See [Finding a Sponsor for
+SEPs](#finding-a-sponsor-for-seps) below.
+
+**4. Write the SEP**
+
+Follow the [SEP Guidelines](/community/sep-guidelines).
 
 ### Finding a Sponsor for SEPs
 
@@ -370,35 +358,33 @@ A **sponsor** is a Core Maintainer or Maintainer who champions your SEP through 
 process. They provide feedback, help refine your proposal, and present it at Core Maintainer
 meetings.
 
-<Warning>
-  Every SEP needs a sponsor to move forward. SEPs that don't find a sponsor
-  within 6 months are marked as **dormant**. Dormant SEPs aren't rejected
-  outright - they can be revived later if a sponsor is found or the proposal is
-  re-assessed to be needed.
-</Warning>
+> [!WARNING]
+>
+> Every SEP needs a sponsor to move forward. SEPs that don't find a sponsor
+> within 6 months are marked as **dormant**. Dormant SEPs aren't rejected
+> outright - they can be revived later if a sponsor is found or the proposal is
+> re-assessed to be needed.
 
 To find a sponsor:
 
-<Steps>
-  <Step title="Find relevant maintainers">
-    Look at the [maintainer
-    list](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/MAINTAINERS.md)
-    to find maintainers working in your area.
-  </Step>
+**1. Find relevant maintainers**
 
-  <Step title="Tag maintainers in your PR">
-    Tag 1-2 relevant maintainers (don't spam everyone).
-  </Step>
+Look at the [maintainer
+list](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/MAINTAINERS.md)
+to find maintainers working in your area.
 
-  <Step title="Share in Discord">
-    Post your PR in the relevant Discord channel to increase visibility.
-  </Step>
+**2. Tag maintainers in your PR**
 
-  <Step title="Follow up if needed">
-    If no response after 2 weeks, ask in `#general` or reach out to a Core
-    Maintainer.
-  </Step>
-</Steps>
+Tag 1-2 relevant maintainers (don't spam everyone).
+
+**3. Share in Discord**
+
+Post your PR in the relevant Discord channel to increase visibility.
+
+**4. Follow up if needed**
+
+If no response after 2 weeks, ask in `#general` or reach out to a Core
+Maintainer.
 
 Maintainers review open proposals regularly, but response time varies based on complexity and
 availability.
@@ -408,66 +394,62 @@ availability.
 MCP maintains official SDKs in multiple languages. Contributions are welcome - whether you're
 fixing bugs, improving performance, adding features, or enhancing documentation.
 
-<Note>
-  Each SDK has its own repository, maintainers, and contribution guidelines.
-  Some SDKs are maintained in collaboration with larger partner organizations,
-  such as Google, Microsoft, JetBrains, and others, so processes may vary
-  slightly between repositories.
-</Note>
+> [!NOTE]
+>
+> Each SDK has its own repository, maintainers, and contribution guidelines.
+> Some SDKs are maintained in collaboration with larger partner organizations,
+> such as Google, Microsoft, JetBrains, and others, so processes may vary
+> slightly between repositories.
 
 ### Before Contributing to an SDK
 
 Before diving into code, follow these steps.
 
-<Steps>
-  <Step title="Open an issue first">
-    Before starting significant work, open an issue to discuss your approach.
-    This helps avoid duplicate effort, ensures your contribution aligns with the
-    SDK's direction, and gives maintainers a chance to provide early feedback.
-  </Step>
+**1. Open an issue first**
 
-  <Step title="Join the SDK channel">
-    Find the relevant channel in [Discord](https://discord.gg/6CSzBmMkjX) (e.g.,
-    `#typescript-sdk-dev`, `#python-sdk-dev`).
-  </Step>
+Before starting significant work, open an issue to discuss your approach.
+This helps avoid duplicate effort, ensures your contribution aligns with the
+SDK's direction, and gives maintainers a chance to provide early feedback.
 
-  <Step title="Read the SDK's CONTRIBUTING.md">
-    Each repository has its own `CONTRIBUTING.md` with specific instructions for
-    setting up your development environment, coding standards, commit message
-    conventions, and PR requirements.
-  </Step>
+**2. Join the SDK channel**
 
-  <Step title="Write tests">
-    All contributions should include appropriate test coverage. Bug fixes should
-    include a test that reproduces the issue, and new features should have tests
-    covering the expected behavior. This helps maintain SDK reliability and
-    prevents regressions.
-  </Step>
-</Steps>
+Find the relevant channel in [Discord](https://discord.gg/6CSzBmMkjX) (e.g.,
+`#typescript-sdk-dev`, `#python-sdk-dev`).
+
+**3. Read the SDK's CONTRIBUTING.md**
+
+Each repository has its own `CONTRIBUTING.md` with specific instructions for
+setting up your development environment, coding standards, commit message
+conventions, and PR requirements.
+
+**4. Write tests**
+
+All contributions should include appropriate test coverage. Bug fixes should
+include a test that reproduces the issue, and new features should have tests
+covering the expected behavior. This helps maintain SDK reliability and
+prevents regressions.
 
 ### SDK Repositories
 
-<CardGroup cols={2}>
-  <Card title="TypeScript SDK" icon="square-js" href="https://github.com/modelcontextprotocol/typescript-sdk" />
+> **[TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)**
 
-  <Card title="Python SDK" icon="python" href="https://github.com/modelcontextprotocol/python-sdk" />
+> **[Python SDK](https://github.com/modelcontextprotocol/python-sdk)**
 
-  <Card title="Go SDK" icon="golang" href="https://github.com/modelcontextprotocol/go-sdk" />
+> **[Go SDK](https://github.com/modelcontextprotocol/go-sdk)**
 
-  <Card title="Kotlin SDK" icon="square-k" href="https://github.com/modelcontextprotocol/kotlin-sdk" />
+> **[Kotlin SDK](https://github.com/modelcontextprotocol/kotlin-sdk)**
 
-  <Card title="Java SDK" icon="java" href="https://github.com/modelcontextprotocol/java-sdk" />
+> **[Java SDK](https://github.com/modelcontextprotocol/java-sdk)**
 
-  <Card title="C# SDK" icon="square-c" href="https://github.com/modelcontextprotocol/csharp-sdk" />
+> **[C# SDK](https://github.com/modelcontextprotocol/csharp-sdk)**
 
-  <Card title="Swift SDK" icon="swift" href="https://github.com/modelcontextprotocol/swift-sdk" />
+> **[Swift SDK](https://github.com/modelcontextprotocol/swift-sdk)**
 
-  <Card title="Rust SDK" icon="rust" href="https://github.com/modelcontextprotocol/rust-sdk" />
+> **[Rust SDK](https://github.com/modelcontextprotocol/rust-sdk)**
 
-  <Card title="Ruby SDK" icon="gem" href="https://github.com/modelcontextprotocol/ruby-sdk" />
+> **[Ruby SDK](https://github.com/modelcontextprotocol/ruby-sdk)**
 
-  <Card title="PHP SDK" icon="php" href="https://github.com/modelcontextprotocol/php-sdk" />
-</CardGroup>
+> **[PHP SDK](https://github.com/modelcontextprotocol/php-sdk)**
 
 ## Getting Help
 

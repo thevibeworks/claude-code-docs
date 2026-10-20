@@ -4,11 +4,9 @@
 
 # Elicitation
 
-<div id="enable-section-numbers" />
-
-<Note>
-  Elicitation is newly introduced in this version of the MCP specification and its design may evolve in future protocol versions.
-</Note>
+> [!NOTE]
+>
+> Elicitation is newly introduced in this version of the MCP specification and its design may evolve in future protocol versions.
 
 The Model Context Protocol (MCP) provides a standardized way for servers to request additional
 information from users through the client during interactions. This flow allows clients to
@@ -25,17 +23,17 @@ Implementations are free to expose elicitation through any interface pattern tha
 their needs—the protocol itself does not mandate any specific user interaction
 model.
 
-<Warning>
-  For trust & safety and security:
-
-  * Servers **MUST NOT** use elicitation to request sensitive information.
-
-  Applications **SHOULD**:
-
-  * Provide UI that makes it clear which server is requesting information
-  * Allow users to review and modify their responses before sending
-  * Respect user privacy and provide clear decline and cancel options
-</Warning>
+> [!WARNING]
+>
+> For trust & safety and security:
+>
+> * Servers **MUST NOT** use elicitation to request sensitive information.
+>
+> Applications **SHOULD**:
+>
+> * Provide UI that makes it clear which server is requesting information
+> * Allow users to review and modify their responses before sending
+> * Respect user privacy and provide clear decline and cancel options
 
 ## Capabilities
 

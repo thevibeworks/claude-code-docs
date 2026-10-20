@@ -56,76 +56,72 @@ mcp-inspector --config ~/Library/Application\ Support/Claude/claude_desktop_conf
 
 `--config` guarantees the file is served as-is and never written, seeded, or migrated.
 
-<Frame caption="Add Servers offers import from an existing client config or from a registry server.json.">
-  <img src="https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/import-config.png?fit=max&auto=format&n=gk28X8wi_tbRYzej&q=85&s=c9f5229c2d827f4bcab37938879f21f2" width="3840" height="2160" data-path="images/inspector/import-config.png" />
-</Frame>
+![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/import-config.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=c9f5229c2d827f4bcab37938879f21f2)
 
 ## Reviewing an MCP App
 
 [MCP Apps](/extensions/apps/overview) are tools that carry a UI widget. For an automated reviewer (CI or an agent), use the CLI for every check that returns JSON, and open a browser only to inspect the rendered widget.
 
-<Steps>
-  <Step title="Probe the security posture without calling the tool">
-    ```bash theme={null}
-    mcp-inspector --cli --transport http --server-url https://example.com/mcp \
-      --method tools/call --tool-name <tool> --app-info --advertise-apps
-    ```
+**1. Probe the security posture without calling the tool**
 
-    `--advertise-apps` makes the CLI claim MCP Apps support at `initialize`. It is off by default because the CLI cannot render an app, but a server that shows its app tools only to app-capable clients would otherwise report no app.
+```bash theme={null}
+mcp-inspector --cli --transport http --server-url https://example.com/mcp \
+  --method tools/call --tool-name <tool> --app-info --advertise-apps
+```
 
-    One JSON line on stdout; exit `0` if the tool has an app, `2` if not, so an `&&` chain short-circuits:
+`--advertise-apps` makes the CLI claim MCP Apps support at `initialize`. It is off by default because the CLI cannot render an app, but a server that shows its app tools only to app-capable clients would otherwise report no app.
 
-    ```json theme={null}
-    {
-      "hasApp": true,
-      "toolName": "get_pros",
-      "resourceUri": "ui://pros/view.html",
-      "csp": { "connectDomains": ["https://api.example.com"] },
-      "permissions": { "clipboard": false },
-      "prefersBorder": true,
-      "resourceMimeType": "text/html"
-    }
-    ```
+One JSON line on stdout; exit `0` if the tool has an app, `2` if not, so an `&&` chain short-circuits:
 
-    `csp` and `permissions` (and `domain`, when the resource declares one) live on the UI **resource** rather than the tool, so `--app-info` reads that resource. The tool is never called.
-  </Step>
+```json theme={null}
+{
+  "hasApp": true,
+  "toolName": "get_pros",
+  "resourceUri": "ui://pros/view.html",
+  "csp": { "connectDomains": ["https://api.example.com"] },
+  "permissions": { "clipboard": false },
+  "prefersBorder": true,
+  "resourceMimeType": "text/html"
+}
+```
 
-  <Step title="Get the full result payload, still with no browser">
-    ```bash theme={null}
-    mcp-inspector --cli --transport http --server-url https://example.com/mcp \
-      --method tools/call --tool-name <tool> --tool-args-json '{"zip":"10001"}' --format json
-    ```
-  </Step>
+`csp` and `permissions` (and `domain`, when the resource declares one) live on the UI **resource** rather than the tool, so `--app-info` reads that resource. The tool is never called.
 
-  <Step title="Launch the web Inspector once, loopback-only">
-    ```bash theme={null}
-    TOKEN="$(openssl rand -hex 24)"
-    HOST=127.0.0.1 CLIENT_PORT=6274 MCP_SANDBOX_PORT=6275 \
-    MCP_AUTO_OPEN_ENABLED=false MCP_INSPECTOR_API_TOKEN="$TOKEN" \
-    mcp-inspector --web &
-    ```
+**2. Get the full result payload, still with no browser**
 
-    Pinning `MCP_SANDBOX_PORT` keeps the address explicit: the app's UI is served from a separate sandbox port, and your automation needs to know where it is.
-  </Step>
+```bash theme={null}
+mcp-inspector --cli --transport http --server-url https://example.com/mcp \
+  --method tools/call --tool-name <tool> --tool-args-json '{"zip":"10001"}' --format json
+```
 
-  <Step title="Navigate one deep link to a rendered widget">
-    ```
-    http://127.0.0.1:6274/?serverUrl=<encoded url>&transport=http&autoConnect=<TOKEN>&openApp=<tool>&appArgs=<base64url(JSON)>&autoOpen=<TOKEN>
-    ```
+**3. Launch the web Inspector once, loopback-only**
 
-    `appArgs` is the tool's arguments as base64url-encoded JSON, and every deep-link parameter is described under [Deep links](/docs/draft/tools/inspector/web#deep-links). `autoConnect` and `autoOpen` must both equal the session token, since `autoOpen` fires a tool call straight from the URL and needs the same gate as `autoConnect`.
-  </Step>
+```bash theme={null}
+TOKEN="$(openssl rand -hex 24)"
+HOST=127.0.0.1 CLIENT_PORT=6274 MCP_SANDBOX_PORT=6275 \
+MCP_AUTO_OPEN_ENABLED=false MCP_INSPECTOR_API_TOKEN="$TOKEN" \
+mcp-inspector --web &
+```
 
-  <Step title="Wait on a deterministic signal instead of sleeping">
-    The Apps screen exposes a stable automation contract. Poll these attributes instead of sleeping:
+Pinning `MCP_SANDBOX_PORT` keeps the address explicit: the app's UI is served from a separate sandbox port, and your automation needs to know where it is.
 
-    | Selector | Attribute | Values |
-    | - | - | - |
-    | `[data-testid="apps-form"]` | `data-app-status` | `idle`, then `loading`, then `ready` or `error` (on `error`, `data-app-error` carries the reason) |
-    | `[data-testid="connection-status"]` | `data-status` | `disconnected`, `connecting`, then `connected` or `error` (`data-error-message` has the detail) |
-    | `[data-testid="connection-status"]` | `data-deeplink` | `parsed`, `rejected`, or `none` (`none` means no deep link was given, `rejected` means one was refused) |
-  </Step>
-</Steps>
+**4. Navigate one deep link to a rendered widget**
+
+```
+http://127.0.0.1:6274/?serverUrl=<encoded url>&transport=http&autoConnect=<TOKEN>&openApp=<tool>&appArgs=<base64url(JSON)>&autoOpen=<TOKEN>
+```
+
+`appArgs` is the tool's arguments as base64url-encoded JSON, and every deep-link parameter is described under [Deep links](/docs/draft/tools/inspector/web#deep-links). `autoConnect` and `autoOpen` must both equal the session token, since `autoOpen` fires a tool call straight from the URL and needs the same gate as `autoConnect`.
+
+**5. Wait on a deterministic signal instead of sleeping**
+
+The Apps screen exposes a stable automation contract. Poll these attributes instead of sleeping:
+
+| Selector | Attribute | Values |
+| - | - | - |
+| `[data-testid="apps-form"]` | `data-app-status` | `idle`, then `loading`, then `ready` or `error` (on `error`, `data-app-error` carries the reason) |
+| `[data-testid="connection-status"]` | `data-status` | `disconnected`, `connecting`, then `connected` or `error` (`data-error-message` has the detail) |
+| `[data-testid="connection-status"]` | `data-deeplink` | `parsed`, `rejected`, or `none` (`none` means no deep link was given, `rejected` means one was refused) |
 
 ## Docker
 
@@ -139,14 +135,14 @@ Read the [session token](/docs/draft/tools/inspector/web#the-session-token) from
 
 The image defaults to `--web`, bound to `0.0.0.0:6274` with browser auto-open off, and runs as the non-root `node` user (uid `1000`). It sets `DANGEROUSLY_BIND_ALL_INTERFACES=true` because a container must bind the wildcard address to be reachable through `-p`.
 
-<Warning>
-  **Keep the `127.0.0.1:` prefix on every published port.** A bare `-p
-      6274:6274` publishes on every host interface, putting a backend that spawns
-  processes, and the page that discloses its token, on your local network. The
-  image's `DANGEROUSLY_BIND_ALL_INTERFACES` covers the container's interfaces,
-  not the host's. See [Publish the port on loopback
-  only](/docs/draft/tools/inspector/security#publish-the-port-on-loopback-only).
-</Warning>
+> [!WARNING]
+>
+> **Keep the `127.0.0.1:` prefix on every published port.** A bare `-p
+>     6274:6274` publishes on every host interface, putting a backend that spawns
+> processes, and the page that discloses its token, on your local network. The
+> image's `DANGEROUSLY_BIND_ALL_INTERFACES` covers the container's interfaces,
+> not the host's. See [Publish the port on loopback
+> only](/docs/draft/tools/inspector/security#publish-the-port-on-loopback-only).
 
 To use the **Apps** tab, also publish the MCP Apps sandbox port, `6275`, and `6278` for an app that declares `_meta.ui.domain`. Publish each on the same port number inside and out, since the browser is handed the in-container port:
 
@@ -174,50 +170,48 @@ A container has no OS keychain, so where secrets go depends on that volume:
 
 If you bind-mount a host directory instead of a named volume, it keeps its host ownership, so on Linux add `--user "$(id -u):$(id -g)"` or `chown` it to uid `1000`, or saves fail with `EACCES`. Don't bind-mount the secrets file on its own: it isn't recognized as durable, and it can't be replaced atomically.
 
-<Warning>
-  **Mounting that volume turns on file storage of secrets, and without a key the file is plaintext.** Every OAuth token acquired, and every client secret and stdio `env:` value you save, is then written to `secrets.json` on the volume. It is readable by root and every member of the host's `docker` group, and by anyone who gets a backup, snapshot or copy of the volume.
-
-  Give it a key, generated into a file that only you can read and that sits outside the volume, its backups and any repository:
-
-  ```bash theme={null}
-  mkdir -p ~/.config/mcp-inspector
-  (umask 077 && openssl rand -base64 32 > ~/.config/mcp-inspector/secret-key)
-  ```
-
-  Even encrypted, secrets on disk carry moderate risk. See [what the file store protects against](/docs/draft/tools/inspector/security#what-the-file-store-protects-against).
-</Warning>
+> [!WARNING]
+>
+> **Mounting that volume turns on file storage of secrets, and without a key the file is plaintext.** Every OAuth token acquired, and every client secret and stdio `env:` value you save, is then written to `secrets.json` on the volume. It is readable by root and every member of the host's `docker` group, and by anyone who gets a backup, snapshot or copy of the volume.
+>
+> Give it a key, generated into a file that only you can read and that sits outside the volume, its backups and any repository:
+>
+> ```bash theme={null}
+> mkdir -p ~/.config/mcp-inspector
+> (umask 077 && openssl rand -base64 32 > ~/.config/mcp-inspector/secret-key)
+> ```
+>
+> Even encrypted, secrets on disk carry moderate risk. See [what the file store protects against](/docs/draft/tools/inspector/security#what-the-file-store-protects-against).
 
 Hand the key to the container **as a file** with `MCP_INSPECTOR_SECRET_KEY_FILE`, not as an environment variable. A key passed with `-e MCP_INSPECTOR_SECRET_KEY=…` is readable by anyone who can run `docker inspect` or `docker exec`.
 
-<Tabs>
-  <Tab title="docker run">
-    ```bash theme={null}
-    docker run --rm -p 127.0.0.1:6274:6274 \
-      -v mcp-inspector-data:/home/node/.mcp-inspector \
-      -v "$HOME/.config/mcp-inspector/secret-key:/run/secrets/mcp_inspector_secret_key:ro" \
-      -e MCP_INSPECTOR_SECRET_KEY_FILE=/run/secrets/mcp_inspector_secret_key \
-      ghcr.io/modelcontextprotocol/inspector
-    ```
-  </Tab>
+**docker run**
 
-  <Tab title="Compose secrets">
-    ```yaml theme={null}
-    services:
-      inspector:
-        image: ghcr.io/modelcontextprotocol/inspector
-        ports: ["127.0.0.1:6274:6274"]
-        volumes: ["mcp-inspector-data:/home/node/.mcp-inspector"]
-        environment:
-          MCP_INSPECTOR_SECRET_KEY_FILE: /run/secrets/mcp_inspector_secret_key
-        secrets: [mcp_inspector_secret_key]
-    secrets:
-      mcp_inspector_secret_key:
-        file: ${HOME}/.config/mcp-inspector/secret-key
-    volumes:
-      mcp-inspector-data:
-    ```
-  </Tab>
-</Tabs>
+```bash theme={null}
+docker run --rm -p 127.0.0.1:6274:6274 \
+  -v mcp-inspector-data:/home/node/.mcp-inspector \
+  -v "$HOME/.config/mcp-inspector/secret-key:/run/secrets/mcp_inspector_secret_key:ro" \
+  -e MCP_INSPECTOR_SECRET_KEY_FILE=/run/secrets/mcp_inspector_secret_key \
+  ghcr.io/modelcontextprotocol/inspector
+```
+
+**Compose secrets**
+
+```yaml theme={null}
+services:
+  inspector:
+    image: ghcr.io/modelcontextprotocol/inspector
+    ports: ["127.0.0.1:6274:6274"]
+    volumes: ["mcp-inspector-data:/home/node/.mcp-inspector"]
+    environment:
+      MCP_INSPECTOR_SECRET_KEY_FILE: /run/secrets/mcp_inspector_secret_key
+    secrets: [mcp_inspector_secret_key]
+secrets:
+  mcp_inspector_secret_key:
+    file: ${HOME}/.config/mcp-inspector/secret-key
+volumes:
+  mcp-inspector-data:
+```
 
 Without Swarm, Compose secrets are bind mounts that keep the host file's owner and mode, so the `0600` key file must be owned by uid `1000`. On a Linux host where your uid is different, run `sudo chown 1000 ~/.config/mcp-inspector/secret-key` rather than loosening its mode. Supply the **same** key on every run.
 
@@ -233,13 +227,13 @@ The image's `HEALTHCHECK` probes the web UI at the address `HOST` binds. `--cli`
 docker run --rm ghcr.io/modelcontextprotocol/inspector --cli <target> --method tools/list
 ```
 
-<Warning>
-  **If you remap the published port, set `ALLOWED_ORIGINS`.** With `-p
-      127.0.0.1:8080:6274` the browser's origin becomes `http://localhost:8080`,
-  which no longer matches the in-container port, and connects will `403`. Either
-  run `-e CLIENT_PORT=8080 -p 127.0.0.1:8080:8080`, or set `-e
-      ALLOWED_ORIGINS=http://localhost:8080,http://127.0.0.1:8080`.
-</Warning>
+> [!WARNING]
+>
+> **If you remap the published port, set `ALLOWED_ORIGINS`.** With `-p
+>     127.0.0.1:8080:6274` the browser's origin becomes `http://localhost:8080`,
+> which no longer matches the in-container port, and connects will `403`. Either
+> run `-e CLIENT_PORT=8080 -p 127.0.0.1:8080:8080`, or set `-e
+>     ALLOWED_ORIGINS=http://localhost:8080,http://127.0.0.1:8080`.
 
 ## Hosting on a network
 
@@ -253,15 +247,15 @@ The Inspector refuses to bind the **wildcard** all-interfaces addresses (`0.0.0.
 | **Behind TLS or a reverse proxy** | The browser's `Origin` becomes the public origin, which won't match the bind host. Set `ALLOWED_ORIGINS=https://inspector.example.com`, and for MCP Apps set `MCP_SANDBOX_FULL_ADDRESS` (see below). |
 | **Wildcard bind (containers)** | Set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Loopback access still works out of the box; reaching it at a non-loopback address needs `ALLOWED_ORIGINS`. |
 
-<Warning>
-  `ALLOWED_ORIGINS` **replaces** the default list rather than merging with it. List every origin you'll browse from, including the loopback forms you want to keep:
-
-  ```
-  ALLOWED_ORIGINS=http://localhost:6274,http://127.0.0.1:6274,http://192.168.1.50:6274
-  ```
-
-  Each entry must include the scheme; a scheme-less value is dropped with a warning. A blank value does **not** disable the check; it falls back to the default. There is no knob to turn origin validation off.
-</Warning>
+> [!WARNING]
+>
+> `ALLOWED_ORIGINS` **replaces** the default list rather than merging with it. List every origin you'll browse from, including the loopback forms you want to keep:
+>
+> ```
+> ALLOWED_ORIGINS=http://localhost:6274,http://127.0.0.1:6274,http://192.168.1.50:6274
+> ```
+>
+> Each entry must include the scheme; a scheme-less value is dropped with a warning. A blank value does **not** disable the check; it falls back to the default. There is no knob to turn origin validation off.
 
 Two further caveats when going off loopback:
 
@@ -291,29 +285,27 @@ The daemon that holds the connection starts automatically and exits about a minu
 
 A loop that works well in practice:
 
-<Steps>
-  <Step title="Start with the CLI">
-    `--method initialize` confirms the server starts, handshakes, and reports
-    the capabilities you expect, in one second, with a machine-readable answer.
-    Most "it doesn't work" turns out to be here.
-  </Step>
+**1. Start with the CLI**
 
-  <Step title="Move to the web client for exploration">
-    Schema-driven forms, rendered results, and the Protocol tab beside them make
-    it fast to find the case where a tool misbehaves.
-  </Step>
+`--method initialize` confirms the server starts, handshakes, and reports
+the capabilities you expect, in one second, with a machine-readable answer.
+Most "it doesn't work" turns out to be here.
 
-  <Step title="Test the edges">
-    Invalid inputs, missing required prompt arguments, concurrent calls, and,
-    for HTTP servers, both protocol eras. Verify the *errors* are as intentional
-    as the successes.
-  </Step>
+**2. Move to the web client for exploration**
 
-  <Step title="Lock it in with the CLI">
-    Turn what you found into a CI assertion: pipe the CLI's `--format json`
-    output to `jq -e` with `--stored-auth-only`, so a missing token fails fast
-    instead of starting interactive OAuth. See [Verify a server in
-    CI](/docs/draft/tools/inspector/cli#verify-a-server-in-ci) for the full
-    command.
-  </Step>
-</Steps>
+Schema-driven forms, rendered results, and the Protocol tab beside them make
+it fast to find the case where a tool misbehaves.
+
+**3. Test the edges**
+
+Invalid inputs, missing required prompt arguments, concurrent calls, and,
+for HTTP servers, both protocol eras. Verify the *errors* are as intentional
+as the successes.
+
+**4. Lock it in with the CLI**
+
+Turn what you found into a CI assertion: pipe the CLI's `--format json`
+output to `jq -e` with `--stored-auth-only`, so a missing token fails fast
+instead of starting interactive OAuth. See [Verify a server in
+CI](/docs/draft/tools/inspector/cli#verify-a-server-in-ci) for the full
+command.

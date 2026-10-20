@@ -8,9 +8,9 @@
 
 On a Mac, Claude Science can now run as its own app, in its own window, rather than in the browser. If yours opens in a browser tab, installing an update from inside Claude Science, such as with **Restart to update**, can switch it over. Installing an update doesn't switch a copy that another account on your Mac installed, such as one that your organization's device management installed. To check whether yours has switched, open Claude Science from your **Applications** folder after the update. If it still opens in a browser tab, it hasn't switched, and you keep using it as before.
 
-<Note>
-  To manage Claude Science on your organization's Macs, see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices#macs-where-claude-science-opens-in-its-own-window).
-</Note>
+> [!NOTE]
+>
+> To manage Claude Science on your organization's Macs, see [Manage Claude Science on devices](/docs/claude-science/manage-on-devices#macs-where-claude-science-opens-in-its-own-window).
 
 ## What changes when Claude Science switches to its own window
 

@@ -14,7 +14,7 @@ Claude Science includes Featured connectors to public research databases, most o
 
 | Connector | Sources |
 | - | - |
-| Genomes | Ensembl (incl. VEP), UCSC |
+| Genomes | Ensembl (incl. VEP) |
 | Genes & Ontologies | MyGene, UniProt, GO, Reactome, OLS |
 | Variants | gnomAD, ClinVar, dbSNP |
 | Human Genetics | GWAS Catalog, FinnGen, BioBank Japan |

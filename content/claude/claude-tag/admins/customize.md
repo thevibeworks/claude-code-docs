@@ -6,9 +6,9 @@
 
 > Claude Tag is customized per channel and workspace (a scope), not per user. See what admins set in claude.ai, what anyone can change from the channel, and what stays fixed.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude Tag's behavior is shaped by four layers, each set in a different place:
 
@@ -37,8 +37,6 @@ Access and organization-wide behavior are set at [`claude.ai/admin-settings/clau
 | Environment | Which cloud environment a scope's sessions run in | [Configure the environment for a scope](#configure-the-environment-for-a-scope) |
 | Enable Claude Tag | Turns Claude on or off in a scope. On the **Slack** page, the switch is labeled **Respond in all channels** or **Respond in channels** | [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
 | Claude Tag version | Which generation answers in a scope (**New** or **Legacy**) | [Turn Claude Tag on or off and set the version for a scope](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
-
-<a id="channel-connections-are-separate-from-personal-connectors" />
 
 ### Claude Tag connectors are separate from personal connectors
 
@@ -129,19 +127,17 @@ Keep credentials out of environment variables because every session on the envir
 
 Creating the environment and choosing it on a scope happen on two different admin pages. Choose it on a channel to change only that channel's sessions, on a workspace to cover every channel in the workspace where you haven't chosen one, or on the **Slack** page to cover every workspace.
 
-<Steps>
-  <Step title="Create the environment">
-    From the **Cloud environments** page in [admin settings](https://claude.ai/admin-settings), add an [organization-shared environment](https://code.claude.com/docs/en/cloud-environments#organization-shared-environments) and fill in its setup script, environment variables, and network access level.
-  </Step>
+**1. Create the environment**
 
-  <Step title="Set the scope's environment">
-    Go to [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and open the scope's page (**Slack** for the whole organization). On its **Advanced** tab, pick the environment in **Environment** under **Sessions**.
-  </Step>
+From the **Cloud environments** page in [admin settings](https://claude.ai/admin-settings), add an [organization-shared environment](https://code.claude.com/docs/en/cloud-environments#organization-shared-environments) and fill in its setup script, environment variables, and network access level.
 
-  <Step title="Confirm the environment in a new thread">
-    Start a fresh thread in the channel and ask Claude to use what you added, such as running the tool your setup script installed. Threads already underway keep the environment they started on, so an existing thread won't show the change.
-  </Step>
-</Steps>
+**2. Set the scope's environment**
+
+Go to [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and open the scope's page (**Slack** for the whole organization). On its **Advanced** tab, pick the environment in **Environment** under **Sessions**.
+
+**3. Confirm the environment in a new thread**
+
+Start a fresh thread in the channel and ask Claude to use what you added, such as running the tool your setup script installed. Threads already underway keep the environment they started on, so an existing thread won't show the change.
 
 ### Which environment a channel's sessions use
 
@@ -170,7 +166,9 @@ The rules list has three properties:
 * **Inheritance:** rules you set on a workspace or on the [**Slack** page](/docs/claude-tag/admins/attach-to-scope#how-scopes-inherit) (the organization-wide root) carry down to the channels beneath, the way [custom instructions](/docs/claude-tag/admins/attach-to-scope#custom-instructions) stack. A channel's own rules add to those and never replace them, so put a rule on a single channel's scope to pre-approve an action there without changing any other channel.
 * **Access:** you edit the list with the same admin access as the scope's other **Advanced** settings
 
-<Warning>Once you add an allow rule, Claude runs the actions it names in every channel the scope covers without anyone approving them in the moment. Keep each rule narrow: name the tool, the action, and the environment it allows, and put rules that unlock sensitive systems on the narrowest scope that needs them.</Warning>
+> [!WARNING]
+>
+> Once you add an allow rule, Claude runs the actions it names in every channel the scope covers without anyone approving them in the moment. Keep each rule narrow: name the tool, the action, and the environment it allows, and put rules that unlock sensitive systems on the narrowest scope that needs them.
 
 ## Name, handle, and avatar of the Claude app
 

@@ -6,9 +6,9 @@
 
 > Managed by lets a central team write a Slack channel's standing Claude instructions from its own channel. Covers setup, the Confirm card, and limits.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 **Managed by** is a channel setting that names other Slack channels whose members can write that channel's standing instructions for Claude. The channel that carries the setting is the managed channel, and each channel it names is a managing channel. People in a managing channel ask Claude to set or update the managed channel's instructions and confirm the change on a card, and Claude follows that text in every new conversation in the managed channel. This page is for admins who set up the pairing and for the people in a managing channel who write the instructions.
 
@@ -45,19 +45,17 @@ A managed channel can have up to five managing channels. A private managed chann
 
 ## Choose the managing channels
 
-<Steps>
-  <Step title="Open the managed channel's Configure page">
-    In the channel whose instructions will be managed, select the **Configure** link in the footer of any Claude reply, or send [`@Claude !configure`](/docs/claude-tag/users/commands#get-the-link-to-configure-a-channel) and follow the link Claude posts. Go to the **Admin** tab.
-  </Step>
+**1. Open the managed channel's Configure page**
 
-  <Step title="Select channels under Managed by">
-    Open the **Managed by** list and select up to five channels. The list shows channels that you and Claude are both in. It finds them through the Slack account connected to your Claude account, and it asks you to connect one if you haven't. The selection saves when you close the list.
-  </Step>
+In the channel whose instructions will be managed, select the **Configure** link in the footer of any Claude reply, or send [`@Claude !configure`](/docs/claude-tag/users/commands#get-the-link-to-configure-a-channel) and follow the link Claude posts. Go to the **Admin** tab.
 
-  <Step title="Tell the managing channel">
-    Nothing is posted in the managing channel when you add it. Claude learns about the pairing at the start of a conversation, so ask people there to start a new thread before they make the first change, and point them to [Write or update managed instructions](#write-or-update-managed-instructions).
-  </Step>
-</Steps>
+**2. Select channels under Managed by**
+
+Open the **Managed by** list and select up to five channels. The list shows channels that you and Claude are both in. It finds them through the Slack account connected to your Claude account, and it asks you to connect one if you haven't. The selection saves when you close the list.
+
+**3. Tell the managing channel**
+
+Nothing is posted in the managing channel when you add it. Claude learns about the pairing at the start of a conversation, so ask people there to start a new thread before they make the first change, and point them to [Write or update managed instructions](#write-or-update-managed-instructions).
 
 To stop a channel managing another, clear it from the same list. Removing a channel works even when the pairing no longer meets the requirements.
 
@@ -65,25 +63,23 @@ To stop a channel managing another, clear it from the same list. Removing a chan
 
 A managing channel is a Slack channel that an Owner or a [Claude Tag admin](/docs/claude-tag/admins/restrict-access#delegate-claude-tag-administration) selected under **Managed by** on another channel's Configure page. Any full member of the workspace who is in a managing channel can ask Claude there to change the managed channel's instructions. Guests and people from other organizations can't.
 
-<Steps>
-  <Step title="Ask Claude in the managing channel">
-    Mention Claude, name the managed channel, and say what the instructions should be.
+**1. Ask Claude in the managing channel**
 
-    ```text wrap theme={null}
-    @Claude set the instructions for #it-help to: Answer from the IT handbook first. For laptop requests, link the hardware form. If someone reports a security problem, tell them to page the on-call and stop.
-    ```
+Mention Claude, name the managed channel, and say what the instructions should be.
 
-    Claude reads the managed channel's current text, then posts a card in the managing channel that shows every line the change adds or removes.
-  </Step>
+```text wrap theme={null}
+@Claude set the instructions for #it-help to: Answer from the IT handbook first. For laptop requests, link the hardware form. If someone reports a security problem, tell them to page the on-call and stop.
+```
 
-  <Step title="Confirm the card">
-    Any full member of the managing channel can select **Confirm**. Nothing changes until someone selects it. **Cancel** drops the proposal.
-  </Step>
+Claude reads the managed channel's current text, then posts a card in the managing channel that shows every line the change adds or removes.
 
-  <Step title="Check the result">
-    Start a new thread in the managed channel and ask Claude to repeat its admin instructions. The text you confirmed appears after your workspace's instructions and before the channel's own. You need to be a member of the managed channel to check.
-  </Step>
-</Steps>
+**2. Confirm the card**
+
+Any full member of the managing channel can select **Confirm**. Nothing changes until someone selects it. **Cancel** drops the proposal.
+
+**3. Check the result**
+
+Start a new thread in the managed channel and ask Claude to repeat its admin instructions. The text you confirmed appears after your workspace's instructions and before the channel's own. You need to be a member of the managed channel to check.
 
 To add long material as a [reference file](#how-managed-instructions-load), give the file a short name made of lowercase letters, digits, hyphens, or underscores.
 
@@ -105,35 +101,33 @@ A managing channel is a Slack channel that an Owner or a [Claude Tag admin](/doc
 
 Claude proposes the correction as a change to the managed channel's instructions. After you confirm, Claude follows the new text in [conversations that start afterward](#how-managed-instructions-load) in the managed channel. While a guest is present in a managed channel that runs with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works), Claude doesn't load managed instructions.
 
-<Steps>
-  <Step title="Set up a private managing channel">
-    Skip this step if the managed channel already has a private managing channel that you're in. Otherwise, create a private channel in Slack and run `/invite @Claude` in it. Then an Owner or a Claude Tag admin who is a member of the private channel selects it, following [Choose the managing channels](#choose-the-managing-channels). If you're that person, you and Claude can be the private channel's only members.
+**1. Set up a private managing channel**
 
-    To open the Configure page without posting in the managed channel, select the **Configure** link in the footer of a Claude reply there.
-  </Step>
+Skip this step if the managed channel already has a private managing channel that you're in. Otherwise, create a private channel in Slack and run `/invite @Claude` in it. Then an Owner or a Claude Tag admin who is a member of the private channel selects it, following [Choose the managing channels](#choose-the-managing-channels). If you're that person, you and Claude can be the private channel's only members.
 
-  <Step title="Ask Claude in the private managing channel">
-    Start a new thread, mention Claude, tell it which thread it got wrong, and say what it should do next time.
+To open the Configure page without posting in the managed channel, select the **Configure** link in the footer of a Claude reply there.
 
-    * **Public managed channel:** paste the thread's link. Claude can read the linked thread as long as the managing channel has no guests. If it has guests, describe what happened.
-    * **Private managed channel:** describe what happened, because Claude reads a private channel's threads only from inside that channel
+**2. Ask Claude in the private managing channel**
 
-    ```text wrap theme={null}
-    @Claude in this #it-help thread you told someone to email IT about a new laptop: https://example.slack.com/archives/C0123456789/p1700000000000000
-    Add a rule to the instructions for #it-help that laptop requests get a link to the hardware form.
-    ```
+Start a new thread, mention Claude, tell it which thread it got wrong, and say what it should do next time.
 
-    Claude reads any thread you linked and the managed channel's current text, then posts a card in the managing channel that shows every line the change adds or removes.
-  </Step>
+* **Public managed channel:** paste the thread's link. Claude can read the linked thread as long as the managing channel has no guests. If it has guests, describe what happened.
+* **Private managed channel:** describe what happened, because Claude reads a private channel's threads only from inside that channel
 
-  <Step title="Confirm the card">
-    Select **Confirm** if the wording is right. To reword it, select **Cancel** and tell Claude what to change. The card expires 30 minutes after Claude posts it. After you confirm, the card says that the managed channel's instructions were updated.
-  </Step>
+```text wrap theme={null}
+@Claude in this #it-help thread you told someone to email IT about a new laptop: https://example.slack.com/archives/C0123456789/p1700000000000000
+Add a rule to the instructions for #it-help that laptop requests get a link to the hardware form.
+```
 
-  <Step title="Read the text back">
-    In a new message in the managing channel, ask Claude to show the managed channel's instructions. Claude replies there with the current text.
-  </Step>
-</Steps>
+Claude reads any thread you linked and the managed channel's current text, then posts a card in the managing channel that shows every line the change adds or removes.
+
+**3. Confirm the card**
+
+Select **Confirm** if the wording is right. To reword it, select **Cancel** and tell Claude what to change. The card expires 30 minutes after Claude posts it. After you confirm, the card says that the managed channel's instructions were updated.
+
+**4. Read the text back**
+
+In a new message in the managing channel, ask Claude to show the managed channel's instructions. Claude replies there with the current text.
 
 People who are in the managed channel and not in the managing channel see only part of a correction.
 

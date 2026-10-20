@@ -10,9 +10,9 @@ An MCP App is interactive UI that your MCP server renders inside a Claude conver
 
 This page is for developers who have an MCP server, or are building one, and want it to show UI in Claude.
 
-<Note>
-  If you haven't built the server yet, see [Build an MCP server for Claude](/docs/connectors/building/index).
-</Note>
+> [!NOTE]
+>
+> If you haven't built the server yet, see [Build an MCP server for Claude](/docs/connectors/building/index).
 
 To see how an MCP App looks and behaves, [try an example in Claude Desktop](#try-an-example-mcp-app-in-claude-desktop) first, then [build your own](#build-your-own-mcp-app) from the SDK quickstart, the examples, or the agent skills.
 
@@ -24,78 +24,74 @@ The MCP Apps repository publishes example servers that you run locally with `npx
 
 Connecting an example server means adding its entry to Claude Desktop's configuration file, so that the desktop app runs the server locally with `npx`. To connect one:
 
-<Steps>
-  <Step title="Install Claude Desktop">
-    Install Claude Desktop and sign in.
-  </Step>
+**1. Install Claude Desktop**
 
-  <Step title="Open the configuration file">
-    Go to [**Settings > Developer**](https://claude.ai/desktop/settings/desktop/developer) and click **Edit Config**.
-  </Step>
+Install Claude Desktop and sign in.
 
-  <Step title="Add an example server">
-    Add one of these example servers to your `claude_desktop_config.json`:
+**2. Open the configuration file**
 
-    | Example | Description |
-    | - | - |
-    | [Customer Segmentation](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/customer-segmentation-server) | Data visualization with scatter charts and clustering analysis |
-    | [Map](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/map-server) | Interactive 3D globe viewer using CesiumJS |
-    | [ShaderToy](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/shadertoy-server) | Real-time GLSL shader compilation and display |
-    | [Sheet Music](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/sheet-music-server) | ABC notation rendering with interactive audio playback |
+Go to [**Settings > Developer**](https://claude.ai/desktop/settings/desktop/developer) and click **Edit Config**.
 
-    The MCP Apps repository has [more examples](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples), each with a ready-to-use config snippet. The config entry for each example in the table runs its server with `npx`, which fetches the latest published version each time. Pin a version, such as `@modelcontextprotocol/server-map@2.0.1`, if you keep an entry beyond trying it out:
+**3. Add an example server**
 
-    <CodeGroup>
-      ```json Customer Segmentation theme={null}
-      {
-        "mcpServers": {
-          "customer-segmentation": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-customer-segmentation", "--stdio"]
-          }
-        }
-      }
-      ```
+Add one of these example servers to your `claude_desktop_config.json`:
 
-      ```json Map theme={null}
-      {
-        "mcpServers": {
-          "map": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-map", "--stdio"]
-          }
-        }
-      }
-      ```
+| Example | Description |
+| - | - |
+| [Customer Segmentation](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/customer-segmentation-server) | Data visualization with scatter charts and clustering analysis |
+| [Map](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/map-server) | Interactive 3D globe viewer using CesiumJS |
+| [ShaderToy](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/shadertoy-server) | Real-time GLSL shader compilation and display |
+| [Sheet Music](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/sheet-music-server) | ABC notation rendering with interactive audio playback |
 
-      ```json ShaderToy theme={null}
-      {
-        "mcpServers": {
-          "shadertoy": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-shadertoy", "--stdio"]
-          }
-        }
-      }
-      ```
+The MCP Apps repository has [more examples](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples), each with a ready-to-use config snippet. The config entry for each example in the table runs its server with `npx`, which fetches the latest published version each time. Pin a version, such as `@modelcontextprotocol/server-map@2.0.1`, if you keep an entry beyond trying it out:
 
-      ```json Sheet Music theme={null}
-      {
-        "mcpServers": {
-          "sheet-music": {
-            "command": "npx",
-            "args": ["-y", "@modelcontextprotocol/server-sheet-music", "--stdio"]
-          }
-        }
-      }
-      ```
-    </CodeGroup>
-  </Step>
+```json Customer Segmentation theme={null}
+{
+  "mcpServers": {
+    "customer-segmentation": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-customer-segmentation", "--stdio"]
+    }
+  }
+}
+```
 
-  <Step title="Save and restart">
-    Save the file and restart the desktop app to connect the server.
-  </Step>
-</Steps>
+```json Map theme={null}
+{
+  "mcpServers": {
+    "map": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-map", "--stdio"]
+    }
+  }
+}
+```
+
+```json ShaderToy theme={null}
+{
+  "mcpServers": {
+    "shadertoy": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-shadertoy", "--stdio"]
+    }
+  }
+}
+```
+
+```json Sheet Music theme={null}
+{
+  "mcpServers": {
+    "sheet-music": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sheet-music", "--stdio"]
+    }
+  }
+}
+```
+
+**4. Save and restart**
+
+Save the file and restart the desktop app to connect the server.
 
 ### Ask Claude to use the app
 
@@ -112,7 +108,9 @@ To add an MCP App to your own MCP server, start from the SDK documentation and e
 * [SDK API documentation](https://modelcontextprotocol.github.io/ext-apps/api/index.html): full API reference
 * [Example implementations](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples): vanilla JS, React, Vue, Svelte, and more
 
-<Tip>To test a remote MCP App locally, connect to it through a proxy such as [mcp-remote](https://www.npmjs.com/package/mcp-remote).</Tip>
+> [!TIP]
+>
+> To test a remote MCP App locally, connect to it through a proxy such as [mcp-remote](https://www.npmjs.com/package/mcp-remote).
 
 ### Register tools and resources once for every host
 

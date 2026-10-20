@@ -14,23 +14,21 @@ Before you start, install Claude Desktop on an admin workstation; see [Installat
 
 Roll out in this order; the numbered sections on this page cover each step in detail.
 
-<Steps>
-  <Step title="Build a configuration in the app">
-    An admin builds and tests a working configuration in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) on their own device.
-  </Step>
+**1. Build a configuration in the app**
 
-  <Step title="Export the profile">
-    Export the validated configuration in the format your MDM expects.
-  </Step>
+An admin builds and tests a working configuration in the [in-app configuration window](/docs/third-party/claude-desktop/in-app-configuration) on their own device.
 
-  <Step title="Allow required network egress">
-    Open the hostnames your configuration requires on your perimeter firewall; the configuration window lists them for the exact settings you chose.
-  </Step>
+**2. Export the profile**
 
-  <Step title="Deploy the configuration, then the app">
-    Distribute the profile through your MDM, then push the installer. Deploying the configuration first means users open Claude for the first time and land directly in the third-party deployment.
-  </Step>
-</Steps>
+Export the validated configuration in the format your MDM expects.
+
+**3. Allow required network egress**
+
+Open the hostnames your configuration requires on your perimeter firewall; the configuration window lists them for the exact settings you chose.
+
+**4. Deploy the configuration, then the app**
+
+Distribute the profile through your MDM, then push the installer. Deploying the configuration first means users open Claude for the first time and land directly in the third-party deployment.
 
 ## 1. Build a configuration in the app
 
@@ -40,21 +38,21 @@ The window is organized into sections in the left sidebar. Work through them in 
 
 | Section | What you set |
 | - | - |
-| **Connection** | Inference provider (Gateway, Claude API, Google Cloud's Agent Platform, Bedrock, Bedrock Mantle, or Foundry) and its credentials<br />Model list<br />Organization UUID<br />Optional credential-helper script |
-| **Capabilities** | Which of Cowork, Code, and Chat are available<br />Allowed egress hosts for the sandbox<br />Disabled built-in tools<br />Allowed workspace folders |
-| **Connectors** | Managed MCP servers pushed to all users<br />Whether users can add their own local MCP servers<br />Whether desktop extensions (`.mcpb`) are allowed<br />Whether unsigned extensions are rejected |
-| **Telemetry & updates** | OpenTelemetry collector endpoint<br />Whether auto-updates are blocked, and the enforcement window if not<br />The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
-| **Limits** | Per-device token cap and its window length<br />Retention periods after which idle chats, Cowork tasks, and Code sessions are deleted, and the hold that suspends deletion |
-| **Appearance** | Persistent banner shown across the app window<br />Deployment display name and subtitle<br />Whether the signed-in user's identity is shown and exported (end-user attribution)<br />Whether feature announcements are shown |
-| **Plugins** | [Plugin marketplaces](/docs/third-party/claude-desktop/extensions#plugin-marketplaces-admin), added by GitHub repo, git URL, or hosted `marketplace.json` URL<br />Shows the org-plugins folder path for your platform; plugin bundles are mounted to that folder via your MDM, not through this window |
-| **Egress** | A read-only firewall allowlist derived from everything you've entered above, grouped by feature<br />**Copy hostnames**, **Download .txt**, and **Test connectivity** actions |
-| **Source** | The bootstrap keys, if you are using the [bootstrap server](/docs/third-party/claude-desktop/bootstrap) delivery model instead of a full MDM profile<br />Bootstrap-delivered configuration takes priority over MDM-delivered values: it replaces them wholesale rather than merging key by key |
+| **Connection** | Inference provider (Gateway, Claude API, Google Cloud's Agent Platform, Bedrock, Bedrock Mantle, or Foundry) and its credentials Model list Organization UUID Optional credential-helper script |
+| **Capabilities** | Which of Cowork, Code, and Chat are available Allowed egress hosts for the sandbox Disabled built-in tools Allowed workspace folders |
+| **Connectors** | Managed MCP servers pushed to all users Whether users can add their own local MCP servers Whether desktop extensions (`.mcpb`) are allowed Whether unsigned extensions are rejected |
+| **Telemetry & updates** | OpenTelemetry collector endpoint Whether auto-updates are blocked, and the enforcement window if not The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
+| **Limits** | Per-device token cap and its window length Retention periods after which idle chats, Cowork tasks, and Code sessions are deleted, and the hold that suspends deletion |
+| **Appearance** | Persistent banner shown across the app window Deployment display name and subtitle Whether the signed-in user's identity is shown and exported (end-user attribution) Whether feature announcements are shown |
+| **Plugins** | [Plugin marketplaces](/docs/third-party/claude-desktop/extensions#plugin-marketplaces-admin), added by GitHub repo, git URL, or hosted `marketplace.json` URL Shows the org-plugins folder path for your platform; plugin bundles are mounted to that folder via your MDM, not through this window |
+| **Egress** | A read-only firewall allowlist derived from everything you've entered above, grouped by feature **Copy hostnames**, **Download .txt**, and **Test connectivity** actions |
+| **Source** | The bootstrap keys, if you are using the [bootstrap server](/docs/third-party/claude-desktop/bootstrap) delivery model instead of a full MDM profile Bootstrap-delivered configuration takes priority over MDM-delivered values: it replaces them wholesale rather than merging key by key |
 
 To turn on [Unified Claude](/docs/third-party/claude-desktop/unified-claude#enabling-unified-claude), set `desktopHome` to `standard` in your MDM profile.
 
-<Note>
-  When a managed (MDM-delivered) configuration is already present on the device, the configuration window opens read-only: it shows what the admin deployed, marks the configuration as organization-managed, and directs users to their IT administrator. To author a new configuration, use a device without a managed profile, or temporarily remove the profile. Profiles that set [only app-behavior keys](#update-keys-and-managed-precedence) (the update, configuration re-check, relaunch window, and network proxy keys) leave the window editable.
-</Note>
+> [!NOTE]
+>
+> When a managed (MDM-delivered) configuration is already present on the device, the configuration window opens read-only: it shows what the admin deployed, marks the configuration as organization-managed, and directs users to their IT administrator. To author a new configuration, use a device without a managed profile, or temporarily remove the profile. Profiles that set [only app-behavior keys](#update-keys-and-managed-precedence) (the update, configuration re-check, relaunch window, and network proxy keys) leave the window editable.
 
 ## 2. Export the profile
 
@@ -87,17 +85,17 @@ Selecting a configuration in the picker loads it for editing; the **applied** ba
 
 In your MDM, scope each exported profile to the corresponding device or user group. Targeting is handled by your MDM's assignment rules; the configuration name is for your authoring workflow and is not part of the deployed profile.
 
-<Note>
-  On Windows, check which registry hive your assignment rules write to. If your assignment rules deliver a profile in user context, it lands in user policy (`HKCU`), and the app ignores user policy entirely when machine policy is present; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration per user group on Windows, deliver every profile through user policy and keep `HKLM\SOFTWARE\Policies\Claude` empty, or serve per-user configuration from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap).
-</Note>
+> [!NOTE]
+>
+> On Windows, check which registry hive your assignment rules write to. If your assignment rules deliver a profile in user context, it lands in user policy (`HKCU`), and the app ignores user policy entirely when machine policy is present; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration per user group on Windows, deliver every profile through user policy and keep `HKLM\SOFTWARE\Policies\Claude` empty, or serve per-user configuration from a [bootstrap server](/docs/third-party/claude-desktop/bootstrap).
 
 ## 3. Allow required network egress
 
 The hosts the app needs to reach depend on the configuration you built: your inference provider's endpoint is always required, and each telemetry, update, and service setting you leave enabled adds its own hosts. The configuration window shows the exact allowlist for your settings and can export it as a text file for your network team.
 
-<Warning>
-  `downloads.claude.ai` is required to run the app regardless of your configuration: it serves the VM workspace bundle and the Claude Code binary. Without it, Chat conversations, Cowork tasks, and Code sessions cannot start on a device that has not yet downloaded these components. App updates often change one or both of these components, and the app then downloads the new versions from the same host. The [offline installer variant](/docs/third-party/claude-desktop/installation#offline-installation) builds both components into the installer package, so Chat conversations, Cowork tasks, and Code sessions on the device start without this host. The app still requests the model catalog from `downloads.claude.ai` unless [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) is `false` or [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) names a mirror inside your network, and sessions start whether or not that request succeeds.
-</Warning>
+> [!WARNING]
+>
+> `downloads.claude.ai` is required to run the app regardless of your configuration: it serves the VM workspace bundle and the Claude Code binary. Without it, Chat conversations, Cowork tasks, and Code sessions cannot start on a device that has not yet downloaded these components. App updates often change one or both of these components, and the app then downloads the new versions from the same host. The [offline installer variant](/docs/third-party/claude-desktop/installation#offline-installation) builds both components into the installer package, so Chat conversations, Cowork tasks, and Code sessions on the device start without this host. The app still requests the model catalog from `downloads.claude.ai` unless [`modelCatalogEnabled`](/docs/third-party/claude-desktop/configuration#modelcatalogenabled) is `false` or [`modelCatalogUrl`](/docs/third-party/claude-desktop/configuration#modelcatalogurl) names a mirror inside your network, and sessions start whether or not that request succeeds.
 
 Open these hosts on your perimeter firewall before rolling out to devices. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry#required-egress-paths) for the full list of hosts grouped by the setting that controls each one, and for the distinction between the perimeter firewall and the in-app sandbox allowlist.
 
@@ -105,35 +103,33 @@ Open these hosts on your perimeter firewall before rolling out to devices. See [
 
 Push the exported configuration through your MDM. The app reads from these locations:
 
-<Tabs>
-  <Tab title="macOS">
-    | Source | Path | Precedence |
-    | - | - | - |
-    | Managed (per-user) | `/Library/Managed Preferences/<user>/com.anthropic.claudefordesktop.plist` | Highest |
-    | Managed (machine) | `/Library/Managed Preferences/com.anthropic.claudefordesktop.plist` | |
-    | Local (user) | `~/Library/Application Support/Claude-3p/configLibrary/` | Lowest |
+**macOS**
 
-    A `.mobileconfig` profile delivered by MDM lands in the Managed Preferences locations automatically. Both managed paths are read; where a key appears in both, the per-user value wins.
-  </Tab>
+| Source | Path | Precedence |
+| - | - | - |
+| Managed (per-user) | `/Library/Managed Preferences/<user>/com.anthropic.claudefordesktop.plist` | Highest |
+| Managed (machine) | `/Library/Managed Preferences/com.anthropic.claudefordesktop.plist` | |
+| Local (user) | `~/Library/Application Support/Claude-3p/configLibrary/` | Lowest |
 
-  <Tab title="Windows">
-    | Source | Path | Precedence |
-    | - | - | - |
-    | Machine policy | `HKLM\SOFTWARE\Policies\Claude` | Highest |
-    | User policy | `HKCU\SOFTWARE\Policies\Claude` | |
-    | Local (user) | `%LOCALAPPDATA%\Claude-3p\configLibrary\` | Lowest |
+A `.mobileconfig` profile delivered by MDM lands in the Managed Preferences locations automatically. Both managed paths are read; where a key appears in both, the per-user value wins.
 
-    A Group Policy Object or Intune configuration profile writes to the registry policy paths. The hives are not merged: when machine policy is present (any `REG_SZ`, `REG_EXPAND_SZ`, or `REG_DWORD` value directly under `HKLM\SOFTWARE\Policies\Claude`, including an empty string, and the key's unnamed default value when set), the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely. Deploy the complete configuration to one hive; machine policy (`HKLM`) is the recommended location.
+**Windows**
 
-    <Warning>
-      Values must sit directly under `HKLM\SOFTWARE\Policies\Claude` or `HKCU\SOFTWARE\Policies\Claude`. The app never reads values nested in a subkey, as some ADMX-based and Policy CSP tooling writes them: they do not apply as configuration and do not count as machine policy being present. Write values as `REG_SZ` (`REG_DWORD` is also accepted for boolean and integer keys and is read as its decimal value). Avoid `REG_EXPAND_SZ`: the app counts it as machine policy being present but cannot read its contents, so a single `REG_EXPAND_SZ` value under `HKLM` disables user policy without supplying any configuration. The app cannot see `REG_QWORD`, `REG_MULTI_SZ`, or `REG_BINARY` values at all.
-    </Warning>
+| Source | Path | Precedence |
+| - | - | - |
+| Machine policy | `HKLM\SOFTWARE\Policies\Claude` | Highest |
+| User policy | `HKCU\SOFTWARE\Policies\Claude` | |
+| Local (user) | `%LOCALAPPDATA%\Claude-3p\configLibrary\` | Lowest |
 
-    <Note>
-      In releases before v1.19367.0, the app read both hives and merged them key by key, with the `HKLM` value winning where a key appeared in both. Fleets that split keys across both hives must consolidate the full configuration into one hive before updating to v1.19367.0 or later.
-    </Note>
-  </Tab>
-</Tabs>
+A Group Policy Object or Intune configuration profile writes to the registry policy paths. The hives are not merged: when machine policy is present (any `REG_SZ`, `REG_EXPAND_SZ`, or `REG_DWORD` value directly under `HKLM\SOFTWARE\Policies\Claude`, including an empty string, and the key's unnamed default value when set), the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely. Deploy the complete configuration to one hive; machine policy (`HKLM`) is the recommended location.
+
+> [!WARNING]
+>
+> Values must sit directly under `HKLM\SOFTWARE\Policies\Claude` or `HKCU\SOFTWARE\Policies\Claude`. The app never reads values nested in a subkey, as some ADMX-based and Policy CSP tooling writes them: they do not apply as configuration and do not count as machine policy being present. Write values as `REG_SZ` (`REG_DWORD` is also accepted for boolean and integer keys and is read as its decimal value). Avoid `REG_EXPAND_SZ`: the app counts it as machine policy being present but cannot read its contents, so a single `REG_EXPAND_SZ` value under `HKLM` disables user policy without supplying any configuration. The app cannot see `REG_QWORD`, `REG_MULTI_SZ`, or `REG_BINARY` values at all.
+
+> [!NOTE]
+>
+> In releases before v1.19367.0, the app read both hives and merged them key by key, with the `HKLM` value winning where a key appeared in both. Fleets that split keys across both hives must consolidate the full configuration into one hive before updating to v1.19367.0 or later.
 
 When a managed source sets any key other than the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 
@@ -143,7 +139,7 @@ A user who signs in to any organization that uses the [Enterprise Admin Console]
 
 A small group of **app-behavior keys** is treated specially, so you can set an update policy, a restart window, or a network proxy from MDM without managing the whole configuration:
 
-* The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, and `updateViaUpdatesHost`.
+* The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, `updateViaUpdatesHost`, and [`releaseChannel`](/docs/third-party/claude-desktop/configuration#releasechannel).
 * The configuration lifecycle keys [`relaunchEnforcementHours`](/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) and [`configRecheckIntervalMinutes`](/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes), which MDM can set from version 1.46388.1.
 * The network proxy keys `egressProxyUrl` and `egressProxyPacUrl`. See [Network proxy](/docs/third-party/claude-desktop/network-proxy#pin-a-proxy-from-managed-configuration).
 

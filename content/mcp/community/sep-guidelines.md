@@ -75,14 +75,14 @@ flowchart TD
 
 **Prior discussion is required.** SEP authors must discuss the idea with the relevant [working or interest group](/community/working-interest-groups) in [Discord](/community/communication#discord) before opening the SEP pull request, and the PR description must link to that discussion (a Discord thread, WG/IG meeting notes, or a GitHub Discussion). A SEP without a linked prior discussion is not accepted. If no relevant group exists, start a conversation in [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions) or the `#general` channel in [Discord](/community/communication#discord) instead. If there is enough interest, it may be worth [creating a new IG or WG](/community/working-interest-groups#creating-an-interest-group). The effort involved in finding sponsors and facilitators is a good signal of whether the idea has sufficient traction.
 
-<Note>
-  To improve your chances of a SEP being accepted, check alignment with [Core
-  Maintainer](/community/governance#roles) priorities and [design
-  principles](/community/design-principles). Priorities are generally reflected
-  in the [project roadmap](/development/roadmap). Proposals outside current
-  priorities or that conflict with design principles are more likely to face
-  delays or additional friction in the review process.
-</Note>
+> [!NOTE]
+>
+> To improve your chances of a SEP being accepted, check alignment with [Core
+> Maintainer](/community/governance#roles) priorities and [design
+> principles](/community/design-principles). Priorities are generally reflected
+> in the [project roadmap](/development/roadmap). Proposals outside current
+> priorities or that conflict with design principles are more likely to face
+> delays or additional friction in the review process.
 
 1. **Discuss with the relevant group**: Bring your idea to the matching [working or interest group](/community/working-interest-groups) and refine it there. Keep a link to the discussion (a Discord thread, meeting notes, or a GitHub Discussion) so you can include it in the PR description.
 

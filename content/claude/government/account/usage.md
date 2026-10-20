@@ -33,15 +33,15 @@ If **either** window reaches 100%, your Claude access pauses until that window r
 
 When this happens, you will see a banner at the top of this page telling you which limit you have hit and when it will clear, and the **Usage** tab in the navigation is marked with a pulsing indicator so you can spot it from anywhere in the account area. If both windows happen to be full at the same time, the banner names the one that resets later, since that is the one actually holding you.
 
-<Note>
-  The paused banner and the navigation indicator only appear while a limit is actually at 100%. Once the window resets, both disappear on their own.
-</Note>
+> [!NOTE]
+>
+> The paused banner and the navigation indicator only appear while a limit is actually at 100%. Once the window resets, both disappear on their own.
 
 The page also shows your seat tier name in the top right, so you can tell at a glance which allowance you are on. Below the windows there is a **How do these limits work?** link that expands a short plain-language summary, which can be useful when walking a colleague through the page.
 
-<Tip>
-  This page shows your personal limits only. If you are on a self-managed seat tier, your organization also draws from a shared credit balance. If that balance runs out or your organization reaches a spend cap your tenant administrator set, Claude will tell you that your organization is out of credits rather than that you have reached a limit, and nothing on this page will look full. A spent balance is resolved by Anthropic adding credits to the account. A reached spend cap clears when the rolling window moves forward or when a tenant administrator raises the cap.
-</Tip>
+> [!TIP]
+>
+> This page shows your personal limits only. If you are on a self-managed seat tier, your organization also draws from a shared credit balance. If that balance runs out or your organization reaches a spend cap your tenant administrator set, Claude will tell you that your organization is out of credits rather than that you have reached a limit, and nothing on this page will look full. A spent balance is resolved by Anthropic adding credits to the account. A reached spend cap clears when the rolling window moves forward or when a tenant administrator raises the cap.
 
 ## Reading the reset times
 
@@ -65,8 +65,8 @@ Separately from changing your tier, an administrator can also reset your usage w
 
 ## If the page says "No seat tier assigned"
 
-<Note>
-  This message replaces the whole page and only appears when you do not have a seat. If you can see the progress bars, this does not apply to you.
-</Note>
+> [!NOTE]
+>
+> This message replaces the whole page and only appears when you do not have a seat. If you can see the progress bars, this does not apply to you.
 
 You do not have a seat yet, so there is no allowance to show and you cannot send messages to Claude. Ask your organization owner to assign you one. Once they do, this page will show your limits straight away without you needing to sign out and back in.

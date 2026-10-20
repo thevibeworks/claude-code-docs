@@ -4,8 +4,6 @@
 
 # Overview
 
-<div id="enable-section-numbers" />
-
 This page defines what a transport must provide to carry MCP messages, the
 standard transport bindings, and the requirements for defining new ones.
 

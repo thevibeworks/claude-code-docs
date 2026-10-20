@@ -6,13 +6,7 @@
 
 > Rebuild the picture of Tonomura's 1989 experiment with an ideal double slit: each electron lands as 1 random dot, yet fringes 10.7 µm apart build up.
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/phys-doubleslit-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=d33485dbb10e2b0e60ce7127967ae21c" alt="Dots after 10 to 100,000 electrons build up into fringes; a histogram fit gives a spacing of 10.706 ± 0.003 µm against λL/d = 10.711 µm, and a smooth curve shows no fringes when the slit is known." width="1600" height="650" data-path="images/claude-science/example-gallery/phys-doubleslit-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/phys-doubleslit-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=d56e5497b808e91e8b9c5bc59abf1650" alt="Dots after 10 to 100,000 electrons build up into fringes; a histogram fit gives a spacing of 10.706 ± 0.003 µm against λL/d = 10.711 µm, and a smooth curve shows no fringes when the slit is known." width="1600" height="650" data-path="images/claude-science/example-gallery/phys-doubleslit-full-dark.webp" />
-  </Frame>
-</div>
+![Dots after 10 to 100,000 electrons build up into fringes; a histogram fit gives a spacing of 10.706 ± 0.003 µm against λL/d = 10.711 µm, and a smooth curve shows no fringes when the slit is known.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/phys-doubleslit-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=d33485dbb10e2b0e60ce7127967ae21c)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

@@ -8,9 +8,9 @@
 
 An SSH remote session is a [Code](/docs/third-party/claude-desktop/code) session whose Claude Code engine runs on another machine that the user reaches over SSH, while the session's interface stays in Claude Desktop on the user's device. Claude Desktop connects to the host, places the engine there, and starts the session with the inference credential and policy from your managed configuration. Users can work on code that lives on a development server, a build box, or a cloud workstation without copying it to their device. In Claude Desktop on third-party (3P), SSH remote sessions are off until you set the [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) key, because enabling them sends your inference credential to the hosts users connect to.
 
-<Note>
-  SSH remote sessions are in beta in Claude Desktop on 3P and require Claude Desktop 1.40609.0 or later. The in-app configuration window marks `sshHostAllowlist` with a **Beta** pill.
-</Note>
+> [!NOTE]
+>
+> SSH remote sessions are in beta in Claude Desktop on 3P and require Claude Desktop 1.40609.0 or later. The in-app configuration window marks `sshHostAllowlist` with a **Beta** pill.
 
 ## How a remote session works
 
@@ -96,9 +96,9 @@ While Claude Desktop is disconnected, each of these calls waits and then fails, 
 
 To cover every user of a host, put the hooks in [Claude Code managed settings](https://code.claude.com/docs/en/settings#settings-files) on the host instead, which on a Linux host is the file `/etc/claude-code/managed-settings.json`. If the host already has Claude Code managed settings, add the hooks to those and leave [`parentSettingsBehavior`](https://code.claude.com/docs/en/settings-reference#parentsettingsbehavior) as it is, set or unset. Changing it changes how those settings combine with the policy that Claude Desktop supplies. If the host has none yet, also set `parentSettingsBehavior` to `"merge"` in the managed settings that you create.
 
-<Warning>
-  By default, Claude Code managed settings on the host replace the policy that Claude Desktop supplies, even if they hold only hooks (see [Managed configuration on the remote host](#managed-configuration-on-the-remote-host)). With `parentSettingsBehavior` set to `"merge"`, the policy that Claude Desktop supplies still applies, layered under the host's own policy.
-</Warning>
+> [!WARNING]
+>
+> By default, Claude Code managed settings on the host replace the policy that Claude Desktop supplies, even if they hold only hooks (see [Managed configuration on the remote host](#managed-configuration-on-the-remote-host)). With `parentSettingsBehavior` set to `"merge"`, the policy that Claude Desktop supplies still applies, layered under the host's own policy.
 
 ### Where MCP servers run in a remote session
 
@@ -179,9 +179,9 @@ Before you add either key to a profile that sets only [app-behavior keys](/docs/
 
 ## Inference credentials on the remote host
 
-<Warning>
-  A remote session runs Claude Code on the SSH host with your organization's inference credential in its process environment, for as long as that process runs, including while Claude Desktop is closed. Anyone who can read that process's environment on the host, such as the same user account or a root user, can read the credential. List only hosts you trust with it, and prefer a credential that expires (single sign-on, or a credential helper that issues short-lived tokens) over a long-lived key.
-</Warning>
+> [!WARNING]
+>
+> A remote session runs Claude Code on the SSH host with your organization's inference credential in its process environment, for as long as that process runs, including while Claude Desktop is closed. Anyone who can read that process's environment on the host, such as the same user account or a root user, can read the credential. List only hosts you trust with it, and prefer a credential that expires (single sign-on, or a credential helper that issues short-lived tokens) over a long-lived key.
 
 The remote engine uses only the credential Claude Desktop passes in its environment. It ignores credentials already on the host, such as an AWS profile or application default credentials, and Claude Desktop copies no credential files there. Credential kinds that live in a file on the device are refused at session start.
 
@@ -396,13 +396,13 @@ Git commands fail with this error when the user opens the session in a subfolder
 
 The sandbox lets shell commands that Claude runs with its Bash tool write in the folder the session was opened in, and the repository's `.git` folder is outside that folder. Of these commands, the ones that write to the `.git` folder fail, such as `git add` and `git commit`. Have the user start a new session at the top of the repository.
 
-<Note>
-  These cases are covered elsewhere:
-
-  * **An `allowedWorkspaceFolders` entry with `mode` set to `ro`**: see [Read-only folders on the remote host](#read-only-folders-on-the-remote-host)
-  * **A message with `unable to unlink old`**: see [A git command fails with `unable to unlink old`](https://code.claude.com/docs/en/sandboxing#a-git-command-fails-with-unable-to-unlink-old)
-  * **The other places that the sandbox lets these commands write to**: see [Filesystem isolation](https://code.claude.com/docs/en/sandboxing#filesystem-isolation) and the `allowedWorkspaceFolders` row under [Applied as managed policy](/docs/third-party/claude-desktop/code#applied-as-managed-policy)
-</Note>
+> [!NOTE]
+>
+> These cases are covered elsewhere:
+>
+> * **An `allowedWorkspaceFolders` entry with `mode` set to `ro`**: see [Read-only folders on the remote host](#read-only-folders-on-the-remote-host)
+> * **A message with `unable to unlink old`**: see [A git command fails with `unable to unlink old`](https://code.claude.com/docs/en/sandboxing#a-git-command-fails-with-unable-to-unlink-old)
+> * **The other places that the sandbox lets these commands write to**: see [Filesystem isolation](https://code.claude.com/docs/en/sandboxing#filesystem-isolation) and the `allowedWorkspaceFolders` row under [Applied as managed policy](/docs/third-party/claude-desktop/code#applied-as-managed-policy)
 
 ## Related
 

@@ -21,9 +21,9 @@ A user of a lazy-auth connector goes through these steps:
 3. They click **Connect** and sign in to your service in a popup.
 4. Claude retries the same tool call automatically with the new token, and the turn continues with no context lost.
 
-<Note>
-  If the user's organization has [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth) configured for your connector, the same refusal triggers a silent token exchange instead of the **Connect** card. Claude retries the tool call automatically and the user sees no prompt.
-</Note>
+> [!NOTE]
+>
+> If the user's organization has [Enterprise Managed Auth](/docs/connectors/building/enterprise-managed-auth) configured for your connector, the same refusal triggers a silent token exchange instead of the **Connect** card. Claude retries the tool call automatically and the user sees no prompt.
 
 ## Build lazy authentication on your server
 
@@ -140,9 +140,9 @@ HTTP/1.1 200 OK
 {"jsonrpc":"2.0","result":{"isError":true,"content":[{"type":"text","text":"Please sign in"}]},"id":1}
 ```
 
-<Warning>
-  A `200` with `isError: true` is an application-level tool failure. Claude passes the error text to the model as the tool result and moves on, and there is no auth prompt. Only a transport-level `401` causes Claude to pause the call, run the OAuth flow, and retry. A `403` triggers re-authentication only when accompanied by `WWW-Authenticate: Bearer error="insufficient_scope"` for [scope step-up](#ask-for-more-scope-with-403), and any other `403` is surfaced as a terminal error. If users are seeing "please sign in" text in the chat instead of a **Connect** button, the server is returning the wrong one.
-</Warning>
+> [!WARNING]
+>
+> A `200` with `isError: true` is an application-level tool failure. Claude passes the error text to the model as the tool result and moves on, and there is no auth prompt. Only a transport-level `401` causes Claude to pause the call, run the OAuth flow, and retry. A `403` triggers re-authentication only when accompanied by `WWW-Authenticate: Bearer error="insufficient_scope"` for [scope step-up](#ask-for-more-scope-with-403), and any other `403` is surfaced as a terminal error. If users are seeing "please sign in" text in the chat instead of a **Connect** button, the server is returning the wrong one.
 
 ### Serve the discovery documents
 
@@ -207,9 +207,9 @@ function authorizationServerMetadata() {
 }
 ```
 
-<Note>
-  Claude selects CIMD only when the authorization-server metadata advertises both `client_id_metadata_document_supported: true` and `"none"` in `token_endpoint_auth_methods_supported`. The second is required because Claude's CIMD client authenticates as a public client with `token_endpoint_auth_method: "none"`, so the token endpoint must accept [PKCE](https://datatracker.ietf.org/doc/html/rfc7636)-only requests without a client secret. If either property is missing, Claude falls back to looking for a `registration_endpoint`.
-</Note>
+> [!NOTE]
+>
+> Claude selects CIMD only when the authorization-server metadata advertises both `client_id_metadata_document_supported: true` and `"none"` in `token_endpoint_auth_methods_supported`. The second is required because Claude's CIMD client authenticates as a public client with `token_endpoint_auth_method: "none"`, so the token endpoint must accept [PKCE](https://datatracker.ietf.org/doc/html/rfc7636)-only requests without a client secret. If either property is missing, Claude falls back to looking for a `registration_endpoint`.
 
 If you move to a real issuer, keep `client_id_metadata_document_supported: true` in that issuer's metadata if you want registration-free onboarding for Claude clients.
 
@@ -250,72 +250,70 @@ How the cache is keyed and refreshed decides when a change reaches your users:
 
 You can confirm the public and protected paths with `curl` and Claude Code against your own server before connecting it to Claude as a custom connector, then check the sign-in prompt in a conversation. The commands below use `http://localhost:3000/mcp` as the server URL and the example's tool names; substitute your own.
 
-<Steps>
-  <Step title="Call a public tool without a token">
-    In a terminal, send a `tools/call` for a public tool with no `Authorization` header, with `-i` so the status line prints:
+**1. Call a public tool without a token**
 
-    ```bash theme={null}
-    curl -si http://localhost:3000/mcp \
-      -H 'Content-Type: application/json' \
-      -H 'Accept: application/json, text/event-stream' \
-      -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_products","arguments":{}}}'
-    ```
+In a terminal, send a `tools/call` for a public tool with no `Authorization` header, with `-i` so the status line prints:
 
-    The server answers `200 OK` with the JSON-RPC tool result and no `WWW-Authenticate` header.
-  </Step>
+```bash theme={null}
+curl -si http://localhost:3000/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_products","arguments":{}}}'
+```
 
-  <Step title="Call a protected tool without a token">
-    Send the same request for a protected tool:
+The server answers `200 OK` with the JSON-RPC tool result and no `WWW-Authenticate` header.
 
-    ```bash theme={null}
-    curl -si http://localhost:3000/mcp \
-      -H 'Content-Type: application/json' \
-      -H 'Accept: application/json, text/event-stream' \
-      -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"get_my_orders","arguments":{}}}'
-    ```
+**2. Call a protected tool without a token**
 
-    The server answers `401 Unauthorized` with a `WWW-Authenticate` header carrying `resource_metadata`. If you see `200` with `isError: true` instead, your server is returning a tool error rather than failing the HTTP request.
-  </Step>
+Send the same request for a protected tool:
 
-  <Step title="Check both paths from Claude Code">
-    If you have [Claude Code](https://code.claude.com/docs/en/setup) installed and signed in, you can see how a Claude client treats each path before you set up a tunnel, because Claude Code connects to a `localhost` server directly. In your terminal, from your server's project folder, add the server:
+```bash theme={null}
+curl -si http://localhost:3000/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"get_my_orders","arguments":{}}}'
+```
 
-    ```bash theme={null}
-    claude mcp add --transport http authtest http://localhost:3000/mcp
-    ```
+The server answers `401 Unauthorized` with a `WWW-Authenticate` header carrying `resource_metadata`. If you see `200` with `isError: true` instead, your server is returning a tool error rather than failing the HTTP request.
 
-    Then check the connection:
+**3. Check both paths from Claude Code**
 
-    ```bash theme={null}
-    claude mcp list
-    ```
+If you have [Claude Code](https://code.claude.com/docs/en/setup) installed and signed in, you can see how a Claude client treats each path before you set up a tunnel, because Claude Code connects to a `localhost` server directly. In your terminal, from your server's project folder, add the server:
 
-    The list shows `authtest: http://localhost:3000/mcp (HTTP) - ✔ Connected` with no sign-in, because connecting and listing tools never reach the gate. Next, have Claude call the public tool with [`claude -p`](https://code.claude.com/docs/en/headless), which sends one prompt and prints the answer:
+```bash theme={null}
+claude mcp add --transport http authtest http://localhost:3000/mcp
+```
 
-    ```bash theme={null}
-    claude -p "List the products from the authtest server." --allowedTools mcp__authtest__list_products
-    ```
+Then check the connection:
 
-    Claude reports the products and no sign-in prompt appears. Run the same command asking for your orders with `--allowedTools mcp__authtest__get_my_orders`. The tool result Claude receives is `MCP server "authtest" needs you to sign in again (run /mcp to re-authenticate)` rather than order data.
+```bash theme={null}
+claude mcp list
+```
 
-    To sign in from Claude Code, run `/mcp` in an interactive session as [Authenticate with remote MCP servers](https://code.claude.com/docs/en/mcp#authenticate-with-remote-mcp-servers) describes. When you're done testing, run `claude mcp remove authtest`.
-  </Step>
+The list shows `authtest: http://localhost:3000/mcp (HTTP) - ✔ Connected` with no sign-in, because connecting and listing tools never reach the gate. Next, have Claude call the public tool with [`claude -p`](https://code.claude.com/docs/en/headless), which sends one prompt and prints the answer:
 
-  <Step title="Add the server to Claude as a custom connector">
-    Claude reaches custom connectors from Anthropic's infrastructure, so `localhost` isn't reachable directly. To add a local server:
+```bash theme={null}
+claude -p "List the products from the authtest server." --allowedTools mcp__authtest__list_products
+```
 
-    1. Expose the server over a public HTTPS tunnel, such as `cloudflared tunnel --url http://localhost:3000` or `ngrok http 3000`. Keep the tunnel up only while you test, because it exposes your local server publicly and the example's `/authorize`, `/token`, and `isTokenValid()` are stubs that treat anyone as signed in.
-    2. In Claude, go to [**Customize > Connectors**](https://claude.ai/customize/connectors) and select **Add custom connector**.
-    3. Enter the tunnel's `/mcp` URL.
+Claude reports the products and no sign-in prompt appears. Run the same command asking for your orders with `--allowedTools mcp__authtest__get_my_orders`. The tool result Claude receives is `MCP server "authtest" needs you to sign in again (run /mcp to re-authenticate)` rather than order data.
 
-    See [Test a local server](/docs/connectors/building/testing#test-a-local-server) for details. If your app comes from the SDK's `createMcpExpressApp()`, that section also shows the `allowedHosts` option you need before requests through the tunnel succeed.
-  </Step>
+To sign in from Claude Code, run `/mcp` in an interactive session as [Authenticate with remote MCP servers](https://code.claude.com/docs/en/mcp#authenticate-with-remote-mcp-servers) describes. When you're done testing, run `claude mcp remove authtest`.
 
-  <Step title="Try both paths in a conversation">
-    1. Ask Claude to list products. No sign-in prompt appears.
-    2. Ask for your orders. The inline **Connect** card appears, and after you authenticate the same call completes.
-  </Step>
-</Steps>
+**4. Add the server to Claude as a custom connector**
+
+Claude reaches custom connectors from Anthropic's infrastructure, so `localhost` isn't reachable directly. To add a local server:
+
+1. Expose the server over a public HTTPS tunnel, such as `cloudflared tunnel --url http://localhost:3000` or `ngrok http 3000`. Keep the tunnel up only while you test, because it exposes your local server publicly and the example's `/authorize`, `/token`, and `isTokenValid()` are stubs that treat anyone as signed in.
+2. In Claude, go to [**Customize > Connectors**](https://claude.ai/customize/connectors) and select **Add custom connector**.
+3. Enter the tunnel's `/mcp` URL.
+
+See [Test a local server](/docs/connectors/building/testing#test-a-local-server) for details. If your app comes from the SDK's `createMcpExpressApp()`, that section also shows the `allowedHosts` option you need before requests through the tunnel succeed.
+
+**5. Try both paths in a conversation**
+
+1. Ask Claude to list products. No sign-in prompt appears.
+2. Ask for your orders. The inline **Connect** card appears, and after you authenticate the same call completes.
 
 ## Next steps
 

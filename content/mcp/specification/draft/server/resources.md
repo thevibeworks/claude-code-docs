@@ -4,22 +4,20 @@
 
 # Resources
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) provides a standardized way for servers to expose
 resources to clients. Resources allow servers to share data that provides context to
 language models, such as files, database schemas, or application-specific information.
 Each resource is uniquely identified by a
 [URI](https://datatracker.ietf.org/doc/html/rfc3986).
 
-<Note>
-  For brevity, the request examples on this page omit the `_meta` request
-  metadata (`io.modelcontextprotocol/protocolVersion`,
-  `io.modelcontextprotocol/clientInfo`, and
-  `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
-  the required `_meta` fields; see
-  [`_meta`](/specification/draft/basic/index#meta).
-</Note>
+> [!NOTE]
+>
+> For brevity, the request examples on this page omit the `_meta` request
+> metadata (`io.modelcontextprotocol/protocolVersion`,
+> `io.modelcontextprotocol/clientInfo`, and
+> `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
+> the required `_meta` fields; see
+> [`_meta`](/specification/draft/basic/index#meta).
 
 ## User Interaction Model
 
@@ -32,7 +30,7 @@ For example, applications could:
 * Allow the user to search through and filter available resources
 * Implement automatic context inclusion, based on heuristics or the AI model's selection
 
-<img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/specification/draft/server/resource-picker.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=2026c8851a10ac020117731076a486b9" alt="Example of resource context picker" width="174" height="181" data-path="specification/draft/server/resource-picker.png" />
+![Example of resource context picker](https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/specification/draft/server/resource-picker.png?fit=max\&auto=format\&n=4ZXF1PrDkEaJvXpn\&q=85\&s=2026c8851a10ac020117731076a486b9)
 
 However, implementations are free to expose resources through any interface pattern that
 suits their needs—the protocol itself does not mandate any specific user

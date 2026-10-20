@@ -19,64 +19,56 @@ This page covers how to:
 
 A variable you set in your shell lasts for that terminal session, while a variable in a settings file applies every time `claude` runs.
 
-<span id="in-your-shell" />
-
 ### Set variables in your shell
 
 Set the variable before launching `claude`:
 
-<Tabs>
-  <Tab title="macOS, Linux, WSL">
-    ```bash theme={null}
-    export API_TIMEOUT_MS="1200000"
-    claude
-    ```
+**macOS, Linux, WSL**
 
-    To set it for every session, add the `export` line to `~/.bashrc`, `~/.zshrc`, or your shell's profile file.
-  </Tab>
+```bash theme={null}
+export API_TIMEOUT_MS="1200000"
+claude
+```
 
-  <Tab title="Windows PowerShell">
-    ```powershell theme={null}
-    $env:API_TIMEOUT_MS = "1200000"
-    claude
-    ```
+To set it for every session, add the `export` line to `~/.bashrc`, `~/.zshrc`, or your shell's profile file.
 
-    To set it for every session, run `[Environment]::SetEnvironmentVariable("API_TIMEOUT_MS", "1200000", "User")` and open a new terminal.
-  </Tab>
+**Windows PowerShell**
 
-  <Tab title="Windows CMD">
-    ```batch theme={null}
-    set API_TIMEOUT_MS=1200000
-    claude
-    ```
+```powershell theme={null}
+$env:API_TIMEOUT_MS = "1200000"
+claude
+```
 
-    To set it for every session, run `setx API_TIMEOUT_MS "1200000"` and open a new terminal.
-  </Tab>
-</Tabs>
+To set it for every session, run `[Environment]::SetEnvironmentVariable("API_TIMEOUT_MS", "1200000", "User")` and open a new terminal.
+
+**Windows CMD**
+
+```batch theme={null}
+set API_TIMEOUT_MS=1200000
+claude
+```
+
+To set it for every session, run `setx API_TIMEOUT_MS "1200000"` and open a new terminal.
 
 The assignment line prints nothing on success. To confirm the variable is set, print it in the same shell:
 
-<Tabs>
-  <Tab title="macOS, Linux, WSL">
-    ```bash theme={null}
-    echo $API_TIMEOUT_MS
-    ```
-  </Tab>
+**macOS, Linux, WSL**
 
-  <Tab title="Windows PowerShell">
-    ```powershell theme={null}
-    echo $env:API_TIMEOUT_MS
-    ```
-  </Tab>
+```bash theme={null}
+echo $API_TIMEOUT_MS
+```
 
-  <Tab title="Windows CMD">
-    ```batch theme={null}
-    echo %API_TIMEOUT_MS%
-    ```
-  </Tab>
-</Tabs>
+**Windows PowerShell**
 
-<span id="in-settings-files" />
+```powershell theme={null}
+echo $env:API_TIMEOUT_MS
+```
+
+**Windows CMD**
+
+```batch theme={null}
+echo %API_TIMEOUT_MS%
+```
 
 ### Set variables in settings files
 
@@ -122,20 +114,20 @@ Claude Code reads shell environment variables at startup, so changes to them tak
 
 Numeric variables such as timeouts, token budgets, and retry counts accept scientific notation and digit-separator spellings in addition to plain digits, except where a variable's row notes it takes plain digits only. For example, Claude Code reads `2e3` as 2000 and `64_000` as 64000. Before v2.1.211, these spellings could silently set a much smaller value, such as `1e6` setting a timeout to 1.
 
-<Note>
-  For variables that turn a behavior on or off, set `1`, `true`, `yes`, or `on` to turn it on and `0`, `false`, `no`, or `off` to turn it off, in any casing.
-
-  Some variables read only whether you set them at all, so any non-empty value including `0` turns the behavior on, and you turn the behavior off by unsetting the variable or setting it to an empty value. These variables work that way:
-
-  * `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`
-  * `DISABLE_TELEMETRY`
-  * `DISABLE_ERROR_REPORTING`
-  * `CLAUDE_CODE_TMUX_TRUECOLOR`
-  * `FALLBACK_FOR_ALL_PRIMARY_MODELS`
-  * `IS_DEMO`
-
-  One other variable has its own rule: `FORCE_HYPERLINK` reads a number, so only `0` turns it off. Each variable's row also states its own rule.
-</Note>
+> [!NOTE]
+>
+> For variables that turn a behavior on or off, set `1`, `true`, `yes`, or `on` to turn it on and `0`, `false`, `no`, or `off` to turn it off, in any casing.
+>
+> Some variables read only whether you set them at all, so any non-empty value including `0` turns the behavior on, and you turn the behavior off by unsetting the variable or setting it to an empty value. These variables work that way:
+>
+> * `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`
+> * `DISABLE_TELEMETRY`
+> * `DISABLE_ERROR_REPORTING`
+> * `CLAUDE_CODE_TMUX_TRUECOLOR`
+> * `FALLBACK_FOR_ALL_PRIMARY_MODELS`
+> * `IS_DEMO`
+>
+> One other variable has its own rule: `FORCE_HYPERLINK` reads a number, so only `0` turns it off. Each variable's row also states its own rule.
 
 | Variable | Purpose |
 | :- | :- |
@@ -473,7 +465,7 @@ Numeric variables such as timeouts, token budgets, and retry counts accept scien
 | `DO_NOT_TRACK` | Set to `1` to opt out of telemetry, with the same effect as `DISABLE_TELEMETRY`, including on [feature-flag fetching](#features-that-need-feature-flag-fetching). Claude Code reads this variable as a standard boolean, so `0` leaves telemetry on, and honors it as the cross-tool convention recognized by many developer CLIs |
 | `ENABLE_BETA_TRACING_DETAILED` | Set to `1`, and set `BETA_TRACING_ENDPOINT` to your OTLP/HTTP collector endpoint, to turn on [detailed beta tracing](/docs/en/monitoring-usage#traces-beta), which adds content-bearing span attributes and the `claude_code.hook` span. Interactive CLI sessions also require your organization to be allowlisted for the beta. Both variables are ignored in [project and local settings](/docs/en/settings-reference#variables-claude-code-ignores-in-env) |
 | `ENABLE_CLAUDEAI_MCP_SERVERS` | Set to `false` to stop Claude Code from fetching [claude.ai MCP servers](/docs/en/mcp#use-mcp-servers-from-claude-ai). Enabled by default for logged-in users. To disable per-project or per-org, set [`disableClaudeAiConnectors`](/docs/en/settings-reference#disableclaudeaiconnectors) in settings instead |
-| `ENABLE_PROMPT_CACHING_1H` | Set to `1` to request a 1-hour [prompt cache TTL](/docs/en/prompt-caching#cache-lifetime) instead of the default 5 minutes. Intended for API key, [Amazon Bedrock](/docs/en/amazon-bedrock), [Google Cloud's Agent Platform](/docs/en/google-vertex-ai), [Microsoft Foundry](/docs/en/microsoft-foundry), and [Claude Platform on AWS](/docs/en/claude-platform-on-aws) users. Subscription users within included usage receive the 1-hour TTL automatically on the [main conversation](/docs/en/prompt-caching#which-ttl-each-request-gets). Subscription users drawing on [usage credits](https://support.claude.com/en/articles/12429409-extra-usage-for-paid-claude-plans) can set it to keep the 1-hour TTL. 1-hour cache writes are billed at a higher rate. To choose the TTL per request bucket instead, use `CLAUDE_CODE_PROMPT_CACHE_TTL` and `CLAUDE_CODE_SUBAGENT_PROMPT_CACHE_TTL`, which take precedence over this variable |
+| `ENABLE_PROMPT_CACHING_1H` | Set to `1` to request a 1-hour [prompt cache TTL](/docs/en/prompt-caching#cache-lifetime) instead of the default 5 minutes. Intended for API key, [Amazon Bedrock](/docs/en/amazon-bedrock), [Google Cloud's Agent Platform](/docs/en/google-vertex-ai), [Microsoft Foundry](/docs/en/microsoft-foundry), and [Claude Platform on AWS](/docs/en/claude-platform-on-aws) users. For subscription users within included usage, Claude Code requests the 1-hour TTL automatically on the [main conversation](/docs/en/prompt-caching#which-ttl-each-request-gets). Subscription users drawing on [usage credits](https://support.claude.com/en/articles/12429409-extra-usage-for-paid-claude-plans) can set it to keep the 1-hour TTL. 1-hour cache writes are billed at a higher rate. To choose the TTL separately for the main conversation and for requests outside it, use `CLAUDE_CODE_PROMPT_CACHE_TTL` and `CLAUDE_CODE_SUBAGENT_PROMPT_CACHE_TTL`, which take precedence over this variable |
 | `ENABLE_PROMPT_CACHING_1H_BEDROCK` | Deprecated. Use `ENABLE_PROMPT_CACHING_1H` instead |
 | `ENABLE_TOOL_SEARCH` | Controls [MCP tool search](/docs/en/mcp#scale-with-mcp-tool-search). Unset, Claude Code defers all MCP tools by default, and loads them upfront instead when `ANTHROPIC_BASE_URL` points to a non-first-party host. `true` keeps them deferred on such a host too. `auto` loads upfront when tool definitions fit within 10% of context. `auto:N` sets a custom threshold, such as `auto:5` for 5%. `false` loads all tools upfront. For the models and deployments that load every tool upfront whatever this value is, see [Configure tool search](/docs/en/mcp#configure-tool-search) |
 | `FALLBACK_FOR_ALL_PRIMARY_MODELS` | Set to any non-empty value, such as `1`, to make Claude Code stop retrying on repeated overload errors for every model when no fallback model is configured. **Setting it to `0` or `false` still enables this**, unlike most on/off variables; unset the variable to restore the default retry behavior. Without it, Claude Code stops retrying this way on models it recognizes as Opus, Fable, or Mythos models when you authenticate with an API key or a [third-party provider](/docs/en/third-party-integrations) rather than a Claude subscription. On Claude Code v2.1.160 or later, Claude Code switches to your configured [fallback model chain](/docs/en/model-config#fallback-model-chains) on repeated overload errors for any primary model, so this variable doesn't affect switching to a fallback model |
@@ -580,7 +572,6 @@ Claude Code turns some features on through feature flags it fetches from Anthrop
 
 With fetching off, you can't:
 
-* Run [`/auto-mode-setup`](/docs/en/auto-mode-config#generate-environment-entries) to draft `autoMode.environment` entries
 * Use [Remote Control](/docs/en/remote-control) with `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` or `DISABLE_GROWTHBOOK` set. For `DISABLE_TELEMETRY` and `DO_NOT_TRACK`, see the [Remote Control requirements](/docs/en/remote-control#requirements)
 * [Message sessions beyond this machine](/docs/en/cross-session-messaging#message-sessions-on-other-machines) when [Remote Control](/docs/en/remote-control#requirements) is unavailable. Messaging between sessions on this machine works with fetching off
 * Run [`claude import` or the `/import` command](/docs/en/cli-reference#cli-commands)

@@ -55,9 +55,9 @@ These keys are translated into Claude Code [managed settings](https://code.claud
 
 The network and filesystem sandboxes apply on macOS, and on Linux devices and [SSH hosts](/docs/third-party/claude-desktop/ssh-remote-sessions#managed-configuration-on-the-remote-host) with Claude Code's [sandbox dependencies](https://code.claude.com/docs/en/sandboxing) installed. Claude Code doesn't sandbox shell commands on Windows devices, and on a Linux device or SSH host without the dependencies commands run unsandboxed. In those cases, and when `coworkEgressAllowedHosts` contains `*` and `allowedWorkspaceFolders` is unset, `blockReadsOutsideWorkingDirectories` still confines Claude's file tools but can only ask the user to approve shell commands that read outside the working directories or that Claude Code can't verify. For what a remote session shows, see [Sandbox status on the remote host](/docs/third-party/claude-desktop/ssh-remote-sessions#sandbox-status-on-the-remote-host).
 
-<Warning>
-  Shell commands that run unsandboxed can reach hosts outside `coworkEgressAllowedHosts` and change files outside `allowedWorkspaceFolders`. Where the sandbox runs, a command that matches [`sandbox.excludedCommands`](https://code.claude.com/docs/en/sandboxing#run-commands-outside-the-sandbox-with-excludedcommands) in the user's own Claude Code settings also runs outside it, after Claude Code's regular permission flow. To keep Code off devices where the sandbox can't run, [turn off Code](#disabling-code) in the configuration you deploy to them. For SSH hosts, see [Sandbox status on the remote host](/docs/third-party/claude-desktop/ssh-remote-sessions#sandbox-status-on-the-remote-host).
-</Warning>
+> [!WARNING]
+>
+> Shell commands that run unsandboxed can reach hosts outside `coworkEgressAllowedHosts` and change files outside `allowedWorkspaceFolders`. Where the sandbox runs, a command that matches [`sandbox.excludedCommands`](https://code.claude.com/docs/en/sandboxing#run-commands-outside-the-sandbox-with-excludedcommands) in the user's own Claude Code settings also runs outside it, after Claude Code's regular permission flow. To keep Code off devices where the sandbox can't run, [turn off Code](#disabling-code) in the configuration you deploy to them. For SSH hosts, see [Sandbox status on the remote host](/docs/third-party/claude-desktop/ssh-remote-sessions#sandbox-status-on-the-remote-host).
 
 Under `blockReadsOutsideWorkingDirectories`, sandboxed shell commands can still read system locations such as `/usr`, the session's plugin and attachment folders (which become read-only), and the user's git configuration files (`~/.gitconfig` and the `config`, `ignore`, and `attributes` files under `~/.config/git`), which can themselves hold credentials such as tokens in remote URLs. Other files under the home folder outside the working directories are hidden from them, including `~/.ssh`, stored git credentials, included git configuration files, signing keys, and the target of a symlinked git configuration file, so git operations that need those files fail in the session until the user re-opens the paths. In a local session Claude also cannot read a file attached or `@`-mentioned from outside the working directories, so users should move such files into the session's folder or an allowed folder first.
 
@@ -65,7 +65,7 @@ An allowed root that is or contains the home directory, such as `~` or `/Users`,
 
 ## Interaction with Claude Code's own managed settings
 
-Claude Code can also be configured directly by deploying a [`managed-settings.json` file](https://code.claude.com/docs/en/settings#settings-files), an OS configuration profile for Claude Code, or (with Anthropic authentication) server-managed settings. If a device has any of these, Claude Code treats it as the administrator policy and, by default, **ignores** the policy values Claude Desktop supplies from the [Applied as managed policy](#applied-as-managed-policy) table. The [Always applied](#always-applied) keys are unaffected.
+Claude Code can also be configured directly by deploying a [`managed-settings.json` file](https://code.claude.com/docs/en/settings#settings-files), an OS configuration profile for Claude Code, or, with the Claude API as the inference provider, [server-managed settings](https://code.claude.com/docs/en/server-managed-settings). If a Code session has any of these, Claude Code treats it as the administrator policy and, by default, **ignores** the policy values Claude Desktop supplies from the [Applied as managed policy](#applied-as-managed-policy) table. The [Always applied](#always-applied) keys are unaffected.
 
 To have Claude Desktop's restrictions apply on top of your Claude Code policy, set `parentSettingsBehavior` to `"merge"` in the Claude Code managed settings you deploy:
 
@@ -79,9 +79,11 @@ With `"merge"`, Claude Desktop's policy values are layered under your Claude Cod
 
 With `"merge"`, two Claude Code policy keys weaken `blockReadsOutsideWorkingDirectories`. `sandbox.filesystem.allowManagedReadPathsOnly` limits the block to Claude's file tools, so a shell command that reads outside the working directories asks for approval instead of failing, and `allowManagedPermissionRulesOnly` removes the session's read access to its plugin and attachment folders, so skills that read their own files stop working. Leave both out of your Claude Code policy if you rely on the block.
 
-<Note>
-  In a third-party deployment there is no Anthropic authentication, so Claude Code's server-managed settings tier is never present. If you have not separately deployed a Claude Code `managed-settings.json` or OS profile, Claude Desktop's policy applies automatically and you do not need to set `parentSettingsBehavior`.
-</Note>
+> [!NOTE]
+>
+> With the [Claude API](/docs/third-party/claude-desktop/claude-api) as the inference provider, Code sessions ask Anthropic for the server-managed settings of [the organization that owns the credential](https://code.claude.com/docs/en/server-managed-settings#platform-availability). This holds for an API key in your configuration, an API key from a credential helper, and **Sign in with Claude Console**. If that organization has server-managed settings, set [`parentSettingsBehavior`](https://code.claude.com/docs/en/managed-settings#let-an-embedding-host-add-policy) to `"merge"` in them to keep Claude Desktop's [policy values](#applied-as-managed-policy). While server-managed settings apply, Claude Code by default [ignores most keys](https://code.claude.com/docs/en/managed-settings#how-claude-code-combines-managed-sources) in a file or OS profile on the device, and a `"merge"` set there has no effect.
+>
+> Without a Claude Code `managed-settings.json` file, OS profile, or server-managed settings, Claude Desktop's policy applies automatically and you don't need to set `parentSettingsBehavior`.
 
 ## Claude Code mods
 

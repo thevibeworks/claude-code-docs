@@ -6,11 +6,13 @@
 
 > Claude Tag proves its identity to your systems with a short-lived signed token instead of a credential stored in Claude. Learn how the token works and which of the four connection types to use.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
-<BetaNote />
-
-<Note>Federated connections are managed on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Connecting a gateway, cloud role, or authorization server needs an organization Owner, or an admin with full Claude Tag management permission.</Note>
+> [!NOTE]
+>
+> Federated connections are managed on the [**Federated agent access**](https://claude.ai/admin-settings/claude-tag/federated-cloud-access) page, under **Claude Tag** in the admin settings sidebar. Connecting a gateway, cloud role, or authorization server needs an organization Owner, or an admin with full Claude Tag management permission.
 
 In Slack channels, Claude Tag acts under its own [agent identity](/docs/claude-tag/concepts/agent-identity) rather than as any person. Federated agent access lets that identity prove itself to your systems with a short-lived, signed identity token instead of a credential you store in Claude.
 

@@ -11,11 +11,11 @@ add-ins in your Microsoft 365 suite. Instead of switching between apps
 and re-providing context each time, Claude can read from one app and
 make changes in another.
 
-<Note>
-  Working across apps is available when you sign in with your Claude
-  account directly. It is not supported when connecting through Amazon
-  Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway.
-</Note>
+> [!NOTE]
+>
+> Working across apps is available when you sign in with your Claude
+> account directly. It is not supported when connecting through Amazon
+> Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway.
 
 ## Requirements
 
@@ -34,20 +34,18 @@ on cross-app mode.
 
 ## Enable cross-app mode
 
-<Steps>
-  <Step title="Install each add-in">
-    Install Claude for Excel, PowerPoint, Word, and Outlook from the
-    Microsoft AppSource. Open each app and activate the add-in at
-    least once before using cross-app features.
-  </Step>
+**1. Install each add-in**
 
-  <Step title="Enable per add-in">
-    Open Settings in each add-in and turn on "Let Claude work across
-    files". Pro and Max plans have this on by default; Team and
-    Enterprise plans default to off. The toggle is per-device, so enable
-    it in every host you want to coordinate from.
-  </Step>
-</Steps>
+Install Claude for Excel, PowerPoint, Word, and Outlook from the
+Microsoft AppSource. Open each app and activate the add-in at
+least once before using cross-app features.
+
+**2. Enable per add-in**
+
+Open Settings in each add-in and turn on "Let Claude work across
+files". Pro and Max plans have this on by default; Team and
+Enterprise plans default to off. The toggle is per-device, so enable
+it in every host you want to coordinate from.
 
 Once enabled, connected-app indicators appear in the sidebar when other
 Excel, PowerPoint, Word, or Outlook sessions are linked.
@@ -106,15 +104,13 @@ For more on Skills, see
 Team and Enterprise organization owners can control whether team members
 can access this capability.
 
-<Steps>
-  <Step title="Open organization settings">
-    Go to Organization settings, Office agents.
-  </Step>
+**1. Open organization settings**
 
-  <Step title="Toggle the setting">
-    Turn "Let Claude work across apps" on or off.
-  </Step>
-</Steps>
+Go to Organization settings, Office agents.
+
+**2. Toggle the setting**
+
+Turn "Let Claude work across apps" on or off.
 
 Admins can also manage member access to the Claude for Excel,
 PowerPoint, Word, and Outlook add-ins through the Microsoft 365 Admin

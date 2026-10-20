@@ -19,22 +19,20 @@ Cowork uses the same agentic architecture that powers Claude Code, accessible wi
 
 Cowork supports the same extensibility features available across Claude products:
 
-<Columns cols={2}>
-  <Card title="Connectors" icon="plug" href="/docs/connectors/overview">
-    Connect Claude to your tools and data sources using MCP.
-  </Card>
+> **[Connectors](/docs/connectors/overview)**
+>
+> Connect Claude to your tools and data sources using MCP.
 
-  <Card title="Skills" icon="wand-magic-sparkles" href="/docs/skills/overview">
-    Teach Claude reusable workflows with custom instructions.
-  </Card>
+> **[Skills](/docs/skills/overview)**
+>
+> Teach Claude reusable workflows with custom instructions.
 
-  <Card title="Plugins" icon="puzzle-piece" href="/docs/plugins/overview">
-    Bundle skills, connectors, and more into shareable packages.
-  </Card>
+> **[Plugins](/docs/plugins/overview)**
+>
+> Bundle skills, connectors, and more into shareable packages.
 
-  <Card title="Monitoring" icon="chart-line" href="/docs/cowork/monitoring">
-    Track usage and activity across your organization.
-  </Card>
-</Columns>
+> **[Monitoring](/docs/cowork/monitoring)**
+>
+> Track usage and activity across your organization.
 
 You manage connectors, skills, and plugins from **Customize** in the sidebar. Cowork loads the ones enabled for your claude.ai account, synced at session start, and doesn't read the [Claude Code](https://code.claude.com/docs/en/skills) CLI's `~/.claude` directory on your machine. To use a skill or plugin that exists only in `~/.claude`, add it in **Customize**.

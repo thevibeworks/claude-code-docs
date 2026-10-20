@@ -6,13 +6,7 @@
 
 > Compare 6-MP against placebo with Kaplan–Meier curves from 42 remission times typed into the prompt.
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/clin-km-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=c4d20dad5701ebceb1d87c476424d2d3" alt="Two Kaplan–Meier plots: 6-MP and placebo remission curves with medians of 23 and 8 weeks (log-rank p = 0.00004), and the 6-MP curve three ways, with medians of 23, 16, and 10 weeks." width="1600" height="730" data-path="images/claude-science/example-gallery/clin-km-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/clin-km-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=ecbd48885ccc0e663a9a65e93355234f" alt="Two Kaplan–Meier plots: 6-MP and placebo remission curves with medians of 23 and 8 weeks (log-rank p = 0.00004), and the 6-MP curve three ways, with medians of 23, 16, and 10 weeks." width="1600" height="730" data-path="images/claude-science/example-gallery/clin-km-full-dark.webp" />
-  </Frame>
-</div>
+![Two Kaplan–Meier plots: 6-MP and placebo remission curves with medians of 23 and 8 weeks (log-rank p = 0.00004), and the 6-MP curve three ways, with medians of 23, 16, and 10 weeks.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/clin-km-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=c4d20dad5701ebceb1d87c476424d2d3)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

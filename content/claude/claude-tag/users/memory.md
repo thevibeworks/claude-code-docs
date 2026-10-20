@@ -6,9 +6,9 @@
 
 > Claude Tag memory belongs to the channel, not to you. See what each channel keeps, which notes are shared across the workspace, and how to check or correct them.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude keeps memory by channel. Each channel, public or private, has its own notes, and channel memory isn't organized by person. From a public channel Claude can also save workspace notes, which it reads in every channel in the workspace. In a one-to-one direct message, Claude keeps separate notes for its conversation with you; see [Channel and workspace memory](#channel-and-workspace-memory).
 

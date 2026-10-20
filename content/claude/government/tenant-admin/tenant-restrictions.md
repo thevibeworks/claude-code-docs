@@ -31,9 +31,9 @@ The check covers every way a user can reach Claude for Government:
 
 The same check applies at sign-in, so a user signing in to a tenant that is not on the list sees the refusal at the sign-in screen rather than after authentication completes.
 
-<Note>
-  A tenant restriction can only narrow access. A user still needs valid credentials for a tenant on the list; the header never grants access to a tenant the user does not already belong to.
-</Note>
+> [!NOTE]
+>
+> A tenant restriction can only narrow access. A user still needs valid credentials for a tenant on the list; the header never grants access to a tenant the user does not already belong to.
 
 ## Configure your network proxy
 
@@ -42,9 +42,9 @@ Configure your appliance to do both of the following on every request to your Cl
 1. **Remove** any `Anthropic-Allowed-Tenant-Ids` header that arrived from the client.
 2. **Set** a single `Anthropic-Allowed-Tenant-Ids` header to your allowlist value.
 
-<Warning>
-  Your appliance must remove the incoming header before setting its own. If the appliance only appends, ordinary traffic still works, so the misconfiguration is not obvious. A client that supplies its own value can then reach the server with both values, which either bypasses the restriction or causes that client's requests to fail, depending on how the appliance merges the two. Most secure web gateway products have a distinct "set" or "overwrite" action that removes and replaces in one step; use that rather than "append" or "add".
-</Warning>
+> [!WARNING]
+>
+> Your appliance must remove the incoming header before setting its own. If the appliance only appends, ordinary traffic still works, so the misconfiguration is not obvious. A client that supplies its own value can then reach the server with both values, which either bypasses the restriction or causes that client's requests to fail, depending on how the appliance merges the two. Most secure web gateway products have a distinct "set" or "overwrite" action that removes and replaces in one step; use that rather than "append" or "add".
 
 Apply the rule to requests for the Claude for Government domains provided to you during onboarding, as well as your agency's own custom domain if you have one. Because Claude for Government is served over HTTPS, your appliance must perform TLS inspection for these hosts so that it can add the header to the encrypted request.
 

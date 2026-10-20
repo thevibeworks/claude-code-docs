@@ -6,13 +6,7 @@
 
 > Simulate the X-ray powder patterns of silicon and table salt and label every peak with Bragg's law.
 
-<div className="example-gallery-page">
-  <Frame>
-    <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/mat-xrd-full-light.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=6d56de735b8fe6c1fd456f7259fc7d4d" alt="Simulated X-ray diffraction patterns: silicon has 6 labeled peaks, with 200, 222, and 420 marked absent; rock salt has 9." width="1600" height="980" data-path="images/claude-science/example-gallery/mat-xrd-full-light.webp" />
-
-    <img className="hidden dark:block" src="https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/mat-xrd-full-dark.webp?fit=max&auto=format&n=F2QP9ubtYgT0edFI&q=85&s=ce7e07ffd94f457100ac376aa7a18fab" alt="Simulated X-ray diffraction patterns: silicon has 6 labeled peaks, with 200, 222, and 420 marked absent; rock salt has 9." width="1600" height="980" data-path="images/claude-science/example-gallery/mat-xrd-full-dark.webp" />
-  </Frame>
-</div>
+![Simulated X-ray diffraction patterns: silicon has 6 labeled peaks, with 200, 222, and 420 marked absent; rock salt has 9.](https://mintcdn.com/claude-ai/F2QP9ubtYgT0edFI/images/claude-science/example-gallery/mat-xrd-full-light.webp?fit=max\&auto=format\&n=F2QP9ubtYgT0edFI\&q=85\&s=6d56de735b8fe6c1fd456f7259fc7d4d)
 
 The numbers in your session might differ from this picture and from the summary in [Reference analysis](#reference-analysis).
 

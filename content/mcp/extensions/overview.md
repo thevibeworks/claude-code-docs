@@ -12,9 +12,9 @@ MCP extensions are optional additions to the specification that define capabilit
 
 Extensions are identified using a unique *extension identifier* with the format: `{vendor-prefix}/{extension-name}`, e.g. `io.modelcontextprotocol/oauth-client-credentials`. Identifiers follow the same rules as [`_meta` keys](/specification/draft/basic/index#meta), with a mandatory prefix. Official extensions use the `io.modelcontextprotocol` vendor prefix.
 
-<Tip>
-  If you're building a third-party extension, use a reversed domain name you own as the vendor prefix to avoid collisions (similar to Java package naming). For example, a company owning `example.com` would use `com.example/` as their prefix (e.g., `com.example/my-extension`).
-</Tip>
+> [!TIP]
+>
+> If you're building a third-party extension, use a reversed domain name you own as the vendor prefix to avoid collisions (similar to Java package naming). For example, a company owning `example.com` would use `com.example/` as their prefix (e.g., `com.example/my-extension`).
 
 ## Official Extension Repositories
 
@@ -22,10 +22,10 @@ Official extensions live inside the [Model Context Protocol GitHub organization]
 
 ### MCP Authorization Extensions
 
-<Card title="modelcontextprotocol/ext-auth" icon="github" href="https://github.com/modelcontextprotocol/ext-auth">
-  Extensions for supplementary authorization mechanisms beyond the core
-  specification.
-</Card>
+> **[modelcontextprotocol/ext-auth](https://github.com/modelcontextprotocol/ext-auth)**
+>
+> Extensions for supplementary authorization mechanisms beyond the core
+> specification.
 
 | Extension | Description |
 | - | - |
@@ -34,9 +34,9 @@ Official extensions live inside the [Model Context Protocol GitHub organization]
 
 ### MCP Apps
 
-<Card title="modelcontextprotocol/ext-apps" icon="github" href="https://github.com/modelcontextprotocol/ext-apps">
-  Extensions for interactive UI elements in conversational MCP clients.
-</Card>
+> **[modelcontextprotocol/ext-apps](https://github.com/modelcontextprotocol/ext-apps)**
+>
+> Extensions for interactive UI elements in conversational MCP clients.
 
 | Extension | Description |
 | - | - |
@@ -52,9 +52,9 @@ To get started building MCP Apps, see the [quickstart guide](/extensions/apps/bu
 
 ### Skills over MCP
 
-<Card title="modelcontextprotocol/ext-skills" icon="github" href="https://github.com/modelcontextprotocol/ext-skills">
-  Discover and read Agent Skills from MCP servers.
-</Card>
+> **[modelcontextprotocol/ext-skills](https://github.com/modelcontextprotocol/ext-skills)**
+>
+> Discover and read Agent Skills from MCP servers.
 
 | Extension | Description |
 | - | - |
@@ -98,9 +98,9 @@ The lifecycle for official extensions follows a SEP-based process. For full deta
 
 SDKs can choose to implement extensions, but it's not required for protocol conformance. SDK maintainers have full autonomy over which extensions they support. Where an SDK does support extensions, SDK documentation should list which extensions are supported.
 
-<Note>
-  Extensions are always disabled by default and require explicit opt-in from the developer.
-</Note>
+> [!NOTE]
+>
+> Extensions are always disabled by default and require explicit opt-in from the developer.
 
 ### Evolution
 

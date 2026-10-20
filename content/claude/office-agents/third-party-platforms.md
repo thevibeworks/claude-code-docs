@@ -51,12 +51,12 @@ The add-in requires access to specific domains. The required domains
 differ depending on whether your organization uses the Anthropic API
 directly (1P) or a third-party platform (3P).
 
-<Note>
-  In all configurations, prompts and responses travel only to your chosen
-  inference provider. Domains pointing to Anthropic (such as
-  `pivot.claude.ai`) serve the add-in's interface, feature configuration,
-  and operational telemetry, not prompt or response content.
-</Note>
+> [!NOTE]
+>
+> In all configurations, prompts and responses travel only to your chosen
+> inference provider. Domains pointing to Anthropic (such as
+> `pivot.claude.ai`) serve the add-in's interface, feature configuration,
+> and operational telemetry, not prompt or response content.
 
 ### Anthropic API (1P)
 
@@ -184,11 +184,11 @@ The wizard walks you through the path you chose:
 
 When complete, the add-in is ready for tenant-wide deployment.
 
-<Note>
-  Bedrock and Vertex AI paths require Node.js for manifest generation and
-  validation. The wizard checks for it and prompts installation if
-  missing.
-</Note>
+> [!NOTE]
+>
+> Bedrock and Vertex AI paths require Node.js for manifest generation and
+> validation. The wizard checks for it and prompts installation if
+> missing.
 
 ### Available commands
 
@@ -235,9 +235,7 @@ attributes, then manifest parameters. Per-user attributes override the
 manifest defaults, so one deployed manifest can serve teams with
 different settings.
 
-<Frame caption="Configuration resolution at add-in load: bootstrap, Entra ID attributes, then manifest parameters.">
-  <img src="https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/config-discovery.png?fit=max&auto=format&n=-4jzPa4NasvobarI&q=85&s=b6c750272cf3ad9765ec2563af436806" alt="The add-in resolves each configuration key from a bootstrap endpoint, then Entra ID extension attributes, then manifest parameters." width="2398" height="1670" data-path="images/office-agents/architecture/config-discovery.png" />
-</Frame>
+![The add-in resolves each configuration key from a bootstrap endpoint, then Entra ID extension attributes, then manifest parameters.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/config-discovery.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=b6c750272cf3ad9765ec2563af436806)
 
 ### Keep credentials out of the manifest URL query string
 
@@ -317,35 +315,33 @@ application with the same delegated Graph permissions and provide its
 client ID to the setup wizard as `graph_client_id`. See
 [Use your own Entra app instead](/docs/office-agents/outlook#use-your-own-entra-app-instead).
 
-<Note>
-  Claude for Outlook on third-party platforms supports Claude Opus 4.7 and
-  later and Claude Sonnet 5 and later. Earlier model generations are not
-  available on the Outlook surface.
-</Note>
+> [!NOTE]
+>
+> Claude for Outlook on third-party platforms supports Claude Opus 4.7 and
+> later and Claude Sonnet 5 and later. Earlier model generations are not
+> available on the Outlook surface.
 
 ### Deploy to Microsoft 365
 
 After the wizard generates your manifest files:
 
-<Steps>
-  <Step title="Upload the manifest">
-    Open the Microsoft 365 Admin Center and go to Settings, Integrated
-    apps, Upload custom apps. Select "Office Add-in" as the app type,
-    then upload the `manifest.xml` file. If you are deploying Outlook,
-    repeat this step with `manifest-outlook.xml` as a second custom app.
-  </Step>
+**1. Upload the manifest**
 
-  <Step title="Choose who gets the add-in">
-    If all users share the same configuration, select "Entire
-    organization". If you wrote per-user attributes, assign to "Specific
-    users/groups" matching exactly who was configured. Others would open
-    the add-in with no configuration.
-  </Step>
+Open the Microsoft 365 Admin Center and go to Settings, Integrated
+apps, Upload custom apps. Select "Office Add-in" as the app type,
+then upload the `manifest.xml` file. If you are deploying Outlook,
+repeat this step with `manifest-outlook.xml` as a second custom app.
 
-  <Step title="Finish deployment">
-    Accept permissions and finish deployment.
-  </Step>
-</Steps>
+**2. Choose who gets the add-in**
+
+If all users share the same configuration, select "Entire
+organization". If you wrote per-user attributes, assign to "Specific
+users/groups" matching exactly who was configured. Others would open
+the add-in with no configuration.
+
+**3. Finish deployment**
+
+Accept permissions and finish deployment.
 
 Propagation to users takes up to 24 hours, usually faster. The add-in
 appears under Tools, Add-ins on Mac or Home, Add-ins on Windows in
@@ -357,10 +353,10 @@ not appear, users see old configuration after an update, or sign-in
 fails. Run `/claude-for-msft-365-install:debug` to diagnose these, or to
 sideload and validate a manifest locally before a tenant-wide upload.
 
-<Note>
-  Start with a pilot group to confirm functionality, then widen
-  assignment. You can change assignment later without redeploying.
-</Note>
+> [!NOTE]
+>
+> Start with a pilot group to confirm functionality, then widen
+> assignment. You can change assignment later without redeploying.
 
 ## Serve add-in settings from your Claude organization
 
@@ -468,57 +464,53 @@ select "Log in" again.
 Use these steps if your IT team told you to sign in with your Claude
 account and your organization's settings are served by Anthropic.
 
-<Steps>
-  <Step title="Open the add-in">
-    Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
-  </Step>
+**1. Open the add-in**
 
-  <Step title="Log in with your Claude account">
-    On the sign-in screen, select "Log in", then approve the sign-in in
-    the browser window that opens. The task pane reloads when the
-    sign-in is accepted.
-  </Step>
+Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
 
-  <Step title="Review the connection and connect">
-    The connection screen opens with your organization's values filled
-    in. If a field such as the gateway token is empty, enter the value
-    your IT team provided, then connect. If every value was served, the
-    add-in connects on its own.
-  </Step>
-</Steps>
+**2. Log in with your Claude account**
+
+On the sign-in screen, select "Log in", then approve the sign-in in
+the browser window that opens. The task pane reloads when the
+sign-in is accepted.
+
+**3. Review the connection and connect**
+
+The connection screen opens with your organization's values filled
+in. If a field such as the gateway token is empty, enter the value
+your IT team provided, then connect. If every value was served, the
+add-in connects on its own.
 
 If another Claude task pane was already open, it shows "Reload to finish
 signing in". Select Reload in that pane.
 
 ### LLM gateway
 
-<Steps>
-  <Step title="Open the add-in">
-    Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
-  </Step>
+**1. Open the add-in**
 
-  <Step title="Select your connection mode">
-    On the sign-in screen, select "Cloud provider or gateway". Then
-    choose your connection: Gateway, Vertex, Bedrock, or Azure. Contact
-    your IT team for connection details if you're unsure which one to
-    select.
-  </Step>
+Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
 
-  <Step title="Enter your credentials">
-    For Gateway, enter the gateway URL (HTTPS base URL of your LLM
-    proxy, for example
-    `https://llm-gateway.example.com`) and the API token your IT team
-    provided. By default the add-in sends the token in the `x-api-key`
-    header with every request. If your admin set
-    `gateway_auth_header: authorization` in the manifest, the add-in
-    sends `Authorization: Bearer <token>` instead.
-  </Step>
+**2. Select your connection mode**
 
-  <Step title="Connect">
-    The add-in checks the connection by sending a test request to the
-    gateway. On success, you see the main add-in experience.
-  </Step>
-</Steps>
+On the sign-in screen, select "Cloud provider or gateway". Then
+choose your connection: Gateway, Vertex, Bedrock, or Azure. Contact
+your IT team for connection details if you're unsure which one to
+select.
+
+**3. Enter your credentials**
+
+For Gateway, enter the gateway URL (HTTPS base URL of your LLM
+proxy, for example
+`https://llm-gateway.example.com`) and the API token your IT team
+provided. By default the add-in sends the token in the `x-api-key`
+header with every request. If your admin set
+`gateway_auth_header: authorization` in the manifest, the add-in
+sends `Authorization: Bearer <token>` instead.
+
+**4. Connect**
+
+The add-in checks the connection by sending a test request to the
+gateway. On success, you see the main add-in experience.
 
 Your credentials are stored locally in your browser's localStorage
 within the add-in's sandboxed iframe and are not synced to Anthropic's
@@ -530,36 +522,32 @@ credentials.
 In this path, every request travels from the add-in to your gateway,
 which forwards it to the provider you configured.
 
-<Frame caption="LLM gateway request flow: the add-in calls your gateway, which routes to your chosen provider.">
-  <img src="https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/gateway.png?fit=max&auto=format&n=-4jzPa4NasvobarI&q=85&s=287ef25266391992109b8673f97e3f93" alt="Requests flow from the add-in to your LLM gateway, which forwards them to the configured model provider." width="2540" height="1030" data-path="images/office-agents/architecture/gateway.png" />
-</Frame>
+![Requests flow from the add-in to your LLM gateway, which forwards them to the configured model provider.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/gateway.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=287ef25266391992109b8673f97e3f93)
 
 ### Bedrock, Vertex AI, or Foundry direct
 
-<Steps>
-  <Step title="Open the add-in">
-    Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
-  </Step>
+**1. Open the add-in**
 
-  <Step title="Authenticate">
-    For Bedrock (Excel, PowerPoint, and Word only), sign in with your
-    Microsoft work account. The add-in uses your Entra ID token to
-    assume the AWS role your admin
-    configured, so no separate AWS credentials are needed.
-    For Vertex AI, sign in with the Google account your admin authorized
-    via the Google OAuth client created during setup.
-    For Foundry, the add-in connects automatically if your admin
-    pre-filled the Azure resource name and API key. If your admin enabled
-    keyless sign-in, the add-in uses your Microsoft work account and no
-    key is involved. Otherwise, enter the values your IT team provided
-    and select Connect.
-  </Step>
+Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
 
-  <Step title="Start working">
-    The add-in reads the configuration your admin provisioned and
-    connects to Bedrock, Vertex AI, or Foundry directly.
-  </Step>
-</Steps>
+**2. Authenticate**
+
+For Bedrock (Excel, PowerPoint, and Word only), sign in with your
+Microsoft work account. The add-in uses your Entra ID token to
+assume the AWS role your admin
+configured, so no separate AWS credentials are needed.
+For Vertex AI, sign in with the Google account your admin authorized
+via the Google OAuth client created during setup.
+For Foundry, the add-in connects automatically if your admin
+pre-filled the Azure resource name and API key. If your admin enabled
+keyless sign-in, the add-in uses your Microsoft work account and no
+key is involved. Otherwise, enter the values your IT team provided
+and select Connect.
+
+**3. Start working**
+
+The add-in reads the configuration your admin provisioned and
+connects to Bedrock, Vertex AI, or Foundry directly.
 
 If you see an error at sign-in, confirm with your IT team that your
 account is in the group assigned to the add-in.
@@ -571,16 +559,12 @@ The flow differs by provider.
 Bedrock direct uses your Microsoft Entra ID token to assume an AWS role,
 then calls Amazon Bedrock.
 
-<Frame caption="Bedrock direct flow: the add-in exchanges an Entra ID token for an AWS role, then calls Bedrock.">
-  <img src="https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/bedrock-direct.png?fit=max&auto=format&n=-4jzPa4NasvobarI&q=85&s=51c8233f704717f0ff1c3897356621cd" alt="The add-in uses a Microsoft Entra ID token to assume an AWS role and call Amazon Bedrock directly." width="2540" height="1030" data-path="images/office-agents/architecture/bedrock-direct.png" />
-</Frame>
+![The add-in uses a Microsoft Entra ID token to assume an AWS role and call Amazon Bedrock directly.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/bedrock-direct.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=51c8233f704717f0ff1c3897356621cd)
 
 Vertex AI direct authenticates through Google OAuth, then calls Vertex
 AI.
 
-<Frame caption="Vertex AI direct flow: the add-in authenticates with Google OAuth, then calls Vertex AI.">
-  <img src="https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/vertex-direct.png?fit=max&auto=format&n=-4jzPa4NasvobarI&q=85&s=a33063abcecbfc36e346621f735453ef" alt="The add-in authenticates through Google OAuth and calls Google Cloud Vertex AI directly." width="2540" height="1030" data-path="images/office-agents/architecture/vertex-direct.png" />
-</Frame>
+![The add-in authenticates through Google OAuth and calls Google Cloud Vertex AI directly.](https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/vertex-direct.png?fit=max\&auto=format\&n=-4jzPa4NasvobarI\&q=85\&s=a33063abcecbfc36e346621f735453ef)
 
 ### Foundry direct without an API key
 
@@ -810,12 +794,12 @@ rotates.
 
 ## Example gateway configuration with LiteLLM
 
-<Warning>
-  LiteLLM PyPI versions 1.82.7 and 1.82.8 contained credential-stealing
-  malware. Do not install those versions. If already installed, remove the
-  package, rotate all credentials on affected systems, and follow
-  remediation steps in [BerriAI/litellm#24518](https://github.com/BerriAI/litellm/issues/24518).
-</Warning>
+> [!WARNING]
+>
+> LiteLLM PyPI versions 1.82.7 and 1.82.8 contained credential-stealing
+> malware. Do not install those versions. If already installed, remove the
+> package, rotate all credentials on affected systems, and follow
+> remediation steps in [BerriAI/litellm#24518](https://github.com/BerriAI/litellm/issues/24518).
 
 LiteLLM is a third-party proxy service. Anthropic does not endorse,
 maintain, or audit LiteLLM's security or functionality. This section is

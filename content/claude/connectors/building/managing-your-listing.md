@@ -8,9 +8,9 @@
 
 Organizations that submit a connector to the [directory](/docs/connectors/directory) get a submissions dashboard in the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage). This page is for connector authors who have already [submitted a connector](/docs/connectors/building/submission). Use the dashboard to [track a submission through review](#track-submission-status), [monitor your published server's health and usage](#server-health-and-usage-metrics), and [edit your listing](#edit-your-listing).
 
-<Note>
-  This page covers directory-listed remote MCP servers. The dashboard shows only your own organization's submissions. Custom connectors and local servers packaged as desktop extensions don't appear here.
-</Note>
+> [!NOTE]
+>
+> This page covers directory-listed remote MCP servers. The dashboard shows only your own organization's submissions. Custom connectors and local servers packaged as desktop extensions don't appear here.
 
 ## Access the dashboard
 
@@ -26,9 +26,9 @@ A published connector is listed with the **Community** label by default. [Connec
 
 Once your server is published, its **Overview** and **Usage** tabs in the developer portal show a health badge, topline usage numbers, an error breakdown, and usage by product and by tool.
 
-<Note>
-  Metrics are in beta. They're computed daily from directory usage and can lag by up to 24 hours. Time windows with fewer than 5 calls, per-tool rows with fewer than 5 calls, and per-product rows with fewer than 50 calls are omitted.
-</Note>
+> [!NOTE]
+>
+> Metrics are in beta. They're computed daily from directory usage and can lag by up to 24 hours. Time windows with fewer than 5 calls, per-tool rows with fewer than 5 calls, and per-product rows with fewer than 50 calls are omitted.
 
 ### Review what the metrics cover
 

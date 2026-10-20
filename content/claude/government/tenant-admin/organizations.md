@@ -22,9 +22,9 @@ Each organization appears with its name and ID. Clicking an organization's name 
 
 To email everyone in your tenant, or in one organization, click **Copy user email addresses** at the top of the page. The page that opens lists the email addresses of everyone except deactivated users, for the whole tenant and for each organization, each with its own **Copy** button. Any list of more than 450 addresses appears in parts of up to 450 that you can copy separately.
 
-<Tip>
-  Which organization a user joins isn't controlled on this page. That's set by the routing rules on the [Identity and access](/docs/government/tenant-admin/identity-and-access) page.
-</Tip>
+> [!TIP]
+>
+> Which organization a user joins isn't controlled on this page. That's set by the routing rules on the [Identity and access](/docs/government/tenant-admin/identity-and-access) page.
 
 ## Adding an organization
 
@@ -34,9 +34,9 @@ Expand the **Add organization** section to create a new organization. You'll pro
 * **Primary Owner email** is the email address of the person who will be the new organization's first administrator. This person becomes the Primary Owner and can immediately manage the organization's users and settings. They do **not** become a tenant administrator; tenant-level access is granted separately on the [Admins](/docs/government/tenant-admin/admins) page.
 * **Billing account** determines where the organization's credits and seats come from. Choose an existing billing account from the list; the new organization draws from that account's credit balance and seat pool alongside any other organizations already on it. Only billing accounts that are active and tenant-managed appear in the list.
 
-<Note>
-  If the list is empty, your tenant has no active tenant-managed billing accounts yet. Contact Anthropic to have one set up.
-</Note>
+> [!NOTE]
+>
+> If the list is empty, your tenant has no active tenant-managed billing accounts yet. Contact Anthropic to have one set up.
 
 ### After you add an organization
 

@@ -10,11 +10,11 @@ To list a plugin in [Anthropic's directory](/docs/directory/publish), you submit
 
 Use this page if your plugin is already in a GitHub repository and you want it listed. If the plugin references a remote MCP server you run, submit that server as an MCP connector too, as [Submit your plugin, and your MCP server as a connector](/docs/directory/publish#submit-your-plugin-and-your-mcp-server-as-a-connector) explains.
 
-<Note>
-  * To build the plugin first, see [Plugin structure and testing](/docs/plugins/build)
-  * To share it without a public listing, see [Share a plugin with teammates](/docs/plugins/share) or [Roll out a plugin to your whole organization](/docs/plugins/org-rollout)
-  * If you submitted through the earlier Claude Console form, see [Move an earlier submission to the developer portal](/docs/directory/publish#move-an-earlier-submission-to-the-developer-portal)
-</Note>
+> [!NOTE]
+>
+> * To build the plugin first, see [Plugin structure and testing](/docs/plugins/build)
+> * To share it without a public listing, see [Share a plugin with teammates](/docs/plugins/share) or [Roll out a plugin to your whole organization](/docs/plugins/org-rollout)
+> * If you submitted through the earlier Claude Console form, see [Move an earlier submission to the developer portal](/docs/directory/publish#move-an-earlier-submission-to-the-developer-portal)
 
 ## Before you submit a plugin
 
@@ -31,61 +31,59 @@ Before you open the portal, work through the [plugin pre-submission checklist](/
 
 Each plugin folder is its own submission in the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), so a repository that holds several plugins needs one submission for each.
 
-<Steps>
-  <Step title="Open the portal">
-    1. Open the [developer portal](https://claude.ai/directory/manage) and select **Submit new**.
-    2. When the portal asks **What would you like to submit?**, select **Plugin bundle**.
+**1. Open the portal**
 
-    <Note>
-      The other option, **MCP connector**, submits one remote MCP server as its own connector listing. If your plugin references an MCP server you built and you haven't submitted that server yet, submit it separately with **MCP connector** by following [Submit your connector](/docs/connectors/building/submission). [Submit your plugin, and your MCP server as a connector](/docs/directory/publish#submit-your-plugin-and-your-mcp-server-as-a-connector) explains why you submit both.
-    </Note>
-  </Step>
+1. Open the [developer portal](https://claude.ai/directory/manage) and select **Submit new**.
+2. When the portal asks **What would you like to submit?**, select **Plugin bundle**.
 
-  <Step title="Enter the source and validate">
-    On the **Source** step, fill in the fields:
+> [!NOTE]
+>
+> The other option, **MCP connector**, submits one remote MCP server as its own connector listing. If your plugin references an MCP server you built and you haven't submitted that server yet, submit it separately with **MCP connector** by following [Submit your connector](/docs/connectors/building/submission). [Submit your plugin, and your MCP server as a connector](/docs/directory/publish#submit-your-plugin-and-your-mcp-server-as-a-connector) explains why you submit both.
 
-    * **Repository**: the GitHub repository's URL, or `owner/repo`. If you paste a link to a folder on a branch, the portal fills in the path and branch for you
-    * **Plugin path (optional)**: the folder that holds `.claude-plugin/plugin.json`, if the plugin isn't at the repository root
-    * **Branch or tag (optional)**: the branch or tag that the directory follows for new versions. The portal calls this the tracked branch or tag. Leave the field empty to follow the repository's default branch. A tag stays on its commit until you change the tag. If the branch name contains a slash, type the name in this field or enter `owner/repo@branch` in **Repository**, instead of pasting a folder link
+**2. Enter the source and validate**
 
-    Then validate the plugin:
+On the **Source** step, fill in the fields:
 
-    1. Select **Validate** to run the directory's validation checks on the plugin.
-    2. If a finding blocks submission, fix it in the repository and push the fix.
-    3. Validate again.
+* **Repository**: the GitHub repository's URL, or `owner/repo`. If you paste a link to a folder on a branch, the portal fills in the path and branch for you
+* **Plugin path (optional)**: the folder that holds `.claude-plugin/plugin.json`, if the plugin isn't at the repository root
+* **Branch or tag (optional)**: the branch or tag that the directory follows for new versions. The portal calls this the tracked branch or tag. Leave the field empty to follow the repository's default branch. A tag stays on its commit until you change the tag. If the branch name contains a slash, type the name in this field or enter `owner/repo@branch` in **Repository**, instead of pasting a folder link
 
-    The [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) explains what each kind of finding means.
+Then validate the plugin:
 
-    A validation result applies to one commit. If you push to the branch after validating, validate again before you continue.
-  </Step>
+1. Select **Validate** to run the directory's validation checks on the plugin.
+2. If a finding blocks submission, fix it in the repository and push the fix.
+3. Validate again.
 
-  <Step title="Check the listing details">
-    The **Listing details** step shows how the plugin appears in the directory, read from `plugin.json` and the README. To change a field before you submit, edit `plugin.json` or the README in the repository and validate again. Once the plugin is listed, its name and short description follow the version that's live, so to change them later, edit `plugin.json` or the README and publish a new version.
-  </Step>
+The [plugin pre-submission checklist](/docs/plugins/pre-submission-checklist) explains what each kind of finding means.
 
-  <Step title="Answer the data handling questions">
-    On the **Data handling** step, answer each question: whether the plugin reads or stores personal data, whether it sends data to services other than its declared connectors, how long it keeps data, and whether it's intended for people under 18.
-  </Step>
+A validation result applies to one commit. If you push to the branch after validating, validate again before you continue.
 
-  <Step title="Complete the compliance step">
-    On the **Compliance** step, check the contact email and select the acknowledgements:
+**3. Check the listing details**
 
-    1. Check that the contact email is an address where Anthropic can reach you about the submission.
-    2. Select all four acknowledgements.
-  </Step>
+The **Listing details** step shows how the plugin appears in the directory, read from `plugin.json` and the README. To change a field before you submit, edit `plugin.json` or the README in the repository and validate again. Once the plugin is listed, its name and short description follow the version that's live, so to change them later, edit `plugin.json` or the README and publish a new version.
 
-  <Step title="Review and submit">
-    On the **Review and submit** step, confirm the details, choose how new versions arrive, and submit:
+**4. Answer the data handling questions**
 
-    1. Confirm the details.
-    2. Under **How new versions reach the directory**, choose **GitHub push webhook**, which is selected by default, or **Scheduled check only**. With either option, the directory also checks the tracked branch or tag for new commits on a schedule.
-    3. Select **Submit for review**.
+On the **Data handling** step, answer each question: whether the plugin reads or stores personal data, whether it sends data to services other than its declared connectors, how long it keeps data, and whether it's intended for people under 18.
 
-    If you kept **GitHub push webhook**, the **Plugin submitted for review** page offers **Set up push updates**. You need admin access to the repository on GitHub to set up the webhook.
+**5. Complete the compliance step**
 
-    To set it up later, open the plugin from **Submissions** in the developer portal and select **Set up** under **Updates** on the **Settings** tab.
-  </Step>
-</Steps>
+On the **Compliance** step, check the contact email and select the acknowledgements:
+
+1. Check that the contact email is an address where Anthropic can reach you about the submission.
+2. Select all four acknowledgements.
+
+**6. Review and submit**
+
+On the **Review and submit** step, confirm the details, choose how new versions arrive, and submit:
+
+1. Confirm the details.
+2. Under **How new versions reach the directory**, choose **GitHub push webhook**, which is selected by default, or **Scheduled check only**. With either option, the directory also checks the tracked branch or tag for new commits on a schedule.
+3. Select **Submit for review**.
+
+If you kept **GitHub push webhook**, the **Plugin submitted for review** page offers **Set up push updates**. You need admin access to the repository on GitHub to set up the webhook.
+
+To set it up later, open the plugin from **Submissions** in the developer portal and select **Set up** under **Updates** on the **Settings** tab.
 
 ### Submission limits and duplicates
 

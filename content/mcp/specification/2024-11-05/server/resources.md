@@ -21,7 +21,7 @@ For example, applications could:
 * Allow the user to search through and filter available resources
 * Implement automatic context inclusion, based on heuristics or the AI model's selection
 
-<img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/specification/2024-11-05/server/resource-picker.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=c393fd9aa41eca521cb2f830d839612f" alt="Example of resource context picker" width="174" height="181" data-path="specification/2024-11-05/server/resource-picker.png" />
+![Example of resource context picker](https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/specification/2024-11-05/server/resource-picker.png?fit=max\&auto=format\&n=4ZXF1PrDkEaJvXpn\&q=85\&s=c393fd9aa41eca521cb2f830d839612f)
 
 However, implementations are free to expose resources through any interface pattern that
 suits their needs—the protocol itself does not mandate any specific user

@@ -6,9 +6,9 @@
 
 > Claude Tag recipes for marketing teams in Slack. See policy answers in an intake channel, campaign channel recaps and send-ready drafts, lead and campaign state from the CRM, a weekly metrics digest, and brand voice rules saved to channel memory.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How marketing prompts work
 
@@ -109,12 +109,10 @@ Keep saved entries short, since long entries crowd out everything else. For a fu
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Pull deal and account state" href="/docs/claude-tag/users/use-cases/pull-deal-state" horizontal arrow>
-    The full set of go-to-market prompts
-  </Card>
+> **[Pull deal and account state](/docs/claude-tag/users/use-cases/pull-deal-state)**
+>
+> The full set of go-to-market prompts
 
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    How the scheduled digest runs, and more recipes
-  </Card>
-</CardGroup>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> How the scheduled digest runs, and more recipes

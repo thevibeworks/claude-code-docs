@@ -6,9 +6,9 @@
 
 > Copy-paste prompts for Claude Tag in Slack, each with why it works. See first messages, handoffs, channel rules, memory checks, routines, fan-out, and steering.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 These prompts are ready to copy, paste, and adapt: swap in your own channel names, services, and repositories. Each comes with the reason it works, so you can keep the mechanism when you change the words.
 

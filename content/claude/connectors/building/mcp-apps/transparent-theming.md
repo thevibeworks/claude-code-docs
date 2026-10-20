@@ -90,46 +90,44 @@ Keep the `<meta name="color-scheme">` tag in your document head even though `app
 
 This example applies the theme, variables, and fonts on connect and again on every host context change:
 
-<CodeGroup>
-  ```ts TypeScript theme={null}
-  import {
-    App,
-    applyDocumentTheme,
-    applyHostFonts,
-    applyHostStyleVariables,
-    type McpUiHostContext,
-  } from "@modelcontextprotocol/ext-apps";
+```ts TypeScript theme={null}
+import {
+  App,
+  applyDocumentTheme,
+  applyHostFonts,
+  applyHostStyleVariables,
+  type McpUiHostContext,
+} from "@modelcontextprotocol/ext-apps";
 
-  function applyHostContext(ctx: Partial<McpUiHostContext>) {
-    if (ctx.theme) applyDocumentTheme(ctx.theme);
-    if (ctx.styles?.variables) applyHostStyleVariables(ctx.styles.variables);
-    if (ctx.styles?.css?.fonts) applyHostFonts(ctx.styles.css.fonts);
-  }
+function applyHostContext(ctx: Partial<McpUiHostContext>) {
+  if (ctx.theme) applyDocumentTheme(ctx.theme);
+  if (ctx.styles?.variables) applyHostStyleVariables(ctx.styles.variables);
+  if (ctx.styles?.css?.fonts) applyHostFonts(ctx.styles.css.fonts);
+}
 
-  const app = new App({ name: "my-app", version: "1.0.0" });
+const app = new App({ name: "my-app", version: "1.0.0" });
 
-  // Updates carry only the fields that changed.
-  app.addEventListener("hostcontextchanged", (changed) => applyHostContext(changed));
+// Updates carry only the fields that changed.
+app.addEventListener("hostcontextchanged", (changed) => applyHostContext(changed));
 
-  await app.connect();
-  const initial = app.getHostContext();
-  if (initial) applyHostContext(initial);
-  ```
+await app.connect();
+const initial = app.getHostContext();
+if (initial) applyHostContext(initial);
+```
 
-  ```tsx React theme={null}
-  import { useApp, useHostStyles } from "@modelcontextprotocol/ext-apps/react";
+```tsx React theme={null}
+import { useApp, useHostStyles } from "@modelcontextprotocol/ext-apps/react";
 
-  function Widget() {
-    const { app } = useApp({
-      appInfo: { name: "my-app", version: "1.0.0" },
-      capabilities: {},
-    });
-    // Applies theme + CSS variables + fonts, and re-applies on host-context-changed.
-    useHostStyles(app, app?.getHostContext());
-    return <div className="card">…</div>;
-  }
-  ```
-</CodeGroup>
+function Widget() {
+  const { app } = useApp({
+    appInfo: { name: "my-app", version: "1.0.0" },
+    capabilities: {},
+  });
+  // Applies theme + CSS variables + fonts, and re-applies on host-context-changed.
+  useHostStyles(app, app?.getHostContext());
+  return <div className="card">…</div>;
+}
+```
 
 ### Reference the variables in your CSS
 
@@ -146,9 +144,9 @@ body {
 }
 ```
 
-<Note>
-  Claude's token values use CSS `light-dark()`, so once `applyDocumentTheme` has set the root `color-scheme`, every `--color-*` variable resolves to the right variant without any `[data-theme]` selectors on your side.
-</Note>
+> [!NOTE]
+>
+> Claude's token values use CSS `light-dark()`, so once `applyDocumentTheme` has set the root `color-scheme`, every `--color-*` variable resolves to the right variant without any `[data-theme]` selectors on your side.
 
 ### Allow the host font origin in your CSP
 

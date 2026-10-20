@@ -16,9 +16,9 @@ see the [client support matrix](/extensions/client-matrix) and
 [implementations list](https://github.com/modelcontextprotocol/ext-skills/blob/main/docs/implementations.md)
 for current coverage.
 
-<Card title="modelcontextprotocol/ext-skills" icon="github" href="https://github.com/modelcontextprotocol/ext-skills">
-  Specification and documentation for Skills over MCP.
-</Card>
+> **[modelcontextprotocol/ext-skills](https://github.com/modelcontextprotocol/ext-skills)**
+>
+> Specification and documentation for Skills over MCP.
 
 The Skills extension allows MCP servers to expose workflow instructions and
 supporting files to clients. Clients can discover available skills, retrieve
@@ -72,11 +72,11 @@ The optional `directoryRead` setting indicates support for
 indicates support without directory reading. Clients issue `skills/list` and
 `skills/get` only after observing the server's declaration.
 
-<Note>
-  These examples use protocol revision `2026-07-28` or later. For brevity, the
-  request examples omit `_meta`. Every request **MUST** include the required
-  [request metadata](/specification/draft/basic/index#_meta).
-</Note>
+> [!NOTE]
+>
+> These examples use protocol revision `2026-07-28` or later. For brevity, the
+> request examples omit `_meta`. Every request **MUST** include the required
+> [request metadata](/specification/draft/basic/index#_meta).
 
 ## Protocol Messages
 
@@ -376,13 +376,13 @@ immutable, or verify cached bytes on every access. Hosts **MUST** exclude cached
 files from filesystem-skill discovery paths and preserve their MCP origin,
 including after a restart.
 
-<Note>
-  Digests establish consistency with the server's manifest, not trust in its
-  content. For generated content without stable digests, an entry uses
-  `"resources": "dynamic"`. Hosts **MAY** decline these skills. If accepted,
-  hosts **MUST** still verify frontmatter and **MUST NOT** treat persisted
-  approval as covering arbitrary future content.
-</Note>
+> [!NOTE]
+>
+> Digests establish consistency with the server's manifest, not trust in its
+> content. For generated content without stable digests, an entry uses
+> `"resources": "dynamic"`. Hosts **MAY** decline these skills. If accepted,
+> hosts **MUST** still verify frontmatter and **MUST NOT** treat persisted
+> approval as covering arbitrary future content.
 
 ## Implementation Requirements
 

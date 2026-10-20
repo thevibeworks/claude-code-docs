@@ -26,9 +26,9 @@ A separate card asks before Claude opens a Modal setup shell (capped at 30 minut
 
 Input files are limited to 1 GiB per submit. For larger inputs, Claude can stage data to a Modal Volume and mount it into the job. Outputs written to `./out/` (up to 5 GiB) are returned with logs.
 
-<Note>
-  Closing the app doesn't cancel a running Modal job; it continues billing until it finishes or times out.
-</Note>
+> [!NOTE]
+>
+> Closing the app doesn't cancel a running Modal job; it continues billing until it finishes or times out.
 
 Cost controls: there's no spend ceiling. Each job is approved individually with its machine and time limit visible. **Concurrent jobs** (default 10, set on the Modal page under Settings > Compute) caps simultaneous containers that Claude Science on this machine can run. **Default container timeout** is 12 hours (maximum 23), enforced by Modal. Track spend on Modal's dashboard.
 

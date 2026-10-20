@@ -6,9 +6,9 @@
 
 > Put Claude on call for incident response in Slack: run setup at claude.ai/oncall, pick or auto-join incident channels, cap spend, and deploy.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Claude Tag on-call puts Claude on call with your team for incident response in Slack. Claude watches your monitoring tools and posts what it finds, or joins your incident channels and investigates alongside your team. Your team keeps its own on-call rotation, and Claude works alongside whoever is on call. You set up on-call for your whole organization at [`claude.ai/oncall`](https://claude.ai/oncall).
 

@@ -28,12 +28,12 @@ This document implements [SEP-2148](/seps/2148-contributor-ladder). For Working 
 | [**Lead Maintainer**](#lead-maintainer) | Ultimate project authority (founders) | All Core Maintainer privileges, veto authority, appoints Core Maintainers | Reserved for project founders; succession only |
 | [**Community Moderator**](#community-moderator) | CoC enforcement and community health | Moderation rights on community platforms, incident handling | Parallel track: Member status + appointment |
 
-<Note>
-  Timelines are minimums, not guarantees. They protect the project from rapid
-  privilege escalation and ensure a high bar of demonstrated commitment. Actual
-  advancement is discretionary and may take longer. Exceptions require explicit
-  Core Maintainer approval with documented rationale.
-</Note>
+> [!NOTE]
+>
+> Timelines are minimums, not guarantees. They protect the project from rapid
+> privilege escalation and ensure a high bar of demonstrated commitment. Actual
+> advancement is discretionary and may take longer. Exceptions require explicit
+> Core Maintainer approval with documented rationale.
 
 ***
 
@@ -138,12 +138,12 @@ All contribution pathways can lead to Maintainer. The specific scope will align 
 
 Core Maintainers hold final decision-making authority for MCP's technical direction. This is the highest level of trust in the community.
 
-<Note>
-  The Core Maintainer role is intentionally limited. This ensures a coherent
-  technical vision while the project scales. Bandwidth concerns are addressed
-  through delegation to Maintainers, Working Group Leads, and Interest Group
-  Facilitators, not by expanding Core Maintainer numbers.
-</Note>
+> [!NOTE]
+>
+> The Core Maintainer role is intentionally limited. This ensures a coherent
+> technical vision while the project scales. Bandwidth concerns are addressed
+> through delegation to Maintainers, Working Group Leads, and Interest Group
+> Facilitators, not by expanding Core Maintainer numbers.
 
 **Requirements:**
 

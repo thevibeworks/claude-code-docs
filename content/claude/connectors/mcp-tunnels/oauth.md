@@ -6,15 +6,15 @@
 
 > Make OAuth sign-in work for MCP servers reached through an MCP tunnel when the authorization server or identity provider is inside your network.
 
-<Note>
-  MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team.
-</Note>
+> [!NOTE]
+>
+> MCP tunnels are in research preview and are available to organizations on the Claude Enterprise plan by request. To request access, [submit the MCP tunnels interest form](https://claude.com/form/mcp-tunnels) or contact your Anthropic account team.
 
 An MCP tunnel carries Claude's requests to an MCP server inside your network, but it does not authenticate to that server. Each tunneled server should still require OAuth, as the [MCP authorization specification](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization) describes, so that a member signs in with their own account before Claude can call the server's tools. This page is for the administrator adding a tunneled server as a custom connector, and explains what to configure when the OAuth authorization server is itself only reachable inside your network.
 
-<Note>
-  If your authorization server is reachable from the public internet and its metadata advertises public URLs, you don't need anything on this page. Add the connector as described in [Set up an MCP tunnel](/docs/connectors/mcp-tunnels/setup#add-tunneled-servers-as-connectors), and members sign in as they would for any other connector.
-</Note>
+> [!NOTE]
+>
+> If your authorization server is reachable from the public internet and its metadata advertises public URLs, you don't need anything on this page. Add the connector as described in [Set up an MCP tunnel](/docs/connectors/mcp-tunnels/setup#add-tunneled-servers-as-connectors), and members sign in as they would for any other connector.
 
 ## Understand how OAuth works through a tunnel
 

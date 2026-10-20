@@ -6,19 +6,19 @@
 
 > Claude Tag responds only where it has been added and addressed. See who can invoke it, what changes in guest and Slack Connect channels, the per-scope version setting, how to limit it to chosen channels, how to delegate administration or a channel's setup, and how to quiet or remove it.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 In channels, Claude Tag responds only where it's been added and addressed, and the controls on this page narrow that further. One-to-one DMs are a separate surface. A DM from a member who has connected a Claude account runs on that member's own account; see [how DMs differ from channels](/docs/claude-tag/concepts/agent-identity#direct-message-channels). A [DM from a member who hasn't](#direct-messages-from-members-without-a-claude-account) can bill to your organization. In a [group DM](#group-dms), the work bills to your organization.
 
-<Note>Most controls on this page require the Owner role in your Claude organization; the [permissions table](#permissions-by-role) lists which actions a channel manager or a channel member can take. On the Enterprise plan, an Owner can delegate many of these controls through the [**Claude Tag Admin** permission](#delegate-claude-tag-administration).</Note>
+> [!NOTE]
+>
+> Most controls on this page require the Owner role in your Claude organization; the [permissions table](#permissions-by-role) lists which actions a channel manager or a channel member can take. On the Enterprise plan, an Owner can delegate many of these controls through the [**Claude Tag Admin** permission](#delegate-claude-tag-administration).
 
 ## Control who can invoke Claude Tag
 
 In channels where the app has been added, an @-mention guarantees a response; Claude may also respond to a message that doesn't mention it when it judges a reply is warranted, and once a thread is active it follows replies in that thread. By default, anyone in such a channel can address it. A single toggle narrows that to people in your Claude organization.
-
-<a id="members" />
 
 ### Restrict who can use Claude
 
@@ -31,9 +31,9 @@ Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/
 
 The toggle applies to channels and DMs alike. While the toggle is off, a [DM from a member who hasn't connected a Claude account](#direct-messages-from-members-without-a-claude-account) can bill to your organization.
 
-<Info>
-  You may see the earlier three-option **Members** dropdown instead of the toggle. The **Access** group keeps the dropdown while your organization's stored choice matches neither toggle state. That happens for an Enterprise organization that previously chose **Open to any organization member** (now marked deprecated), and for a Team organization still restricted by role from an earlier Enterprise plan. Switch to one of the toggle's two states. The dropdown is then replaced by the toggle, and the deprecated option is no longer offered.
-</Info>
+> [!NOTE]
+>
+> You may see the earlier three-option **Members** dropdown instead of the toggle. The **Access** group keeps the dropdown while your organization's stored choice matches neither toggle state. That happens for an Enterprise organization that previously chose **Open to any organization member** (now marked deprecated), and for a Team organization still restricted by role from an earlier Enterprise plan. Switch to one of the toggle's two states. The dropdown is then replaced by the toggle, and the deprecated option is no longer offered.
 
 #### Restrict by role on Enterprise
 
@@ -65,7 +65,9 @@ On Enterprise plans, if your organization belongs to a parent enterprise organiz
 
 When the toggle is on, a Slack user whose profile email isn't on one of the enterprise's verified domains can't link a Claude account to this organization; the sign-in is refused.
 
-<Warning>Turning this on in any one organization also stops Slack users on a verified domain from linking a Claude account to any organization outside the enterprise.</Warning>
+> [!WARNING]
+>
+> Turning this on in any one organization also stops Slack users on a verified domain from linking a Claude account to any organization outside the enterprise.
 
 ## Control where Claude Tag operates
 
@@ -105,23 +107,23 @@ To let Claude respond only in channels you choose, for example during a pilot co
 
 These steps need the per-scope switches. If the **Slack** page shows [**Respond in channels**](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan) instead, you can't limit Claude this way. Use [blocked channel patterns](#block-or-auto-join-channels-by-name) to keep it out of specific channels.
 
-<Note>Turning Claude off in a scope silences the earlier Claude in Slack there too.</Note>
+> [!NOTE]
+>
+> Turning Claude off in a scope silences the earlier Claude in Slack there too.
 
-<Steps>
-  <Step title="Turn Claude Tag off in every channel">
-    Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack) and turn off the **Respond in all channels** switch at the top of the **General** tab.
-  </Step>
+**1. Turn Claude Tag off in every channel**
 
-  <Step title="Reset the scopes that override it">
-    Open each workspace's or channel's page that has its own setting. Its switch shows **Set for this workspace** or **Set for this channel** underneath. Click the **Use inherited setting** link beside that line. The scope then follows the off state on the **Slack** page.
-  </Step>
+Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack) and turn off the **Respond in all channels** switch at the top of the **General** tab.
 
-  <Step title="Switch each chosen channel back on">
-    On the **Channels** tab, find the channel with the search field; channels Claude was added to are already listed. If it isn't listed, set it up as described in [Attach to a channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel). Open the channel's page and turn on the **Enable Claude Tag in this channel** switch at the top of its **General** tab.
+**2. Reset the scopes that override it**
 
-    A channel's own setting wins over the off setting above it, so Claude responds in the chosen channels and nowhere else.
-  </Step>
-</Steps>
+Open each workspace's or channel's page that has its own setting. Its switch shows **Set for this workspace** or **Set for this channel** underneath. Click the **Use inherited setting** link beside that line. The scope then follows the off state on the **Slack** page.
+
+**3. Switch each chosen channel back on**
+
+On the **Channels** tab, find the channel with the search field; channels Claude was added to are already listed. If it isn't listed, set it up as described in [Attach to a channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel). Open the channel's page and turn on the **Enable Claude Tag in this channel** switch at the top of its **General** tab.
+
+A channel's own setting wins over the off setting above it, so Claude responds in the chosen channels and nowhere else.
 
 If someone invites the app into another channel afterward, Claude stays silent there. Mentioning `@Claude` in that channel gets a notice that Claude is disabled in the channel, not a reply. In a Slack Connect channel, Claude posts no notice.
 
@@ -218,8 +220,6 @@ A value on a channel or workspace replaces the value it would inherit, in either
 
 Neither value adds private channels to workspace search. In a [channel that includes a guest](#restrict-guest-channels), workspace search is unavailable whichever value applies.
 
-<a id="externally-shared-channels" />
-
 ### Slack Connect channels
 
 A Slack Connect channel is a channel your Slack workspace shares with another company. The [**How should Claude work in channels with guests**](#restrict-guest-channels) setting, the same one that governs channels that include guests, decides whether Claude answers in one:
@@ -244,7 +244,9 @@ Claude answers in a Slack Connect channel where [**How should Claude work in cha
 
 When a bundle applies there, Claude can use the bundle's connectors for anyone it answers in the channel, including the other company's people.
 
-<Warning>Treat the channel's instructions, and the connectors in its bundles, as available to the other company. Before you turn Claude on in a Slack Connect channel, or share a channel where it's already on, open the channel's page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels), check its bundles, and [remove the channel from any bundle](/docs/claude-tag/admins/attach-to-scope#choose-where-a-bundle-applies) you don't want used there.</Warning>
+> [!WARNING]
+>
+> Treat the channel's instructions, and the connectors in its bundles, as available to the other company. Before you turn Claude on in a Slack Connect channel, or share a channel where it's already on, open the channel's page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels), check its bundles, and [remove the channel from any bundle](/docs/claude-tag/admins/attach-to-scope#choose-where-a-bundle-applies) you don't want used there.
 
 When it answers there, Claude also has:
 
@@ -411,27 +413,25 @@ Some actions stay outside the permission:
 
 ### Give a member the Claude Tag Admin permission
 
-<Steps>
-  <Step title="Create a role">
-    Go to [**Organization settings > Roles**](https://claude.ai/admin-settings/roles), select **Add role**, and give the role a name.
-  </Step>
+**1. Create a role**
 
-  <Step title="Grant the permission">
-    On the role's **Admin permissions** tab, set **Claude Tag Admin**, under **Product admin**, to **Can manage**. Changing the member's role type to **Custom** takes them off the built-in Admin role, so if the member is an Admin today, also set **User Management** to **Can manage** and **Analytics** to **Can view**, both under **Organization admin**. Leave the **Capabilities** and **Connectors** tabs as they are, then select **Save**.
-  </Step>
+Go to [**Organization settings > Roles**](https://claude.ai/admin-settings/roles), select **Add role**, and give the role a name.
 
-  <Step title="Assign the role through a group">
-    A custom role applies to the members of the groups it's assigned to. Go to [**Organization settings > Groups**](https://claude.ai/admin-settings/groups) and select **Add group**. Name the group and pick the new role under **Roles**. Add the member under **Members**, then select **Add group**. To use a group the member is already in, open the role on the [**Roles** page](https://claude.ai/admin-settings/roles) instead and add that group on its **Details** tab.
-  </Step>
+**2. Grant the permission**
 
-  <Step title="Change the member's role to Custom">
-    On the [**Members** page](https://claude.ai/admin-settings/members), change the member's role to **Custom**. Custom roles apply only to members whose role type is **Custom**. If member roles are managed through your identity provider, make the change in the identity provider instead.
-  </Step>
+On the role's **Admin permissions** tab, set **Claude Tag Admin**, under **Product admin**, to **Can manage**. Changing the member's role type to **Custom** takes them off the built-in Admin role, so if the member is an Admin today, also set **User Management** to **Can manage** and **Analytics** to **Can view**, both under **Organization admin**. Leave the **Capabilities** and **Connectors** tabs as they are, then select **Save**.
 
-  <Step title="Confirm the member's access">
-    The member can now open **Claude Tag** under **Products** in **Organization settings**. If it isn't listed for them yet, have them refresh the page.
-  </Step>
-</Steps>
+**3. Assign the role through a group**
+
+A custom role applies to the members of the groups it's assigned to. Go to [**Organization settings > Groups**](https://claude.ai/admin-settings/groups) and select **Add group**. Name the group and pick the new role under **Roles**. Add the member under **Members**, then select **Add group**. To use a group the member is already in, open the role on the [**Roles** page](https://claude.ai/admin-settings/roles) instead and add that group on its **Details** tab.
+
+**4. Change the member's role to Custom**
+
+On the [**Members** page](https://claude.ai/admin-settings/members), change the member's role to **Custom**. Custom roles apply only to members whose role type is **Custom**. If member roles are managed through your identity provider, make the change in the identity provider instead.
+
+**5. Confirm the member's access**
+
+The member can now open **Claude Tag** under **Products** in **Organization settings**. If it isn't listed for them yet, have them refresh the page.
 
 ## Delegate channel setup to channel managers
 
@@ -463,23 +463,21 @@ Channel managers see their assigned channels at [`claude.ai/admin-settings/claud
 
 Channel managers are built on [custom roles](https://claude.ai/admin-settings/roles). When you add the first manager to a channel, you create a custom role for it, named **Channel managers** plus the channel's name and ID, with the **Claude Tag channel setup** permission. A custom role works only for members on the **Custom roles** access level, so the last step below checks each manager's level.
 
-<Steps>
-  <Step title="Open the channel's page">
-    Go to [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and open the channel's page. The channel must be a public or private channel. If it isn't listed, [add Claude to the channel](/docs/claude-tag/users/getting-started#add-claude-to-a-channel) in Slack first.
-  </Step>
+**1. Open the channel's page**
 
-  <Step title="Add people or a group">
-    In the page's header, select **Add managers**. Search for people and groups, and select each one to add. People you add join the channel's default group. A group you pick comes from [`claude.ai/admin-settings/groups`](https://claude.ai/admin-settings/groups), and the same group can manage several channels.
-  </Step>
+Go to [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and open the channel's page. The channel must be a public or private channel. If it isn't listed, [add Claude to the channel](/docs/claude-tag/users/getting-started#add-claude-to-a-channel) in Slack first.
 
-  <Step title="Check each manager's access level">
-    When you add a member on the User or Claude Code user level, you move them to the **Custom roles** level in the same step; if they already hold other custom roles, you confirm the move first. For a member on any other level, you see **Not in effect** until you change their level on the Members page. Adding a group changes nobody's level.
+**2. Add people or a group**
 
-    If you're a Claude Tag admin, the move also needs **User Management** set to **Can manage** on your role. Without it, the member is still added but shows **Not in effect** until their access level is changed on the Members page.
+In the page's header, select **Add managers**. Search for people and groups, and select each one to add. People you add join the channel's default group. A group you pick comes from [`claude.ai/admin-settings/groups`](https://claude.ai/admin-settings/groups), and the same group can manage several channels.
 
-    If your identity provider manages access levels, you can't change a level on the Members page, and the move doesn't happen. Put the channel managers in an identity provider group and map that group to the **Custom roles** level instead. If you turn on identity provider management after adding channel managers, the next sync sets every member's level from your group mappings, so managers you moved by hand show **Not in effect** until a mapped group covers them. The role and its group are kept; you don't need to add the managers again.
-  </Step>
-</Steps>
+**3. Check each manager's access level**
+
+When you add a member on the User or Claude Code user level, you move them to the **Custom roles** level in the same step; if they already hold other custom roles, you confirm the move first. For a member on any other level, you see **Not in effect** until you change their level on the Members page. Adding a group changes nobody's level.
+
+If you're a Claude Tag admin, the move also needs **User Management** set to **Can manage** on your role. Without it, the member is still added but shows **Not in effect** until their access level is changed on the Members page.
+
+If your identity provider manages access levels, you can't change a level on the Members page, and the move doesn't happen. Put the channel managers in an identity provider group and map that group to the **Custom roles** level instead. If you turn on identity provider management after adding channel managers, the next sync sets every member's level from your group mappings, so managers you moved by hand show **Not in effect** until a mapped group covers them. The role and its group are kept; you don't need to add the managers again.
 
 Owners can already configure every channel, so you see them as **Already has full access** and can't add them.
 

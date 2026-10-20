@@ -4,8 +4,6 @@
 
 # Resources
 
-<div id="enable-section-numbers" />
-
 The Model Context Protocol (MCP) provides a standardized way for servers to expose
 resources to clients. Resources allow servers to share data that provides context to
 language models, such as files, database schemas, or application-specific information.
@@ -23,7 +21,7 @@ For example, applications could:
 * Allow the user to search through and filter available resources
 * Implement automatic context inclusion, based on heuristics or the AI model's selection
 
-<img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/specification/2025-06-18/server/resource-picker.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=133fa885ef6e9c2e20049da5c33f4386" alt="Example of resource context picker" width="174" height="181" data-path="specification/2025-06-18/server/resource-picker.png" />
+![Example of resource context picker](https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/specification/2025-06-18/server/resource-picker.png?fit=max\&auto=format\&n=4ZXF1PrDkEaJvXpn\&q=85\&s=133fa885ef6e9c2e20049da5c33f4386)
 
 However, implementations are free to expose resources through any interface pattern that
 suits their needs—the protocol itself does not mandate any specific user

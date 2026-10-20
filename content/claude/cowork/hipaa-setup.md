@@ -8,15 +8,15 @@
 
 The HIPAA configuration is an organization setting on Claude Enterprise plans, for organizations that handle protected health information (PHI) and have a [Business Associate Agreement (BAA)](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers) with Anthropic. It applies to Claude Code (local mode) and Cowork (local mode), and it restricts features in both products.
 
-<Note>
-  "(local mode)" means a local session, not a session that runs in the cloud. Local sessions run in one of these places:
-
-  * Claude Code in the terminal
-  * Claude Code in the Code tab of Claude Desktop
-  * Cowork in Claude Desktop
-
-  The Claude Code extensions for VS Code and JetBrains aren't part of (local mode). They keep working with the HIPAA configuration applied, but your BAA doesn't cover them. See the [Implementation Guide](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6\&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide) for the full list of Eligible Services.
-</Note>
+> [!NOTE]
+>
+> "(local mode)" means a local session, not a session that runs in the cloud. Local sessions run in one of these places:
+>
+> * Claude Code in the terminal
+> * Claude Code in the Code tab of Claude Desktop
+> * Cowork in Claude Desktop
+>
+> The Claude Code extensions for VS Code and JetBrains aren't part of (local mode). They keep working with the HIPAA configuration applied, but your BAA doesn't cover them. See the [Implementation Guide](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6\&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide) for the full list of Eligible Services.
 
 This page is for the IT or security administrator who manages the macOS and Windows computers where members run [Cowork](/docs/cowork/overview) in Claude Desktop. Other readers start on a different page:
 
@@ -72,42 +72,40 @@ The policy in this section is a sample that we recommend as a starting point. Yo
 
 The following sample sets four keys that you could add to the Claude Desktop policy your organization deploys. If your organization doesn't deploy one yet, [Enterprise configuration](https://support.claude.com/en/articles/12622667-enterprise-configuration) explains how to deliver a policy with your device management tool.
 
-<Tabs>
-  <Tab title="macOS">
-    Add these keys to a configuration profile for the `com.anthropic.claudefordesktop` preference domain:
+**macOS**
 
-    ```xml theme={null}
-    <key>forceLoginOrgUUID</key>
-    <string>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
-    <key>isLocalDevMcpEnabled</key>
-    <string>false</string>
-    <key>isDesktopExtensionEnabled</key>
-    <string>false</string>
-    <key>otlpContentCapture</key>
-    <string>[]</string>
-    ```
-  </Tab>
+Add these keys to a configuration profile for the `com.anthropic.claudefordesktop` preference domain:
 
-  <Tab title="Windows">
-    Write these values under `HKLM\SOFTWARE\Policies\Claude`:
+```xml theme={null}
+<key>forceLoginOrgUUID</key>
+<string>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</string>
+<key>isLocalDevMcpEnabled</key>
+<string>false</string>
+<key>isDesktopExtensionEnabled</key>
+<string>false</string>
+<key>otlpContentCapture</key>
+<string>[]</string>
+```
 
-    ```reg theme={null}
-    Windows Registry Editor Version 5.00
+**Windows**
 
-    [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Claude]
-    "forceLoginOrgUUID"="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-    "isLocalDevMcpEnabled"="false"
-    "isDesktopExtensionEnabled"="false"
-    "otlpContentCapture"="[]"
-    ```
-  </Tab>
-</Tabs>
+Write these values under `HKLM\SOFTWARE\Policies\Claude`:
+
+```reg theme={null}
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Claude]
+"forceLoginOrgUUID"="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+"isLocalDevMcpEnabled"="false"
+"isDesktopExtensionEnabled"="false"
+"otlpContentCapture"="[]"
+```
 
 The sample writes every value as a string, including `false` and `[]`. [Value types](/docs/third-party/claude-desktop/configuration#value-types) lists the other encodings Claude Desktop accepts.
 
-<Note>
-  The Claude Desktop policy is separate from Claude Code's managed settings, which [also apply to Cowork](#check-which-claude-code-managed-settings-apply-in-cowork).
-</Note>
+> [!NOTE]
+>
+> The Claude Desktop policy is separate from Claude Code's managed settings, which [also apply to Cowork](#check-which-claude-code-managed-settings-apply-in-cowork).
 
 #### What each Claude Desktop key does
 
@@ -122,12 +120,12 @@ The table shows what to set each key to and what Claude Desktop enforces for it.
 
 Cowork monitoring sends events to the OpenTelemetry collector that your organization sets up. When `otlpContentCapture` isn't set, those events can include prompt text, model responses, and tool inputs.
 
-<Warning>
-  Check these values before you deploy:
-
-  * **`otlpContentCapture`**: write the two characters `[]`. Claude Desktop reads an empty string as if the key weren't set, and Cowork monitoring events can then include prompt text, model responses, and tool inputs.
-  * **`forceLoginOrgUUID`**: if you deploy a value that Claude Desktop can't read as an organization ID, nobody can use the app on that computer. Members see "Sign-in is blocked by this device’s configuration".
-</Warning>
+> [!WARNING]
+>
+> Check these values before you deploy:
+>
+> * **`otlpContentCapture`**: write the two characters `[]`. Claude Desktop reads an empty string as if the key weren't set, and Cowork monitoring events can then include prompt text, model responses, and tool inputs.
+> * **`forceLoginOrgUUID`**: if you deploy a value that Claude Desktop can't read as an organization ID, nobody can use the app on that computer. Members see "Sign-in is blocked by this device’s configuration".
 
 #### Confirm the Claude Desktop policy loaded
 
@@ -194,52 +192,48 @@ Web search in Cowork follows your organization's web search setting. Applying th
 
 The `disabledBuiltinTools` key takes a list of tool names, written as a string:
 
-<Tabs>
-  <Tab title="macOS">
-    Add the key to the profile for the `com.anthropic.claudefordesktop` preference domain:
+**macOS**
 
-    ```xml theme={null}
-    <key>disabledBuiltinTools</key>
-    <string>["WebSearch"]</string>
-    ```
-  </Tab>
+Add the key to the profile for the `com.anthropic.claudefordesktop` preference domain:
 
-  <Tab title="Windows">
-    Add the value under `HKLM\SOFTWARE\Policies\Claude`:
+```xml theme={null}
+<key>disabledBuiltinTools</key>
+<string>["WebSearch"]</string>
+```
 
-    ```reg theme={null}
-    "disabledBuiltinTools"="[\"WebSearch\"]"
-    ```
-  </Tab>
-</Tabs>
+**Windows**
+
+Add the value under `HKLM\SOFTWARE\Policies\Claude`:
+
+```reg theme={null}
+"disabledBuiltinTools"="[\"WebSearch\"]"
+```
 
 After a member restarts Claude Desktop, Claude can't search the web in Cowork tasks or Code tab sessions on that computer.
 
-<Warning>
-  If you deploy a `disabledBuiltinTools` value that Claude Desktop can't read as a list, Claude Desktop turns off every built-in tool.
-</Warning>
+> [!WARNING]
+>
+> If you deploy a `disabledBuiltinTools` value that Claude Desktop can't read as a list, Claude Desktop turns off every built-in tool.
 
 ## Confirm the HIPAA configuration in Claude Desktop
 
 Run this check on one managed computer after the Primary Owner applies the HIPAA configuration.
 
-<Steps>
-  <Step title="Ask an Owner to turn Cowork back on">
-    Applying the HIPAA configuration turns Cowork off for your organization. Ask an Owner to go to [**Organization settings > Cowork**](https://claude.ai/admin-settings/cowork) and turn on the **Enable for your organization** toggle.
-  </Step>
+**1. Ask an Owner to turn Cowork back on**
 
-  <Step title="Restart Claude Desktop">
-    Quit Claude Desktop and open it again.
-  </Step>
+Applying the HIPAA configuration turns Cowork off for your organization. Ask an Owner to go to [**Organization settings > Cowork**](https://claude.ai/admin-settings/cowork) and turn on the **Enable for your organization** toggle.
 
-  <Step title="Check the title bar">
-    Confirm that the title bar shows a **HIPAA configured** label. On a Mac, open the sidebar to see it.
-  </Step>
+**2. Restart Claude Desktop**
 
-  <Step title="Check your monitoring events">
-    If your organization uses [Cowork monitoring](/docs/cowork/monitoring), run a Cowork task. Confirm that the events your collector receives contain no prompt text, model responses, or tool inputs.
-  </Step>
-</Steps>
+Quit Claude Desktop and open it again.
+
+**3. Check the title bar**
+
+Confirm that the title bar shows a **HIPAA configured** label. On a Mac, open the sidebar to see it.
+
+**4. Check your monitoring events**
+
+If your organization uses [Cowork monitoring](/docs/cowork/monitoring), run a Cowork task. Confirm that the events your collector receives contain no prompt text, model responses, or tool inputs.
 
 The [HIPAA feature availability table](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers) lists which Cowork features are off with the HIPAA configuration applied, and which ones an Owner can turn back on.
 

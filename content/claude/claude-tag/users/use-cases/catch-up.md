@@ -6,9 +6,9 @@
 
 > Claude Tag summarizes Slack threads and channels on demand. See one-off recaps, a scheduled morning rollup of open threads, and what's waiting on you.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How catch-up prompts work
 
@@ -50,12 +50,10 @@ If the first stretch of every morning goes to re-reading channels, schedule the 
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Turn threads into docs and tickets" href="/docs/claude-tag/users/use-cases/create-artifacts" horizontal arrow>
-    When the catch-up should become an artifact
-  </Card>
+> **[Turn threads into docs and tickets](/docs/claude-tag/users/use-cases/create-artifacts)**
+>
+> When the catch-up should become an artifact
 
-  <Card title="Set up routines" href="/docs/claude-tag/users/proactivity" horizontal arrow>
-    Scheduling and triggers
-  </Card>
-</CardGroup>
+> **[Set up routines](/docs/claude-tag/users/proactivity)**
+>
+> Scheduling and triggers

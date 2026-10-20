@@ -51,12 +51,12 @@ sequenceDiagram
 
 ## Streamable HTTP
 
-<Info>
-  This replaces the [HTTP+SSE
-  transport](/specification/2024-11-05/basic/transports#http-with-sse) from
-  protocol version 2024-11-05. See the [backwards compatibility](#backwards-compatibility)
-  guide below.
-</Info>
+> [!NOTE]
+>
+> This replaces the [HTTP+SSE
+> transport](/specification/2024-11-05/basic/transports#http-with-sse) from
+> protocol version 2024-11-05. See the [backwards compatibility](#backwards-compatibility)
+> guide below.
 
 In the **Streamable HTTP** transport, the server operates as an independent process that
 can handle multiple client connections. This transport uses HTTP POST and GET requests.

@@ -30,11 +30,11 @@ What the token does and does not protect:
 
 The backend binds `127.0.0.1` by default. Binding every interface (`0.0.0.0`, `::` and equivalent spellings) is refused unless you set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Binding one specific address is allowed without that opt-in, because it is one deliberate exposure rather than all of them at once. See [Hosting on a network](/docs/2026-07-28/tools/inspector/recipes#hosting-on-a-network).
 
-<Warning>
-  Never combine `DANGEROUSLY_OMIT_AUTH` with a non-loopback bind. If you need
-  the Inspector reachable by others, put a real access-control boundary in front
-  of it: an authenticating reverse proxy, an SSH tunnel, or a private network.
-</Warning>
+> [!WARNING]
+>
+> Never combine `DANGEROUSLY_OMIT_AUTH` with a non-loopback bind. If you need
+> the Inspector reachable by others, put a real access-control boundary in front
+> of it: an authenticating reverse proxy, an SSH tunnel, or a private network.
 
 ## Docker
 
@@ -72,11 +72,11 @@ How the store is selected, and how to change it, is under [Where secrets are sto
 
 ### The automatic plaintext fallback
 
-<Warning>
-  On a host where the OS keychain cannot be reached (Linux without libsecret or a running Secret Service, a headless server or SSH session with no D-Bus session, Android/Termux), the Inspector **automatically** stores secrets in `~/.mcp-inspector/secrets.json`. You do not have to ask for it, and unless you supply a key that file is **unencrypted**.
-
-  The only signs are a warning on stderr when the store is selected and a footer in the web client's settings dialogs.
-</Warning>
+> [!WARNING]
+>
+> On a host where the OS keychain cannot be reached (Linux without libsecret or a running Secret Service, a headless server or SSH session with no D-Bus session, Android/Termux), the Inspector **automatically** stores secrets in `~/.mcp-inspector/secrets.json`. You do not have to ask for it, and unless you supply a key that file is **unencrypted**.
+>
+> The only signs are a warning on stderr when the store is selected and a footer in the web client's settings dialogs.
 
 Treat that as a risk, not just a configuration fact. The file is written with mode `0600`, which keeps out other non-root users and nothing else. To close it, do one of the following:
 
@@ -149,12 +149,12 @@ Every request must carry a bearer token. There is no unauthenticated request pat
 
 Tokens are compared in constant time. A request line larger than 1 MiB is rejected. A command presenting the wrong token to a live daemon fails loudly. It never replaces that daemon.
 
-<Note>
-  Private mode separates connections and daemon state between shells. It is
-  **not** a security boundary against other processes running as your user:
-  anything with your UID that learns the daemon directory can read its token.
-  For a hard boundary, use a separate user account or a container.
-</Note>
+> [!NOTE]
+>
+> Private mode separates connections and daemon state between shells. It is
+> **not** a security boundary against other processes running as your user:
+> anything with your UID that learns the daemon directory can read its token.
+> For a hard boundary, use a separate user account or a container.
 
 ### What it holds in memory
 

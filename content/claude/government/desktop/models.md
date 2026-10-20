@@ -16,9 +16,9 @@ A model that needs a newer version of Claude Desktop does not appear in the pick
 
 The context window is how much of a conversation Claude can keep in view at once, measured in tokens (a token is a short piece of text, roughly a word or part of one). Some models offer a window of about one million tokens (1M). Such a model appears once in the picker, and new conversations, tasks, and Code sessions on it use the 1M window.
 
-<Note>
-  Before Claude Desktop 2.31226.0, such a model appears twice. To be sure of the larger window, check that the entry marked **1M context window**, or **1M** in Code, is selected when you start new work.
-</Note>
+> [!NOTE]
+>
+> Before Claude Desktop 2.31226.0, such a model appears twice. To be sure of the larger window, check that the entry marked **1M context window**, or **1M** in Code, is selected when you start new work.
 
 When a long conversation or task gets close to filling the context window, Claude summarizes the earlier part to make room and carries on from the summary, which the app calls compacting. With a 1M window this happens much later than with a window of about 200,000 tokens (200K), so long pieces of work keep their full detail for longer. Past the point where a 200K window would compact, each further message carries the whole conversation rather than a summary, so it uses more of your [allowance](/docs/government/account/usage) and responses can take longer to start.
 

@@ -8,9 +8,9 @@
 
 In Claude Science, an artifact is a file Claude saves into the project: a figure, processed dataset, report, notebook, or other output. Artifacts are stored on your computer in the app's data folder and persist until you delete them. Other files Claude writes during a session are temporary and are cleared a few hours after the session ends; ask Claude to save a scratch file if you want to keep it.
 
-<Note>
-  If you use artifacts in a claude.ai chat rather than the Claude Science app, see [What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them) in the help center instead.
-</Note>
+> [!NOTE]
+>
+> If you use artifacts in a claude.ai chat rather than the Claude Science app, see [What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them) in the help center instead.
 
 ## Working with artifacts
 

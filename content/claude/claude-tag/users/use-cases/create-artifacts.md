@@ -6,9 +6,9 @@
 
 > Claude Tag turns a Slack discussion into the artifact you name. See replies you can send, decision docs, status memos, filed tickets, hosted web pages, page comments that reach Claude, and a capture-channel pattern.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 ## How artifact prompts work
 
@@ -77,12 +77,10 @@ Planning inputs arrive over a month, not in one sitting. Forward messages and id
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Catch up" href="/docs/claude-tag/users/use-cases/catch-up" horizontal arrow>
-    When you need the summary, not the artifact
-  </Card>
+> **[Catch up](/docs/claude-tag/users/use-cases/catch-up)**
+>
+> When you need the summary, not the artifact
 
-  <Card title="Good habits" href="/docs/claude-tag/users/good-habits" horizontal arrow>
-    How to specify outputs that come back right
-  </Card>
-</CardGroup>
+> **[Good habits](/docs/claude-tag/users/good-habits)**
+>
+> How to specify outputs that come back right

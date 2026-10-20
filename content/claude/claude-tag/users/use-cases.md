@@ -6,13 +6,15 @@
 
 > Shapes of work teams hand Claude Tag in Slack, each with prompts to paste. See triage, catch-up, docs and tickets, project tracking, data, deals, monitoring, and bug fixes.
 
-export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
-
-<BetaNote />
+> [!NOTE]
+>
+> Claude Tag is in public beta. Features and behavior described here may change before general availability.
 
 Each use case below links to a page with prompts to paste, what it needs connected, and how to set it up to [run on a schedule or watch the channel](/docs/claude-tag/users/proactivity) instead of asking each time.
 
-<Note>If typing `@Claude` doesn't show **Claude** with an **APP** badge, the Claude app isn't installed in your Slack workspace; ask your Slack admin to install it. If the mention sends but Claude doesn't reply, ask your Claude organization admin to enable Claude Tag for the channel and send them the [setup guide](/docs/claude-tag/admins/setup-overview).</Note>
+> [!NOTE]
+>
+> If typing `@Claude` doesn't show **Claude** with an **APP** badge, the Claude app isn't installed in your Slack workspace; ask your Slack admin to install it. If the mention sends but Claude doesn't reply, ask your Claude organization admin to enable Claude Tag for the channel and send them the [setup guide](/docs/claude-tag/admins/setup-overview).
 
 ## All use cases
 

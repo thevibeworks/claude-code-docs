@@ -12,12 +12,12 @@ This page is for developers who have built a plugin, or the MCP server behind on
 
 If you're ready to submit, open the [developer portal](https://claude.ai/directory/manage) or jump to [Start a submission in the developer portal](#start-a-submission-in-the-developer-portal).
 
-<Note>
-  * If you're still deciding what goes in your plugin, see [Decide what to include in your plugin](/docs/connectors/building/what-to-build)
-  * If you want to build a small example plugin and submit it, see [Build your first plugin](/docs/plugins/quickstart)
-  * If you want to share a plugin without a public listing, use [your own marketplace](https://code.claude.com/docs/en/plugins/publish) for Claude Code or [roll it out to your whole organization](/docs/plugins/org-rollout)
-  * If you came here from [Claude Marketplace](https://claude.com/marketplace), the website where you browse plugins, connectors, partner products, and service partners, you're in the right place: there's no separate Claude Marketplace submission, and you submit to the directory instead
-</Note>
+> [!NOTE]
+>
+> * If you're still deciding what goes in your plugin, see [Decide what to include in your plugin](/docs/connectors/building/what-to-build)
+> * If you want to build a small example plugin and submit it, see [Build your first plugin](/docs/plugins/quickstart)
+> * If you want to share a plugin without a public listing, use [your own marketplace](https://code.claude.com/docs/en/plugins/publish) for Claude Code or [roll it out to your whole organization](/docs/plugins/org-rollout)
+> * If you came here from [Claude Marketplace](https://claude.com/marketplace), the website where you browse plugins, connectors, partner products, and service partners, you're in the right place: there's no separate Claude Marketplace submission, and you submit to the directory instead
 
 ## Before you submit to the directory
 
@@ -40,22 +40,20 @@ You submit and maintain listings in the developer portal at [claude.ai/directory
 
 To start a submission:
 
-<Steps>
-  <Step title="Select Submit new">
-    In the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), select **Submit new**.
-  </Step>
+**1. Select Submit new**
 
-  <Step title="Choose the submission type">
-    Under **What would you like to submit?**, choose **Plugin bundle** or **MCP connector**.
-  </Step>
+In the developer portal at [claude.ai/directory/manage](https://claude.ai/directory/manage), select **Submit new**.
 
-  <Step title="Follow the checklist and submit pages">
-    Work through the checklist and submit pages for that kind:
+**2. Choose the submission type**
 
-    * [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist), then [Submit a plugin](/docs/plugins/submit): for a plugin bundle
-    * [Connector pre-submission checklist](/docs/connectors/building/review-criteria), then [Submit a connector](/docs/connectors/building/submission): for an MCP connector
-  </Step>
-</Steps>
+Under **What would you like to submit?**, choose **Plugin bundle** or **MCP connector**.
+
+**3. Follow the checklist and submit pages**
+
+Work through the checklist and submit pages for that kind:
+
+* [Plugin pre-submission checklist](/docs/plugins/pre-submission-checklist), then [Submit a plugin](/docs/plugins/submit): for a plugin bundle
+* [Connector pre-submission checklist](/docs/connectors/building/review-criteria), then [Submit a connector](/docs/connectors/building/submission): for an MCP connector
 
 ## Submit your plugin, and your MCP server as a connector
 

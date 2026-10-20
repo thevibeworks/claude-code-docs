@@ -10,11 +10,11 @@ An MCP server is a program that gives Claude tools it can call, and people who u
 
 This quickstart is for developers who haven't built an MCP server before and want to see every piece working before they add authentication, hosting, and real tools.
 
-<Note>
-  * If you already have a server and want to know what Claude's client supports, see [Build an MCP server for Claude](/docs/connectors/building/index)
-  * If your server is running and you want to try it in Claude, see [Test your connector](/docs/connectors/building/testing)
-  * If you want to package skills and an existing connector rather than write a server, see [Build your first plugin](/docs/plugins/quickstart)
-</Note>
+> [!NOTE]
+>
+> * If you already have a server and want to know what Claude's client supports, see [Build an MCP server for Claude](/docs/connectors/building/index)
+> * If your server is running and you want to try it in Claude, see [Test your connector](/docs/connectors/building/testing)
+> * If you want to package skills and an existing connector rather than write a server, see [Build your first plugin](/docs/plugins/quickstart)
 
 ## Before you begin
 
@@ -29,43 +29,41 @@ Check that you have each of these:
 
 The project is a folder with a `package.json` and two dependencies: the [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk), which also works from plain JavaScript, and `zod`, which the SDK uses to describe tool inputs.
 
-<Steps>
-  <Step title="Make a folder for the server">
-    In your terminal, create a folder named `mcp-quickstart` and move into it. Every later command on this page runs from this folder:
+**1. Make a folder for the server**
 
-    ```bash theme={null}
-    mkdir mcp-quickstart
-    cd mcp-quickstart
-    ```
-  </Step>
+In your terminal, create a folder named `mcp-quickstart` and move into it. Every later command on this page runs from this folder:
 
-  <Step title="Create package.json">
-    Create a default `package.json`, then set `"type": "module"` in it so Node.js treats the project's files as ES modules:
+```bash theme={null}
+mkdir mcp-quickstart
+cd mcp-quickstart
+```
 
-    ```bash theme={null}
-    npm init -y
-    npm pkg set type=module
-    ```
-  </Step>
+**2. Create package.json**
 
-  <Step title="Install the SDK">
-    Install the SDK and `zod`. You don't install a web framework separately, because the SDK depends on Express and gives you a ready-made app for it:
+Create a default `package.json`, then set `"type": "module"` in it so Node.js treats the project's files as ES modules:
 
-    ```bash theme={null}
-    npm install @modelcontextprotocol/sdk zod
-    ```
+```bash theme={null}
+npm init -y
+npm pkg set type=module
+```
 
-    To confirm what installed, run `npm ls --depth=0`. The output lists the two packages and their versions:
+**3. Install the SDK**
 
-    ```text theme={null}
-    mcp-quickstart@1.0.0 /path/to/mcp-quickstart
-    +-- @modelcontextprotocol/sdk@1.30.1
-    `-- zod@4.6.5
-    ```
+Install the SDK and `zod`. You don't install a web framework separately, because the SDK depends on Express and gives you a ready-made app for it:
 
-    This page was verified with those versions.
-  </Step>
-</Steps>
+```bash theme={null}
+npm install @modelcontextprotocol/sdk zod
+```
+
+To confirm what installed, run `npm ls --depth=0`. The output lists the two packages and their versions:
+
+```text theme={null}
+mcp-quickstart@1.0.0 /path/to/mcp-quickstart
++-- @modelcontextprotocol/sdk@1.30.1
+`-- zod@4.6.5
+```
+
+This page was verified with those versions.
 
 ## Write the server
 
@@ -135,135 +133,131 @@ Each part of the file has one job:
 
 Before you involve Claude, start the server and send it MCP requests yourself with `curl`, so you know it works on its own.
 
-<Steps>
-  <Step title="Start the server">
-    In your first terminal, from the `mcp-quickstart` folder, start the server:
+**1. Start the server**
 
-    ```bash theme={null}
-    node server.mjs
-    ```
+In your first terminal, from the `mcp-quickstart` folder, start the server:
 
-    It prints the address it's listening on and keeps running:
+```bash theme={null}
+node server.mjs
+```
 
-    ```text theme={null}
-    quickstart-server listening on http://localhost:3000/mcp
-    ```
+It prints the address it's listening on and keeps running:
 
-    Leave this terminal open. If you see `failed to listen on 3000` instead, another program is using the port. Stop that program and run the command again.
-  </Step>
+```text theme={null}
+quickstart-server listening on http://localhost:3000/mcp
+```
 
-  <Step title="List the server's tools">
-    In your second terminal, ask the server what tools it has. This is the same `tools/list` request Claude sends when it connects. The `Accept` header is required, and the server answers `406 Not Acceptable` without it:
+Leave this terminal open. If you see `failed to listen on 3000` instead, another program is using the port. Stop that program and run the command again.
 
-    ```bash theme={null}
-    curl -sS -X POST http://localhost:3000/mcp \
-      -H 'Content-Type: application/json' \
-      -H 'Accept: application/json, text/event-stream' \
-      -d '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}'
-    ```
+**2. List the server's tools**
 
-    The reply is one server-sent event whose `data` line lists `roll_dice` with the title, description, and input schema you wrote. The `inputSchema` object is shortened to `...` here:
+In your second terminal, ask the server what tools it has. This is the same `tools/list` request Claude sends when it connects. The `Accept` header is required, and the server answers `406 Not Acceptable` without it:
 
-    ```text theme={null}
-    event: message
-    data: {"result":{"tools":[{"name":"roll_dice","title":"Roll dice","description":"Roll `count` dice with `sides` sides each. Returns each roll and the total.","inputSchema":{...},"execution":{"taskSupport":"forbidden"}}]},"jsonrpc":"2.0","id":2}
-    ```
-  </Step>
+```bash theme={null}
+curl -sS -X POST http://localhost:3000/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}'
+```
 
-  <Step title="Call the tool">
-    Call `roll_dice` directly with three 20-sided dice, which is the `tools/call` request Claude sends when it uses the tool:
+The reply is one server-sent event whose `data` line lists `roll_dice` with the title, description, and input schema you wrote. The `inputSchema` object is shortened to `...` here:
 
-    ```bash theme={null}
-    curl -sS -X POST http://localhost:3000/mcp \
-      -H 'Content-Type: application/json' \
-      -H 'Accept: application/json, text/event-stream' \
-      -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"roll_dice","arguments":{"sides":20,"count":3}}}'
-    ```
+```text theme={null}
+event: message
+data: {"result":{"tools":[{"name":"roll_dice","title":"Roll dice","description":"Roll `count` dice with `sides` sides each. Returns each roll and the total.","inputSchema":{...},"execution":{"taskSupport":"forbidden"}}]},"jsonrpc":"2.0","id":2}
+```
 
-    The `data` line carries the text your handler returned, with your own random rolls:
+**3. Call the tool**
 
-    ```text theme={null}
-    event: message
-    data: {"result":{"content":[{"type":"text","text":"Rolled 3d20: [16, 10, 20] total=46"}]},"jsonrpc":"2.0","id":3}
-    ```
-  </Step>
-</Steps>
+Call `roll_dice` directly with three 20-sided dice, which is the `tools/call` request Claude sends when it uses the tool:
+
+```bash theme={null}
+curl -sS -X POST http://localhost:3000/mcp \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"roll_dice","arguments":{"sides":20,"count":3}}}'
+```
+
+The `data` line carries the text your handler returned, with your own random rolls:
+
+```text theme={null}
+event: message
+data: {"result":{"content":[{"type":"text","text":"Rolled 3d20: [16, 10, 20] total=46"}]},"jsonrpc":"2.0","id":3}
+```
 
 ## Connect the server to Claude Code
 
 With the server answering on its own, register it with Claude Code and have Claude call the tool from a prompt. Run these commands in your second terminal from the `mcp-quickstart` folder, because `claude mcp add` saves the server for the current project folder by default, and Claude Code only sees it when you run from that same folder.
 
-<Steps>
-  <Step title="Add the server to Claude Code">
-    Register the server under the name `quickstart`, with the HTTP transport and the local URL:
+**1. Add the server to Claude Code**
 
-    ```bash theme={null}
-    claude mcp add --transport http quickstart http://localhost:3000/mcp
-    ```
+Register the server under the name `quickstart`, with the HTTP transport and the local URL:
 
-    Claude Code confirms where it saved the entry:
+```bash theme={null}
+claude mcp add --transport http quickstart http://localhost:3000/mcp
+```
 
-    ```text theme={null}
-    Added HTTP MCP server quickstart with URL: http://localhost:3000/mcp to local config
-    ```
-  </Step>
+Claude Code confirms where it saved the entry:
 
-  <Step title="Check the connection">
-    List your servers. Claude Code connects to each one to check its health:
+```text theme={null}
+Added HTTP MCP server quickstart with URL: http://localhost:3000/mcp to local config
+```
 
-    ```bash theme={null}
-    claude mcp list
-    ```
+**2. Check the connection**
 
-    A working server shows as connected:
+List your servers. Claude Code connects to each one to check its health:
 
-    ```text theme={null}
-    Checking MCP server health…
+```bash theme={null}
+claude mcp list
+```
 
-    quickstart: http://localhost:3000/mcp (HTTP) - ✔ Connected
-    ```
+A working server shows as connected:
 
-    If it shows an error instead, check that `node server.mjs` is still running in the first terminal.
-  </Step>
+```text theme={null}
+Checking MCP server health…
 
-  <Step title="Ask Claude to roll dice">
-    Send Claude one prompt with [`claude -p`](https://code.claude.com/docs/en/headless), which runs a single prompt without opening an interactive session and prints the answer. Claude Code names MCP tools `mcp__<server>__<tool>`, so your tool is `mcp__quickstart__roll_dice`, and `--allowedTools` lets Claude call it without stopping to ask you:
+quickstart: http://localhost:3000/mcp (HTTP) - ✔ Connected
+```
 
-    ```bash theme={null}
-    claude -p "Roll three 20-sided dice using the quickstart server and tell me each roll and the total." \
-      --allowedTools "mcp__quickstart__roll_dice"
-    ```
+If it shows an error instead, check that `node server.mjs` is still running in the first terminal.
 
-    Claude calls your server and reports the rolls it got back:
+**3. Ask Claude to roll dice**
 
-    ```text theme={null}
-    Rolled 3d20 via the quickstart server:
+Send Claude one prompt with [`claude -p`](https://code.claude.com/docs/en/headless), which runs a single prompt without opening an interactive session and prints the answer. Claude Code names MCP tools `mcp__<server>__<tool>`, so your tool is `mcp__quickstart__roll_dice`, and `--allowedTools` lets Claude call it without stopping to ask you:
 
-    - Roll 1: **12**
-    - Roll 2: **4**
-    - Roll 3: **5**
+```bash theme={null}
+claude -p "Roll three 20-sided dice using the quickstart server and tell me each roll and the total." \
+  --allowedTools "mcp__quickstart__roll_dice"
+```
 
-    **Total: 21**
-    ```
-  </Step>
+Claude calls your server and reports the rolls it got back:
 
-  <Step title="Confirm the tool ran">
-    To see the tool call itself rather than Claude's summary of it, run the same prompt with streaming JSON output. `--output-format stream-json` needs `--verbose` alongside it:
+```text theme={null}
+Rolled 3d20 via the quickstart server:
 
-    ```bash theme={null}
-    claude -p "Roll three 20-sided dice using the quickstart server and tell me each roll and the total." \
-      --allowedTools "mcp__quickstart__roll_dice" \
-      --output-format stream-json --verbose
-    ```
+- Roll 1: **12**
+- Roll 2: **4**
+- Roll 3: **5**
 
-    The output is one JSON object per line, and other tool calls can appear before yours. Look for the `tool_use` block whose `name` is `mcp__quickstart__roll_dice`, carrying the arguments Claude chose, and the `tool_result` block after it carrying your server's text, shown here with the surrounding fields removed:
+**Total: 21**
+```
 
-    ```text theme={null}
-    {"type":"tool_use","name":"mcp__quickstart__roll_dice","input":{"count":3,"sides":20}, ...}
-    {"type":"tool_result","content":[{"type":"text","text":"Rolled 3d20: [9, 14, 5] total=28"}], ...}
-    ```
-  </Step>
-</Steps>
+**4. Confirm the tool ran**
+
+To see the tool call itself rather than Claude's summary of it, run the same prompt with streaming JSON output. `--output-format stream-json` needs `--verbose` alongside it:
+
+```bash theme={null}
+claude -p "Roll three 20-sided dice using the quickstart server and tell me each roll and the total." \
+  --allowedTools "mcp__quickstart__roll_dice" \
+  --output-format stream-json --verbose
+```
+
+The output is one JSON object per line, and other tool calls can appear before yours. Look for the `tool_use` block whose `name` is `mcp__quickstart__roll_dice`, carrying the arguments Claude chose, and the `tool_result` block after it carrying your server's text, shown here with the surrounding fields removed:
+
+```text theme={null}
+{"type":"tool_use","name":"mcp__quickstart__roll_dice","input":{"count":3,"sides":20}, ...}
+{"type":"tool_result","content":[{"type":"text","text":"Rolled 3d20: [9, 14, 5] total=28"}], ...}
+```
 
 In an interactive `claude` session you can ask the same thing in your own words. Without `--allowedTools`, Claude Code asks for your permission before it calls `roll_dice`.
 

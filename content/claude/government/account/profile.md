@@ -32,15 +32,15 @@ None of these fields can be edited on this page. Where to go instead depends on 
 * **Role.** An organization owner can promote or demote users between **User** and **Owner** in the administrative area. Ask your organization's owner if your role needs to change.
 * **Seat tier.** An organization owner assigns and changes seat tiers from the administrative area. See the next section if yours is missing.
 
-<Tip>
-  If you are helping a colleague troubleshoot, ask them to read out this page. It tells you in one screen which organization they are in, what role they hold, and whether they have a seat, which is usually enough to diagnose a "Claude is not working for me" report.
-</Tip>
+> [!TIP]
+>
+> If you are helping a colleague troubleshoot, ask them to read out this page. It tells you in one screen which organization they are in, what role they hold, and whether they have a seat, which is usually enough to diagnose a "Claude is not working for me" report.
 
 ## If your seat tier says "No seat assigned"
 
-<Note>
-  This section only appears when you do not have a seat tier. If a tier name is shown in the Seat tier field, you can skip this section.
-</Note>
+> [!NOTE]
+>
+> This section only appears when you do not have a seat tier. If a tier name is shown in the Seat tier field, you can skip this section.
 
 Without a seat tier you can sign in and see the portal, but you cannot send any messages to Claude, and the [Usage](/docs/government/account/usage) tab will show "No seat tier assigned" instead of your allowance. This is the expected state for a brand-new account that has not yet been given a seat, or for an account whose seat was deliberately removed.
 

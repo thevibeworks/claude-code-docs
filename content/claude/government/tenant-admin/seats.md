@@ -20,9 +20,9 @@ Seat distribution is a two-step process. On this page you give each organization
 
 ## What the page shows
 
-<Note>
-  Billing account cards only appear once Anthropic has set up at least one billing account for your tenant. Until then, the page shows a message asking you to contact Anthropic.
-</Note>
+> [!NOTE]
+>
+> Billing account cards only appear once Anthropic has set up at least one billing account for your tenant. Until then, the page shows a message asking you to contact Anthropic.
 
 Each billing account appears as its own card, and each card contains the following:
 

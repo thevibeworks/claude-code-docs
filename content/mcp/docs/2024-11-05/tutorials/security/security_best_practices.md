@@ -427,10 +427,10 @@ ranges as recommended by
 * Link-local: `169.254.0.0/16` (including cloud metadata endpoints)
 * Private IPv6 ranges: `fc00::/7`, `fe80::/10`
 
-<Note>
-  Avoid implementing IP validation manually. Attackers exploit encoding tricks
-  (octal, hex, IPv4-mapped IPv6) that custom parsers often miss.
-</Note>
+> [!NOTE]
+>
+> Avoid implementing IP validation manually. Attackers exploit encoding tricks
+> (octal, hex, IPv4-mapped IPv6) that custom parsers often miss.
 
 **Validate Redirect Targets**
 

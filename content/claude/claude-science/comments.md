@@ -8,9 +8,9 @@
 
 In Claude Science, comments let you pin notes to specific parts of an artifact instead of describing a location in prose. Select text in a Markdown, plain-text, LaTeX, or code file; select text in a PDF; click a point on an image or figure; or turn on **Comment** and click an element in a rendered HTML report. You can also comment on session transcripts. You can't comment on tables or other artifact types.
 
-<Note>
-  This page covers comments on [artifacts in the Claude Science app](/docs/claude-science/artifacts). For artifacts in a claude.ai chat, see [What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them) in the help center.
-</Note>
+> [!NOTE]
+>
+> This page covers comments on [artifacts in the Claude Science app](/docs/claude-science/artifacts). For artifacts in a claude.ai chat, see [What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them) in the help center.
 
 ## Leaving a comment
 

@@ -36,9 +36,9 @@ When you sign in, Claude for Government can end another of your sessions. You ca
 
 ## Signing out of other sessions
 
-<Note>
-  These controls only appear when you have sessions besides the one you are using. If this is your only sign-in, the list shows just the current session and no sign-out buttons.
-</Note>
+> [!NOTE]
+>
+> These controls only appear when you have sessions besides the one you are using. If this is your only sign-in, the list shows just the current session and no sign-out buttons.
 
 * To end one session, select **Sign out** on its row.
 * To end everything except the one you are using, select **Sign out *N* other sessions** below the list.
@@ -51,9 +51,9 @@ The sign-out is recorded the moment you select the button. The other browser or 
 
 Signing out another session from this page does not touch your agency's single sign-on session, so if the person at that other computer tries to sign back in, the identity provider may still let them straight through without re-entering a password. If that is a concern (for example, you left a shared computer signed in), sign the session out here first, then contact your agency's identity team to end the single sign-on session, or change your directory password.
 
-<Tip>
-  Signing out here versus signing out from the footer behave differently at the identity provider. The footer **Sign out** ends both your Claude for Government session and your single sign-on session, so you will be asked for credentials the next time you visit. The per-row **Sign out** on this page ends only the Claude for Government session and leaves single sign-on alone.
-</Tip>
+> [!TIP]
+>
+> Signing out here versus signing out from the footer behave differently at the identity provider. The footer **Sign out** ends both your Claude for Government session and your single sign-on session, so you will be asked for credentials the next time you visit. The per-row **Sign out** on this page ends only the Claude for Government session and leaves single sign-on alone.
 
 ## If you see a session you don't recognize
 
