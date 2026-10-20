@@ -34,7 +34,7 @@ To start using Claude in Xcode:
 
 3. Log in with your Claude account.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1727371585/b18ca03a6357c52d12d10386f28e/dab2dcb2-f670-4173-b77d-38767a34cec1?expires=1792494000&amp;signature=258004c8871746c99aa52e8702c8ee4e452c2fb71c605a12757a6b9f82cbe800&amp;req=dSclEcp5nIRXXPMW1HO4zUAXIs4GW6zUFalhp3bugHJCyTUIivftES4Q2Trk%0A0t9HrjxsbPBzjE2LlYQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1727371585/b18ca03a6357c52d12d10386f28e/dab2dcb2-f670-4173-b77d-38767a34cec1?expires=1792511100&amp;signature=80809f4895f8a3f81999089188332a881a27399c2e4a632f54de1c4f8fcd0af0&amp;req=dSclEcp5nIRXXPMW1HO4zUAXIs4HU6nVFalhp3bugHJu2yd9vPbcm%2FmD%2BrZJ%0AUuRJVC4V7a2nZbT4xAg%3D%0A)
 
 ## Usage limits
 
