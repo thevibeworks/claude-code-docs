@@ -137,6 +137,8 @@ Long poll for work items in the queue.
 
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
+    - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
   - `AnthropicWorkerID param.Opt[string] Optional` (header parameter)
 
     Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

@@ -127,6 +127,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -152,6 +154,9 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Tunnels;
+
 TunnelRevealTokenParams parameters = new() { TunnelID = "tunnel_id" };
 
 var betaTunnelToken = await client.Beta.Tunnels.RevealToken(parameters);

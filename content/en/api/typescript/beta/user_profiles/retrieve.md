@@ -21,7 +21,7 @@ Get User Profile
 
   - `betas?: Array<AnthropicBeta>` (header parameter)
 
-    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
+    Optional header to specify the beta version(s) you want to use.
 
     - `(string & {})`
 
@@ -127,6 +127,8 @@ Get User Profile
 
     - `"telemetry-destinations-2026-08-11"`
 
+    - `"webhooks-2026-10-07"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -159,6 +161,10 @@ Get User Profile
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
+  - `name: string | null`
+
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
+
   - `trust_grants: Record<string, BetaUserProfileTrustGrant>`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
@@ -175,13 +181,13 @@ Get User Profile
 
   - `updated_at: string`
 
-    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
+    When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp.
 
     format: date-time
 
   - `access_type?: "application" | "passthrough"`
 
-    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
     - `"application"`
 
@@ -193,11 +199,11 @@ Get User Profile
 
   - `external_id?: string | null`
 
-    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+    Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
 
   - `external_user_details?: BetaUserProfileExternalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
 
     - `account_status: "active" | "suspended" | "blocked" | null`
 
@@ -251,13 +257,9 @@ Get User Profile
 
   - `external_user_onboarded_at?: string | null`
 
-    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 
     format: date-time
-
-  - `name?: string | null`
-
-    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ## Example
 
@@ -282,6 +284,7 @@ console.log(betaUserProfile.id);
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
+  "name": "Example User",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -293,14 +296,13 @@ console.log(betaUserProfile.id);
   "external_id": "user_12345",
   "external_user_details": {
     "account_status": "active",
-    "country": "country",
-    "email_hash": "email_hash",
-    "entity_type": "individual",
-    "name_hash": "name_hash",
-    "onboarded_at": "2019-12-27T18:11:19.117Z",
-    "reference_id": "reference_id"
+    "country": "US",
+    "email_hash": null,
+    "entity_type": "business",
+    "name_hash": null,
+    "onboarded_at": "2024-11-02T08:15:00Z",
+    "reference_id": "user_12345"
   },
-  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
-  "name": "Example User"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z"
 }
 ```

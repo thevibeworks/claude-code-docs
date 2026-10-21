@@ -19,7 +19,7 @@ Create Enrollment URL
 
 - `--beta: optional array of AnthropicBeta` (header parameter)
 
-  This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
+  Optional header to specify the beta version(s) you want to use.
 
 - `--workspace-id: optional string` (header parameter)
 
@@ -31,7 +31,7 @@ Create Enrollment URL
 
 - `beta_user_profile_enrollment_url: object`
 
-  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
+  A URL to give to the entity that a user profile represents, so that the entity can enroll in a program.
 
   - `type: "enrollment_url"`
 

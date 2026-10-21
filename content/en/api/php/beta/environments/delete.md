@@ -44,6 +44,9 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironmentDeleteResponse = $client->beta->environments->delete(

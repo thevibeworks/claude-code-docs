@@ -21,7 +21,7 @@ Create Enrollment URL
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -125,6 +125,8 @@ Create Enrollment URL
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -135,7 +137,7 @@ Create Enrollment URL
 
 - `class BetaUserProfileEnrollmentUrl`
 
-  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
+  A URL to give to the entity that a user profile represents, so that the entity can enroll in a program.
 
   - `required Type Type`
 
@@ -154,6 +156,9 @@ Create Enrollment URL
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.UserProfiles;
+
 UserProfileCreateEnrollmentUrlParams parameters = new()
 {
     UserProfileID = "uprof_011CZkZCu8hGbp5mYRQgUmz9"

@@ -78,6 +78,8 @@ If holding the pointer over the microphone button shows "No microphone was found
 
 ## Updates
 
+If Claude Science asks you to update, see [Update Claude Science](/docs/claude-science/update-claude-science).
+
 Claude Science shows updates and their errors in these places:
 
 * **In a browser tab and in the Windows app**: an "Update available" notice appears when an update is ready. If installing the update fails, that notice shows the error.

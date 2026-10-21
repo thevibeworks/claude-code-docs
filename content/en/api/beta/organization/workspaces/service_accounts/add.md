@@ -142,6 +142,8 @@ accounts cannot be added and are rejected.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Body parameters
 
 - `service_account_id: string`

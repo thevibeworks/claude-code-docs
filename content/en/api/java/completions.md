@@ -185,6 +185,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
   - `Optional<Double> temperature`
 
     **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.

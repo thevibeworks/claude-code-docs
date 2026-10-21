@@ -140,6 +140,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Messages.Batches;
+
 BatchListParams parameters = new();
 
 var page = await client.Messages.Batches.List(parameters);

@@ -1732,6 +1732,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Body parameters
 
 - `issuer_url: string`
@@ -2132,6 +2134,8 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaFederationIssuer`
@@ -2442,6 +2446,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -2756,6 +2762,8 @@ session.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -3149,6 +3157,8 @@ issuer cannot be changed), or recreate them against another issuer.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaFederationIssuer object`
@@ -3466,6 +3476,8 @@ manage rules whose `oauth_scope` is `workspace:developer` or
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -3892,6 +3904,8 @@ unless `include_archived=true`.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaFederationRule`
@@ -4202,6 +4216,8 @@ Retrieve a federation rule by its ID (`fdrl_...`).
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -4531,6 +4547,8 @@ Console session.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -4933,6 +4951,8 @@ other scopes require a Console session.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaFederationRule object`
@@ -5258,6 +5278,8 @@ other scopes require a Console session.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Body parameters
 
 - `workspace_id: string`
@@ -5467,6 +5489,8 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaFederationRuleWorkspace`
@@ -5665,6 +5689,8 @@ Console session.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -6337,6 +6363,8 @@ accounts.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Body parameters
 
 - `name: string`
@@ -6598,6 +6626,8 @@ archived service accounts.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaServiceAccount`
@@ -6820,6 +6850,8 @@ Retrieve a service account by its ID (`svac_...`).
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -7044,6 +7076,8 @@ interactive credential (a user OAuth token or a Console session).
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -7287,6 +7321,8 @@ those rules first or change their target to another service account.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaServiceAccount object`
@@ -7515,6 +7551,8 @@ rejected.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -7754,6 +7792,8 @@ page to recover.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaServiceAccountWorkspaceMember`
@@ -7963,6 +8003,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -8709,6 +8751,8 @@ Create Workspace
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -9686,6 +9730,278 @@ curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/rate_li
 }
 ```
 
+### Set Workspace Rate Limits
+
+**POST** `/v1/organizations/workspaces/{workspace_id}/rate_limits/{rate_limit_id}`
+
+Set or clear rate-limit overrides for one rate-limit group in a workspace.
+
+Only the limiter types named in `limits` change: an integer `value` sets
+that type's override and `null` clears it. Types not named keep their
+current value. A value above the organization's own limit is stored, but
+the organization limit still applies, so the lower of the two is
+enforced.
+
+Returns the targeted group's entry with this request applied, in the shape
+`GET /v1/organizations/workspaces/{workspace_id}/rate_limits` returns.
+Changes take effect within about an hour.
+
+#### Path parameters
+
+- `workspace_id: string`
+
+  The ID of the workspace.
+
+- `rate_limit_id: string`
+
+  The `id` of the organization's rate-limit entry to set overrides for.
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+#### Body parameters
+
+- `limits: array of BetaWorkspaceRateLimitUpdateValue`
+
+  Limits to set or clear. Unspecified limit types are unchanged.
+
+  minItems: 1, maxItems: 16
+
+  - `type: BetaWorkspaceRateLimitType`
+
+    Rate limiter type.
+
+    - `"fast_itpmca"`
+
+    - `"fast_otpm"`
+
+    - `"input_tokens_per_minute"`
+
+    - `"input_tokens_per_minute_cache_aware"`
+
+    - `"output_tokens_per_minute"`
+
+    - `"requests_per_minute"`
+
+    - `"tokens_per_day"`
+
+    - `"tokens_per_minute"`
+
+    - `"tool_uses_per_second"`
+
+  - `value: number or null`
+
+    New limit value. Set to null to clear the workspace override and fall back to the organization limit.
+
+    minimum: 0, maximum: 9007199254740991
+
+#### Returns
+
+- `BetaWorkspaceRateLimit object`
+
+  - `type: "workspace_rate_limit"`
+
+    Object type. Always `workspace_rate_limit` for workspace rate-limit entries.
+
+    default: workspace_rate_limit
+
+  - `group: BetaOrganizationRateLimitModelGroup or BetaOrganizationRateLimitBatchGroup or BetaOrganizationRateLimitTokenCountGroup or 3 more`
+
+    The rate-limit group this entry's limits apply to. Its `type` equals `group_type`.
+
+    - `BetaOrganizationRateLimitModelGroup object`
+
+      - `type: "model_group"`
+
+        Always `model_group`: a family of models.
+
+        default: model_group
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+      - `display_name: string`
+
+        Human-readable name of the model group (for example, `Claude Sonnet 4.x`). For display only; it may change.
+
+    - `BetaOrganizationRateLimitBatchGroup object`
+
+      - `type: "batch"`
+
+        Always `batch`: the Message Batches API.
+
+        default: batch
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitTokenCountGroup object`
+
+      - `type: "token_count"`
+
+        Always `token_count`: the Token Count API.
+
+        default: token_count
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitFilesGroup object`
+
+      - `type: "files"`
+
+        Always `files`: the Files API.
+
+        default: files
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitSkillsGroup object`
+
+      - `type: "skills"`
+
+        Always `skills`: the Skills API.
+
+        default: skills
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+    - `BetaOrganizationRateLimitWebSearchGroup object`
+
+      - `type: "web_search"`
+
+        Always `web_search`: the Messages API web search tool.
+
+        default: web_search
+
+      - `id: string`
+
+        Opaque identifier of the rate-limit group (for example, `rlg_01VPTCmyiu5ZLsWkcxYG2pY8`). It is the same in every organization and never changes, unlike the entry's own identifier, which differs per organization.
+
+  - `limits: array of BetaWorkspaceRateLimitValue`
+
+    The workspace's limiter values for this group. By default only the limiter types with a workspace-level override are listed. With `include_inherited` set to `true`, the limiter types the workspace inherits from the organization are listed too, each marked by `source`.
+
+    - `type: string`
+
+      The limiter type (for example, `requests_per_minute` or `input_tokens_per_minute`).
+
+    - `org_limit: number or null`
+
+      The organization-level value for the same limiter type, for reference. `null` when the organization has no limit configured for this limiter type.
+
+    - `source: BetaWorkspaceRateLimitWorkspaceSource or BetaWorkspaceRateLimitOrganizationSource`
+
+      Where `value` comes from. `organization` values are listed only when `include_inherited` is `true`, and then `value` equals `org_limit`.
+
+      - `BetaWorkspaceRateLimitWorkspaceSource object`
+
+        - `type: "workspace"`
+
+          Always `workspace`: a workspace-level override is stored.
+
+          default: workspace
+
+      - `BetaWorkspaceRateLimitOrganizationSource object`
+
+        - `type: "organization"`
+
+          Always `organization`: no workspace-level override is stored, so the organization's value applies.
+
+          default: organization
+
+    - `value: number`
+
+      The workspace's value for this limiter type: the workspace-level override when `source.type` is `workspace`, otherwise the organization's value.
+
+  - `models: array of string or null`
+
+    Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
+
+  - `rate_limit_id: string`
+
+    The `id` of the organization's RateLimit entry this entry applies to.
+
+  - `workspace_id: string`
+
+    ID of the Workspace this entry applies to.
+
+  - `group_type: "batch" or "files" or "model_group" or 3 more`
+
+    **Deprecated**: Use `group.type` instead. `group_type` is still returned and always equals `group.type`.
+
+    Deprecated: use `group.type` instead. The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`. Always equal to `group.type`.
+
+    - `"batch"`
+
+    - `"files"`
+
+    - `"model_group"`
+
+    - `"skills"`
+
+    - `"token_count"`
+
+    - `"web_search"`
+
+#### Example
+
+```bash
+curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/rate_limits/$RATE_LIMIT_ID \
+    -H 'Content-Type: application/json' \
+    -H 'anthropic-version: 2023-06-01' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    -d '{
+          "limits": [
+            {
+              "type": "fast_itpmca",
+              "value": 0
+            }
+          ]
+        }'
+```
+
+##### Response (200)
+
+```json
+{
+  "group": {
+    "id": "id",
+    "display_name": "display_name",
+    "type": "model_group"
+  },
+  "group_type": "batch",
+  "limits": [
+    {
+      "org_limit": 0,
+      "source": {
+        "type": "workspace"
+      },
+      "type": "type",
+      "value": 0
+    }
+  ],
+  "models": [
+    "string"
+  ],
+  "rate_limit_id": "rate_limit_id",
+  "type": "workspace_rate_limit",
+  "workspace_id": "workspace_id"
+}
+```
+
 ## Organization › Workspaces › Members
 
 ### List Workspace Members
@@ -10280,6 +10596,8 @@ omitted from the results.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaServiceAccountWorkspaceMember`
@@ -10486,6 +10804,8 @@ accounts cannot be added and are rejected.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -10710,6 +11030,8 @@ account returns 404.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaServiceAccountWorkspaceMember object`
@@ -10909,6 +11231,8 @@ rejected.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -11127,6 +11451,8 @@ membership. Archived workspaces return 400.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `type: "service_account_workspace_member_deleted"`
@@ -11232,7 +11558,7 @@ the remaining entries.
 
   - `id: string`
 
-    Identifier of this rate-limit entry. It is stable within the organization and differs between organizations; the group's own identifier is `group.id`.
+    Identifier of this rate-limit entry. It is stable within the organization and differs between organizations; the group's own identifier is `group.id`. Pass it as `rate_limit_id` to set a workspace's overrides for this group.
 
   - `group: BetaOrganizationRateLimitModelGroup or BetaOrganizationRateLimitBatchGroup or BetaOrganizationRateLimitTokenCountGroup or 3 more`
 
@@ -11790,6 +12116,8 @@ Get Messages Usage Report
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -12406,6 +12734,8 @@ Get Cost Report
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaCostReport object`
@@ -12714,6 +13044,8 @@ archived tunnels are excluded unless `include_archived` is set.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaOrganizationTunnel`
@@ -12920,6 +13252,8 @@ Retrieve a single tunnel in the caller's organization by ID.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaOrganizationTunnel object`
@@ -13121,6 +13455,8 @@ tunnel returns the existing record unchanged.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -13325,6 +13661,8 @@ access logs.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaOrganizationTunnelToken object`
@@ -13499,6 +13837,8 @@ restarted after rotation must use the new value. An optional
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -13685,6 +14025,8 @@ holds at most two non-archived certificates.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -13918,6 +14260,8 @@ Archived certificates are excluded unless `include_archived` is set.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaOrganizationTunnelCertificate`
@@ -14128,6 +14472,8 @@ Retrieve a single certificate registered on a tunnel by ID.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaOrganizationTunnelCertificate object`
@@ -14332,6 +14678,8 @@ certificate is added.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -18323,6 +18671,8 @@ Anthropic account team.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Body parameters
 
 - `amount: string or null`
@@ -18919,6 +19269,8 @@ organizations only, not for Claude Console organizations.
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -21969,6 +22321,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Body parameters (form-data)
 
 - `files: array of string`
@@ -22372,6 +22726,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaPlugin object`
@@ -22770,6 +23126,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -23220,6 +23578,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaPlugin`
@@ -23619,6 +23979,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaDeletedPlugin object`
@@ -23798,6 +24160,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters (form-data)
 
@@ -24144,6 +24508,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaPluginVersion`
@@ -24470,6 +24836,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -24805,6 +25173,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Example
 
 ```bash
@@ -24974,6 +25344,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -25223,6 +25595,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -25490,6 +25864,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaDeletedPluginInstallationSetting object`
@@ -25729,6 +26105,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -25986,6 +26364,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -26256,6 +26636,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaPluginMarketplace object`
@@ -26514,6 +26896,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -26796,6 +27180,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Body parameters
 
 - `repository_url: string`
@@ -27064,6 +27450,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Body parameters (form-data)
 
 - `archive: string`
@@ -27315,6 +27703,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -27789,6 +28179,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaTelemetryDestination`
@@ -28140,6 +28532,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaTelemetryDestination object`
@@ -28485,6 +28879,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Body parameters
 
@@ -28966,6 +29362,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaDeletedTelemetryDestination object`
@@ -29124,6 +29522,8 @@ Send one test span, named `anthropic.test`, to the destination with its register
   - `"spend-limit-reads-2026-09-26"`
 
   - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
 
 #### Returns
 
@@ -29320,6 +29720,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `data: array of BetaTelemetryDestinationWorkspace`
@@ -29509,6 +29911,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaTelemetryDestinationWorkspace object`
@@ -29692,6 +30096,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 #### Returns
 
 - `BetaDeletedTelemetryDestinationWorkspace object`
@@ -29725,5 +30131,1307 @@ curl https://api.anthropic.com/v1/organizations/telemetry_destinations/$DESTINAT
   "telemetry_destination_id": "telemetry_destination_id",
   "type": "telemetry_destination_workspace_deleted",
   "workspace_id": "workspace_id"
+}
+```
+
+## Organization › Webhooks
+
+### Create Organization Webhook Endpoint
+
+**POST** `/v1/organizations/webhooks`
+
+Create an organization webhook endpoint.
+
+An organization webhook endpoint belongs to the organization rather than to one of its workspaces. An organization can have at most 32 organization
+webhook endpoints, enabled or disabled.
+
+The response includes the endpoint's signing secret. No read returns it, so store
+it when you receive it.
+
+Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`. A request without it returns `404`, exactly as if this API did not exist. Anthropic turns organization webhook endpoints on for each organization; until yours is on, requests also return `404`. Organization webhook endpoints are in beta and are not available to organizations with HIPAA readiness enabled.
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"anthropic-beta": optional array of AnthropicBeta`
+
+  This endpoint is in beta: requests must send `webhooks-2026-10-07` in this header.
+
+  - `string`
+
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+#### Body parameters
+
+- `enabled_events: array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved"`
+
+  The event types to deliver to the endpoint. Must list at least one.
+
+  - `"user_profile.enforcement_action_opened"`
+
+  - `"user_profile.enforcement_action_resolved"`
+
+- `url: string`
+
+  The HTTPS URL that deliveries are sent to.
+
+  minLength: 1
+
+- `description: optional string`
+
+  Notes about the endpoint.
+
+- `name: optional string`
+
+  A short label for the endpoint.
+
+#### Returns
+
+- `BetaNewOrganizationWebhookEndpoint object`
+
+  A new organization webhook endpoint, with its signing secret.
+
+  - `id: string`
+
+    ID of the webhook endpoint.
+
+  - `created_at: string`
+
+    When the endpoint was created, in RFC 3339 format.
+
+    format: date-time
+
+  - `description: string`
+
+    Notes about the endpoint. An empty string when none were given.
+
+  - `disabled_reason: string`
+
+    Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
+
+  - `enabled_events: array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved"`
+
+    The event types delivered to the endpoint.
+
+    - `"user_profile.enforcement_action_opened"`
+
+    - `"user_profile.enforcement_action_resolved"`
+
+  - `name: string`
+
+    A short label for the endpoint. An empty string when none was given.
+
+  - `signing_secret: string`
+
+    The secret Anthropic signs deliveries to the endpoint with (prefix `whsec_`). No other response returns it, so store it now. To replace it, regenerate the signing secret.
+
+  - `state: BetaOrganizationWebhookEndpointState`
+
+    Whether deliveries are sent to the endpoint.
+
+    - `"disabled"`
+
+    - `"enabled"`
+
+  - `updated_at: string`
+
+    When the endpoint was last changed, in RFC 3339 format.
+
+    format: date-time
+
+  - `url: string`
+
+    The HTTPS URL that deliveries are sent to.
+
+#### Example
+
+```bash
+curl https://api.anthropic.com/v1/organizations/webhooks \
+    -H 'Content-Type: application/json' \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: webhooks-2026-10-07' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    -d '{
+          "enabled_events": [
+            "user_profile.enforcement_action_opened"
+          ],
+          "url": "x"
+        }'
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "description": "description",
+  "disabled_reason": "disabled_reason",
+  "enabled_events": [
+    "user_profile.enforcement_action_opened"
+  ],
+  "name": "name",
+  "signing_secret": "signing_secret",
+  "state": "disabled",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "url": "url"
+}
+```
+
+### List Organization Webhook Endpoints
+
+**GET** `/v1/organizations/webhooks`
+
+List the organization's webhook endpoints.
+
+An organization webhook endpoint belongs to the organization rather than to one of its workspaces. The list does not include webhook endpoints that
+belong to a workspace.
+
+Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`. A request without it returns `404`, exactly as if this API did not exist. Anthropic turns organization webhook endpoints on for each organization; until yours is on, requests also return `404`. Organization webhook endpoints are in beta and are not available to organizations with HIPAA readiness enabled.
+
+#### Query parameters
+
+- `after_id: optional string`
+
+  ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
+
+- `before_id: optional string`
+
+  ID of a webhook endpoint to use as a cursor. Returns the first `limit` endpoints that come before it in list order, not the `limit` endpoints just before it.
+
+- `limit: optional number`
+
+  Number of items to return per page, up to `100`. The default, `0`, means `20`.
+
+  default: 0, minimum: 0, maximum: 100
+
+- `order: optional "asc" or "desc"`
+
+  Sort order by `created_at`. Defaults to `desc`, newest first.
+
+  - `"asc"`
+
+  - `"desc"`
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"anthropic-beta": optional array of AnthropicBeta`
+
+  This endpoint is in beta: requests must send `webhooks-2026-10-07` in this header.
+
+  - `string`
+
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+#### Returns
+
+- `data: array of BetaOrganizationWebhookEndpoint`
+
+  The organization webhook endpoints on this page.
+
+  - `id: string`
+
+    ID of the webhook endpoint.
+
+  - `created_at: string`
+
+    When the endpoint was created, in RFC 3339 format.
+
+    format: date-time
+
+  - `description: string`
+
+    Notes about the endpoint. An empty string when none were given.
+
+  - `disabled_reason: string`
+
+    Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
+
+  - `enabled_events: array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved"`
+
+    The event types delivered to the endpoint.
+
+    - `"user_profile.enforcement_action_opened"`
+
+    - `"user_profile.enforcement_action_resolved"`
+
+  - `name: string`
+
+    A short label for the endpoint. An empty string when none was given.
+
+  - `state: BetaOrganizationWebhookEndpointState`
+
+    Whether deliveries are sent to the endpoint.
+
+    - `"disabled"`
+
+    - `"enabled"`
+
+  - `updated_at: string`
+
+    When the endpoint was last changed, in RFC 3339 format.
+
+    format: date-time
+
+  - `url: string`
+
+    The HTTPS URL that deliveries are sent to.
+
+- `has_more: boolean`
+
+  Whether more endpoints follow this page in list order. With `before_id`, only endpoints before the cursor count.
+
+- `first_id: optional string or null`
+
+  First ID in the `data` list.
+
+- `last_id: optional string or null`
+
+  Last ID in the `data` list. Can be used as the `after_id` for the next page.
+
+#### Example
+
+```bash
+curl https://api.anthropic.com/v1/organizations/webhooks \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: webhooks-2026-10-07' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "id",
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "description": "description",
+      "disabled_reason": "disabled_reason",
+      "enabled_events": [
+        "user_profile.enforcement_action_opened"
+      ],
+      "name": "name",
+      "state": "disabled",
+      "updated_at": "2019-12-27T18:11:19.117Z",
+      "url": "url"
+    }
+  ],
+  "has_more": true,
+  "first_id": "first_id",
+  "last_id": "last_id"
+}
+```
+
+### Get Organization Webhook Endpoint
+
+**GET** `/v1/organizations/webhooks/{webhook_endpoint_id}`
+
+Retrieve an organization webhook endpoint by ID.
+
+Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`. A request without it returns `404`, exactly as if this API did not exist. Anthropic turns organization webhook endpoints on for each organization; until yours is on, requests also return `404`. Organization webhook endpoints are in beta and are not available to organizations with HIPAA readiness enabled.
+
+#### Path parameters
+
+- `webhook_endpoint_id: string`
+
+  ID of the webhook endpoint.
+
+  maxLength: 2048
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"anthropic-beta": optional array of AnthropicBeta`
+
+  This endpoint is in beta: requests must send `webhooks-2026-10-07` in this header.
+
+  - `string`
+
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+#### Returns
+
+- `BetaOrganizationWebhookEndpoint object`
+
+  A webhook endpoint that belongs to the organization rather than to one of
+  its workspaces.
+
+  - `id: string`
+
+    ID of the webhook endpoint.
+
+  - `created_at: string`
+
+    When the endpoint was created, in RFC 3339 format.
+
+    format: date-time
+
+  - `description: string`
+
+    Notes about the endpoint. An empty string when none were given.
+
+  - `disabled_reason: string`
+
+    Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
+
+  - `enabled_events: array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved"`
+
+    The event types delivered to the endpoint.
+
+    - `"user_profile.enforcement_action_opened"`
+
+    - `"user_profile.enforcement_action_resolved"`
+
+  - `name: string`
+
+    A short label for the endpoint. An empty string when none was given.
+
+  - `state: BetaOrganizationWebhookEndpointState`
+
+    Whether deliveries are sent to the endpoint.
+
+    - `"disabled"`
+
+    - `"enabled"`
+
+  - `updated_at: string`
+
+    When the endpoint was last changed, in RFC 3339 format.
+
+    format: date-time
+
+  - `url: string`
+
+    The HTTPS URL that deliveries are sent to.
+
+#### Example
+
+```bash
+curl https://api.anthropic.com/v1/organizations/webhooks/$WEBHOOK_ENDPOINT_ID \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: webhooks-2026-10-07' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "description": "description",
+  "disabled_reason": "disabled_reason",
+  "enabled_events": [
+    "user_profile.enforcement_action_opened"
+  ],
+  "name": "name",
+  "state": "disabled",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "url": "url"
+}
+```
+
+### Update Organization Webhook Endpoint
+
+**POST** `/v1/organizations/webhooks/{webhook_endpoint_id}`
+
+Update an organization webhook endpoint. Only the fields you send are changed.
+
+Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`. A request without it returns `404`, exactly as if this API did not exist. Anthropic turns organization webhook endpoints on for each organization; until yours is on, requests also return `404`. Organization webhook endpoints are in beta and are not available to organizations with HIPAA readiness enabled.
+
+#### Path parameters
+
+- `webhook_endpoint_id: string`
+
+  ID of the webhook endpoint.
+
+  maxLength: 2048
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"anthropic-beta": optional array of AnthropicBeta`
+
+  This endpoint is in beta: requests must send `webhooks-2026-10-07` in this header.
+
+  - `string`
+
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+#### Body parameters
+
+- `description: optional string`
+
+  Notes about the endpoint.
+
+- `enabled_events: optional array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved"`
+
+  The event types to deliver to the endpoint. Replaces the whole set; an empty list leaves it unchanged.
+
+  - `"user_profile.enforcement_action_opened"`
+
+  - `"user_profile.enforcement_action_resolved"`
+
+- `name: optional string`
+
+  A short label for the endpoint.
+
+- `state: optional "disabled" or "enabled"`
+
+  `disabled` stops deliveries. `enabled` resumes them and clears `disabled_reason`. Events that happen while the endpoint is disabled are never delivered.
+
+  - `"disabled"`
+
+  - `"enabled"`
+
+- `url: optional string`
+
+  The HTTPS URL that deliveries are sent to.
+
+  minLength: 1
+
+#### Returns
+
+- `BetaOrganizationWebhookEndpoint object`
+
+  A webhook endpoint that belongs to the organization rather than to one of
+  its workspaces.
+
+  - `id: string`
+
+    ID of the webhook endpoint.
+
+  - `created_at: string`
+
+    When the endpoint was created, in RFC 3339 format.
+
+    format: date-time
+
+  - `description: string`
+
+    Notes about the endpoint. An empty string when none were given.
+
+  - `disabled_reason: string`
+
+    Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
+
+  - `enabled_events: array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved"`
+
+    The event types delivered to the endpoint.
+
+    - `"user_profile.enforcement_action_opened"`
+
+    - `"user_profile.enforcement_action_resolved"`
+
+  - `name: string`
+
+    A short label for the endpoint. An empty string when none was given.
+
+  - `state: BetaOrganizationWebhookEndpointState`
+
+    Whether deliveries are sent to the endpoint.
+
+    - `"disabled"`
+
+    - `"enabled"`
+
+  - `updated_at: string`
+
+    When the endpoint was last changed, in RFC 3339 format.
+
+    format: date-time
+
+  - `url: string`
+
+    The HTTPS URL that deliveries are sent to.
+
+#### Example
+
+```bash
+curl https://api.anthropic.com/v1/organizations/webhooks/$WEBHOOK_ENDPOINT_ID \
+    -H 'Content-Type: application/json' \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: webhooks-2026-10-07' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY" \
+    -d '{}'
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "description": "description",
+  "disabled_reason": "disabled_reason",
+  "enabled_events": [
+    "user_profile.enforcement_action_opened"
+  ],
+  "name": "name",
+  "state": "disabled",
+  "updated_at": "2019-12-27T18:11:19.117Z",
+  "url": "url"
+}
+```
+
+### Delete Organization Webhook Endpoint
+
+**DELETE** `/v1/organizations/webhooks/{webhook_endpoint_id}`
+
+Delete an organization webhook endpoint.
+
+Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`. A request without it returns `404`, exactly as if this API did not exist. Anthropic turns organization webhook endpoints on for each organization; until yours is on, requests also return `404`. Organization webhook endpoints are in beta and are not available to organizations with HIPAA readiness enabled.
+
+#### Path parameters
+
+- `webhook_endpoint_id: string`
+
+  ID of the webhook endpoint.
+
+  maxLength: 2048
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"anthropic-beta": optional array of AnthropicBeta`
+
+  This endpoint is in beta: requests must send `webhooks-2026-10-07` in this header.
+
+  - `string`
+
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+#### Returns
+
+- `BetaDeletedOrganizationWebhookEndpoint object`
+
+  A deleted organization webhook endpoint.
+
+  - `type: "webhook_endpoint_deleted"`
+
+    Always `webhook_endpoint_deleted`.
+
+    default: webhook_endpoint_deleted
+
+  - `id: string`
+
+    ID of the deleted webhook endpoint.
+
+#### Example
+
+```bash
+curl https://api.anthropic.com/v1/organizations/webhooks/$WEBHOOK_ENDPOINT_ID \
+    -X DELETE \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: webhooks-2026-10-07' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "type": "webhook_endpoint_deleted"
+}
+```
+
+### Regenerate Organization Webhook Endpoint Signing Secret
+
+**POST** `/v1/organizations/webhooks/{webhook_endpoint_id}/regenerate_signing_secret`
+
+Replace an organization webhook endpoint's signing secret. The old secret stops
+working immediately. The new secret is returned only in this response.
+
+Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`. A request without it returns `404`, exactly as if this API did not exist. Anthropic turns organization webhook endpoints on for each organization; until yours is on, requests also return `404`. Organization webhook endpoints are in beta and are not available to organizations with HIPAA readiness enabled.
+
+#### Path parameters
+
+- `webhook_endpoint_id: string`
+
+  ID of the webhook endpoint.
+
+  maxLength: 2048
+
+#### Headers
+
+- `"anthropic-version": optional string`
+
+  The version of the Claude API you want to use.
+
+  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+
+- `"anthropic-beta": optional array of AnthropicBeta`
+
+  This endpoint is in beta: requests must send `webhooks-2026-10-07` in this header.
+
+  - `string`
+
+  - `"message-batches-2024-09-24"`
+
+  - `"prompt-caching-2024-07-31"`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"pdfs-2024-09-25"`
+
+  - `"token-counting-2024-11-01"`
+
+  - `"token-efficient-tools-2025-02-19"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"files-api-2025-04-14"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"skills-2025-10-02"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"cache-diagnosis-2026-04-07"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"ce-user-management-2026-07-13"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+#### Returns
+
+- `BetaOrganizationWebhookEndpointSigningSecret object`
+
+  An organization webhook endpoint's new signing secret.
+
+  - `signing_secret: string`
+
+    The new signing secret. Deliveries are signed with it from now on, and no other response returns it.
+
+#### Example
+
+```bash
+curl https://api.anthropic.com/v1/organizations/webhooks/$WEBHOOK_ENDPOINT_ID/regenerate_signing_secret \
+    -X POST \
+    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-beta: webhooks-2026-10-07' \
+    -H "X-Api-Key: $ANTHROPIC_API_KEY"
+```
+
+##### Response (200)
+
+```json
+{
+  "signing_secret": "signing_secret"
 }
 ```

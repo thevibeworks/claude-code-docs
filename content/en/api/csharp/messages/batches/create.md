@@ -3101,7 +3101,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `string userProfileID` (header parameter)
 
-    The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
+    The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
   - `string workspaceID` (header parameter)
 
@@ -3210,6 +3210,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 ## Example
 
 ```csharp
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+using Messages = Anthropic.Models.Messages;
+using Anthropic.Models.Messages.Batches;
+
 BatchCreateParams parameters = new()
 {
     Requests =
@@ -3225,12 +3231,12 @@ BatchCreateParams parameters = new()
                     new()
                     {
                         Content = "Hello, world",
-                        Role = Role.User,
+                        Role = Messages::Role.User,
                     },
                 ],
-                Model = Model.ClaudeOpus5_5,
-                CacheControl = new() { Ttl = Ttl.Ttl5m },
-                Container = new ContainerParams()
+                Model = Messages::Model.ClaudeOpus5_5,
+                CacheControl = new() { Ttl = Messages::Ttl.Ttl5m },
+                Container = new Messages::ContainerParams()
                 {
                     ID = "id",
                     Skills =
@@ -3238,7 +3244,7 @@ BatchCreateParams parameters = new()
                         new()
                         {
                             SkillID = "pdf",
-                            Type = SkillParamsType.Anthropic,
+                            Type = Messages::SkillParamsType.Anthropic,
                             Version = "latest",
                         },
                     ],
@@ -3254,7 +3260,7 @@ BatchCreateParams parameters = new()
                 },
                 OutputConfig = new()
                 {
-                    Effort = Effort.Low,
+                    Effort = Messages::Effort.Low,
                     Format = new()
                     {
                         Schema = new Dictionary<string, JsonElement>()
@@ -3273,13 +3279,13 @@ BatchCreateParams parameters = new()
                 System = new(
 
                     [
-                        new TextBlockParam()
+                        new Messages::TextBlockParam()
                         {
                             Text = "Today's date is 2024-06-01.",
-                            CacheControl = new() { Ttl = Ttl.Ttl5m },
+                            CacheControl = new() { Ttl = Messages::Ttl.Ttl5m },
                             Citations =
                             [
-                                new CitationCharLocationParam()
+                                new Messages::CitationCharLocationParam()
                                 {
                                     CitedText = "The grass is green. The sky is blue.",
                                     DocumentIndex = 0,
@@ -3292,17 +3298,17 @@ BatchCreateParams parameters = new()
                     ]
                 ),
                 Temperature = 1,
-                Thinking = new ThinkingConfigAdaptive()
+                Thinking = new Messages::ThinkingConfigAdaptive()
                 {
-                    Display = Display.Summarized
+                    Display = Messages::Display.Summarized
                 },
-                ToolChoice = new ToolChoiceAuto()
+                ToolChoice = new Messages::ToolChoiceAuto()
                 {
                     DisableParallelToolUse = true
                 },
                 Tools =
                 [
-                    new Tool()
+                    new Messages::Tool()
                     {
                         InputSchema = new()
                         {
@@ -3319,9 +3325,9 @@ BatchCreateParams parameters = new()
                         Name = "name",
                         AllowedCallers =
                         [
-                            AllowedCaller.Direct
+                            Messages::ToolAllowedCaller.Direct
                         ],
-                        CacheControl = new() { Ttl = Ttl.Ttl5m },
+                        CacheControl = new() { Ttl = Messages::Ttl.Ttl5m },
                         DeferLoading = true,
                         Description = "Get the current weather in a given location",
                         EagerInputStreaming = true,
@@ -3333,7 +3339,7 @@ BatchCreateParams parameters = new()
                             },
                         ],
                         Strict = true,
-                        Type = Type.Custom,
+                        Type = Messages::Type.Custom,
                     },
                 ],
                 TopK = 5,

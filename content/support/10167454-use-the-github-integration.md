@@ -1,8 +1,8 @@
 # Use the GitHub integration
 
-For more information on enabling GitHub within your account, see **[Use connectors to extend Claude's capabilities](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)**.
-
 Connect your GitHub repositories directly to Claude to provide comprehensive context for your software development tasks. You can easily add repositories by selecting them from a list, helping Claude better understand and assist with your codebase.
+
+For more information on enabling GitHub within your account, see **[Use connectors to extend Claude's capabilities](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)**.
 
 ## How to add GitHub repositories
 
@@ -75,6 +75,16 @@ When Claude detects this state, the repository picker shows a banner prompting y
 **Important:** Disconnecting and reconnecting GitHub in your Claude settings won't fix this. A fresh connection doesn't automatically authorize organizations that require SSO, so you'll need to complete the authorization steps above.
 
 If your organization uses GitHub Enterprise Cloud with Enterprise Managed Users (EMU), connect GitHub while you're signed in with your managed account and have an active SSO session. An organization owner can check the Claude app under Settings > Third-party Access > GitHub Apps in your GitHub organization, and confirm that it has access to the repositories you need and has no pending permission requests.
+
+### Can't link GitHub to an organization with zero data retention
+
+If your organization has zero data retention (ZDR) enabled for Claude Code, you can't link the Claude GitHub App to your Claude organization. This is a restriction of ZDR, not a GitHub permissions problem: linking requires Anthropic to store your organization's GitHub connection, which ZDR doesn't allow.
+
+When you try to link GitHub in **[Organization settings > Git providers](https://claude.ai/admin-settings/source-control)**, you may see an error saying you need to be an owner of the GitHub organization, even if you already are one.
+
+**Important:** Changing roles or app permissions on GitHub, or disconnecting and reconnecting GitHub, won't fix this. Contribution metrics in Claude Code analytics aren't available to ZDR organizations for the same reason.
+
+If your organization needs GitHub linking, contact your Anthropic account team to discuss your ZDR configuration. Learn more about **[zero data retention for Claude Code](https://code.claude.com/docs/en/zero-data-retention#zero-data-retention)**.
 
 ---
 

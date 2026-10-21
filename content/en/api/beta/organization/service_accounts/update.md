@@ -138,6 +138,8 @@ interactive credential (a user OAuth token or a Console session).
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Body parameters
 
 - `description: optional string or null`

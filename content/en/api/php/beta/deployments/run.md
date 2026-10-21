@@ -68,6 +68,9 @@ Run Deployment Now
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(

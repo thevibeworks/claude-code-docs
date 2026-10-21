@@ -5,13 +5,13 @@ url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memory_versi
 
 # Memory Versions
 
-## List memory versions
+## List Memory Versions
 
 `$client->beta->memoryStores->memoryVersions->list(string memoryStoreID, ?string apiKeyID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?int limit, ?string memoryID, ?ManagedAgentsMemoryVersionOperation operation, ?string page, ?string serviceAccountID, ?string sessionID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas, ?string workspaceID): PageCursor<ManagedAgentsMemoryVersion>`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
-List memory versions
+List Memory Versions
 
 ### Parameters
 
@@ -33,13 +33,15 @@ List memory versions
 
 - `limit?:optional int` (query parameter)
 
-  The maximum number of versions to return per page. Defaults to 20.
+  The maximum number of versions to return per page, from 1 to 100. Defaults to 20.
+
+  With `view=full`, a page holds at most 20 versions.
 
 - `memoryID?:optional string` (query parameter)
 
   Return only versions of the memory with this ID (`mem_...`).
 
-  The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
+  The filter still works after the memory is deleted. While that memory's versions are retained, the results include the version whose `operation` is `deleted`.
 
 - `operation?:optional ManagedAgentsMemoryVersionOperation` (query parameter)
 
@@ -59,7 +61,9 @@ List memory versions
 
 - `view?:optional ManagedAgentsMemoryView` (query parameter)
 
-  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
+
+  With `full`, list operations return at most 20 items per page.
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
@@ -87,7 +91,9 @@ List memory versions
 
   - `string memoryID`
 
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=php) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
+    The ID of the memory that this version belongs to (`mem_...`).
+
+    The ID stays valid after the memory is deleted. Pass it as `memory_id` to [List Memory Versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=php) to get the memory's retained versions, including its `deleted` version while the lineage is retained.
 
   - `string memoryStoreID`
 
@@ -111,7 +117,11 @@ List memory versions
 
   - `?ManagedAgentsActor createdBy`
 
-    Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction. A `session_actor` is an agent writing through the store's mounted filesystem at `/mnt/memory/`. The API key that created that session is not recorded on agent writes, so attribution names who made the write, not who is ultimately responsible; look up session provenance via the [Sessions API](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=php).
+    Who made this change to the memory, or `null` if the author wasn't recorded.
+
+    Redacting the version doesn't change this field. A `session_actor` here is an agent that wrote through the store's mounted filesystem at `/mnt/memory/`. The version doesn't record the API key that created that session. So the author in `created_by` is who made the change, not who is ultimately responsible for it.
+
+    You can [retrieve the session](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=php) to learn more about where the change came from.
 
   - `?string path`
 
@@ -119,7 +129,11 @@ List memory versions
 
   - `?\Datetime redactedAt`
 
-    When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See [Redact a memory version](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/redact?sdk_languages=php).
+    When the version was redacted, in RFC 3339, or `null` if it hasn't been.
+
+    When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are `null`.
+
+    See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=php#redact-a-version) to learn more about redaction.
 
   - `?ManagedAgentsActor redactedBy`
 
@@ -131,6 +145,11 @@ List memory versions
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\MemoryStores\Memories\ManagedAgentsMemoryView;
+use Anthropic\Beta\MemoryStores\MemoryVersions\ManagedAgentsMemoryVersionOperation;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -184,13 +203,13 @@ var_dump($page);
 }
 ```
 
-## Retrieve a memory version
+## Retrieve a Memory Version
 
 `$client->beta->memoryStores->memoryVersions->retrieve(string memoryVersionID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsMemoryVersion`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
 
-Retrieve a memory version
+Retrieve a Memory Version
 
 ### Parameters
 
@@ -204,7 +223,9 @@ Retrieve a memory version
 
 - `view?:optional ManagedAgentsMemoryView` (query parameter)
 
-  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
+
+  With `full`, list operations return at most 20 items per page.
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
@@ -232,7 +253,9 @@ Retrieve a memory version
 
   - `string memoryID`
 
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=php) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
+    The ID of the memory that this version belongs to (`mem_...`).
+
+    The ID stays valid after the memory is deleted. Pass it as `memory_id` to [List Memory Versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=php) to get the memory's retained versions, including its `deleted` version while the lineage is retained.
 
   - `string memoryStoreID`
 
@@ -256,7 +279,11 @@ Retrieve a memory version
 
   - `?ManagedAgentsActor createdBy`
 
-    Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction. A `session_actor` is an agent writing through the store's mounted filesystem at `/mnt/memory/`. The API key that created that session is not recorded on agent writes, so attribution names who made the write, not who is ultimately responsible; look up session provenance via the [Sessions API](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=php).
+    Who made this change to the memory, or `null` if the author wasn't recorded.
+
+    Redacting the version doesn't change this field. A `session_actor` here is an agent that wrote through the store's mounted filesystem at `/mnt/memory/`. The version doesn't record the API key that created that session. So the author in `created_by` is who made the change, not who is ultimately responsible for it.
+
+    You can [retrieve the session](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=php) to learn more about where the change came from.
 
   - `?string path`
 
@@ -264,7 +291,11 @@ Retrieve a memory version
 
   - `?\Datetime redactedAt`
 
-    When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See [Redact a memory version](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/redact?sdk_languages=php).
+    When the version was redacted, in RFC 3339, or `null` if it hasn't been.
+
+    When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are `null`.
+
+    See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=php#redact-a-version) to learn more about redaction.
 
   - `?ManagedAgentsActor redactedBy`
 
@@ -276,6 +307,10 @@ Retrieve a memory version
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\MemoryStores\Memories\ManagedAgentsMemoryView;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -320,13 +355,13 @@ var_dump($betaManagedAgentsMemoryVersion);
 }
 ```
 
-## Redact a memory version
+## Redact a Memory Version
 
 `$client->beta->memoryStores->memoryVersions->redact(string memoryVersionID, string memoryStoreID, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsMemoryVersion`
 
 **POST** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
 
-Redact a memory version
+Redact a Memory Version
 
 ### Parameters
 
@@ -364,7 +399,9 @@ Redact a memory version
 
   - `string memoryID`
 
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=php) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
+    The ID of the memory that this version belongs to (`mem_...`).
+
+    The ID stays valid after the memory is deleted. Pass it as `memory_id` to [List Memory Versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=php) to get the memory's retained versions, including its `deleted` version while the lineage is retained.
 
   - `string memoryStoreID`
 
@@ -388,7 +425,11 @@ Redact a memory version
 
   - `?ManagedAgentsActor createdBy`
 
-    Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction. A `session_actor` is an agent writing through the store's mounted filesystem at `/mnt/memory/`. The API key that created that session is not recorded on agent writes, so attribution names who made the write, not who is ultimately responsible; look up session provenance via the [Sessions API](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=php).
+    Who made this change to the memory, or `null` if the author wasn't recorded.
+
+    Redacting the version doesn't change this field. A `session_actor` here is an agent that wrote through the store's mounted filesystem at `/mnt/memory/`. The version doesn't record the API key that created that session. So the author in `created_by` is who made the change, not who is ultimately responsible for it.
+
+    You can [retrieve the session](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=php) to learn more about where the change came from.
 
   - `?string path`
 
@@ -396,7 +437,11 @@ Redact a memory version
 
   - `?\Datetime redactedAt`
 
-    When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See [Redact a memory version](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/redact?sdk_languages=php).
+    When the version was redacted, in RFC 3339, or `null` if it hasn't been.
+
+    When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are `null`.
+
+    See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=php#redact-a-version) to learn more about redaction.
 
   - `?ManagedAgentsActor redactedBy`
 
@@ -408,6 +453,9 @@ Redact a memory version
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -515,7 +563,9 @@ var_dump($betaManagedAgentsMemoryVersion);
 
   - `string memoryID`
 
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=php) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
+    The ID of the memory that this version belongs to (`mem_...`).
+
+    The ID stays valid after the memory is deleted. Pass it as `memory_id` to [List Memory Versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=php) to get the memory's retained versions, including its `deleted` version while the lineage is retained.
 
   - `string memoryStoreID`
 
@@ -539,7 +589,11 @@ var_dump($betaManagedAgentsMemoryVersion);
 
   - `?ManagedAgentsActor createdBy`
 
-    Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction. A `session_actor` is an agent writing through the store's mounted filesystem at `/mnt/memory/`. The API key that created that session is not recorded on agent writes, so attribution names who made the write, not who is ultimately responsible; look up session provenance via the [Sessions API](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=php).
+    Who made this change to the memory, or `null` if the author wasn't recorded.
+
+    Redacting the version doesn't change this field. A `session_actor` here is an agent that wrote through the store's mounted filesystem at `/mnt/memory/`. The version doesn't record the API key that created that session. So the author in `created_by` is who made the change, not who is ultimately responsible for it.
+
+    You can [retrieve the session](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=php) to learn more about where the change came from.
 
   - `?string path`
 
@@ -547,7 +601,11 @@ var_dump($betaManagedAgentsMemoryVersion);
 
   - `?\Datetime redactedAt`
 
-    When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See [Redact a memory version](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/redact?sdk_languages=php).
+    When the version was redacted, in RFC 3339, or `null` if it hasn't been.
+
+    When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are `null`.
+
+    See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=php#redact-a-version) to learn more about redaction.
 
   - `?ManagedAgentsActor redactedBy`
 

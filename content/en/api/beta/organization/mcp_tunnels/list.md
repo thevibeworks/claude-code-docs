@@ -158,6 +158,8 @@ archived tunnels are excluded unless `include_archived` is set.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `data: array of BetaOrganizationTunnel`

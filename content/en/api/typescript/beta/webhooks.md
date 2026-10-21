@@ -821,9 +821,37 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/webhooks
 
       - `workspace_id: string`
 
+    - `interface BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+      - `type: "user_profile.enforcement_action_opened"`
+
+      - `id: string`
+
+        ID of the user profile the enforcement action is on.
+
+      - `enforcement_action_id: string`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `organization_id: string`
+
+    - `interface BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+      - `type: "user_profile.enforcement_action_resolved"`
+
+      - `id: string`
+
+        ID of the user profile the enforcement action is on.
+
+      - `enforcement_action_id: string`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `organization_id: string`
+
 ### Beta Webhook Event Data
 
-- `type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 41 more`
+- `type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 43 more`
 
   - `interface BetaWebhookSessionCreatedEventData`
 
@@ -1381,6 +1409,34 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/webhooks
 
     - `workspace_id: string`
 
+  - `interface BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+    - `type: "user_profile.enforcement_action_opened"`
+
+    - `id: string`
+
+      ID of the user profile the enforcement action is on.
+
+    - `enforcement_action_id: string`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `organization_id: string`
+
+  - `interface BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+    - `type: "user_profile.enforcement_action_resolved"`
+
+    - `id: string`
+
+      ID of the user profile the enforcement action is on.
+
+    - `enforcement_action_id: string`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `organization_id: string`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `interface BetaWebhookMemoryStoreArchivedEventData`
@@ -1672,6 +1728,38 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/webhooks
   - `organization_id: string`
 
   - `workspace_id: string`
+
+### Beta Webhook User Profile Enforcement Action Opened Event Data
+
+- `interface BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+  - `type: "user_profile.enforcement_action_opened"`
+
+  - `id: string`
+
+    ID of the user profile the enforcement action is on.
+
+  - `enforcement_action_id: string`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `organization_id: string`
+
+### Beta Webhook User Profile Enforcement Action Resolved Event Data
+
+- `interface BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+  - `type: "user_profile.enforcement_action_resolved"`
+
+  - `id: string`
+
+    ID of the user profile the enforcement action is on.
+
+  - `enforcement_action_id: string`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `organization_id: string`
 
 ### Beta Webhook Vault Archived Event Data
 

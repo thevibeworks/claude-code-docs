@@ -80,6 +80,10 @@ Create Skill Version
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Core\FileParam;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSkillVersion = $client->beta->skills->versions->create(

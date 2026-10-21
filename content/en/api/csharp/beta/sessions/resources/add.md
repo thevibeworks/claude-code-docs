@@ -139,6 +139,8 @@ Add Session Resource
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -172,11 +174,14 @@ Add Session Resource
 ## Example
 
 ```csharp
-ResourceAddParams parameters = new()
+using System;
+using Resources = Anthropic.Models.Beta.Sessions.Resources;
+
+Resources::ResourceAddParams parameters = new()
 {
     SessionID = "sesn_011CZkZAtmR3yMPDzynEDxu7",
     FileID = "file_011CNha8iCJcU1wXNR6q4V8w",
-    Type = Type.File,
+    Type = Resources::Type.File,
 };
 
 var betaManagedAgentsFileResource = await client.Beta.Sessions.Resources.Add(parameters);

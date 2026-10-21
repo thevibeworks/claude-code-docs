@@ -1,15 +1,15 @@
 ---
-title: List memory versions
+title: List Memory Versions
 url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/memory_versions/list
 ---
 
-# List memory versions
+# List Memory Versions
 
 `beta.memory_stores.memory_versions.list(memory_store_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryVersion]`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
-List memory versions
+List Memory Versions
 
 ## Parameters
 
@@ -35,7 +35,9 @@ List memory versions
 
 - `limit: Optional[int]` (query parameter)
 
-  The maximum number of versions to return per page. Defaults to 20.
+  The maximum number of versions to return per page, from 1 to 100. Defaults to 20.
+
+  With `view=full`, a page holds at most 20 versions.
 
   format: int32
 
@@ -43,7 +45,7 @@ List memory versions
 
   Return only versions of the memory with this ID (`mem_...`).
 
-  The filter still works after the memory is deleted. The results then include the version whose `operation` is `deleted`.
+  The filter still works after the memory is deleted. While that memory's versions are retained, the results include the version whose `operation` is `deleted`.
 
 - `operation: Optional[BetaManagedAgentsMemoryVersionOperation]` (query parameter)
 
@@ -75,7 +77,9 @@ List memory versions
 
 - `view: Optional[BetaManagedAgentsMemoryView]` (query parameter)
 
-  Selects which projection of a `memory` or `memory_version` the server returns. `basic` returns the object with `content` set to `null`; `full` populates `content`. When omitted, the default is endpoint-specific: retrieve operations default to `full`; list, create, and update operations default to `basic`. Listing with `view=full` caps `limit` at 20.
+  Whether a `memory` or `memory_version` in the response includes its `content`. Defaults to `full` on retrieve operations and to `basic` on list, create, and update operations.
+
+  With `full`, list operations return at most 20 items per page.
 
   - `"basic"`
 
@@ -193,6 +197,8 @@ List memory versions
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 - `workspace_id: Optional[str]` (header parameter)
 
   Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -203,7 +209,13 @@ List memory versions
 
 - `class BetaManagedAgentsMemoryVersion`
 
-  A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
+  One entry in a memory's history, recording a single change and who made it.
+
+  Every change to a memory adds one version. Only redaction can change a version after that. Versions belong to the memory store and stay after the memory is deleted. Each version is retained for at least the version retention period after it was written, unless the store itself is deleted.
+
+  Retrieving a redacted version succeeds, with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`. Check `redacted_at` to find out whether a version was redacted.
+
+  See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=python#audit-memory-changes) to learn more about memory versions.
 
   - `type: Literal["memory_version"]`
 
@@ -219,7 +231,9 @@ List memory versions
 
   - `memory_id: str`
 
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=python) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
+    The ID of the memory that this version belongs to (`mem_...`).
+
+    The ID stays valid after the memory is deleted. Pass it as `memory_id` to [List Memory Versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=python) to get the memory's retained versions, including its `deleted` version while the lineage is retained.
 
   - `memory_store_id: str`
 
@@ -257,7 +271,11 @@ List memory versions
 
   - `created_by: Optional[BetaManagedAgentsActor]`
 
-    Who performed this write: one of `session_actor`, `api_actor`, `user_actor`, or `service_account_actor`; `null` when no writer is recorded. Captured at write time and preserved through redaction. A `session_actor` is an agent writing through the store's mounted filesystem at `/mnt/memory/`. The API key that created that session is not recorded on agent writes, so attribution names who made the write, not who is ultimately responsible; look up session provenance via the [Sessions API](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=python).
+    Who made this change to the memory, or `null` if the author wasn't recorded.
+
+    Redacting the version doesn't change this field. A `session_actor` here is an agent that wrote through the store's mounted filesystem at `/mnt/memory/`. The version doesn't record the API key that created that session. So the author in `created_by` is who made the change, not who is ultimately responsible for it.
+
+    You can [retrieve the session](https://platform.claude.com/docs/en/api/beta/sessions/retrieve?sdk_languages=python) to learn more about where the change came from.
 
     - `class BetaManagedAgentsSessionActor`
 
@@ -313,7 +331,11 @@ List memory versions
 
   - `redacted_at: Optional[datetime]`
 
-    When this version was redacted, in RFC 3339 format, or `null` if it has not been redacted. When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are all `null`. See [Redact a memory version](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/redact?sdk_languages=python).
+    When the version was redacted, in RFC 3339, or `null` if it hasn't been.
+
+    When set, `content`, `path`, `content_size_bytes`, and `content_sha256` are `null`.
+
+    See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=python#redact-a-version) to learn more about redaction.
 
     format: date-time
 

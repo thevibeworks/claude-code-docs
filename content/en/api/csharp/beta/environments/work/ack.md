@@ -127,6 +127,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
 ## Returns
 
 - `class BetaSelfHostedWork`
@@ -210,6 +212,9 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Environments.Work;
+
 WorkAckParams parameters = new()
 {
     EnvironmentID = "env_011CZkZ9X2dpNyB7HsEFoRfW",

@@ -128,6 +128,10 @@ List Deployments
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Deployments\BetaManagedAgentsDeploymentStatus;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->deployments->list(

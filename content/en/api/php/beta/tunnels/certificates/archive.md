@@ -70,6 +70,9 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(

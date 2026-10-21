@@ -321,6 +321,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `"telemetry-destinations-2026-08-11"`
 
+    - `"webhooks-2026-10-07"`
+
 ### Returns
 
 - `interface Completion`

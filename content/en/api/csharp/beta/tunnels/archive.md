@@ -127,6 +127,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -168,6 +170,9 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 ## Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Tunnels;
+
 TunnelArchiveParams parameters = new() { TunnelID = "tunnel_id" };
 
 var betaTunnel = await client.Beta.Tunnels.Archive(parameters);

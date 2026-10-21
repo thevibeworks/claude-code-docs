@@ -135,6 +135,8 @@ Retrieve a single tunnel in the caller's organization by ID.
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Returns
 
 - `BetaOrganizationTunnel object`

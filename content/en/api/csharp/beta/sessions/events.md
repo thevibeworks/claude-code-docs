@@ -251,6 +251,8 @@ List Events
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -3184,6 +3186,9 @@ List Events
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Sessions.Events;
+
 EventListParams parameters = new()
 {
     SessionID = "sesn_011CZkZAtmR3yMPDzynEDxu7"
@@ -3710,6 +3715,8 @@ Send Events
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -4165,6 +4172,9 @@ Send Events
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Sessions.Events;
+
 EventSendParams parameters = new()
 {
     SessionID = "sesn_011CZkZAtmR3yMPDzynEDxu7",
@@ -4177,10 +4187,10 @@ EventSendParams parameters = new()
                 new BetaManagedAgentsTextBlock()
                 {
                     Text = "Where is my order #1234?",
-                    Type = Type.Text,
+                    Type = BetaManagedAgentsTextBlockType.Text,
                 },
             ],
-            Type = Type.UserMessage,
+            Type = BetaManagedAgentsUserMessageEventParamsType.UserMessage,
         },
     ],
 };
@@ -4337,6 +4347,8 @@ Stream Events
     - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
+
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
   - `string workspaceID` (header parameter)
 
@@ -7321,6 +7333,9 @@ Stream Events
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Sessions.Events;
+
 EventStreamParams parameters = new()
 {
     SessionID = "sesn_011CZkZAtmR3yMPDzynEDxu7"

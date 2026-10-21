@@ -3654,7 +3654,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `max_tokens?: number | null`
 
+        The `max_tokens` for the fallback attempt that uses this `fallbacks` entry's `model`, in place of the request's `max_tokens`. If you leave it out or set it to `null`, the attempt uses the request's `max_tokens`.
+
+        See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#naming-your-own-fallback-models) to learn more about fallback entries.
+
       - `output_config?: BetaOutputConfig | null`
+
+        Output parameters for the fallback attempt that uses this `fallbacks` entry's `model`, combined with the request's `output_config` one field at a time.
+
+        - `format`: If you leave it out, the attempt uses the request's `format`. If you set it to `null`, the attempt runs without a format.
+        - `effort`: If you leave it out, the attempt uses the request's `effort` when `model` supports that level with the attempt's `thinking`. If the request doesn't set `effort`, if `model` doesn't support the level, or if you set `effort` to `null`, the attempt runs at the default effort of `model`.
+        - `task_budget`: If you leave it out, the attempt uses the request's `task_budget` when `model` accepts a task budget of that size. If the request doesn't set `task_budget`, if `model` doesn't accept it, or if you set `task_budget` to `null`, the attempt runs without a task budget.
+
+        Set `output_config` to `null` to run the attempt without a format or a task budget, at the default effort of `model`.
+
+        These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
         - `effort?: "low" | "medium" | "high" | 2 more | null`
 
@@ -3704,13 +3718,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `speed?: "standard" | "fast" | null`
 
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+        The inference speed mode for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt runs at `fast` speed only when the request sets `speed` to `fast` and your organization can use fast mode on `model`.
+
+        Otherwise, or when you set this field to `null`, the attempt runs at `standard` speed.
+
+        These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
         - `"standard"`
 
         - `"fast"`
 
       - `thinking?: BetaThinkingConfigEnabled | BetaThinkingConfigDisabled | BetaThinkingConfigBetweenTools | BetaThinkingConfigAdaptive | null`
+
+        The thinking configuration for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt uses the request's `thinking` when `model` supports that thinking `type`.
+
+        If you leave it out and the request's thinking `type` is `between_tools` but `model` doesn't support `between_tools`, the attempt uses `disabled` if `model` supports it. Otherwise, if `model` doesn't support the request's thinking `type`, if the request doesn't set `thinking`, or if you set this field to `null`, the attempt uses the thinking `type` that `model` uses when a request leaves out `thinking`. The request's `thinking.display` still applies where `model` allows it.
+
+        These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
         - `interface BetaThinkingConfigEnabled`
 
@@ -4191,9 +4215,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"telemetry-destinations-2026-08-11"`
 
+    - `"webhooks-2026-10-07"`
+
   - `user_profile_id?: string` (header parameter)
 
-    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
 
   - `workspace_id?: string` (header parameter)
 
@@ -7409,6 +7435,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `interface BetaCacheMissModelChanged`
 
+        A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
         - `type: "model_changed"`
 
           default: model_changed
@@ -7418,6 +7448,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `interface BetaCacheMissSystemChanged`
+
+        A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
         - `type: "system_changed"`
 
@@ -7429,6 +7463,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `interface BetaCacheMissToolsChanged`
 
+        A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
         - `type: "tools_changed"`
 
           default: tools_changed
@@ -7438,6 +7476,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `interface BetaCacheMissMessagesChanged`
+
+        A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
         - `type: "messages_changed"`
 
@@ -7449,11 +7491,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `interface BetaCacheMissPreviousMessageNotFound`
 
+        A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+        This doesn't mean that this request changed.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
         - `type: "previous_message_not_found"`
 
           default: previous_message_not_found
 
       - `interface BetaCacheMissUnavailable`
+
+        A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+        This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
         - `type: "unavailable"`
 
@@ -12498,9 +12552,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `"telemetry-destinations-2026-08-11"`
 
+    - `"webhooks-2026-10-07"`
+
   - `user_profile_id?: string` (header parameter)
 
-    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
 
   - `workspace_id?: string` (header parameter)
 
@@ -19071,6 +19127,10 @@ console.log(betaMessageTokensCount.context_management);
 
 - `interface BetaCacheMissMessagesChanged`
 
+  A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
   - `type: "messages_changed"`
 
     default: messages_changed
@@ -19082,6 +19142,10 @@ console.log(betaMessageTokensCount.context_management);
 ### Beta Cache Miss Model Changed
 
 - `interface BetaCacheMissModelChanged`
+
+  A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
   - `type: "model_changed"`
 
@@ -19095,6 +19159,12 @@ console.log(betaMessageTokensCount.context_management);
 
 - `interface BetaCacheMissPreviousMessageNotFound`
 
+  A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+  This doesn't mean that this request changed.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
   - `type: "previous_message_not_found"`
 
     default: previous_message_not_found
@@ -19104,6 +19174,10 @@ console.log(betaMessageTokensCount.context_management);
 - `type BetaCacheMissReason = BetaCacheMissModelChanged | BetaCacheMissSystemChanged | BetaCacheMissToolsChanged | 3 more`
 
   - `interface BetaCacheMissModelChanged`
+
+    A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
     - `type: "model_changed"`
 
@@ -19115,6 +19189,10 @@ console.log(betaMessageTokensCount.context_management);
 
   - `interface BetaCacheMissSystemChanged`
 
+    A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
     - `type: "system_changed"`
 
       default: system_changed
@@ -19124,6 +19202,10 @@ console.log(betaMessageTokensCount.context_management);
       Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
   - `interface BetaCacheMissToolsChanged`
+
+    A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
     - `type: "tools_changed"`
 
@@ -19135,6 +19217,10 @@ console.log(betaMessageTokensCount.context_management);
 
   - `interface BetaCacheMissMessagesChanged`
 
+    A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
     - `type: "messages_changed"`
 
       default: messages_changed
@@ -19145,11 +19231,23 @@ console.log(betaMessageTokensCount.context_management);
 
   - `interface BetaCacheMissPreviousMessageNotFound`
 
+    A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+    This doesn't mean that this request changed.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
     - `type: "previous_message_not_found"`
 
       default: previous_message_not_found
 
   - `interface BetaCacheMissUnavailable`
+
+    A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+    This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
     - `type: "unavailable"`
 
@@ -19158,6 +19256,10 @@ console.log(betaMessageTokensCount.context_management);
 ### Beta Cache Miss System Changed
 
 - `interface BetaCacheMissSystemChanged`
+
+  A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
   - `type: "system_changed"`
 
@@ -19171,6 +19273,10 @@ console.log(betaMessageTokensCount.context_management);
 
 - `interface BetaCacheMissToolsChanged`
 
+  A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
   - `type: "tools_changed"`
 
     default: tools_changed
@@ -19182,6 +19288,12 @@ console.log(betaMessageTokensCount.context_management);
 ### Beta Cache Miss Unavailable
 
 - `interface BetaCacheMissUnavailable`
+
+  A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+  This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
   - `type: "unavailable"`
 
@@ -34225,6 +34337,10 @@ console.log(betaMessageTokensCount.context_management);
 
     - `interface BetaCacheMissModelChanged`
 
+      A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
       - `type: "model_changed"`
 
         default: model_changed
@@ -34234,6 +34350,10 @@ console.log(betaMessageTokensCount.context_management);
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
     - `interface BetaCacheMissSystemChanged`
+
+      A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
       - `type: "system_changed"`
 
@@ -34245,6 +34365,10 @@ console.log(betaMessageTokensCount.context_management);
 
     - `interface BetaCacheMissToolsChanged`
 
+      A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
       - `type: "tools_changed"`
 
         default: tools_changed
@@ -34254,6 +34378,10 @@ console.log(betaMessageTokensCount.context_management);
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
     - `interface BetaCacheMissMessagesChanged`
+
+      A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
       - `type: "messages_changed"`
 
@@ -34265,11 +34393,23 @@ console.log(betaMessageTokensCount.context_management);
 
     - `interface BetaCacheMissPreviousMessageNotFound`
 
+      A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+      This doesn't mean that this request changed.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
       - `type: "previous_message_not_found"`
 
         default: previous_message_not_found
 
     - `interface BetaCacheMissUnavailable`
+
+      A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+      This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
       - `type: "unavailable"`
 
@@ -35259,7 +35399,21 @@ console.log(betaMessageTokensCount.context_management);
 
   - `max_tokens?: number | null`
 
+    The `max_tokens` for the fallback attempt that uses this `fallbacks` entry's `model`, in place of the request's `max_tokens`. If you leave it out or set it to `null`, the attempt uses the request's `max_tokens`.
+
+    See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#naming-your-own-fallback-models) to learn more about fallback entries.
+
   - `output_config?: BetaOutputConfig | null`
+
+    Output parameters for the fallback attempt that uses this `fallbacks` entry's `model`, combined with the request's `output_config` one field at a time.
+
+    - `format`: If you leave it out, the attempt uses the request's `format`. If you set it to `null`, the attempt runs without a format.
+    - `effort`: If you leave it out, the attempt uses the request's `effort` when `model` supports that level with the attempt's `thinking`. If the request doesn't set `effort`, if `model` doesn't support the level, or if you set `effort` to `null`, the attempt runs at the default effort of `model`.
+    - `task_budget`: If you leave it out, the attempt uses the request's `task_budget` when `model` accepts a task budget of that size. If the request doesn't set `task_budget`, if `model` doesn't accept it, or if you set `task_budget` to `null`, the attempt runs without a task budget.
+
+    Set `output_config` to `null` to run the attempt without a format or a task budget, at the default effort of `model`.
+
+    These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
     - `effort?: "low" | "medium" | "high" | 2 more | null`
 
@@ -35309,13 +35463,23 @@ console.log(betaMessageTokensCount.context_management);
 
   - `speed?: "standard" | "fast" | null`
 
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+    The inference speed mode for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt runs at `fast` speed only when the request sets `speed` to `fast` and your organization can use fast mode on `model`.
+
+    Otherwise, or when you set this field to `null`, the attempt runs at `standard` speed.
+
+    These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
     - `"standard"`
 
     - `"fast"`
 
   - `thinking?: BetaThinkingConfigEnabled | BetaThinkingConfigDisabled | BetaThinkingConfigBetweenTools | BetaThinkingConfigAdaptive | null`
+
+    The thinking configuration for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt uses the request's `thinking` when `model` supports that thinking `type`.
+
+    If you leave it out and the request's thinking `type` is `between_tools` but `model` doesn't support `between_tools`, the attempt uses `disabled` if `model` supports it. Otherwise, if `model` doesn't support the request's thinking `type`, if the request doesn't set `thinking`, or if you set this field to `null`, the attempt uses the thinking `type` that `model` uses when a request leaves out `thinking`. The request's `thinking.display` still applies where `model` allows it.
+
+    These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
     - `interface BetaThinkingConfigEnabled`
 
@@ -35513,7 +35677,21 @@ console.log(betaMessageTokensCount.context_management);
 
     - `max_tokens?: number | null`
 
+      The `max_tokens` for the fallback attempt that uses this `fallbacks` entry's `model`, in place of the request's `max_tokens`. If you leave it out or set it to `null`, the attempt uses the request's `max_tokens`.
+
+      See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#naming-your-own-fallback-models) to learn more about fallback entries.
+
     - `output_config?: BetaOutputConfig | null`
+
+      Output parameters for the fallback attempt that uses this `fallbacks` entry's `model`, combined with the request's `output_config` one field at a time.
+
+      - `format`: If you leave it out, the attempt uses the request's `format`. If you set it to `null`, the attempt runs without a format.
+      - `effort`: If you leave it out, the attempt uses the request's `effort` when `model` supports that level with the attempt's `thinking`. If the request doesn't set `effort`, if `model` doesn't support the level, or if you set `effort` to `null`, the attempt runs at the default effort of `model`.
+      - `task_budget`: If you leave it out, the attempt uses the request's `task_budget` when `model` accepts a task budget of that size. If the request doesn't set `task_budget`, if `model` doesn't accept it, or if you set `task_budget` to `null`, the attempt runs without a task budget.
+
+      Set `output_config` to `null` to run the attempt without a format or a task budget, at the default effort of `model`.
+
+      These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
       - `effort?: "low" | "medium" | "high" | 2 more | null`
 
@@ -35563,13 +35741,23 @@ console.log(betaMessageTokensCount.context_management);
 
     - `speed?: "standard" | "fast" | null`
 
-      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+      The inference speed mode for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt runs at `fast` speed only when the request sets `speed` to `fast` and your organization can use fast mode on `model`.
+
+      Otherwise, or when you set this field to `null`, the attempt runs at `standard` speed.
+
+      These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
       - `"standard"`
 
       - `"fast"`
 
     - `thinking?: BetaThinkingConfigEnabled | BetaThinkingConfigDisabled | BetaThinkingConfigBetweenTools | BetaThinkingConfigAdaptive | null`
+
+      The thinking configuration for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt uses the request's `thinking` when `model` supports that thinking `type`.
+
+      If you leave it out and the request's thinking `type` is `between_tools` but `model` doesn't support `between_tools`, the attempt uses `disabled` if `model` supports it. Otherwise, if `model` doesn't support the request's thinking `type`, if the request doesn't set `thinking`, or if you set this field to `null`, the attempt uses the thinking `type` that `model` uses when a request leaves out `thinking`. The request's `thinking.display` still applies where `model` allows it.
+
+      These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
       - `interface BetaThinkingConfigEnabled`
 
@@ -39991,6 +40179,10 @@ console.log(betaMessageTokensCount.context_management);
 
       - `interface BetaCacheMissModelChanged`
 
+        A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
         - `type: "model_changed"`
 
           default: model_changed
@@ -40000,6 +40192,10 @@ console.log(betaMessageTokensCount.context_management);
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `interface BetaCacheMissSystemChanged`
+
+        A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
         - `type: "system_changed"`
 
@@ -40011,6 +40207,10 @@ console.log(betaMessageTokensCount.context_management);
 
       - `interface BetaCacheMissToolsChanged`
 
+        A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
         - `type: "tools_changed"`
 
           default: tools_changed
@@ -40020,6 +40220,10 @@ console.log(betaMessageTokensCount.context_management);
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `interface BetaCacheMissMessagesChanged`
+
+        A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
         - `type: "messages_changed"`
 
@@ -40031,11 +40235,23 @@ console.log(betaMessageTokensCount.context_management);
 
       - `interface BetaCacheMissPreviousMessageNotFound`
 
+        A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+        This doesn't mean that this request changed.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
         - `type: "previous_message_not_found"`
 
           default: previous_message_not_found
 
       - `interface BetaCacheMissUnavailable`
+
+        A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+        This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
         - `type: "unavailable"`
 
@@ -51996,6 +52212,10 @@ console.log(betaMessageTokensCount.context_management);
 
         - `interface BetaCacheMissModelChanged`
 
+          A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
           - `type: "model_changed"`
 
             default: model_changed
@@ -52005,6 +52225,10 @@ console.log(betaMessageTokensCount.context_management);
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
         - `interface BetaCacheMissSystemChanged`
+
+          A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
           - `type: "system_changed"`
 
@@ -52016,6 +52240,10 @@ console.log(betaMessageTokensCount.context_management);
 
         - `interface BetaCacheMissToolsChanged`
 
+          A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
           - `type: "tools_changed"`
 
             default: tools_changed
@@ -52025,6 +52253,10 @@ console.log(betaMessageTokensCount.context_management);
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
         - `interface BetaCacheMissMessagesChanged`
+
+          A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
           - `type: "messages_changed"`
 
@@ -52036,11 +52268,23 @@ console.log(betaMessageTokensCount.context_management);
 
         - `interface BetaCacheMissPreviousMessageNotFound`
 
+          A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+          This doesn't mean that this request changed.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
           - `type: "previous_message_not_found"`
 
             default: previous_message_not_found
 
         - `interface BetaCacheMissUnavailable`
+
+          A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+          This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
           - `type: "unavailable"`
 
@@ -55841,6 +56085,10 @@ console.log(betaMessageTokensCount.context_management);
 
           - `interface BetaCacheMissModelChanged`
 
+            A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
             - `type: "model_changed"`
 
               default: model_changed
@@ -55850,6 +56098,10 @@ console.log(betaMessageTokensCount.context_management);
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
           - `interface BetaCacheMissSystemChanged`
+
+            A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
             - `type: "system_changed"`
 
@@ -55861,6 +56113,10 @@ console.log(betaMessageTokensCount.context_management);
 
           - `interface BetaCacheMissToolsChanged`
 
+            A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
             - `type: "tools_changed"`
 
               default: tools_changed
@@ -55870,6 +56126,10 @@ console.log(betaMessageTokensCount.context_management);
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
           - `interface BetaCacheMissMessagesChanged`
+
+            A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
             - `type: "messages_changed"`
 
@@ -55881,11 +56141,23 @@ console.log(betaMessageTokensCount.context_management);
 
           - `interface BetaCacheMissPreviousMessageNotFound`
 
+            A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+            This doesn't mean that this request changed.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
             - `type: "previous_message_not_found"`
 
               default: previous_message_not_found
 
           - `interface BetaCacheMissUnavailable`
+
+            A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+            This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
             - `type: "unavailable"`
 
@@ -81415,7 +81687,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `max_tokens?: number | null`
 
+            The `max_tokens` for the fallback attempt that uses this `fallbacks` entry's `model`, in place of the request's `max_tokens`. If you leave it out or set it to `null`, the attempt uses the request's `max_tokens`.
+
+            See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#naming-your-own-fallback-models) to learn more about fallback entries.
+
           - `output_config?: BetaOutputConfig | null`
+
+            Output parameters for the fallback attempt that uses this `fallbacks` entry's `model`, combined with the request's `output_config` one field at a time.
+
+            - `format`: If you leave it out, the attempt uses the request's `format`. If you set it to `null`, the attempt runs without a format.
+            - `effort`: If you leave it out, the attempt uses the request's `effort` when `model` supports that level with the attempt's `thinking`. If the request doesn't set `effort`, if `model` doesn't support the level, or if you set `effort` to `null`, the attempt runs at the default effort of `model`.
+            - `task_budget`: If you leave it out, the attempt uses the request's `task_budget` when `model` accepts a task budget of that size. If the request doesn't set `task_budget`, if `model` doesn't accept it, or if you set `task_budget` to `null`, the attempt runs without a task budget.
+
+            Set `output_config` to `null` to run the attempt without a format or a task budget, at the default effort of `model`.
+
+            These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
             - `effort?: "low" | "medium" | "high" | 2 more | null`
 
@@ -81465,13 +81751,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `speed?: "standard" | "fast" | null`
 
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+            The inference speed mode for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt runs at `fast` speed only when the request sets `speed` to `fast` and your organization can use fast mode on `model`.
+
+            Otherwise, or when you set this field to `null`, the attempt runs at `standard` speed.
+
+            These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
             - `"standard"`
 
             - `"fast"`
 
           - `thinking?: BetaThinkingConfigEnabled | BetaThinkingConfigDisabled | BetaThinkingConfigBetweenTools | BetaThinkingConfigAdaptive | null`
+
+            The thinking configuration for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt uses the request's `thinking` when `model` supports that thinking `type`.
+
+            If you leave it out and the request's thinking `type` is `between_tools` but `model` doesn't support `between_tools`, the attempt uses `disabled` if `model` supports it. Otherwise, if `model` doesn't support the request's thinking `type`, if the request doesn't set `thinking`, or if you set this field to `null`, the attempt uses the thinking `type` that `model` uses when a request leaves out `thinking`. The request's `thinking.display` still applies where `model` allows it.
+
+            These rules apply with the `server-side-fallback-2026-07-01` beta header.
 
             - `interface BetaThinkingConfigEnabled`
 
@@ -81996,9 +82292,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"telemetry-destinations-2026-08-11"`
 
+    - `"webhooks-2026-10-07"`
+
   - `user_profile_id?: string` (header parameter)
 
-    The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
+    The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
   - `workspace_id?: string` (header parameter)
 
@@ -82289,6 +82587,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `"spend-limit-reads-2026-09-26"`
 
     - `"telemetry-destinations-2026-08-11"`
+
+    - `"webhooks-2026-10-07"`
 
   - `workspace_id?: string` (header parameter)
 
@@ -82581,6 +82881,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"telemetry-destinations-2026-08-11"`
 
+    - `"webhooks-2026-10-07"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -82870,6 +83172,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"telemetry-destinations-2026-08-11"`
 
+    - `"webhooks-2026-10-07"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -83151,6 +83455,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"telemetry-destinations-2026-08-11"`
 
+    - `"webhooks-2026-10-07"`
+
   - `workspace_id?: string` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -83323,6 +83629,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `"spend-limit-reads-2026-09-26"`
 
     - `"telemetry-destinations-2026-08-11"`
+
+    - `"webhooks-2026-10-07"`
 
   - `workspace_id?: string` (header parameter)
 
@@ -86516,6 +86824,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `interface BetaCacheMissModelChanged`
 
+              A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
               - `type: "model_changed"`
 
                 default: model_changed
@@ -86525,6 +86837,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
             - `interface BetaCacheMissSystemChanged`
+
+              A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
               - `type: "system_changed"`
 
@@ -86536,6 +86852,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `interface BetaCacheMissToolsChanged`
 
+              A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
               - `type: "tools_changed"`
 
                 default: tools_changed
@@ -86545,6 +86865,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
             - `interface BetaCacheMissMessagesChanged`
+
+              A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
               - `type: "messages_changed"`
 
@@ -86556,11 +86880,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `interface BetaCacheMissPreviousMessageNotFound`
 
+              A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+              This doesn't mean that this request changed.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
+
               - `type: "previous_message_not_found"`
 
                 default: previous_message_not_found
 
             - `interface BetaCacheMissUnavailable`
+
+              A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+              This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason.
 
               - `type: "unavailable"`
 

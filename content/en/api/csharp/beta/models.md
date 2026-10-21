@@ -153,6 +153,8 @@ The Models API response can be used to determine which models are available for 
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -374,6 +376,9 @@ The Models API response can be used to determine which models are available for 
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Models;
+
 ModelListParams parameters = new();
 
 var page = await client.Beta.Models.List(parameters);
@@ -616,6 +621,8 @@ The Models API response can be used to determine information about a specific mo
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -837,6 +844,9 @@ The Models API response can be used to determine information about a specific mo
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Models;
+
 ModelRetrieveParams parameters = new() { ModelID = "model_id" };
 
 var betaModelInfo = await client.Beta.Models.Retrieve(parameters);

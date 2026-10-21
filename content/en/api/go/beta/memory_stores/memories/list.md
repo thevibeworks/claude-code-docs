@@ -1,15 +1,15 @@
 ---
-title: List memories
+title: List Memories
 url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/memories/list
 ---
 
-# List memories
+# List Memories
 
 `client.Beta.MemoryStores.Memories.List(ctx, memoryStoreID, params) (*PageCursor[BetaManagedAgentsMemoryListItemUnion], error)`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memories`
 
-List memories
+List Memories
 
 ## Parameters
 
@@ -21,27 +21,35 @@ List memories
 
   - `Depth param.Opt[int64] Optional` (query parameter)
 
-    `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
+    How far below `path_prefix` to list. Defaults to `0`, which lists every memory below the prefix.
+
+    Pass `1` to list only the direct children. Deeper memories are then grouped into `memory_prefix` items.
 
     format: int32
 
   - `Limit param.Opt[int64] Optional` (query parameter)
 
-    Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
+    The maximum number of items to return per page, from 1 to 100. Defaults to 20.
+
+    With `view=full`, a page holds at most 20 items. `memory` and `memory_prefix` items both count toward the limit.
 
     format: int32
 
   - `Page param.Opt[string] Optional` (query parameter)
 
-    Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
+    The `next_page` value from a previous response, to get the next page. Omit it to get the first page.
 
   - `PathPrefix param.Opt[string] Optional` (query parameter)
 
-    Optional path prefix filter. Must end with `/` (segment-aligned), e.g., `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
+    Return only memories whose path starts with this prefix, such as `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
+
+    Omit it to list the whole store. The prefix must end with `/` and matches whole segments, so `/notes/` matches `/notes/todo.md` but not `/notes-archive/todo.md`.
 
   - `View BetaManagedAgentsMemoryView Optional` (query parameter)
 
-    Which projection of each `memory` to return. Defaults to `basic` (content omitted). `full` populates `content` on each item and caps `limit` at 20; use this as the bulk-read path for export and sync.
+    Whether each memory in the response includes `content`. Defaults to `basic`, which sets it to `null`.
+
+    With `full`, a page holds at most 20 items.
 
   - `Betas []AnthropicBeta Optional` (header parameter)
 
@@ -149,6 +157,8 @@ List memories
 
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
+    - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
   - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -159,17 +169,23 @@ List memories
 
 - `type BetaManagedAgentsMemoryListItemUnion interface{…}`
 
-  One item in a [List memories](https://platform.claude.com/docs/en/api/beta/memory_stores/memories/list?sdk_languages=go) response: either a `memory` object or, when `depth` is set, a `memory_prefix` rollup marker.
+  One item in a [List Memories](https://platform.claude.com/docs/en/api/beta/memory_stores/memories/list?sdk_languages=go) response: a `memory`, or a `memory_prefix` marker when `depth` is `1`.
 
   - `type BetaManagedAgentsMemory`
 
-    A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
+    A text document at a path inside a memory store.
+
+    `content` is `null` when the response uses `view=basic`. `content_size_bytes` and `content_sha256` are always set, so you can detect changes without fetching the content. To retrieve, update, or delete a memory, pass its ID, which stays the same when its path changes.
+
+    See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=go#view-and-edit-memories) to learn more about working with memories.
 
     - `Type BetaManagedAgentsMemoryType`
 
     - `ID string`
 
-      Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
+      The unique ID of the memory (`mem_...`). It stays the same when the memory's path changes.
+
+      To retrieve, update, or delete the memory, pass this ID.
 
     - `ContentSha256 string`
 
@@ -177,7 +193,7 @@ List memories
 
     - `ContentSizeBytes int64`
 
-      Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
+      The size of the memory's `content` in UTF-8 bytes. It is set regardless of `view`.
 
       format: int32
 
@@ -193,7 +209,11 @@ List memories
 
     - `MemoryVersionID string`
 
-      ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=go).
+      The ID of the memory version that holds the memory's current content (`memver_...`).
+
+      Memory versions don't have a flag that marks the latest one. Compare their IDs with this field instead.
+
+      See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=go#audit-memory-changes) to learn more about memory versions.
 
     - `Path string`
 
@@ -201,17 +221,23 @@ List memories
 
     - `UpdatedAt Time`
 
-      When this memory was last modified, in RFC 3339 format. Use this as a cheap freshness signal; for who made the change, look up the head version's `created_by` via [List memory versions](https://platform.claude.com/docs/en/api/beta/memory_stores/memory_versions/list?sdk_languages=go).
+      When the memory was last changed, in RFC 3339.
+
+      To find out who made the change, look at `created_by` on the memory version that `memory_version_id` references.
 
       format: date-time
 
     - `Content string Optional`
 
-      The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
+      The memory's UTF-8 text content, or `null` when the response uses `view=basic`.
+
+      The maximum size is 100 kB (102,400 bytes).
 
   - `type BetaManagedAgentsMemoryPrefix`
 
-    A rolled-up directory marker returned by [List memories](https://platform.claude.com/docs/en/api/beta/memory_stores/memories/list?sdk_languages=go) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
+    A directory marker that [List Memories](https://platform.claude.com/docs/en/api/beta/memory_stores/memories/list?sdk_languages=go) returns instead of the memories below the requested `depth`.
+
+    It stands for one or more memories whose paths start with `path`. It isn't a stored object and doesn't have an ID. Each marker counts toward the page `limit`.
 
     - `Type BetaManagedAgentsMemoryPrefixType`
 

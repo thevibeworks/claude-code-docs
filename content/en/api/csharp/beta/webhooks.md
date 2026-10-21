@@ -821,6 +821,34 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
 
       - `required string WorkspaceID`
 
+    - `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+      - `JsonElement Type = "user_profile.enforcement_action_opened"`
+
+      - `required string ID`
+
+        ID of the user profile the enforcement action is on.
+
+      - `required string EnforcementActionID`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `required string OrganizationID`
+
+    - `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+      - `JsonElement Type = "user_profile.enforcement_action_resolved"`
+
+      - `required string ID`
+
+        ID of the user profile the enforcement action is on.
+
+      - `required string EnforcementActionID`
+
+        ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `required string OrganizationID`
+
 ### Beta Webhook Event Data
 
 - `class BetaWebhookEventData: union`
@@ -1381,6 +1409,34 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
 
     - `required string WorkspaceID`
 
+  - `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+    - `JsonElement Type = "user_profile.enforcement_action_opened"`
+
+    - `required string ID`
+
+      ID of the user profile the enforcement action is on.
+
+    - `required string EnforcementActionID`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `required string OrganizationID`
+
+  - `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+    - `JsonElement Type = "user_profile.enforcement_action_resolved"`
+
+    - `required string ID`
+
+      ID of the user profile the enforcement action is on.
+
+    - `required string EnforcementActionID`
+
+      ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+    - `required string OrganizationID`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `class BetaWebhookMemoryStoreArchivedEventData`
@@ -1672,6 +1728,38 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
   - `required string OrganizationID`
 
   - `required string WorkspaceID`
+
+### Beta Webhook User Profile Enforcement Action Opened Event Data
+
+- `class BetaWebhookUserProfileEnforcementActionOpenedEventData`
+
+  - `JsonElement Type = "user_profile.enforcement_action_opened"`
+
+  - `required string ID`
+
+    ID of the user profile the enforcement action is on.
+
+  - `required string EnforcementActionID`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `required string OrganizationID`
+
+### Beta Webhook User Profile Enforcement Action Resolved Event Data
+
+- `class BetaWebhookUserProfileEnforcementActionResolvedEventData`
+
+  - `JsonElement Type = "user_profile.enforcement_action_resolved"`
+
+  - `required string ID`
+
+    ID of the user profile the enforcement action is on.
+
+  - `required string EnforcementActionID`
+
+    ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `required string OrganizationID`
 
 ### Beta Webhook Vault Archived Event Data
 

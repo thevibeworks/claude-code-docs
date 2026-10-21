@@ -145,6 +145,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"telemetry-destinations-2026-08-11"`
 
+  - `"webhooks-2026-10-07"`
+
 ## Body parameters
 
 - `installation_preference: "auto_install" or "available" or "not_available" or "required"`

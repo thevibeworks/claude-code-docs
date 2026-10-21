@@ -1,15 +1,15 @@
 ---
-title: Delete a memory
+title: Delete a Memory
 url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memories/delete
 ---
 
-# Delete a memory
+# Delete a Memory
 
 `$client->beta->memoryStores->memories->delete(string memoryID, string memoryStoreID, ?string expectedContentSha256, ?list<AnthropicBeta> betas, ?string workspaceID): ManagedAgentsDeletedMemory`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
-Delete a memory
+Delete a Memory
 
 ## Parameters
 
@@ -53,6 +53,9 @@ Delete a memory
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 

@@ -31,17 +31,17 @@ Create User Profile
 
   - `string? externalID`
 
-    Platform's own identifier for this user. Not enforced unique. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
+    Platform's own identifier for this user. Not enforced unique. Maximum 255 characters. Legacy field, accepted only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, send `external_user_details.reference_id`.
 
     minLength: 1, maxLength: 255
 
   - `BetaUserProfileExternalUserDetailsParams externalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them. Every field is optional. Accepted under the `user-profiles-2026-09-04` beta header only.
+    Details about the entity this profile represents, as the platform states them. Every field is optional. Not accepted under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which take the top-level `external_id` (and, under `user-profiles-2026-08-18`, `external_user_onboarded_at`) instead.
 
   - `DateTimeOffset externalUserOnboardedAt`
 
-    When the entity this profile represents opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future. Optional. Accepted under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` send `external_user_details.onboarded_at` instead.
+    When the entity this profile represents opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future. Optional. Legacy field, accepted only under the `user-profiles-2026-08-18` beta header; without a legacy header, send `external_user_details.onboarded_at`.
 
     format: date-time
 
@@ -57,7 +57,7 @@ Create User Profile
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -161,6 +161,8 @@ Create User Profile
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -193,6 +195,10 @@ Create User Profile
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
+  - `required string? Name`
+
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
+
   - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
@@ -209,13 +215,13 @@ Create User Profile
 
   - `required DateTimeOffset UpdatedAt`
 
-    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
+    When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp.
 
     format: date-time
 
   - `AccessType AccessType`
 
-    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
     - `Application("application")`
 
@@ -227,11 +233,11 @@ Create User Profile
 
   - `string? ExternalID`
 
-    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+    Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
 
   - `BetaUserProfileExternalUserDetails ExternalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
 
     - `required AccountStatus? AccountStatus`
 
@@ -285,17 +291,16 @@ Create User Profile
 
   - `DateTimeOffset? ExternalUserOnboardedAt`
 
-    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 
     format: date-time
-
-  - `string? Name`
-
-    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.UserProfiles;
+
 UserProfileCreateParams parameters = new();
 
 var betaUserProfile = await client.Beta.UserProfiles.Create(parameters);
@@ -310,6 +315,7 @@ Console.WriteLine(betaUserProfile);
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
+  "name": "Example User",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -321,15 +327,14 @@ Console.WriteLine(betaUserProfile);
   "external_id": "user_12345",
   "external_user_details": {
     "account_status": "active",
-    "country": "country",
-    "email_hash": "email_hash",
-    "entity_type": "individual",
-    "name_hash": "name_hash",
-    "onboarded_at": "2019-12-27T18:11:19.117Z",
-    "reference_id": "reference_id"
+    "country": "US",
+    "email_hash": null,
+    "entity_type": "business",
+    "name_hash": null,
+    "onboarded_at": "2024-11-02T08:15:00Z",
+    "reference_id": "user_12345"
   },
-  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
-  "name": "Example User"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z"
 }
 ```
 
@@ -383,7 +388,7 @@ List User Profiles
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -487,6 +492,8 @@ List User Profiles
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -519,6 +526,10 @@ List User Profiles
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
+  - `required string? Name`
+
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
+
   - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
@@ -535,13 +546,13 @@ List User Profiles
 
   - `required DateTimeOffset UpdatedAt`
 
-    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
+    When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp.
 
     format: date-time
 
   - `AccessType AccessType`
 
-    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
     - `Application("application")`
 
@@ -553,11 +564,11 @@ List User Profiles
 
   - `string? ExternalID`
 
-    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+    Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
 
   - `BetaUserProfileExternalUserDetails ExternalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
 
     - `required AccountStatus? AccountStatus`
 
@@ -611,17 +622,16 @@ List User Profiles
 
   - `DateTimeOffset? ExternalUserOnboardedAt`
 
-    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 
     format: date-time
-
-  - `string? Name`
-
-    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.UserProfiles;
+
 UserProfileListParams parameters = new();
 
 var page = await client.Beta.UserProfiles.List(parameters);
@@ -640,6 +650,7 @@ await foreach (var item in page.Paginate())
       "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
       "created_at": "2026-03-15T10:00:00Z",
       "metadata": {},
+      "name": "Example User",
       "trust_grants": {
         "cyber": {
           "status": "active"
@@ -651,15 +662,14 @@ await foreach (var item in page.Paginate())
       "external_id": "user_12345",
       "external_user_details": {
         "account_status": "active",
-        "country": "country",
-        "email_hash": "email_hash",
-        "entity_type": "individual",
-        "name_hash": "name_hash",
-        "onboarded_at": "2019-12-27T18:11:19.117Z",
-        "reference_id": "reference_id"
+        "country": "US",
+        "email_hash": null,
+        "entity_type": "business",
+        "name_hash": null,
+        "onboarded_at": "2024-11-02T08:15:00Z",
+        "reference_id": "user_12345"
       },
-      "external_user_onboarded_at": "2024-11-02T08:15:00Z",
-      "name": "Example User"
+      "external_user_onboarded_at": "2024-11-02T08:15:00Z"
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
@@ -684,7 +694,7 @@ Get User Profile
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -788,6 +798,8 @@ Get User Profile
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -820,6 +832,10 @@ Get User Profile
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
+  - `required string? Name`
+
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
+
   - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
@@ -836,13 +852,13 @@ Get User Profile
 
   - `required DateTimeOffset UpdatedAt`
 
-    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
+    When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp.
 
     format: date-time
 
   - `AccessType AccessType`
 
-    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
     - `Application("application")`
 
@@ -854,11 +870,11 @@ Get User Profile
 
   - `string? ExternalID`
 
-    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+    Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
 
   - `BetaUserProfileExternalUserDetails ExternalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
 
     - `required AccountStatus? AccountStatus`
 
@@ -912,17 +928,16 @@ Get User Profile
 
   - `DateTimeOffset? ExternalUserOnboardedAt`
 
-    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 
     format: date-time
-
-  - `string? Name`
-
-    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.UserProfiles;
+
 UserProfileRetrieveParams parameters = new()
 {
     UserProfileID = "uprof_011CZkZCu8hGbp5mYRQgUmz9"
@@ -940,6 +955,7 @@ Console.WriteLine(betaUserProfile);
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
+  "name": "Example User",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -951,15 +967,14 @@ Console.WriteLine(betaUserProfile);
   "external_id": "user_12345",
   "external_user_details": {
     "account_status": "active",
-    "country": "country",
-    "email_hash": "email_hash",
-    "entity_type": "individual",
-    "name_hash": "name_hash",
-    "onboarded_at": "2019-12-27T18:11:19.117Z",
-    "reference_id": "reference_id"
+    "country": "US",
+    "email_hash": null,
+    "entity_type": "business",
+    "name_hash": null,
+    "onboarded_at": "2024-11-02T08:15:00Z",
+    "reference_id": "user_12345"
   },
-  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
-  "name": "Example User"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z"
 }
 ```
 
@@ -993,17 +1008,17 @@ Update User Profile
 
   - `string? externalID`
 
-    If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters. Accepted under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` send `external_user_details.reference_id` instead.
+    If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters. Legacy field, accepted only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, send `external_user_details.reference_id`.
 
     minLength: 1, maxLength: 255
 
   - `BetaUserProfileExternalUserDetailsParams externalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Accepted under the `user-profiles-2026-09-04` beta header only.
+    Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Not accepted under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers.
 
   - `DateTimeOffset externalUserOnboardedAt`
 
-    If present, replaces the stored account creation time. Omit to leave unchanged; once set, the value cannot be cleared and `null` is rejected. Must be a complete RFC 3339 timestamp no more than 1 minute in the future. Accepted under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` send `external_user_details.onboarded_at` instead.
+    If present, replaces the stored account creation time. Omit to leave unchanged; once set, the value cannot be cleared and `null` is rejected. Must be a complete RFC 3339 timestamp no more than 1 minute in the future. Legacy field, accepted only under the `user-profiles-2026-08-18` beta header; without a legacy header, send `external_user_details.onboarded_at`.
 
     format: date-time
 
@@ -1019,7 +1034,7 @@ Update User Profile
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1123,6 +1138,8 @@ Update User Profile
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1155,6 +1172,10 @@ Update User Profile
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
+  - `required string? Name`
+
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
+
   - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
@@ -1171,13 +1192,13 @@ Update User Profile
 
   - `required DateTimeOffset UpdatedAt`
 
-    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
+    When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp.
 
     format: date-time
 
   - `AccessType AccessType`
 
-    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
     - `Application("application")`
 
@@ -1189,11 +1210,11 @@ Update User Profile
 
   - `string? ExternalID`
 
-    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+    Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
 
   - `BetaUserProfileExternalUserDetails ExternalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
 
     - `required AccountStatus? AccountStatus`
 
@@ -1247,17 +1268,16 @@ Update User Profile
 
   - `DateTimeOffset? ExternalUserOnboardedAt`
 
-    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 
     format: date-time
-
-  - `string? Name`
-
-    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.UserProfiles;
+
 UserProfileUpdateParams parameters = new()
 {
     UserProfileID = "uprof_011CZkZCu8hGbp5mYRQgUmz9"
@@ -1275,6 +1295,7 @@ Console.WriteLine(betaUserProfile);
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
+  "name": "Example User",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -1286,37 +1307,36 @@ Console.WriteLine(betaUserProfile);
   "external_id": "user_12345",
   "external_user_details": {
     "account_status": "active",
-    "country": "country",
-    "email_hash": "email_hash",
-    "entity_type": "individual",
-    "name_hash": "name_hash",
-    "onboarded_at": "2019-12-27T18:11:19.117Z",
-    "reference_id": "reference_id"
+    "country": "US",
+    "email_hash": null,
+    "entity_type": "business",
+    "name_hash": null,
+    "onboarded_at": "2024-11-02T08:15:00Z",
+    "reference_id": "user_12345"
   },
-  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
-  "name": "Example User"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z"
 }
 ```
 
-## Create Enrollment URL
+## Delete User Profile
 
-`BetaUserProfileEnrollmentUrl Beta.UserProfiles.CreateEnrollmentUrl(parameters, cancellationToken = default)`
+`BetaDeletedUserProfile Beta.UserProfiles.Delete(parameters, cancellationToken = default)`
 
-**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**DELETE** `/v1/user_profiles/{user_profile_id}`
 
-Create Enrollment URL
+Delete User Profile
 
 ### Parameters
 
-- `UserProfileCreateEnrollmentUrlParams parameters`
+- `UserProfileDeleteParams parameters`
 
   - `required string userProfileID` (path parameter)
 
-    The ID of the user profile to create an enrollment URL for (`uprof_...`).
+    The ID of the user profile to delete (`uprof_...`).
 
   - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
 
-    This endpoint is in beta: requests must send `user-profiles-2026-03-24`, `user-profiles-2026-08-18`, or `user-profiles-2026-09-04` in this header.
+    Optional header to specify the beta version(s) you want to use.
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1420,6 +1440,175 @@ Create Enrollment URL
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+  - `string workspaceID` (header parameter)
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
+### Returns
+
+- `class BetaDeletedUserProfile`
+
+  - `JsonElement Type = "user_profile_deleted"`
+
+    Object type. Always `user_profile_deleted`.
+
+  - `required string ID`
+
+    Identifier of the deleted user profile, prefixed `uprof_`.
+
+### Example
+
+```csharp
+using System;
+using Anthropic.Models.Beta.UserProfiles;
+
+UserProfileDeleteParams parameters = new()
+{
+    UserProfileID = "uprof_011CZkZCu8hGbp5mYRQgUmz9"
+};
+
+var betaDeletedUserProfile = await client.Beta.UserProfiles.Delete(parameters);
+
+Console.WriteLine(betaDeletedUserProfile);
+```
+
+#### Response (200)
+
+```json
+{
+  "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
+  "type": "user_profile_deleted"
+}
+```
+
+## Create Enrollment URL
+
+`BetaUserProfileEnrollmentUrl Beta.UserProfiles.CreateEnrollmentUrl(parameters, cancellationToken = default)`
+
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+
+Create Enrollment URL
+
+### Parameters
+
+- `UserProfileCreateEnrollmentUrlParams parameters`
+
+  - `required string userProfileID` (path parameter)
+
+    The ID of the user profile to create an enrollment URL for (`uprof_...`).
+
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
+
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
+
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
+
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
+
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
+
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
+
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
+
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
+
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
+
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
+
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
+
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
+
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
+
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
+
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
+
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
+
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
+
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
+
+    - `Skills2025_10_02("skills-2025-10-02")`
+
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
+
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
+
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
+
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
+
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
+
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
+
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
+
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
+
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
+
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
+
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
+
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
+
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
+
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
+
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
+
+    - `Compact2026_01_12("compact-2026-01-12")`
+
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
+
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
+
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
+
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
+
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
+
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
+
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
+
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
+
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
+    - `Compact2026_09_04("compact-2026-09-04")`
+
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
+    - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
+    - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
+
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -1430,7 +1619,7 @@ Create Enrollment URL
 
 - `class BetaUserProfileEnrollmentUrl`
 
-  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
+  A URL to give to the entity that a user profile represents, so that the entity can enroll in a program.
 
   - `required Type Type`
 
@@ -1449,6 +1638,9 @@ Create Enrollment URL
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.UserProfiles;
+
 UserProfileCreateEnrollmentUrlParams parameters = new()
 {
     UserProfileID = "uprof_011CZkZCu8hGbp5mYRQgUmz9"
@@ -1470,6 +1662,18 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 ```
 
 ## Domain types
+
+### Beta Deleted User Profile
+
+- `class BetaDeletedUserProfile`
+
+  - `JsonElement Type = "user_profile_deleted"`
+
+    Object type. Always `user_profile_deleted`.
+
+  - `required string ID`
+
+    Identifier of the deleted user profile, prefixed `uprof_`.
 
 ### Beta User Profile
 
@@ -1497,6 +1701,10 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
+  - `required string? Name`
+
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
+
   - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
@@ -1513,13 +1721,13 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
   - `required DateTimeOffset UpdatedAt`
 
-    When this user profile was last modified, in RFC 3339 format. Trust-grant status changes also bump this timestamp.
+    When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp.
 
     format: date-time
 
   - `AccessType AccessType`
 
-    How the platform uses the API for this entity: `application` (default) or `passthrough`. Present under the `user-profiles-2026-08-18` and later beta headers.
+    How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
     - `Application("application")`
 
@@ -1531,11 +1739,11 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
   - `string? ExternalID`
 
-    Platform's own identifier for this user. Not enforced unique. Present under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; under `user-profiles-2026-09-04` the value is `external_user_details.reference_id`.
+    Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
 
   - `BetaUserProfileExternalUserDetails ExternalUserDetails`
 
-    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Present under the `user-profiles-2026-09-04` beta header, with every field present and `null` until the platform supplies a value; the earlier beta headers serve `reference_id` as the top-level `external_id`, and `user-profiles-2026-08-18` serves `onboarded_at` as `external_user_onboarded_at`.
+    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
 
     - `required AccountStatus? AccountStatus`
 
@@ -1589,19 +1797,15 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
   - `DateTimeOffset? ExternalUserOnboardedAt`
 
-    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Present under the `user-profiles-2026-08-18` beta header; under `user-profiles-2026-09-04` the value is `external_user_details.onboarded_at`.
+    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
 
     format: date-time
-
-  - `string? Name`
-
-    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Beta User Profile Enrollment URL
 
 - `class BetaUserProfileEnrollmentUrl`
 
-  A URL to give to the entity that a user profile represents, so that the entity can enroll for a trust grant.
+  A URL to give to the entity that a user profile represents, so that the entity can enroll in a program.
 
   - `required Type Type`
 
@@ -1748,3 +1952,186 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
     - `Pending("pending")`
 
     - `Rejected("rejected")`
+
+## User Profiles › Action URLs
+
+### Create Action URL
+
+`BetaUserProfileActionUrl Beta.UserProfiles.ActionUrls.Create(parameters, cancellationToken = default)`
+
+**POST** `/v1/user_profiles/{user_profile_id}/action_urls`
+
+Create Action URL
+
+#### Parameters
+
+- `ActionUrlCreateParams parameters`
+
+  - `required string userProfileID` (path parameter)
+
+    The ID of the user profile the action is for (`uprof_...`).
+
+  - `required BetaUserProfileEnrollEndUserAction action`
+
+    The action that the person who opens the URL takes.
+
+  - `IReadOnlyList<AnthropicBeta> betas` (header parameter)
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24("message-batches-2024-09-24")`
+
+    - `PromptCaching2024_07_31("prompt-caching-2024-07-31")`
+
+    - `ComputerUse2024_10_22("computer-use-2024-10-22")`
+
+    - `ComputerUse2025_01_24("computer-use-2025-01-24")`
+
+    - `Pdfs2024_09_25("pdfs-2024-09-25")`
+
+    - `TokenCounting2024_11_01("token-counting-2024-11-01")`
+
+    - `TokenEfficientTools2025_02_19("token-efficient-tools-2025-02-19")`
+
+    - `Output128k2025_02_19("output-128k-2025-02-19")`
+
+    - `FilesApi2025_04_14("files-api-2025-04-14")`
+
+    - `McpClient2025_04_04("mcp-client-2025-04-04")`
+
+    - `McpClient2025_11_20("mcp-client-2025-11-20")`
+
+    - `DevFullThinking2025_05_14("dev-full-thinking-2025-05-14")`
+
+    - `InterleavedThinking2025_05_14("interleaved-thinking-2025-05-14")`
+
+    - `CodeExecution2025_05_22("code-execution-2025-05-22")`
+
+    - `ExtendedCacheTtl2025_04_11("extended-cache-ttl-2025-04-11")`
+
+    - `Context1m2025_08_07("context-1m-2025-08-07")`
+
+    - `ContextManagement2025_06_27("context-management-2025-06-27")`
+
+    - `ModelContextWindowExceeded2025_08_26("model-context-window-exceeded-2025-08-26")`
+
+    - `Skills2025_10_02("skills-2025-10-02")`
+
+    - `FastMode2026_02_01("fast-mode-2026-02-01")`
+
+    - `Output300k2026_03_24("output-300k-2026-03-24")`
+
+    - `UserProfiles2026_03_24("user-profiles-2026-03-24")`
+
+    - `UserProfiles2026_08_18("user-profiles-2026-08-18")`
+
+    - `UserProfiles2026_09_04("user-profiles-2026-09-04")`
+
+    - `AdvisorTool2026_03_01("advisor-tool-2026-03-01")`
+
+    - `ManagedAgents2026_04_01("managed-agents-2026-04-01")`
+
+    - `CacheDiagnosis2026_04_07("cache-diagnosis-2026-04-07")`
+
+    - `Dreaming2026_04_21("dreaming-2026-04-21")`
+
+    - `ThinkingTokenCount2026_05_13("thinking-token-count-2026-05-13")`
+
+    - `ServerSideFallback2026_06_01("server-side-fallback-2026-06-01")`
+
+    - `ServerSideFallback2026_07_01("server-side-fallback-2026-07-01")`
+
+    - `FallbackCredit2026_06_01("fallback-credit-2026-06-01")`
+
+    - `FallbackCredit2026_07_01("fallback-credit-2026-07-01")`
+
+    - `AgentMemory2026_07_22("agent-memory-2026-07-22")`
+
+    - `MidConversationToolChanges2026_07_01("mid-conversation-tool-changes-2026-07-01")`
+
+    - `Compact2026_01_12("compact-2026-01-12")`
+
+    - `ComputerUse2025_11_24("computer-use-2025-11-24")`
+
+    - `McpTunnels2026_06_22("mcp-tunnels-2026-06-22")`
+
+    - `StructuredOutputs2025_11_13("structured-outputs-2025-11-13")`
+
+    - `TaskBudgets2026_03_13("task-budgets-2026-03-13")`
+
+    - `ThinkingDisplayUpdates2026_08_18("thinking-display-updates-2026-08-18")`
+
+    - `CEUserManagement2026_07_13("ce-user-management-2026-07-13")`
+
+    - `MidConversationOutputConfig2026_07_01("mid-conversation-output-config-2026-07-01")`
+
+    - `ThinkingBindingControls2026_08_01("thinking-binding-controls-2026-08-01")`
+
+    - `MidConversationSystemClearAt2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
+    - `Compact2026_09_04("compact-2026-09-04")`
+
+    - `InlineTools2026_09_15("inline-tools-2026-09-15")`
+
+    - `McpClient2026_09_15("mcp-client-2026-09-15")`
+
+    - `CEPlugins2026_09_01("ce-plugins-2026-09-01")`
+
+    - `SpendLimitReads2026_09_26("spend-limit-reads-2026-09-26")`
+
+    - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
+
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+  - `string workspaceID` (header parameter)
+
+    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
+
+    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+
+#### Returns
+
+- `class BetaUserProfileActionUrl`
+
+  A URL to give to the person who takes the requested action.
+
+  - `JsonElement Type = "user_profile_action_url"`
+
+    Object type. Always `user_profile_action_url`.
+
+  - `required DateTimeOffset ExpiresAt`
+
+    When the URL stops working, in RFC 3339 format.
+
+    format: date-time
+
+  - `required string Url`
+
+    The URL to give to the person who takes the action. Anyone who holds it can open it until `expires_at`.
+
+#### Example
+
+```csharp
+using System;
+using Anthropic.Models.Beta.UserProfiles.ActionUrls;
+
+ActionUrlCreateParams parameters = new()
+{
+    UserProfileID = "uprof_011CZkZCu8hGbp5mYRQgUmz9",
+    Action = new(),
+};
+
+var betaUserProfileActionUrl = await client.Beta.UserProfiles.ActionUrls.Create(parameters);
+
+Console.WriteLine(betaUserProfileActionUrl);
+```
+
+##### Response (200)
+
+```json
+{
+  "expires_at": "2026-03-15T10:15:00Z",
+  "type": "user_profile_action_url",
+  "url": "https://platform.claude.com/user-profiles/enrollment/M3J0bGJxZ2ppMnptbnB1"
+}
+```

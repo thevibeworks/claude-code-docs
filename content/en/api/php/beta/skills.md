@@ -89,6 +89,10 @@ Create Skill
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Core\FileParam;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSkill = $client->beta->skills->create(
@@ -214,6 +218,9 @@ List Skills
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->skills->list(
@@ -326,6 +333,9 @@ Get Skill
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSkill = $client->beta->skills->retrieve(
@@ -401,6 +411,9 @@ Delete Skill
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -579,6 +592,10 @@ Create Skill Version
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Core\FileParam;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSkillVersion = $client->beta->skills->versions->create(
@@ -689,6 +706,9 @@ List Skill Versions
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->skills->versions->list(
@@ -762,6 +782,9 @@ Download a skill version's content as a zip archive.
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
@@ -852,6 +875,9 @@ Get Skill Version
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSkillVersion = $client->beta->skills->versions->retrieve(
@@ -930,6 +956,9 @@ Delete Skill Version
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 

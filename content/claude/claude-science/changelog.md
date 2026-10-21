@@ -6,6 +6,14 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+**0.1.68**
+
+* **Export session** files now list the approval decisions made in the session from this version on: whether each action was approved, how it was settled, and when
+* From this version on, when an update is required while sessions are running, you can stop them and update in one step, and resume them afterwards
+* Mac and Linux: the starter Python and R environments, and the environments Claude Science sets up for connectors and compute providers, now keep their own downloaded packages. The first conda install into them after you update downloads packages again, so it needs a network connection and takes longer, and Claude Science can use about 3 GB more disk space
+* After an update, the Example project lists the current examples and your own sessions. Examples from earlier versions are no longer listed unless you pinned them, moved them, or added your own messages to them. Nothing is deleted
+* Bug fixes and reliability improvements
+
 **0.1.67**
 
 * The Example project now holds nine new example sessions from various scientific fields

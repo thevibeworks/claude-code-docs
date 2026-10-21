@@ -1,21 +1,23 @@
 ---
-title: Delete a memory store
+title: Delete a Memory Store
 url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/delete
 ---
 
-# Delete a memory store
+# Delete a Memory Store
 
 `$client->beta->memoryStores->delete(string memoryStoreID, ?list<AnthropicBeta> betas, ?string workspaceID): BetaManagedAgentsDeletedMemoryStore`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}`
 
-Delete a memory store
+Delete a Memory Store
 
 ## Parameters
 
 - `memoryStoreID: string` (path parameter)
 
-  ID of the memory store to permanently delete (a `memstore_...` identifier). Required. Deletion cascades to all memories and memory versions in the store and cannot be undone.
+  The ID of the memory store to delete (`memstore_...`).
+
+  Deleting a store also deletes all its memories and memory versions. It can't be undone.
 
 - `betas?:optional list<AnthropicBeta>` (header parameter)
 
@@ -43,6 +45,9 @@ Delete a memory store
 <?php
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 

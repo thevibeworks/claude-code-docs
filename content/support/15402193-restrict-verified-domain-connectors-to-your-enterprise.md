@@ -18,6 +18,8 @@ This setting applies to the following connectors:
 
 - Atlassian
 
+- Box
+
 - Canva
 
 - Figma
@@ -26,7 +28,13 @@ This setting applies to the following connectors:
 
 - Google Calendar
 
+- Google Docs
+
 - Google Drive
+
+- Google Sheets
+
+- Google Slides
 
 - HubSpot
 

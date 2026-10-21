@@ -21,7 +21,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `Optional<String> userProfileId` (header parameter)
 
-    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
 
   - `Optional<String> workspaceId` (header parameter)
 

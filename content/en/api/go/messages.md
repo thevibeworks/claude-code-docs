@@ -2789,7 +2789,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `UserProfileID param.Opt[string] Optional` (header parameter)
 
-    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
 
   - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
@@ -3616,6 +3616,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type CacheMissModelChanged`
 
+        A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
         - `Type ModelChanged`
 
           default: model_changed
@@ -3625,6 +3629,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `type CacheMissSystemChanged`
+
+        A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
         - `Type SystemChanged`
 
@@ -3636,6 +3644,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type CacheMissToolsChanged`
 
+        A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
         - `Type ToolsChanged`
 
           default: tools_changed
@@ -3645,6 +3657,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `type CacheMissMessagesChanged`
+
+        A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
         - `Type MessagesChanged`
 
@@ -3656,11 +3672,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type CacheMissPreviousMessageNotFound`
 
+        A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+        This doesn't mean that this request changed.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
         - `Type PreviousMessageNotFound`
 
           default: previous_message_not_found
 
       - `type CacheMissUnavailable`
+
+        A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+        This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
         - `Type Unavailable`
 
@@ -6995,7 +7023,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `UserProfileID param.Opt[string] Optional` (header parameter)
 
-    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+    The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization.
 
   - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
@@ -13043,6 +13071,10 @@ func main() {
 
 - `type CacheMissMessagesChanged`
 
+  A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
   - `Type MessagesChanged`
 
     default: messages_changed
@@ -13054,6 +13086,10 @@ func main() {
 ### Cache Miss Model Changed
 
 - `type CacheMissModelChanged`
+
+  A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
   - `Type ModelChanged`
 
@@ -13067,6 +13103,12 @@ func main() {
 
 - `type CacheMissPreviousMessageNotFound`
 
+  A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+  This doesn't mean that this request changed.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
   - `Type PreviousMessageNotFound`
 
     default: previous_message_not_found
@@ -13076,6 +13118,10 @@ func main() {
 - `type CacheMissReasonUnion interface{…}`
 
   - `type CacheMissModelChanged`
+
+    A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
     - `Type ModelChanged`
 
@@ -13087,6 +13133,10 @@ func main() {
 
   - `type CacheMissSystemChanged`
 
+    A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
     - `Type SystemChanged`
 
       default: system_changed
@@ -13096,6 +13146,10 @@ func main() {
       Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
   - `type CacheMissToolsChanged`
+
+    A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
     - `Type ToolsChanged`
 
@@ -13107,6 +13161,10 @@ func main() {
 
   - `type CacheMissMessagesChanged`
 
+    A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
     - `Type MessagesChanged`
 
       default: messages_changed
@@ -13117,11 +13175,23 @@ func main() {
 
   - `type CacheMissPreviousMessageNotFound`
 
+    A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+    This doesn't mean that this request changed.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
     - `Type PreviousMessageNotFound`
 
       default: previous_message_not_found
 
   - `type CacheMissUnavailable`
+
+    A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+    This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+    See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
     - `Type Unavailable`
 
@@ -13130,6 +13200,10 @@ func main() {
 ### Cache Miss System Changed
 
 - `type CacheMissSystemChanged`
+
+  A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
   - `Type SystemChanged`
 
@@ -13143,6 +13217,10 @@ func main() {
 
 - `type CacheMissToolsChanged`
 
+  A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
   - `Type ToolsChanged`
 
     default: tools_changed
@@ -13154,6 +13232,12 @@ func main() {
 ### Cache Miss Unavailable
 
 - `type CacheMissUnavailable`
+
+  A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+  This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+  See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
   - `Type Unavailable`
 
@@ -18861,6 +18945,10 @@ func main() {
 
     - `type CacheMissModelChanged`
 
+      A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
       - `Type ModelChanged`
 
         default: model_changed
@@ -18870,6 +18958,10 @@ func main() {
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
     - `type CacheMissSystemChanged`
+
+      A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
       - `Type SystemChanged`
 
@@ -18881,6 +18973,10 @@ func main() {
 
     - `type CacheMissToolsChanged`
 
+      A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
       - `Type ToolsChanged`
 
         default: tools_changed
@@ -18890,6 +18986,10 @@ func main() {
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
     - `type CacheMissMessagesChanged`
+
+      A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
       - `Type MessagesChanged`
 
@@ -18901,11 +19001,23 @@ func main() {
 
     - `type CacheMissPreviousMessageNotFound`
 
+      A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+      This doesn't mean that this request changed.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
       - `Type PreviousMessageNotFound`
 
         default: previous_message_not_found
 
     - `type CacheMissUnavailable`
+
+      A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+      This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+      See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
       - `Type Unavailable`
 
@@ -20240,6 +20352,10 @@ func main() {
 
       - `type CacheMissModelChanged`
 
+        A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
         - `Type ModelChanged`
 
           default: model_changed
@@ -20249,6 +20365,10 @@ func main() {
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `type CacheMissSystemChanged`
+
+        A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
         - `Type SystemChanged`
 
@@ -20260,6 +20380,10 @@ func main() {
 
       - `type CacheMissToolsChanged`
 
+        A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
         - `Type ToolsChanged`
 
           default: tools_changed
@@ -20269,6 +20393,10 @@ func main() {
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `type CacheMissMessagesChanged`
+
+        A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
         - `Type MessagesChanged`
 
@@ -20280,11 +20408,23 @@ func main() {
 
       - `type CacheMissPreviousMessageNotFound`
 
+        A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+        This doesn't mean that this request changed.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
         - `Type PreviousMessageNotFound`
 
           default: previous_message_not_found
 
       - `type CacheMissUnavailable`
+
+        A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+        This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+        See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
         - `Type Unavailable`
 
@@ -25464,6 +25604,10 @@ func main() {
 
         - `type CacheMissModelChanged`
 
+          A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
           - `Type ModelChanged`
 
             default: model_changed
@@ -25473,6 +25617,10 @@ func main() {
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
         - `type CacheMissSystemChanged`
+
+          A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
           - `Type SystemChanged`
 
@@ -25484,6 +25632,10 @@ func main() {
 
         - `type CacheMissToolsChanged`
 
+          A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
           - `Type ToolsChanged`
 
             default: tools_changed
@@ -25493,6 +25645,10 @@ func main() {
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
         - `type CacheMissMessagesChanged`
+
+          A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
           - `Type MessagesChanged`
 
@@ -25504,11 +25660,23 @@ func main() {
 
         - `type CacheMissPreviousMessageNotFound`
 
+          A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+          This doesn't mean that this request changed.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
           - `Type PreviousMessageNotFound`
 
             default: previous_message_not_found
 
         - `type CacheMissUnavailable`
+
+          A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+          This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+          See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
           - `Type Unavailable`
 
@@ -26599,6 +26767,10 @@ func main() {
 
           - `type CacheMissModelChanged`
 
+            A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
             - `Type ModelChanged`
 
               default: model_changed
@@ -26608,6 +26780,10 @@ func main() {
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
           - `type CacheMissSystemChanged`
+
+            A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
             - `Type SystemChanged`
 
@@ -26619,6 +26795,10 @@ func main() {
 
           - `type CacheMissToolsChanged`
 
+            A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
             - `Type ToolsChanged`
 
               default: tools_changed
@@ -26628,6 +26808,10 @@ func main() {
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
           - `type CacheMissMessagesChanged`
+
+            A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
             - `Type MessagesChanged`
 
@@ -26639,11 +26823,23 @@ func main() {
 
           - `type CacheMissPreviousMessageNotFound`
 
+            A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+            This doesn't mean that this request changed.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
             - `Type PreviousMessageNotFound`
 
               default: previous_message_not_found
 
           - `type CacheMissUnavailable`
+
+            A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+            This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+            See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
             - `Type Unavailable`
 
@@ -38825,7 +39021,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `UserProfileID param.Opt[string] Optional` (header parameter)
 
-    The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
+    The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
   - `WorkspaceID param.Opt[string] Optional` (header parameter)
 
@@ -40493,6 +40689,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type CacheMissModelChanged`
 
+              A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
               - `Type ModelChanged`
 
                 default: model_changed
@@ -40502,6 +40702,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
             - `type CacheMissSystemChanged`
+
+              A `cache_miss_reason` for a request whose `system` differs from the previous request's.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
               - `Type SystemChanged`
 
@@ -40513,6 +40717,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type CacheMissToolsChanged`
 
+              A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
               - `Type ToolsChanged`
 
                 default: tools_changed
@@ -40522,6 +40730,10 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
             - `type CacheMissMessagesChanged`
+
+              A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
               - `Type MessagesChanged`
 
@@ -40533,11 +40745,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type CacheMissPreviousMessageNotFound`
 
+              A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references.
+
+              This doesn't mean that this request changed.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
+
               - `Type PreviousMessageNotFound`
 
                 default: previous_message_not_found
 
             - `type CacheMissUnavailable`
+
+              A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally.
+
+              This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ.
+
+              See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=go#cache-miss-reason-types) to learn what to change for each reason.
 
               - `Type Unavailable`
 

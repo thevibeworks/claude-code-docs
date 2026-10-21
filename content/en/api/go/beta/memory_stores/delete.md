@@ -1,21 +1,23 @@
 ---
-title: Delete a memory store
+title: Delete a Memory Store
 url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/delete
 ---
 
-# Delete a memory store
+# Delete a Memory Store
 
 `client.Beta.MemoryStores.Delete(ctx, memoryStoreID, body) (*BetaManagedAgentsDeletedMemoryStore, error)`
 
 **DELETE** `/v1/memory_stores/{memory_store_id}`
 
-Delete a memory store
+Delete a Memory Store
 
 ## Parameters
 
 - `memoryStoreID string` (path parameter)
 
-  ID of the memory store to permanently delete (a `memstore_...` identifier). Required. Deletion cascades to all memories and memory versions in the store and cannot be undone.
+  The ID of the memory store to delete (`memstore_...`).
+
+  Deleting a store also deletes all its memories and memory versions. It can't be undone.
 
 - `body BetaMemoryStoreDeleteParams`
 
@@ -124,6 +126,8 @@ Delete a memory store
     - `const AnthropicBetaSpendLimitReads2026_09_26 AnthropicBeta = "spend-limit-reads-2026-09-26"`
 
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
+
+    - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
   - `WorkspaceID param.Opt[string] Optional` (header parameter)
 

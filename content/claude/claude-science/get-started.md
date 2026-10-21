@@ -70,6 +70,8 @@ claude-science serve
 
 First launch prints a local URL right away, then continues setting up its starter Python and R environments. To run Claude Science on a remote server and use it from your computer, see [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server).
 
+To update Claude Science later, or when it asks you to update, see [Update Claude Science](/docs/claude-science/update-claude-science).
+
 > [!NOTE]
 >
 > Claude Science is a local application, not a website, so there's no public URL to visit. On Windows it opens in its own window, and on Linux it opens in a browser tab. On a Mac it opens in a browser tab, or in its own window once an update has switched it over (see [Claude Science in its own window on macOS](/docs/claude-science/mac-app-window)). Open it from the application itself: Claude Science in Applications or the Dock on macOS, the Start menu on Windows, or the `claude-science` command on Linux. On a remote server, the sign-in link reaches your browser through an SSH tunnel; see [Run on a remote Linux server](/docs/claude-science/run-on-remote-linux-server).

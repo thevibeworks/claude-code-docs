@@ -135,6 +135,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -182,6 +184,9 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Tunnels.Certificates;
+
 CertificateCreateParams parameters = new()
 {
     TunnelID = "tunnel_id",
@@ -335,6 +340,8 @@ Fetches a tunnel certificate by ID.
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -382,6 +389,9 @@ Fetches a tunnel certificate by ID.
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Tunnels.Certificates;
+
 CertificateRetrieveParams parameters = new()
 {
     TunnelID = "tunnel_id",
@@ -545,6 +555,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -592,6 +604,9 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Tunnels.Certificates;
+
 CertificateListParams parameters = new() { TunnelID = "tunnel_id" };
 
 var page = await client.Beta.Tunnels.Certificates.List(parameters);
@@ -748,6 +763,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
+    - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
   - `string workspaceID` (header parameter)
 
     Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
@@ -795,6 +812,9 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 ### Example
 
 ```csharp
+using System;
+using Anthropic.Models.Beta.Tunnels.Certificates;
+
 CertificateArchiveParams parameters = new()
 {
     TunnelID = "tunnel_id",

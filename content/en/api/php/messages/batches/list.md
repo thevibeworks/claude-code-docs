@@ -98,6 +98,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->messages->batches->list(

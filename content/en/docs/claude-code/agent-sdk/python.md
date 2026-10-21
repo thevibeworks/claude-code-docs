@@ -535,7 +535,7 @@ class ClaudeSDKClient:
 | `set_model(model)` | Change the model for the current session. Pass `None` to reset to [Claude Code's default model](/docs/en/model-config). A session in `auto` mode [changes to `default` mode](/docs/en/agent-sdk/permissions#auto-mode-auto) if the new model doesn't support auto mode |
 | `rewind_files(user_message_id)` | Restore files to their state at the specified user message. Requires `enable_file_checkpointing=True`. See [File checkpointing](/docs/en/agent-sdk/file-checkpointing) |
 | `get_mcp_status()` | Get the status of all configured MCP servers. Returns [`McpStatusResponse`](#mcpstatusresponse) |
-| `get_context_usage()` | Get a breakdown of context window usage by category, skill, and tool. The same data `/context` shows in an interactive session. Returns [`ContextUsageResponse`](#contextusageresponse). To compute the breakdown, Claude Code makes several token-counting API requests that don't appear in the message stream; see [how these requests are handled](#contextusageresponse) |
+| `get_context_usage()` | Get a breakdown of context window usage by category, skill, and tool. Includes the data `/context` shows in an interactive session. Returns [`ContextUsageResponse`](#contextusageresponse). To compute the breakdown, Claude Code makes several token-counting API requests that don't appear in the message stream; see [how these requests are handled](#contextusageresponse) |
 | `reconnect_mcp_server(server_name)` | Retry connecting to an MCP server that failed or was disconnected |
 | `toggle_mcp_server(server_name, enabled)` | Enable or disable an MCP server mid-session. Disabling a stdio, SSE, or HTTP server removes its tools |
 | `stop_task(task_id)` | Stop a running background task. A [`TaskNotificationMessage`](#tasknotificationmessage) with status `"stopped"` follows in the message stream |
@@ -1524,7 +1524,7 @@ class McpServerStatus(TypedDict):
 
 ### `ContextUsageResponse`
 
-Response from [`ClaudeSDKClient.get_context_usage()`](#methods). This is the same payload Claude Code renders for the `/context` command in an interactive session, so alongside the token counts it carries display fields such as `color` and `gridRows` that Claude Code uses to draw the `/context` usage grid.
+Response from [`ClaudeSDKClient.get_context_usage()`](#methods). The response includes the payload Claude Code renders for the `/context` command in an interactive session. Alongside the token counts, that payload carries display fields such as `color` and `gridRows` that Claude Code uses to draw the `/context` usage grid.
 
 Claude Code builds this payload by sending several requests to the [token-counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) API. These requests don't appear in the message stream, so cost tracking that reads the stream won't see them. On the Anthropic API, token counting isn't billed.
 
@@ -1715,7 +1715,12 @@ The `subtype` field determines which other fields are populated. It is one of `"
 
 Several fields carry diagnostic detail about how the conversation ended:
 
-* `is_error`: `True` when the conversation ended in an error state. Always `True` on the `error_*` subtypes. On `subtype="success"` it is `True` when the final model request failed, meaning the agent loop completed but the last API call returned an error.
+* `is_error`: `True` when the conversation ended in an error state. Always `True` on the `error_*` subtypes. On `subtype="success"` it is `True` in three cases. Check `stop_reason` to tell them apart:
+  * `"refusal"`: the model declined to respond. Read the refusal text in `result`, or in the preceding `AssistantMessage` when `result` is empty.
+  * `"tool_deferred_unavailable"`: the [deferred tool](/docs/en/hooks#defer-a-tool-call-for-later) was no longer available when you resumed the session, for example because its MCP server wasn't connected. In the two cases below, a prompt you send after resuming counts the same as one passed with the resume:
+    * No prompt: the call is still pending. Make the tool available and resume again without a prompt, and the call runs first.
+    * A prompt: Claude Code answers it without the tool's result, and the deferred call is gone. Send a new prompt if you still need the tool called.
+  * Any other value: the turn ended on an error that Claude Code reported in place of a model response, such as an API error. Read `terminal_reason` for the cause, `result` for the message, and `api_error_status` for the HTTP status when the API returned one.
 * `api_error_status`: the HTTP status code of the terminating API error. `None` when the turn ended without one. Populated only on `subtype="success"`.
 * `result`: text of the final assistant message on `subtype="success"`, or `None` on the `error_*` subtypes. When `subtype="success"` and `is_error=True`, this holds the API error string if one is available but can be empty, so check `api_error_status` and the preceding `AssistantMessage` content for detail.
 * `errors`: loop-level error strings such as the max-turns message. Populated only on the `error_*` subtypes.
@@ -2062,12 +2067,12 @@ class ResultError(ProcessError):
     errors: list[str]  # an empty list when the result message reported none
     result: str | None
     api_error_status: int | None
-    terminal_reason: str | None  # "max_turns", "api_error", ...; check this before subtype
+    terminal_reason: str | None  # "max_turns", "api_error", ...; check after data["stop_reason"], before subtype
     session_id: str | None
     data: dict[str, Any]  # the raw result message payload
 ```
 
-To tell failures apart, check `terminal_reason` before `subtype`. When the final request fails, such as on an API error, Claude Code reports `subtype` `"success"` with the cause in `terminal_reason`, for example `"api_error"`; when a limit you set ends the run, such as `max_turns` or `max_budget_usd`, it reports an `error_*` subtype.
+To tell failures apart, check `data["stop_reason"]` first, then `terminal_reason`, then `subtype`. A declined response has `stop_reason` `"refusal"`, usually with `subtype` `"success"`; its `terminal_reason` doesn't single it out and can read `"completed"` or `"api_error"`. A failed final request has `subtype` `"success"` and its cause in `terminal_reason`, such as `"api_error"` for an API error. When the run hits a limit you set, such as `max_turns` or `max_budget_usd`, you get an `error_*` subtype.
 
 ### `CLIJSONDecodeError`
 
@@ -3519,10 +3524,12 @@ async def main():
             "Claude Code CLI not found. Try reinstalling: pip install --force-reinstall claude-agent-sdk"
         )
     # Catch ResultError before ProcessError, which it subclasses. Its message
-    # carries the error text. A failed final request, such as an API error,
-    # arrives with subtype "success", so branch on terminal_reason first.
+    # carries the error text. A refusal and a failed final request both usually
+    # arrive with subtype "success", so check stop_reason, then terminal_reason.
     except ResultError as e:
-        if e.terminal_reason == "api_error":
+        if e.data.get("stop_reason") == "refusal":
+            print(f"Model declined to respond: {e}")
+        elif e.terminal_reason == "api_error":
             print(f"API request failed: {e}")
         else:
             print(f"Query ended with an error result ({e.terminal_reason or e.subtype}): {e}")

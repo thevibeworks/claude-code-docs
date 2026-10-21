@@ -46,6 +46,9 @@ Download a skill version's content as a zip archive.
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $response = $client->beta->skills->versions->download(
